@@ -1,0 +1,519 @@
+"DOTAAbilities"
+{	
+	//=================================================================================================================
+	// Ability: Skeleton King
+	//=================================================================================================================
+	"skeleton_king_hellfire_blast"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5086"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_SkeletonKing.Hellfire_Blast"
+		
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+		
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"525"
+		"AbilityCastPoint"				"0.35 0.35 0.35 0.35"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"8"
+
+		// Damage.
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityDamage"					"1325 2150 3000 3950 6450 11100 19850"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"95 140 185 230 275 320 365"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityModifierSupportValue"	"0.5"	// Applies two modifiers
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"blast_speed"			"1000"
+			"blast_stun_duration"
+			{	
+				"value"					"2"
+				"LinkedSpecialBonus"	"special_bonus_unique_wraith_king_11"
+	
+			}			
+			"blast_dot_duration"
+			{	
+				"value"			"2.0"
+				"LinkedSpecialBonus"	"special_bonus_unique_wraith_king_7"
+			}			
+			"blast_slow"			"-20"
+			"blast_dot_damage"
+			{	
+				"value"					"355 720 1210 1825 3675 7385 14820"
+				"special_bonus_unique_wraith_king_3" "+40%"
+			}			
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+	
+	//=================================================================================================================
+	// Ability: Skeleton King Vampiric Aura (Vampiric Spirit)
+	//=================================================================================================================
+	"skeleton_king_vampiric_aura"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5087"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+			
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.1"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"50"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"70 100 130 160 190 220 250"
+		
+		"AbilityValues"
+		{
+			"vampiric_aura"
+			{
+				"value"									"20 30 40 50 55 60 65"
+				"special_bonus_unique_wraith_king_2"	"+8"
+			}
+			"creep_vampiric_aura"
+			{
+				"value"									"10 15 20 25 27.5 30 32.5"
+				"special_bonus_unique_wraith_king_2"	"+4"
+			}
+			"skeleton_duration"
+			{
+				"value"					"40"
+				"special_bonus_unique_wraith_king_vampiric_skeleton_duration"	"+25%"	
+			}
+			"AbilityCooldown"
+			{
+				"value"					"50"
+				"special_bonus_unique_wraith_king_vampiric_skeleton_duration"	"-25%"	
+			}
+			"max_skeleton_charges"			"2 4 6 8 9 10 11"
+			"min_skeleton_spawn"
+			{
+				"value"		"0"
+				"special_bonus_unique_wraith_king_5"	"+6"
+			}
+			"spawn_interval"			"0.25"
+			"reincarnate_time"			"3"
+			"gold_bounty"						"5"
+			"xp_bounty"						"5"
+			"skeleton_damage_tooltip"
+			{
+				"value"							"340"
+				"LinkedSpecialBonus"			"special_bonus_unique_wraith_king_6"
+				"CalculateSpellDamageTooltip"	"0"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
+	}
+		
+	//=================================================================================================================
+	// Ability: Skeleton King Mortal Strike
+	//=================================================================================================================
+	"skeleton_king_mortal_strike"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5088"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"AbilitySound"					"Hero_SkeletonKing.CriticalStrike"
+		
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"5.5 5 4.5 4 3.6 3.2 2.8"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"crit_mult"					"150 200 250 300 350 400 450"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+	
+	//=================================================================================================================
+	// Ability: Skeleton King Reincarnation
+	//=================================================================================================================
+	"skeleton_king_reincarnation"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5089"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"FightRecapLevel"				"2"
+		
+		"MaxLevel"						"6"
+		"LevelsBetweenUpgrades"			"6"
+		
+		"HasShardUpgrade"			"1"
+		"HasScepterUpgrade"			"1"
+		"AbilitySound"					"Hero_SkeletonKing.Reincarnate"
+		
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_4"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"180 270 360 450 540 630 720"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityModifierSupportValue"	"0.2"	// Slow isn't the main function of this ability.
+
+		"AbilityValues"
+		{
+			"reincarnate_time"		"3.0 3.0 3.0"
+			"slow_radius"			"900"
+			"movespeed"				"-75"
+			"attackslow"			"-75"
+			"slow_duration"			"5.0"
+			"scepter_duration"
+			{
+				"value"						"0"
+				"special_bonus_scepter"			"+7"
+				"RequiresScepter"			"1"
+			}
+			"scepter_aura_radius"
+			{
+				"value"						"0"
+				"special_bonus_scepter"			"+1200"
+				"RequiresScepter"			"1"
+			}
+			"scepter_attack_speed"
+			{
+				"value"				"0"
+				"special_bonus_scepter"		"+75"
+				"RequiresScepter"			"1"
+			}
+			"scepter_move_speed_pct"
+			{
+				"value"							"0"
+				"special_bonus_scepter"			"+25"
+				"RequiresScepter"			"1"
+			}
+			"AbilityManaCost"
+			{
+				"value"					"180"
+				"special_bonus_shard"	"=0"
+			}
+			"shard_skeleton_count"		
+			{
+				"value"							"1 2 3"
+				"special_bonus_shard"			"+3"
+			}
+			"scepter_respawn_pct"
+			{
+				"value"							"0"
+				"special_bonus_scepter"			"10"
+				"RequiresScepter"				"1"
+			}
+			"AbilityCooldown"
+			{
+				"value"							"180 140 100 90 80 70"
+				"special_bonus_scepter"			"-25%"
+			}
+			"scepter_cooldown_tooltip"			"-25"
+		}
+	}
+	
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_wraith_king_1"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6201"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"0"
+				"ad_linked_abilities"			"skeleton_king_reincarnation"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_wraith_king_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6088"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"20"
+				"ad_linked_abilities"			"skeleton_king_vampiric_aura"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_wraith_king_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6414"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"value"							"40"
+				"ad_linked_abilities"			"skeleton_king_hellfire_blast"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_wraith_king_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6566"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"1"
+				"ad_linked_abilities"			"skeleton_king_reincarnation && skeleton_king_hellfire_blast"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_wraith_king_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6821"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"6"
+				"ad_linked_abilities"			"skeleton_king_vampiric_aura"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_wraith_king_6"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6822"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"						"1920"
+				"ad_linked_abilities"			"skeleton_king_vampiric_aura"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_wraith_king_7"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"7107"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"value"				"1.2"
+				"ad_linked_abilities"			"skeleton_king_hellfire_blast"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_wraith_king_8"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"7108"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"value"				"80"
+				"ad_linked_abilities"			"skeleton_king_vampiric_aura"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_wraith_king_9"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"477"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"value"				"1"
+				"ad_linked_abilities"			"skeleton_king_hellfire_blast"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_wraith_king_10"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"741"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"value"				"2"
+				"ad_linked_abilities"			"skeleton_king_mortal_strike"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_wraith_king_11"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"809"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"value"				"0.7"
+				"ad_linked_abilities"			"skeleton_king_hellfire_blast"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+}

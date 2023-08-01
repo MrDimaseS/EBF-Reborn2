@@ -1,0 +1,372 @@
+"DOTAAbilities"
+{	
+	//=================================================================================================================
+	// Techies: Land Mines
+	//=================================================================================================================
+	"techies_land_mines"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5599"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"MaxLevel"						"6"
+		"LevelsBetweenUpgrades"			"6"
+
+		"LinkedAbility"					"techies_minefield_sign"
+		
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"400"
+		"AbilityCastPoint"				"0.0 0.0 0.0 0.0"
+		
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"0"
+		"AbilityCharges"				"12"
+	
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"110 240 370 600 830 1060"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"radius"								"500"
+			"proximity_threshold"					"1.0"
+			"damage"								"7000 22000 65000 190000 250000 358000"
+
+			"building_damage_pct"					"30"
+			"activation_delay"			
+			{
+				"value"								"1"
+				"special_bonus_unique_techies_4"	"-0.9"
+			}
+			"cast_range_scepter_bonus"		
+			{
+				"value"								"300"
+				"RequiresScepter"					"1"
+			}
+			"AbilityChargeRestoreTime"
+			{
+				"value"								"17 16 15 13 12 10"
+				"special_bonus_unique_techies_3"	"-3"
+			}
+			"outer_damage"							"50"
+			"min_distance"							"150"
+			"placement_radius"						"0"
+			"mres_reduction"						"15 20 25 30 35 40"
+			"burn_duration"							"5"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+	//=================================================================================================================
+	// Techies: Suicide Squad, Attack!
+	//=================================================================================================================
+	"techies_suicide"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5601"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_NORMAL_WHEN_STOLEN | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"FightRecapLevel"				"1"
+        "HasShardUpgrade"               "1"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"1000"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"25"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"100 125 150 175 200 225 250"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"radius"					"700"
+			"damage"
+			{
+				"value"					"2250 3500 6750 13250 26750 58500 127000"
+				"special_bonus_unique_techies" "+80000"
+			}
+			"stun_duration"				"1.4"
+			"AbilityCastPoint"			"1.0 1.0 1.0 1.0 0.75 0.5 0.25"
+			"hp_cost"					"50 50 50 50 35 20 5"
+			"duration"					"0.75"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+
+
+	//=================================================================================================================
+	// Techies: Sticky Bomb
+	//=================================================================================================================
+	"techies_sticky_bomb"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"879"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"FightRecapLevel"				"1"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_6"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"1000"
+		"AbilityCastPoint"				"0.1"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"12 10 8 6 5 4 3"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"100 115 130 145 160 175 190"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityModifierSupportValue"	"0.25"	// generally used for damage only
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"duration"				"1.2"
+			"countdown"				"2"
+			"radius"				
+			{
+				"value"			"250"
+				"special_bonus_unique_techies_2"	"+125"
+			}
+			"damage"	 			"900 2160 5180 12500 30000 71650 172000"
+			"slow"					"25 35 45 55 65 75 85"
+			"secondary_slow"		"15 25 35 45 55 65 75"
+			"secondary_slow_duration"		"3"
+			"explosion_radius"		
+			{
+				"value"				"300"
+				"special_bonus_unique_techies_2"	"+125"
+			}
+			"speed"					"500.0"
+			"acceleration"			"2000"
+			"pre_chase_time"		"0.1"
+			"max_chase_time"		"4"
+		}
+	}
+	//=================================================================================================================
+	// Techies: Reactive Taser
+	//=================================================================================================================
+	"techies_reactive_tazer"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"886"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"FightRecapLevel"				"1"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_2"
+		"HasShardUpgrade"				"1"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------		
+		"AbilityCastPoint"				"0.1"
+		"AbilityCastRange"				"500"
+		
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"28 24 20 16 13.7 11.4 9.1"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"60"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityModifierSupportValue"	"0.25"	// generally used for damage only
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"duration"				"6"
+			"disarm_duration"		"3.3"
+			"bonus_ms"				"18 22 26 30 34 38 42"
+			"stun_radius"			"400"
+			"shard_damage"	
+			{
+				"value"					"900 1980 4350 9600 21100 46400 102000"
+				"RequiresShard"			"1"
+				"DamageTypeTooltip"		"DAMAGE_TYPE_MAGICAL"
+			}	
+		}
+	}
+	"techies_minefield_sign"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5644"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_NONE"	
+
+		"MaxLevel"						"6"
+		"HasScepterUpgrade"				"1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"10"
+		"AbilityCastPoint"				"2.0"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_5"
+		
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"aura_radius"
+			{
+				"value"					"500"
+				"special_bonus_scepter"	"+500"
+			}
+			"AbilityCooldown"
+			{
+				"value"					"60.0"
+				
+			}
+			"lifetime"
+			{
+				"value"					"60"
+				"special_bonus_scepter" "+180"
+			}
+			"minefield_duration"		"10"
+			"trigger_radius"			"1000"
+			"scepter_move_damage"
+			{
+				"value"					"1500 4500 10000 22000 33000 44000"
+				"RequiresScepter"		"1"
+			}
+			"scepter_move_amt"
+			{
+				"value"					"50"
+				"RequiresScepter"		"1"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_techies"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6282"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"						"80000"
+				"ad_linked_abilities"			"techies_suicide"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_techies_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6552"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"ad_linked_abilities"			"techies_sticky_bomb"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+		
+		
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_techies_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6997"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"ad_linked_abilities"			"techies_land_mines"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_techies_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6998"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"ad_linked_abilities"			"techies_land_mines"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+		
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_techies_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"412"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"15"
+				"ad_linked_abilities"			"techies_suicide"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+}

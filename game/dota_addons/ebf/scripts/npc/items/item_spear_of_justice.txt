@@ -1,0 +1,437 @@
+"DOTAAbilities"
+{
+	//=================================================================================================================
+	// Recipe: Hurricane Pike
+	//=================================================================================================================
+	"item_recipe_spear_of_justice"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_echo_sabre"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_spear_of_justice"
+		"ItemRequirements"
+		{
+			"01"						"item_echo_sabre;item_hurricane_pike;item_hyperstone"
+		}
+	}
+	//=================================================================================================================
+	// Hurricane Pike
+	//=================================================================================================================
+	"item_spear_of_justice"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_spear_of_justice"
+		"AbilityTextureName"			"spear_of_justice/spear_of_justice"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH | DOTA_UNIT_TARGET_TEAM_CUSTOM"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_CUSTOM"
+		"FightRecapLevel"				"1"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"650"
+		"AbilityCastPoint"				"0.0"
+		"AbilityCooldown"				"20.0"
+		"AbilitySharedCooldown"			"force"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"100"
+		"ItemCost"						"1100"
+		"ItemShopTags"					"int;damage;attack_speed;hard_to_tag"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"fs;force staff"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ShouldBeSuggested"				"1"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_strength"			"30"
+			"bonus_agility"				"20"
+			"bonus_intellect"			"25"
+			
+			"bonus_health"				"200"
+			"bonus_damage"				"30"
+			"base_attack_range"			"75"
+			"bonus_attack_speed"		"40"
+			"bonus_mana_regen"			"1.75"
+			
+			"movement_slow"				"100"
+			"attack_speed_slow"			"0"
+			"slow_duration"				"0.8"
+			"passive_cooldown"			"6"
+			"ranged_cooldown"			"6"
+			
+			"push_length"				"600"
+			"enemy_length"				"450"
+			"range_duration"			"6"
+			"cast_range_enemy"			"450"
+			"active_attack_speed"		"100"
+		}
+	}
+	//=================================================================================================================
+	// Recipe: Hurricane Pike
+	//=================================================================================================================
+	"item_recipe_spear_of_justice_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_echo_sabre"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"25"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_spear_of_justice_2"
+		"ItemRequirements"
+		{
+			"01"						"item_spear_of_justice;item_orb_1;item_relic"
+		}
+	}
+	//=================================================================================================================
+	// Hurricane Pike
+	//=================================================================================================================
+	"item_spear_of_justice_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_spear_of_justice"
+		"AbilityTextureName"			"spear_of_justice/spear_of_justice_2"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH | DOTA_UNIT_TARGET_TEAM_CUSTOM"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_CUSTOM"
+		"FightRecapLevel"				"1"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"650"
+		"AbilityCastPoint"				"0.0"
+		"AbilityCooldown"				"19.0"
+		"AbilitySharedCooldown"			"force"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"100"
+		"ItemCost"						"1100"
+		"ItemShopTags"					"int;damage;attack_speed;hard_to_tag"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"fs;force staff"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ShouldBeSuggested"				"1"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_strength"			"60"
+			"bonus_agility"				"60"
+			"bonus_intellect"			"60"
+			
+			"bonus_health"				"800"
+			"bonus_damage"				"250"
+			"base_attack_range"			"100"
+			"bonus_attack_speed"		"50"
+			"bonus_mana_regen"			"2.5"
+			
+			"movement_slow"				"100"
+			"attack_speed_slow"			"0"
+			"slow_duration"				"0.8"
+			"passive_cooldown"			"4.8"
+			"ranged_cooldown"			"5.5"
+			
+			"push_length"				"600"
+			"enemy_length"				"450"
+			"range_duration"			"6"
+			"cast_range_enemy"			"450"
+			"active_attack_speed"		"150"
+		}
+	}
+	//=================================================================================================================
+	// Recipe: Hurricane Pike
+	//=================================================================================================================
+	"item_recipe_spear_of_justice_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_echo_sabre"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"25"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_spear_of_justice_3"
+		"ItemRequirements"
+		{
+			"01"						"item_spear_of_justice_2;item_orb_2;item_bfury2"
+		}
+	}
+	//=================================================================================================================
+	// Hurricane Pike
+	//=================================================================================================================
+	"item_spear_of_justice_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_spear_of_justice"
+		"AbilityTextureName"			"spear_of_justice/spear_of_justice_3"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH | DOTA_UNIT_TARGET_TEAM_CUSTOM"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_CUSTOM"
+		"FightRecapLevel"				"1"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"650"
+		"AbilityCastPoint"				"0.0"
+		"AbilityCooldown"				"18.0"
+		"AbilitySharedCooldown"			"force"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"100"
+		"ItemCost"						"1100"
+		"ItemShopTags"					"int;damage;attack_speed;hard_to_tag"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"fs;force staff"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ShouldBeSuggested"				"1"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_strength"			"150"
+			"bonus_agility"				"150"
+			"bonus_intellect"			"150"
+			
+			"bonus_health"				"2600"
+			"bonus_damage"				"780"
+			"base_attack_range"			"125"
+			"bonus_attack_speed"		"60"
+			"bonus_health_regen"		"22.5"
+			"bonus_mana_regen"			"5"
+			
+			"movement_slow"				"100"
+			"attack_speed_slow"			"0"
+			"slow_duration"				"0.8"
+			"passive_cooldown"			"3.6"
+			"ranged_cooldown"			"5.0"
+			
+			"push_length"				"600"
+			"enemy_length"				"450"
+			"range_duration"			"6"
+			"cast_range_enemy"			"450"
+			"active_attack_speed"		"200"
+			
+			"splash_damage"				"50"
+			"splash_damage_ranged"		"25"
+			"cleave_starting_width"		"150"
+			"cleave_ending_width"		"360"
+			"cleave_distance"			"650"
+		}
+	}
+	//=================================================================================================================
+	// Recipe: Hurricane Pike
+	//=================================================================================================================
+	"item_recipe_spear_of_justice_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_echo_sabre"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_spear_of_justice_4"
+		"ItemRequirements"
+		{
+			"01"						"item_spear_of_justice_3;item_orb_3;item_scythe_3"
+		}
+	}
+	//=================================================================================================================
+	// Hurricane Pike
+	//=================================================================================================================
+	"item_spear_of_justice_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_spear_of_justice"
+		"AbilityTextureName"			"spear_of_justice/spear_of_justice_4"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH | DOTA_UNIT_TARGET_TEAM_CUSTOM"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_CUSTOM"
+		"FightRecapLevel"				"1"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"650"
+		"AbilityCastPoint"				"0.0"
+		"AbilityCooldown"				"17.0"
+		"AbilitySharedCooldown"			"force"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"100"
+		"ItemCost"						"1100"
+		"ItemShopTags"					"int;damage;attack_speed;hard_to_tag"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"fs;force staff"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ShouldBeSuggested"				"1"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_strength"			"420"
+			"bonus_agility"				"420"
+			"bonus_intellect"			"420"
+			
+			"bonus_health"				"8000"
+			"bonus_damage"				"2700"
+			"base_attack_range"			"150"
+			"bonus_attack_speed"		"70"
+			"bonus_mana_regen"			"7.5"
+			
+			"movement_slow"				"100"
+			"attack_speed_slow"			"0"
+			"slow_duration"				"0.8"
+			"passive_cooldown"			"2.4"
+			"ranged_cooldown"			"4.5"
+			
+			"push_length"				"600"
+			"enemy_length"				"450"
+			"range_duration"			"6"
+			"cast_range_enemy"			"450"
+			"active_attack_speed"		"250"
+			
+			"splash_damage"				"60"
+			"splash_damage_ranged"		"30"
+			"cleave_starting_width"		"150"
+			"cleave_ending_width"		"360"
+			"cleave_distance"			"650"
+		}
+	}
+	//=================================================================================================================
+	// Recipe: Hurricane Pike
+	//=================================================================================================================
+	"item_recipe_spear_of_justice_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_echo_sabre"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"25"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_spear_of_justice_5"
+		"ItemRequirements"
+		{
+			"01"						"item_spear_of_justice_4;item_orb_4;item_scythe_4"
+		}
+	}
+	//=================================================================================================================
+	// Hurricane Pike
+	//=================================================================================================================
+	"item_spear_of_justice_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_spear_of_justice"
+		"AbilityTextureName"			"spear_of_justice/spear_of_justice_5"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH | DOTA_UNIT_TARGET_TEAM_CUSTOM"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_CUSTOM"
+		"FightRecapLevel"				"1"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"650"
+		"AbilityCastPoint"				"0.0"
+		"AbilityCooldown"				"16.0"
+		"AbilitySharedCooldown"			"force"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"100"
+		"ItemCost"						"1100"
+		"ItemShopTags"					"int;damage;attack_speed;hard_to_tag"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"fs;force staff"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ShouldBeSuggested"				"1"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_strength"			"1450"
+			"bonus_agility"				"1450"
+			"bonus_intellect"			"1450"
+			
+			"bonus_health"				"20000"
+			"bonus_damage"				"9000"
+			"base_attack_range"			"175"
+			"bonus_attack_speed"		"80"
+			"bonus_mana_regen"			"12"
+			
+			"movement_slow"				"100"
+			"attack_speed_slow"			"0"
+			"slow_duration"				"0.8"
+			"passive_cooldown"			"1.2"
+			"ranged_cooldown"			"4.0"
+			
+			"push_length"				"600"
+			"enemy_length"				"450"
+			"range_duration"			"6"
+			"cast_range_enemy"			"450"
+			"active_attack_speed"		"300"
+			
+			"splash_damage"				"70"
+			"splash_damage_ranged"		"35"
+			"cleave_starting_width"		"150"
+			"cleave_ending_width"		"360"
+			"cleave_distance"			"650"
+		}
+	}
+}

@@ -1,0 +1,447 @@
+"DOTAAbilities"
+{	
+	//=================================================================================================================
+	// Phantom Assassin: Fan of Knives ( shard ability )
+	//=================================================================================================================
+	"phantom_assassin_fan_of_knives"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"662"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES |DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PURE"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"MaxLevel"						"6"
+		"FightRecapLevel"				"1"
+		"IsGrantedByShard"				"1"
+		"AbilitySound"					"Ability.Torrent"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.15"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
+		
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"30 26 22 18 14 10"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"50"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"pct_health_damage_initial"
+			{
+				"value"							"1"
+				"CalculateSpellDamageTooltip"	"0"
+			}
+			"pct_health_damage"					"1"
+			"degen"								"-50"
+			"duration"							"3"
+			"radius"							"550"
+			"projectile_speed"					"1000"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Phantom Assassin's Stifling Dagger
+	//=================================================================================================================
+	"phantom_assassin_stifling_dagger"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5190"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+		"AbilitySound"					"Hero_PhantomAssassin.Dagger.Cast"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"550 650 750 850 950 1050 1150"
+		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
+		
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"6"
+	
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"30 45 60 75 90 105 120"
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"move_slow"					"-50"
+			"dagger_speed"			"1200"
+			"duration"				"4"
+			"base_damage"			"1220 1875 2500 3125 4720 7535 12625"
+			"attack_factor"
+			{
+				"value"				"0 50 100 150 200 250 300"
+				"special_bonus_unique_phantom_assassin_5"	"+50"
+			}
+			"attack_factor_tooltip"	
+			{
+				"value"				"100 150 200 250 300 350 400"
+				"special_bonus_unique_phantom_assassin_5"	"+50"
+				"DamageTypeTooltip"			"DAMAGE_TYPE_PHYSICAL"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+	
+	//=================================================================================================================
+	// Ability: Phantom Assassin's Phantom Strike
+	//=================================================================================================================
+	"phantom_assassin_phantom_strike"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5191"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_CUSTOM"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_CUSTOM"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+		"AbilitySound"					"Hero_PhantomAssassin.Strike.Start"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.25"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"11 9 7 5 5 5 5"
+		
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"135 165 195 225 295 385 515"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_attack_speed"	
+			{
+				"value"													"80 120 180 240 320 380 460"
+				"special_bonus_unique_phantom_assassin_strike_aspd"		"+60"
+			}
+			"duration"				
+			{
+				"value"													"2 2 2 3 4 4 5"
+				"special_bonus_unique_phantom_assassin_4"				"+50%"
+			}
+			"AbilityCastRange"
+			{
+				"value"											"1000"
+				"special_bonus_unique_phantom_assassin_6"		"+250"				
+			}
+			"lifesteal_pct"										"15"
+
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
+	}
+	
+	//=================================================================================================================
+	// Ability: Phantom Assassin's Blur
+	//=================================================================================================================
+	"phantom_assassin_blur"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5192"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+        "HasScepterUpgrade" 		    "1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"600"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.4"
+		
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"50"
+	
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_evasion"
+			{
+				"value"						"20 30 40 50 55 60 65"
+				"LinkedSpecialBonus"		"special_bonus_unique_phantom_assassin_3"
+			}
+			"duration"						"2"
+			"radius"						"600"
+			"fade_duration"
+			{
+				"value"						"0.5"
+				"special_bonus_scepter"		"+0.25"
+			}
+			"AbilityCooldown"
+			{
+				"value"						"60 55 50 45 41.25 37.5 33.75"
+				"special_bonus_scepter"		"-10"
+			}
+			"scepter_cooldown"
+			{
+				"value"						"50 45 40 40 31.25 27.5 23.75"
+				"RequiresScepter"			"1"
+			}
+			"scepter_fade_duration"
+			{
+				"value"						"0.75"
+				"RequiresScepter"			"1"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+	
+	//=================================================================================================================
+	// Ability: Phantom Coup de Grace
+	//=================================================================================================================
+	"phantom_assassin_coup_de_grace"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5193"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"AbilitySound"					"Hero_PhantomAssassin.CoupDeGrace"
+		"MaxLevel"						"6"
+		"LevelsBetweenUpgrades"			"6"
+
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
+
+		"LinkedAbility"					"phantom_assassin_fan_of_knives"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"crit_chance"
+			{
+				"value"							"25"
+				"LinkedSpecialBonus"			"special_bonus_unique_phantom_assassin_2"
+			}
+			"crit_bonus"						"400 600 800 1000 1200 1600"
+		}
+	}
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_phantom_assassin"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6192"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"3"
+				"ad_linked_abilities"			"phantom_assassin_stifling_dagger"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_phantom_assassin_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6847"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"value"				"15"
+				"ad_linked_abilities"			"phantom_assassin_coup_de_grace"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_phantom_assassin_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6848"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"15"
+				"ad_linked_abilities"			"phantom_assassin_blur"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_phantom_assassin_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"483"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"ad_linked_abilities"			"phantom_assassin_phantom_strike"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_phantom_assassin_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"491"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"ad_linked_abilities"			"phantom_assassin_stifling_dagger"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+		
+		
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_phantom_assassin_6"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"490"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"250"
+				"ad_linked_abilities"			"phantom_assassin_phantom_strike"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_phantom_assassin_7"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"559"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"value"						"2"
+				"ad_linked_abilities"			"phantom_assassin_stifling_dagger"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_phantom_assassin_8"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"8026"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"						"700"
+				"ad_linked_abilities"			"phantom_assassin_stifling_dagger"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_phantom_assassin_9"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"798"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"2"
+				"ad_linked_abilities"			"phantom_assassin_phantom_strike"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+}

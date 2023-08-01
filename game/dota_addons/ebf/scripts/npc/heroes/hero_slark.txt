@@ -1,0 +1,432 @@
+"DOTAAbilities"
+{	
+	//=================================================================================================================
+	// Slark: Depth Shroud (shard ability )
+	//=================================================================================================================
+	"slark_depth_shroud"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"729"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
+		"MaxLevel"						"1"
+		"FightRecapLevel"				"1"
+		"IsGrantedByShard"              "1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"800"
+		"AbilityCastPoint"				"0.1"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
+		
+		
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"75"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"75"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"duration"		"3"
+			"radius"		"300"
+		}
+	}
+
+
+	//=================================================================================================================
+	// Slark: Dark Pact
+	//=================================================================================================================
+	"slark_dark_pact"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5494"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_Slark.DarkPact.Cast"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastAnimation"			"ACT_INVALID"
+		"AbilityCastPoint"				"0.001 0.001 0.001 0.001"
+		"AbilityCastRange"				"325"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"6"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"65 100 130 165 195 230 260"	
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"delay"						"1.5"
+			"pulse_duration"			"1.0"
+			"radius"					"325"
+			"total_damage"
+			{
+				"value"					"840 1250 1800 3415 6890 13845 27800"
+				"special_bonus_unique_slark_2"	"+50%"
+			}
+			"total_pulses"				"10"
+			"pulse_interval"			"0.1"
+			"self_damage_pct"			"10"
+		}
+	}
+
+	//=================================================================================================================
+	// Slark: Pounce
+	//=================================================================================================================
+	"slark_pounce"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_slark/slark_pounce"
+		"AbilityTextureName"			"slark_pounce"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_Slark.Pounce.Cast"
+		"HasScepterUpgrade"				"1"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"75 110 150 190 225 265 300"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"pounce_damage"						"400 800 1600 3200 6400 13000 26000"
+			"pounce_distance"		
+			{
+				"value"							"700"
+				"special_bonus_scepter"			"+400"
+			}
+			"pounce_speed"		
+			{
+				"value"							"933.33"
+				"special_bonus_scepter"			"+533"
+			}						
+			"pounce_acceleration"				"7000.0"
+			"pounce_radius"						"120"
+			"leash_duration"		
+			{
+				"value"							"3.25"
+				"LinkedSpecialBonus"			"special_bonus_unique_slark"
+			}
+			"leash_slow"						"-80"
+			
+			"AbilityCharges"		
+			{
+				"value"							"1"
+				"special_bonus_scepter"			"+1"
+			}
+			"AbilityCooldown"				
+			{
+				"value"							"20 16 12 8 6.4 4.8 3.2"
+				"special_bonus_scepter"			"-20 -16 -12 -8 -6.4 -4.8 -3.2"
+			}
+			"AbilityChargeRestoreTime"				
+			{
+				"value"							"20 16 12 8 6.4 4.8 3.2"
+				"special_bonus_scepter"			"-50%"
+			}
+			
+			
+			"leash_radius"						""
+			"essence_stacks"					""
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
+	}
+
+	//=================================================================================================================
+	// Slark: Essence Shift
+	//=================================================================================================================
+	"slark_essence_shift"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_slark/slark_essence_shift"
+		"AbilityTextureName"			"slark_essence_shift"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"agi_gain"
+			{
+				"value"							"3 3 3 3 4 5 6"
+				"special_bonus_unique_slark_5"	"+1"
+			}
+			"str_gain"
+			{
+				"value"							"1 1 1 1 2 3 4"
+				"special_bonus_unique_slark_5"	"+1"
+			}
+			"int_gain"
+			{
+				"value"							"1 1 1 1 2 3 4"
+				"special_bonus_unique_slark_5"	"+1"
+			}
+			"permanent_agi"						"5 7 9 11 13 15 17"
+			
+			"debuff_armor"						"-3 -4 -5 -6 -7 -8 -9"
+			"debuff_slow"						"-12 -15 -18 -21 -24 -27 -30"
+			
+			"duration"
+			{
+				"value"							"20 40 60 80 80 80 80"
+				"LinkedSpecialBonus"			"special_bonus_unique_slark_4"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+	//=================================================================================================================
+	// Slark Shadow Dance
+	//=================================================================================================================
+	"slark_shadow_dance"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_slark/slark_shadow_dance"
+		"AbilityTextureName"			"slark_shadow_dance"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"MaxLevel"						"6"
+		"LevelsBetweenUpgrades"			"6"
+		"FightRecapLevel"				"2"
+		"AbilitySound"					"Hero_Slark.ShadowDance"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
+
+		"AbilityDraftUltShardAbility"		"slark_depth_shroud"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"75 60 45 40 35 30"
+		
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"120 180 240 300 360 420"		
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			
+			"duration"					
+			{	
+				"value"							"4.75"
+				"LinkedSpecialBonus"			"special_bonus_unique_slark_3"
+			}
+			"fade_time"							"0.0 0.0 0.0"
+			"bonus_movement_speed"				"24 36 48 60 72 84"
+			"bonus_regen"			
+			{
+				"value"							"600 1200 3600 9200 18000 32000"
+				"special_bonus_unique_slark_8"	"+1500"
+			}
+			"bonus_attackspeed"			
+			{
+				"value"							"0"
+				"special_bonus_unique_slark_7"	"+75"
+			}
+			"activation_delay"					"0.5 0.5 0.5"
+			"neutral_disable"					"2.0 2.0 2.0"
+		}
+	}
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_slark"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6147"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"value"				"0.5"
+				"ad_linked_abilities"			"slark_pounce"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_slark_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6892"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"						"50"
+				"ad_linked_abilities"			"slark_dark_pact"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_slark_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6893"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"value"				"1"
+				"ad_linked_abilities"			"slark_shadow_dance"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_slark_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6894"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"						"50"
+				"ad_linked_abilities"			"slark_essence_shift"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+		//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_slark_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"814"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_slark_6"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"821"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"1"
+				"ad_linked_abilities"			"slark_dark_pact"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_slark_7"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"892"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"						"75"
+				"ad_linked_abilities"			"slark_shadow_dance"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_slark_8"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"921"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
+		"ad_linked_abilities"			"slark_shadow_dance"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.		
+	}
+
+}

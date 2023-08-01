@@ -1,0 +1,56 @@
+<root>
+	<styles>
+		<include src="file://{resources}/styles/dotastyles.css" />
+		<include src="file://{resources}/styles/custom_game/shared_scoreboard_styles.css" />
+		<include src="file://{resources}/styles/custom_game/multiteam_flyout_scoreboard.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/scripts/custom_game/commands.js" />
+	</scripts>
+	<Panel class="PlayerRow">
+		<Panel id="PlayerRowContainer">
+			<Panel id="Hero" class="ScoreCol_Hero ScoreboardPanel">
+				<Image id="HeroIcon" heroimagestyle="landscape" scaling="stretch-to-fit-preserve-aspect" />
+			</Panel>
+			<Panel id="PlayerDetailsContainer" class="ScoreCol_PlayerDetails ScoreboardPanel">
+				<Panel id="PlayerAndHeroName">
+					<Label id="PlayerName" text="xxxxx" />
+					<Label id="HeroNameAndDescription" text="#custom_scoreboard_hero_name_and_desc" />
+				</Panel>
+			</Panel>
+			<Panel id="CommandsContainer" class="ScoreCol_Commands ScoreboardPanel">
+				<Panel id="ScoreCol_MuteText">
+					<Button id="MuteVoiceButton" onactivate="ToggleVoiceMute();" onmouseover="DOTAShowTextTooltip(#Scoreboard_MuteVoice)" onmouseout="DOTAHideTextTooltip()" />
+				</Panel>
+				<Panel id="ScoreCol_MuteVoice">
+					<Button id="MuteTextButton" onactivate="ToggleTextMute();" onmouseover="DOTAShowTextTooltip(#Scoreboard_MuteText)" onmouseout="DOTAHideTextTooltip()" />
+				</Panel>
+				<Panel  id="ScoreCol_DisableHelp">
+					<ToggleButton id="DisableHelpButton" onmouseover="DOTAShowTextTooltip(#Scoreboard_DisableHelp)" onmouseout="DOTAHideTextTooltip()" />
+				</Panel>
+			</Panel>
+			<Panel id="GoldContainer" class="ScoreCol_Gold ScoreboardPanel">
+					<Label id="TeammateGoldAmount" text="999" />
+			</Panel>
+			<Panel id="KillsContainer" class="ScoreCol_Kills ScoreboardPanel">
+				<Label id="Kills" text="999" />
+			</Panel>
+			<Panel id="DeathsContainer" class="ScoreCol_Deaths ScoreboardPanel">
+				<Label id="Deaths" text="999" />
+			</Panel>
+			<Panel id="AssistsContainer" class="ScoreCol_Assists ScoreboardPanel">
+				<Label id="Assists" text="999" />
+			</Panel>
+			<Panel id="MMRContainer" class="ScoreCol_MMR ScoreboardPanel" >
+				<Label hittest="false" id="MMRWin" text="" />
+				<Label hittest="false" id="Sep" text="/" />
+				<Label hittest="false" id="MMRLoss" text="" />
+			</Panel>
+			<Panel id="MMRIconContainer" class="ScoreCol_MMRIcon">
+				<Panel hittest="true" id="RankMedal"/></Panel>
+			<Panel id="FlagContainer" class="ScoreCol_Flag" >
+				<Image hittest="true" id="PatronBadge"  />
+			</Panel>
+		</Panel>
+	</Panel>
+</root>

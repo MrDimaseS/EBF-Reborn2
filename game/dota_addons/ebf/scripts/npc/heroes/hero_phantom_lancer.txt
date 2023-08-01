@@ -1,0 +1,411 @@
+"DOTAAbilities"
+{	
+	//=================================================================================================================
+	// Ability: Phantom Lancer's Spirit Lance
+	//=================================================================================================================
+	"phantom_lancer_spirit_lance"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5065"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_PhantomLancer.SpiritLance.Throw"
+
+        "HasScepterUpgrade"               "1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"7"
+
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"120 180 240 300 360 420 480"		
+		
+		// Cast Range
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"525 600 675 750 825 900 975"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"lance_damage"
+			{
+				"value"													"1315 2625 4375 6565 13125 26250 52500"
+				"special_bonus_unique_phantom_lancer_lance_damage"		"+100%"
+			}
+			"lance_speed"				"1000 1000 1000 1000"
+			"duration"					"3.75"
+			"movement_speed_pct"		"-14 -21 -28 -35 -40 -45 -50"
+			"illusion_duration"			"8.0"
+			"illusion_damage_out_pct"	"-80"
+			"tooltip_illusion_damage"	"20"
+			"illusion_damage_in_pct"	"300 300 300 300"
+			"tooltip_illusion_total_damage_in_pct"	"400 400 400 400"
+			"fake_lance_distance"		"675"
+			"scepter_bounce_radius"
+			{
+				"value"						"750"
+				"RequiresScepter"			"1"
+			}
+			"scepter_bonus_illusion_damage"
+			{
+				"value"						"40"
+				"RequiresScepter"			"1"
+			}
+			"scepter_total_hits"
+			{
+				"value"						"2"
+				"RequiresScepter"			"1"
+			}
+		}	
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+
+	//=================================================================================================================
+	// Ability: Phantom Lancer's Doppelwalk
+	//=================================================================================================================
+	"phantom_lancer_doppelwalk"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5066"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+		"FightRecapLevel"				"1"
+		"AbilitySound"			"Hero_PhantomLancer.Doppelganger.Cast"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"575"
+		"AbilityCastPoint"				"0.1"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"19 18 17 16 15 14 13"
+			
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"50"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"illusion_1_damage_out_pct"	"-100"
+			"illusion_1_damage_in_pct"	"0"
+			"illusion_2_damage_out_pct"	"-80"
+			"illusion_2_damage_in_pct"	"500"
+			"target_aoe"	"325"
+			"search_radius"	"900"
+			"delay"			"1"
+			"illusion_duration"			"8"
+			"illusion_extended_duration"			"2"
+			"illusion_2_amount"
+			{
+				"value"					"1"
+				"special_bonus_unique_phantom_lancer_doppel_illusion2_amt"		"+1"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
+	}
+
+	//=================================================================================================================
+	// Ability: Phantom Lancer's Juxtapose
+	//=================================================================================================================
+	"phantom_lancer_juxtapose"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5067"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_4"
+		"MaxLevel"						"6"
+		"LevelsBetweenUpgrades"			"6"
+
+		
+		"HasShardUpgrade"        		 "1"
+
+		// Time
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"40"
+			
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"75 115 150 190 225 265 300"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"max_illusions"	
+			{
+				"value"							"4"
+				"LinkedSpecialBonus"			"special_bonus_unique_phantom_lancer_3"
+			}
+			"proc_chance_pct"					"40 45 50 55 60 65 70"
+			"illusion_proc_chance_pct"			"8"
+			"illusion_duration"					"8"
+			"illusion_damage_out_pct"
+			{
+				"value"							"-78 -67 -56 -45 -34 -23"
+				"LinkedSpecialBonus"			"special_bonus_unique_phantom_lancer_6"
+				"CalculateSpellDamageTooltip"	"0"
+			}
+			"tooltip_illusion_damage"
+			{
+				"value"							"22 33 44 55 66 77"
+				"LinkedSpecialBonus"			"special_bonus_unique_phantom_lancer_6"
+				"CalculateSpellDamageTooltip"	"0"
+			}
+			"illusion_damage_in_pct"
+			{
+				"value"							"200"
+				"CalculateSpellDamageTooltip"	"0"
+			}
+			"tooltip_total_illusion_damage_in_pct"
+			{
+				"value"							"300"
+				"CalculateSpellDamageTooltip"	"0"
+			}
+			"illusion_from_illusion_duration"	"4"
+			"shard_bonus_illusions"
+			{
+				"value"							"0"
+				"RequiresShard"					"1"
+			}
+			"invis_duration"
+			{
+				"value"							"8"
+				"RequiresShard"					"1"
+			}
+			"invis_movespeed"
+			{
+				"value"							"15"
+				"RequiresShard"					"1"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Phantom Lancer's Phantom Rush / Phantom Edge
+	//=================================================================================================================
+	"phantom_lancer_phantom_edge"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5068"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_TOGGLE"
+		"AbilitySound"			"Hero_PhantomLancer.PhantomEdge"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"13 10 7 4 4 4 4"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"min_distance"		"200"
+			"max_distance"				
+			{
+				"value"				"600 675 750 825 900 975 1050"
+				"LinkedSpecialBonus"		"special_bonus_unique_phantom_lancer"
+			}
+			"bonus_speed"		"800"
+			"bonus_agility"		"100 200 300 400 800 1600 3200"
+			"agility_duration"		
+			{
+				"value"			"1.5"
+				"special_bonus_unique_phantom_lancer_2"		"+2.5"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_phantom_lancer"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6146"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"300"
+				"ad_linked_abilities"			"phantom_lancer_phantom_edge"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_phantom_lancer_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6400"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"100"
+				"ad_linked_abilities"			"phantom_lancer_spirit_lance"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_phantom_lancer_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6849"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"5"
+				"ad_linked_abilities"			"phantom_lancer_juxtapose"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_phantom_lancer_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6850"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"2"
+				"ad_linked_abilities"			"phantom_lancer_doppelwalk"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_phantom_lancer_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"563"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"value"				"2"
+				"ad_linked_abilities"			"phantom_lancer_spirit_lance"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_phantom_lancer_6"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"564"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"8"
+				"ad_linked_abilities"			"phantom_lancer_juxtapose"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_phantom_lancer_7"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"634"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"1"
+				"ad_linked_abilities"			"phantom_lancer_spirit_lance"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+}

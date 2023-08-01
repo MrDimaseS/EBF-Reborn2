@@ -1,0 +1,204 @@
+"DOTAAbilities"
+{
+	//=================================================================================================================
+	// Recipe: TITAN
+	//=================================================================================================================
+	"item_recipe_radiance_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_radiance"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"25"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_radiance_2"
+		"ItemRequirements"
+		{
+			"01"						"item_radiance;item_orb_1;item_relic"
+		}
+	}
+	
+	//=================================================================================================================
+	// Hearth Of Titan
+	//=================================================================================================================
+	"item_radiance_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_radiance"
+		"AbilityTextureName"			"radiance/radiance_2"
+		"ItemKillable"					"1"
+		"ItemSellable"					"1"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE_STACKING"
+		"ItemDroppable"					"1"
+		"ItemCost"						"3380"
+		"ItemShopTags"					"damage;unique"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"heart"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage"			"400"
+			"bonus_all"				"30"
+			"aura_damage"
+			{
+				"value"							"675"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"aura_damage_illusions"	"150"
+			"evasion"				"17"
+			"blind_pct"				"17"
+			"aura_radius"			"800"
+		}
+	}
+	//=================================================================================================================
+	// Recipe: TITAN
+	//=================================================================================================================
+	"item_recipe_radiance_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_radiance"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"25"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_radiance_3"
+		"ItemRequirements"
+		{
+			"01"						"item_radiance_2;item_orb_2;item_scythe_2"
+		}
+	}
+	
+	//=================================================================================================================
+	// Heart Of Titan
+	//=================================================================================================================
+	"item_radiance_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_radiance"
+		"AbilityTextureName"			"radiance/radiance_3"
+		"ItemKillable"					"1"
+		"ItemSellable"					"1"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE_STACKING"
+		"ItemDroppable"					"1"
+		"ItemCost"						"3380"
+		"ItemShopTags"					"damage;unique"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"heart"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage"			"1600"
+			"bonus_all"				"120"
+			"aura_damage"			"2250"
+			"aura_damage"
+			{
+				"value"							"2250"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"aura_damage_illusions"	
+			{
+				"value"							"750"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"evasion"				"19"
+			"blind_pct"				"19"
+			"aura_radius"			"900"
+		}
+	}
+	
+	//======================================================================================================
+	//==============SUB ZERO================================================================================
+	//======================================================================================================
+	"item_recipe_zero"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_radiance"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"25"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_zero"
+		"ItemRequirements"
+		{
+			"01"						"item_radiance_3;item_skadi;item_orb_3"
+		}
+	}
+	"item_zero"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_radiance"
+		"AbilityTextureName"			"item_zero"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"ItemKillable"					"1"
+		"ItemSellable"					"1"
+		"ItemDroppable"					"1"
+		"ItemCost"						"19680"
+		"ItemShopTags"					"int"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"ring"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+
+		"AbilityValues"
+		{
+	        "bonus_all"							"500"
+			"bonus_mana"						"1000"
+			"bonus_evasion"						"21"
+			"bonus_damage"						"2400"
+			
+			"aura_radius"						"1200"
+			"aura_movespeed"					"-10"
+			"aura_attackspeed"					"-25"
+			"aura_miss_pct"						"20"
+			"aura_heal_reduction"				"40"
+			"aura_damage"
+			{
+				"value"							"4500"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"aura_damage_illusions"
+			{
+				"value"							"1200"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+		}
+	}
+}

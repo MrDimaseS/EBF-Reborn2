@@ -1,0 +1,310 @@
+"DOTAAbilities"
+{
+	//=================================================================================================================
+	// Recipe: cloak_of_the_protector_2
+	//=================================================================================================================
+	"item_recipe_cloak_of_the_protector"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_crimson_guard"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"25"
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_cloak_of_the_protector"
+		"ItemRequirements"
+		{
+			"01"						"item_pavise;item_pipe;item_orb_1;item_helm_of_mithril_will"
+		}
+	}
+	
+	//=================================================================================================================
+	// cloak_of_the_protector_
+	//=================================================================================================================
+	"item_cloak_of_the_protector"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_cloak_of_the_protector.lua"
+		"AbilityTextureName"			"cloak/cloak_of_the_protector"
+		"FightRecapLevel"				"2"
+
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"60.0"
+		"AbilitySharedCooldown"			"cloak_of_the_protector"
+		"AbilityManaCost"				"100"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemShopTags"					"regen_health;boost_magic_resist;damage_block;armor"
+		"ItemQuality"					"rare"
+		"ItemAliases"					"pipe of insight;crimson guard"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemAlertable"					"1"
+		
+		"ItemKillable"					"1"
+		"ItemSellable"					"1"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"ItemDroppable"					"1"
+		"ItemCost"						"60000"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+
+		"AbilityValues"
+		{
+			"bonus_all_stats"				"30"
+			"bonus_health"					"850"
+			"bonus_health_regen"			"80"
+			"bonus_mana_regen"				"2.5"
+			
+			"bonus_armor"					"8"
+			"magic_resistance"				"12"
+
+			"aura_health_regen"				"15"
+			"magic_resistance_aura"			"10"
+			"aura_radius"					"900"
+			
+			"barrier_block"					"3000"
+			"barrier_radius"				"900"
+			"duration"						"12"
+		}
+	}
+	//=================================================================================================================
+	// Recipe: cloak_of_the_protector_3
+	//=================================================================================================================
+	"item_recipe_cloak_of_the_protector_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_crimson_guard"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"25"
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_cloak_of_the_protector_2"
+		"ItemRequirements"
+		{
+			"01"						"item_cloak_of_the_protector;item_orb_2"
+		}
+	}
+	//=================================================================================================================
+	// cloak_of_the_protector_
+	//=================================================================================================================
+	"item_cloak_of_the_protector_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_cloak_of_the_protector.lua"
+		"AbilityTextureName"			"cloak/cloak_of_the_protector_2"
+		"FightRecapLevel"				"2"
+
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"60.0"
+		"AbilitySharedCooldown"			"cloak_of_the_protector"
+		"AbilityManaCost"				"100"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemShopTags"					"regen_health;boost_magic_resist;damage_block;armor"
+		"ItemQuality"					"rare"
+		"ItemAliases"					"pipe of insight;crimson guard"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemAlertable"					"1"
+		
+		"ItemKillable"					"1"
+		"ItemSellable"					"1"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"ItemDroppable"					"1"
+		"ItemCost"						"60000"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		
+		"AbilityValues"
+		{
+			"bonus_all_stats"				"120"
+			"bonus_health"					"2650"
+			"bonus_health_regen"			"250"
+			"bonus_mana_regen"				"2.5"
+			
+			"bonus_armor"					"9"
+			"magic_resistance"				"14"
+			
+			"aura_health_regen"				"75"
+			"magic_resistance_aura"			"12"
+			"aura_radius"					"900"
+			
+			"barrier_block"					"10000"
+			"barrier_radius"				"900"
+			"duration"						"12"
+		}
+	}
+	//=================================================================================================================
+	// Recipe: Divine cloak_of_the_protector_
+	//=================================================================================================================
+	"item_recipe_cloak_of_the_protector_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_crimson_guard"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"25"
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_cloak_of_the_protector_3"
+		"ItemRequirements"
+		{
+			"01"						"item_cloak_of_the_protector_2;item_orb_3"
+		}
+	}
+
+	//=================================================================================================================
+	// divine soul
+	//=================================================================================================================
+	"item_cloak_of_the_protector_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_cloak_of_the_protector.lua"
+		"AbilityTextureName"			"cloak/cloak_of_the_protector_3"
+		"FightRecapLevel"				"2"
+
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"60.0"
+		"AbilitySharedCooldown"			"cloak_of_the_protector"
+		"AbilityManaCost"				"100"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemShopTags"					"regen_health;boost_magic_resist;damage_block;armor"
+		"ItemQuality"					"rare"
+		"ItemAliases"					"pipe of insight;crimson guard"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemAlertable"					"1"
+		
+		"ItemKillable"					"1"
+		"ItemSellable"					"1"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"ItemDroppable"					"1"
+		"ItemCost"						"60000"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+
+		"AbilityValues"
+		{
+			"bonus_all_stats"				"400"
+			"bonus_health"					"8250"
+			"bonus_health_regen"			"825"
+			"bonus_mana_regen"				"2.5"
+			
+			"bonus_armor"					"10"
+			"magic_resistance"				"16"
+			
+			"aura_health_regen"				"200"
+			"magic_resistance_aura"			"14"
+			"aura_radius"					"1200"
+			
+			"barrier_block"					"32500"
+			"barrier_radius"				"900"
+			"duration"						"12"
+		}
+	}
+	//=================================================================================================================
+	// Recipe: Divine cloak_of_the_protector_
+	//=================================================================================================================
+	"item_recipe_cloak_of_the_protector_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_crimson_guard"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"25"
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_cloak_of_the_protector_4"
+		"ItemRequirements"
+		{
+			"01"						"item_cloak_of_the_protector_3;item_orb_4"
+		}
+	}
+
+	//=================================================================================================================
+	// divine soul
+	//=================================================================================================================
+	"item_cloak_of_the_protector_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_cloak_of_the_protector.lua"
+		"AbilityTextureName"			"cloak/cloak_of_the_protector_4"
+		"FightRecapLevel"				"2"
+
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"60.0"
+		"AbilitySharedCooldown"			"cloak_of_the_protector"
+		"AbilityManaCost"				"100"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemShopTags"					"regen_health;boost_magic_resist;damage_block;armor"
+		"ItemQuality"					"rare"
+		"ItemAliases"					"pipe of insight;crimson guard"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemAlertable"					"1"
+		
+		"ItemKillable"					"1"
+		"ItemSellable"					"1"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"ItemDroppable"					"1"
+		"ItemCost"						"60000"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		
+		"AbilityValues"
+		{
+			"bonus_all_stats"				"1500"
+			"bonus_health"					"30250"
+			"bonus_health_regen"			"3250"
+			"bonus_mana_regen"				"2.5"
+			
+			"bonus_armor"					"11"
+			"magic_resistance"				"18"
+			
+			"aura_health_regen"				"800"
+			"magic_resistance_aura"			"16"
+			"aura_radius"					"900"
+			
+			"barrier_block"					"125000"
+			"barrier_radius"				"900"
+			"duration"						"12"
+		}
+	}
+}

@@ -1,0 +1,480 @@
+"DOTAAbilities"
+{	
+	//=================================================================================================================
+	// Furion: Sprout
+	//=================================================================================================================
+	"furion_sprout"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_furion/furion_sprout"
+		"AbilityTextureName"			"furion_sprout"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_POINT"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_Furion.Sprout"
+
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+
+		// Unit Targeting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_NOT_ANCIENTS"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"625 665 700 740 775 815 850"
+		"AbilityCastPoint"				"0.35"
+		"AbilityCooldown"				"11 10 9 8 7.25 6.5 5.75"
+		"AbilityManaCost"				"70 130 190 250 310 370 430"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"vision_range"						"250"
+			"tree_radius"						"150"
+			"tree_count"						"8"
+			"duration"							"6"
+			"miss_chance"
+			{
+				"value"							"0"
+				"special_bonus_unique_furion_4"	"+100"
+			}
+			"max_greater_treants"
+			{
+				"value"							"0"
+				"special_bonus_unique_furion_7"	"+2"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+	
+	//=================================================================================================================
+	// Furion: Greater Sprout (scepter)
+	//=================================================================================================================
+	"furion_greater_sprout"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"625"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_Furion.Sprout"
+
+		"MaxLevel"						"1"
+		"FightRecapLevel"				"1"
+		"IsGrantedByScepter"			"1"
+		"HasScepterUpgrade"				"1"
+		
+
+		// Unit Targeting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_NOT_ANCIENTS"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"850"
+		"AbilityCastPoint"				"0.35"
+		"AbilityCooldown"				"30"
+		"AbilityManaCost"				"130"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"vision_range"			"500"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"duration"				"6"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+	
+	//=================================================================================================================
+	// Furion: Teleportation
+	//=================================================================================================================
+	"furion_teleportation"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5246"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_NORMAL_WHEN_STOLEN | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"AbilitySound"					"Hero_Furion.Teleport_Grow"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"0"
+		"AbilityCastPoint"				"3 3 3 3"
+		"AbilityCooldown"				"65 50 35 20 15.4 10.8 6.2"
+		"AbilityManaCost"				"50 75 100 125 150 175 200"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_2"
+
+		"AbilityValues"
+		{
+			"max_stacks"				
+			{
+				"value"						"6 8 10 12 14 16 18"
+				"special_bonus_unique_furion_teleportation_max_stacks"		"+25%"
+			}
+			
+			"buff_duration"				"15"
+			"damage_per_stack"		"120 150 190 235 285 365 500"
+			"armor_per_stack"		"1 1.25 1.5 1.75 2 2.25 2.5"	
+		}
+	}
+	"furion_curse_of_the_forest"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"997"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_Furion.WrathOfNature_Cast"
+		"MaxLevel"						"6"
+		"IsGrantedByShard"				"1"
+		
+		// Unit Targeting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.2"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
+
+		"AbilityCooldown"				"18"
+		"AbilityManaCost"				"80"
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"duration"				"7"
+			"damage_per_tree"		"325 610 1110 1810 2060 2275"
+			"slow_per_tree"			"7"
+			"radius"				"250"
+			"range"					"1200"
+		}
+	}
+	//=================================================================================================================
+	// Furion: Force of Nature, Nature's Call
+	//=================================================================================================================
+	"furion_force_of_nature"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_furion/furion_force_of_nature"
+		"AbilityTextureName"			"furion_force_of_nature"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilitySound"					"Hero_Furion.ForceOfNature"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"750"
+		"AbilityCastPoint"				"0.5 0.5 0.5 0.5"
+		"AbilityManaCost"				"50 75 100 125 150 175 200"
+		
+		"LinkedAbility"						"furion_curse_of_the_forest"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"AbilityCooldown"
+			{	
+				"value"								"37"
+				"special_bonus_unique_furion_6"		"-17"
+			}
+			"area_of_effect"						"600"
+			"max_treants"
+			{	
+				"value"								"2 3 4 5 6 7 8"
+				"special_bonus_unique_furion_2"		"+5"
+			}
+			"duration"								"60 60 60 60"
+			"treant_health_tooltip"
+			{	
+				"value"								"2750 6000 11000 25000 44000 95000 180000"
+				"special_bonus_unique_furion"		"x2.5"
+			}
+			"treant_dmg_tooltip"	
+			{	
+				"value"								"180 320 500 1000 1750 3500 7000"
+				"special_bonus_unique_furion"		"x2.5"
+				
+			}
+			"treant_large_bonus"					"50"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+	
+	//=================================================================================================================
+	// Furion: Wrath of Nature
+	//=================================================================================================================
+	"furion_wrath_of_nature"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_furion/furion_wrath_of_nature"
+		"AbilityTextureName"			"furion_wrath_of_nature"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"FightRecapLevel"				"2"
+		"AbilitySound"					"Hero_Furion.WrathOfNature_Cast"
+
+		"HasScepterUpgrade"			"1"
+		"MaxLevel"						"6"
+		"LevelsBetweenUpgrades"			"6"
+		
+		// Unit Targeting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+		
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"0"
+		"AbilityCastPoint"				"0.5 0.5 0.5"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
+		"AbilityManaCost"				"150 200 250 300 350 400 450"
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"max_targets"						"10 12 14 16 18 20"
+			"damage"
+			{
+				"value"							"2275 5025 11200 21700 26100 30500"
+				"special_bonus_unique_furion_5"	"+50%"
+			}
+			"damage_percent_add"
+			{
+				"value"							"10"
+				"CalculateSpellDamageTooltip"	"0"
+				"DamageTypeTooltip"				"DAMAGE_TYPE_NONE"
+			}
+			"jump_delay"						"0.25"
+			"kill_damage"						"60 115 200 255 275 295"
+			"kill_damage_duration"
+			{
+				"value"							"60"
+				"DamageTypeTooltip"				"DAMAGE_TYPE_NONE"
+				"CalculateSpellDamageTooltip"	"0"
+			}
+			"AbilityCooldown"
+			{
+				"value"							"85"
+				"special_bonus_scepter"			"-25"
+			}
+			"scepter_cooldown"
+			{
+				"value"							"60"
+				"RequiresScepter"				"1"
+			}	
+			"scepter_min_entangle_duration"	
+			{
+				"value"							"2"
+				"RequiresScepter"				"1"
+			}	
+			"scepter_max_entangle_duration"
+			{
+				"value"							"3.8"
+				"RequiresScepter"				"1"
+			}
+		}
+	}
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_furion"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6084"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"value"						"2.5"
+				"ad_linked_abilities"			"furion_force_of_nature"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_furion_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6500"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"5"
+				"ad_linked_abilities"			"furion_force_of_nature"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_furion_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6539"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"1"
+				"ad_linked_abilities"			"furion_teleportation"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_furion_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6702"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"100"
+				"ad_linked_abilities"			"furion_sprout"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_furion_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"470"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"						"4500"
+				"ad_linked_abilities"			"furion_wrath_of_nature"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_furion_6"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"926"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"						"17"
+				"ad_linked_abilities"			"furion_force_of_nature"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_furion_7"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"927"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"						"2"
+				"ad_linked_abilities"			"furion_force_of_nature"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+}

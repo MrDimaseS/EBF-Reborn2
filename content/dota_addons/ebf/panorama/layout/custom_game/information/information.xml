@@ -1,0 +1,31 @@
+<root>
+	<styles>
+		<include src="file://{resources}/styles/dotastyles.css" />
+		<include src="file://{resources}/layout/custom_game/information/information.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/layout/custom_game/information/information.js" />
+		<include src="file://{resources}/scripts/custom_game/shared_scoreboard_updater.js" />
+	</scripts>
+	<Panel class="information" hittest="false">
+		<Panel id="information">
+			<Panel class="top_section">
+				<Panel id="chg_date">
+					<Label text="#last_change_date"/>
+					<Label id="date_label" text=""/>
+				</Panel>
+				<Panel id="ver">
+					<Label text="#ebf_version"/>
+					<Label id="ver_label" text=""/>
+				</Panel>
+				<Panel id="web_lnk">
+					<Label text="#web_notes"/>
+					<Button id="patch_button" onactivate="ExternalBrowserGoToURL(&apos;https://yahnich.github.io/&apos;)">
+						<Label text="#patch_button" />
+					</Button>
+				</Panel>
+			</Panel>
+			<Panel class="patchnotes" id="patchnotesPanel"></Panel>
+		</Panel>
+	</Panel>
+</root>

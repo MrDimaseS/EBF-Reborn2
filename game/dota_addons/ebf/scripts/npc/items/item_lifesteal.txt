@@ -1,0 +1,305 @@
+"DOTAAbilities"
+{
+	//=================================================================================================================
+	// Recipe: LifeSteal2
+	//=================================================================================================================
+	"item_recipe_lifesteal2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_vladmir"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"25"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_lifesteal2"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE_STACKING"
+		"ItemRequirements"
+		{
+			"01"						"item_vladmir;item_helm_of_mithril_will;item_relic;item_orb_1"
+		}
+	}
+	//=================================================================================================================
+	// Helm
+	//=================================================================================================================
+	"item_lifesteal2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"                     "item_lua"
+		"ScriptFile"					"items/item_lifesteal.lua"
+		"AbilityTextureName"			"lifesteal/lifesteal2"
+		"ItemKillable"					"1"
+		"ItemSellable"					"1"
+		"ItemDroppable"					"1"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE_STACKING"
+		"ItemCost"						"2855"
+		"ItemShopTags"					"damage;unique"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"lifesteal"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_armor"			"8"
+			"bonus_all"				"40"
+			"bonus_damage"			"240"
+			"armor_aura"			"5"
+			"mana_regen_aura"		"3.5"
+			"hp_regen_aura"			"16"
+			"lifesteal_aura"		"10.5"
+			"damage_aura"			"21"
+			"aura_radius"			"1200"
+		}
+	}
+	"item_recipe_lifestealtank"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_vladmir"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"20"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_lifestealtank"
+		"ItemRequirements"
+		{
+			"01"						"item_lifesteal2;item_orb_2"
+		}
+	}
+
+	//=================================================================================================================
+	// Helm
+	//=================================================================================================================
+	"item_lifestealtank"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"                     "item_lua"
+		"ScriptFile"					"items/item_lifesteal.lua"
+		"AbilityTextureName"			"lifesteal/lifestealtank"
+		"ItemKillable"					"1"
+		"ItemSellable"					"1"
+		"ItemDroppable"					"1"
+		"ItemCost"						"10805"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"ItemShopTags"					"damage;unique"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"lifesteal"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_armor"			"8"
+			"bonus_all"				"170"
+			"bonus_damage"			"600"
+			"armor_aura"			"5"
+			"mana_regen_aura"		"10.5"
+			"hp_regen_aura"			"50"
+			"lifesteal_aura"		"10.5"
+			"lifesteal_shared"		"100"
+			"damage_aura"			"21"
+			"aura_radius"			"1200"
+		}
+	}
+	//=================================================================================================================
+	// Recipe: LifeSteal3
+	//=================================================================================================================
+	"item_recipe_lifesteal3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_vladmir"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"25"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_lifesteal3"
+		"ItemRequirements"
+		{
+			"01"						"item_lifesteal2;item_scythe_2;item_orb_2"
+		}
+	}
+	
+	//=================================================================================================================
+	// Helm
+	//=================================================================================================================
+	"item_lifesteal3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"                     "item_lua"
+		"ScriptFile"					"items/item_lifesteal.lua"
+		"AbilityTextureName"			"lifesteal/lifesteal3"
+		"ItemKillable"					"1"
+		"ItemSellable"					"1"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE_STACKING"
+		"ItemDroppable"					"1"
+		"ItemCost"						"8265"
+		"ItemShopTags"					"damage;unique"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"lifesteal"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_armor"			"12"
+			"bonus_all"				"170"
+			"bonus_damage"			"940"
+			"armor_aura"			"7"
+			"mana_regen_aura"		"10.5"
+			"hp_regen_aura"			"50"
+			"lifesteal_aura"		"12"
+			"damage_aura"			"24"
+			"aura_radius"			"1200"
+		}
+	}
+	"item_recipe_lifesteal4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_vladmir"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"25"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_lifesteal4"
+		"ItemRequirements"
+		{
+			"01"						"item_lifesteal3;item_scythe_3;item_orb_3"
+		}
+	}
+
+	//=================================================================================================================
+	// Helm
+	//=================================================================================================================
+	"item_lifesteal4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"                     "item_lua"
+		"ScriptFile"					"items/item_lifesteal.lua"
+		"AbilityTextureName"			"lifesteal/lifesteal4"
+		"ItemKillable"					"1"
+		"ItemSellable"					"1"
+		"ItemDroppable"					"1"
+		"ItemCost"						"30000"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"ItemShopTags"					"damage;unique"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"lifesteal"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_armor"			"14"
+			"bonus_all"				"600"
+			"bonus_damage"			"2800"
+			"armor_aura"			"8"
+			"mana_regen_aura"		"31.5"
+			"hp_regen_aura"			"200"
+			"lifesteal_aura"		"13.5"
+			"damage_aura"			"27"
+			"aura_radius"			"1200"
+		}
+	}
+	"item_recipe_lifesteal5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_vladmir"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"25"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_lifesteal5"
+		"ItemRequirements"
+		{
+			"01"						"item_lifesteal4;item_scythe_4;item_orb_4"
+		}
+	}
+
+	//=================================================================================================================
+	// Helm
+	//=================================================================================================================
+	"item_lifesteal5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"                     "item_lua"
+		"ScriptFile"					"items/item_lifesteal.lua"
+		"AbilityTextureName"			"lifesteal/lifesteal5"
+		"ItemKillable"					"1"
+		"ItemSellable"					"1"
+		"ItemDroppable"					"1"
+		"ItemCost"						"30000"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"ItemShopTags"					"damage;unique"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"lifesteal"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_armor"			"16"
+			"bonus_all"				"1800"
+			"bonus_damage"			"9200"
+			"armor_aura"			"10"
+			"mana_regen_aura"		"31.5"
+			"hp_regen_aura"			"800"
+			"lifesteal_aura"		"14.5"
+			"damage_aura"			"31"
+			"aura_radius"			"1200"
+		}
+	}
+}

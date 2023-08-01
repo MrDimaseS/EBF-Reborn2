@@ -1,0 +1,347 @@
+"DOTAAbilities"
+{	
+	//=================================================================================================================
+	// Death Prophet: Carrion Swarm ( Crypt Swarm )
+	//=================================================================================================================
+	"death_prophet_carrion_swarm"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5090"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_DeathProphet.CarrionSwarm"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"600"
+		"AbilityCastPoint"				"0.2"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"5"
+
+		// Damage.
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityDamage"					"950 1400 2000 3750 7500 12500 20000"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"80 125 170 215 260 305 350"		
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"start_radius"				"110"
+			"end_radius"				"300"
+			"range"						"810"
+			"speed"						"1100"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+	
+	//=================================================================================================================
+	// Death Prophet: Silence
+	//=================================================================================================================
+	"death_prophet_silence"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5091"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"AbilitySound"					"Hero_DeathProphet.Silence"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"900"
+		"AbilityCastPoint"				"0.2"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"15 14 13 12 11.2 10.4 9.6"
+		"AbilityDuration"				"6"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"80 110 140 170 200 230 260"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"radius"							"425 425 425 425 500 575 650"
+			"duration"							"6"
+			"projectile_speed"					"1000"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
+	}	
+	//=================================================================================================================
+	// Death Prophet: Spirit Siphon
+	//=================================================================================================================
+	"death_prophet_spirit_siphon"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5685"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_DeathProphet.SpiritSiphon.Cast"
+
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+		
+        "HasShardUpgrade"               "1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastAnimation"			"ACT_DOTA_DP_SPIRIT_SIPHON"
+		"AbilityCastGestureSlot"		"DEFAULT"
+		"AbilityCastRange"				"500"
+		"AbilityCastPoint"				"0.1"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"0"
+		"AbilityCharges"				"1 2 3 4 4 4 4"
+		
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"80 120 160 200 240 280 320"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"damage"		
+			{
+				"value"									"470 940 1565 2350 4700 9375 18750"
+				"special_bonus_unique_death_prophet_3"	"+50%"
+			}
+			"damage_pct"				"0"
+			"haunt_duration"				"6"
+			"siphon_buffer"			"250"
+			"AbilityChargeRestoreTime"		
+			{
+				"value"									"30"
+				"special_bonus_unique_death_prophet_5"	"-15"
+			}
+			"shard_bonus_charges"			
+			{
+				"value"	"1"
+				"RequiresShard"				"1"
+			}
+			"shard_fear_duration"			
+			{
+				"value"		"1.5"
+				"RequiresShard"				"1"
+			}
+			"shard_consecutive_siphon_duration"			
+			{
+				"value"		"3"
+				"RequiresShard"				"1"
+			}
+		}
+	}
+	
+	//=================================================================================================================
+	// Death Prophet: Exorcism
+	//=================================================================================================================
+	"death_prophet_exorcism"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5093"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"FightRecapLevel"				"2"
+		"AbilitySound"					"Hero_DeathProphet.Exorcism.Cast"
+        "HasScepterUpgrade"			"1"
+		"MaxLevel"						"6"
+		"LevelsBetweenUpgrades"			"6"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.5 0.5 0.5"
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_4"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"150.0"
+		"AbilityDuration"				"35"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"250 450 650 850 1050 1250 1450"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"radius"					"700 700 700"
+			"spirits"				
+			{
+				"value"					"9 12 15 18 21 24"
+				"special_bonus_unique_death_prophet"	"+8"
+			}
+			"spirit_speed"				"525"
+			"max_distance"				"2000 2000 2000"
+			"give_up_distance"			"1200 1200 1200"
+			"min_damage"				"1970 4590	9510 13850 14825 15800"
+			"max_damage"				"2135 4980 10310 15000 16075 16985"
+			"heal_percent"				"5"
+			"average_damage"			"2050 4780 9910 14420 15445 16325"
+			"ghost_spawn_rate"			"0.35"
+			"scepter_movespeed_slow"
+			{
+				"value"					"100"
+				"RequiresScepter"		"1"
+			}
+			"scepter_movespeed_debuff_duration"	
+			{
+				"value"					"0.3"
+				"RequiresScepter"		"1"
+			}
+			"scepter_spirit_life_duration"	
+			{
+				"value"					"20"
+				"RequiresScepter"		"1"
+			}
+			"scepter_spirit_bonus_damage"	
+			{	
+				"value"							"0"
+				"RequiresScepter"				"1"
+				"CalculateSpellDamageTooltip"	"0"
+			}	
+			"movement_base"					"12 16 20 24 28 32"
+			"movement_bonus"				"8 12 16 20 24 28"
+		}
+	}	
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_death_prophet"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6191"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"8"
+				"ad_linked_abilities"			"death_prophet_exorcism"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_death_prophet_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6367"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"value"				"2"
+				"ad_linked_abilities"			"death_prophet_carrion_swarm"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_death_prophet_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6628"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_death_prophet_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6805"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"value"				"-20"
+				"ad_linked_abilities"			"death_prophet_spirit_siphon"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_death_prophet_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"698"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"value"				"20.0"
+				"ad_linked_abilities"			"death_prophet_spirit_siphon"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+}

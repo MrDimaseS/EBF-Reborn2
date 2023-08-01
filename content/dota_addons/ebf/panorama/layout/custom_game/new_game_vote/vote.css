@@ -1,0 +1,312 @@
+ @define defaultFont: Radiance,FZLanTingHei-R-GBK,TH Sarabun New,YDYGO 540,Gulim,MingLiU;
+ 
+ .NGplus_Vote {
+  width: 100%;
+  height: 100%;
+  overflow: clip;
+}
+#confirmation {
+  horizontal-align: center;
+  vertical-align: top;
+  font-size: 20px;
+  margin-top: 100px;
+  color: #cdcab7;
+}
+#yesheader {
+  margin-top: 120px;
+  margin-left: 113px;
+  horizontal-align: left;
+  color: #ffea00;
+  font-size: 20px;
+  font-weight: bold;
+}
+#noheader {
+  margin-top: 120px;
+  margin-right: 109px;
+  horizontal-align: right;
+  color: #ffea00;
+  font-size: 20px;
+  font-weight: bold;
+}
+#noresults {
+  margin-top: 140px;
+  margin-left: 100px;
+  horizontal-align: left;
+}
+#yesresults {
+  margin-top: 140px;
+  margin-right: 100px;
+  horizontal-align: right;
+}
+#Vote {
+  horizontal-align: center;
+  vertical-align: bottom;
+  margin-bottom: 340px;
+  width: 500px;
+  height: 140px;
+  background-color: rgba(0, 0, 0, 0.9);
+  border-radius: 5px;
+  flow-children: down;
+}
+#question {
+  horizontal-align: center;
+  vertical-align: top;
+  margin-top: 10px;
+  text-align: center;
+  font-size: 20px;
+  font-family: titleFont;
+  text-transform: uppercase;
+  color: #cdcab7;
+  font-weight: semi-bold;
+  letter-spacing: 2px;
+  text-shadow: 0px 1px 8px #00000088;
+}
+#time_nb {
+  min-height: 36px;
+  min-width: 36px;
+  horizontal-align: center;
+  vertical-align: middle;
+  font-size: 24px;
+  color: #cdcab7;
+  width: fill-parent-flow(1);
+  text-align: center;
+}
+#Note {
+  horizontal-align: center;
+  vertical-align: bottom;
+  margin-bottom: 220px;
+  width: 500px;
+  height: 110px;
+  background-color: rgba(0, 0, 0, 0.9);
+  border-radius: 5px;
+}
+#note1 {
+  horizontal-align: center;
+  vertical-align: top;
+  margin-top: 10px;
+  text-align: center;
+  font-size: 15px;
+  color: #d1b501;
+  letter-spacing: 2px;
+  text-shadow: 0px 1px 8px #00000088;
+  text-transform: uppercase;
+}
+#note2 {
+  horizontal-align: center;
+  vertical-align: top;
+  margin-top: 35px;
+  text-align: center;
+  font-size: 15px;
+  color: #d1b501;
+  letter-spacing: 2px;
+  text-shadow: 0px 1px 8px #00000088;
+  text-transform: uppercase;
+}
+#note3 {
+  horizontal-align: center;
+  vertical-align: top;
+  margin-top: 60px;
+  text-align: center;
+  font-size: 15px;
+  color: #d1b501;
+  letter-spacing: 2px;
+  text-shadow: 0px 1px 8px #00000088;
+  text-transform: uppercase;
+}
+#note4 {
+  horizontal-align: center;
+  vertical-align: top;
+  margin-top: 85px;
+  text-align: center;
+  font-size: 15px;
+  color: #94cc4a;
+  letter-spacing: 2px;
+  text-shadow: 0px 1px 8px #00000088;
+  text-transform: uppercase;
+}
+.VoteAndTimerContainer {
+  flow-children: right;
+  width: 100%;
+}
+.VoteCountContainer {
+  flow-children: right;
+  width: 100%;
+  vertical-align: bottom;
+  margin-bottom: 5px;
+}
+.VoteContainer {
+  horizontal-align: center;
+}
+#YesContainer {
+  flow-children: right;
+  margin-left: 10px;
+  width: fill-parent-flow(1);
+}
+#UndecidedContainer {
+  flow-children: right;
+  margin-left: 10px;
+  color: #ff0000;
+  saturation: 0;
+}
+#NoContainer {
+  flow-children: left;
+  margin-right: 10px;
+  width: fill-parent-flow(1);
+}
+.Vote {
+  height: 32px;
+  width: 32px;
+}
+Label {
+  font-size: 18px;
+}
+Label,
+TextEntry {
+  font-family: defaultFont;
+}
+#Vote_Yes {
+  horizontal-align: right;
+  vertical-align: top;
+  background-color: gradient(
+    linear,
+    0% 0%,
+    0% 100%,
+    from(#373d45),
+    to(#4d5860)
+  );
+  border-style: solid;
+  border-width: 1px;
+  padding: 4px 10px;
+  border-top-color: #555555;
+  border-left-color: #494949;
+  border-bottom-color: #333333;
+  border-right-color: #404040;
+  transition-property: background-color, opacity;
+  transition-duration: 0.05s;
+  transition-timing-function: linear;
+  box-shadow: #00000055 0px 0px 4px 0px;
+  min-width: 196px;
+  min-height: 36px;
+}
+#Vote_Yes:enabled:hover {
+  background-color: gradient(
+    linear,
+    0% 0%,
+    0% 100%,
+    from(#4c5561),
+    to(#6c7d88)
+  );
+  border-top-color: #aaaaaa77;
+  border-left-color: #aaaaaa33;
+  border-bottom-color: #333333;
+  border-right-color: #404040;
+}
+#Vote_Yes:disabled {
+  wash-color: #aaaaaa;
+  saturation: 0;
+}
+#Vote_Yes:disabled Label {
+  color: #333333;
+}
+#Vote_Yes:active {
+  background-color: gradient(
+    linear,
+    0% 0%,
+    0% 100%,
+    from(#393939),
+    to(#555555)
+  );
+  border-top-color: #222222;
+  border-left-color: #303030;
+  border-bottom-color: #666666;
+  border-right-color: #444444;
+  sound: "ui_generic_button_click";
+}
+#Vote_Yes Label {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #ffffff;
+  horizontal-align: center;
+  text-align: center;
+  vertical-align: middle;
+  text-shadow: 2px 2px 0px 1 #000000;
+  transition-property: color;
+  transition-duration: 0.35s;
+  transition-timing-function: ease-in-out;
+}
+#Vote_Yes:active Label {
+  transform: translateY(1px);
+}
+#Vote_No {
+  horizontal-align: right;
+  vertical-align: top;
+  background-color: gradient(
+    linear,
+    0% 0%,
+    0% 100%,
+    from(#373d45),
+    to(#4d5860)
+  );
+  border-style: solid;
+  border-width: 1px;
+  padding: 4px 10px;
+  border-top-color: #555555;
+  border-left-color: #494949;
+  border-bottom-color: #333333;
+  border-right-color: #404040;
+  transition-property: background-color, opacity;
+  transition-duration: 0.05s;
+  transition-timing-function: linear;
+  box-shadow: #00000055 0px 0px 4px 0px;
+  min-width: 196px;
+  min-height: 36px;
+}
+#Vote_No:enabled:hover {
+  background-color: gradient(
+    linear,
+    0% 0%,
+    0% 100%,
+    from(#4c5561),
+    to(#6c7d88)
+  );
+  border-top-color: #aaaaaa77;
+  border-left-color: #aaaaaa33;
+  border-bottom-color: #333333;
+  border-right-color: #404040;
+}
+#Vote_No:disabled {
+  wash-color: #aaaaaa;
+  saturation: 0;
+}
+#Vote_No:disabled Label {
+  color: #333333;
+}
+#Vote_No:active {
+  background-color: gradient(
+    linear,
+    0% 0%,
+    0% 100%,
+    from(#393939),
+    to(#555555)
+  );
+  border-top-color: #222222;
+  border-left-color: #303030;
+  border-bottom-color: #666666;
+  border-right-color: #444444;
+  sound: "ui_generic_button_click";
+}
+#Vote_No Label {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #ffffff;
+  horizontal-align: center;
+  text-align: center;
+  vertical-align: middle;
+  text-shadow: 2px 2px 0px 1 #000000;
+  transition-property: color;
+  transition-duration: 0.35s;
+  transition-timing-function: ease-in-out;
+}
+#Vote_No:active Label {
+  transform: translateY(1px);
+}

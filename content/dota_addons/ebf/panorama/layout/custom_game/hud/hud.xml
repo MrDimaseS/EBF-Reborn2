@@ -1,0 +1,27 @@
+<root>
+	<styles>
+		<include src="file://{resources}/styles/dotastyles.css" />
+		<include src="file://{resources}/layout/custom_game/hud/hud.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/layout/custom_game/vector_targeting.js" />
+		<include src="file://{resources}/layout/custom_game/hud/hud.js" />
+	</scripts>
+	<Panel class="Hud" hittest="false">
+		<Panel id="LifeCounter" hittest="false">
+			<Label hittest="false" id="Life" text="0"/>
+			<Label hittest="false" id="Retries" text="#HUD_Retries" />
+		</Panel>
+		<Panel id="BossRound" hittest="false">
+			<Label hittest="false" id="Rounds" text="0"/>
+			<Label hittest="false" id="Level" text="#HUD_Level" />
+		</Panel>
+		<Panel id="RoundOptions" hittest="false">
+			<Button id="Vote_Yes" onactivate='Yes()'>
+				<Label text="#Round_skip_btn" />
+			</Button>
+			<Label id="voteStatus" text=""/>
+		</Panel>
+		<Label hittest="false" id="RoundsTime" text="0"/>
+	</Panel>
+</root>

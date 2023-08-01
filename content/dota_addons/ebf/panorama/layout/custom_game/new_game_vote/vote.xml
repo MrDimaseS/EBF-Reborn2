@@ -1,0 +1,44 @@
+<root>
+	<styles>
+		<include src="file://{resources}/layout/custom_game/new_game_vote/vote.css" />
+	</styles> 
+	<scripts>
+		<include src="file://{resources}/layout/custom_game/new_game_vote/vote.js" /> 
+	</scripts>
+	<Panel class="NGplus_Vote" hittest="false">
+		<Panel id="Vote" hittest="false">
+			<Label hittest="false" id="question" text="#NGplus_query"/>
+			<Panel class="VoteAndTimerContainer">
+				<Button id="Vote_Yes" onactivate='Yes()'>
+						<Label text="#NGplus_yes_btn" />
+				</Button>
+				<Label hittest="false" id="time_nb" text="60"/>
+				<Button id="Vote_No" onactivate='No()'>
+						<Label text="#NGplus_no_btn" />
+				</Button>
+			</Panel>
+			<Panel hittest="false" id="AllVotes" class="VoteCountContainer">
+				<Panel id="YesContainer" class="VoteContainer">
+					<DOTAHeroImage heroname="npc_dota_hero_axe" heroimagestyle="icon" />
+				</Panel>
+				<Panel id="UndecidedContainer" class="VoteContainer">
+					<DOTAHeroImage heroname="npc_dota_hero_nyx_assassin" heroimagestyle="icon" />
+					<DOTAHeroImage heroname="npc_dota_hero_enchantress" heroimagestyle="icon" />
+					<DOTAHeroImage heroname="npc_dota_hero_muerta" heroimagestyle="icon" />
+					<DOTAHeroImage heroname="npc_dota_hero_drow_ranger" heroimagestyle="icon" />
+					<DOTAHeroImage heroname="npc_dota_hero_phantom_lancer" heroimagestyle="icon" />
+				</Panel>
+				<Panel id="NoContainer" class="VoteContainer">
+					<DOTAHeroImage heroname="npc_dota_hero_rattletrap" heroimagestyle="icon" />
+				</Panel>
+			</Panel>
+			
+		</Panel>
+		<Panel id="Note" hittest="false">
+			<Label hittest="false" id="note1" text="#NGplus_note1"/>
+			<Label hittest="false" id="note2" text="#NGplus_note2"/>
+			<Label hittest="false" id="note3" text="#NGplus_note3"/>
+			<Label hittest="false" id="note4" text="#NGplus_note4"/>
+		</Panel>
+	</Panel>
+</root>

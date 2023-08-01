@@ -1,0 +1,230 @@
+"DOTAAbilities"
+{
+	//======================================================================================================
+	//==============tank booster================================================================================
+	//======================================================================================================
+	"item_recipe_booster_1"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_arcane_boots"
+		"AbilityTextureName"			"item_recipe"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"1500"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_booster_1"
+		"ItemRequirements"
+		{
+			"01"						"item_soul_booster;item_orb_1"
+		}
+	}
+	"item_booster_1"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"                     "item_lua"
+		"ScriptFile"					"items/item_lifesteal.lua"
+		"AbilityTextureName"			"boosters/booster_1"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"ItemKillable"					"1"
+		"ItemSellable"					"1"
+		"ItemDroppable"					"1"
+		"ItemCost"						"9000"
+		"ItemShopTags"					"int"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"ring"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+
+		"AbilityValues"
+	    {
+	        "health_per_str"			"2"
+	        "bonus_health"				"1700"
+			"bonus_mana"				"850"
+			"bonus_all"					"40"
+	    }
+	}
+	//======================================================================================================
+	//==============tank booster================================================================================
+	//======================================================================================================
+	"item_recipe_booster_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_arcane_boots"
+		"AbilityTextureName"			"item_recipe"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"2250"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_booster_2"
+		"ItemRequirements"
+		{
+			"01"						"item_booster_1;item_orb_2"
+		}
+	}
+	"item_booster_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"                     "item_lua"
+		"ScriptFile"					"items/item_lifesteal.lua"
+		"AbilityTextureName"			"boosters/booster_2"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"ItemKillable"					"1"
+		"ItemSellable"					"1"
+		"ItemDroppable"					"1"
+		"ItemCost"						"9000"
+		"ItemShopTags"					"int"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"ring"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+
+		"AbilityValues"
+	    {
+			"health_per_str"			"4"
+	        "bonus_health"				"6800"
+			"bonus_mana"				"1700"
+			"bonus_all"					"170"
+	    }
+	}
+	//======================================================================================================
+	//==============Blood Booster================================================================================
+	//======================================================================================================
+	"item_recipe_booster_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_arcane_boots"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"3155"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_booster_3"
+		"ItemRequirements"
+		{
+			"01"						"item_booster_2;item_lifestealtank;item_orb_3"
+		}
+	}
+	"item_booster_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"                     "item_lua"
+		"ScriptFile"					"items/item_lifesteal.lua"
+		"AbilityTextureName"			"boosters/booster_3"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"ItemKillable"					"1"
+		"ItemSellable"					"1"
+		"ItemDroppable"					"1"
+		"ItemCost"						"35000"
+		"ItemShopTags"					"int"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"ring"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+
+		"AbilityValues"
+	    {
+			"health_per_str"		"7"
+	        "bonus_health"			"12500"
+			"bonus_mana"			"2250"
+			"bonus_all"				"525"
+			"bonus_armor"			"8"
+			"bonus_damage"			"1300"
+			
+			"armor_aura"			"5"
+			"mana_regen_aura"		"25"
+			"hp_regen_aura"			"500"
+			"lifesteal_aura"		"11"
+			"lifesteal_shared"		"100"
+			"damage_aura"			"21"
+			"aura_radius"			"1200"
+	    }
+	}
+	//======================================================================================================
+	//==============void booster============================================================================
+	//======================================================================================================
+	"item_recipe_booster_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_arcane_boots"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		"AbilityTextureName"			"item_recipe"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						""	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_booster_4"
+		"ItemRequirements"
+		{
+			"01"						"item_booster_3;item_orb_4"
+		}
+	}
+	"item_booster_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"                     "item_lua"
+		"ScriptFile"					"items/item_lifesteal.lua"
+		"AbilityTextureName"			"boosters/booster_4"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"ItemKillable"					"1"
+		"ItemSellable"					"1"
+		"ItemDroppable"					"1"
+		"ItemCost"						"35000"
+		"ItemShopTags"					"int"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"ring"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+
+		"AbilityValues"
+	    {
+			"health_per_str"			"11"
+	        "bonus_health"				"48000"
+			"bonus_mana"				"4250"
+			"bonus_all"					"1400"
+			"bonus_armor"				"9"
+			"bonus_damage"				"2000"
+			
+			"armor_aura"				"6"
+			"mana_regen_aura"			"50"
+			"hp_regen_aura"				"2000"
+			"lifesteal_aura"			"11.5"
+			"lifesteal_shared"			"100"
+			"damage_aura"				"21"
+			"aura_radius"				"1200"
+	    }
+	}
+}

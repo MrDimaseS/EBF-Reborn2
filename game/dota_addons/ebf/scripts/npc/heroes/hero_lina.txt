@@ -1,0 +1,380 @@
+"DOTAAbilities"
+{	
+	//=================================================================================================================
+	// Ability: Lina Dragon Slave
+	//=================================================================================================================
+	"lina_dragon_slave"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5040"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_Lina.DragonSlave"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+	
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"1075"
+		"AbilityCastPoint"				"0.35"
+		"AbilityDuration"				"0.6875 0.6875 0.6875 0.6875"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"100 115 130 145 160 175 190"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"dragon_slave_damage"
+			{
+				"value"								"950 1500 2000 3750 7500 12500 20000"
+				"CalculateSpellDamageTooltip" 		"1"
+			}
+			"dragon_slave_speed"					"1200"
+			"dragon_slave_width_initial"			"275"
+			"dragon_slave_width_end"				"200"
+			"dragon_slave_distance"					"1075"
+
+			"AbilityCooldown"				
+			{ 
+				"value"								"8"
+				"special_bonus_unique_lina_1"		"-4"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+	
+	//=================================================================================================================
+	// Ability: Lina Light Strike Array
+	//=================================================================================================================
+	"lina_light_strike_array"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5041"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Ability.LightStrikeArray"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+
+		"AbilityCastRange"				"625"
+		"AbilityCastPoint"				"0.45 0.45 0.45 0.45"
+		
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"7"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"115"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"light_strike_array_aoe"	"650"
+			"light_strike_array_delay_time"	"0.5"
+			"light_strike_array_stun_duration"	"2.5"
+			"light_strike_array_damage"
+			{
+				"value"						"1200 2000 3000 5000 10000 20000 30000"
+				"special_bonus_unique_lina_3"	"+75%"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
+	}
+	
+	
+	//=================================================================================================================
+	// Ability: Lina's Fiery Soul
+	//=================================================================================================================
+	"lina_fiery_soul"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5042"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+		"HasShardUpgrade"			"1"
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"fiery_soul_attack_speed_bonus"	
+			{
+				"value"								"8 16 24 32 40 48 56"
+				"special_bonus_unique_lina_2"		"+10"
+			}
+			"fiery_soul_move_speed_bonus"	
+			{
+				"value"									"1.0 1.5 2 2.5 3 3.5 4"
+				"special_bonus_unique_lina_2"			"+1"
+			}
+			"fiery_soul_max_stacks"		"15"
+			"fiery_soul_stack_duration"			"14"		
+			"bonus_spell_damage"
+			{
+				"value"								"0"
+				"special_bonus_shard"				"+170 +185 +205 +230 +280 +390 +530"
+			}					
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+	//=================================================================================================================
+	// Ability: Lina Flame Cloak
+	//=================================================================================================================
+	"lina_flame_cloak"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"944"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"IsGrantedByScepter"			"1"
+		"MaxLevel"						"6"
+		"LevelsBetweenUpgrades"			"6"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"25"
+		"AbilityCastPoint"				"0.0"
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"50"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"flame_cloak_duration"					"6 6.5 7 7.5 8 8.5"
+			"magic_resistance"						"35 36 37 38 39 40"
+			"spell_amp"								"30 50 70 90 110 130"
+			"visualzdelta"							"100"
+			"zchangespeed"							"350"					
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+		"AbilityCastGestureSlot"		"DEFAULT"
+	}
+	//=================================================================================================================
+	// Ability: Lina Laguna Blade
+	//=================================================================================================================
+	"lina_laguna_blade"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5043"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"							// Changes dynamically with scepter	
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"FightRecapLevel"				"2"
+		"AbilitySound"					"Ability.LagunaBladeImpact"
+		"MaxLevel"						"6"
+		"LevelsBetweenUpgrades"			"6"
+		"LinkedAbility"					"lina_flame_cloak"
+
+		"HasScepterUpgrade"             "1"
+		
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"600"
+		"AbilityCastPoint"				"0.45 0.45 0.45"
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_4"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"150 300 450 600 750 900"
+			
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityModifierSupportValue"	"0.0"	// Modifier just delays damage
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"damage"
+			{
+				"value"								"15000 40000 100000 160000 190000 230000"
+				"CalculateSpellDamageTooltip" 		"1"
+			}
+			"damage_delay"							"0.25"
+			"AbilityCooldown"
+			{
+				"value"								"40"
+				"special_bonus_unique_lina_6"		"-35%"
+			}
+			"pierce_immunity"
+			{
+				"value"								"0"
+				"special_bonus_unique_lina_7"		"+1"
+			}
+		}
+	}
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_lina_1"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6212"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"value"						"3.5"
+				"ad_linked_abilities"			"lina_dragon_slave"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_lina_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6313"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"15"
+				"ad_linked_abilities"			"lina_fiery_soul"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+			"02"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"value2"				"1"
+				"ad_linked_abilities"			"lina_fiery_soul"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_lina_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6388"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"						"75"
+				"ad_linked_abilities"			"lina_light_strike_array"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_lina_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6509"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"75"
+				"ad_linked_abilities"			"lina_light_strike_array"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_lina_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"773"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"100"
+				"ad_linked_abilities"			"lina_laguna_blade"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_lina_6"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"844"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"value"						"10"
+				"ad_linked_abilities"			"lina_laguna_blade"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+}

@@ -1,0 +1,530 @@
+"DOTAAbilities"
+{	
+	//=================================================================================================================
+	// Shredder: Flamethrower ( shard ability )
+	//=================================================================================================================
+	"shredder_flamethrower"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"651"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"MaxLevel"						"6"
+		"FightRecapLevel"				"1"
+		"IsGrantedByShard"				"1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
+		
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"20"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"100"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"damage_per_second"			"1280 2290 5350 6550 7050 7550"
+			"duration"					"8"
+			"width"						"275"
+			"length"					"400"
+			"move_slow_pct"				"30"
+			"building_dmg_pct"			"40"
+			"debuff_linger_duration"	"2.0"
+		}
+	}
+
+
+	//=================================================================================================================
+	// Shredder: Whirling Death
+	//=================================================================================================================
+	"shredder_whirling_death"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_timbersaw/shredder_whirling_death"
+		"AbilityTextureName"			"shredder_whirling_death"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PURE"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_Shredder.WhirlingDeath.Cast"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.0 0.0 0.0 0.0"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"6"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"80"		
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"whirling_radius"						"325"
+			"whirling_damage"						"850 980 1110 1850 3350 5050 7365"
+			"tree_damage_scale"						"125 165 205 370 725 1190 1880"
+			"whirling_tick"							"0.3"
+			"stat_loss_pct"
+			{
+				"value"								"10"
+				"special_bonus_unique_timbersaw"	"+12"
+			}
+			"duration"								"15"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+
+	//=================================================================================================================
+	// Shredder: Timber Chain
+	//=================================================================================================================
+	"shredder_timber_chain"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5525"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PURE"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_Shredder.TimberChain.Cast"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
+		"AbilityCastRange"				"750 900 1050 1200"
+		
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"4"
+		
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"60 70 80 90 100 110 120"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"chain_radius"				"90"
+			"range"
+			{
+				"value"					"750 900 1050 1200 1350 1500 1650"
+				"LinkedSpecialBonus"	"special_bonus_unique_timbersaw_3"
+			}
+			"radius"					"225"
+			"speed"						"2200 2400 2600 2800 3000 3200 3400"
+			"damage"					"1235 2185 2775 5080 10000 19800 39300"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
+	}
+
+	//=================================================================================================================
+	// Shredder: Reactive Armor
+	//=================================================================================================================
+	"shredder_reactive_armor"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5526"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+		"HasScepterUpgrade"				"1"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_armor"						"0.6 0.7 0.8 1.0 1.2 1.4"
+			"bonus_hp_regen"					"3 5 10 15 20 35 50"
+			"stack_limit"
+			{
+				"value"							"30"
+				"LinkedSpecialBonus"			"special_bonus_unique_timbersaw_2"
+			}
+			"stack_duration"
+			{
+				"value"							"16"
+				"LinkedSpecialBonus"			"special_bonus_unique_timbersaw_2"
+			}
+			"AbilityManaCost"				
+			{
+				"value"							"0"
+				"special_bonus_scepter"			"+200"
+			}
+			"AbilityCooldown"				
+			{
+				"value"  						"45"
+				"RequiresScepter"				"1"
+			}
+			"initial_shield"
+			{
+				"value"  						"500 1000 2500 5000 7500 15000 30000"
+				"RequiresScepter"				"1"
+			}
+			"shield_per_sec"
+			{
+				"value"  						"100 250 500 1000 2500 5000 7500"
+				"RequiresScepter"				"1"
+			}
+			"shield_per_sec_per_enemy"
+			{
+				"value"  						"50 125 250 500 1250 2500 3750"
+				"RequiresScepter"				"1"
+			}
+			"max_shield"
+			{
+				"value"							"1500 2500 5000 10000 25000 50000 75000"
+				"RequiresScepter"				"1"
+			}
+			"duration"
+			{
+				"value"							"8"
+				"RequiresScepter"				"1"
+			}
+			"radius"
+			{
+				"value"							"600"
+				"RequiresScepter"				"1"
+			}
+			"explosion_radius"
+			{
+				"value"							"600"
+				"RequiresScepter"				"1"
+			}
+			"base_explosion"
+			{
+				"value"							"2000 3250 5000 7500 9000 12000 15000"
+				"RequiresScepter"				"1"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+
+	//=================================================================================================================
+	// Shredder: Chakram
+	//=================================================================================================================
+	"shredder_chakram"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5527"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PURE"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_Shredder.Chakram.Cast"
+		"MaxLevel"						"6"
+		"LevelsBetweenUpgrades"			"6"
+
+		"AbilityDraftUltScepterAbility"		"shredder_chakram_2"
+		"AbilityDraftUltShardAbility"		"shredder_flamethrower"
+		"LinkedAbility"						"shredder_flamethrower"
+
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"1200 1200 1200"
+		"AbilityCastPoint"				"0.15"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"8.0 8.0 8.0"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"75 125 175 225 275 325"
+
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"speed"					"900.0"
+			"radius"				"200"
+			"pass_damage"			"1850 4755 13000 16150 16950 17750"
+			"damage_per_second"		"835 2250 6375 8000 8375 8750"
+			"slow"
+			{
+				"value"				"5"
+				"LinkedSpecialBonus"	"special_bonus_unique_timbersaw_4"
+			}
+			"damage_interval"		"0.5"
+			"break_distance"		"2000.0"
+			"mana_per_second"		"14 22 30 38 46 54"
+			"pass_slow_duration"	"0.5"
+			"slow_health_percentage"	"5"
+			"castpoint_scepter"		
+			{
+				"value"			"0.1"
+				"RequiresScepter"	"1"
+			}
+			"second_chakram"
+			{
+				"value"			"0"
+				"special_bonus_unique_timbersaw"	"+1"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Shredder: Chakram 2
+	//=================================================================================================================
+	"shredder_chakram_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5645"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"		
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PURE"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"FightRecapLevel"				"1"
+		"MaxLevel"						"6"
+		"LevelsBetweenUpgrades"			"6"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"1200 1200 1200"
+		"AbilityCastPoint"				"0.15"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_6"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"8.0 8.0 8.0"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"75 125 175"
+
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"speed"					
+			{
+				"value"				"900.0"
+				"RequiresScepter"	"1"
+			}
+			"radius"				
+			{
+				"value"		"200"
+				"RequiresScepter"	"1"
+			}
+			"pass_damage"
+			{
+				"value"				"1850 4755 13000 16150 16950 17750"
+				"RequiresScepter"	"1"
+			}
+			"damage_per_second"		
+			{
+				"value"				"835 2250 6375 8000 8375 8750"
+				"RequiresScepter"	"1"
+			}
+			"slow"					
+			{
+				"value"			"5"
+				"LinkedSpecialBonus"	"special_bonus_unique_timbersaw_4"
+				"RequiresScepter"	"1"
+			}
+			"damage_interval"		
+			{
+				"value"			"0.5"
+				"RequiresScepter"	"1"
+			}
+			"break_distance"		
+			{
+				"value"			"2000.0"
+				"RequiresScepter"	"1"
+			}
+			"mana_per_second"		
+			{
+				"value"		"14 22 30 38 46 54"
+				"RequiresScepter"	"1"
+			}
+			"pass_slow_duration"	
+			{
+				"value"		"0.5"
+				"RequiresScepter"	"1"
+			}
+			"slow_health_percentage"	
+			{
+				"value"		"5"
+				"RequiresScepter"	"1"
+			}
+			"scepter_bonus_damage"	
+			{
+				"value"		"20"
+				"RequiresScepter"		"1"
+			}		
+			"second_chakram"
+			{
+				"value"			"0"
+				"special_bonus_unique_timbersaw"	"+1"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Shredder: Return Chakram
+	//=================================================================================================================
+	"shredder_return_chakram"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5528"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.0 0.0 0.0 0.0"
+		"AbilityCastAnimation"			"ACT_INVALID"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"0.0 0.0 0.0"
+	}
+
+	//=================================================================================================================
+	// Shredder: Return Chakram
+	//=================================================================================================================
+	"shredder_return_chakram_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5646"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"		
+		"MaxLevel"						"3"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.0 0.0 0.0 0.0"
+ 		"AbilityCastAnimation"			"ACT_INVALID"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"0.0 0.0 0.0"
+	}
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_timbersaw"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6223"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"12"
+				"ad_linked_abilities"			"shredder_whirling_death"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_timbersaw_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6948"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"6"
+				"ad_linked_abilities"			"shredder_reactive_armor"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_timbersaw_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6949"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"1125"
+				"ad_linked_abilities"			"shredder_timber_chain"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_timbersaw_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6951"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"4"
+				"ad_linked_abilities"			"shredder_chakram"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+}

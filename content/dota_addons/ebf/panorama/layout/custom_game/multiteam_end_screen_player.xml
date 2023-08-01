@@ -1,0 +1,57 @@
+<root>
+	<styles>
+		<include src="file://{resources}/styles/dotastyles.css" />
+		<include src="file://{resources}/styles/custom_game/shared_scoreboard_styles.css" />
+		<include src="file://{resources}/styles/custom_game/multiteam_flyout_scoreboard.css" />
+	</styles>
+	<script><![CDATA[
+		function ToggleMute()
+		{
+			var playerId = $.GetContextPanel().GetAttributeInt( "player_id", -1 );
+			if ( playerId !== -1 )
+			{
+				var newIsMuted = !Game.IsPlayerMuted( playerId );
+				Game.SetPlayerMuted( playerId, newIsMuted );
+				$.GetContextPanel().SetHasClass( "player_muted", newIsMuted );
+			}
+		}
+
+		(function()
+		{
+			var playerId = $.GetContextPanel().GetAttributeInt( "player_id", -1 );
+			$.GetContextPanel().SetHasClass( "player_muted", Game.IsPlayerMuted( playerId ) );
+		})();
+	]]></script>
+		<Panel class="PlayerRow">
+			<Panel id="PlayerRowContainer">
+				<Panel id="Hero" class="ScoreCol_Hero ScoreboardPanel">
+					<Image id="HeroIcon" heroimagestyle="landscape" scaling="stretch-to-fit-preserve-aspect" />
+				</Panel>
+				<Panel id="PlayerDetailsContainer" class="ScoreCol_PlayerDetails ScoreboardPanel">
+					<Panel id="PlayerAndHeroName">
+						<Label id="PlayerName" text="xxxxx" />
+						<Label id="HeroNameAndDescription" text="#custom_scoreboard_hero_name_and_desc" />
+					</Panel>
+				</Panel>
+				<Panel id="KillsContainer" class="ScoreCol_Kills ScoreboardPanel">
+					<Label id="Kills" text="999" />
+				</Panel>
+				<Panel id="DeathsContainer" class="ScoreCol_Deaths ScoreboardPanel">
+					<Label id="Deaths" text="999" />
+				</Panel>
+				<Panel id="AssistsContainer" class="ScoreCol_Assists ScoreboardPanel">
+					<Label id="Assists" text="999" />
+				</Panel>
+				<Panel id="MMRContainer" class="ScoreCol_MMR ScoreboardPanel" >
+					<Label hittest="false" id="MMRChange" text="" />
+				</Panel>
+				<Panel id="MMRIconContainer" class="ScoreCol_MMRIcon">
+					<Panel hittest="true" id="RankMedal"/>
+				</Panel>
+				<Panel id="FlagContainer" class="ScoreCol_Flag" >
+					<Image hittest="true" id="PatronBadge"  />
+				</Panel>
+				<Button id="MuteButton" onactivate="ToggleMute();" />
+			</Panel>
+		</Panel>
+</root>

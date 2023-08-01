@@ -1,0 +1,480 @@
+"DOTAAbilities"
+{	
+	//=================================================================================================================
+	// Bounty Hunter: Shuriken Toss
+	//=================================================================================================================
+	"bounty_hunter_shuriken_toss"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_bounty_hunter/bounty_hunter_shuriken_toss"
+		"AbilityTextureName"			"bounty_hunter_shuriken_toss"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_BountyHunter.Shuriken"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+
+		// Unit Targeting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"375 425 475 525 575 625 675"
+		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
+		"AbilityManaCost"				"50 60 70 80 90 100 110"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityModifierSupportValue"	"0.1"	// just a mini stun
+
+		"HasScepterUpgrade"				"1"
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage"			
+			{
+				"value"									"1600 3000 5000 9500 16500 26500 46500"
+				"special_bonus_unique_bounty_hunter_2"	"+100%"
+			}
+			"speed"										"1000 1000 1000 1000"
+			"bounce_aoe"								"1200"
+			"slow_duration"			
+			{
+				"value"									"0.35"
+				"special_bonus_unique_bounty_hunter_5"	"+0.65"
+			}
+			"cast_range"
+			{
+				"value"									"375 425 475 525 575 625 675"
+				"special_bonus_scepter"					"+175"
+			}
+			"slow"										"100"		
+			"attack_slow"								"100"
+			
+			"AbilityCharges"		
+			{
+				"value"									""
+				"special_bonus_unique_bounty_hunter_7"	"+2"
+			}
+			"AbilityCooldown"				
+			{
+				"value"									"5"
+				"special_bonus_unique_bounty_hunter_7"	"-5"
+			}
+			"AbilityChargeRestoreTime"					"5"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+
+	//=================================================================================================================
+	// Bounty Hunter: Jinada
+	//=================================================================================================================
+	"bounty_hunter_jinada"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_bounty_hunter/bounty_hunter_jinada"
+		"AbilityTextureName"			"bounty_hunter_jinada"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		//"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"		
+		"AbilitySound"					"Hero_BountyHunter.Jinada"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AUTOCAST | DOTA_ABILITY_BEHAVIOR_ATTACK"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_BUILDING"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+
+		"AbilityCastRange"				"150"
+		"AbilityCastPoint"				"0.0 0.0 0.0 0.0"		
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"3"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage"
+			{
+				"value"									"900 1725 3175 4875 7900 14150 25000"
+				"special_bonus_unique_bounty_hunter_4"	"+100%"
+			}
+			"gold_steal"
+			{
+				"value"									"12 20 28 36 44 52 60"
+				"special_bonus_unique_bounty_hunter"	"+16"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
+	}	
+
+	//=================================================================================================================
+	// Bounty Hunter: Wind Walk / Shadow Walk
+	//=================================================================================================================
+	"bounty_hunter_wind_walk"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5287"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES_ENEMIES_NO"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		//"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
+		"AbilitySound"					"Hero_BountyHunter.WindWalk"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+
+        "HasShardUpgrade"               "1"
+		"AbilityCastRange"				"650"
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.0 0.0 0.0 0.0"
+		
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"65"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"duration"						"50"
+			"fade_time"						"1.0 0.75 0.5 0.25 0.19 0.13 0.06"
+			"stun_duration"				
+			{
+				"value"						"1.6"
+			}
+			"AbilityCooldown"				
+			{
+				"value"						"18 16 14 12 10 8 6"
+				"special_bonus_shard" 		"-25%"
+			}
+			"AbilityChargeRestoreTime"		
+			{
+				"value"						"18 16 14 12 10 8 6"
+				"special_bonus_shard" 		"-25%"
+				"RequiresShard"				"1"
+			}
+			"ally_fade_time"
+			{
+				"value"						"1.0"
+				"RequiresShard"				"1"
+			}
+			"damage_reduction_pct"
+			{
+				"value"										"0"
+				"special_bonus_unique_bounty_hunter_9"		"+25"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+
+	//=================================================================================================================
+	// Bounty Hunter: Track
+	//=================================================================================================================
+	"bounty_hunter_track"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5288"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"AbilitySound"					"Hero_BountyHunter.Target"
+		"MaxLevel"						"6"
+		"LevelsBetweenUpgrades"			"6"
+
+
+		// Unit Targeting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+		
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"1000"
+		"AbilityCastPoint"				"0.3 0.3 0.3"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
+
+		"AbilityCooldown"				"4"
+		"AbilityManaCost"				"60"
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"target_crit_multiplier"					"140 170 200 230 260 290"
+			"bonus_gold_radius"							"1200"
+			"bonus_gold_self"
+			{
+				"value"									"30 50 70 90 110 130"
+				"special_bonus_unique_bounty_hunter_3"	"+25"
+			}
+			"bonus_gold"
+			{
+				"value"									"15 25 35 45 55 65"
+				"special_bonus_unique_bounty_hunter_3"	"+25"
+			}
+			"duration"									"30.0 30.0 30.0"
+			"gold_steal"								"0.3 0.4 0.5"
+			"bonus_move_speed_pct"						"16 20 24 28 32 36"
+			"toss_crit_multiplier"						"140 170 200 230 260 290"
+		}
+	}
+
+	//=================================================================================================================
+	// Bounty Hunter: Lookout
+	//=================================================================================================================
+	"bounty_hunter_lookout"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"941"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"AbilitySound"					"Hero_TemplarAssassin.Trap"
+		"MaxLevel"						"1"
+		"IsGrantedByShard"				"1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"1800"
+		"AbilityCastPoint"				"0.1"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_5"
+		
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"18.0"
+	
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"30"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"max_lookouts"				"4"
+			"lookout_fade_time"			"2.25"
+			"radius"					"150"
+		}
+	}
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_bounty_hunter"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6018"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"						"0"
+				"ad_linked_abilities"			"bounty_hunter_jinada"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_bounty_hunter_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6358"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"						"30000"
+				"ad_linked_abilities"			"bounty_hunter_shuriken_toss"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_bounty_hunter_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"7040"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"						"25"
+				"ad_linked_abilities"		"bounty_hunter_track"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_bounty_hunter_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"484"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"						"3500"
+				"ad_linked_abilities"		"bounty_hunter_jinada"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_bounty_hunter_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"869"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"ad_linked_abilities"			"bounty_hunter_wind_walk"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+		
+		
+	}
+
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_bounty_hunter_6"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"876"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"value"				"0.5"
+				"ad_linked_abilities"			"bounty_hunter_track"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_bounty_hunter_7"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"877"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"2"
+				"ad_linked_abilities"			"bounty_hunter_shuriken_toss"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_bounty_hunter_8"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"878"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"value"				"500"
+				"ad_linked_abilities"			"bounty_hunter_track"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_bounty_hunter_9"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"959"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
+	}
+
+}

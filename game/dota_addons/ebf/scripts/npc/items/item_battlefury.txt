@@ -1,0 +1,65 @@
+"DOTAAbilities"
+{
+	//=================================================================================================================
+	// Recipe: Battlefury 2
+	//=================================================================================================================
+	"item_recipe_bfury2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_bfury"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"25"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_bfury2"
+		"ItemRequirements"
+		{
+			"01"						"item_bfury;item_relic"
+		}
+	}	
+	
+	//=================================================================================================================
+	// Battlefury2
+	//=================================================================================================================
+	"item_bfury2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_bfury"
+		"AbilityTextureName"			"item_bfury2"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"3030"
+		"Model"							"models/props_gameplay/red_box.vmdl" 
+		"ItemShopTags"					"damage;health_regen;mana_regen;hard_to_tag"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"bf;battle fury"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage"					"480"
+			"bonus_health_regen"			"22.5"
+			"bonus_mana_regen"				"6.9"
+			"radius"						"400"
+			"splash_damage"					"40"
+			"splash_damage_ranged"			"20"
+			"cleave_starting_width"			"150"
+			"cleave_ending_width"			"360"
+			"cleave_distance"				"650"
+		}
+	}
+}

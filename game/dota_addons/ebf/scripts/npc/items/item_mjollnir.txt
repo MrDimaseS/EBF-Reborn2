@@ -1,0 +1,318 @@
+"DOTAAbilities"
+{
+	"item_recipe_mjollnir_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_mjollnir"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"2000"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_mjollnir_2"
+		"ItemRequirements"
+		{
+			"01"						"item_mjollnir;item_relic"
+		}
+	}
+	"item_mjollnir_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_mjollnir.lua"
+		"AbilityTextureName"			"mjollnir/mjollnir_2"
+		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"800"
+		"AbilityCastPoint"				"0.0"
+		"AbilityCooldown"				"35.0"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"100"
+		"ItemShopTags"					"damage;attack_speed;unique"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"mjollnir"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ShouldBeSuggested"				"1"
+		
+		"precache"
+		{
+			"particle" "particles/items2_fx/mjollnir_shield.vpcf"
+			"particle" "particles/items_fx/chain_lightning.vpcf"
+		}
+		
+		"AbilityValues"
+		{
+			"bonus_damage"				"380"
+			"bonus_attack_speed"		"80"
+			"static_duration"			"15.0"
+			"static_chance"				"20"
+			"static_strikes"			"4"
+			"static_damage"				"900"
+			"static_primary_radius"		"600"
+			"static_seconary_radius"	"900"
+			"static_radius"				"900"
+			"static_cooldown"			"1.0"
+			"crit_chance"				"35"
+			"chain_damage"				"345"
+			"chain_strikes"				"12"
+			"chain_radius"				"650"
+			"chain_delay"				"0.20"
+			"chain_cooldown"			"0.15"
+		}
+	}
+	"item_recipe_mjollnir_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_mjollnir"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"3500"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_mjollnir_3"
+		"ItemRequirements"
+		{
+			"01"						"item_mjollnir_2;item_scythe_2"
+		}
+	}
+	"item_mjollnir_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_mjollnir.lua"
+		"AbilityTextureName"			"mjollnir/mjollnir_3"
+		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"800"
+		"AbilityCastPoint"				"0.0"
+		"AbilityCooldown"				"35.0"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"150"
+		"ItemShopTags"					"damage;attack_speed;unique"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"mjollnir"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ShouldBeSuggested"				"1"
+		
+		"precache"
+		{
+			"particle" "particles/items2_fx/mjollnir_shield.vpcf"
+			"particle" "particles/items_fx/chain_lightning.vpcf"
+		}
+		
+		"AbilityValues"
+		{
+			"bonus_damage"				"1280"
+			"bonus_attack_speed"		"120"
+			"static_duration"			"15.0"
+			"static_chance"				"20"
+			"static_strikes"			"4"
+			"static_damage"				"3625"
+			"static_primary_radius"		"600"
+			"static_seconary_radius"	"900"
+			"static_radius"				"900"
+			"static_cooldown"			"1.0"
+			"crit_chance"				"40"
+			"chain_damage"				"1150"
+			"chain_strikes"				"12"
+			"chain_radius"				"650"
+			"chain_delay"				"0.15"
+			"chain_cooldown"			"0.10"
+		}
+	}
+	"item_recipe_mjollnir_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_mjollnir"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"8000"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_mjollnir_4"
+		"ItemRequirements"
+		{
+			"01"						"item_mjollnir_3;item_scythe_3"
+		}
+	}
+	"item_mjollnir_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_mjollnir.lua"
+		"AbilityTextureName"			"mjollnir/mjollnir_4"
+
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"800"
+		"AbilityCastPoint"				"0.0"
+		"AbilityCooldown"				"35.0"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"200"
+		"ItemShopTags"					"damage;attack_speed;unique"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"mjollnir"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ShouldBeSuggested"				"1"
+		
+		"precache"
+		{
+			"particle" "particles/items2_fx/mjollnir_shield.vpcf"
+			"particle" "particles/items_fx/chain_lightning.vpcf"
+		}
+		
+		"AbilityValues"
+		{
+			"bonus_damage"				"3600"
+			"bonus_attack_speed"		"160"
+			"static_duration"			"15.0"
+			"static_chance"				"20"
+			"static_strikes"			"4"
+			"static_damage"				"15000"
+			"static_primary_radius"		"600"
+			"static_seconary_radius"	"900"
+			"static_radius"				"900"
+			"static_cooldown"			"1.0"
+			"chain_damage"				"3250"
+			"chain_strikes"				"12"
+			"chain_radius"				"650"
+			"chain_delay"				"0.10"
+			"chain_cooldown"			"0.05"
+			"crit_chance"				"45"
+		}
+	}
+	//=================================================================================================================
+	// Recipe: Scythe of Decay
+	//=================================================================================================================
+	"item_recipe_mjollnir_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_mjollnir"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"14000"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_mjollnir_5"
+		"ItemRequirements"
+		{
+			"01"						"item_veil_of_discord2;item_orb_4;item_mjollnir_4"
+		}
+	}
+	"item_mjollnir_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_mjollnir.lua"
+		"AbilityTextureName"			"mjollnir/mjollnir_5"
+
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"800"
+		"AbilityCastPoint"				"0.0"
+		"AbilityCooldown"				"35.0"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"250"
+		"ItemShopTags"					"damage;attack_speed;unique"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"mjollnir"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ShouldBeSuggested"				"1"
+		
+		"precache"
+		{
+			"particle" "particles/items2_fx/mjollnir_shield.vpcf"
+			"particle" "particles/items_fx/chain_lightning.vpcf"
+		}
+		
+		"AbilityValues"
+		{
+			"bonus_damage"				"5000"
+			"bonus_attack_speed"		"200"
+			"static_duration"			"15.0"
+			"static_chance"				"20"
+			"static_strikes"			"4"
+			"static_damage"				"58125"
+			"static_primary_radius"		"600"
+			"static_seconary_radius"	"900"
+			"static_radius"				"900"
+			"static_cooldown"			"1.0"
+			
+			"crit_chance"				"50"
+			"chain_damage"				"6000"
+			"chain_strikes"				"12"
+			"chain_radius"				"650"
+			"chain_delay"				"0.05"
+			"chain_cooldown"			"0.05"
+			
+			"bonus_all_stats"			"1600"
+			"aura_mana_regen"			"50"
+			"aura_radius"				"1200"
+			"spell_amp"					"32"
+			"resist_linger_duration"	"5.0"
+			
+		}
+	}
+}

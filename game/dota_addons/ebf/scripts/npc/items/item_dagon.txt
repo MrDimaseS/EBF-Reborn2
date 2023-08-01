@@ -1,0 +1,282 @@
+"DOTAAbilities"
+{
+	//=================================================================================================================
+	// Recipe: uber_dagon_2
+	//=================================================================================================================
+	"item_recipe_uber_dagon_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_dagon"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"25"
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_uber_dagon_2"
+		"ItemRequirements"
+		{
+			"01"						"item_dagon_5;item_mystic_staff_2;item_hourglass_shard;item_ultimate_orb"
+		}
+	}
+	
+	//=================================================================================================================
+	// dagon_
+	//=================================================================================================================
+	"item_uber_dagon_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_dagon.lua"
+		"AbilityTextureName"			"dagon/uber_dagon_2"
+		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"800"
+		"AbilityCastPoint"				"0.0"
+		"AbilityCooldown"				"15.0"
+		"AbilitySharedCooldown"			"dagon"
+		"MaxUpgradeLevel"				"5"
+		"ItemBaseLevel"					"5"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"180"
+		"ItemCost"						"980"
+		"ItemShopTags"					"damage;int;str;agi;hard_to_tag"
+		"ItemQuality"					"rare"
+		"ItemAliases"					"dagon 5"	
+
+		"AbilityValues"
+		{
+			"bonus_intellect"			"85"
+			"bonus_mana_regen"			"4.5"
+			"bonus_other"				"25"
+			"damage"					"4500"
+			"bonus_cooldown"			"10"
+			"dagon_spell_lifesteal"		"75"
+			"passive_spell_lifesteal"	"9"
+		}
+	}
+	//=================================================================================================================
+	// Recipe: uber_dagon_3
+	//=================================================================================================================
+	"item_recipe_uber_dagon_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_dagon"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"25"
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_uber_dagon_3"
+		"ItemRequirements"
+		{
+			"01"						"item_uber_dagon_2;item_mystic_staff_3;item_orb_1"
+		}
+	}
+	//=================================================================================================================
+	// dagon_
+	//=================================================================================================================
+	"item_uber_dagon_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_dagon.lua"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE_STACKING"
+		"AbilityTextureName"			"dagon/uber_dagon_3"
+		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"800"
+		"AbilityCastPoint"				"0.0"
+		"AbilityCooldown"				"15.0"
+		"AbilitySharedCooldown"			"dagon"
+		"MaxUpgradeLevel"				"5"
+		"ItemBaseLevel"					"5"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"180"
+		"ItemCost"						"980"
+		"ItemShopTags"					"damage;int;str;agi;hard_to_tag"
+		"ItemQuality"					"rare"
+		"ItemAliases"					"dagon 5"	
+
+		"AbilityValues"
+		{
+			"bonus_intellect"			"265"
+			"bonus_mana_regen"			"10.5"
+			"bonus_other"				"55"
+			"damage"					"27000"
+			"bonus_cooldown"			"12"
+			"dagon_spell_lifesteal"		"75"
+			"passive_spell_lifesteal"	"10"
+		}
+	}
+	//=================================================================================================================
+	// Recipe: Divine dagon_
+	//=================================================================================================================
+	"item_recipe_uber_dagon_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_dagon"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"25"
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_uber_dagon_4"
+		"ItemRequirements"
+		{
+			"01"						"item_uber_dagon_3;item_mystic_staff_4;item_orb_2"
+		}
+	}
+
+	//=================================================================================================================
+	// divine soul
+	//=================================================================================================================
+	"item_uber_dagon_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_dagon.lua"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE_STACKING"
+		"AbilityTextureName"			"dagon/uber_dagon_4"
+		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"800"
+		"AbilityCastPoint"				"0.0"
+		"AbilityCooldown"				"15.0"
+		"AbilitySharedCooldown"			"dagon"
+		"MaxUpgradeLevel"				"5"
+		"ItemBaseLevel"					"5"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"180"
+		"ItemCost"						"980"
+		"ItemShopTags"					"damage;int;str;agi;hard_to_tag"
+		"ItemQuality"					"rare"
+		"ItemAliases"					"dagon 5"	
+
+		"AbilityValues"
+		{
+			"bonus_intellect"			"805"
+			"bonus_mana_regen"			"20.5"
+			"bonus_other"				"145"
+			"bonus_damage"				"450"
+			"damage"					"80000"
+			"bonus_cooldown"			"14"
+			"dagon_spell_lifesteal"		"75"
+			"passive_spell_lifesteal"	"11"
+		}
+	}
+	//=================================================================================================================
+	// Recipe: Divine dagon_
+	//=================================================================================================================
+	"item_recipe_uber_dagon_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_dagon"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"25"
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_uber_dagon_5"
+		"ItemRequirements"
+		{
+			"01"						"item_uber_dagon_4;item_mystic_staff_5;item_orb_3"
+		}
+	}
+
+	//=================================================================================================================
+	// divine soul
+	//=================================================================================================================
+	"item_uber_dagon_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_dagon.lua"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE_STACKING"
+		"AbilityTextureName"			"dagon/uber_dagon_5"
+		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"800"
+		"AbilityCastPoint"				"0.0"
+		"AbilityCooldown"				"15.0"
+		"AbilitySharedCooldown"			"dagon"
+		"MaxUpgradeLevel"				"5"
+		"ItemBaseLevel"					"5"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"180"
+		"ItemCost"						"980"
+		"ItemShopTags"					"damage;int;str;agi;hard_to_tag"
+		"ItemQuality"					"rare"
+		"ItemAliases"					"dagon 5"	
+
+		"AbilityValues"
+		{
+			"bonus_intellect"			"3475"
+			"bonus_other"				"415"
+			"bonus_mana_regen"			"55.5"
+			"bonus_damage"				"1050"
+			"damage"					"180000"
+			"bonus_cooldown"			"16"
+			"dagon_spell_lifesteal"		"75"
+			"passive_spell_lifesteal"	"12"
+		}
+	}
+}

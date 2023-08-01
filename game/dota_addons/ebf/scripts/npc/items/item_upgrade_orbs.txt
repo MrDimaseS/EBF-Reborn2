@@ -1,0 +1,316 @@
+"DOTAAbilities"
+{
+	//=================================================================================================================
+	// Orb of doom
+	//=================================================================================================================
+	"item_recipe_orb_1"
+	{
+		"BaseClass"						"item_recipe_mjollnir"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		"AbilityTextureName"			"recipe"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"1000"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_orb_1"
+		"ItemRequirements"
+		{
+			"01"						"item_ultimate_orb"
+		}
+	}
+	"item_orb_1"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"item_datadriven"
+		"ItemShareability"				"ITEM_NOT_SHAREABLE"
+		"AbilityTextureName"			"upgraders/orb_1"
+		"ItemKillable"					"1"
+		"ItemCost"						"1800"
+		"ItemShopTags"					"str"
+		"ItemQuality"					"actifact"
+		"ItemAliases"					"Orb"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"Modifiers"
+		{
+    		"item_custom_modifier"
+			{
+		        "Passive" "1"  
+		        "IsHidden" "1"  
+		        "Attributes" "MODIFIER_ATTRIBUTE_MULTIPLE" //This makes duplicate items stack their properties
+		        "Properties"
+		        {
+		            "MODIFIER_PROPERTY_STATS_STRENGTH_BONUS" "%bonus_all"
+		            "MODIFIER_PROPERTY_STATS_AGILITY_BONUS" "%bonus_all"
+		            "MODIFIER_PROPERTY_STATS_INTELLECT_BONUS" "%bonus_all"
+		        }
+		    }
+		}
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"							"FIELD_INTEGER"
+				"bonus_all"							"30"
+			}
+		}
+	}
+	//=================================================================================================================
+	// Orb of doom
+	//=================================================================================================================
+	"item_recipe_orb_2"
+	{
+		"BaseClass"						"item_recipe_mjollnir"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		"AbilityTextureName"			"recipe"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"3000"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_orb_2"
+		"ItemRequirements"
+		{
+			"01"						"item_orb_1"
+		}
+	}
+	"item_orb_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"item_datadriven"
+		"AbilityTextureName"			"upgraders/orb_2"
+		"ItemKillable"					"1"
+		"ItemSellable"					"1"
+		"ItemDroppable"					"1"
+		"ItemShareability"				"ITEM_NOT_SHAREABLE"
+		"ItemCost"						"5400"
+		"ItemShopTags"					"str"
+		"ItemQuality"					"component"
+		"ItemAliases"					"Orb"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"Modifiers"
+		{
+    		"item_custom_modifier"
+    		{
+		        "Passive" "1"  
+		        "IsHidden" "1"  
+		        "Attributes" "MODIFIER_ATTRIBUTE_MULTIPLE" //This makes duplicate items stack their properties
+		        "Properties"
+		        {
+		            "MODIFIER_PROPERTY_STATS_STRENGTH_BONUS" "%bonus_all_stats_tooltip"
+		            "MODIFIER_PROPERTY_STATS_AGILITY_BONUS" "%bonus_all_stats_tooltip"
+		            "MODIFIER_PROPERTY_STATS_INTELLECT_BONUS" "%bonus_all_stats_tooltip"
+		        }
+		    }
+		}
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"								"FIELD_INTEGER"
+				"bonus_all_stats_tooltip"				"90"
+			}
+		}
+	}
+	//=================================================================================================================
+	// Divine Orb
+	//=================================================================================================================
+	"item_recipe_orb_3"
+	{
+		"BaseClass"						"item_recipe_mjollnir"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		"AbilityTextureName"			"recipe"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"9000"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_orb_3"
+		"ItemRequirements"
+		{
+			"01"						"item_orb_2"
+		}
+	}
+	
+	"item_orb_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"item_datadriven"
+		"AbilityTextureName"			"upgraders/orb_3"
+		"ItemShareability"				"ITEM_NOT_SHAREABLE"
+		"ItemKillable"					"1"
+		"ItemSellable"					"1"
+		"ItemDroppable"					"1"
+		"ItemCost"						"12000"
+		"ItemShopTags"					"str"
+		"ItemQuality"					"component"
+		"ItemAliases"					"Orb"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"Modifiers"
+		{
+    		"item_custom_modifier"
+    		{
+		        "Passive" "1"  
+		        "IsHidden" "1"  
+		        "Attributes" "MODIFIER_ATTRIBUTE_MULTIPLE" //This makes duplicate items stack their properties
+		        "Properties"
+		        {
+		            "MODIFIER_PROPERTY_STATS_STRENGTH_BONUS" "%bonus_all_stats_tooltip"
+		            "MODIFIER_PROPERTY_STATS_AGILITY_BONUS" "%bonus_all_stats_tooltip"
+		            "MODIFIER_PROPERTY_STATS_INTELLECT_BONUS" "%bonus_all_stats_tooltip"
+		        }
+		    }
+		}
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"								"FIELD_INTEGER"
+				"bonus_all_stats_tooltip"				"270"
+			}
+		}
+	}
+	//=================================================================================================================
+	// bahamut Orb
+	//=================================================================================================================
+	"item_recipe_orb_4"
+	{
+		"BaseClass"						"item_recipe_mjollnir"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		"AbilityTextureName"			"recipe"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"27000"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_orb_4"
+		"ItemRequirements"
+		{
+			"01"						"item_orb_3"
+		}
+	}
+	
+	"item_orb_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"item_datadriven"
+		"AbilityTextureName"			"upgraders/orb_4"
+		"ItemShareability"				"ITEM_NOT_SHAREABLE"
+		"ItemKillable"					"1"
+		"ItemSellable"					"1"
+		"ItemDroppable"					"1"
+		"ItemCost"						"40000"
+		"ItemShopTags"					"str"
+		"ItemQuality"					"component"
+		"ItemAliases"					"Orb"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"Modifiers"
+		{
+    		"item_custom_modifier"
+    		{
+		        "Passive" "1"  
+		        "IsHidden" "1"  
+		        "Attributes" "MODIFIER_ATTRIBUTE_MULTIPLE" //This makes duplicate items stack their properties
+		        "Properties"
+		        {
+		            "MODIFIER_PROPERTY_STATS_STRENGTH_BONUS" "%bonus_all_stats_tooltip"
+		            "MODIFIER_PROPERTY_STATS_AGILITY_BONUS" "%bonus_all_stats_tooltip"
+		            "MODIFIER_PROPERTY_STATS_INTELLECT_BONUS" "%bonus_all_stats_tooltip"
+		        }
+		    }
+		}
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"								"FIELD_INTEGER"
+				"bonus_all_stats_tooltip"				"1000"
+			}
+		}
+		
+	}
+	"item_orb_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"item_datadriven"
+		"AbilityTextureName"			"upgraders/orb_5"
+		"ItemShareability"				"ITEM_NOT_SHAREABLE"
+		"ItemKillable"					"1"
+		"ItemSellable"					"1"
+		"ItemPurchasable"				"0"
+		"ItemDroppable"					"1"
+		"ItemCost"						"20000"
+		"ItemShopTags"					"str"
+		"ItemQuality"					"component"
+		"ItemAliases"					"Orb"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"Modifiers"
+		{
+    		"item_custom_modifier"
+    		{
+		        "Passive" "1"  
+		        "IsHidden" "1"  
+		        "Attributes" "MODIFIER_ATTRIBUTE_MULTIPLE" //This makes duplicate items stack their properties
+		        "Properties"
+		        {
+		            "MODIFIER_PROPERTY_STATS_STRENGTH_BONUS" "%bonus_all_stats_tooltip"
+		            "MODIFIER_PROPERTY_STATS_AGILITY_BONUS" "%bonus_all_stats_tooltip"
+		            "MODIFIER_PROPERTY_STATS_INTELLECT_BONUS" "%bonus_all_stats_tooltip"
+		        }
+		    }
+		}
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"								"FIELD_INTEGER"
+				"bonus_all_stats_tooltip"				"2500"
+			}
+		}
+		
+	}
+}

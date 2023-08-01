@@ -1,0 +1,547 @@
+@define BACKGROUND_COLOR: #000000;
+@define BACKGROUND_COLOR_WHITE: #FFFFFF28;
+
+.FlyoutScoreboardRoot {
+  horizontal-align: left;
+  vertical-align: top;
+  margin-top: 180px;
+  flow-children: down;
+  padding: 10px;
+
+  transform: translatex(-1200px);
+  transition-property: transform;
+  transition-duration: 0.2s;
+}
+
+.FlyoutScoreboardRoot.flyout_scoreboard_visible {
+  transform: translatex(0px);
+}
+
+#TeamsContainer {
+  flow-children: down;
+  horizontal-align: center;
+  margin-left: 5px;
+}
+
+.FlyoutTeam {
+  margin-top: 10px;
+}
+
+.FlyoutTeam.no_players {
+  visibility: collapse;
+}
+
+.local_player_team.FlyoutTeam {
+  z-index: 99;
+}
+
+.FlyoutTeamData {
+  flow-children: right;
+}
+
+.TeamInfo {
+  margin-top: 1px;
+  height: 100%;
+}
+
+#TeamColor_GradentFromTransparentLeft {
+  width: 100%;
+  height: 100%;
+}
+
+.FlyoutPlayer {
+  flow-children: right;
+}
+
+.TeamCloseSpacer {
+}
+
+#PlayersContainer {
+  flow-children: down;
+}
+
+.TeamId {
+  flow-children: right;
+}
+
+#TeamLogo {
+  vertical-align: top;
+  horizontal-align: right;
+  height: 30px;
+  width: 30px;
+  margin-top: 2px;
+  margin-right: 2px;
+}
+
+#TeamScore {
+  vertical-align: center;
+  horizontal-align: center;
+  color: yellow;
+  font-size: 20px;
+  text-shadow: 2px 2px 2px black;
+  font-weight: bold;
+  margin-top: 3px;
+}
+
+.one_player #TeamScore {
+  font-size: 20px;
+}
+
+#TeamScorePanel {
+  margin-top: 1px;
+  margin-left: 286px;
+  width: 75px;
+  height: 100%;
+  background-color: BACKGROUND_COLOR;
+}
+
+.Legend {
+  flow-children: right;
+}
+
+.Legend Label {
+  text-shadow: 2px 2px 2px black;
+  text-transform: uppercase;
+  font-size: 12px;
+  color: #90999b;
+}
+
+.PlayerRow {
+  height: 40px;
+}
+
+#PlayerRowContainer {
+  flow-children: right;
+  height: 40px;
+}
+
+#HeroIcon {
+  vertical-align: middle;
+  border: 1px solid black;
+}
+
+#LevelContainer,
+#KillsContainer,
+#DeathsContainer,
+#MMRContainer,
+#MMRIconContainer,
+#AssistsContainer,
+#FlagContainer,
+#CommandsContainer,
+#GoldContainer {
+  height: 100%;
+}
+
+.ScoreboardPanel {
+  background-color: rgba(0, 0, 0, 0.4);
+  margin-top: 1px;
+  margin-left: 1px;
+}
+
+.LegendPanel {
+  margin-top: 1px;
+  margin-left: -12px;
+}
+
+.is_local_player .ScoreboardPanel {
+  //    background-color: BACKGROUND_COLOR_WHITE;
+}
+
+.UltimateIndicatorShared {
+  margin-left: 44px;
+  margin-top: 2px;
+  vertical-align: center;
+  width: 20px;
+  height: 20px;
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+
+#Level {
+  vertical-align: center;
+  horizontal-align: center;
+  color: #898b8c;
+}
+
+#Kills,
+#Deaths,
+#Assists
+{
+  vertical-align: center;
+  font-size: 18px;
+  text-align: center;
+  width: 100%;
+}
+
+#MMRWin {
+  margin-right: 40px;
+  vertical-align: center;
+  font-size: 18px;
+  text-align: center;
+  width: 100%;
+  color: #acff8e;
+}
+
+#MMRLoss {
+  margin-left: 35px;
+  vertical-align: center;
+  font-size: 18px;
+  text-align: center;
+  width: 100%;
+  color: #fe9393;
+}
+
+.PositiveChange {
+  vertical-align: center;
+  font-size: 18px;
+  text-align: center;
+  width: 100%;
+  color: #acff8e;
+}
+
+.NegativeChange {
+  vertical-align: center;
+  font-size: 18px;
+  text-align: center;
+  width: 100%;
+  color: #fe9393;
+}
+
+#Sep {
+  vertical-align: center;
+  font-size: 18px;
+  text-align: center;
+  width: 100%;
+}
+
+#Flag {
+  vertical-align: center;
+  font-size: 18px;
+  text-align: center;
+  width: 100%;
+  color: #dbffce;
+}
+
+#PlayerName {
+  color: white;
+  font-size: 15px;
+  margin-bottom: -4px;
+  white-space: nowrap;
+  margin-top: 2px;
+}
+
+#HeroNameAndDescription {
+  color: #9e4040;
+  font-size: 12px;
+  text-shadow: 2px 2px 2px black;
+  margin-top: 5px;
+}
+
+
+
+#MuteVoiceButton {
+  vertical-align: center;
+  width: 28px;
+  height: 28px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-image: url("file://{resources}/images/hud/icon_mute_off.png");
+  visibility: collapse;
+  opacity: 0.8;
+}
+
+.local_player_teammate #MuteVoiceButton {
+  visibility: visible;
+}
+
+#MuteVoiceButton:hover {
+  opacity: 1;
+}
+
+.player_muted #MuteVoiceButton {
+  background-image: url("file://{resources}/images/hud/icon_mute_on.png");
+}
+
+
+
+
+#MuteTextButton {
+  vertical-align: center;
+  width: 28px;
+  height: 28px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-image: url("file://{resources}/images/hud/icon_text_mute_off.png");
+  visibility: collapse;
+  opacity: 0.8;
+}
+
+.local_player_teammate #MuteTextButton {
+  visibility: visible;
+}
+
+#MuteTextButton:hover {
+  opacity: 1;
+}
+
+.player_text_muted #MuteTextButton {
+  background-image: url("file://{resources}/images/hud/icon_text_mute_on.png");
+}
+
+
+
+
+
+
+
+#TeammateGoldAmount {
+  vertical-align: center;
+  text-align: center;
+  color: #ffd300;
+  font-size: 18px;
+  text-shadow: 2px 2px 2px black;
+  visibility: collapse;
+  width: 80px;
+}
+
+.local_player_team #TeammateGoldAmount {
+  visibility: visible;
+}
+
+#PlayerDetailsContainer {
+  height: 100%;
+}
+
+#PlayerAndHeroName {
+  flow-children: down;
+  padding-left: 8px;
+}
+
+.is_local_player #Kills,
+.is_local_player #Deaths,
+.is_local_player #Assists,
+.is_local_player #Level,
+.is_local_player #HeroName {
+  color: white;
+}
+
+.ScoreCol_PlayerDetails {
+  width: 150px;
+}
+
+.ScoreCol_Hero {
+  width: 71px;
+}
+
+.ScoreCol_TeamScore {
+  text-align: center;
+}
+
+.ScoreCol_Kills,
+.ScoreCol_Gold,
+.ScoreCol_Deaths,
+.ScoreCol_Assists,
+.ScoreCol_MMR {
+  width: 80px;
+  text-align: center;
+}
+
+.ScoreCol_MMRIcon {
+  width: 60px;
+  text-align: center;
+}
+
+.ScoreCol_Flag {
+  width: 60px;
+  text-align: center;
+}
+
+.ScoreCol_Commands {
+  width: 96px;
+  text-align: center;
+  flow-children: right;
+}
+
+#ScoreCol_MuteVoice {
+  width: 32px;
+  vertical-align: middle;
+  horizontal-align: center;
+}
+
+#ScoreCol_MuteText {
+  width: 32px;
+  vertical-align: middle;
+  horizontal-align: center;
+}
+
+#ScoreCol_DisableHelp {
+  width: 32px;
+  vertical-align: middle;
+  horizontal-align: center;
+}
+
+.SubheaderDesc {
+  vertical-align: middle;
+  color: #afd2e3;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.Column {
+  width: 80px;
+  padding-left: 10px;
+}
+
+.ColumnCommands {
+  padding-left: 10px;
+  width: 96px;
+}
+
+.ColumnIcon {
+  width: 60px;
+  padding-left: 10px;
+}
+
+.ColumnFlag {
+  width: 60px;
+  padding-left: 10px;
+}
+
+.Goldtext {
+  color: #ffd300;
+  font-size: 16px;
+}
+
+.MMRtext {
+  color: #afd2e3;
+  font-size: 14px;
+}
+
+.MMRtier {
+  color: #44ff00;
+  font-size: 14px;
+}
+
+.Flag {
+  color: #afd2e3;
+  font-size: 14px;
+}
+
+.PlayerRankWrapper {
+  height: 36px;
+  width: height-percentage(100%);
+  horizontal-align: left;
+  vertical-align: top;
+  background-size: 100%;
+  z-index: 2;
+  margin-top: -3px;
+  margin-left: -3px;
+}
+#RankMedal {
+  width: 40px;
+  height: 40px;
+  horizontal-align: center;
+  vertical-align: center;
+  margin: 0;
+  background-repeat: no-repeat;
+}
+.RankMedal0 {
+  background-image: url("s2r://panorama/images/rank_tier_icons/mini/rank0_psd.vtex");
+  background-size: 100%;
+  background-position: 50% 50%;
+}
+.RankMedal1 {
+  background-image: url("s2r://panorama/images/rank_tier_icons/mini/rank1_psd.vtex");
+  background-size: 100%;
+  background-position: 50% 50%;
+}
+.RankMedal2 {
+  background-image: url("s2r://panorama/images/rank_tier_icons/mini/rank2_psd.vtex");
+  background-size: 100%;
+  background-position: 50% 50%;
+}
+.RankMedal3 {
+  background-image: url("s2r://panorama/images/rank_tier_icons/mini/rank3_psd.vtex");
+  background-size: 100%;
+  background-position: 50% 50%;
+}
+.RankMedal4 {
+  background-image: url("s2r://panorama/images/rank_tier_icons/mini/rank4_psd.vtex");
+  background-size: 80%;
+  background-position: 50% 50%;
+}
+.RankMedal5 {
+  background-image: url("s2r://panorama/images/rank_tier_icons/mini/rank5_psd.vtex");
+  background-size: 80%;
+  background-position: 50% 50%;
+}
+.RankMedal6 {
+  background-image: url("s2r://panorama/images/rank_tier_icons/mini/rank6_psd.vtex");
+  background-size: 80%;
+  background-position: 50% 50%;
+}
+.RankMedal7 {
+  background-image: url("s2r://panorama/images/rank_tier_icons/mini/rank7_psd.vtex");
+  background-size: 70%;
+  background-position: 50% 50%;
+}
+.RankMedal8 {
+  background-image: url("s2r://panorama/images/rank_tier_icons/mini/rank8_psd.vtex");
+  background-size: 70%;
+  background-position: 50% 50%;
+}
+
+#RankPips {
+  background-image: url("s2r://panorama/images/rank_tier_icons/pip5_psd.vtex");
+  background-size: 100%;
+  background-position: 50% 50%;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  transform: scaleY(-1) scaleX(-1);
+  margin-bottom: 15px;
+}
+
+#PatronBadge {
+  width: 40px;
+  height: 40px;
+  horizontal-align: center;
+  vertical-align: center;
+  margin: 0;
+  background-repeat: no-repeat;
+}
+
+.PatronBadge0 {
+  background-image: url("file://{resources}/images/hud/tier0.png");
+  background-size: 100%;
+  background-position: 50% 50%;
+}
+
+.PatronBadge1 {
+  background-image: url("file://{resources}/images/hud/tier1.png");
+  background-size: 100%;
+  background-position: 50% 50%;
+}
+
+.PatronBadge2 {
+  background-image: url("file://{resources}/images/hud/tier2.png");
+  background-size: 100%;
+  background-position: 50% 50%;
+}
+
+.PatronBadge3 {
+  background-image: url("file://{resources}/images/hud/tier3.png");
+  background-size: 100%;
+  background-position: 50% 50%;
+}
+
+.PatronBadge4 {
+  background-image: url("file://{resources}/images/hud/tier4.png");
+  background-size: 100%;
+  background-position: 50% 50%;
+}

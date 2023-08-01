@@ -1,0 +1,572 @@
+@define ANIM_TIME: 0.75s;
+@define EXTRA_PADDING: 50px;
+@define M_EXTRA_PADDING: -50px;
+.CustomHudRoot {
+  width: 100%;
+  height: 100%;
+}
+#TopBarScoreboard {
+  margin-right: 0px;
+  margin-top: 0px;
+  horizontal-align: center;
+  vertical-align: top;
+}
+.AspectRatio4x3 #TopBarScoreboard {
+  margin-right: 0px;
+  margin-top: 0px;
+  horizontal-align: center;
+  vertical-align: top;
+}
+.AspectRatio16x10 #TopBarScoreboard {
+  margin-right: 0px;
+  margin-top: 0px;
+  horizontal-align: center;
+  vertical-align: top;
+}
+#ScoreboardContainer {
+  flow-children: right;
+  horizontal-align: left;
+  vertical-align: top;
+}
+#MultiteamScoreboard {
+  horizontal-align: left;
+  vertical-align: top;
+  height: 250px;
+  padding-left: EXTRA_PADDING;
+  padding-right: EXTRA_PADDING;
+  flow-children: right;
+}
+.ScoreboardTeamWrapper {
+  height: 100%;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  transition-property: position;
+  transition-duration: ANIM_TIME;
+  margin-left: M_EXTRA_PADDING;
+  margin-right: M_EXTRA_PADDING;
+}
+#TeamLogo {
+  horizontal-align: left;
+  vertical-align: top;
+  width: 24px;
+  height: 24px;
+}
+.ScoreboardTeamWrapper.no_players {
+  visibility: collapse;
+}
+#ScoreboardTeam {
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: 100% 100%;
+  background-image: url("file://{images}/hud/top_scorboard_center.psd");
+  height: 105px;
+  border-radius: 5px;
+  min-width: 460px;
+}
+.AspectRatio4x3 .ScoreboardTeamWrapper {
+  padding-left: -5px;
+  padding-right: -5px;
+}
+
+#LogoAndScore {
+  horizontal-align: center;
+  height: 100%;
+  width: 170px;
+  margin-top: 2px;
+  background-color: #000000;
+  transition-property: opacity;
+  opacity: 0.7;
+}
+#Midastext {
+  vertical-align: center;
+  horizontal-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: #ffc600;
+  font-family: defaultFont;
+  text-shadow: 2px 2px 2px black;
+  margin-top: -12px;
+  text-overflow: clip;
+  text-align: center;
+}
+#TeamScore {
+  vertical-align: center;
+  horizontal-align: center;
+  font-size: 21px;
+  font-weight: bold;
+  color: #ffc600;
+  font-family: defaultFont;
+  text-shadow: 2px 2px 2px black;
+  margin-top: 20px;
+  text-overflow: clip;
+  text-align: center;
+}
+.player_lose #TeamScore {
+  visibility: collapse;
+}
+#TeamDarkenWash {
+  width: 100%;
+  height: 42px;
+  visibility: collapse;
+  background-color: gradient(
+    linear,
+    25px 0%,
+    40px 0%,
+    from(black),
+    to(transparent)
+  );
+}
+#TeamStatus {
+  width: 100%;
+  height: 100%;
+}
+#PlayersContainer {
+  height: 100%;
+  padding-left: 0px;
+  flow-children: right;
+  horizontal-align: center;
+}
+#TeamOverlayBar {
+  horizontal-align: center;
+  margin-top: 48px;
+  width: 100%;
+  height: 50px;
+}
+#LocalTeamOverlay {
+  width: 100%;
+  margin-left: 0px;
+  height: 65px;
+}
+.ScoreboardTeamWrapper.local_player_team
+  #LocalTeamOverlay
+  .player_bet
+  #LocalTeamOverlay {
+  box-shadow: rgba(255, 0, 0, 1) -3px 0px 6px 3px;
+}
+.ScoreboardTeamWrapper.has_streak #LocalTeamOverlay {
+  box-shadow: -3px 0px 13px 0px #f47b06;
+}
+.ScoreboardPlayer {
+  padding: 5px;
+  border-left: 0px solid black;
+  border-right: 0px solid black;
+}
+
+.FlowDown {
+  flow-children: down;
+}
+.PlayerPortraitWrapper {
+  flow-children: down;
+}
+#PlayerColorBar {
+  height: 5px;
+  width: 100%;
+  border-bottom: 0px solid #000000;
+}
+#HeroIcon {
+  width: 80px;
+  border: 1px solid #000000;
+  height: 48px;
+}
+.player_dead #HeroIcon {
+  wash-color: #cccccc;
+  saturation: 0;
+}
+.player_lose #HeroIcon {
+  wash-color: #cccccc;
+  saturation: 0;
+}
+.player_connection_abandoned #HeroIcon {
+  wash-color: #ff0000;
+  saturation: 0;
+}
+#DisconnectionIndicator {
+  opacity: 0;
+  width: 100%;
+  height: 25px;
+  vertical-align: center;
+}
+.player_connection_abandoned #DisconnectionIndicator,
+.player_connection_failed #DisconnectionIndicator,
+.player_connection_disconnected #DisconnectionIndicator {
+  opacity: 1;
+}
+#ScoreRow {
+  width: 100%;
+}
+#RespawnIndicator {
+  margin-top: 46px;
+  width: 43px;
+  height: 49px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-image: url("s2r://panorama/images/custom_game/deathtimer_background_psd.vtex");
+  horizontal-align: center;
+  transform: translateY(-30px);
+  opacity: 0;
+  transition-property: transform;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-out;
+}
+#RespawnTimer {
+  color: #e5460e;
+  width: 100%;
+  text-align: center;
+  vertical-align: bottom;
+  margin-bottom: 4px;
+  font-size: 18px;
+  text-shadow: 2px 2px 2px black;
+}
+.ScoreboardPlayerWrapper.player_dead #RespawnIndicator {
+  opacity: 1;
+  transform: translateY(0px);
+}
+#LocalPlayerIndicator {
+  horizontal-align: center;
+  vertical-align: bottom;
+  visibility: collapse;
+  width: 40px;
+  height: 20px;
+}
+#UltimateIndicatorContainer {
+  horizontal-align: center;
+  width: 20px;
+  height: 20px;
+  margin-top: 32px;
+  visibility: collapse;
+}
+.player_ultimate_not_leveled #UltimateIndicatorContainer {
+  visibility: collapse;
+}
+.not_local_player_team #UltimateIndicatorContainer {
+  visibility: collapse;
+}
+.UltimateIndicatorShared {
+  width: 100%;
+  height: 100%;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+.is_local_player #LocalPlayerIndicator {
+  visibility: visible;
+}
+.BlackScreen {
+  margin-top: 45px;
+  background-color: black;
+  overflow: clip;
+  width: 100%;
+  height: 23px;
+}
+.player_lose .BlackScreen {
+  visibility: collapse;
+}
+.PurpleLogo {
+  background-image: url("s2r://panorama/images/custom_game/purple-logo_png.vtex");
+  background-size: contain;
+  width: 21px;
+  height: 21px;
+  margin-top: 16px;
+  vertical-align: center;
+  margin-left: 2px;
+  z-index: 10;
+}
+.PurpleText {
+  vertical-align: bottom;
+  vertical-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: defaultFont;
+  text-shadow: 4px 4px 4px black;
+  margin-top: 18px;
+  align: center center;
+  text-overflow: clip;
+}
+.RedText {
+  color: red;
+}
+.GreenText {
+  color: green;
+}
+.player_lose .LevelPanel {
+  visibility: collapse;
+}
+.LevelPanel {
+  height: 37px;
+  width: 37px;
+  z-index: 10;
+  align: right top;
+  vertical-align: center;
+}
+.LevelBG {
+  height: 100%;
+  width: 100%;
+}
+.HeroLevel {
+  color: #e7d291;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: defaultFont;
+  margin-right: 5px;
+  vertical-align: center;
+  horizontal-align: right;
+}
+.duelicon {
+  horizontal-align: center;
+  margin-top: 69px;
+  width: 32px;
+  height: 32px;
+  background-image: url("s2r://panorama/images/custom_game/talents/vslogo1_png.vtex");
+  background-size: 100%;
+  transition-property: opacity;
+  transition-duration: 0.7s;
+  opacity: 0;
+}
+.player_duel .duelicon {
+  opacity: 1;
+}
+.player_dead .duelicon {
+  margin-top: 97px;
+}
+.hunticon {
+  horizontal-align: center;
+  margin-top: 69px;
+  width: 32px;
+  height: 32px;
+  background-image: url("s2r://panorama/images/custom_game/talents/huntlogo1_png.vtex");
+  background-size: 100%;
+  transition-property: opacity;
+  transition-duration: 0.7s;
+  opacity: 0;
+}
+.player_hunt .hunticon {
+  opacity: 1;
+}
+.player_dead .hunticon {
+  margin-top: 97px;
+}
+.ScoreboardPlayerWrapper.alt_health_check #TipButtonCustom {
+  opacity: 1;
+}
+#TipButtonCustom {
+  height: 50px;
+  width: 100%;
+  z-index: 10;
+  opacity: 0;
+}
+
+.PlayerRankWrapper {
+  height: 105px;
+  width: 100%;
+  horizontal-align: middle;
+  vertical-align: top;
+  background-size: 100%;
+  z-index: 2;
+}
+
+#RankMedal {
+  width: 35px;
+  height: 35px;
+  margin: 0;
+  background-repeat: no-repeat;
+  margin-top: 70px;
+  horizontal-align: middle;
+}
+
+#PatronBadge_top {
+  horizontal-align: center;
+  width: 30px;
+  height: 30px;
+  margin-top: 71px;
+  background-repeat: no-repeat;
+}
+
+.animated {
+  animation-name: GlowPulse;
+  animation-duration: 1.8s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 10;
+}
+
+@keyframes 'GlowPulse' {
+  0% {
+    transform: rotateZ(0deg);
+    brightness: 1;
+    box-shadow: #428fc7ff 0px 0px 15px 0px ;
+  }
+  10% {
+    transform: rotateZ(10deg);
+    brightness: 1.2;
+  }
+  20% {
+    transform: rotateZ(-10deg);
+    brightness: 1.4;
+  }
+  30% {
+    transform: rotateZ(5deg);
+    brightness: 1.6;
+  }
+  40% {
+    transform: rotateZ(-5deg);
+    brightness: 1.8;
+  }
+ 
+  50% {
+    transform: rotateZ(0deg);
+    brightness: 2;
+    box-shadow: #428fc700 2px 15px 15px 20px ;
+  }
+  100% {
+    transform: rotateZ(0deg);
+    brightness: 1;
+    box-shadow: #428fc7ff 0px 0px 15px 0px ;
+  }
+}
+
+.RankMedal0 {
+  background-image: url("s2r://panorama/images/rank_tier_icons/mini/rank0_psd.vtex");
+  background-size: 100%;
+  background-position: 50% 50%;
+}
+.RankMedal1 {
+  background-image: url("s2r://panorama/images/rank_tier_icons/mini/rank1_psd.vtex");
+  background-size: 100%;
+  background-position: 50% 50%;
+}
+.RankMedal2 {
+  background-image: url("s2r://panorama/images/rank_tier_icons/mini/rank2_psd.vtex");
+  background-size: 100%;
+  background-position: 50% 50%;
+}
+.RankMedal3 {
+  background-image: url("s2r://panorama/images/rank_tier_icons/mini/rank3_psd.vtex");
+  background-size: 100%;
+  background-position: 50% 50%;
+}
+.RankMedal4 {
+  background-image: url("s2r://panorama/images/rank_tier_icons/mini/rank4_psd.vtex");
+  background-size: 80%;
+  background-position: 50% 50%;
+}
+.RankMedal5 {
+  background-image: url("s2r://panorama/images/rank_tier_icons/mini/rank5_psd.vtex");
+  background-size: 80%;
+  background-position: 50% 50%;
+}
+.RankMedal6 {
+  background-image: url("s2r://panorama/images/rank_tier_icons/mini/rank6_psd.vtex");
+  background-size: 80%;
+  background-position: 50% 50%;
+}
+.RankMedal7 {
+  background-image: url("s2r://panorama/images/rank_tier_icons/mini/rank7_psd.vtex");
+  background-size: 70%;
+  background-position: 50% 50%;
+}
+.RankMedal8 {
+  background-image: url("s2r://panorama/images/rank_tier_icons/mini/rank8_psd.vtex");
+  background-size: 70%;
+  background-position: 50% 50%;
+}
+
+#RankPips {
+  background-image: url("s2r://panorama/images/rank_tier_icons/pip5_psd.vtex");
+  background-size: 100%;
+  background-position: 50% 50%;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  transform: scaleY(-1) scaleX(-1);
+  margin-bottom: 15px;
+  background-size: 70%;
+  background-position: 50% 50%;
+}
+.RankMedal8 {
+  background-image: url("s2r://panorama/images/rank_tier_icons/mini/rank8_psd.vtex");
+  background-size: 70%;
+  background-position: 50% 50%;
+}
+
+#RankPips {
+  background-image: url("s2r://panorama/images/rank_tier_icons/pip5_psd.vtex");
+  background-size: 100%;
+  background-position: 50% 50%;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  transform: scaleY(-1) scaleX(-1);
+  margin-bottom: 15px;
+  background-size: 70%;
+  background-position: 50% 50%;
+}
+.RankMedal8 {
+  background-image: url("s2r://panorama/images/rank_tier_icons/mini/rank8_psd.vtex");
+  background-size: 70%;
+  background-position: 50% 50%;
+}
+
+#RankPips {
+  background-image: url("s2r://panorama/images/rank_tier_icons/pip5_psd.vtex");
+  background-size: 100%;
+  background-position: 50% 50%;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  transform: scaleY(-1) scaleX(-1);
+  margin-bottom: 15px;
+  background-size: 70%;
+  background-position: 50% 50%;
+}
+.RankMedal8 {
+  background-image: url("s2r://panorama/images/rank_tier_icons/mini/rank8_psd.vtex");
+  background-size: 70%;
+  background-position: 50% 50%;
+}
+
+#RankPips {
+  background-image: url("s2r://panorama/images/rank_tier_icons/pip5_psd.vtex");
+  background-size: 100%;
+  background-position: 50% 50%;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  transform: scaleY(-1) scaleX(-1);
+  margin-bottom: 15px;
+  background-size: 70%;
+  background-position: 50% 50%;
+}
+.RankMedal8 {
+  background-image: url("s2r://panorama/images/rank_tier_icons/mini/rank8_psd.vtex");
+  background-size: 70%;
+  background-position: 50% 50%;
+}
+
+#RankPips {
+  background-image: url("s2r://panorama/images/rank_tier_icons/pip5_psd.vtex");
+  background-size: 100%;
+  background-position: 50% 50%;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  transform: scaleY(-1) scaleX(-1);
+  margin-bottom: 15px;
+  background-size: 70%;
+  background-position: 50% 50%;
+}
+.RankMedal8 {
+  background-image: url("s2r://panorama/images/rank_tier_icons/mini/rank8_psd.vtex");
+  background-size: 70%;
+  background-position: 50% 50%;
+}
+
+#RankPips {
+  background-image: url("s2r://panorama/images/rank_tier_icons/pip5_psd.vtex");
+  background-size: 100%;
+  background-position: 50% 50%;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  transform: scaleY(-1) scaleX(-1);
+  margin-bottom: 15px;
+}

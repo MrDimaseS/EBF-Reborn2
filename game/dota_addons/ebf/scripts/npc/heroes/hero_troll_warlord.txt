@@ -1,0 +1,507 @@
+"DOTAAbilities"
+{	
+	//=================================================================================================================
+	// Troll Warlord: Rampage (shard upgrade)
+	//=================================================================================================================
+	"troll_warlord_rampage"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"728"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"6"
+		
+		"IsShardUpgrade"				"1"
+		"IsGrantedByShard"				"1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.0"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
+		"AbilityCastGestureSlot"		"DEFAULT"
+		
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"80"
+	
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"75"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"attack_speed"				"70 85 100 115 130 140 155"
+			"status_resistance"			"25"
+			"duration"					"5"
+		}
+	}
+
+	//=================================================================================================================
+	// Troll Warlord: Berserker's Rage
+	//=================================================================================================================
+	"troll_warlord_berserkers_rage"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5508"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_TOGGLE | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+		"AbilitySound"					"Hero_TrollWarlord.BerserkersRage.Toggle"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.2 0.2 0.2 0.2"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_hp"				"0"
+			"bonus_move_speed"
+			{
+				"value"						"15 25 35 45 55 65 75"
+				"LinkedSpecialBonus"		"special_bonus_unique_troll_warlord_2"
+
+			}
+			"bonus_armor"
+			{
+				"value"						"4 6 8 10 12 14 16"
+				"LinkedSpecialBonus"		"special_bonus_unique_troll_warlord"
+
+			}
+			"bonus_range"			"350"
+			"ensnare_chance"		"14 15 16 17 18 19 20"
+			"ensnare_duration"		"1.4"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+
+
+	//=================================================================================================================
+	// Troll Warlord: Whirling Axes (Throw)
+	//=================================================================================================================
+	"troll_warlord_whirling_axes_ranged"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5509"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_TrollWarlord.WhirlingAxes.Ranged"
+
+		"HasScepterUpgrade"             "1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastAnimation"			"ACT_DOTA_WHIRLING_AXES_RANGED"
+		"AbilityCastGestureSlot"		"DEFAULT"
+		"AbilityCastRange"				"950"
+		"AbilityCastPoint"				"0.2 0.2 0.2 0.2"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"axe_width"					"100"
+			"axe_speed"					"1500.0"
+			"axe_range"					"950.0"
+			"axe_damage"				
+			{ 
+				"value"										"980 1125 1290 1750 2900 5000 6600"
+				"special_bonus_unique_troll_warlord_3"		"+100%"
+			}
+			"axe_slow_duration"			
+			{
+				"value"																"2.5 3 3.5 4 4.5 5 5.5"
+				"special_bonus_unique_troll_warlord_whirling_axes_debuff_duration"				"+2"
+			}
+			"movement_speed"			"40"
+			"axe_spread"				"25"
+			"axe_count"					"5"
+			"AbilityCooldown"
+			{
+				"value"							"9"
+				"special_bonus_scepter"			"-5"
+				"RequiresScepter"				"1"
+			}
+			"AbilityManacost"
+			{
+				"value"							"60 90 120 150 180 210 240"
+				"special_bonus_scepter"			"-50%"
+				"RequiresScepter"				"1"
+			}
+			"pierces_magic_immunity"
+			{
+				"value"											"0"
+				"special_bonus_unique_troll_warlord_6"			"+1"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Troll Warlord: Whirling Axes Spin
+	//=================================================================================================================
+	"troll_warlord_whirling_axes_melee"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5510"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_TrollWarlord.WhirlingAxes.Melee"
+
+		"HasScepterUpgrade"             "1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+ 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_3"
+		"AbilityCastGestureSlot"		"DEFAULT"
+		"AbilityCastPoint"				"0.0"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"damage"
+			{
+				"value"										"550 1250 2150 3950 8075 16750 25750"
+				"special_bonus_unique_troll_warlord_3"		"+100%"
+			}
+			"hit_radius"				"100"
+			"max_range"					"450.0"
+			"axe_movement_speed"		"1250"
+			"blind_duration"			
+			{
+				"value"						"5"
+				"special_bonus_unique_troll_warlord_whirling_axes_debuff_duration"				"+2"
+			}
+			"blind_pct"					"60"
+			"whirl_duration"			"3.0"
+			"AbilityCooldown"
+			{
+				"value"							"9"
+				"special_bonus_scepter"			"-5"
+			}
+			"AbilityManacost"
+			{
+				"value"							"50 75 100 125 150 175 200"
+				"special_bonus_scepter"			"-50%"
+			}
+			"pierces_magic_immunity"
+			{
+				"value"											"0"
+				"special_bonus_unique_troll_warlord_6"			"+1"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Troll Warlord Scepter
+	//=================================================================================================================
+	"troll_warlord_scepter"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"7865"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+
+		"MaxLevel"						"1"
+		"FightRecapLevel"				"1"
+		"IsGrantedByScepter"			"1"
+		"HasScepterUpgrade"			"1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastAnimation"			"ACT_DOTA_WHIRLING_AXES_RANGED"
+		"AbilityCastGestureSlot"		"DEFAULT"
+		"AbilityCastRange"				"800"
+		"AbilityCastPoint"				"0.2"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"25"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"150"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"range"						"1200"
+			}
+			"02"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"duration"					"3.0"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Troll Warlord: Fervor
+	//=================================================================================================================
+	"troll_warlord_fervor"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5511"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+ 		"AbilityCastAnimation"			"ACT_INVALID"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+		
+		// Casting
+		"AbilityValues"
+		{
+			"attack_speed"
+			{
+				"value"						"15 20 25 30 35 40 45"
+				"LinkedSpecialBonus"		"special_bonus_unique_troll_warlord_5"
+			}
+			"max_stacks"			"12"
+		}
+	}
+	
+	//=================================================================================================================
+	//  Troll Warlord: Battle Trance
+	//=================================================================================================================
+	"troll_warlord_battle_trance"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5512"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"MaxLevel"						"6"
+		"LevelsBetweenUpgrades"			"6"
+		"FightRecapLevel"				"2"
+		"AbilitySound"					"Hero_TrollWarlord.BattleTrance.Cast"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+
+		"AbilityDraftUltShardAbility"	"troll_warlord_rampage"
+		"LinkedAbility"					"troll_warlord_rampage"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
+		"AbilityCastGestureSlot"		"DEFAULT"
+		"AbilityCastPoint"				"0.0 0.0 0.0"
+		"AbilityCastRange"				"525"
+	
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"150"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"trance_duration"								"6.5"	
+			"AbilityCooldown"
+			{
+				"value"										"90 80 70 66.1 62.2 58.3"
+				"special_bonus_unique_troll_warlord_7"		"-15"
+			}
+			"lifesteal"										"40 60 80 85 90 95"
+			"attack_speed"									"140 170 200 230 260 290"
+			"movement_speed"
+			{
+				"value"										"25 40 55 65 75 85"
+				"special_bonus_unique_troll_warlord_battle_trance_movespeed"		"+20"
+			}
+			"range"				"900"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_troll_warlord"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6154"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"						"8"
+				"ad_linked_abilities"			"troll_warlord_berserkers_rage"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_troll_warlord_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6958"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"25"
+				"ad_linked_abilities"			"troll_warlord_berserkers_rage"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_troll_warlord_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6959"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"						"21500"
+				"ad_linked_abilities"			"troll_warlord_whirling_axes"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_troll_warlord_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6960"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"0"
+				"ad_linked_abilities"			"troll_warlord_battle_trance"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_troll_warlord_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"492"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"						"10"
+				"ad_linked_abilities"			"troll_warlord_fervor"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+		//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_troll_warlord_6"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"988"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"ad_linked_abilities"			"troll_warlord_whirling_axes"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+		"BaseClass"						"special_bonus_base"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+				"value"				"1"
+		}
+	}
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_troll_warlord_7"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"704"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"value"				"15"
+				"ad_linked_abilities"			"troll_warlord_battle_trance"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+}

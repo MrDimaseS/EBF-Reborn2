@@ -1,0 +1,347 @@
+"DOTAAbilities"
+{
+	//=================================================================================================================
+	// Recipe: Butterfly 2
+	//=================================================================================================================
+	"item_recipe_butterfly2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_butterfly"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"25"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_butterfly2"
+		"ItemRequirements"
+		{
+			"01"						"item_butterfly;item_eagle_2;item_yasha"
+		}
+	}	
+	//=================================================================================================================
+	// Butterfly 2
+	//=================================================================================================================
+	"item_butterfly2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_butterfly"
+		"AbilityTextureName"			"butterfly/butterfly2"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityCooldown"				"55"
+
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"ItemCost"						"4175"
+		"Model"                         "models/props_gameplay/red_box.vmdl" 
+    	"Effect"                        "particles/generic_gameplay/dropped_item.vpcf"
+		"ItemShopTags"					"agi;damage;evasion;attack_speed"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"bfly;butterfly"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_agility"			"175"
+			"bonus_damage"			"220"
+			"bonus_evasion"			"20"
+			"bonus_attack_speed"	"50"
+			"bonus_movespeed"		"10"
+			
+			"as_bonus_stack"		"2"
+			"ms_bonus_stack"		"1"
+			"stack_duration"		"3.5"
+			"max_stacks"			"12"
+			
+			"duration"				"8.0"
+			"evasion_multiplier"	"2"
+		}
+	}
+	//=================================================================================================================
+	// Recipe: Butterfly 3
+	//=================================================================================================================
+	"item_recipe_butterfly3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"1185"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"						"item_recipe_butterfly"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"25"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_butterfly3"
+		"ItemRequirements"
+		{
+			"01"						"item_butterfly2;item_eagle_3;item_lifesteal"
+		}
+	}	
+	//=================================================================================================================
+	// Butterfly 3
+	//=================================================================================================================
+	"item_butterfly3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_butterfly"
+		"AbilityTextureName"			"butterfly/butterfly3"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityCooldown"				"55"
+		
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"ItemCost"						"12455"
+		"Model"                         "models/props_gameplay/red_box.vmdl" 
+    	"Effect"                        "particles/generic_gameplay/dropped_item.vpcf"
+		"ItemShopTags"					"agi;damage;evasion;attack_speed"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"bfly;butterfly"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_agility"			"490"
+			"bonus_damage"			"670"
+			"bonus_evasion"			"25"
+			"bonus_attack_speed"	"60"
+			"bonus_movespeed"		"10"
+			"lifesteal_percent"		"10"
+			
+			"as_bonus_stack"		"3"
+			"ms_bonus_stack"		"1.5"
+			"ls_bonus_stack"		"0.1"
+			"stack_duration"		"3.5"
+			"max_stacks"			"16"
+			
+			"duration"				"8.0"
+			"evasion_multiplier"	"2"
+		}
+	}
+	//=================================================================================================================
+	// Recipe: Butterfly 4
+	//=================================================================================================================
+	"item_recipe_butterfly4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"1187"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"						"item_recipe_butterfly"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"25"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_butterfly4"
+		"ItemRequirements"
+		{
+			"01"						"item_butterfly3;item_eagle_4;item_black_king_bar"
+		}
+	}	
+	//=================================================================================================================
+	// Butterfly 4
+	//=================================================================================================================
+	"item_butterfly4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_butterfly"
+		"AbilityTextureName"			"butterfly/butterfly4"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityCooldown"				"55"
+
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"ItemCost"						"31455"
+		"Model"                         "models/props_gameplay/red_box.vmdl" 
+    	"Effect"                        "particles/generic_gameplay/dropped_item.vpcf"
+		"ItemShopTags"					"agi;damage;evasion;attack_speed"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"bfly;butterfly"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_agility"			"1435"
+			"bonus_strength"		"125"
+			"bonus_damage"			"2020"
+			"bonus_evasion"			"30"
+			"bonus_attack_speed"	"65"
+			"bonus_movespeed"		"10"
+			"lifesteal_percent"		"10"
+			
+			"as_bonus_stack"		"4"
+			"ms_bonus_stack"		"2"
+			"ls_bonus_stack"		"0.15"
+			"stack_duration"		"3.5"
+			"max_stacks"			"20"
+			
+			"duration"				"8.0"
+			"magic_immune"			"1"
+			"evasion_multiplier"	"2"
+		}
+	}
+	//=================================================================================================================
+	// Recipe: Butterfly 5
+	//=================================================================================================================
+	"item_recipe_butterfly5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_butterfly"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"25"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_butterfly5"
+		"ItemRequirements"
+		{
+			"01"						"item_butterfly4;item_eagle_5"
+		}
+	}	
+	//=================================================================================================================
+	// Butterfly 5
+	//=================================================================================================================
+	"item_butterfly5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_butterfly"
+		"AbilityTextureName"			"butterfly/butterfly5"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		
+		"AbilityCooldown"				"55"
+
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"ItemCost"						"80000"
+		"Model"                         "models/props_gameplay/red_box.vmdl" 
+    	"Effect"                        "particles/generic_gameplay/dropped_item.vpcf"
+		"ItemShopTags"					"agi;damage;evasion;attack_speed"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"bfly;butterfly"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_agility"			"4935"
+			"bonus_strength"		"500"
+			"bonus_damage"			"7020"
+			"bonus_evasion"			"35"
+			"bonus_attack_speed"	"70"
+			"bonus_movespeed"		"10"
+			"lifesteal_percent"		"18"
+			
+			"as_bonus_stack"		"5"
+			"ms_bonus_stack"		"2.5"
+			"ls_bonus_stack"		"0.4"
+			"max_agi_bonus"			"50"
+			"stack_duration"		"3.5"
+			"max_stacks"			"24"
+			
+			"duration"				"8.0"
+			"magic_immune"			"1"
+			"evasion_multiplier"	"2"
+		}
+	}
+	//=================================================================================================================
+	// Recipe: Butterfly 5
+	//=================================================================================================================
+	"item_recipe_asura_rapier"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_butterfly"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"25"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_asura_rapier"
+		"ItemRequirements"
+		{
+			"01"						"item_butterfly5;item_orb_5"
+		}
+	}	
+	"item_asura_rapier"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityCooldown"				"55"
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_butterfly"
+		"AbilityTextureName"			"butterfly/asura_rapier"
+		"ItemKillable"					"1"
+		"ItemSellable"					"0"
+		"ItemDroppable"					"1"
+		"ItemCost"						"99999"
+		"ItemShopTags"					"damage;unique"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"heart"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_agility"			"7500"
+			"bonus_strength"		"1500"
+			"bonus_agility_pr"		"500"
+			"bonus_damage"			"20000"
+			"bonus_damage_pr"		"2000"
+			"bonus_evasion"			"40"
+			"bonus_attack_speed"	"75"
+			"bonus_movespeed"		"10"
+			"lifesteal_percent"		"18"
+			
+			"as_bonus_stack"		"6"
+			"ms_bonus_stack"		"3"
+			"ls_bonus_stack"		"0.5"
+			"max_agi_bonus"			"65"
+			"stack_duration"		"3.5"
+			"max_stacks"			"30"
+			
+			"duration"				"8.0"
+			"magic_immune"			"1"
+			"evasion_multiplier"	"2"
+		}
+	}
+}

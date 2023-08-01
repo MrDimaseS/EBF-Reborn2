@@ -1,0 +1,457 @@
+"DOTAAbilities"
+{	
+	//=================================================================================================================
+	// Ability: Spear of Mars
+	//=================================================================================================================
+	"mars_spear"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_mars/mars_spear"
+		"AbilityTextureName"			"mars_spear"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_DIRECTIONAL"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_Mars.Spear.Cast"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+
+        "HasShardUpgrade"               "1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.25"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"8.0"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"100 110 120 130 140 150 160"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"damage"
+			{
+				"value"						"1000 2350 5500 12875 30175 70725 165755"
+				"special_bonus_unique_mars_spear_bonus_damage"	"+75%"
+			}
+			"spear_speed"		"1400"
+			"spear_width"		"125"
+			"spear_vision"		"300"
+			"spear_range"		"900 1000 1100 1200 1300 1400 1500"
+			"activity_duration"		"1.7"
+			"stun_duration"
+			{
+				"value"					"2.6"
+				"LinkedSpecialBonus"	"special_bonus_unique_mars_spear_stun_duration"
+			}
+			"knockback_duration"	"0.25"
+			"knockback_distance"	"75"
+			"units_hit"
+			{
+				"value"					"1"
+				"special_bonus_shard"	"+1"
+			}
+			"shard_trail_duration"
+			{
+				"value"			"10.0"
+				"RequiresShard"				"1"
+			}
+			"shard_trail_radius"
+			{
+				"value"							"200"
+				"RequiresShard"						"1"
+			}
+			"shard_dps"
+			{
+				"value"								"565 760 925 1170 1665 2490 4260"
+				"RequiresShard"						"1"
+				"CalculateSpellDamageTooltip"		"1"
+			}
+			"shard_move_slow_pct"
+			{
+				"value"							"20"
+				"RequiresShard"						"1"
+			}
+			"shard_debuff_linger_duration"
+			{
+				"value"							"2.0"
+				"RequiresShard"						"1"
+			}
+			"shard_interval"
+			{
+				"value"							"0.5"
+				"RequiresShard"						"1"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_5"
+	}
+
+	//=================================================================================================================
+	// Mars: God's Rebuke
+	//=================================================================================================================
+	"mars_gods_rebuke"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"6495"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_NORMAL_WHEN_STOLEN"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_Mars.Shield.Cast"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
+		"AbilityCastPoint"				"0.2"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"90 110 140 190 240 300 380"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"crit_mult"
+			{
+				"value"								"455 515 605 725 815 955 1045"
+				"special_bonus_unique_mars_gods_rebuke_extra_crit"		"+450"
+				"DamageTypeTooltip"			"DAMAGE_TYPE_PHYSICAL"
+			}
+			"angle"						"140"
+			"radius"					
+			{
+				"value"					"500"
+				"special_bonus_unique_mars_rebuke_radius"		"+100"
+			}
+			"knockback_duration"		"0.3"
+			"knockback_distance"		"150"
+			"knockback_slow"			"40"
+			"knockback_slow_duration"
+			{
+				"value"	"2.5"
+				"special_bonus_unique_mars_rebuke_slow"		"+0"
+			}
+			"activity_duration"			"2"
+			"bonus_damage_vs_heroes"	" 140 215 300 450 820 1540 3315"
+			"AbilityCooldown"
+			{
+				"value"					"7"
+				"special_bonus_unique_mars_rebuke_cooldown"				"-4"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Mars Bulwark
+	//=================================================================================================================
+	"mars_bulwark"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"						"6582"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_TOGGLE"
+        "HasScepterUpgrade"			"1"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"physical_damage_reduction"
+			{
+				"value"		"20 25 30 35 40 45 50"
+				"special_bonus_unique_mars_bulwark_damage_reduction"		"+12"
+			}
+			"forward_angle"					"140"
+			"physical_damage_reduction_side"
+			{
+				"value"												"15 17.5 20 22.5 25 27.5 30"
+				"special_bonus_unique_mars_bulwark_damage_reduction"		"+6"
+			}
+			"side_angle"					"240"
+			"redirect_chance"
+			{
+				"value"								"70"
+				"special_bonus_unique_mars_bulwark_redirect_chance"			"+30"
+			}
+			"redirect_range"				"900"
+			"redirect_speed_penatly"
+			{
+				"value"				"18"
+				"special_bonus_unique_mars_bulwark_speed"			"-10"
+			}
+			"redirect_close_range"				"100"
+
+			// Scepter here
+            "soldier_count"
+            {
+                "value"            				  "5"
+                "RequiresScepter"           	 "1"
+            }
+            "soldier_offset"
+            {
+                "value"            				  "200"
+                "RequiresScepter"           	 "1"
+            }
+            "scepter_movement_slow_pct"
+            {
+                "value"            				  "30"
+                "RequiresScepter"           	 "1"
+            }
+            "scepter_movement_slow_duration"
+            {		
+                "value"            				  "1.0"
+                "RequiresScepter"           	 "1"
+            }
+            "scepter_bonus_damage"
+            {
+                "value"            				  "1500"
+                "RequiresScepter"           	 "1"
+
+            }
+		}
+	}
+	//=================================================================================================================
+	// Ability: Mars Arena of Blood
+	//=================================================================================================================
+	"mars_arena_of_blood"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"6598"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+ 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+ 		"AbilitySound"					"Hero_Mars.ArenaOfBlood.Start"
+		
+		"MaxLevel"						"6"
+		"LevelsBetweenUpgrades"			"6"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"400"
+		"AbilityCastPoint"				"0.2"
+ 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_1"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"120"
+		
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"250 400 550 650 850 1400"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"duration"			"10 12 14 16 18 20"
+			"radius"			"750"
+			"width"				"130"
+			"spear_damage"		"10000 36680 111700 199700 224700 250380"
+			"formation_time"	"0.5"
+			"spear_distance_from_wall"	"160"
+			"spear_attack_interval"	"1"
+			"warrior_count"		"18"
+			"first_warrior_angle"	"0.0"
+			"warrior_fade_min_dist"	"350.0"
+			"warrior_fade_max_dist"	"450.0"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+  	"special_bonus_unique_mars_spear_bonus_damage"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6759"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"						"FIELD_FLOAT"
+				"value"				"75"
+				"ad_linked_abilities"			"mars_spear"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+  	"special_bonus_unique_mars_gods_rebuke_extra_crit"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6756"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"							"special_bonus_base"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+  	"special_bonus_unique_mars_spear_cooldown"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"466"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"value"					"3"
+				"ad_linked_abilities"			"mars_spear"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+  	"special_bonus_unique_mars_rebuke_cooldown"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"545"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_mars_spear_stun_duration"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6584"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"						"FIELD_FLOAT"
+				"value"				"0.8"
+				"ad_linked_abilities"			"mars_spear"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_mars_arena_of_blood_hp_regen"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6766"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"value"				"32000"
+				"ad_linked_abilities"			"mars_arena_of_blood"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_mars_bulwark_damage_reduction"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"884"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_mars_bulwark_speed"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"843"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_mars_rebuke_slow"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"883"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
+	}
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_mars_rebuke_radius"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"1020"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
+	}
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_mars_bulwark_redirect_chance"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"1031"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
+	}
+}

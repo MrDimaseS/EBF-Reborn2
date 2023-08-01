@@ -1,0 +1,315 @@
+"DOTAAbilities"
+{	
+	//=================================================================================================================
+	// Luna: Lucent Beam
+	//=================================================================================================================
+	"luna_lucent_beam"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5222"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_Luna.LucentBeam.Target"
+
+		"HasShardUpgrade"               "1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"800"
+		"AbilityCastPoint"				"0.4"
+		
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityModifierSupportValue"	"0.5"	// Mostly about the damage
+		
+		"AbilityValues"
+		{
+			"AbilityCooldown"
+			{
+				"value"							"6"
+				"special_bonus_unique_luna_2" 	"-3.0"
+			}
+			"AbilityManaCost"
+			{
+				"value"							"90 120 150 180 210 240 270"
+				"special_bonus_shard"			"-50"
+			}
+			"beam_damage"
+			{
+				"value"							"1500 3000 5000 7500 15000 30000 60000"
+				"special_bonus_unique_luna_1"	"+100%"
+			}
+			"glaives_fired"
+			{
+				"value"			"0"
+				"special_bonus_unique_luna_8"	"+2"
+			}
+			"search_radius"
+			{
+				"value"					"0"
+			}
+			"attack_radius"
+			{
+				"value"					"0"
+				"special_bonus_unique_luna_8"	"+500"
+			}
+			"stun_duration"
+			{
+				"value"					"0.8"
+				"special_bonus_unique_luna_4"	"+0.4"
+			}
+			"damage_buff_duration"
+			{
+				"value"						"0"
+				"special_bonus_shard"		"+15"
+			}
+			"damage_buff_per_beam"
+			{
+				"value"						"0"
+				"special_bonus_shard"		"+340 +425 +540 +670 +800 +1030 +1420"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+
+	//=================================================================================================================
+	// Luna: Moon Glaives
+	//=================================================================================================================
+	"luna_moon_glaive"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5223"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+		"AbilitySound"					"Hero_Luna.MoonGlaive.Impact"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"range"								"500"
+			"bounces"							"3 4 5 6 7 8 9"
+			"damage_reduction_percent"
+			{
+				"value"							"56 50 44 38 32 26 20"
+				"special_bonus_unique_luna_7"	"-8"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
+	}
+	//=================================================================================================================
+	// Luna: Lunar Blessing
+	//=================================================================================================================
+	"luna_lunar_blessing"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5224"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+				"radius"			"1200"
+				"bonus_damage"			
+				{
+					"value"							"60 105 205 365 780 1020 1910"
+					"special_bonus_unique_luna_3"	"+50%"
+				}
+				"bonus_night_vision"				"250 375 500 625 750 875 1000"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+	//=================================================================================================================
+	// Luna: Eclipse
+	//=================================================================================================================
+	"luna_eclipse"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5225"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"MaxLevel"						"6"
+		"LevelsBetweenUpgrades"			"6"
+		"FightRecapLevel"				"2"
+		"AbilitySound"					"Hero_Luna.Eclipse.Cast"
+
+		"HasScepterUpgrade"			"1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.5"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"150 250 350 450 550 650"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"beams"
+			{
+				"value"					"6 9 12 15 18 21"
+				"special_bonus_scepter"	"+0 +3 +6 +9 +12 +15"
+			}
+			"beam_interval"
+			{
+				"value"					"0.6 0.6 0.6"
+				"special_bonus_scepter"	"-0.3"
+			}
+			"beam_interval_scepter"		"0.3" // purely for the tooltip Note, since the scepter tooltip doesn't show this.
+			"radius"					"675"
+			"hit_count"
+			{
+				"value"					"5"
+				"special_bonus_scepter"	"+1 +7 +13 +19 +25 +31"
+			}
+			"AbilityCastRange"
+			{
+				"value"					"0"
+				"special_bonus_scepter"	"+2500"
+			}
+			"AbilityDuration"
+			{
+				"value"					"2.4 4.2 6.0 7.8 9.6 11.4"
+				"special_bonus_scepter"	"-0.6"
+			}
+			"night_duration"	"10.0"
+			"stun_duration"
+			{
+				"value"							"0.0"
+				"special_bonus_unique_luna_5"	"+0.25"
+			}
+			"AbilityCooldown"
+			{
+				"value"							"140 130 120 116 112 108"
+				"special_bonus_unique_luna_6"	"-25.0"
+			}
+		}
+	}
+	
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_luna_1"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6180"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"ad_linked_abilities"			"luna_lucent_beam"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_luna_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6127"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"ad_linked_abilities"			"luna_lucent_beam"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_luna_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6682"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"ad_linked_abilities"			"luna_lunar_blessing"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_luna_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"7047"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"ad_linked_abilities"			"luna_lucent_beam"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_luna_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"7055"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"ad_linked_abilities"			"luna_eclipse"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_luna_6"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"770"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"ad_linked_abilities"			"luna_eclipse"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+	}
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_luna_7"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"847"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"ad_linked_abilities"			"luna_moon_glaive"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+	}
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_luna_8"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"848"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"ad_linked_abilities"			"luna_lunar_blessing"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+	}
+}

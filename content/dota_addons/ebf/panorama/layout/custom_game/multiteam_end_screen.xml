@@ -1,0 +1,32 @@
+<root>
+	<styles>
+		<include src="file://{resources}/styles/custom_game/shared_scoreboard_styles.css" />
+		<include src="file://{resources}/styles/custom_game/multiteam_flyout_scoreboard.css" />
+		<include src="file://{resources}/styles/dotastyles.css" />
+		<include src="file://{resources}/styles/dota_hud_scoreboard.css" />
+		<include src="file://{resources}/styles/custom_game/multiteam_end_screen.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/scripts/custom_game/shared_scoreboard_updater.js" />
+		<include src="file://{resources}/scripts/custom_game/multiteam_end_screen.js" />
+	</scripts>
+	<Panel hittest="false" class="EndScreenRoot">
+		<Panel hittest="false" class="EndScreenWindow">
+			<Label id="EndScreenVictory" text="#custom_end_screen_victory_message" />
+		<Panel id="Background" hittest="false" class="TopBottomFlow">
+			<Panel id="RadiantHeader" class="ScoreboardHeader">
+				<Label id="RadiantTeamLabel"  text="#Score_Teamname"  />
+				<Label class="Column SubheaderDesc" text="#Score_Damage_Dealt" />
+				<Label class="Column SubheaderDesc" text="#Score_Damage_Taken" />
+				<Label class="Column SubheaderDesc" text="#Score_Healed_HP" />
+				<Label class="Column SubheaderDesc MMRtext" text="#Score_MMR"  />
+				<Label class="ColumnIcon SubheaderDesc MMRtier" text="#Score_RANK" />
+				<Label class="ColumnFlag SubheaderDesc Flag" text="#Score_Badge" />
+			</Panel>
+			<Panel id="TeamsContainer" /></Panel>
+			<Button id="CloseButton" onactivate="Game.FinishGame();">
+				<Label text="#CustomEndScreenClose" />
+			</Button>
+		</Panel>
+	</Panel>
+</root>

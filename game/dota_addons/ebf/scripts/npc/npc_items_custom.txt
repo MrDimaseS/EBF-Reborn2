@@ -1,0 +1,515 @@
+#base "items/item_aether_lens.txt"
+#base "items/item_heart.txt"
+#base "items/item_cuirass.txt"
+#base "items/item_greaves.txt"
+#base "items/item_tank_booster.txt"
+#base "items/item_sange_and_yasha.txt"
+#base "items/item_kaya_and_sange.txt"
+#base "items/item_yasha_and_kaya.txt"
+#base "items/item_ghost.txt"
+#base "items/item_blademail.txt"
+#base "items/item_lifesteal.txt"
+#base "items/item_skadi.txt"
+#base "items/item_veil.txt"
+#base "items/item_octarine_core.txt"
+#base "items/item_armlet.txt"
+#base "items/item_dagon.txt"
+#base "items/item_butterfly.txt"
+#base "items/item_bloodthorn.txt"
+#base "items/item_mjollnir.txt"
+#base "items/item_desolator.txt"
+#base "items/item_battlefury.txt"
+#base "items/item_gungnir.txt"
+#base "items/item_hurricane_pike.txt"
+#base "items/item_bloodstone.txt"
+#base "items/item_witch_blade.txt"
+#base "items/item_cloak_of_the_protector.txt"
+#base "items/item_radiance.txt"
+#base "items/item_gleipnir.txt"
+#base "items/item_aeon_disk.txt"
+#base "items/item_satanic.txt"
+#base "items/item_nullifier.txt"
+#base "items/item_shadowblade.txt"
+#base "items/item_spear_of_justice.txt"
+#base "items/item_solar_crest.txt"
+#base "items/item_void_reach.txt"
+#base "items/item_signet_of_destiny.txt"
+#base "items/item_dagon.txt"
+#base "items/item_blink_treads.txt"
+#base "items/item_force_boots.txt"
+#base "items/item_boots_of_bearing.txt"
+#base "items/item_phylactery.txt"
+#base "items/item_eternal_shroud.txt"
+#base "items/item_upgrade_orbs.txt"
+#base "items/item_upgrade_damage.txt"
+#base "items/item_upgrade_int.txt"
+#base "items/item_upgrade_agi.txt"
+#base "items/item_upgrade_str.txt"
+
+"DOTAAbilities"
+{
+	//=================================================================================================================
+	// Bag of Gold
+	//=================================================================================================================
+	"item_bag_of_gold"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityName"					"item_bag_of_gold"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"Model"							"models/props_gameplay/gold_bag.vmdl"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"ItemKillable"					"0"
+		
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"1200"
+		"AbilityCastPoint"				"0.0"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"99999"
+		"ItemPurchasable"				"0"
+		"ItemShopTags"					"consumable"
+		"ItemQuality"					"consumable"
+		"ItemStackable"					"1"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"ItemPermanent"					"0"
+		"ItemInitialCharges"			"1"
+		"ItemKillable"					"0"
+	}
+	//=================================================================================================================
+	// Holdout Tombstone
+	//=================================================================================================================
+	"item_tombstone"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityName"					"item_tombstone"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"Model"							"models/props_gameplay/tombstoneb01.vmdl"
+		"PingOverrideText"				"DOTA_Chat_Tombstone_Pinged"
+		"precache"
+		{
+			"particle_folder" "particles/units/heroes/hero_morphling"
+		}
+
+		
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"100"
+		"AbilityCastPoint"				"0.0"
+		"AbilityChannelTime"			"5.0"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"99999"
+		"ItemPurchasable"				"0"
+		"ItemShopTags"					"consumable"
+		"ItemQuality"					"consumable"
+		"ItemStackable"					"1"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"ItemPermanent"					"0"
+		"ItemInitialCharges"			"1"
+		"ItemCastOnPickup"				"1"
+		"ItemKillable"					"0"
+	}
+	//=================================================================================================================
+	// Recipe: Helm of mithril will 
+	//=================================================================================================================
+	"item_recipe_helm_of_mithril_will"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"3024"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"						"item_recipe_arcane_boots"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"810"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_helm_of_mithril_will"
+		"ItemRequirements"
+		{
+			"01"						"item_helm_of_iron_will"
+		}
+	}
+	//=================================================================================================================
+	// Helm
+	//=================================================================================================================
+	"item_helm_of_mithril_will"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"3025"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"item_helm_of_iron_will"
+		"AbilityTextureName"			"item_helm_of_mithril_will"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"1000"
+		"ItemShopTags"					"damage;unique"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"Helm"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE_STACKING"
+		"ItemDeclarations"				"DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_armor"			"6"
+			"bonus_regen"			"20"
+		}
+	}
+	"item_admin_armor"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"1269"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"item_datadriven"
+		"AbilityTextureName"			"item_FrenchDeath_armor"
+		"ItemKillable"					"1"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"ItemSellable"					"1"
+		"ItemDroppable"					"1"
+		"ItemCost"						"999999"
+		"ItemShopTags"					"dev"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"dev armor"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		"Modifiers"
+		{
+			"dev_passive"
+			{	
+				"Passive"           "1"
+	            "IsHidden"          "0"
+	            "IsBuff"            "1"
+	            "IsDebuff"          "0"
+	            "IsPurgable"        "0"
+	            "Attributes"        "MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+
+	            "Properties"
+	            {
+	                "MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PHYSICAL"		"1"
+	                "MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_MAGICAL"		"1"
+	                "MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PURE"			"1"
+	                "MODIFIER_PROPERTY_HEALTH_REGEN_PERCENTAGE"			"99"
+					"MODIFIER_PROPERTY_MOVESPEED_BASE_OVERRIDE"			"1500"
+					"MODIFIER_PROPERTY_MOVESPEED_ABSOLUTE"				"1500"
+	            }
+			}
+
+			"dev_Immunity"
+			{	
+				"IsHidden"	 "0"
+				"Passive"	 "1"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"			"lua_item/simple_item.lua"
+						"Function"				"check_admin"
+					}
+				}
+				"OnOwnerDied"
+				{
+					"RunScript"
+					{
+						"ScriptFile"			"lua_item/simple_item.lua"
+						"Function"				"dev_armor"
+					}
+				}
+			}
+		}
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"health_regen_percent"			"100"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_all"			"9999"
+			}
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_health_max"			"9999999"
+			}
+			"04"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_armor"			"99999"
+			}
+			"05"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_attackspeed"			"9999"
+			}	
+			"06"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_damage"		"9999"
+			}
+		}
+	}
+	//=================================================================================================================
+	// Recipe: Battlefury
+	//=================================================================================================================
+	"item_recipe_asura_sword"
+	{
+		"ID"							"1293"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		"BaseClass"						"item_recipe_rapier"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"666"
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_asura_sword"
+		"ItemRequirements"
+		{
+			"01"						"item_orb_5;item_orb_5;item_orb_5;item_hyperstone_5;item_scythe_4"
+		}
+	}	
+
+	"item_asura_sword"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"1279"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"item_datadriven"
+		"AbilityTextureName"			"item_asura_sword"
+		"ItemKillable"					"1"
+		"ItemSellable"					"0"
+		"ItemDroppable"					"1"
+		"ItemCost"						"2000000"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"ItemShopTags"					"damage;unique"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"sword"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+
+
+		"Modifiers"
+		{
+			"passive_start"
+			{	
+				"Passive" "1"
+				"IsHidden" "1"
+				"OnCreated"
+					{
+						"RunScript"
+						{
+							"ScriptFile"			"lua_item/simple_item.lua"
+							"Function"				"scale_asura"
+						}
+					}
+			}
+			"asura_sword_passive"
+			{	
+				"IsHidden"	 "1"
+				"Passive"	 "1"
+				"Attributes"    "MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_BONUS"			"%bonus_health_max"
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"		"%bonus_all"
+					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"		"%bonus_all"
+					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"		"%bonus_all"
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"			"%bonus_damage"
+					"MODIFIER_PROPERTY_EVASION_CONSTANT"			"%bonus_dodge"
+				}
+				"OnAttackStart"
+					{
+						"Random"
+						{
+		   					"Chance" "%crit_chance"
+		   					"OnSuccess"
+		   					{
+								"ApplyModifier"
+								{
+									"ModifierName" 	"critical_strike_h"
+									"Target" 		"CASTER"
+								}
+							}
+							"OnFailure"
+							{}
+						}
+						
+					}
+				"OnAttackLanded"
+				{
+					"Lifesteal"
+					{
+						"Target"				"ATTACKER"
+						"LifestealPercent"		"%lifesteal"
+					}
+					"ApplyModifier"
+					{
+						"Target"				"TARGET"
+						"ModifierName"		"desolator5_effect"
+					}
+					"RemoveModifier"
+						{
+							"ModifierName" 	"critical_strike_h"
+							"Target" 		"CASTER"
+						}
+				}
+			}
+			"hearth_regen_bahamut"
+			{
+				"IsHidden"	 "1"
+				"Passive"	 "1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_REGEN_PERCENTAGE"		"%health_regen_percent"
+				}
+			}		
+			"scale_per_round_sword"
+			{	
+				"Passive"	 "1"
+				"Isbuff" 	"1"
+				"IsHidden"	 "1"
+				"Attributes"    "MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_BONUS"			"%bonus_health_max_PR"
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"		"%bonus_all_PR"
+					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"		"%bonus_all_PR"
+					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"		"%bonus_all_PR"
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"			"%bonus_damage_PR"
+				}
+			}
+			"scale_display"
+			{	
+				"Passive"	 "1"
+				"Isbuff" 	"1"
+				"Attributes"    "MODIFIER_ATTRIBUTE_MULTIPLE"
+			}
+			"critical_strike_h"
+			{
+				"IsHidden"		"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PREATTACK_CRITICALSTRIKE" 	"%crit_damage"
+				}
+			}
+
+			"desolator5_effect"
+			{
+				"IsDebuff" "1"
+    			"IsPurgable" "0"
+    			"Duration" "15"
+     			"Properties"
+     			{
+       				"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS" "%armor_reduction"
+     			}
+			}
+		}
+
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"health_regen_percent"			"-10"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_all"				"-0"
+			}
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_health_max"			"250000"
+			}
+			"04"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_all_PR"			"200"
+			}
+			"05"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_health_max_PR"			"20000"
+			}
+			"06"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_damage"			"3000"
+			}
+			"07"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_damage_PR"		"1000"
+			}
+			"08"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"crit_damage"			"700000"
+			}
+			"09"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"crit_chance"			"5"
+			}
+			"10"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"lifesteal"				"10"
+			}
+		}
+	}
+	"item_hand_of_midas_ebf"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_hand_of_midas"
+		"AbilityTextureName"			"item_hand_of_midas"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemCost"						"550"
+		"ItemShopTags"					"attack_speed;hard_to_tag"
+		"ItemQuality"					"common"
+		"ItemAliases"					"hand of midas"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ShouldBeSuggested"				"1"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_attack_speed"	"40"
+			"xp_multiplier"			"0"
+			"bonus_gold"			"25"
+		}
+	}
+}
+

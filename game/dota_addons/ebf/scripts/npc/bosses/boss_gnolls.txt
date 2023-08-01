@@ -1,0 +1,84 @@
+"DOTAAbilities"
+{	
+	"boss_gnoll_assassin_envenomed_weapon"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"gnoll_assassin_envenomed_weapon"
+		"AbilityTextureName"			"gnoll_assassin_envenomed_weapon"
+		"MaxLevel"						"3"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"damage_per_second"				"50 75 100"
+			"non_hero_duration"				"20.0"
+			"hero_duration"					"2.0"
+			"regen_reduction"				"35 50 65"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+	"boss_gnoll_berserker_break"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"berserker_troll_break"
+		"AbilityTextureName"			"berserker_troll_break"
+		"MaxLevel"						"3"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"		
+		"AbilityCooldown"				"12 10 8"
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"duration"				"3.0"
+		}
+	}
+	"boss_gnoll_berserker_break_enrage_speed"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"furbolg_enrage_attack_speed"
+		"AbilityTextureName"			"furbolg_enrage_attack_speed"
+		"MaxLevel"						"3"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_aspd"				"200 300 400"
+			"duration"					"5"
+			"radius"					"1200"
+		}
+	}
+
+	//=================================================================================================================
+	// Furbolg Champion: Enrage Damage
+	//=================================================================================================================
+	"boss_gnoll_berserker_break_enrage_damage"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"furbolg_enrage_damage"
+		"AbilityTextureName"			"furbolg_enrage_damage"
+		"MaxLevel"						"3"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_dmg_pct"				"90 120 150"
+			"duration"					"5"
+			"radius"					"1200"
+		}
+	}
+
+}

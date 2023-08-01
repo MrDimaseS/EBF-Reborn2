@@ -1,0 +1,277 @@
+@define defaultFont: Radiance,FZLanTingHei-R-GBK,TH Sarabun New,YDYGO 540,Gulim,MingLiU;
+
+.leaderboard {
+  height: 100%;
+  width: 100%;
+  flow-children: right;
+}
+
+#leaderboard {
+  vertical-align: middle;
+  horizontal-align: left;
+  flow-children: down;
+  width: 730px;
+  height: 100%;
+  /* background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: 100% 100%;
+  background-image: url("file://{images}/hud/top_scorboard_center.psd");
+  box-shadow: #000 1px 1px; */
+  background-color: rgba(21, 21, 21, 0.5);
+}
+
+.ranking_item {
+  padding-right: 10px;
+  height: 50px;
+  width: 100%;
+  flow-children: right;
+}
+
+.mmr-leaderboard {
+  width: 730px;
+  flow-children: down;
+  overflow: squish scroll;
+  padding-right: 10px;
+}
+
+.ranking_item Label {
+  font-size: 20px;
+  vertical-align: middle;
+  horizontal-align: center;
+}
+
+DOTAUserName Label {
+  horizontal-align: center;
+  text-align: center;
+}
+
+DOTAUserName Label:hover {
+  color: #dddddd;
+}
+
+
+
+DOTAAvatarImage {
+  width: 40px;
+  height: 40px;
+  padding-right: 10px;
+
+}
+
+#avatar_col {
+  white-space: normal;
+  vertical-align: middle;
+}
+
+#name_col {
+  width: 250px;
+  overflow: squish;
+  white-space: normal;
+  vertical-align: middle;
+}
+
+#mmr_col,
+#plays_col,
+#wins_col,
+#losses_col {
+  width: 75px;
+  vertical-align: middle;
+}
+
+#winrate_col {
+  width: 100px;
+  vertical-align: middle;
+}
+
+#rank_col {
+  width: 50px;
+  vertical-align: middle;
+}
+
+#lb_name_col {
+  text-align: center;
+  width: 290px;
+  vertical-align: middle;
+}
+
+.lb_top {
+  height: 50px;
+  flow-children: down;
+  vertical-align: middle;
+}
+
+#lb_name,
+#legend {
+  vertical-align: middle;
+  flow-children: right;
+  height: 50px;
+}
+
+
+#legend Label {
+  horizontal-align:center;
+  font-weight: semi-bold;
+  font-size: 16px;
+  color: #cfc547;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 0 #000000;
+}
+
+
+#Profile {
+  width: 250px;
+  height: 600px;
+  margin-left: 10px;
+}
+
+.PlayerData {
+  width: 250px;
+  height: 600px;
+  flow-children: down;
+}
+.AccountInfo {
+  height: 150px;
+  width: 250px;
+  background-color: rgba(21, 21, 21, 0.5);
+  flow-children: down;
+}
+
+#C_PlayerAvatar {
+  margin-top: 20px;
+  height: 80px;
+  width: height-percentage(100%);
+  vertical-align: middle;
+  horizontal-align: center;
+}
+
+
+#C_PlayerName 
+{
+  height: 50px;
+  width: 250px;
+}
+
+#C_PlayerName Label
+{
+  margin-top: 10px;
+  vertical-align: middle;
+  horizontal-align: center;
+}
+
+
+
+.TopPlayerInfoLegend {
+  height: 130px;
+  padding-top: 10px;
+  width: 250px;
+  flow-children: right;
+  background-color: rgba(21, 21, 21, 0.5);
+}
+
+.PlayerInfoLegend {
+  vertical-align: middle;
+  flow-children: down;
+
+}
+.PlayerInfoData {
+  vertical-align: middle;
+  flow-children: down;
+}
+
+.PlayerInfoLegend Label {
+  width: 150px;
+  padding-left: 10px;
+  padding-bottom: 10px;
+  font-family: defaultFont;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #ffffff;
+  text-align: left;
+  text-shadow: 2px 2px 0px 1 #000000;
+  transition-property: color;
+  transition-duration: 0.35s;
+  transition-timing-function: ease-in-out;
+}
+
+
+.PlayerInfoData Label {
+  width: 150px;
+  padding-left: 10px;
+  padding-bottom: 10px;
+  font-family: defaultFont;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #ffffff;
+  horizontal-align: center;
+  text-align: center;
+  text-shadow: 2px 2px 0px 1 #000000;
+  transition-property: color;
+  transition-duration: 0.35s;
+  transition-timing-function: ease-in-out;
+} 
+
+
+#separator_top, #separator_bottom
+{
+  height: 60px;
+  width: 250px;
+}
+#separator_top Label, #separator_bottom Label
+{
+  horizontal-align: center;
+  vertical-align: middle;
+  font-size: 22px;
+  color: #cfc547;
+}
+
+#lb_rating
+{
+  background-color: rgba(21, 21, 21, 0.5);
+  height: 150px;
+  width: 250px;
+}
+
+#HeroRank {
+	width: 96px;
+	height: 96px;
+	horizontal-align: center;
+	vertical-align: center;
+	background-repeat: no-repeat;
+	margin-top: -10px;
+  }
+
+
+#HeroRankStars { 
+	width: 128px;
+	height: 20px;
+	horizontal-align: center;
+	vertical-align: center;
+	background-repeat: no-repeat;
+  margin-top: 120px;
+}
+
+
+#RankPos
+{
+	width: 25px;
+	height: 20px;
+	font-size: 15px;
+	horizontal-align: center;
+	vertical-align: middle;
+	text-align: center;
+	margin-top: 50px;
+	color: #fff;
+}
+
+
+#RankExist
+{
+  background-color: rgba(21, 21, 21, 0.5);
+  height: 30px;
+  width: 250px;
+  font-size: 15px;
+  color: #d0d0d0;
+  text-align: center;
+}

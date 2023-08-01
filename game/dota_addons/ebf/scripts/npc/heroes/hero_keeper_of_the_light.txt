@@ -1,0 +1,318 @@
+"DOTAAbilities"
+{	
+	//=================================================================================================================
+	// Keeper of the Light: Illuminate
+	//=================================================================================================================
+	"keeper_of_the_light_illuminate"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5471"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_KeeperOfTheLight.Illuminate.Discharge"
+		"AbilityDraftPreAbility"		"keeper_of_the_light_spirit_form_illuminate"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"1800"
+		"AbilityCastPoint"				"0"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+
+		"AbilityChannelTime"			"3"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"100 125 150 175 200 225 250"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"total_damage"
+			{
+				"value"											"2070 2860 3825 6520 12120 23100 44740"
+				"special_bonus_unique_keeper_of_the_light"		"+50%"
+			}
+			"max_channel_time"		"3"
+			"radius"				"400"
+			"range"					"1550"
+			"speed"					"900.0"
+			"vision_radius"			"800 800 800 800"
+			"vision_duration"		"3.34 3.34 3.34 3.34"
+			"AbilityCooldown"				
+			{
+				"value"					"13"
+				"special_bonus_unique_keeper_of_the_light_illuminate_cooldown"			"-2"
+			}
+			"channel_vision_radius"	"400"
+			"channel_vision_interval"	"0.5"
+			"channel_vision_duration"	"10.34"
+			"channel_vision_step"		"150 180 210 240 270 300 330"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+
+	//=================================================================================================================
+	// Keeper of the Light: Radiant Bind
+	//=================================================================================================================
+	"keeper_of_the_light_radiant_bind"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"532"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"AbilitySound"					"Hero_KeeperOfTheLight.ManaLeak.Cast"
+		"MaxLevel"						"1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.2"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"14"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"120"		
+
+		// Cast Range
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"700 750 800 850 900 950 1000"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"duration"					"7"
+			"slow"						"10"
+			"magic_resistance"			"35"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
+	}
+	//=================================================================================================================
+	// Keeper of the Light: Blinding Light
+	//=================================================================================================================
+	"keeper_of_the_light_blinding_light"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5476"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"AbilitySound"					"Hero_KeeperOfTheLight.BlindingLight"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+		"FightRecapLevel"				"1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"500 550 600 650 700 750 800"
+		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
+ 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_5"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"22 20 18 16 14.5 13.1 11.6"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"120 150 180 210 240 270 300"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityModifierSupportValue"	"1.0"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"miss_rate"				
+			{
+				"value"				"40"
+				"LinkedSpecialBonus"		"special_bonus_unique_keeper_of_the_light_8"
+			}
+			"duration"				"4"
+			"radius"				"500"
+			"knockback_duration"	"0.6"
+			"knockback_distance"	"400"
+			"damage"				"950 1305 1735 2920 5370 10165 19590"
+			
+		}
+	}
+
+	//=================================================================================================================
+	// Keeper of the Light: Chakra Magic
+	//=================================================================================================================
+	"keeper_of_the_light_chakra_magic"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5473"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
+		"AbilitySound"					"Hero_KeeperOfTheLight.ChakraMagic.Target"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"900 900 900 900"
+		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"18 16 14 12 10.7 9.3 8.0"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityModifierSupportValue"	"3.0"	// Value much higher than cost.
+
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"mana_restore"			"100 250 750 2250 6500 12000 25000"
+				"LinkedSpecialBonus"	"special_bonus_unique_keeper_of_the_light_2"
+			}						
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"cooldown_reduction"	"3 4 5 6 7 8 9"
+			}
+			"03"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"mana_leak_pct"			"4.5 5 5.5 6.0 6.5 7.0 7.5"
+			}	
+			"04"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"duration"	"5"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+	//=================================================================================================================
+	// Keeper of the Light: Spirit Form
+	//=================================================================================================================
+	"keeper_of_the_light_spirit_form"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5474"							// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"AbilitySound"					"Hero_KeeperOfTheLight.SpiritForm"
+ 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_6"
+
+		"AbilityDraftPreAbility"		"keeper_of_the_light_blinding_light"
+		"AbilityDraftUltScepterAbility"	"keeper_of_the_light_will_o_wisp"
+		"AbilityDraftUltShardAbility"	"keeper_of_the_light_recall"
+		"MaxLevel"						"6"
+		"LevelsBetweenUpgrades"			"6"
+				
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"85"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"75 125 175 225 275 325"		
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityModifierSupportValue"	"0.35"	// Attacks are primarily about the damage
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"duration"
+			{
+				"value"					"40.0 40.0 40.0"
+				"LinkedSpecialBonus"	"special_bonus_unique_keeper_of_the_light_11"
+			}
+			"movement_speed"			"15 20 25 30 35 40" 
+			"cast_range"				"125 250 375 500 625 750" 
+			"illuminate_heal"			"50 60 70 80 90 100"
+		}
+	}
+	//=================================================================================================================
+	// Keeper of the Light: Spirit Form Illuminate
+	//=================================================================================================================
+	"keeper_of_the_light_spirit_form_illuminate"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5479"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+		"FightRecapLevel"				"1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"1800"
+		"AbilityCastPoint"				"0"
+ 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_7"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"100 125 150 175 200 225 250"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"total_damage"
+			{
+				"value"											"2070 2860 3825 6520 12120 23100 44740"
+				"special_bonus_unique_keeper_of_the_light"		"+50%"
+			}
+			"max_channel_time"									"3"
+			"radius"											"400"
+			"range"												"1550"
+			"speed"					"900.0"
+			"vision_radius"			"800 800 800 800"
+			"vision_duration"		"3.34 3.34 3.34 3.34"
+			"channel_vision_radius"		"400"
+			"channel_vision_interval"													"0.5"
+			"channel_vision_duration"													"10.34"
+			"channel_vision_step"														"150 180 210 240 270 300 330"
+			"AbilityCooldown"				
+			{
+				"value"																	"13"
+				"special_bonus_unique_keeper_of_the_light_illuminate_cooldown"			"-2"
+			}
+
+		}
+	}
+}

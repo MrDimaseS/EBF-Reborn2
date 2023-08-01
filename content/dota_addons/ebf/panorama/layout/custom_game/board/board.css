@@ -1,0 +1,188 @@
+@define defaultFont: Radiance,FZLanTingHei-R-GBK,TH Sarabun New,YDYGO 540,Gulim,MingLiU;
+.Board_Root {
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition-property: opacity, transform;
+  transition-duration: 0.15s;
+  transform: translateY(-2000px);
+}
+.Board_Wrap {
+  align: middle center;
+  flow-children: right;
+  min-width: 1000px;
+}
+.Board_Root.Show {
+  opacity: 1;
+  transform: translateY(0px);
+}
+.Profile
+{
+  width: 200px;
+  height: 600px;
+  background-image: url("file://{images}/hud/infobg.psd");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+.C_Wrap {
+  width: 1000px;
+  background-image: url("file://{images}/hud/infobg.psd");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  flow-children: down;
+  padding: 1px;
+  background-size: cover;
+  background-color: #000000da;
+  box-shadow: #000000f5 0px 0px 8px 0px;
+}
+.C_TopBar {
+  height: 40px;
+  width: 100%;
+}
+.C_TopBar Label{
+  vertical-align: middle;
+  horizontal-align: center;
+  text-align: center;
+  font-weight: semi-bold;
+  font-size: 30px;
+  color: #cfc547;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 0 #000000;
+}
+#C_Tabs {
+  flow-children: right;
+  horizontal-align: center;
+}
+.Tab {
+  width: 300px;
+  height: 30px;
+  margin: 8px 0 0 10px;
+  background-color: gradient(
+    linear,
+    0% 0%,
+    0% 100%,
+    from(#373d45),
+    to(#4d5860)
+  );
+  border-style: solid;
+  border-width: 1px;
+  padding: 4px 10px;
+  border-top-color: #555555;
+  border-left-color: #494949;
+  border-bottom-color: #333333;
+  border-right-color: #404040;
+  transition-property: background-color, opacity;
+  transition-duration: 0.05s;
+  transition-timing-function: linear;
+  box-shadow: #00000055 0px 0px 4px 0px;
+  min-width: 192px;
+  min-height: 36px;
+}
+.Tab.Hide {
+  visibility: collapse;
+}
+.Tab.BActive {
+  background-color: gradient(
+    linear,
+    0% 0%,
+    0% 100%,
+    from(#393939),
+    to(#555555)
+  );
+  border-top-color: #222222;
+  border-left-color: #303030;
+  border-bottom-color: #666666;
+  border-right-color: #444444;
+  sound: "ui_generic_button_click";
+}
+.Tab:not(.BActive):hover {
+  background-color: gradient(
+    linear,
+    0% 0%,
+    0% 100%,
+    from(#4c5561),
+    to(#6c7d88)
+  );
+  border-top-color: #aaaaaa77;
+  border-left-color: #aaaaaa33;
+  border-bottom-color: #333333;
+  border-right-color: #404040;
+}
+.Tab:not(.BActive):active {
+  background-color: gradient(
+    linear,
+    0% 0%,
+    0% 100%,
+    from(#393939),
+    to(#555555)
+  );
+  border-top-color: #222222;
+  border-left-color: #303030;
+  border-bottom-color: #666666;
+  border-right-color: #444444;
+  sound: "ui_generic_button_click";
+}
+.TabInfo {
+  flow-children: right;
+  max-width: 100%;
+  align: center center;
+}
+.TabInfo Label {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #ffffff;
+  horizontal-align: center;
+  text-align: center;
+  vertical-align: middle;
+  text-shadow: 2px 2px 0px 1 #000000;
+  transition-property: color;
+  transition-duration: 0.35s;
+  transition-timing-function: ease-in-out;
+}
+.TabInfo:active Label {
+  transform: translateY(1px);
+}
+#C_Content {
+  width: 100%;
+  height: 600px;
+}
+#C_Content > Panel {
+  visibility: collapse;
+  margin: 8px 10px 10px 10px;
+}
+#C_Content > Panel.BActive {
+  visibility: visible;
+}
+.CloseBoard {
+  width: 32px;
+  height: 32px;
+  horizontal-align: right;
+  background-image: url("file://{resources}/images/hud/btn_close.png");
+  wash-color: #bc5252;
+  background-size: 100%;
+  transition: brightness 0.1s ease-in-out 0s;
+}
+.CloseBoard:hover {
+  brightness: 1.6;
+}
+.CloseBoard:active {
+  brightness: 0.8;
+  sound: "General.ButtonClick";
+}
+VerticalScrollBar {
+  width: 5px;
+}
+#ScrollThumb {
+  background-color: #5f5e6a;
+}
+#C_AdditionalPanels {
+  width: 100%;
+  height: 100%;
+}
+
+#lb_info
+{
+  vertical-align: middle;
+  horizontal-align: right;
+  margin-right: 5px;
+}

@@ -1,0 +1,545 @@
+"DOTAAbilities"
+{	
+	//=================================================================================================================
+	// Tiny: Avalanche
+	//=================================================================================================================
+	"tiny_avalanche"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5106"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Ability.Avalanche"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"600"
+		"AbilityCastPoint"				"0.0 0.0 0.0 0.0"
+		
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"120 120 120 120"
+		
+		"precache"
+		{
+			"particle"					"particles/units/heroes/hero_tiny/tiny_avalanche_projectile_lvl5.vpcf"
+			"particle"					"particles/units/heroes/hero_tiny/tiny_avalanche_projectile_lvl6.vpcf"
+			"particle"					"particles/units/heroes/hero_tiny/tiny_avalanche_projectile_lvl7.vpcf"
+		}
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"AbilityCooldown"			"11"
+			"radius"					"370"
+			"tick_interval"				"0.3"
+			"total_duration"			"1.4"
+			"tick_count"				"5"
+			"stun_duration"				"0.3"
+			"projectile_speed"			"1200"
+			"avalanche_damage"			
+			{
+				"value"					"1200 2000 3750 7000 13500 25000 45000"
+				"special_bonus_unique_tiny"	"+75%"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"toss_multiplier"			"2"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+	
+	//=================================================================================================================
+	// Tiny: Toss
+	//=================================================================================================================
+	"tiny_toss"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_tiny/tiny_toss"
+		"AbilityTextureName"			"tiny_toss"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_AUTOCAST"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"FightRecapLevel"				"1"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+		
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"800 900 1000 1100 1200 1300 1400"
+		"AbilityCastPoint"				"0.0 0.0 0.0 0.0"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				""
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"110 120 130 140 150 160 170"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityModifierSupportValue"	"0.25"	// generally used for damage only
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"duration"							"1.4"
+			"grab_radius"						"300"
+			"radius"							"275"
+			"toss_damage"	
+			{
+				"value"							"820 1875 3215 5770 12100 25000 38415"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"AbilityCharges"		
+			{
+				"value"												"1"
+				"special_bonus_unique_tiny_2"						"+1"
+			}
+			"AbilityCooldown"				
+			{
+				"value"												"14 13 12 11 10.2 9.4 8.6"
+				"special_bonus_unique_tiny_2"						"=0"
+			}
+			"AbilityChargeRestoreTime"								"14 13 12 11 10.2 9.4 8.6"
+			"throw_tiny"		
+			{
+				"value"							""
+				"special_bonus_unique_tiny_5"	"=1"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
+	}
+	
+
+	//=================================================================================================================
+	// Tiny: Craggy Exterior
+	//=================================================================================================================
+	"tiny_craggy_exterior"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"296"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"AbilitySound"					"Hero_Tiny.CraggyExterior.Stun"
+
+		"MaxLevel"						"1"
+		"FightRecapLevel"				"1"
+		"IsGrantedByShard"				"1"
+        "HasShardUpgrade"               "1"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityModifierSupportBonus"		"35"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"stun_chance"				"20"
+			}
+			"02"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"stun_duration"				"1.0"
+			}
+			"03"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"damage"					"100"
+			}
+			"04"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"radius"					"400"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Tiny: Tree Grab
+	//=================================================================================================================
+	"tiny_tree_grab"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5108"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_TREE | DOTA_UNIT_TARGET_CUSTOM"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_CUSTOM"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"AbilitySound"					"Hero_Tiny.CraggyExterior.Stun"
+		"LinkedAbility"					"tiny_toss_tree"
+        "HasShardUpgrade"               "1"
+        "AbilityDraftScepterAbility"    "tiny_tree_channel"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+		
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"165"
+		"AbilityCastPoint"				"0.2"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"19 16 13 10 8.4 6.8 5.2"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"40"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityModifierSupportBonus"		"35"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"attack_count"	
+			{
+				"value"						"5"
+				"LinkedSpecialBonus"		"special_bonus_unique_tiny_6"
+			}
+			"bonus_damage"	
+			{
+				"value"							"135 175 240 335 575 875 1125"
+				"CalculateSpellDamageTooltip"	"0"
+			}
+			"bonus_damage_buildings"	
+			{
+				"value"							"40 55 70 85"
+				"CalculateSpellDamageTooltip"	"0"
+				"DamageTypeTooltip"				"DAMAGE_TYPE_NONE"
+			}
+			"attack_range"						"350"
+			"splash_width"						"200"
+			"splash_range"						"400"
+			"splash_pct"						"40 50 60 70 80 90 100"
+			"bat_increase"						"0.0"
+			"speed_reduction"					"0"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+
+	//=================================================================================================================
+	// Ability: Tiny Toss Tree
+	//=================================================================================================================
+	"tiny_toss_tree"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6937"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"	
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"FightRecapLevel"				"1"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+		"LinkedAbility"					"tiny_tree_grab"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"1200"
+		"AbilityCastPoint"				"0.2"
+ 		"AbilityCastAnimation"		"ACT_INVALID"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"speed"						"900.0"
+			"range"						"1200"
+			"bonus_damage"				
+			{
+				"value"					"135 175 240 335 575 875 1125"
+				"CalculateSpellDamageTooltip"	"0"
+			}
+			"splash_radius"				"275"
+			"movement_slow"				"25"
+			"slow_duration"				"2.5"
+
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Tiny Tree Channel (Scepter)
+	//=================================================================================================================
+	"tiny_tree_channel"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"7850"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_CHANNELLED  | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"FightRecapLevel"				"1"
+		"MaxLevel"						"1"
+        "HasScepterUpgrade"				"1"
+        "IsGrantedByScepter"			"1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityChannelTime"			"2.4"
+		"AbilityCastRange"				"1200"
+		"AbilityCastPoint"				"0.2"
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_4"
+		"AbilityChannelAnimation"		"ACT_DOTA_CAST_ABILITY_4"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"17"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"200"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"speed"		"1000.0"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"range"		"1200"
+			}
+			"03"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"splash_radius"				"400"
+			}
+			"04"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"tree_grab_radius"		"700"
+			}
+			"05"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"interval"		"0.4"
+			}
+			"06"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"bonus_damage"				"0"
+				"CalculateSpellDamageTooltip"	"0"
+			}
+		}
+	}
+
+	
+	//=================================================================================================================
+	// Tiny: Grow
+	//=================================================================================================================
+	"tiny_grow"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_tiny/tiny_grow"
+		"AbilityTextureName"			"tiny_grow"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
+		"AbilitySound"					"Tiny.Grow"
+		"AbilityCastAnimation"			"ACT_INVALID"
+		"MaxLevel"						"6"
+		"LevelsBetweenUpgrades"			"6"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_armor"						"10 17 24 31 38 45"
+			"bonus_damage"			
+			{
+				"value"							"1500 5500 15500 35000 40000 45000"
+				"CalculateSpellDamageTooltip"	"0"
+			}
+			"tree_bonus_damage_pct"			
+			{
+				"value"							"0"
+				"special_bonus_unique_tiny_7"	"+40"
+				"DamageTypeTooltip"				"DAMAGE_TYPE_NONE"
+				"CalculateSpellDamageTooltip"	"0"
+			}
+			"attack_speed_reduction"			"-30"
+			"spell_bonus_damage"
+			{
+				"value"							"25 50 75 100 125 150"
+				"CalculateSpellDamageTooltip"	"0"
+			}
+			"spell_bonus_range"					"25 40 55 70 85 100"
+		}
+	}
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_tiny"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6153"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_tiny_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6932"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"2"
+				"ad_linked_abilities"			"tiny_toss"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_tiny_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6933"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"						"4"
+				"ad_linked_abilities"			"tiny_avalanche"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_tiny_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6934"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"7"
+				"ad_linked_abilities"			"tiny_tree_grab"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_tiny_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"7005"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"0"
+				"ad_linked_abilities"			"tiny_toss"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_tiny_6"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"558"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"5"
+				"ad_linked_abilities"			"tiny_tree_grab"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_tiny_7"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"718"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"ad_linked_abilities"			"tiny_grow"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+		
+	}
+}

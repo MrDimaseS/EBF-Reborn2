@@ -1,0 +1,386 @@
+"DOTAAbilities"
+{
+	"item_recipe_signet_of_destiny"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_holy_locket"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"25"
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_signet_of_destiny"
+		"ItemRequirements"
+		{
+			"01"						"item_holy_locket;item_spirit_vessel;item_kaya"
+		}
+	}
+	
+	//=================================================================================================================
+	// signet_of_destiny_
+	//=================================================================================================================
+	"item_signet_of_destiny"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------|
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_signet_of_destiny.lua"
+		"AbilityTextureName"			"signet_of_destiny/signet_of_destiny"
+		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_BASIC"
+		
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"800"
+		"AbilityCastPoint"				"0.0"
+		"AbilityCooldown"				"13"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemShopTags"					"damage;unique"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"dagon;holy locket;spirit vessel"
+		"ItemDeclarations"				"DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+
+		"AbilityValues"
+		{
+			"bonus_intellect"			"50"
+			"bonus_other"				"8"
+			"bonus_health"				"500"
+			"bonus_armor"				"2"
+			"bonus_mana_regen"			"1.75"
+			"heal_increase"				"30"
+			"spell_amp"					"11"
+			
+			"soul_heal_amount"			"40"
+			"soul_damage_amount"		"35"
+			"hp_regen_reduction_enemy"	"45"
+			"enemy_hp_drain"			"0.75"
+			"duration"					"8.0"
+			
+			"max_charges"				"20"
+			"charge_radius"				"1200"
+			"restore_per_charge"		""
+			"hp_per_charge"				"175"
+			"mp_per_charge"				"35"
+			"charge_gain_timer"			"10"
+			"charge_gain_kill"			"3"
+			"charge_gain_hero"			"6"
+		}
+	}
+	"item_recipe_signet_of_destiny_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_holy_locket"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"25"
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_signet_of_destiny_2"
+		"ItemRequirements"
+		{
+			"01"						"item_signet_of_destiny;item_orb_1"
+		}
+	}
+	
+	//=================================================================================================================
+	// signet_of_destiny_
+	//=================================================================================================================
+	"item_signet_of_destiny_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------|
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_signet_of_destiny.lua"
+		"AbilityTextureName"			"signet_of_destiny/signet_of_destiny_2"
+		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_BASIC"
+		
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"800"
+		"AbilityCastPoint"				"0.0"
+		"AbilityCooldown"				"13"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemShopTags"					"damage;unique"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"dagon;holy locket;spirit vessel"
+		"ItemDeclarations"				"DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+
+		"AbilityValues"
+		{
+			"bonus_intellect"			"90"
+			"bonus_other"				"40"
+			"bonus_health"				"1175"
+			"bonus_armor"				"3"
+			"bonus_mana_regen"			"2.05"
+			"heal_increase"				"40"
+			"spell_amp"					"15"
+			
+			"soul_damage_amount"		"80"
+			"hp_regen_reduction_enemy"	"45"
+			"enemy_hp_drain"			"0.95"
+			"duration"					"8.0"
+			
+			"max_charges"				"20"
+			"charge_radius"				"1200"
+			"hp_per_charge"				"325"
+			"mp_per_charge"				"45"
+			"charge_gain_timer"			"10"
+			"charge_gain_kill"			"3"
+			"charge_gain_hero"			"6"
+		}
+	}
+	//=================================================================================================================
+	// Recipe: signet_of_destiny_3
+	//=================================================================================================================
+	"item_recipe_signet_of_destiny_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_holy_locket"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"25"
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_signet_of_destiny_3"
+		"ItemRequirements"
+		{
+			"01"						"item_signet_of_destiny_2;item_orb_2"
+		}
+	}
+	//=================================================================================================================
+	// signet_of_destiny_
+	//=================================================================================================================
+	"item_signet_of_destiny_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------|
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_signet_of_destiny.lua"
+		"AbilityTextureName"			"signet_of_destiny/signet_of_destiny_3"
+		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_BASIC"
+		
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"800"
+		"AbilityCastPoint"				"0.0"
+		"AbilityCooldown"				"13"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"1220"
+		"ItemShopTags"					"damage;unique"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"dagon;holy locket;spirit vessel"
+		"ItemDeclarations"				"DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		"AbilityValues"
+		{
+			"bonus_intellect"			"180"
+			"bonus_other"				"130"
+			"bonus_health"				"3200"
+			"bonus_armor"				"4"
+			"bonus_mana_regen"			"2.95"
+			"heal_increase"				"50"
+			"spell_amp"					"21"
+			
+			"soul_damage_amount"		"150"
+			"hp_regen_reduction_enemy"	"45"
+			"enemy_hp_drain"			"1.15"
+			"duration"					"8.0"
+			
+			"max_charges"				"20"
+			"charge_radius"				"1200"
+			"hp_per_charge"				"450"
+			"mp_per_charge"				"55"
+			"charge_gain_timer"			"10"
+			"charge_gain_kill"			"3"
+			"charge_gain_hero"			"6"
+		}
+	}
+	//=================================================================================================================
+	// Recipe: Divine signet_of_destiny_
+	//=================================================================================================================
+	"item_recipe_signet_of_destiny_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_holy_locket"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		"AbilityTextureName"            "item_signet_of_destiny_5"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"25"
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_signet_of_destiny_4"
+		"ItemRequirements"
+		{
+			"01"						"item_signet_of_destiny_3;item_orb_3"
+		}
+	}
+
+	//=================================================================================================================
+	// divine soul
+	//=================================================================================================================
+	"item_signet_of_destiny_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------|
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_signet_of_destiny.lua"
+		"AbilityTextureName"			"signet_of_destiny/signet_of_destiny_4"
+		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_BASIC"
+		
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"800"
+		"AbilityCastPoint"				"0.0"
+		"AbilityCooldown"				"13"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"1220"
+		"ItemShopTags"					"damage;unique"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"dagon;holy locket;spirit vessel"
+		"ItemDeclarations"				"DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+
+		"AbilityValues"
+		{
+			"bonus_intellect"			"450"
+			"bonus_other"				"400"
+			"bonus_health"				"9275"
+			"bonus_armor"				"5"
+			"bonus_mana_regen"			"5.65"
+			"heal_increase"				"60"
+			"spell_amp"					"32"
+			
+			"soul_damage_amount"		"300"
+			"hp_regen_reduction_enemy"	"45"
+			"enemy_hp_drain"			"1.35"
+			"duration"					"8.0"
+			
+			"max_charges"				"20"
+			"charge_radius"				"750"
+			"hp_per_charge"				"1200"
+			"mp_per_charge"				"65"
+			"charge_gain_timer"			"10"
+			"charge_gain_kill"			"3"
+			"charge_gain_hero"			"6"
+		}
+	}
+	//=================================================================================================================
+	// Recipe: Divine signet_of_destiny_
+	//=================================================================================================================
+	"item_recipe_signet_of_destiny_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_holy_locket"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"25"
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_signet_of_destiny_5"
+		"ItemRequirements"
+		{
+			"01"						"item_signet_of_destiny_4;item_orb_4"
+		}
+	}
+
+	//=================================================================================================================
+	// divine soul
+	//=================================================================================================================
+	"item_signet_of_destiny_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------|
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_signet_of_destiny.lua"
+		"AbilityTextureName"			"signet_of_destiny/signet_of_destiny_5"
+		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_BASIC"
+		
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"800"
+		"AbilityCastPoint"				"0.0"
+		"AbilityCooldown"				"13"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"1220"
+		"ItemShopTags"					"damage;unique"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"dagon;holy locket;spirit vessel"
+		"ItemDeclarations"				"DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+
+		"AbilityValues"
+		{
+			"bonus_intellect"			"1450"
+			"bonus_other"				"1400"
+			"bonus_health"				"31775"
+			"bonus_mana"				"2385"
+			"bonus_armor"				"5"
+			"bonus_mana_regen"			"15.65"
+			"heal_increase"				"70"
+			"spell_amp"					"65"
+			
+			"soul_damage_amount"		"600"
+			"hp_regen_reduction_enemy"	"45"
+			"enemy_hp_drain"			"1.55"
+			"duration"					"8.0"
+			
+			"max_charges"				"20"
+			"charge_radius"				"1200"
+			"hp_per_charge"				"3250"
+			"mp_per_charge"				"85"
+			"charge_gain_timer"			"10"
+			"charge_gain_kill"			"3"
+			"charge_gain_hero"			"6"
+		}
+	}
+}

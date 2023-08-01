@@ -1,0 +1,45 @@
+<root>
+	<styles>
+		<include src="file://{resources}/styles/dotastyles.css" />
+		<include src="file://{resources}/layout/custom_game/profile/profile.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/layout/custom_game/profile/profile.js" />
+		<include src="file://{resources}/scripts/custom_game/shared_scoreboard_updater.js" />
+	</scripts>
+	<Panel class="Profile" hittest="false">
+		<Panel id="Profile">
+			<Panel id="prof_top_lab">
+				<Label text="Player Status"/>
+			</Panel>
+			<Panel id="prof_top">
+				<Panel id="prof_top_left">
+					<Label id="badge_type" text=""/>
+				</Panel>
+				<Panel id="prof_top_right">
+					<Image id="badge_tier"/>
+				</Panel>
+			</Panel>
+			<Panel id="prof_bot_lab">
+				<Label text="Perks"/>
+			</Panel>
+			<Panel id="prof_bot">
+				<Panel id="perk_1">
+					<Image id="b_perk_1" onmouseover="UIShowTitleTextTooltip( #perk_1_tooltip, #perk_1_tooltip_desc );" onmouseout="UIHideTitleTextTooltip();" />
+				</Panel>
+				<Panel id="perk_2">
+					<Image id="b_perk_2" onmouseover="UIShowTitleTextTooltip( #perk_2_tooltip, #perk_2_tooltip_desc );" onmouseout="UIHideTitleTextTooltip();" />
+				</Panel>
+				<Panel id="perk_3">
+					<Image id="b_perk_3" onmouseover="UIShowTitleTextTooltip( #perk_3_tooltip, #perk_3_tooltip_desc );" onmouseout="UIHideTitleTextTooltip();" />
+				</Panel>
+				<Panel id="perk_4">
+					<Image id="b_perk_4" onmouseover="UIShowTitleTextTooltip( #perk_4_tooltip, #perk_4_tooltip_desc );" onmouseout="UIHideTitleTextTooltip();" />
+				</Panel>
+				<Panel id="perk_5">
+					<Image id="b_perk_5" onmouseover="UIShowTitleTextTooltip( #perk_5_tooltip, #perk_5_tooltip_desc );" onmouseout="UIHideTitleTextTooltip();" />
+				</Panel>
+			</Panel>
+		</Panel>
+	</Panel>
+</root>

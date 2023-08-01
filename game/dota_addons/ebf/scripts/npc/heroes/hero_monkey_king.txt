@@ -1,0 +1,709 @@
+"DOTAAbilities"
+{	
+	//=================================================================================================================
+	// Monkey King: Boundless Strike
+	//=================================================================================================================
+	"monkey_king_boundless_strike"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5716"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_NORMAL_WHEN_STOLEN"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
+		"FightRecapLevel"				"1"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastAnimation"			"ACT_DOTA_MK_STRIKE"
+		"AbilityCastGestureSlot"		"DEFAULT"
+		"AbilityCastPoint"				"0.4"
+		"AbilityCastRange"				"1100"
+		"HasShardUpgrade"				"1"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"100"		
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"stun_duration"
+			{
+				"value"										"1.6"
+				"special_bonus_unique_monkey_king_9"		"+0.3"
+			}
+			"strike_crit_mult"
+			{
+				"value"										"405 495 585 675 765 855 945"	
+				"DamageTypeTooltip"							"DAMAGE_TYPE_PHYSICAL"
+			}
+			"AbilityCooldown"				
+			{
+				"value"										"22"	
+			}
+			"strike_radius"									"150"
+			"strike_cast_range"								"1100"
+			"soldier_spawn_duration"						"0"
+			"acceleration_z"								"5000"
+			"min_height_above_lowest"						"100"
+			"min_height_above_highest"						"150"
+			"max_horizontal_acceleration"					"30000"
+			"duration"										"0.2"
+
+		}
+	}
+
+	//=================================================================================================================
+	// Monkey King: Mischief
+	//=================================================================================================================
+	"monkey_king_mischief"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5719"												// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"FightRecapLevel"				"2"
+		"MaxLevel"						"1"
+		"AbilitySound"					"Hero_MonkeyKing.Transform.On"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0"
+		"AbilityCastAnimation"			"ACT_INVALID"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"15"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0 0 0 0"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"movespeed"					"200"
+			"reveal_radius"				"200"
+			"invul_duration"			
+			{
+				"value"										"0.2"
+				"special_bonus_unique_monkey_king_12"		"+0.2"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Monkey King: Un-Transform
+	//=================================================================================================================
+	"monkey_king_untransform"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5722"												// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"AbilitySound"					"Hero_MonkeyKing.Transform.Off"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.0 0.0 0.0 0.0"
+		"AbilityCastAnimation"			"ACT_INVALID"
+
+		"MaxLevel"						"1"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"1"
+		"AbilityDuration"				"10.0 10.0 10.0 10.0"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0 0 0 0"
+	}
+
+	//=================================================================================================================
+	// Monkey King: Tree Dance
+	//=================================================================================================================
+	"monkey_king_tree_dance"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5721"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_TREE"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilitySound"					"Hero_MonkeyKing.TreeJump.Cast"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+
+		"FightRecapLevel"				"1"
+
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"1000"
+		"AbilityCastPoint"				"0.1"
+
+		// Time
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"1.45 1.3 1.15 1.0"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"leap_speed"					"800"
+			"spring_leap_speed"				"1300"
+			"give_up_distance"				"2500"
+			"ground_jump_distance"			
+			{
+				"value"					"900"
+				"LinkedSpecialBonus"			"special_bonus_unique_monkey_king_7"
+			}
+			"perched_jump_distance"			
+			{
+				"value"					"1000"
+				"LinkedSpecialBonus"			"special_bonus_unique_monkey_king_7"
+			}
+			"jump_damage_cooldown"			"3.0"
+			"perched_day_vision"			"700"
+			"perched_night_vision"			"500"
+			"perched_spot_height"			"192.0"
+			"unperched_stunned_duration"	"4.0"
+			"top_level_height"				"500"
+			"impact_damage_tooltip"			
+			{
+				"value"									"1565 2140 2825 4710 8600 16175 31050"
+				"special_bonus_unique_monkey_king_3"	"+50%"
+			}
+			"impact_movement_slow_tooltip"	"20 40 60 80 85 90 95"
+			"range"							"1000"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
+	}
+
+	//=================================================================================================================
+	// Ability: Primal Spring
+	//=================================================================================================================
+	"monkey_king_primal_spring"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5724"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_CHANNELLED | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES | DOTA_ABILITY_BEHAVIOR_OVERSHOOT"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_MonkeyKing.Spring.Channel"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0"
+		"AbilityCastRange"				"1000"
+		
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"20 18 16 14 12.6 11.2 9.8"
+		"AbilityChannelTime"			"1.5"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"100"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"impact_damage"			
+			{
+				"value"									"1565 2140 2825 4710 8600 16175 31050"
+				"special_bonus_unique_monkey_king_3"	"+50%"
+			}
+			"impact_movement_slow"	"20 40 60 80"
+			"impact_slow_duration"	"4.0"
+			"impact_radius"			"375"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+
+	//=================================================================================================================
+	// Monkey King: Primal Spring (Early)
+	//=================================================================================================================
+	"monkey_king_primal_spring_early"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"						"5726"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+		"AbilityTextureName"		"monkey_king_primal_spring"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.0 0.0 0.0 0.0"
+		"AbilityCastAnimation"			"ACT_INVALID"
+	}
+
+	//=================================================================================================================
+	// Monkey King: Wukong's Command
+	//=================================================================================================================
+	"monkey_king_wukongs_command"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5725"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_NORMAL_WHEN_STOLEN"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"FightRecapLevel"				"2"
+		"AbilitySound"					"Hero_MonkeyKing.FurArmy"
+        "HasScepterUpgrade"				"1"
+		"MaxLevel"						"6"
+		"LevelsBetweenUpgrades"			"6"
+
+		"AbilityDraftPreAbility"		"monkey_king_mischief"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"1.0"
+		"AbilityCastRange"				"0"
+		"AbilityCastAnimation"			"ACT_INVALID"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"120 100 80 71.1 63.2 53.3"
+		"AbilityDuration"				"13.0"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"100"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"							"FIELD_INTEGER"
+				"first_radius"						"300"
+			}
+			"02"
+			{
+				"var_type"							"FIELD_INTEGER"
+				"second_radius"						"750"
+			}
+			"03"
+			{
+				"var_type"							"FIELD_INTEGER"
+				"num_first_soldiers"				"5"
+			}
+			"04"
+			{
+				"var_type"							"FIELD_INTEGER"
+				"num_second_soldiers"				"9"
+			}
+			"05"
+			{
+				"var_type"							"FIELD_INTEGER"
+				"move_speed"						"700"
+			}
+			"06"
+			{
+				"var_type"							"FIELD_INTEGER"
+				"bonus_armor"						"14 19 24 29 34 39"
+				"LinkedSpecialBonus"				"special_bonus_unique_monkey_king_4"
+			}
+			"07"
+			{
+				"var_type"							"FIELD_FLOAT"
+				"attack_speed"						"1.2"
+			}
+			"08"
+			{
+				"var_type"							"FIELD_FLOAT"
+				"duration"							"13.0"
+			}
+			"09"
+			{
+				"var_type"							"FIELD_INTEGER"
+				"leadership_radius_buffer"			"30"
+			}
+			"10"
+			{
+				"var_type"							"FIELD_INTEGER"
+				"cast_range"						"550"
+			}
+			"11"
+			{
+				"var_type"							"FIELD_INTEGER"
+				"cast_range_scepter"						"1550"
+				"RequiresScepter"	"1"
+			}
+			"12"
+			{
+				"var_type"							"FIELD_INTEGER"
+				"outer_attack_buffer"				"0"
+			}
+			"13"
+			{
+				"var_type"							"FIELD_INTEGER"
+				"cooldown_scepter"					"90 70 50 42.6 35.2 27.8"
+				"RequiresScepter"	"1"
+			}
+			"14"
+			{
+				"var_type"							"FIELD_FLOAT"
+				"scepter_spawn_interval"			"4"
+				"RequiresScepter"	"1"
+			}
+			"15"
+			{
+				"var_type"							"FIELD_FLOAT"
+				"scepter_spawn_duration"			"12"
+				"RequiresScepter"	"1"
+			}
+		}
+	}
+	
+	//=================================================================================================================
+	// Monkey King: Jingu Mastery
+	//=================================================================================================================
+	"monkey_king_jingu_mastery"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_monkey_king/monkey_king_jingu_mastery"
+		"AbilityTextureName"			"monkey_king_jingu_mastery"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_MonkeyKing.IronCudgel"
+		"AbilityCastAnimation"			"ACT_INVALID"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"0"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"required_hits"				
+			{
+				"value"									"8"
+				"special_bonus_unique_monkey_king_11"	"-2"
+			}
+			"counter_duration"							"10"
+			"charges"
+			{
+				"value"									"4"
+			}
+			"bonus_damage"	
+			{
+				"value"									"800 1200 2000 3200 4800 8000 14400"
+				"special_bonus_unique_monkey_king_2"	"+25%"
+				"CalculateSpellDamageTooltip"			"0"
+			}
+			"lifesteal"									"60"
+			"max_duration"								"35"
+			"works_on_creeps"	
+			{
+				"value"									"0"
+				"special_bonus_unique_monkey_king_12"	"+1"
+			}
+		}
+	}
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_monkey_king"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6303"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"40"
+				"ad_linked_abilities"			"monkey_king_boundless_strike"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_monkey_king_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6421"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"						"25"
+				"ad_linked_abilities"			"monkey_king_jingu_mastery"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_monkey_king_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6696"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"350"
+				"ad_linked_abilities"			"monkey_king_tree_dance"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_monkey_king_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6697"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"200"
+				"ad_linked_abilities"			"monkey_king_wukongs_command"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_monkey_king_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"7024"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"50"
+				"ad_linked_abilities"			"monkey_king_tree_dance"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_monkey_king_6"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"7025"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"1100"
+				"ad_linked_abilities"			"monkey_king_wukongs_command"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+			"02"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value2"				"7"
+				"ad_linked_abilities"			"monkey_king_wukongs_command"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_monkey_king_7"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"7038"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"450"
+				"ad_linked_abilities"			"monkey_king_tree_dance"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_monkey_king_8"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"747"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"value"				"0"
+				"ad_linked_abilities"			"monkey_king_tree_dance"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_monkey_king_9"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"748"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_monkey_king_10"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"802"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"value"				"7"
+				"ad_linked_abilities"			"monkey_king_boundless_strike"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+	
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_monkey_king_11"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"822"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"2"
+				"ad_linked_abilities"			"monkey_king_jingu_mastery"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_monkey_king_12"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"982"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
+	}
+}

@@ -1,0 +1,465 @@
+"DOTAAbilities"
+{	
+	//=================================================================================================================
+	// Ability: Bloodseeker's Bloodrage
+	//=================================================================================================================
+	"bloodseeker_bloodrage"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5015"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"hero_bloodseeker.bloodRage"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+
+		"HasShardUpgrade"				"1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.2"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"25 37 50 62 75 87 100"	
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"14 12 10 8 6.8 5.7 4.6"
+		
+		// Cast Range
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"800"
+		
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityModifierSupportValue"	"0.1"	// Primarily about the damage
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"duration"						"8"
+			"attack_speed"		
+			{
+				"value"						"60 90 120 150 180 210 240"
+				"LinkedSpecialBonus"		"special_bonus_unique_bloodseeker_5"
+			}
+			"spell_amp"		
+			{
+				"value"						"15 20 30 45 65 90 120"
+				"LinkedSpecialBonus"		"special_bonus_unique_bloodseeker_6"
+			}
+			"damage_pct"
+			{
+				"value"						"2"
+				"DamageTypeTooltip"			"DAMAGE_TYPE_PURE"
+			}
+			"shard_max_health_dmg_pct"		
+			{
+				"value"						"0.25"
+				"RequiresShard"				"1"
+				"CalculateSpellDamageTooltip"	"0"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+		"AbilityCastGestureSlot"		"DEFAULT"
+	}
+	
+	//=================================================================================================================
+	// Ability: Bloodseeker's Blood Rite/Bath
+	//=================================================================================================================
+	"bloodseeker_blood_bath"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5016"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PURE"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"AbilitySound"					"hero_bloodseeker.bloodRite"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"1500"
+		"AbilityCastPoint"				"0.3"
+		
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"12"
+	
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"90 100 110 120 130 140 150"
+
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"radius"						"600"
+			"silence_duration"				"6"
+			"damage"
+			{
+				"value"						"1275 1600 1930 2850 4615 6620"
+				"special_bonus_unique_bloodseeker_2"	"+100%"
+			}
+			"delay"							"2.6"
+			"delay_plus_castpoint_tooltip"	"2.9"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
+	}
+
+	//=================================================================================================================
+	// Ability: Bloodseeker's Thirst
+	//=================================================================================================================
+	"bloodseeker_thirst"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_bloodseeker/bloodseeker_thirst"
+		"AbilityTextureName"			"bloodseeker_thirst"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"min_bonus_pct"					"80"
+			"bonus_movement_speed"
+			{
+				"value"						"32 48 64 80 96 112 128"
+				"LinkedSpecialBonus"		"special_bonus_unique_bloodseeker_4"
+			}			
+			"hero_kill_heal"				"3.0 4.5 6.0 7.5 9.0 10.5 12.0"
+			"creep_kill_heal"				"3.3 4.2 5.1 6.0 6.9 7.8 8.7"
+			"half_bonus_aoe"				"300"
+			"max_bonus_pct"					"25"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+	
+	"Blood_Seeker_Blood_Smell"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityTextureName"			"bloodseeker_thirst"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+
+		"AbilitySpecial"
+	    {
+	        "01"
+	        {
+	            "var_type"              "FIELD_FLOAT"
+	            "percent"                "0.5 1.0 1.5 2.0 3.5 4.25 5.0"
+	        }
+	    }
+
+	    "Modifiers"
+	    {
+	    	"blood_passive"
+	    	{
+	    		"IsHidden"	 "1"
+				"Passive"	 "1"
+				"OnAttackLanded"
+				{
+   					"RunScript"
+				    {
+				        "ScriptFile" "lua_abilities/abilities_simple.lua"
+				        "Function" "Blood_Seeker_Blood_Smell"
+				    }
+				}
+			}
+	    }
+	}
+	//=================================================================================================================
+	// Ability: Bloodseeker's Rupture
+	//=================================================================================================================
+	"bloodseeker_rupture"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5018"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PURE"	
+		"FightRecapLevel"				"2"
+		"AbilitySound"					"hero_bloodseeker.rupture"
+		"MaxLevel"						"6"
+		"LevelsBetweenUpgrades"			"6"
+		
+		"HasScepterUpgrade"				"1"
+		"AbilityDraftUltScepterAbility"		"bloodseeker_blood_mist"
+
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.4"
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_6"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"70"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"100 200 300 400 500 600 700"
+			
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityModifierSupportValue"	"0.0"	// Only does damage
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"duration"							"12"
+			"movement_damage_pct"		
+			{
+				"value"							"150 350 750 2000 2250 2500"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"hp_pct"
+			{
+				"value"										"10"
+				"special_bonus_unique_bloodseeker_7"		"+2.5"	
+				"CalculateSpellDamageTooltip"				"0"			
+			}
+			"damage_cap_amount"			
+			{
+				"value"							"1250 2500 5000 10000 25000 50000"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"AbilityCastRange"			
+			{
+				"value"	"800"
+				"special_bonus_unique_bloodseeker_3"		"+475"				
+			}
+			"AbilityCharges"		
+			{
+				"value"	"0"
+				"special_bonus_unique_bloodseeker_rupture_charges"	"+2"
+			}
+		}
+	}
+	//=================================================================================================================
+	// Ability: Bloodseeker's Blood Mist
+	//=================================================================================================================
+	"bloodseeker_blood_mist"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_bloodseeker/bloodseeker_blood_mist"
+		"AbilityTextureName"			"bloodseeker_blood_mist"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_TOGGLE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"		
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"MaxLevel"						"1"
+		"FightRecapLevel"				"1"
+		"IsGrantedByScepter"			"1"
+		"HasScepterUpgrade"				"1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.5"
+		"AbilityCooldown"				"3.0"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
+	
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0"
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"hp_cost_per_second"	"7"
+			"radius"				"450"
+			"movement_slow"			"25"
+			"thirst_bonus_pct"		"100"
+		}
+	}
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_bloodseeker"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6230"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"value"
+			{
+				"value" "2.5"
+				"ad_linked_abilities"			"bloodseeker_blood_bath"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+			
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_bloodseeker_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6356"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"						"100"
+				"ad_linked_abilities"			"bloodseeker_blood_bath"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_bloodseeker_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6357"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"	
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_bloodseeker_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6809"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"						"28"
+				"ad_linked_abilities"		"bloodseeker_thirst"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_bloodseeker_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"482"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"						"48"
+				"ad_linked_abilities"		"bloodseeker_bloodrage"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_bloodseeker_6"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"818"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"						"16"
+				"ad_linked_abilities"		"bloodseeker_bloodrage"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+		//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_bloodseeker_7"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"819"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"		
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_bloodseeker_rupture_charges"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"905"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
+	}
+}

@@ -1,0 +1,985 @@
+"DOTAAbilities"
+{	
+	//=================================================================================================================
+	// Invoker: Quas
+	//=================================================================================================================
+	"invoker_quas"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5370"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"MaxLevel"						"9"
+		"LevelsBetweenUpgrades"			"2"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"0"
+		"AbilityCastAnimation"			"ACT_INVALID"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"health_regen_per_instance"
+			{
+				"value"								"25 45 100 215 400 700 1000 1500 2250"
+				"special_bonus_unique_invoker_13"	"x3"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Invoker: Wex
+	//=================================================================================================================
+	"invoker_wex"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5371"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"MaxLevel"						"9"
+		"LevelsBetweenUpgrades"			"2"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"0"
+		"AbilityCastAnimation"			"ACT_INVALID"
+		
+		// Special
+		"AbilityValues"
+		{
+			"attack_speed_per_instance"
+			{
+				"value"								"10 20 30 40 50 60 70 80 90"
+				"special_bonus_unique_invoker_13"	"x3"
+			}
+			"move_speed_per_instance"
+			{
+				"value"								"0.8 1.6 2.4 3.2 4 4.8 5.6 6.4 7.2"
+				"special_bonus_unique_invoker_13"	"x3"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Invoker: Exort
+	//=================================================================================================================
+	"invoker_exort"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5372"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"MaxLevel"						"9"
+		"LevelsBetweenUpgrades"			"2"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"0"
+		"AbilityCastAnimation"			"ACT_INVALID"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage_per_instance"
+			{
+				"value"								"25 45 100 215 400 700 1000 1500 2250"
+				"special_bonus_unique_invoker_13"	"x3"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Invoker: Empty 1
+	//=================================================================================================================
+	"invoker_empty1"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5373"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"MaxLevel"						"0"
+		"AbilityCastAnimation"			"ACT_INVALID"
+	}
+
+	//=================================================================================================================
+	// Invoker: Empty 2
+	//=================================================================================================================
+	"invoker_empty2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5374"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"MaxLevel"						"0"
+		"AbilityCastAnimation"			"ACT_INVALID"
+	}
+
+	//=================================================================================================================
+	// Invoker: Invoke
+	//=================================================================================================================
+	"invoker_invoke"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5375"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"MaxLevel"						"1"
+		"RequiredLevel"					"1"
+		"AbilitySound"					"Hero_Invoker.Invoke"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"7"
+		"AbilityManaCost"				"0"
+		"AbilityCastAnimation"			"ACT_INVALID"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"max_invoked_spells"			"2"
+			"cooldown_reduction_per_orb"	"0.3"
+		}
+	}
+	
+	//=================================================================================================================
+	// Ability: Attribute Bonus
+	//=================================================================================================================
+	"invoker_attribute_bonus"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5690"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"MaxLevel"						"1"
+		"LevelsBetweenUpgrades"			"1"
+		"RequiredLevel"					"25"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"attribute_bonus_per_level"		"6"
+		}
+	}
+
+	//=================================================================================================================
+	// Invoker: Cold Snap
+	//=================================================================================================================
+	"invoker_cold_snap"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5376"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"MaxLevel"						"1"
+		"HotKeyOverride"				"Y"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_Invoker.ColdSnap"
+		
+		// Unit Targeting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"1000"
+		"AbilityCastPoint"				"0.05"
+		"AbilityCastAnimation"			"ACT_INVALID"
+		"AbilityManaCost"				"100"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityModifierSupportValue"	"0.15"	// Applies multiple modifiers
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"AbilityCooldown"
+			{
+				"value"					"20"
+				"special_bonus_unique_invoker_9"	"-8"
+			}
+			"duration"
+			{
+				"value"					"3.0 3.5 4.0 4.5 5.0 5.5 6.0 6.5 7.0 7.5"
+				"levelkey"				"quaslevel"	
+				"special_bonus_unique_invoker_7"	"+3"
+			}
+			"freeze_duration"			"0.4"
+			"freeze_cooldown"
+			{
+				"value"					"0.83 0.80 0.77 0.74 0.71 0.68 0.65 0.62 0.60 0.58"
+				"levelkey"				"quaslevel"	
+			}
+			"freeze_damage"
+			{
+				"value"					"89 267 667 1478 3200 7200 10000 14000 18000 22000"
+				"levelkey"				"quaslevel"
+			}
+			"damage_trigger"			"10.0"
+		}
+	}
+
+	//=================================================================================================================
+	// Invoker: Ghost Walk
+	//=================================================================================================================
+	"invoker_ghost_walk"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5381"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"MaxLevel"						"1"
+		"HotKeyOverride"				"V"
+		"AbilitySound"					"Hero_Invoker.GhostWalk"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"175"
+		"AbilityCastPoint"				"0.05"
+		"AbilityCastAnimation"			"ACT_INVALID"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"AbilityCooldown"
+			{
+				"value"					"35"
+			}
+			"duration"					"60"
+			"area_of_effect"			"450"
+			"enemy_slow"
+			{
+				"value"					"-20 -25 -30 -35 -40 -45 -50 -55 -60 -65"
+				"levelkey"				"quaslevel"
+				
+			}
+			"self_slow"
+			{
+				"value"					"-15 -10 -5 0 5 10 15 20 25 30"
+				"levelkey"				"wexlevel"
+			}		
+			"aura_fade_time"			"2.0"
+		}
+	}
+
+	//=================================================================================================================
+	// Invoker: Tornado
+	//=================================================================================================================
+	"invoker_tornado"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5382"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"MaxLevel"						"1"
+		"HotKeyOverride"				"X"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"AbilitySound"					"Hero_Invoker.Tornado"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"2000"
+		"AbilityCastPoint"				"0.05"
+		"AbilityCastAnimation"			"ACT_INVALID"
+		"AbilityManaCost"				"150"
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"AbilityCooldown"
+			{
+				"value"					"30"
+				"special_bonus_unique_invoker_3" "-6"
+			}
+			"travel_distance"
+			{
+				"value"					"800 1200 1600 2000 2400 2800 3200 3600 4000 4400"
+				"levelkey"				"wexlevel"
+			}
+			"travel_speed"			"1000"
+			"area_of_effect"		"200"
+			"vision_distance"		"200"
+			"end_vision_duration"	"1.75"
+			"lift_duration"
+			{
+				"value"				"0.85 1.1 1.35 1.6 1.85 2.1 2.35 2.6 2.85 3.1"
+				"special_bonus_unique_invoker_8"	"+1.25"
+				"levelkey"			"quaslevel"
+			}
+			"base_damage"			
+			{
+				"value"							"300"			
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"quas_damage"
+			{
+				"value"				"0 0 0 0 0 0 0"
+				"levelkey"			"quaslevel"
+			}
+			"wex_damage"
+			{
+				"value"				"500 1500 3000 6000 12000 18000 30000 40000 80000 120000"
+				"levelkey"			"wexlevel"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Invoker: EMP
+	//=================================================================================================================
+	"invoker_emp"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5383"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"MaxLevel"						"1"
+		"HotKeyOverride"				"C"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"AbilitySound"					"Hero_Invoker.EMP.Charge"
+		"HasShardUpgrade"				"1"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"950"
+		"AbilityCastPoint"				"0.05"
+		"AbilityCastAnimation"			"ACT_INVALID"
+
+		"AbilityCooldown"				"30"
+		"AbilityManaCost"				"125"
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"delay"
+			{
+				"value"					"2.9"
+				"levelkey"				"wexlevel"
+			}
+			"area_of_effect"		"675"
+			"mana_burned"
+			{
+				"value"					"100 175 250 325 400 475 550 625 750 875"
+				"levelkey"				"wexlevel"
+				"special_bonus_unique_invoker_10"	"+20%"		
+			}
+			"damage_per_mana_pct"					"1000 1500 2000 3500 6000 9000 12000 18000 20000 24000"
+		}
+	}
+
+	//=================================================================================================================
+	// Invoker: Alacrity
+	//=================================================================================================================
+	"invoker_alacrity"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5384"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
+		"MaxLevel"						"1"
+		"HotKeyOverride"				"Z"
+		"AbilitySound"					"Hero_Invoker.Alacrity"
+
+		// Unit Targeting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"650"
+		"AbilityCastPoint"				"0.05"
+		"AbilityCastAnimation"			"ACT_INVALID"
+
+		"AbilityCooldown"				"17"
+		"AbilityManaCost"				"100"
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_attack_speed"
+			{
+				"value"								"25 50 75 100 125 150 175 200 225 250"
+				"levelkey"				"wexlevel"
+				"special_bonus_unique_invoker_5"	"+100%"
+			}
+			"bonus_damage"
+			{
+				"value"								"265 540 915 1390 2330 4250 6500 8750 11000 13250"
+				"levelkey"							"exortlevel"
+				"special_bonus_unique_invoker_5"	"+100%"
+				"CalculateSpellDamageTooltip"	"0"
+			}
+			"duration"					"9"
+		}
+	}
+
+	//=================================================================================================================
+	// Invoker: Chaos Meteor
+	//=================================================================================================================
+	"invoker_chaos_meteor"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5385"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
+		"MaxLevel"						"1"
+		"HotKeyOverride"				"D"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_Invoker.ChaosMeteor.Impact"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"700"
+		"AbilityCastPoint"				"0.05"
+		"AbilityCastAnimation"			"ACT_INVALID"
+		"AbilityManaCost"				"200"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityModifierSupportValue"	"0.0"	// Mainly about damage
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"AbilityCooldown"
+			{
+				"value"					"55"
+				"special_bonus_shard"	"-15"
+			}
+			"land_time"					"1.3"
+			"area_of_effect"			"475"
+			"travel_distance"
+			{
+				"value"					"615 780 930 1095 1245 1410 1575 1630 1695"
+				"levelkey"				"wexlevel"
+			}
+			"travel_speed"				"500"
+			"damage_interval"
+			{
+				"value"					"0.5"
+				"CalculateSpellDamageTooltip"	"0"
+				"DamageTypeTooltip"		"DAMAGE_TYPE_NONE"
+			}
+			"vision_distance"			"500"
+			"end_vision_duration"		"3.0"
+			"main_damage"
+			{
+				"value"					"850 1615 2995 4520 7165 12500 18000 22000 28000 34000"
+				"levelkey"				"exortlevel"
+				"special_bonus_unique_invoker_6"	"+80%"
+			}
+			"burn_duration"				"3.0"
+			"burn_dps"
+			{
+				"value"								"160 310 575 885 1445 2605 3200 4600 6400 7200"
+				"levelkey"							"exortlevel"
+				"CalculateSpellDamageTooltip"		"1"
+				"special_bonus_unique_invoker_6"	"+80%"
+				"DamageTypeTooltip"					"DAMAGE_TYPE_MAGICAL"
+			}
+			"meteor_count"
+			{
+				"value"					"1"
+				"special_bonus_unique_invoker_additional_chaos_meteors"	"+2"
+			}
+		}
+	}
+	//=================================================================================================================
+	// Invoker: Sun Strike
+	//=================================================================================================================
+	"invoker_sun_strike"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5386"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
+		"MaxLevel"						"1"
+		"HotKeyOverride"				"T"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PURE"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_Invoker.SunStrike.Charge"
+
+		"HasScepterUpgrade"			"1"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"0"
+		"AbilityCastPoint"				"0.05"
+		"AbilityCastAnimation"			"ACT_INVALID"
+
+		"AbilityCooldown"				"25"
+		"AbilityManaCost"				"175"
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"delay"						"1.7"
+			"area_of_effect"			"175"
+			"damage"
+			{
+				"value"					"2000 3333 7000 15000 20000 35000 65000 100000 140000 200000"
+				"levelkey"				"exortlevel"
+			}
+			"vision_distance"			"400"
+			"vision_duration"			"4.0"
+			"cataclysm_count"
+			{
+				"value"					"0"
+				"special_bonus_scepter"	"+2"
+				"RequiresScepter"		"1"
+			}
+			"cataclysm_cooldown"
+			{
+				"value"					"100"
+				"RequiresScepter"		"1"
+			}
+			"cataclysm_min_range"
+			{
+				"value"					"160"
+				"RequiresScepter"		"1"
+			}
+			"cataclysm_max_range"
+			{
+				"value"					"200"
+				"RequiresScepter"		"1"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Invoker: Forge Spirit
+	//=================================================================================================================
+	"invoker_forge_spirit"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5387"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"MaxLevel"						"1"
+		"HotKeyOverride"				"F"
+		"AbilitySound"					"Hero_Invoker.ForgeSpirit"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"30"
+		"AbilityManaCost"				"75"
+		"AbilityCastPoint"				"0.05"
+		"AbilityCastAnimation"			"ACT_INVALID"
+		
+		// Special
+		"AbilityValues"
+		{
+			"spirit_damage"			
+			{
+				"value"			"350 560 1200 2500 4500 8000 12000 17500 25000 35000"
+				"levelkey"		"exortlevel"
+			}
+			"spirit_mana"			
+			{	
+				"value"			"100 150 200 250 300 350 400 450 500 550"
+				"levelkey"		"exortlevel"
+			}
+			"spirit_armor"
+			{
+				"value"			"5 10 15 25 30 35 40 45 50"
+				"levelkey"		"exortlevel"
+			}
+			"spirit_attack_range"	
+			{
+				"value"			"300 365 430 495 560 625 690 755 820 685"
+				"levelkey"		"quaslevel"
+			}
+			"spirit_hp"				
+			{	"value"			"1500 3500 7500 15000 25000 40000 65000 90000 150000 200000"
+				"levelkey"		"quaslevel"
+			}
+			"spirit_duration"
+			{
+				"value"			"20 30 40 50 60 70 80 90 100 110"
+				"levelkey"		"quaslevel"
+			}
+			"armor_per_attack"
+			{
+				"value"			"0.8 0.9 1 1.1 1.2 1.3 1.4 1.5 1.6 1.7"
+				"levelkey"		"exortlevel"
+			}
+			"spirit_count"
+			{
+				"value"			"1"
+				"special_bonus_unique_invoker_1"	"+4"
+			}
+			"spirit_attack_speed"
+			{
+				"special_bonus_unique_invoker_11" "+50"
+			}
+			"extra_spirit_count_quas"	"0 0 0 1 1 1 1 1 1 2"
+			"extra_spirit_count_exort"	"0 0 0 1 1 1 1 1 1 2"
+		}
+			
+	}
+
+	//=================================================================================================================
+	// Invoker: Forged Spirit: Melting Strike
+	//=================================================================================================================
+	"forged_spirit_melting_strike"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5388"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"MaxLevel"						"8"
+		
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"armor_removed"			"0.8 0.9 1 1.1 1.2 1.3 1.4 1.5 1.6 1.7"
+			"max_armor_removed"		"20 21 22 23 24 25 26 27 28 29"
+			"duration"				"5"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+
+	//=================================================================================================================
+	// Invoker: Ice Wall
+	//=================================================================================================================
+	"invoker_ice_wall"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5389"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"MaxLevel"						"1"
+		"HotKeyOverride"				"G"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_Invoker.IceWall.Cast"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"25"
+		"AbilityManaCost"				"125"
+		"AbilityCastPoint"				"0.05"
+		"AbilityCastAnimation"			"ACT_INVALID"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"duration"
+			{
+				"value"				"3.0 4.5 6.0 7.5 9.0 10.5 12.0 13.5 15.0 16.5"
+				"levelkey"			"quaslevel"
+			}
+			"slow"
+			{
+				"value"				"-20 -40 -60 -80 -100 -120 -140 -160 -180 -200"
+				"levelkey"			"quaslevel"
+			}
+			"slow_duration"			"2.0"
+			"damage_per_second"
+			{
+				"value"				"150 275 600 1275 2750 4500 7500 10000 14000 18000"
+				"levelkey"			"exortlevel"
+			}
+			"wall_place_distance"	"200"
+			"num_wall_elements"		"15"
+			"wall_element_spacing"	"80"
+			"wall_element_radius"	"105"
+			"vector_cast_range"
+			{
+				"value"				"0"
+				"special_bonus_unique_invoker_12"	"+1200"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Invoker: Deafening Blast
+	//=================================================================================================================
+	"invoker_deafening_blast"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5390"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"MaxLevel"						"1"
+		"HotKeyOverride"				"B"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_Invoker.DeafeningBlast"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"1000"
+		"AbilityCastPoint"				"0.05"
+		"AbilityCastAnimation"			"ACT_INVALID"
+
+		"AbilityCooldown"				"40"
+		"AbilityManaCost"				"300"
+		"AbilityModifierSupportValue"	"0.5"	// Applies 2 modifiers
+
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"travel_distance"			"1000"
+			"travel_speed"				"1100"
+			"radius_start"				"175"
+			"radius_end"				"225"
+			"end_vision_duration"		"1.75"
+			"damage"
+			{
+				"value"					"1100 2000 4250 8500 15000 22500 45000 95000 150000"
+				"levelkey"				"exortlevel"
+			}
+			"knockback_duration"
+			{
+				"value"					"0.2 0.4 0.6 0.8 1.0 1.2 1.4 1.6 1.8 2.0"
+				"levelkey"				"quaslevel"
+			}
+			"disarm_duration"
+			{
+				"value"					"1.25 2.0 2.75 3.5 4.25 5.0 5.75 6.5 7.25 8.0"
+				"levelkey"				"wexlevel"
+			}
+			"radial_count"
+			{
+				"value"					"1"
+				"special_bonus_unique_invoker_2"	"+11"
+			}
+		}
+	}
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_invoker_1"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6097"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_invoker_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6098"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_invoker_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6099"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_invoker_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6656"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"2"
+				"ad_linked_abilities"			"invoker_sunstrike_ad"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+			"02"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"cooldown"				"90"
+			}
+			"03"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"min_range"				"160"
+			}
+			"04"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"max_range"				"200"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_invoker_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6657"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_invoker_6"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6811"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_invoker_7"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"7016"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"ad_linked_abilities"			"invoker_cold_snap_ad"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_invoker_8"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"7017"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_invoker_9"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"7148"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"ad_linked_abilities"			"invoker_cold_snap_ad"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_invoker_10"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"7390"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_invoker_11"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"315"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_invoker_12"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"619"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_invoker_13"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"724"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	}
+}

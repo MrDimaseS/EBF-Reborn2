@@ -1,0 +1,557 @@
+"DOTAAbilities"
+{	
+	//=================================================================================================================
+	// Wisp: Tether
+	//=================================================================================================================
+	"wisp_tether"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5485"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_CUSTOM"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"LinkedAbility"					"wisp_tether_break"
+		"LevelsBetweenUpgrades"			"3"
+		"MaxLevel"						"7"
+
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0"
+ 		"AbilityCastAnimation"			"ACT_INVALID"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"12"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"40 60 80 100 120 140 160"
+		
+		// Cast Range
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"1600"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"radius"					"1000"
+			"movespeed"					
+			{
+				"value"							"6 8 10 12 14 16 18"
+				"special_bonus_unique_wisp_3"	"+6"
+			}
+			"latch_distance"					"700 700 700 700"
+			"latch_speed"						"1000 1000 1000 1000"
+			"tether_heal_amp"					"60 80 100 120 140 160 180"
+			"self_bonus"						"0"
+			"slow"								"15 25 35 45 55 65 75"
+			"slow_duration"						"0.2"
+			"shard_bonus_spell_lifesteal"
+			{
+				"value"							"10"
+				"RequiresShard"					"1"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Wisp: Spirits
+	//=================================================================================================================
+	"wisp_spirits"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5486"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"AbilitySound"					"Hero_Wisp.Spirits.Cast"
+        "HasScepterUpgrade"			"1"
+		"LevelsBetweenUpgrades"			"3"
+		"MaxLevel"						"7"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0"
+  		"AbilityCastAnimation"			"ACT_INVALID"
+
+		"AbilityDuration"				"19.0 19.0 19.0 19.0"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"120 150 180 210 240 270 300"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"creep_damage"
+			{
+				"value"							"190 330 495 690 1255 2345 4490"
+				"special_bonus_unique_wisp"		"+50%"
+			}
+			"hero_damage"
+			{
+				"value"							"565 1035 1615 2320 4380 8450 16500"
+				"special_bonus_unique_wisp"		"+50%"
+			}
+			"revolution_time"			"5.0 5.0 5.0 5.0"
+			"min_range"					"200"
+			"max_range"					"650"
+			"hero_hit_radius"			"110"
+			"explode_radius"			"360"
+			"hit_radius"				"150 150 150 150"
+			"spirit_movement_rate"		"250 250 250 250"
+			"spirit_duration"			"19.0 19.0 19.0 19.0"
+			"spirit_amount"			"5"
+			"scepter_slow_pct"
+			{
+				"value"			"0"
+				"special_bonus_scepter"			"+15"
+			}
+			"scepter_slow_duration"
+			{
+				"value"			"0"
+				"special_bonus_scepter"			"+0.3"
+			}
+			"AbilityManaCost"				
+			{
+				"value"							"100 110 120 130"
+			}
+			"AbilityCooldown"				
+			{
+				"value"							"20.0"
+				"special_bonus_scepter"			"-50%"
+			}
+		}
+	}	
+
+	//=================================================================================================================
+	// Wisp: Overcharge
+	//=================================================================================================================
+	"wisp_overcharge"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5487"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+        "HasShardUpgrade"               "1"
+		"LevelsBetweenUpgrades"			"3"
+		"MaxLevel"						"7"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0 0 0 0"
+   		"AbilityCastAnimation"			"ACT_INVALID"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"25 23.5 22 20.5 19 17.5 16"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"40 100 160 220 280 340 400"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+				"bonus_attack_speed"				"25 55 85 115 145 175 205"
+				"bonus_spell_amp"					"8 10 12 14 16 18 20"
+				"hp_regen"			
+				{
+					"value"							"0.5 0.6 0.7 0.8 0.9 1.0 1.1"
+					"special_bonus_unique_wisp_10"	"+0.2"
+				}
+				"duration"							"8"
+				"shard_bonus_spell_amp"
+				{
+					"value"			"10"
+					"RequiresShard"	"1"
+				}
+				"shard_bonus_spell_lifesteal"
+				{
+					"value"			"10"
+					"RequiresShard"	"1"
+				}
+		}
+	}	
+
+	//=================================================================================================================
+	// Wisp: Relocate
+	//=================================================================================================================
+	"wisp_relocate"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5488"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_Wisp.Relocate"
+		"LevelsBetweenUpgrades"			"6"
+		"MaxLevel"						"7"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0"
+ 		"AbilityCastAnimation"			"ACT_INVALID"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"100 90 80"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"175"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"cast_delay"				"3.5 3.25 3.0"
+			}
+			"02"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"return_time"				"12.0 12.0 12.0"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Wisp: Tether
+	//=================================================================================================================
+	"wisp_tether_break"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5489"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"LinkedAbility"					"wisp_tether"
+		"LevelsBetweenUpgrades"			"3"
+		"MaxLevel"						"7"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0 0 0 0"
+ 		"AbilityCastAnimation"			"ACT_INVALID"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"1.0 1.0 1.0 1.0"
+	}
+
+	//=================================================================================================================
+	// Wisp: Spirits In
+	//=================================================================================================================
+	"wisp_spirits_in"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5490"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_TOGGLE | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"LevelsBetweenUpgrades"			"3"
+		"MaxLevel"						"7"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0 0 0 0"
+ 		"AbilityCastAnimation"			"ACT_INVALID"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"0"
+	}
+
+	//=================================================================================================================
+	// Wisp: Spirits Out
+	//=================================================================================================================
+	"wisp_spirits_out"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5493"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_TOGGLE | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"LevelsBetweenUpgrades"			"3"
+		"MaxLevel"						"7"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0 0 0 0"
+ 		"AbilityCastAnimation"			"ACT_INVALID"
+	}
+	
+
+	//=================================================================================================================
+	// Io : Sacrifice
+	//=================================================================================================================
+	"wisp_sacrifice"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_wisp/wisp_sacrifice"
+		"AbilityTextureName"			"wisp_sacrifice"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"LevelsBetweenUpgrades"			"6"
+		"MaxLevel"						"6"
+	
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.35 0.35 0.35 0.35"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"200 300 400 500 600 700"
+
+		"AbilityValues"
+		{
+			"invul_duration"					"6"
+			"sacrifice_hp"						"35"
+			"AbilityCooldown"
+			{
+				"value"							"90 75 60 53.3 46.7 40.0"
+				"special_bonus_unique_wisp_6"	"-25"
+			}
+		}
+	}
+	
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_wisp"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6265"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"						"11500"
+				"ad_linked_abilities"			"wisp_spirits"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_wisp_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6537"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"1"
+				"ad_linked_abilities"			"wisp_tether"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_wisp_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6659"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"ad_linked_abilities"			"wisp_tether"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+		
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_wisp_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6808"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"1"
+				"ad_linked_abilities"			"wisp_tether"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_wisp_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6924"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"1"
+				"ad_linked_abilities"			"wisp_tether"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_wisp_6"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"7070"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"25"
+				"ad_linked_abilities"			"wisp_relocate"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_wisp_7"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"7897"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"slow"						"80"
+				"ad_linked_abilities"			"wisp_spirits"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+			"02"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"slow_duration"				"0.3"
+				"ad_linked_abilities"			"wisp_spirits"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_wisp_8"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"7071"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"						"400"
+				"ad_linked_abilities"			"wisp_tether"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_wisp_9"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"7072"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"						"110000"
+				"ad_linked_abilities"			"wisp_tether"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_wisp_10"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"7073"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"ad_linked_abilities"			"wisp_overcharge"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+	}
+}

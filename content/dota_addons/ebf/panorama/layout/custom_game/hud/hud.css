@@ -1,0 +1,220 @@
+.Hud {
+  margin-top: 105px;
+  align: center top;
+  width: 460px;
+  height: 250px;
+  flow-children: none;
+}
+
+
+
+#BossRound {
+  align: right top;
+  width: 180px;
+  height: 45px;
+  visibility: visible;
+}
+
+#Rounds {
+  margin-right: 8px;
+  horizontal-align: right;
+  padding: 4px;
+  width: 50px;
+  height: 45px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: 100% 100%;
+  background-image: url("file://{images}/hud/top_scorboard_center.psd");
+  color: #f6dd3c;
+  text-align: center;
+  font-size: 30px;
+  letter-spacing: 2px;
+  text-shadow: 1px 3px 4px #000;
+  font-family: diretideFontX;
+  font-weight: semi-bold;
+}
+
+#Level {
+  horizontal-align: left;
+  vertical-align: middle;
+  padding: 9px;
+  width: 120px;
+  height: 45px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: 100% 100%;
+  background-image: url("file://{images}/hud/top_scorboard_center.psd");
+  color: #cdcab7;
+  text-align: center;
+  font-size: 20px;
+  letter-spacing: 2px;
+  text-shadow: 1px 3px 4px #000;
+  font-family: diretideFontX;
+  font-weight: semi-bold;
+}
+
+#RoundsTime {
+  margin-top: 50px;
+  margin-right: 8px;
+  horizontal-align: right;
+  padding: 4px;
+  width: 50px;
+  height: 45px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: 100% 100%;
+  background-image: url("file://{images}/hud/top_scorboard_center.psd");
+  color: #cdcab7;
+  text-align: center;
+  font-size: 30px;
+  letter-spacing: 2px;
+  text-shadow: 1px 3px 4px #000;
+  font-family: diretideFontX;
+  font-weight: semi-bold;
+}
+
+#LifeCounter {
+  align: left top;
+  width: 180px;
+  height: 45px;
+}
+
+#Retries {
+  horizontal-align: right;
+  vertical-align: middle;
+  padding: 9px;
+  width: 120px;
+  height: 45px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: 100% 100%;
+  background-image: url("file://{images}/hud/top_scorboard_center.psd");
+  color: #cdcab7;
+  text-align: center;
+  font-size: 20px;
+  letter-spacing: 2px;
+  text-shadow: 1px 3px 4px #000;
+  font-family: diretideFontX;
+  font-weight: semi-bold;
+}
+
+#Life {
+  margin-left: 8px;
+  padding: 4px;
+  width: 50px;
+  height: 45px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: 100% 100%;
+  background-image: url("file://{images}/hud/top_scorboard_center.psd");
+  color: #cdcab7;
+  text-align: center;
+  font-size: 30px;
+  letter-spacing: 2px;
+  text-shadow: 1px 3px 4px #000;
+  font-family: diretideFontX;
+  font-weight: semi-bold;
+}
+
+@define defaultFont: Radiance,FZLanTingHei-R-GBK,TH Sarabun New,YDYGO 540,Gulim,MingLiU;
+
+#RoundOptions {
+  margin-top: 50px;
+  margin-right: 60px;
+  horizontal-align: right;
+  vertical-align: top;
+  width: 120px;
+  height: 45px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: 100% 100%;
+  background-image: url("file://{images}/hud/top_scorboard_center.psd");
+}
+
+#RoundOptions Label
+{
+  vertical-align: middle;
+  horizontal-align: center;
+  font-size: 15px;
+}
+
+#Vote_Yes {
+  horizontal-align: center;
+  vertical-align: top;
+  margin-top: 8px;
+  background-color: gradient(
+    linear,
+    0% 0%,
+    0% 100%,
+    from(#373d45),
+    to(#4d5860)
+  );
+  border-style: solid;
+  border-width: 1px;
+  padding: 4px 10px;
+  border-top-color: #555555;
+  border-left-color: #494949;
+  border-bottom-color: #333333;
+  border-right-color: #404040;
+  transition-property: background-color, opacity;
+  transition-duration: 0.05s;
+  transition-timing-function: linear;
+  box-shadow: #00000055 0px 0px 4px 0px;
+  min-width: 100px;
+  min-height: 30px;
+}
+
+#Vote_Yes:enabled:hover {
+  background-color: gradient(
+    linear,
+    0% 0%,
+    0% 100%,
+    from(#4c5561),
+    to(#6c7d88)
+  );
+  border-top-color: #aaaaaa77;
+  border-left-color: #aaaaaa33;
+  border-bottom-color: #333333;
+  border-right-color: #404040;
+}
+
+#Vote_Yes:disabled {
+  wash-color: #aaaaaa;
+  saturation: 0;
+}
+
+#Vote_Yes:disabled Label {
+  color: #333333;
+}
+
+#Vote_Yes:active {
+  background-color: gradient(
+    linear,
+    0% 0%,
+    0% 100%,
+    from(#393939),
+    to(#555555)
+  );
+  border-top-color: #222222;
+  border-left-color: #303030;
+  border-bottom-color: #666666;
+  border-right-color: #444444;
+  sound: "ui_generic_button_click";
+}
+
+#Vote_Yes Label {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #ffffff;
+  horizontal-align: center;
+  text-align: center;
+  vertical-align: middle;
+  text-shadow: 2px 2px 0px 1 #000000;
+  transition-property: color;
+  transition-duration: 0.35s;
+  transition-timing-function: ease-in-out;
+}
+
+#Vote_Yes:active Label {
+  transform: translateY(1px);
+}

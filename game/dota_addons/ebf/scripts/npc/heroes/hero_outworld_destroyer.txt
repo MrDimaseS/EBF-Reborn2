@@ -1,0 +1,359 @@
+"DOTAAbilities"
+{	
+	//=================================================================================================================
+	// Obsidian Destroyer: Arcane Orb
+	//=================================================================================================================
+	"obsidian_destroyer_arcane_orb"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5391"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AUTOCAST | DOTA_ABILITY_BEHAVIOR_ATTACK"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PURE"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+		"AbilitySound"					"Hero_ObsidianDestroyer.ArcaneOrb"
+
+		"AbilityCastRange"				"450"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0"
+		"AbilityCooldown"				"6 4 2 0 0 0 0"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"mana_pool_damage_pct"	
+			{
+				"value"										"125 125 125 125 130 135 140"
+				"special_bonus_unique_outworld_devourer"	"+35"
+				"CalculateSpellDamageTooltip"				"0"
+			}
+			"mana_cost_percentage"							"15 15 15 15 13 11 9"
+			"bounce_radius"
+			{
+				"value"										"0"			
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}	
+
+	//=================================================================================================================
+	// Obsidian Destroyer: Astral Imprisonment
+	//=================================================================================================================
+	"obsidian_destroyer_astral_imprisonment"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_obsidian_destroyer/obsidian_destroyer_astral_imprisonment"
+		"AbilityTextureName"			"obsidian_destroyer_astral_imprisonment"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY | DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_NOT_MAGIC_IMMUNE_ALLIES"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+		"AbilitySound"					"Hero_ObsidianDestroyer.AstralImprisonment"
+		"HasScepterUpgrade"				"0"
+        "HasShardUpgrade"               "1"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"150 175 200 225 250 275 300"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityModifierSupportValue"	"0.5" // applies multiple modifiers
+
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"prison_duration"				"4"
+			"damage"		
+			{
+				"value"						"2250 4125 6460 9275 17525 33775 65925"
+			}
+			"mana_capacity_steal"	
+			{
+				"value"						"175 200 250 300 350 400 500"
+				"special_bonus_shard"		"+25%"
+			}
+			"mana_capacity_duration"		"60"
+			"allied_movement_speed_pct"
+			{
+				"value"						"0"
+				"special_bonus_shard"		"+60"
+			}
+			"AbilityCooldown"		
+			{
+				"value"						"12"
+			}
+			"AbilityChargeRestoreTime"		"12"
+			"AbilityCharges"		
+			{
+				"value"						""
+			}										
+			"damage_radius"
+			{
+				"value"						"0"
+			}
+			"AbilityCastRange"
+			{
+				"value"							"650"
+				"special_bonus_unique_outworld_devourer_astral_castrange"	"+100"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
+	}	
+
+	//=================================================================================================================
+	// Obsidian Destroyer: Essence Aura
+	//=================================================================================================================
+	"obsidian_destroyer_essence_aura"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5393"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_AURA"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+		"AbilitySound"					"Hero_ObsidianDestroyer.EssenceAura"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"radius"			"1200"
+			"bonus_mana"	    "150 250 350 450 550 650 750"
+			"restore_amount"	"10 12.5 15 17.5 20 22.5 25"
+			"restore_chance"		"40"
+			"intelligence_bonus"	"4"
+			"intelligence_duration"	"30"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+
+	//=================================================================================================================
+	// Obsidian Destroyer: Equilibrium (Essence Flux)
+	//=================================================================================================================
+	"obsidian_destroyer_equilibrium"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5684"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+		"HasScepterUpgrade"				"1"
+		
+
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_5"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.75"
+						
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"proc_chance"		"30"
+			"mana_restore"		"25 30 35 40 45 50 55"
+			
+			"mana_capacity_steal" 	"5"
+			"mana_capacity_duration"	"30 40 50 60"
+			"shard_bonus_mana"			"300"
+			"shard_mana_duration"		"10"
+
+			"scepter_barrier_threshold"	"20"
+			"scepter_barrier_duration"	"15"
+			"scepter_barrier_cooldown"	"60"
+			"scepter_max_mana_barrier_pct"	"50"
+		}
+	}
+
+	//=================================================================================================================
+	// Obsidian Destroyer: Sanity's Eclipse
+	//=================================================================================================================
+	"obsidian_destroyer_sanity_eclipse"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_obsidian_destroyer/obsidian_destroyer_sanity_eclipse"
+		"AbilityTextureName"			"obsidian_destroyer_sanity_eclipse"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityCastRange"				"700"
+		"AbilityCastPoint"				"0.25 0.25 0.25"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"MaxLevel"						"6"
+		"LevelsBetweenUpgrades"			"6"
+		"FightRecapLevel"				"2"
+		"AbilitySound"					"Hero_ObsidianDestroyer.SanityEclipse"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"200 325 450 575 700 825"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"base_damage"									"4350 10000 23500 46750 56750 66750"
+			"radius"										"400 500 600 700 800 900"
+			"cast_range"									"700"
+			"damage_multiplier"
+			{
+				"value"										"10 15 20 25 30 35"
+				"special_bonus_unique_outworld_devourer_4"	"+8"
+				"DamageTypeTooltip"							"DAMAGE_TYPE_NONE"
+			}
+			"summon_multiplier"								"2"
+			"AbilityCooldown"
+			{
+				"value"										"130"
+				"special_bonus_unique_outworld_devourer_5"	"-60"
+			}
+		}
+	}
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_outworld_devourer"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6241"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"value"						"5"
+				"ad_linked_abilities"			"obsidian_destroyer_arcane_orb"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_outworld_devourer_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6711"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"30"
+				"ad_linked_abilities"			"obsidian_destroyer_essence_aura"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_outworld_devourer_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6712"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"						"15000"
+				"ad_linked_abilities"		"obsidian_destroyer_astral_imprisonment"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_outworld_devourer_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"7375"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"value"						"8"
+				"ad_linked_abilities"			"obsidian_destroyer_sanity_eclipse"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_outworld_devourer_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"750"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"value"				"60"
+				"ad_linked_abilities"			"obsidian_destroyer_sanity_eclipse"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+}

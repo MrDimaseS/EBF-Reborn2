@@ -1,0 +1,193 @@
+.information {
+	height: 100%;
+	width: 100%;
+	transition-property: opacity, transform;
+	transition-duration: 0.3s;
+	transform: translateY(-2000px);
+  }
+  
+  .information.Show_IN {
+	transform: translateY(0px);
+  }
+  
+  #information {
+	vertical-align: middle;
+	horizontal-align: center;
+	width: 1000px;
+	height: 600px;
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-position: 100% 100%;
+	background-image: url("file://{images}/hud/top_scorboard_center.psd");
+	box-shadow: #000 1px 1px;
+	flow-children: down;
+	padding-bottom: 10px;
+  }
+  
+  .top_section {
+	height: 90px;
+	width: 100%;
+	flow-children: right;
+	border: 1px solid #202021;
+  }
+  
+  #chg_date,
+  #ver {
+	width: 333px;
+	flow-children: down;
+	horizontal-align: center;
+	vertical-align: middle;
+  }
+
+  #web_lnk
+  {
+	flow-children: down;
+	vertical-align: middle;
+	horizontal-align: center;
+	height: 80px;
+  }
+
+  #web_lnk Label {
+	height: 40px;
+	font-size: 18px;
+	padding-top: 6px;
+	horizontal-align: center;
+	vertical-align: middle;
+  }
+
+  #chg_date Label,
+  #ver Label {
+	height: 40px;
+	font-size: 22px;
+	padding-top: 6px;
+	horizontal-align: center;
+	vertical-align: middle;
+  }
+  
+  .patchnotes {
+	width: 1000px;
+	height: 100%;
+	flow-children: down;
+	overflow: squish scroll;
+	padding: 20px;
+  }
+  
+  .patchnotes Label {
+	font-size: 18px;
+  }
+  
+  #h1 {
+	margin-top:  16px;
+	line-height: 1.25;
+	font-size: 28px;
+	color: #dfe2e5;
+	padding: 0 16px;
+	border-left: 4px solid #dfe2e5;
+  }
+  
+  #h1line {
+	width: 600px;
+	margin-top: -10px;
+	border-top: 1px solid #6a737d;
+  }
+  
+  #h2 {
+	margin-top: 24px;
+	margin-bottom: 16px;
+	line-height: 1.25;
+	font-size: 24px;
+  }
+  
+  #quote {
+	padding: 0 16px;
+	padding-top: 0px;
+	padding-right: 16px;
+	padding-bottom: 0px;
+	padding-left: 16px;
+	color: #6a737d;
+	border-left: 4px solid #dfe2e5;
+  }
+  
+  #li {
+	margin-left: 10px;
+  }
+
+    
+  #li2 {
+	margin-left: 20px;
+  }
+
+
+  #patch_button:enabled:hover {
+	background-color: gradient(
+	  linear,
+	  0% 0%,
+	  0% 100%,
+	  from(#4c5561),
+	  to(#6c7d88)
+	);
+	border-top-color: #aaaaaa77;
+	border-left-color: #aaaaaa33;
+	border-bottom-color: #333333;
+	border-right-color: #404040;
+  }
+  #patch_button:disabled {
+	wash-color: #aaaaaa;
+	saturation: 0;
+  }
+  #patch_button:disabled Label {
+	color: #333333;
+  }
+  #patch_button:active {
+	background-color: gradient(
+	  linear,
+	  0% 0%,
+	  0% 100%,
+	  from(#393939),
+	  to(#555555)
+	);
+	border-top-color: #222222;
+	border-left-color: #303030;
+	border-bottom-color: #666666;
+	border-right-color: #444444;
+	sound: "ui_generic_button_click";
+  }
+  #patch_button Label {
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	color: #ffffff;
+	horizontal-align: center;
+	text-align: center;
+	vertical-align: middle;
+	text-shadow: 2px 2px 0px 1 #000000;
+	transition-property: color;
+	transition-duration: 0.35s;
+	transition-timing-function: ease-in-out;
+  }
+  #patch_button:active Label {
+	transform: translateY(1px);
+  }
+  
+  #patch_button {
+	background-color: gradient(
+	  linear,
+	  0% 0%,
+	  0% 100%,
+	  from(#373d45),
+	  to(#4d5860)
+	);
+	border-style: solid;
+	border-width: 1px;
+	padding: 4px 10px;
+	border-top-color: #555555;
+	border-left-color: #494949;
+	border-bottom-color: #333333;
+	border-right-color: #404040;
+	transition-property: background-color, opacity;
+	transition-duration: 0.05s;
+	transition-timing-function: linear;
+	box-shadow: #00000055 0px 0px 4px 0px;
+	min-width: 192px;
+	min-height: 36px;
+  }
+  

@@ -1,0 +1,105 @@
+<root>
+	<styles>
+		<include src="file://{resources}/styles/dotastyles.css" />
+		<include src="file://{resources}/layout/custom_game/board/leaderboard/leaderboard.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/layout/custom_game/board/leaderboard_wr/leaderboard_wr.js" />
+	</scripts>
+	<snippets>
+		<snippet name="RankInfoPanel">
+			<Panel class="ranking_item">
+				<Panel id="rank_col">
+					<Label class="rank" id="lblRank" text="" />
+				</Panel>
+				<Panel id="avatar_col">
+					<DOTAAvatarImage id="imgAvatar" steamid="" />
+				</Panel>
+				<Panel id="name_col">
+					<DOTAUserName id="SteamName" steamid="" />
+				</Panel>
+				<Panel id="mmr_col">
+					<Label class="mmr" id="mmr" text="" />
+				</Panel>
+				<Panel id="plays_col">
+					<Label class="plays" id="plays" text="" />
+				</Panel>
+				<Panel id="wins_col">
+					<Label class="wins" id="wins" text="" />
+				</Panel>
+				<Panel id="losses_col">
+					<Label class="losses" id="losses" text="" />
+				</Panel>
+				<Panel id="winrate_col">
+					<Label class="winrate" id="winrate" text="" />
+				</Panel>
+			</Panel>
+		</snippet>
+	</snippets>
+	<Panel class="leaderboard" hittest="false">
+		<Panel id="leaderboard">
+			<Panel class="lb_top">
+				<Panel id="legend">
+					<Panel id="rank_col">
+						<Label text="#lb_rank" />
+					</Panel>
+					<Panel id="lb_name_col">
+						<Label text="#lb_boss_slayer" />
+					</Panel>
+					<Panel id="mmr_col">
+						<Label text="#lb_mmr" />
+					</Panel>
+					<Panel id="plays_col">
+						<Label text="#lb_plays" />
+					</Panel>
+					<Panel id="wins_col">
+						<Label text="#lb_wins" />
+					</Panel>
+					<Panel id="losses_col">
+						<Label text="Losses" />
+					</Panel>
+					<Panel id="winrate_col">
+						<Label text="#lb_winrate" />
+					</Panel>
+				</Panel>
+			</Panel>
+			<Panel id="mmr_leaderboard" class="mmr-leaderboard"></Panel>
+		</Panel>
+		<Panel id="Profile">
+			<Panel class="PlayerData">
+				<Panel class="AccountInfo">
+					<DOTAAvatarImage id="C_PlayerAvatar" steamid="local" />
+					<Panel id="C_PlayerName">
+						<DOTAUserName id="C_PlayerName" steamid="local" />
+					</Panel>
+				</Panel>
+				<Panel id="separator_top">
+					<Label id="text" text="#stat"/>
+				</Panel>
+				<Panel class="TopPlayerInfoLegend" hittest="false">
+					<Panel class="PlayerInfoLegend">
+						<Label text="#leadbrd_total" />
+						<Label text="#leadbrd_win" />
+						<Label text="#leadbrd_loss" />
+						<Label text="#leadbrd_wr" />
+					</Panel>
+					<Panel class="PlayerInfoData" hittest="false">
+						<Label hittest="false" id="lb_total" text=""/>
+						<Label hittest="false" id="lb_wins" text="" />
+						<Label hittest="false" id="lb_losses" text="" />
+						<Label hittest="false" id="lb_winrate" text="" />
+					</Panel>
+				</Panel>
+				<Panel id="separator_bottom">
+					<Label id="text" text="#lb_rat"/>
+				</Panel>
+				<Panel hittest="false" id="lb_rating">
+					<Image hittest="true" id="HeroRank" src="file://{resources}/images/hud_selection/rank_0.png"/>
+					<Image hittest="false" id="HeroRankStars" src="file://{resources}/images/hud_selection/star_0.png"/>
+					<Label id="RankPos" text=""/>
+				</Panel>
+				<Label id="RankExist" text=""/>
+			</Panel>
+		</Panel>
+	</Panel>
+</root>

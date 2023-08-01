@@ -1,0 +1,42 @@
+<root>
+	<styles>
+		<include src="file://{resources}/styles/dotastyles.css" />
+		<include src="file://{resources}/layout/custom_game/hero_stat_small/hero_stat_small.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/layout/custom_game/hero_stat_small/hero_stat_small.js" />
+	</scripts>
+	<Panel class="QuickStats">
+		<Panel id="HeroStatSmall" hittest="false">
+			<Panel id="data">
+				<Panel id="text">
+					<Panel id="line">
+						<Image id="dmg" />
+						<Label id="TextDamageDealt" text="#dealt" />
+					</Panel>
+					<Panel id="line2">
+						<Image id="dmg" />
+						<Label id="TextDamageTaken" text="#taken" />
+					</Panel>
+					<Panel id="line3">
+						<Image id="dmg" />
+						<Label id="TextDamageHealed" text="#healed" />
+					</Panel>
+					<Panel id="line4">
+						<Label id="TextDamagePerSecond" text="#total_dps" />
+					</Panel>
+					<Panel id="line5">
+						<Label id="TextDamagePerTarget" text="#target_dps" />
+					</Panel>
+				</Panel>
+				<Panel id="values">
+					<Label id="DamageDealt" text="0" />
+					<Label id="DamageTaken" text="0" />
+					<Label id="DamageHealed" text="0" />
+					<Label id="DamagePerSecond" text="0" />
+					<Label id="Target_DamagePerSecond" text="0" />
+				</Panel>
+			</Panel>
+		</Panel>
+	</Panel>
+</root>

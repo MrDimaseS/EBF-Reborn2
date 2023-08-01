@@ -1,0 +1,238 @@
+"DOTAAbilities"
+{
+	//=================================================================================================================
+	// Recipe: Crit2
+	//=================================================================================================================
+	"item_recipe_crit2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_greater_crit"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"15"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_crit2"
+		"ItemRequirements"
+		{
+			"01"						"item_greater_crit;item_relic"
+		}
+	}
+	
+	//=================================================================================================================
+	// Helm
+	//=================================================================================================================
+	"item_crit2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"item_datadriven"
+		"AbilityTextureName"			"crit/crit2"
+		"ItemKillable"					"1"
+		"ItemSellable"					"1"
+		"ItemDroppable"					"1"
+		"ItemCost"						"2728"
+		"ItemShopTags"					"damage;unique"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"critic2"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE_STACKING"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		"Modifiers"
+		{
+			"critic2"
+			{	
+				"IsHidden"	 "1"
+				"Passive"	 "1"
+				"Attributes"    "MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"		"%bonus_damage"
+				}
+				"OnAttackStart"
+				{
+					"Random"
+					{
+   						"Chance" "%critical_chance"
+   						"OnSuccess"
+   						{
+   							"ApplyModifier"
+							{
+								"ModifierName" 	"critical_strike_2"
+								"Target" 		"CASTER"
+							}
+   						}
+   						"OnFailure"
+   						{}
+					}
+				}
+				"OnAttackLanded"
+				{
+   					"RemoveModifier"
+					{
+						"ModifierName" 	"critical_strike_2"
+						"Target" 		"CASTER"
+					}
+				}
+			}
+			"critical_strike_2"
+			{
+				"IsHidden"		"1"
+				"Attributes"        "MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PREATTACK_CRITICALSTRIKE" 	"%critical_bonus"
+				}
+			}
+		}
+
+
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"critical_bonus"		"275"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"critical_chance"		"35"
+			}
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_damage"			"285"
+			}
+		}
+	}
+	//=================================================================================================================
+	// Recipe: Crit3
+	//=================================================================================================================
+	"item_recipe_crit3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_greater_crit"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"25"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_crit3"
+		"ItemRequirements"
+		{
+			"01"						"item_crit2;item_scythe_2"
+		}
+	}
+	
+	//=================================================================================================================
+	// crit
+	//=================================================================================================================
+	"item_crit3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"item_datadriven"
+		"AbilityTextureName"			"crit/crit3"
+		"ItemKillable"					"1"
+		"ItemSellable"					"1"
+		"ItemDroppable"					"1"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE_STACKING"
+		"ItemCost"						"6000"
+		"ItemShopTags"					"damage;unique"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"critic3"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		"Modifiers"
+		{
+			"critic3"
+			{	
+				"IsHidden"	 "1"
+				"Passive"	 "1"
+				"Attributes"    "MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"		"%bonus_damage"
+				}
+				"OnAttackStart"
+				{
+					"Random"
+					{
+   						"Chance" "%critical_chance"
+   						//"PseudoRandom" WTF IS THAS SHIT ?
+   						"OnSuccess"
+   						{
+   							"ApplyModifier"
+							{
+								"ModifierName" 	"critical_strike_3"
+								"Target" 		"CASTER"
+							}
+   						}
+   						"OnFailure"
+   						{}
+					}
+				}
+				"OnAttackLanded"
+				{
+   					"RemoveModifier"
+					{
+						"ModifierName" 	"critical_strike_3"
+						"Target" 		"CASTER"
+					}
+				}
+			}
+			"critical_strike_3"
+			{
+				"IsHidden"		"1"
+				"Attributes"        "MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PREATTACK_CRITICALSTRIKE" 	"%critical_bonus"
+				}
+			}
+		}
+
+
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"critical_bonus"		"325"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"critical_chance"		"40"
+			}
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_damage"			"880"
+			}
+		}
+	}
+}

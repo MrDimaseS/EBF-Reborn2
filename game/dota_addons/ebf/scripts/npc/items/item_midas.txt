@@ -1,0 +1,199 @@
+"DOTAAbilities"
+{
+	"item_midas_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"1218"				// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"Model"							"models/props_gameplay/red_box.vmdl" 
+		"BaseClass"						"item_datadriven"
+		"AbilityTextureName"			"item_midas_2"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"ItemKillable"					"1"
+		"ItemSellable"					"1"
+		"ItemDroppable"					"1"
+		"ItemCost"						"1000"
+		"ItemShopTags"					"int"
+		"AbilityCooldown"				"0.0"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"ring"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+
+		"precache"
+    {
+        "particle"  "particles/units/heroes/hero_alchemist/alchemist_lasthit_coins.vpcf"
+        "particle"  "particles/units/heroes/hero_alchemist/alchemist_lasthit_msg_gold.vpcf"
+    }
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"Modifiers"
+		{
+			"passive_midas_2"
+			{
+				"Passive" "1"
+				"IsHidden" "1"
+				"AllowIllusionDuplicate"    "0"
+				"OnAttackLanded"
+				{
+					"RunScript"
+					{
+						"ScriptFile"			"lua_item/simple_item.lua"
+						"Function"				"Midas_OnHit"
+						"damage_on_hit"		"%attack_damage"
+					}
+				}
+			}
+		}
+	}
+	"item_recipe_midas_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_hand_of_midas"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"2000"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_midas_3"
+		"ItemRequirements"
+		{
+			"01"						"item_midas_2"
+		}
+	}
+
+	"item_midas_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"1260"				// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"Model"							"models/props_gameplay/red_box.vmdl"
+		"BaseClass"						"item_datadriven"
+		"AbilityTextureName"			"item_midas_3"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"ItemKillable"					"1"
+		"ItemSellable"					"1"
+		"ItemDroppable"					"1"
+		"ItemCost"						"3000"
+		"ItemShopTags"					"int"
+		"AbilityCooldown"				"0.0"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"ring"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"precache"
+    {
+        "particle"  "particles/units/heroes/hero_alchemist/alchemist_lasthit_coins.vpcf"
+        "particle"  "particles/units/heroes/hero_alchemist/alchemist_lasthit_msg_gold.vpcf"
+    }
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"Modifiers"
+		{
+			"passive_midas_2"
+			{
+				"Passive" "1"
+				"IsHidden" "1"
+				"AllowIllusionDuplicate"    "0"
+				"OnAttackLanded"
+				{
+					"RunScript"
+					{
+						"ScriptFile"			"lua_item/simple_item.lua"
+						"Function"				"Midas2_OnHit"
+						"damage_on_hit"		"%attack_damage"
+					}
+				}
+			}
+		}
+	}
+	"item_recipe_midas_greave"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_hand_of_midas"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"510"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_midas_greave"
+		"ItemRequirements"
+		{
+			"01"						"item_midas_3;item_power_treads;item_orb_2"
+		}
+	}
+	"item_midas_greave"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"item_datadriven"
+		"Model"							"models/props_gameplay/red_box.vmdl" 
+		"AbilityTextureName"			"item_midas_greave"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		
+		"ItemKillable"					"1"
+		"ItemSellable"					"1"
+		"ItemDroppable"					"1"
+		"ItemCost"						"9000"
+		"ItemShopTags"					"boots"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"ring"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"precache"
+	    {
+	        "particle"  "particles/units/heroes/hero_alchemist/alchemist_lasthit_coins.vpcf"
+	        "particle"  "particles/units/heroes/hero_alchemist/alchemist_lasthit_msg_gold.vpcf"
+	    }
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"Modifiers"
+		{
+		    "midas_greave_passive"
+		    {
+		        "Passive" "1"  
+		        "IsHidden" "1"  
+		        "Attributes"    "MODIFIER_ATTRIBUTE_MULTIPLE"
+		        "Properties"
+		        {
+		            "MODIFIER_PROPERTY_MOVESPEED_BONUS_UNIQUE" "%bonus_speed"
+		            "MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"		"%bonus_all"
+					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"		"%bonus_all"
+					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"		"%bonus_all"
+		        }
+		    }
+
+		}
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_all"			"100"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_speed"	"100"
+			}
+		}
+	}
+}

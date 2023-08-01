@@ -1,0 +1,191 @@
+"DOTAAbilities"
+{	
+	"boss_robot_battery_assault"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"rattletrap_battery_assault"
+		"AbilityTextureName"			"rattletrap_battery_assault"
+		"MaxLevel"						"3"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_Rattletrap.Battery_Assault_Impact"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"20"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"90"
+		
+		"precache"
+		{
+			"soundfile"                     "soundevents/game_sounds_heroes/game_sounds_rattletrap.vsndevts"
+			"particle"						"particles/units/heroes/hero_rattletrap/rattletrap_battery_assault.vpcf"
+		}
+		
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityModifierSupportValue"	"0.8"	// applies many mini-stuns
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"radius"						"275 275 275 275"
+			"duration"						"8.5"
+			"interval"						"0.7"
+			"damage"						"225 300 375"
+			"creep_damage_multiplier"		"3"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+		
+	//=================================================================================================================
+	// Rattletrap: Power Cogs
+	//=================================================================================================================
+	"boss_robot_cogs"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"rattletrap_power_cogs"
+		"AbilityTextureName"			"rattletrap_power_cogs"
+		"MaxLevel"						"3"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"AbilitySound"					"Hero_Rattletrap.Power_Cogs"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.2"
+		
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"80"
+		
+		"precache"
+		{
+			"soundfile"                     "soundevents/game_sounds_heroes/game_sounds_rattletrap.vsndevts"
+			"particle"						"particles/units/heroes/hero_rattletrap/rattletrap_cog_deploy.vpcf"
+			"particle"						"particles/units/heroes/hero_rattletrap/rattletrap_cog_attack.vpcf"
+		}
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"duration"				"4"
+			"damage"				"1750 2250 2750"
+			"mana_burn"				"200"
+			"attacks_to_destroy"	"2"
+			"push_length"			"300"
+			"push_duration"			"1"
+			"cogs_radius"			"215"
+			"trigger_distance"		"185"
+			"extra_pull_buffer"		"-10"
+			"AbilityCooldown"		"25"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
+	}
+	"boss_robot_rocket_flare"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"bosses/boss_robots/boss_robot_rocket_flare"
+		"AbilityTextureName"			"rattletrap_rocket_flare"
+		"MaxLevel"						"3"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_Rattletrap.Rocket_Flare.Fire"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
+		"AbilityCastRange"				"6000"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_3"
+		"AbilityCastGestureSlot"		"ABSOLUTE"
+		
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"					"50"
+		
+		"precache"
+		{
+			"soundfile"                     "soundevents/game_sounds_heroes/game_sounds_rattletrap.vsndevts"
+			"particle"						"particles/units/heroes/hero_rattletrap/rattletrap_rocket_flare.vpcf"
+		}
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"radius"			"450"
+			"duration"			"0"
+			"speed"				"1250"
+			"damage"
+			{
+				"value"							"625"
+				"CalculateSpellDamageTooltip" 	"1"
+			}
+			"AbilityCooldown"						"3.75 3.25 2.75"
+		}	
+	}
+	//=================================================================================================================
+	// Rattletrap: Hookshot
+	//=================================================================================================================
+	"boss_robot_hookshot"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"bosses/boss_robots/boss_robot_hookshot"
+		"AbilityTextureName"			"rattletrap_hookshot"
+		"MaxLevel"						"3"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
+		"FightRecapLevel"				"2"
+		"AbilitySound"					"Hero_Rattletrap.Hookshot.Fire"
+		
+		"precache"
+		{
+			"soundfile"                     "soundevents/game_sounds_heroes/game_sounds_rattletrap.vsndevts"
+			"particle"						"particles/units/heroes/hero_rattletrap/rattletrap_hookshot.vpcf"
+		}
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.7"
+		"AbilityCastRange"				"3000"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
+		
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"15.0"
+		
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"100"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"latch_radius"		"125 125 125"
+			"stun_radius"		"175 175 175"
+			"duration"			"2.0"
+			"speed"				"4500"
+			"damage"			"3250 3500 4000"
+		}
+	}
+}

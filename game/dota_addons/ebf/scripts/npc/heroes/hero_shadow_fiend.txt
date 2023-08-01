@@ -1,0 +1,567 @@
+"DOTAAbilities"
+{	
+	//=================================================================================================================
+	// Ability: Nevermore Shadowraze #1
+	//=================================================================================================================
+	"nevermore_shadowraze1"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5059"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_Nevermore.Shadowraze"
+		"LinkedAbility"					"nevermore_shadowraze2"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastAnimation"			"ACT_DOTA_RAZE_1"
+		"AbilityCastGestureSlot"		"DEFAULT"
+		"AbilityCastPoint"				"0.55"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"75 90 105 120 135 150 165"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"shadowraze_damage"	
+			{
+				"value"				"1275 2050 2985 4835 9400 18475 41050"	
+				"special_bonus_unique_nevermore_2"	"+75%"
+			}
+			"shadowraze_radius"	"250"		
+			"shadowraze_range"	"200"
+			"shadowraze_cooldown"	"3"
+			"stack_bonus_damage" 
+			{
+				"value"								"710 1000 1285 1775 2890 4950 9815"
+				"special_bonus_unique_nevermore_7"	"+75%"
+				"CalculateSpellDamageTooltip"		"1"
+			}
+			"duration"	
+			{
+				"value"				"8"
+			}
+			"procs_attack"
+			{
+				"value"					"0"
+				"special_bonus_unique_nevermore_raze_procsattacks"		"+1"
+			}
+			"movement_speed_pct"						"-15"
+			"turn_rate_pct"								"0"
+			"AbilityCooldown"				
+			{	
+				"value"									"10"	
+				"special_bonus_unique_nevermore_shadowraze_cooldown"		"-5"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Nevermore Shadowraze #2
+	//=================================================================================================================
+	"nevermore_shadowraze2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5060"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"OnLearnbar"					"0"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+		"FightRecapLevel"				"1"
+		"LinkedAbility"					"nevermore_shadowraze3"
+		
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastAnimation"			"ACT_DOTA_RAZE_2"
+		"AbilityCastGestureSlot"		"DEFAULT"
+		"AbilityCastPoint"				"0.55"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"10"
+
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"75 90 105 120 135 150 165"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"shadowraze_damage"	
+			{
+				"value"				"1275 2050 2985 4835 9400 18475 41050"	
+				"special_bonus_unique_nevermore_2"	"+75%"
+			}
+			"shadowraze_radius"	"250"		
+			"shadowraze_range"	"450"
+			"shadowraze_cooldown"	"3"
+			"stack_bonus_damage" 
+			{
+				"value"								"710 1000 1285 1775 2890 4950 9815"
+				"special_bonus_unique_nevermore_7"	"+75%"
+				"CalculateSpellDamageTooltip"		"1"
+			}
+			"duration"	
+			{
+				"value"				"8"
+			}
+			"procs_attack"
+			{
+				"value"					"0"
+				"special_bonus_unique_nevermore_raze_procsattacks"		"+1"
+			}
+			"movement_speed_pct"						"-15"
+			"turn_rate_pct"								"0"
+			"AbilityCooldown"				
+			{	
+				"value"									"10"	
+				"special_bonus_unique_nevermore_shadowraze_cooldown"		"-5"
+			}
+		
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Nevermore Shadowraze #3
+	//=================================================================================================================
+	"nevermore_shadowraze3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5061"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"OnLearnbar"					"0"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+		"FightRecapLevel"				"1"
+		"LinkedAbility"					"nevermore_shadowraze1"
+		
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastAnimation"			"ACT_DOTA_RAZE_3"
+		"AbilityCastGestureSlot"		"DEFAULT"
+		"AbilityCastPoint"				"0.55"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"10"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"75 90 105 120 135 150 165"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"shadowraze_damage"	
+			{
+				"value"				"1275 2050 2985 4835 9400 18475 41050"	
+				"special_bonus_unique_nevermore_2"	"+75%"
+			}
+			"shadowraze_radius"	"250"		
+			"shadowraze_range"	"700"
+			"shadowraze_cooldown"	"3"
+			"stack_bonus_damage" 
+			{
+				"value"								"710 1000 1285 1775 2890 4950 9815"
+				"special_bonus_unique_nevermore_7"	"+75%"
+				"CalculateSpellDamageTooltip"		"1"
+			}
+			"duration"	
+			{
+				"value"				"8"
+			}
+			"procs_attack"
+			{
+				"value"					"0"
+				"special_bonus_unique_nevermore_raze_procsattacks"		"+1"
+			}
+			"movement_speed_pct"						"-15"
+			"turn_rate_pct"								"0"
+			"AbilityCooldown"				
+			{	
+				"value"									"10"	
+				"special_bonus_unique_nevermore_shadowraze_cooldown"		"-5"
+			}
+		}
+	}
+	
+	//=================================================================================================================
+	// Ability: Nevermore Necromastery
+	//=================================================================================================================
+	"nevermore_necromastery"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5062"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"OnCastbar"					"0"
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_4"
+				"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+        "HasShardUpgrade"           "1"
+        "HasScepterUpgrade"           "1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"625"
+		"AbilityCastPoint"				"0.0 0.0 0.0 0.0"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"3"
+
+		// Damage.
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityDamage"					"0 0 0 0"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"necromastery_damage_per_soul"
+			{
+				"value"								"20 30 50 80 120 200 360"
+				"special_bonus_unique_nevermore_1"	"+25%"
+				"DamageTypeTooltip"					"DAMAGE_TYPE_NONE"
+				"CalculateSpellDamageTooltip"		"0"
+			}
+			"necromastery_max_souls"				"11 14 17 20 23 26 29"
+			"necromastery_soul_release"				"0.8"
+			"necromastery_max_souls_scepter"
+			{
+				"value"								"15 20 25 30 35 40 45"
+				"RequiresScepter"					"1"
+			}	
+			"attack_range_bonus" "0"
+			"shard_souls_per_kill"
+			{
+				"value"								"2"
+				"RequiresShard"						"1"
+			}
+			"shard_crit_pct"
+			{
+				"value"								"190"
+				"RequiresShard"						"1"
+			}	
+			"shard_fear_duration"
+			{
+				"value"								"0.5"
+				"RequiresShard"						"1"
+			}				
+			
+		}
+	}
+	//=================================================================================================================
+	// Ability: Presence of the Dark Lord
+	//=================================================================================================================
+	"nevermore_dark_lord"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_shadow_fiend/nevermore_dark_lord"
+		"AbilityTextureName"			"nevermore_dark_lord"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_AURA"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+		"OnCastbar"					"0"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"900"
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_5"
+		"AbilityCooldown"			"10"
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"presence_armor_reduction"
+			{
+				"value"										"-4 -5 -6 -7 -7 -7 -7"
+				"special_bonus_unique_nevermore_5"			"-4"
+			}
+			"presence_radius"								"1200"
+			"bonus_armor_per_stack"							"2"
+			"creep_armor_per_stack"							"1"
+			"kill_buff_duration"							"10 10 10 10 15 20 25"
+			"creep_buff_duration"							"5 5 5 5 6 7 8"
+			"affects_allies"
+			{
+				"value"								""
+				"special_bonus_unique_nevermore_3"	"=1"
+			}
+		}
+	}
+	
+	//=================================================================================================================
+	// Ability: Nevermore Requiem of Souls
+	//=================================================================================================================
+	"nevermore_requiem"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"5064"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_NORMAL_WHEN_STOLEN"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"6"
+		"FightRecapLevel"				"2"
+		"HasScepterUpgrade"			"1"
+		"AbilitySound"					"Hero_Nevermore.RequiemOfSouls"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"1.67 1.67 1.67"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_6"
+
+		// Damage.
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityDamage"					"2150 5350 12800 24000 26750 29500"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"150 200 250 300 350 400"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityModifierSupportValue"	"0.5"	// Primarily about the damage
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"requiem_radius"	"1000"		
+			"requiem_reduction_ms"	"-20 -25 -30 -35 -40 -45"
+			"requiem_reduction_mres"	"-5 -10 -15 -20 -25 -30"
+			"requiem_slow_duration"	
+			{
+				"value"		"0.9"
+				"LinkedSpecialBonus"		"special_bonus_unique_nevermore_6"
+			}
+			"requiem_slow_duration_max"	
+			{
+				"value"					"2.7"
+				"LinkedSpecialBonus"		"special_bonus_unique_nevermore_6"
+				"LinkedSpecialBonusField"		"value2"
+			}
+			"requiem_reduction_radius"	"700 700 700"
+			"requiem_soul_conversion"	"1"
+			"requiem_line_width_start"	"125"
+			"requiem_line_width_end"	"350"
+			"requiem_line_speed"	"700 700 700"
+			"soul_death_release"	"0.5"
+			"requiem_heal_pct_scepter"	
+			{
+				"value"			"50"
+				"RequiresScepter"			"1"
+			}	
+			"requiem_damage_pct_scepter"	
+			{
+				"value"			"40"
+				"RequiresScepter"			"1"
+				"CalculateSpellDamageTooltip"	"0"
+			}
+			"AbilityCooldown"				
+			{
+				"value"		"120 110 100"
+				"special_bonus_scepter"	"-30"
+			}
+		}
+	}
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_nevermore_1"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6670"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"value"						"55"
+				"ad_linked_abilities"			"nevermore_necromastery"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_nevermore_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6070"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"						"75"
+				"ad_linked_abilities"			"nevermore_shadowraze2"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_nevermore_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6875"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"0"
+				"ad_linked_abilities"			"nevermore_dark_lord"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_nevermore_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6876"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"				"50"
+				"ad_linked_abilities"			"nevermore_requiem"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_nevermore_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"6912"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"						"-2"
+				"ad_linked_abilities"			"nevermore_dark_lord"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_nevermore_6"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"815"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"value"				"0.4"
+				"ad_linked_abilities"			"nevermore_requiem"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+			"02"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"value2"				"1.2"
+				"ad_linked_abilities"			"nevermore_requiem"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+			}
+		}
+	}
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_nevermore_7"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"999"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"ad_linked_abilities"			"nevermore_shadowraze2"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+		"BaseClass"						"special_bonus_base"
+	}
+
+}

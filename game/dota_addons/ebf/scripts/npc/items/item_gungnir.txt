@@ -1,0 +1,231 @@
+"DOTAAbilities"
+{
+	//======================================================================================================
+	//==============Gungnir================================================================================
+	//======================================================================================================
+	"item_recipe_gungnir"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_monkey_king_bar"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"2000"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_gungnir"
+		"ItemRequirements"
+		{
+			"01"						"item_monkey_king_bar;item_relic;item_hyperstone"
+		}
+	}
+	"item_gungnir"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_gungnir"
+		"AbilityTextureName"			"gungnir/gungnir"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"ItemKillable"					"1"
+		"ItemSellable"					"1"
+		"ItemDroppable"					"1"
+		"ItemCost"						"7000"
+		"ItemShopTags"					"int"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"ring"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+
+		"AbilityValues"
+	    {
+			"bonus_damage"			"360"
+			"bonus_attack_speed"	"75"
+			"bonus_chance"			"80"
+			"bonus_chance_damage"	"500"
+	    }
+	}
+	
+	//======================================================================================================
+	//==============Gungnir================================================================================
+	//======================================================================================================
+	"item_recipe_gungnir_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_monkey_king_bar"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"3500"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_gungnir_2"
+		"ItemRequirements"
+		{
+			"01"						"item_gungnir;item_scythe_2"
+		}
+	}
+	"item_gungnir_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_gungnir"
+		"AbilityTextureName"			"gungnir/gungnir_2"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"ItemKillable"					"1"
+		"ItemSellable"					"1"
+		"ItemDroppable"					"1"
+		"ItemCost"						"30000"
+		"ItemShopTags"					"int"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"ring"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+
+		"AbilityValues"
+	    {
+			"bonus_damage"				"1300"
+			"bonus_attack_speed"		"100"
+			"bonus_chance"				"80"
+			"bonus_chance_damage"		"1000"
+			"bonus_attack_damage"		"5"
+	    }
+	}
+	"item_recipe_gungnir_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_monkey_king_bar"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"8000"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_gungnir_3"
+		"ItemRequirements"
+		{
+			"01"						"item_gungnir_2;item_scythe_3"
+		}
+	}
+	//======================================================================================================
+	//==============Gungnir================================================================================
+	//======================================================================================================
+	"item_gungnir_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_gungnir"
+		"AbilityTextureName"			"gungnir/gungnir_3"
+		"ItemShareability"				"ITEM_PARTIALLY_SHAREABLE"
+		"ItemKillable"					"1"
+		"ItemSellable"					"1"
+		"ItemDroppable"					"1"
+		"ItemCost"						"30000"
+		"ItemShopTags"					"int"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"pierce;xbow;crossbow;fury;midas"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		"AbilityValues"
+		{
+			"bonus_damage"				"4000"
+			"bonus_attack_speed"		"125"
+			"bonus_chance"				"100"
+			"bonus_chance_damage"		"2000"
+			"bonus_attack_damage"		"10"
+		}
+	}
+	"item_recipe_gungifier_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_monkey_king_bar"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"14000"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_gungifier_4"
+		"ItemRequirements"
+		{
+			"01"						"item_gungnir_3;item_nullifier_4;item_scythe_4"
+		}
+	}
+	//======================================================================================================
+	//==============Gungnir================================================================================
+	//======================================================================================================
+	"item_gungifier_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_gungnir"
+		"AbilityTextureName"			"gungnir/gungifier_4"
+		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_INVULNERABLE | DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+		"FightRecapLevel"				"1"
+		
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"22.0"
+		"AbilityCastRange"				"900"
+		"AbilityManaCost"				"0"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"6200"
+		"ItemShopTags"					"int;hard_to_tag"
+		"ItemQuality"					"rare"
+		"ItemAliases"					"staff;misery;sm"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ShouldBeSuggested"				"1"
+		
+		"AbilityValues"
+		{
+			"bonus_damage"				"13700"
+			"bonus_attack_speed"		"150"
+			"bonus_strength"			"1000"
+			"bonus_armor"				"21"
+			"bonus_regen"				"1500"
+			
+			"bonus_chance"				"100"
+			"bonus_chance_damage"		"4000"
+			"bonus_attack_damage"		"15"
+			
+			"duration"					"5.0"
+			"projectile_speed"			"1100"
+			"hard_dispel"				"1"
+			"magic_immune"				"1"
+		}
+	}
+}

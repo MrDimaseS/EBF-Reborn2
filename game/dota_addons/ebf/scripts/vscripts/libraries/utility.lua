@@ -1273,6 +1273,17 @@ function CDOTAGameRules:GetCurrentRound()
 	return GameRules._roundnumber
 end
 
+function CDOTA_BaseNPC:AddNewModifierStacking( caster, ability, modifierName, modifierData)
+	local modifier = self:FindModifierByNameAndAbility( modifierName, ability )
+	if modifier then
+		modifierData.duration = (modifierData.duration or modifierData.Duration or 0) + modifier:GetRemainingTime()
+		modifierData.Duration = nil
+		return self:AddNewModifier( caster, ability, modifierName, modifierData )
+	else
+		return self:AddNewModifier( caster, ability, modifierName, modifierData )
+	end
+end
+
 function CDOTA_BaseNPC:AttemptKill(sourceAb, attacker)
 	ApplyDamage({victim = self, attacker = attacker, ability = sourceAb, damage_type = DAMAGE_TYPE_PURE, damage = self:GetMaxHealth() + 1, damage_flags = DOTA_DAMAGE_FLAG_NO_DAMAGE_MULTIPLIERS})
 	return not self:IsAlive()

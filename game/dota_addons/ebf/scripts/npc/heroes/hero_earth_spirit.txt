@@ -4,7 +4,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"ID"							"5608"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_earth_spirit/earth_spirit_boulder_smash"
+		"AbilityTextureName"			"earth_spirit_boulder_smash"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
@@ -36,28 +38,28 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"radius"				"180"	// NOTE: This radius must match the radius for geomagnetic grip
-			"rock_search_aoe"				"200"
+			"radius"									"180"
+			"rock_search_aoe"							"200"
 			"rock_damage"			
 			{
-				"value"									"2250 3940 5940 8280 15030 28160 53875"
+				"value"									"1250 2550 4550 6250 11050 20150 40875"
 				"special_bonus_unique_earth_spirit_6"	"+80%"
 			}	
-			"move_slow"				"50"
-			"duration"				"4"
-			"speed"					"900"
+			"move_slow"									"50"
+			"duration"									"4"
+			"speed"										"900"
 			"unit_distance"			
 			{
-				"value"					"100"
-				"LinkedSpecialBonus"	"special_bonus_unique_earth_spirit_7"
+				"value"									"100"
+				"special_bonus_unique_earth_spirit_7"	"+300"
 			}
 			"rock_distance"			
 			{
-				"value"		"2000.0"
-				"LinkedSpecialBonus"	"special_bonus_unique_earth_spirit_7"
-			}			
-			"remnant_smash_radius_tooltip"			"200"
-			"creep_multiplier"		"1.25"
+				"value"									"2000.0"
+				"special_bonus_unique_earth_spirit_7"	"+300"
+			}
+			"rock_bonus_damage"							"100"
+			"creep_multiplier"							"2.5"
 		}
 	}
 
@@ -98,27 +100,29 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"radius"				"160"
-			"speed"					"1000"
-			"rock_speed"			"1600"
+			"radius"								"160"
+			"speed"									"1000"
+			"rock_speed"							"1600"
+			"delay"									"0.1"
 			"distance"			
 			{
-				"value"					"750.0"
-				"LinkedSpecialBonus"	"special_bonus_unique_earth_spirit_4"
+				"value"								"650.0"
+				"LinkedSpecialBonus"				"special_bonus_unique_earth_spirit_4"
 			}
-			"rock_distance_multiplier"	"2.0"
-			"delay"					"0.5"
 			"damage"			
 			{
-				"value"					"1400 2550 4650 8950 16500 28500 48500"
+				"value"								"1200 2050 3650 6950 12500 20500 38500"
 				"special_bonus_unique_earth_spirit"	"+100%"
 			}
 			"stun_duration"			
 			{
-				"value"				"0.4"
-				"LinkedSpecialBonus"	"special_bonus_unique_earth_spirit_3"
+				"value"								"0.5"
+				"LinkedSpecialBonus"				"special_bonus_unique_earth_spirit_3"
 			}
-			"rock_bonus_duration"	"1.0"
+			"rock_bonus_value"						"100"
+			"creep_multiplier"						"2.5"
+			
+			
 			"damage_str"			""
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -132,9 +136,11 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"ID"							"5610"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_earth_spirit/earth_spirit_geomagnetic_grip"
+		"AbilityTextureName"			"earth_spirit_geomagnetic_grip"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
 		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_INVULNERABLE"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
@@ -144,6 +150,8 @@
 		"AbilitySound"					"Hero_EarthSpirit.GeomagneticGrip.Target"
 		"MaxLevel"						"7"
 		"LevelsBetweenUpgrades"			"3"
+		
+		"HasShardUpgrade"				"0"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -154,7 +162,7 @@
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"13"
+		"AbilityCooldown"				""
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -164,18 +172,23 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"radius"							"180"	// NOTE: This radius must match the radius for boulder smash
+			"radius"							"180"
 			"rock_damage"						"1200 2000 3600 7000 13500 21000 35000"
-			"duration"							"3.5"
+			
+			"remnant_grip_radius_tooltip"		"200"
 			"pull_units_per_second_heroes"		"600"
-			"pull_units_per_second"				"900"
-			"speed"								"800"
+			"pull_units_per_second"				""
 			"total_pull_distance"				"1400"
+			
+			"duration"							"3.5"
+			"rock_bonus_damage"					"100"
+			
 			"AbilityCooldown"		
 			{
 				"value"		"13"
 				"special_bonus_unique_earth_spirit_5"	"-2"
 			}
+			"creep_multiplier"						"2.5"
 		}
 	}
 
@@ -191,8 +204,7 @@
 		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"MaxLevel"						"1"
 		"AbilitySound"					"Hero_EarthSpirit.StoneRemnant.Impact"
-
-		"HasShardUpgrade"               "1"
+		"HasScepterUpgrade"				"1"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -216,10 +228,10 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"				"60.0"
+			"duration"							"60.0"
 			"polarization_distance"
 			{
-				"value"			"0"
+				"value"							"0"
 				
 			}
 			"vision_radius"				
@@ -232,6 +244,12 @@
 			}
 			"rolling_offset_distance"			"150"
 			"hero_level_increment"				"5"
+			
+			"scepter_magnetize_duration"
+			{
+				"value"							"2.0"
+				"RequiresScepter"				"1"
+			}
 		}
 	}
 
@@ -251,10 +269,7 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"MaxLevel"						"6"
 		"FightRecapLevel"				"1"
-		"IsGrantedByScepter"			"1"
 		"AbilitySound"					"Hero_EarthSpirit.Petrify"
-
-		"HasScepterUpgrade"			"1"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -293,7 +308,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"ID"							"5612"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_earth_spirit/earth_spirit_magnetize"
+		"AbilityTextureName"			"earth_spirit_magnetize"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
@@ -303,6 +320,7 @@
 		"AbilitySound"					"Hero_EarthSpirit.Magnetize.Cast"
 		"MaxLevel"						"6"
 		"LevelsBetweenUpgrades"			"6"
+		"HasShardUpgrade"               "1"
 
 		"AbilityDraftPreAbility"		"earth_spirit_stone_caller"
 		"AbilityDraftUltScepterAbility" "earth_spirit_petrify"
@@ -340,12 +358,21 @@
 				"DamageTypeTooltip"		"DAMAGE_TYPE_NONE"
 				"CalculateSpellDamageTooltip" "0"
 			}
-			"rock_search_radius"			"400"
-			"rock_explosion_radius"			"600"
-			"damage_interval"			"1.0"
-			"rock_explosion_delay"			"8.0"
-			"silence_duration"			"5.0"
-			"slow_duration"			"2.0"
+			"rock_search_radius"						"400"
+			"rock_explosion_radius"						"600"
+			"damage_interval"							"1.0"
+			"rock_explosion_delay"						"8.0"
+			"shard_magnetize_spell_amp"
+			{
+				"value"									"15 25 45 75 115 155"
+				"RequiresShard"							"1"
+			}
+			"shard_magnetize_armor"
+			{
+				"value"									"15"
+				"RequiresShard"							"1"
+			}
+			"scepter_magnetize_duration"				"2"
 		}
 	}
 	//=================================================================================================================
@@ -358,18 +385,6 @@
 		"ID"					"6203"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"						"500"
-				"ad_linked_abilities"			"earth_spirit_rolling_boulder"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
 	}
 
 	//=================================================================================================================

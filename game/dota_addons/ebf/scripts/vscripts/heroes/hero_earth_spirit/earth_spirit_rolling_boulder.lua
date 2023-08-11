@@ -30,15 +30,20 @@ function modifier_earth_spirit_boulder:OnCreated(table)
 		local caster = self:GetCaster()
 		local target = self:GetParent()
 		self.delay = self:GetSpecialValueFor("delay")
-		self.duration = self:GetSpecialValueFor("stun_duration")
-		self.remnantDuration = self.duration + self:GetSpecialValueFor("rock_bonus_duration")
-		self.radius = self:GetSpecialValueFor("radius") + caster:GetHullRadius() + caster:GetCollisionPadding()
-		self.damage = self:GetSpecialValueFor("damage")
-		self.distance = self:GetSpecialValueFor("distance")
 		self.direction = CalculateDirection( self:GetAbility():GetCursorPosition(), caster )
-		self.remnantDistance = self.distance * self:GetSpecialValueFor("rock_distance_multiplier")
-		self.speed = self:GetSpecialValueFor("speed")
-		self.remnantSpeed = self:GetSpecialValueFor("rock_speed")
+		self.radius = self:GetSpecialValueFor("radius") + caster:GetHullRadius() + caster:GetCollisionPadding()
+		
+		self.baseDuration = self:GetSpecialValueFor("stun_duration")
+		self.duration = self.baseDuration
+		self.baseDamage = self:GetSpecialValueFor("damage")
+		self.damage = self.baseDamage
+		self.baseDistance = self:GetSpecialValueFor("distance")
+		self.distance = self.baseDistance
+		self.baseSpeed = self:GetSpecialValueFor("speed")
+		self.speed = self.baseSpeed
+		
+		self.remnantBonus = self:GetSpecialValueFor("rock_bonus_value") / 100
+		self.creep_multiplier = self:GetSpecialValueFor("creep_multiplier")
 		
 		self.nfx = ParticleManager:CreateParticle("particles/units/heroes/hero_earth_spirit/espirit_geomagentic_target_sphere.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
 		ParticleManager:SetParticleControlForward( self.nfx, 3, CalculateDirection(self:GetParent(), self:GetCaster() ) )
@@ -63,22 +68,18 @@ function modifier_earth_spirit_boulder:OnDestroy()
 end
 
 function modifier_earth_spirit_boulder:DoControlledMotion()
-	caster = self:GetCaster()
-	ability = self:GetAbility()
+	local caster = self:GetCaster()
+	local ability = self:GetAbility()
 	
 	local stones = caster:FindFriendlyUnitsInRadius(caster:GetAbsOrigin(), self.radius, {type = DOTA_UNIT_TARGET_ALL, flag = DOTA_UNIT_TARGET_FLAG_INVULNERABLE })
     for _,stone in ipairs(stones) do
     	if stone:GetName() == "npc_dota_earth_spirit_stone" then
-    		if not stone:HasModifier("modifier_earth_spirit_magnetize") then
-				EmitSoundOn("Hero_EarthSpirit.RollingBoulder.Stone", stone)
-    			stone:ForceKill(false)
-				if not self.remnantHit then
-					self.remnnantHit = true
-					self.distance = self.distance + ( self.remnantDistance - self:GetSpecialValueFor("distance") )
-					self.speed = self.remnantSpeed
-					self.duration = self.remnantDuration
-				end
-			end
+			EmitSoundOn("Hero_EarthSpirit.RollingBoulder.Stone", stone)
+			stone:ForceKill(false)
+			self.distance = self.distance + self.baseDistance * self.remnantBonus
+			self.speed = math.min( self.baseSpeed*2, self.speed + self.baseSpeed * self.remnantBonus )
+			self.duration = self.duration + self.baseDuration * self.remnantBonus
+			self.damage = self.damage + self.baseDamage * self.remnantBonus
     	end
     end
 	
@@ -87,13 +88,17 @@ function modifier_earth_spirit_boulder:DoControlledMotion()
 		if not self.hitTable[enemy] then
 			EmitSoundOn("Hero_EarthSpirit.RollingBoulder.Target", enemy)
 			ability:Stun(enemy, self.duration)
-			ability:DealDamage( caster, enemy, self.damage )
+			ability:DealDamage( caster, enemy, TernaryOperator( self.damage, enemy:IsConsideredHero(), self.damage * self.creep_multiplier ) )
 			EmitSoundOn("Hero_EarthSpirit.RollingBoulder.Damage", enemy)
 			self.hitTable[enemy] = true
-			
-			if enemy:IsConsideredHero() then
-				self:Destroy()
-				FindClearSpaceForUnit(caster, enemy:GetAbsOrigin() + CalculateDirection( enemy, caster ) * 80, true)
+			-- Magnetized effects
+			for _, echo in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), -1 ) ) do
+				if enemy ~= target and echo:HasModifier("modifier_earth_spirit_magnetize_effect") then
+					ability:Stun(echo, self.duration)
+					ability:DealDamage( caster, echo, TernaryOperator( self.damage, echo:IsConsideredHero(), self.damage * self.creep_multiplier ) )
+					EmitSoundOn("Hero_EarthSpirit.RollingBoulder.Damage", echo)
+					self.hitTable[echo] = true
+				end
 			end
 		end
 	end

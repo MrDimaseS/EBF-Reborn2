@@ -11,7 +11,7 @@ end
 function earth_spirit_geomagnetic_grip:OnAbilityPhaseStart()
     local caster = self:GetCaster()
     local target = self:GetCursorTarget()
-	if target then 
+	if target and not PlayerResource:IsDisableHelpSetForPlayerID( target:GetPlayerOwnerID(), caster:GetPlayerOwnerID() ) then
 		self.target = target
 		return true
 	end

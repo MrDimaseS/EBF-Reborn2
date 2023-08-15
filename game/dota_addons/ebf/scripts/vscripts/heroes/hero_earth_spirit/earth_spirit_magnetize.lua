@@ -122,7 +122,7 @@ function modifier_earth_spirit_magnetize_effect:OnIntervalThink()
 	local stones = caster:FindFriendlyUnitsInRadius(target:GetAbsOrigin(), self.remnantRadius, {type = DOTA_UNIT_TARGET_ALL, flag = DOTA_UNIT_TARGET_FLAG_INVULNERABLE })
     for _,stone in ipairs(stones) do
     	if stone:GetName() == "npc_dota_earth_spirit_stone" or ( stone == caster and caster:HasShard() ) then
-    		if not stone:HasModifier("modifier_earth_spirit_magnetize_effect") or stone == caster then
+    		if not stone:HasModifier("modifier_earth_spirit_magnetize_effect") then
     			ParticleManager:FireRopeParticle("particles/units/heroes/hero_earth_spirit/espirit_stone_explosion_bolt.vpcf", PATTACH_POINT_FOLLOW, target, stone)
 				EmitSoundOn( "Hero_EarthSpirit.Magnetize.StoneBolt", target )
 				

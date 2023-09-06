@@ -1,7 +1,7 @@
 shadow_shaman_shackles = class({})
 
 function shadow_shaman_shackles:GetChannelTime()
-	self.duration = self:GetTalentSpecialValueFor( "channel_time" )
+	self.duration = self:GetSpecialValueFor( "channel_time" )
 
 	if IsServer() then
 		if self.shackleTarget ~= nil then
@@ -24,7 +24,7 @@ function shadow_shaman_shackles:OnSpellStart()
 
 	
 	if not hTarget:TriggerSpellAbsorb( self ) then
-		hTarget:AddNewModifier(hCaster, self, "modifier_shadow_shaman_bound_shackles", {duration = self:GetTalentSpecialValueFor("channel_time")})
+		hTarget:AddNewModifier(hCaster, self, "modifier_shadow_shaman_bound_shackles", {duration = self:GetSpecialValueFor("channel_time")})
 	end
 	
 	if hCaster:HasShard() then
@@ -48,9 +48,9 @@ modifier_shadow_shaman_bound_shackles = class({})
 
 function modifier_shadow_shaman_bound_shackles:OnCreated(kv)
 	self.duration = self:GetRemainingTime()
-	self.damage = self:GetAbility():GetTalentSpecialValueFor("total_damage")
-	self.heal = self:GetAbility():GetTalentSpecialValueFor("total_heal")
-	self.tick = self:GetAbility():GetTalentSpecialValueFor("tick_interval")
+	self.damage = self:GetAbility():GetSpecialValueFor("total_damage")
+	self.heal = self:GetAbility():GetSpecialValueFor("total_heal")
+	self.tick = self:GetAbility():GetSpecialValueFor("tick_interval")
 	EmitSoundOn("Hero_ShadowShaman.Shackles", self:GetParent())
 	if IsServer() then
 		self:StartIntervalThink(self.tick)
@@ -72,8 +72,8 @@ end
 
 function modifier_shadow_shaman_bound_shackles:OnRefresh()
 	self.duration = self:GetRemainingTime()
-	self.damage = self:GetAbility():GetTalentSpecialValueFor("total_damage")
-	self.tick = self:GetAbility():GetTalentSpecialValueFor("tick_interval")
+	self.damage = self:GetAbility():GetSpecialValueFor("total_damage") / self.duration
+	self.tick = self:GetAbility():GetSpecialValueFor("tick_interval")
 	EmitSoundOn("Hero_ShadowShaman.Shackles", self:GetParent())
 end
 

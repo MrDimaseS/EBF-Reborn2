@@ -25,9 +25,6 @@
 		//"AbilityCastRange"				"600"
 		"AbilityCastPoint"				"0.2"
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_1"
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"8"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -43,13 +40,21 @@
 				"special_bonus_unique_dawnbreaker_fire_wreath_cooldown"	"-4"
 			}
 			"duration"					"1.1"
-			"swipe_radius"				"300"					
+			"swipe_radius"				
+			{
+				"value"		"300"					
+				"affected_by_aoe_increase"	"1"	
+			}	
 			"swipe_damage"
 			{
 				"value"													"265 500 925 1880 3795 6750 14200"
 				"special_bonus_unique_dawnbreaker_fire_wreath_swipe"	"+75%"
 			}
-			"smash_radius"				"300"
+			"smash_radius"				
+			{
+				"value"		"300"
+				"affected_by_aoe_increase"	"1"	
+			}
 			"smash_damage"
 			{
 				"value"													"265 500 925 1880 3795 6750 14200"
@@ -66,14 +71,13 @@
 			"turn_rate"													"90"
 			"shard_cast_point"
 			{
-				"value"													"0.2"
-				"special_bonus_shard"									"-0.1"
+				"value"													"0.1"
 			}
 			"shard_movement_penalty"
 			{
 				"value"													"0"
 				"special_bonus_shard"									"+25"
-			}
+			}	
 		}
 	}
 
@@ -212,7 +216,11 @@
 				"value"						"3"
 				"special_bonus_unique_dawnbreaker_luminosity_attack_count"	"-1"	  
 			}
-			"heal_radius"					"650"
+			"heal_radius"				
+			{
+				"value"						"650"
+				"affected_by_aoe_increase"	"1"	
+			}
 			"heal_pct"						"35 40 45 50 55 60 65"
 			"heal_from_creeps"				"50"
 			"bonus_damage"
@@ -220,8 +228,9 @@
 				"value"						"125 150 175 200 225 250 275"
 				"LinkedSpecialBonus"		"special_bonus_unique_dawnbreaker_luminosity_crit"
 			}	
-			"proc_cooldown"				"0.00"
-			"allied_healing_pct"		"50"
+			"proc_cooldown"					"0.00"
+			"allied_healing_pct"			"50"
+			"cooldown_reduction"			"2"
 		}
 	}
 	//=================================================================================================================
@@ -529,15 +538,7 @@
 		"ID"							"7940"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"value"					"1"
-				"ad_linked_abilities"				"dawnbreaker_luminosity"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
+		
 	}
 	
 			//=================================================================================================================

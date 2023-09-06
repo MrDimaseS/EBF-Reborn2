@@ -19,6 +19,9 @@ end
 
 function modifier_bristleback_bristleback_passive:GetModifierIncomingDamage_Percentage( params )
 	if self:GetParent():PassivesDisabled() then return end
+	if not IsEntitySafe( self.quills ) then return end
+	local parent = self:GetParent()
+	
 	local max_reduction = self:GetSpecialValueFor("max_damage_reduction")
 	local min_reduction = self:GetSpecialValueFor("min_damage_reduction")
 	local red_scale = max_reduction - min_reduction
@@ -30,10 +33,46 @@ function modifier_bristleback_bristleback_passive:GetModifierIncomingDamage_Perc
 	
 	self.damageTaken = (self.damageTaken or 0) + params.damage * total_reduction/100
 	local hpThreshold = self:GetCaster():GetHealth() * self:GetSpecialValueFor("quill_release_threshold") / 100
-	if self.damageTaken >= hpThreshold then
-		if self.quills then self.quills:OnSpellStart() end
-		self.damageTaken = 0
-	end
+	
+	if self.damageTaken < hpThreshold then return end
+	
+	Timers:CreateTimer( function()
+		if parent:HasScepter() then
+			self.quills:OnSpellStart()
+		else
+			local direction = CalculateDirection( params.attacker, parent )
+			local damage = self.quills:GetSpecialValueFor("quill_base_damage")
+			local stackDamage = self.quills:GetSpecialValueFor("quill_stack_damage")
+			local distance = self.quills:GetSpecialValueFor("radius")
+			local duration = self.quills:GetSpecialValueFor("quill_stack_duration")
+			local maxDamage = self.quills:GetSpecialValueFor("max_damage")
+			
+			for _, enemy in ipairs( parent:FindEnemyUnitsInCone( direction, parent:GetAbsOrigin(), distance/2, distance) ) do
+				local quillsDebuff = enemy:FindModifierByName("modifier_bristleback_quill_spray")
+				local dmgTaken = damage
+				if quillsDebuff then
+					dmgTaken = math.min( maxDamage, dmgTaken + quillsDebuff:GetStackCount() * stackDamage )
+				end
+				self.quills:DealDamage( parent, enemy, dmgTaken, {damage_type = DAMAGE_TYPE_PHYSICAL} )
+				
+				enemy:AddNewModifier( parent, self.quills, "modifier_bristleback_quill_spray", {duration = duration}):IncrementStackCount()
+				enemy:AddNewModifier( parent, self.quills, "modifier_bristleback_quill_spray_stack", {duration = duration})
+				
+				EmitSoundOn( "Hero_Bristleback.QuillSpray.Target", enemy )
+			end
+			
+			local quillFX = ParticleManager:CreateParticle( "particles/units/heroes/hero_bristleback/bristleback_quill_spray_conical.vpcf", PATTACH_WORLDORIGIN, nil )
+			ParticleManager:SetParticleControl( quillFX, 0, parent:GetAbsOrigin() ) 
+			ParticleManager:SetParticleControlTransformForward( quillFX, 0, parent:GetAbsOrigin(), -direction )
+			
+			EmitSoundOn( "Hero_Bristleback.QuillSpray.Cast", parent )
+		end
+	
+		self.damageTaken = self.damageTaken - hpThreshold
+		if self.damageTaken >= hpThreshold then
+			return 0.1
+		end
+	end)
 	
 	return -total_reduction
 end

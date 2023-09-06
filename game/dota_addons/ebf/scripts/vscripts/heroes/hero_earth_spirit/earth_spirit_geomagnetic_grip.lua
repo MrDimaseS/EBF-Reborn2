@@ -65,9 +65,10 @@ function modifier_earth_spirit_geomagnetic_grip_movement:OnCreated(table)
 	if IsServer() then
 		caster = self:GetCaster()
 		target = self:GetParent()
-		self.silence = self:GetTalentSpecialValueFor("duration")
-		self.radius = self:GetTalentSpecialValueFor("radius")
-		self.damage = self:GetTalentSpecialValueFor("rock_damage")
+		self.silence = self:GetSpecialValueFor("duration")
+		self.radius = self:GetSpecialValueFor("radius")
+		self.damage = self:GetSpecialValueFor("rock_damage")
+		self.damage = self:GetSpecialValueFor("creep_multiplier")
 		self.distance = self:GetSpecialValueFor("total_pull_distance")
 		self.bonusDamage = self:GetSpecialValueFor("rock_bonus_damage") / 100
 		self.isRemnant = (self:GetParent():GetName() == "npc_dota_earth_spirit_stone")
@@ -97,7 +98,7 @@ function modifier_earth_spirit_geomagnetic_grip_movement:DoControlledMotion()
 		if not self.hitTable[enemy] then
 			EmitSoundOn("Hero_EarthSpirit.BoulderSmash.Silence", enemy)
 			if self.isRemnant then ability:Silence(enemy, self.silence) end
-			ability:DealDamage( caster, enemy, self.damage )
+			ability:DealDamage( caster, enemy, TernaryOperator( self.damage, target:IsConsideredHero(), self.damage * self.creep_multiplier ) )
 			self.hitTable[enemy] = true
 		end
 	end

@@ -16,27 +16,6 @@ function lion_finger_of_death_ebf:GetAOERadius()
 	end
 end
 
-function lion_finger_of_death_ebf:GetCastRange(vLocation, hTarget)
-	-- if self:GetCaster():HasScepter() then
-		-- return self:GetSpecialValueFor("cast_range_scepter")
-	-- end
-	return self:GetSpecialValueFor("cast_range")
-end
-
-function lion_finger_of_death_ebf:GetCooldown(iLevel)
-	-- if self:GetCaster():HasScepter() then
-		-- return self:GetSpecialValueFor("cooldown_scepter")
-	-- end
-	return self.BaseClass.GetCooldown(self, iLevel)
-end
-
-function lion_finger_of_death_ebf:GetManaCost(iLevel)
-	-- if self:GetCaster():HasScepter() then
-		-- return self:GetSpecialValueFor("mana_cost_scepter")
-	-- end
-	return self.BaseClass.GetManaCost(self, iLevel)
-end
-
 function lion_finger_of_death_ebf:OnSpellStart()
 	if IsServer() then
 		local caster = self:GetCaster()

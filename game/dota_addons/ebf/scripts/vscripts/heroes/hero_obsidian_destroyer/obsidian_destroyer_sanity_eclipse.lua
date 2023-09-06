@@ -16,7 +16,7 @@ function obsidian_destroyer_sanity_eclipse:OnSpellStart()
 	for _,enemy in pairs(enemies) do
 		local intDamage = self:GetTalentSpecialValueFor("damage_multiplier") * ( caster:GetMana() - enemy:GetMana() )
 		local damage = base_damage + math.max(0, intDamage)
-		if not enemy.Holdout_IsCore then damage = damage * summon_multiplier end
+		if not enemy:IsConsideredHero() then damage = damage * summon_multiplier end
 		self:DealDamage( caster, enemy, damage, {damage_flags = DOTA_DAMAGE_FLAG_BYPASSES_INVULNERABILITY } )
 		EmitSoundOn("Hero_ObsidianDestroyer.SanityEclipse", enemy)
 	end

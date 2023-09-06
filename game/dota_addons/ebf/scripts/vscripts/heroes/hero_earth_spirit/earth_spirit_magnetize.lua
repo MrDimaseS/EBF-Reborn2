@@ -81,6 +81,7 @@ function modifier_earth_spirit_magnetize_effect:OnRefresh(table)
 	self.rockDelay = self:GetSpecialValueFor("rock_explosion_delay")
 	self.damage = self:GetSpecialValueFor("damage_per_second")
 	self.damageInterval = self:GetSpecialValueFor("damage_interval")
+	self.undispellable = self:GetSpecialValueFor("undispellable")
 	self.currInterval = self.damageInterval
 	
 	self.shardSpellAmp = self:GetSpecialValueFor("shard_magnetize_spell_amp")
@@ -151,6 +152,10 @@ end
 
 function modifier_earth_spirit_magnetize_effect:GetModifierSpellAmplify_Percentage()
 	if self:GetCaster() == self:GetParent() then return self.shardSpellAmp end
+end
+
+function modifier_earth_spirit_magnetize_effect:IsPurgable()
+	return self.undispellable ~= 1
 end
 
 modifier_earth_spirit_magnetize_listener = class({})

@@ -100,6 +100,12 @@
 				"special_bonus_unique_dark_willow_2" "+1"
 				
 			}
+			"target_count"
+			{
+				"value"		"1"
+				"special_bonus_unique_dark_willow_bedlam_targets" "+2"	
+			}
+			"travel_speed"		"1800"
 		}
 	}
 
@@ -255,42 +261,34 @@
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"delay"			"4"
+			"stun_duration"			
 			{
-				"var_type"					"FIELD_FLOAT"
-				"delay"						"4"
+				"value"							"2.4"
+				"LinkedSpecialBonus"			"special_bonus_unique_dark_willow_6"
 			}
-			"02"
+			"stun_radius"			
 			{
-				"var_type"					"FIELD_FLOAT"
-				"stun_duration"				"3.0"
-				"LinkedSpecialBonus"		"special_bonus_unique_dark_willow_6"
+				"value"			"360"
+				"LinkedSpecialBonus"			"special_bonus_unique_dark_willow_7"
+				"affected_by_aoe_increase"	"1"		
 			}
-			"03"
+			"shard_delay_reduction"			
 			{
-				"var_type"					"FIELD_INTEGER"
-				"stun_radius"				"360"
-				"LinkedSpecialBonus"		"special_bonus_unique_dark_willow_7"
-			}
-			"04"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"shard_delay_reduction"		"1"
-				"RequiresShard"				"1"
+				"value"			"1"
+				"RequiresShard"					"1"
 			}			
-			"05"
+			"shard_bramble_amount"			
 			{
-				"var_type"					"FIELD_INTEGER"
-				"shard_bramble_amount"		"4"
-				"RequiresShard"				"1"
+				"value"			"4"
+				"RequiresShard"					"1"
 			}
-			"06"
+			"shard_spawn_radius"
 			{
-				"var_type"					"FIELD_INTEGER"
-				"shard_spawn_radius"		"175"
-				"RequiresShard"				"1"
+				"value"	"175"
+				"RequiresShard"					"1"
 			}	
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"

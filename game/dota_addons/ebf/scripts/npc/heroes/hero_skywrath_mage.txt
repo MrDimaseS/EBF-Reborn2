@@ -36,22 +36,27 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bolt_speed"			"500"
-			"bolt_vision"			"325"
+			"bolt_speed"												"500"
+			"bolt_vision"												"325"
 			"bolt_damage"
 			{
-				"value"							"2065 3565 5315 7350 13160 20660 35300"
-				"CalculateSpellDamageTooltip"	"1"
+				"value"													"2065 3565 5315 7350 13160 20660 35300"
+				"CalculateSpellDamageTooltip"							"1"
 			}
-			"int_multiplier"					"0"
-			"vision_duration"				"3.34"
-			"scepter_radius"
+			"int_multiplier"											"0"
+			"vision_duration"											"3.34"
+			"extra_bolt_search_radius"									"700"
+			"lifesteal_duration"										"5"
+			"lifesteal_amt"			
 			{
-				"value"		"700"
-				"RequiresScepter"	"1"
+				"value"													"35"
+				"special_bonus_unique_skywrath_arcane_bolt_lifesteal"	"+25"
 			}
-			"lifesteal_duration"	"5"
-			"lifesteal_amt"			"20"
+			"total_bolt_count"
+			{
+				"value"													"1"
+				"special_bonus_scepter"									"+2"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -138,7 +143,7 @@
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"700 750 800 850"
+		"AbilityCastRange"				"850"
 		"AbilityCastPoint"				"0.1 0.1 0.1 0.1"
 		
 		// Time		
@@ -151,25 +156,20 @@
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"resist_debuff"			
 			{
-				"var_type"				"FIELD_INTEGER"
-				"resist_debuff"			"-20 -25 -30 -35 -40 -45 -50"
-				"LinkedSpecialBonus"	"special_bonus_unique_skywrath_3"
-				"DamageTypeTooltip"		"DAMAGE_TYPE_MAGICAL"
+				"value"								"-20 -25 -30 -35 -40 -45 -50"
+				"special_bonus_unique_skywrath_3"	"-10"
+				"DamageTypeTooltip"					"DAMAGE_TYPE_MAGICAL"
 			}
-			"02"
+			"seal_duration"							"6.0"
+			"scepter_radius"		
 			{
-				"var_type"				"FIELD_FLOAT"
-				"seal_duration"			"6.0"
-			}
-			"03"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"scepter_radius"		"700"
-				"RequiresScepter"		"1"
+				"value"		"700"
+				"affected_by_aoe_increase"	"1"
+				"RequiresScepter"	"1"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
@@ -315,18 +315,6 @@
 		"ID"					"6885"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"-12"
-				"ad_linked_abilities"			"skywrath_mage_ancient_seal"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
 	}
 
 	//=================================================================================================================

@@ -36,7 +36,7 @@ function skywrath_mage_concussive_shot:OnProjectileHit(hTarget, vLocation)
         	enemy:AddNewModifier(caster, self, "modifier_skywrath_mage_concussive_shot", {Duration = self:GetTalentSpecialValueFor("slow_duration")})
 			local endDamage = damage
 			if not enemy:IsConsideredHero() then
-				endDamage = damage * (1 + minion_mult)
+				endDamage = damage * minion_mult
 			end
         	self:DealDamage(caster, enemy, endDamage)
         end

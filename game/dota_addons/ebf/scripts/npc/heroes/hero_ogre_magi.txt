@@ -28,10 +28,6 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"475"
 		"AbilityCastPoint"				"0.45"
-		
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"8"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -42,8 +38,13 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"stun_duration"							"1.2"
-			"fireblast_damage"		
+			"AbilityCooldown"
+			{
+				"value"										"8"
+				"special_bonus_unique_ogre_magi_5"			"-1"
+			}
+			"stun_duration"								"1.2"
+				"fireblast_damage"		
 			{
 				"value"								"1350 2600 5000 9500 18000 35000 65000" 
 				"special_bonus_unique_ogre_magi_2"	"+100%"
@@ -153,13 +154,20 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"AbilityCooldown"
+			{
+				"value"										"6"
+				"special_bonus_unique_ogre_magi_5"			"-1"
+			}			
+
 			"stun_duration"							"1.5"
 			"scepter_mana"							"35"
-			"fireblast_damage"		
+			"base_damage"		
 			{
 				"value"								"1315 2530 4115 6070 11880 23500 46500" 
 				"special_bonus_unique_ogre_magi_2"	"+100%"
 			}
+			"str_multiplier"						"1.5"
 		}
 	}
 
@@ -337,18 +345,6 @@
 		"ID"					"6707"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"						"80"
-				"ad_linked_abilities"			"ogre_magi_fireblast"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
 	}
 
 	//=================================================================================================================
@@ -385,18 +381,6 @@
 		"ID"					"403"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"						"100"
-				"ad_linked_abilities"			"ogre_magi_ignite"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
 	}
 
 	//=================================================================================================================

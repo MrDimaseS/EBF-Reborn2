@@ -45,5 +45,10 @@ function tinker_heat_seeking_missile:OnProjectileHit(hTarget, vLocation)
 		ParticleManager:FireParticle("particles/units/heroes/hero_tinker/tinker_missle_explosion.vpcf", PATTACH_POINT, hTarget, {})
 
 		self:DealDamage(caster, hTarget, self:GetSpecialValueFor("damage"))
+		
+		local ministun = self:GetSpecialValueFor("ministun_duration")
+		if ministun > 0 then
+			self:Stun(hTarget, ministun)
+		end
 	end
 end

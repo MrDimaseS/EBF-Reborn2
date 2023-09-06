@@ -137,10 +137,6 @@
 		"AbilityCastRange"				"500"
 		"AbilityCastPoint"				"0.6"
 
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"90 85 80 75 70.8 66.7 62.5"
-		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"120 140 160 180 200 220 240"
@@ -149,11 +145,20 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"AbilityCooldown"				
+			{
+				"value"								"90 85 80 75 70.8 66.7 62.5"
+				"special_bonus_unique_undying_7"	"-15" 
+			}
 			"tombstone_health"
 			{
-				"value"							"5 6 7 8 9 10 11"
-			"hits_to_destroy_tooltip"			"5 6 7 8 8 9 10 11"
-				"LinkedSpecialBonus"			"special_bonus_unique_undying_5"
+				"value"								"5 6 7 8 9 10 11"
+				"special_bonus_unique_undying_5"	"+6"
+			}
+			"hits_to_destroy_tooltip"
+			{
+				"value"								"5 6 7 8 9 10 11"
+				"special_bonus_unique_undying_5"	"+6"
 			}
 			"duration"							"12.0"
 			"radius"							"1200"
@@ -162,7 +167,7 @@
 			"zombie_damage_tooltip"
 			{
 				"value"							"400"
-				"LinkedSpecialBonus"			"special_bonus_unique_undying"
+				"special_bonus_unique_undying"	"+50%"
 				"CalculateSpellDamageTooltip"	"0"
 			}
 			"bunker_units"				"1"
@@ -265,8 +270,8 @@
 			"slow_duration"					"6"
 			"str_percentage"			
 			{
-				"value"						"40 45 50 55 60 65"
-				"special_bonus_unique_undying_4"		"+100%"
+				"value"									"40 45 50 55 60 65"
+				"special_bonus_unique_undying_4"		"+100"
 				"CalculateSpellDamageTooltip"			"1"
 			}
 			"duration"						"40"
@@ -288,18 +293,6 @@
 		"ID"					"6155"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"						"200"
-				"ad_linked_abilities"			"undying_tombstone"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
 	}
 
 	//=================================================================================================================

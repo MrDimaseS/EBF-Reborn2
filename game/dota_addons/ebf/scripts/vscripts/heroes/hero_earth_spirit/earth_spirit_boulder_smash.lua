@@ -61,7 +61,7 @@ function earth_spirit_boulder_smash:OnSpellStart()
 		if enemy ~= target and enemy:HasModifier("modifier_earth_spirit_magnetize_effect") then
 			enemy:ApplyKnockBack(caster:GetAbsOrigin(), distance/speed, distance/speed, distance, 0, caster, self )
 			enemy:AddNewModifier( caster, self, "modifier_earth_spirit_boulder_smash_movement", {duration = distance/speed} )
-			self:DealDamage( caster, target, TernaryOperator( damage, target:IsConsideredHero(), damage * self:GetSpecialValueFor("creep_multiplier") ) )
+			self:DealDamage( caster, enemy, TernaryOperator( damage, enemy:IsConsideredHero(), damage * self:GetSpecialValueFor("creep_multiplier") ) )
 			EmitSoundOn( "Hero_EarthSpirit.BoulderSmash.Target", enemy )
 		end
 	end

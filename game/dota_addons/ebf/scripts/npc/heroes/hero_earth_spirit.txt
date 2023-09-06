@@ -106,8 +106,8 @@
 			"delay"									"0.1"
 			"distance"			
 			{
-				"value"								"650.0"
-				"LinkedSpecialBonus"				"special_bonus_unique_earth_spirit_4"
+				"value"									"650.0"
+				"special_bonus_unique_earth_spirit_4"	"+325"
 			}
 			"damage"			
 			{
@@ -240,10 +240,10 @@
 			}		
 			"AbilityCharges"
 			{
-				"value"							"7 8 9 10 11 12 13"
+				"value"							"7 9 11 13 15"
 			}
 			"rolling_offset_distance"			"150"
-			"hero_level_increment"				"5"
+			"hero_level_increment"				"10"
 			
 			"scepter_magnetize_duration"
 			{
@@ -373,6 +373,11 @@
 				"RequiresShard"							"1"
 			}
 			"scepter_magnetize_duration"				"2"
+			"undispellable"
+			{
+				"value"									"0"
+				"special_bonus_unique_earth_spirit_2"	"=1"
+			}
 		}
 	}
 	//=================================================================================================================
@@ -445,18 +450,6 @@
 		"ID"					"324"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"325"
-				"ad_linked_abilities"			"earth_spirit_rolling_boulder"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
 	}
 
 	//=================================================================================================================

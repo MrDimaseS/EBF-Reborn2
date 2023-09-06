@@ -27,19 +27,24 @@
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"4"
+		"AbilityCooldown"				"10"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"400"
+		"AbilityManaCost"				"40"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
 			"projectile_speed"		"1200"
-			"radius"				"700"
-			"quill_stacks"			"2"
+			"radius"			
+			{
+				"value"		"700"
+				"affected_by_aoe_increase"	"1"
+			}
+			"quill_stacks"		"1"
+			"goo_stacks"		"2"
 		}
 	}
 	//=================================================================================================================
@@ -60,7 +65,7 @@
 
 		"MaxLevel"						"7"
 		"LevelsBetweenUpgrades"			"3"
-		"HasScepterUpgrade"			"1"
+		"HasShardUpgrade"				"1"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -79,26 +84,26 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"goo_speed"				"1000"
-			"goo_duration"			"5.0"
-			"base_armor"			"2"
+			"goo_speed"									"1000"
+			"goo_duration"								"5.0"
+			"base_armor"								"2"
 			"armor_per_stack"
 			{
-				"value"		"1.5 2 2.5 3 3.5 4 4.5"
+				"value"									"1.5 2 2.5 3 3.5 4 4.5"
 				"special_bonus_unique_bristleback_4"	"+0.75"
 			}
-			"base_move_slow"		"15"
-			"move_slow_per_stack"	"3 6 9 12 15 18 21"
+			"base_move_slow"							"15"
+			"move_slow_per_stack"						"3 6 9 12 15 18 21"
 			"stack_limit"
 			{
-				"value"			"4"
-				"special_bonus_scepter"	"+3"
+				"value"									"4"
+				"special_bonus_shard"					"+3"
 			}
-			"goo_duration_creep"			"10.0"
+			"goo_duration_creep"						"10.0"
 			"AbilityCastRange"
 			{
-				"value"				"650"
-				"special_bonus_unique_bristleback_5"				"+150"
+				"value"									"650"
+				"special_bonus_unique_bristleback_5"	"+150"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -122,7 +127,6 @@
 
 		"MaxLevel"						"7"
 		"LevelsBetweenUpgrades"			"3"
-		"HasShardUpgrade"	"1"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -142,7 +146,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"radius"									"400"
+			"radius"				
+			{
+				"value"									"700"
+				"affected_by_aoe_increase"				"1"
+			}
 			"quill_base_damage"
 			{
 				"value"									"280 405 560 1020 2000 3280 5210"
@@ -180,6 +188,7 @@
 		"AbilitySound"					"Hero_Bristleback.Bristleback"
 		"MaxLevel"						"7"
 		"LevelsBetweenUpgrades"			"3"
+		"HasScepterUpgrade"				"1"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -195,7 +204,11 @@
 				"value"									"6 8 10 12 13 14 15"
 				"special_bonus_unique_bristleback_6"	"+2"
 			}
-			"quill_release_threshold"					"40 36 34 32 30 28 26"
+			"quill_release_threshold"
+			{
+				"value"									"40 36 34 32 30 28 26"
+				"special_bonus_scepter"					"-6"
+			}					
 			
 			"side_damage_reduction"						""
 			"back_damage_reduction"						""
@@ -228,7 +241,7 @@
 		{
 			"damage_per_stack"
 			{
-				"value"						"300 665 1400 1925 2165 2400"
+				"value"									"300 665 1400 1925 2165 2400"
 				"special_bonus_unique_bristleback_3"	"+18%"
 			}
 			"move_speed_per_stack"			"2 3 4 5 6 7"
@@ -295,18 +308,6 @@
 		"ID"					"6615"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"18"
-				"ad_linked_abilities"			"bristleback_warpath"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
 	}
 
 	//=================================================================================================================

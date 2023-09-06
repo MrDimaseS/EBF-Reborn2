@@ -99,11 +99,19 @@ LinkLuaModifier("modifier_night_stalker_crippling_fear_silence", "heroes/hero_ni
 
 function modifier_night_stalker_crippling_fear_silence:OnCreated()
 	self:OnRefresh()
+	if IsServer() then
+		self:StartIntervalThink( self.tick_rate )
+	end
 end
 
 function modifier_night_stalker_crippling_fear_silence:OnRefresh()
 	self.miss = self:GetSpecialValueFor("miss_chance")
+	self.tick_rate = self:GetSpecialValueFor("tick_rate")
+	self.dps = self:GetSpecialValueFor("dps")
 end
+
+function modifier_night_stalker_crippling_fear_silence:OnIntervalThink()
+	self:GetAbility():DealDamage( self:GetCaster(), self:GetParent(), self.dps * self.tick_rate )
 
 function modifier_night_stalker_crippling_fear_silence:GetEffectName()
 	return "particles/units/heroes/hero_night_stalker/nightstalker_crippling_fear.vpcf"

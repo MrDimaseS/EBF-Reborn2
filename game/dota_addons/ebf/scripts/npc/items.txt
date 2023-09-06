@@ -432,14 +432,12 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-				"blink_range"			"1400"
-				"blink_damage_cooldown"	"3.0"
-				"blink_range_clamp"		"960"
-				"bonus_intellect"		"25"
-				"duration"		"0"
-				"cast_pct_improvement"		"0"
-				"manacost_reduction"		"0"
-				"debuff_amp"					"0"
+			"blink_range"			"1400"
+			"blink_damage_cooldown"	"1.0"
+			"blink_range_clamp"		"960"
+			"bonus_intellect"		"25"
+			"heal_amount"			"1500"
+			"mana_amount"			"100"
 		}
 	}
 	//=================================================================================================================
@@ -648,10 +646,10 @@
 			"bonus_damage"					"120"
 			"bonus_health_regen"			"7.5"
 			"bonus_mana_regen"				"2.75"
+			
 			"splash_damage"					"30"
 			"splash_damage_ranged"			"15"
-			"quelling_bonus"				"15"
-			"quelling_bonus_ranged"			"6"
+			
 			"cleave_starting_width"			"150"
 			"cleave_ending_width"			"360"
 			"cleave_distance"				"650"
@@ -3170,58 +3168,18 @@
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"bonus_damage"			"18"
-			}
-			"02"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"bonus_attack_speed"	"25"
-			}
-			"03"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"bonus_armor"			"5"
-			}
-			"04"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"bonus_health_regen"	"7"
-			}
-			"05"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"unholy_bonus_damage"	"62"
-			}
-			"06"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"unholy_bonus_attack_speed"	"0"
-			}
-			"07"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"unholy_bonus_strength"	"25"
-			}
-			"08"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"unholy_health_drain_per_tick"	"4"
-			}		
-			"09"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"unholy_health_drain_per_second_tooltip"	"40"
-			}	
-			"10"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"toggle_cooldown"		"0.036f"
-			}	
+			"bonus_damage"			"15"
+			"bonus_attack_speed"	"25"
+			"bonus_armor"			"6"
+			"bonus_health_regen"	"5"
+			"unholy_bonus_damage"	"35"
+			"unholy_bonus_strength"	"25"
+			"unholy_bonus_armor"	"4"
+			"unholy_bonus_slow_resistance"	"35"
+			"unholy_health_drain_per_second"	"45"
+			"toggle_cooldown"		"0.036"
 		}
 	}
 	//=================================================================================================================
@@ -3634,25 +3592,28 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage"			"60"
-			"chain_chance"			"30"
+			"bonus_damage"				"60"
+			"chain_chance"				"30"
 			"chain_damage"
 			{
-				"value"				"180"
+				"value"					"180"
 				"CalculateSpellDamageTooltip" "1"
 			}
-			"chain_strikes"			"4"
-			"chain_radius"			"650"
-			"chain_delay"			"0.25"
-			"chain_cooldown"		"0.2"
-			"bonus_intellect"		"24"
-			"bonus_strength"		"14"
-			"bonus_agility"			"14"
-			"duration"				"2.0"
-			"radius"				"375"
+			"chain_strikes"				"4"
+			"chain_radius"				"650"
+			"chain_delay"				"0.25"
+			"chain_cooldown"			"0.2"
+			"illusion_multiplier_pct"	"150"
+			
+			
+			"bonus_intellect"			"24"
+			"bonus_hp"					"350"
+
+			"duration"					"2.0"
+			"radius"					"375"
 			"active_damage"
 			{
-				"value"				"800"
+				"value"					"800"
 				"CalculateSpellDamageTooltip" "1"
 			}
 		}
@@ -3714,24 +3675,24 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage"			"50"
-			"bonus_attack_speed"	"40"
-			"static_duration"		"15.0"
-			"static_chance"			"20"
-			"static_strikes"		"4"
-			"static_damage"			"225"
-			"static_primary_radius"	"600"
+			"bonus_damage"				"50"
+			"bonus_attack_speed"		"40"
+			"static_duration"			"15.0"
+			"static_chance"				"20"
+			"static_strikes"			"4"
+			"static_damage"				"225"
+			"static_primary_radius"		"600"
 			"static_seconary_radius"	"900"
-			"static_radius"			"900"
-			"static_cooldown"		"1.0"
-			"chain_chance"			"30"
-			"chain_damage"			"180"
-			"chain_strikes"			"12"
-			"chain_radius"			"650"
-			"chain_delay"			"0.25"
-			"chain_cooldown"		"0.2"
-			"max_charges"			"0"
-			"chain_damage_per_charge"	"0"
+			"static_radius"				"900"
+			"static_cooldown"			"1.0"
+			"chain_chance"				"30"
+			"chain_damage"				"180"
+			"chain_strikes"				"12"
+			"chain_radius"				"650"
+			"chain_delay"				"0.25"
+			"chain_cooldown"			"0.2"
+			"max_charges"				"0"
+			"illusion_multiplier_pct"	"150"
 		}
 	}
 	//=================================================================================================================
@@ -3828,12 +3789,14 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage"			"48"
-			"chain_chance"			"30"
-			"chain_damage"			"120"
-			"chain_strikes"			"4"
-			"chain_radius"			"900"
-			"chain_delay"			"0.25"
+			"bonus_damage"				"48"
+			"chain_chance"				"30"
+			"chain_damage"				"120"
+			"chain_strikes"				"4"
+			"chain_radius"				"900"
+			"chain_delay"				"0.25"
+			"chain_cooldown"			"0.2"
+			"illusion_multiplier_pct"	"150"
 		}
 	}
 
@@ -4371,6 +4334,10 @@
 			"passive_cooldown"		"9"
 			"number_of_attacks"		"5"
 			"active_duration"		"15"
+			
+			"active_attack_speed"	"0"
+			"active_mres_reduction"	"20"
+			"spell_amp_duration"	"3"
 		}
 	}
 	//=================================================================================================================
@@ -4591,7 +4558,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"50"
-		"ItemCost"						"620"
+		"ItemCost"						"450"
 		"ItemShopTags"					"int;regen_health"
 		"ItemQuality"					"rare"
 		"ItemAliases"					"rod of atos"
@@ -4599,38 +4566,11 @@
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{			
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"bonus_intellect"		"30"
-			}
-			"02"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"bonus_health"				"350"
-			}			
-			"03"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"bonus_attack_speed"	"0"
-			}
-			"04"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"bonus_damage"			"0"
-			}
-			"05"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"slow"				"60"
-			}
-			"06"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"duration"				"4.0"
-			}
+		"AbilityValues"
+		{		
+			"bonus_intellect"		"15"
+			"bonus_hp"				"300"
+			"duration"				"2.0"
 		}
 	}
 	

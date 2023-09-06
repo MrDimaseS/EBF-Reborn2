@@ -84,14 +84,11 @@ end
 function modifier_necrophos_heart_stopper_passive_degen:OnRefresh()
 	self.aura_damage = self:GetSpecialValueFor("aura_damage")
 	self.creep_damage = self:GetSpecialValueFor("creep_damage")
-	self.scepter_multiplier = self:GetSpecialValueFor("scepter_multiplier")
+	self.heal_regen_to_damage = self:GetSpecialValueFor("heal_regen_to_damage") / 100
 end
 
 function modifier_necrophos_heart_stopper_passive_degen:OnIntervalThink()
-	local damage = self:GetParent():GetMaxHealth() * ( TernaryOperator( self.aura_damage, self:GetParent():IsConsideredHero(), self.creep_damage ) * 0.33) / 100
-	if self:GetCaster():HasScepter() and self:GetParent():HasModifier("modifier_necrolyte_sadist_ethereal_slow") then
-		damage = damage * self.scepter_multiplier
-	end
+	local damage = self:GetParent():GetMaxHealth() * ( TernaryOperator( self.aura_damage, self:GetParent():IsConsideredHero(), self.creep_damage ) * 0.33) / 100 + self:GetCaster():GetHealthRegen() * self.heal_regen_to_damage
 	local ability = self:GetAbility()
 	if ability and not ability:IsNull() then
 		ability:DealDamage( self:GetCaster(), self:GetParent(), math.ceil(damage), {damage_type = DAMAGE_TYPE_MAGICAL, damage_flags = DOTA_DAMAGE_FLAG_HPLOSS + DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL} )

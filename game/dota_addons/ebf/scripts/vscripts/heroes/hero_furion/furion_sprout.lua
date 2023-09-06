@@ -55,11 +55,16 @@ LinkLuaModifier( "modifier_furion_sprout_leash_thinker", "heroes/hero_furion/fur
 function modifier_furion_sprout_leash_thinker:OnCreated( kv )
 	self.aura_radius = self:GetSpecialValueFor( "tree_radius" )
 	self.max_greater_treants = self:GetSpecialValueFor("max_greater_treants")
+	
+	
+	self.sprout_damage_inteval = self:GetSpecialValueFor("sprout_damage_inteval")
+	self.sprout_current_inteval = self:GetSpecialValueFor("sprout_damage_inteval")
+	self.sprout_damage = self:GetSpecialValueFor("sprout_damage") * self.sprout_damage_inteval
+	self.sprout_damage_radius = self:GetSpecialValueFor("sprout_damage_radius")
+	
 	if IsServer() then
 		self.treants = self:GetCaster():FindAbilityByName("furion_force_of_nature")
-		if self.treants:GetLevel() > 0 then
-			self:StartIntervalThink( 0.2 )
-		end
+		self:StartIntervalThink( 0.1 )
 	end
 end
 
@@ -70,16 +75,29 @@ function modifier_furion_sprout_leash_thinker:OnDestroy( kv )
 end
 
 function modifier_furion_sprout_leash_thinker:OnIntervalThink()
-	if self.max_greater_treants <= 0 then
-		self:StartIntervalThink(-1)
-		return
+	if self.treants:GetLevel() > 0 then
+		if self.max_greater_treants <= 0 then
+			self:StartIntervalThink(-1)
+			return
+		end
+		
+		for tree, position in pairs( self:GetParent().treeList ) do
+			if tree:IsNull() and self.max_greater_treants > 0 then
+				self.treants:SpawnTreant( position, true )
+				self.max_greater_treants = self.max_greater_treants - 1
+				self:GetParent().treeList[tree] = nil
+			end
+		end
 	end
 	
-	for tree, position in pairs( self:GetParent().treeList ) do
-		if tree:IsNull() and self.max_greater_treants > 0 then
-			self.treants:SpawnTreant( position, true )
-			self.max_greater_treants = self.max_greater_treants - 1
-			self:GetParent().treeList[tree] = nil
+	self.sprout_current_inteval = self.sprout_current_inteval - 1
+	if self.sprout_current_inteval <= 0 then
+		local caster = self:GetCaster()
+		local parent = self:GetParent()
+		local ability = self:GetAbility()
+		self.sprout_current_inteval = self.sprout_damage_inteval
+		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( parent:GetAbsOrigin(), self.sprout_damage_radius ) ) do
+			ability:DealDamage( caster, enemy, self.sprout_damage, {damage_type = DAMAGE_TYPE_MAGICAL} )
 		end
 	end
 end

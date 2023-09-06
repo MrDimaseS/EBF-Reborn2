@@ -86,12 +86,13 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"375"
 		"AbilityCastPoint"				"0"
-		"AbilityCooldown"				"15"
+		
 		"AbilityManaCost"				"50 125 200 275 350 425 500"
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_2"
 		"AbilityCastGestureSlot"		"DEFAULT"
@@ -104,7 +105,21 @@
 			"duration_night"		"4 6 8 10 12 14 16"
 			"miss_chance"			"40"
 			"night_miss"			"10 15 20 25 30 35 40"
-			"radius"				"375"
+			"radius"	
+			{
+				"value"		"375"
+				"affected_by_aoe_increase"	"1"
+			}
+			
+			"dps"					"215 365 575 800 1200 2000 3250"
+			"tick_rate"				"0.1"
+			
+			"AbilityCooldown"
+			{
+				"value"				"15"
+				"special_bonus_unique_night_stalker_6" "-5"
+			}				
+			
 		}
 		
 	}
@@ -300,18 +315,6 @@
 		"ID"					"799"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"5"
-				"ad_linked_abilities"			"night_stalker_crippling_fear"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
 	}
 
 	//=================================================================================================================

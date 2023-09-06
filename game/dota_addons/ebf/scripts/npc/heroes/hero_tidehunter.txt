@@ -106,6 +106,11 @@
 				"value"								"0"
 				"special_bonus_unique_tidehunter_4"	"+1"
 			}
+			
+			"damage_reduction" ""
+			"damage_cleanse" ""
+			"damage_reset_interval"	""
+			"bonus_reduction_per_stack"	""
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -126,7 +131,8 @@
 		"AbilitySound"					"Hero_Tidehunter.AnchorSmash"
 		"MaxLevel"						"7"
 		"LevelsBetweenUpgrades"			"3"
-
+		
+		"LinkedAbility"					"tidehunter_dead_in_the_water"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -187,9 +193,6 @@
 		"MaxLevel"						"6"
 		"LevelsBetweenUpgrades"			"6"
 
-
-		"AbilityDraftUltShardAbility" "tidehunter_arm_of_the_deep"
-
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"0"
@@ -221,37 +224,35 @@
 			}
 		}
 	}
-	//=================================================================================================================
-	// Tidehunter: Arm of the Deep
-	//=================================================================================================================
-	"tidehunter_arm_of_the_deep"
+	"tidehunter_dead_in_the_water"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"ID"					"958"	// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"ID"					"5407"	// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
-		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"FightRecapLevel"				"2"
-		"AbilitySound"					"Ability.Ravage"
 		"IsGrantedByShard"				"1"
-		"MaxLevel"						"1"
+		"MaxLevel"						"7"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"0"
-		"AbilityCastPoint"				"0.3 0.3 0.3"
+		"AbilityCastRange"				"350"
+		"AbilityCastPoint"				"0.3"
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_5"
 		"AbilityCastGestureSlot"		"DEFAULT"
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"20"
+		"AbilityCooldown"				"25"
 
 		// Damage.
+		"AbilityDamage"						"1200 2350 4500 7800 15000 31250 61250"
+
 		//-------------------------------------------------------------------------------------------------------------
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -261,10 +262,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"projectile_width"				"150"
-			"damage_pct"					"50"
-			"duration_pct"					"50"
-			"range_pct"						"75"
+			"attacks_to_destroy"			"5"
+			"max_movement_speed"			"100"
+			"chain_length"					"350"
+			"duration"						"10"
+			"projectile_speed"				"1000"
 		}
 	}
 	//=================================================================================================================

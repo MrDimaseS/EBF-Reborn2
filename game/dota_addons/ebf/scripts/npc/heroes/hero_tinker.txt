@@ -86,7 +86,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"95 110 125 140"
+		"AbilityManaCost"				"95 110 125 140 155 170 185"
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
@@ -104,7 +104,7 @@
 			}
 			"duration_creep"				
 			{
-				"value"							"6.0 6.0 6.0 6.0"
+				"value"							"4.5"
 				"LinkedSpecialBonus"			"special_bonus_unique_tinker_4"
 			}	
 			"laser_damage"				
@@ -112,7 +112,12 @@
 				"value"							"1070 2110 3985 6000 9500 16410 27425"
 				"special_bonus_unique_tinker"	"+100%"
 			}	
-			"radius_explosion"					"250"
+			"radius_explosion"
+			{
+				"value"			"250"
+				"special_bonus_unique_tinker_4"	"+50"
+				"affected_by_aoe_increase"	"1"
+			}
 			"splash_pct"						"100"
 			"scepter_bonus_cast_range"				
 			{
@@ -234,6 +239,11 @@
 			"speed"								"700"
 			"radius_explosion"					"0"
 			"splash_pct"						"0"
+			"ministun_duration"
+			{
+				"value"							"0"
+				"special_bonus_unique_tinker_3"	"+0.25"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -256,7 +266,7 @@
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-	    "AbilityCastPoint"              "0.53"
+	    "AbilityCastPoint"              "0.0"
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
 		"AbilityChannelAnimation"		"ACT_DOTA_CHANNEL_ABILITY_4"
 
@@ -441,18 +451,6 @@
 		"ID"					"413"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"			"FIELD_FLOAT"
-				"value"				"0.5"
-				"ad_linked_abilities"			"tinker_keen_teleport"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
 	}
 
 	//=================================================================================================================

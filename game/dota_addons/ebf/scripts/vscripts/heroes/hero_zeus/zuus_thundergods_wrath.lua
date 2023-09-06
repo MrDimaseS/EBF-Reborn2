@@ -28,8 +28,9 @@ function zuus_thundergods_wrath:OnSpellStart()
 	local caster = self:GetCaster()
 	
 	local damage = self:GetSpecialValueFor("damage")
+	local damage_pct = self:GetSpecialValueFor("damage_pct") / 100
 	for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), -1 ) ) do
-		self:DealDamage( caster, enemy, damage )
+		self:DealDamage( caster, enemy, damage * (1+caster:GetSpellAmplification(false)) + enemy:GetMaxHealth() * damage_pct, {damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION } )
 	
 		ParticleManager:FireRopeParticle("particles/units/heroes/hero_zuus/zuus_thundergods_wrath.vpcf", PATTACH_POINT, caster, enemy:GetAbsOrigin(), {[0]=enemy:GetAbsOrigin()+Vector(0,0,1000)})
 		EmitSoundOn( "Hero_Zuus.GodsWrath.Target", enemy )

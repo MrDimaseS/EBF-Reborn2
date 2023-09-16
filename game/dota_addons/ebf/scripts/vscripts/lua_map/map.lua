@@ -46,6 +46,7 @@ end
 function LeftBoundingBox(trigger)
 	local ent = trigger.activator
 	if not ent then return end
+	if ent:GetAbsOrigin().x == 0 and ent:GetAbsOrigin().y == 0 then return end
 	ent:StopMotionControllers()
 	ent:InterruptMotionControllers(true)
 

@@ -46,6 +46,7 @@
 			"damage"		
 			{	
 				"value"									"120 180 300 480 720 1200 2160"
+				"CalculateSpellDamageTooltip"			"0"
 				"special_bonus_unique_drow_ranger_2"	"+50%"
 			}
 			"shard_regen_reduction_pct_per_stack"
@@ -58,6 +59,7 @@
 			{
 				"value"								"0"
 				"special_bonus_scepter"				"+300 +375 +475 +590 +710 +910 +1250"
+				"CalculateSpellDamageTooltip"		"0"
 				"RequiresScepter"					"1"
 			}
 			"shard_stack_duration"
@@ -76,7 +78,7 @@
 			{
 				"value"								"0"
 				"special_bonus_scepter"				"+670 +835 +980 +1305 +1860 +2480 +3275"
-				"DamageTypeTooltip"						"DAMAGE_TYPE_MAGICAL"
+				"DamageTypeTooltip"					"DAMAGE_TYPE_MAGICAL"
 				"RequiresScepter"					"1"
 			}
 			"shard_burst_move_slow_pct"
@@ -137,15 +139,15 @@
 		{
 			"wave_count"
 			{
-				"value"						"3"
-				"LinkedSpecialBonus"		"special_bonus_unique_drow_ranger_8"
+				"value"									"3"
+				"special_bonus_unique_drow_ranger_8"	"+1"
 			}			
-			"arrow_count_per_wave"			"4"
+			"arrow_count_per_wave"						"4"
 			"arrow_damage_pct"
 			{
-				"value"						"175 220 250 290 350 440 600"
-				"LinkedSpecialBonus"		"special_bonus_unique_drow_ranger_1"
-				"CalculateSpellDamageTooltip" "0"
+				"value"									"175 220 250 290 350 440 600"
+				"special_bonus_unique_drow_ranger_1"	"+25%"
+				"CalculateSpellDamageTooltip"			 "0"
 			}
 			"arrow_slow_duration"			"3.5"
 			"arrow_width"					"90"
@@ -313,18 +315,6 @@
 		"ID"					"6202"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"						"200"
-				"ad_linked_abilities"		"drow_ranger_multishot"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
 	}
 
 	//=================================================================================================================

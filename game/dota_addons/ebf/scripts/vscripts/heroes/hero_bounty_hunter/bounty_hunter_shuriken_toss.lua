@@ -66,10 +66,10 @@ modifier_bounty_hunter_shuriken_toss_maim = class({})
 LinkLuaModifier("modifier_bounty_hunter_shuriken_toss_maim", "heroes/hero_bounty_hunter/bounty_hunter_jinada", LUA_MODIFIER_MOTION_NONE)
 
 function modifier_bounty_hunter_shuriken_toss_maim:DeclareFunctions()
-	return {MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT, MODIFIER_PROPERTY_STATUS_RESISTANCE_STACKING }
+	return {MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT, MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE }
 end
 
-function modifier_bounty_hunter_shuriken_toss_maim:GetModifierStatusResistanceStacking()
+function modifier_bounty_hunter_shuriken_toss_maim:GetModifierMoveSpeedBonus_Percentage()
 	return self:GetSpecialValueFor("slow")
 end
 

@@ -305,7 +305,11 @@
 				"value"					"3.0"
 				"LinkedSpecialBonus"	"special_bonus_unique_hoodwink_sharpshooter_speed"
 			}			
-			"max_damage"				"21350 73500 192500 340000 402500 465000"
+			"max_damage"
+			{
+				"value"													"21350 73500 192500 340000 402500 465000"
+				"special_bonus_unique_hoodwink_sharpshooter_damage"		"+125"
+			}
 			"recoil_distance"			"350"
 			"recoil_height"				"75"
 			"recoil_duration"			"0.4"
@@ -483,16 +487,6 @@
 		"ID"					"9511"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"						"FIELD_FLOAT"
-				"value"							"100"
-				"ad_linked_abilities"			"hoodwink_bushwhack"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
 	}
 
 	//=================================================================================================================

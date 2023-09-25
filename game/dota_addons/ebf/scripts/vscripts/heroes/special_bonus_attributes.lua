@@ -8,9 +8,12 @@ function special_bonus_attributes:OnHeroLevelUp()
 	
 	local attribute_multiplier = self:GetSpecialValueFor("value") / 100
 	
+	print( strGain, agiGain, intGain, attribute_multiplier, "gained level" )
+	
 	strGain = strGain * (1+attribute_multiplier)
 	agiGain = agiGain * (1+attribute_multiplier)
 	intGain = intGain * (1+attribute_multiplier)
+	
 	
 	if strGain > 0 then
 		hero:ModifyStrength( strGain ) 
@@ -31,9 +34,12 @@ function special_bonus_attributes:OnUpgrade()
 	local totalIntValue = self.originalBaseInt + math.sumT( 1, hero:GetLevel()-1, hero:GetIntellectGain() * 0.5 ) + (hero:GetLevel()-1 * hero:GetIntellectGain() )
 	
 	local attribute_multiplier = (self:GetSpecialValueFor( "value" ) - self:GetLevelSpecialValueFor( "value", self:GetLevel()-2 ) ) / 100
+	print( self:GetSpecialValueFor( "value" ), self:GetLevelSpecialValueFor( "value", self:GetLevel()-2 ), self:GetLevelSpecialValueFor( "value", self:GetLevel()-1 ))
 	if self:GetLevel() == 1 then -- no way to get 0 out of specialvalue and getlevel
 		attribute_multiplier = self:GetSpecialValueFor( "value" ) / 100
 	end
+	
+	print( totalStrValue, totalAgiValue, totalIntValue, attribute_multiplier, "leveled stats" )
 	
 	hero:ModifyStrength( totalStrValue * attribute_multiplier ) 
 	hero:ModifyAgility( totalAgiValue * attribute_multiplier ) 

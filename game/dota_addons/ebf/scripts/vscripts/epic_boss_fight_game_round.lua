@@ -165,42 +165,52 @@ function CHoldoutGameRound:End(bWon)
 	end)
 	
 	if bWon then
+		
 		self._heroesDiedThisRound = self._heroesDiedThisRound or {}
 		local goldMuliplierTeam = 0.5
 		local deathReduction = goldMuliplierTeam / HeroList:GetActiveHeroCount()
+		
 		for hero, deaths in pairs( self._heroesDiedThisRound ) do
 			if deaths > 0 then
 				goldMuliplierTeam = goldMuliplierTeam - deathReduction
 			end
 		end
+		
+		local goldToProvide = self._nMaxGoldForVictory + self._nGoldRemainingInRound
+		local expToProvide = self._nExpRemainingInRound
+		self._nGoldRemainingInRound = 0
+		self._nExpRemainingInRound = 0
 		for _, hero in ipairs( HeroList:GetRealHeroes() ) do
 			local player = hero:GetPlayerOwner()
-			if hero:GetTeamNumber() == DOTA_TEAM_GOODGUYS and PlayerResource:GetConnectionState( hero:GetPlayerID() ) ~= DOTA_CONNECTION_STATE_ABANDONED then
-				local goldMuliplierSolo = TernaryOperator( 0.25, (self._heroesDiedThisRound[hero] or 0 > 0), 0)
-				Timers:CreateTimer( 0.5, function() hero:AddGold( self._nMaxGoldForVictory ) end)
-				
-				if goldMuliplierTeam + goldMuliplierSolo > 0 then
-					Timers:CreateTimer( 1.5, function()
-						hero:AddGold( self._nMaxGoldForVictory * (goldMuliplierTeam + goldMuliplierSolo) )
-					end)
-				end
-				if roundNumber == 6 then
-					hero:AddItemByName("item_tier2_token")
-				elseif roundNumber == 12 then
-					hero:AddItemByName("item_tier3_token")
-				elseif roundNumber == 17 then
-					hero:AddItemByName("item_tier4_token")
-				elseif roundNumber == 21 then
-					hero:AddItemByName("item_tier5_token")
-				end
-				if GameRules._NewGamePlus and player then
-					if roundNumber == 2
-					or roundNumber == 10 
-					or roundNumber == 15 
-					or roundNumber == 20 then
-						local asuraShard = CreateItem( "item_orb_5", player, player )
-						hero:AddItem( asuraShard )
+			if hero:GetTeamNumber() == DOTA_TEAM_GOODGUYS then 
+				if PlayerResource:GetConnectionState( hero:GetPlayerID() ) ~= DOTA_CONNECTION_STATE_ABANDONED then
+					local goldMuliplierSolo = TernaryOperator( 0.25, (self._heroesDiedThisRound[hero] or 0 > 0), 0)
+					Timers:CreateTimer( 0.5, function() hero:AddGold( goldToProvide ) end)
+					if goldMuliplierTeam + goldMuliplierSolo > 0 then
+						Timers:CreateTimer( 1.5, function()
+							hero:AddGold( self._nMaxGoldForVictory * (goldMuliplierTeam + goldMuliplierSolo) )
+						end)
 					end
+					if roundNumber == 6 then
+						hero:AddItemByName("item_tier2_token")
+					elseif roundNumber == 12 then
+						hero:AddItemByName("item_tier3_token")
+					elseif roundNumber == 17 then
+						hero:AddItemByName("item_tier4_token")
+					elseif roundNumber == 21 then
+						hero:AddItemByName("item_tier5_token")
+					end
+					if GameRules._NewGamePlus and player then
+						if roundNumber == 2
+						or roundNumber == 10 
+						or roundNumber == 15 
+						or roundNumber == 20 then
+							local asuraShard = CreateItem( "item_orb_5", player, player )
+							hero:AddItem( asuraShard )
+						end
+					end
+				elseif expToProvide > 0 then
+					unit:AddExperience(expToProvide, DOTA_ModifyXP_HeroKill, false, true)
 				end
 			end
 		end
@@ -235,11 +245,7 @@ function CHoldoutGameRound:End(bWon)
 			delay = delay + 0.1
 		end
 		GameRules._getDeadCoreUnitsForGarbageCollection[roundNumber-2] = nil
-		
-		print("?")
 	end
-	
-	print("!")
 end
 
 

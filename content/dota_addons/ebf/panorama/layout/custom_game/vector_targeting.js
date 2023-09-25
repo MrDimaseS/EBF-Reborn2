@@ -26,7 +26,7 @@ const hud = dotaHud.FindChildTraverse("HUDElements");
 (function() {
     const talents = hud.FindChildTraverse("UpgradeStatName");
     if (talents !== null && talents !== undefined) {
-        talents.text = "+32% to Base Attributes";
+        talents.text = "+25% to Base Attributes";
     }
 })();
 

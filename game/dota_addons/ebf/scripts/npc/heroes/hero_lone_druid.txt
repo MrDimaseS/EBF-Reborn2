@@ -58,11 +58,25 @@
 		{
 			"bonus_attack_speed"		
 			{
-				"value"					"96 144 192 240 288 336 384"		
-				"LinkedSpecialBonus"	"special_bonus_unique_lone_druid_6"
+				"value"								"96 144 192 240 288 336 384"		
+				"special_bonus_unique_lone_druid_6"	"+40"
 			}
 			"lifesteal_percent"			"20 25 35 40 45 50 60"
 			"armor_sharing"				"8 12 16 20 25 32 40"
+			"duration"					"20"
+			"active_bonus"				"35"
+
+			"AbilityCooldown"
+			{
+				"value"					"0"
+				"special_bonus_scepter"	"+40"
+			}
+
+			"AbilityManaCost"
+			{
+				"value"					"0"
+				"special_bonus_scepter"	"+50"
+			}
 		}
 	}
 	//=================================================================================================================
@@ -87,61 +101,41 @@
 		"AbilityCastPoint"				"0.1"
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"38 32 26 20 18 16 14"
-
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"50 75 100 125 150 175 200"	
 			
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"radius"				
 			{
-				"var_type"				"FIELD_INTEGER"
-				"radius"				"375"
+				"value"									"375"
+				"affected_by_aoe_increase"				"1"
 			}
-			"02"
+			"bonus_speed"								"20"
+			"duration"									"2.0"
+			"only_affects_player_units"					"0"
+			"shard_radius"
 			{
-				"var_type"				"FIELD_INTEGER"
-				"bonus_speed"			"20"
+				"value"									"700"
+				"RequiresShard"							"1"
 			}
-			"03"
+			"shard_movement_speed_pct"				
 			{
-				"var_type"				"FIELD_FLOAT"
-				"duration"				"2.6"
+				"value"									"15"
+				"RequiresShard"							"1"
 			}
-			"04"
+			"shard_attack_speed"				
 			{
-				"var_type"					"FIELD_INTEGER"
-				"only_affects_player_units"	"0"
+				"value"									"40 50 60 70 80 90 100"
+				"RequiresShard"							"1"
 			}
-			"05"
+			"shard_duration"				
 			{
-				"var_type"					"FIELD_INTEGER"
-				"shard_radius"				"700"
-				"RequiresShard"				"1"
-			}
-			"06"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"shard_movement_speed_pct"				"20"
-				"RequiresShard"				"1"
-			}
-			"07"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"shard_attack_speed"		"60 72 84 96 108 120 132"
-				"RequiresShard"				"1"
-			}
-			"08"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"shard_duration"				"5.0"
-				"RequiresShard"				"1"
+				"value"									"5.0"
+				"RequiresShard"							"1"
 			}
 		}
 	}
@@ -164,37 +158,26 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.1"
 
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"38 32 26 20 18 16 14"
-
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"50 75 100 125 150 175 200"
 			
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"radius"				
 			{
-				"var_type"				"FIELD_INTEGER"
-				"radius"				"375"
+				"value"		"375"
+				"affected_by_aoe_increase"	"1"
 			}
-			"02"
+			"bonus_speed"			"20"
+			"duration"				"2.0"
+			"only_affects_player_units"	"0"
+			"AbilityCooldown"				
 			{
-				"var_type"				"FIELD_INTEGER"
-				"bonus_speed"			"20"
-			}
-			"03"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"duration"				"2.6"
-			}
-			"04"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"only_affects_player_units"	"1"
+				"value"									"38 32 26 20 18 16 14"
+				"special_bonus_unique_lone_druid_4"		"-15%"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
@@ -217,11 +200,7 @@
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"								"0.5 0.5 0.5 0.5"
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
 		
-
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"								"75"
@@ -244,8 +223,29 @@
 			}
 			"backlash_damage"							"20.0"
 			"AbilityCooldown"							"120"
-			"cooldown_scepter"							"120.0"
-			"movespeed_tooltip"							"340"
+			"bear_movespeed"			
+			{
+				"value"			"340"
+				"special_bonus_unique_lone_druid_11"	"+25"
+
+			}
+			"bear_magic_resistance"
+			{
+				"value"									"0"
+				"special_bonus_unique_lone_druid_5"		"+40"
+			}
+			"bonus_bear_hp"
+			{
+				"value"									"0"
+				"special_bonus_unique_lone_druid_7"		"+300000"
+			}
+			"bonus_bear_armor"
+			{
+				"value"									"0"
+				"special_bonus_unique_lone_druid_2"		"+8"
+			}
+			"damage_gain_per_druid_level"				"50"
+			"hp_gain_per_druid_level"					"500"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -260,7 +260,7 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
-		"MaxLevel"						"7"
+		"MaxLevel"						"6"
 		"LevelsBetweenUpgrades"			"6"
 		"AbilitySound"					"Hero_LoneDruid.TrueForm.Cast"
 
@@ -304,7 +304,7 @@
 		"ID"							"5416"							// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
-		"MaxLevel"						"7"
+		"MaxLevel"						"6"
 		"LevelsBetweenUpgrades"			"6"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 
@@ -332,95 +332,6 @@
 			}
 		}
 	}
-
-	//=================================================================================================================
-	// Lone Druid: True Form Battle Cry
-	//=================================================================================================================
-	"lone_druid_true_form_battle_cry"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"ID"					"5417"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_TYPE_ULTIMATE | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
-		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
-		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
-		"MaxLevel"						"7"
-		"AbilitySound"					"Hero_LoneDruid.BattleCry"
-
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastPoint"				"0.5 0.5 0.5"
-		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"45.0"
-	
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"50 50 50"
-
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"			"FIELD_INTEGER"
-				"bonus_damage"		"70 100 130 160 190 220 250"		
-			}
-			"02"
-			{
-				"var_type"			"FIELD_INTEGER"
-				"bonus_armor"		"100 150 200 250 300 350 400"
-			}
-			"03"
-			{
-				"var_type"			"FIELD_FLOAT"
-				"cry_duration"		"5.0"
-			}
-			"04"
-			{
-				"var_type"			"FIELD_FLOAT"
-				"range"		"1000"
-			}
-		}
-	}
-
-	
-	//=================================================================================================================
-	// Lone Druid: Spirit Bear Return
-	//=================================================================================================================
-	"lone_druid_spirit_bear_return"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"ID"					"5418"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
-		
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"30.0"
-		"AbilityCastPoint"				"0"
-		"AbilityChannelTime"			"3.0"
-	
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"0"
-
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"						"FIELD_INTEGER"
-				"channel_tooltip"		"3"		
-			}
-		}
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
-	}
-
 	//=================================================================================================================
 	// Lone Druid: Spirit Bear Entangling Claws
 	//=================================================================================================================
@@ -486,7 +397,7 @@
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"16 15 14 13 12 11 10"
+		"AbilityCooldown"				"5"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -504,9 +415,8 @@
 			"02"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"attack_amp"	"25"
+				"attack_amp"		"25"
 			}
-			
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}	
@@ -724,18 +634,6 @@
 		"ID"					"6680"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"						"300000"
-				"ad_linked_abilities"			"lone_druid_true_form"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
 	}
 
 	//=================================================================================================================

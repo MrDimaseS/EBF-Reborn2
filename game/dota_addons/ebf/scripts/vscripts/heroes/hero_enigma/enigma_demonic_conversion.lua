@@ -5,7 +5,7 @@ function enigma_demonic_conversion:OnSpellStart()
 	local target = self:GetCursorTarget()
 	
 	local eidolons = self:GetSpecialValueFor("spawn_count")
-	local eidolon_hp = self:GetSpecialValueFor("eidolon_hp_tooltip")
+	local eidolon_hp = self:GetSpecialValueFor("eidelon_max_health")
 	if target:IsConsideredHero() then
 		self:DealDamage( caster, target, eidolon_hp * eidolons, { damage_type = DAMAGE_TYPE_PURE } )
 	else
@@ -24,13 +24,14 @@ function enigma_demonic_conversion:CreateEidolon( position, duration )
 	local caster = self:GetCaster()
 	local eidolon = caster:CreateSummon( "npc_dota_eidolon", position, duration or self:GetDuration() )
 	
-	local eidolon_hp = self:GetSpecialValueFor("eidolon_hp_tooltip")
-	local eidolon_dmg = self:GetSpecialValueFor("eidolon_dmg_tooltip")
+	local eidolon_hp = self:GetSpecialValueFor("eidelon_max_health")
+	local eidolon_dmg = self:GetSpecialValueFor("eidelon_base_damage")
+	local eidolon_dmg_spread = self:GetSpecialValueFor("eidolon_damage_spread")
 	
 	eidolon:SetBaseMaxHealth( eidolon_hp )
 	eidolon:SetMaxHealth( eidolon_hp )
 	eidolon:SetHealth( eidolon_hp )
-	eidolon:SetAverageBaseDamage( eidolon_dmg, 15 )
+	eidolon:SetAverageBaseDamage( eidolon_dmg, eidolon_dmg_spread )
 		
 	FindClearSpaceForUnit( eidolon, eidolon:GetAbsOrigin(), true )
 	return eidolon

@@ -9,7 +9,7 @@ function abaddon_borrowed_time:IsHiddenWhenStolen()
 end
 
 function abaddon_borrowed_time:GetIntrinsicModifierName()
-	return "modifier_abaddon_borrowed_time_passive"
+	return "modifier_abaddon_borrowed_time_autoproc"
 end
 
 function abaddon_borrowed_time:Activate()
@@ -26,36 +26,36 @@ function abaddon_borrowed_time:OnSpellStart()
 	self:Activate()
 end
 
-modifier_abaddon_borrowed_time_passive = class({})
-LinkLuaModifier("modifier_abaddon_borrowed_time_passive", "heroes/hero_abaddon/abaddon_borrowed_time", LUA_MODIFIER_MOTION_NONE)
+modifier_abaddon_borrowed_time_autoproc = class({})
+LinkLuaModifier("modifier_abaddon_borrowed_time_autoproc", "heroes/hero_abaddon/abaddon_borrowed_time", LUA_MODIFIER_MOTION_NONE)
 
-function modifier_abaddon_borrowed_time_passive:OnCreated()
+function modifier_abaddon_borrowed_time_autoproc:OnCreated()
 	self:OnRefresh()
 end
 
-function modifier_abaddon_borrowed_time_passive:OnRefresh()
+function modifier_abaddon_borrowed_time_autoproc:OnRefresh()
 	self.hp_threshold = self:GetSpecialValueFor("hp_threshold")
 end
 
-function modifier_abaddon_borrowed_time_passive:DeclareFunctions()
+function modifier_abaddon_borrowed_time_autoproc:DeclareFunctions()
 	return {MODIFIER_PROPERTY_MIN_HEALTH, MODIFIER_EVENT_ON_TAKEDAMAGE}
 end
 
-function modifier_abaddon_borrowed_time_passive:GetMinHealth(params)
+function modifier_abaddon_borrowed_time_autoproc:GetMinHealth(params)
 	if self:GetAbility():IsCooldownReady() and self:GetParent():IsRealHero() then return 1 end
 end
 
-function modifier_abaddon_borrowed_time_passive:OnTakeDamage(params)
+function modifier_abaddon_borrowed_time_autoproc:OnTakeDamage(params)
 	if params.unit ~= self:GetParent() then return end
 	if not self:GetAbility():IsCooldownReady() then return end
-	if self:GetParent():IsRealHero() then return end
+	if self:GetParent():IsFakeHero() then return end
 	if self:GetParent():PassivesDisabled() then return end
 	if self:GetParent():GetHealthPercent() <= self.hp_threshold then
 		self:GetAbility():Activate()
 	end
 end
 
-function modifier_abaddon_borrowed_time_passive:IsHidden()
+function modifier_abaddon_borrowed_time_autoproc:IsHidden()
 	return true
 end
 

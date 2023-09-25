@@ -39,7 +39,11 @@
 		
 		"AbilityValues"
 		{
-			"landing_radius"	"300"
+			"landing_radius"	
+			{
+				"value"		"300"
+				"affected_by_aoe_increase"	"1"	
+			}
 			"air_duration"		"0.5"
 			"air_height"		"150"
 			"pull_offset"		"75"
@@ -172,20 +176,20 @@
 			"AbilityCooldown"				
 			{
 				"value"										"12"
-				"special_bonus_unique_marci_lunge_cooldown"	"-3"
+					"special_bonus_shard"					"-3"
 			}
 			
-			"move_speed"				"1700"
-			"min_jump_distance"			"150"
+			"move_speed"									"1700"
+			"min_jump_distance"								"150"
 			"max_jump_distance"		
 			{
-				"value"					"450 550 650 750 850 950 1050"
-				"LinkedSpecialBonus"	"special_bonus_unique_marci_lunge_range"
+				"value"										"450 550 650 750 850 950 1050"
+				"special_bonus_unique_marci_lunge_range"	"+50%"
 			}
-			"landing_radius"			"275"
+			"landing_radius"								"275"
 			"impact_damage"			
 			{
-				"value"					"1450 2500 4750 8500 14500 25000 55000"
+				"value"										"1450 2500 4750 8500 14500 25000 55000"
 				"special_bonus_unique_marci_lunge_damage"	"+125%"
 			}
 			"debuff_duration"
@@ -201,7 +205,11 @@
 			"max_acceleration"										"6000.0"
 			"vector_preview_radius"									"100"
 			"ally_buff_duration"									"5.0"
-			"ally_movespeed_pct"									"25 30 35 40 45 50 55"
+			"ally_movespeed_pct"	
+			{
+				"value"												"40"
+				"special_bonus_unique_marci_lunge_movespeed" 		"+25"
+			}
 			"impact_position_offset"								"64"
 			"target_abort_distance"									"700"
 			"scepter_heal"
@@ -246,43 +254,32 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"36 28 20 12 9.33 6.66 4"
+		"AbilityCooldown"				"20"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"8 16 32 64 128 256 512 1024"
+		"AbilityManaCost"				"50"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"lifesteal_pct"
 			{
-				"var_type"						"FIELD_FLOAT"
-				"buff_duration"					"12"
+				"value"											"8 11 14 17 20 23 26"
+				"special_bonus_unique_marci_guardian_lifesteal"	"+10"
 			}
-			"02"
+			"bonus_damage"		
 			{
-				"var_type"						"FIELD_FLOAT"
-				"lifesteal_pct"					"30 35 40 45 50 55 60"
-				"LinkedSpecialBonus"			"special_bonus_unique_marci_guardian_lifesteal"
+				"value"											"70 145 275 515 1100 2375 4425"
+				"special_bonus_unique_marci_guardian_damage"	"+100%"
 			}
-			"03"
-			{
-				"var_type"						"FIELD_INTEGER"
-				"bonus_damage"					"1200 1725 2730 4200 6120 9900 17460"
-				"CalculateSpellDamageTooltip"	"0"
-			}
-			"04"
-			{
-				"var_type"						"FIELD_INTEGER"
-				"bonus_attack_range"			"0"
-			}
-			"05"
-			{
-				"var_type"						"FIELD_INTEGER"
-				"nearest_ally_search_range"		"700"
-			}
+			"bonus_attack_range"								"0"
+			"nearest_ally_search_range"							"700"
+			"max_partner_distance"								"2500"
+			"max_partner_penalty"								"50"
+			"creep_lifesteal_reduction_pct"						"40"
+
 		}
 	}
 
@@ -318,16 +315,6 @@
 		"ID"						"8237"	// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"				"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"			"FIELD_FLOAT"
-				"value"				"150.0"
-				"ad_linked_abilities"			"marci_companion_run"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
 	}
 
 	//=================================================================================================================
@@ -464,15 +451,6 @@
 		"AbilityType"				"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"			"FIELD_INTEGER"
-				"value"				"125"
-				"ad_linked_abilities"			"marci_companion_run"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
 	}
 
 	"special_bonus_unique_marci_unleash_speed"

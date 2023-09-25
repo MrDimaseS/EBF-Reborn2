@@ -54,7 +54,6 @@
 			}
 			"scepter_channel_time"			"2"
 			"scepter_max_power"				"2"
-
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -94,33 +93,38 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"damage_tick_rate"	"0.2"
+			"damage_tick_rate"						"0.2"
 			"sand_storm_radius"
 			{
-				"value"		"425 475 500 525 575 650 700"
-				"special_bonus_unique_sand_king_3"	"+125"
+				"value"								"425 475 500 525 575 650 700"
+				"affected_by_aoe_increase"			"1"
 			}
 			"sand_storm_damage"
 			{
-				"value"		"280 400 560 1020 2000 3925 7775"
+				"value"								"280 400 560 1020 2000 3925 7775"
 				"special_bonus_unique_sand_king_2"	"+50%"
 			}
-			"fade_delay"			"0.7"
-			"scepter_explosion_radius"
+			"fade_delay"							"0.7"
+			"scepter_explosion_radius_pct"
 			{
-				"value"					"0"
-				"special_bonus_scepter"		"+65"
+				"value"								"0"
+				"special_bonus_scepter"				"+10"
 			}
 			"scepter_explosion_min_dist"
 			{
-				"value"					"0"
-				"special_bonus_scepter"		"+90"
+				"value"								"0"
+				"special_bonus_scepter"				"+90"
 			}
 			"scepter_explosions_per_pulse"
 			{
-				"value"					"0"
-				"special_bonus_scepter"		"+2"
+				"value"								"0"
+				"special_bonus_scepter"				"+2"
 			}	
+			"sand_storm_move_speed"
+			{
+				"value"								"25 50 75 100"
+				"special_bonus_unique_sand_king_3"	"+50"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -203,40 +207,48 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"epicenter_radius"	
-			{
-				"value"					"500 525 550 575 600 625 650 675 700 725 750 775 800"
-				"special_bonus_unique_sand_king_5"	"+100"
-			}
 			"epicenter_pulses"	
 			{
-				"value"					"6 7 8 9 10 11"
-				"LinkedSpecialBonus"	"special_bonus_unique_sand_king"
+				"value"								"6 7 8 9 10 11"
+				"special_bonus_unique_sand_king"	"+5"
 			}
-			"epicenter_damage"			"2385 4650 8985 15525 18025 21525"
+			"epicenter_damage"	
+			{
+				"value"							"2385 4650 8985 15525 18025 21525"
+				"special_bonus_shard"			"+25%"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"epicenter_radius_base"
+			{
+				"value"								"500"
+				"special_bonus_unique_sand_king_5"	"+100"
+				"affected_by_aoe_increase"	"1"
+			}
+			"epicenter_radius_increment"
+			{
+				"value"		"25"
+				"special_bonus_unique_sand_king_5"	"+25"
+				"affected_by_aoe_increase"	"1"
+			}
 			"epicenter_slow"	
 			{
-				"value"			"-30"
+				"value"			"-50"
 			}
 			"epicenter_slow_as"		
 			{
-				"value"			"-30"
+				"value"			"-30 -45 -60 -75 -90 -105"
 			}
 			"shard_radius"	
 			{
 				"value"		"425"
 				"special_bonus_unique_sand_king_5"	"+100"
 				"RequiresShard"	"1"
+				"affected_by_aoe_increase"	"1"
 			}
-			"shard_move_distance"
+			"shard_interval"
 			{
-				"value"					"700.0"
-				"RequiresShard"			"1"
-			}
-			"shard_epicenter_pulse_damage_bonus"
-			{
-				"value"					"220 410 740 1210 1375 1515"
-				"RequiresShard"			"1"
+				"value"				"3.5"
+				"RequiresShard"		"1"
 			}
 		}
 	}

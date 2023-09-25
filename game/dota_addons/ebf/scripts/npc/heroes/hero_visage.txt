@@ -22,10 +22,6 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.2 0.2 0.2 0.2"
 
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"16 14 12 10 8.75 7.5 6.25"
-
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"90 135 180 225 270 315 360"		
@@ -36,28 +32,21 @@
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"AbilityCooldown"				
 			{
-				"var_type"					"FIELD_FLOAT"
-				"chill_duration"			"6"
-			}
-			"02"
+				"value"									"16 14 12 10 8.75 7.5 6.25"
+				"special_bonus_unique_visage_8"			"-3"
+			}	
+			"chill_duration"
 			{
-				"var_type"					"FIELD_INTEGER"
-				"movespeed_bonus"			"15 20 25 30 35 40 45"
+				"value"														"6"
+				"special_bonus_unique_visage_grave_chill_duration"			"+2"
 			}
-			"03"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"attackspeed_bonus"			"68 92 116 140 164 188 280"
-			}
-			"04"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"radius"					"800"
-			}
+			"movespeed_bonus"				"15 20 25 30 35 40 45"
+			"attackspeed_bonus"				"68 92 116 140 164 188 280"
+			"radius"						"900"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}	
@@ -154,6 +143,11 @@
 		"AbilityDraftPreAbility"		"visage_summon_familiars_stone_form"
 		"MaxLevel"						"7"
 		"LevelsBetweenUpgrades"			"3"
+		
+		"precache"
+		{
+			"particle"					"particles/units/heroes/hero_visage/visage_cloak_ambient.vpcf"
+		}
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -214,6 +208,12 @@
 
 		"AbilitySound"					"Hero_Visage.SummonFamiliars.Cast"
 		
+		"precache"
+		{
+			"unit"						"npc_dota_visage_familiar"
+			"unit"						"npc_dota_visage_familiar1"
+		}
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -242,7 +242,7 @@
 			"familiar_attack_damage"	
 			{			
 				"value"								"400 2200 7500 22000 27000 32000"
-				"special_bonus_unique_visage_7"		"+190"
+				"LinkedSpecialBonus"				"special_bonus_unique_visage_7"
 			}
 			"familiar_count"	
 			{
@@ -523,7 +523,7 @@
 			"01"
 			{
 				"var_type"					"FIELD_FLOAT"
-				"value"						"190"
+				"value"						"6000"
 				"ad_linked_abilities"			"visage_summon_familiars"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
 			}
 		}

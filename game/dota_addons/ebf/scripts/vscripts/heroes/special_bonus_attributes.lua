@@ -51,7 +51,10 @@ end
 
 function special_bonus_attributes:OnHeroCalculateStatBonus()
 	local modifier = self:GetCaster():FindModifierByName("modifier_special_bonus_attributes_stat_rescaling")
-	if modifier then modifier:ForceRefresh() end
+	if modifier then 
+		modifier:SetStackCount( self:GetCaster():GetPrimaryAttribute() )
+		modifier:ForceRefresh() 
+	end
 end
 
 modifier_special_bonus_attributes_pct = class({})

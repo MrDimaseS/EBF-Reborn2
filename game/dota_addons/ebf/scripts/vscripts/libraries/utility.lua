@@ -727,7 +727,10 @@ function CDOTA_BaseNPC:FindModifierByNameAndAbility( modifierName, ability )
 end
 
 function CDOTA_BaseNPC:IsFakeHero()
-	if self:IsIllusion() or (self:HasModifier("modifier_monkey_king_fur_army_soldier") or self:HasModifier("modifier_monkey_king_fur_army_soldier_hidden")) or self:IsTempestDouble() then
+	if self:IsIllusion() 
+	or (self:HasModifier("modifier_monkey_king_fur_army_soldier") or self:HasModifier("modifier_monkey_king_fur_army_soldier_hidden")) 
+	or self:IsTempestDouble() or self:IsClone()
+	or self:GetUnitLabel() == "spirit_bear" then
 		return true
 	else return false end
 end
@@ -793,7 +796,7 @@ function CScriptHeroList:GetRealHeroes()
 	local heroes = self:GetAllHeroes()
 	local realHeroes = {}
 	for _,hero in pairs(heroes) do
-		if hero:IsRealHero() and not (hero:HasModifier("modifier_monkey_king_fur_army_soldier") or hero:HasModifier("modifier_monkey_king_fur_army_soldier_hidden") or hero:HasModifier("modifier_arc_warden_tempest_double")) and not hero:IsClone() and not hero:IsTempestDouble() then
+		if not hero:IsFakeHero() then
 			table.insert(realHeroes, hero)
 		end
 	end

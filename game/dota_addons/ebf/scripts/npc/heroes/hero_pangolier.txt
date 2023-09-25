@@ -45,8 +45,16 @@
 			}
 			"dash_speed"							"2000"
 			"attack_interval"						"0.1 0.1 0.1 0.1"
-			"start_radius"							"125"
-			"end_radius"							"125"
+			"start_radius"
+			{
+				"value"		"125"
+				"affected_by_aoe_increase"	"1"		
+			}
+			"end_radius"
+			{
+				"value"			"125"
+				"affected_by_aoe_increase"	"1"		
+			}
 			"strikes"
 			{
 				"value"								"4"
@@ -97,12 +105,19 @@
 				"value"														"1500 2500 5500 9500 17500 30000 50000"
 				"CalculateSpellDamageTooltip"								"1"
 			}
-			"hero_stacks"			
+			"base_shield"	"0"
+			"hero_shield"
 			{
-				"value"														"40"
-				"special_bonus_unique_pangolier_shield_crash_herostacks"	"+20"
+				"value"														"750 1563 3125 5000 8500 15625 28125"
+				"special_bonus_unique_pangolier_shield_crash_herostacks"	"+100%"
+
 			}
-			"creep_stacks"													"4 5 6 7 8 9 10"
+			"creep_shield"
+			{
+				"value"														"200 400 600 1000 1800 3500 5000"
+				"special_bonus_unique_pangolier_shield_crash_herostacks"	"+100%"
+
+			}
 			"max_stacks"													"80"
 			"duration"														"5"
 			"radius"				"500"
@@ -136,31 +151,6 @@
 		"MaxLevel"						"7"
 		"LevelsBetweenUpgrades"			"3"
 		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"chance_pct"			"15"
-			}
-			"02"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"duration"				"2 3 4 5 6 7 8"
-			}
-			"03"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"slow_pct"				"-35 -40 -45 -50 -55 -60 -65"
-			}
-			"04"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"debuff_delay"			"2.0"
-			}
-		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
 
@@ -182,9 +172,9 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"chance_pct"			"15 15 15 15 18 21 24"
-			"duration"				"6"
-			"slow"					"0"
+			"chance_pct"													"15 15 15 15 18 21 24"
+			"duration"														"2.5 2.5 2.5 2.5 3.0 3.5 4"
+			"attack_slow"													"40 80 120 160 160 160 160"
 			"armor"			
 			{
 				"value"														"2 4 6 8 8 8 8"
@@ -217,12 +207,12 @@
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"0"
-		"AbilityCastPoint"				"1.8"
+		"AbilityCastPoint"				"1.2"
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"50"
+		"AbilityCooldown"				"90 85 80 75 70 65"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -240,69 +230,36 @@
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"cast_time_tooltip"		"1.2"
+			"tick_interval"			"0.05"
+			"forward_move_speed"	"550"
+			"turn_rate_boosted"		"165"
+			"turn_rate"				"120"
+			"radius"				
 			{
-				"var_type"				"FIELD_FLOAT"
-				"cast_time_tooltip"		"1.8"
+				"value"			"400"
+				"affected_by_aoe_increase"	"1"		
 			}			
-			"02"
+			"hit_radius"			
 			{
-				"var_type"				"FIELD_FLOAT"
-				"tick_interval"			"0.05"
-			}
-			"03"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"forward_move_speed"	"550"
-			}
-			"04"
-			{
-				"var_type"				"FIELD_FLOAT" // used after any break in the roll (start/jump/bounce)
-				"turn_rate_boosted"		"165"
-			}
-			"05"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"turn_rate"				"120"
-			}
-			"06"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"radius"				"400"
+				"value"		"150"
+				"affected_by_aoe_increase"	"1"		
 			}			
-			"07"
+			"bounce_duration"		"0.4"
+			"stun_duration"			"1.2"
+			"knockback_radius"		
 			{
-				"var_type"				"FIELD_INTEGER"
-				"hit_radius"			"150"
+				"value"			"150"
+				"affected_by_aoe_increase"	"1"		
 			}			
-			"08"
+			"duration"				
 			{
-				"var_type"				"FIELD_FLOAT"
-				"bounce_duration"		"0.4"
-			}			
-			"09"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"stun_duration"			"1.5"
-			}			
-			"10"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"knockback_radius"		"150"
-			}			
-			"11"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"duration"				"10.0"
+				"value"		"10.0"
 				"LinkedSpecialBonus"	"special_bonus_unique_pangolier_6"
 			}
-			"12"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"jump_recover_time"		"0.25"
-			}			
+			"jump_recover_time"		"0.25"
 		}
 	}
 
@@ -363,73 +320,33 @@
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"cast_time_tooltip"		"0.5"
+			"tick_interval"			"0.05"
+			"forward_move_speed"	"600"
+			"turn_rate_boosted"		"275"
+			"turn_rate"				"275"
+			"radius"				
 			{
-				"var_type"				"FIELD_FLOAT"
-				"cast_time_tooltip"		"0.5"
+				"value"			"400"
+				"affected_by_aoe_increase"	"1"		
 			}			
-			"02"
+			"hit_radius"			
 			{
-				"var_type"				"FIELD_FLOAT"
-				"tick_interval"			"0.05"
-			}
-			"03"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"forward_move_speed"	"600"
-			}
-			"04"
-			{
-				"var_type"				"FIELD_FLOAT" // used after any break in the roll (start/jump/bounce)
-				"turn_rate_boosted"		"275"
-			}
-			"05"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"turn_rate"				"275"
-			}
-			"06"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"radius"				"400"
+				"value"			"150"
+				"affected_by_aoe_increase"	"1"		
 			}			
-			"07"
+			"bounce_duration"		"0.4"
+			"stun_duration"			"1.0 1.25 1.5"
+			"knockback_radius"		
 			{
-				"var_type"				"FIELD_INTEGER"
-				"hit_radius"			"150"
+				"value"			"150"
+				"affected_by_aoe_increase"	"1"		
 			}			
-			"08"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"bounce_duration"		"0.4"
-			}			
-			"09"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"stun_duration"			"1.5"
-			}			
-			"10"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"knockback_radius"		"150"
-			}			
-			"11"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"duration"				"2.75"
-			}
-			"12"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"jump_recover_time"		"0.25"
-			}	
-			"13"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"rollup_bounce_duration"				"0.75"
-			}		
+			"duration"				"2.75"
+			"jump_recover_time"		"0.25"
+			"rollup_bounce_duration"				"0.75"
 		}
 	}
 

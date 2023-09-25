@@ -78,7 +78,6 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
-        "HasShardUpgrade"               "1"
 		"MaxLevel"						"7"
 		"LevelsBetweenUpgrades"			"3"
 
@@ -102,7 +101,7 @@
 			"damage"
 			{
 				"value"					"2250 3500 6750 13250 26750 58500 127000"
-				"special_bonus_unique_techies" "+80000"
+				"special_bonus_unique_techies" "+75%"
 			}
 			"stun_duration"				"1.4"
 			"AbilityCastPoint"			"1.0 1.0 1.0 1.0 0.75 0.5 0.25"
@@ -225,6 +224,24 @@
 			}	
 		}
 	}
+	//=================================================================================================================
+	// Techies Reactive Tazer Stop
+	//=================================================================================================================
+	"techies_reactive_tazer_stop"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"1147"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.0 0.0 0.0 0.0"
+		"AbilityCastAnimation"			"ACT_INVALID"
+		"AbilityCooldown"				"0.5"
+	}
 	"techies_minefield_sign"
 	{
 		// General
@@ -290,18 +307,6 @@
 		"ID"					"6282"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"						"80000"
-				"ad_linked_abilities"			"techies_suicide"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
 	}
 
 	//=================================================================================================================

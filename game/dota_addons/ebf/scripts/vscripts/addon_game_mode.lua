@@ -483,7 +483,6 @@ IGNORE_SPELL_AMP_KV = {
 	["obsidian_destroyer_arcane_orb"] = {["mana_pool_damage_pct"] = true},
 	["phantom_assassin_fan_of_knives"] = {["pct_health_damage_initial"] = true},
 	["huskar_life_break"] = {["health_cost_percent"] = true,["health_damage"] = true},
-	["elder_titan_earth_splitter"] = {["damage_pct"] = true},
 	["item_bloodthorn"] = {["silence_damage_percent"] = true},
 	["item_bloodthorn_2"] = {["silence_damage_percent"] = true},
 	["item_bloodthorn_3"] = {["silence_damage_percent"] = true},
@@ -494,6 +493,8 @@ IGNORE_SPELL_AMP_KV = {
 -- spell_name = spell_amp_reduction (100 for no spell amp)
 IGNORE_SPELL_AMP_FILTER = {
 	["muerta_pierce_the_veil"] = 75,
+	["winter_wyvern_arctic_burn"] = 100,
+	["elder_titan_earth_splitter"] = 100,
 }
 
 function CHoldoutGameMode:FilterAbilityValues( filterTable )

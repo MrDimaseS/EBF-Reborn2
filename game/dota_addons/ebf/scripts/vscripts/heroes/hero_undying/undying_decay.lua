@@ -14,14 +14,18 @@ function undying_decay:Decay( position )
 	local radius = self:GetTalentSpecialValueFor("radius")
 	local damage = self:GetTalentSpecialValueFor("decay_damage")
 	local duration = self:GetTalentSpecialValueFor("decay_duration")
+	local creep_mult = self:GetTalentSpecialValueFor("creep_damage_multiplier")
 	local str = self:GetTalentSpecialValueFor("str_steal")
 	
 	for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( position, radius) ) do
-		
-		caster:AddNewModifier(caster, self, "modifier_undying_decay_str", {duration = duration})
-		self:DealDamage( caster, enemy, damage )
-		
-		ParticleManager:FireRopeParticle("particles/units/heroes/hero_undying/undying_decay_strength_xfer.vpcf", PATTACH_POINT_FOLLOW, enemy, caster)
+		local endDamage = damage
+		if enemy:IsConsideredHero() then
+			caster:AddNewModifier(caster, self, "modifier_undying_decay_str", {duration = duration})
+			ParticleManager:FireRopeParticle("particles/units/heroes/hero_undying/undying_decay_strength_xfer.vpcf", PATTACH_POINT_FOLLOW, enemy, caster)
+		else
+			endDamage = damage * creep_mult
+		end
+		self:DealDamage( caster, enemy, endDamage )
 	end
 	
 	ParticleManager:FireParticle("particles/units/heroes/hero_undying/undying_decay.vpcf", PATTACH_WORLDORIGIN, nil, {[0] = position, [1] = Vector(radius,0,0)})

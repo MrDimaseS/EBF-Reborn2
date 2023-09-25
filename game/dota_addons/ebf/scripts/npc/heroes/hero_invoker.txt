@@ -23,11 +23,12 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"health_regen_per_instance"
+			"spell_lifesteal"
 			{
-				"value"								"25 45 100 215 400 700 1000 1500 2250"
-				"special_bonus_unique_invoker_13"	"x3"
+				"value"								"2 3 4 5 6 7 8 9 10"
+				"special_bonus_unique_invoker_13"	"x2"
 			}
+			"strength_bonus"						"10 15 25 40 60 85 115 150 200"
 		}
 	}
 
@@ -53,16 +54,17 @@
 		// Special
 		"AbilityValues"
 		{
-			"attack_speed_per_instance"
-			{
-				"value"								"10 20 30 40 50 60 70 80 90"
-				"special_bonus_unique_invoker_13"	"x3"
-			}
 			"move_speed_per_instance"
 			{
 				"value"								"0.8 1.6 2.4 3.2 4 4.8 5.6 6.4 7.2"
-				"special_bonus_unique_invoker_13"	"x3"
+				"special_bonus_unique_invoker_13"	"x2"
 			}
+			"cooldown_reduction"
+			{
+				"value"								"1 2 3 4 5 6 7 8 9"
+				"special_bonus_unique_invoker_13"	"x2"
+			}
+			"agility_bonus"							"10 15 25 40 60 85 115 150 200"
 		}
 	}
 
@@ -89,11 +91,13 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage_per_instance"
+			"spell_amp"
 			{
-				"value"								"25 45 100 215 400 700 1000 1500 2250"
-				"special_bonus_unique_invoker_13"	"x3"
+				"value"								"1 2 3 4 5 6 7"
+				"special_bonus_unique_invoker_13"	"x2"
+
 			}
+			"intelligence_bonus"					"10 15 25 40 60 85 115 150 200"
 		}
 	}
 
@@ -379,17 +383,32 @@
 		{
 			"delay"
 			{
-				"value"					"2.9"
-				"levelkey"				"wexlevel"
+				"value"								"2.9"
+				"levelkey"							"wexlevel"
 			}
-			"area_of_effect"		"675"
+			"area_of_effect"		
+			{
+				"value"								"675"
+				"levelkey"							"wexlevel"
+				"affected_by_aoe_increase"			"1"
+			}
 			"mana_burned"
 			{
-				"value"					"100 175 250 325 400 475 550 625 750 875"
-				"levelkey"				"wexlevel"
+				"value"								"100 175 250 325 400 475 550 625 750 875"
+				"levelkey"							"wexlevel"
 				"special_bonus_unique_invoker_10"	"+20%"		
 			}
-			"damage_per_mana_pct"					"1000 1500 2000 3500 6000 9000 12000 18000 20000 24000"
+			"damage_per_mana_pct"
+			{
+				"value"								"1000 1500 2000 3500 6000 9000 12000 18000 20000 24000"
+				"levelkey"							"wexlevel"
+				"special_bonus_shard"				"+50%"	
+			}					
+			"shard_drag_speed"
+			{
+				"value"					"175"
+				"RequiresShard"			"1"
+			}
 		}
 	}
 
@@ -430,14 +449,14 @@
 			"bonus_attack_speed"
 			{
 				"value"								"25 50 75 100 125 150 175 200 225 250"
-				"levelkey"				"wexlevel"
-				"special_bonus_unique_invoker_5"	"+100%"
+				"levelkey"							"wexlevel"
+				"special_bonus_unique_invoker_5"	"+50%"
 			}
 			"bonus_damage"
 			{
 				"value"								"265 540 915 1390 2330 4250 6500 8750 11000 13250"
 				"levelkey"							"exortlevel"
-				"special_bonus_unique_invoker_5"	"+100%"
+				"special_bonus_unique_invoker_5"	"+50%"
 				"CalculateSpellDamageTooltip"	"0"
 			}
 			"duration"					"9"
@@ -722,8 +741,9 @@
 			"slow_duration"			"2.0"
 			"damage_per_second"
 			{
-				"value"				"150 275 600 1275 2750 4500 7500 10000 14000 18000"
-				"levelkey"			"exortlevel"
+				"value"										"150 275 600 1275 2750 4500 7500 10000 14000 18000"
+				"levelkey"									"exortlevel"
+				"special_bonus_unique_invoker_ice_wall_dps" "+50%"
 			}
 			"wall_place_distance"	"200"
 			"num_wall_elements"		"15"

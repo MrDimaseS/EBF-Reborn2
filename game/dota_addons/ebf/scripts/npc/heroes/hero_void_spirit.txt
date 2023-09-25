@@ -166,7 +166,11 @@
 		{
 			"radius"				"500"
 			"speed"					"1200"
-			"damage"				"670 960 1325 2375 4600 7535 11915"
+			"damage"
+			{
+				"value"			"670 960 1325 2375 4600 7535 11915"
+				"special_bonus_unique_void_spirit_4"	"+150%"
+			}			
 			"buff_duration"			"10.0"
 			"base_absorb_amount"	"400 960 2350 5550 13500 32000 76500"
 			"absorb_per_hero_hit"	"300 675 1550 3450 7700 17500 39000"
@@ -181,7 +185,11 @@
 				"value"												"18"
 				"special_bonus_scepter"								"-18"
 			}
-			"AbilityChargeRestoreTime"								"18"
+			"AbilityChargeRestoreTime"				
+			{
+				"value"												"18"
+				"special_bonus_scepter"								"-3"
+			}
 			"silence_duration_scepter"
 			{
 				"value"						"5.0"
@@ -324,18 +332,6 @@
 		"ID"							"7709"	// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"						"20000"
-				"ad_linked_abilities"		"void_spirit_resonant_pulse"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
 	}
 
 	//=================================================================================================================

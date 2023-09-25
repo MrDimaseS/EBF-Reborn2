@@ -139,7 +139,7 @@
 			"active_multiplier"			
 			{
 				"value"									"2"
-				"special_bonus_unique_brewmaster_8"		"+0.5"
+				"special_bonus_unique_brewmaster_8"		"+1"
 			}
 			"crit_multiplier"			"145 160 175 190 205 220 235"
 			"magic_resist"				"5 10 15 20 25 30 35"
@@ -170,7 +170,6 @@
 		"LevelsBetweenUpgrades"			"6"
 		
 		"HasShardUpgrade"				"1"
-		"HasScepterUpgrade"				"1"
 		"LinkedShardAbility"			"brewmaster_void_astral_pulse"
 
 		// Time		
@@ -190,28 +189,31 @@
 		"AbilityValues"
 		{
 			
-			"duration"							"20"
+			"duration"					
+			{
+				"value"						"20"
+				"special_bonus_shard"		"+12"
+			}
 			"split_duration"					"0.6"
 			"tooltip_earth_brewling_hp"
 			{
-				"value"							"7000 16000 35000 77500 175000 300000"
-				"LinkedSpecialBonus"			"special_bonus_unique_brewmaster"
+				"value"									"7000 16000 35000 77500 175000 300000"
+				"special_bonus_unique_brewmaster"		"+40000"
 			}
 			"tooltip_storm_brewling_hp"
 			{
-				"value"							"5000 11000 29500 53500 120000 260000"
-				"LinkedSpecialBonus"			"special_bonus_unique_brewmaster"
+				"value"									"5000 11000 29500 53500 120000 260000"
+				"special_bonus_unique_brewmaster"		"+40000"
 			}
 			"tooltip_fire_brewling_hp"
 			{
-				"value"							"6500 14000 29500 62500 135000 285000"
-				"LinkedSpecialBonus"			"special_bonus_unique_brewmaster"
+				"value"									"6500 14000 29500 62500 135000 285000"
+				"special_bonus_unique_brewmaster"		"+40000"
 			}
 			"tooltip_void_brewling_hp"
 			{
-				"value"							"6000 13000 28000 60000 130000 280000"
-				"LinkedSpecialBonus"			"special_bonus_unique_brewmaster"		// LinkedSpecialBonus doesn't seem to work with shard tooltips
-				"RequiresShard"					"1"
+				"value"									"6000 13000 28000 60000 130000 280000"
+				"special_bonus_unique_brewmaster"		"+40000"
 			}
 			"bonus_brewling_hp"
 			{
@@ -582,18 +584,6 @@
 		"ID"					"6082"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"						"45000"
-				"ad_linked_abilities"		"brewmaster_primal_split"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
 	}
 
 	//=================================================================================================================

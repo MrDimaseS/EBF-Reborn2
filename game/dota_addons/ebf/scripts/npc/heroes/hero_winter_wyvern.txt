@@ -36,7 +36,12 @@
 		{
 			"duration"				"10"
 			"attack_range_bonus"	"350 400 450 500 550 600 650"
-			"percent_damage"		"0.85 1.0 1.15 1.3 1.45 1.6 1.75"
+			"percent_damage"
+			{
+				"value"							"0.85 1.0 1.15 1.3 1.45 1.6 1.75"
+				"CalculateSpellDamageTooltip"	"0"
+				"DamageTypeTooltip"				"DAMAGE_TYPE_MAGICAL"
+			}
 			"tick_rate"				"1.0"
 			"damage_duration"
 			{
@@ -385,17 +390,5 @@
 		"ID"					"719"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"						"60"
-				"ad_linked_abilities"			"winter_wyvern_splinter_blast"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
 	}
 }

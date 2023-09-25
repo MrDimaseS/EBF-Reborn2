@@ -77,6 +77,7 @@
 		// Gobble up scepter ability not tied to any spell in regular game, for AD, associating it here.
 		"AbilityDraftUltScepterAbility" "snapfire_gobble_up"
 		"AbilityDraftUltScepterPreAbility" "snapfire_spit_creep"
+		"LinkedAbility"						"snapfire_spit_creep"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -148,7 +149,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"ID"							"6484"	// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_CUSTOM"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_CUSTOM"
 		"MaxLevel"						"1"
@@ -156,7 +157,6 @@
 		"IsGrantedByScepter"			"1"
 		"HasScepterUpgrade"				"1"
 		"AbilitySound"					"Hero_Snapfire.GobbleUp.Cast"
-		"MaxLevel"						"7"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -487,16 +487,6 @@
 		"ID"						"384"	// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"				"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"			"FIELD_INTEGER"
-				"value"				"40500"
-				"ad_linked_abilities"			"snapfire_scatterblast"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
 	}
 
 	//=================================================================================================================

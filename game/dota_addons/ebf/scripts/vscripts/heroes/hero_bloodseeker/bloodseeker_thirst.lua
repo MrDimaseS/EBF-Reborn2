@@ -22,7 +22,7 @@ function modifier_bloodseeker_thirst_buff:OnRefresh()
 	
 	self.heal_factor = 1
 	if IsServer() then
-		local mist = self:GetCaster():FindAbilityByName("bloodseeker_blood_mist")
+		self.mist = self:GetCaster():FindAbilityByName("bloodseeker_blood_mist")
 		if mist then
 			self.heal_factor = self.heal_factor + self:GetSpecialValueFor("thirst_bonus_pct") / 100
 		end
@@ -65,7 +65,7 @@ function modifier_bloodseeker_thirst_buff:OnDeath( params )
 			healing = healing / 2
 		end
 		if caster:HasModifier("modifier_bloodseeker_blood_mist_toggle") then
-			healing = healing * self.heal_factor
+			healing = healing * (1+self.mist:GetSpecialValueFor("thirst_bonus_pct")/100)
 		end
 		caster:HealWithParams( healing, self:GetAbility(), true, true, caster, false )
 		SendOverheadEventMessage( caster, OVERHEAD_ALERT_HEAL, caster, healing, caster )

@@ -23,7 +23,7 @@ end
 function modifier_necrolyte_sadist_ethereal:OnRemoved()
 	if IsServer() then
 		self:GetAbility():SetCooldown()
-		self:GetAbility():ProjectileDodge( self:GetCaster() )
+		ProjectileManager:ProjectileDodge( self:GetCaster() )
 	end
 end
 

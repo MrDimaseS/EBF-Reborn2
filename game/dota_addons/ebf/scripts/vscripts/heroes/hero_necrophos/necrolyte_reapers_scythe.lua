@@ -20,7 +20,7 @@ function necrolyte_reapers_scythe:OnSpellStart()
 	local damage_per_health = self:GetSpecialValueFor("damage_per_health")
 	
 	local modifier = self:Stun(target, duration)
-	target:AddNewModifier( caster, self, "modifier_necrolyte_reapers_scythe_upgrader_mark", {duration = duration})
+	target:AddNewModifier( caster, self, "modifier_necrolyte_reapers_scythe_upgrader_mark", {duration = duration+0.1})
 	if modifier then
 		local nFX = ParticleManager:CreateParticle("particles/units/heroes/hero_necrolyte/necrolyte_scythe.vpcf", PATTACH_POINT_FOLLOW, target)
 		modifier:AddEffect(nFX)
@@ -28,7 +28,7 @@ function necrolyte_reapers_scythe:OnSpellStart()
 	
 	Timers:CreateTimer(duration, function()
 		if target:IsAlive() then
-			print( self:DealDamage( caster, target, target:GetHealthDeficit() * damage_per_health ) )
+			self:DealDamage( caster, target, target:GetHealthDeficit() * damage_per_health )
 		end
 	end)
 end

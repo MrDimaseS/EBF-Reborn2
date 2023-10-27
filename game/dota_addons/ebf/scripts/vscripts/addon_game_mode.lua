@@ -19,8 +19,7 @@ DAMAGE_TYPES = {
 	    [7] = "DAMAGE_TYPE_ALL",
 	    [8] = "DAMAGE_TYPE_HP_REMOVAL",
 }
-	
-require("internal/util")
+
 require("lua_item/simple_item")
 require("lua_boss/boss_32_meteor")
 require( "epic_boss_fight_game_round" )
@@ -467,7 +466,6 @@ function CHoldoutGameMode:FilterHealing( filterTable )
 end
 
 IGNORE_SPELL_AMP_KV = {
-	["shadow_demon_disseminate"] = {["damage_reflection_pct"] = true},
 	["jakiro_liquid_ice"] = {["pct_health_damage"] = true},
 	["sandking_caustic_finale"] = {["caustic_finale_damage_pct"] = true},
 	["morphling_adaptive_strike_agi"] = {["damage_min"] = true,["damage_max"] = true},
@@ -496,6 +494,7 @@ IGNORE_SPELL_AMP_FILTER = {
 	["muerta_pierce_the_veil"] = 75,
 	["winter_wyvern_arctic_burn"] = 100,
 	["elder_titan_earth_splitter"] = 100,
+	["shadow_demon_disseminate"] = 100,
 	["item_revenants_brooch"] = 100,
 	["item_revenants_brooch_2"] = 100,
 	["item_revenants_brooch_3"] = 100,
@@ -541,7 +540,6 @@ function CHoldoutGameMode:FilterDamage( filterTable )
     local damagetype = filterTable["damagetype_const"]
 	if damage <= 0 then return true end
 	--- DAMAGE MANIPULATION ---
-	print( ability )
 	if ability and IGNORE_SPELL_AMP_FILTER[ability:GetName()] then
 		filterTable.damage = damage / ( 1+ ( attacker:GetSpellAmplification( false ) * (IGNORE_SPELL_AMP_FILTER[ability:GetName()]/100)) )
 	end
@@ -1826,9 +1824,9 @@ function CHoldoutGameMode:OnNPCSpawned( event )
 	if not spawnedUnit or spawnedUnit:GetClassname() == "npc_dota_thinker" or spawnedUnit:IsPhantom() then
 		return
 	end
-
-	bossManager:onBossSpawn(spawnedUnit)
-	
+	if spawnedUnit:IsCreature() then
+		bossManager:onBossSpawn(spawnedUnit)
+	end
 	if spawnedUnit:IsCourier() then
 		spawnedUnit:AddNewModifier( spawnedUnit, nil, "modifier_invulnerable", {} )
 	end

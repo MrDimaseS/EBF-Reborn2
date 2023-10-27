@@ -37,6 +37,7 @@ function visage_summon_familiars:OnSpellStart()
 		end
 		familiar.visage = caster
 		familiar:AddNewModifier( caster, self, "modifier_visage_summon_familiars_damage_charge", {} )
+		familiar:AddNewModifier( caster, self, "modifier_visage_summon_familiars_talents", {} )
 
 		familiar:SetCoreHealth(health)
 		familiar:SetPhysicalArmorBaseValue(armor)

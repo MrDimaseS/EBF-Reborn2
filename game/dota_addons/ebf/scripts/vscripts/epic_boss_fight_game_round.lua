@@ -5,8 +5,8 @@
 if CHoldoutGameRound == nil then
 	CHoldoutGameRound = class({})
 end
-require( "libraries/Timers" )
-require("internal/util")
+
+require("libraries/Timers")
 
 
 function CHoldoutGameRound:ReadConfiguration( kv, gameMode, roundNumber )
@@ -191,6 +191,8 @@ function CHoldoutGameRound:End(bWon)
 							hero:AddGold( self._nMaxGoldForVictory * (goldMuliplierTeam + goldMuliplierSolo) )
 						end)
 					end
+					
+					print("ending loop")
 					if roundNumber == 6 then
 						hero:AddItemByName("item_tier2_token")
 					elseif roundNumber == 12 then

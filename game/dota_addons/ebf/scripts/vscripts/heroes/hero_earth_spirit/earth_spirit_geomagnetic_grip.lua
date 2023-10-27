@@ -68,7 +68,7 @@ function modifier_earth_spirit_geomagnetic_grip_movement:OnCreated(table)
 		self.silence = self:GetSpecialValueFor("duration")
 		self.radius = self:GetSpecialValueFor("radius")
 		self.damage = self:GetSpecialValueFor("rock_damage")
-		self.damage = self:GetSpecialValueFor("creep_multiplier")
+		self.creep_multiplier = self:GetSpecialValueFor("creep_multiplier")
 		self.distance = self:GetSpecialValueFor("total_pull_distance")
 		self.bonusDamage = self:GetSpecialValueFor("rock_bonus_damage") / 100
 		self.isRemnant = (self:GetParent():GetName() == "npc_dota_earth_spirit_stone")
@@ -92,17 +92,16 @@ function modifier_earth_spirit_geomagnetic_grip_movement:DoControlledMotion()
 
 	local direction = CalculateDirection(target, caster)
 	local distance = CalculateDistance(target, caster)
-	
+
 	local enemies = caster:FindEnemyUnitsInRadius( target:GetAbsOrigin(), self.radius )
 	for _,enemy in ipairs( enemies ) do
 		if not self.hitTable[enemy] then
 			EmitSoundOn("Hero_EarthSpirit.BoulderSmash.Silence", enemy)
 			if self.isRemnant then ability:Silence(enemy, self.silence) end
-			ability:DealDamage( caster, enemy, TernaryOperator( self.damage, target:IsConsideredHero(), self.damage * self.creep_multiplier ) )
+			ability:DealDamage( caster, enemy, TernaryOperator( self.damage, enemy:IsConsideredHero(), self.damage * self.creep_multiplier ) )
 			self.hitTable[enemy] = true
 		end
 	end
-
 	if distance > 150 and self.distance > 0 then
 		target:SetAbsOrigin( GetGroundPosition( target:GetAbsOrigin() - direction * self.speed * FrameTime(), target ) )
 		ParticleManager:SetParticleControlForward( self.nfx, 3, direction )

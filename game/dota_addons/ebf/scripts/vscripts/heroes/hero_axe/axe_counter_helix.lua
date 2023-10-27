@@ -14,9 +14,18 @@ LinkLuaModifier( "modifier_axe_counter_helix_passive", "heroes/hero_axe/axe_coun
 function modifier_axe_counter_helix_passive:DeclareFunctions()
 	local funcs = {
 		MODIFIER_EVENT_ON_ATTACK_LANDED,
+		MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE 
 	}
 
 	return funcs
+end
+
+function modifier_axe_counter_helix_passive:GetModifierIncomingDamage_Percentage( params )
+	if not IsEntitySafe(params.attacker) then return end
+	local buff = params.attacker:FindModifierByNameAndCaster( "modifier_axe_counter_helix_damage_reduction", self:GetCaster() )
+	if IsModifierSafe( buff ) then
+		return -self:GetSpecialValueFor("shard_damage_reduction") * buff:GetStackCount()
+	end
 end
 
 function modifier_axe_counter_helix_passive:OnAttackLanded( params )
@@ -46,7 +55,7 @@ function modifier_axe_counter_helix_passive:OnAttackLanded( params )
 						if buff:GetStackCount() < shard_max_stacks then
 							buff:IncrementStackCount()
 						end
-					else
+					elseif IsEntitySafe( enemy ) and enemy:IsAlive() then
 						buff = enemy:AddNewModifier( caster, ability, "modifier_axe_counter_helix_damage_reduction", {duration = shard_debuff_duration} )
 						buff:SetStackCount(1)
 					end

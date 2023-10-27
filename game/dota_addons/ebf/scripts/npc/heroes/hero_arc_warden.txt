@@ -225,12 +225,12 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"ID"							"5683"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT_TARGET"
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 		"FightRecapLevel"				"2"
 		"AbilitySound"					"Hero_ArcWarden.TempestDouble"
 		"HasScepterUpgrade"				"1"
-		"MaxLevel"						"7"
+		"MaxLevel"						"6"
 		"LevelsBetweenUpgrades"			"6"
 
 		// Casting
@@ -242,7 +242,8 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"50"
+		"AbilityCooldown"								"50"
+		"AbilityCastRange"								"700"
 
 
 		// Special	
@@ -255,7 +256,11 @@
 				"special_bonus_unique_arc_warden_6"		"+12"
 			}
 			"bounty"									"0"
-			"penalty_distance"							"2000"
+			"penalty_distance"			
+			{
+				"value"	"2000"
+				"affected_by_aoe_increase"	"1"	
+			}
 			"ignore_penalty_distance"		
 			{
 				"value"									"0"

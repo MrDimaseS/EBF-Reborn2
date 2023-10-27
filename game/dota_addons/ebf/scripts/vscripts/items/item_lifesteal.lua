@@ -101,6 +101,11 @@ function modifier_item_lifesteal_ebf:IsHidden()
 	return true
 end
 
+function modifier_item_lifesteal_ebf:GetAttributes()
+	return MODIFIER_ATTRIBUTE_MULTIPLE 
+end
+
+
 LinkLuaModifier( "modifier_item_lifesteal_ebf_aura", "items/item_lifesteal.lua" ,LUA_MODIFIER_MOTION_NONE )
 modifier_item_lifesteal_ebf_aura = class({})
 

@@ -40,7 +40,7 @@ function ogre_magi_fireblast:Fireblast(target)
 				
 	if target:TriggerSpellAbsorb(self) then return end
 	self:Stun(target, self:GetSpecialValueFor("stun_duration"), false)
-	self:DealDamage(caster, target, self:GetSpecialValueFor("fireblast_damage"), {}, 0)
+	self:DealDamage(caster, target, self:GetSpecialValueFor("fireblast_damage"))
 end
 
 ogre_magi_unrefined_fireblast = class(ogre_magi_fireblast)

@@ -510,7 +510,7 @@ function Midas_OnHit(keys)
 					
 					local end_bonus_gold = bonus_gold
 					if unit:HasAbility("alchemist_goblins_greed") then
-						end_bonus_gold = bonus_gold * unit:FindAbilityByName("alchemist_goblins_greed"):GetSpecialValueFor("bounty_multiplier") 
+						end_bonus_gold = bonus_gold * unit:FindAbilityByName("alchemist_goblins_greed"):GetSpecialValueFor("bonus_gold") 
 					end
                     local totalgold = unit:GetGold() + end_bonus_gold
                     unit:SetGold(0 , false)
@@ -520,7 +520,7 @@ function Midas_OnHit(keys)
                 if not unit:IsIllusion() then
                     local end_bonus_gold = bonus_gold
 					if unit:HasAbility("alchemist_goblins_greed") then
-						end_bonus_gold = bonus_gold * unit:FindAbilityByName("alchemist_goblins_greed"):GetSpecialValueFor("bounty_multiplier") 
+						end_bonus_gold = bonus_gold * unit:FindAbilityByName("alchemist_goblins_greed"):GetSpecialValueFor("bonus_gold") 
 					end
                     local totalgold = unit:GetGold() + end_bonus_gold
                     unit:SetGold(0 , false)
@@ -564,7 +564,7 @@ function Midas2_OnHit(keys)
 
                     local end_bonus_gold = bonus_gold
 					if unit:HasAbility("alchemist_goblins_greed") then
-						end_bonus_gold = bonus_gold * unit:FindAbilityByName("alchemist_goblins_greed"):GetSpecialValueFor("bounty_multiplier") 
+						end_bonus_gold = bonus_gold * unit:FindAbilityByName("alchemist_goblins_greed"):GetSpecialValueFor("bonus_gold") 
 					end
                     local totalgold = unit:GetGold() + end_bonus_gold
                     unit:SetGold(0 , false)
@@ -574,7 +574,7 @@ function Midas2_OnHit(keys)
                 if not unit:IsIllusion() then
                     local end_bonus_gold = bonus_gold
 					if unit:HasAbility("alchemist_goblins_greed") then
-						end_bonus_gold = bonus_gold * unit:FindAbilityByName("alchemist_goblins_greed"):GetSpecialValueFor("bounty_multiplier") 
+						end_bonus_gold = bonus_gold * unit:FindAbilityByName("alchemist_goblins_greed"):GetSpecialValueFor("bonus_gold") 
 					end
                     local totalgold = unit:GetGold() + end_bonus_gold
                     unit:SetGold(0 , false)
@@ -618,7 +618,7 @@ function Midas3_OnHit(keys)
 
 					local end_bonus_gold = bonus_gold
 					if unit:HasAbility("alchemist_goblins_greed") then
-						end_bonus_gold = bonus_gold * unit:FindAbilityByName("alchemist_goblins_greed"):GetSpecialValueFor("bounty_multiplier") 
+						end_bonus_gold = bonus_gold * unit:FindAbilityByName("alchemist_goblins_greed"):GetSpecialValueFor("bonus_gold") 
 					end
                     local totalgold = unit:GetGold() + end_bonus_gold
                     unit:SetGold(0 , false)
@@ -628,7 +628,7 @@ function Midas3_OnHit(keys)
                 if not unit:IsIllusion() then
                     local end_bonus_gold = bonus_gold
 					if unit:HasAbility("alchemist_goblins_greed") then
-						end_bonus_gold = bonus_gold * unit:FindAbilityByName("alchemist_goblins_greed"):GetSpecialValueFor("bounty_multiplier") 
+						end_bonus_gold = bonus_gold * unit:FindAbilityByName("alchemist_goblins_greed"):GetSpecialValueFor("bonus_gold") 
 					end
                     local totalgold = unit:GetGold() + end_bonus_gold
                     unit:SetGold(0 , false)

@@ -440,7 +440,7 @@ function CHoldoutGameMode:FilterGold( filterTable )
 			bonusGold = math.floor( startGold * (midas.bonus_gold or 0) )
 		end
 		if hero:HasAbility("alchemist_goblins_greed") then
-			bonusGold = math.floor( startGold * hero:FindAbilityByName("alchemist_goblins_greed"):GetSpecialValueFor("bounty_multiplier")  / 100 )
+			bonusGold = math.floor( startGold * hero:FindAbilityByName("alchemist_goblins_greed"):GetSpecialValueFor("bonus_gold")  / 100 )
 		end
 		bonusGold = bonusGold + math.floor( startGold * (GameRules:GetPlayerGoldMultiplier()-1) )
 		if bonusGold > 0 then
@@ -455,12 +455,13 @@ end
 function CHoldoutGameMode:FilterHealing( filterTable )
 	local healer_index = filterTable["entindex_healer_const"]
 	local target_index = filterTable["entindex_target_const"]
-    if not healer_index or not target_index then
-        return true
-    end
-	local healer = EntIndexToHScript( healer_index )
+	
+	if not target_index then return true end
 	local target = EntIndexToHScript( target_index )
-	healer.damage_healed_ingame = (healer.damage_healed_ingame or 0) + math.min( filterTable["heal"], target:GetHealthDeficit() )
+	filterTable["heal"] = math.min( filterTable["heal"], target:GetHealthDeficit() )
+    if not healer_index then return true end
+	local healer = EntIndexToHScript( healer_index )
+	healer.damage_healed_ingame = (healer.damage_healed_ingame or 0) + filterTable["heal"]
 	
 	return true
 end
@@ -495,9 +496,15 @@ IGNORE_SPELL_AMP_FILTER = {
 	["muerta_pierce_the_veil"] = 75,
 	["winter_wyvern_arctic_burn"] = 100,
 	["elder_titan_earth_splitter"] = 100,
+	["item_revenants_brooch"] = 100,
+	["item_revenants_brooch_2"] = 100,
+	["item_revenants_brooch_3"] = 100,
+	["item_revenants_brooch_4"] = 100,
+	["item_revenants_brooch_5"] = 100,
 }
 
 function CHoldoutGameMode:FilterAbilityValues( filterTable )
+	if self.preventLoopGarbage then return end
     local caster_index = filterTable["entindex_caster_const"]
     local ability_index = filterTable["entindex_ability_const"]
 	if not caster_index or not ability_index then
@@ -505,9 +512,14 @@ function CHoldoutGameMode:FilterAbilityValues( filterTable )
     end
 	local ability = EntIndexToHScript( ability_index )
     local caster = EntIndexToHScript( caster_index )
+	
 	if ability and IGNORE_SPELL_AMP_KV[ability:GetName()] and IGNORE_SPELL_AMP_KV[ability:GetName()][filterTable.value_name_const] then
 		local value = filterTable.value
-		filterTable.value = value / ( 1+caster:GetSpellAmplification( false ) )
+		self.preventLoopGarbage = true
+		-- get the real ability value because valve hates me
+		local realValue = ability:GetSpecialValueFor(filterTable.value_name_const)
+		self.preventLoopGarbage = false
+		filterTable.value = realValue / ( 1+caster:GetSpellAmplification( false ) ) - (realValue-value)
 	end
 	return true
 end
@@ -529,8 +541,9 @@ function CHoldoutGameMode:FilterDamage( filterTable )
     local damagetype = filterTable["damagetype_const"]
 	if damage <= 0 then return true end
 	--- DAMAGE MANIPULATION ---
+	print( ability )
 	if ability and IGNORE_SPELL_AMP_FILTER[ability:GetName()] then
-		filterTable.damage = damage / ( 1+attacker:GetSpellAmplification( false ) * (100-IGNORE_SPELL_AMP_FILTER[ability:GetName()])/100 )
+		filterTable.damage = damage / ( 1+ ( attacker:GetSpellAmplification( false ) * (IGNORE_SPELL_AMP_FILTER[ability:GetName()]/100)) )
 	end
 	if inflictor and attacker and not attacker:IsNull() and attacker.HasModifier and  attacker:HasModifier("spellcrit") then
 		local critDamage = 1

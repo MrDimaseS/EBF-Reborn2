@@ -512,7 +512,7 @@ function CDOTA_BaseNPC:IsAtAngleWithEntity(hEntity, flDesiredAngle)
 end
 	
 function CDOTA_BaseNPC:RefreshAllCooldowns(bItems)
-    local no_refresh_skill = {["arc_warden_tempest_double"] = true, ["dazzle_good_juju"] = true, ["item_refresher"] = true, ["item_ex_machina"] = true}
+    local no_refresh_skill = {["arc_warden_tempest_double"] = true, ["dazzle_good_juju"] = true, ["item_refresher"] = true, ["item_ex_machina"] = true, }
     for i = 0, self:GetAbilityCount() - 1 do
         local ability = self:GetAbilityByIndex( i )
         if ability and not no_refresh_skill[ability:GetAbilityName()] and ( ability.IsRefreshable == nil or ability:IsRefreshable() ) then
@@ -1389,7 +1389,7 @@ function CDOTA_BaseNPC:AddGold( val, bIgnoreBonus )
 					bonusGold = baseGold * (midas.bonus_gold or 0)
 				end
 				if hero:HasAbility("alchemist_goblins_greed") then
-					bonusGold = baseGold * hero:FindAbilityByName("alchemist_goblins_greed"):GetSpecialValueFor("bounty_multiplier")  / 100
+					bonusGold = baseGold * hero:FindAbilityByName("alchemist_goblins_greed"):GetSpecialValueFor("bonus_gold")  / 100
 				end
 				bonusGold = bonusGold + baseGold * (GameRules:GetPlayerGoldMultiplier()-1)
 			end

@@ -112,6 +112,7 @@ end
 
 function modifier_night_stalker_crippling_fear_silence:OnIntervalThink()
 	self:GetAbility():DealDamage( self:GetCaster(), self:GetParent(), self.dps * self.tick_rate )
+end
 
 function modifier_night_stalker_crippling_fear_silence:GetEffectName()
 	return "particles/units/heroes/hero_night_stalker/nightstalker_crippling_fear.vpcf"

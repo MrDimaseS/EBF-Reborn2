@@ -1,15 +1,15 @@
 "DOTAAbilities"
 {	
 	//=================================================================================================================
-	// DAWNBREAKER START
-	//=================================================================================================================
 	// Dawnbreaker: FIRE WREATH
 	//=================================================================================================================
 	"dawnbreaker_fire_wreath"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"ID"					"7902"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_dawnbreaker/dawnbreaker_fire_wreath"
+		"AbilityTextureName"			"dawnbreaker_fire_wreath"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_CAN_SELF_CAST | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
@@ -36,10 +36,10 @@
 		{
 			"AbilityCooldown"				
 			{
-				"value"													"11 10 9 8 8 8 8"
+				"value"													"8"
 				"special_bonus_unique_dawnbreaker_fire_wreath_cooldown"	"-4"
 			}
-			"duration"					"1.1"
+			"duration"					"1.1 1.1 1.1 1.1 1.0 0.9 0.8"
 			"swipe_radius"				
 			{
 				"value"		"300"					
@@ -60,7 +60,7 @@
 				"value"													"265 500 925 1880 3795 6750 14200"
 				"special_bonus_unique_dawnbreaker_fire_wreath_swipe"	"+75%"
 			}
-			"movement_speed"											"215"
+			"movement_speed"											"215 215 215 215 235 260 295"
 			"total_attacks"												"3"
 			"smash_stun_duration"										"1.2"
 			"sweep_stun_duration"										"0.12"

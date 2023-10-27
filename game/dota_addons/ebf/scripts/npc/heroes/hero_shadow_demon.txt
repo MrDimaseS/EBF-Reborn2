@@ -120,7 +120,7 @@
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityDuration"				"10"
-		"AbilityCooldown"				"2"
+		"AbilityCooldown"				"8.5"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -144,23 +144,20 @@
 		{
 			"stack_damage"	
 			{
-				"value"							"850 1287 1775 2700 4937 9250 19875"
-				"LinkedSpecialBonus"			"special_bonus_unique_shadow_demon_4"
-				"LinkedSpecialBonusOperation"	"SPECIAL_BONUS_PERCENTAGE_ADD"
+				"value"									"850 1287 1775 2700 4937 9250 19875"
+				"special_bonus_unique_shadow_demon_4"	"+50%"
 			}
 			"bonus_stack_damage"	
 			{
-				"value"							"2820 3800 4620 5840 8320 12440 21280"
-				"LinkedSpecialBonus"			"special_bonus_unique_shadow_demon_4"
-				"LinkedSpecialBonusOperation"	"SPECIAL_BONUS_PERCENTAGE_ADD"
+				"value"									"2820 3800 4620 5840 8320 12440 21280"
+				"special_bonus_unique_shadow_demon_4"	"+50%"
 			}
-			"radius"							"475"
-			"speed"								"1000 1000 1000 1000"
+			"radius"									"475"
+			"speed"										"1000 1000 1000 1000"
 			"hit_damage"	
 			{
-				"value"							"425 620 825 1200 2055 3705 7690"
-				"LinkedSpecialBonus"			"special_bonus_unique_shadow_demon_4"
-				"LinkedSpecialBonusOperation"	"SPECIAL_BONUS_PERCENTAGE_ADD"
+				"value"									"1000 1800 3400 5100 8750 15500 32500"
+				"special_bonus_unique_shadow_demon_4"	"+50%"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
@@ -405,18 +402,6 @@
 		"ID"					"6873"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"200"
-				"ad_linked_abilities"			"shadow_demon_shadow_poison"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
 	}
 
 	//=================================================================================================================

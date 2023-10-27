@@ -469,7 +469,6 @@ IGNORE_SPELL_AMP_KV = {
 	["jakiro_liquid_ice"] = {["pct_health_damage"] = true},
 	["sandking_caustic_finale"] = {["caustic_finale_damage_pct"] = true},
 	["morphling_adaptive_strike_agi"] = {["damage_min"] = true,["damage_max"] = true},
-	["drow_ranger_multishot"] = {["arrow_damage_pct"] = true},
 	["bloodseeker_bloodrage"] = {["shard_max_health_dmg_pct"] = true},
 	["bloodseeker_rupture"] = {["hp_pct"] = true},
 	["abyssal_underlord_firestorm"] = {["burn_damage"] = true},
@@ -500,6 +499,7 @@ IGNORE_SPELL_AMP_FILTER = {
 	["item_revenants_brooch_3"] = 100,
 	["item_revenants_brooch_4"] = 100,
 	["item_revenants_brooch_5"] = 100,
+	["drow_ranger_multishot"] = 100,
 }
 
 function CHoldoutGameMode:FilterAbilityValues( filterTable )

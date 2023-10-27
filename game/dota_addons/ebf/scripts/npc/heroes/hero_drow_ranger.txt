@@ -155,6 +155,11 @@
 			"arrow_range_multiplier"		"1.75"
 			"arrow_angle"					"50"
 			"bypass_block"            		"1"
+			"AbilityCooldown"			
+			{
+				"value"											"20"
+				"special_bonus_unique_drow_ranger_6"			"-8"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CHANNEL_ABILITY_3"
 	}
@@ -423,18 +428,7 @@
 		"ID"					"486"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"8"
-				"ad_linked_abilities"			"drow_ranger_multishot"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
+
 	}
 
 	//=================================================================================================================
@@ -471,17 +465,5 @@
 		"ID"					"739"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"3"
-				"ad_linked_abilities"			"drow_ranger_multishot"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
 	}
 }

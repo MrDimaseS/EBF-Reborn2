@@ -94,6 +94,8 @@ function modifier_starbreaker_fire_wreath_activity:OnCreated( kv )
 	self.speed = self:GetAbility():GetSpecialValueFor( "movement_speed" )
 	self.duration = self:GetAbility():GetSpecialValueFor( "duration" )
 
+	self.shard_movement_penalty = self:GetAbility():GetSpecialValueFor( "shard_movement_penalty" )
+	
 	if not IsServer() then return end
 
 	self.forward = CalculateDirection( self:GetAbility():GetCursorPosition(), self.parent )
@@ -131,7 +133,10 @@ function modifier_starbreaker_fire_wreath_activity:DeclareFunctions()
 	local funcs = {
 		MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
 		MODIFIER_PROPERTY_SUPPRESS_CLEAVE,
-		MODIFIER_PROPERTY_DISABLE_TURNING 
+		MODIFIER_PROPERTY_DISABLE_TURNING,
+		MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE,
+		MODIFIER_PROPERTY_MOVESPEED_ABSOLUTE_MIN,
+		MODIFIER_PROPERTY_DISABLE_TURNING,
 	}
 
 	return funcs
@@ -151,11 +156,18 @@ function modifier_starbreaker_fire_wreath_activity:GetModifierDisableTurning()
 	return 1
 end
 
+function modifier_starbreaker_fire_wreath_activity:GetModifierMoveSpeedBonus_Percentage()
+	return -self.shard_movement_penalty
+end
+
+function modifier_starbreaker_fire_wreath_activity:GetModifierMoveSpeed_AbsoluteMin()
+	return self.speed
+end
 --------------------------------------------------------------------------------
 -- Status Effects
 function modifier_starbreaker_fire_wreath_activity:CheckState()
 	local state = {
-		[MODIFIER_STATE_DISARMED] = true
+		[MODIFIER_STATE_DISARMED] = true,
 		[MODIFIER_STATE_CANNOT_MISS] = true
 	}
 	if not self:GetCaster():HasShard() then

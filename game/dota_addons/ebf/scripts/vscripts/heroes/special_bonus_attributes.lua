@@ -178,6 +178,10 @@ function modifier_special_bonus_attributes_stat_rescaling:OnRefresh()
 	end
 end
 
+-- function modifier_special_bonus_attributes_stat_rescaling:CheckState()
+	-- return {[MODIFIER_STATE_NO_HEALTH_BAR] = true}
+-- end
+
 function modifier_special_bonus_attributes_stat_rescaling:DeclareFunctions()
   local funcs = {
 		-- MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,

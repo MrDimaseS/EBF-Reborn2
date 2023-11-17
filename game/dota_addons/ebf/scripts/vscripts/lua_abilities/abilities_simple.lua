@@ -826,7 +826,7 @@ function boss_death_time( keys )
 						return
 					end
 					if unit:IsAlive() then
-						ability:DealDamage( caster, unit, unit:GetMaxHealth() * 1.5 * 0.1, {damage_type = DAMAGE_TYPE_MAGICAL, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_HPLOSS + DOTA_DAMAGE_FLAG_BYPASSES_INVULNERABILITY } )
+						ability:DealDamage( caster, unit, unit:GetMaxHealth() * 1.5 * 0.1, {damage_type = DAMAGE_TYPE_MAGICAL, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_REFLECTION + DOTA_DAMAGE_FLAG_BYPASSES_INVULNERABILITY } )
 					end
 					if unit:GetHealth() == 1 then
 						unit:ForceKill( false )

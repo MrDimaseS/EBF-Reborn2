@@ -22,7 +22,7 @@ function tinker_rearm:OnChannelFinish(bInterrupted)
 		local refresh = function(func, min_idx, max_idx)
 			for ent_idx = min_idx, max_idx do
 				local ent = caster[func](caster, ent_idx)
-				if IsEntitySafe( ent ) and ( ent.IsRearmable == nil or ent:IsRearmable() ) and ( ent.IsNeutralDrop and not ent:IsNeutralDrop() ) then
+				if IsEntitySafe( ent ) and ( ent.IsRearmable == nil or ent:IsRearmable() ) and not ( ent.IsNeutralDrop and ent:IsNeutralDrop() ) then
 					ent:EndCooldown()
 				end
 			end

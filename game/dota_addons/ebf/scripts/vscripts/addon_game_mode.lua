@@ -40,6 +40,7 @@ LinkLuaModifier( "playerStatRescale", "modifier/playerStatRescale.lua", LUA_MODI
 LinkLuaModifier( "status_immune", "modifier/status_immune.lua", LUA_MODIFIER_MOTION_NONE )
 LinkLuaModifier( "modifier_silence_generic", "modifier/modifier_silence_generic.lua", LUA_MODIFIER_MOTION_NONE )
 LinkLuaModifier( "modifier_hidden_generic", "modifier/modifier_hidden_generic.lua", LUA_MODIFIER_MOTION_NONE )
+LinkLuaModifier( "modifier_hide_healthbar", "modifier/modifier_hide_healthbar.lua", LUA_MODIFIER_MOTION_NONE )
 LinkLuaModifier( "modifier_last_man_standing", "modifier/modifier_last_man_standing.lua", LUA_MODIFIER_MOTION_NONE )
 LinkLuaModifier( "modifier_boss_enraged", "modifier/modifier_boss_enraged.lua", LUA_MODIFIER_MOTION_NONE )
 LinkLuaModifier( "modifier_neutrals_ancestors_rage", "modifier/modifier_neutrals_ancestors_rage.lua", LUA_MODIFIER_MOTION_NONE )
@@ -757,11 +758,6 @@ end
 
 -- Verify spawners if random is set
 function CHoldoutGameMode:OnConnectFull()
-	SendToServerConsole("dota_health_high_threshold 10")
-	SendToConsole("dota_health_high_marker_major_alpha 0")
-	SendToConsole("dota_health_marker_major_alpha 0")
-	SendToConsole("dota_health_marker_minor_alpha 0")
-	
 	local statSettings = LoadKeyValues("scripts/vscripts/statcollection/settings.kv")
 	local SERVER_LOCATION = statSettings.serverLocation
 	
@@ -1850,16 +1846,16 @@ function CHoldoutGameMode:OnNPCSpawned( event )
 			end
 		end
 	end
+	-- if spawnedUnit:IsConsideredHero() and spawnedUnit:GetUnitName() ~= "npc_dota_healthbar_dummy" then
+		-- local dummy = CreateUnitByName("npc_dota_healthbar_dummy", spawnedUnit:GetAbsOrigin(), false, nil, nil, spawnedUnit:GetTeam())
+		-- dummy:SetHealthBarOffsetOverride( spawnedUnit:GetBaseHealthBarOffset() )
+		-- dummy:AddNewModifier(spawnedUnit, nil, "modifier_healthbar_dummy", {})
+		-- spawnedUnit:AddNewModifier(spawnedUnit, nil, "modifier_hide_healthbar", {})
+	-- end
 end
 
 function CHoldoutGameMode:OnPlayerReconnected( event )
 	local nReconnectedPlayerID = event.PlayerID
-	
-    SendToConsole("dota_health_high_threshold 10")
-    SendToServerConsole("dota_health_high_threshold 10")
-    SendToConsole("dota_health_high_marker_major_alpha 0")
-	SendToConsole("dota_health_marker_major_alpha 0")
-	SendToConsole("dota_health_marker_minor_alpha 0")
 	
 	local player = PlayerResource:GetPlayer( nReconnectedPlayerID )
 	if not PlayerResource:HasSelectedHero(nReconnectedPlayerID) then

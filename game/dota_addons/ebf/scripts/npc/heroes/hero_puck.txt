@@ -130,7 +130,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"ID"					"5072"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_puck/puck_phase_shift"
+		"AbilityTextureName"			"puck_phase_shift"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT | DOTA_ABILITY_BEHAVIOR_CHANNELLED | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
 		"AbilitySound"					"Hero_Puck.Phase_Shift"
 		"HasShardUpgrade"			"1"
@@ -144,7 +146,7 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"8 7.5 7 6.5 6.0 5.5 5.0"
+		"AbilityCooldown"				"3.75 3.25 2.75 2.25 1.25 0.75"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -155,6 +157,7 @@
 		"AbilityValues"
 		{
 			"duration"						"3.25"
+			"linger_duration"				"0.1"
 			"shard_attack_range_bonus"
 			{
 				"RequiresShard"				"1"
@@ -176,7 +179,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"ID"					"5073"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_puck/puck_dream_coil"
+		"AbilityTextureName"			"puck_dream_coil"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT"
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
@@ -212,7 +217,7 @@
 		{
 			"coil_duration"									"7.0"
 			"coil_break_radius"								"600"
-			"stun_duration"									"2.5 3.0 3.5 4.0 4.5 5.0"
+			"stun_duration"									"1.0"
 			"coil_initial_damage"
 			{	
 				"value"										"5000 12500 30000 75000 100000 125000"

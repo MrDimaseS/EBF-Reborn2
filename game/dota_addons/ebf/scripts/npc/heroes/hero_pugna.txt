@@ -7,7 +7,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"ID"					"5186"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_pugna/pugna_nether_blast"
+		"AbilityTextureName"			"pugna_nether_blast"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
@@ -21,11 +23,6 @@
 		"AbilityCastRange"				"500"
 		"AbilityCastPoint"				"0.2 0.2 0.2 0.2"
 
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"5"
-
-
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"85 145 205 265 325 385 445"
@@ -35,13 +32,26 @@
 		"AbilityValues"
 		{
 			"structure_damage_mod"		"0.5"
-			"delay"						"0.8"
-			"radius"					"400"
+			"delay"
+			{
+				"value"							"0.8"
+				"special_bonus_unique_pugna_2"	"=0"
+			}
+			"radius"
+			{
+				"value"							"400"
+				"special_bonus_unique_pugna_2"	"+50%"
+			}
 			"blast_damage"
 			{
 				"value"							"1120 1610 2245 4080 7965 15700 31100"
 				"special_bonus_unique_pugna_2"	"+50%"
 			}
+			"AbilityCooldown"
+			{
+				"value"							"5"
+				"special_bonus_unique_pugna_4"	"-1"
+			}			
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -53,10 +63,12 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"ID"					"5187"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_pugna/pugna_decrepify"
+		"AbilityTextureName"			"pugna_decrepify"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK |  DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_CUSTOM"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_CUSTOM"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"AbilitySound"					"Hero_Pugna.Decrepify"
@@ -70,7 +82,7 @@
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"16 13 10 7 6.34 5.69 5.03"
+		"AbilityCooldown"				"10"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -92,6 +104,11 @@
 			{
 				"value"							"3.5"
 				"special_bonus_unique_pugna_5"	"+1.0"
+			}
+			"radius"				
+			{
+				"value"							"0"
+				"special_bonus_unique_pugna_aoe_decrepify"	"+450"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -133,24 +150,24 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"radius"							"1400"
-			"base_damage"						"950 1750 3000 5500 9500 14000 21000"
-			"int_multiplier"					""
+			"radius"							"750"
+			"base_damage"						"300 650 1000 1500 2500 4500 9000"
 			"attacks_to_destroy_tooltip"
 			{
 				"value"							"4"
 				"special_bonus_unique_pugna_6"	"+3"
 			}
 			"spell_damage_reduction"			"8 12 16 20 22 24 26"
+			"debuff_duration"					"3"
+			"attack_rate"
+			{
+				"value"							"3 2.75 2.5 2.25 2.0 1.75 1.5"
+				"special_bonus_unique_pugna_nether_ward_rate"	"-0.5"
+			}
 			"AbilityCastRange"
 			{
 				"value"							"150"
 				"special_bonus_shard"			"+350"
-			}
-			"shard_ward_bonus_cast_range"
-			{
-				"value"							"350"
-				"RequiresShard"					"1"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
@@ -163,17 +180,18 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"ID"					"5189"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_pugna/pugna_life_drain"
+		"AbilityTextureName"			"pugna_life_drain"
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_FOW_VISIBLE"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_FOW_VISIBLE | DOTA_UNIT_TARGET_FLAG_NO_INVIS" 
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
 		"FightRecapLevel"				"1"
-		"HasShardUpgrade"				"1"
 		"HasScepterUpgrade"				"1"
 		"MaxLevel"						"6"
 		"LevelsBetweenUpgrades"			"6"
@@ -182,9 +200,9 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"700"
 		"AbilityCastPoint"				"0.2 0.2 0.2"
-		"AbilityChannelTime"			"10.0"
+		"AbilityChannelTime"			""
+		"AbilityChannelAnimation"		""
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
-		"AbilityChannelAnimation"		"ACT_DOTA_CHANNEL_ABILITY_4"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -204,17 +222,18 @@
 				"CalculateSpellDamageTooltip"	"1"
 				"DamageTypeTooltip"				"DAMAGE_TYPE_MAGICAL"
 			}
+			"heal_pct"
+			{
+				"value"							"50"
+				"special_bonus_unique_pugna_1"	"+20"
+			}
+			"creep_pct"							"80"
 			"tick_rate"							"0.25 0.25 0.25"
 			"drain_buffer"						"200"
-			"shard_damage_pct_from_ward"
+			"duration"
 			{
-				"value"							"70"
-				"RequiresShard"					"1"
-			}
-			"bonus_heal_pct"
-			{
-				"value"							"0"
-				"special_bonus_unique_pugna_1"	"+20"
+				"value"							"3"
+				"special_bonus_unique_pugna_life_drain_duration"	"+1"
 			}
 			"spell_amp_drain_rate"
 			{
@@ -224,23 +243,13 @@
 			"spell_amp_drain_max"
 			{
 				"value"							"0"
-				"special_bonus_scepter"			"+75"
-			}
-			"spell_amp_drain_rate_ward"
-			{
-				"value"							"0"
-				"special_bonus_scepter"			"+4"
+				"special_bonus_scepter"			"+150"
 			}
 			"spell_amp_drain_duration"
 			{
 				"value"							"0"
 				"special_bonus_scepter"			"+8"
-			}			
-			"max_spell_amp_drain_pct"
-			{
-				"value"							"0"
-				"special_bonus_scepter"			"+100"
-			}	
+			}
 			"AbilityCooldown"				
 			{
 				"value"							"7"		
@@ -255,21 +264,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"ID"					"6220"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"20"
-				"ad_linked_abilities"			"pugna_life_drain"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
+		"BaseClass"						"special_bonus_base"
 	}
 
 	//=================================================================================================================
@@ -279,21 +276,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"ID"					"6238"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"						"50"
-				"ad_linked_abilities"			"pugna_nether_blast"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
+		"BaseClass"						"special_bonus_base"
 	}
 
 	//=================================================================================================================
@@ -303,21 +288,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"ID"					"6403"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"							"40"
-				"ad_linked_abilities"			"pugna_nether_ward"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
+		"BaseClass"						"special_bonus_base"
 	}
 
 	//=================================================================================================================
@@ -327,21 +300,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"ID"					"6448"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"1"
-				"ad_linked_abilities"			"pugna_nether_blast"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
+		"BaseClass"						"special_bonus_base"
 	}
 
 	//=================================================================================================================
@@ -351,23 +312,10 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"ID"					"6541"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"1.5"
-				"ad_linked_abilities"			"pugna_decrepify"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
+		"BaseClass"						"special_bonus_base"
 	}
-
 	//=================================================================================================================
 	// Ability: Special Bonus
 	//=================================================================================================================
@@ -375,20 +323,41 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"ID"					"6859"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
+		"BaseClass"						"special_bonus_base"
+	}
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_pugna_nether_ward_rate"
+	{
+		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"3"
-				"ad_linked_abilities"			"pugna_nether_ward"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
+	}
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_pugna_life_drain_duration"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
+	}
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_pugna_aoe_decrepify"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
 	}
 }

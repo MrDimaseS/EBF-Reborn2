@@ -1364,12 +1364,13 @@
 
 
 		//Hoodwink
-		"DOTA_Tooltip_ability_hoodwink_scurry_Description"													"Hoodwink passively has a chance to evade physical attacks while near trees.\nWhen activated, Hoodwink gains bonus evasion, movement speed, phased collision, and tree-walking for a brief time."
-		"DOTA_Tooltip_ability_hoodwink_scurry_bonus_active_evasion"											"SCURRY ACTIVE EVASION:"
+		"DOTA_Tooltip_ability_hoodwink_acorn_shot_Description"												"Fires Hoodwink's attack with an acorn at the target unit. On hit, the acorn sprouts a tree and then bounces to a random enemy target. All units hit are slowed and take a percentage of Hoodwink's attack with bonus damage.\nAcorn Shot's bounce distance is equal to Hoodwink's attack range + Acorn Shot's bonus range."
+		
+		"DOTA_Tooltip_ability_hoodwink_scurry_Description"													"Hoodwink passively has a chance to evade physical attacks. This evasion is increased by %bonus_tree_evasion%%% while near trees.\nWhen activated, Hoodwink dodges all projectiles and then gains movement speed, attack range, cast range and phased tree-walking for a brief time."
 		
 		"DOTA_Tooltip_ability_hoodwink_sharpshooter_AbilityCooldown"                                        "COOLDOWN:"
-		"DOTA_Tooltip_ability_hoodwink_sharpshooter_Description"                                            "Hoodwink charges up and fires a deadly bolt from her crossbow that pierces all enemies, dealing heavy damage, break and slow until it hits an enemy Hero.  The damage and debuff duration scale up to max after %max_charge_time% seconds, and the bolt is fired automatically after %misfire_time% seconds.\nHoodwink is knocked backwards for a distance of %recoil_distance% from the force of the shot."
-		"DOTA_Tooltip_ability_hoodwink_sharpshooter_scepter_description"                                    "Sharpshooter's cooldown is reduced and pierces all units, even heroes."
+		"DOTA_Tooltip_ability_hoodwink_sharpshooter_Description"                                            "Hoodwink charges up and fires a deadly bolt from her crossbow that pierces all enemies, dealing heavy damage, break and slow to all creeps and the first hero hit.  The damage and debuff duration scale up to max after %max_charge_time% seconds, and the bolt is fired automatically after %misfire_time% seconds.\nHoodwink is knocked backwards for a distance of %recoil_distance% from the force of the shot."
+		"DOTA_Tooltip_ability_hoodwink_sharpshooter_scepter_description"                                    "Sharpshooter's cooldown is reduced and affects all Heroes hit."
 		"DOTA_Tooltip_modifier_hoodwink_sharpshooter_ebd_Description"                                       "Winding up Sharpshooter for bonus damage and debuff duration; rooted and disarmed."
 		"DOTA_Tooltip_modifier_hoodwink_sharpshooter_ebf"                                                   "Sharpshooter - Windup"
 		"DOTA_Tooltip_modifier_hoodwink_sharpshooter_ebf_debuff"                                            "Sharpshooter - Debuff"
@@ -1560,8 +1561,10 @@
 		
 
 		//Pangolier
-		"DOTA_Tooltip_ability_pangolier_shield_crash_creep_stacks"                                          "BARRIER PER CREEP:"
+		"DOTA_Tooltip_ability_pangolier_shield_crash_creep_shield"                                          "BARRIER PER CREEP:"
 		"DOTA_Tooltip_ability_pangolier_shield_crash_Description"                                           "Pangolier jumps in the air and slams back to the ground in front of his current position, damaging and slowing all enemies in a radius. For each enemy hit, he gains barrier. Creeps provide less barrier.\n\nForward movement is maintained if Shield Crash is used while Rolling Thunder is active, and allows Rolling Thunder to clear walls or cliffs."
+		"DOTA_Tooltip_modifier_pangolier_shield_crash_barrier"												"Shield Crash - Barrier"
+		"DOTA_Tooltip_modifier_pangolier_shield_crash_barrier_Description"									"Blocking %dMODIFIER_PROPERTY_INCOMING_DAMAGE_CONSTANT% damage."
 		
 		
 		//Phoenix
@@ -1593,11 +1596,29 @@
 		"DOTA_Tooltip_modifier_pudge_flesh_heap_kills"                                                      "Flesh Heap - Kills"
 		"DOTA_Tooltip_modifier_pudge_flesh_heap_kills_Description"                                          "Gaining %fMODIFIER_PROPERTY_STATS_STRENGTH_BONUS% strength."
 		
-		
+		//Puck
+		"DOTA_Tooltip_ability_puck_phase_shift_Description"													"CHANNELED - Puck briefly shifts into another dimension where it is immune from harm. Lingers for %linger_duration% seconds after exiting the channel.\n\nThe cooldown of this ability only ends after Puck stops channeling."
 		//Pugna
-		"DOTA_Tooltip_ability_pugna_nether_ward_Description"                                                "Pugna places a Nether Ward at the target location. The ward will fire at any enemy who casts a spell dealing base damage plus a damage multiplier equal to Pugna's Intelligence."
-		"DOTA_Tooltip_ability_pugna_nether_ward_mana_multiplier"                                            "DAMAGE PER INTELLIGENCE:"
+		"DOTA_Tooltip_ability_pugna_decrepify_Description"													"A powerful banishing spell that increases the healing of affected allies and makes them immune to being attacked. Afflicted enemies take extra magic damage and are slowed, while being unable to attack instead. Can be cast while channeling."
 		
+		"DOTA_Tooltip_ability_pugna_nether_ward_Description"                                                "Pugna places a Nether Ward at the target location. The ward will fire every interval dealing damage to all units in range. Enemies zapped have their spell damage reduced for %debuff_duration% seconds."
+		"DOTA_Tooltip_ability_pugna_nether_ward_shard_description"											"When Life Drain is applied to a unit within a Nether Ward's radius, all allied units within Nether Ward's radius are healed."	
+		"DOTA_Tooltip_ability_pugna_nether_ward_spell_damage_reduction"                                     "%SPELL DAMAGE REDUCTION:"
+		"DOTA_Tooltip_ability_pugna_nether_ward_attack_rate"                                    			"WARD ATTACK RATE:"
+		"DOTA_Tooltip_ability_pugna_nether_ward_mana_multiplier"                                            ""
+		
+		"DOTA_Tooltip_ability_pugna_life_drain_Description"													"When an enemy unit within the radius is affected by one of your spells, that unit has its life drained by you. For the duration, a tether forms that deals damage to the enemy unit and heals you.\nLife Drain can only affect one hero when triggered, but has no limit to creeps if Life Drain was triggered by an area of effect spell. Healing from creeps is reduced by %creep_pct%%%%.\nThe tether is broken when you are silenced, stunned or the enemy unit moves more than %drain_buffer% further than the effect radius.\nRestores mana if at full health instead."
+		"DOTA_Tooltip_ability_pugna_life_drain_health_drain"												"DAMAGE"
+		"DOTA_Tooltip_ability_pugna_life_drain_heal_pct"													"%DAMAGE TO HEAL:"
+		"DOTA_Tooltip_ability_pugna_life_drain_duration"													"DURATION:"
+		"DOTA_Tooltip_ability_pugna_life_drain_shard_description"											""
+		"DOTA_Tooltip_ability_pugna_life_drain_scepter_description"											"Reduces cooldown to %AbilityCooldown%s. Life Drain reduces an affected creature's outgoing spell damage by %spell_amp_drain_rate%%% per second up to a maximum of %spell_amp_drain_max%%% and increases his own by the same amount. Debuff and buff lasts %spell_amp_drain_duration% seconds."
+		
+		"DOTA_Tooltip_modifier_pugna_life_drain_tether"														"Life Drain - Tether"
+		"DOTA_Tooltip_modifier_pugna_life_drain_tether_Description"											"Connected to Pugna's Life Drain"
+		
+		"DOTA_Tooltip_modifier_pugna_life_drain_tether_spell_amp"											"Life Drain - Spell Amplification"
+		"DOTA_Tooltip_modifier_pugna_life_drain_tether_spell_amp_Description"								"Gaining (ally) or losing (enemy) %dMODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE%%% spell amplification."
 		
 		//Shadow Shaman
 		"DOTA_Tooltip_ability_shadow_shaman_shackles_total_damage"                                          "TOTAL DAMAGE:"
@@ -1950,6 +1971,7 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_grimstroke_8"											"+{s:bonus_damage_per_second}% Phantom's Embrace DPS"
 		"DOTA_Tooltip_ability_special_bonus_unique_gyrocopter_3"											"+{s:bonus_rocket_damage} Rocket Barrage Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_gyrocopter_flak_cannon_bonus_damage"						"+{s:bonus_bonus_damage} Flak Cannon Damage"
+		"DOTA_Tooltip_ability_special_bonus_unique_hoodwink_acorn_shot_charges"								"{s:bonus_AbilityCharges} Acorn Shot Charges"
 		"DOTA_Tooltip_ability_special_bonus_unique_hoodwink_bushwhack_damage"                               "+{s:bonus_total_damage}% Bushwhack Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_hoodwink_sharpshooter_damage"							"+{s:bonus_max_damage}% Sharpshooter Max Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_huskar"													"+{s:bonus_tooltip_health_damage}% Life Break Damage"
@@ -2024,8 +2046,17 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_puck_orb_damage"											"+{s:bonus_damage}% Illusory Orb Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_pudge_2"                                                 "+{s:value}% Rot Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_pudge_7"                                                 "+{s:bonus_damage}% Meat Hook Damage"
-		"DOTA_Tooltip_ability_special_bonus_unique_pugna_2"                                                 "+{s:bonus_blast_damage}% Nether Blast Damage"
-		"DOTA_Tooltip_ability_special_bonus_unique_pugna_3"                                                 "+{s:value} Nether Ward Damage Per Intelligence"
+		"DOTA_Tooltip_ability_special_bonus_unique_pugna_1"	"+{s:bonus_bonus_heal_pct}% Life Drain Heal"
+		"DOTA_Tooltip_ability_special_bonus_unique_pugna_2"                                                 "Instant {s:bonus_blast_damage}% Improved Nether Blast"
+		"DOTA_Tooltip_ability_special_bonus_unique_pugna_2_Description"                                     "Nether Blast damages instantly and has its damage and radius increased."
+		"DOTA_Tooltip_ability_special_bonus_unique_pugna_3"                                                 "+{s:value}% Nether Ward Damage Per Intelligence"
+		"DOTA_Tooltip_ability_special_bonus_unique_pugna_4"													"-{s:bonus_AbilityCooldown}s Nether Blast Cooldown"
+		"DOTA_Tooltip_ability_special_bonus_unique_pugna_5"													"+{s:bonus_AbilityDuration}s Decrepify Duration"
+		"DOTA_Tooltip_ability_special_bonus_unique_pugna_6"													"+{s:bonus_attacks_to_destroy} Nether Ward Health"
+		"DOTA_Tooltip_ability_special_bonus_unique_pugna_aoe_decrepify"                                     "+{s:bonus_radius} AOE Decrepify"
+		"DOTA_Tooltip_ability_special_bonus_unique_pugna_nether_ward_rate"                                  "-{s:bonus_attack_rate} Nether Ward Attack Rate"
+		"DOTA_Tooltip_ability_special_bonus_unique_pugna_life_drain_duration"                               "+{s:bonus_duration} Life Drain Duration"
+		
 		"DOTA_Tooltip_ability_special_bonus_unique_queen_of_pain_2"                                         "+{s:bonus_damage}% Scream of Pain Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_queen_of_pain_7"                                         "+{s:bonus_damage}% Sonic Wave Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_razor"                                                   "+{s:bonus_drain_rate}% Static Link Damage Steal"

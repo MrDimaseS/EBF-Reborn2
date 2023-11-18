@@ -88,19 +88,23 @@ modifier_pangolier_shield_crash_movement = class({})
 LinkLuaModifier("modifier_pangolier_shield_crash_movement", "heroes/hero_pangolier/pangolier_shield_crash", LUA_MODIFIER_MOTION_NONE)
 
 function modifier_pangolier_shield_crash_movement:OnCreated()
-	self.creep_stacks = self:GetSpecialValueFor("creep_stacks")
-	self.hero_stacks = self:GetSpecialValueFor("hero_stacks")
-	self.max_stacks = self:GetSpecialValueFor("max_stacks")
+	self.creep_shield = self:GetSpecialValueFor("creep_shield")
+	self.hero_shield = self:GetSpecialValueFor("hero_shield")
 	if IsServer() then
 		local caster = self:GetCaster()
 		local nfx = ParticleManager:CreateParticle("particles/units/heroes/hero_pangolier/pangolier_tailthump_cast.vpcf", PATTACH_POINT_FOLLOW, caster)
 		ParticleManager:SetParticleControlEnt(nfx, 0, caster, PATTACH_POINT_FOLLOW, "attach_hitloc", caster:GetAbsOrigin(), true)
 		self:AttachEffect(nfx)
 		
+		caster:RemoveModifierByName("modifier_pangolier_shield_crash_barrier")
 		caster:RemoveModifierByName("modifier_pangolier_shield_crash_buff")
 	end
 end
 
+function modifier_pangolier_shield_crash_movement:OnDestroy()
+	local caster = self:GetCaster()
+	if IsServer() then caster:RemoveModifierByName("modifier_pangolier_shield_crash_buff") end
+end
 
 function modifier_pangolier_shield_crash_movement:DeclareFunctions()
 	return {MODIFIER_PROPERTY_OVERRIDE_ANIMATION, MODIFIER_EVENT_ON_TAKEDAMAGE }
@@ -111,10 +115,9 @@ function modifier_pangolier_shield_crash_movement:OnTakeDamage(params)
 		local caster = self:GetCaster()
 		local duration = self:GetTalentSpecialValueFor("duration")
 		
-		local damageBlock = TernaryOperator( self.hero_stacks, params.unit:IsConsideredHero(), self.creep_stacks )
+		local damageBlock = TernaryOperator( self.hero_shield, params.unit:IsConsideredHero(), self.creep_shield )
 		
-		local buff = caster:AddNewModifier(caster, self:GetAbility(), "modifier_pangolier_shield_crash_buff", {Duration = duration})
-		buff:SetStackCount( math.min( self.max_stacks, buff:GetStackCount() + damageBlock ) )
+		local buff = caster:AddNewModifier(caster, self:GetAbility(), "modifier_pangolier_shield_crash_barrier", {Duration = duration, damage_block = damageBlock})
 	end
 end
 
@@ -124,4 +127,53 @@ end
 
 function modifier_pangolier_shield_crash_movement:IsHidden()
 	return true
+end
+
+modifier_pangolier_shield_crash_barrier = class({})
+LinkLuaModifier( "modifier_pangolier_shield_crash_barrier", "heroes/hero_pangolier/pangolier_shield_crash", LUA_MODIFIER_MOTION_NONE )
+
+function modifier_pangolier_shield_crash_barrier:OnCreated(kv)
+	if IsServer() then
+		self.barrier = kv.damage_block
+	end
+	if IsServer() then self:SetHasCustomTransmitterData(true) end
+end
+
+function modifier_pangolier_shield_crash_barrier:OnRefresh(kv)
+	if IsServer() then
+		self.barrier = self.barrier + kv.damage_block
+		self:SendBuffRefreshToClients()
+	end
+end
+
+function modifier_pangolier_shield_crash_barrier:CheckState()
+	return {[MODIFIER_STATE_DEBUFF_IMMUNE] = true}
+end
+
+function modifier_pangolier_shield_crash_barrier:DeclareFunctions()
+	return { MODIFIER_PROPERTY_INCOMING_DAMAGE_CONSTANT }
+end
+
+function modifier_pangolier_shield_crash_barrier:GetModifierIncomingDamageConstant( params )
+	if IsServer() then
+		local barrier = math.min( self.barrier, math.max( self.barrier, params.damage ) )
+		self.barrier = self.barrier - params.damage
+		self:SendBuffRefreshToClients()
+		EmitSoundOn( "Hero_Antimage.Counterspell.Absorb", self:GetParent() )
+		return -barrier
+	else
+		return self.barrier
+	end
+end
+
+function modifier_pangolier_shield_crash_barrier:AddCustomTransmitterData()
+	return {barrier = self.barrier}
+end
+
+function modifier_pangolier_shield_crash_barrier:HandleCustomTransmitterData(data)
+	self.barrier = data.barrier
+end
+
+function modifier_pangolier_shield_crash_barrier:GetEffectName()
+	return "particles/units/heroes/hero_pangolier/pangolier_tailthump_buff.vpcf"
 end

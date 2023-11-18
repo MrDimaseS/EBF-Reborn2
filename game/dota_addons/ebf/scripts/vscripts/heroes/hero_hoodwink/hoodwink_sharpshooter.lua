@@ -40,28 +40,35 @@ end
 
 --------------------------------------------------------------------------------
 -- Projectile
-function hoodwink_sharpshooter:OnProjectileThink_ExtraData( location, ExtraData )
-	local sound = EntIndexToHScript( ExtraData.sound )
+function hoodwink_sharpshooter:OnProjectileThinkHandle( projectile )
+	local sound = self.projectiles[projectile].sound
 	if not sound or sound:IsNull() then return end
-	sound:SetOrigin( location )
+	sound:SetOrigin( ProjectileManager:GetLinearProjectileLocation( projectile )
 end
 
-function hoodwink_sharpshooter:OnProjectileHit_ExtraData( target, location, ExtraData )
-	-- stop projectile sound
-
+function hoodwink_sharpshooter:OnProjectileHit_ExtraData( target, location, projectile )
+	local projectileData = self.projectiles[projectile]
+	if not projectileData then return end
+	
 	if not target then
-		local sound = EntIndexToHScript( ExtraData.sound )
+		local sound = EntIndexToHScript( projectileData.sound )
 		if not sound or sound:IsNull() then return end
 		local sound_projectile = "Hero_Hoodwink.Sharpshooter.Projectile"
 		StopSoundOn( sound_projectile, sound )
 		UTIL_Remove( sound )
+		self.projectiles[projectile] = nil
 		return true
 	end
 
 	local caster = self:GetCaster()
 
-	
-	self:DealDamage( caster, target, ExtraData.damage )
+	if target:IsConsideredHero() then
+		if projectileData.hitHero and not caster:HasScepter() then -- ignore heroes
+			return false
+		end
+		projectileData.hitHero = true
+	end
+	self:DealDamage( caster, target, projectileData.damage )
 
 	-- modifier
 	target:AddNewModifier(
@@ -69,9 +76,9 @@ function hoodwink_sharpshooter:OnProjectileHit_ExtraData( target, location, Extr
 		self, -- ability source
 		"modifier_hoodwink_sharpshooter_ebf_debuff", -- modifier name
 		{
-			duration = ExtraData.duration,
-			x = ExtraData.x,
-			y = ExtraData.y
+			duration = projectileData.duration,
+			x = projectileData.direction.x,
+			y = projectileData.direction.y
 		} -- kv
 	)
 
@@ -80,7 +87,7 @@ function hoodwink_sharpshooter:OnProjectileHit_ExtraData( target, location, Extr
 		nil,
 		OVERHEAD_ALERT_BONUS_SPELL_DAMAGE,
 		target,
-		ExtraData.damage,
+		projectileData.damage,
 		self:GetCaster():GetPlayerOwner()
 	)
 
@@ -88,16 +95,9 @@ function hoodwink_sharpshooter:OnProjectileHit_ExtraData( target, location, Extr
 	AddFOWViewer( self:GetCaster():GetTeamNumber(), target:GetOrigin(), 300, 4, false)
 
 	-- play effects
-	local direction = Vector( ExtraData.x, ExtraData.y, 0 ):Normalized()
+	local direction = projectileData.direction:Normalized()
 	self:PlayEffects( target, direction )
-	if target:IsConsideredHero() and not caster:HasScepter() then
-		local sound = EntIndexToHScript( ExtraData.sound )
-		if not sound or sound:IsNull() then return end
-		local sound_projectile = "Hero_Hoodwink.Sharpshooter.Projectile"
-		StopSoundOn( sound_projectile, sound )
-		UTIL_Remove( sound )
-		return true
-	end
+	
 end
 
 --------------------------------------------------------------------------------
@@ -243,15 +243,14 @@ function modifier_hoodwink_sharpshooter_ebf:OnDestroy()
 	local sound_cast = "Hero_Hoodwink.Sharpshooter.Projectile"
 	EmitSoundOn( sound_cast, sound )
 
-	self.info.ExtraData = {
+	self:GetAbility().projectiles = self:GetAbility().projectiles or {}
+	local projectile = self:GetAbility():FireLinearProjectile("particles/units/heroes/hero_hoodwink/hoodwink_sharpshooter_projectile.vpcf", direction * self.projectile_speed, self.projectile_range, self.projectile_width)
+	self:GetAbility().projectiles[projectile] = {
 		damage = self.damage * pct,
 		duration = self.duration * pct,
-		x = direction.x,
-		y = direction.y,
+		direction = direction,
 		sound = sound:entindex(),
 	}
-	
-	self:GetAbility():FireLinearProjectile("particles/units/heroes/hero_hoodwink/hoodwink_sharpshooter_projectile.vpcf", direction * self.projectile_speed, self.projectile_range, self.projectile_width, {extraData = self.info.ExtraData})
 
 	-- knockback
 	local mod = self.caster:ApplyKnockBack( self.caster:GetAbsOrigin() + self.caster:GetForwardVector() * self.recoil_distance, 0, self.recoil_duration, self.recoil_distance, self.recoil_height, self.caster, self:GetAbility() )

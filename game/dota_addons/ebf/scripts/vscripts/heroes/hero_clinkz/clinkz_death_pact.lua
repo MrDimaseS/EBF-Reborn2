@@ -39,6 +39,11 @@ function clinkz_death_pact:OnSpellStart()
 	end
 	self.deathPactSkeletonArcher:RespawnUnit()
 	self.deathPactSkeletonArcher:AddNewModifier( caster, self, "modifier_clinkz_burning_army", {duration = 30} )
+	
+	local tarBomb = caster:FindAbilityByName("clinkz_tar_bomb")
+	if tarBomb and tarBomb:IsTrained() then
+		self.deathPactSkeletonArcher:AddNewModifier( caster, tarBomb, "modifier_clinkz_tar_bomb_searing_arrows", {} )
+	end
 	FindClearSpaceForUnit(self.deathPactSkeletonArcher, target:GetAbsOrigin() + RandomVector(150), true)
 end
 
@@ -57,7 +62,6 @@ function modifier_clinkz_death_pact_buff:OnRefresh(kv)
     if IsServer() then 
 		self.health = kv.damage * self:GetSpecialValueFor("health_gain_pct")/100
 		self.damage = kv.damage * self:GetSpecialValueFor("damage_gain_pct")/100
-		
 	end
 end
 

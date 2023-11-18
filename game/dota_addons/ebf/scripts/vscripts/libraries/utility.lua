@@ -786,6 +786,14 @@ function CDOTABaseAbility:SetCooldown(fCD)
 	end
 end
 
+function CDOTABaseAbility:SpendAbilityCharge()
+	local abilityChargeRestoreTime = self:GetAbilityChargeRestoreTime(-1) * (1-self:GetCaster():GetCooldownReduction())
+	self:SetCurrentAbilityCharges( self:GetCurrentAbilityCharges() - 1 )
+	if self:GetCurrentAbilityCharges() == 0 then
+		self:SetCooldown(abilityChargeRestoreTime)
+	end
+end
+
 function CDOTABaseAbility:ModifyCooldown(amt)
 	local currCD = self:GetCooldownTimeRemaining()
 	self:EndCooldown()

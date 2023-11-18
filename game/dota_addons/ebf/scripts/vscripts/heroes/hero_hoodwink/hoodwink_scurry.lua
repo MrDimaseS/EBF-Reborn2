@@ -37,7 +37,7 @@ function modifier_hoodwink_hoodwink_scurry_evasion:OnCreated()
 end
 
 function modifier_hoodwink_hoodwink_scurry_evasion:OnStackCountChanged( stacks )
-	if self:GetStackCount( ) <> stacks and IsServer() then
+	if self:GetStackCount( ) ~= stacks and IsServer() then
 		if self:GetStackCount() == 1 and not self.evasionFX then
 			self.evasionFX = ParticleManager:CreateParticle("particles/units/heroes/hero_hoodwink/hoodwink_scurry_passive.vpcf", PATTACH_POINT_FOLLOW, self:GetParent() )
 		else
@@ -66,7 +66,7 @@ function modifier_hoodwink_hoodwink_scurry_evasion:DeclareFunctions()
 end
 
 function modifier_hoodwink_hoodwink_scurry_evasion:GetModifierEvasion_Constant()
-	return self.evasion + TernaryOperator( 0, self:GetStackCount() == 0, self.bonus_tree_evasion ) + TernaryOperator( 0, self:GetParent():HasModifier("modifier_hoodwink_scurry_scurrying"), self:GetSpecialValueFor("bonus_active_evasion") )
+	return self.evasion + TernaryOperator( self.bonus_tree_evasion, self:GetStackCount() == 0, 0 ) + TernaryOperator( 0, self:GetParent():HasModifier("modifier_hoodwink_scurry_scurrying"), self:GetSpecialValueFor("bonus_active_evasion") )
 end
 
 function modifier_hoodwink_hoodwink_scurry_evasion:IsHidden()

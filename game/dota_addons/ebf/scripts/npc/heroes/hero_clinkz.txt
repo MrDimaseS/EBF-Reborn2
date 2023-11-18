@@ -31,10 +31,10 @@
 		{
 			"attack_speed_bonus"			
 			{
-				"value"									"100 140 180 220 260 300 340"
-				"special_bonus_unique_clinkz_7"			"+40"
+				"value"									"220"
+				"special_bonus_unique_clinkz_7"			"+160"
 			}
-			"duration"									"3.5"
+			"duration"									"2 2.5 3.0 3.5 4.0 4.5 5.0"
 			"attack_range_bonus"						"200"
 			"AbilityCooldown"				
 			{
@@ -43,7 +43,7 @@
 
 			}
 			"strafe_skeleton_radius"					"1200"
-			"archer_attack_speed_pct"					"50"
+			"archer_attack_speed_pct"					"100"
 		}
 	}
 	//=================================================================================================================
@@ -85,7 +85,7 @@
 		{
 			"wave_count"			"6"
 			"range"					"850"				
-			"damage_pct"			"65"
+			"damage_pct"			"100"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -174,16 +174,16 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-
 			"radius"		"275"
 			"projectile_speed"						"1500"
 			"damage_bonus"					
 			{
-				"value"								"100 220 420 750 1570 2850 4175"		
-				"special_bonus_unique_clinkz_1"		"+25%"
+				"value"								"200 350 650 1250 2000 3500 6000"
+				"special_bonus_unique_clinkz_1"		"+50%"
+				"CalculateSpellDamageTooltip"		"0"
 			}
 			"ground_duration"						"5"				
-			"slow_movement_speed"					"-16 -19 -22 -25"
+			"slow_movement_speed"					"-25"
 			"slow_duration"							"2.5"
 			"has_multishot"	
 			{
@@ -192,7 +192,8 @@
 			}
 			"impact_damage"					
 			{
-				"value"								"565 855 1185 1800 3280 6170 9000"
+				"value"								"750 1250 2000 3500 6000 11000 20000"
+				"special_bonus_unique_clinkz_1"		"+50%"
 				"DamageTypeTooltip"					"DAMAGE_TYPE_MAGICAL"
 			}
 		}
@@ -226,17 +227,17 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"					"35 40 40 45 45 50"
+			"duration"					"45"
 			"fade_time"					"0.6"
 			"move_speed_bonus_pct"		"30 45 45 60 60 75"
 			"skeleton_count"
 			{
-				"value"					"2 2 3 3 4 4"
+				"value"					"4"
 				"special_bonus_shard"	"+1"
 			}
 			"AbilityCooldown"
 			{
-				"value"									"18"
+				"value"									"24 21 18 15 12 9"
 				"special_bonus_unique_clinkz_10"		"-3"
 			}
 			"skeleton_offset"				"250"
@@ -567,24 +568,6 @@
 		"ID"					"495"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"						"FIELD_INTEGER"
-				"value"							"10"
-				"ad_linked_abilities"			"clinkz_death_pact"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-			"02"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value2"				"0"
-				"ad_linked_abilities"			"clinkz_death_pact"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
 	}
 
 	//=================================================================================================================

@@ -43,7 +43,7 @@ end
 function hoodwink_sharpshooter:OnProjectileThinkHandle( projectile )
 	local sound = self.projectiles[projectile].sound
 	if not sound or sound:IsNull() then return end
-	sound:SetOrigin( ProjectileManager:GetLinearProjectileLocation( projectile )
+	sound:SetOrigin( ProjectileManager:GetLinearProjectileLocation( projectile ) )
 end
 
 function hoodwink_sharpshooter:OnProjectileHit_ExtraData( target, location, projectile )

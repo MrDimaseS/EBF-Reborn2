@@ -8,7 +8,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"ID"							"605"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
@@ -18,6 +18,7 @@
 		"LevelsBetweenUpgrades"			"3"
 		"FightRecapLevel"				"1"
 		"IsGrantedByShard"				"0"
+		"HasShardUpgrade"				"0"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -45,8 +46,8 @@
 				"value"								"1200 2000 3800 7500 14000 25000 48000"
 				"special_bonus_unique_kunkka_tidal_wave_damage"		"+75%"
 			}
-			"duration"					"1.25"
-			"knockback_distance"		"600"
+			"duration"					"1.75"
+			"knockback_distance"		"300"
 		}
 	}
 	//=================================================================================================================
@@ -93,20 +94,20 @@
 			"radius"
 			{
 				"value"								"225"
-				"special_bonus_unique_kunkka"		"+80"
+				"special_bonus_unique_kunkka_7"		"+100%"
 			}
 			"movespeed_bonus"						"-40"
 			"slow_duration"							"5.5"
 			"stun_duration"
 			{
 				"value"								"1.6"
-				"special_bonus_unique_kunkka_7"		"+50%"
+				"special_bonus_unique_kunkka_7"		"+100%"
 			}
 			"delay"									"1.6 1.6 1.6 1.6"
 			"torrent_damage"
 			{
-				"value"								"1130 1905 2885 4855 9800 19700 44500"
-				"special_bonus_unique_kunkka_7"		"+50%"
+				"value"								"1250 2500 5000 9000 16000 30000 60000"
+				"special_bonus_unique_kunkka_7"		"+100%"
 			}
 			"damage_tick_interval"				"0.2"
 		}
@@ -207,7 +208,7 @@
 			}
 			"cleave_ending_width"				
 			{
-				"value"					"500 550 600 650 700 750 800"
+				"value"						"500 550 600 650 700 750 800"
 				"special_bonus_shard"		"x2"
 			}
 			"cleave_distance"				
@@ -215,7 +216,11 @@
 				"value"						"650 800 950 1100 1250 1400 1550"
 				"special_bonus_shard"		"x2"
 			}
-			"damage_bonus"					"750 1500 2750 4500 8500 13500 20000"
+			"damage_bonus"			
+			{				
+				"value"						"900 1750 3250 6000 11000 18000 30000" 
+				"special_bonus_unique_kunkka_tidebringer_damage"	"+50%"
+			}
 			"cleave_damage"				
 			{
 				"value"								"150"
@@ -361,10 +366,15 @@
 			"ghostship_distance"		"2000"
 			"ghostship_width"			"450"
 			"movespeed_bonus"			"15"
-			"buff_duration"				"10"
+			"buff_duration"
+			{
+				"value"					"10"
+				"special_bonus_unique_kunkka_ghostship_duration"	"+10"
+
+			}		
 			"stun_duration"				"1.4 1.4 1.4"
 			"ghostship_speed"			"650"
-			"ghostship_absorb"			"40"
+			"ghostship_absorb"			"60"
 			"AbilityCooldown"				
 			{
 				"value"					"60"
@@ -535,6 +545,28 @@
 	// Ability: Special Bonus
 	//=================================================================================================================
 	"special_bonus_unique_kunkka_tidal_wave_damage"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
+	}
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_kunkka_tidebringer_damage"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
+	}
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_kunkka_ghostship_duration"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------

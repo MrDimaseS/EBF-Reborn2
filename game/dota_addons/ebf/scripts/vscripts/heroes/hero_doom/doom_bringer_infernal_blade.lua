@@ -9,7 +9,7 @@ function doom_bringer_infernal_blade:IsStealable()
 end
 
 function doom_bringer_infernal_blade:ShouldUseResources()
-	return false
+	return true
 end
 
 function doom_bringer_infernal_blade:GetAOERadius()

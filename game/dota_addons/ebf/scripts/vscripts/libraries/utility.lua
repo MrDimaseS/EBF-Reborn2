@@ -482,33 +482,15 @@ function CDOTA_BaseNPC:KillTarget()
 	end
 end
 
-function CDOTA_BaseNPC:GetAngleDifference(hEntity)
-	-- The y value of the angles vector contains the angle we actually want: where units are directionally facing in the world.
-	local victim_angle = hEntity:GetAnglesAsVector().y
-	local origin_difference = hEntity:GetAbsOrigin() - self:GetAbsOrigin()
-
-	-- Get the radian of the origin difference between the attacker and Riki. We use this to figure out at what angle the victim is at relative to Riki.
-	local origin_difference_radian = math.atan2(origin_difference.y, origin_difference.x)
-	
-	-- Convert the radian to degrees.
-	origin_difference_radian = origin_difference_radian * 180
-	local attacker_angle = origin_difference_radian / math.pi
-	-- Makes angle "0 to 360 degrees" as opposed to "-180 to 180 degrees" aka standard dota angles.
-	attacker_angle = attacker_angle + 180.0
-	
-	-- Finally, get the angle at which the victim is facing Riki.
-	local result_angle = (attacker_angle - victim_angle)
-	result_angle = math.abs(result_angle)
-	return result_angle
+function CDOTA_BaseNPC:GetAngleDifference(attacker)
+	local lineOfAttack = CalculateDirection( attacker, self )
+	local angleUnits = ToDegrees( math.acos( DotProduct( self:GetForwardVector(), lineOfAttack ) ) )
+	return angleUnits
 end
 
-function CDOTA_BaseNPC:IsAtAngleWithEntity(hEntity, flDesiredAngle)
-	local angleDiff = self:GetAngleDifference(hEntity)
-	if angleDiff >= (180 - flDesiredAngle / 2) and angleDiff <= (180 + flDesiredAngle / 2) then 
-		return true
-	else
-		return false
-	end
+function CDOTA_BaseNPC:IsAtAngleWithEntity(attacker, flDesiredAngle)
+	local angleDiff = self:GetAngleDifference(attacker)
+	return angleDiff <= flDesiredAngle / 2
 end
 	
 function CDOTA_BaseNPC:RefreshAllCooldowns(bItems)
@@ -1315,6 +1297,14 @@ function CDOTA_BaseNPC:ApplyKnockBack(position, stunDuration, knockbackDuration,
 		knockback_height = height,
 	}
 	return self:AddNewModifier(caster, ability, "modifier_knockback", modifierKnockback )
+end
+
+function CDOTA_BaseNPC:IsKnockedBack()
+	if self:HasModifier("modifier_knockback") then
+		return true
+	else
+		return false
+	end
 end
 
 function CDOTABaseAbility:CastSpell(target)

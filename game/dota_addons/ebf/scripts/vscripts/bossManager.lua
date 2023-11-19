@@ -38,6 +38,7 @@ end
 
 function bossManager:onBossSpawn(spawnedUnit)
 	if spawnedUnit:GetUnitName() == "npc_dota_healthbar_dummy" then return end
+	if spawnedUnit:GetTeam() == DOTA_TEAM_BADGUYS and not IsInToolsMode() then return end -- only way to get these is with console commands
 	if spawnedUnit:IsCreature() then
 		if spawnedUnit.hasBeenProcessed then return end
 		spawnedUnit:SetHullRadius( math.min( 48, 24 * (1 + (spawnedUnit:GetModelScale()-1)/2) ) )

@@ -43,6 +43,7 @@
 			"damage_per_second"
 			{
 				"value"							"710 1250 2100 3800 6350 10500 19000"
+				"special_bonus_unique_ember_spirit_searing_chains_dps"	"+100%"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"tick_interval"						"0.5"
@@ -91,7 +92,7 @@
 			"radius"												"250 350 450 550 650 750 850"
 			"bonus_hero_damage"
 			{
-				"value"												"540 1020 1650 2600 4100 6800 11700"
+				"value"												"950 1500 2500 4500 8000 15000 25000"
 				"special_bonus_unique_ember_spirit_6"				"+100%"
 				"CalculateSpellDamageTooltip"						"0"
 			}
@@ -286,7 +287,7 @@
 				"speed_multiplier"		"250"
 				"max_charges"			"3"
 				"charge_restore_time"	"35.0"
-				"damage"				"3330 12250 37250 66550 74900 83250"
+				"damage"				"6500 18500 45000 100000 125000 150000"
 				"radius"				
 				{
 					"value"		"450"
@@ -359,18 +360,6 @@
 		"ID"					"6647"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"						"100"
-				"ad_linked_abilities"		"ember_spirit_flame_guard"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
 	}
 
 	//=================================================================================================================
@@ -443,5 +432,17 @@
 				"ad_linked_abilities"			"ember_spirit_searing_chains"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
 			}
 		}
+	}
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_ember_spirit_searing_chains_dps"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"1031"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
 	}
 }

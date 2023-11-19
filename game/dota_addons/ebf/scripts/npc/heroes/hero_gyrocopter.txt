@@ -40,7 +40,7 @@
 			"rocket_damage"
 			{
 				"value"						"115 225 375 565 1125 2250 4500"
-				"special_bonus_unique_gyrocopter_3"	"+50%"
+				"special_bonus_unique_gyrocopter_3"	"+100%"
 			}
 			"bonus_movement_speed"
 			{
@@ -95,14 +95,14 @@
 			"tower_hits_to_kill_tooltip"	"6"
 			"stun_duration"
 			{
-				"value"								"3.0"
-				"LinkedSpecialBonus"			"special_bonus_unique_gyrocopter_6"
+				"value"					"3.0"
+				"LinkedSpecialBonus"	"special_bonus_unique_gyrocopter_6"
 			}
 			"attack_speed_bonus_pct"	"400 400 400 400"
 			"min_damage"				"50"
 			"max_distance"				"1500"
 			"pre_flight_time"			"2.5"
-			"hero_damage"				"34"
+			"hero_damage"				"2"
 			"speed"						"500"
 			"acceleration"				"15"
 			"enemy_vision_time"			"4"
@@ -169,13 +169,13 @@
 			"max_attacks"
 			{
 				"value"								"6 8 10 12 14 16 18"
-				"special_bonus_unique_gyrocopter_2"	"+4"
+				"special_bonus_unique_gyrocopter_2"	"x2"
 			}
 			"projectile_speed"				"800"
 			"bonus_damage"
 			{
 				"value"															"0"
-				"special_bonus_unique_gyrocopter_flak_cannon_bonus_damage"		"+2500"
+				"special_bonus_unique_gyrocopter_flak_cannon_bonus_damage"		"+7500"
 			}
 			"fire_rate"	
 			{
@@ -231,8 +231,16 @@
 		{
 			"slow_duration_first"		"2"
 			"slow_duration_second"		"4"
-			"damage_first"				"3250 7975 17975 34300 40975 47400"
-			"damage_second"				"4350 9550 22000 41100 49400 57600"
+			"damage_first"
+			{
+				"value"					"6500 15000 35000 70000 90000 110000"
+				"special_bonus_unique_gyrocopter_call_down_damage"	"+50%"
+			}
+			"damage_second"
+			{
+				"value"					"9000 24000 60000 100000 150000 200000"
+				"special_bonus_unique_gyrocopter_call_down_damage"	"+50%"
+			}
 			"slow_first"				"30"
 			"slow_second"				"60"
 			"radius"					"600"
@@ -369,5 +377,17 @@
 				"ad_linked_abilities"			"gyrocopter_homing_missile"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
 			}
 		}
+	}
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_gyrocopter_call_down_damage"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"1031"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
 	}
 }

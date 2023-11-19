@@ -16,6 +16,8 @@ function ember_spirit_sleight_of_fist:OnSpellStart()
 	local caster = self:GetCaster()
 	local point = self:GetCursorPosition()
 	caster:StartGesture(ACT_DOTA_CAST_ABILITY_2)
+	
+	ProjectileManager:ProjectileDodge( caster )
 
 	EmitSoundOn("Hero_EmberSpirit.SleightOfFist.Cast", caster)
 

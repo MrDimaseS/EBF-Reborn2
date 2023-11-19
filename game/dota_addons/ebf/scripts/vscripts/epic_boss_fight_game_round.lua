@@ -164,8 +164,7 @@ function CHoldoutGameRound:End(bWon)
 		end
 	end)
 	
-	if bWon then
-		
+	if bWon and self._nGoldRemainingInRound > 0 then
 		self._heroesDiedThisRound = self._heroesDiedThisRound or {}
 		local goldMuliplierTeam = 0.5
 		local deathReduction = goldMuliplierTeam / HeroList:GetActiveHeroCount()
@@ -185,14 +184,16 @@ function CHoldoutGameRound:End(bWon)
 			if hero:GetTeamNumber() == DOTA_TEAM_GOODGUYS then 
 				if PlayerResource:GetConnectionState( hero:GetPlayerID() ) ~= DOTA_CONNECTION_STATE_ABANDONED then
 					local goldMuliplierSolo = TernaryOperator( 0.25, (self._heroesDiedThisRound[hero] or 0 > 0), 0)
-					Timers:CreateTimer( 0.5, function() hero:AddGold( goldToProvide ) end)
+					Timers:CreateTimer( 0.5, function() 
+						hero:AddGold( goldToProvide )
+						hero:AddExperience(expToProvide, DOTA_ModifyXP_HeroKill, false, true)
+					end)
 					if goldMuliplierTeam + goldMuliplierSolo > 0 then
 						Timers:CreateTimer( 1.5, function()
 							hero:AddGold( self._nMaxGoldForVictory * (goldMuliplierTeam + goldMuliplierSolo) )
 						end)
 					end
 					
-					print("ending loop")
 					if roundNumber == 6 then
 						hero:AddItemByName("item_tier2_token")
 					elseif roundNumber == 12 then
@@ -211,8 +212,6 @@ function CHoldoutGameRound:End(bWon)
 							hero:AddItem( asuraShard )
 						end
 					end
-				elseif expToProvide > 0 then
-					unit:AddExperience(expToProvide, DOTA_ModifyXP_HeroKill, false, true)
 				end
 			end
 		end
@@ -329,7 +328,7 @@ function CHoldoutGameRound:OnEntityKilled( event )
 
 	if killedUnit.Holdout_IsCore then
 		self._nCoreUnitsKilled = self._nCoreUnitsKilled + 1
-		self:_CheckForGoldBagDrop( killedUnit )
+		-- self:_CheckForGoldBagDrop( killedUnit )
 		local nCoreUnitsRemaining = self._nCoreUnitsTotal - self._nCoreUnitsKilled
 		if nCoreUnitsRemaining == 0 then
 			self:spawn_treasure()

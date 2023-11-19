@@ -269,6 +269,28 @@ function CHoldoutGameMode:InitGameMode()
 	Convars:RegisterCommand( "ebf_drop", function(...) return self._ItemDrop( ... ) end, "hello",0)
 	Convars:RegisterCommand( "ebf_drop", function(...) return self._ItemDrop( ... ) end, "hello",0)
 	Convars:RegisterCommand( "holdout_status_report", function(...) return self:_StatusReportConsoleCommand( ... ) end, "Report the status of the current holdout game.", FCVAR_CHEAT )
+	Convars:RegisterCommand( "reload_modifiers", function()
+											if Convars:GetDOTACommandClient() and IsInToolsMode() then
+												local player = Convars:GetDOTACommandClient()
+												local hero = PlayerResource:GetSelectedHeroEntity( 0 )
+												if hero then
+													local modifierTable = {}
+													for _, modifier in ipairs( hero:FindAllModifiers() ) do
+														local modifierInfo = {}
+														modifierInfo.caster = modifier:GetCaster()
+														modifierInfo.ability = modifier:GetAbility()
+														modifierInfo.name = modifier:GetName()
+														modifierInfo.duration = modifier:GetDuration()
+														
+														table.insert( modifierTable, modifierInfo )
+														modifier:Destroy()
+													end
+													for _, modifierInfo in ipairs ( modifierTable ) do
+														hero:AddNewModifier( modifierInfo.caster, modifierInfo.ability, modifierInfo.name, {duration = modifierInfo.duration})
+													end
+												end
+											end
+										end, "fixing bug",0)					
 	Convars:RegisterCommand( "deepdebugging", function()
 													if not GameRules.DebugCalls then
 														print("Starting DebugCalls")

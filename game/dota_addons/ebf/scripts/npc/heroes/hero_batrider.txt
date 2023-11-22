@@ -7,12 +7,14 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"ID"					"5320"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_batrider/batrider_sticky_napalm"
+		"AbilityTextureName"			"batrider_sticky_napalm"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_AUTOCAST"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"AbilitySound"					"Hero_Batrider.StickyNapalm.Impact"
-		"HasShardUpgrade"			"1"
+		"HasShardUpgrade"				"1"
 		"MaxLevel"						"7"
 		"LevelsBetweenUpgrades"			"3"
 
@@ -40,8 +42,8 @@
 		{
 			"damage"
 			{
-				"value"								"140 215 300 575 1150 1925 3090"
-				"special_bonus_unique_batrider_4"	"+50%"
+				"value"								"150 250 450 850 1500 2500 4500"
+				"special_bonus_unique_batrider_4"	"+100%"
 				"CalculateSpellDamageTooltip"		"1"
 			}
 			"radius"
@@ -52,23 +54,23 @@
 			"duration" 								"7"
 			"movement_speed_pct" 					"-2 -3 -4 -5 -6 -7 -8"			
 			"turn_rate_pct"							"-10 -20 -30 -40 -50 -60 -70"
-			"max_stacks"							"5"
-			"creep_damage_pct"						"100"
-			"shard_napalm_on_attack_chance_pct"		
+			"max_stacks"							"10"
+			"creep_damage_pct"						""
+			"hero_damage_pct"						"100"
+			"shard_extra_napalm"		
 			{
-				"value"								"25"
+				"value"								"2"
 				"RequiresShard"						"1"
 			}
 			"application_damage"
 			{
-				"value"								"140 215 300 575 1150 1925 3090"
-				"special_bonus_unique_batrider_4"	"+50%"
+				"value"								"150 250 450 850 1500 2500 4500"
+				"special_bonus_unique_batrider_4"	"+100%"
 				"CalculateSpellDamageTooltip"		"1"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
-
 	//=================================================================================================================
 	// Batrider: Flamebreak
 	//=================================================================================================================
@@ -76,7 +78,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"ID"					"5321"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_batrider/batrider_flamebreak"
+		"AbilityTextureName"			"batrider_flamebreak"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
@@ -107,9 +111,8 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-
-			"damage_impact"			"280 415 600 1140 2295 3845 6165"
-			"damage_per_second"		"220 330 480 910 1840 3070 4950"
+			"damage_impact"			"800 1500 2500 4000 7000 11000 20000"
+			"damage_per_second"		"250 450 850 1800 3000 6000 10000"
 			"damage_duration"		"5"
 			"explosion_radius"		"500"
 			"collision_radius"		"100 100 100 100"
@@ -124,7 +127,7 @@
 			"knockback_duration"	"0.35"
 			"napalm_stacks"
 			{
-				"value"				"0"
+				"value"				"1"
 				"special_bonus_unique_batrider_2"	"+2"
 			}
 			"AbilityCharges"		
@@ -171,7 +174,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"damage_per_second"		"650 1250 2000 3000 5000 8500 16000"
+			"damage_per_second"		"700 1350 2500 4500 8500 15000 25000"
 			"radius"				"200"
 			"duration"				
 			{

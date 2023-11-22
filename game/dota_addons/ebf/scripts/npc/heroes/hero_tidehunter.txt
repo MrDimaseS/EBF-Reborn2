@@ -41,7 +41,7 @@
 			"gush_damage"
 			{
 				"value"					"1940 2910 3430 6000 11480 22270 43540"
-				"LinkedSpecialBonus"	"special_bonus_unique_tidehunter_2"
+				"special_bonus_unique_tidehunter_2"	"+150%"
 			}
 			"projectile_speed"	"2500"
 			"movement_speed"
@@ -99,8 +99,8 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"linger_duration"			"0.5"
-			"AbilityCooldown"			"5.5 5.0 4.5 4.0 3.6 3.3 2.9"
+			"linger_duration"			"1.0"
+			"AbilityCooldown"			"4.5 4.0 3.5 3.0 2.5 2.0 1.5"
 			"should_ravage"
 			{
 				"value"								"0"
@@ -122,8 +122,10 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"ID"					"5120"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_tidehunter/tidehunter_anchor_smash"
+		"AbilityTextureName"			"tidehunter_anchor_smash"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_AUTOCAST"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
@@ -140,11 +142,11 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"4.0"
+		"AbilityCooldown"				"4.0 3.5 3.0 2.5 2.0 1.5 1.0"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"40 50 60 70 80 90 100"
+		"AbilityManaCost"				"70"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -158,19 +160,22 @@
 			}
 			"damage_reduction"		
 			{
-				"value"										"-20 -22.5 -25 -27.5 -30 -32.5 -35"
-				"special_bonus_unique_tidehunter_3"			"-5"
+				"value"										"-35"
+				"special_bonus_unique_tidehunter_3"			"-10"
 				"CalculateSpellDamageTooltip"				"0"
 				"DamageTypeTooltip"							"DAMAGE_TYPE_NONE"
 			}
-			"reduction_duration"							"6.0 6.0 6.0 6.0"
-			"radius"										"375"
-			"targets_buildings"
+			"reduction_duration"						
 			{
-				"value"										"0"
-				"special_bonus_unique_tidehunter_10"		"+1"
+				"value" 									"6.0"
+				"special_bonus_unique_tidehunter_anchor_smash_radius"	"+100%"
+			}			
+			"radius"										
+			{
+				"value" 									"375"
+				"special_bonus_unique_tidehunter_anchor_smash_radius"	"+100%"
+				"affected_by_aoe_increase"					"1"
 			}
-			
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -303,18 +308,6 @@
 		"ID"					"6945"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"						"18000"
-				"ad_linked_abilities"			"tidehunter_gush"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
 	}
 
 	//=================================================================================================================
@@ -454,6 +447,18 @@
 	// Ability: Special Bonus
 	//=================================================================================================================
 	"special_bonus_unique_tidehunter_10"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"964"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
+	}	
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_tidehunter_anchor_smash_radius"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------

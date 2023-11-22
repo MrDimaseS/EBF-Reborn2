@@ -21,7 +21,7 @@ function modifier_tidehunter_kraken_shell_passive:OnIntervalThink()
 	local caster = self:GetCaster()
 	if caster:HasModifier("modifier_tidehunter_kraken_shell_effect") then return end
 	local ability = self:GetAbility()
-	if self:GetAbility():IsCooldownReady() then
+	if ability:IsCooldownReady() then
 		caster:AddNewModifier( caster, ability, "modifier_tidehunter_kraken_shell_effect", {} )
 	end
 end
@@ -45,6 +45,12 @@ function modifier_tidehunter_kraken_shell_effect:OnIntervalThink()
 	self:GetCaster():Dispel( self:GetCaster(), true )
 end
 
+function modifier_tidehunter_kraken_shell_effect:OnDestroy()
+	if IsServer() then
+		self:GetAbility():SetFrozenCooldown( false )
+	end
+end
+
 function modifier_tidehunter_kraken_shell_effect:DeclareFunctions()
 	return {MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE}
 end
@@ -58,6 +64,7 @@ function modifier_tidehunter_kraken_shell_effect:GetModifierIncomingDamage_Perce
 		self.triggered = true
 		self:SetDuration( self.linger_duration, true )
 		self:GetAbility():SetCooldown()
+		ability:SetFrozenCooldown( true )
 		self:OnIntervalThink()
 		self:StartIntervalThink(0.1)
 	end

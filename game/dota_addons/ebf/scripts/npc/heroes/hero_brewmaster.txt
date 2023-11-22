@@ -35,9 +35,13 @@
 			"radius"
 			{
 				"value"						"400"
-				"LinkedSpecialBonus"		"special_bonus_unique_brewmaster_7"
+				"special_bonus_unique_brewmaster_7"	"+100%"
 			}
-			"damage"						"1270 2770 4605 6795 13170 25670 50320"
+			"damage"
+			{
+				"value"								"1270 2770 4605 6795 13170 25670 50320"
+				"special_bonus_unique_brewmaster_7"	"+100%"
+			}
 			"movement_slow"					"25 35 45 55 60 65 70"
 			"attack_speed_slow"				"25 35 45 55 60 65 70"
 			"duration"
@@ -134,19 +138,19 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"dodge_chance"				"15 20 25 30 32.5 35 37.5"
+			"dodge_chance"				"15"
+			"bonus_move_speed"			"10 15 20 25 30 35 40"
 			"crit_chance"				"24"
 			"active_multiplier"			
 			{
-				"value"									"2"
+				"value"									"2.5"
 				"special_bonus_unique_brewmaster_8"		"+1"
 			}
 			"crit_multiplier"			"145 160 175 190 205 220 235"
-			"magic_resist"				"5 10 15 20 25 30 35"
-			"armor"						"2 6 10 14 18 22 26"
-			"movespeed"					"5 7 9 11 13 15 17"
+			"magic_resist"				"20"
+			"armor"						"4 6 8 10 12 14 16"
+			"movespeed"					"8 10 12 14 16 18 20"
 			"slow_duration"				"2"
-			"bonus_move_speed"			"5 7 9 11 13 15 17"
 			"bonus_status_resist"		"6 10 14 18 22 26 30"
 		}
 	}
@@ -188,8 +192,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			
-			"duration"					
+			"duration"
 			{
 				"value"						"20"
 				"special_bonus_shard"		"+12"
@@ -197,33 +200,33 @@
 			"split_duration"					"0.6"
 			"tooltip_earth_brewling_hp"
 			{
-				"value"									"7000 16000 35000 77500 175000 300000"
-				"special_bonus_unique_brewmaster"		"+40000"
+				"value"									"12000 32000 90000 210000 500000 620000"
+				"special_bonus_unique_brewmaster"		"+100000"
 			}
 			"tooltip_storm_brewling_hp"
 			{
-				"value"									"5000 11000 29500 53500 120000 260000"
-				"special_bonus_unique_brewmaster"		"+40000"
+				"value"									"6300 18060 45550 107650 281545 319955"
+				"special_bonus_unique_brewmaster"		"+100000"
 			}
 			"tooltip_fire_brewling_hp"
 			{
-				"value"									"6500 14000 29500 62500 135000 285000"
-				"special_bonus_unique_brewmaster"		"+40000"
+				"value"									"7875 22575 56950 134560 351930 399950"
+				"special_bonus_unique_brewmaster"		"+100000"
 			}
 			"tooltip_void_brewling_hp"
 			{
-				"value"									"6000 13000 28000 60000 130000 280000"
-				"special_bonus_unique_brewmaster"		"+40000"
+				"value"									"9450 27090 68325 161475 422315 479935"
+				"special_bonus_unique_brewmaster"		"+100000"
 			}
 			"bonus_brewling_hp"
 			{
 				"value"									"0"
-				"special_bonus_unique_brewmaster"		"+40000"
+				"special_bonus_unique_brewmaster"		"+100000"
 			}
 			"bonus_damage"
 			{
 				"value"									"0"
-				"special_bonus_unique_brewmaster_2"		"+2000"
+				"special_bonus_unique_brewmaster_2"		"+6000"
 			}
 		}
 	}
@@ -721,17 +724,5 @@
 		"ID"					"732"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"200"
-				"ad_linked_abilities"			"brewmaster_thunder_clap"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
 	}
 }

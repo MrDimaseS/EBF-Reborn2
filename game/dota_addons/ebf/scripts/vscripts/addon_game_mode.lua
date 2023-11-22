@@ -565,6 +565,10 @@ function CHoldoutGameMode:FilterDamage( filterTable )
 	if ability and IGNORE_SPELL_AMP_FILTER[ability:GetName()] then
 		filterTable.damage = damage / ( 1+ ( attacker:GetSpellAmplification( false ) * (IGNORE_SPELL_AMP_FILTER[ability:GetName()]/100)) )
 	end
+	-- MUERTA SPECIFIC FIX
+	if ability and ability:GetName() == "muerta_gunslinger" and attacker:HasModifier("modifier_muerta_pierce_the_veil_buff") then
+		filterTable.damage = damage / ( 1+ ( attacker:GetSpellAmplification( false ) * (IGNORE_SPELL_AMP_FILTER["muerta_pierce_the_veil"]/100)) )
+	end
 	if inflictor and attacker and not attacker:IsNull() and attacker.HasModifier and  attacker:HasModifier("spellcrit") then
 		local critDamage = 1
 		for _, modifier in ipairs( attacker:FindAllModifiersByName("spellcrit") ) do
@@ -1586,6 +1590,7 @@ function CHoldoutGameMode:_RefreshPlayers(bWon)
 			if PlayerResource:HasSelectedHero( nPlayerID ) then
 				local hero = PlayerResource:GetSelectedHeroEntity( nPlayerID )
 				if hero ~=nil then
+					hero:Dispel( hero, true )
 					if hero:IsMoving() or hero:IsChanneling() or hero:IsInvulnerable() or hero:IsOutOfGame() then
 						hero:Heal( hero:GetMaxHealth(), nil )
 						hero:GiveMana( hero:GetMaxMana() )

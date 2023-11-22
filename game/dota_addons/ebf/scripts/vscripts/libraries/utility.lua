@@ -1381,11 +1381,11 @@ function CDOTA_BaseNPC:AddGold( val, bIgnoreBonus )
 			
 			-- gold handling
 			if not bIgnoreBonus then
-				local midas = hero:FindModifierByName("modifier_hand_of_midas_passive")
+				-- local midas = hero:FindModifierByName("modifier_hand_of_midas_passive")
 			
-				if midas then
-					bonusGold = baseGold * (midas.bonus_gold or 0)
-				end
+				-- if midas then
+					-- bonusGold = baseGold * (midas.bonus_gold or 0)
+				-- end
 				if hero:HasAbility("alchemist_goblins_greed") then
 					bonusGold = baseGold * hero:FindAbilityByName("alchemist_goblins_greed"):GetSpecialValueFor("bonus_gold")  / 100
 				end

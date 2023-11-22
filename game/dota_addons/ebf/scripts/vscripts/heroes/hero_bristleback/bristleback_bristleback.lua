@@ -4,6 +4,11 @@ function bristleback_bristleback:GetIntrinsicModifierName()
 	return "modifier_bristleback_bristleback_passive"
 end
 
+function bristleback_bristleback:OnSpawn()
+	self:GetCaster():AddNewModifier("modifier_bristleback_bristleback_autocast")
+end
+
+
 modifier_bristleback_bristleback_passive = class({})
 LinkLuaModifier( "modifier_bristleback_bristleback_passive", "heroes/hero_bristleback/bristleback_bristleback", LUA_MODIFIER_MOTION_NONE )
 
@@ -44,41 +49,7 @@ function modifier_bristleback_bristleback_passive:GetModifierIncomingDamage_Perc
 		Timers:CreateTimer( function()
 			if parent:GetHealth() == 0 then return end
 			if not self.quills:IsTrained() then return end
-			if parent:HasScepter() then
-				self.quills:OnSpellStart()
-			else
-				local direction = CalculateDirection( params.attacker, parent )
-				local damage = self.quills:GetSpecialValueFor("quill_base_damage")
-				local stackDamage = self.quills:GetSpecialValueFor("quill_stack_damage")
-				local distance = self.quills:GetSpecialValueFor("radius")
-				local duration = self.quills:GetSpecialValueFor("quill_stack_duration")
-				local maxDamage = self.quills:GetSpecialValueFor("max_damage")
-				
-				for _, enemy in ipairs( parent:FindEnemyUnitsInCone( direction, parent:GetAbsOrigin(), distance/2, distance) ) do
-					local quillsDebuff = enemy:FindModifierByName("modifier_bristleback_quill_spray")
-					local dmgTaken = damage
-					if quillsDebuff then
-						dmgTaken = math.min( maxDamage, dmgTaken + quillsDebuff:GetStackCount() * stackDamage )
-					end
-					self.quills:DealDamage( parent, enemy, dmgTaken, {damage_type = DAMAGE_TYPE_PHYSICAL} )
-					
-					enemy:AddNewModifier( parent, self.quills, "modifier_bristleback_quill_spray", {duration = duration}):IncrementStackCount()
-					enemy:AddNewModifier( parent, self.quills, "modifier_bristleback_quill_spray_stack", {duration = duration})
-					
-					EmitSoundOn( "Hero_Bristleback.QuillSpray.Target", enemy )
-				end
-				
-				local quillFX = ParticleManager:CreateParticle( "particles/units/heroes/hero_bristleback/bristleback_quill_spray_conical.vpcf", PATTACH_WORLDORIGIN, nil )
-				ParticleManager:SetParticleControl( quillFX, 0, parent:GetAbsOrigin() ) 
-				ParticleManager:SetParticleControlTransformForward( quillFX, 0, parent:GetAbsOrigin(), -direction )
-				
-				EmitSoundOn( "Hero_Bristleback.QuillSpray.Cast", parent )
-			end
-		
-			-- damageTaken = damageTaken - hpThreshold
-			-- if damageTaken >= hpThreshold and damageTaken > 0 and hpThreshold > 0 then
-				-- return 0.1
-			-- end
+			self.quills:Spray( not parent:HasScepter(), CalculateDirection( params.attacker, parent ) )
 		end)
 	end
 

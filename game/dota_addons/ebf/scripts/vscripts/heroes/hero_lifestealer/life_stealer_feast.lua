@@ -57,3 +57,30 @@ function modifier_life_stealer_feast_ebf:GetModifierPreAttack_BonusDamage()
 	if self:GetParent():PassivesDisabled() then return end
 	return self:GetSpecialValueFor("damage")
 end
+
+modifier_life_stealer_open_wounds_feast = class(modifier_life_stealer_feast_ebf)
+
+function modifier_life_stealer_open_wounds_feast:IsHidden()
+	return false
+end
+
+function modifier_life_stealer_open_wounds_feast:IsDebuff()
+	return false
+end
+
+function modifier_life_stealer_open_wounds_feast:IsPurgable()
+	return false
+end
+
+-- Optional Classifications
+function modifier_life_stealer_open_wounds_feast:RemoveOnDeath()
+	return true
+end
+
+function modifier_life_stealer_open_wounds_feast:DestroyOnExpire()
+	return true
+end
+
+function modifier_life_stealer_open_wounds_feast:GetModifierPreAttack_BonusDamage()
+	return self:GetSpecialValueFor("damage")
+end

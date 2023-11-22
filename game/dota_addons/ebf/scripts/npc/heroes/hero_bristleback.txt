@@ -27,7 +27,7 @@
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"10"
+		"AbilityCooldown"				"13"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -37,7 +37,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"projectile_speed"		"1200"
+			"projectile_speed"		"1000"
 			"radius"			
 			{
 				"value"		"700"
@@ -116,14 +116,16 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"ID"							"5549"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_bristleback/bristleback_quill_spray"
+		"AbilityTextureName"			"bristleback_quill_spray"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_AUTOCAST"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Bristleback.QuillSpray"
-		"AbilityDraftShardAbility"    "bristleback_hairball"
+		"AbilityDraftShardAbility"	    "bristleback_hairball"
 
 		"MaxLevel"						"7"
 		"LevelsBetweenUpgrades"			"3"
@@ -196,12 +198,12 @@
 		{
 			"max_damage_reduction"
 			{
-				"value"									"18 20 22 24 26 28 30"
+				"value"									"20 22 24 26 28 30 32"
 				"special_bonus_unique_bristleback_6"	"+4"
 			}
 			"min_damage_reduction"
 			{
-				"value"									"6 8 10 12 13 14 15"
+				"value"									"10 11 12 13 14 15 16"
 				"special_bonus_unique_bristleback_6"	"+2"
 			}
 			"quill_release_threshold"

@@ -154,6 +154,7 @@ function Timers:Think()
         --self:UpdateTimerData()
       else
         -- Nope, handle the error
+		print(err)
         Timers:HandleEventError('Timer', k, nextCall)
       end
     end

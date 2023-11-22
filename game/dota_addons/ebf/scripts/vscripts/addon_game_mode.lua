@@ -456,10 +456,10 @@ function CHoldoutGameMode:FilterGold( filterTable )
 	local startGold = filterTable.gold
 	if hero then	
 		local bonusGold = 0
-		local midas = hero:FindModifierByName("modifier_hand_of_midas_passive")
-		if midas then
-			bonusGold = math.floor( startGold * (midas.bonus_gold or 0) )
-		end
+		-- local midas = hero:FindModifierByName("modifier_hand_of_midas_passive")
+		-- if midas then
+			-- bonusGold = math.floor( startGold * (midas.bonus_gold or 0) )
+		-- end
 		if hero:HasAbility("alchemist_goblins_greed") then
 			bonusGold = math.floor( startGold * hero:FindAbilityByName("alchemist_goblins_greed"):GetSpecialValueFor("bonus_gold")  / 100 )
 		end
@@ -1048,9 +1048,7 @@ function CHoldoutGameMode:OnGameRulesStateChange()
 		
 		
 	elseif nNewState == DOTA_GAMERULES_STATE_STRATEGY_TIME then
-		print( GameRules:GetTimeOfDay() )
 		GameRules:SetTimeOfDay(0.26)
-		print( GameRules:GetTimeOfDay() )
 		for nPlayerID = 0, DOTA_MAX_TEAM_PLAYERS-1 do
 			local player = PlayerResource:GetPlayer(nPlayerID)
 			if player and not PlayerResource:HasSelectedHero(nPlayerID) then
@@ -1058,24 +1056,30 @@ function CHoldoutGameMode:OnGameRulesStateChange()
 			end
 		end
 	elseif nNewState == DOTA_GAMERULES_STATE_PRE_GAME then
-		GameRules:SetTimeOfDay(0.26)
-		if GetMapName() ~= "epic_boss_fight_challenger" then
-			ShowGenericPopup( "#holdout_instructions_title", "#holdout_instructions_body", "", "", DOTA_SHOWGENERICPOPUP_TINT_SCREEN )
-		else
-			ShowGenericPopup( "#holdout_instructions_title_challenger", "#holdout_instructions_body_challenger", "", "", DOTA_SHOWGENERICPOPUP_TINT_SCREEN )
-		end
-		GameRules.neutralCamps = {easy = {}, medium = {}, hard = {}, ancient = {}}
-		
-		for _, entity in ipairs( Entities:FindAllByClassname( "trigger_multiple" ) ) do
-			if string.find( entity:GetName(), "easy_camp" )  then
-				table.insert( GameRules.neutralCamps.easy, entity )
-			elseif string.find( entity:GetName(), "medium_camp" )  then
-				table.insert( GameRules.neutralCamps.medium, entity )
-			elseif string.find( entity:GetName(), "hard_camp" )  then
-				table.insert( GameRules.neutralCamps.hard, entity )
-			elseif string.find( entity:GetName(), "ancient_camp" ) then
-				table.insert( GameRules.neutralCamps.ancient, entity )
+		if not self._preGameSetupDone then
+			GameRules:SetTimeOfDay(0.26)
+			if GameRules:IsCheatMode() then
+				Say( nil, "type -startgame to start the game", false)
 			end
+			if GetMapName() ~= "epic_boss_fight_challenger" then
+				ShowGenericPopup( "#holdout_instructions_title", "#holdout_instructions_body", "", "", DOTA_SHOWGENERICPOPUP_TINT_SCREEN )
+			else
+				ShowGenericPopup( "#holdout_instructions_title_challenger", "#holdout_instructions_body_challenger", "", "", DOTA_SHOWGENERICPOPUP_TINT_SCREEN )
+			end
+			GameRules.neutralCamps = {easy = {}, medium = {}, hard = {}, ancient = {}}
+			
+			for _, entity in ipairs( Entities:FindAllByClassname( "trigger_multiple" ) ) do
+				if string.find( entity:GetName(), "easy_camp" )  then
+					table.insert( GameRules.neutralCamps.easy, entity )
+				elseif string.find( entity:GetName(), "medium_camp" )  then
+					table.insert( GameRules.neutralCamps.medium, entity )
+				elseif string.find( entity:GetName(), "hard_camp" )  then
+					table.insert( GameRules.neutralCamps.hard, entity )
+				elseif string.find( entity:GetName(), "ancient_camp" ) then
+					table.insert( GameRules.neutralCamps.ancient, entity )
+				end
+			end
+			self._preGameSetupDone = true
 		end
 	elseif nNewState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
 		GameRules:SpawnNeutralCreeps()

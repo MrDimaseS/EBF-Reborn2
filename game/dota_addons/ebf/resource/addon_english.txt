@@ -1255,8 +1255,9 @@
 		"DOTA_Tooltip_modifier_axe_culling_blade_permanent_armor_Description"                               "You have gained %fMODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS% bonus armor permanently."
 		
 		//Batrider
-		"DOTA_Tooltip_ability_batrider_sticky_napalm_Description"											"Drenches an area in sticky oil, amplifying damage from Batrider's attacks and abilities and slowing the movement speed and turn rate of enemies in the area.  Additional casts of Sticky Napalm continue to increase damage, up to %max_stacks% stacks. Applies a small amount of damage with each cast.\n\nWhen auto-cast is active, automatically casts Sticky Napalm centered on your attack target."
+		"DOTA_Tooltip_ability_batrider_sticky_napalm_Description"											"Drenches an area in sticky oil, amplifying damage from Batrider's attacks and abilities and slowing the movement speed and turn rate of enemies in the area. Additional casts of Sticky Napalm continue to increase damage, up to %max_stacks% stacks. Applies a small amount of damage with each cast.<br>Deals less damage to Heroes.\n\nWhen auto-cast is active, automatically casts Sticky Napalm centered on your attack target."
 		"DOTA_Tooltip_ability_batrider_sticky_napalm_shard_description"										"Flaming Lasso no longer disarms you. Sticky Napalm's effects are applied twice per cast."
+		"DOTA_Tooltip_ability_batrider_sticky_napalm_hero_damage_pct"										"%HERO DAMAGE PENALTY:"
 		"DOTA_Tooltip_modifier_batrider_sticky_napalm_debuff"												"Sticky Napalm - Debuff"
 		"DOTA_Tooltip_modifier_batrider_sticky_napalm_debuff_Description"									"Taking additional damage from Batrider."
 		"DOTA_Tooltip_ability_batrider_flamebreak_Description"												"Hurls an explosive cocktail that explodes when it reaches the target location, knocking back, slowing and dealing damage over time to enemies in the area.\nApplies %napalm_stacks% stack(s) of Sticky Napalm."
@@ -1415,7 +1416,9 @@
 		"DOTA_Tooltip_ability_life_stealer_feast_Description"                                               "Lifestealer's attacks deal bonus damage and heal him every hit."
 		"DOTA_Tooltip_ability_life_stealer_feast_leech"                                                     "HEAL ON ATTACK:"
 		
-		"DOTA_Tooltip_ability_life_stealer_open_wounds_Description"											"Lifestealer rends an enemy unit, slowing the victim's movement speed and allowing all allies to regain health for a percentage of the damage they deal to that unit. All damage dealt will steal life, including damage from spells. The victim recovers movement speed over the duration.\nAdditionally, any hero that attacks the target benefits from Feast, doubled for Lifestealer.\nAfter receiving %damage_threshold% damage, the Open Wounds fester and spread to a non-infected random enemy within %spread_radius% radius."
+		"DOTA_Tooltip_ability_life_stealer_open_wounds_Description"											"Lifestealer rends an enemy unit, slowing the victim's movement speed and allowing all allies to regain health for a percentage of the damage they deal to that unit. All damage dealt will steal life, including damage from spells. The victim recovers movement speed over the duration.\nAdditionally, any hero that attacks the target benefits from Feast, doubled for Lifestealer.\nAfter receiving %damage_threshold%%% of their maximum health as damage, the Open Wounds fester and spread to a non-infected random enemy within %spread_radius% radius."
+		"DOTA_Tooltip_modifier_life_stealer_open_wounds_feast"												"Open Wounds - Feast"
+		"DOTA_Tooltip_modifier_life_stealer_open_wounds_feast_Description"									"Benefiting from Lifestealer's Feast against your attack target."
 
 		//Lion
 		"DOTA_Tooltip_ability_lion_finger_of_death_ebf"                                                     "Finger of Death"
@@ -1795,6 +1798,15 @@
 		"DOTA_Tooltip_ability_tiny_grow_spell_bonus_range"													"%BONUS AVALANCHE AND TOSS RANGE:"
 		"DOTA_EBF_Difference_tiny_grow"																		"Grow increases both Avalanche and Toss's damage. Also increases their cast range and radius."
 		
+		//Ursa
+		"DOTA_Tooltip_ability_ursa_earthshock_Description"													"Ursa leaps forward %hop_distance% units and slams the earth, causing a powerful shock to damage and slow all enemy units in a nearby area for %abilityduration% seconds.\nDamage dealt is increased by Fury Swipes.\nMovement can be cancelled at any time by issuing a Stop or Hold order and when auto-cast is activated, Ursa does not move forward at all."
+		"DOTA_Tooltip_ability_ursa_earthshock_shard_description"											""
+		
+		"DOTA_Tooltip_ability_ursa_enrage_Description"														"Ursa goes into a frenzy, providing damage reduction and status resistance. Removes any existing debuffs.\n\nDISPEL TYPE: Strong Dispel<br>COOLDOWN TYPE: When Buff Expires"
+		"DOTA_Tooltip_ability_ursa_enrage_shard_description"												"While Enrage is active, any spell cast by Ursa increases its current duration by %shard_spellcast_duration% seconds. Any spell cast while Enrage is on cooldown reduces the current cooldown by %shard_spellcast_duration% seconds."
+		"DOTA_Tooltip_ability_ursa_enrage_AbilityCooldown"													"COOLDOWN:"
+		"DOTA_Tooltip_modifier_ursa_enrage_active"															"Enrage - Buff
+		"DOTA_Tooltip_modifier_ursa_enrage_active_Description"												"Taking %dMODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE%%% less damage and debuff durations applied to you reduced by %dMODIFIER_PROPERTY_STATUS_RESISTANCE_STACKING%%%."
 		
 		//Undying
 		"DOTA_Tooltip_ability_undying_decay"                                                                "Decay"
@@ -1855,6 +1867,7 @@
 
 
 		//Witch Doctor
+		"DOTA_Tooltip_ability_witch_doctor_maledict_Description"											"Curses all enemy Heroes in a small area, causing them to take a set amount of damage each second, as well as bursts of damage every 4 seconds based on how much health they have lost since the last burst of damage or since the curse began."
 		"DOTA_Tooltip_ability_witch_doctor_maledict_damage"													"DAMAGE:"
 		"DOTA_Tooltip_modifier_witch_doctor_voodoo_restoration_aura"                                        "Voodoo Restoration"
 		"DOTA_Tooltip_modifier_witch_doctor_voodoo_restoration_aura_Description"                            "Affected by Witch Doctor's Voodoo Restoration."
@@ -1913,6 +1926,7 @@
 		"DOTA_Tooltip_ability_special_bonus_hp_regen_100"                                                   "+{s:value} Health Regen"
 		"DOTA_Tooltip_ability_special_bonus_hp_regen_250"                                                   "+{s:value} Health Regen"
 		"DOTA_Tooltip_ability_special_bonus_intelligence_1000"                                              "+{s:value} Intelligence"
+		"DOTA_Tooltip_ability_special_bonus_intelligence_750"                                               "+{s:value} Intelligence"
 		"DOTA_Tooltip_ability_special_bonus_intelligence_400"                                               "+{s:value} Intelligence"
 		"DOTA_Tooltip_ability_special_bonus_intelligence_6000"                                              "+{s:value} Intelligence"
 		"DOTA_Tooltip_ability_special_bonus_mp_regen_875"                                                   "+{s:value} Mana Regen"
@@ -2149,11 +2163,12 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_troll_warlord_3"                                         "+{s:bonus_axe_damage}% Whirling Axes Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_tusk_2"                                                  "+{s:value}% Snowball Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_tusk_3"                                                  "+{s:bonus_bonus_damage}% Tag Team Damage"
+		"DOTA_Tooltip_ability_special_bonus_unique_undying"                           	                    "+{s:bonus_zombie_damage_tooltip}% Tombstone Zombie Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_undying_2"                                               "-{s:bonus_AbilityCooldown}% Decay Cooldown"
 		"DOTA_Tooltip_ability_special_bonus_unique_undying_6"                                               "+{s:value}% Soul Rip Damage/Heal"
 		"DOTA_Tooltip_ability_special_bonus_unique_undying_8"                                               "+{s:bonus_decay_damage}% Decay Damage"
-		"DOTA_Tooltip_ability_special_bonus_unique_ursa"													"+{s:bonus_stack_damage}% Fury Swipes Damage"
-		"DOTA_Tooltip_ability_special_bonus_unique_ursa_2"													"+{s:bonus_shock_radius}% Earthshock Radius/Cooldown Reduction"
+		"DOTA_Tooltip_ability_special_bonus_unique_ursa"													"+{s:bonus_damage_per_stack}% Fury Swipes Damage"
+		"DOTA_Tooltip_ability_special_bonus_unique_ursa_2"													"+{s:bonus_shock_radius}% Earthshock Radius/Leap Distance"
 		"DOTA_Tooltip_ability_special_bonus_unique_vengeful_spirit_1"										"+{s:bonus_magic_missile_damage}% Magic Missile Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_vengeful_spirit_swap_damage"                             "+{s:bonus_damage}% Nether Swap Enemy Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_vengeful_spirit_5"										"-{s:bonus_AbilityCooldown}s Magic Missile Cooldown"
@@ -3061,6 +3076,7 @@
 		"DOTA_Tooltip_ability_item_gleipnir2_bonus_damage"                                                  "+$damage"
 		"DOTA_Tooltip_ability_item_gleipnir2_bonus_intellect"                                               "+$int"
 		"DOTA_Tooltip_ability_item_gleipnir2_bonus_strength"                                                "+$str"
+		"DOTA_Tooltip_ability_item_gleipnir2_bonus_hp"		                                                "+$health"
 		"DOTA_Tooltip_ability_item_gleipnir2_Description"                                                   "<h1>Active: Eternal Chains</h1>Roots all enemies in a target %radius% radius for %duration% seconds and deals %active_damage% damage.<br><br>Range: %abilitycastrange% \n\n<h1>Passive: Chain Lightning</h1>Grants a %chain_chance%%% chance on attack to release a bolt of electricity that leaps between %chain_strikes% targets within a %chain_radius% radius, dealing %chain_damage% magical damage to each. Lightning proc pierces evasion."
 		"DOTA_Tooltip_ability_item_gleipnir2_Lore"                                                          "Bindings forged by impossible means to leash an ancient evil."
 		
@@ -3070,6 +3086,7 @@
 		"DOTA_Tooltip_ability_item_gleipnir3_bonus_damage"                                                  "+$damage"
 		"DOTA_Tooltip_ability_item_gleipnir3_bonus_intellect"                                               "+$int"
 		"DOTA_Tooltip_ability_item_gleipnir3_bonus_strength"                                                "+$str"
+		"DOTA_Tooltip_ability_item_gleipnir3_bonus_hp"		                                                "+$health"
 		"DOTA_Tooltip_ability_item_gleipnir3_Description"                                                   "<h1>Active: Eternal Chains</h1>Roots all enemies in a target %radius% radius for %duration% seconds and deals %active_damage% damage.<br><br>Range: %abilitycastrange% \n\n<h1>Passive: Chain Lightning</h1>Grants a %chain_chance%%% chance on attack to release a bolt of electricity that leaps between %chain_strikes% targets within a %chain_radius% radius, dealing %chain_damage% magical damage to each. Lightning proc pierces evasion."
 		"DOTA_Tooltip_ability_item_gleipnir3_Lore"                                                          "Bindings forged by impossible means to leash an ancient evil."
 		
@@ -3079,6 +3096,7 @@
 		"DOTA_Tooltip_ability_item_gleipnir4_bonus_damage"                                                  "+$damage"
 		"DOTA_Tooltip_ability_item_gleipnir4_bonus_intellect"                                               "+$int"
 		"DOTA_Tooltip_ability_item_gleipnir4_bonus_strength"                                                "+$str"
+		"DOTA_Tooltip_ability_item_gleipnir4_bonus_hp"		                                                "+$health"
 		"DOTA_Tooltip_ability_item_gleipnir4_Description"                                                   "<h1>Active: Eternal Chains</h1>Roots all enemies in a target %radius% radius for %duration% seconds and deals %active_damage% damage.<br><br>Range: %abilitycastrange% \n\n<h1>Passive: Chain Lightning</h1>Grants a %chain_chance%%% chance on attack to release a bolt of electricity that leaps between %chain_strikes% targets within a %chain_radius% radius, dealing %chain_damage% magical damage to each. Lightning proc pierces evasion."
 		"DOTA_Tooltip_ability_item_gleipnir4_Lore"                                                          "Bindings forged by impossible means to leash an ancient evil."
 		
@@ -3088,6 +3106,7 @@
 		"DOTA_Tooltip_ability_item_gleipnir5_bonus_damage"                                                  "+$damage"
 		"DOTA_Tooltip_ability_item_gleipnir5_bonus_intellect"                                               "+$int"
 		"DOTA_Tooltip_ability_item_gleipnir5_bonus_strength"                                                "+$str"
+		"DOTA_Tooltip_ability_item_gleipnir5_bonus_hp"		                                                "+$health"
 		"DOTA_Tooltip_ability_item_gleipnir5_Description"                                                   "<h1>Active: Eternal Chains</h1>Roots all enemies in a target %radius% radius for %duration% seconds and deals %active_damage% damage.<br><br>Range: %abilitycastrange% \n\n<h1>Passive: Chain Lightning</h1>Grants a %chain_chance%%% chance on attack to release a bolt of electricity that leaps between %chain_strikes% targets within a %chain_radius% radius, dealing %chain_damage% magical damage to each. Lightning proc pierces evasion."
 		"DOTA_Tooltip_ability_item_gleipnir5_Lore"                                                          "Bindings forged by impossible means to leash an ancient evil."
 		
@@ -3177,8 +3196,11 @@
 				
 		"DOTA_Tooltip_ability_item_hand_of_midas_ebf"                                                       "Hand of Midas"
 		"DOTA_Tooltip_ability_item_hand_of_midas_ebf_bonus_attack_speed"                                    "+$attack"
-		"DOTA_Tooltip_ability_item_hand_of_midas_ebf_Description"                                           "<h1>Active: Overflowing Coffers</h1>Every time you earn gold from killing units or ending the round, the gold gain is increased by %bonus_gold%%%\n\nDoes not stack with other sources of gold gain like other Hand of Midases or Greevil's Greed"
+		"DOTA_Tooltip_ability_item_hand_of_midas_ebf_Description"                                           "<h1>Active: Withdraw</h1>You destroy your Hand of Midas and gain all the gold stored within.\n\n<h1>Passive: Gold Storage</h1>The gold rewards gained at the end of the round is reduced by %bonus_gold%%%. This reduced gold is stored in the item. A, the gold stored within Hand of Midas increases in amount. This amount is %interest_rate%%%.\nInterest is calculated before end of the round gold is handed out."
+		"DOTA_Tooltip_ability_item_hand_of_midas_ebf_Note0"                                          		"If you have multiple Hand of Midases, the most recently bought Midas is the one that gains interest."
 		"DOTA_Tooltip_ability_item_hand_of_midas_ebf_Lore"                                                  "Preserved through unknown magical means, the Hand of Midas is a weapon of greed, sacrificing animals to line the owner's pockets."
+		"DOTA_Tooltip_modifier_hand_of_midas_passive"														"Hand of Midas - Gold Storage"
+		"DOTA_Tooltip_modifier_hand_of_midas_passive_Description"											"Activating Hand of Midas will give you %dMODIFIER_PROPERTY_TOOLTIP% gold."
 		
 
 		"DOTA_Tooltip_ability_item_heart_Description"                                                       "<h1>Active: Indomitable Vigor</h1>Increases health and mana regeneration, healing received, lifesteal, spell lifesteal by %restoration_amp%%% for %duration% seconds."

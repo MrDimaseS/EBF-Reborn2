@@ -46,6 +46,7 @@ function modifier_witch_doctor_maledict_debuff:OnIntervalThink()
 	ability:DealDamage( caster, parent, self.damage )
 	if self.currentTime + self.burstTimer <= GameRules:GetGameTime() then
 		self.currentTime = GameRules:GetGameTime()
+		print( self.damage_taken, self.burst )
 		ability:DealDamage( caster, parent, self.damage_taken * self.burst, {damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_REFLECTION } )
 		self.damage_taken = 0
 		self:GetParent():EmitSound("Hero_WitchDoctor.Maledict_Tick")

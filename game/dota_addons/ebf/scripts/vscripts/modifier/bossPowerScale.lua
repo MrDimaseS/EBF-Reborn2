@@ -1,6 +1,7 @@
 bossPowerScale = class({})
 
 MAX_STATUS_RESIST = 75
+SECONDS_TO_COMBO_BREAK = 10
 
 function bossPowerScale:OnCreated(keys)
 	self:SetHasCustomTransmitterData( true )
@@ -42,7 +43,7 @@ function bossPowerScale:OnRefresh(keys)
 	if self:GetParent():IsConsideredHero() then 
 		self.baseStatusResistance = math.max( 2.5*(difficulty+1), 15 * roundNumber/16 * (1 + difficulty/10) )
 		self.actualStatusResistance = self.baseStatusResistance
-		self.statusResistIncreasePerTick = self.baseStatusResistance * 0.25
+		self.statusResistIncreasePerTick = (MAX_STATUS_RESIST - self.baseStatusResistance) / SECONDS_TO_COMBO_BREAK
 	end
 	self:StartIntervalThink( 0.25 ) 
 	self:OnIntervalThink( )
@@ -50,8 +51,9 @@ end
 
 function bossPowerScale:OnIntervalThink()
 	self.treewalk = not self:GetParent():IsLeashed()
-	
+
 	if IsServer() then
+		if self:GetParent():IsInvulnerable() or self:GetParent():IsInvulnerable() or self:GetParent():IsOutOfGame() then return end
 		self.enrageTimer = self.enrageTimer - 0.25
 		if self.enrageTimer <= 0 then
 			if self.lastHPPctSinceCheck - self:GetParent():GetHealthPercent() < self.HPRageThreshold then -- time to get pissed off

@@ -184,16 +184,36 @@ function CHoldoutGameRound:End(bWon)
 			if hero:GetTeamNumber() == DOTA_TEAM_GOODGUYS then 
 				if PlayerResource:GetConnectionState( hero:GetPlayerID() ) ~= DOTA_CONNECTION_STATE_ABANDONED then
 					local goldMuliplierSolo = TernaryOperator( 0.25, (self._heroesDiedThisRound[hero] or 0 > 0), 0)
-					Timers:CreateTimer( 0.5, function() 
+					local midas = hero:FindItemInInventory("item_hand_of_midas_ebf")
+					if midas then
+						midas._currentGoldStorage = (midas._currentGoldStorage or 0) * (1 + midas:GetSpecialValueFor("interest_rate") / 100)
+					end
+					Timers:CreateTimer( 0.5, function()
+						if midas then
+							local goldToBank = goldToProvide * midas:GetSpecialValueFor("bonus_gold") / 100
+							midas._currentGoldStorage = midas._currentGoldStorage + goldToBank
+							goldToProvide = goldToProvide - goldToBank
+							
+							local tooltip = hero:FindModifierByNameAndAbility( "modifier_hand_of_midas_passive", midas )
+							tooltip:ForceRefresh()
+						end
 						hero:AddGold( goldToProvide )
 						hero:AddExperience(expToProvide, DOTA_ModifyXP_HeroKill, false, true)
 					end)
 					if goldMuliplierTeam + goldMuliplierSolo > 0 then
 						Timers:CreateTimer( 1.5, function()
-							hero:AddGold( self._nMaxGoldForVictory * (goldMuliplierTeam + goldMuliplierSolo) )
+							local goldForLiving = self._nMaxGoldForVictory * (goldMuliplierTeam + goldMuliplierSolo)
+							if midas then
+								local goldToBank = goldForLiving * 1-midas:GetSpecialValueFor("bonus_gold") / 100
+								midas._currentGoldStorage = midas._currentGoldStorage + goldToBank
+								goldForLiving = goldForLiving - goldToBank
+								
+								local tooltip = hero:FindModifierByNameAndAbility( "modifier_hand_of_midas_passive", midas )
+								tooltip:ForceRefresh()
+							end
+							hero:AddGold( goldForLiving )
 						end)
 					end
-					
 					if roundNumber == 6 then
 						hero:AddItemByName("item_tier2_token")
 					elseif roundNumber == 12 then

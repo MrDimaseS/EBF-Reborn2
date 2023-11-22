@@ -66,6 +66,7 @@ function modifier_batrider_sticky_napalm_debuff:OnRefresh(table)
 	self.max_stacks = self:GetSpecialValueFor("max_stacks")
 	self.turnRate = self:GetSpecialValueFor("turn_rate_pct")
 	self.application_damage = self:GetSpecialValueFor("application_damage")
+	self.hero_damage_pct = self:GetSpecialValueFor("hero_damage_pct") / 100
 	if IsServer() then
 		self:SetStackCount( math.min(self:GetStackCount() + 1, self.max_stacks) )
 		ParticleManager:SetParticleControl(self.nfx, 1, Vector(math.floor(self:GetStackCount() / 10), self:GetStackCount() % 10, 0))
@@ -97,7 +98,7 @@ function modifier_batrider_sticky_napalm_debuff:OnTakeDamage(params)
         	ParticleManager:FireParticle("particles/units/heroes/hero_batrider/batrider_base_attack_explosion.vpcf", PATTACH_POINT_FOLLOW, parent)
 			Timers:CreateTimer(0.1, function()
 				self.preventStickyNapalmLoop = true
-				ability:DealDamage(caster, parent, self.damage)
+				ability:DealDamage(caster, parent, self.damage*TernaryOperator( self.hero_damage_pct, parent:IsConsideredHero(), 1 ) )
 				self.preventStickyNapalmLoop = false
 			end)
         end

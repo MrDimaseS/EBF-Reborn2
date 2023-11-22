@@ -66,6 +66,9 @@ function item_blink_treads:OnSpellStart()
 	elseif self.chosenAttribute == DOTA_ATTRIBUTE_INTELLECT then
 		ParticleManager:FireParticle( "particles/items3_fx/blink_arcane_end.vpcf", PATTACH_POINT, caster )
 		EmitSoundOn( "Blink_Layer.Arcane", caster )
+		
+		caster:HealEvent(self:GetSpecialValueFor("heal_amount"), self, caster)
+		caster:GiveMana(self:GetSpecialValueFor("mana_amount"))
 	else
 		ParticleManager:FireParticle( "particles/items3_fx/blink_overwhelming_end.vpcf", PATTACH_POINT, caster )
 		EmitSoundOn( "Blink_Layer.Overwhelming", caster )

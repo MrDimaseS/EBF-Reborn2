@@ -67,7 +67,13 @@ LinkLuaModifier( "modifier_axe_berserkers_call_taunt", "heroes/hero_axe/axe_bers
 
 function modifier_axe_berserkers_call_taunt:OnCreated()
 	if IsServer() then 
-		self:GetParent():MoveToTargetToAttack( self:GetCaster() ) 
+		self.allowOrder = true
+		ExecuteOrderFromTable({
+			UnitIndex = self:GetParent():entindex(),
+			OrderType = DOTA_UNIT_ORDER_ATTACK_TARGET,
+			TargetIndex = self:GetCaster():entindex()
+		})
+		self.allowOrder = false
 		self:StartIntervalThink( 0.1 )
 		if self:GetSpecialValueFor("applies_battle_hunger") > 0 then
 			self.battle_hunger = self:GetCaster():FindAbilityByName("axe_battle_hunger")
@@ -79,12 +85,20 @@ end
 
 function modifier_axe_berserkers_call_taunt:OnIntervalThink()
 	if not self:GetParent():IsAttackingEntity( self:GetCaster() ) and not self:GetParent():HasActiveAbility() then
-		self:GetParent():MoveToTargetToAttack( self:GetCaster() ) 
+		self.allowOrder = true
+		ExecuteOrderFromTable({
+			UnitIndex = self:GetParent():entindex(),
+			OrderType = DOTA_UNIT_ORDER_ATTACK_TARGET,
+			TargetIndex = self:GetCaster():entindex()
+		})
+		self.allowOrder = false
 	end
 end
 
 function modifier_axe_berserkers_call_taunt:CheckState()
-	return {[MODIFIER_STATE_IGNORING_MOVE_AND_ATTACK_ORDERS] = true}
+	if not self.allowOrder then
+		return {[MODIFIER_STATE_IGNORING_MOVE_AND_ATTACK_ORDERS] = true}
+	end
 end
 
 function modifier_axe_berserkers_call_taunt:GetEffectName()

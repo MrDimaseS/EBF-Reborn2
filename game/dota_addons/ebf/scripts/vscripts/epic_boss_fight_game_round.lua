@@ -195,7 +195,9 @@ function CHoldoutGameRound:End(bWon)
 							goldToProvide = goldToProvide - goldToBank
 							
 							local tooltip = hero:FindModifierByNameAndAbility( "modifier_hand_of_midas_passive", midas )
-							tooltip:ForceRefresh()
+							if tooltip then
+								tooltip:ForceRefresh()
+							end
 						end
 						hero:AddGold( goldToProvide )
 						hero:AddExperience(expToProvide, DOTA_ModifyXP_HeroKill, false, true)
@@ -209,7 +211,9 @@ function CHoldoutGameRound:End(bWon)
 								goldForLiving = goldForLiving - goldToBank
 								
 								local tooltip = hero:FindModifierByNameAndAbility( "modifier_hand_of_midas_passive", midas )
-								tooltip:ForceRefresh()
+								if tooltip then
+									tooltip:ForceRefresh()
+								end
 							end
 							hero:AddGold( goldForLiving )
 						end)

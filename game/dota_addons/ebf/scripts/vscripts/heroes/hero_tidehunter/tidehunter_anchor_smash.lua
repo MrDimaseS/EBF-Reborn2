@@ -37,9 +37,6 @@ function tidehunter_anchor_smash:OnSpellStart()
 		if not enemy:TriggerSpellAbsorb( self ) then
 			caster:PerformAbilityAttack(enemy, true, ability, damage)
 			enemy:AddNewModifier(caster, self, "modifier_tidehunter_anchor_smash", {Duration = duration})
-			if CalculateDistance( enemy, caster ) <= radius/2 then
-				 enemy:ApplyKnockBack(point, 200 / 600, 200 / 600, 200, 0, caster, self)
-			end
 		end
     end
 	caster:RemoveModifierByName("modifier_tidehunter_anchor_smash_caster")

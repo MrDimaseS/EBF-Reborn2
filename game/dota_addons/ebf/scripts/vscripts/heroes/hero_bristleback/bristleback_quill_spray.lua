@@ -48,7 +48,10 @@ function bristleback_quill_spray:Spray(bCone, direction)
 		end
 		self:DealDamage( caster, enemy, dmgTaken, {damage_type = DAMAGE_TYPE_PHYSICAL} )
 		
-		enemy:AddNewModifier( caster, self.quills, "modifier_bristleback_quill_spray", {duration = duration}):IncrementStackCount()
+		local spray = enemy:AddNewModifier( caster, self.quills, "modifier_bristleback_quill_spray", {duration = duration})
+		if spray then
+			spray:IncrementStackCount()
+		end
 		enemy:AddNewModifier( caster, self.quills, "modifier_bristleback_quill_spray_stack", {duration = duration})
 		
 		EmitSoundOn( "Hero_Bristleback.QuillSpray.Target", enemy )

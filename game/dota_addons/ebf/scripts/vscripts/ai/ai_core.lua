@@ -649,7 +649,7 @@ function AICore:HandleBasicAI( entity )
 	end
 	if not entity:IsAttacking() then
 		local target = AICore:NearestEnemyHeroInRange( entity, -1, true)
-		if target and target ~= entity:GetAttackTarget() then
+		if target and not entity:GetAttackTarget() or CalculateDistance( entity:GetAttackTarget(), entity ) > entity:GetIdealSpeed() then
 			ExecuteOrderFromTable({
 				UnitIndex = entity:entindex(),
 				OrderType = DOTA_UNIT_ORDER_ATTACK_MOVE,

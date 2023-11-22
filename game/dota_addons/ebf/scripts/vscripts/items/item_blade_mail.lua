@@ -1,6 +1,4 @@
 item_blade_mail2 = class({})
-LinkLuaModifier( "modifier_blade_mail", "items/item_blade_mail.lua" ,LUA_MODIFIER_MOTION_NONE )
-LinkLuaModifier( "modifier_blade_mail_taunt", "items/item_blade_mail.lua" ,LUA_MODIFIER_MOTION_NONE )
 
 function item_blade_mail2:GetCastRange( target, position )
 	return self:GetSpecialValueFor("radius") - self:GetCaster():GetCastRangeBonus()
@@ -33,6 +31,7 @@ end
 item_blade_mail5 = class(item_blade_mail4)
 
 modifier_blade_mail = class({})
+LinkLuaModifier( "modifier_blade_mail", "items/item_blade_mail.lua" ,LUA_MODIFIER_MOTION_NONE )
 
 function modifier_blade_mail:GetAttributes()
 	return MODIFIER_ATTRIBUTE_MULTIPLE
@@ -197,56 +196,90 @@ function modifier_blade_mail:IsHidden()
 	return true
 end
 
+
 modifier_blade_mail_taunt = class({})
-function modifier_blade_mail_taunt:OnCreated( kv )
-	self:OnRefresh()
-	if IsServer() then
-		self:StartIntervalThink( 0.25 )
-	end
+LinkLuaModifier( "modifier_blade_mail_taunt", "items/item_blade_mail.lua" ,LUA_MODIFIER_MOTION_NONE )
+
+function modifier_blade_mail_taunt:OnCreated(table)
+	self.radius = self:GetTalentSpecialValueFor("radius")
 end
 
-function modifier_blade_mail_taunt:OnRefresh( kv )
-    self.radius = self:GetAbility():GetSpecialValueFor( "radius" )
-end
-
-function modifier_blade_mail_taunt:OnIntervalThink()
-	local caster = self:GetCaster()
-	for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), self.radius) ) do
-		if enemy:GetForceAttackTarget() == nil then
-			enemy:SetForceAttackTarget( caster )
-			enemy:SetAggroTarget( caster )
-			enemy:SetAttacking( caster )
-		end
-	end
-end
-
-function modifier_blade_mail_taunt:OnDestroy( kv )
-	if IsServer() then
-		local caster = self:GetCaster()
-		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), self.radius) ) do
-			if enemy:GetForceAttackTarget() == caster then
-				enemy:SetForceAttackTarget( nil )
-				enemy:SetAggroTarget( nil )
-				enemy:SetAttacking( nil )
-			end
-		end
-	end
-end
-
-function modifier_blade_mail_taunt:GetEffectName()
-	return "particles/items_fx/blademail.vpcf"
-end
-
-function modifier_blade_mail_taunt:GetStatusEffectName()
-	return "particles/status_fx/status_effect_blademail.vpcf"
-end
-
-function modifier_blade_mail_taunt:StatusEffectPriority()
-	return 10
-end
-
-function modifier_blade_mail_taunt:IsBuff()
+function modifier_blade_mail_taunt:IsAura()
 	return true
+end
+
+function modifier_blade_mail_taunt:GetModifierAura()
+	return "modifier_blade_mail_taunt_aura"
+end
+
+function modifier_blade_mail_taunt:GetAuraRadius()
+	return self.radius
+end
+
+function modifier_blade_mail_taunt:GetAuraDuration()
+	return self:GetRemainingTime()
+end
+
+function modifier_blade_mail_taunt:GetAuraSearchTeam()    
+	return DOTA_UNIT_TARGET_TEAM_ENEMY
+end
+
+function modifier_blade_mail_taunt:GetAuraSearchType()    
+	return DOTA_UNIT_TARGET_BASIC + DOTA_UNIT_TARGET_HERO
+end
+
+function modifier_blade_mail_taunt:GetAuraSearchFlags()    
+	return DOTA_UNIT_TARGET_FLAG_NONE
+end
+
+function modifier_blade_mail_taunt:GetHeroEffectName()
+	return "particles/units/heroes/hero_axe/axe_beserkers_call_hero_effect.vpcf"
+end
+
+modifier_blade_mail_taunt_aura = class({})
+LinkLuaModifier( "modifier_blade_mail_taunt_aura", "items/item_blade_mail.lua" ,LUA_MODIFIER_MOTION_NONE )
+
+function modifier_blade_mail_taunt_aura:OnCreated()
+	if IsServer() then 
+		self.allowOrder = true
+		ExecuteOrderFromTable({
+			UnitIndex = self:GetParent():entindex(),
+			OrderType = DOTA_UNIT_ORDER_ATTACK_TARGET,
+			TargetIndex = self:GetCaster():entindex()
+		})
+		self.allowOrder = false
+		self:StartIntervalThink( 0.1 )
+	end
+end
+
+function modifier_blade_mail_taunt_aura:OnIntervalThink()
+	if not self:GetParent():IsAttackingEntity( self:GetCaster() ) and not self:GetParent():HasActiveAbility() then
+		self.allowOrder = true
+		ExecuteOrderFromTable({
+			UnitIndex = self:GetParent():entindex(),
+			OrderType = DOTA_UNIT_ORDER_ATTACK_TARGET,
+			TargetIndex = self:GetCaster():entindex()
+		})
+		self.allowOrder = false
+	end
+end
+
+function modifier_blade_mail_taunt_aura:CheckState()
+	if not self.allowOrder then
+		return {[MODIFIER_STATE_IGNORING_MOVE_AND_ATTACK_ORDERS] = true}
+	end
+end
+
+function modifier_blade_mail_taunt_aura:GetEffectName()
+	return "particles/units/heroes/hero_axe/axe_beserkers_call.vpcf"
+end
+
+function modifier_blade_mail_taunt_aura:GetStatusEffectName()
+	return "particles/status_fx/status_effect_beserkers_call.vpcf"
+end
+
+function modifier_blade_mail_taunt_aura:StatusEffectPriority()
+	return 1
 end
 
 modifier_item_blade_mail4_burn = class({})

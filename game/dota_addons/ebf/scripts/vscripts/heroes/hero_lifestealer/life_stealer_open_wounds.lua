@@ -45,19 +45,23 @@ end
 function modifier_life_stealer_open_wounds_debuff:OnTakeDamage(params)
 	local caster = self:GetCaster()
 	local ability = self:GetAbility()
-	if params.attacker:IsSameTeam( caster ) then
+	if params.attacker:IsSameTeam( caster ) and params.unit == self:GetParent() then
 		ParticleManager:FireParticle("particles/units/heroes/hero_life_stealer/life_stealer_open_wounds_impact.vpcf", PATTACH_POINT, self:GetCaster(), {[0]=params.unit:GetAbsOrigin()})
 		local heal = params.damage * self.heal_percent
 		params.attacker:HealEvent(heal, ability, caster, false)
-
-		self.damage_counter = self.damage_counter + params.damage
-		if self.damage_counter >= params.unit:GetMaxHealth() * self.damage_threshold then
-			for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( params.unit:GetAbsOrigin(), self.spread_radius ) ) do
-				if not enemy:HasModifier( "modifier_life_stealer_open_wounds_debuff" ) then
-					enemy:AddNewModifier(caster, ability, "modifier_life_stealer_open_wounds_debuff", { Duration = self:GetRemainingTime() })
+		
+		if not self.spread_triggered then
+			self.damage_counter = self.damage_counter + params.damage
+			if self.damage_counter >= params.unit:GetMaxHealth() * self.damage_threshold then
+				for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( params.unit:GetAbsOrigin(), self.spread_radius ) ) do
+					if not enemy:HasModifier( "modifier_life_stealer_open_wounds_debuff" ) then
+						enemy:AddNewModifier(caster, ability, "modifier_life_stealer_open_wounds_debuff", { Duration = self:GetRemainingTime() })
+						break
+					end
 				end
+				self.damage_counter = 0
+				self.spread_triggered = true
 			end
-			self.damage_counter = 0
 		end
 	end
 end

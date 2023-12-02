@@ -32,7 +32,7 @@ function ursa_enrage:OnSpellStart()
 		caster:StartGesture(ACT_DOTA_OVERRIDE_ABILITY_4)
 		caster:Purge(false, true, false, true, true)
 		caster:AddNewModifier(caster, self, "modifier_ursa_enrage_active", {Duration = self:GetTalentSpecialValueFor("duration")})
-		self:SetCooldown(0.25)
+		self:SetCooldown(0.5)
 	end
 end
 

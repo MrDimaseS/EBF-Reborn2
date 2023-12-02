@@ -76,17 +76,13 @@ function modifier_mars_gods_rebuke_damage_handler:DeclareFunctions()
 end
 
 function modifier_mars_gods_rebuke_damage_handler:GetModifierPreAttack_CriticalStrike(params)
-	return self.bonus_dmg
+	return self.crit
 end
 function modifier_mars_gods_rebuke_damage_handler:GetModifierPreAttack_BonusDamage(params)
 	if not params.target then return end
 	if params.target:IsConsideredHero() then
 		return self.bonus_dmg
 	end
-end
-
-function modifier_mars_gods_rebuke_damage_handler:GetModifierCriticalDamage()
-	return self.crit
 end
 
 function modifier_mars_gods_rebuke_damage_handler:IsPurgable()

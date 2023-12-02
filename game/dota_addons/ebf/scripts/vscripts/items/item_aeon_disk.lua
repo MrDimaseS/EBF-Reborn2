@@ -63,7 +63,7 @@ function modifier_item_aeon_disk_handler:GetModifierHealthBonus()
 end
 
 function modifier_item_aeon_disk_handler:GetMinHealth()
-	if self:GetAbility():IsCooldownReady() and not self:GetParent():IsIllusion() then
+	if self:GetAbility():IsCooldownReady() and not self:GetParent():IsIllusion() and self:GetParent():IsAlive() then
 		return math.floor( self:GetParent():GetMaxHealth() * self.health_threshold_pct / 100 )
 	end
 end

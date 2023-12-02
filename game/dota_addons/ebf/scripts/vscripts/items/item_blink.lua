@@ -58,7 +58,6 @@ function modifier_uber_dagon_passive:OnTakeDamage( params )
 		local lifesteal = params.damage * spell_lifesteal / 100 * math.max( 1, EHPMult )
 		
 		self.lifeToGive = (self.lifeToGive or 0) + lifesteal
-		print( self.lifeToGive, spell_lifesteal )
 		if self.lifeToGive > 1 then
 			local preHP = params.attacker:GetHealth()
 			params.attacker:HealWithParams( lifesteal, params.inflictor, false, true, self, true )

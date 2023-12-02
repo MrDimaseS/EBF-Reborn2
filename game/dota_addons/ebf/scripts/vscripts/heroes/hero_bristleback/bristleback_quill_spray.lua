@@ -36,8 +36,8 @@ function bristleback_quill_spray:Spray(bCone, direction)
 		ParticleManager:SetParticleControlTransformForward( quillFX, 0, caster:GetAbsOrigin(), -direction )
 		ParticleManager:ReleaseParticleIndex( quillFX )
 	else
-		enemies = caster:FindEnemyUnitsInRadius(target:GetAbsOrigin(), radius)
-		ParticleManager:FireParticle("particles/units/heroes/hero_bristleback/bristleback_quill_spray.vpcf", PATTACH_POINT, target)
+		enemies = caster:FindEnemyUnitsInRadius(caster:GetAbsOrigin(), radius)
+		ParticleManager:FireParticle("particles/units/heroes/hero_bristleback/bristleback_quill_spray.vpcf", PATTACH_POINT, caster)
 	end
 	
 	for _, enemy in ipairs( enemies ) do

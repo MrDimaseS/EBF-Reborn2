@@ -169,7 +169,7 @@ function modifier_blink_treads_passive:DeclareFunctions(params)
 end
 
 function modifier_blink_treads_passive:OnTakeDamage(params)
-	if params.unit == self:GetParent() and params.attacker:IsConsideredHero() and self:GetAbility():GetCooldownTimeRemaining() < self.damage_cd then
+	if params.unit == self:GetParent() and params.attacker:IsConsideredHero() and self:GetAbility():GetCooldownTimeRemaining() < self.damage_cd and params.damage > 25 then
 		self:GetAbility():SetCooldown( self.damage_cd )
 	end
 end

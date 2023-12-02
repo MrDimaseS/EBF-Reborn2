@@ -16,7 +16,7 @@ function life_stealer_rage:OnSpellStart()
 		local duration = self:GetSpecialValueFor("duration")
 		caster:AddNewModifier(caster, self, "modifier_life_stealer_rage_active", {Duration = duration})
 		caster:Dispel(caster, true)
-		self:SetCooldown(0.25)
+		self:SetCooldown(0.5)
 		-- infest management
 		-- if caster:HasModifier("modifier_life_stealer_infest") then
 			-- local modifier = caster:FindModifierByName("modifier_lifestealer_infest_bh")

@@ -107,11 +107,11 @@ function CHoldoutGameRound:Begin()
 	
 	-- handle unit count scaling
 	local playerCount = 0
-    -- for i = 0, PlayerResource:GetPlayerCount() -1 do
-        -- if PlayerResource:IsValidPlayerID(i) and PlayerResource:GetConnectionState(i) == DOTA_CONNECTION_STATE_CONNECTED then
-	        -- playerCount = playerCount + 1
-		-- end
-	-- end
+    for i = 0, PlayerResource:GetPlayerCount() -1 do
+        if PlayerResource:IsValidPlayerID(i) and PlayerResource:GetConnectionState(i) == DOTA_CONNECTION_STATE_CONNECTED then
+	        playerCount = playerCount + 1
+		end
+	end
 	
 	self._OGHP_difficulty_multiplier = 1 + ((playerCount-1) * 0.75)^0.85
 	self._EHP_multiplier = self._OGHP_difficulty_multiplier/(1 + 0.8*(playerCount-1))

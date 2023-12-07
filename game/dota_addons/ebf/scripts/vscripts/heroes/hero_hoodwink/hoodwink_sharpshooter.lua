@@ -41,23 +41,24 @@ end
 --------------------------------------------------------------------------------
 -- Projectile
 function hoodwink_sharpshooter:OnProjectileThinkHandle( projectile )
-	local sound = self.projectiles[projectile].sound
+	local sound = EntIndexToHScript( self.projectiles[projectile].sound )
 	if not sound or sound:IsNull() then return end
 	sound:SetOrigin( ProjectileManager:GetLinearProjectileLocation( projectile ) )
 end
 
-function hoodwink_sharpshooter:OnProjectileHit_ExtraData( target, location, projectile )
+function hoodwink_sharpshooter:OnProjectileHitHandle( target, location, projectile )
 	local projectileData = self.projectiles[projectile]
 	if not projectileData then return end
 	
 	if not target then
 		local sound = EntIndexToHScript( projectileData.sound )
-		if not sound or sound:IsNull() then return end
-		local sound_projectile = "Hero_Hoodwink.Sharpshooter.Projectile"
-		StopSoundOn( sound_projectile, sound )
-		UTIL_Remove( sound )
-		self.projectiles[projectile] = nil
-		return true
+		if IsEntitySafe( sound ) then
+			local sound_projectile = "Hero_Hoodwink.Sharpshooter.Projectile"
+			StopSoundOn( sound_projectile, sound )
+			UTIL_Remove( sound )
+			self.projectiles[projectile] = nil
+			return true
+		end
 	end
 
 	local caster = self:GetCaster()
@@ -251,6 +252,7 @@ function modifier_hoodwink_sharpshooter_ebf:OnDestroy()
 		direction = direction,
 		sound = sound:entindex(),
 	}
+	print( projectile, "projectile ID creation" )
 
 	-- knockback
 	local mod = self.caster:ApplyKnockBack( self.caster:GetAbsOrigin() + self.caster:GetForwardVector() * self.recoil_distance, 0, self.recoil_duration, self.recoil_distance, self.recoil_height, self.caster, self:GetAbility() )

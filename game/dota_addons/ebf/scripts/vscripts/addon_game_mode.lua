@@ -35,15 +35,7 @@ require( "bossManager")
 require("libraries/utility")
 require( "ai/ai_core" )
 
-LinkLuaModifier( "playerStatRescale", "modifier/playerStatRescale.lua", LUA_MODIFIER_MOTION_NONE )
-LinkLuaModifier( "status_immune", "modifier/status_immune.lua", LUA_MODIFIER_MOTION_NONE )
-LinkLuaModifier( "modifier_silence_generic", "modifier/modifier_silence_generic.lua", LUA_MODIFIER_MOTION_NONE )
-LinkLuaModifier( "modifier_hidden_generic", "modifier/modifier_hidden_generic.lua", LUA_MODIFIER_MOTION_NONE )
-LinkLuaModifier( "modifier_hide_healthbar", "modifier/modifier_hide_healthbar.lua", LUA_MODIFIER_MOTION_NONE )
-LinkLuaModifier( "modifier_last_man_standing", "modifier/modifier_last_man_standing.lua", LUA_MODIFIER_MOTION_NONE )
-LinkLuaModifier( "modifier_boss_enraged", "modifier/modifier_boss_enraged.lua", LUA_MODIFIER_MOTION_NONE )
-LinkLuaModifier( "modifier_neutrals_ancestors_rage", "modifier/modifier_neutrals_ancestors_rage.lua", LUA_MODIFIER_MOTION_NONE )
-LinkLuaModifier("modifier_special_effect_donator", "/modifiers/modifier_special_effect_donator.lua", LUA_MODIFIER_MOTION_NONE)
+
 
 
 if CHoldoutGameMode == nil then
@@ -110,6 +102,7 @@ function Precache( context )
 	
 	
 	PrecacheUnitByNameSync("npc_dota_boss_ogre_magi", context)
+	PrecacheUnitByNameSync("npc_dota_visage_familiar1", context)
 end
 
 -- Actually make the game mode when we activate
@@ -1342,7 +1335,7 @@ function CHoldoutGameMode:OnThink()
 				end
 			end
 		end
-		status, err, ret = xpcall(ThinkGeneric, debug.traceback, self )
+		status, err, ret = pcall(ThinkGeneric, debug.traceback, self )
 		if not status  and not self.gameHasBeenBroken then
 			self.gameHasBeenBroken = true
 			Say(nil, "Bug Report:"..err, false)
@@ -1389,7 +1382,7 @@ function CHoldoutGameMode:RegisterStatsForRound( round )
 end
 
 function CHoldoutGameMode:RegisterStatsForPlayer( playerID, bWon, bAbandon )
-	if not IsDedicatedServer() or IsInToolsMode() then return end
+	if not IsDedicatedServer() or IsInToolsMode() or GameRules:IsCheatMode() then return end
 	-- send stats only once
 	self.statsSentForPlayer = self.statsSentForPlayer or {}
 	if self.statsSentForPlayer[playerID] then return end
@@ -1850,9 +1843,9 @@ function CHoldoutGameMode:OnNPCSpawned( event )
 	if not spawnedUnit or spawnedUnit:GetClassname() == "npc_dota_thinker" or spawnedUnit:IsPhantom() then
 		return
 	end
-	if spawnedUnit:IsCreature() then
-		bossManager:onBossSpawn(spawnedUnit)
-	end
+	-- if spawnedUnit:IsCreature() then
+		-- bossManager:onBossSpawn(spawnedUnit)
+	-- end
 	if spawnedUnit:IsCourier() then
 		spawnedUnit:AddNewModifier( spawnedUnit, nil, "modifier_invulnerable", {} )
 	end

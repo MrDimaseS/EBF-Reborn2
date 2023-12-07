@@ -43,7 +43,7 @@ function bossPowerScale:OnRefresh(keys)
 	if self:GetParent():IsConsideredHero() then 
 		self.baseStatusResistance = math.max( 2.5*(difficulty+1), 15 * roundNumber/16 * (1 + difficulty/10) )
 		self.actualStatusResistance = self.baseStatusResistance
-		self.statusResistIncreasePerTick = (MAX_STATUS_RESIST - self.baseStatusResistance) / SECONDS_TO_COMBO_BREAK
+		self.statusResistIncreasePerTick = ( (MAX_STATUS_RESIST - self.baseStatusResistance) / SECONDS_TO_COMBO_BREAK ) * 0.25
 	end
 	self:StartIntervalThink( 0.25 ) 
 	self:OnIntervalThink( )

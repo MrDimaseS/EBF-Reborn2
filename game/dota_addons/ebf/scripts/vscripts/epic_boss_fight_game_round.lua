@@ -62,7 +62,7 @@ function CHoldoutGameRound:spawn_treasure()
 end
 
 function CHoldoutGameRound:Begin()
-	
+	print("round has started")
 	self._vEnemiesRemaining = {}
 	self._vEventHandles = {
 		ListenToGameEvent( "npc_spawned", Dynamic_Wrap( CHoldoutGameRound, "OnNPCSpawned" ), self ),
@@ -104,6 +104,45 @@ function CHoldoutGameRound:Begin()
 		self._nFixedXP = (50000 + self._nFixedXP) * (roundNumber^0.1)
 	end
 	self._nExpRemainingInRound = self._nFixedXP
+	
+	-- handle unit count scaling
+	local playerCount = 0
+    -- for i = 0, PlayerResource:GetPlayerCount() -1 do
+        -- if PlayerResource:IsValidPlayerID(i) and PlayerResource:GetConnectionState(i) == DOTA_CONNECTION_STATE_CONNECTED then
+	        -- playerCount = playerCount + 1
+		-- end
+	-- end
+	
+	self._OGHP_difficulty_multiplier = 1 + ((playerCount-1) * 0.75)^0.85
+	self._EHP_multiplier = self._OGHP_difficulty_multiplier/(1 + 0.8*(playerCount-1))
+	self._HP_difficulty_multiplier = self._OGHP_difficulty_multiplier * self._EHP_multiplier
+	
+	local MAX_TIME_TO_RESOLVE_SPAWNS = 60
+	for spawnGroup, spawnTable in pairs( self._vSpawners ) do
+		MAX_TIME_TO_RESOLVE_SPAWNS = math.max( MAX_TIME_TO_RESOLVE_SPAWNS, spawnTable._flInitialWait + math.ceil(spawnTable._nTotalUnitsToSpawn / spawnTable._nUnitsPerSpawn) * spawnTable._flSpawnInterval )
+	end
+	local unitMultiplier =  math.min( 3, math.floor( self._HP_difficulty_multiplier ) )
+	self._HP_difficulty_multiplier = self._HP_difficulty_multiplier / unitMultiplier
+	for spawnGroup, spawnTable in pairs( self._vSpawners ) do
+		if not spawnTable._NoCountScaling then
+			spawnTable._nOriginalTotalUnitsToSpawn = spawnTable._nOriginalTotalUnitsToSpawn or spawnTable._nTotalUnitsToSpawn
+			spawnTable._nOrignalUnitsPerSpawn = spawnTable._nOrignalUnitsPerSpawn or spawnTable._nUnitsPerSpawn
+			spawnTable._flOriginalSpawnInterval = spawnTable._flOriginalSpawnInterval or spawnTable._flSpawnInterval
+			local newUnitCount = spawnTable._nOriginalTotalUnitsToSpawn * unitMultiplier
+			local timeForMaxSpawn = spawnTable._flInitialWait + math.ceil(newUnitCount / spawnTable._nOrignalUnitsPerSpawn) * spawnTable._flOriginalSpawnInterval
+			if timeForMaxSpawn >= MAX_TIME_TO_RESOLVE_SPAWNS then
+				local newSpawnInterval = (MAX_TIME_TO_RESOLVE_SPAWNS - spawnTable._flInitialWait) / math.ceil(newUnitCount / spawnTable._nOrignalUnitsPerSpawn)
+				if newSpawnInterval <= spawnTable._flOriginalSpawnInterval / 2 then
+					spawnTable._nUnitsPerSpawn = spawnTable._nOrignalUnitsPerSpawn * 2
+				end
+				spawnTable._flSpawnInterval = (MAX_TIME_TO_RESOLVE_SPAWNS - spawnTable._flInitialWait) / math.ceil(newUnitCount / spawnTable._nUnitsPerSpawn)
+			end
+			spawnTable._nTotalUnitsToSpawn = newUnitCount
+			spawnTable.HealthMultiplier = self._HP_difficulty_multiplier
+		else
+			spawnTable.HealthMultiplier = self._OGHP_difficulty_multiplier
+		end
+	end
 	for _, spawner in pairs( self._vSpawners ) do
 		spawner:Begin()
 		self._nCoreUnitsTotal = self._nCoreUnitsTotal + spawner:GetTotalUnitsToSpawn( true )
@@ -263,6 +302,7 @@ function CHoldoutGameRound:End(bWon)
 		spawner:End()
 	end
 	-- clear cached units
+	GameRules._getDeadCoreUnitsForGarbageCollection = GameRules._getDeadCoreUnitsForGarbageCollection or {}
 	if GameRules._getDeadCoreUnitsForGarbageCollection[roundNumber-2] then
 		local delay = 0
 		for _, unit in ipairs( GameRules._getDeadCoreUnitsForGarbageCollection[roundNumber-2] ) do

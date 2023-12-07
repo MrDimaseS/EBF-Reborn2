@@ -11,6 +11,12 @@ function modifier_boss_enraged:OnRefresh()
 	end
 end
 
+function modifier_boss_enraged:CheckState()
+	if self:GetStackCount() > 5 then
+		return {[MODIFIER_STATE_FLYING_FOR_PATHING_PURPOSES_ONLY] = true}
+	end
+end
+
 function modifier_boss_enraged:DeclareFunctions()
 	return {MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT, 
 			MODIFIER_PROPERTY_TOTALDAMAGEOUTGOING_PERCENTAGE, 

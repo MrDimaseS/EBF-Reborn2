@@ -113,7 +113,7 @@ function CHoldoutGameRound:Begin()
 		end
 	end
 	
-	self._OGHP_difficulty_multiplier = 1 + ((playerCount-1) * 0.75)^0.85
+	self._OGHP_difficulty_multiplier = 1 + ((playerCount-1) * 1)^0.85
 	self._EHP_multiplier = self._OGHP_difficulty_multiplier/(1 + 0.8*(playerCount-1))
 	self._HP_difficulty_multiplier = self._OGHP_difficulty_multiplier * self._EHP_multiplier
 	

@@ -171,7 +171,7 @@ end
 
 function modifier_blink_treads_passive:OnTakeDamage(params)
 	if params.unit == self:GetParent() and params.attacker:IsConsideredHero() and self:GetAbility():GetCooldownTimeRemaining() < self.damage_cd and params.damage > 25 then
-		self:GetAbility():SetCooldown( TerbaryOperator( self.damage_cd, self:GetStackCount() == DOTA_ATTRIBUTE_INTELLECT, self.arcane_blink_dmg_cd )
+		self:GetAbility():SetCooldown( TernaryOperator( self.damage_cd, self:GetStackCount() == DOTA_ATTRIBUTE_INTELLECT, self.arcane_blink_dmg_cd ) )
 	end
 end
 

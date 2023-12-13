@@ -377,6 +377,7 @@ function CHoldoutGameRound:OnNPCSpawned( event )
 		spawnedUnit:SetDeathXP( 0 )
 		spawnedUnit.unitName = spawnedUnit:GetUnitName()
 	end
+	bossManager:ManageBossScaling(spawnedUnit)
 end
 
 

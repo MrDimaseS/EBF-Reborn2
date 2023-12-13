@@ -143,6 +143,7 @@ function modifier_blink_treads_passive:OnCreated()
 	self.bonus_attack_speed = self:GetSpecialValueFor("bonus_attack_speed")
 	
 	self.damage_cd = self:GetSpecialValueFor("blink_damage_cooldown")
+	self.arcane_blink_dmg_cd = self:GetSpecialValueFor("arcane_blink_dmg_cd")
 	
 	self:GetAbility().passiveModifier = self
 	if self:GetAbility().chosenAttribute then
@@ -170,7 +171,7 @@ end
 
 function modifier_blink_treads_passive:OnTakeDamage(params)
 	if params.unit == self:GetParent() and params.attacker:IsConsideredHero() and self:GetAbility():GetCooldownTimeRemaining() < self.damage_cd and params.damage > 25 then
-		self:GetAbility():SetCooldown( self.damage_cd )
+		self:GetAbility():SetCooldown( TerbaryOperator( self.damage_cd, self:GetStackCount() == DOTA_ATTRIBUTE_INTELLECT, self.arcane_blink_dmg_cd )
 	end
 end
 

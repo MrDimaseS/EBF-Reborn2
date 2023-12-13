@@ -32,7 +32,7 @@ function tiny_toss:OnSpellStart()
 	
 	local enemies = caster:FindAllUnitsInRadius(caster:GetAbsOrigin(), grabRadius, {order = FIND_CLOSEST})
 	for _,enemy in pairs(enemies) do
-		if not enemy:HasModifier("modifier_tiny_toss") and not PlayerResource:IsDisableHelpSetForPlayerID( caster:GetPlayerOwnerID(), enemy:GetPlayerOwnerID() ) and enemy ~= caster then
+		if not enemy:HasModifier("modifier_tiny_toss") and not PlayerResource:IsDisableHelpSetForPlayerID( enemy:GetPlayerOwnerID(), caster:GetPlayerOwnerID() ) and enemy ~= caster then
 			target = enemy
 	  		break
 	  	end

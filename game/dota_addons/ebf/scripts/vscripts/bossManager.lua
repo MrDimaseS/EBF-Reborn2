@@ -117,20 +117,17 @@ function bossManager:ManageBossScaling(spawnedUnit)
 	if spawnedUnit:GetUnitName() == "npc_dota_healthbar_dummy" then return end
 	if spawnedUnit:GetTeam() == DOTA_TEAM_BADGUYS and not IsInToolsMode() then return end -- only way to get these is with console commands
 	if spawnedUnit:IsCreature() then
-		if spawnedUnit.hasBeenProcessed then
+		if GameRules._currentRound == nil then return end
+		spawnedUnit:SetHullRadius( math.min( 48, 24 * (1 + (spawnedUnit:GetModelScale()-1)/2) ) )
+		Timers:CreateTimer(function()
 			if spawnedUnit:IsConsideredHero() and spawnedUnit:GetUnitName() ~= "npc_dota_healthbar_dummy" then
 				local dummy = CreateUnitByName("npc_dota_healthbar_dummy", spawnedUnit:GetAbsOrigin(), false, nil, nil, spawnedUnit:GetTeam())
 				dummy:SetHealthBarOffsetOverride( spawnedUnit:GetBaseHealthBarOffset() )
 				dummy:AddNewModifier(spawnedUnit, nil, "modifier_healthbar_dummy", {})
 				spawnedUnit:AddNewModifier(spawnedUnit, nil, "modifier_hide_healthbar", {})
 			end
-			return
-		end
-		if self._currentRound == nil then return end
-		spawnedUnit:SetHullRadius( math.min( 48, 24 * (1 + (spawnedUnit:GetModelScale()-1)/2) ) )
-		Timers:CreateTimer(function()
 			if spawnedUnit.hasBeenProcessed then return end
-			if self._currentRound == nil then return end
+			if GameRules._currentRound == nil then return end
 			self:ProcessBossScaling( spawnedUnit )
 		end);
 	end

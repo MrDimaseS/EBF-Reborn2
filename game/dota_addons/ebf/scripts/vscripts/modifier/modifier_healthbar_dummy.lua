@@ -3,6 +3,7 @@ modifier_healthbar_dummy = class({})
 if IsServer() then
 	function modifier_healthbar_dummy:OnCreated()
 		self:StartIntervalThink(0)
+		print("created!")
 	end
 
 	function modifier_healthbar_dummy:OnIntervalThink()

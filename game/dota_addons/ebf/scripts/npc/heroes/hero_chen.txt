@@ -48,70 +48,6 @@
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
-
-	
-	//=================================================================================================================
-	// Chen: Test of Faith
-	//=================================================================================================================
-	"chen_test_of_faith"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"ID"							"5329"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_PURE"
-		"FightRecapLevel"				"1"
-		"AbilitySound"					"Hero_Chen.TestOfFaith.Target"
-		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
-
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"600 600 600 600"
-		"AbilityCooldown"				"16"
-
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"60 80 100 120"
-
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"damage_min"			"556 1111 2500 5278 11111 25000	55556"
-			}
-			"02"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"damage_max"			"1111 2222 5000 10556 22222 50000 111111"
-			}
-			"03"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"heal_min"				"250 500 1250 2500 5000 12500 25000"
-			}
-			"04"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"heal_max"				"556 1111 2500 5278 11111 25000	55556"
-			}
-		}
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
-	}
-
-	
-
-	
 	//=================================================================================================================
 	// Chen: Divine Favor
 	//=================================================================================================================
@@ -135,81 +71,26 @@
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.2"
+		"AbilityCooldown"				"14"
 
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"heal_rate"							"15 35 75 200 450 750 1250"
+			"aura_radius"						"1200"
+			"duration"							"6"
+			"teleport_delay"		
 			{
-				"var_type"					"FIELD_INTEGER"
-				"armor"						"1 2 3 4 5 6 7"
+				"value"							"6"
+				"special_bonus_unique_chen_3"	"-2"
 			}
-			"02"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"heal_rate"					"15 35 75 200 600 1000 1500"
-			}
-			"03"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"aura_radius"				"1200"
-			}
-			"04"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"teleport_delay"			"6"
-			}
-			"05"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"creep_bonus"				"1"
-			}
+			"bonus_armor"						"12 16 20 24 28 32 36"
+			"heal_amp"							"20"
+			"creep_bonus"						"1"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
-	}
-	//=================================================================================================================
-	// Chen: Test of Faith Teleport
-	//=================================================================================================================
-	"chen_test_of_faith_teleport"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"ID"							"5522"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
-		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_NOT_CREEP_HERO"
-		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_NO"
-		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
-		"LinkedAbility"					"chen_test_of_faith"
-		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
-		
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"600 600 600 600"
-		"AbilityCooldown"				"24.0 24.0 24.0 24.0"
-
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"200 200 200 200"
-
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"hero_teleport_delay"	"6.0 5.0 4.0 3.0 2.0 1.0 0.1"
-			}
-		}
 	}
 
 	//=================================================================================================================
@@ -258,11 +139,6 @@
 			{
 				"value"								"50 150 275 600 1250 2850 6500"
 				"special_bonus_unique_chen_5"		"+750"
-			}
-			"teleport_delay"	
-			{
-				"value"		"6"
-				"special_bonus_unique_chen_3" "-2"
 			}
 			"is_martyr"
 			{

@@ -16,6 +16,7 @@ function item_eternal_shroud:OnSpellStart()
 	
 	local damage = self:GetSpecialValueFor("blast_damage")
 	local duration = self:GetSpecialValueFor("blast_debuff_duration")
+	local amp_duration = self:GetSpecialValueFor("resist_debuff_duration")
 	local dmg_to_mana = self:GetSpecialValueFor("dmg_to_mana") / 100
 	
 	EmitSoundOn( "DOTA_Item.ShivasGuard.Activate", caster )
@@ -28,6 +29,7 @@ function item_eternal_shroud:OnSpellStart()
 					caster:GiveMana( damage * dmg_to_mana )
 				end
 				enemy:AddNewModifier( caster, self, "modifier_item_shivas_guard_blast", {duration = duration} )
+				enemy:AddNewModifier( caster, self, "modifier_item_veil_of_discord_debuff", {duration = amp_duration} )
 				unitsToHit[enemy:entindex()] = true
 				ParticleManager:FireParticle( "particles/items2_fx/shivas_guard_impact.vpcf", PATTACH_POINT_FOLLOW, unit )
 			end
@@ -57,8 +59,10 @@ function modifier_item_eternal_shroud_passive:OnRefresh()
 	self.bonus_agility = self:GetSpecialValueFor("bonus_agility")
 	
 	self.bonus_armor = self:GetSpecialValueFor("bonus_armor")
+	self.stack_armor = self:GetSpecialValueFor("stack_armor")
 	self.bonus_spell_resist = self:GetSpecialValueFor("bonus_spell_resist")
-	self.bonus_health_regen = self:GetSpecialValueFor("bonus_health_regen")
+	self.stack_resist = self:GetSpecialValueFor("stack_resist")
+	self.bonus_health = self:GetSpecialValueFor("bonus_health")
 	
 	self.mana_restore_pct = self:GetSpecialValueFor("mana_restore_pct") / 100
 	
@@ -66,6 +70,11 @@ function modifier_item_eternal_shroud_passive:OnRefresh()
 	self.aura_damage = self:GetSpecialValueFor("aura_damage")
 	self.aura_damage_illusions = self:GetSpecialValueFor("aura_damage_illusions")
 	self.blast_aura_bonus = self:GetSpecialValueFor("blast_aura_bonus") / 100
+	
+	self.damage_taken = 0
+	self.stack_threshold = self:GetSpecialValueFor("stack_threshold") / 100
+	self.stack_duration = self:GetSpecialValueFor("stack_duration")
+	self.max_stacks = self:GetSpecialValueFor("max_stacks")
 	
 	if IsServer() and self.aura_damage > 0 then
 		if not self:GetCaster():IsIllusion() then
@@ -95,6 +104,7 @@ function modifier_item_eternal_shroud_passive:DeclareFunctions()
 			MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,
 			MODIFIER_PROPERTY_STATS_INTELLECT_BONUS,
 			MODIFIER_PROPERTY_STATS_AGILITY_BONUS,
+			MODIFIER_PROPERTY_HEALTH_BONUS,
 			MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
 			MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS,
 			MODIFIER_EVENT_ON_TAKEDAMAGE
@@ -103,8 +113,18 @@ end
 
 function modifier_item_eternal_shroud_passive:OnTakeDamage(params)
 	if params.unit == self:GetParent() and not params.unit:IsIllusion() then
-		if params.inflictor and self.mana_restore_pct > 0 then
-			params.unit:GiveMana( params.damage * self.mana_restore_pct )
+		if params.inflictor then 
+			if self.mana_restore_pct > 0 then
+				params.unit:GiveMana( params.original_damage * self.mana_restore_pct )
+			end
+			self.damage_taken = self.damage_taken + params.damage
+			
+		elseif self.stack_armor > 0 then
+			self.damage_taken = self.damage_taken + params.damage
+		end
+		if self.damage_taken >= params.unit:GetHealth() * self.stack_threshold then
+			self:AddIndependentStack(self.stack_duration, self.max_stacks)
+			self.damage_taken = 0
 		end
 	end
 end
@@ -122,15 +142,15 @@ function modifier_item_eternal_shroud_passive:GetModifierBonusStats_Agility()
 end
 
 function modifier_item_eternal_shroud_passive:GetModifierPhysicalArmorBonus()
-	return self.bonus_armor
+	return self.bonus_armor + self.stack_armor * self:GetStackCount()
 end
 
 function modifier_item_eternal_shroud_passive:GetModifierMagicalResistanceBonus()
-	return self.bonus_spell_resist
+	return self.bonus_spell_resist + self.stack_resist * self:GetStackCount()
 end
 
-function modifier_item_eternal_shroud_passive:GetModifierConstantHealthRegen()
-	return self.bonus_health_regen
+function modifier_item_eternal_shroud_passive:GetModifierHealthBonus()
+	return self.bonus_health
 end
 
 function modifier_item_eternal_shroud_passive:IsAura()
@@ -164,10 +184,14 @@ function modifier_item_eternal_shroud_passive:GetAuraSearchFlags()
 end
 
 function modifier_item_eternal_shroud_passive:IsHidden()
-	return true
+	return self:GetStackCount() == 0
 end
 
 function modifier_item_eternal_shroud_passive:IsPurgable()
+	return false
+end
+
+function modifier_item_eternal_shroud_passive:DestroyOnExpire()
 	return false
 end
 

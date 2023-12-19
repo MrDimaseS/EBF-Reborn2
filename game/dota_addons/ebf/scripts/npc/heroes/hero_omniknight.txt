@@ -323,9 +323,10 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"ID"							"5266"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"2"
@@ -337,7 +338,9 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"160 140 120 110 100 90"
+		"AbilityCooldown"				"0.5"
+		"AbilityCharges"				"2"
+
 		"AbilityCastPoint"				"0.4"
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
 		
@@ -349,17 +352,21 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"					"7"
-			"radius"					"1200"
-			"duration_scepter"
+			"duration"										"7"
+            "scepter_max_charges"	
 			{
-				"value"					"8"
-				"RequiresScepter"		"1"
+				"value"										"3"
+				"RequiresScepter"							"1"
 			}
-			"scepter_status_resist"					
+			"AbilityChargeRestoreTime"		
 			{
-				"value"					"40"
-				"RequiresScepter"		"1"
+				"value"										"100 90 80 70 60 50"
+				"special_bonus_unique_omniknight_7"			"-15"		
+			}
+			"AbilityCastRange"				
+			{
+				"value"										"900"	
+				"special_bonus_scepter"						"=0"
 			}
 		}
 	}

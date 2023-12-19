@@ -115,6 +115,16 @@ modifier_abaddon_curse_curse = class({})
 
 function modifier_abaddon_curse_curse:OnCreated()
 	self.curse_slow = -self:GetSpecialValueFor("curse_slow")
+	self.curse_dps = self:GetSpecialValueFor("curse_dps")
+	self.tick = 0.5
+	
+	if IsServer() then
+		self:StartIntervalThink( self.tick )
+	end
+end
+
+function modifier_abaddon_curse_curse:OnIntervalThink()
+	self:GetAbility():DealDamage( self:GetCaster(), self:GetParent(), self.curse_dps * self.tick )
 end
 
 function modifier_abaddon_curse_curse:DeclareFunctions()

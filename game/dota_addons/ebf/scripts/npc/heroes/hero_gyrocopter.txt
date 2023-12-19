@@ -213,14 +213,9 @@
 		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"1000"
 		"AbilityCastPoint"				"0.3 0.3 0.3"
 		"AbilityCastAnimation"			"ACT_INVALID"
 
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"60"
-		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"125 190 250 310 375 440"
@@ -229,22 +224,28 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"slow_duration_first"		"2"
-			"slow_duration_second"		"4"
-			"damage_first"
+			"AbilityCastRange"				
 			{
-				"value"					"6500 15000 35000 70000 90000 110000"
-				"special_bonus_unique_gyrocopter_call_down_damage"	"+50%"
+				"value"		"1000"
+				"special_bonus_unique_gyrocopter_5"		"=0"
 			}
-			"damage_second"
+			"AbilityCooldown"				
 			{
-				"value"					"9000 24000 60000 100000 150000 200000"
-				"special_bonus_unique_gyrocopter_call_down_damage"	"+50%"
+				"value"									"60"
+				"special_bonus_unique_gyrocopter_5"		"-30"
 			}
-			"slow_first"				"30"
-			"slow_second"				"60"
-			"radius"					"600"
+			"slow_duration"				"4"
+			"slow"						"50"
+			"damage"					"9000 24000 60000 100000 150000 200000"
+			"radius"					
+			{
+				"value"			"400"
+				"affected_by_aoe_increase"	"1"
+			}
 			"missile_delay_tooltip"		"2"
+			"strike_delay"				"1.0"
+			"total_strikes"				"3"
+			"strike_separation"			"500"
 		}
 	}
 	//=================================================================================================================

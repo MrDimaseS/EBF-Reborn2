@@ -9,10 +9,9 @@ function pangolier_shield_crash:IsHiddenWhenStolen()
 end
 
 function pangolier_shield_crash:GetCooldown( iLvl )
-	if self:GetSpecialValueFor("rolling_thunder_cooldown") > 0 then
-		if self:GetCaster():HasModifier("modifier_pangolier_gyroshell") then
-			return self:GetSpecialValueFor("rolling_thunder_cooldown")
-		end
+	if self:GetCaster():HasModifier("modifier_pangolier_gyroshell") then
+		local gyroshell = self:GetCaster():FindAbilityByName("pangolier_gyroshell")
+		return gyroshell:GetSpecialValueFor("rolling_thunder_cooldown")
 	end
 	return self.BaseClass.GetCooldown( self, iLvl )
 end
@@ -146,10 +145,6 @@ function modifier_pangolier_shield_crash_barrier:OnRefresh(kv)
 	end
 end
 
-function modifier_pangolier_shield_crash_barrier:CheckState()
-	return {[MODIFIER_STATE_DEBUFF_IMMUNE] = true}
-end
-
 function modifier_pangolier_shield_crash_barrier:DeclareFunctions()
 	return { MODIFIER_PROPERTY_INCOMING_DAMAGE_CONSTANT }
 end
@@ -157,9 +152,8 @@ end
 function modifier_pangolier_shield_crash_barrier:GetModifierIncomingDamageConstant( params )
 	if IsServer() then
 		local barrier = math.min( self.barrier, math.max( self.barrier, params.damage ) )
-		self.barrier = self.barrier - params.damage
+		self.barrier = math.max( 0, self.barrier - params.damage )
 		self:SendBuffRefreshToClients()
-		EmitSoundOn( "Hero_Antimage.Counterspell.Absorb", self:GetParent() )
 		return -barrier
 	else
 		return self.barrier

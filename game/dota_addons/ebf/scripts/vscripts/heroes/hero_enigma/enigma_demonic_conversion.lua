@@ -24,7 +24,7 @@ function enigma_demonic_conversion:CreateEidolon( position, duration )
 	local caster = self:GetCaster()
 	local eidolon = caster:CreateSummon( "npc_dota_eidolon", position, duration or self:GetDuration() )
 	
-	local eidolon_hp = self:GetSpecialValueFor("eidelon_max_health")
+	local eidolon_hp = self:GetSpecialValueFor("eidelon_max_health") + caster:GetHealth() * self:GetSpecialValueFor("current_health_pct")/100
 	local eidolon_dmg = self:GetSpecialValueFor("eidelon_base_damage")
 	local eidolon_dmg_spread = self:GetSpecialValueFor("eidolon_damage_spread")
 	

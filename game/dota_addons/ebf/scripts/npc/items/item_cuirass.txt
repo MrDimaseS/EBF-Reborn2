@@ -33,7 +33,8 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_AURA | DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"BaseClass"						"item_datadriven"
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_cuirass"
 		"AbilityTextureName"			"cuirass/cuirass_2"
 		"ItemKillable"					"1"
 		"ItemSellable"					"1"
@@ -45,74 +46,6 @@
 		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
 
-		"Modifiers"
-		{
-
-			"activeaoetitan"
-			{
-				"Passive" "1"
-				"IsHidden" "1"
-				"isaura" "1"
-				"AllowIllusionDuplicate"    "0"
-				"Aura" "modifier_cuirass"
-				"Aura_Radius" "%radius"
-				"Aura_Teams" "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-				"Aura_Types" "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-			}
-
-			"activeaoe2"
-			{
-				"Passive" "1"
-				"IsHidden" "1"
-				"AllowIllusionDuplicate"    "0"
-				"Aura" "modifier_cuirass2debuff"
-				"Aura_Radius" "%radius"
-				"Aura_Teams" "DOTA_UNIT_TARGET_TEAM_ENEMY"
-				"Aura_Types" "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-			}
-
-			"hearthpassive"
-			{	
-				"IsHidden"	 "1"
-				"Passive"	 "1"
-				"Attributes"    "MODIFIER_ATTRIBUTE_MULTIPLE"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"		"%health_regen"
-					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"		"%bonus_all"
-					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"			"%bonus_all"
-					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"		"%bonus_all"
-					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"		"%bonus_armor"
-					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attackspeed"
-				}
- 
-			}
-
-			"modifier_cuirass"
-			{	
-				"Isbuff" 	"1"
-           		"IsPurgable" "0"
-           		"IsAura" "1"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"		"%health_regen_aura"
-					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"		"%bonus_armor_aura"
-					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attackspeed_aura"
-				}
-			}
-			"modifier_cuirass2debuff"
-			{	
-				"IsDebuff" "1"
-            	"IsPurgable" "0"
-            	"IsAura" "1"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"		"%bonus_armor_debuff"
-				}
-			}
-		}
-
-
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
@@ -120,11 +53,11 @@
 			"health_regen"				"30"
 			"health_regen_aura"			"10"
 			"bonus_all"					"40"
-			"bonus_armor"				"8"
+			"bonus_armor"				"4"
 			"bonus_attackspeed"			"50"
 			
 			"bonus_attackspeed_aura"	"40"
-			"bonus_armor_aura"			"7"
+			"bonus_armor_aura"			"4"
 			"bonus_armor_debuff"		"-6"
 			"radius"					"1200"
 		}
@@ -160,7 +93,8 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"item_datadriven"
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_cuirass"
 		"AbilityTextureName"			"cuirass/cuirass_3"
 		"ItemKillable"					"1"
 		"ItemSellable"					"1"
@@ -182,96 +116,6 @@
 		"ItemAliases"					"shiva's guard;armor"
 		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
-		"OnSpellStart"
-		{
-			"RunScript"
-			{
-				"ScriptFile"			"lua_item/simple_item.lua"
-				"Function"				"ArcticBlast"
-				"EffectName"			"particles/items2_fx/shivas_guard_active.vpcf"
-			}
-		}
-		
-		"Modifiers"
-		{
-			"activeaoetitan"
-			{
-				"Passive" "1"
-				"IsHidden" "1"
-				"isaura" "1"
-				"AllowIllusionDuplicate"    "0"
-				"Aura" "modifier_cuirass"
-				"Aura_Radius" "%radius"
-				"Aura_Teams" "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-				"Aura_Types" "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-			}
-
-			"activeaoe2"
-			{
-				"Passive" "1"
-				"IsHidden" "1"
-				"AllowIllusionDuplicate"    "0"
-				"Aura" "modifier_cuirass_debuff"
-				"Aura_Radius" "%radius"
-				"Aura_Teams" "DOTA_UNIT_TARGET_TEAM_ENEMY"
-				"Aura_Types" "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-			}
-
-			"hearthpassive"
-			{	
-				"IsHidden"	 "1"
-				"Passive"	 "1"
-				"Attributes"    "MODIFIER_ATTRIBUTE_MULTIPLE"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"		"%health_regen"
-					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"		"%bonus_all"
-					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"			"%bonus_all"
-					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"		"%bonus_all"
-					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"		"%bonus_armor"
-					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attackspeed"
-				}
- 
-			}
-			"modifier_cuirass"
-			{	
-				"Isbuff" 	"1"
-           		"IsPurgable" "0"
-           		"IsAura" "1"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"		"%health_regen_aura"
-					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"		"%bonus_armor_aura"
-					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attackspeed_aura"
-				}
-			}
-			"modifier_cuirass_debuff"
-			{	
-				"IsDebuff" "1"
-            	"IsPurgable" "0"
-            	"IsAura" "1"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"		"%bonus_armor_debuff"
-					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attackspeed_debuff"
-					"MODIFIER_PROPERTY_HEAL_AMPLIFY_PERCENTAGE_SOURCE"		"%bonus_hp_regen_debuff"
-					"MODIFIER_PROPERTY_HP_REGEN_AMPLIFY_PERCENTAGE"			"%bonus_hp_regen_debuff"
-					"MODIFIER_PROPERTY_LIFESTEAL_AMPLIFY_PERCENTAGE"		"%bonus_hp_regen_debuff"
-					"MODIFIER_PROPERTY_SPELL_LIFESTEAL_AMPLIFY_PERCENTAGE"	"%bonus_hp_regen_debuff"
-					"MODIFIER_PROPERTY_MP_REGEN_AMPLIFY_PERCENTAGE"			"%bonus_hp_regen_debuff"
-				}
-			}
-			"modifier_cuirass_slow"
-			{	
-				"IsDebuff" 	"1"
-				"Duration"	"%blast_debuff_duration"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"		"%blast_movement_speed"
-				}
-			}
-		}
-
 
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -280,11 +124,11 @@
 			"health_regen"				"100"
 			"health_regen_aura"			"20"
 			"bonus_all"					"150"
-			"bonus_armor"				"11"
+			"bonus_armor"				"10"
 			"bonus_attackspeed"			"65"
 			
 			"bonus_attackspeed_aura"	"50"
-			"bonus_armor_aura"			"9"
+			"bonus_armor_aura"			"5"
 			"bonus_armor_debuff"		"-7"
 			"bonus_attackspeed_debuff"	"-50"
 			"bonus_hp_regen_debuff"		"-30"
@@ -295,6 +139,8 @@
 			"blast_debuff_duration"		"4.0"
 			"blast_radius"				"900"
 			"blast_speed"				"350"
+			"spell_amp"					"18"				
+			"resist_debuff_duration"	"16.0"
 		}
 	}
 	//=================================================================================================================
@@ -329,7 +175,8 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"item_datadriven"
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_cuirass"
 		"AbilityTextureName"			"cuirass/cuirass_4"
 		"ItemKillable"					"1"
 		"ItemSellable"					"1"
@@ -354,105 +201,6 @@
 
 		"AbilityCooldown"	"30"
 		
-		"OnSpellStart"
-		{
-			"ApplyModifier"
-			{
-				"ModifierName"			"modifier_black_king_bar_immune"
-				"Target"				"CASTER"
-				"Duration"				"%duration"
-			}
-			"RunScript"
-			{
-				"ScriptFile"			"lua_item/simple_item.lua"
-				"Function"				"ArcticBlast"
-				"EffectName"			"particles/econ/events/ti10/shivas_guard_ti10_active.vpcf"
-			}
-		}
-
-
-		"Modifiers"
-		{
-			"activeaoetitan"
-			{
-				"Passive" "1"
-				"IsHidden" "1"
-				"isaura" "1"
-				"AllowIllusionDuplicate"    "0"
-				"Aura" "modifier_cuirass4"
-				"Aura_Radius" "%radius"
-				"Aura_Teams" "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-				"Aura_Types" "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-			}
-
-			"activeaoe2"
-			{
-				"Passive" "1"
-				"IsHidden" "1"
-				"AllowIllusionDuplicate"    "0"
-				"Aura" "modifier_cuirass_debuff"
-				"Aura_Radius" "%radius"
-				"Aura_Teams" "DOTA_UNIT_TARGET_TEAM_ENEMY"
-				"Aura_Types" "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-			}
-
-			"hearthpassive"
-			{	
-				"IsHidden"	 "1"
-				"Passive"	 "1"
-				"Attributes"    "MODIFIER_ATTRIBUTE_MULTIPLE"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"		"%health_regen"
-					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"		"%bonus_all"
-					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"			"%bonus_all"
-					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"		"%bonus_all"
-					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"		"%bonus_armor"
-					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attackspeed"
-				}
- 
-			}
-
-			"modifier_cuirass4"
-			{	
-				"Isbuff" 	"1"
-           		"IsPurgable" "0"
-           		"IsAura" "1"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"		"%health_regen_aura"
-					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"		"%bonus_armor_aura"
-					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attackspeed_aura"
-				}
-			}
-			"modifier_cuirass_debuff"
-			{	
-				"IsDebuff" "1"
-            	"IsPurgable" "0"
-            	"IsAura" "1"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"		"%bonus_armor_debuff"
-					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attackspeed_debuff"
-					"MODIFIER_PROPERTY_HEAL_AMPLIFY_PERCENTAGE_SOURCE"		"%bonus_hp_regen_debuff"
-					"MODIFIER_PROPERTY_HP_REGEN_AMPLIFY_PERCENTAGE"			"%bonus_hp_regen_debuff"
-					"MODIFIER_PROPERTY_LIFESTEAL_AMPLIFY_PERCENTAGE"		"%bonus_hp_regen_debuff"
-					"MODIFIER_PROPERTY_SPELL_LIFESTEAL_AMPLIFY_PERCENTAGE"	"%bonus_hp_regen_debuff"
-					"MODIFIER_PROPERTY_MP_REGEN_AMPLIFY_PERCENTAGE"			"%bonus_hp_regen_debuff"
-				}
-			}
-			"modifier_cuirass_slow"
-			{	
-				"IsDebuff" 	"1"
-				"Duration"	"%blast_debuff_duration"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"		"%blast_movement_speed"
-				}
-			}
-		}
-
-
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
@@ -460,11 +208,11 @@
 			"health_regen"				"350"
 			"health_regen_aura"			"200"
 			"bonus_all"					"450"
-			"bonus_armor"				"14"
+			"bonus_armor"				"11"
 			"bonus_attackspeed"			"75"
 			
 			"bonus_attackspeed_aura"	"60"
-			"bonus_armor_aura"			"11"
+			"bonus_armor_aura"			"6"
 			"bonus_armor_debuff"		"-8"
 			"bonus_attackspeed_debuff"	"-75"
 			"bonus_hp_regen_debuff"		"-40"
@@ -475,6 +223,8 @@
 			"blast_debuff_duration"		"4.0"
 			"blast_radius"				"900"
 			"blast_speed"				"350"
+			"spell_amp"					"21"
+			"resist_debuff_duration"	"16.0"
 			
 			"duration"					"7"
 			"magic_resist"				"50"
@@ -508,7 +258,8 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"item_datadriven"
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_cuirass"
 		"AbilityTextureName"			"cuirass/cuirass_5"
 		"ItemKillable"					"1"
 		"ItemSellable"					"1"
@@ -531,96 +282,6 @@
 		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
 
-		"OnSpellStart"
-		{
-			"RunScript"
-			{
-				"ScriptFile"			"lua_item/simple_item.lua"
-				"Function"				"BahaBlast"
-				"EffectName"			"particles/econ/events/ti9/shivas_guard_ti9_active.vpcf"
-				"ImmunityModifier"		"modifier_black_king_bar_immune"
-			}
-		}
-
-
-		"Modifiers"
-		{
-			"activeaoebahamut"
-			{
-				"Passive" "1"
-				"IsHidden" "1"
-				"AllowIllusionDuplicate"    "0"
-				"Aura" "modifier_cuirass5"
-				"Aura_Radius" "%radius"
-				"Aura_Teams" "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-				"Aura_Types" "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-			}
-			"activeaoebahamut2"
-			{
-				"Passive" "1"
-				"IsHidden" "1"
-				"AllowIllusionDuplicate"    "0"
-				"Aura" "modifier_cuirass_debuff"
-				"Aura_Radius" "%radius"
-				"Aura_Teams" "DOTA_UNIT_TARGET_TEAM_ENEMY"
-				"Aura_Types" "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-			}
-			"hearthpassive"
-			{	
-				"IsHidden"	 "1"
-				"Passive"	 "1"
-				"Attributes"    "MODIFIER_ATTRIBUTE_MULTIPLE"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"		"%health_regen"
-					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"		"%bonus_all"
-					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"			"%bonus_all"
-					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"		"%bonus_all"
-					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"		"%bonus_armor"
-					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attackspeed"
-				}
- 
-			}
-
-			"modifier_cuirass5"
-			{	
-				"Isbuff" 	"1"
-           		"IsPurgable" "0"
-           		"IsAura" "1"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"		"%health_regen_aura"
-					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"		"%bonus_armor_aura"
-					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attackspeed_aura"
-				}
-			}
-			"modifier_cuirass_debuff"
-			{	
-				"IsDebuff" "1"
-            	"IsPurgable" "0"
-            	"IsAura" "1"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"		"%bonus_armor_debuff"
-					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attackspeed_debuff"
-					"MODIFIER_PROPERTY_HEAL_AMPLIFY_PERCENTAGE_SOURCE"		"%bonus_hp_regen_debuff"
-					"MODIFIER_PROPERTY_HP_REGEN_AMPLIFY_PERCENTAGE"			"%bonus_hp_regen_debuff"
-					"MODIFIER_PROPERTY_LIFESTEAL_AMPLIFY_PERCENTAGE"		"%bonus_hp_regen_debuff"
-					"MODIFIER_PROPERTY_SPELL_LIFESTEAL_AMPLIFY_PERCENTAGE"	"%bonus_hp_regen_debuff"
-					"MODIFIER_PROPERTY_MP_REGEN_AMPLIFY_PERCENTAGE"			"%bonus_hp_regen_debuff"
-				}
-			}
-			"modifier_cuirass_slow"
-			{	
-				"IsDebuff" 	"1"
-				"Duration"	"%blast_debuff_duration"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"		"%blast_movement_speed"
-				}
-			}
-		}
-
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
@@ -629,11 +290,11 @@
 			"health_regen"				"1500"
 			"health_regen_aura"			"500"
 			"bonus_all"					"1500"
-			"bonus_armor"				"17"
+			"bonus_armor"				"12"
 			"bonus_attackspeed"			"90"
 			
 			"bonus_attackspeed_aura"	"70"
-			"bonus_armor_aura"			"13"
+			"bonus_armor_aura"			"7"
 			"bonus_armor_debuff"		"-9"
 			"bonus_attackspeed_debuff"	"-75"
 			"bonus_hp_regen_debuff"		"-50"
@@ -644,9 +305,12 @@
 			"blast_debuff_duration"		"4.0"
 			"blast_radius"				"900"
 			"blast_speed"				"350"
+			"spell_amp"					"24"
+			"resist_debuff_duration"	"16.0"
 			
 			"duration"					"8"
 			"magic_resist"				"50"
+			"affects_allies"			"1"
 		}
 	}
 	//=================================================================================================================
@@ -677,7 +341,8 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"item_datadriven"
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_cuirass"
 		"AbilityTextureName"			"cuirass/asura_plate"
 		"ItemKillable"					"1"
 		"ItemSellable"					"1"
@@ -699,112 +364,6 @@
 		"ItemAliases"					"shiva's guard;armor"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
 
-		"OnSpellStart"
-		{
-			"RunScript"
-			{
-				"ScriptFile"			"lua_item/simple_item.lua"
-				"Function"				"BahaBlast"
-				"EffectName"			"particles/econ/events/ti9/shivas_guard_ti9_active.vpcf"
-				"ImmunityModifier"		"modifier_black_king_bar_immune"
-			}
-		}
-
-
-		"Modifiers"
-		{
-			"activeaoebahamut"
-			{
-				"Passive" "1"
-				"IsHidden" "1"
-				"AllowIllusionDuplicate"    "0"
-				"Aura" "modifier_cuirass5"
-				"Aura_Radius" "%radius"
-				"Aura_Teams" "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-				"Aura_Types" "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-			}
-			"activeaoebahamut2"
-			{
-				"Passive" "1"
-				"IsHidden" "1"
-				"AllowIllusionDuplicate"    "0"
-				"Aura" "modifier_cuirass5debuff"
-				"Aura_Radius" "%radius"
-				"Aura_Teams" "DOTA_UNIT_TARGET_TEAM_ENEMY"
-				"Aura_Types" "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-			}
-			"hearthpassive"
-			{	
-				"IsHidden"	 "1"
-				"Passive"	 "1"
-				"Attributes"    "MODIFIER_ATTRIBUTE_MULTIPLE"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"		"%health_regen"
-					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"		"%bonus_all"
-					"MODIFIER_PROPERTY_STATS_AGILITY_BONUS"			"%bonus_all"
-					"MODIFIER_PROPERTY_STATS_INTELLECT_BONUS"		"%bonus_all"
-					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"		"%bonus_armor"
-					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attackspeed"
-				}
- 
-			}
-			"scale_per_round_plate"
-			{	
-				"Passive"	 "1"
-				"Isbuff" 	"1"
-				"IsHidden"	 "1"
-				"Attributes"    "MODIFIER_ATTRIBUTE_MULTIPLE"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"		"%bonus_armor_pr"
-				}
-			}
-			"scale_display"
-			{	
-				"Passive"	 "1"
-				"Isbuff" 	"1"
-				"Attributes"    "MODIFIER_ATTRIBUTE_MULTIPLE"
-			}
-			"modifier_cuirass5"
-			{	
-				"Isbuff" 	"1"
-           		"IsPurgable" "0"
-           		"IsAura" "1"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"		"%health_regen_aura"
-					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"		"%bonus_armor_aura"
-					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attackspeed_aura"
-				}
-			}
-			"modifier_cuirass5debuff"
-			{	
-				"IsDebuff" "1"
-            	"IsPurgable" "0"
-            	"IsAura" "1"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"		"%bonus_armor_debuff"
-					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attackspeed_debuff"
-					"MODIFIER_PROPERTY_HEAL_AMPLIFY_PERCENTAGE_SOURCE"		"%bonus_hp_regen_debuff"
-					"MODIFIER_PROPERTY_HP_REGEN_AMPLIFY_PERCENTAGE"			"%bonus_hp_regen_debuff"
-					"MODIFIER_PROPERTY_LIFESTEAL_AMPLIFY_PERCENTAGE"		"%bonus_hp_regen_debuff"
-					"MODIFIER_PROPERTY_SPELL_LIFESTEAL_AMPLIFY_PERCENTAGE"	"%bonus_hp_regen_debuff"
-					"MODIFIER_PROPERTY_MP_REGEN_AMPLIFY_PERCENTAGE"			"%bonus_hp_regen_debuff"
-				}
-			}
-			"modifier_cuirass_slow"
-			{	
-				"IsDebuff" 	"1"
-				"Duration"	"%blast_debuff_duration"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"		"%blast_movement_speed"
-				}
-			}
-		}
-
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
@@ -818,7 +377,7 @@
 			"bonus_attackspeed"			"100"
 			
 			"bonus_attackspeed_aura"	"100"
-			"bonus_armor_aura"			"20"
+			"bonus_armor_aura"			"10"
 			"bonus_armor_debuff"		"-30"
 			"bonus_attackspeed_debuff"	"-100"
 			"bonus_hp_regen_debuff"		"-65"
@@ -829,6 +388,8 @@
 			"blast_debuff_duration"		"4.0"
 			"blast_radius"				"900"
 			"blast_speed"				"350"
+			"spell_amp"					"27"
+			"resist_debuff_duration"	"16.0"
 			
 			"duration"					"8"
 			"magic_resist"				"50"

@@ -43,7 +43,7 @@ function bossManager:ProcessBossScaling(spawnedUnit)
 	if spawnedUnit._spawnerOrigin then
 		HP_difficulty_multiplier = spawnedUnit._spawnerOrigin.HealthMultiplier
 	end
-	local EHP_multiplier = currentRound._EHP_multiplier
+	local EHP_multiplier = 1 / currentRound._EHP_multiplier
 	
 	if GetGameDifficulty() >= 3 and spawnedUnit.Holdout_IsCore then
 		HP_difficulty_multiplier = HP_difficulty_multiplier * 1.5

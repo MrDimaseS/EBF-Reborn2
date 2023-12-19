@@ -17,11 +17,15 @@
 		"AbilityValues"
 		{
 			"blade_dance_crit_chance"	"20 25 30 35 40 45 50"
-			"blade_dance_crit_mult"		"190 200 210 220 230 240 250"
+			"blade_dance_crit_mult"
+			{
+				"value"								"190 200 210 220 230 240 250"
+				"special_bonus_unique_juggernaut_4"	"+25"
+			}
 			"blade_dance_lifesteal"
 			{
 				"value"	"0"
-				"special_bonus_unique_juggernaut_blade_dance_lifesteal"	"+40"
+				"special_bonus_unique_juggernaut_blade_dance_lifesteal"	"+25"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
@@ -62,44 +66,43 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"blade_fury_damage_tick"	
+			"blade_fury_aspd_multiplier"
 			{
-				"value"					"0.2"
-				"CalculateSpellDamageTooltip"	"0"
+				"value"		"2.0"
 			}
 			"blade_fury_radius"			
 			{
 				"value"						"260"
-				"LinkedSpecialBonus"		"special_bonus_unique_juggernaut"
+				"special_bonus_unique_juggernaut"		"+100"
+				"special_bonus_shard"		"+100"
+				"affected_by_aoe_increase"	"1"
 			}
 			"blade_fury_damage"			
 			{
-				"value"						"1000 1320 1665 1550 4310 7635 14000"
-				"special_bonus_unique_juggernaut_3"	"+50%"
+				"value"									"300 550 800 1200 2500 4500 6500"
+				"special_bonus_unique_juggernaut_3"		"+50%"
 			}
 			"duration"					
 			{
-				"value"				"5.0"
-				"special_bonus_unique_juggernaut_4"	"+1"
+				"value"									"5.0"
+				"special_bonus_unique_juggernaut_4"		"+1"
 			}
-
-			"shard_bonus_move_speed"			
-			{	
-				"value"				"100"
-				"RequiresShard"					"1"
+			"AbilityCooldown"
+			{
+				"value"													"18"
+				"special_bonus_unique_juggernaut_blade_fury_cooldown"	"-3"
 			}
-			"shard_attack_rate"			
-			{	
-				"value"							"1.2 1.1 1 0.9 0.8 0.7 0.6"
-				"RequiresShard"					"1"
+			"bonus_movespeed"
+			{
+				"value"			"0"
+				"special_bonus_unique_juggernaut_blade_fury_movespeed"		"+30"
 			}
-			"shard_damage_pct"			
-			{	
-				"value"							"75"
-				"RequiresShard"					"1"
+			"movement_slow"			
+			{
+				"value"						"0"
+				"special_bonus_shard"		"+35"
+				"RequiresShard"				"1"
 			}
-		
-	
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -125,7 +128,7 @@
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"60.0 60.0 60.0 60.0"
+		"AbilityCooldown"				"120 110 100 90 80 70 60"
 		"AbilityDuration"				"25.0"
 	
 		// Cost
@@ -136,11 +139,21 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"healing_ward_heal_amount"	"2 3 4 5 6 7 8"
+			"healing_ward_heal_amount"	"5"
 			"healing_ward_aura_radius"	"500"
 			"healing_ward_movespeed_tooltip"	
 			{
 				"value"	"325"
+			}
+			"healing_ward_bonus_health"
+			{
+				"value"	"0"
+				"special_bonus_unique_juggernaut_2"	"+2"
+			}
+			"healing_ward_hits_to_kill_tooltip"
+			{
+				"value" "1"
+				"special_bonus_unique_juggernaut_2" "+2"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"

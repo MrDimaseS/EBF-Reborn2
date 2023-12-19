@@ -151,9 +151,15 @@
 		{
 			"powershot_damage"
 			{
-				"value"													"2400 3710 5220 8115 15150 28975 42600"
+				"value"													"2400 4500 8500 15000 25000 45000 85000"
 				"special_bonus_unique_windranger_windrun_undispellable" "+100%"
 			}
+			"slow"	
+			{
+				"value"													"30"
+				"special_bonus_unique_windranger_powershot_slow"		"+20"
+			}
+			"slow_duration"												"4"
 			"damage_reduction"		
 			{
 				"value"				"20"
@@ -193,8 +199,8 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"15 14 13 12 11.6 11.2 10.8"
-		"AbilityDuration"				"6"
+		"AbilityCooldown"				"10"
+		"AbilityDuration"				"3 3.2 3.4 3.6 3.8 4.0 4.2"
 	
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -208,28 +214,24 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"movespeed_bonus_pct"	"60"		
-			"evasion_pct_tooltip"	"100"
-			"enemy_movespeed_bonus_pct"	
-			{
-				"value"		"-15 -20 -25 -30 -35 -40 -45"
-			}
+			"movespeed_bonus_pct"					"28 40 52 64 76 88 100"
+			"evasion_pct_tooltip"					"100"
 			"radius"					
 			{	
-				"value"			"325"
+				"value"								"325"
 				"special_bonus_unique_windranger"	"+225"
-			}
-			"scepter_movespeed_bonus_pct"			
-			{
-				"RequiresScepter" "1"
-				"value"			"-35 -40 -45 -50 -55 -60 -65"
 			}
 			"physical_damage_pct"
 			{
-				"value"				"0"
-				"special_bonus_scepter"		"-50"
+				"value"								"0"
+				"special_bonus_scepter"				"-50"
 			}
-			"duration"					"6"
+			"cannot_be_dispelled"
+			{
+				"value"						"0"
+				"special_bonus_unique_windranger_windrun_undispellable"			"+1"
+			}
+			"duration"					"3 3.2 3.4 3.6 3.8 4.0 4.2"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}

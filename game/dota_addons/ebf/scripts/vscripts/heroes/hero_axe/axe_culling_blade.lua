@@ -96,7 +96,7 @@ function modifier_axe_culling_blade_kill:OnCreated( kv )
 end
 
 function modifier_axe_culling_blade_kill:OnRefresh( kv )
-	self.as_bonus = self:GetAbility():GetSpecialValueFor( "atk_speed_bonus" ) -- special value
+	self.armor_bonus = self:GetAbility():GetSpecialValueFor( "armor_bonus" ) -- special value
 	self.ms_bonus = self:GetAbility():GetSpecialValueFor( "speed_bonus" ) -- special value
 end
 
@@ -109,7 +109,7 @@ end
 function modifier_axe_culling_blade_kill:DeclareFunctions()
 	local funcs = {
 		MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE,
-		MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
+		MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
 	}
 
 	return funcs
@@ -117,8 +117,8 @@ end
 function modifier_axe_culling_blade_kill:GetModifierMoveSpeedBonus_Percentage()
 	return self.ms_bonus
 end
-function modifier_axe_culling_blade_kill:GetModifierAttackSpeedBonus_Constant()
-	return self.as_bonus
+function modifier_axe_culling_blade_kill:GetModifierPhysicalArmorBonus()
+	return self.armor_bonus
 end
 
 --------------------------------------------------------------------------------

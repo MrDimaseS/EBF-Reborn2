@@ -41,17 +41,29 @@
 				"special_bonus_unique_keeper_of_the_light"		"+50%"
 			}
 			"max_channel_time"		"3"
-			"radius"				"400"
+			"radius"
+			{
+				"value"											"400"
+				"affected_by_aoe_increase"						"1"
+			}
 			"range"					"1550"
 			"speed"					"900.0"
-			"vision_radius"			"800 800 800 800"
+			"vision_radius"
+			{
+				"value"		"800 800 800 800"
+				"affected_by_aoe_increase"	"1"
+			}
 			"vision_duration"		"3.34 3.34 3.34 3.34"
 			"AbilityCooldown"				
 			{
 				"value"					"13"
 				"special_bonus_unique_keeper_of_the_light_illuminate_cooldown"			"-2"
 			}
-			"channel_vision_radius"	"400"
+			"channel_vision_radius"
+			{
+				"value"	"400"
+				"affected_by_aoe_increase"	"1"
+			}
 			"channel_vision_interval"	"0.5"
 			"channel_vision_duration"	"10.34"
 			"channel_vision_step"		"150 180 210 240 270 300 330"
@@ -98,6 +110,11 @@
 			"duration"					"6"
 			"slow"						"10"
 			"magic_resistance"			"35"
+			"stun_duration"			
+			{
+				"value"			"0"
+				"special_bonus_unique_keeper_of_the_light_10"	"+1.5"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -150,7 +167,6 @@
 			"knockback_duration"	"0.6"
 			"knockback_distance"	"400"
 			"damage"				"950 1305 1735 2920 5370 10165 19590"
-			
 		}
 	}
 
@@ -220,6 +236,7 @@
 
 		"AbilityDraftPreAbility"		"keeper_of_the_light_blinding_light"
 		"AbilityDraftUltScepterAbility"	"keeper_of_the_light_will_o_wisp"
+		"LinkedAbility"					"keeper_of_the_light_will_o_wisp"
 		"AbilityDraftUltShardAbility"	"keeper_of_the_light_recall"
 		"MaxLevel"						"6"
 		"LevelsBetweenUpgrades"			"6"
@@ -250,6 +267,58 @@
 			"cast_range"				"125 250 375 500 625 750" 
 			"illuminate_heal"			"50 60 70 80 90 100"
 		}
+	}
+	"keeper_of_the_light_will_o_wisp"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"AbilitySound"					"Hero_KeeperOfTheLight.ManaLeak.Cast"
+
+		"MaxLevel"						"6"
+		"IsGrantedByScepter"			"1"
+		"HasScepterUpgrade"				"1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.1"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"60"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"250"		
+
+		// Cast Range
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"800"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+				"on_count"					"5"
+				"radius"					
+				{
+					"value"					"725"
+					"affected_by_aoe_increase"	"1"
+				}
+				"hit_count"					"7"
+				"wisp_damage"				"1000 4000 16000 64000 75000 86000"
+				"off_duration"				"1.85"
+				"on_duration"				"1.0"
+				"off_duration_initial"		"1.0"
+				"fixed_movement_speed"		"60"
+				"bounty"		"100"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
 	//=================================================================================================================
 	// Keeper of the Light: Spirit Form Illuminate

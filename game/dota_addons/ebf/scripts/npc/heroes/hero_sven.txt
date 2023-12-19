@@ -34,7 +34,7 @@
 
 		// Damage.
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"1415 2910 3920 7385 14815 29700 59500"
+		"AbilityDamage"					"1415 2400 4000 7500 15000 29700 59500"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -50,13 +50,22 @@
 				"value"					"2.0"
 				"LinkedSpecialBonus"	"special_bonus_unique_sven_4"
 			}
-			"bolt_aoe"					"255"
-			"vision_radius"				"225"
+			"bolt_aoe"			
+			{
+				"value"			"270"
+				"affected_by_aoe_increase"	"1"
+			}
+			"vision_radius"		
+			{
+				"value"		"225"
+				"affected_by_aoe_increase"	"1"
+			}
 			"cast_range_bonus_scepter"
 			{
 				"value"					"350"		
 				"RequiresScepter"		"1"
 			}
+			"scepter_bonus_damage"		"750 1500 2500 4500 7500 14000 25000"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -147,6 +156,11 @@
 			{
 				"value"						"6 7 8 9 10 11 12"
 				"RequiresShard"				"1"
+			}
+			"shard_passive_movespeed"	
+			{
+				"value"						"3 4 5 6 7 8 9"
+				"RequiresShard"			"1"
 			}
 			"shard_radius"
 			{

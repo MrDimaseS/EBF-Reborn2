@@ -52,26 +52,17 @@
 				"value"					"600"
 					"special_bonus_unique_legion_commander_2" "+150"
 			}
-			"armor_per_creep"	
-			{
-				"value" 				"5"
-				"RequiresShard"				"1"
-			}
-			"armor_per_hero"	
-			{
-				"value" 				"5"
-				"RequiresShard"  		"1"
-			}
-			"shard_duration"	
-			{	
-				"value" 				"8"
-				"RequiresShard"		"1"
-			}
 			"AbilityCooldown"
 			{
 				"value"						"15"
 				"special_bonus_unique_legion_commander_9"		"-2"
 			}
+			
+				"duel_radius_bonus"
+				{
+					"value"					"0"
+					"special_bonus_shard"	"+250"
+				}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -113,15 +104,18 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"				"5.0"
-			"move_speed"			"22"
+			"duration"					"5.0"
+			"move_speed"
+			{
+				"value"					"10 14 18 22 26 30 34"
+				"special_bonus_unique_legion_commander_pta_movespeed"	"+22"
+			}
 			"hp_regen"
 			{
-				"value"					"400 666 1390 2500 4666 8890 17150"
-				"LinkedSpecialBonus"	"special_bonus_unique_legion_commander_6"
+				"value"										"400 666 1390 2500 4666 8890 17150"
+				"special_bonus_unique_legion_commander_6"	"+100%"
 			}
-			
-			"AbilityCooldown"				"16.0 15.0 14.0 13.0 12.2 11.4 10.6"
+			"AbilityCooldown"				"13"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -216,19 +210,19 @@
 			"reward_damage"			
 			{
 				"value"										"250 400 600 850 1150 1500"
-				"special_bonus_unique_legion_commander"		"+100%"
+				"special_bonus_shard"						"+50%"
 			}
-			"victory_range"						"600"
+			"victory_range"									"600"
 			"scepter_damage_reduction_pct"			
 			{
-				"value"							"50"
-				"RequiresScepter"				"1"
+				"value"										"50"
+				"RequiresScepter"							"1"
 			}
 			"AbilityCooldown"	
 			{
-				"value"							"60 55 50 47.2 44.4 41.7"
-				"special_bonus_scepter"			"-60%"
-				"RequiresScepter"				"1"
+				"value"										"60 55 50 47.2 44.4 41.7"
+				"special_bonus_scepter"						"-60%"
+				"RequiresScepter"							"1"
 			}
 
 		}

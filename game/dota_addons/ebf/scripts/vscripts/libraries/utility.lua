@@ -1122,6 +1122,7 @@ function CDOTA_Modifier_Lua:AddIndependentStack(duration, limit, bDontDestroy, t
 	end)
 	
 	table.insert(self.stackTimers, timerTable or {})
+	return timerTable
 end
 
 function CDOTA_Modifier_Lua:StopMotionController(bForceDestroy)

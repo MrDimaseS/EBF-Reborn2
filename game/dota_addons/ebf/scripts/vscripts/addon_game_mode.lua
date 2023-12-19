@@ -514,6 +514,11 @@ IGNORE_SPELL_AMP_FILTER = {
 	["item_revenants_brooch_3"] = 100,
 	["item_revenants_brooch_4"] = 100,
 	["item_revenants_brooch_5"] = 100,
+	["item_devastator"] = 100,
+	["item_devastator_2"] = 100,
+	["item_devastator_3"] = 100,
+	["item_devastator_4"] = 100,
+	["item_devastator_5"] = 100,
 	["drow_ranger_multishot"] = 100,
 }
 
@@ -534,6 +539,23 @@ function CHoldoutGameMode:FilterAbilityValues( filterTable )
 		local realValue = ability:GetSpecialValueFor(filterTable.value_name_const)
 		self.preventLoopGarbage = false
 		filterTable.value = realValue / ( 1+caster:GetSpellAmplification( false ) ) - (realValue-value)
+	end
+	-- aoe bonus until valve fixes their shit
+	if ability and ability:GetAbilityKeyValues().AbilityValues
+	and type(ability:GetAbilityKeyValues().AbilityValues[filterTable.value_name_const]) == "table" 
+	and ability:GetAbilityKeyValues().AbilityValues[filterTable.value_name_const].affected_by_aoe_increase then
+		local aoe_bonus_positive = 0
+		local aoe_bonus_negative = 0
+		for _, modifier in ipairs( caster:FindAllModifiers() ) do
+			if modifier.GetModifierAoEBonusConstant and modifier:GetModifierAoEBonusConstant() then
+				if modifier:GetModifierAoEBonusConstant() > 0 then
+					aoe_bonus_positive = math.max( aoe_bonus_positive, modifier:GetModifierAoEBonusConstant() )
+				else
+					aoe_bonus_negative = math.min( aoe_bonus_negative, modifier:GetModifierAoEBonusConstant() )
+				end
+			end
+		end
+		filterTable.value = filterTable.value + aoe_bonus_positive + aoe_bonus_negative
 	end
 	return true
 end

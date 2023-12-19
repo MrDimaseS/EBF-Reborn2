@@ -46,6 +46,7 @@ function modifier_guardian_greaves_passive:OnRefresh()
 	self.bonus_movement = self:GetSpecialValueFor("bonus_movement")
 	self.bonus_health = self:GetSpecialValueFor("bonus_health")
 	self.bonus_mana = self:GetSpecialValueFor("bonus_mana")
+	self.mana_regen = self:GetSpecialValueFor("mana_regen")
 	self.bonus_all_stats = self:GetSpecialValueFor("bonus_all_stats")
 	self.bonus_armor = self:GetSpecialValueFor("bonus_armor")
 	self.heal_increase = self:GetSpecialValueFor("heal_increase")
@@ -73,6 +74,7 @@ function modifier_guardian_greaves_passive:DeclareFunctions()
 	return {MODIFIER_PROPERTY_MOVESPEED_BONUS_UNIQUE,
 			MODIFIER_PROPERTY_HEALTH_BONUS,
 			MODIFIER_PROPERTY_MANA_BONUS,
+			MODIFIER_PROPERTY_MANA_REGEN_CONSTANT 
 			MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,
 			MODIFIER_PROPERTY_STATS_AGILITY_BONUS,
 			MODIFIER_PROPERTY_STATS_INTELLECT_BONUS,
@@ -95,6 +97,11 @@ end
 function modifier_guardian_greaves_passive:GetModifierHealthBonus()
 	return self.bonus_health
 end
+
+function modifier_guardian_greaves_passive:GetModifierConstantManaRegen()
+	return self.mana_regen
+end
+
 
 function modifier_guardian_greaves_passive:GetModifierManaBonus()
 	return self.bonus_mana
@@ -165,8 +172,10 @@ LinkLuaModifier( "modifier_guardian_greaves_regen", "items/item_guardian_greaves
 
 function modifier_guardian_greaves_regen:OnCreated()
 	self.aura_health_regen = self:GetSpecialValueFor("aura_health_regen")
+	self.aura_mana_regen = self:GetSpecialValueFor("aura_mana_regen")
 	self.aura_armor = self:GetSpecialValueFor("aura_armor")
 	self.aura_health_regen_bonus = self:GetSpecialValueFor("aura_health_regen_bonus")
+	self.aura_mana_regen_bonus = self:GetSpecialValueFor("aura_mana_regen_bonus")
 	self.aura_armor_bonus = self:GetSpecialValueFor("aura_armor_bonus")
 	self.aura_bonus_threshold = self:GetSpecialValueFor("aura_bonus_threshold")
 end
@@ -174,11 +183,16 @@ end
 
 function modifier_guardian_greaves_regen:DeclareFunctions()
 	return {MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT,
+			MODIFIER_PROPERTY_MANA_REGEN_CONSTANT
 			MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS}
 end
 
 function modifier_guardian_greaves_regen:GetModifierConstantHealthRegen()
 	return TernaryOperator( self.aura_health_regen_bonus, self:GetParent():GetHealthPercent() < self.aura_bonus_threshold, self.aura_health_regen )
+end
+
+function modifier_guardian_greaves_regen:GetModifierConstantManaRegen()
+	return TernaryOperator( self.aura_mana_regen_bonus, self:GetParent():GetHealthPercent() < self.aura_bonus_threshold, self.aura_mana_regen )
 end
 
 function modifier_guardian_greaves_regen:GetModifierPhysicalArmorBonus()

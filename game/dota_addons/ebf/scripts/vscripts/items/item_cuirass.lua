@@ -71,7 +71,7 @@ function modifier_item_assault_cuirass_passive:OnRefresh()
 	self.bonus_armor = self:GetSpecialValueFor("bonus_armor")
 	self.bonus_attackspeed = self:GetSpecialValueFor("bonus_attackspeed")
 	
-	self.radius = self:GetSpecialValueFor("radius")
+	self.aura_radius = self:GetSpecialValueFor("aura_radius")
 	
 	self.bonus_armor_pr = self:GetSpecialValueFor("bonus_armor_pr")
 	
@@ -124,7 +124,7 @@ end
 
 function modifier_item_assault_cuirass_passive:IsAura()
 	if not IsServer() then return end
-	if self.radius == 0 then return end
+	if self.aura_radius == 0 then return end
 	return self:GetCaster() and not self:GetCaster():IsNull() and self:GetCaster():IsAlive()
 end
 
@@ -133,7 +133,7 @@ function modifier_item_assault_cuirass_passive:GetModifierAura()
 end
 
 function modifier_item_assault_cuirass_passive:GetAuraRadius()
-	return self.radius
+	return self.aura_radius
 end
 
 function modifier_item_assault_cuirass_passive:GetAuraDuration()
@@ -169,12 +169,12 @@ LinkLuaModifier( "modifier_item_assault_cuirass_aura", "items/item_cuirass.lua",
 
 function modifier_item_assault_cuirass_aura:OnCreated()
 	if self:GetCaster():IsSameTeam( self:GetParent() ) then
-		self.bonus_attackspeed_aura = self:GetSpecialValueFor("bonus_attackspeed_aura")
-		self.bonus_armor_aura = self:GetSpecialValueFor("bonus_armor_aura")
+		self.aura_attack_speed = self:GetSpecialValueFor("aura_attack_speed")
+		self.bonus_armor_aura = self:GetSpecialValueFor("aura_positive_armor")
 		self.health_regen_aura = self:GetSpecialValueFor("health_regen_aura")
 	else
-		self.bonus_armor_aura = self:GetSpecialValueFor("bonus_armor_debuff")
-		self.bonus_attackspeed_aura = self:GetSpecialValueFor("bonus_attackspeed_debuff")
+		self.bonus_armor_aura = self:GetSpecialValueFor("aura_negative_armor")
+		self.aura_attack_speed = self:GetSpecialValueFor("bonus_attackspeed_debuff")
 		self.bonus_hp_regen_debuff = self:GetSpecialValueFor("bonus_hp_regen_debuff")
 	end
 end
@@ -198,7 +198,7 @@ function modifier_item_assault_cuirass_aura:GetModifierPhysicalArmorBonus()
 end
 
 function modifier_item_assault_cuirass_aura:GetModifierAttackSpeedBonus_Constant()
-	return self.bonus_attackspeed_aura
+	return self.aura_attack_speed
 end
 
 function modifier_item_assault_cuirass_aura:GetModifierHealAmplify_PercentageSource()

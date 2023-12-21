@@ -34,7 +34,7 @@ if IsServer() then
 		local caster = self:GetCaster()
 		
 		if caster:HasScepter() then
-			self.attackRate = caster:GetSecondsPerAttack()
+			self.attackRate = caster:GetSecondsPerAttack(false)
 		end
 		
 		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius(parent:GetAbsOrigin(), self.radius) ) do
@@ -62,7 +62,7 @@ if IsServer() then
 		if self.attackRate then
 			self.attackRate = self.attackRate - FrameTime()
 			if self.attackRate <= 0 then
-				self.attackRate = caster:GetSecondsPerAttack()
+				self.attackRate = caster:GetSecondsPerAttack(false)
 				for _, enemy in ipairs( caster:FindEnemyUnitsInRadius(parent:GetAbsOrigin(), self.radius) ) do
 					ability:FireTrackingProjectile(caster:GetRangedProjectileName(), enemy, caster:GetProjectileSpeed(), {source = parent, origin = parent:GetAbsOrigin()})
 				end

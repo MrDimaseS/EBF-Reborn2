@@ -113,7 +113,7 @@ function modifier_item_bloodstone_ebf:GetModifierBonusStats_Agility()
 end
 
 function modifier_item_bloodstone_ebf:OnTakeDamage(params)
-	if params.attacker == self:GetParent() and params.damage_category == DOTA_DAMAGE_CATEGORY_SPELL and params.inflictor 
+	if params.attacker == self:GetParent() and params.inflictor 
 	and not ( HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL ) or HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_HPLOSS ) or HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_REFLECTION )) then
 		local bloodstoneActive = params.attacker:HasModifier("modifier_item_bloodstone_ebf_active") and not params.attacker:HasModifier("modifier_item_bloodstone_ebf_drained") 
 		local spell_lifesteal = self.spell_lifesteal

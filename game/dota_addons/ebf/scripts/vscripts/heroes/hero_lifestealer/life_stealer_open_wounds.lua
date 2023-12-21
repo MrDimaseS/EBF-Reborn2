@@ -69,7 +69,7 @@ end
 function modifier_life_stealer_open_wounds_debuff:OnAttackStart( params )
 	if params.attacker:IsSameTeam( self:GetCaster() ) and self.feast and self.feast:IsTrained() then
 		if params.target == self:GetParent() then
-			params.attacker:AddNewModifier( self:GetCaster(), self.feast, "modifier_life_stealer_open_wounds_feast", {duration = params.attacker:GetSecondsPerAttack() + 0.1} )
+			params.attacker:AddNewModifier( self:GetCaster(), self.feast, "modifier_life_stealer_open_wounds_feast", {duration = params.attacker:GetSecondsPerAttack(false) + 0.1} )
 		else
 			params.attacker:RemoveModifierByName( "modifier_life_stealer_open_wounds_feast" )
 		end

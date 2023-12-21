@@ -651,6 +651,7 @@ function CHoldoutGameMode:OnHeroPick (event)
 	-- set hero base stats to their intended values
 	hero:SetBaseManaRegen( (hero:GetBaseIntellect() / 5) * 0.04 )
 	
+	if hero ~= PlayerResource:GetSelectedHeroEntity( playerID ) then return end -- ignore non-main units like meepo, spirit bear etc
 	hero.damageDone = 0
 	hero.Ressurect = 0
 	--stats:ModifyStatBonuses(hero)

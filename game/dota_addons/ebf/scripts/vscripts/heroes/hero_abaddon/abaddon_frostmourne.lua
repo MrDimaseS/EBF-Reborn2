@@ -151,7 +151,7 @@ end
 
 function modifier_abaddon_curse_curse:OnAttackStart( params )
 	if not params.attacker:IsSameTeam( params.target ) and params.target == self:GetParent() then
-		params.attacker:AddNewModifier( self:GetCaster(), self:GetAbility(), "modifier_abaddon_curse_buff", {duration = params.attacker:GetSecondsPerAttack() + 0.25})
+		params.attacker:AddNewModifier( self:GetCaster(), self:GetAbility(), "modifier_abaddon_curse_buff", {duration = params.attacker:GetSecondsPerAttack(false) + 0.25})
 	end
 end
 

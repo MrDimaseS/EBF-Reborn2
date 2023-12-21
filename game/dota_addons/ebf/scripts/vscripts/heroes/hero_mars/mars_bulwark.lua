@@ -34,7 +34,7 @@ function modifier_mars_bulwark_toggle:OnCreated()
 	self.soldier_count = self:GetSpecialValueFor("soldier_count")
 	self.scepter_bonus_damage = self:GetSpecialValueFor("scepter_bonus_damage")
 	if IsServer() then
-		self:StartIntervalThink( math.max( 0, self:GetCaster():GetSecondsPerAttack() - ( GameRules:GetGameTime() - ( self:GetAbility().lastTimeScepterAttacked or 0 ) ) ) )
+		self:StartIntervalThink( math.max( 0, self:GetCaster():GetSecondsPerAttack(false) - ( GameRules:GetGameTime() - ( self:GetAbility().lastTimeScepterAttacked or 0 ) ) ) )
 	end
 end
 
@@ -42,7 +42,7 @@ BASE_PLAYBACKRATE = 1/1.7
 
 function modifier_mars_bulwark_toggle:OnIntervalThink()
 	local caster = self:GetCaster()
-	self:StartIntervalThink( caster:GetSecondsPerAttack() )
+	self:StartIntervalThink( caster:GetSecondsPerAttack(false) )
 	if not caster:HasScepter() then return end
 	
 	self:GetAbility().lastTimeScepterAttacked = GameRules:GetGameTime()

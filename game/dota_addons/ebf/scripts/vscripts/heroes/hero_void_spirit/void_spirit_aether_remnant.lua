@@ -50,7 +50,7 @@ function modifier_void_spirit_aether_remnant_watch:OnCreated()
 		self.affectedUnits = {}
 		
 		self.hasShard = caster:HasShard()
-		self.shard = caster:GetSecondsPerAttack() * self:GetTalentSpecialValueFor("shard_attack_rate_multiplier")
+		self.shard = caster:GetSecondsPerAttack(false) * self:GetTalentSpecialValueFor("shard_attack_rate_multiplier")
 		self.shardTick = 0
 		
 		self:CreateWatcher( position )

@@ -232,6 +232,7 @@ function modifier_item_ethereal_blade_passive:OnRefresh()
 	
 	self.bonus_evasion = self:GetSpecialValueFor("bonus_evasion")
 	self.bonus_aoe = self:GetSpecialValueFor("bonus_aoe")
+	self.bonus_cast_range = self:GetSpecialValueFor("bonus_cast_range")
 	self.status_resistance = self:GetSpecialValueFor("status_resistance")
 	self.regen_amp = self:GetSpecialValueFor("regen_amp")
 	self.bonus_mana = self:GetSpecialValueFor("bonus_mana")
@@ -245,6 +246,7 @@ function modifier_item_ethereal_blade_passive:DeclareFunctions()
 			MODIFIER_PROPERTY_STATS_INTELLECT_BONUS,
 			MODIFIER_PROPERTY_EVASION_CONSTANT,
 			MODIFIER_PROPERTY_STATUS_RESISTANCE_STACKING,
+			MODIFIER_PROPERTY_CAST_RANGE_BONUS_STACKING,
 			MODIFIER_PROPERTY_AOE_BONUS_CONSTANT,
 			MODIFIER_PROPERTY_HEAL_AMPLIFY_PERCENTAGE_SOURCE,
 			MODIFIER_PROPERTY_LIFESTEAL_AMPLIFY_PERCENTAGE,
@@ -273,6 +275,10 @@ end
 
 function modifier_item_ethereal_blade_passive:GetModifierEvasion_Constant()
 	return self.bonus_evasion
+end
+
+function modifier_item_ethereal_blade_passive:GetModifierCastRangeBonusStacking()
+	return self.bonus_cast_range
 end
 
 function modifier_item_ethereal_blade_passive:GetModifierStatusResistanceStacking()

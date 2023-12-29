@@ -302,9 +302,9 @@ function modifier_item_ethereal_blade_passive:GetModifierSpellLifestealRegenAmpl
 end
 
 function modifier_item_ethereal_blade_passive:GetModifierConstantManaRegen()
-	return self.bonus_mana
+	return self.bonus_mana_regen
 end
 
 function modifier_item_ethereal_blade_passive:GetModifierManaBonus()
-	return self.bonus_mana_regen
+	return self.bonus_mana
 end

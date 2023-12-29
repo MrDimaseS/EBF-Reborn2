@@ -719,7 +719,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"25.0"
 		"AbilitySharedCooldown"			"blademail"
-		"IsAetherAmplified"				"0"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
@@ -735,13 +735,14 @@
 		"AbilityValues"
 		{
 			"bonus_damage"						"40"
-			"bonus_armor"						"7"
+			"bonus_armor"						"4"
 			"bonus_intellect"					"0"
 			"radius"							"800"
 			"duration"							"4.5"
-			"passive_reflection_constant"		"20"
-			"passive_reflection_pct"			"20"
-			"active_reflection_pct"				"80"
+			"passive_reflection_constant"		"75"
+			"passive_reflection_pct"			""
+			"active_reflection_pct"				"100"
+			"internal_cd"						"0.1"
 		}
 	}
 	//=================================================================================================================
@@ -796,7 +797,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"lifesteal_percent"				"9"
+			"lifesteal_percent"				"6"
 			"creep_lifesteal_reduction_pct"	"10"
 		}
 	}
@@ -1574,7 +1575,47 @@
 			}
 		}
 	}
-	
+	"item_demon_edge"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"450"
+		"ItemShopTags"					"damage"
+		"ItemQuality"					"secret_shop"
+		"ItemAliases"					"demon edge"
+		"SecretShop"					"1"
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+				"bonus_damage"			"50"
+		}
+	}
+	"item_recipe_relic"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"1400"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_relic"
+		"ItemRequirements"
+		{
+			"01"						"item_demon_edge"
+		}
+	}
 	//=================================================================================================================
 	// Sacred Relic
 	//=================================================================================================================
@@ -1912,7 +1953,7 @@
 		{
 			"armor_aura"					"4.0"
 			"mana_regen_aura"				"1.75"
-			"lifesteal_aura"				"9"
+			"lifesteal_aura"				"6"
 			"damage_aura"					"18"
 			"aura_radius"					"1200"
 		}
@@ -2673,11 +2714,12 @@
 		"AbilityValues"
 		{
 			"bonus_strength"				"35"
-			"health_regen_pct"				"1.6"
+			"bonus_hp_per_str"				"3"
+			"bonus_hp_regen_per_str"		"0.3"
 			
-			"duration"						"8"
+			"duration"						"12"
+			"power_multiplier"				"2"
 			"AbilityCooldown"				"60"
-			"restoration_amp"				"140"
 		}
 	}
 	//=================================================================================================================
@@ -3758,7 +3800,7 @@
 		{
 			"bonus_strength"					"25"
 			"bonus_damage"						"76"
-			"lifesteal_percent"					"13"
+			"lifesteal_percent"					"8.5"
 			"creep_lifesteal_reduction_pct"		"10"
 			"unholy_lifesteal_percent"			"87"
 			"unholy_lifesteal_total_tooltip"	"100"
@@ -4179,7 +4221,7 @@
 		{
 			"bonus_damage"					"20"
 			"bonus_attack_speed"			"10"
-			"lifesteal_percent"				"10"
+			"lifesteal_percent"				"6.5"
 			"creep_lifesteal_reduction_pct"	"40"
 			"berserk_bonus_attack_speed"	"110"
 			"berserk_bonus_movement_speed"	"30"
@@ -4457,7 +4499,7 @@
 		"AbilityCastPoint"				"0.0"
 		"AbilityCooldown"				"30.0"
 		"AbilityManaCost"				"0"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------

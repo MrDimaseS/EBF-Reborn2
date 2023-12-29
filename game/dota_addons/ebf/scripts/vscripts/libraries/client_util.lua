@@ -450,3 +450,7 @@ end
 function IsModifierSafe( entity )
 	return entity and not entity:IsNull() 
 end
+
+function C_DOTA_BaseNPC:GetManaType()
+	return hero._heroManaType or "Mana"
+end

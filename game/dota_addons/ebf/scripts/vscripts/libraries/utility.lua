@@ -332,7 +332,7 @@ end
 
 function MergeTables( t1, t2 )
     for name,info in pairs(t2) do
-		if type(info) == "table"  and type(t1[name]) == "table" then
+		if type(info) == "table" and type(t1[name]) == "table" then
 			MergeTables(t1[name], info)
 		else
 			t1[name] = info
@@ -1473,4 +1473,8 @@ function DisplayError(playerID, message)
 	if player then
 		CustomGameEventManager:Send_ServerToPlayer(player, "ebf_error_message", {message=message})
 	end
+end
+
+function CDOTA_BaseNPC:GetManaType()
+	return self._heroManaType or "Mana"
 end

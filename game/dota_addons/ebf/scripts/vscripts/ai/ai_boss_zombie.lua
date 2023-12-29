@@ -26,7 +26,7 @@ function AIThink(thisEntity)
 		return
 	end
 	if thisEntity:GetTeamNumber() ~= DOTA_TEAM_GOODGUYS and not thisEntity:IsChanneling() then-- no spells left to be cast and not currently attacking
-		if thisEntity.berserk:IsFullyCastable() then
+		if thisEntity.berserk:IsFullyCastable() and not thisEntity:HasModifier("modifier_alchemist_chemical_rage") then
 			ExecuteOrderFromTable({
 				UnitIndex = thisEntity:entindex(),
 				OrderType = DOTA_UNIT_ORDER_CAST_NO_TARGET,

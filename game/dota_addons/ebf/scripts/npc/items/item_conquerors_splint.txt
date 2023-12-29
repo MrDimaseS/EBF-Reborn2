@@ -1,0 +1,392 @@
+"DOTAAbilities"
+{
+	//=================================================================================================================
+	// Recipe: Battlefury
+	//=================================================================================================================
+	"item_recipe_conquerors_splint"
+	{
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		"BaseClass"						"item_recipe_blade_mail"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"25"
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_conquerors_splint"
+		"ItemRequirements"
+		{
+			"01"						"item_blade_mail;item_lesser_crit;item_helm_of_mithril_will"
+		}
+	}	
+	"item_conquerors_splint"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_blade_mail.lua"
+		"AbilityTextureName"			"blademail/conquerors_splint"
+		
+		"precache"
+		{
+			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_axe.vsndevts"
+			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_items.vsndevts"
+			"particle"			"particles/units/heroes/hero_axe/axe_beserkers_call_owner.vpcf"
+			"particle"			"particles/status_fx/status_effect_beserkers_call.vpcf"
+			"particle"			"particles/status_fx/status_effect_blademail.vpcf"
+			"particle"			"particles/items_fx/blademail.vpcf"
+		}
+	
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"22.5"
+		"AbilitySharedCooldown"			"blademail"
+	
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"50"
+		"ItemCost"						"420"
+		"ItemShopTags"					"damage;armor;int;hard_to_tag"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"blade mail"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage"						"75"
+			"bonus_armor"						"10"
+			"bonus_hp_regen"					"20"
+			
+			"duration"							"4.5"
+			"passive_reflection_constant"		"75"
+			"passive_reflection_pct"			""
+			"active_reflection_pct"				"100"
+			"internal_cd"						"0.1"
+			
+			"crit_chance"						"20"
+			"reflect_crit_chance"				"40"
+			"crit_multiplier"					"180"
+		}
+	}
+	//=================================================================================================================
+	// Recipe: Battlefury
+	//=================================================================================================================
+	"item_recipe_conquerors_splint_2"
+	{
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		"BaseClass"						"item_recipe_blade_mail"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"1250"
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_conquerors_splint_2"
+		"ItemRequirements"
+		{
+			"01"						"item_conquerors_splint;item_relic"
+		}
+	}	
+	//=================================================================================================================
+	// Blade Mail
+	//=================================================================================================================
+	"item_conquerors_splint_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_blade_mail.lua"
+		"AbilityTextureName"			"blademail/conquerors_splint_2"
+		
+		"precache"
+		{
+			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_axe.vsndevts"
+			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_items.vsndevts"
+			"particle"			"particles/units/heroes/hero_axe/axe_beserkers_call_owner.vpcf"
+			"particle"			"particles/status_fx/status_effect_beserkers_call.vpcf"
+			"particle"			"particles/status_fx/status_effect_blademail.vpcf"
+			"particle"			"particles/items_fx/blademail.vpcf"
+		}
+	
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"22.5"
+		"AbilitySharedCooldown"			"blademail"
+	
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"50"
+		"ItemCost"						"420"
+		"ItemShopTags"					"damage;armor;int;hard_to_tag"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"blade mail"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage"						"75"
+			"bonus_armor"						"10"
+			"bonus_hp_regen"					"20"
+			
+			"duration"							"4.5"
+			"passive_reflection_constant"		"75"
+			"passive_reflection_pct"			""
+			"active_reflection_pct"				"100"
+			"internal_cd"						"0.1"
+			
+			"crit_chance"						"20"
+			"reflect_crit_chance"				"40"
+			"crit_multiplier"					"180"
+		}
+	}
+	//=================================================================================================================
+	// Recipe: Battlefury
+	//=================================================================================================================
+	"item_recipe_conquerors_splint_3"
+	{
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		"BaseClass"						"item_recipe_blade_mail"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"5250"
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_conquerors_splint_3"
+		"ItemRequirements"
+		{
+			"01"						"item_conquerors_splint_2;item_scythe_2"
+		}
+	}
+	//=================================================================================================================
+	// Blade Mail
+	//=================================================================================================================
+	"item_conquerors_splint_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_blade_mail.lua"
+		"AbilityTextureName"			"blademail/conquerors_splint_3"
+		
+		"precache"
+		{
+			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_axe.vsndevts"
+			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_items.vsndevts"
+			"particle"			"particles/units/heroes/hero_axe/axe_beserkers_call_owner.vpcf"
+			"particle"			"particles/status_fx/status_effect_beserkers_call.vpcf"
+			"particle"			"particles/status_fx/status_effect_blademail.vpcf"
+			"particle"			"particles/items_fx/blademail.vpcf"
+		}
+	
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"16.0"
+		"AbilitySharedCooldown"			"blademail"
+		"IsAetherAmplified"				"0"
+		"HasPureCooldown"				"1"
+	
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"25"
+		"ItemCost"						"420"
+		"ItemShopTags"					"damage;armor;int;hard_to_tag"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"blade mail"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage"						"75"
+			"bonus_armor"						"10"
+			"bonus_hp_regen"					"20"
+			
+			"duration"							"4.5"
+			"passive_reflection_constant"		"75"
+			"passive_reflection_pct"			""
+			"active_reflection_pct"				"100"
+			"internal_cd"						"0.1"
+			
+			"crit_chance"						"20"
+			"reflect_crit_chance"				"40"
+			"crit_multiplier"					"180"
+		}
+	}
+	
+	//=================================================================================================================
+	// Recipe: Battlefury
+	//=================================================================================================================
+	"item_recipe_conquerors_splint_4"
+	{
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		"BaseClass"						"item_recipe_blade_mail"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"9250"
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_conquerors_splint_4"
+		"ItemRequirements"
+		{
+			"01"						"item_conquerors_splint_3;item_scythe_3"
+		}
+	}
+	//=================================================================================================================
+	// Blade Mail
+	//=================================================================================================================
+	"item_conquerors_splint_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_blade_mail.lua"
+		"AbilityTextureName"			"blademail/conquerors_splint_4"
+		
+		"precache"
+		{
+			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_axe.vsndevts"
+			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_items.vsndevts"
+			"particle"			"particles/units/heroes/hero_axe/axe_beserkers_call_owner.vpcf"
+			"particle"			"particles/status_fx/status_effect_beserkers_call.vpcf"
+			"particle"			"particles/status_fx/status_effect_blademail.vpcf"
+			"particle"			"particles/items_fx/blademail.vpcf"
+		}
+	
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"15.0"
+		"AbilitySharedCooldown"			"blademail"
+		"IsAetherAmplified"				"0"
+		"HasPureCooldown"				"1"
+	
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"25"
+		"ItemCost"						"420"
+		"ItemShopTags"					"damage;armor;int;hard_to_tag"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"blade mail"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage"						"75"
+			"bonus_armor"						"10"
+			"bonus_hp_regen"					"20"
+			
+			"duration"							"4.5"
+			"passive_reflection_constant"		"75"
+			"passive_reflection_pct"			""
+			"active_reflection_pct"				"100"
+			"internal_cd"						"0.1"
+			
+			"crit_chance"						"20"
+			"reflect_crit_chance"				"40"
+			"crit_multiplier"					"180"
+		}
+	}
+	
+	//=================================================================================================================
+	// Recipe: Battlefury
+	//=================================================================================================================
+	"item_recipe_conquerors_splint_5"
+	{
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		"BaseClass"						"item_recipe_blade_mail"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"16250"
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_conquerors_splint_5"
+		"ItemRequirements"
+		{
+			"01"						"item_conquerors_splint_4;item_scythe_4"
+		}
+	}
+	//=================================================================================================================
+	// Blade Mail
+	//=================================================================================================================
+	"item_conquerors_splint_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_blade_mail.lua"
+		"AbilityTextureName"			"blademail/conquerors_splint_5"
+		
+		"precache"
+		{
+			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_axe.vsndevts"
+			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_items.vsndevts"
+			"particle"			"particles/units/heroes/hero_axe/axe_beserkers_call_owner.vpcf"
+			"particle"			"particles/status_fx/status_effect_beserkers_call.vpcf"
+			"particle"			"particles/status_fx/status_effect_blademail.vpcf"
+			"particle"			"particles/items_fx/blademail.vpcf"
+		}
+	
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"14.0"
+		"AbilitySharedCooldown"			"blademail"
+		"IsAetherAmplified"				"0"
+	
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"25"
+		"ItemCost"						"420"
+		"ItemShopTags"					"damage;armor;int;hard_to_tag"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"blade mail"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage"						"75"
+			"bonus_armor"						"10"
+			"bonus_hp_regen"					"20"
+			
+			"duration"							"4.5"
+			"passive_reflection_constant"		"75"
+			"passive_reflection_pct"			""
+			"active_reflection_pct"				"100"
+			"internal_cd"						"0.1"
+			
+			"crit_chance"						"20"
+			"reflect_crit_chance"				"40"
+			"crit_multiplier"					"180"
+		}
+	}
+}

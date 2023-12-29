@@ -1,7 +1,7 @@
 modifier_boss_enraged = class({})
 
 function modifier_boss_enraged:OnCreated()
-	self.attackSpeed = self:GetParent():GetAttackSpeed() * 100
+	self.attackSpeed = self:GetParent():GetAttackSpeed(true) * 100
 	self:OnRefresh()
 end
 

@@ -26,13 +26,22 @@ function modifier_item_heart_active:OnCreated()
 end
 
 function modifier_item_heart_active:OnRefresh()
-	self.restoration_amp = self:GetSpecialValueFor("restoration_amp")
+	self.power_multiplier = self:GetSpecialValueFor("power_multiplier")-1
+	self.bonus_hp_regen_per_str = self:GetSpecialValueFor("bonus_hp_regen_per_str")
+	self.bonus_hp_per_str = self:GetSpecialValueFor("bonus_hp_per_str")
 	self.magic_resist = self:GetSpecialValueFor("magic_resist")
 	self.magic_immune = self:GetSpecialValueFor("magic_immune") == 1
 	if IsServer() and self.magic_immune then
 		local magicFX = ParticleManager:CreateParticle("particles/items_fx/black_king_bar_avatar.vpcf", PATTACH_POINT_FOLLOW, self:GetParent() )
 		self:AddEffect( magicFX )
+		
+		self:StartIntervalThink(0)
 	end
+end
+
+function modifier_item_heart_active:OnIntervalThink()
+	self:GetParent():HealEvent( self.bonus_hp_per_str * self:GetParent():GetStrength(), self:GetAbility(), self:GetParent() )
+	self:StartIntervalThink(-1)
 end
 
 function modifier_item_heart_active:CheckState()
@@ -42,11 +51,9 @@ function modifier_item_heart_active:CheckState()
 end
 
 function modifier_item_heart_active:DeclareFunctions()
-	return {MODIFIER_PROPERTY_HP_REGEN_AMPLIFY_PERCENTAGE,
-			MODIFIER_PROPERTY_HEAL_AMPLIFY_PERCENTAGE_SOURCE,
-			MODIFIER_PROPERTY_SPELL_LIFESTEAL_AMPLIFY_PERCENTAGE,
-			MODIFIER_PROPERTY_LIFESTEAL_AMPLIFY_PERCENTAGE,
-			MODIFIER_PROPERTY_MP_REGEN_AMPLIFY_PERCENTAGE,
+	return {MODIFIER_PROPERTY_EXTRA_HEALTH_BONUS,
+			MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT,
+			MODIFIER_PROPERTY_TOOLTIP,
 			MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS }
 end
 
@@ -54,24 +61,16 @@ function modifier_item_heart_active:GetModifierMagicalResistanceBonus()
 	return self.magic_resist
 end
 
-function modifier_item_heart_active:GetModifierHPRegenAmplify_Percentage()
-	return self.restoration_amp
+function modifier_item_heart_active:GetModifierExtraHealthBonus()
+	return self.bonus_hp_per_str * self:GetParent():GetStrength()
 end
 
-function modifier_item_heart_active:GetModifierHealAmplify_PercentageSource()
-	return self.restoration_amp
+function modifier_item_heart_active:GetModifierConstantHealthRegen()
+	return self.bonus_hp_regen_per_str * self:GetParent():GetStrength()
 end
 
-function modifier_item_heart_active:GetModifierLifestealRegenAmplify_Percentage()
-	return self.restoration_amp
-end
-
-function modifier_item_heart_active:GetModifierSpellLifestealRegenAmplify_Percentage()
-	return self.restoration_amp
-end
-
-function modifier_item_heart_active:GetModifierMPRegenAmplify_Percentage()
-	return self.restoration_amp
+function modifier_item_heart_active:OnTooltip()
+	return 1+self.power_multiplier
 end
 
 function modifier_item_heart_active:GetEffectName()
@@ -83,11 +82,10 @@ LinkLuaModifier( "modifier_item_heart_passive", "items/item_heart.lua" ,LUA_MODI
 
 function modifier_item_heart_passive:OnCreated()
 	self.bonus_strength = self:GetSpecialValueFor("bonus_strength")
-	self.bonus_health = self:GetSpecialValueFor("bonus_health")
-	self.health_regen_pct = self:GetSpecialValueFor("health_regen_pct")
+	self.bonus_hp_per_str = self:GetSpecialValueFor("bonus_hp_per_str")
+	self.bonus_hp_regen_per_str = self:GetSpecialValueFor("bonus_hp_regen_per_str")
 	
 	self.bonus_strength_PR = self:GetSpecialValueFor("bonus_strength_PR")
-	self.bonus_health_PR = self:GetSpecialValueFor("bonus_health_PR")
 	
 	if self.bonus_strength_PR > 0 and IsServer() then
 		self:StartIntervalThink(0.25)
@@ -102,21 +100,21 @@ function modifier_item_heart_passive:OnIntervalThink()
 end
 
 function modifier_item_heart_passive:DeclareFunctions()
-	return {MODIFIER_PROPERTY_HEALTH_BONUS,
-			MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,
-			MODIFIER_PROPERTY_HEALTH_REGEN_PERCENTAGE_UNIQUE  }
+	return {MODIFIER_PROPERTY_EXTRA_HEALTH_BONUS,
+			MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT,
+			MODIFIER_PROPERTY_STATS_STRENGTH_BONUS }
 end
 
-function modifier_item_heart_passive:GetModifierHealthBonus()
-	return self.bonus_health + self:GetStackCount() * self.bonus_health_PR
+function modifier_item_heart_passive:GetModifierExtraHealthBonus()
+	return self.bonus_hp_per_str * self:GetParent():GetStrength()
+end
+
+function modifier_item_heart_passive:GetModifierConstantHealthRegen()
+	return self.bonus_hp_regen_per_str * self:GetParent():GetStrength()
 end
 
 function modifier_item_heart_passive:GetModifierBonusStats_Strength()
 	return self.bonus_strength + self:GetStackCount() * self.bonus_strength_PR
-end
-
-function modifier_item_heart_passive:GetModifierHealthRegenPercentageUnique()
-	return self.health_regen_pct
 end
 
 function modifier_item_heart_passive:IsHidden()

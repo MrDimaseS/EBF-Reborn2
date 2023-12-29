@@ -11,6 +11,8 @@
 
 		"dota_ability_variable_cast"                                                                        "Cast Speed"
 		"dota_ability_variable_heal_amp"                                                                    "Healing Amplification"
+		"dota_ability_variable_hp_per_str"																	"Health per Strength"
+		"dota_ability_variable_hp_regen_per_str"															"HP Regen per Strength"
 		"dota_ability_variable_other_attr"                                                                  "Other Attributes"
 		"DOTA_LevelUpAttributes"                                                                            "+35% to Base Attributes"
 
@@ -1441,7 +1443,6 @@
 		
 
 		//Lone Druid
-		"DOTA_Tooltip_ability_lone_druid_spirit_bear_Description"											"<b><font color='#FF5100'>CAREFUL SPEND YOUR MONEY AND RETRIEVE YOUR NEUTRAL ITEM FROM THE SPIRIT BEAR BEFORE LEVELING</font></b>\nSummons a powerful Spirit Bear companion that can equip items.  If the bear moves 1100 distance away from the Lone Druid, it cannot attack.  Lone Druid suffers %backlash_damage%%% of his max health as backlash damage if the Spirit Bear dies.\nSpirit Bear has the Return, Demolish and Entangling Claws abilities."
 		"DOTA_Tooltip_ability_lone_druid_synergy"                                                           "Synergy"
 		"DOTA_Tooltip_ability_lone_druid_synergy_bonus_attack_damage"                                       "BONUS ATTACK DAMAGE:"
 		"DOTA_Tooltip_ability_lone_druid_synergy_bonus_max_health"                                          "BONUS MAX HEALTH:"
@@ -2408,10 +2409,11 @@
 		"DOTA_Tooltip_ability_item_bfury2_Lore"                                                             "Used in war to destroy waves of enemies."
 		
 		
-		"DOTA_Tooltip_ability_item_blade_mail_Description"                                                  "<h1>Active: Demand Retribution</h1>For %duration% seconds, all units within %radius% units of you are taunted to you and the damage returned from all sources is increased by %active_reflection_pct%%%.\n<h1>Passive: Damage Return</h1>Everytime you are attacked, you return %passive_reflection_constant% damage plus %passive_reflection_pct%%% of the attack damage dealt to you."
-		"DOTA_Tooltip_modifier_blade_mail_taunt"                                                            "Aggressive Stance"
-		"DOTA_Tooltip_modifier_blade_mail_taunt_Description"                                                "Taunting enemies"
+		"DOTA_Tooltip_ability_item_blade_mail_Description"                                                  "<h1>Active: Wall of Spikes</h1>For %duration% seconds, the damage returned is increased by %active_reflection_pct%%%.\n<h1>Passive: Damage Return</h1>Everytime you are damaged, you return %passive_reflection_constant% damage; this has a %internal_cd% second internal cooldown."
+		"DOTA_Tooltip_modifier_blade_mail_taunt"                                                            "Wall of Spikes"
+		"DOTA_Tooltip_modifier_blade_mail_taunt_Description"                                                "Return damage doubled."
 		
+		// OLD BLADE MAIL
 		"DOTA_Tooltip_ability_item_blade_mail2"                                                             "Chains of Rage"
 		"DOTA_Tooltip_ability_item_blade_mail2_bonus_all"                                                   "+$all"
 		"DOTA_Tooltip_ability_item_blade_mail2_bonus_armor"                                                 "+$armor"
@@ -2422,7 +2424,6 @@
 		"DOTA_Tooltip_ability_item_blade_mail2_Note1"                                                       "Damage Return doesn't reflect damage from other forms of Blade Mail."
 		"DOTA_Tooltip_ability_item_blade_mail2_Note2"                                                       "Returned damage type is the same as it was received."
 		
-		
 		"DOTA_Tooltip_ability_item_blade_mail3"                                                             "Coercer's Mail"
 		"DOTA_Tooltip_ability_item_blade_mail3_bonus_all"                                                   "+$all"
 		"DOTA_Tooltip_ability_item_blade_mail3_bonus_armor"                                                 "+$armor"
@@ -2432,7 +2433,6 @@
 		"DOTA_Tooltip_ability_item_blade_mail3_Note0"                                                       "Damage Return is calculated before any kind of reduction."
 		"DOTA_Tooltip_ability_item_blade_mail3_Note1"                                                       "Damage Return doesn't reflect damage from other forms of Blade Mail."
 		"DOTA_Tooltip_ability_item_blade_mail3_Note2"                                                       "Returned damage type is the same as it was received."
-		
 		
 		"DOTA_Tooltip_ability_item_blade_mail4"                                                             "Aggressor's Bindings"
 		"DOTA_Tooltip_ability_item_blade_mail4_bonus_all"                                                   "+$all"
@@ -2447,7 +2447,6 @@
 		"DOTA_Tooltip_modifier_item_blade_mail4_burn"                                                       "Burn Damage"
 		"DOTA_Tooltip_modifier_item_blade_mail4_burn_Description"                                           "Taking damage every second, and missing %dMODIFIER_PROPERTY_MISS_PERCENTAGE%%% of attacks."
 
-		
 		"DOTA_Tooltip_ability_item_blade_mail5"                                                             "War God's Shield"
 		"DOTA_Tooltip_ability_item_blade_mail5_bonus_all"                                                   "+$all"
 		"DOTA_Tooltip_ability_item_blade_mail5_bonus_armor"                                                 "+$armor"
@@ -2461,6 +2460,63 @@
 		"DOTA_Tooltip_modifier_item_blade_mail5_burn"                                                       "Burn Damage"
 		"DOTA_Tooltip_modifier_item_blade_mail5_burn_Description"                                           "Taking damage every second, and missing %dMODIFIER_PROPERTY_MISS_PERCENTAGE%%% of attacks."
 
+		// Martyr's Bulwark
+		"DOTA_Tooltip_ability_item_martyrs_bulwark"															"Martyr's Bulwark"
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_Description"												"<h1>Active: Wreath of Lightning</h1>You become Storm-charged for %duration% seconds and root all enemies in %radius% radius of you for %root_duration% seconds, causing them to be struck by Chain Lightning.<br><br>While Storm-charged, the damage dealt by Static Damage Return is increased by %active_reflection_pct%%% and strikes up to %static_strikes% additional targets within %radius% radius.\n<h1>Passive: Static Damage Return</h1>Everytime you are damaged, you return %passive_reflection_constant% magical damage; this has a %internal_cd% second internal cooldown and has a %static_chance%%% chance of releasing a <b>Chain Lightning</b> instead.\n<h1>Passive: Chain Lightning</h1>Your attacks have a %chain_chance%%% chance to ignore evasion and deal %passive_reflection_constant% bonus magical damage which bounces to up %chain_strikes% additional targets."
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_bonus_damage"                                            "+$damage"
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_bonus_armor"												"+$armor"
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_bonus_intellect"											"+$int"
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_bonus_hp"												"+$health"
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_bonus_attack_speed"										"+$attack"
+		
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_2"														"Shade's Bulwark"
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_2_Description"                                           "<h1>Active: Wreath of Lightning</h1>You become Storm-charged for %duration% seconds and root all enemies in %radius% radius of you for %root_duration% seconds, causing them to be struck by Chain Lightning.<br><br>While Storm-charged, the damage dealt by Static Damage Return is increased by %active_reflection_pct%%% and strikes up to %static_strikes% additional targets within %radius% radius.\n<h1>Passive: Static Damage Return</h1>Everytime you are damaged, you return %passive_reflection_constant% damage; this has a %internal_cd% second internal cooldown and has a %static_chance%%% chance of releasing a <b>Chain Lightning</b> instead.\n<h1>Passive: Chain Lightning</h1>Your attacks have a %chain_chance%%% chance to ignore evasion and deal %passive_reflection_constant% bonus magical damage which bounces to up %chain_strikes% additional targets."
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_2_bonus_damage"                                          "+$damage"
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_2_bonus_armor"											"+$armor"
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_2_bonus_intellect"										"+$int"
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_2_bonus_hp"												"+$health"
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_2_bonus_attack_speed"									"+$attack"
+		
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_3"														"Hellion's Bulwark"
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_3_Description"                                           "<h1>Active: Wreath of Lightning</h1>You become Storm-charged for %duration% seconds and root all enemies in %radius% radius of you for %root_duration% seconds, causing them to be struck by Chain Lightning.<br><br>While Storm-charged, the damage dealt by Static Damage Return is increased by %active_reflection_pct%%% and strikes up to %static_strikes% additional targets within %radius% radius.\n<h1>Passive: Static Damage Return</h1>Everytime you are damaged, you return %passive_reflection_constant% damage; this has a %internal_cd% second internal cooldown and has a %static_chance%%% chance of releasing a <b>Chain Lightning</b> instead.\n<h1>Passive: Chain Lightning</h1>Your attacks have a %chain_chance%%% chance to ignore evasion and deal %passive_reflection_constant% bonus magical damage which bounces to up %chain_strikes% additional targets."
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_3_bonus_damage"                                          "+$damage"
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_3_bonus_armor"											"+$armor"
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_3_bonus_intellect"										"+$int"
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_3_bonus_hp"												"+$health"
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_3_bonus_attack_speed"									"+$attack"
+		
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_4"														"Angel's Bulwark"
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_4_Description"                                           "<h1>Active: Wreath of Lightning</h1>You become Storm-charged for %duration% seconds and root all enemies in %radius% radius of you for %root_duration% seconds, causing them to be struck by Chain Lightning.<br><br>While Storm-charged, the damage dealt by Static Damage Return is increased by %active_reflection_pct%%% and strikes up to %static_strikes% additional targets within %radius% radius.\n<h1>Passive: Static Damage Return</h1>Everytime you are damaged, you return %passive_reflection_constant% damage; this has a %internal_cd% second internal cooldown and has a %static_chance%%% chance of releasing a <b>Chain Lightning</b> instead.\n<h1>Passive: Chain Lightning</h1>Your attacks have a %chain_chance%%% chance to ignore evasion and deal %passive_reflection_constant% bonus magical damage which bounces to up %chain_strikes% additional targets."
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_4_bonus_damage"                                          "+$damage"
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_4_bonus_armor"											"+$armor"
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_4_bonus_intellect"										"+$int"
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_4_bonus_hp"												"+$health"
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_4_bonus_attack_speed"									"+$attack"
+		
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_5"														"Nothingness' Bulwark"
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_5_Description"                                          	"<h1>Active: Wreath of Lightning</h1>You become Storm-charged for %duration% seconds and root all enemies in %radius% radius of you for %root_duration% seconds, causing them to be struck by Chain Lightning.<br><br>While Storm-charged, the damage dealt by Static Damage Return is increased by %active_reflection_pct%%% and strikes up to %static_strikes% additional targets within %radius% radius.\n<h1>Passive: Static Damage Return</h1>Everytime you are damaged, you return %passive_reflection_constant% damage; this has a %internal_cd% second internal cooldown and has a %static_chance%%% chance of releasing a <b>Chain Lightning</b> instead.\n<h1>Passive: Chain Lightning</h1>Your attacks have a %chain_chance%%% chance to ignore evasion and deal %passive_reflection_constant% bonus magical damage which bounces to up %chain_strikes% additional targets."
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_5_bonus_damage"                                          "+$damage"
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_5_bonus_armor"											"+$armor"
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_5_bonus_intellect"										"+$int"
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_5_bonus_hp"												"+$health"
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_5_bonus_attack_speed"									"+$attack"
+		
+		// Conqueror's Splint
+		
+		"DOTA_Tooltip_ability_item_conquerors_splint"														"Conqueror's Splint"
+		"DOTA_Tooltip_ability_item_conquerors_splint_Description"                                           "<h1>Active: Wall of Spikes</h1>For %duration% seconds, the damage returned is increased by %active_reflection_pct%%%.\n<h1>Passive: Damage Return</h1>Everytime you are damaged, you return %passive_reflection_constant% damage; this has a %internal_cd% second internal cooldown."
+		
+		"DOTA_Tooltip_ability_item_conquerors_splint_2"														"Conqueror's Ward"
+		"DOTA_Tooltip_ability_item_conquerors_splint_2_Description"                                         "<h1>Active: Wall of Spikes</h1>For %duration% seconds, the damage returned is increased by %active_reflection_pct%%%.\n<h1>Passive: Damage Return</h1>Everytime you are damaged, you return %passive_reflection_constant% damage; this has a %internal_cd% second internal cooldown."
+		
+		"DOTA_Tooltip_ability_item_conquerors_splint_3"														"Conqueror's Hellplate"
+		"DOTA_Tooltip_ability_item_conquerors_splint_3_Description"                                         "<h1>Active: Wall of Spikes</h1>For %duration% seconds, the damage returned is increased by %active_reflection_pct%%%.\n<h1>Passive: Damage Return</h1>Everytime you are damaged, you return %passive_reflection_constant% damage; this has a %internal_cd% second internal cooldown."
+		
+		"DOTA_Tooltip_ability_item_conquerors_splint_4"														"Conqueror's Regalia"
+		"DOTA_Tooltip_ability_item_conquerors_splint_4_Description"                                         "<h1>Active: Wall of Spikes</h1>For %duration% seconds, the damage returned is increased by %active_reflection_pct%%%.\n<h1>Passive: Damage Return</h1>Everytime you are damaged, you return %passive_reflection_constant% damage; this has a %internal_cd% second internal cooldown."
+		
+		"DOTA_Tooltip_ability_item_conquerors_splint_5"														"Conqueror's Abandon"
+		"DOTA_Tooltip_ability_item_conquerors_splint_5_Description"                                       	"<h1>Active: Wall of Spikes</h1>For %duration% seconds, the damage returned is increased by %active_reflection_pct%%%.\n<h1>Passive: Damage Return</h1>Everytime you are damaged, you return %passive_reflection_constant% damage; this has a %internal_cd% second internal cooldown."
 		
 		"DOTA_Tooltip_ability_item_blink_treads"                                                            "Blink Treads"
 		"DOTA_Tooltip_ability_item_blink_treads_bonus_attack_speed"                                         "+$attack"
@@ -2618,7 +2674,6 @@
 		"DOTA_Tooltip_ability_item_booster_3_health_per_str"                                                "+ Health Per Strength"
 		"DOTA_Tooltip_ability_item_booster_3_Lore"                                                          "Grants you bonus health depending on your strength"
 		
-		
 		"DOTA_Tooltip_ability_item_booster_4"                                                               "Paleblood Moon"
 		"DOTA_Tooltip_ability_item_booster_4_bonus_all"                                                     "+$all"
 		"DOTA_Tooltip_ability_item_booster_4_bonus_armor"                                                   "+$armor"
@@ -2628,43 +2683,39 @@
 		"DOTA_Tooltip_ability_item_booster_4_health_per_str"                                                "+ Health Per Strength"
 		"DOTA_Tooltip_ability_item_booster_4_Lore"                                                          "Something sinister lurks in it..."
 		
-		
 		"DOTA_Tooltip_ability_item_boots_of_bearing_2"                                                      "Empty Soles"
 		"DOTA_Tooltip_ability_item_boots_of_bearing_2_bonus_health"                                         "+$health"
 		"DOTA_Tooltip_ability_item_boots_of_bearing_2_bonus_int"                                            "+$int"
 		"DOTA_Tooltip_ability_item_boots_of_bearing_2_bonus_movement_speed"                                 "+$move_speed"
 		"DOTA_Tooltip_ability_item_boots_of_bearing_2_bonus_str"                                            "+$str"
-		"DOTA_Tooltip_ability_item_boots_of_bearing_2_Description"                                          "<h1>Active: Giant's Endurance</h1>Gives +%bonus_attack_speed_pct% attack speed, +%bonus_movement_speed_pct%%% movement speed and increases all forms of restoration by %restoration_amp%%% to nearby allies for %duration% seconds<br><br>For the first %bonus_ms_duration% seconds allies are immune to slows and have unobstructed pathing.<br><br>Radius: %radius%\n\n<h1>Passive: Swiftness Aura</h1>Grants %aura_movement_speed% movement speed to allies.  <br><br>Radius: %radius%"
+		"DOTA_Tooltip_ability_item_boots_of_bearing_2_Description"                                          "<h1>Active: Giant's Endurance</h1>Gives +%bonus_attack_speed_pct% attack speed, +%bonus_movement_speed_pct%%% movement speed to nearby allies for %duration% seconds<br><br>For the first %bonus_ms_duration% seconds allies are immune to slows and have unobstructed pathing.<br><br>Radius: %radius%\n\n<h1>Passive: Swiftness Aura</h1>Grants %aura_movement_speed% movement speed to allies.  <br><br>Radius: %radius%"
 		"DOTA_Tooltip_ability_item_boots_of_bearing_2_health_regen_pct"                                     "%+Max Health Regen"
 		"DOTA_Tooltip_ability_item_boots_of_bearing_2_Lore"                                                 "Resplendent footwear fashioned for the ancient herald that first dared spread the glory of Stonehall beyond the original borders of its nascent claim."
-		
 		
 		"DOTA_Tooltip_ability_item_boots_of_bearing_3"                                                      "Abyssal Striders"
 		"DOTA_Tooltip_ability_item_boots_of_bearing_3_bonus_health"                                         "+$health"
 		"DOTA_Tooltip_ability_item_boots_of_bearing_3_bonus_int"                                            "+$int"
 		"DOTA_Tooltip_ability_item_boots_of_bearing_3_bonus_movement_speed"                                 "+$move_speed"
 		"DOTA_Tooltip_ability_item_boots_of_bearing_3_bonus_str"                                            "+$str"
-		"DOTA_Tooltip_ability_item_boots_of_bearing_3_Description"                                          "<h1>Active: Giant's Endurance</h1>Gives +%bonus_attack_speed_pct% attack speed, +%bonus_movement_speed_pct%%% movement speed and increases all forms of restoration by %restoration_amp%%% to nearby allies for %duration% seconds<br><br>For the first %bonus_ms_duration% seconds allies are immune to slows and have unobstructed pathing.<br><br>Radius: %radius%\n\n<h1>Passive: Swiftness Aura</h1>Grants %aura_movement_speed% movement speed to allies.  <br><br>Radius: %radius%"
+		"DOTA_Tooltip_ability_item_boots_of_bearing_3_Description"                                          "<h1>Active: Giant's Endurance</h1>Gives +%bonus_attack_speed_pct% attack speed, +%bonus_movement_speed_pct%%% movement speed to nearby allies for %duration% seconds<br><br>For the first %bonus_ms_duration% seconds allies are immune to slows and have unobstructed pathing.<br><br>Radius: %radius%\n\n<h1>Passive: Swiftness Aura</h1>Grants %aura_movement_speed% movement speed to allies.  <br><br>Radius: %radius%"
 		"DOTA_Tooltip_ability_item_boots_of_bearing_3_health_regen_pct"                                     "%+Max Health Regen"
 		"DOTA_Tooltip_ability_item_boots_of_bearing_3_Lore"                                                 "Resplendent footwear fashioned for the ancient herald that first dared spread the glory of Stonehall beyond the original borders of its nascent claim."
-		
 		
 		"DOTA_Tooltip_ability_item_boots_of_bearing_4"                                                      "Olympian Sandals"
 		"DOTA_Tooltip_ability_item_boots_of_bearing_4_bonus_health"                                         "+$health"
 		"DOTA_Tooltip_ability_item_boots_of_bearing_4_bonus_int"                                            "+$int"
 		"DOTA_Tooltip_ability_item_boots_of_bearing_4_bonus_movement_speed"                                 "+$move_speed"
 		"DOTA_Tooltip_ability_item_boots_of_bearing_4_bonus_str"                                            "+$str"
-		"DOTA_Tooltip_ability_item_boots_of_bearing_4_Description"                                          "<h1>Active: Giant's Endurance</h1>Gives +%bonus_attack_speed_pct% attack speed, +%bonus_movement_speed_pct%%% movement speed and increases all forms of restoration by %restoration_amp%%% to nearby allies for %duration% seconds<br><br>For the first %bonus_ms_duration% seconds allies are immune to slows and have unobstructed pathing.<br><br>Radius: %radius%\n\n<h1>Passive: Swiftness Aura</h1>Grants %aura_movement_speed% movement speed to allies.  <br><br>Radius: %radius%"
+		"DOTA_Tooltip_ability_item_boots_of_bearing_4_Description"                                          "<h1>Active: Giant's Endurance</h1>Gives +%bonus_attack_speed_pct% attack speed, +%bonus_movement_speed_pct%%% movement speed to nearby allies for %duration% seconds<br><br>For the first %bonus_ms_duration% seconds allies are immune to slows and have unobstructed pathing.<br><br>Radius: %radius%\n\n<h1>Passive: Swiftness Aura</h1>Grants %aura_movement_speed% movement speed to allies.  <br><br>Radius: %radius%"
 		"DOTA_Tooltip_ability_item_boots_of_bearing_4_health_regen_pct"                                     "%+Max Health Regen"
 		"DOTA_Tooltip_ability_item_boots_of_bearing_4_Lore"                                                 "Resplendent footwear fashioned for the ancient herald that first dared spread the glory of Stonehall beyond the original borders of its nascent claim."
-		
 		
 		"DOTA_Tooltip_ability_item_boots_of_bearing_5"                                                      "Off-worlders"
 		"DOTA_Tooltip_ability_item_boots_of_bearing_5_bonus_health"                                         "+$health"
 		"DOTA_Tooltip_ability_item_boots_of_bearing_5_bonus_int"                                            "+$int"
 		"DOTA_Tooltip_ability_item_boots_of_bearing_5_bonus_movement_speed"                                 "+$move_speed"
 		"DOTA_Tooltip_ability_item_boots_of_bearing_5_bonus_str"                                            "+$str"
-		"DOTA_Tooltip_ability_item_boots_of_bearing_5_Description"                                          "<h1>Active: Giant's Endurance</h1>Gives +%bonus_attack_speed_pct% attack speed, +%bonus_movement_speed_pct%%% movement speed and increases all forms of restoration by %restoration_amp%%% to nearby allies for %duration% seconds<br><br>For the first %bonus_ms_duration% seconds allies are immune to slows and have unobstructed pathing.<br><br>Radius: %radius%\n\n<h1>Passive: Swiftness Aura</h1>Grants %aura_movement_speed% movement speed to allies.  <br><br>Radius: %radius%"
+		"DOTA_Tooltip_ability_item_boots_of_bearing_5_Description"                                          "<h1>Active: Giant's Endurance</h1>Gives +%bonus_attack_speed_pct% attack speed, +%bonus_movement_speed_pct%%% movement speed to nearby allies for %duration% seconds<br><br>For the first %bonus_ms_duration% seconds allies are immune to slows and have unobstructed pathing.<br><br>Radius: %radius%\n\n<h1>Passive: Swiftness Aura</h1>Grants %aura_movement_speed% movement speed to allies.  <br><br>Radius: %radius%"
 		"DOTA_Tooltip_ability_item_boots_of_bearing_5_health_regen_pct"                                     "%+Max Health Regen"
 		"DOTA_Tooltip_ability_item_boots_of_bearing_5_Lore"                                                 "Resplendent footwear fashioned for the ancient herald that first dared spread the glory of Stonehall beyond the original borders of its nascent claim."
 		
@@ -2943,7 +2994,7 @@
 		"DOTA_Tooltip_ability_item_ethereal_blade_bonus_evasion"                                            "%+$evasion"
 		"DOTA_Tooltip_ability_item_ethereal_blade_bonus_aoe"                                    	        "+$aoe_bonus"
 		"DOTA_Tooltip_ability_item_ethereal_blade_Description"                                              "<h1>Active: Ether Blast</h1>Converts the target unit to ethereal form, applying effects depending on if they are an ally or enemy. Allies are rendered immune to physical damage, while enemies become unable to attack. The unit becomes %ethereal_damage_bonus%%% more vulnerable to magic damage regardless if they are an enemy or an ally.<br><br>Enemy targets are also slowed by %blast_movement_slow%%%, and take %blast_agility_multiplier%x your primary attribute + %blast_damage_base% as magical damage.<br><br>Range: %abilitycastrange%<br>Duration: %duration% seconds"
-		"DOTA_Tooltip_ability_item_ethereal_blade_regen_amp"                                                "%+HP/MP Restore Amplification"
+		"DOTA_Tooltip_ability_item_ethereal_blade_regen_amp"                                                "%+HP Restore Amplification"
 		"DOTA_Tooltip_ability_item_ethereal_blade_status_resistance"                                        "%+Status Resistance"
 		"DOTA_Tooltip_modifier_ethereal_resistance"                                                         "Semi-Ethereal"
 		"DOTA_Tooltip_modifier_ethereal_resistance_Description"                                             "Damage taken from auto-attacks is capped at a percentage of your health."
@@ -2972,6 +3023,9 @@
 		"DOTA_Tooltip_ability_item_ethereal_blade_3_bonus_strength"                                         "+$str"
 		"DOTA_Tooltip_ability_item_ethereal_blade_3_Description"                                            "<h1>Active: Ether Blast</h1>Converts the target unit to ethereal form, applying effects depending on if they are an ally or enemy. Allies are rendered immune to physical damage and restore %restoration_amp%%% more mana and health from all sources, while enemies become unable to attack and become %ethereal_damage_bonus%%% more vulnerable to magic damage.<br><br>Enemy targets are also slowed by %blast_movement_slow%%%, and take %blast_agility_multiplier%x your primary attribute + %blast_damage_base% as magical damage.<br><br>Range: %abilitycastrange%<br>Duration: %duration% seconds"
 		"DOTA_Tooltip_ability_item_ethereal_blade_3_regen_amp"                                              "%+HP Restore Amplification"
+		"DOTA_Tooltip_ability_item_ethereal_blade_3_bonus_mana_regen"                                       "+$mana_regen"
+		"DOTA_Tooltip_ability_item_ethereal_blade_3_bonus_mana"                                       		"+$mana"
+		"DOTA_Tooltip_ability_item_ethereal_blade_3_status_resistance"                                      "%+Status Resistance"
 		
 		"DOTA_Tooltip_ability_item_ethereal_blade_4"                                                        "Glaistig"
 		"DOTA_Tooltip_ability_item_ethereal_blade_4_bonus_agility"                                          "+$agi"
@@ -3230,40 +3284,43 @@
 		"DOTA_Tooltip_modifier_hand_of_midas_passive_Description"											"Activating Hand of Midas will give you %dMODIFIER_PROPERTY_TOOLTIP% gold (%dMODIFIER_PROPERTY_TOOLTIP2% interest gained)."
 		
 
-		"DOTA_Tooltip_ability_item_heart_Description"                                                       "<h1>Active: Indomitable Vigor</h1>Increases health and mana regeneration, healing received, lifesteal, spell lifesteal by %restoration_amp%%% for %duration% seconds."
-		"DOTA_Tooltip_modifier_item_heart_active"                                                           "Indomitable Vigor"
-		"DOTA_Tooltip_modifier_item_heart_active_Description"                                               "Restoring %dMODIFIER_PROPERTY_HP_REGEN_AMPLIFY_PERCENTAGE%%% health and mana."
+		"DOTA_Tooltip_ability_item_heart_Description"                                                       "<h1>Active: Monstrous Vitality</h1>Multiplies the bonus health and bonus health regeneration gained per Strength by %power_multiplier%x for %duration% seconds."
+		"DOTA_Tooltip_ability_item_heart_bonus_hp_per_str"                                                  "+$hp_per_str"
+		"DOTA_Tooltip_ability_item_heart_bonus_hp_regen_per_str"                                            "+$hp_regen_per_str"
+		"DOTA_Tooltip_ability_item_heart_2_bonus_health"                                                    "+$health"
+		"DOTA_Tooltip_modifier_item_heart_active"                                                           "Monstrous Vitality"
+		"DOTA_Tooltip_modifier_item_heart_active_Description"                                               "Bonus health and health regeneration multiplied by %fMODIFIER_PROPERTY_TOOLTIP%"
 
 
 		"DOTA_Tooltip_ability_item_heart_2"                                                                 "Giant's Heart"
-		"DOTA_Tooltip_ability_item_heart_2_bonus_health"                                                    "+$health"
+		"DOTA_Tooltip_ability_item_heart_2_bonus_hp_per_str"                                                "+$hp_per_str"
+		"DOTA_Tooltip_ability_item_heart_2_bonus_hp_regen_per_str"                                          "+$hp_regen_per_str"
 		"DOTA_Tooltip_ability_item_heart_2_bonus_strength"                                                  "+$str"
-		"DOTA_Tooltip_ability_item_heart_2_Description"                                                     "<h1>Active: Indomitable Vigor</h1>Increases health and mana regeneration, healing received, lifesteal, spell lifesteal by %restoration_amp%%% for %duration% seconds."
-		"DOTA_Tooltip_ability_item_heart_2_health_regen_pct"                                                "%+Max Health Regen"
+		"DOTA_Tooltip_ability_item_heart_2_Description"                                                      "<h1>Active: Monstrous Vitality</h1>Multiplies the bonus health and bonus health regeneration gained per Strength by %power_multiplier%x for %duration% seconds."
 		"DOTA_Tooltip_ability_item_heart_2_Lore"                                                            "This heart was extracted from a primordial giant."
 		
 		
 		"DOTA_Tooltip_ability_item_heart_3"                                                                 "Titan Heart"
-		"DOTA_Tooltip_ability_item_heart_3_bonus_health"                                                    "+$health"
+		"DOTA_Tooltip_ability_item_heart_3_bonus_hp_per_str"                                                "+$hp_per_str"
+		"DOTA_Tooltip_ability_item_heart_3_bonus_hp_regen_per_str"                                          "+$hp_regen_per_str"
 		"DOTA_Tooltip_ability_item_heart_3_bonus_strength"                                                  "+$str"
-		"DOTA_Tooltip_ability_item_heart_3_Description"                                                     "<h1>Active: Indomitable Vigor</h1>Increases health and mana regeneration, healing received, lifesteal, spell lifesteal by %restoration_amp%%% for %duration% seconds."
-		"DOTA_Tooltip_ability_item_heart_3_health_regen_pct"                                                "%+Max Health Regen"
+		"DOTA_Tooltip_ability_item_heart_3_Description"                                                     "<h1>Active: Monstrous Vitality</h1>Multiplies the bonus health and bonus health regeneration gained per Strength by %power_multiplier%x for %duration% seconds."
 		"DOTA_Tooltip_ability_item_heart_3_Lore"                                                            "This heart was extracted from a living titan."
 		
 		
 		"DOTA_Tooltip_ability_item_heart_4"                                                                 "Divine Heart"
-		"DOTA_Tooltip_ability_item_heart_4_bonus_health"                                                    "+$health"
+		"DOTA_Tooltip_ability_item_heart_4_bonus_hp_per_str"                                                "+$hp_per_str"
+		"DOTA_Tooltip_ability_item_heart_4_bonus_hp_regen_per_str"                                          "+$hp_regen_per_str"
 		"DOTA_Tooltip_ability_item_heart_4_bonus_strength"                                                  "+$str"
-		"DOTA_Tooltip_ability_item_heart_4_Description"                                                     "<h1>Active: Incandescent Vigor</h1>Increases health and mana regeneration, healing received, lifesteal, spell lifesteal by %restoration_amp%%%, gain %magic_resist%%% Magic Resistance and become Debuff Immune for %duration% seconds."
-		"DOTA_Tooltip_ability_item_heart_4_health_regen_pct"                                                "%+Max Health Regen"
+		"DOTA_Tooltip00._ability_item_heart_4_Description"                                                  "<h1>Active: Radiant Vitality</h1>Multiplies the bonus health and bonus health regeneration gained per Strength by %power_multiplier%x, gain %magic_resist%%% magic resistance and become Debuff Immune for %duration% seconds."
 		"DOTA_Tooltip_ability_item_heart_4_Lore"                                                            "A heart infused with divine essence, an ancient god's provisional heart."
 		
 		
 		"DOTA_Tooltip_ability_item_heart_5"                                                                 "Bahamut's Heart"
-		"DOTA_Tooltip_ability_item_heart_5_bonus_health"                                                    "+$health"
+		"DOTA_Tooltip_ability_item_heart_5_bonus_hp_per_str"                                                "+$hp_per_str"
+		"DOTA_Tooltip_ability_item_heart_5_bonus_hp_regen_per_str"                                          "+$hp_regen_per_str"
 		"DOTA_Tooltip_ability_item_heart_5_bonus_strength"                                                  "+$str"
-		"DOTA_Tooltip_ability_item_heart_5_Description"                                                     "<h1>Active: Incandescent Vigor</h1>Increases health and mana regeneration, healing received, lifesteal, spell lifesteal by %restoration_amp%%%, gain %magic_resist%%% Magic Resistance and become Debuff Immune for %duration% seconds."
-		"DOTA_Tooltip_ability_item_heart_5_health_regen_pct"                                                "%+Max Health Regen"
+		"DOTA_Tooltip_ability_item_heart_5_Description"                                                     "<h1>Active: Radiant Vitality</h1>Multiplies the bonus health and bonus health regeneration gained per Strength by %power_multiplier%x, gain %magic_resist%%% magic resistance and become Debuff Immune for %duration% seconds."
 		"DOTA_Tooltip_ability_item_heart_5_Lore"                                                            "How it fits in your chest, or why implanting a heart bigger than yourself would grant you unending vitality, is a mystery better left unsolved."
 		
 		
@@ -3879,31 +3936,94 @@
 		"DOTA_Tooltip_ability_item_devastator_5_bonus_intellect"											"+$int"
 		"DOTA_Tooltip_ability_item_devastator_5_projectile_speed"											"+$projectile_speed"
 		
+		// Blood Gem
+		"DOTA_Tooltip_ability_item_blood_gem"																"Blood Gem"
+		"DOTA_Tooltip_ability_item_blood_gem_Description"                                           		"<h1>Active: Link Blood</h1>For %duration% seconds, you lifesteal off of all damage dealt by allied units.\n<h1>Passive: False Life</h1>When this item restores your health through its spell lifesteal or attack lifesteal, any health that would be lost from the healing is turned into an all-damage barrier.\nBarrier cannot exceed %overheal_maximum%%% of your maximum health."
+		"DOTA_Tooltip_ability_item_blood_gem_spell_lifesteal"												"%+$spell_lifesteal"
+		"DOTA_Tooltip_ability_item_blood_gem_lifesteal_percent"												"%+$lifesteal"
+		
+		"DOTA_Tooltip_ability_item_blood_gem_2"																"Shadowblood Gem"
+		"DOTA_Tooltip_ability_item_blood_gem_2_Description"                                           		"<h1>Active: Link Blood</h1>For %duration% seconds, you lifesteal off of all damage dealt by allied units.\n<h1>Passive: False Life</h1>When this item restores your health through its spell lifesteal or attack lifesteal, any health that would be lost from the healing is turned into an all-damage barrier.\nBarrier cannot exceed %overheal_maximum%%% of your maximum health."
+		"DOTA_Tooltip_ability_item_blood_gem_2_spell_lifesteal"												"%+$spell_lifesteal"
+		"DOTA_Tooltip_ability_item_blood_gem_2_lifesteal_percent"											"%+$lifesteal"
+		
+		"DOTA_Tooltip_ability_item_blood_gem_3"																"Hellblood Gem"
+		"DOTA_Tooltip_ability_item_blood_gem_3_Description"                                           		"<h1>Active: Link Blood</h1>For %duration% seconds, you lifesteal off of all damage dealt by allied units.\n<h1>Passive: False Life</h1>When this item restores your health through its spell lifesteal or attack lifesteal, any health that would be lost from the healing is turned into an all-damage barrier.\nBarrier cannot exceed %overheal_maximum%%% of your maximum health."
+		"DOTA_Tooltip_ability_item_blood_gem_3_spell_lifesteal"												"%+$spell_lifesteal"
+		"DOTA_Tooltip_ability_item_blood_gem_3_lifesteal_percent"											"%+$lifesteal"
+		
+		"DOTA_Tooltip_ability_item_blood_gem_4"																"Saintblood Gem"
+		"DOTA_Tooltip_ability_item_blood_gem_4_Description"                                           		"<h1>Active: Link Blood</h1>For %duration% seconds, you lifesteal off of all damage dealt by allied units.\n<h1>Passive: False Life</h1>When this item restores your health through its spell lifesteal or attack lifesteal, any health that would be lost from the healing is turned into an all-damage barrier.\nBarrier cannot exceed %overheal_maximum%%% of your maximum health."
+		"DOTA_Tooltip_ability_item_blood_gem_4_spell_lifesteal"												"%+$spell_lifesteal"
+		"DOTA_Tooltip_ability_item_blood_gem_4_lifesteal_percent"											"%+$lifesteal"
+		
+		"DOTA_Tooltip_ability_item_blood_gem_5"																"Hexblood Gem"
+		"DOTA_Tooltip_ability_item_blood_gem_5_Description"                                           		"<h1>Active: Link Blood</h1>For %duration% seconds, you lifesteal off of all damage dealt by allied units.\n<h1>Passive: False Life</h1>When this item restores your health through its spell lifesteal or attack lifesteal, any health that would be lost from the healing is turned into an all-damage barrier.\nBarrier cannot exceed %overheal_maximum%%% of your maximum health."
+		"DOTA_Tooltip_ability_item_blood_gem_5_spell_lifesteal"												"%+$spell_lifesteal"
+		"DOTA_Tooltip_ability_item_blood_gem_5_lifesteal_percent"											"%+$lifesteal"
+		
+		"DOTA_Tooltip_modifier_item_blood_gem_active"														"Link Blood"
+		"DOTA_Tooltip_modifier_item_blood_gem_active_Description"											"Lifestealing off of damage dealt by allies."
+		
+		// Cape of the Magus
+		"DOTA_Tooltip_ability_item_cape_of_the_magus"														"Cape of the Magus"
+		"DOTA_Tooltip_ability_item_cape_of_the_magus_Description"                                           "<h1>Aura: Aura of the Magus</h1>Grants you and nearby allied units %aura_spell_amp%%% bonus spell amplification, %aura_spell_lifesteal%%% spell lifesteal and %aura_spell_amp%%% bonus spell amplification, %aura_bonus_magical_armor%%% magic resistance."
+		"DOTA_Tooltip_ability_item_cape_of_the_magus_bonus_intellect"										"+$int"
+		"DOTA_Tooltip_ability_item_cape_of_the_magus_mana_regen_multiplier"									"%+Mana Regen Amplification"
+		"DOTA_Tooltip_ability_item_cape_of_the_magus_spell_lifesteal_amp"									"%+Spell Lifesteal Amplification"
+		
+		"DOTA_Tooltip_ability_item_cape_of_the_magus_2"														"Cape of the Nightsong"
+		"DOTA_Tooltip_ability_item_cape_of_the_magus_2_Description"                                           "<h1>Aura: Aura of the Magus</h1>Grants you and nearby allied units %aura_spell_amp%%% bonus spell amplification, %aura_spell_lifesteal%%% spell lifesteal, and %aura_spell_amp%%% bonus spell amplification, %aura_bonus_magical_armor%%% magic resistance."
+		"DOTA_Tooltip_ability_item_cape_of_the_magus_2_bonus_intellect"										"+$int"
+		"DOTA_Tooltip_ability_item_cape_of_the_magus_2_mana_regen_multiplier"								"%+Mana Regen Amplification"
+		"DOTA_Tooltip_ability_item_cape_of_the_magus_2_spell_lifesteal_amp"									"%+Spell Lifesteal Amplification"
+		
+		"DOTA_Tooltip_ability_item_cape_of_the_magus_3"														"Cape of the Succubus"
+		"DOTA_Tooltip_ability_item_cape_of_the_magus_3_Description"                                           "<h1>Aura: Aura of the Magus</h1>Grants you and nearby allied units %aura_spell_amp%%% bonus spell amplification, %aura_spell_lifesteal%%% spell lifesteal and %aura_spell_amp%%% bonus spell amplification, %aura_bonus_magical_armor%%% magic resistance."
+		"DOTA_Tooltip_ability_item_cape_of_the_magus_3_bonus_intellect"										"+$int"
+		"DOTA_Tooltip_ability_item_cape_of_the_magus_3_mana_regen_multiplier"								"%+Mana Regen Amplification"
+		"DOTA_Tooltip_ability_item_cape_of_the_magus_3_spell_lifesteal_amp"									"%+Spell Lifesteal Amplification"
+		
+		"DOTA_Tooltip_ability_item_cape_of_the_magus_4"														"Cape of the Cherub"
+		"DOTA_Tooltip_ability_item_cape_of_the_magus_4_Description"                                           "<h1>Aura: Aura of the Magus</h1>Grants you and nearby allied units %aura_spell_amp%%% bonus spell amplification, %aura_spell_lifesteal%%% spell lifesteal and %aura_spell_amp%%% bonus spell amplification, %aura_bonus_magical_armor%%% magic resistance."
+		"DOTA_Tooltip_ability_item_cape_of_the_magus_4_bonus_intellect"										"+$int"
+		"DOTA_Tooltip_ability_item_cape_of_the_magus_4_mana_regen_multiplier"								"%+Mana Regen Amplification"
+		"DOTA_Tooltip_ability_item_cape_of_the_magus_4_spell_lifesteal_amp"									"%+Spell Lifesteal Amplification"
+		
+		"DOTA_Tooltip_ability_item_cape_of_the_magus_5"														"Cape of the Void"
+		"DOTA_Tooltip_ability_item_cape_of_the_magus_5_Description"                                           "<h1>Aura: Aura of the Magus</h1>Grants you and nearby allied units %aura_spell_amp%%% bonus spell amplification, %aura_spell_lifesteal%%% spell lifesteal and %aura_spell_amp%%% bonus spell amplification, %aura_bonus_magical_armor%%% magic resistance."
+		"DOTA_Tooltip_ability_item_cape_of_the_magus_5_bonus_intellect"										"+$int"
+		"DOTA_Tooltip_ability_item_cape_of_the_magus_5_mana_regen_multiplier"								"%+Mana Regen Amplification"
+		"DOTA_Tooltip_ability_item_cape_of_the_magus_5_spell_lifesteal_amp"									"%+Spell Lifesteal Amplification"
+		
+		"DOTA_Tooltip_modifier_item_cape_of_the_magus_passive_aura"											"Aura of the Magus"
+		"DOTA_Tooltip_modifier_item_cape_of_the_magus_passive_aura_Description"								"Gaining %dMODIFIER_PROPERTY_TOOLTIP%%% spell lifesteal, %dMODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE%%% spell amplification and %dMODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS%%% magical resistance."
+		
 		"DOTA_Tooltip_ability_item_revenants_brooch_Description"											"<h1>Toggle: Phantom Province</h1>When enabled, attacks cost %manacost_per_hit% mana and deal magical spell damage.\nDamage is not increased by spell amplification."
 		
 		"DOTA_Tooltip_ability_item_revenants_brooch_2"                                                      "Nightwalker's Brooch"
 		"DOTA_Tooltip_ability_item_revenants_brooch_2_Description"											"<h1>Toggle: Phantom Province</h1>When enabled, attacks cost %manacost_per_hit% mana and deal magical spell damage.\nDamage is not increased by spell amplification."
 		"DOTA_Tooltip_ability_item_revenants_brooch_2_Lore"													"The cursed brooch of a fallen guardian who stalks forever between the veil of life and death."
 		"DOTA_Tooltip_ability_item_revenants_brooch_2_bonus_damage"											"+$damage"
-		"DOTA_Tooltip_ability_item_revenants_brooch_2_spell_lifesteal"										"+$spell_lifesteal"
+		"DOTA_Tooltip_ability_item_revenants_brooch_2_spell_lifesteal"										"%+$spell_lifesteal"
 		
 		"DOTA_Tooltip_ability_item_revenants_brooch_3"                                                      "Hellspawn's Brooch"
 		"DOTA_Tooltip_ability_item_revenants_brooch_3_Description"											"<h1>Toggle: Phantom Province</h1>When enabled, attacks cost %manacost_per_hit% mana and deal magical spell damage.\nDamage is not increased by spell amplification."
 		"DOTA_Tooltip_ability_item_revenants_brooch_3_Lore"													"The cursed brooch of a fallen guardian who stalks forever between the veil of life and death."
 		"DOTA_Tooltip_ability_item_revenants_brooch_3_bonus_damage"											"+$damage"
-		"DOTA_Tooltip_ability_item_revenants_brooch_3_spell_lifesteal"										"+$spell_lifesteal"
+		"DOTA_Tooltip_ability_item_revenants_brooch_3_spell_lifesteal"										"%+$spell_lifesteal"
 		
 		"DOTA_Tooltip_ability_item_revenants_brooch_4"                                                      "Galaxy Brooch"
 		"DOTA_Tooltip_ability_item_revenants_brooch_4_Description"											"<h1>Toggle: Phantom Province</h1>When enabled, attacks cost %manacost_per_hit% mana and deal magical spell damage.\nDamage is not increased by spell amplification."
 		"DOTA_Tooltip_ability_item_revenants_brooch_4_Lore"													"The cursed brooch of a fallen guardian who stalks forever between the veil of life and death."
 		"DOTA_Tooltip_ability_item_revenants_brooch_4_bonus_damage"											"+$damage"
-		"DOTA_Tooltip_ability_item_revenants_brooch_4_spell_lifesteal"										"+$spell_lifesteal"
+		"DOTA_Tooltip_ability_item_revenants_brooch_4_spell_lifesteal"										"%+$spell_lifesteal"
 		
 		"DOTA_Tooltip_ability_item_revenants_brooch_5"                                                      "Brooch of Bahamut"
 		"DOTA_Tooltip_ability_item_revenants_brooch_5_Description"											"<h1>Toggle: Phantom Province</h1>When enabled, attacks cost %manacost_per_hit% mana and deal magical spell damage.\nDamage is not increased by spell amplification."
 		"DOTA_Tooltip_ability_item_revenants_brooch_5_Lore"													"The cursed brooch of a fallen guardian who stalks forever between the veil of life and death."
 		"DOTA_Tooltip_ability_item_revenants_brooch_5_bonus_damage"											"+$damage"
-		"DOTA_Tooltip_ability_item_revenants_brooch_5_spell_lifesteal"										"+$spell_lifesteal"
+		"DOTA_Tooltip_ability_item_revenants_brooch_5_spell_lifesteal"										"%+$spell_lifesteal"
 		
 
 		"DOTA_Tooltip_modifier_item_sange_and_yasha_burn"                                                   "Sub-Zero"

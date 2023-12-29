@@ -1,0 +1,433 @@
+"DOTAAbilities"
+{
+	//=================================================================================================================
+	// Recipe: Battlefury
+	//=================================================================================================================
+	"item_recipe_martyrs_bulwark"
+	{
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		"BaseClass"						"item_recipe_blade_mail"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"25"
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_martyrs_bulwark"
+		"ItemRequirements"
+		{
+			"01"						"item_blade_mail;item_mjollnir;item_gungir"
+		}
+	}	
+	"item_martyrs_bulwark"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_blade_mail.lua"
+		"AbilityTextureName"			"blademail/martyrs_bulwark"
+		
+		"precache"
+		{
+			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_axe.vsndevts"
+			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_items.vsndevts"
+			"particle"			"particles/units/heroes/hero_axe/axe_beserkers_call_owner.vpcf"
+			"particle"			"particles/status_fx/status_effect_beserkers_call.vpcf"
+			"particle"			"particles/status_fx/status_effect_blademail.vpcf"
+			"particle"			"particles/items_fx/blademail.vpcf"
+		}
+	
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"18"
+		"AbilitySharedCooldown"			"blademail"
+	
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"50"
+		"ItemCost"						"420"
+		"ItemShopTags"					"damage;armor;int;hard_to_tag"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"blade mail"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage"						"200"
+			"bonus_armor"						"7"
+			"bonus_intellect"					"25"
+			"bonus_hp"							"400"
+			"bonus_attack_speed"				"95"
+			"radius"				
+			{
+				"value"							"650"
+				"affected_by_aoe_increase"		"1"
+			}
+			"root_duration"						"2.0"
+			"duration"							"4.5"
+			"static_strikes"					"4"
+			"passive_reflection_constant"		"200"
+			"active_reflection_pct"				"100"
+			"internal_cd"						"0.1"
+			
+			"chain_chance"						"30"
+			"chain_strikes"						"12"
+			"chain_radius"						"650"
+			"chain_delay"						"0.25"
+		}
+	}
+	//=================================================================================================================
+	// Recipe: Battlefury
+	//=================================================================================================================
+	"item_recipe_martyrs_bulwark_2"
+	{
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		"BaseClass"						"item_recipe_blade_mail"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"25"
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_martyrs_bulwark_2"
+		"ItemRequirements"
+		{
+			"01"						"item_martyrs_bulwark;item_mystic_staff;item_relic"
+		}
+	}	
+	//=================================================================================================================
+	// Blade Mail
+	//=================================================================================================================
+	"item_martyrs_bulwark_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_blade_mail.lua"
+		"AbilityTextureName"			"blademail/martyrs_bulwark_2"
+		
+		"precache"
+		{
+			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_axe.vsndevts"
+			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_items.vsndevts"
+			"particle"			"particles/units/heroes/hero_axe/axe_beserkers_call_owner.vpcf"
+			"particle"			"particles/status_fx/status_effect_beserkers_call.vpcf"
+			"particle"			"particles/status_fx/status_effect_blademail.vpcf"
+			"particle"			"particles/items_fx/blademail.vpcf"
+		}
+	
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"18"
+		"AbilitySharedCooldown"			"blademail"
+	
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"50"
+		"ItemCost"						"420"
+		"ItemShopTags"					"damage;armor;int;hard_to_tag"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"blade mail"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage"						"450"
+			"bonus_armor"						"8"
+			"bonus_intellect"					"50"
+			"bonus_hp"							"1000"
+			"bonus_attack_speed"				"100"
+			"radius"				
+			{
+				"value"							"650"
+				"affected_by_aoe_increase"		"1"
+			}
+			"root_duration"						"2.0"
+			"duration"							"4.5"
+			"static_strikes"					"5"
+			"passive_reflection_constant"		"365"
+			"active_reflection_pct"				"100"
+			"internal_cd"						"0.1"
+			
+			"chain_chance"						"30"
+			"chain_strikes"						"12"
+			"chain_radius"						"650"
+			"chain_delay"						"0.25"
+		}
+	}
+	//=================================================================================================================
+	// Recipe: Battlefury
+	//=================================================================================================================
+	"item_recipe_martyrs_bulwark_3"
+	{
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		"BaseClass"						"item_recipe_blade_mail"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"25"
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_martyrs_bulwark_3"
+		"ItemRequirements"
+		{
+			"01"						"item_martyrs_bulwark_2;item_mystic_staff_2;item_scythe_2"
+		}
+	}
+	//=================================================================================================================
+	// Blade Mail
+	//=================================================================================================================
+	"item_martyrs_bulwark_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_blade_mail.lua"
+		"AbilityTextureName"			"blademail/martyrs_bulwark_3"
+		
+		"precache"
+		{
+			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_axe.vsndevts"
+			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_items.vsndevts"
+			"particle"			"particles/units/heroes/hero_axe/axe_beserkers_call_owner.vpcf"
+			"particle"			"particles/status_fx/status_effect_beserkers_call.vpcf"
+			"particle"			"particles/status_fx/status_effect_blademail.vpcf"
+			"particle"			"particles/items_fx/blademail.vpcf"
+		}
+	
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"18"
+		"AbilitySharedCooldown"			"blademail"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+	
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"25"
+		"ItemCost"						"420"
+		"ItemShopTags"					"damage;armor;int;hard_to_tag"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"blade mail"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage"						"1100"
+			"bonus_armor"						"9"
+			"bonus_intellect"					"125"
+			"bonus_hp"							"2500"
+			"bonus_attack_speed"				"105"
+			"radius"				
+			{
+				"value"							"650"
+				"affected_by_aoe_increase"		"1"
+			}
+			"root_duration"						"2.0"
+			"duration"							"4.5"
+			"static_chance"						"20"
+			"static_strikes"					"6"
+			"passive_reflection_constant"		"800"
+			"active_reflection_pct"				"100"
+			"internal_cd"						"0.1"
+			
+			"chain_chance"						"30"
+			"chain_strikes"						"12"
+			"chain_radius"						"650"
+			"chain_delay"						"0.25"
+		}
+	}
+	
+	//=================================================================================================================
+	// Recipe: Battlefury
+	//=================================================================================================================
+	"item_recipe_martyrs_bulwark_4"
+	{
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		"BaseClass"						"item_recipe_blade_mail"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"25"
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_martyrs_bulwark_4"
+		"ItemRequirements"
+		{
+			"01"						"item_martyrs_bulwark_3;item_mystic_staff_3;item_scythe_3"
+		}
+	}
+	//=================================================================================================================
+	// Blade Mail
+	//=================================================================================================================
+	"item_martyrs_bulwark_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_blade_mail.lua"
+		"AbilityTextureName"			"blademail/martyrs_bulwark_4"
+		
+		"precache"
+		{
+			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_axe.vsndevts"
+			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_items.vsndevts"
+			"particle"			"particles/units/heroes/hero_axe/axe_beserkers_call_owner.vpcf"
+			"particle"			"particles/status_fx/status_effect_beserkers_call.vpcf"
+			"particle"			"particles/status_fx/status_effect_blademail.vpcf"
+			"particle"			"particles/items_fx/blademail.vpcf"
+		}
+	
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"18"
+		"AbilitySharedCooldown"			"blademail"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+	
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"25"
+		"ItemCost"						"420"
+		"ItemShopTags"					"damage;armor;int;hard_to_tag"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"blade mail"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage"						"3250"
+			"bonus_armor"						"10"
+			"bonus_intellect"					"350"
+			"bonus_hp"							"10000"
+			"bonus_attack_speed"				"110"
+			"radius"				
+			{
+				"value"							"650"
+				"affected_by_aoe_increase"		"1"
+			}
+			"root_duration"						"2.0"
+			"duration"							"4.5"
+			"static_chance"						"20"
+			"static_strikes"					"7"
+			"passive_reflection_constant"		"1500"
+			"active_reflection_pct"				"100"
+			"internal_cd"						"0.1"
+			
+			"chain_chance"						"30"
+			"chain_strikes"						"12"
+			"chain_radius"						"650"
+			"chain_delay"						"0.25"
+		}
+	}
+	
+	//=================================================================================================================
+	// Recipe: Battlefury
+	//=================================================================================================================
+	"item_recipe_martyrs_bulwark_5"
+	{
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		"BaseClass"						"item_recipe_blade_mail"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"25"
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_martyrs_bulwark_5"
+		"ItemRequirements"
+		{
+			"01"						"item_martyrs_bulwark_4;item_mystic_staff_4;item_scythe_4"
+		}
+	}
+	//=================================================================================================================
+	// Blade Mail
+	//=================================================================================================================
+	"item_martyrs_bulwark_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_blade_mail.lua"
+		"AbilityTextureName"			"blademail/martyrs_bulwark_5"
+		
+		"precache"
+		{
+			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_axe.vsndevts"
+			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_items.vsndevts"
+			"particle"			"particles/units/heroes/hero_axe/axe_beserkers_call_owner.vpcf"
+			"particle"			"particles/status_fx/status_effect_beserkers_call.vpcf"
+			"particle"			"particles/status_fx/status_effect_blademail.vpcf"
+			"particle"			"particles/items_fx/blademail.vpcf"
+		}
+	
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"18"
+		"AbilitySharedCooldown"			"blademail"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+	
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"25"
+		"ItemCost"						"420"
+		"ItemShopTags"					"damage;armor;int;hard_to_tag"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"blade mail"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage"						"10000"
+			"bonus_armor"						"11"
+			"bonus_intellect"					"1000"
+			"bonus_hp"							"25000"
+			"bonus_attack_speed"				"115"
+			"radius"				
+			{
+				"value"							"650"
+				"affected_by_aoe_increase"		"1"
+			}
+			"root_duration"						"2.0"
+			"duration"							"4.5"
+			"static_chance"						"20"
+			"static_strikes"					"7"
+			"passive_reflection_constant"		"2500"
+			"active_reflection_pct"				"100"
+			"internal_cd"						"0.1"
+			
+			"chain_chance"						"30"
+			"chain_strikes"						"12"
+			"chain_radius"						"650"
+			"chain_delay"						"0.25"
+		}
+	}
+}

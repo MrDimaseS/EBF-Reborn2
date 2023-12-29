@@ -19,7 +19,7 @@
 		"MaxLevel"						"7"
 		"LevelsBetweenUpgrades"			"3"
 
-		"HasScepterUpgrade"               "1"
+		"HasScepterUpgrade"             "0"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -33,7 +33,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"80 110 140 170 200 230 260"	
+		
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -47,21 +47,40 @@
 			}
 			"bonus_armor"	
 			{
-				"value"							"16 19 22 25 28 31 34"
+				"value"							"4 6 8 10 12 14 16"
+				"specialization_axe_juggernaut"	"+15"
 				"special_bonus_unique_axe_7"	"+8"
 			}
 			"duration"							"3 3.5 4 4.5 5 5.5 6"
 			"AbilityCooldown"
 			{
-				"value"							"11"	
-				"special_bonus_scepter" 		"-2.0"
-				"RequiresScepter"				"1"
+				"value"							"11"
 			}
-			"applies_battle_hunger"
+			"AbilityManaCost"
 			{
-				"special_bonus_scepter" 		"+1"
+				"value" 						"50"
+				"specialization_axe_juggernaut"	"-50"
 			}
-			"scepter_armor_change"				""
+			"rage_generation"
+			{
+				"value" 						"50"
+				"RequiresSpecialization"		"specialization_axe_juggernaut"
+			}
+			"bonus_movespeed"
+			{
+				"value" 						"+15 +20 +25 +30 +35 +40 +45"
+				"RequiresSpecialization"		"specialization_axe_berserker"
+			}
+			"bonus_attackspeed"
+			{
+				"value" 						"+40 +65 +90 +115 +140 +165 +190"
+				"RequiresSpecialization"		"specialization_axe_berserker"
+			}
+			"affects_allies"
+			{
+				"value" 						"+15 +20 +25 +30 +35 +40 +45"
+				"RequiresSpecialization"		"specialization_axe_skald"
+			}
 		}
 	}
 	
@@ -94,11 +113,10 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"20 15 10 5 5 5 5"
+		"AbilityCooldown"				"1"
 
 		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"50 80 110 140 170 200 230"		
+		//-------------------------------------------------------------------------------------------------------------	
 		
 		// Cast Range
 		//-------------------------------------------------------------------------------------------------------------
@@ -114,7 +132,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"								"12.0 12.0 12.0 12.0 15.0 18.0 21.0"
+			"duration"								"12.0"
 			"slow"
 			{
 				"value"								"-8 -17 -26 -35 -55 -75 -95"
@@ -128,11 +146,29 @@
 			"armor_multiplier"			
 			{
 				"value"								"5 10 15 20 25 30 40"
+				"RequiresSpecialization"			"specialization_axe_juggernaut"
+				"special_bonus_unique_axe"			"x2"
+			}					
+			"atk_multiplier"			
+			{
+				"value"								"9 9.5 10 10.5 11 11.5 12"
+				"RequiresSpecialization"			"specialization_axe_berserker"
 				"special_bonus_unique_axe"			"x2"
 			}
-			"scepter_armor_change"
+			"armor_buff"
 			{
-				"special_bonus_scepter"				"7"
+				"value" 							"1 1.5 2 2.5 3 3.5 4"
+				"RequiresSpecialization"			"specialization_axe_juggernaut"
+			}
+			"armor_debuff"
+			{
+				"value" 							"2 3 4 5 6 7 8"
+				"RequiresSpecialization"			"specialization_axe_berserker"
+			}
+			"bonus_damage_debuff"
+			{
+				"value" 							"15 16 17 18 19 20 21"
+				"RequiresSpecialization"			"specialization_axe_skald"
 			}
 			"speed_bonus"
 			{
@@ -153,7 +189,7 @@
 		"ScriptFile"					"heroes/hero_axe/axe_counter_helix"
 		"AbilityTextureName"			"axe_counter_helix"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_PURE"	
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"AbilitySound"					"Hero_Axe.CounterHelix"
 		
@@ -177,21 +213,36 @@
 			"trigger_attacks"
 			{
 				"value"							"15"
-				"special_bonus_shard"			"-3"
+				"specialization_axe_berserker"	"-3"
 			}
 			"hero_trigger"						"3"
-			"AbilityCooldown"					"0.3"
-			"shard_debuff_duration"
+			"self_trigger"
 			{
-				"special_bonus_shard"			"+6.0"
+				"specialization_axe_berserker"	"+1"
 			}
-			"shard_damage_reduction"
+			"time_to_trigger"
 			{
-				"special_bonus_shard"			"+6"
+				"specialization_axe_skald"		"+3"
 			}
-			"shard_max_stacks"
+			"AbilityCooldown"
 			{
-				"special_bonus_shard"			"+5"	
+				"value"							"0.3"
+				"specialization_axe_juggernaut"	"=0"
+			}
+			"debuff_duration"
+			{
+				"value"							"+6.0"
+				"RequiresSpecialization"		"specialization_axe_juggernaut"
+			}
+			"damage_reduction"
+			{
+				"value"							"+6"
+				"RequiresSpecialization"		"specialization_axe_juggernaut"
+			}
+			"dmg_red_max_stacks"
+			{
+				"value"							"+5"	
+				"RequiresSpecialization"		"specialization_axe_juggernaut"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
@@ -233,7 +284,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"100 85 70 65 60 55"
+		"AbilityManaCost"				"100"
 		
 		// Cast Range
 		//-------------------------------------------------------------------------------------------------------------

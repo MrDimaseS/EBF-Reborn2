@@ -494,7 +494,7 @@ IGNORE_SPELL_AMP_KV = {
 	["enigma_midnight_pulse"] = {["damage_percent"] = true},
 	["enigma_black_hole"] = {["scepter_pct_damage"] = true},
 	["obsidian_destroyer_arcane_orb"] = {["mana_pool_damage_pct"] = true},
-	["phantom_assassin_fan_of_knives"] = {["pct_health_damage_initial"] = true},
+	["phantom_assassin_fan_of_knives"] = {["pct_health_damage_initial"] = true,["pct_health_damage"] = true},
 	["huskar_life_break"] = {["health_cost_percent"] = true,["health_damage"] = true},
 	["item_bloodthorn"] = {["silence_damage_percent"] = true},
 	["item_bloodthorn_2"] = {["silence_damage_percent"] = true},
@@ -649,9 +649,8 @@ function CHoldoutGameMode:OnHeroPick (event)
 	local playerID = hero:GetPlayerOwnerID()
 	
 	-- set hero base stats to their intended values
-	hero:SetBaseManaRegen( (hero:GetBaseIntellect() / 5) * 0.04 )
 	
-	if hero ~= PlayerResource:GetSelectedHeroEntity( playerID ) then return end -- ignore non-main units like meepo, spirit bear etc
+	if PlayerResource:GetSelectedHeroEntity( playerID ) and hero ~= PlayerResource:GetSelectedHeroEntity( playerID ) then return end -- ignore non-main units like meepo, spirit bear etc
 	hero.damageDone = 0
 	hero.Ressurect = 0
 	--stats:ModifyStatBonuses(hero)
@@ -714,7 +713,18 @@ function CHoldoutGameMode:OnHeroPick (event)
 	hero.damage_dealt_ingame = 0
 	hero.damage_taken_ingame = 0
 	hero.damage_healed_ingame = 0
+	
+	
+	hero._heroManaType = GameRules.HeroKV[hero:GetUnitName()].ManaType or "Mana"
+	
+	if hero:GetManaType() == "Mana" then
+		hero:SetBaseManaRegen( (hero:GetBaseIntellect() / 5) * 0.04 )
+	else
+		hero:SetBaseManaRegen( 0 )
+	end
+	
 	CustomNetTables:SetTableValue("game_stats", tostring( playerID ), {damage_dealt = 0, damage_taken = 0, damage_healed = 0, last_damage_dealt = 0})
+	CustomNetTables:SetTableValue("hero_attributes", tostring( hero:entindex() ), {mana_type = hero._heroManaType})
 
 	PlayerResource:SetCustomBuybackCooldown( playerID, 10 )
 	PlayerResource:SetCustomBuybackCost( playerID, 100 )
@@ -724,13 +734,6 @@ function CHoldoutGameMode:OnHeroPick (event)
 	hero:AddItemByName("item_tier1_token")
 	if PlayerResource:GetPatronTier(playerID) >= 2 then
 		hero:AddItemByName( "item_aegis" )
-	end
-	
-	if hero:FindAbilityByName("kunkka_return") then
-		hero:FindAbilityByName("kunkka_return"):SetLevel(1)
-	end
-	if hero:FindAbilityByName("kunkka_x_marks_the_spot") then
-		hero:FindAbilityByName("kunkka_x_marks_the_spot"):SetLevel(1)
 	end
 end
 
@@ -1005,14 +1008,15 @@ end
 function CHoldoutGameMode:OnGameRulesStateChange()
 	local nNewState = GameRules:State_Get()
 	if nNewState == DOTA_GAMERULES_STATE_HERO_SELECTION then
-		local heroKV = LoadKeyValues("scripts/npc/npc_heroes.txt")
+		GameRules.HeroKV = LoadKeyValues("scripts/npc/npc_heroes.txt")
+		MergeTables( GameRules.HeroKV, LoadKeyValues("scripts/npc/npc_heroes_custom.txt") )
 		local activeList = LoadKeyValues("scripts/npc/herolist.txt")
 		local durableHeroes = {}
 		local dpsHeroes = {}
 		local supportHeroes = {}
 		for heroName, available in pairs( activeList ) do
 			if tonumber(available) > 0 then
-				local heroData = heroKV[heroName]
+				local heroData = GameRules.HeroKV[heroName]
 				local roles = splitString( heroData.Role, "," )
 				local roleLevel = splitString( heroData.Rolelevels, "," )
 				local roleData = {}

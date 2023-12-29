@@ -51,6 +51,55 @@ const hud = dotaHud.FindChildTraverse("HUDElements");
     }
 })();
 
+
+GameEvents.Subscribe("dota_player_update_query_unit", UpdateManaBar);
+GameEvents.Subscribe("dota_player_update_selected_unit", UpdateManaBar);
+
+function UpdateManaBar(){
+	const currentTarget = Players.GetLocalPlayerPortraitUnit();
+	const manaNetTable = CustomNetTables.GetTableValue( "hero_attributes", currentTarget )
+	const health_mana = hud.FindChildTraverse("health_mana");
+    if (health_mana !== null && health_mana !== undefined ) {
+		const mana_progress = health_mana.FindChildTraverse("ManaProgress");
+		const mana_label = health_mana.FindChildTraverse("ManaRegenLabel");
+		if (mana_progress !== null && mana_progress !== undefined && mana_label !== null && mana_label !== undefined) {
+			const mana_left = mana_progress.FindChildTraverse("ManaProgress_Left");
+			const mana_right = mana_progress.FindChildTraverse("ManaProgress_Right");
+			const mana_burner = mana_progress.FindChildTraverse("ManaBurner");
+			
+			if (manaNetTable == null || manaNetTable == undefined ) {
+				mana_left.style.backgroundColor = "gradient( linear, 0% 0%, 0% 100%, from( #2b4287 ), color-stop( 0.2, #4165ce ), color-stop( .5, #4a73ea), to( #2b4287 ) );"
+				mana_right.style.backgroundColor = "gradient( linear, 0% 0%, 0% 100%, from( #101932 ), color-stop( 0.2, #172447 ), color-stop( .5, #162244), to( #101932 ) );"
+				mana_burner.style.hueRotation = "50deg;"
+				mana_label.style.color = "#83C2FE";
+			} else {
+				switch(manaNetTable.mana_type) {
+				  case "Rage":
+					mana_left.style.backgroundColor = "gradient( linear, 0% 0%, 0% 100%, from( #3f0000 ), color-stop( 0.2, #8b0000 ), color-stop( .5, #8b0000), to( #3f0000 ) );"
+					mana_right.style.backgroundColor = "gradient( linear, 0% 0%, 0% 100%, from( #100000 ), color-stop( 0.2, #260000 ), color-stop( .5, #100000), to( #260000  ) );"
+					mana_burner.style.hueRotation = "-120deg;"
+					mana_label.style.visibility = "collapse";
+					break;
+				  case "Stamina":
+					mana_left.style.backgroundColor = "gradient( linear, 0% 0%, 0% 100%, from( #755800 ), color-stop( 0.2, #dba400 ), color-stop( .5, #dba400 ), to( #755800 ) );"
+					mana_right.style.backgroundColor = "gradient( linear, 0% 0%, 0% 100%, from( #100000 ), color-stop( 0.2, #260000 ), color-stop( .5, #100000), to( #260000  ) );"
+					mana_burner.style.hueRotation = "290deg;"
+					mana_label.style.visibility = "collapse";
+					break;
+				  default:
+					mana_left.style.backgroundColor = "gradient( linear, 0% 0%, 0% 100%, from( #2b4287 ), color-stop( 0.2, #4165ce ), color-stop( .5, #4a73ea), to( #2b4287 ) );"
+					mana_right.style.backgroundColor = "gradient( linear, 0% 0%, 0% 100%, from( #101932 ), color-stop( 0.2, #172447 ), color-stop( .5, #162244), to( #101932 ) );"
+					mana_burner.style.hueRotation = "50deg;"
+					mana_label.style.color = "#83C2FE";
+				}
+			}
+		}
+    }
+}
+(function() {
+    UpdateManaBar()
+})();
+
 (function() {
     const guideflyout = hud.FindChildTraverse("GuideFlyout");
     if (guideflyout !== null && guideflyout !== undefined) {

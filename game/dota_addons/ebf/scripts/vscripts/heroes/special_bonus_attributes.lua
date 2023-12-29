@@ -8,8 +8,6 @@ function special_bonus_attributes:OnHeroLevelUp()
 	
 	local attribute_multiplier = self:GetSpecialValueFor("value") / 100
 	
-	print( strGain, agiGain, intGain, attribute_multiplier, "gained level" )
-	
 	strGain = strGain * (1+attribute_multiplier)
 	agiGain = agiGain * (1+attribute_multiplier)
 	intGain = intGain * (1+attribute_multiplier)
@@ -34,12 +32,9 @@ function special_bonus_attributes:OnUpgrade()
 	local totalIntValue = self.originalBaseInt + math.sumT( 1, hero:GetLevel()-1, hero:GetIntellectGain() * 0.5 ) + (hero:GetLevel()-1 * hero:GetIntellectGain() )
 	
 	local attribute_multiplier = (self:GetSpecialValueFor( "value" ) - self:GetLevelSpecialValueFor( "value", self:GetLevel()-2 ) ) / 100
-	print( self:GetSpecialValueFor( "value" ), self:GetLevelSpecialValueFor( "value", self:GetLevel()-2 ), self:GetLevelSpecialValueFor( "value", self:GetLevel()-1 ))
 	if self:GetLevel() == 1 then -- no way to get 0 out of specialvalue and getlevel
 		attribute_multiplier = self:GetSpecialValueFor( "value" ) / 100
 	end
-	
-	print( totalStrValue, totalAgiValue, totalIntValue, attribute_multiplier, "leveled stats" )
 	
 	hero:ModifyStrength( totalStrValue * attribute_multiplier ) 
 	hero:ModifyAgility( totalAgiValue * attribute_multiplier ) 
@@ -138,8 +133,14 @@ end
 
 
 function modifier_special_bonus_attributes_stat_rescaling:OnCreated()
+	self:GetParent()._heroManaType = CustomNetTables:GetTableValue("hero_attributes", tostring(self:GetParent():entindex())).mana_type or "Mana"
+	
 	self.baseMana = self:GetParent():GetIntellect() * 11
 	self.baseManaRegen = self:GetParent():GetIntellect() * 0.04
+	if self:GetParent()._heroManaType ~= "Mana" then
+		self.baseMana = 0
+		self.baseManaRegen = 0
+	end
 
 	self.bonusSpellAmp = 0.04
 	self.bonusDamage = 1.5
@@ -155,6 +156,12 @@ function modifier_special_bonus_attributes_stat_rescaling:OnCreated()
 	self:OnRefresh()
 	if IsServer() then
 		self:SetStackCount( self:GetParent():GetPrimaryAttribute() )
+		
+		if self:GetParent()._heroManaType == "Rage" then
+			Timers:CreateTimer( 0.1, function() self:GetParent():AddNewModifier( self:GetParent(), self:GetAbility(), "modifier_hero_rage_system", {} ) end )
+		elseif self:GetParent()._heroManaType == "Stamina" then
+			Timers:CreateTimer( 0.1, function() self:GetParent():AddNewModifier( self:GetParent(), self:GetAbility(), "modifier_hero_stamina_system", {} ) end )
+		end
 	end
 end
 
@@ -240,11 +247,19 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierHealthBonus
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierManaBonus()
-  return self.baseMana + 5 * (self:GetParent():GetLevel() - 1)^2
+	local mana = self.baseMana
+	if self:GetParent()._heroManaType ~= "Mana" then
+		mana = mana - self:GetParent():GetIntellect() * 2
+	end
+  return mana
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierConstantManaRegen()
-  return self.baseManaRegen - self:GetParent():GetIntellect() * 0.04
+	if self:GetParent()._heroManaType ~= "Mana" then
+		return -self:GetParent():GetIntellect() * 0.05
+	else
+		return self.baseManaRegen - self:GetParent():GetIntellect() * 0.04
+	end
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierBaseAttack_BonusDamage()

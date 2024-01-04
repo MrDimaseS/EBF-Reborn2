@@ -41,11 +41,16 @@
 #base "items/item_conquerors_splint.txt"
 #base "items/item_cape_of_the_magus.txt"
 #base "items/item_blood_gem.txt"
+#base "items/item_armlet.txt"
+#base "items/item_fallen_sky.txt"
+#base "items/item_lotus_orb.txt"
 #base "items/item_upgrade_orbs.txt"
 #base "items/item_upgrade_damage.txt"
 #base "items/item_upgrade_int.txt"
 #base "items/item_upgrade_agi.txt"
 #base "items/item_upgrade_str.txt"
+
+#base "items_override.txt"
 
 "DOTAAbilities"
 {
@@ -117,6 +122,27 @@
 		"ItemCastOnPickup"				"1"
 		"ItemKillable"					"0"
 	}
+	"item_recipe_relic"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_radiance"
+
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"1400"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_relic"
+		"ItemRequirements"
+		{
+			"01"						"item_demon_edge"
+		}
+	}
 	//=================================================================================================================
 	// Recipe: Helm of mithril will 
 	//=================================================================================================================
@@ -124,7 +150,7 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"ID"							"3024"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+																// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
 		"BaseClass"						"item_recipe_arcane_boots"
 		"Model"							"models/props_gameplay/recipe.vmdl"
 		
@@ -149,7 +175,7 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"ID"							"3025"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+																// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"BaseClass"						"item_helm_of_iron_will"
 		"AbilityTextureName"			"item_helm_of_mithril_will"
@@ -175,7 +201,7 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"ID"							"1269"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+																// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"BaseClass"						"item_datadriven"
 		"AbilityTextureName"			"item_FrenchDeath_armor"
@@ -273,7 +299,7 @@
 	//=================================================================================================================
 	"item_recipe_asura_sword"
 	{
-		"ID"							"1293"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+																// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
 		"Model"							"models/props_gameplay/recipe.vmdl"
 		"BaseClass"						"item_recipe_rapier"
 		
@@ -297,7 +323,7 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"ID"							"1279"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+																// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"BaseClass"						"item_datadriven"
 		"AbilityTextureName"			"item_asura_sword"

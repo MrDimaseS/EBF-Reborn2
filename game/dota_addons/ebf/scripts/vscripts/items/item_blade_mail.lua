@@ -43,6 +43,27 @@ function item_blade_mail:OnSpellStart()
 	caster:AddNewModifier(caster,self, "modifier_item_blade_mail_passive_taunt", {Duration = self:GetSpecialValueFor("duration")})
 end
 
+item_conquerors_splint = class(item_blade_mail)
+
+function item_conquerors_splint:GetDefaultFunctions()
+	return {
+		MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
+		MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT,
+		MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
+		MODIFIER_EVENT_ON_TAKEDAMAGE,
+		MODIFIER_PROPERTY_PREATTACK_CRITICALSTRIKE,
+    }
+end
+
+function item_blade_mail:GetIntrinsicModifierName()
+	return "modifier_item_conquerors_splint_passive"
+end
+
+item_conquerors_splint_2 = class(item_conquerors_splint)
+item_conquerors_splint_3 = class(item_conquerors_splint)
+item_conquerors_splint_4 = class(item_conquerors_splint)
+item_conquerors_splint_5 = class(item_conquerors_splint)
+
 item_martyrs_bulwark = class(item_blade_mail)
 
 function item_martyrs_bulwark:GetEffectName()
@@ -156,6 +177,7 @@ end
 
 function modifier_item_blade_mail_passive:OnRefresh()
 	self.bonus_hp = self:GetAbility():GetSpecialValueFor("bonus_hp")
+	self.bonus_hp_regen = self:GetAbility():GetSpecialValueFor("bonus_hp_regen")
 	self.bonus_intellect = self:GetAbility():GetSpecialValueFor("bonus_intellect")
 	self.bonus_armor = self:GetAbility():GetSpecialValueFor("bonus_armor")
 	self.bonus_damage = self:GetAbility():GetSpecialValueFor("bonus_damage")
@@ -168,6 +190,10 @@ function modifier_item_blade_mail_passive:OnRefresh()
 	self.static_strikes = self:GetSpecialValueFor("static_strikes")
 	self.radius = self:GetSpecialValueFor("radius")
 	self.chain_chance = self:GetSpecialValueFor("chain_chance")
+	
+	self.crit_chance = self:GetSpecialValueFor("crit_chance")
+	self.reflect_crit_chance = self:GetSpecialValueFor("reflect_crit_chance")
+	self.crit_multiplier = self:GetSpecialValueFor("crit_multiplier")
 	
 	self._lastHitTime = 0
 end
@@ -236,6 +262,24 @@ end
 
 function modifier_item_blade_mail_passive:IsHidden()
 	return true
+end
+
+modifier_item_conquerors_splint_passive = class(modifier_item_blade_mail_passive)
+LinkLuaModifier( "modifier_item_conquerors_splint_passive", "items/item_blade_mail.lua" ,LUA_MODIFIER_MOTION_NONE )
+
+function modifier_item_blade_mail_passive:GetModifierConstantHealthRegen()
+	return self.bonus_hp_regen
+end
+
+function modifier_item_blade_mail_passive:GetModifierPreAttack_CriticalStrike( params )
+	local roll = RollPseudoRandomPercentage( TernaryOperator( self.reflect_crit_chance, params.target:IsAttackingEntity( params.attacker ), self.crit_chance ), DOTA_PSEUDO_RANDOM_CUSTOM_GENERIC, params.attacker )
+	if roll then
+		return self.crit_multiplier
+	end
+end
+
+function modifier_item_conquerors_splint_passive:GetCritDamage()
+	return self.crit_multiplier / 100
 end
 
 modifier_item_martyrs_bulwark_passive = class(modifier_item_blade_mail_passive)

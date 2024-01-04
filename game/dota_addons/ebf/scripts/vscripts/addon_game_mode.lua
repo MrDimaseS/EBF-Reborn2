@@ -600,12 +600,12 @@ function CHoldoutGameMode:FilterDamage( filterTable )
 		end
 	end
 	
-	if attacker.GetPlayerOwner and attacker:GetPlayerOwner() then
+	if attacker.GetPlayerOwner and attacker:GetPlayerOwner() and attacker ~= victim then
 		local heroToAssign = PlayerResource:GetSelectedHeroEntity( attacker:GetPlayerOwner():GetPlayerID() )
 		heroToAssign.damage_dealt_ingame = (heroToAssign.damage_dealt_ingame or 0) + filterTable["damage"]
 		heroToAssign.last_damage_dealt = filterTable["damage"]
 	end
-	if victim.GetPlayerOwner and victim:GetPlayerOwner() then
+	if victim.GetPlayerOwner and victim:GetPlayerOwner() and attacker ~= victim  then
 		local heroToAssign = PlayerResource:GetSelectedHeroEntity( victim:GetPlayerOwner():GetPlayerID() )
 		heroToAssign.damage_taken_ingame = (heroToAssign.damage_taken_ingame or 0) + filterTable["damage"]
 	end

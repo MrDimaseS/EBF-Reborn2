@@ -37,6 +37,7 @@ end
 function modifier_item_boots_of_bearing_endurance:CheckState()
 	if self:GetLastAppliedTime() + self.bonus_ms_duration < GameRules:GetGameTime() then return end
 	return {[MODIFIER_STATE_UNSLOWABLE] = true,
+			[MODIFIER_STATE_ROOTED] = false,
 			[MODIFIER_STATE_FLYING_FOR_PATHING_PURPOSES_ONLY] = true }
 end
 

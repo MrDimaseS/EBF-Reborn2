@@ -16,21 +16,13 @@ modifier_spirit_breaker_bulldoze_active = class({})
 LinkLuaModifier( "modifier_spirit_breaker_bulldoze_active", "heroes/hero_spirit_breaker/spirit_breaker_bulldoze.lua", LUA_MODIFIER_MOTION_NONE )
 
 function modifier_spirit_breaker_bulldoze_active:OnCreated()
-	self:OnRefresh()
-end
-
-function modifier_spirit_breaker_bulldoze_active:OnRefresh()
 	self.movement_speed = self:GetSpecialValueFor("movement_speed")
 	self.status_resistance = self:GetSpecialValueFor("status_resistance")
 	self.barrier = self:GetSpecialValueFor("damage_barrier")
-	
 	if IsServer() then self:SetHasCustomTransmitterData(true) end
 end
 
 function modifier_spirit_breaker_bulldoze_active:OnRefresh(kv)
-	self.movement_speed = self:GetSpecialValueFor("movement_speed")
-	self.status_resistance = self:GetSpecialValueFor("status_resistance")
-	self.barrier = self:GetSpecialValueFor("damage_barrier")
 	if IsServer() then
 		self:SendBuffRefreshToClients()
 	end
@@ -55,7 +47,7 @@ end
 function modifier_spirit_breaker_bulldoze_active:GetModifierIncomingDamageConstant( params )
 	if IsServer() then
 		local barrier = math.min( self.barrier, math.max( self.barrier, params.damage ) )
-		self.barrier = self.barrier - params.damage
+		self.barrier = math.max( 0, self.barrier - params.damage )
 		self:SendBuffRefreshToClients()
 		return -barrier
 	else

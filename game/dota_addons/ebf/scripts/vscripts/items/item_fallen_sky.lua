@@ -1,18 +1,68 @@
 item_fallen_sky = class({})
 
 function item_fallen_sky:GetIntrinsicModifierName()
-	return "modifier_fallen_sky_passive"
+	return "modifier_ebfr_fallen_sky_passive"
+end
+
+function item_fallen_sky:GetCastRange( position, target )
+	if IsClient() then
+		return self:GetSpecialValueFor("blink_range")
+	else
+		return 0
+	end
 end
 
 function item_fallen_sky:OnSpellStart()
 	local caster = self:GetCaster()
-	local target = self:GetCursorTarget()
+	local position = self:GetCursorPosition()
 	
-	local damage = self:DealDamage( caster, target, self:GetSpecialValueFor("damage")  )
-	caster:HealEvent( damage * self:GetSpecialValueFor("dagon_spell_lifesteal") / 100, self, caster )
-	ParticleManager:FireRopeParticle("particles/items_fx/dagon.vpcf", PATTACH_POINT_FOLLOW, caster, target )
-	EmitSoundOn("DOTA_Item.Dagon.Activate", caster )
-	EmitSoundOn("DOTA_Item.Dagon5.Target", target )
+	local distance = CalculateDistance( caster, position )
+	local clamp = self:GetSpecialValueFor("blink_range_clamp")
+	local range = self:GetSpecialValueFor("blink_range")
+	local realPos = caster:GetAbsOrigin() + CalculateDirection( position, caster ) * math.min( distance, TernaryOperator( clamp + caster:GetCastRangeBonus(), distance > range + caster:GetCastRangeBonus(), range + caster:GetCastRangeBonus() ) )
+	
+	local land_time = self:GetSpecialValueFor("land_time")
+	local duration = self:GetSpecialValueFor("burn_duration")
+	local stunDuration = self:GetSpecialValueFor("stun_duration")
+	local damageRadius = self:GetSpecialValueFor("impact_radius")
+	local stunRadius = self:GetSpecialValueFor("impact_radius")
+	
+	-- BLINK
+	ParticleManager:FireParticle( "particles/items3_fx/blink_overwhelming_start.vpcf", PATTACH_WORLDORIGIN, nil, {[0] = caster:GetAbsOrigin()})
+	local landFX = ParticleManager:CreateParticle("particles/items4_fx/meteor_hammer_aoe.vpcf", PATTACH_WORLDORIGIN, nil)
+	ParticleManager:SetParticleControl( landFX, 0, realPos )
+	ParticleManager:SetParticleControl( landFX, 1, Vector( stunRadius, stunRadius, stunRadius) )
+	
+	ParticleManager:FireParticle("particles/items5_fx/fallen_sky.vpcf", PATTACH_WORLDORIGIN, nil, { [0] = caster:GetAbsOrigin() + Vector(0, 0, 900),
+																									[1] = realPos,
+																									[2] = Vector( land_time, 0, 0)})
+	
+	
+	caster:AddNewModifier( caster, self, "modifier_invulnerable", {duration = land_time} )
+	caster:AddNewModifier( caster, self, "modifier_invisible", {duration = land_time} )
+	caster:AddNoDraw()
+	
+	Timers:CreateTimer( land_time, function()
+		caster:Blink( realPos )
+		ParticleManager:FireParticle( "particles/items3_fx/blink_overwhelming_end.vpcf", PATTACH_POINT, caster )
+		EmitSoundOn( "Blink_Layer.Overwhelming", caster )
+		-- EFFECTS
+		local damage = self:GetSpecialValueFor("damage_base") + caster:GetStrength() * self:GetSpecialValueFor("damage_pct_instant") / 100
+		
+		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), damageRadius ) ) do
+			self:DealDamage( caster, enemy, damage, {damage_type = DAMAGE_TYPE_MAGICAL} )
+			enemy:AddNewModifier( caster, self, "modifier_item_overwhelming_blink_debuff", {duration = duration} )
+		end
+		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), stunRadius ) ) do
+			enemy:AddNewModifier( caster, self, "modifier_stunned", {duration = stunDuration} )
+			enemy:AddNewModifier( caster, self, "modifier_ebfr_fallen_sky_debuff", {duration = duration} )
+		end
+			
+		
+		ParticleManager:FireParticle( "particles/items3_fx/blink_overwhelming_burst.vpcf", PATTACH_POINT, caster, {[1] = Vector( damageRadius, damageRadius, damageRadius )} )
+		ParticleManager:ClearParticle( landFX, false )
+		caster:RemoveNoDraw()
+	end)
 end
 
 item_fallen_sky_2 = class(item_fallen_sky)
@@ -20,58 +70,90 @@ item_fallen_sky_3 = class(item_fallen_sky)
 item_fallen_sky_4 = class(item_fallen_sky)
 item_fallen_sky_5 = class(item_fallen_sky)
 
-modifier_fallen_sky_passive = class({})
-LinkLuaModifier( "modifier_fallen_sky_passive", "items/item_dagon.lua" ,LUA_MODIFIER_MOTION_NONE )
+modifier_ebfr_fallen_sky_debuff = class({})
+LinkLuaModifier( "modifier_ebfr_fallen_sky_debuff", "items/item_fallen_sky.lua" ,LUA_MODIFIER_MOTION_NONE )
 
-function modifier_fallen_sky_passive:OnCreated()
+function modifier_ebfr_fallen_sky_debuff:OnCreated()
 	self:OnRefresh()
+	if IsServer() then
+		self:OnIntervalThink( self.burn_interval )
+		self:StartIntervalThink( self.burn_interval )
+	end
 end
 
-function modifier_fallen_sky_passive:OnRefresh()
-	self.bonus_other = self:GetSpecialValueFor("bonus_other")
-	self.bonus_intellect = self:GetSpecialValueFor("bonus_intellect")
-	self.bonus_mana_regen = self:GetSpecialValueFor("bonus_mana_regen")
-	self.bonus_cooldown = self:GetSpecialValueFor("bonus_cooldown")
-	self.spell_lifesteal = self:GetSpecialValueFor("passive_spell_lifesteal")
+function modifier_ebfr_fallen_sky_debuff:OnRefresh()
+	self.burn_dps_units = self:GetSpecialValueFor("burn_dps_units")
+	self.burn_interval = self:GetSpecialValueFor("burn_interval")
 end
 
-function modifier_fallen_sky_passive:DeclareFunctions()
-	return {MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,
-			MODIFIER_PROPERTY_STATS_AGILITY_BONUS,
-			MODIFIER_PROPERTY_STATS_INTELLECT_BONUS,
-			MODIFIER_PROPERTY_MANA_REGEN_CONSTANT,
-			MODIFIER_PROPERTY_COOLDOWN_PERCENTAGE,
-			}
+function modifier_ebfr_fallen_sky_debuff:OnIntervalThink()
+	local caster = self:GetCaster()
+	local parent = self:GetParent()
+	local ability = self:GetAbility()
+	
+	ability:DealDamage( caster, parent, self.burn_dps_units, {damage_type = DAMAGE_TYPE_MAGICAL} )
 end
 
-function modifier_fallen_sky_passive:GetModifierBonusStats_Strength()
-	return self.bonus_other
+function modifier_ebfr_fallen_sky_debuff:GetEffectName()
+	return "particles/items4_fx/meteor_hammer_spell_debuff.vpcf"
 end
 
-function modifier_fallen_sky_passive:GetModifierBonusStats_Agility()
-	return self.bonus_other
-end
-
-function modifier_fallen_sky_passive:GetModifierBonusStats_Intellect()
-	return self.bonus_intellect
-end
-
-function modifier_fallen_sky_passive:GetModifierConstantManaRegen()
-	return self.bonus_mana_regen
-end
-
-function modifier_fallen_sky_passive:GetModifierPercentageCooldown()
-	return self.bonus_cooldown
-end
-
-function modifier_fallen_sky_passive:IsHidden()
+function modifier_ebfr_fallen_sky_debuff:IsHidden()
 	return true
 end
 
-function modifier_fallen_sky_passive:IsPurgable()
-	return false
+modifier_ebfr_fallen_sky_passive = class({})
+LinkLuaModifier( "modifier_ebfr_fallen_sky_passive", "items/item_fallen_sky.lua" ,LUA_MODIFIER_MOTION_NONE )
+function modifier_ebfr_fallen_sky_passive:GetAttributes()
+	return MODIFIER_ATTRIBUTE_MULTIPLE
 end
 
-function modifier_fallen_sky_passive:GetAttributes()
-	return MODIFIER_ATTRIBUTE_MULTIPLE
+function modifier_ebfr_fallen_sky_passive:OnCreated()
+	self.bonus_strength = self:GetAbility():GetSpecialValueFor("bonus_strength")
+	self.bonus_other = self:GetAbility():GetSpecialValueFor("bonus_other")
+	self.bonus_health_regen = self:GetAbility():GetSpecialValueFor("bonus_health_regen")
+	self.bonus_mana_regen = self:GetAbility():GetSpecialValueFor("bonus_mana_regen")
+	self.damage_cd = self:GetSpecialValueFor("blink_damage_cooldown")
+end
+
+function modifier_ebfr_fallen_sky_passive:DeclareFunctions(params)
+local funcs = {
+    MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,
+    MODIFIER_PROPERTY_STATS_INTELLECT_BONUS,
+    MODIFIER_PROPERTY_STATS_AGILITY_BONUS,
+    MODIFIER_PROPERTY_MANA_REGEN_CONSTANT,
+    MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT,
+	MODIFIER_EVENT_ON_TAKEDAMAGE,
+    }
+    return funcs
+end
+
+function modifier_ebfr_fallen_sky_passive:OnTakeDamage(params)
+	if params.unit == self:GetParent() and params.attacker:IsConsideredHero() and self:GetAbility():GetCooldownTimeRemaining() < self.damage_cd then
+		self:GetAbility():SetCooldown( self.damage_cd )
+	end
+end
+
+function modifier_ebfr_fallen_sky_passive:GetModifierBonusStats_Strength()
+	return self.bonus_strength
+end
+
+function modifier_ebfr_fallen_sky_passive:GetModifierBonusStats_Intellect()
+	return self.bonus_other
+end
+
+function modifier_ebfr_fallen_sky_passive:GetModifierBonusStats_Agility()
+	return self.bonus_other
+end
+
+function modifier_ebfr_fallen_sky_passive:GetModifierConstantHealthRegen()
+	return self.bonus_health_regen
+end
+
+function modifier_ebfr_fallen_sky_passive:GetModifierConstantManaRegen()
+	return self.bonus_mana_regen
+end
+
+function modifier_ebfr_fallen_sky_passive:IsHidden()
+	return true
 end

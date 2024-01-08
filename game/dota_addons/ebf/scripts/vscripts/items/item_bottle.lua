@@ -1,10 +1,33 @@
 item_bottle = class({})
 
+function item_bottle:GetBehavior()
+	if self:GetCurrentCharges() == 0 then
+		return DOTA_ABILITY_BEHAVIOR_PASSIVE
+	else
+		return DOTA_ABILITY_BEHAVIOR_IMMEDIATE + DOTA_ABILITY_BEHAVIOR_NO_TARGET + DOTA_ABILITY_BEHAVIOR_SUPPRESS_ASSOCIATED_CONSUMABLE
+	end
+end
+
+function item_bottle:GetAbilityTextureName()
+	if self:GetCurrentCharges() == 3 then
+		return "bottle"
+	elseif self:GetCurrentCharges() == 2 then
+		return "bottle_medium"
+	elseif self:GetCurrentCharges() == 1 then
+		return "bottle_small"
+	else
+		return "bottle_empty"
+	end
+end
+
 function item_bottle:OnSpellStart()
+	if self:GetCurrentCharges() == 0 then return end
 	local caster = self:GetCaster()
 	
 	caster:AddNewModifier( caster, self, "modifier_item_bottle_ebf", {duration = self:GetSpecialValueFor("restore_time") } )
 	EmitSoundOn( "Bottle.Drink", caster )
+	
+	self:SetCurrentCharges( math.max( 0, self:GetCurrentCharges() - 1 ) )
 end
 
 modifier_item_bottle_ebf = class({})
@@ -51,4 +74,8 @@ end
 
 function modifier_item_bottle_ebf:GetEffectName()
 	return "particles/items_fx/bottle.vpcf"
+end
+
+function modifier_item_bottle_ebf:GetTexture()
+	return "bottle"
 end

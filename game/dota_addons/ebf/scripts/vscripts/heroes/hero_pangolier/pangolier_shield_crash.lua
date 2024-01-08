@@ -11,7 +11,7 @@ end
 function pangolier_shield_crash:GetCooldown( iLvl )
 	if self:GetCaster():HasModifier("modifier_pangolier_gyroshell") then
 		local gyroshell = self:GetCaster():FindAbilityByName("pangolier_gyroshell")
-		return gyroshell:GetSpecialValueFor("rolling_thunder_cooldown")
+		return gyroshell:GetSpecialValueFor("shield_crash_cooldown")
 	end
 	return self.BaseClass.GetCooldown( self, iLvl )
 end

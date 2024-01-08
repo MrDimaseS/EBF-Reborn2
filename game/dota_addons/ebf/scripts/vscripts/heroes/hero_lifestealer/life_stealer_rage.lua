@@ -4,6 +4,14 @@ function life_stealer_rage:GetCastRange( target, position )
 	return self:GetSpecialValueFor("cast_range")
 end
 
+function life_stealer_rage:GetManaCost( iLvl )
+	if self:GetCaster():HasModifier("modifier_life_stealer_rage_active") then
+		return 0
+	else
+		return self.BaseClass.GetManaCost( self, iLvl )
+	end
+end
+
 function life_stealer_rage:OnSpellStart()
     local caster = self:GetCaster()
 	

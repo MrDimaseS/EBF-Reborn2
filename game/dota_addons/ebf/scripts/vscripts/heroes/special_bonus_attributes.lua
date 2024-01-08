@@ -162,6 +162,7 @@ function modifier_special_bonus_attributes_stat_rescaling:OnCreated()
 		elseif self:GetParent()._heroManaType == "Stamina" then
 			Timers:CreateTimer( 0.1, function() self:GetParent():AddNewModifier( self:GetParent(), self:GetAbility(), "modifier_hero_stamina_system", {} ) end )
 		end
+		self:GetParent():AddNewModifier( self:GetParent(), self:GetAbility(), "modifier_thinker_hero_regeneration", {} )
 	end
 end
 

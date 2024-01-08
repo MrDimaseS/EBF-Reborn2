@@ -12,6 +12,10 @@ function item_fallen_sky:GetCastRange( position, target )
 	end
 end
 
+function item_fallen_sky:GetAOERadius()
+	return self:GetSpecialValueFor("impact_radius")
+end
+
 function item_fallen_sky:OnSpellStart()
 	local caster = self:GetCaster()
 	local position = self:GetCursorPosition()
@@ -24,22 +28,16 @@ function item_fallen_sky:OnSpellStart()
 	local land_time = self:GetSpecialValueFor("land_time")
 	local duration = self:GetSpecialValueFor("burn_duration")
 	local stunDuration = self:GetSpecialValueFor("stun_duration")
-	local damageRadius = self:GetSpecialValueFor("impact_radius")
+	local damageRadius = self:GetSpecialValueFor("damage_radius")
 	local stunRadius = self:GetSpecialValueFor("impact_radius")
+	
+	
+	EmitSoundOn( "DOTA_Item.MeteorHammer.Cast", caster )
 	
 	-- BLINK
 	ParticleManager:FireParticle( "particles/items3_fx/blink_overwhelming_start.vpcf", PATTACH_WORLDORIGIN, nil, {[0] = caster:GetAbsOrigin()})
-	local landFX = ParticleManager:CreateParticle("particles/items4_fx/meteor_hammer_aoe.vpcf", PATTACH_WORLDORIGIN, nil)
-	ParticleManager:SetParticleControl( landFX, 0, realPos )
-	ParticleManager:SetParticleControl( landFX, 1, Vector( stunRadius, stunRadius, stunRadius) )
-	
-	ParticleManager:FireParticle("particles/items5_fx/fallen_sky.vpcf", PATTACH_WORLDORIGIN, nil, { [0] = caster:GetAbsOrigin() + Vector(0, 0, 900),
-																									[1] = realPos,
-																									[2] = Vector( land_time, 0, 0)})
-	
 	
 	caster:AddNewModifier( caster, self, "modifier_invulnerable", {duration = land_time} )
-	caster:AddNewModifier( caster, self, "modifier_invisible", {duration = land_time} )
 	caster:AddNoDraw()
 	
 	Timers:CreateTimer( land_time, function()
@@ -47,19 +45,23 @@ function item_fallen_sky:OnSpellStart()
 		ParticleManager:FireParticle( "particles/items3_fx/blink_overwhelming_end.vpcf", PATTACH_POINT, caster )
 		EmitSoundOn( "Blink_Layer.Overwhelming", caster )
 		-- EFFECTS
-		local damage = self:GetSpecialValueFor("damage_base") + caster:GetStrength() * self:GetSpecialValueFor("damage_pct_instant") / 100
+		local damage = self:GetSpecialValueFor("damage_base") * (1+caster:GetSpellAmplification(false)) + caster:GetStrength() * self:GetSpecialValueFor("damage_pct_instant") / 100
 		
 		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), damageRadius ) ) do
-			self:DealDamage( caster, enemy, damage, {damage_type = DAMAGE_TYPE_MAGICAL} )
+			self:DealDamage( caster, enemy, damage, {damage_type = DAMAGE_TYPE_MAGICAL, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION} )
 			enemy:AddNewModifier( caster, self, "modifier_item_overwhelming_blink_debuff", {duration = duration} )
+			if CalculateDistance( enemy, caster ) <= stunRadius then
+				enemy:AddNewModifier( caster, self, "modifier_stunned", {duration = stunDuration} )
+				enemy:AddNewModifier( caster, self, "modifier_item_fallen_sky_debuff_ebf", {duration = duration} )
+			end
 		end
-		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), stunRadius ) ) do
-			enemy:AddNewModifier( caster, self, "modifier_stunned", {duration = stunDuration} )
-			enemy:AddNewModifier( caster, self, "modifier_ebfr_fallen_sky_debuff", {duration = duration} )
-		end
-			
 		
+		EmitSoundOn( "DOTA_Item.MeteorHammer.Impact", caster )
 		ParticleManager:FireParticle( "particles/items3_fx/blink_overwhelming_burst.vpcf", PATTACH_POINT, caster, {[1] = Vector( damageRadius, damageRadius, damageRadius )} )
+		
+		local landFX = ParticleManager:CreateParticle("particles/items4_fx/meteor_hammer_aoe.vpcf", PATTACH_WORLDORIGIN, nil)
+		ParticleManager:SetParticleControl( landFX, 0, realPos )
+		ParticleManager:SetParticleControl( landFX, 1, Vector( stunRadius, stunRadius, stunRadius) )
 		ParticleManager:ClearParticle( landFX, false )
 		caster:RemoveNoDraw()
 	end)
@@ -70,35 +72,36 @@ item_fallen_sky_3 = class(item_fallen_sky)
 item_fallen_sky_4 = class(item_fallen_sky)
 item_fallen_sky_5 = class(item_fallen_sky)
 
-modifier_ebfr_fallen_sky_debuff = class({})
-LinkLuaModifier( "modifier_ebfr_fallen_sky_debuff", "items/item_fallen_sky.lua" ,LUA_MODIFIER_MOTION_NONE )
+modifier_item_fallen_sky_debuff_ebf = class({})
+LinkLuaModifier( "modifier_item_fallen_sky_debuff_ebf", "items/item_fallen_sky.lua" ,LUA_MODIFIER_MOTION_NONE )
 
-function modifier_ebfr_fallen_sky_debuff:OnCreated()
+function modifier_item_fallen_sky_debuff_ebf:OnCreated()
 	self:OnRefresh()
 	if IsServer() then
-		self:OnIntervalThink( self.burn_interval )
 		self:StartIntervalThink( self.burn_interval )
 	end
 end
 
-function modifier_ebfr_fallen_sky_debuff:OnRefresh()
-	self.burn_dps_units = self:GetSpecialValueFor("burn_dps_units")
+function modifier_item_fallen_sky_debuff_ebf:OnRefresh()
+	self.burn_dps = self:GetSpecialValueFor("burn_dps")
+	self.burn_dps_pct = (self:GetSpecialValueFor("damage_pct_over_time")/100) / self:GetRemainingTime()
 	self.burn_interval = self:GetSpecialValueFor("burn_interval")
 end
 
-function modifier_ebfr_fallen_sky_debuff:OnIntervalThink()
+function modifier_item_fallen_sky_debuff_ebf:OnIntervalThink()
 	local caster = self:GetCaster()
 	local parent = self:GetParent()
 	local ability = self:GetAbility()
 	
-	ability:DealDamage( caster, parent, self.burn_dps_units, {damage_type = DAMAGE_TYPE_MAGICAL} )
+	local damage = self.burn_dps * (1+caster:GetSpellAmplification(false)) + self:GetCaster():GetStrength() * self.burn_dps_pct
+	ability:DealDamage( caster, parent, damage * self.burn_interval, {damage_type = DAMAGE_TYPE_MAGICAL, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION} )
 end
 
-function modifier_ebfr_fallen_sky_debuff:GetEffectName()
+function modifier_item_fallen_sky_debuff_ebf:GetEffectName()
 	return "particles/items4_fx/meteor_hammer_spell_debuff.vpcf"
 end
 
-function modifier_ebfr_fallen_sky_debuff:IsHidden()
+function modifier_item_fallen_sky_debuff_ebf:IsHidden()
 	return true
 end
 

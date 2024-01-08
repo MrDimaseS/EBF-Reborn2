@@ -541,9 +541,11 @@ function CHoldoutGameMode:FilterAbilityValues( filterTable )
 		filterTable.value = realValue / ( 1+caster:GetSpellAmplification( false ) ) - (realValue-value)
 	end
 	-- aoe bonus until valve fixes their shit
-	if ability and ability:GetAbilityKeyValues().AbilityValues
-	and type(ability:GetAbilityKeyValues().AbilityValues[filterTable.value_name_const]) == "table" 
-	and ability:GetAbilityKeyValues().AbilityValues[filterTable.value_name_const].affected_by_aoe_increase then
+	if not ability then return true end
+	local abilityValues = ability:GetAbilityKeyValues().AbilityValues
+	if abilityValues
+	and type(abilityValues[filterTable.value_name_const]) == "table" 
+	and toboolean(abilityValues[filterTable.value_name_const].affected_by_aoe_increase) then
 		local aoe_bonus_positive = 0
 		local aoe_bonus_negative = 0
 		for _, modifier in ipairs( caster:FindAllModifiers() ) do

@@ -6,7 +6,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"           			"item_recipe_fallen_sky"
 	    "ItemRecipe"					"1"
-		"ItemCost"						"0"	
+		"ItemCost"						"25"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -15,7 +15,7 @@
 		"ItemResult"					"item_fallen_sky_2"
 		"ItemRequirements"
 		{
-			"01"						"item_fallen_sky;item_reaver_2;item_mystic_staff_2;item_staff_of_wizardry"
+			"01"						"item_fallen_sky;item_reaver;item_mystic_staff;item_blade_of_alacrity"
 		}
 	}
 	//=================================================================================================================
@@ -25,13 +25,14 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_TOGGLE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES | DOTA_ABILITY_BEHAVIOR_AOE"
 		"BaseClass"						"item_lua"
 		"ScriptFile"					"items/item_fallen_sky"
 		"AbilityTextureName"			"fallen_sky/fallen_sky_2"
 
 		// Stats		
 		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"1200"
 		"AbilityCooldown"				"0.0"
 
 		// Item Info
@@ -46,18 +47,18 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_strength"				"65"
-			"bonus_agility"					"40"
-			"bonus_intellect"				"55"
-			"spell_amp"						"10"
-			"mana_regen_multiplier"			"75"
-			"spell_lifesteal_amp"			"24"
+			"bonus_strength"				"60"
+			"bonus_agility"					"20"
+			"bonus_intellect"				"50"
+			"spell_amp"						"20"
+			"mana_regen_multiplier"			"12"
+			"spell_lifesteal_amp"			"8"
 
-			"damage_base"					"500"
-			"damage_pct_instant"			"500"
+			"damage_base"					"1500"
+			"damage_pct_instant"			"550"
 				
-			"burn_dps"						"50"
-			"damage_pct_over_time"			"1000"
+			"burn_dps"						"410"
+			"damage_pct_over_time"			"900"
 			"burn_slow"						"20"
 			
 			"movement_slow"					"50"
@@ -66,12 +67,18 @@
 			"stun_duration"					"0.5"
 			"burn_interval"					"1.0"
 			"land_time"						"0.5"
+			"damage_radius"		
+			{
+				"value"							"800"
+				"affected_by_aoe_increase"		"1"
+				"CalculateSpellDamageTooltip"	"0"
+			}
 			"impact_radius"		
 			{
 				"value"						"400"
 				"affected_by_aoe_increase"	"1"
 			}
-			"max_duration"		"2"
+			"max_duration"					"2"
 			"enemy_particles_visible"		"0"
 			
 			"blink_range"					"1200"
@@ -94,7 +101,7 @@
 		"ItemResult"					"item_fallen_sky_3"
 		"ItemRequirements"
 		{
-			"01"						"item_fallen_sky_2;item_reaver_3;item_mystic_staff_3;item_eagle"
+			"01"						"item_fallen_sky_2;item_reaver_2;item_mystic_staff_2;item_eagle"
 		}
 	}
 	//=================================================================================================================
@@ -102,13 +109,14 @@
 	//=================================================================================================================
 	"item_fallen_sky_3"
 	{
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_TOGGLE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES | DOTA_ABILITY_BEHAVIOR_AOE"
 		"BaseClass"						"item_lua"
 		"ScriptFile"					"items/item_fallen_sky"
 		"AbilityTextureName"			"fallen_sky/fallen_sky_3"
 
 		// Stats		
 		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"1200"
 		"AbilityCooldown"				"0.0"
 
 		// Item Info
@@ -123,22 +131,42 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage"						"880"
-			"bonus_attack_speed"				"60"
-			"bonus_armor"						"10"
-			"bonus_health_regen"				"75"
-			"lifesteal_percent"					"6.5"
+			"bonus_strength"				"135"
+			"bonus_agility"					"45"
+			"bonus_intellect"				"125"
+			"spell_amp"						"35"
+			"mana_regen_multiplier"			"12"
+			"spell_lifesteal_amp"			"8"
+
+			"damage_base"					"4250"
+			"damage_pct_instant"			"600"
+				
+			"burn_dps"						"1180"
+			"damage_pct_over_time"			"1000"
 			
-			"unholy_bonus_damage"				"200"
-			"unholy_bonus_strength"				"225"
-			"unholy_bonus_strength_pct"			"20"
-			"str_ramp_up"						"0.6"
-			"unholy_bonus_armor"				"-4"
-			"berserk_bonus_attack_speed"		"110"
-			"berserk_bonus_movement_speed"		"30"
-			"unholy_bonus_slow_resistance"		"45"
-			"unholy_health_drain_per_second"	"1"
-			"berserk_duration"					"6.0"
+			"movement_slow"					"50"
+			"attack_slow"					"50"
+			"burn_duration"					"6"
+			"stun_duration"					"0.5"
+			"burn_interval"					"1.0"
+			"land_time"						"0.5"
+			"damage_radius"		
+			{
+				"value"							"800"
+				"affected_by_aoe_increase"		"1"
+				"CalculateSpellDamageTooltip"	"0"
+			}
+			"impact_radius"		
+			{
+				"value"						"400"
+				"affected_by_aoe_increase"	"1"
+			}
+			"max_duration"					"2"
+			"enemy_particles_visible"		"0"
+			
+			"blink_range"					"1200"
+			"blink_damage_cooldown"			"3.0"
+			"blink_range_clamp"				"960"
 		}
 	}
 	"item_recipe_fallen_sky_4"
@@ -156,7 +184,7 @@
 		"ItemResult"					"item_fallen_sky_4"
 		"ItemRequirements"
 		{
-			"01"						"item_fallen_sky_3;item_orb_3"
+			"01"						"item_fallen_sky_3;item_reaver_3;item_mystic_staff_3;item_eagle_2"
 		}
 	}
 	//=================================================================================================================
@@ -164,13 +192,14 @@
 	//=================================================================================================================
 	"item_fallen_sky_4"
 	{
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_TOGGLE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES | DOTA_ABILITY_BEHAVIOR_AOE"
 		"BaseClass"						"item_lua"
 		"ScriptFile"					"items/item_fallen_sky"
 		"AbilityTextureName"			"fallen_sky/fallen_sky_4"
 
 		// Stats		
 		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"1200"
 		"AbilityCooldown"				"0.0"
 
 		// Item Info
@@ -185,22 +214,42 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage"						"2680"
-			"bonus_attack_speed"				"70"
-			"bonus_armor"						"11"
-			"bonus_health_regen"				"225"
-			"lifesteal_percent"					"6.5"
+			"bonus_strength"				"360"
+			"bonus_agility"					"120"
+			"bonus_intellect"				"350"
+			"spell_amp"						"65"
+			"mana_regen_multiplier"			"12"
+			"spell_lifesteal_amp"			"8"
+
+			"damage_base"					"13100"
+			"damage_pct_instant"			"650"
+				
+			"burn_dps"						"2750"
+			"damage_pct_over_time"			"1100"
 			
-			"unholy_bonus_damage"				"200"
-			"unholy_bonus_strength"				"675"
-			"unholy_bonus_strength_pct"			"25"
-			"str_ramp_up"						"0.6"
-			"unholy_bonus_armor"				"-4"
-			"berserk_bonus_attack_speed"		"110"
-			"berserk_bonus_movement_speed"		"30"
-			"unholy_bonus_slow_resistance"		"50"
-			"unholy_health_drain_per_second"	"1"
-			"berserk_duration"					"6.0"
+			"movement_slow"					"50"
+			"attack_slow"					"50"
+			"burn_duration"					"6"
+			"stun_duration"					"0.5"
+			"burn_interval"					"1.0"
+			"land_time"						"0.5"
+			"damage_radius"		
+			{
+				"value"							"800"
+				"affected_by_aoe_increase"		"1"
+				"CalculateSpellDamageTooltip"	"0"
+			}
+			"impact_radius"		
+			{
+				"value"						"400"
+				"affected_by_aoe_increase"	"1"
+			}
+			"max_duration"					"2"
+			"enemy_particles_visible"		"0"
+			
+			"blink_range"					"1200"
+			"blink_damage_cooldown"			"3.0"
+			"blink_range_clamp"				"960"
 		}
 	}
 	"item_recipe_fallen_sky_5"
@@ -218,7 +267,7 @@
 		"ItemResult"					"item_fallen_sky_5"
 		"ItemRequirements"
 		{
-			"01"						"item_fallen_sky_4;item_orb_4"
+			"01"						"item_fallen_sky_4;item_reaver_4;item_mystic_staff_4;item_eagle_3"
 		}
 	}
 	//=================================================================================================================
@@ -228,13 +277,14 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_TOGGLE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES | DOTA_ABILITY_BEHAVIOR_AOE"
 		"BaseClass"						"item_lua"
 		"ScriptFile"					"items/item_fallen_sky"
 		"AbilityTextureName"			"fallen_sky/fallen_sky_5"
 
 		// Stats		
 		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"1200"
 		"AbilityCooldown"				"0.0"
 
 		// Item Info
@@ -249,22 +299,43 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage"						"6750"
-			"bonus_attack_speed"				"80"
-			"bonus_armor"						"12"
-			"bonus_health_regen"				"550"
-			"lifesteal_percent"					"6.5"
+			"bonus_strength"				"1035"
+			"bonus_agility"					"345"
+			"bonus_intellect"				"1025"
+			"spell_amp"						"100"
+			"mana_regen_multiplier"			"12"
+			"spell_lifesteal_amp"			"8"
+
+			"damage_base"					"47000"
+			"damage_pct_instant"			"650"
+				
+			"burn_dps"						"5000"
+			"damage_pct_over_time"			"1200"
+			"burn_slow"						"20"
 			
-			"unholy_bonus_damage"				"200"
-			"unholy_bonus_strength"				"2500"
-			"unholy_bonus_strength_pct"			"30"
-			"str_ramp_up"						"0.6"
-			"unholy_bonus_armor"				"-4"
-			"berserk_bonus_attack_speed"		"110"
-			"berserk_bonus_movement_speed"		"30"
-			"unholy_bonus_slow_resistance"		"60"
-			"unholy_health_drain_per_second"	"1"
-			"berserk_duration"					"6.0"
+			"movement_slow"					"50"
+			"attack_slow"					"50"
+			"burn_duration"					"6"
+			"stun_duration"					"0.5"
+			"burn_interval"					"1.0"
+			"land_time"						"0.5"
+			"damage_radius"		
+			{
+				"value"							"800"
+				"affected_by_aoe_increase"		"1"
+				"CalculateSpellDamageTooltip"	"0"
+			}
+			"impact_radius"		
+			{
+				"value"						"400"
+				"affected_by_aoe_increase"	"1"
+			}
+			"max_duration"					"2"
+			"enemy_particles_visible"		"0"
+			
+			"blink_range"					"1200"
+			"blink_damage_cooldown"			"3.0"
+			"blink_range_clamp"				"960"
 		}
 	}
 }

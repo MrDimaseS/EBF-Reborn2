@@ -134,6 +134,96 @@
 		}
 	}
 	//=================================================================================================================
+	// Recipe: Meteor Hammer
+	//=================================================================================================================
+	"item_recipe_meteor_hammer"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"175"
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_meteor_hammer"
+		"ItemRequirements"
+		{
+			"01"						"item_diadem;item_kaya"
+		}
+	}
+	
+	//=================================================================================================================
+	// Meteor Hammer
+	//=================================================================================================================
+	"item_meteor_hammer"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
+		
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"FightRecapLevel"				"1"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_NEVER"
+		
+		
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityChannelTime"			"2"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"600"
+		"AbilityCooldown"				"24"
+		"AbilityManaCost"				"100"
+
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"3100"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"mh;meteor hammer"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ShouldBeSuggested"				"1"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+				"bonus_strength"			"6"
+				"bonus_agility"				"6"
+				"bonus_intellect"			"24"
+				"spell_amp"					"10"
+				"mana_regen_multiplier"		"12"
+				"spell_lifesteal_amp"		"8"
+
+				"burn_dps_buildings"		"50"
+				"burn_dps_units"			"50"
+				"burn_slow"					"20"
+				"burn_duration"				"6"
+				"stun_duration"				"0.5"
+				"burn_interval"				"1.0"
+				"land_time"					".5"
+				"impact_radius"		
+				{
+					"value"		"400"
+					"affected_by_aoe_increase"	"1"
+				}
+				"max_duration"		"2"
+				"impact_damage_buildings"		"90"
+				"impact_damage_units"		"130"
+				"enemy_particles_visible"		"0"
+
+
+
+		}
+	}
+	//=================================================================================================================
 	// Recipe: Fallen Sky
 	//=================================================================================================================
 	"item_recipe_fallen_sky"
@@ -171,9 +261,9 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"item_lua"
-		"ScriptFile"					"items/item_force_boots"
+		"ScriptFile"					"items/item_fallen_sky"
 		"AbilityTextureName"			"item_fallen_sky"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_DIRECTIONAL | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES | DOTA_ABILITY_BEHAVIOR_AOE"
 		
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
@@ -197,16 +287,16 @@
 			"bonus_agility"					"6"
 			"bonus_intellect"				"24"
 			"spell_amp"						"10"
-			"mana_regen_multiplier"			"75"
-			"spell_lifesteal_amp"			"24"
-			"bonus_health_regen"			""
-			"bonus_mana_regen"				""
+			"mana_regen_multiplier"			"12"
+			"spell_lifesteal_amp"			"8"
+			"bonus_health_regen"			"0"
+			"bonus_mana_regen"				"0"
 
 			"damage_base"					"500"
 			"damage_pct_instant"			"500"
 				
-			"burn_dps"						"50"
-			"damage_pct_over_time"			"1000"
+			"burn_dps"						"125"
+			"damage_pct_over_time"			"800"
 			"burn_slow"						"20"
 			
 			"movement_slow"					"50"
@@ -217,8 +307,9 @@
 			"land_time"						"0.5"
 			"damage_radius"		
 			{
-				"value"	"800"
-				"affected_by_aoe_increase"	"1"
+				"value"							"800"
+				"affected_by_aoe_increase"		"1"
+				"CalculateSpellDamageTooltip"	"0"
 			}
 			"impact_radius"		
 			{
@@ -784,7 +875,11 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_lotus_orb"
+		"AbilityTextureName"			"item_lotus_orb"
+		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"FightRecapLevel"				"1"
@@ -813,6 +908,7 @@
 			"bonus_mana_regen"		"2.5"
 			"bonus_all"				"10"
 			"active_duration"		"6"
+			"active_radius"			"700"
 		}
 	}
 
@@ -5411,8 +5507,6 @@
 			"spell_lifesteal"		"5"
 			"buff_duration"			"6"
 			"lifesteal_multiplier"	"2"
-			"mana_steal"			"5"
-			"hp_cost"				"0"
 		}
 	}
 	//=================================================================================================================

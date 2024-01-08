@@ -223,14 +223,14 @@ function modifier_item_yasha_and_kaya_2_passive:OnTakeDamage(params)
 			params.attacker:HealWithParams( lifesteal, self:GetAbility(), true, true, self:GetCaster(), false )
 			local postHP = params.attacker:GetHealth()
 			
-			if params.attacker:HasModifier("modifier_item_yasha_and_kaya_2_wild_magic") then
-				self.manaToGive = (self.manaToGive or 0) + lifesteal * self.berserk_mana_steal
-				if self.manaToGive > 1 then
-					params.attacker:GiveMana( math.floor(self.manaToGive) ) 
-					SendOverheadEventMessage( params.attacker:GetPlayerOwner(), OVERHEAD_ALERT_MANA_ADD, params.attacker, math.floor(self.manaToGive), params.attacker:GetPlayerOwner() )
-					self.manaToGive = self.manaToGive - math.floor(self.manaToGive)
-				end
-			end
+			-- if params.attacker:HasModifier("modifier_item_yasha_and_kaya_2_wild_magic") then
+				-- self.manaToGive = (self.manaToGive or 0) + lifesteal * self.berserk_mana_steal
+				-- if self.manaToGive > 1 then
+					-- params.attacker:GiveMana( math.floor(self.manaToGive) ) 
+					-- SendOverheadEventMessage( params.attacker:GetPlayerOwner(), OVERHEAD_ALERT_MANA_ADD, params.attacker, math.floor(self.manaToGive), params.attacker:GetPlayerOwner() )
+					-- self.manaToGive = self.manaToGive - math.floor(self.manaToGive)
+				-- end
+			-- end
 			
 			if (postHP - preHP) > 0 then
 				SendOverheadEventMessage( params.attacker:GetPlayerOwner(), OVERHEAD_ALERT_HEAL, params.attacker, postHP - preHP, params.attacker:GetPlayerOwner() )

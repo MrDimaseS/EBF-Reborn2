@@ -7,7 +7,7 @@ end
 function item_bloodstone2:OnSpellStart()
 	local caster = self:GetCaster()
 	
-	self:DealDamage( caster, caster, caster:GetMaxHealth() * self:GetSpecialValueFor("hp_cost") / 100, {damage_type = DAMAGE_TYPE_PURE, damage_flags = DOTA_DAMAGE_FLAG_HPLOSS + DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL + DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_NO_DAMAGE_MULTIPLIERS + DOTA_DAMAGE_FLAG_NON_LETHAL } )
+	-- self:DealDamage( caster, caster, caster:GetMaxHealth() * self:GetSpecialValueFor("hp_cost") / 100, {damage_type = DAMAGE_TYPE_PURE, damage_flags = DOTA_DAMAGE_FLAG_HPLOSS + DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL + DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_NO_DAMAGE_MULTIPLIERS + DOTA_DAMAGE_FLAG_NON_LETHAL } )
 	
 	caster:AddNewModifier( caster, self, "modifier_item_bloodstone_ebf_active", {duration = self:GetSpecialValueFor("buff_duration")} )
 end
@@ -140,13 +140,13 @@ function modifier_item_bloodstone_ebf:OnTakeDamage(params)
 			end
 		end
 		
-		if bloodstoneActive then
-			self.manaToGive = (self.manaToGive or 0) + lifesteal * self.mana_steal
-			if self.manaToGive > 1 then
-				params.attacker:GiveMana( math.floor(self.manaToGive) ) 
-			self.manaToGive = self.manaToGive - math.floor(self.manaToGive)
-			end
-		end
+		-- if bloodstoneActive then
+			-- self.manaToGive = (self.manaToGive or 0) + lifesteal * self.mana_steal
+			-- if self.manaToGive > 1 then
+				-- params.attacker:GiveMana( math.floor(self.manaToGive) ) 
+			-- self.manaToGive = self.manaToGive - math.floor(self.manaToGive)
+			-- end
+		-- end
 	end
 end
 

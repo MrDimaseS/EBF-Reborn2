@@ -65,6 +65,7 @@ function splitString( input, seperator)
 end
 
 function toboolean(thing)
+	if not thing then return false end
 	if type(thing) == "number" then
 		if thing == 1 then return true
 		elseif thing == 0 then return false

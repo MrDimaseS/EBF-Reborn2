@@ -731,7 +731,10 @@ function CHoldoutGameMode:OnHeroPick (event)
 	PlayerResource:SetCustomBuybackCooldown( playerID, 10 )
 	PlayerResource:SetCustomBuybackCost( playerID, 100 )
 	
-	hero:RemoveItem( hero:FindItemInInventory( "item_tpscroll" ) )
+	local tp = hero:FindItemInInventory( "item_tpscroll" )
+	if tp then
+		hero:RemoveItem( tp )
+	end
 	hero:AddItemByName("item_bottle")
 	hero:AddItemByName("item_tier1_token")
 	if PlayerResource:GetPatronTier(playerID) >= 2 then
@@ -1885,6 +1888,9 @@ function CHoldoutGameMode:OnNPCSpawned( event )
 		local heroName = spawnedUnit:GetUnitName()
 	end
 	if spawnedUnit:IsRealHero() then
+		if not spawnedUnit:HasModifier("modifier_thinker_hero_regeneration") then
+			spawnedUnit:AddNewModifier( spawnedUnit, nil, "modifier_thinker_hero_regeneration", {} )
+		end
 		if spawnedUnit:IsTempestDouble() then
 			spawnedUnit:AddNewModifier( spawnedUnit, nil, "modifier_special_bonus_attributes_stat_rescaling", {} )
 		end

@@ -42,18 +42,14 @@ function modifier_ebfr_lotus_orb_active:OnAbilityExecuted( params )
 		
 		local newTarget
 		if params.unit:IsSameTeam( params.target ) then
-			for _, unit in ipairs( params.unit:FindFriendlyUnitsInRadius( params.target:GetAbsOrigin(), self.active_radius ) ) do
-				if unit ~= params.target then
-					newTarget = unit
-					break
-				end
+			for _, ally in ipairs( caster:FindFriendlyUnitsInRadius( params.target:GetAbsOrigin(), self.active_radius, {flag = params.ability:GetAbilityTargetFlags(), type = params.ability:GetAbilityTargetType() } ) ) do
+				newTarget = ally
+				break
 			end
 		else
-			for _, unit in ipairs( params.unit:FindEnemyUnitsInRadius( params.target:GetAbsOrigin(), self.active_radius ) ) do
-				if unit ~= params.target then
-					newTarget = unit
-					break
-				end
+			for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( params.target:GetAbsOrigin(), self.active_radius, {flag = params.ability:GetAbilityTargetFlags(), type = params.ability:GetAbilityTargetType() } ) ) do
+				newTarget = enemy
+				break
 			end
 		end
 		if newTarget then

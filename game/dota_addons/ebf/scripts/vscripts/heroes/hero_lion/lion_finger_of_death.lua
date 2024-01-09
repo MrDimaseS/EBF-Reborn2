@@ -1,22 +1,22 @@
-LinkLuaModifier("modifier_lion_finger_of_death_ebf_bonus", "heroes/hero_lion/lion_finger_of_death_ebf.lua", LUA_MODIFIER_MOTION_NONE)
-LinkLuaModifier("modifier_lion_finger_of_death_ebf_death", "heroes/hero_lion/lion_finger_of_death_ebf.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_lion_finger_of_death_bonus", "heroes/hero_lion/lion_finger_of_death.lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_lion_finger_of_death_death", "heroes/hero_lion/lion_finger_of_death.lua", LUA_MODIFIER_MOTION_NONE)
 
-lion_finger_of_death_ebf = class({})
+lion_finger_of_death = class({})
 
-function lion_finger_of_death_ebf:GetBehavior()
+function lion_finger_of_death:GetBehavior()
 	if self:GetCaster():HasScepter() then
 		return DOTA_ABILITY_BEHAVIOR_UNIT_TARGET + DOTA_ABILITY_BEHAVIOR_AOE
 	end
 	return DOTA_ABILITY_BEHAVIOR_UNIT_TARGET
 end
 
-function lion_finger_of_death_ebf:GetAOERadius()
+function lion_finger_of_death:GetAOERadius()
 	if self:GetCaster():HasScepter() then
 		return self:GetSpecialValueFor("splash_radius_scepter")
 	end
 end
 
-function lion_finger_of_death_ebf:OnSpellStart()
+function lion_finger_of_death:OnSpellStart()
 	if IsServer() then
 		local caster = self:GetCaster()
 		local target = self:GetCursorTarget()
@@ -29,7 +29,7 @@ function lion_finger_of_death_ebf:OnSpellStart()
 		local base_damage = self:GetSpecialValueFor("damage")
 		local damage_per_kill = self:GetSpecialValueFor("damage_per_kill")
 		local extra_int = TernaryOperator( self:GetSpecialValueFor("damage_per_int") * caster:GetIntellect(), caster:HasScepter(), 0 )
-		local kill_count = caster:GetModifierStackCount("modifier_lion_finger_of_death_ebf_bonus", caster)
+		local kill_count = caster:GetModifierStackCount("modifier_lion_finger_of_death_bonus", caster)
 		local damage = math.ceil(base_damage + extra_int + damage_per_kill * kill_count)
 
 		caster:EmitSound("Hero_Lion.FingerOfDeath")
@@ -44,9 +44,9 @@ function lion_finger_of_death_ebf:OnSpellStart()
 			local sound_name = TernaryOperator("Hero_Lion.FingerOfDeathImpact.Immortal", caster:HasScepter(), "Hero_Lion.FingerOfDeathImpact")
 
 			if caster:HasTalent("special_bonus_finger_of_death_health_inf_kill_duration") then
-				target:AddNewModifier(caster, self, "modifier_lion_finger_of_death_ebf_death", {duration = nil})
+				target:AddNewModifier(caster, self, "modifier_lion_finger_of_death_death", {duration = nil})
 			else
-				target:AddNewModifier(caster, self, "modifier_lion_finger_of_death_ebf_death", {duration = kill_grace_duration})
+				target:AddNewModifier(caster, self, "modifier_lion_finger_of_death_death", {duration = kill_grace_duration})
 			end
 
 			for i = 1, 1 do
@@ -82,21 +82,21 @@ end
 
 --------------------------------------------------------------------------------
 
-modifier_lion_finger_of_death_ebf_bonus = class({})
-function modifier_lion_finger_of_death_ebf_bonus:IsBuff() return true end
-function modifier_lion_finger_of_death_ebf_bonus:IsPermanent() return true end
-function modifier_lion_finger_of_death_ebf_bonus:IsPurgable() return false end
-function modifier_lion_finger_of_death_ebf_bonus:RemoveOnDeath() return false end
-function modifier_lion_finger_of_death_ebf_bonus:OnCreated() if not IsServer() then return end self:SetStackCount(1) end
-function modifier_lion_finger_of_death_ebf_bonus:OnRefresh() if not IsServer() then return end self:IncrementStackCount() end
-function modifier_lion_finger_of_death_ebf_bonus:DeclareFunctions()
+modifier_lion_finger_of_death_bonus = class({})
+function modifier_lion_finger_of_death_bonus:IsBuff() return true end
+function modifier_lion_finger_of_death_bonus:IsPermanent() return true end
+function modifier_lion_finger_of_death_bonus:IsPurgable() return false end
+function modifier_lion_finger_of_death_bonus:RemoveOnDeath() return false end
+function modifier_lion_finger_of_death_bonus:OnCreated() if not IsServer() then return end self:SetStackCount(1) end
+function modifier_lion_finger_of_death_bonus:OnRefresh() if not IsServer() then return end self:IncrementStackCount() end
+function modifier_lion_finger_of_death_bonus:DeclareFunctions()
 	return {MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL, MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL_VALUE, MODIFIER_PROPERTY_TOOLTIP, MODIFIER_PROPERTY_HEALTH_BONUS} 
 end
-function modifier_lion_finger_of_death_ebf_bonus:OnStackCountChanged(old)
+function modifier_lion_finger_of_death_bonus:OnStackCountChanged(old)
 	if IsServer() then self:GetParent():CalculateStatBonus(true) end
 end
 
-function modifier_lion_finger_of_death_ebf_bonus:GetModifierOverrideAbilitySpecial(params)
+function modifier_lion_finger_of_death_bonus:GetModifierOverrideAbilitySpecial(params)
 	if params.ability == self:GetAbility() then
 		local caster = params.ability:GetCaster()
 		local specialValue = params.ability_special_value
@@ -106,7 +106,7 @@ function modifier_lion_finger_of_death_ebf_bonus:GetModifierOverrideAbilitySpeci
 	end
 end
 
-function modifier_lion_finger_of_death_ebf_bonus:GetModifierOverrideAbilitySpecialValue(params)
+function modifier_lion_finger_of_death_bonus:GetModifierOverrideAbilitySpecialValue(params)
 	if params.ability == self:GetAbility() then
 		local caster = params.ability:GetCaster()
 		local specialValue = params.ability_special_value
@@ -117,26 +117,26 @@ function modifier_lion_finger_of_death_ebf_bonus:GetModifierOverrideAbilitySpeci
 	end
 end
 
-function modifier_lion_finger_of_death_ebf_bonus:GetModifierHealthBonus()
+function modifier_lion_finger_of_death_bonus:GetModifierHealthBonus()
 	return self:GetStackCount() * self:GetSpecialValueFor("health_per_kill")
 end
-function modifier_lion_finger_of_death_ebf_bonus:OnTooltip() return self:GetStackCount() * self:GetAbility():GetSpecialValueFor("damage_per_kill") end
+function modifier_lion_finger_of_death_bonus:OnTooltip() return self:GetStackCount() * self:GetAbility():GetSpecialValueFor("damage_per_kill") end
 
 
-modifier_lion_finger_of_death_ebf_death = class({})
-function modifier_lion_finger_of_death_ebf_death:IsHidden() return false end
-function modifier_lion_finger_of_death_ebf_death:IsPurgable() return false end
-function modifier_lion_finger_of_death_ebf_death:GetAttributes() return MODIFIER_ATTRIBUTE_MULTIPLE end
-function modifier_lion_finger_of_death_ebf_death:DeclareFunctions()
+modifier_lion_finger_of_death_death = class({})
+function modifier_lion_finger_of_death_death:IsHidden() return false end
+function modifier_lion_finger_of_death_death:IsPurgable() return false end
+function modifier_lion_finger_of_death_death:GetAttributes() return MODIFIER_ATTRIBUTE_MULTIPLE end
+function modifier_lion_finger_of_death_death:DeclareFunctions()
 	return {MODIFIER_PROPERTY_TOOLTIP}
 end
-function modifier_lion_finger_of_death_ebf_death:OnTooltip()
+function modifier_lion_finger_of_death_death:OnTooltip()
 	return self:GetAbility():GetSpecialValueFor("damage_per_kill")
 end
-function modifier_lion_finger_of_death_ebf_death:OnRemoved()
+function modifier_lion_finger_of_death_death:OnRemoved()
 	if not IsServer() then return end
 	if not self:GetParent():IsAlive() then
 		self:GetParent():EmitSoundParams("Hero_Lion.KillCounter", 1, 0.5, 0)
-		self:GetCaster():AddNewModifier(self:GetCaster(), self:GetAbility(), "modifier_lion_finger_of_death_ebf_bonus", {})
+		self:GetCaster():AddNewModifier(self:GetCaster(), self:GetAbility(), "modifier_lion_finger_of_death_bonus", {})
 	end
 end

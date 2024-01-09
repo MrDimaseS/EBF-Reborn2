@@ -43,9 +43,10 @@ function boss_forest_summoner_wrath_of_nature:OnSpellStart()
 				
 				
 				self:DealDamage(caster, enemy, damage, {}, 0)
-				local treant = caster:CreateSummon( "npc_dota_boss_treant", enemy:GetAbsOrigin(), self:GetSpecialValueFor("kill_damage_duration"))
-				FindClearSpaceForUnit(treant, enemy:GetAbsOrigin() + RandomVector(128), true)
-				
+				if enemy:IsRealHero() then
+					local treant = caster:CreateSummon( "npc_dota_boss_treant", enemy:GetAbsOrigin(), self:GetSpecialValueFor("kill_damage_duration"))
+					FindClearSpaceForUnit(treant, enemy:GetAbsOrigin() + RandomVector(128), true)
+				end
 
 				previousEnemy = enemy
 				bounces = bounces-1

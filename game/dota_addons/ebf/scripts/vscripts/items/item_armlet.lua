@@ -1,7 +1,7 @@
 item_armlet = class({})
 
 function item_armlet:GetIntrinsicModifierName()
-	return "modifier_armlet_passive"
+	return "modifier_item_armlet_passive_ebf"
 end
 
 function item_armlet:GetAbilityTextureName()
@@ -33,7 +33,9 @@ function item_armlet:OnToggle()
 			caster:AddNewModifier( caster, self, "modifier_item_armlet_active", {} )
 		end
 		caster:RemoveModifierByName("modifier_item_armlet_berserk")
-		caster:AddNewModifier( caster, self, "modifier_item_armlet_berserk", {duration = self:GetSpecialValueFor("berserk_duration")} )
+		if self:GetSpecialValueFor("berserk_duration") > 0 then
+			caster:AddNewModifier( caster, self, "modifier_item_armlet_berserk", {duration = self:GetSpecialValueFor("berserk_duration")} )
+		end
 		EmitSoundOn("DOTA_Item.Armlet.Activate", self:GetCaster() )
 	end
 end
@@ -165,14 +167,14 @@ function modifier_item_armlet_active:IsPurgable()
 	return false
 end
 
-modifier_armlet_passive = class({})
-LinkLuaModifier( "modifier_armlet_passive", "items/item_armlet.lua", LUA_MODIFIER_MOTION_NONE )
+modifier_item_armlet_passive_ebf = class({})
+LinkLuaModifier( "modifier_item_armlet_passive_ebf", "items/item_armlet.lua", LUA_MODIFIER_MOTION_NONE )
 
-function modifier_armlet_passive:OnCreated()
+function modifier_item_armlet_passive_ebf:OnCreated()
 	self:OnRefresh()
 end
 
-function modifier_armlet_passive:OnRefresh()
+function modifier_item_armlet_passive_ebf:OnRefresh()
 	self.bonus_damage = self:GetSpecialValueFor("bonus_damage")
 	self.bonus_attack_speed = self:GetSpecialValueFor("bonus_attack_speed")
 	self.bonus_armor = self:GetSpecialValueFor("bonus_armor")
@@ -180,7 +182,7 @@ function modifier_armlet_passive:OnRefresh()
 	self.lifesteal_percent = self:GetSpecialValueFor("lifesteal_percent")
 end
 
-function modifier_armlet_passive:DeclareFunctions()
+function modifier_item_armlet_passive_ebf:DeclareFunctions()
 	return {MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
 			MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
 			MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
@@ -188,23 +190,23 @@ function modifier_armlet_passive:DeclareFunctions()
 			MODIFIER_EVENT_ON_TAKEDAMAGE}
 end
 
-function modifier_armlet_passive:GetModifierAttackSpeedBonus_Constant()
+function modifier_item_armlet_passive_ebf:GetModifierAttackSpeedBonus_Constant()
+	return self.bonus_armor
+end
+
+function modifier_item_armlet_passive_ebf:GetModifierPhysicalArmorBonus()
 	return self.bonus_other
 end
 
-function modifier_armlet_passive:GetModifierPhysicalArmorBonus()
-	return self.bonus_other
+function modifier_item_armlet_passive_ebf:GetModifierPreAttack_BonusDamage()
+	return self.bonus_damage
 end
 
-function modifier_armlet_passive:GetModifierPreAttack_BonusDamage()
-	return self.bonus_intellect
-end
-
-function modifier_armlet_passive:GetModifierConstantHealthRegen()
+function modifier_item_armlet_passive_ebf:GetModifierConstantHealthRegen()
 	return self.bonus_health_regen
 end
 
-function modifier_armlet_passive:OnTakeDamage(params)
+function modifier_item_armlet_passive_ebf:OnTakeDamage(params)
 	if params.attacker ~= self:GetParent() then return end
 	if params.damage_category == DOTA_DAMAGE_CATEGORY_ATTACK then
 		local EHPMult = self:GetParent().EHP_MULT or 1
@@ -227,14 +229,14 @@ function modifier_armlet_passive:OnTakeDamage(params)
 	end
 end
 	
-function modifier_armlet_passive:IsHidden()
+function modifier_item_armlet_passive_ebf:IsHidden()
 	return true
 end
 
-function modifier_armlet_passive:IsPurgable()
+function modifier_item_armlet_passive_ebf:IsPurgable()
 	return false
 end
 
-function modifier_armlet_passive:GetAttributes()
+function modifier_item_armlet_passive_ebf:GetAttributes()
 	return MODIFIER_ATTRIBUTE_MULTIPLE
 end

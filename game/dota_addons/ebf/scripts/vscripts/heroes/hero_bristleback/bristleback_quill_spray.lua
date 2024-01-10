@@ -70,6 +70,9 @@ end
 function modifier_bristleback_bristleback_autocast:OnIntervalThink()
 	local caster = self:GetCaster()
 	local ability = self:GetAbility()
+	if caster:IsSilenced() or caster:IsStunned() then
+		return
+	end
 	if ability:GetAutoCastState() and ability:IsFullyCastable() then
 		caster:CastAbilityNoTarget( ability, caster:GetPlayerOwnerID() )
 	end

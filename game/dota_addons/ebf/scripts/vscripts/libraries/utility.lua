@@ -1189,7 +1189,7 @@ function CDOTA_BaseNPC:Blink(position, blinkData)
 	
 	FindClearSpaceForUnit(self, vPos, true)
 	ProjectileManager:ProjectileDodge( self )
-	if bFX == true or bFX == nil then
+	if tData.FX == true or tData.FX == nil then
 		ParticleManager:FireParticle("particles/items_fx/blink_dagger_end.vpcf", PATTACH_ABSORIGIN, self, {[0] = self:GetAbsOrigin()})
 	end
 end

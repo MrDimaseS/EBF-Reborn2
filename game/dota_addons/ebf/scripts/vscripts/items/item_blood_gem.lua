@@ -52,7 +52,7 @@ end
 function modifier_item_blood_gem_passive:GetModifierIncomingDamageConstant( params )
 	if (self.barrier_block or 0) <= 0 then return end
 	if IsServer() then
-		local barrier_block = math.min( self.barrier_block, math.max( self.barrier_block, params.damage ) )
+		local barrier_block = math.min( self.barrier_block, params.damage )
 		self.barrier_block = math.max( 0, self.barrier_block - barrier_block )
 		self:SendBuffRefreshToClients()
 		return -barrier_block
@@ -90,14 +90,14 @@ function modifier_item_blood_gem_passive:OnTakeDamage(params)
 		self.lifeToGive = (self.lifeToGive or 0) + lifesteal
 		if self.lifeToGive > 1 then
 			local lifeGained = self.lifeToGive
-			local preHP = params.attacker:GetHealth()
-			params.attacker:HealWithParams( lifeGained, params.inflictor, false, true, self, true )
+			local preHP = self:GetParent():GetHealth()
+			self:GetParent():HealWithParams( lifeGained, params.inflictor, false, true, self, true )
 			self.lifeToGive = self.lifeToGive - math.floor(self.lifeToGive)
-			local postHP = params.attacker:GetHealth()
+			local postHP = self:GetParent():GetHealth()
 		
 			local actualLifeGained = postHP - preHP
 			if actualLifeGained > 0 then
-				ParticleManager:FireParticle( "particles/items3_fx/octarine_core_lifesteal.vpcf", PATTACH_POINT_FOLLOW, params.attacker )
+				ParticleManager:FireParticle( "particles/items3_fx/octarine_core_lifesteal.vpcf", PATTACH_POINT_FOLLOW, self:GetParent() )
 			end
 			if actualLifeGained < lifeGained then
 				lifestealExcess = lifestealExcess + (lifeGained - actualLifeGained)
@@ -111,22 +111,22 @@ function modifier_item_blood_gem_passive:OnTakeDamage(params)
 		self.lifeToGive = (self.lifeToGive or 0) + lifesteal
 		if self.lifeToGive > 1 then
 			local lifeGained = self.lifeToGive
-			local preHP = params.attacker:GetHealth()
-			params.attacker:HealWithParams( lifeGained, params.inflictor, false, true, self, true )
+			local preHP = self:GetParent():GetHealth()
+			self:GetParent():HealWithParams( lifeGained, params.inflictor, false, true, self, true )
 			self.lifeToGive = self.lifeToGive - math.floor(self.lifeToGive)
-			local postHP = params.attacker:GetHealth()
+			local postHP = self:GetParent():GetHealth()
 			
 			
 			local actualLifeGained = postHP - preHP
 			if actualLifeGained > 0 then
-				ParticleManager:FireParticle( "particles/generic_gameplay/generic_lifesteal.vpcf", PATTACH_POINT_FOLLOW, params.attacker )
+				ParticleManager:FireParticle( "particles/generic_gameplay/generic_lifesteal.vpcf", PATTACH_POINT_FOLLOW, self:GetParent() )
 			end
 			if actualLifeGained < lifeGained then
 				lifestealExcess = lifestealExcess + (lifeGained - actualLifeGained)
 			end
 		end
 	end
-	lifestealExcess = math.min( lifestealExcess,  params.attacker:GetMaxHealth() * self.overheal_maximum - self.barrier_block )
+	lifestealExcess = math.min( lifestealExcess,  self:GetParent():GetMaxHealth() * self.overheal_maximum - self.barrier_block )
 	if lifestealExcess > 0 then
 		self.barrier_block = self.barrier_block + lifestealExcess
 		self:SendBuffRefreshToClients()

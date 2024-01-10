@@ -737,9 +737,9 @@ function CHoldoutGameMode:OnHeroPick (event)
 	end
 	hero:AddItemByName("item_bottle")
 	hero:AddItemByName("item_tier1_token")
-	if PlayerResource:GetPatronTier(playerID) >= 2 then
-		hero:AddItemByName( "item_aegis" )
-	end
+	-- if PlayerResource:GetPatronTier(playerID) >= 2 then
+		-- hero:AddItemByName( "item_aegis" )
+	-- end
 end
 
 function CHoldoutGameMode:OnHeroLevelUp(event)
@@ -1085,11 +1085,6 @@ function CHoldoutGameMode:OnGameRulesStateChange()
 			GameRules:SetTimeOfDay(0.26)
 			if GameRules:IsCheatMode() then
 				Say( nil, "type -startgame to start the game", false)
-			end
-			if GetMapName() ~= "epic_boss_fight_challenger" then
-				ShowGenericPopup( "#holdout_instructions_title", "#holdout_instructions_body", "", "", DOTA_SHOWGENERICPOPUP_TINT_SCREEN )
-			else
-				ShowGenericPopup( "#holdout_instructions_title_challenger", "#holdout_instructions_body_challenger", "", "", DOTA_SHOWGENERICPOPUP_TINT_SCREEN )
 			end
 			GameRules.neutralCamps = {easy = {}, medium = {}, hard = {}, ancient = {}}
 			

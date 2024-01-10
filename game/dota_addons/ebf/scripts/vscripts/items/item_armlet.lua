@@ -97,6 +97,20 @@ end
 function modifier_item_armlet_active:OnIntervalThink()
 	local ability = self:GetAbility()
 	local caster = self:GetCaster()
+	
+	if self:GetDuration() < 0 then
+		if not IsEntitySafe( caster ) then self:Destroy() return end
+		if not IsEntitySafe( ability ) 
+		or (not ability:GetToggleState() or ability:GetItemSlot() > 5 or ability:GetItemSlot() == -1) then
+			local berserk = caster:FindModifierByName("modifier_item_armlet_berserk")
+			if berserk then
+				self:SetDuration( berserk:GetRemainingTime(), true )
+			else
+				self:Destroy()
+				return
+			end
+		end
+	end
 	if self.ticks > 0 then
 		self.current_strength = math.min( self.total_strength, self.current_strength + self.str_per_tick )
 		self:GetCaster():CalculateStatBonus( true )
@@ -104,13 +118,26 @@ function modifier_item_armlet_active:OnIntervalThink()
 		
 		self.ticks = self.ticks - 1
 	end
+	if not IsEntitySafe( ability ) then
+		ability = caster:GetAbilityByIndex(0)
+	end
+	if not IsEntitySafe( ability ) then return end 
 	ability:DealDamage( caster, caster, self.current_strength * self.unholy_health_drain_per_second * self.tick_rate, {damage_type = DAMAGE_TYPE_PURE, damage_flags = DOTA_DAMAGE_FLAG_HPLOSS + DOTA_DAMAGE_FLAG_BYPASSES_INVULNERABILITY + DOTA_DAMAGE_FLAG_BYPASSES_BLOCK + DOTA_DAMAGE_FLAG_NON_LETHAL + DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_NO_DAMAGE_MULTIPLIERS + DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL} )
+	
+	
 end
 
 function modifier_item_armlet_active:OnDestroy()
 	if not IsServer() then return end
 	local ability = self:GetAbility()
 	local caster = self:GetCaster()
+	if not IsEntitySafe( caster ) then return end
+	if not IsEntitySafe( ability ) then 
+		ability = caster:GetAbilityByIndex(0)
+	elseif ability and ability:GetToggleState() then 
+		ability:ToggleAbility()
+	end
+	if not IsEntitySafe( ability ) then return end
 	ability:DealDamage( caster, caster, self.current_strength * 22, {damage_type = DAMAGE_TYPE_PURE, damage_flags = DOTA_DAMAGE_FLAG_HPLOSS + DOTA_DAMAGE_FLAG_BYPASSES_INVULNERABILITY + DOTA_DAMAGE_FLAG_BYPASSES_BLOCK + DOTA_DAMAGE_FLAG_NON_LETHAL + DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_NO_DAMAGE_MULTIPLIERS + DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL} )
 end
 
@@ -179,7 +206,7 @@ function modifier_item_armlet_passive_ebf:OnRefresh()
 	self.bonus_attack_speed = self:GetSpecialValueFor("bonus_attack_speed")
 	self.bonus_armor = self:GetSpecialValueFor("bonus_armor")
 	self.bonus_health_regen = self:GetSpecialValueFor("bonus_health_regen")
-	self.lifesteal_percent = self:GetSpecialValueFor("lifesteal_percent")
+	self.lifesteal_percent = self:GetSpecialValueFor("lifesteal_percent") / 100
 end
 
 function modifier_item_armlet_passive_ebf:DeclareFunctions()
@@ -191,11 +218,11 @@ function modifier_item_armlet_passive_ebf:DeclareFunctions()
 end
 
 function modifier_item_armlet_passive_ebf:GetModifierAttackSpeedBonus_Constant()
-	return self.bonus_armor
+	return self.bonus_attack_speed
 end
 
 function modifier_item_armlet_passive_ebf:GetModifierPhysicalArmorBonus()
-	return self.bonus_other
+	return self.bonus_armor
 end
 
 function modifier_item_armlet_passive_ebf:GetModifierPreAttack_BonusDamage()

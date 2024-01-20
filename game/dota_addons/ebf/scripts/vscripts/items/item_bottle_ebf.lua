@@ -1,24 +1,24 @@
 item_bottle_ebf = class({})
 
--- function item_bottle_ebf:GetBehavior()
-	-- if self:GetCurrentCharges() == 0 then
-		-- return DOTA_ABILITY_BEHAVIOR_PASSIVE
-	-- else
-		-- return DOTA_ABILITY_BEHAVIOR_IMMEDIATE + DOTA_ABILITY_BEHAVIOR_NO_TARGET + DOTA_ABILITY_BEHAVIOR_SUPPRESS_ASSOCIATED_CONSUMABLE
-	-- end
--- end
+function item_bottle_ebf:GetBehavior()
+	if self:GetCurrentCharges() == 0 then
+		return DOTA_ABILITY_BEHAVIOR_PASSIVE
+	else
+		return DOTA_ABILITY_BEHAVIOR_IMMEDIATE + DOTA_ABILITY_BEHAVIOR_NO_TARGET + DOTA_ABILITY_BEHAVIOR_SUPPRESS_ASSOCIATED_CONSUMABLE
+	end
+end
 
--- function item_bottle_ebf:GetAbilityTextureName()
-	-- if self:GetCurrentCharges() == 3 then
-		-- return "bottle"
-	-- elseif self:GetCurrentCharges() == 2 then
-		-- return "bottle_medium"
-	-- elseif self:GetCurrentCharges() == 1 then
-		-- return "bottle_small"
-	-- else
-		-- return "bottle_empty"
-	-- end
--- end
+function item_bottle_ebf:GetAbilityTextureName()
+	if self:GetCurrentCharges() == 3 then
+		return "bottle"
+	elseif self:GetCurrentCharges() == 2 then
+		return "bottle_medium"
+	elseif self:GetCurrentCharges() == 1 then
+		return "bottle_small"
+	else
+		return "bottle_empty"
+	end
+end
 
 function item_bottle_ebf:OnSpellStart()
 	if self:GetCurrentCharges() == 0 then return end

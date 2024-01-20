@@ -67,10 +67,12 @@ LinkLuaModifier( "modifier_item_armlet_active", "items/item_armlet.lua", LUA_MOD
 
 function modifier_item_armlet_active:OnCreated()
 	self.unholy_bonus_damage = self:GetSpecialValueFor("bonus_damage") * self:GetSpecialValueFor("unholy_bonus_damage") / 100
+	self.critical_bonus_damage = self:GetSpecialValueFor("bonus_damage") * self:GetSpecialValueFor("critical_bonus_damage") / 100
 	self.unholy_bonus_armor = self:GetSpecialValueFor("unholy_bonus_armor")
 	self.berserk_bonus_attack_speed = self:GetSpecialValueFor("berserk_bonus_attack_speed")
 	self.berserk_bonus_movement_speed = self:GetSpecialValueFor("berserk_bonus_movement_speed")
 	self.unholy_bonus_slow_resistance = self:GetSpecialValueFor("unholy_bonus_slow_resistance")
+	self.berserk_duration = self:GetSpecialValueFor("berserk_duration")
 	
 	self.unholy_bonus_strength = self:GetSpecialValueFor("unholy_bonus_strength")
 	self.unholy_bonus_strength_pct = self:GetCaster():GetStrength() * self:GetSpecialValueFor("unholy_bonus_strength_pct") / 100
@@ -78,6 +80,7 @@ function modifier_item_armlet_active:OnCreated()
 	self.current_strength = 0
 	
 	self.str_ramp_up = self:GetSpecialValueFor("str_ramp_up")
+	self.critical_threshold = self:GetSpecialValueFor("critical_threshold")
 	self.tick_rate = 0.1
 	self.ticks = self.str_ramp_up / self.tick_rate
 	self.str_per_tick = self.total_strength / self.ticks
@@ -154,7 +157,9 @@ function modifier_item_armlet_active:DeclareFunctions()
 end
 
 function modifier_item_armlet_active:CheckState()
-	return {[MODIFIER_STATE_SILENCED] = true}
+	if self.berserk_duration > 0 and self:GetParent():GetHealthPercent() > self.critical_threshold then
+		return {[MODIFIER_STATE_SILENCED] = true}
+	end
 end
 	
 
@@ -163,7 +168,7 @@ function modifier_item_armlet_active:GetModifierAttackSpeedBonus_Constant()
 end
 
 function modifier_item_armlet_active:GetModifierPreAttack_BonusDamage()
-	return self.unholy_bonus_damage
+	return TernaryOperator( self.critical_bonus_damage, self:GetParent():GetHealthPercent() <= self.critical_threshold, self.unholy_bonus_damage )
 end
 
 function modifier_item_armlet_active:GetModifierPhysicalArmorBonus()

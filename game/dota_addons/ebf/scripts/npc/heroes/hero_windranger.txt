@@ -46,8 +46,10 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_windrunner/windrunner_shackleshot"
+		"AbilityTextureName"			"windrunner_shackleshot"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
@@ -76,39 +78,18 @@
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"fail_stun_duration"						"0.75 0.75 0.75 0.75"
+			"stun_duration"
 			{
-				"var_type"				"FIELD_FLOAT"
-				"fail_stun_duration"	"0.75 0.75 0.75 0.75"
+				"value"									"1.9"
+				"special_bonus_unique_windranger_6"		"+0.8"
 			}
-			"02"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"stun_duration"			"3.8"
-				"LinkedSpecialBonus"	"special_bonus_unique_windranger_6"
-			}
-			"03"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"shackle_distance"		"575"
-			}
-			"04"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"arrow_speed"			"1650"
-			}
-			"05"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"shackle_count"			"5"
-			}
-			"06"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"shackle_angle"			"23"
-			}
+			"shackle_distance"							"575"
+			"arrow_speed"								"1650"
+			"shackle_count"								"3 4 5 6 7 8 9"
+			"crit_damage"								"120 140 160 180 200 220 240"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -120,7 +101,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_windrunner/windrunner_powershot"
+		"AbilityTextureName"			"windrunner_powershot"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
@@ -138,7 +121,6 @@
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"9"
-		"AbilityChannelTime"			"1.0"
 
 
 		// Cost
@@ -162,17 +144,27 @@
 			"slow_duration"												"4"
 			"damage_reduction"		
 			{
-				"value"				"20"
-				"special_bonus_unique_windranger_3"		"-5"
-				"CalculateSpellDamageTooltip"	"0"
+				"value"													"15"
+				"special_bonus_unique_windranger_3"						"-5"
+				"CalculateSpellDamageTooltip"							"0"
 				"DamageTypeTooltip"	"DAMAGE_TYPE_NONE"
 			}
 			"arrow_width"			"125 125 125 125"
 			"arrow_range"			"2600"
-			"arrow_speed"			"3000.0 3000.0 3000.0 3000.0"
 			"tree_width"			"75 75 75 75"
 			"vision_radius"			"400"
 			"vision_duration"		"3.34 3.34 3.34 3.34"
+			
+			"AbilityChannelTime"
+			{
+				"value"													"1.0"
+				"special_bonus_unique_windranger_faster_powershot"		"-50%"
+			}
+			"arrow_speed"
+			{
+				"value"													"3000.0 3000.0 3000.0 3000.0"
+				"special_bonus_unique_windranger_faster_powershot"		"+50%"
+			}			
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -184,18 +176,21 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_windrunner/windrunner_windrun"
+		"AbilityTextureName"			"windrunner_windrun"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"AbilitySound"					"Ability.Windrun"
-		"HasScepterUpgrade"			"1"
+		"HasScepterUpgrade"				"1"
 		"MaxLevel"						"7"
 		"LevelsBetweenUpgrades"			"3"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
+		"AbilityCastRange"				"325"
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
@@ -226,12 +221,8 @@
 				"value"								"0"
 				"special_bonus_scepter"				"-50"
 			}
-			"cannot_be_dispelled"
-			{
-				"value"						"0"
-				"special_bonus_unique_windranger_windrun_undispellable"			"+1"
-			}
-			"duration"					"3 3.2 3.4 3.6 3.8 4.0 4.2"
+			"cannot_be_dispelled"					"1"
+			"duration"								"3 4 5 6 7 8 9"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -243,7 +234,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
@@ -265,8 +255,8 @@
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"70 50 30 25.71 21.43 17.14"
-		"AbilityDuration"				"20.0"
+		"AbilityCooldown"				"15"
+		"AbilityDuration"				"10 12 14 16 18 20"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -279,7 +269,7 @@
 				"bonus_attack_speed"			"300 400 500 600 700 800 900"
 				"focusfire_damage_reduction"	
 				{
-					"value"						"-30.0 -30.0 -30.0 -30.0 -23.0 -16.0"
+					"value"						"-30.0"
 					"LinkedSpecialBonus"		"special_bonus_unique_windranger_8"
 				}
 				"focusfire_fire_on_the_move"	"1"
@@ -293,7 +283,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_TOGGLE | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
 
 		// Casting
@@ -308,7 +297,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		
@@ -332,7 +320,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		
@@ -356,7 +343,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"ad_linked_abilities"			"windrunner_powershot"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
@@ -371,7 +357,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"ad_linked_abilities"			"windrunner_windrun"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
@@ -395,7 +380,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		
@@ -419,7 +403,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		
@@ -430,7 +413,7 @@
 			"01"
 			{
 				"var_type"					"FIELD_FLOAT"
-				"value"				"0.8"
+				"value"				"0"
 				"ad_linked_abilities"			"windrunner_shackleshot"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
 			}
 		}
@@ -443,7 +426,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		
@@ -467,7 +449,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		
@@ -491,7 +472,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		
@@ -515,7 +495,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		
@@ -531,5 +510,12 @@
 			}
 		}
 	}
-
+	"special_bonus_unique_windranger_faster_powershot"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
+	}
 }

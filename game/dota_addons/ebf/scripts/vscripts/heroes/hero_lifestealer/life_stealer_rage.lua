@@ -36,7 +36,6 @@ function life_stealer_rage:OnSpellStart()
 			-- end
 		-- end
 	end
-    
 end
 
 modifier_life_stealer_rage_active = class({})

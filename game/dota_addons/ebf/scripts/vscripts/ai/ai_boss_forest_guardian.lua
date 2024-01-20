@@ -14,13 +14,13 @@ function Spawn( entityKeyValues )
 		end
 	end)
 	
-	-- thisEntity.grasp = thisEntity:FindAbilityByName("boss_forest_guardian_natures_grasp")
+	thisEntity.grasp = thisEntity:FindAbilityByName("boss_forest_guardian_natures_grasp")
 	thisEntity.leech = thisEntity:FindAbilityByName("boss_forest_guardian_leech_seed")
 	thisEntity.armor = thisEntity:FindAbilityByName("boss_forest_guardian_living_armor")
 	thisEntity.overgrowth = thisEntity:FindAbilityByName("boss_forest_guardian_overgrowth")
 	
 	Timers:CreateTimer(0.1, function()
-		-- thisEntity.grasp:SetLevel(GameRules.gameDifficulty)
+		thisEntity.grasp:SetLevel(GameRules.gameDifficulty)
 		thisEntity.leech:SetLevel(GameRules.gameDifficulty)
 		thisEntity.armor:SetLevel(GameRules.gameDifficulty)
 		thisEntity.overgrowth:SetLevel(GameRules.gameDifficulty)
@@ -29,18 +29,18 @@ end
 
 function AIThink(thisEntity)
 	if thisEntity:GetTeamNumber() ~= DOTA_TEAM_GOODGUYS and not thisEntity:IsChanneling() and not thisEntity:GetCurrentActiveAbility() then
-		-- if thisEntity.grasp:IsFullyCastable() then
-			-- local optimalPosition = AICore:FindOptimalRadiusInRangeForEntity( thisEntity, thisEntity.grasp:GetTrueCastRange(), thisEntity.grasp:GetSpecialValueFor("latch_range") )
-			-- if optimalPosition then
-				-- ExecuteOrderFromTable({
-					-- UnitIndex = thisEntity:entindex(),
-					-- OrderType = DOTA_UNIT_ORDER_CAST_POSITION,
-					-- Position = optimalPosition,
-					-- AbilityIndex = thisEntity.grasp:entindex()
-				-- })
-				-- return 0.1
-			-- end
-		-- end
+		if thisEntity.grasp:IsFullyCastable() then
+			local optimalPosition = AICore:FindOptimalRadiusInRangeForEntity( thisEntity, thisEntity.grasp:GetTrueCastRange(), thisEntity.grasp:GetSpecialValueFor("latch_range") )
+			if optimalPosition then
+				ExecuteOrderFromTable({
+					UnitIndex = thisEntity:entindex(),
+					OrderType = DOTA_UNIT_ORDER_CAST_POSITION,
+					Position = optimalPosition,
+					AbilityIndex = thisEntity.grasp:entindex()
+				})
+				return 0.1
+			end
+		end
 		if thisEntity.armor:IsFullyCastable() then
 			local optimalPosition = AICore:FindOptimalFriendlyRadiusInRangeForEntity(thisEntity, 9999, thisEntity.armor:GetSpecialValueFor("radius"), thisEntity:HasModifier("modifier_treant_living_armor"), function(unit) return unit:HasModifier("modifier_treant_living_armor") end )
 			if optimalPosition then

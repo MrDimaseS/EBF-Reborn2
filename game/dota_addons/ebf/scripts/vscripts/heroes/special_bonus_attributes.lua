@@ -147,11 +147,7 @@ function modifier_special_bonus_attributes_stat_rescaling:OnCreated()
 	self.baseMR = 25
 	
 	self:GetParent().cooldownModifiers = {}
-	if self:GetParent():IsIllusion() then
-		self.baseArmor = self:GetParent():GetPhysicalArmorBaseValue() + ( self:GetParent():GetAgility() / 6 - 0.065 * self:GetParent():GetAgility() )
-	else
-		self.baseArmor = self:GetCaster():GetPhysicalArmorBaseValue()
-	end
+	self.baseArmor = self:GetParent():GetPhysicalArmorBaseValue() + ( self:GetParent():GetAgility() / 6 - 0.065 * self:GetParent():GetAgility() )
 	
 	self:OnRefresh()
 	if IsServer() then

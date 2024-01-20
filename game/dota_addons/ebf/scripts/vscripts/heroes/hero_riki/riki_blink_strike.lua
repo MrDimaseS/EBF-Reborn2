@@ -32,6 +32,7 @@ function riki_blink_strike:OnSpellStart(bDisableBlink)
 		EmitSoundOn( "Hero_Riki.Blink_Strike", target )
 	end
 	if not caster:IsSameTeam( target ) then
+		if not bDisableBlink and target:TriggerSpellAbsorb( self ) then return end
 		self:DealDamage( caster, target, self:GetSpecialValueFor("bonus_damage") )
 		if target:HasModifier("modifier_riki_smoke_screen_aura_debuff") then
 			self:Stun(target, self:GetSpecialValueFor("slow"), "particles/units/heroes/hero_riki/riki_blink_strike_slow.vpcf")

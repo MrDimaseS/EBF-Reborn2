@@ -112,6 +112,13 @@ function modifier_starbreaker_fire_wreath_activity:OnCreated( kv )
 	-- Start interval
 	self:StartIntervalThink( interval )
 	self:OnIntervalThink()
+	
+	if self.parent:HasShard() and IsServer() then
+		local statusFX = ParticleManager:CreateParticle( "particles/status_fx/status_effect_avatar.vpcf", PATTACH_POINT_FOLLOW, self.parent )
+		self:AddStatusEffect( statusFX, 10 )
+		local statusFX = ParticleManager:CreateParticle( "particles/items_fx/black_king_bar_avatar.vpcf", PATTACH_POINT_FOLLOW, self.parent )
+		self:AddEffect( statusFX )
+	end
 end
 
 function modifier_starbreaker_fire_wreath_activity:OnRefresh( kv )
@@ -346,4 +353,8 @@ function modifier_starbreaker_fire_wreath_activity:PlayEffects3( center )
 
 	-- Create Sound
 	EmitSoundOn( sound_cast, self.parent )
+end
+
+function modifier_starbreaker_fire_wreath_activity:IsHidden(  )
+	return true
 end

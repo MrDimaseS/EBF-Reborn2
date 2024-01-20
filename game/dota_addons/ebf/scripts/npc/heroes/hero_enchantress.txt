@@ -7,7 +7,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
@@ -41,12 +40,11 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"MaxLevel"						"7"
 		"FightRecapLevel"				"1"
-		"IsGrantedByScepter"			"1"
+		"IsGrantedByShard"				"1"
 		"AbilitySound"					"Hero_Enchantress.EnchantCreep"
 
 		// Casting
@@ -102,7 +100,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
@@ -112,7 +109,7 @@
 		"MaxLevel"						"7"
 		"LevelsBetweenUpgrades"			"3"
 		"FightRecapLevel"				"1"
-		"IsGrantedByShard"				"1"
+		"IsGrantedByScepter"			"1"
 		"AbilitySound"					"Hero_Enchantress.EnchantCreep"
 
 		// Casting
@@ -135,7 +132,14 @@
 			"duration"					"6"
 			"bonus_attack_speed"		"100 150 200 250 300 350 400"
 			"bonus_move_speed"			"100"
-			"radius"					"1200"
+			"radius"					
+			{
+				"value"		"1200"
+				"affected_by_aoe_increase"	"1"
+			}
+			"root_base_duration"	"2.0"
+			"root_per_target"		"0.5"
+			"max_root"		"5"
 		}
 	}
 
@@ -147,14 +151,13 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"AbilitySound"					"Hero_Enchantress.EnchantCreep"
-		"HasShardUpgrade"				"1"
+		"HasScepterUpgrade"				"1"
 		"MaxLevel"						"7"
 		"LinkedAbility"					"enchantress_little_friends"
 
@@ -212,7 +215,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
@@ -268,7 +270,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AUTOCAST | DOTA_ABILITY_BEHAVIOR_ATTACK"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
@@ -316,7 +317,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		
@@ -340,7 +340,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		
@@ -364,7 +363,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		
@@ -388,7 +386,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"ad_linked_abilities"			"enchantress_impetus"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
@@ -403,7 +400,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		
@@ -427,7 +423,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"BaseClass"						"special_bonus_base"
@@ -439,7 +434,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"BaseClass"						"special_bonus_base"

@@ -8,7 +8,39 @@ function bristleback_bristleback:OnSpawn()
 	self:GetCaster():AddNewModifier("modifier_bristleback_bristleback_autocast")
 end
 
+function bristleback_bristleback:GetBehavior( )
+	if self:GetCaster():HasScepter() then
+		return DOTA_ABILITY_BEHAVIOR_POINT
+	else
+		return DOTA_ABILITY_BEHAVIOR_PASSIVE
+	end
+end
 
+function bristleback_bristleback:GetCooldown( iLvl )
+	if self:GetCaster():HasScepter() then
+		return self:GetSpecialValueFor("activation_cooldown")
+	end
+end
+
+function bristleback_bristleback:GetManaCost( iLvl )
+	if self:GetCaster():HasScepter() then
+		return self:GetSpecialValueFor("activation_manacost")
+	end
+end
+
+function bristleback_bristleback:GetCastPoint()
+	if self:GetCaster():HasScepter() then
+		return self:GetSpecialValueFor("activation_delay")
+	end
+end
+
+function bristleback_bristleback:OnSpellStart()
+	local caster = self:GetCaster()
+	local target = self:GetCursorPosition()
+	
+	caster:AddNewModifier( caster, self, "modifier_bristleback_active_conical_quill_spray", {duration = self:GetSpecialValueFor("activation_spray_interval") * self:GetSpecialValueFor("activation_num_quill_sprays"), x = target.x, y = target.y} )
+end
+	
 modifier_bristleback_bristleback_passive = class({})
 LinkLuaModifier( "modifier_bristleback_bristleback_passive", "heroes/hero_bristleback/bristleback_bristleback", LUA_MODIFIER_MOTION_NONE )
 
@@ -49,7 +81,7 @@ function modifier_bristleback_bristleback_passive:GetModifierIncomingDamage_Perc
 		Timers:CreateTimer( function()
 			if parent:GetHealth() == 0 then return end
 			if not self.quills:IsTrained() then return end
-			self.quills:Spray( not parent:HasScepter(), CalculateDirection( params.attacker, parent ) )
+			self.quills:Spray( )
 		end)
 	end
 

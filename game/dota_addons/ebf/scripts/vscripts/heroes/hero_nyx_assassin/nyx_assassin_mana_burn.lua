@@ -25,7 +25,7 @@ function nyx_assassin_mana_burn:OnSpellStart()
 		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( target:GetAbsOrigin(), aoe ) ) do
 			self:ManaBurn( enemy )
 		end
-	else
+	elseif not target:TriggerSpellAbsorb( self ) then
 		self:ManaBurn( target )
 	end
 end

@@ -103,6 +103,8 @@ function Precache( context )
 	
 	PrecacheUnitByNameSync("npc_dota_boss_ogre_magi", context)
 	PrecacheUnitByNameSync("npc_dota_visage_familiar1", context)
+	PrecacheResource( "model", "models/heroes/tiny/tiny_04/tiny_04.vmdl", context )
+	PrecacheResource( "model", "models/heroes/tiny/tiny_04/tiny_04.vmdl", context )
 end
 
 -- Actually make the game mode when we activate
@@ -234,8 +236,8 @@ function CHoldoutGameMode:InitGameMode()
 	GameRules:GetGameModeEntity():SetLoseGoldOnDeath( false )
 	GameRules:GetGameModeEntity():SetGiveFreeTPOnDeath( false )
 	GameRules:GetGameModeEntity():SetStickyItemDisabled( true )
-	GameRules:GetGameModeEntity():SetDefaultStickyItem( "item_bottle" )
-	GameRules:GetGameModeEntity():SetTPScrollSlotItemOverride( "item_bottle" )
+	GameRules:GetGameModeEntity():SetDefaultStickyItem( "item_bottle_ebf" )
+	GameRules:GetGameModeEntity():SetTPScrollSlotItemOverride( "item_bottle_ebf" )
 	
 	GameRules:GetGameModeEntity():SetMaximumAttackSpeed( 2000 )
 	GameRules:GetGameModeEntity():SetMinimumAttackSpeed( 50 )
@@ -496,6 +498,7 @@ IGNORE_SPELL_AMP_KV = {
 	["obsidian_destroyer_arcane_orb"] = {["mana_pool_damage_pct"] = true},
 	["phantom_assassin_fan_of_knives"] = {["pct_health_damage_initial"] = true,["pct_health_damage"] = true},
 	["huskar_life_break"] = {["health_cost_percent"] = true,["health_damage"] = true},
+	["item_orchid"] = {["silence_damage_percent"] = true},
 	["item_bloodthorn"] = {["silence_damage_percent"] = true},
 	["item_bloodthorn_2"] = {["silence_damage_percent"] = true},
 	["item_bloodthorn_3"] = {["silence_damage_percent"] = true},
@@ -542,6 +545,7 @@ function CHoldoutGameMode:FilterAbilityValues( filterTable )
 	end
 	-- aoe bonus until valve fixes their shit
 	if not ability then return true end
+	if filterTable.value == 0 then return true end
 	local abilityValues = ability:GetAbilityKeyValues().AbilityValues
 	if abilityValues
 	and type(abilityValues[filterTable.value_name_const]) == "table" 
@@ -731,11 +735,11 @@ function CHoldoutGameMode:OnHeroPick (event)
 	PlayerResource:SetCustomBuybackCooldown( playerID, 10 )
 	PlayerResource:SetCustomBuybackCost( playerID, 100 )
 	
-	local tp = hero:FindItemInInventory( "item_tpscroll" )
-	if tp then
-		hero:RemoveItem( tp )
-	end
-	hero:AddItemByName("item_bottle")
+	-- local tp = hero:FindItemInInventory( "item_tpscroll" )
+	-- if tp then
+		-- hero:RemoveItem( tp )
+	-- end
+	hero:AddItemByName("item_bottle_ebf")
 	hero:AddItemByName("item_tier1_token")
 	-- if PlayerResource:GetPatronTier(playerID) >= 2 then
 		-- hero:AddItemByName( "item_aegis" )
@@ -1628,7 +1632,7 @@ function CHoldoutGameMode:_RefreshPlayers(bWon)
 					
 					
 					if bWon ~= nil then
-						local hBottle = hero:FindItemInInventory("item_bottle" )
+						local hBottle = hero:FindItemInInventory("item_bottle_ebf" )
 						if hBottle then
 							local maxCharges = hBottle:GetSpecialValueFor( "max_charges" )
 							if bWon then
@@ -1883,9 +1887,9 @@ function CHoldoutGameMode:OnNPCSpawned( event )
 		local heroName = spawnedUnit:GetUnitName()
 	end
 	if spawnedUnit:IsRealHero() then
-		if not spawnedUnit:HasModifier("modifier_thinker_hero_regeneration") then
-			spawnedUnit:AddNewModifier( spawnedUnit, nil, "modifier_thinker_hero_regeneration", {} )
-		end
+		-- if not spawnedUnit:HasModifier("modifier_thinker_hero_regeneration") then
+			-- spawnedUnit:AddNewModifier( spawnedUnit, nil, "modifier_thinker_hero_regeneration", {} )
+		-- end
 		if spawnedUnit:IsTempestDouble() then
 			spawnedUnit:AddNewModifier( spawnedUnit, nil, "modifier_special_bonus_attributes_stat_rescaling", {} )
 		end

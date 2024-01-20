@@ -28,7 +28,7 @@ function pudge_meat_hook:OnSpellStart()
 
 	-- load data
 	local projectile_name = ""
-	local projectile_distance = self:GetSpecialValueFor( "hook_distance" )
+	local projectile_distance = self:GetSpecialValueFor( "hook_distance" ) + caster:GetCastRangeBonus()
 	local projectile_speed = self:GetSpecialValueFor( "hook_speed" )
 	local projectile_radius = self:GetSpecialValueFor( "hook_width" )
 

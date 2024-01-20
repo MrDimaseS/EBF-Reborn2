@@ -6,15 +6,18 @@ function item_gungnir:GetIntrinsicModifierName()
 	return "modifier_gungnir_passive"
 end
 
+item_monkey_king_bar = class(item_gungnir)
 item_gungnir_2 = class(item_gungnir)
 item_gungnir_3 = class(item_gungnir)
 item_gungifier_4 = class(item_gungnir)
 
 function item_gungifier_4:OnSpellStart()
 	local caster = self:GetCaster()
-	local target = self:GetCursorTarget()
+	local point = self:GetCursorTarget()
 	
-	self:FireTrackingProjectile("particles/items4_fx/nullifier_proj.vpcf", target, self:GetSpecialValueFor("projectile_speed"))
+	for _, target in ipairs( caster:FindAllUnitsInRadius( point, self:GetSpecialValueFor("radius") ) ) do
+		self:FireTrackingProjectile("particles/items4_fx/nullifier_proj.vpcf", target, self:GetSpecialValueFor("projectile_speed"))
+	end
 	EmitSoundOn( "DOTA_Item.Nullifier.Cast", caster )
 end
 
@@ -32,8 +35,8 @@ LinkLuaModifier( "modifier_gungnir_passive", "items/item_gungnir.lua", LUA_MODIF
 
 function modifier_gungnir_passive:OnCreated()
 	self.bonus_strength = self:GetSpecialValueFor("bonus_strength")
+	self.bonus_agility = self:GetSpecialValueFor("bonus_agility")
 	self.attack_damage = self:GetSpecialValueFor("bonus_damage")
-	self.attack_speed = self:GetSpecialValueFor("bonus_attack_speed")
 	self.bonus_armor = self:GetSpecialValueFor("bonus_armor")
 	self.bonus_regen = self:GetSpecialValueFor("bonus_regen")
 	
@@ -57,7 +60,7 @@ function modifier_gungnir_passive:DeclareFunctions()
 			MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
 			MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT,
 			MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,
-			MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
+			MODIFIER_PROPERTY_STATS_AGILITY_BONUS,
 			MODIFIER_EVENT_ON_ATTACK_LANDED,
 			MODIFIER_EVENT_ON_ATTACK_RECORD, 
 			MODIFIER_EVENT_ON_ATTACK_RECORD_DESTROY, 
@@ -66,6 +69,10 @@ end
 
 function modifier_gungnir_passive:GetModifierBonusStats_Strength()
 	return self.bonus_strength
+end
+
+function modifier_gungnir_passive:GetModifierBonusStats_Agility()
+	return self.bonus_agility
 end
 
 function modifier_gungnir_passive:GetModifierPhysicalArmorBonus()
@@ -78,10 +85,6 @@ end
 
 function modifier_gungnir_passive:GetModifierPreAttack_BonusDamage()
 	return self.attack_damage
-end
-
-function modifier_gungnir_passive:GetModifierAttackSpeedBonus_Constant()
-	return self.attack_speed
 end
 
 function modifier_gungnir_passive:OnAttackLanded( params )

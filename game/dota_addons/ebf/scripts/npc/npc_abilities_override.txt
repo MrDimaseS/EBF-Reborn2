@@ -63,7 +63,9 @@
 	"item_moon_shard"						"REMOVE"
 	"item_sphere"							"REMOVE"
 	"item_hand_of_midas"					"REMOVE"
-	"item_rapier"					"REMOVE"
+	"item_tpscroll"							"REMOVE"
+	"item_rapier"							"REMOVE"
+	"item_bottle"							"REMOVE"
 	
 	//=================================================================================================================
 	// Recipe: force_boots
@@ -969,13 +971,13 @@
 
 		"AbilityValues"
 		{
-				"bonus_attack_speed"	"30"
-				"bonus_damage"			"50"
-				"bonus_mana_regen"		"3.5"
-				"bonus_health_regen"	"6.0"
-				"bonus_intellect"		"12"
-				"silence_damage_percent"	"30"
-				"silence_duration"		"5"
+			"bonus_attack_speed"		"30"
+			"bonus_damage"				"50"
+			"bonus_mana_regen"			"3.5"
+			"bonus_health_regen"		"6.0"
+			"bonus_intellect"			"12"
+			"silence_damage_percent"	"15"
+			"silence_duration"			"5"
 		}
 	}
 	//=================================================================================================================
@@ -1054,7 +1056,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"1150"	
+		"ItemCost"						"450"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -1699,69 +1701,6 @@
 		"ItemPurchasable"				"0"
 		// Not sellable, but handled in code.
 	}
-	
-	//=================================================================================================================
-	// Teleport Scroll
-	//=================================================================================================================
-	"item_tpscroll"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_CHANNELLED | DOTA_ABILITY_BEHAVIOR_NOASSIST | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK | DOTA_ABILITY_BEHAVIOR_DONT_CANCEL_CHANNEL | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_BUILDING"
-		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_INVULNERABLE"
-		"Model"							"models/props_gameplay/tpscroll01.vmdl"
-
-		// Stats
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"0"
-		"AbilityCooldown"				"80.0"
-		"AbilitySharedCooldown"			"teleport"
-		"AbilityChannelTime"			"3.0"
-		"AbilityCastPoint"				"0.0"
-		
-		// Item Info
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"75"
-		"ItemCost"						"100"
-		"ItemShopTags"					"consumable;tutorial"
-		"ItemQuality"					"consumable"
-		"ItemAliases"					"tp;town portal scroll;teleport"
-		"ItemStackable"					"1"
-		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
-		"ItemPermanent"					"0"
-		"ItemInitialCharges"			"1"
-		//"SideShop"						"1"
-		"ItemPurchasable"				"0"
-		
-		// Special	
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"minimun_distance"		"70"
-			}
-			"02"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"maximum_distance"		"800"
-			}
-			"03"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"vision_radius"			"200"
-			}
-			"04"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"tooltip_channel_time"			"3.0"
-			}
-		}
-	}
-	
 	//=================================================================================================================
 	// Recipe: Travel Boots
 	//=================================================================================================================
@@ -3518,63 +3457,6 @@
 			"disappear_time_minutes_tooltip"		"10"
 		}
 	}
-	
-	"item_bottle"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"item_lua"
-		"ScriptFile"					"items/item_bottle"
-		"AbilityTextureName"			"item_bottle"
-		
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_OPTIONAL_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_SUPPRESS_ASSOCIATED_CONSUMABLE"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
-		"Model"							"models/props_gameplay/bottle_blue.vmdl"
-		"ModelAlternate"				"models/props_gameplay/bottle_empty.vmdl"
-		"FightRecapLevel"				"1"
-		
-		// Stats
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"0.5"
-		"AbilityCastRange"				"350"
-		"AbilityCastPoint"				"0.0"
-
-		// Item Info
-		//-------------------------------------------------------------------------------------------------------------
-		"ItemPurchasable"				"0"
-		"ShouldBeSuggested"				"0"
-		"ItemCost"						"0"
-		"ItemShopTags"					"consumable"
-		"ItemQuality"					"common"
-		"ItemAliases"					"bottle"
-		"ItemStackable"					"0"
-		"ItemShareability"				"ITEM_NOT_SHAREABLE"
-		"ItemPermanent"					"1"
-		"ItemKillable"					"0"
-		"ItemDroppable"					"1"
-		"ItemSellable"					"0"
-		"ItemInitialCharges"			"3"
-		"ItemDisplayCharges"			"1"
-		"IsTempestDoubleClonable"		"0"
-		"ShouldBeSuggested"				"1"
-		"ShouldBeInitiallySuggested"	"1"
-		
-		// Special	
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			"base_health_restore"	"1000"
-			"lvl_health_restore"	"500"
-			"health_restore_pct"	"25"
-			"base_mana_restore"		"100"
-			"lvl_mana_restore"		"25"
-			"mana_restore_pct"		"25"
-			"restore_time"			"2.7"
-			"max_charges"			"3"
-		}
-	}
-
 	//=================================================================================================================
 	// Recipe: Shiva's Guard
 	//=================================================================================================================
@@ -3725,7 +3607,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"400"	
+		"ItemCost"						"50"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -3734,7 +3616,7 @@
 		"ItemResult"					"item_monkey_king_bar"
 		"ItemRequirements"
 		{
-			"01"						"item_javelin;item_hyperstone"
+			"01"						"item_javelin;item_eagle;item_demon_edge"
 		}
 	}
 	//=================================================================================================================
@@ -3744,6 +3626,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_gungnir"
+		"AbilityTextureName"			"item_monkey_king_bar"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 
 		// Item Info
@@ -3759,8 +3644,8 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage"			"80"
-			"bonus_attack_speed"	"45"
+			"bonus_damage"			"50"
+			"bonus_agility"			"35"
 			"bonus_chance"			"80"
 			"bonus_chance_damage"	"150"
 		}
@@ -4218,10 +4103,13 @@
 			"bonus_armor"						"3"
 			"bonus_health_regen"				"8"
 			
-			"unholy_bonus_damage"				"200"
+			"unholy_bonus_damage"				"100"
 			"unholy_bonus_strength"				"25"
 			"unholy_bonus_strength_pct"			"10"
 			"str_ramp_up"						"0.6"
+			
+			"critical_bonus_damage"				"200"
+			"critical_threshold"				"50"
 			
 			"unholy_bonus_armor"				"4"
 			"unholy_bonus_slow_resistance"		"35"
@@ -8401,7 +8289,7 @@
 		{
 			"bonus_magic_resistance"	"20"
 			"bonus_spell_amp"			"15"
-			"bonus_armor"				"-3"
+			"bonus_armor"				"3"
 		}
 	}
 	

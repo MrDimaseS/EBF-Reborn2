@@ -121,7 +121,7 @@ function CHoldoutGameRound:Begin()
 	for spawnGroup, spawnTable in pairs( self._vSpawners ) do
 		MAX_TIME_TO_RESOLVE_SPAWNS = math.max( MAX_TIME_TO_RESOLVE_SPAWNS, spawnTable._flInitialWait + math.ceil(spawnTable._nTotalUnitsToSpawn / spawnTable._nUnitsPerSpawn) * spawnTable._flSpawnInterval )
 	end
-	local unitMultiplier =  math.min( 3, math.floor( self._HP_difficulty_multiplier ) )
+	local unitMultiplier =  math.min( 3, math.floor( self._HP_difficulty_multiplier / 2 + 0.5 ) )
 	self._HP_difficulty_multiplier = self._HP_difficulty_multiplier / unitMultiplier
 	for spawnGroup, spawnTable in pairs( self._vSpawners ) do
 		if not spawnTable._NoCountScaling then

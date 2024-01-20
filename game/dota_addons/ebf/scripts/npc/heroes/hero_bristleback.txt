@@ -7,7 +7,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
@@ -54,7 +53,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
@@ -142,7 +140,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"35 55 70 90 105 125 140"
+		"AbilityManaCost"				"60 65 70 75 80 85 90"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -155,20 +153,20 @@
 			}
 			"quill_base_damage"
 			{
-				"value"									"280 405 560 1020 2000 3280 5210"
+				"value"									"280 405 550 1050 2000 3250 4500"
 				"special_bonus_unique_bristleback_2"	"+25%"
 				"CalculateSpellDamageTooltip" 			"1"
 			}
 			"quill_stack_damage"
 			{
-				"value"									"315 395 475 660 990 1385 1915"
+				"value"									"175 225 475 675 900 1200 1600"
 				"special_bonus_unique_bristleback_2"	"+25%"
 				"CalculateSpellDamageTooltip" 			"1"
 			}
 			"quill_stack_duration"						"14.0"
 			"max_damage"								
 			{
-				"value"									"2000 4000 6500 10000 15000 22500 32500"
+				"value"									"850 1600 2400 4500 8500 16000 30000"
 				"special_bonus_unique_bristleback_2"	"+25%"
 				"CalculateSpellDamageTooltip" 			"1"
 			}
@@ -206,14 +204,22 @@
 				"value"									"10 11 12 13 14 15 16"
 				"special_bonus_unique_bristleback_6"	"+2"
 			}
-			"quill_release_threshold"
-			{
-				"value"									"35"
-				"special_bonus_scepter"					"-10"
-			}					
+			"quill_release_threshold"					"35"
 			
 			"side_damage_reduction"						""
 			"back_damage_reduction"						""
+			
+			"activation_cooldown"						"24"
+			"activation_manacost"						"100"
+			"activation_delay"							"0.5"
+			"activation_num_quill_sprays"				"6"
+			"activation_spray_interval"					"0.35"
+			"activation_angle"							"45"
+			"activation_movement_speed_pct"				"-40"
+			"activation_turn_rate_pct"					"-100"
+			"activation_disable_turning"				"1"
+			"activation_ignore_cast_angle"				"1"
+			"activation_turn_rate"						"500"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -225,7 +231,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
@@ -259,7 +264,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		
@@ -283,7 +287,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		
@@ -307,7 +310,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 	}
@@ -319,7 +321,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		

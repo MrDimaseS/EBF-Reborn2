@@ -81,19 +81,19 @@ function modifier_signet_of_destiny_buff:DeclareFunctions()
 end
 
 function modifier_signet_of_destiny_buff:GetModifierHealAmplify_PercentageTarget( )
-	return -self.hp_regen_reduction_enemy
+	return self.hp_regen_reduction_enemy
 end
 
 function modifier_signet_of_destiny_buff:GetModifierHPRegenAmplify_Percentage( )
-	return -self.hp_regen_reduction_enemy
+	return self.hp_regen_reduction_enemy
 end
 
 function modifier_signet_of_destiny_buff:GetModifierLifestealRegenAmplify_Percentage( )
-	return -self.hp_regen_reduction_enemy
+	return self.hp_regen_reduction_enemy
 end
 
 function modifier_signet_of_destiny_buff:GetModifierSpellLifestealRegenAmplify_Percentage( )
-	return -self.hp_regen_reduction_enemy
+	return self.hp_regen_reduction_enemy
 end
 
 function modifier_signet_of_destiny_buff:GetEffectName()
@@ -113,19 +113,19 @@ function modifier_signet_of_destiny_debuff:OnIntervalThink()
 end
 
 function modifier_signet_of_destiny_debuff:GetModifierHealAmplify_PercentageTarget( )
-	return self.hp_regen_reduction_enemy
+	return -self.hp_regen_reduction_enemy
 end
 
 function modifier_signet_of_destiny_debuff:GetModifierHPRegenAmplify_Percentage( )
-	return self.hp_regen_reduction_enemy
+	return -self.hp_regen_reduction_enemy
 end
 
 function modifier_signet_of_destiny_debuff:GetModifierLifestealRegenAmplify_Percentage( )
-	return self.hp_regen_reduction_enemy
+	return -self.hp_regen_reduction_enemy
 end
 
 function modifier_signet_of_destiny_debuff:GetModifierSpellLifestealRegenAmplify_Percentage( )
-	return self.hp_regen_reduction_enemy
+	return -self.hp_regen_reduction_enemy
 end
 
 function modifier_signet_of_destiny_debuff:GetEffectName()

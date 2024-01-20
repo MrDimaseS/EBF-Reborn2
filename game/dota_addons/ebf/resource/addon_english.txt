@@ -1289,8 +1289,7 @@
 
 		//Bristleback
 		"DOTA_Tooltip_ability_bristleback_bristleback"                                                      "Bristleback"
-		"DOTA_Tooltip_ability_bristleback_bristleback_Description"                                          "Bristleback takes less damage from all sources, taking less from the rear. The damage reduction scales linearly. If this ability negates enough damage to reach the current health threshold, he releases a conical Quill Spray of the current level."
-		"DOTA_Tooltip_ability_bristleback_bristleback_scepter_description"									"Bristleback's conical Quill Sprays are improved to affect all units in the area of effect. Quill threshold reduced."
+		"DOTA_Tooltip_ability_bristleback_bristleback_Description"                                          "Bristleback takes less damage from all sources, taking less from the rear. The damage reduction scales linearly. If this ability negates enough damage to reach the current health threshold, he releases a Quill Spray of the current level."
 		"DOTA_Tooltip_ability_bristleback_bristleback_Lore"                                                 "Turning his back to a fight might be just the thing."
 		"DOTA_Tooltip_ability_bristleback_bristleback_max_damage_reduction"                                 "%MAX DAMAGE REDUCTION:"
 		"DOTA_Tooltip_ability_bristleback_bristleback_min_damage_reduction"                                 "%MIN DAMAGE REDUCTION:"
@@ -1878,7 +1877,20 @@
 		"DOTA_Tooltip_modifier_wisp_sacrifice_sacrifice"                                                    "Sacrifice - Debuff"
 		"DOTA_Tooltip_modifier_wisp_sacrifice_sacrifice_Description"                                        "Losing health, slowed, muted, silenced, disarmed. Allies are resurrected if you survive."
 
-
+		// Windrunner
+		"DOTA_Tooltip_ability_windrunner_shackleshot_Description"											"Shackles the target to an enemy unit or tree in a line directly behind it.  If no unit or tree is present, the stun duration is reduced to %fail_stun_duration%. Shackleshot bounces, targeting a new unit each time. Stun durations are doubled against creeps.\n\nWindrunner deals critical damage to units affected by Shackleshot"
+		"DOTA_Tooltip_ability_windrunner_shackleshot_shackle_count"											"MAXIMUM UNITS SHACKLED:"
+		"DOTA_Tooltip_ability_windrunner_shackleshot_crit_damage"											"%CRITICAL DAMAGE:"
+		
+		"DOTA_Tooltip_ability_windrunner_powershot_Description"												"CHANNELED - Windranger charges her bow for up to %abilitychanneltime% second for a single powerful shot, which slows and deals more damage the longer it is charged. The arrow damages enemies along its path. For each hero unit that Powershot hits, its damage and slow power is reduced."
+		"DOTA_Tooltip_modifier_windrunner_powershot_on_hit_effect"											"Powershot - Slow"
+		"DOTA_Tooltip_modifier_windrunner_powershot_on_hit_effect_Description"								"Movement speed slowed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%"
+		
+		"DOTA_Tooltip_ability_windrunner_windrun_Description"												"While active, Windrunner emits a %radius% AoE aura that gives allied units increases movement speed and evasion."
+		"DOTA_Tooltip_ability_windrunner_windrun_scepter_description"										"Windrun reduces physical damage taken by %physical_damage_pct%%% for all units, and grants Windrunner invisibility that is not broken by attacking or casting spells."
+		"DOTA_Tooltip_modifier_windrunner_windrun_windrun"													"Windrun - Buff"
+		"DOTA_Tooltip_modifier_windrunner_windrun_windrun_Description"										"You have %dMODIFIER_PROPERTY_EVASION_CONSTANT%%% evasion and your movement speed is increased by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%"
+		
 		//Witch Doctor
 		"DOTA_Tooltip_ability_witch_doctor_maledict_Description"											"Curses all enemy Heroes in a small area, causing them to take a set amount of damage each second, as well as bursts of damage every 4 seconds based on how much health they have lost since the last burst of damage or since the curse began."
 		"DOTA_Tooltip_ability_witch_doctor_maledict_damage"													"DAMAGE:"
@@ -1889,7 +1901,7 @@
 
 		
 		//Zeus
-		"DOTA_Tooltip_ability_zuus_arc_lightning_damage_health_pct"                                         " "
+		"DOTA_Tooltip_ability_zuus_arc_lightning_damage_health_pct"                                         ""
 		"DOTA_Tooltip_ability_zuus_arc_lightning_Description"                                               "Hurls a bolt of lightning that leaps through nearby enemy units that deals damage."
 		"DOTA_Tooltip_ability_zuus_arc_lightning_Lore"                                                      "Arc Lightning is Zeus' favorite spell to use against puny mortals."
 
@@ -2250,7 +2262,10 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_weaver_2"                                                "+{s:bonus_bonus_damage}% Geminate Attack Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_weaver_3"												"+{s:bonus_armor_reduction} Swarm Armor Reduction"
 		"DOTA_Tooltip_ability_special_bonus_unique_weaver_6"                                                "-{s:bonus_AbilityCooldown}% Shukuchi Cooldown"
+		"DOTA_Tooltip_ability_special_bonus_unique_windranger_6"											"+{s:bonus_stun_duration}s Shackleshot Duration"
 		"DOTA_Tooltip_ability_special_bonus_unique_windranger_windrun_undispellable"                        "+{s:bonus_powershot_damage}% Powershot Damage"
+		"DOTA_Tooltip_ability_special_bonus_unique_windranger_faster_powershot"								"+{s:bonus_arrow_speed}% Faster Power Shot"
+		"DOTA_Tooltip_ability_special_bonus_unique_windranger_faster_powershot_Description"					"Power Shot's arrow speed is increased, channel time decreased."
 		"DOTA_Tooltip_ability_special_bonus_unique_winter_wyvern_5"                                         "+{s:bonus_heal_additive}% Cold Embrace Base Heal"
 		"DOTA_Tooltip_ability_special_bonus_unique_winter_wyvern_7"											"+{s:bonus_damage}% Splinter Blast Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_wisp"                                                    "+{s:bonus_hero_damage}% Spirits Damage"
@@ -2403,10 +2418,10 @@
 		"DOTA_Tooltip_ability_item_bag_of_gold"                                                             "Bag of Gold"
 		
 		// Armlet
-		"DOTA_Tooltip_ability_item_armlet_Description"														"<h1>Toggle: Unholy Strength</h1>When active, Unholy Strength increases this item's bonus attack damage by %unholy_bonus_damage%%%, +%unholy_bonus_strength% + %unholy_bonus_strength_pct%%% current Strength as extra strength, +%unholy_bonus_slow_resistance%%% slow resistance and +%unholy_bonus_armor% armor, but it drains %unholy_health_drain_per_second% health per second, per Strength granted by this item.<br><br> You cannot die from the health drain when Unholy Strength is activated, nor from the strength loss when Unholy Strength is deactivated."
+		"DOTA_Tooltip_ability_item_armlet_Description"														"<h1>Toggle: Unholy Strength</h1>When active, Unholy Strength increases this item's bonus attack damage by %unholy_bonus_damage%%%, +%unholy_bonus_strength% + %unholy_bonus_strength_pct%%% current Strength as extra strength, +%unholy_bonus_slow_resistance%%% slow resistance and +%unholy_bonus_armor% armor, but it drains %unholy_health_drain_per_second% health per second, per Strength granted by this item.<br><br>The damage increases to %critical_bonus_damage%%%% while your health percentage is less than %critical_threshold%%%<br><br> You cannot die from the health drain when Unholy Strength is activated, nor from the strength loss when Unholy Strength is deactivated."
 		
 		"DOTA_Tooltip_ability_item_armlet_2"																"Armlet of Cynothoglys"
-		"DOTA_Tooltip_ability_item_armlet_2_Description"													"<h1>Toggle: Frenzied Strength</h1>When active, Unholy Strength increases this item's bonus attack damage by %unholy_bonus_damage%%%, +%unholy_bonus_strength% + %unholy_bonus_strength_pct%%% current Strength as extra strength, +%unholy_bonus_slow_resistance%%% slow resistance, +%berserk_bonus_attack_speed% attack speed and +%berserk_bonus_movement_speed% movement speed, but it drains %unholy_health_drain_per_second% health per second, per Strength granted by this item and silences you.<br><br> You cannot die from the health drain when Unholy Strength is activated, nor from the strength loss when Unholy Strength is deactivated."
+		"DOTA_Tooltip_ability_item_armlet_2_Description"													"<h1>Toggle: Frenzied Strength</h1>When active, Unholy Strength increases this item's bonus attack damage by %unholy_bonus_damage%%%, +%unholy_bonus_strength% + %unholy_bonus_strength_pct%%% current Strength as extra strength, +%unholy_bonus_slow_resistance%%% slow resistance, +%berserk_bonus_attack_speed% attack speed and +%berserk_bonus_movement_speed% movement speed, but it drains %unholy_health_drain_per_second% health per second, per Strength granted by this item and silences you.<br><br>The damage increases to %critical_bonus_damage%%%% and you are no longer silenced while your health percentage is less than %critical_threshold%%%<br><br> You cannot die from the health drain when Unholy Strength is activated, nor from the strength loss when Unholy Strength is deactivated."
 		"DOTA_Tooltip_ability_item_armlet_2_Lore"															"Weapon of choice among brutes, the bearer sacrifices his life energy to gain immense strength and power."
 		"DOTA_Tooltip_ability_item_armlet_2_Note0"															"The strength change will affect both maximum and current HP, but you cannot die from the change."
 		"DOTA_Tooltip_ability_item_armlet_2_Note1"															"The strength change occurs over 0.6 seconds."
@@ -2417,7 +2432,7 @@
 		"DOTA_Tooltip_ability_item_armlet_2_bonus_health_regen"												"+$hp_regen"
 		
 		"DOTA_Tooltip_ability_item_armlet_2"																"Armlet of Morddoth"
-		"DOTA_Tooltip_ability_item_armlet_2_Description"													"<h1>Toggle: Frenzied Strength</h1>When active, Unholy Strength increases this item's bonus attack damage by %unholy_bonus_damage%%%, +%unholy_bonus_strength% + %unholy_bonus_strength_pct%%% current Strength as extra strength, +%unholy_bonus_slow_resistance%%% slow resistance, +%berserk_bonus_attack_speed% attack speed and +%berserk_bonus_movement_speed% movement speed, but it drains %unholy_health_drain_per_second% health per second, per Strength granted by this item and silences you.<br><br> You cannot die from the health drain when Unholy Strength is activated, nor from the strength loss when Unholy Strength is deactivated."
+		"DOTA_Tooltip_ability_item_armlet_2_Description"													"<h1>Toggle: Frenzied Strength</h1>When active, Unholy Strength increases this item's bonus attack damage by %unholy_bonus_damage%%%, +%unholy_bonus_strength% + %unholy_bonus_strength_pct%%% current Strength as extra strength, +%unholy_bonus_slow_resistance%%% slow resistance, +%berserk_bonus_attack_speed% attack speed and +%berserk_bonus_movement_speed% movement speed, but it drains %unholy_health_drain_per_second% health per second, per Strength granted by this item and silences you.<br><br>The damage increases to %critical_bonus_damage%%%% and you are no longer silenced while your health percentage is less than %critical_threshold%%%<br><br> You cannot die from the health drain when Unholy Strength is activated, nor from the strength loss when Unholy Strength is deactivated."
 		"DOTA_Tooltip_ability_item_armlet_2_Lore"															"Weapon of choice among brutes, the bearer sacrifices his life energy to gain immense strength and power."
 		"DOTA_Tooltip_ability_item_armlet_2_Note0"															"The strength change will affect both maximum and current HP, but you cannot die from the change."
 		"DOTA_Tooltip_ability_item_armlet_2_Note1"															"The strength change occurs over 0.6 seconds."
@@ -2429,7 +2444,7 @@
 		"DOTA_Tooltip_ability_item_armlet_2_lifesteal_percent"                                              "%+$lifesteal"
 		
 		"DOTA_Tooltip_ability_item_armlet_3"																"Armlet of Asmodeus"
-		"DOTA_Tooltip_ability_item_armlet_3_Description"													"<h1>Toggle: Frenzied Strength</h1>When active, Unholy Strength increases this item's bonus attack damage by %unholy_bonus_damage%%%, +%unholy_bonus_strength% + %unholy_bonus_strength_pct%%% current Strength as extra strength, +%unholy_bonus_slow_resistance%%% slow resistance, +%berserk_bonus_attack_speed% attack speed and +%berserk_bonus_movement_speed% movement speed, but it drains %unholy_health_drain_per_second% health per second, per Strength granted by this item and silences you.<br><br> You cannot die from the health drain when Unholy Strength is activated, nor from the strength loss when Unholy Strength is deactivated."
+		"DOTA_Tooltip_ability_item_armlet_3_Description"													"<h1>Toggle: Frenzied Strength</h1>When active, Unholy Strength increases this item's bonus attack damage by %unholy_bonus_damage%%%, +%unholy_bonus_strength% + %unholy_bonus_strength_pct%%% current Strength as extra strength, +%unholy_bonus_slow_resistance%%% slow resistance, +%berserk_bonus_attack_speed% attack speed and +%berserk_bonus_movement_speed% movement speed, but it drains %unholy_health_drain_per_second% health per second, per Strength granted by this item and silences you.<br><br>The damage increases to %critical_bonus_damage%%%% and you are no longer silenced while your health percentage is less than %critical_threshold%%%<br><br> You cannot die from the health drain when Unholy Strength is activated, nor from the strength loss when Unholy Strength is deactivated."
 		"DOTA_Tooltip_ability_item_armlet_3_Lore"															"Weapon of choice among brutes, the bearer sacrifices his life energy to gain immense strength and power."
 		"DOTA_Tooltip_ability_item_armlet_3_Note0"															"The strength change will affect both maximum and current HP, but you cannot die from the change."
 		"DOTA_Tooltip_ability_item_armlet_3_Note1"															"The strength change occurs over 0.6 seconds."
@@ -2441,7 +2456,7 @@
 		"DOTA_Tooltip_ability_item_armlet_3_lifesteal_percent"                                              "%+$lifesteal"
 		
 		"DOTA_Tooltip_ability_item_armlet_4"																"Armlet of Tyr"
-		"DOTA_Tooltip_ability_item_armlet_4_Description"													"<h1>Toggle: Frenzied Strength</h1>When active, Unholy Strength increases this item's bonus attack damage by %unholy_bonus_damage%%%, +%unholy_bonus_strength% + %unholy_bonus_strength_pct%%% current Strength as extra strength, +%unholy_bonus_slow_resistance%%% slow resistance, +%berserk_bonus_attack_speed% attack speed and +%berserk_bonus_movement_speed% movement speed, but it drains %unholy_health_drain_per_second% health per second, per Strength granted by this item and silences you.<br><br> You cannot die from the health drain when Unholy Strength is activated, nor from the strength loss when Unholy Strength is deactivated."
+		"DOTA_Tooltip_ability_item_armlet_4_Description"													"<h1>Toggle: Frenzied Strength</h1>When active, Unholy Strength increases this item's bonus attack damage by %unholy_bonus_damage%%%, +%unholy_bonus_strength% + %unholy_bonus_strength_pct%%% current Strength as extra strength, +%unholy_bonus_slow_resistance%%% slow resistance, +%berserk_bonus_attack_speed% attack speed and +%berserk_bonus_movement_speed% movement speed, but it drains %unholy_health_drain_per_second% health per second, per Strength granted by this item and silences you.<br><br>The damage increases to %critical_bonus_damage%%%% and you are no longer silenced while your health percentage is less than %critical_threshold%%%<br><br> You cannot die from the health drain when Unholy Strength is activated, nor from the strength loss when Unholy Strength is deactivated."
 		"DOTA_Tooltip_ability_item_armlet_4_Lore"															"Weapon of choice among brutes, the bearer sacrifices his life energy to gain immense strength and power."
 		"DOTA_Tooltip_ability_item_armlet_4_Note0"															"The strength change will affect both maximum and current HP, but you cannot die from the change."
 		"DOTA_Tooltip_ability_item_armlet_4_Note1"															"The strength change occurs over 0.6 seconds."
@@ -2453,7 +2468,7 @@
 		"DOTA_Tooltip_ability_item_armlet_4_lifesteal_percent"                                              "%+$lifesteal"
 		
 		"DOTA_Tooltip_ability_item_armlet_5"																"Armlet of Azathoth"
-		"DOTA_Tooltip_ability_item_armlet_5_Description"													"<h1>Toggle: Frenzied Strength</h1>When active, Unholy Strength increases this item's bonus attack damage by %unholy_bonus_damage%%%, +%unholy_bonus_strength% + %unholy_bonus_strength_pct%%% current Strength as extra strength, +%unholy_bonus_slow_resistance%%% slow resistance, +%berserk_bonus_attack_speed% attack speed and +%berserk_bonus_movement_speed% movement speed, but it drains %unholy_health_drain_per_second% health per second, per Strength granted by this item and silences you.<br><br> You cannot die from the health drain when Unholy Strength is activated, nor from the strength loss when Unholy Strength is deactivated."
+		"DOTA_Tooltip_ability_item_armlet_5_Description"													"<h1>Toggle: Frenzied Strength</h1>When active, Unholy Strength increases this item's bonus attack damage by %unholy_bonus_damage%%%, +%unholy_bonus_strength% + %unholy_bonus_strength_pct%%% current Strength as extra strength, +%unholy_bonus_slow_resistance%%% slow resistance, +%berserk_bonus_attack_speed% attack speed and +%berserk_bonus_movement_speed% movement speed, but it drains %unholy_health_drain_per_second% health per second, per Strength granted by this item and silences you.<br><br>The damage increases to %critical_bonus_damage%%%% and you are no longer silenced while your health percentage is less than %critical_threshold%%%<br><br> You cannot die from the health drain when Unholy Strength is activated, nor from the strength loss when Unholy Strength is deactivated."
 		"DOTA_Tooltip_ability_item_armlet_5_Lore"															"Weapon of choice among brutes, the bearer sacrifices his life energy to gain immense strength and power."
 		"DOTA_Tooltip_ability_item_armlet_5_Note0"															"The strength change will affect both maximum and current HP, but you cannot die from the change."
 		"DOTA_Tooltip_ability_item_armlet_5_Note1"															"The strength change occurs over 0.6 seconds."
@@ -2851,7 +2866,8 @@
 		"DOTA_Tooltip_ability_item_boots_of_bearing_5_Lore"                                                 "Resplendent footwear fashioned for the ancient herald that first dared spread the glory of Stonehall beyond the original borders of its nascent claim."
 		
 		
-		"DOTA_Tooltip_ability_item_bottle_Description"                                                      "<h1>Active: Regenerate</h1>Consumes a charge to restore %base_health_restore% + %lvl_health_restore% x Level + %health_restore_pct%%% health and %base_mana_restore% + %lvl_mana_restore% x Level + %mana_restore_pct%%% mana over %restore_time% seconds.<br><br>You restore one charge at the end of each round."
+		"DOTA_Tooltip_ability_item_bottle_ebf"                                                      		"Bottle"
+		"DOTA_Tooltip_ability_item_bottle_ebf_Description"                                                  "<h1>Active: Regenerate</h1>Consumes a charge to restore %base_health_restore% + %lvl_health_restore% x Level + %health_restore_pct%%% health and %base_mana_restore% + %lvl_mana_restore% x Level + %mana_restore_pct%%% mana over %restore_time% seconds.<br><br>You restore one charge at the end of each round."
 		"DOTA_Tooltip_modifier_item_bottle_ebf"																"Regenerate"
 		"DOTA_Tooltip_modifier_item_bottle_ebf_Description"													"Restoring health and mana rapidly."
 		
@@ -3188,6 +3204,7 @@
 		
 		
 		"DOTA_Tooltip_ability_item_eye_of_the_vizier_mana_reduction_pct"                                    "%+Max Mana"
+		"DOTA_Tooltip_Ability_item_nether_shawl_bonus_armor"												"+$armor"
 	
 	
 		"DOTA_Tooltip_ability_item_force_boots"                                                             "Force Boots"
@@ -3379,30 +3396,33 @@
 		
 		"DOTA_Tooltip_ability_item_gungifier_4"                                                             "Soulslayer"
 		"DOTA_Tooltip_ability_item_gungifier_4_bonus_armor"                                                 "+$armor"
-		"DOTA_Tooltip_ability_item_gungifier_4_bonus_attack_speed"                                          "+$attack"
+		"DOTA_Tooltip_ability_item_gungifier_4_bonus_agility"												"+$agi"
 		"DOTA_Tooltip_ability_item_gungifier_4_bonus_damage"                                                "+$damage"
 		"DOTA_Tooltip_ability_item_gungifier_4_bonus_regen"                                                 "+$hp_regen"
 		"DOTA_Tooltip_ability_item_gungifier_4_bonus_strength"                                              "+$str"
-		"DOTA_Tooltip_ability_item_gungifier_4_Description"                                                 "<h1>Active: Nullify</h1> Dispels the target and applies a modifier for %duration% seconds. Continuously dispels the target.<br>Allied targets become magic immune.<br><br>Dispel Type: <span class=\'GameplayValues GameplayVariable\'>Hard Dispel</span>\n<h1>Passive: Pierce</h1>Your attacks have true-strike and deal an additional %bonus_chance_damage% + %bonus_attack_damage%%% of your total attack damage as pure damage."
+		"DOTA_Tooltip_ability_item_gungifier_4_Description"                                                 "<h1>Active: Nullification</h1>Dispels all units within %radius% AoE of the targeted point and applies a modifier for %duration% seconds. Continuously dispels the targets.<br>Allied targets become magic immune.<br><br>Dispel Type: <span class=\'GameplayValues GameplayVariable\'>Hard Dispel</span>\n<h1>Passive: Pierce</h1>Your attacks have true-strike and deal an additional %bonus_chance_damage% + %bonus_attack_damage%%% of your total attack damage as pure damage."
 		"DOTA_Tooltip_ability_item_gungifier_4_Lore"                                                        "Antique CrossBow blessed by hunter godess Artemis."
 		
 		
+		"DOTA_Tooltip_ability_item_monkey_king_bar_Description"												"<h1>Passive: Pierce</h1>Grants each attack a %bonus_chance%%% chance to pierce through evasion and deal %bonus_chance_damage% bonus pure damage."
+		"DOTA_Tooltip_ability_item_monkey_king_bar_bonus_agility"											"+$agi"
+		
 		"DOTA_Tooltip_ability_item_gungnir"                                                                 "Ascalon"
-		"DOTA_Tooltip_ability_item_gungnir_bonus_attack_speed"                                              "+$attack"
+		"DOTA_Tooltip_ability_item_gungnir_bonus_agility"													"+$agi"
 		"DOTA_Tooltip_ability_item_gungnir_bonus_damage"                                                    "+$damage"
 		"DOTA_Tooltip_ability_item_gungnir_Description"                                                     "<h1>Passive: Pierce</h1>Grants each attack a %bonus_chance%%% chance to pierce through evasion and deal %bonus_chance_damage% bonus pure damage."
 		"DOTA_Tooltip_ability_item_gungnir_Lore"                                                            "This legendary spear is able to ignore the armor of the enemy."
 		
 		
 		"DOTA_Tooltip_ability_item_gungnir_2"                                                               "Gungnir"
-		"DOTA_Tooltip_ability_item_gungnir_2_bonus_attack_speed"                                            "+$attack"
+		"DOTA_Tooltip_ability_item_gungnir_2_bonus_agility"													"+$agi"
 		"DOTA_Tooltip_ability_item_gungnir_2_bonus_damage"                                                  "+$damage"
 		"DOTA_Tooltip_ability_item_gungnir_2_Description"                                                   "<h1>Passive: Pierce</h1>Grants each attack a %bonus_chance%%% chance to pierce through evasion and deal %bonus_chance_damage% + %bonus_attack_damage%%% of your total attack damage as bonus pure damage."
 		"DOTA_Tooltip_ability_item_gungnir_2_Lore"                                                          "This legendary spear is able to ignore the armor of the enemy."
 		
 		
 		"DOTA_Tooltip_ability_item_gungnir_3"                                                               "Divine Crossbow"
-		"DOTA_Tooltip_ability_item_gungnir_3_bonus_attack_speed"                                            "+$attack"
+		"DOTA_Tooltip_ability_item_gungnir_3_bonus_agility"													"+$agi"
 		"DOTA_Tooltip_ability_item_gungnir_3_bonus_damage"                                                  "+$damage"
 		"DOTA_Tooltip_ability_item_gungnir_3_Description"                                                   "<h1>Passive: Pierce</h1>Your attacks have true-strike and deal an additional %bonus_chance_damage% + %bonus_attack_damage%%% of your total attack damage as pure damage."
 		"DOTA_Tooltip_ability_item_gungnir_3_Lore"                                                          "Antique CrossBow blessed by hunter godess Artemis."

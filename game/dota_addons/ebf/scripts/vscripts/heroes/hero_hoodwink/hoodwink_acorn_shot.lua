@@ -36,6 +36,7 @@ function hoodwink_acorn_shot:OnProjectileHitHandle( target, position, projectile
 	if not target then return end
 	if data then
 		if data.isInitial then
+			local treePos = position + CalculateDirection( position, caster ) * 175
 			local dummy = caster:CreateDummy( position, 15 )
 			dummy:AddNewModifier( caster, self, "hoodwink_acorn_shot_dummy", {} )
 			AddFOWViewer( caster:GetTeam(), position, 200, 15, false )

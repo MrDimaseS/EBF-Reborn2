@@ -13,8 +13,8 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"FightRecapLevel"				"1"
-		"MaxLevel"						"3"
-		"LevelsBetweenUpgrades"			"6"
+		"MaxLevel"						"1"
+		"LevelsBetweenUpgrades"			"1"
 		"IsGrantedByShard"				"1"
 
 		// Casting
@@ -36,7 +36,7 @@
 			"radius"							"350"
 			"damage"
 			{
-				"value"							"1625 6500 11400"
+				"value"							"750"
 				"special_bonus_scepter"			"+50%"
 				"CalculateSpellDamageTooltip"	"1"
 			}
@@ -90,10 +90,10 @@
 			"range"								"750"
 			"AbilityCastRange"					"600"	
 			"speed"								"1050"		
-			"damage"			
+			"damage"
 			{
-				"value"							"1150 2100 4000 7500 14000 22000 40000"
-				"CalculateSpellDamageTooltip" 	"1"
+				"value"										"800 1600 2400 3200 4000 4800 5600"
+				"CalculateSpellDamageTooltip" 				"1"
 			}
 			"reduction"
 			{
@@ -138,10 +138,6 @@
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"16 14 12 10 8.75 7.5 6.25"
-	
-		// Damage.
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"700 1600 3500 7750 17500 38500 86000"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -153,11 +149,22 @@
 		{
 			"stun_duration"
 			{
-				"value"					"2.65"
-				"LinkedSpecialBonus"	"special_bonus_unique_dragon_knight_2"
+				"value"										"2.4"
+				"special_bonus_unique_dragon_knight_2"		"+0.4"
 			}
-			"dragon_cast_range"			"400"
+			"dragon_cast_range"			"450"
 			"projectile_speed"			"1600"
+			"damage"
+			{
+				"value"										"700 1000 1300 1600 1900 2200 2500"
+				"CalculateSpellDamageTooltip" 				"1"
+			}
+			"dragon_aoe"
+			{
+				"value"		"0"
+				"special_bonus_unique_dragon_knight_8"				"+400"
+				"affected_by_aoe_increase"	"1"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -181,13 +188,13 @@
 		{
 			"bonus_health_regen"
 			{
-				"value"							"40 95 350 900 2100 6300"
+				"value"							"25 75 225 675 1500 4200"
 				"LinkedSpecialBonus"			"special_bonus_unique_dragon_knight"
 				"LinkedSpecialBonusField"		"value2"			
 			}
 			"bonus_armor"
 			{
-				"value"							"6 9 12 15 18 21 24"
+				"value"							"4 7 10 13 16 19 22"
 				"LinkedSpecialBonus"			"special_bonus_unique_dragon_knight"
 			}
 		}
@@ -240,10 +247,14 @@
 			"bonus_movement_speed"		"25"
 			"bonus_attack_range"		"350 350 350 350"
 			"bonus_attack_damage"		"0"
-			"corrosive_breath_damage"	"666 4000 5400 8000"
+			"corrosive_breath_damage"
+			{
+				"value"					"250 250 250 350"
+				"CalculateSpellDamageTooltip"	"1"
+			}
 			"corrosive_breath_duration"	"5.0 5.0 5.0"
 			"splash_radius"				"350"
-			"splash_damage_percent"	
+			"splash_damage_percent"
 			{
 				"value"					"75 75 75 100"
 				"LinkedSpecialBonus"	"special_bonus_unique_dragon_knight_6"
@@ -314,13 +325,13 @@
 			"01"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"value"						"24"
+				"value"						"10"
 				"ad_linked_abilities"			"dragon_knight_dragon_blood"
 			}
 			"02"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"value2"					"2900"
+				"value2"					"2000"
 				"ad_linked_abilities"		"dragon_knight_dragon_blood"	
 			}
 		}

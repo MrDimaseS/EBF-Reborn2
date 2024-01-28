@@ -23,7 +23,7 @@
 		{
 			"slow_attack_speed"
 			{
-				"value"									"-120 -160 -200 -240 -280 -320"
+				"value"									"-100 -140 -180 -220 -260 -300"
 				"special_bonus_unique_enchantress_3"	"-65"
 			}
 			"slow_duration"			"4"
@@ -42,7 +42,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
-		"MaxLevel"						"7"
+		"MaxLevel"						"1"
 		"FightRecapLevel"				"1"
 		"IsGrantedByShard"				"1"
 		"AbilitySound"					"Hero_Enchantress.EnchantCreep"
@@ -54,7 +54,7 @@
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"4 4 4 3 3 2"
+		"AbilityCooldown"				"4"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -62,33 +62,13 @@
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"hop_distance"				"500"
-			}
-			"02"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"hop_duration"				"0.4"
-			}
-			"03"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"hop_height"				"150"
-			}
-			"04"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"attack_targets"			"3"
-			}		
-			"05"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"bonus_attack_range"		"300"
-			}					
+			"hop_distance"				"500"
+			"hop_duration"				"0.4"
+			"hop_height"				"150"
+			"attack_targets"			"3"
+			"bonus_attack_range"		"300"
 		}
 	}
 
@@ -106,8 +86,8 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"FightRecapLevel"				"1"
-		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
+		"MaxLevel"						"1"
+		"LevelsBetweenUpgrades"			"1"
 		"FightRecapLevel"				"1"
 		"IsGrantedByScepter"			"1"
 		"AbilitySound"					"Hero_Enchantress.EnchantCreep"
@@ -129,17 +109,17 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"					"6"
-			"bonus_attack_speed"		"100 150 200 250 300 350 400"
-			"bonus_move_speed"			"100"
+			"duration"						"6"
+			"bonus_attack_speed"			"250"
+			"bonus_move_speed"				"100"
 			"radius"					
 			{
-				"value"		"1200"
+				"value"						"1200"
 				"affected_by_aoe_increase"	"1"
 			}
-			"root_base_duration"	"2.0"
-			"root_per_target"		"0.5"
-			"max_root"		"5"
+			"root_base_duration"			"2.0"
+			"root_per_target"				"0.5"
+			"max_root"						"5"
 		}
 	}
 
@@ -168,7 +148,7 @@
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"28 24 20 16 13.7 11.4 9.1"
+		"AbilityCooldown"				"12"
 		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -181,8 +161,9 @@
 			"dominate_duration"			"120"
 			"enchant_health"			
 			{
-				"value" 				"2222 3333 6667 13194 26667 58333 126984"
+				"value" 				"2000 3000 4000 5000 6000 7000 8000"
 				"special_bonus_unique_enchantress_enchant_health_damage"		"+30%"
+				"CalculateSpellHealTooltip"				"1"
 			}
 			"enchant_armor"			
 			{
@@ -191,19 +172,18 @@
 			}
 			"enchant_damage"			
 			{
-				"value" 				"111 333 833 1847 4000 9167 20635"
+				"value" 														"100 250 500 750 1000 1250 1500"
 				"special_bonus_unique_enchantress_enchant_health_damage"		"+30%"
+				"CalculateAttackDamageTooltip"									"1"
 			}
 			"slow_movement_speed"		"-55"
 			"slow_duration"				"6"
-			"damage"					"125 200 350 650 1200 2100 4000"
 			"level_req"					"10"
 			"max_creeps"
 			{
-				"value"					"1"
-				"special_bonus_shard"	"+1"
+				"value"															"1"
+				"special_bonus_scepter"											"+1"
 			}
-
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -244,8 +224,9 @@
 			"heal_interval"			"0.5"
 			"heal"					
 			{
-				"value"				"20 48 120 280 665 1600 3850"
-				"LinkedSpecialBonus"	"special_bonus_unique_enchantress_5"
+				"value"							"40 80 120 160 200 240 280"
+				"LinkedSpecialBonus"			"special_bonus_unique_enchantress_5"
+				"CalculateSpellHealTooltip"		"1"
 			}
 			"radius"				"275 275 275 275"
 			"wisp_count"			
@@ -302,10 +283,11 @@
 		{
 			"distance_damage_pct"	
 			{
-				"value"			"80 110 165 240 335 520 885"
-				"special_bonus_unique_enchantress_4"	"+175"	
+				"value"									"50 100 150 200 250 300 350"
+				"special_bonus_unique_enchantress_4"	"+50"
+				"CalculateSpellDamageTooltip"			"1"
 			}
-			"distance_cap"			"5000"
+			"distance_cap"			"1750"
 			"creep_multiplier"		"1"
 		}
 	}

@@ -133,7 +133,7 @@ LinkLuaModifier( "modifier_pangolier_shield_crash_barrier", "heroes/hero_pangoli
 
 function modifier_pangolier_shield_crash_barrier:OnCreated(kv)
 	if IsServer() then
-		self.barrier = kv.damage_block
+		self.barrier = self:GetSpecialValueFor("base_shield") + kv.damage_block
 	end
 	if IsServer() then self:SetHasCustomTransmitterData(true) end
 end

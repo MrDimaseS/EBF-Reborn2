@@ -43,22 +43,29 @@
 			}
 			"decay_damage"
 			{
-				"value"									"450 720 960 1820 3675 6150 9875"
-				"special_bonus_unique_undying_8"		"+400%"
+				"value"									"400 800 1200 1600 2000 2400 2800"
+				"special_bonus_unique_undying_8"		"+50%"
+				"CalculateSpellDamageTooltip"			"1"
 			}
 			"str_steal"	
 			{
-				"value"									"6 9 12 15 18 21 24"
-				"special_bonus_scepter"					"+50%"
+				"value"									"4"
+				"special_bonus_scepter"					"+100%"
+				"CalculateAttributeTooltip"				"1"
 			}
 			"decay_duration"
 			{
 				"value"									"45"
 				"LinkedSpecialBonus"					"special_bonus_unique_undying_4"
 			}
-			"radius"									"325"
+			"radius"
+			{
+				"value"									"325"
+				"affected_by_aoe_increase"				"1"
+			}
 			"str_scale_up"								"2"	
 			"creep_damage_multiplier"					"2.0"
+			"shard_buff_duration"		"40"
 		}
 	}
 
@@ -104,11 +111,16 @@
 		{
 			"damage_per_unit"
 			{
-				"value"						"265 495 635 1120 2140 4150 8150"
+				"value"								"150 250 350 450 550 650 750"
+				"CalculateSpellDamageTooltip"		"1"
 				"special_bonus_unique_undying_6"	"+80"
 			}			
 			"max_units"						"10"
-			"radius"						"1300"
+			"radius"
+			{
+				"value"			"1300"
+				"affected_by_aoe_increase"	"1"
+			}
 			"tombstone_heal"				"4 8 12 16 20 24 28"
 		}
 	}	
@@ -165,9 +177,10 @@
 			"zombie_interval"					"4.0 3.6 3.2 2.8 2.4 2.0 1.6"
 			"zombie_damage_tooltip"
 			{
-				"value"							"400"
-				"special_bonus_unique_undying"	"+50%"
+				"value"							"350"
+				"special_bonus_unique_undying"	"+75%"
 				"CalculateSpellDamageTooltip"	"0"
+				"CalculateAttackDamageTooltip"	"1"
 			}
 			"bunker_units"				"1"
 			"bunker_heal_pct"			"0"
@@ -191,12 +204,13 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_AURA | DOTA_ABILITY_BEHAVIOR_HIDDEN"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"MaxLevel"						"7"
 		
 
 		"AbilityValues"
 		{
-			"radius"			"600 800 1000 1200"
-			"health_threshold"		"100 200 300 400"
+			"radius"				"600 800 1000 1200 1400 1600 1800"
+			"health_threshold"		"100 200 300 400 500 600 7000"
 			"zombie_interval"		"3.0"
 		}
 	}

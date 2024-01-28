@@ -128,8 +128,8 @@ local funcs = {
 		MODIFIER_PROPERTY_STATS_INTELLECT_BONUS,
 		MODIFIER_PROPERTY_STATS_AGILITY_BONUS,
 		MODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE,
-		MODIFIER_PROPERTY_MANA_REGEN_TOTAL_PERCENTAGE,
 		MODIFIER_PROPERTY_SPELL_LIFESTEAL_AMPLIFY_PERCENTAGE,
+		MODIFIER_PROPERTY_MP_REGEN_AMPLIFY_PERCENTAGE,
 		MODIFIER_EVENT_ON_TAKEDAMAGE,
     }
     return funcs
@@ -157,7 +157,7 @@ function modifier_ebfr_fallen_sky_passive:GetModifierSpellAmplify_Percentage()
 	return self.spell_amp
 end
 
-function modifier_ebfr_fallen_sky_passive:GetModifierTotalPercentageManaRegen()
+function modifier_ebfr_fallen_sky_passive:GetModifierMPRegenAmplify_Percentage()
 	return self.mana_regen_multiplier
 end
 

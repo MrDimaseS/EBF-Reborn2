@@ -25,7 +25,7 @@ function modifier_abaddon_aphotic_shield_buff:OnCreated()
 	self.radius = self:GetSpecialValueFor("radius")
 	self.absorbed_to_damage = self:GetSpecialValueFor("absorbed_to_damage") / 100
 	if IsServer() then
-		self.absorb = self:GetSpecialValueFor("damage_absorb") * (1+self:GetCaster():GetSpellAmplification( false ))
+		self.absorb = self:GetSpecialValueFor("damage_absorb")
 		self.original_absorb = self.absorb
 		local nFX = ParticleManager:CreateParticle("particles/units/heroes/hero_abaddon/abaddon_aphotic_shield.vpcf", PATTACH_POINT_FOLLOW, self:GetParent())
 		local sRadius = self:GetParent():GetModelRadius() * 0.6 + 25
@@ -48,10 +48,10 @@ function modifier_abaddon_aphotic_shield_buff:OnDestroy()
 		
 		EmitSoundOn("Hero_Abaddon.AphoticShield.Destroy", parent)
 		local enemies = caster:FindEnemyUnitsInRadius(parent:GetAbsOrigin(), self.radius)
-		local damage = (self.original_absorb - self.absorb) * self.absorbed_to_damage
+		local damage = self.original_absorb * self.absorbed_to_damage
 		for _, enemy in ipairs( enemies ) do
 			if not enemy:TriggerSpellAbsorb(self:GetAbility()) then
-				self:GetAbility():DealDamage(caster, enemy, damage, {damage_type = DAMAGE_TYPE_MAGICAL, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION})
+				self:GetAbility():DealDamage(caster, enemy, damage, {damage_type = DAMAGE_TYPE_MAGICAL})
 			end
 		end
 	end

@@ -146,7 +146,10 @@ function modifier_special_bonus_attributes_stat_rescaling:OnCreated()
 	self.bonusDamage = 1.5
 	self.baseMR = 25
 	
+	self.internal_ability_scaling = 0.2
+	
 	self:GetParent().cooldownModifiers = {}
+	self:GetParent()._aoeModifiersList = {}
 	self.baseArmor = self:GetParent():GetPhysicalArmorBaseValue() + ( self:GetParent():GetAgility() / 6 - 0.065 * self:GetParent():GetAgility() )
 	
 	self:OnRefresh()
@@ -201,8 +204,75 @@ function modifier_special_bonus_attributes_stat_rescaling:DeclareFunctions()
 		MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE,
 		MODIFIER_PROPERTY_COOLDOWN_PERCENTAGE,
 		MODIFIER_PROPERTY_CASTTIME_PERCENTAGE,
+		MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL,
+		MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL_VALUE
   }
   return funcs
+end
+
+function modifier_special_bonus_attributes_stat_rescaling:GetModifierOverrideAbilitySpecial(params)
+	if self._lockForProcessing then return end
+	if params.ability._processValuesForScaling == nil then
+		params.ability._processValuesForScaling = {}
+	end
+	local special_value = params.ability_special_value:gsub("%#", "")
+	local abilityValues = GetAbilityKeyValuesByName(params.ability:GetAbilityName()).AbilityValues
+	if params.ability._processValuesForScaling[special_value] == nil and abilityValues then
+		params.ability._processValuesForScaling[special_value] = {}
+		params.ability._processValuesForScaling[special_value].affected_by_aoe_increase = false
+		params.ability._processValuesForScaling[special_value].affected_by_lvl_increase = false
+		if type(GetAbilityKeyValuesByName(params.ability:GetAbilityName()).AbilityValues[special_value]) == "table" then -- check for adjustments
+			if toboolean(GetAbilityKeyValuesByName(params.ability:GetAbilityName()).AbilityValues[special_value].affected_by_aoe_increase) then
+				params.ability._processValuesForScaling[special_value].affected_by_aoe_increase = true
+			end
+			if toboolean(GetAbilityKeyValuesByName(params.ability:GetAbilityName()).AbilityValues[special_value].CalculateSpellDamageTooltip)
+			or toboolean(GetAbilityKeyValuesByName(params.ability:GetAbilityName()).AbilityValues[special_value].CalculateSpellHealTooltip)
+			or toboolean(GetAbilityKeyValuesByName(params.ability:GetAbilityName()).AbilityValues[special_value].CalculateAttackDamageTooltip)
+			or toboolean(GetAbilityKeyValuesByName(params.ability:GetAbilityName()).AbilityValues[special_value].CalculateAttributeTooltip) then
+				params.ability._processValuesForScaling[special_value].affected_by_lvl_increase = true
+			end
+		elseif special_value == "AbilityDamage" then
+			params.ability._processValuesForScaling[special_value].affected_by_lvl_increase = true
+		end
+	end
+	if params.ability._processValuesForScaling[special_value]
+	and (params.ability._processValuesForScaling[special_value].affected_by_aoe_increase
+	or params.ability._processValuesForScaling[special_value].affected_by_lvl_increase) then
+		return 1
+	end
+end
+
+function modifier_special_bonus_attributes_stat_rescaling:GetModifierOverrideAbilitySpecialValue(params)
+	self._lockForProcessing = true
+	local special_value = params.ability_special_value:gsub("%#", "")
+	local flBaseValue = params.ability:GetLevelSpecialValueFor( special_value, params.ability_special_level )
+	self._lockForProcessing = false
+	if flBaseValue <= 0 then
+		return
+	end
+	if params.ability._processValuesForScaling[special_value].affected_by_aoe_increase then
+		local aoe_bonus_positive = 0
+		local aoe_bonus_negative = 0
+		for modifier, active in pairs( self:GetCaster()._aoeModifiersList ) do
+			if IsModifierSafe( modifier ) then
+				if modifier.GetModifierAoEBonusConstant and modifier:GetModifierAoEBonusConstant() then
+					if modifier:GetModifierAoEBonusConstant() > 0 then
+						aoe_bonus_positive = math.max( aoe_bonus_positive, modifier:GetModifierAoEBonusConstant() )
+					else
+						aoe_bonus_negative = math.min( aoe_bonus_negative, modifier:GetModifierAoEBonusConstant() )
+					end
+				end
+			else
+				self:GetCaster()._aoeModifiersList[modifier] = nil
+			end
+		end
+		local flNewValue = flBaseValue + aoe_bonus_positive + aoe_bonus_negative
+		return flNewValue
+	end
+	if params.ability._processValuesForScaling[special_value].affected_by_lvl_increase then
+		local flNewValue = flBaseValue * ( 1 + (self:GetCaster():GetLevel() - 1) * self.internal_ability_scaling )
+		return flNewValue
+	end
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierPercentageCooldown( params )

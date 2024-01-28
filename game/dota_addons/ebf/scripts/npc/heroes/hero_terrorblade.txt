@@ -84,18 +84,18 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-				"illusion_duration"			
-				{
-					"value"		"5"
-				}
-				"illusion_outgoing_damage"	"-45 -30 -15 0"
-				"illusion_outgoing_tooltip"	"55 70 85 100"
-				"move_slow"
-				{
-					"value"					"15 20 25 30"
-					"special_bonus_unique_terrorblade_6"				"+15"
-				}
-				"range"						"500"
+			"illusion_duration"			
+			{
+				"value"		"5"
+			}
+			"illusion_outgoing_damage"	"-45 -30 -15 0"
+			"illusion_outgoing_tooltip"	"55 70 85 100"
+			"move_slow"
+			{
+				"value"					"15 20 25 30"
+				"special_bonus_unique_terrorblade_6"				"+15"
+			}
+			"range"						"500"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -171,10 +171,6 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.0"
 
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"150.0"
-
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"100 150 200 250 300 350 400"
@@ -192,9 +188,18 @@
 			"base_attack_time"		"1.5"
 			"bonus_range"			"340 360 380 400 420 440 460"
 			"tooltip_attack_range"	"490 510 530 550 570 590 610"
-			"bonus_damage"			"400 700 1200 2000 4000 7000 10000"
+			"bonus_damage"
+			{
+				"value"							"300 400 500 600 700 800 900"
+				"CalculateAttackDamageTooltip"	"1"
+			}
 			"speed_loss"				"0"
 			"metamorph_aura_tooltip"				"1200"
+			"AbilityCooldown"				
+			{
+				"value"				"150.0"
+				"special_bonus_unique_terrorblade_metamorphosis_cooldown"		"-20"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -227,33 +232,17 @@
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"fear_duration"		"2.0"
+			"scepter_radius"				
 			{
-				"var_type"				"FIELD_FLOAT"
-				"fear_duration"			"2.5"
+				"value"		"1600"
+				"affected_by_aoe_increase"	"1"		
 			}
-			"02"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"scepter_radius"				"1600"
-			}
-			"03"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"scepter_speed"				"1000"
-			}
-			"04"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"scepter_spawn_delay"		"0.6"
-			}
-			"05"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"scepter_meta_duration"		"10"
-			}
+			"scepter_speed"				"1000"
+			"scepter_spawn_delay"		"0.6"
+			"scepter_meta_duration"		"10"
 		}
 	}
 	
@@ -293,11 +282,16 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"berserk_bonus_attack_speed"				"50 70 90 110 130 150 170"
-			"berserk_bonus_movement_speed"				"50"
+			"berserk_bonus_attack_speed"				"100 150 200 250 300 350 400"
+			"berserk_bonus_movement_speed"				"100"
 			"melee_bonus"								"100"
 			"duration"									"7"
-			"health_cost_pct"							"20"
+			"health_cost_pct"
+			{
+				"value"									"20"
+				"DamageTypeTooltip"						"DAMAGE_TYPE_PURE"
+			}
+			"reflection_pct"							"50"
 		}
 	}
 
@@ -339,7 +333,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-				"hit_point_minimum_pct"		"25 30 35 40 45 50"
+			"hit_point_minimum_pct"		"25 30 35 40 45 50"
 		}
 	}
 	//=================================================================================================================

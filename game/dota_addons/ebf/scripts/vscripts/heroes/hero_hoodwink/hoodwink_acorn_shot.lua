@@ -27,7 +27,6 @@ function hoodwink_acorn_shot:FireAcorn( target, iBounces )
 	self.projectileData[projIndex] = {}
 	self.projectileData[projIndex].isInitial = true
 	self.projectileData[projIndex].bounces = bounces
-	
 end
 
 function hoodwink_acorn_shot:OnProjectileHitHandle( target, position, projectile )
@@ -42,7 +41,7 @@ function hoodwink_acorn_shot:OnProjectileHitHandle( target, position, projectile
 			AddFOWViewer( caster:GetTeam(), position, 200, 15, false )
 			CreateTempTree( position, 15 )
 			ResolveNPCPositions( position, 128 )
-		else
+		elseif not target:TriggerSpellAbsorb( self ) then
 			caster:AddNewModifier( caster, self, "modifier_hoodwink_acorn_shot_damage", {} )
 			self.processingAcornBounce = true
 			caster:PerformGenericAttack( target, true )

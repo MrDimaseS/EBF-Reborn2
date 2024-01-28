@@ -37,13 +37,35 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"damage"				"4350 8125 14800 24125 27450 30300"
-			"radius"				"375"
-			"slow"					"50"
-			"debuff_duration"		"3"
-			"knockback_height"		"100"
-			"knockback_distance"	"475"
-			"knockback_duration"	"0.4"
+			"damage"
+			{
+				"value"											"2000"
+				"CalculateSpellDamageTooltip"					"1"
+			}
+			"AbilityCastRange"		
+			{
+				"value"											"600"
+				"special_bonus_unique_sniper_grenade_range"		"+250"
+			}
+			"radius"		
+			{
+					"value"										"375"
+					"affected_by_aoe_increase"					"1"
+			}
+			"slow"												"50"
+			"debuff_duration"									"3"
+			"knockback_height"									"100"
+			"knockback_distance"		
+			{
+				"value"											"475"
+					"affected_by_aoe_increase"					"1"
+			}
+			"knockback_duration"								"0.4"
+			"self_push"					
+			{
+				"value"											"1"
+				"special_bonus_unique_sniper_grenade_self_push"	"+1"
+			}
 		}
 	}
 
@@ -68,9 +90,6 @@
 		"AbilityCastRange"				"1800"
 		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
 
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"50 75 100 125 150 175 200"
@@ -91,14 +110,15 @@
 			"radius"							"450"
 			"shrapnel_damage"
 			{	
-				"value"							"280 390 525 900 1700 3250 6290"
-				"special_bonus_unique_sniper_1"	"+50%"
+				"value"							"250 400 550 700 850 1000 1150 1300"
+				"special_bonus_unique_sniper_1"	"+35%"
+				"CalculateSpellDamageTooltip"	"1"
 			}
 			"duration"							"10.0"
 			"damage_delay"						"1.2"
 			"slow_duration"						"2.0 2.0 2.0 2.0"
-			"AbilityCooldown"				"0"
-			"AbilityChargeRestoreTime"		"35"
+			"AbilityCooldown"					"0"
+			"AbilityChargeRestoreTime"			"35"
 			"AbilityCharges"
 			{
 				"value"							"3"
@@ -128,15 +148,16 @@
 		{
 			"damage"
 			{
-				"value"											"400 650 1185 2010 3130 5395 9975"
+				"value"											"200 500 800 1100 1400 1700 2000"
 				"special_bonus_unique_sniper_headshot_damage"	"+25%"
 				"CalculateSpellDamageTooltip"					"0"
+				"CalculateAttackDamageTooltip"					"1"
 			}
-			"proc_chance"					"40"
+			"proc_chance"										"40"
 			"knockback_distance"
 			{
-				"value"					"10"
-				"special_bonus_unique_sniper_3"			"+28"
+				"value"											"10"
+				"special_bonus_unique_sniper_3"					"+25"
 			}
 			"slow"			"-100"
 			"slow_duration"					"0.5"		
@@ -178,7 +199,7 @@
 		{
 			"bonus_attack_range"
 			{
-				"value"							"100 200 300 400 500 600 700"
+				"value"							"130 220 310 400 490 580 670"
 				"LinkedSpecialBonus"			"special_bonus_unique_sniper_6"
 			}
 			"duration"
@@ -188,7 +209,7 @@
 			}
 			"slow"								"45 40 35 30 25 20 15"
 			"headshot_chance"					"100"
-			"active_attack_range_bonus"			"200"
+			"active_attack_range_bonus"			"70 180 290 300 410 520 630"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -231,7 +252,7 @@
 
 		// Damage.
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"10675 33500 91750 157000 175000 193000"
+		"AbilityDamage"					"3000 4000 5000 6000 7000 8000"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -245,17 +266,14 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"AbilityDamage"					"3000 4000 5000 6000 7000 8000"
 			"projectile_speed"			"2500 2500 2500"
 			"scepter_stun_duration"			
 			{
 				"value" 				"1.5"
 				"RequiresScepter"		"1"
 			}
-			"scepter_cast_point"			
-			{
-				"value" "0.5"
-				"RequiresScepter"		"1"
-			}
+			"cooldown_reduction_on_kill"		"0 2 4 6 8 10"
 		}		
 	}
 	//=================================================================================================================

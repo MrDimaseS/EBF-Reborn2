@@ -35,8 +35,9 @@
 			"AbilityCooldown"					"12"
 			"damage"			
 			{
-				"value"							"1480 2310 3270 5115 9620 18500 40400"
+				"value"							"1050 1700 2350 3000 3650 4300 5950"
 				"special_bonus_unique_lion_3"	"+50%"
+				"CalculateSpellDamageTooltip"	"1"
 			}
 			"width"								"125"
 			"duration"							"2.6"
@@ -73,10 +74,6 @@
 		"AbilityCastRange"				"500"
 		"AbilityCastPoint"				"0 0 0 0"
 
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"24 20 16 12 11.3 10.5 9.75 9"
-
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"125 200 275 350 425 500 575"
@@ -87,11 +84,17 @@
 		{
 			"AbilityCooldown"				
 			{
-				"value"							"24 20 16 12 11.3 10.5 9.75 9"
-				"special_bonus_unique_lion_5"	"-3"
+				"value"									"24 20 16 12 11.3 10.5 9.75 9"
+				"special_bonus_unique_lion_5"			"-3"
 			}
 			"duration"					"4"
 			"movespeed"					"120"
+			"radius"
+			{
+				"value"									"0"
+				"special_bonus_unique_lion_4"			"+250"
+				"affected_by_aoe_increase"				"1"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -165,8 +168,9 @@
 			}
 			"damage_pct"					
 			{
-				"value"											"1500"		
+				"value"											"1000"
 				"special_bonus_unique_lion_manadrain_damage"	"+1500%"
+				"CalculateSpellDamageTooltip"					"1"
 			}
 			"magic_resist"
 			{
@@ -210,14 +214,16 @@
 			}
 			"damage"
 			{
-				"value"								"13000 26700 55100 100600 118900 136500"
+				"value"								"6000 7250 8500 9750 11000 12250"
 				"special_bonus_scepter"				"+50%"
+				"CalculateSpellDamageTooltip"		"1"
 			}
 			"damage_per_kill"
 			{
-				"value"								"500"
-				"special_bonus_unique_lion_8"		"+500"
+				"value"								"40"
+				"special_bonus_unique_lion_8"		"+40"
 				"CalculateSpellDamageTooltip"		"0"
+				"CalculateAttackDamageTooltip"		"1"
 			}			
 			"kill_grace_duration"				"10"
 			"splash_radius_scepter"

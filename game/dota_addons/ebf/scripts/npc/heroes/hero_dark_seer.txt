@@ -14,8 +14,8 @@
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
-		"MaxLevel"						"6"
-		"LevelsBetweenUpgrades"			"6"
+		"MaxLevel"						"1"
+		"LevelsBetweenUpgrades"			"1"
 		
 		"IsGrantedByScepter"			"1"
 		"LinkedAbility"					"dark_seer_wall_of_replica"
@@ -38,7 +38,11 @@
 				"value"								"30 40 50 60 70 80"
 				"special_bonus_unique_dark_seer_7"	"+20"
 			}
-			"max_damage"					"5000 15000 40000 67500 75000 82500"
+			"max_damage"
+			{
+				"value"								"4500"
+				"CalculateSpellDamageTooltip"		"1"
+			}
 			"normal_punch_illusion_delay"   "0.25"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
@@ -79,11 +83,15 @@
 		{
 			"radius"
 			{
-				"value"					"400 425 450 475 500 525 550"
+				"value"								"325 400 475 550 625 700 775"
 				"special_bonus_unique_dark_seer_2"	"+100"
 			}
 			"duration"					"0.6"
-			"damage"					"1120 1530 2020 3365 6140 9750 15100"
+			"damage"
+			{
+				"value"								"700 1300 1900 2500 3100 3700 4300"
+				"CalculateSpellDamageTooltip"		"1"
+			}
 			"radius_tree"				"150"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -137,8 +145,9 @@
 			}
 			"damage_per_second"		
 			{ 
-				"value"										"335 475 650 1230 2150 3500 5500"
-				"special_bonus_unique_dark_seer"			"+100%"
+				"value"										"300 500 700 900 1100 1300 1500"
+				"special_bonus_unique_dark_seer"			"+50%"
+				"CalculateSpellDamageTooltip"				"1"
 			}
 			"duration"				
 			{
@@ -217,7 +226,8 @@
 			}
 			"trail_damage"			
 			{
-				"value" 					"495 665 810 1025 1500 2200 2800"
+				"value" 						"350"
+				"CalculateSpellDamageTooltip"	"1"
 				"RequiresShard"				"1"
 			}
 			"trail_damage_interval"		
@@ -292,6 +302,11 @@
 				"value"								"100.0"
 				"special_bonus_unique_dark_seer_13" "-40"
 			}
+			"wall_damage"
+			{
+				"value"								"250 400 550 700 850 1000"
+				"CalculateSpellDamageTooltip"		"1"
+			}					
 		}
 	}
 	//=================================================================================================================

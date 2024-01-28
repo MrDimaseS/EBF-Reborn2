@@ -105,13 +105,15 @@
 			"bolt_speed"						"1000"
 			"soul_base_damage"
 			{
-				"value"							"350 550 750 950 1250 1850 2900"
+				"value"							"200 200 200 200 400 600 800"
 				"special_bonus_unique_visage_4"	"+50%"
+				"CalculateSpellDamageTooltip"	"1"
 			}
 			"soul_charge_damage"
 			{
-				"value"							"1235 1875 2360 2915 5025 7650 12120"
+				"value"							"700 700 700 700 900 1100 1300"
 				"special_bonus_unique_visage_4"	"+50%"
+				"CalculateSpellDamageTooltip"	"1"
 			}
 			"stack_limit"						"3 4 5 6 6 6 6"
 				
@@ -231,14 +233,23 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"familiar_hp"							"10000 25750 50000 135000 164000 213000"
+			"familiar_hp"
+			{
+				"value"								"5000 6000 7000 8000 9000 10000"
+				"CalculateAttributeTooltip"			"1"
+			}
 			"familiar_armor"						"10 25 40 45 50 55"
-			"familiar_speed"	
+			"familiar_speed"
 			{
 				"value"								"430"
 				"LinkedSpecialBonus"				"special_bonus_unique_visage_2"
 			}
-			"familiar_attack_damage"				"400 2200 7500 22000 27000 32000"
+			"familiar_attack_damage"
+			{
+				"value"								"250 500 750 1000 1250 1500 1750"
+				"LinkedSpecialBonus"				"special_bonus_unique_visage_7"
+				"CalculateAttributeTooltip"			"1"
+			}
 			"familiar_count"	
 			{
 				"value"								"2"
@@ -278,28 +289,12 @@
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
-			{
-				"var_type"							"FIELD_FLOAT"
-				"bonus_duration"						"4"
-			}
-			"02"
-			{
-				"var_type"							"FIELD_INTEGER"
-				"bonus_damage"						"30"
-			}
-			"03"
-			{
-				"var_type"							"FIELD_FLOAT"
-				"invis_duration"					"35.0"
-			}
-			"04"
-			{
-				"var_type"							"FIELD_INTEGER"
-				"movespeed_bonus"					"20"
-			}			
+			"bonus_duration"					"4"
+			"bonus_damage"						"30"
+			"invis_duration"					"35.0"
+			"movespeed_bonus"					"20"
 		}
 	}
 
@@ -331,12 +326,24 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"stun_radius"						"350"
+			"stun_radius"
+			{
+				"value"			"375"
+				"affected_by_aoe_increase"	"1"
+			}
 			"stun_delay"						"0.55"
-			"stun_damage"						"1750 4278 10944 13944 15333 16643"
+			"stun_damage"
+			{
+				"value"							"600 1000 1400 1800 2200 2600"
+				"CalculateSpellDamageTooltip"	"1"
+			}
 			"stun_duration"						"1.5"
 			"stone_duration"					"6.0"
-			"hp_regen"							"750 3450 16000 71000"
+			"hp_regen"
+			{
+				"value"							"150 175 200 225 250 275"
+				"CalculateSpellHealTooltip"		"1"
+			}
 		}
 	}
 
@@ -365,12 +372,24 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"stun_radius"						"350"
+			"stun_radius"
+			{
+				"value"			"375"
+				"affected_by_aoe_increase"	"1"
+			}
 			"stun_delay"						"0.55"
-			"stun_damage"						"1750 4278 10944 13944 15333 16643"
+			"stun_damage"
+			{
+				"value"							"600 1000 1400 1800 2200 2600"
+				"CalculateSpellDamageTooltip"	"1"
+			}
 			"stun_duration"						"1.5"
 			"stone_duration"					"6.0"
-			"hp_regen"							"750 3450 16000 71000"
+			"hp_regen"
+			{
+				"value"							"150 175 200 225 250 275"
+				"CalculateSpellHealTooltip"		"1"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_5"
 	}

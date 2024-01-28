@@ -29,7 +29,7 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"8.0"
+		"AbilityCooldown"				"11.0"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -41,39 +41,40 @@
 		{
 			"damage"
 			{
-				"value"						"1000 2350 5500 12875 30175 70725 165755"
-				"special_bonus_unique_mars_spear_bonus_damage"	"+75%"
+				"value"						"1000 1750 2500 3250 4000 4750 5500"
+				"special_bonus_unique_mars_spear_bonus_damage"	"+50%"
+				"CalculateSpellDamageTooltip"		"1"
 			}
-			"spear_speed"		"1400"
-			"spear_width"		"125"
-			"spear_vision"		"300"
-			"spear_range"		"900 1000 1100 1200 1300 1400 1500"
-			"activity_duration"		"1.7"
+			"spear_speed"					"1400"
+			"spear_width"					"125"
+			"spear_vision"					"300"
+			"spear_range"					"900 1000 1100 1200 1300 1400 1500"
+			"activity_duration"				"1.7"
 			"stun_duration"
 			{
-				"value"					"2.6"
-				"LinkedSpecialBonus"	"special_bonus_unique_mars_spear_stun_duration"
+				"value"						"2.6"
+				"LinkedSpecialBonus"		"special_bonus_unique_mars_spear_stun_duration"
 			}
-			"knockback_duration"	"0.25"
-			"knockback_distance"	"75"
+			"knockback_duration"			"0.25"
+			"knockback_distance"			"75"
 			"units_hit"
 			{
-				"value"					"1"
-				"special_bonus_shard"	"+1"
+				"value"						"1"
+				"special_bonus_shard"		"+1"
 			}
 			"shard_trail_duration"
 			{
-				"value"			"10.0"
+				"value"						"10.0"
 				"RequiresShard"				"1"
 			}
 			"shard_trail_radius"
 			{
-				"value"							"200"
-				"RequiresShard"						"1"
+				"value"						"200"
+				"RequiresShard"				"1"
 			}
 			"shard_dps"
 			{
-				"value"								"565 760 925 1170 1665 2490 4260"
+				"value"								"400"
 				"RequiresShard"						"1"
 				"CalculateSpellDamageTooltip"		"1"
 			}
@@ -135,7 +136,7 @@
 		{
 			"crit_mult"
 			{
-				"value"								"455 515 605 725 815 955 1045"
+				"value"													"455 515 605 725 815 955 1045"
 				"special_bonus_unique_mars_gods_rebuke_extra_crit"		"+450"
 				"DamageTypeTooltip"			"DAMAGE_TYPE_PHYSICAL"
 			}
@@ -154,11 +155,15 @@
 				"special_bonus_unique_mars_rebuke_slow"		"+0"
 			}
 			"activity_duration"			"2"
-			"bonus_damage_vs_heroes"	"150 300 600 1200 2400 4800 9200"
+			"bonus_damage_vs_heroes"
+			{
+				"value"								"100 150 200 250 300 350 400"
+				"CalculateAttackDamageTooltip"		"1"
+			}
 			"AbilityCooldown"
 			{
-				"value"					"7"
-				"special_bonus_unique_mars_rebuke_cooldown"				"-4"
+				"value"											"10"
+				"special_bonus_unique_mars_rebuke_cooldown"		"-4"
 			}
 		}
 	}
@@ -281,13 +286,17 @@
 		"AbilityValues"
 		{
 			"duration"				"10 12 14 16 18 20"
-			"radius"				"750"
+			"radius"			
+			{
+				"value"		"550"
+				"affected_by_aoe_increase"	"1"		
+			}
 			"width"					"130"
-			"damage_amplification"	"25"
-			"damage_reduction"		"-25"
+			"damage_amplification"	"19 21 23 25 27 29"
+			"damage_reduction"		"-19 -21 -23 -25 -27 -29"
 			"spear_damage"
 			{
-				"value"							"10000 36680 111700 199700 224700 250380"
+				"value"							"800 1600 2400 3200 4000 4800"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"formation_time"	"0.5"

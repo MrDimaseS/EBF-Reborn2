@@ -27,10 +27,6 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityDuration"				"4.0"
 
-		// Damage.
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"750 1500 2500 3750 7500 15000 30000"
-
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"110 140 170 200 230 260 290"
@@ -55,10 +51,16 @@
 			}
 			"slow_movement_speed"	"-30"
 			"slow_attack_speed_primary"		"-30 -40 -50 -60 -70 -80 -90"
-			"aoe_damage"			
+			"AbilityDamage"
 			{
-				"value"			"895 1220 1615 2690 4915 9245 17800"
-				"special_bonus_unique_lich_6" "+100%"
+				"value"							"400 800 1200 1600 2000 2400 2800"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"aoe_damage"
+			{
+				"value"							"800 1200 1600 2000 2400 2800 3200"
+				"special_bonus_unique_lich_6"	"+50%"
+				"CalculateSpellDamageTooltip"	"1"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -144,7 +146,11 @@
 				"special_bonus_scepter" "+400"
 			}
 			"creep_duration_multiplier"		"1"
-			"creep_damage"					"2500 3500 5500 8500 12500 23500 37000"
+			"creep_damage"
+			{
+				"value"							"250"
+				"CalculateSpellDamageTooltip"	"1"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -211,17 +217,17 @@
 		{
 			"damage_reduction"
 			{
-				"value"	"15 20 25 30 35 40 45"
+				"value"							"15 20 25 30 35 40 45"
 				"CalculateSpellDamageTooltip"	"0"
 				"special_bonus_unique_lich_8"	"+5"
-				"DamageTypeTooltip"		"DAMAGE_TYPE_NONE"
+				"DamageTypeTooltip"				"DAMAGE_TYPE_NONE"
 			}
-			"movement_slow"			"20 25 30 35 40 45 50"
-			"slow_duration"			"0.5"
+			"movement_slow"						"20 25 30 35 40 45 50"
+			"slow_duration"						"0.5"
 			"damage"
 			{
-				"value"				"225 305 405 675 1230 2310 4500"
-				"CalculateSpellDamageTooltip" "1"
+				"value"							"200 300 400 500 600 700 800"
+				"CalculateSpellDamageTooltip"	"1"
 			}
 			"interval"				"1"
 			"radius"				
@@ -236,7 +242,8 @@
 			}
 			"health_regen"
 			{
-				"special_bonus_unique_lich_1" "+8000"
+				"special_bonus_unique_lich_1"	"+500"
+				"CalculateSpellHealTooltip"		"1"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -289,8 +296,9 @@
 		{
 			"damage"
 			{
-				"value"							"5420 12980 31310 63975 78150 92425"
+				"value"							"2500 4000 5500 7000 8500 10000"
 				"special_bonus_unique_lich_7"	"+50%"
+				"CalculateSpellDamageTooltip"	"1"
 			}
 			"jumps"								"10 10 10"
 			"jump_range"						"600"
@@ -299,11 +307,13 @@
 			"slow_duration"						"2.5"
 			"projectile_speed"					"850"
 			"vision_radius"						"800"
-			"bonus_jump_damage"					"325 700 1550 2950 3525 4100"
-			"initial_projectile_speed"			"1050"
 			"has_unlimited_jumps"
 			{
 				"special_bonus_unique_lich_5"	"+1"
+			}
+			"should_fire_chain_frost_on_death"
+			{
+				"special_bonus_unique_lich_7" "+1"
 			}
 		}			
 	}

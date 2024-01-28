@@ -33,7 +33,7 @@
 
 		// Damage.
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"1415 2400 4000 7500 15000 29700 59500"
+		"AbilityDamage"					"800 1600 2400 3200 3800 4600 5400"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -43,28 +43,33 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bolt_speed"				"1000"
+			"bolt_speed"						"1000"
 			"bolt_stun_duration"
 			{
-				"value"					"2.0"
-				"LinkedSpecialBonus"	"special_bonus_unique_sven_4"
+				"value"							"2.0"
+				"LinkedSpecialBonus"			"special_bonus_unique_sven_4"
 			}
 			"bolt_aoe"			
 			{
-				"value"			"270"
-				"affected_by_aoe_increase"	"1"
+				"value"							"270"
+				"affected_by_aoe_increase"		"1"
 			}
 			"vision_radius"		
 			{
-				"value"		"225"
-				"affected_by_aoe_increase"	"1"
+				"value"							"225"
+				"affected_by_aoe_increase"		"1"
 			}
 			"cast_range_bonus_scepter"
 			{
-				"value"					"350"		
-				"RequiresScepter"		"1"
+				"value"							"350"		
+				"RequiresScepter"				"1"
 			}
-			"scepter_bonus_damage"		"750 1500 2500 4500 7500 14000 25000"
+			"AbilityDamage"						"800 1600 2400 3200 3800 4600 5400"
+			"scepter_bonus_damage"
+			{
+				"value"							"1800"	
+				"CalculateSpellDamageTooltip"	"1"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -94,7 +99,11 @@
 				"value"						"75"
 				"LinkedSpecialBonus"		"special_bonus_unique_sven_8"
 			}
-			"strength_bonus"				"60 120 190 450 700 1300 2200"
+			"strength_bonus"
+			{
+				"value"						"30 60 90 120 150 180 210"
+				"CalculateAttributeTooltip"	"1"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -200,13 +209,17 @@
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"gods_strength_damage"
 			{
-				"var_type"			"FIELD_INTEGER"
-				"gods_strength_damage"		"120 160 200 280 370 450"	
-				"LinkedSpecialBonus"		"special_bonus_unique_sven_2"	
+				"value"														"100 140 180 220 260 300"	
+				"special_bonus_unique_sven_2"								"+50"	
+			}
+			"bonus_slow_resistance"
+			{
+				"value"		"30"	
+				"special_bonus_unique_sven_gods_strength_slow_resist"		"+20"	
 			}
 		}	
 	}

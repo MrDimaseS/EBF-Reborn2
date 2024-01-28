@@ -44,7 +44,6 @@
 			"hp_regen"				"200 400 800 1600 3200 6400"
 			"projectile_speed"		"900"
 			"move_speed"			"30"
-
 		}
 	}
 
@@ -81,11 +80,20 @@
 		{
 			"radius"									"475 525 575 625 675 725 750"
 			"duration"									"15"
-			"damage"									"280 360 450 660 1080 1600 2325"
+			"damage"
+			{
+				"value"									"250 300 350 400 450 500 550"
+				"CalculateSpellDamageTooltip"			"1"
+			}
 			"armor_reduction"		
 			{
-				"value"									"4 5 6 7 8 9 10"
-				"special_bonus_unique_alchemist_5"		"+4"
+				"value"									"3 4 5 6 7 8 9"
+				"special_bonus_unique_alchemist_5"		"+1"
+			}
+			"armor_allies"	
+			{
+				"value"					"0"
+				"special_bonus_unique_alchemist_3"	"+1"
 			}
 			"tick_rate"				"1.0"
 		}
@@ -137,8 +145,9 @@
 			"min_damage"				"0"
 			"max_damage"				
 			{ 
-				"value"									"2650 4650 7015 9785 17750 33250 63500"
-				"special_bonus_unique_alchemist_2"		"+120%"
+				"value"									"1500 2200 2900 3600 4300 5000 5700"
+				"CalculateSpellDamageTooltip"			"1"
+				"special_bonus_unique_alchemist_2"		"+100%"
 			}
 			"radius"
 			{
@@ -189,8 +198,9 @@
 			"max_stun"					"3.2"
 			"min_damage"				"0"
 			"max_damage"				
-			{ 
-				"value"									"2650 4650 7015 9785 17750 33250 63500"
+			{
+				"value"									"1500 2200 2900 3600 4300 5000 5700"
+				"CalculateSpellDamageTooltip"			"1"
 				"special_bonus_unique_alchemist_2"		"+120%"
 			}
 			"radius"
@@ -307,7 +317,7 @@
 			"bonus_health"									"0"
 			"bonus_health_regen"
 			{
-				"value"										"1000 3450 11000 30550 36625 42675"
+				"value"										"750 2000 4000 6000 9500 12500"
 				"special_bonus_unique_alchemist_4"			"+3000"
 			}
 			"bonus_mana_regen"								"0"

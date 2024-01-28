@@ -43,8 +43,9 @@
 			"knockback_distance"		"200"
 			"knockback_damage"
 			{
-				"value"					"2100 4000 7500 12000 21000 40000 80000"
-				"special_bonus_unique_primal_beast_onslaught_damage"	"+125%"
+				"value"													"900 1800 2700 3600 4500 5400 6300"
+				"special_bonus_unique_primal_beast_onslaught_damage"	"+75%"
+				"CalculateSpellDamageTooltip"							"1"
 			}
 			"knockback_duration"		"0.2"
 			"max_charge_time"			"1.7"
@@ -115,7 +116,7 @@
 			"step_distance"														"140"
 			"base_damage"
 			{
-				"value"															"250 450 800 1200 2000 4500 12500"			
+				"value"															"150 300 450 600 750 900"			
 				"CalculateSpellDamageTooltip"									"1"
 			}
 			"duration"															"5.5"
@@ -166,9 +167,19 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage"				"350 600 900 1500 2500 4500 8000"
-			"bonus_damage_per_stack"	"250 450 800 1400 2400 4000 6500"
-			"stack_limit"				
+			"bonus_damage"
+			{
+				"value"							"50 100 150 200 250 300 350"
+				"CalculateAttackDamageTooltip"	"1"
+	
+			}				
+			"bonus_damage_per_stack"
+			{
+				"value"							"100 200 300 400 500 600 700"
+				"CalculateAttackDamageTooltip"	"1"
+	
+			}
+			"stack_limit"
 			{
 				"value"						"5"
 	
@@ -181,33 +192,33 @@
 			"roared_bonus_attack_speed"	"0"
 			"roared_bonus_armor"
 			{
-				"value"					"5 10 15 20 25 30 35"
+				"value"							"5 10 15 20 25 30 35"
 				"special_bonus_unique_primal_beast_uproar_armor"	"+20"
 			}
-			"roar_duration"				"7"
+			"roar_duration"						"7"
 			"should_dispell"
 			{
-				"value"					"0"
+				"value"							"0"
 				"special_bonus_unique_primal_beast_roar_dispells"	"+1"
 			}
 			"projectiles_per_stack"			
 			{
-				"value"		"2"
-				"RequiresScepter"		"1"
+				"value"							"2"
+				"RequiresScepter"				"1"
 			}
             "projectile_distance"        
             {
-				"value"		"1400"
-				"RequiresScepter"		"1"
+				"value"							"1400"
+				"RequiresScepter"				"1"
 			}
             "projectile_width"           
             {
-				"value"		"75"
-				"RequiresScepter"		"1"
+				"value"							"75"
+				"RequiresScepter"				"1"
 			}
             "projectile_damage"          
             {
-				"value"							"1415 1900 2305 2920 4155 6225 10650"
+				"value"							"1000"
 				"RequiresScepter"				"1"
 				"DamageTypeTooltip"				"DAMAGE_TYPE_MAGICAL"
 				"CalculateSpellDamageTooltip"	"1"
@@ -291,8 +302,16 @@
 			"ministun"							"0.25"
 			"cast_range"						"200"
 			"animation_rate"					"1.5"			// FLAIL MULTIPLIER ON ENEMY UNITS
-			"damage"							"7500 15000 35000 55000 60000 65000"
-			"bonus_damage_per_hit"				"750 2500 8500 12500 15000 17500"
+			"damage"
+			{
+				"value"							"1250 1750 2250 2750 3250 3750"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"bonus_damage_per_hit"
+			{
+				"value"							"200 400 600 800 1000 1200"
+				"CalculateSpellDamageTooltip"	"1"
+			}
 			"channel_time"
 			{
 				"value"							"2.3"
@@ -318,14 +337,12 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"FightRecapLevel"				"1"
-		"MaxLevel"						"6"
-		"LevelsBetweenUpgrades"			"6"
+		"MaxLevel"						"1"
+		"LevelsBetweenUpgrades"			"1"
 		"IsGrantedByShard"				"1"
         "AbilityUnitTargetTeam"         "DOTA_UNIT_TARGET_TEAM_BOTH"
         "AbilityUnitTargetType"         "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-
-
-
+		
         // Time     
         //-------------------------------------------------------------------------------------------------------------
         "AbilityCooldown"               "25"
@@ -333,12 +350,6 @@
         "AbilityCastPoint"              "0.5"
         "AbilityCastRange"              "1800"
 
-        // Damage.
-        //-------------------------------------------------------------------------------------------------------------
-        
-        // Stats
-        //-------------------------------------------------------------------------------------------------------------
-        
         // Casting
         //-------------------------------------------------------------------------------------------------------------
         "AbilityCastAnimation"          "ACT_DOTA_CAST_ABILITY_1"
@@ -350,17 +361,17 @@
         {
             "base_damage"
 			{
-				"value"							"8670 17500 32500 50700 54325 56950"
+				"value"							"3250"
 				"CalculateSpellDamageTooltip"	"1"
 			}
             "impact_radius"						"225"    
-            "min_range"               "550"
-            "min_travel_time"                 "0.45"
-            "max_travel_time"                  "1.7"
-            "bounce_travel_time"                  "0.6"
-            "stun_duration"                  "1.75"
-			"fragment_impact_distance"    "600"
-            "fragment_impact_radius"                  "150"
+            "min_range"              			"550"
+            "min_travel_time"					"0.45"
+            "max_travel_time"					"1.7"
+            "bounce_travel_time"				"0.6"
+            "stun_duration"						"1.75"
+			"fragment_impact_distance"			"600"
+            "fragment_impact_radius"			"150"
         }
     } 
 

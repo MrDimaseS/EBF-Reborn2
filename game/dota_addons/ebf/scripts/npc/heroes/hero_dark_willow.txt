@@ -25,7 +25,7 @@
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"20"
+		"AbilityCooldown"				"22"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -40,7 +40,11 @@
 			"placement_duration"			"15"
 			"latch_duration"				"2.5"
 			"latch_range"					"90"
-			"damage_per_tick"				"950 1750 3000 5500 9500 17500 28000"
+			"damage_per_tick"
+			{
+				"value"							"200 330 480 650 840 1050 1280"
+				"CalculateSpellDamageTooltip"	"1"
+			}
 			"latch_creation_interval"		"0.075"
 			"latch_creation_delay"			"0.1"
 			"initial_creation_delay"		"0.3"
@@ -84,8 +88,10 @@
 		{
 			"attack_damage"			
 			{
-				"value"						"2335 7670 21850 38000 42500 47000"
-				"special_bonus_unique_dark_willow_4"	"+25	%"
+				"value"									"700 1200 1700 2200 2700 3200"
+				"special_bonus_unique_dark_willow_4"	"+25%"
+				"CalculateSpellDamageTooltip"			"1"
+				"CalculateAttackDamageTooltip"			"1"
 			}
 			"attack_interval"		"0.25"
 			"attack_radius"			
@@ -193,12 +199,16 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"			
+			"duration"
 			{
 				"value"									"4"
 				"special_bonus_unique_dark_willow_1"	"+1.5"
 			}
-			"damage"							"2400 3000 4675 7200 10560 17350 30900"
+			"damage"
+			{
+				"value"									"1200 2000 2800 3600 4200 4800 5400"
+				"CalculateSpellDamageTooltip"			"1"
+			}							
 			"attack_range_bonus"				"600"
 			"max_damage_duration"			
 			{

@@ -16,8 +16,8 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_VengefulSpirit.MagicMissile"
 
-		"MaxLevel"						"6"
-		"LevelsBetweenUpgrades"			"6"
+		"MaxLevel"						"1"
+		"LevelsBetweenUpgrades"			"1"
 		"IsGrantedByShard"				"1"
 
 		// Casting
@@ -39,7 +39,11 @@
 		{
 			"speed"							"900"
 			"radius"						"150"
-			"damage"						"7500 21000 55000 90000 100000 110000"
+			"damage"
+			{
+				"value"							"2000"
+				"CalculateSpellDamageTooltip"	"1"
+			}
 			"mark_duration"					"7.0"
 			"slow_pct"						"20"
 			"spell_amp"						"20"
@@ -132,8 +136,9 @@
 			"bonus_range"						"350"
 			"acorn_shot_damage"
 			{
-				"value"							"600 1100 2100 4000 7500 14000 25000"
+				"value"							"550 900 1250 1600 1950 2300 2650"
 				"CalculateSpellDamageTooltip"	"0"
+				"CalculateAttackDamageTooltip"	"1"
 			}
 			"base_damage_pct"
 			{
@@ -207,9 +212,9 @@
 			"projectile_speed"	"1300"
 			"total_damage"
 			{
-				"value"												"1450 2850 5550 8625 14400 26250 46500"
-				"CalculateSpellDamageTooltip"						"1"
+				"value"												"900 1800 2700 3600 4500 5300 6200"
 				"special_bonus_unique_hoodwink_bushwhack_damage"	"+100%"
+				"CalculateSpellDamageTooltip"						"1"
 			}
 			"animation_rate"	"0.3"
 			"visual_height"		"50"
@@ -320,8 +325,9 @@
 			}			
 			"max_damage"
 			{
-				"value"													"21350 73500 192500 340000 402500 465000"
+				"value"													"5500 9000 12500 16000 19500 23000"
 				"special_bonus_unique_hoodwink_sharpshooter_damage"		"+125%"
+				"CalculateSpellDamageTooltip"							"1"
 			}
 			"recoil_distance"			"350"
 			"recoil_height"				"75"

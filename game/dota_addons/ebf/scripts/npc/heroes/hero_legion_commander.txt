@@ -27,45 +27,49 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{			
-			"damage"					"800 1400 2200 3600 5900 11600 23000"
+			"damage"
+			{
+				"value"										"350 650 950 1250 1550 1850 2150"
+				"CalculateSpellDamageTooltip"				"1"
+			}
 			"damage_per_unit"
 			{
-				"value"					"400 700 1100 1800 2950 5800 11500"
+				"value"										"140 160 180 200 220 240 260"
 				"special_bonus_unique_legion_commander_4"	"+50%"
+				"CalculateSpellDamageTooltip"				"1"
 			}
 			"damage_per_hero"
 			{
-				"value"					"400 700 1100 1800 2950 5800 11500"
+				"value"										"350 650 950 1250 1550 1850 2150"
 				"special_bonus_unique_legion_commander_4"	"+50%"
+				"CalculateSpellDamageTooltip"				"1"
 			}
 			"illusion_dmg_pct"		
 			{
-				"value"					"25"
-				"CalculateSpellDamageTooltip"	"1"
+				"value"										"25"
+				"CalculateSpellDamageTooltip"				"1"
 			}
-			"bonus_attack_speed_creeps"	"10 11 12 13 15 16 17"
-			"bonus_attack_speed"		"65 90 115 140 165 190 215"
-			"duration"					"7.0"
+			"bonus_attack_speed_creeps"						"10 11 12 13 15 16 17"
+			"bonus_attack_speed"							"65 90 115 140 165 190 215"
+			"duration"										"7.0"
 			"radius"				
 			{
-				"value"					"600"
-					"special_bonus_unique_legion_commander_2" "+150"
+				"value"										"600"
+				"special_bonus_unique_legion_commander_2" "+150"
 			}
 			"AbilityCooldown"
 			{
 				"value"						"15"
 				"special_bonus_unique_legion_commander_9"		"-2"
 			}
-			
-				"duel_radius_bonus"
-				{
-					"value"					"0"
-					"special_bonus_shard"	"+250"
-				}
+			"duel_radius_bonus"
+			{
+				"value"					"0"
+				"special_bonus_shard"	"+250"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
-
 	//=================================================================================================================
 	// Legion Commander: Press the Attack
 	//=================================================================================================================
@@ -102,18 +106,25 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"					"5.0"
+			"duration"													"5.0"
 			"move_speed"
 			{
-				"value"					"10 14 18 22 26 30 34"
+				"value"													"10 14 18 22 26 30 34"
 				"special_bonus_unique_legion_commander_pta_movespeed"	"+22"
 			}
 			"hp_regen"
 			{
-				"value"										"400 666 1390 2500 4666 8890 17150"
-				"special_bonus_unique_legion_commander_6"	"+100%"
+				"value"													"240 360 480 600 720 840 960"
+				"special_bonus_unique_legion_commander_6"				"+50%"
+				"CalculateSpellHealTooltip"								"1"
 			}
-			"AbilityCooldown"				"13"
+			"radius"
+			{
+				"value"						"0"
+				"special_bonus_unique_legion_commander_5"			"+250"
+				"affected_by_aoe_increase"							"1"
+			}
+			"AbilityCooldown"											"13"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -140,14 +151,14 @@
 		{
 			"trigger_chance"			
 			{
-				"value"										"25"
+				"value"										"25 26 27 28 29 30 31 32"
 				"LinkedSpecialBonus"     				   "special_bonus_unique_legion_commander_3"																	
 			}
 			"buff_duration"									"1.0"
 			"hp_leech_percent"			
 			{
-				"value"										"55 65 75 85 95 105 115"
-				"special_bonus_unique_legion_commander_7"	"+50"
+				"value"										"55"
+				"special_bonus_unique_legion_commander_7"	"+25"
 			}
 			
 		}
@@ -206,8 +217,9 @@
 			"duration_scepter"								""
 			"reward_damage"			
 			{
-				"value"										"250 400 600 850 1150 1500"
-				"special_bonus_shard"						"+50%"
+				"value"										"100 200 300 400 500 600"
+				"special_bonus_shard"						"+40%"
+				"CalculateAttackDamageTooltip"				"1"
 			}
 			"victory_range"									"600"
 			"scepter_damage_reduction_pct"			
@@ -217,8 +229,8 @@
 			}
 			"AbilityCooldown"	
 			{
-				"value"										"60 55 50 47.2 44.4 41.7"
-				"special_bonus_scepter"						"-60%"
+				"value"										"50"
+				"special_bonus_scepter"						"-20"
 				"RequiresScepter"							"1"
 			}
 

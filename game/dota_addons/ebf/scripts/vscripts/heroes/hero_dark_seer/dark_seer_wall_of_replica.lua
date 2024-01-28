@@ -29,6 +29,7 @@ LinkLuaModifier( "modifier_dark_seer_wall_of_replica_thinker", "heroes/hero_dark
 
 function modifier_dark_seer_wall_of_replica_thinker:OnCreated( kv )
 	self.duration = self:GetAbility():GetSpecialValueFor( "slow_duration" )
+	self.wall_damage = self:GetAbility():GetSpecialValueFor( "wall_damage" )
 
 	local length = self:GetAbility():GetSpecialValueFor( "width" )
 	print("created")
@@ -89,10 +90,12 @@ function modifier_dark_seer_wall_of_replica_thinker:OnIntervalThink()
 				self.illusions[id] = illusions[1]
 				illusions[1]:SetUnitCanRespawn( true )
 				illusions[1].hasBeenProcessed = true
+				ability:DealDamage( caster, enemy, self.wall_damage )
 			elseif not self.illusions[id]:IsAlive() then -- respawn
 				self.illusions[id]:RespawnUnit()
 				self.illusions[id]:AddNewModifier( caster, ability, "modifier_dark_seer_wall_of_replica_illusion", {duration = self:GetRemainingTime() } )
 				self.illusions[id]:AddNewModifier( caster, ability, "modifier_kill", {duration = self:GetRemainingTime() } )
+				ability:DealDamage( caster, enemy, self.wall_damage )
 			end
 		end
 	end

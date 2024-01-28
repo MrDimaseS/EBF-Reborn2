@@ -27,7 +27,7 @@
 		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"95 175 325 555 1115 1845 2475"
+		"AbilityManaCost"				"80 95 110 125 140 155 170"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -35,13 +35,16 @@
 		{
 			"heal"
 			{
-				"value"					"1500 2500 4500 8500 18000 27500 50000"
-				"special_bonus_unique_omniknight_1" "+100%"
+				"value"								"900 1600 2300 3000 3700 4400 5100"
+				"special_bonus_unique_omniknight_1" "+50%"
+				"CalculateSpellHealTooltip"			"1"
 			}
 			"damage"
 			{
-				"value"					"1200 2100 3500 6500 11000 18000 30000"
-				"special_bonus_unique_omniknight_1" "+100%"
+				"value"								"900 1600 2300 3000 3700 4400 5100"
+				"special_bonus_unique_omniknight_1" "+50%"
+				"DamageTypeTooltip"					"DAMAGE_TYPE_PURE"
+				"CalculateSpellDamageTooltip"		"1"
 			}
 			"radius"
 			{
@@ -50,129 +53,12 @@
 			}
 			"AbilityCooldown"
 			{
-				"value"								"20 19 18 17 16 15 14"
-				"special_bonus_unique_omniknight_6"	"-1"
+				"value"								"12"
+				"special_bonus_unique_omniknight_6"	"-2"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
-
-	//=================================================================================================================
-	// Omniknight: Repel
-	//=================================================================================================================
-	"omniknight_repel"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
-		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
-		"FightRecapLevel"				"1"
-		"AbilitySound"					"Hero_Omniknight.Repel"
-		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
-		
-		
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"500"
-		"AbilityCastPoint"				"0.25"
-		
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"26 22 18 14 11.85 9.7 7.55"
-		
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"95 105 115 125"
-
-		// Stats
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityModifierSupportValue"	"3.0"	// Value much higher than cost.
-
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"duration"				"10"
-			}
-			"02"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"status_resistance"		"50"
-			}
-			"03"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"bonus_str"		"40 99 250 610 1550 3750 9200"
-			}
-			"04"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"hp_regen"		"80 180 405 915 2100 4650 10500"
-			}
-		}
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
-	}
-	//=================================================================================================================
-	// Ability: Omniknight, Pacify
-	//=================================================================================================================
-	"omniknight_pacify"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
-		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
-		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
-		"FightRecapLevel"				"1"
-		"AbilitySound"					"Hero_Omniknight.Repel"
-		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
-
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"800"
-		"AbilityCastPoint"				"0.3"
-		
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"18 16 14 12 10.66 9.33 8.0"
-
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"95 125 155 185 215 245 275"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"			"FIELD_INTEGER"
-				"radius"			"425"
-			}
-			"02"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"spell_resistance_reduction"	"50 60 70 80"
-			}
-			"03"
-			{
-				"var_type"			"FIELD_FLOAT"
-				"duration"			"7.0"
-			}
-		}
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
-	}	
-	
 	//=================================================================================================================
 	// Omniknight: Degen Aura
 	//=================================================================================================================
@@ -230,17 +116,26 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"base_strength"				"50 100 150 250 400 600 800"
-			"base_hpregen"				"100 200 350 650 1250 2000 3500"
-			"strength_bonus"		
+			"base_strength"	
 			{
-				"value"					"20 40 60 100 160 250 350"
-				"special_bonus_unique_omniknight_2" "+75%"
+				"value"								"35 70 105 140 175 210 245"
+				"CalculateAttributeTooltip"			"1"
+			}
+			"base_hpregen"
+			{
+				"value"								"15 20 25 30 35 40 45"
+				"CalculateSpellHealTooltip"			"1"
+			}
+			"strength_bonus"
+			{
+				"value"								"15 20 25 30 35 40 45"
+				"CalculateAttributeTooltip"			"1"
+				"special_bonus_unique_omniknight_2" "+50%"
 			}
 			"duration"				
 			{
-				"value"					"5 6 7 8 9 10 11"
-				"LinkedSpecialBonus"	"special_bonus_unique_omniknight_5"
+				"value"								"6"
+				"LinkedSpecialBonus"				"special_bonus_unique_omniknight_5"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -277,7 +172,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"50 80 110 140 170 200 230"
+		"AbilityManaCost"				"30 40 50 60 70 80 90"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -286,14 +181,19 @@
 			"AbilityCooldown"				
 			{
 				"value"					"10"
-				"special_bonus_unique_omniknight_3"		"-4"
+				"special_bonus_unique_omniknight_3"		"-6"
 			}
-			"base_damage"	
+			"base_damage"
 			{
-				"value"					"96 120 144 168 192 216 240"
-				"special_bonus_unique_omniknight_4"	"+48"
+				"value"								"60 80 100 120 140 160 180"
+				"special_bonus_unique_omniknight_4"	"+75"
+				"CalculateSpellDamageTooltip"		"0"
 			}
-			"bonus_damage"				"890 1480 2105 2760 4700 8225 14590" 
+			"bonus_damage"
+			{
+				"value"								"500 750 1000 1250 1500 1750 2000"
+				"CalculateSpellDamageTooltip"		"1"
+			}
 			"duration"					"5"
 			"movement_slow"				"14 18 22 26 30 34 38"
 			
@@ -302,11 +202,10 @@
 				"value"					"0"
 				"special_bonus_shard"	"30"
 			}
-
 			"attack_cooldown"
 			{
 				"value"					"-1"
-				"special_bonus_shard"	"6"
+				"special_bonus_shard"	"=6"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"

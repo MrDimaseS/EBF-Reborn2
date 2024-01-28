@@ -83,11 +83,17 @@
 		"AbilityValues"
 		{
 			"area_of_effect"						"500"
-			"damage"								"1120 1555 2100 3600 6750 12950 25150"
+			"damage"
+			{
+				"value"								"1000 1600 2200 2800 3400 4000 4600"
+				"special_bonus_unique_necrophos_4"	"+50%"
+				"CalculateSpellDamageTooltip"		"1"
+			}
 			"heal"
 			{
-				"value"								"1070 1400 1780 2880 5060 9055 16345"
-				"special_bonus_unique_necrophos_4"	"+50%"
+				"value"								"275 400 525 650 775 900 1025"
+				"special_bonus_unique_necrophos_4"	"+30%"
+				"CalculateSpellHealTooltip"			"1"
 			}
 			"projectile_speed"						"400"
 			"AbilityCooldown"
@@ -182,7 +188,7 @@
 		
 		"AbilityValues"
 		{
-			"aura_radius"			"800"		
+			"aura_radius"								"800"		
 			"aura_damage"
 			{
 				"value"									"0.52 0.6 0.68 0.76 0.84 0.92 1.00" 
@@ -197,13 +203,17 @@
 				"DamageTypeTooltip"						"DAMAGE_TYPE_NONE"
 				"CalculateSpellDamageTooltip"			"0"
 			} 	
-			"health_regen"								"10 20 45 75 150 250 500"
+			"health_regen"
+			{
+				"value"									"4 5 6 7 8 9 10"
+				"CalculateSpellHealTooltip"				"1"
+			}
 			"mana_regen"								"1 1.25 1.5 2 2.5 3 3.5"
 			"hero_multiplier" 							"5"
 			"kill_multiplier" 							"2"
 			"regen_duration"		
 			{
-				"value"									"8"
+				"value"									"7"
 				"special_bonus_unique_necrophos_heartstopper_regen_duration"							"+2"
 			}
 			"heal_reduction_pct"
@@ -214,8 +224,9 @@
 			
 			"heal_regen_to_damage"
 			{
-				"value"					"0"
-				"special_bonus_scepter"	"+450"
+				"value"									"0"
+				"special_bonus_scepter"					"+450"
+				"CalculateSpellDamageTooltip"			"0"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
@@ -249,16 +260,12 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"120"
+		"AbilityCooldown"				"120 110 100 90 80 70"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"200 500 800 1100 1400 1700"		
+		"AbilityManaCost"				"250 375 500 625 750 875"		
 		
-		// Cast Range
-		//-------------------------------------------------------------------------------------------------------------
-		
-
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityModifierSupportValue"	"0.1"	// Primarily about the damage
@@ -267,13 +274,13 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"damage_per_health"				"0.15 0.16 0.17 0.18 0.19 0.20"
+			"damage_per_health"				"0.17"
 			"stun_duration"					"1.5"
 			"hp_per_kill"					""
 			"mana_per_kill"					""
-			"death_pulse_bonus_heal"		"110 175 250 375 500 625"
-			"death_pulse_bonus_dmg"			"220 350 500 750 1000 1250"
-			"heartstopper_bonus_hp_regen"	"5 15 50 100 150 200"
+			"death_pulse_bonus_heal"		"25 35 45 55 65 75"
+			"death_pulse_bonus_dmg"			"100 140 180 220 260 300"
+			"heartstopper_bonus_hp_regen"	"0.5 0.75 1.0 1.25 1.5 1.75"
 			"heartstopper_bonus_mp_regen"	"0.1 0.15 0.2 0.25 0.3 0.35"
 			"sadist_bonus_duration"			"0.1"
 			"AbilityCastRange"

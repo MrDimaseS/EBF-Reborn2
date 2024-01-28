@@ -39,9 +39,10 @@
 			}
 			"damage"
 			{
-				"value"								"650 1200 2500 5000 7500 12500 25000"
-				"special_bonus_unique_pangolier_3"	"+75%"
-				"CalculateSpellDamageTooltip"		"1"
+				"value"								"250 450 650 850 1050 1250 1450"
+				"special_bonus_unique_pangolier_3"	"+100%"
+				"CalculateSpellDamageTooltip"		"0"
+				"CalculateAttackDamageTooltip"		"1"
 			}
 			"dash_speed"							"2000"
 			"attack_interval"						"0.1 0.1 0.1 0.1"
@@ -102,21 +103,26 @@
 		{
 			"damage"
 			{
-				"value"														"1500 2500 5500 9500 17500 30000 50000"
+				"value"														"600 1200 1800 2400 3000 3600 4200"
 				"CalculateSpellDamageTooltip"								"1"
 			}
-			"base_shield"	"0"
+			"base_shield"
+			{
+				"value"														"500 1000 1500 2000 2500 3000 3500"
+				"special_bonus_unique_pangolier_shield_crash_herostacks"	"+100%"
+				"CalculateSpellHealTooltip"									"1"
+			}
 			"hero_shield"
 			{
-				"value"														"1000 2000 4000 8000 16000 32000 64000"
+				"value"														"500 1000 1500 2000 2500 3000 3500"
 				"special_bonus_unique_pangolier_shield_crash_herostacks"	"+100%"
-
+				"CalculateSpellHealTooltip"									"1"
 			}
 			"creep_shield"
 			{
-				"value"														"250 500 750 1500 2500 4500 8000"
+				"value"														"125 250 375 500 625 750 875"
 				"special_bonus_unique_pangolier_shield_crash_herostacks"	"+100%"
-
+				"CalculateSpellHealTooltip"									"1"
 			}
 			"duration"														"5"
 			"radius"				
@@ -220,7 +226,7 @@
 
 		// Damage.
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"9600 23500 55200 102240 113350 122400"
+		"AbilityDamage"					"1800 2600 3400 4200 5000 5800"
 
         "precache"
 		{
@@ -232,34 +238,35 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"cast_time_tooltip"		"1.2"
-			"tick_interval"			"0.05"
-			"forward_move_speed"	"550"
-			"turn_rate_boosted"		"165"
-			"turn_rate"				"120"
+			"AbilityDamage"					"1800 2600 3400 4200 5000 5800"
+			"cast_time_tooltip"				"1.2"
+			"tick_interval"					"0.05"
+			"forward_move_speed"			"550"
+			"turn_rate_boosted"				"165"
+			"turn_rate"						"120"
 			"radius"				
 			{
-				"value"			"400"
+				"value"						"400"
 				"affected_by_aoe_increase"	"1"		
 			}			
 			"hit_radius"			
 			{
-				"value"		"150"
+				"value"						"150"
 				"affected_by_aoe_increase"	"1"		
 			}			
-			"bounce_duration"		"0.4"
-			"stun_duration"			"1.2"
+			"bounce_duration"				"0.4"
+			"stun_duration"					"1.2"
 			"knockback_radius"		
 			{
-				"value"			"150"
+				"value"						"150"
 				"affected_by_aoe_increase"	"1"		
 			}			
 			"duration"				
 			{
-				"value"		"10.0"
-				"LinkedSpecialBonus"	"special_bonus_unique_pangolier_6"
+				"value"						"10.0"
+				"LinkedSpecialBonus"		"special_bonus_unique_pangolier_6"
 			}
-			"jump_recover_time"		"0.25"
+			"jump_recover_time"				"0.25"
 			"shield_crash_cooldown"			"3"
 		}
 	}

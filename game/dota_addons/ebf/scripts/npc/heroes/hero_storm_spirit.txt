@@ -89,12 +89,14 @@
 			{
 				"value"									"260"
 				"DamageTypeTooltip"						"DAMAGE_TYPE_NONE"
+				"affected_by_aoe_increase"		$	"1"
 			}
 			"static_remnant_delay"						"1.0"
 			"static_remnant_damage"
 			{
-				"value"									"1415 2910 3920 7385 14815 29700 59500"
+				"value"									"1200 1800 2400 3000 3600 4200 4800"
 				"special_bonus_unique_storm_spirit_5"	"+40%"
+				"CalculateSpellDamageTooltip"			"1"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -182,14 +184,15 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"overload_aoe"						"300"
-			"overload_move_slow"				"-80"
-			"overload_attack_slow"				"-80"
-			"AbilityDuration"					"0.8"
+			"overload_aoe"								"300"
+			"overload_move_slow"						"-80"
+			"overload_attack_slow"						"-80"
+			"AbilityDuration"							"0.8"
 			"overload_damage"
 			{
-				"value"							"440 910 1225 2310 4630 9280 18600"
-				"LinkedSpecialBonus"			"special_bonus_unique_storm_spirit_6"
+				"value"									"250 500 750 1000 1250 1500 1750"
+				"special_bonus_unique_storm_spirit_6"	"+500"
+				"CalculateSpellDamageTooltip"			"1"
 			}
 			"shard_activation_radius"
 			{
@@ -208,7 +211,7 @@
 			}	
 			"shard_manacost"
 			{
-				"value"							"150 225 300 375 450 525 600"
+				"value"							"150"
 				"RequiresShard"					"1"
 			}
 			"shard_cooldown"
@@ -250,19 +253,28 @@
 		
 		// Damage.
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"80 730 3750 12000 21500 32000"
+		"AbilityDamage"					"60 100 140 180 220 260"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"AbilityDamage"								"60 100 140 180 220 260"
 			"ball_lightning_initial_mana_percentage"	"5"		
 			"ball_lightning_initial_mana_base"			"25"		
-			"ball_lightning_move_speed"					"1400 1550 1700 1850 2000 2150 2300"		
-			"ball_lightning_aoe"						"200"		
+			"ball_lightning_move_speed"					"1400 1850 2300 2750 3200 3650"		
+			"ball_lightning_aoe"
+			{
+				"value"									"200"
+				"affected_by_aoe_increase"				"1"
+			}
 			"ball_lightning_travel_cost_base"			"5"
-			"ball_lightning_travel_cost_percent"		"0.55"		
-			"ball_lightning_vision_radius"				"400"		
+			"ball_lightning_travel_cost_percent"		"0.55"			
+			"ball_lightning_vision_radius"
+			{
+				"value"									"400"
+				"affected_by_aoe_increase"				"1"
+			}		
 			"blocker_duration"							"5"		
 			"scepter_remnant_interval"					"300"		
 		}
@@ -382,18 +394,6 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"						"8000"
-				"ad_linked_abilities"		"storm_spirit_overload"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
 	}
 
 	//=================================================================================================================

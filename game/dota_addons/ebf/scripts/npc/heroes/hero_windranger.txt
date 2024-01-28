@@ -66,7 +66,6 @@
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"16 14 12 10 9.38 8.75 8.13"
 
 		// Damage.
 		//-------------------------------------------------------------------------------------------------------------
@@ -80,16 +79,25 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"fail_stun_duration"						"0.75 0.75 0.75 0.75"
+			"fail_stun_duration"
+			{
+				"value"									"0.75 0.75 0.75 0.75"
+				"special_bonus_unique_windranger_6"		"+0.8"
+			}						
 			"stun_duration"
 			{
-				"value"									"1.9"
+				"value"									"2.4"
 				"special_bonus_unique_windranger_6"		"+0.8"
 			}
 			"shackle_distance"							"575"
 			"arrow_speed"								"1650"
 			"shackle_count"								"3 4 5 6 7 8 9"
 			"crit_damage"								"120 140 160 180 200 220 240"
+			"AbilityCooldown"
+			{
+				"value"									"16 14 12 10 9.38 8.75 8.13"
+				"special_bonus_unique_windranger_9"		"-50%"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -133,7 +141,8 @@
 		{
 			"powershot_damage"
 			{
-				"value"													"2400 4500 8500 15000 25000 45000 85000"
+				"value"													"1700 2700 3700 4700 5700 6700 7700 8700"
+				"CalculateSpellDamageTooltip"										"1"
 				"special_bonus_unique_windranger_windrun_undispellable" "+100%"
 			}
 			"slow"	
@@ -223,6 +232,11 @@
 			}
 			"cannot_be_dispelled"					"1"
 			"duration"								"3 4 5 6 7 8 9"
+			"AbilityCooldown"
+			{
+				"value"								"10"
+				"special_bonus_unique_windranger_4"	"-4"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -255,7 +269,6 @@
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"15"
 		"AbilityDuration"				"10 12 14 16 18 20"
 
 		// Cost
@@ -266,13 +279,18 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-				"bonus_attack_speed"			"300 400 500 600 700 800 900"
-				"focusfire_damage_reduction"	
-				{
-					"value"						"-30.0"
-					"LinkedSpecialBonus"		"special_bonus_unique_windranger_8"
-				}
-				"focusfire_fire_on_the_move"	"1"
+			"bonus_attack_speed"			"300 400 500 600 700 800 900"
+			"focusfire_damage_reduction"	
+			{
+				"value"						"-30.0"
+				"LinkedSpecialBonus"		"special_bonus_unique_windranger_8"
+			}
+			"focusfire_fire_on_the_move"	"1"
+			"AbilityCooldown"
+			{
+				"value"						"15"
+				"special_bonus_unique_windranger_2"	"=0.25"
+			}
 		}
 	}
 	
@@ -329,8 +347,8 @@
 		{
 			"01"
 			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"20"
+				"var_type"						"FIELD_INTEGER"
+				"value"							"0.25"
 				"ad_linked_abilities"			"windrunner_focusfire"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
 			}
 		}
@@ -368,7 +386,7 @@
 			"01"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"value"				"4"
+				"value"						"0"
 			}
 		}
 	}
@@ -482,7 +500,7 @@
 			"01"
 			{
 				"var_type"					"FIELD_FLOAT"
-				"value"				"2"
+				"value"							"0"
 				"ad_linked_abilities"			"windrunner_shackleshot"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
 			}
 		}

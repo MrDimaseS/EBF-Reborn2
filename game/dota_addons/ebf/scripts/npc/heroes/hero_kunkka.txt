@@ -38,15 +38,20 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"speed"						"700"
-			"radius"					"750 800 850 900 950 1000 1050"
+			"speed"													"700"
+			"radius"
+			{
+				"value"												"750 800 850 900 950 1000 1050"
+				"affected_by_aoe_increase"							"1"
+			}
 			"damage"
 			{
-				"value"								"1200 2000 3800 7500 14000 25000 48000"
+				"value"												"600 1200 1800 2400 3000 3600 4200"
 				"special_bonus_unique_kunkka_tidal_wave_damage"		"+75%"
+				"CalculateSpellDamageTooltip"						"1"
 			}
-			"duration"					"1.75"
-			"knockback_distance"		"300"
+			"duration"												"1.75"
+			"knockback_distance"									"300"
 		}
 	}
 	//=================================================================================================================
@@ -92,20 +97,21 @@
 			"radius"
 			{
 				"value"								"225"
-				"special_bonus_unique_kunkka_7"		"+100%"
+				"special_bonus_unique_kunkka_7"		"+30%"
 			}
 			"movespeed_bonus"						"-40"
 			"slow_duration"							"5.5"
 			"stun_duration"
 			{
 				"value"								"1.6"
-				"special_bonus_unique_kunkka_7"		"+100%"
+				"special_bonus_unique_kunkka_7"		"+30%"
 			}
 			"delay"									"1.6 1.6 1.6 1.6"
 			"torrent_damage"
 			{
-				"value"								"1250 2500 5000 9000 16000 30000 60000"
-				"special_bonus_unique_kunkka_7"		"+100%"
+				"value"								"800 1600 2400 3200 4000 4800 5600"
+				"special_bonus_unique_kunkka_7"		"+30%"
+				"CalculateSpellDamageTooltip"		"1"
 			}
 			"damage_tick_interval"				"0.2"
 		}
@@ -166,6 +172,7 @@
 			{
 				"value"				"1100"
 				"RequiresScepter"	"1"
+				"affected_by_aoe_increase"	"1"
 			}
 		}
 	}
@@ -214,8 +221,9 @@
 			}
 			"damage_bonus"			
 			{				
-				"value"						"900 1750 3250 6000 11000 18000 30000" 
+				"value"												"300 600 900 1200 1500 1800 2100"
 				"special_bonus_unique_kunkka_tidebringer_damage"	"+50%"
+				"CalculateAttackDamageTooltip"						"1"
 			}
 			"cleave_damage"				
 			{
@@ -235,8 +243,8 @@
 			}
 			"AbilityCooldown"				
 			{
-				"value"									"4"
-				"special_bonus_unique_kunkka_5"			"-0.6"
+				"value"									"2"
+				"special_bonus_unique_kunkka_5"			"-1"
 				"special_bonus_shard"					"-50%"
 				"RequiresShard"							"1"
 			}
@@ -347,7 +355,7 @@
 
 		// Damage.
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"16500 38000 70000 120000 140000 160000"
+		
 	
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -374,6 +382,11 @@
 			{
 				"value"					"60"
 				"special_bonus_unique_kunkka_ghostship_cooldown"	"-15"
+			}
+			"AbilityDamage"					
+			{
+				"value"							"4000 5000 6000 7000 8000 9000 10000"
+				"CalculateSpellDamageTooltip"	"1"
 			}
 		}
 	}

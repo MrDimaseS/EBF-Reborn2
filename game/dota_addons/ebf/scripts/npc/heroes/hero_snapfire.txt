@@ -36,8 +36,9 @@
 		{
 			"damage"
 			{
-				"value"								"2400 4000 7000 11000 21000 40000 75000"
-				"special_bonus_unique_snapfire_7"	"+100%"
+				"value"								"1000 1600 2200 2800 3400 4000 4600"
+				"special_bonus_unique_snapfire_7"	"+25%"
+				"CalculateSpellDamageTooltip"		"1"
 			}
 			"blast_speed"							"3000"
 			"blast_width_initial"					"450"
@@ -108,22 +109,34 @@
 				"special_bonus_unique_snapfire_1"	"+6"
 			}
 			"projectile_speed"		"1300"
-			"projectile_width"		"130"
-			"impact_radius"			"600"
+			"projectile_width"		
+			{
+				"value"	"130"
+				"affected_by_aoe_increase"	"1"		
+			}
+			"impact_radius"			
+			{
+				"value" "275"
+				"affected_by_aoe_increase"	"1"	
+			}
 			"damage_per_impact"
 			{
-				"value"															"4270 10750 25600 48000 53500 59000"
-				"special_bonus_unique_snapfire_mortimer_kisses_impact_damage"	"+75%" 
+				"value"															"1800 2700 3600 4500 5400 6300"
+				"special_bonus_unique_snapfire_mortimer_kisses_impact_damage"	"+50%" 
 
 			}
 			"duration_tooltip"		"4.5"
-			"projectile_vision"		"500"
+			"projectile_vision"
+			{
+				"value" "500"
+				"affected_by_aoe_increase"	"1"	
+			}
 			"turn_rate"				"100"
 			"burn_interval"			"0.5"
 			"burn_damage"					
 			{
-				"value"															"1600 3750 8400 15200 16700 18200"
-				"special_bonus_unique_snapfire_mortimer_kisses_impact_damage"	"+75%" 
+				"value"															"600 800 1000 1200 1400 1600"
+				"special_bonus_unique_snapfire_mortimer_kisses_impact_damage"	"+50%" 
 				"CalculateSpellDamageTooltip"									"1"
 			}
 			"move_slow_pct"
@@ -219,13 +232,25 @@
 		"AbilityValues"
 		{
 			"projectile_speed"		"1400"
-			"projectile_width"		"130"
-			"impact_radius"			"400"
-			"projectile_vision"		"500"
+			"projectile_width"		
+			{
+				"value"	"130"
+				"affected_by_aoe_increase"	"1"	
+			}
+			"impact_radius"			
+			{
+				"value"	"400"
+				"affected_by_aoe_increase"	"1"	
+			}
+			"projectile_vision"
+			{
+				"value" "500"
+				"affected_by_aoe_increase"	"1"	
+			}
 			"burn_interval"			"0.5"
 			"burn_damage"					
 			{
-				"value"															"1600 3750 8400 15200 16700 18200"
+				"value"															"600 800 1000 1200 1400 1600"
 				"special_bonus_unique_snapfire_mortimer_kisses_impact_damage"	"+75%" 
 				"CalculateSpellDamageTooltip"									"1"
 			}
@@ -278,33 +303,52 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"projectile_speed"		"1000"
-			"pre_hop_duration"		"0.0"
-			"jump_duration"			"0.484" //"0.431 0.484 0.538 0.592" // proportional to horizontal distance
-			"jump_height"			"257" //"228 257 285 314" // proportional to horizontal distance
-			"jump_horizontal_distance"	"425" //"400 450 500 550"
-			"pre_land_anim_time"	"0.14"
-			"landing_gesture_duration"	"0.6"
-			"impact_radius"			"300"
-			"impact_damage"			"1200 2000 4000 8000 16000 32000 64000"
-			"impact_stun_duration"	
-			{
-				"value"								"1.7"
-				"special_bonus_unique_snapfire_3"	"+0.3"
-
-			}
-			"self_cast_delay"		"0.3"
-			"target_heal"			
-			{
-				"value"								"1200 2000 4000 8000 16000 32000 64000"
-				"special_bonus_unique_snapfire_5"	"+100%"
-			}
-			"shard_damage_multiplier_tooltip"		"50"
 			"AbilityCooldown"						
 			{ 
 				"value"								"15"
 				"special_bonus_unique_snapfire_cookie_cooldown"		"-4"
 			}
+			"projectile_speed"					"1000"
+			"pre_hop_duration"					"0.0"
+			"jump_duration"			
+			{
+				"value"							"0.484" //"0.431 0.484 0.538 0.592" // proportional to horizontal distance
+				"special_bonus_shard"			"+0.2"
+			}
+			"jump_height"			
+			{
+				"value"							"257" //"228 257 285 314" // proportional to horizontal distance
+				"special_bonus_shard"			"+105"
+			}
+			"jump_horizontal_distance"	
+			{
+				"value"							"425" //"400 450 500 550"
+				"special_bonus_shard"			"+175"
+			}
+			"pre_land_anim_time"				"0.14"
+			"landing_gesture_duration"			"0.6"
+			"impact_radius"			
+			{
+				"value"	"300"
+				"affected_by_aoe_increase"		"1"	
+			}
+			"impact_damage"			
+			{
+				"value"							"700 1400 2100 2800 3500 4200 4900"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"impact_stun_duration"	
+			{
+				"value"								"1.7"
+				"special_bonus_unique_snapfire_3"	"+0.3"
+			}
+			"self_cast_delay"		"0.3"
+			"target_heal"			
+			{
+				"value"								"350 700 1050 1400 1750 2100 2450"
+				"special_bonus_unique_snapfire_5"	"+100%"
+			}
+			"shard_damage_multiplier_tooltip"		"50"
 		}
 	}
 
@@ -344,12 +388,13 @@
 		{
 			"damage"			
 			{
-				"value"								"375 800 1380 2125 4375 8905 18015"
-				"special_bonus_unique_snapfire_lil_shredder_damage"	"+100%"
+				"value"												"300 550 800 1050 1300 1550 1800"
+				"special_bonus_unique_snapfire_lil_shredder_damage"	"+50%"
+				"CalculateAttackDamageTooltip"						"1"
 			}
 			"buffed_attacks"			
 			{
-				"value"								"12"
+				"value"												"12"
 				"special_bonus_unique_snapfire_2"	"+6"
 			}
 			"attack_speed_bonus"					"300 360 420 480 540 600 660"

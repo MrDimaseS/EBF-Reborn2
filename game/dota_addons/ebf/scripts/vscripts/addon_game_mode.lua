@@ -543,26 +543,6 @@ function CHoldoutGameMode:FilterAbilityValues( filterTable )
 		self.preventLoopGarbage = false
 		filterTable.value = realValue / ( 1+caster:GetSpellAmplification( false ) ) - (realValue-value)
 	end
-	-- aoe bonus until valve fixes their shit
-	if not ability then return true end
-	if filterTable.value == 0 then return true end
-	local abilityValues = ability:GetAbilityKeyValues().AbilityValues
-	if abilityValues
-	and type(abilityValues[filterTable.value_name_const]) == "table" 
-	and toboolean(abilityValues[filterTable.value_name_const].affected_by_aoe_increase) then
-		local aoe_bonus_positive = 0
-		local aoe_bonus_negative = 0
-		for _, modifier in ipairs( caster:FindAllModifiers() ) do
-			if modifier.GetModifierAoEBonusConstant and modifier:GetModifierAoEBonusConstant() then
-				if modifier:GetModifierAoEBonusConstant() > 0 then
-					aoe_bonus_positive = math.max( aoe_bonus_positive, modifier:GetModifierAoEBonusConstant() )
-				else
-					aoe_bonus_negative = math.min( aoe_bonus_negative, modifier:GetModifierAoEBonusConstant() )
-				end
-			end
-		end
-		filterTable.value = filterTable.value + aoe_bonus_positive + aoe_bonus_negative
-	end
 	return true
 end
 
@@ -751,8 +731,19 @@ function CHoldoutGameMode:OnHeroLevelUp(event)
 	local unit = EntIndexToHScript(event.hero_entindex)
 	local hero = PlayerResource:GetSelectedHeroEntity(playerID)
 	if hero == unit then
-		if hero:GetLevel() >= 27 and not (hero:GetLevel() == 30) then
+		if hero:GetLevel() == 17 
+		or hero:GetLevel() == 19 
+		or hero:GetLevel() == 21
+		or hero:GetLevel() == 22
+		or hero:GetLevel() == 23
+		or hero:GetLevel() == 24
+		then
 			hero:SetAbilityPoints( hero:GetAbilityPoints() + 1)
+		end
+		for _, modifier in ipairs( hero:FindAllModifiers() ) do
+			if modifier:GetDuration() < 0 then
+				modifier:ForceRefresh()
+			end
 		end
 	end
 end

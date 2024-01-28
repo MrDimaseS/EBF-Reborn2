@@ -38,39 +38,42 @@
 		{
 			"channel_time"
 			{
-				"value"								"2.5"
-				"special_bonus_unique_oracle_7"		"-2.5"
+				"value"												"2.5"
+				"special_bonus_unique_oracle_7"						"-2.5"
 			}
 			"damage"
 			{
-				"value"													"1415 2190 3085 4810 9010 17255 37610"
-				"special_bonus_unique_oracle_fortunes_end_damage"		"+75%"
+				"value"												"1000 1600 2200 2800 3400 4000 4600"
+				"special_bonus_unique_oracle_fortunes_end_damage"	"+50%"
+				"CalculateSpellDamageTooltip"						"1"
 			}
-			"bolt_speed"				"1200"
+			"bolt_speed"											"1200"
 			"minimum_purge_duration"
 			{
-				"value"								"0.75"
-				"special_bonus_unique_oracle_2"		"+0.5"
+				"value"												"0.75"
+				"special_bonus_unique_oracle_2"						"+0.5"
 			}
 			"maximum_purge_duration"
 			{
-				"value"								"2.75"
-				"special_bonus_unique_oracle_2"		"+0.5"
+				"value"												"2.75"
+				"special_bonus_unique_oracle_2"						"+0.5"
 			}
 			"radius"								
 			{
-				"value"		"350"
-				"affected_by_aoe_increase"	"1"		
+				"value"												"350"
+				"affected_by_aoe_increase"							"1"		
 			}
 			"damage_per_buff"				
 			{
-				"value"					"0"
-				"special_bonus_unique_oracle_damage_per_purge"			"+4000"
+				"value"												"0"
+				"special_bonus_unique_oracle_damage_per_purge"		"+600"
+				"CalculateSpellDamageTooltip"						"1"
 			}	
 			"heal_per_debuff"
 			{
-				"value"					"0"
-				"special_bonus_unique_oracle_damage_per_purge"			"+4000"
+				"value"												"0"
+				"special_bonus_unique_oracle_damage_per_purge"		"+600"
+				"CalculateSpellHealTooltip"							"1"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -101,7 +104,7 @@
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"17 14 11 8 6.6 5.2 3.8"
+		"AbilityCooldown"				"20 18.5 17 15.5 14 12.5 11"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -109,18 +112,10 @@
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"duration"				"5.0"
-			}
-			"02"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"magic_damage_resistance_pct_tooltip"				"100"
-			}
+			"duration"								"5.0"
+			"magic_damage_resistance_pct_tooltip"	"100"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -161,9 +156,21 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"damage"				"1690 3375 5625 8450 16875 33750 67500"
-			"heal_per_second"		"122 244 550 1161 2444 5500 12222"
-			"total_heal_tooltip"	"1100 2200 4950 10450 22000 49500 110000"
+			"damage"
+			{
+				"value"												"900 1800 2700 3600 4500 5300 6200"
+				"CalculateSpellDamageTooltip"						"1"
+			}
+			"heal_per_second"
+			{
+				"value"												"150 250 350 450 550 650 750"
+				"CalculateSpellHealTooltip"							"1"
+			}
+			"total_heal_tooltip"
+			{
+				"value"												"1350 2250 3150 4050 4950 5850 6750"
+				"CalculateSpellHealTooltip"							"1"
+			}
 			"duration"				"9.0"
 			"tick_rate"				"1.0"
 		}
@@ -277,15 +284,15 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-				"radius"				"650"
-				"duration"				"10"
-				"damage"				
-				{
-					"value"					"1200 2786 7000 16364 17231 18133"
-					"CalculateSpellDamageTooltip"	"1"
-				}
-				"tick_rate"				"1.0"
-				"heal_amp"				"25"
+			"radius"							"650"
+			"duration"							"10"
+			"damage"				
+			{
+				"value"							"400"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"tick_rate"							"1.0"
+			"heal_amp"							"25"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_4"
 	}

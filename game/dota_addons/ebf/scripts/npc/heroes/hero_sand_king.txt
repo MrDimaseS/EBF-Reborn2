@@ -27,32 +27,33 @@
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"110 140 170 200 230 260 290"
-		"AbilityDamage"					"1875 3375 5210 7400 13775 26275 50925"
+		"AbilityDamage"					"800 1400 2000 2600 3200 3800 4400"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"burrow_width"		"150"
+			"AbilityDamage"											"800 1400 2000 2600 3200 3800 4400"
+			"burrow_width"											"150"
 			"burrow_duration"	
 			{
 				"value"												"1.8"
 				"special_bonus_unique_sand_king_burrowstrike_stun"	"+0.4"
 			}
-			"burrow_speed"		"2000"
-			"burrow_anim_time"	"0.52"
+			"burrow_speed"											"2000"
+			"burrow_anim_time"										"0.52"
 			"AbilityCastRange"
 			{
-				"value"						"500 550 600 650 700 750 800"
-				//"special_bonus_scepter"			"=1300"
+				"value"												"500 550 600 650 700 750 800"
+				//"special_bonus_scepter"							"=1300"
 			}
 			"burrow_speed_scepter"
 			{
-				"value"		"3000"
-				"RequiresScepter"			"1"
+				"value"												"3000"
+				"RequiresScepter"									"1"
 			}
-			"scepter_channel_time"			"2"
-			"scepter_max_power"				"2"
+			"scepter_channel_time"									"2"
+			"scepter_max_power"										"2"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -94,13 +95,14 @@
 			"damage_tick_rate"						"0.2"
 			"sand_storm_radius"
 			{
-				"value"								"425 475 500 525 575 650 700"
+				"value"								"425 500 575 650 725 800 875"
 				"affected_by_aoe_increase"			"1"
 			}
 			"sand_storm_damage"
 			{
-				"value"								"280 400 560 1020 2000 3925 7775"
-				"special_bonus_unique_sand_king_2"	"+50%"
+				"value"								"250 450 650 850 1050 1250 1450"
+				"special_bonus_unique_sand_king_2"	"+25%"
+				"CalculateSpellDamageTooltip"		"1"
 			}
 			"fade_delay"							"0.7"
 			"scepter_explosion_radius_pct"
@@ -146,19 +148,20 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"caustic_finale_radius"		"500"
+			"caustic_finale_radius"					"500"
 			"caustic_finale_damage_base"
 			{
-				"value"					"785 1030 1300 2000 3390 6015 11060"
+				"value"								"500 700 900 1100 1300 1500 1700"
 				"special_bonus_unique_sand_king_8"	"+50%"
+				"CalculateSpellDamageTooltip"		"1"
 			}
-			"caustic_finale_damage_pct"		"10 12 14 16 18 20 22"
-			"caustic_finale_duration"	"5"
+			"caustic_finale_damage_pct"				"10 12 14 16 18 20 22"
+			"caustic_finale_duration"				"5"
 			"caustic_finale_slow"
 			{
-				"value"					"-10 -12 -15 -17 -20 -22 -25"
-				"LinkedSpecialBonus"	"special_bonus_unique_sand_king_6"
-				"LinkedSpecialBonusOperation"	"SPECIAL_BONUS_SUBTRACT"
+				"value"								"-14 -18 -22 -26 -30 -34 -38"
+				"LinkedSpecialBonus"				"special_bonus_unique_sand_king_6"
+				"LinkedSpecialBonusOperation"		"SPECIAL_BONUS_SUBTRACT"
 			}				
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
@@ -205,26 +208,26 @@
 		{
 			"epicenter_pulses"	
 			{
-				"value"								"6 7 8 9 10 11"
+				"value"								"6 8 10 12 14 16"
 				"special_bonus_unique_sand_king"	"+5"
 			}
 			"epicenter_damage"	
 			{
-				"value"							"2385 4650 8985 15525 18025 21525"
-				"special_bonus_shard"			"+25%"
-				"CalculateSpellDamageTooltip"	"1"
+				"value"								"1100 1200 1300 1400 1500 1600"
+				"special_bonus_shard"				"+25%"
+				"CalculateSpellDamageTooltip"		"1"
 			}
 			"epicenter_radius_base"
 			{
 				"value"								"500"
 				"special_bonus_unique_sand_king_5"	"+100"
-				"affected_by_aoe_increase"	"1"
+				"affected_by_aoe_increase"			"1"
 			}
 			"epicenter_radius_increment"
 			{
-				"value"		"25"
+				"value"								"25"
 				"special_bonus_unique_sand_king_5"	"+25"
-				"affected_by_aoe_increase"	"1"
+				"affected_by_aoe_increase"			"1"
 			}
 			"epicenter_slow"	
 			{

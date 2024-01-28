@@ -36,20 +36,24 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"AbilityCooldown"			"11"
-			"radius"					"370"
-			"tick_interval"				"0.3"
-			"total_duration"			"1.4"
-			"tick_count"				"5"
-			"stun_duration"				"0.3"
-			"projectile_speed"			"1200"
+			"AbilityCooldown"					"14"
+			"radius"
+			{
+				"value"							"325 340 355 370 385 400 415"
+				"affected_by_aoe_increase"		"1"
+			}
+			"tick_interval"						"0.3"
+			"total_duration"					"1.4"
+			"tick_count"						"5"
+			"stun_duration"						"0.3"
+			"projectile_speed"					"1200"
 			"avalanche_damage"			
 			{
-				"value"					"1200 2000 3750 7000 13500 25000 45000"
-				"special_bonus_unique_tiny"	"+75%"
+				"value"							"800 1600 2400 3200 4000 4800 5600"
+				"special_bonus_unique_tiny"		"+25%"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"toss_multiplier"			"2"
+			"toss_multiplier"					"2"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -99,20 +103,20 @@
 			"radius"							"275"
 			"toss_damage"	
 			{
-				"value"							"820 1875 3215 5770 12100 25000 38415"
+				"value"							"800 1600 2400 3200 4000 4800 5600"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"AbilityCharges"		
 			{
-				"value"												"1"
-				"special_bonus_unique_tiny_2"						"+1"
+				"value"							"1"
+				"special_bonus_unique_tiny_2"	"+1"
 			}
 			"AbilityCooldown"				
 			{
-				"value"												"14 13 12 11 10.2 9.4 8.6"
-				"special_bonus_unique_tiny_2"						"=0"
+				"value"							"11"
+				"special_bonus_unique_tiny_2"	"=0"
 			}
-			"AbilityChargeRestoreTime"								"14 13 12 11 10.2 9.4 8.6"
+			"AbilityChargeRestoreTime"			"11"
 			"throw_tiny"		
 			{
 				"value"							""
@@ -218,12 +222,13 @@
 			}
 			"bonus_damage"	
 			{
-				"value"							"135 175 240 335 575 875 1125"
+				"value"							"200 250 300 350 400 450 500"
 				"CalculateSpellDamageTooltip"	"0"
+				"CalculateAttackDamageTooltip"	"1"
 			}
 			"bonus_damage_buildings"	
 			{
-				"value"							"40 55 70 85"
+				"value"							"40"
 				"CalculateSpellDamageTooltip"	"0"
 				"DamageTypeTooltip"				"DAMAGE_TYPE_NONE"
 			}
@@ -268,8 +273,9 @@
 			"range"						"1200"
 			"bonus_damage"				
 			{
-				"value"					"135 175 240 335 575 875 1125"
+				"value"							"200"
 				"CalculateSpellDamageTooltip"	"0"
+				"CalculateAttackDamageTooltip"	"1"
 			}
 			"splash_radius"				"275"
 			"movement_slow"				"25"
@@ -311,39 +317,21 @@
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"speed"		"1000.0"
+			"range"		"1200"
+			"splash_radius"				
 			{
-				"var_type"			"FIELD_INTEGER"
-				"speed"		"1000.0"
+				"value"		"400"
+				"affected_by_aoe_increase"	"1"
 			}
-			"02"
+			"tree_grab_radius"		
 			{
-				"var_type"			"FIELD_INTEGER"
-				"range"		"1200"
+				"value"		"700"
+				"affected_by_aoe_increase"	"1"
 			}
-			"03"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"splash_radius"				"400"
-			}
-			"04"
-			{
-				"var_type"			"FIELD_INTEGER"
-				"tree_grab_radius"		"700"
-			}
-			"05"
-			{
-				"var_type"			"FIELD_FLOAT"
-				"interval"		"0.4"
-			}
-			"06"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"bonus_damage"				"0"
-				"CalculateSpellDamageTooltip"	"0"
-			}
+			"interval"		"0.5"
 		}
 	}
 
@@ -373,8 +361,9 @@
 			"bonus_armor"						"10 17 24 31 38 45"
 			"bonus_damage"			
 			{
-				"value"							"1500 5500 15500 35000 40000 45000"
+				"value"							"500 1100 1700 2300 2900 3500"
 				"CalculateSpellDamageTooltip"	"0"
+				"CalculateAttackDamageTooltip"	"1"
 			}
 			"tree_bonus_damage_pct"			
 			{

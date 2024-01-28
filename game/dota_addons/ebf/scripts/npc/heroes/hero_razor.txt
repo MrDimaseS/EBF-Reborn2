@@ -37,12 +37,12 @@
 		{
 			"damage_min"
 			{
-				"value"							"390 500 610 880 1390 2315 4050"
+				"value"							"350 400 450 500 550 600 650"
 				"special_bonus_unique_razor_4"	"+50%"								
 			}
 			"damage_max"
 			{
-				"value"							"895 1210 1575 1575 4610 8550 16250"
+				"value"							"800 1150 1500 1850 2200 2550 2900"
 				"special_bonus_unique_razor_4"	"+50%"														
 			}
 			"radius"							"700"
@@ -52,8 +52,13 @@
 			"slow_duration"						"1.5"
 			"second_ring_delay"
 			{
-				"value"						"0"
+				"value"							"0"
 				"special_bonus_unique_razor_plasmafield_second_ring"				"+0.8"
+			}
+			"second_ring_reduction"
+			{
+				"value"							"0"
+				"special_bonus_unique_razor_plasmafield_second_ring"				"+30"
 			}
 		}
 	}
@@ -100,18 +105,19 @@
 			"drain_duration"					"18"
 			"drain_rate"
 			{
-				"value"							"50 100 150 200 250 300"
-				"special_bonus_unique_razor"	"+100%"
+				"value"							"50 100 150 200 250 300 350"
+				"special_bonus_unique_razor"	"+50"
+				"CalculateAttackDamageTooltip"	"1"
 			}
-			"drain_range_buffer"				"300"
-			"radius"							"200 200 200 200"
-			"speed"								"900 900 900 900"
-			"vision_radius"						"800 800 800 800"
-			"vision_duration"					"3.34 3.34 3.34 3.34"
+			"drain_range_buffer"								"300"
+			"radius"											"200 200 200 200"
+			"speed"												"900 900 900 900"
+			"vision_radius"										"800 800 800 800"
+			"vision_duration"									"3.34 3.34 3.34 3.34"
 			"attack_speed_factor"
 			{
-				"value"							"0"
-				"special_bonus_unique_razor_static_link_aspd"				"+0.02"
+				"value"											"0"
+				"special_bonus_unique_razor_static_link_aspd"	"+0.02"
 			}
 			"pull_speed"			
 			{
@@ -157,10 +163,10 @@
 			"strike_target_count"	"3"
 			"strike_damage"			
 			{
-				"value"														"3280 4925 6380 7750 11030 16500 25875"
+				"value"														"400 800 1200 1600 2000 2400 2800"
+				"special_bonus_unique_razor_storm_surge_damage_and_slow"	"+25%"
 				"DamageTypeTooltip"											"DAMAGE_TYPE_MAGICAL"
 				"CalculateSpellDamageTooltip"								"1"
-				"special_bonus_unique_razor_storm_surge_damage_and_slow"	"+25%"
 			}
 			"strike_move_slow_pct"
 			{
@@ -221,13 +227,17 @@
 				"affected_by_aoe_increase"	"1"
 			}
 			"duration"			"30.0"		
-			"strike_interval"		
+			"strike_interval"
 			{
 				"value"					"0.7 0.6 0.5 0.45 0.4 0.36"	
 				"LinkedSpecialBonus"	"special_bonus_unique_razor_2"
 			}
 			"armor_reduction"	"1 1 1"		
-			"damage"			"2000 5333 12850 20550 22550 24550"	
+			"damage"
+			{
+				"value"							"600 750 900 1050 1200 1350"	
+				"CalculateSpellDamageTooltip"	"1"
+			}
 		}
 	}
 	//=================================================================================================================

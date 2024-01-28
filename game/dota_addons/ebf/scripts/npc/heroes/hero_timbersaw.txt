@@ -34,7 +34,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"damage_per_second"			"1280 2290 5350 6550 7050 7550"
+			"damage_per_second"
+			{
+				"value"							"800"
+				"CalculateSpellDamageTooltip"	"1"
+			}
 			"duration"					"8"
 			"width"						"275"
 			"length"					"400"
@@ -81,8 +85,16 @@
 		"AbilityValues"
 		{
 			"whirling_radius"						"325"
-			"whirling_damage"						"850 980 1110 1850 3350 5050 7365"
-			"tree_damage_scale"						"125 165 205 370 725 1190 1880"
+			"whirling_damage"
+			{
+				"value"								"850 1300 1750 2200 2650 31000 3550"
+				"CalculateSpellDamageTooltip"		"1"
+			}
+			"tree_damage_scale"
+			{
+				"value"								"110 180 250 320 390 460 530"
+				"CalculateSpellDamageTooltip"		"1"
+			}
 			"whirling_tick"							"0.3"
 			"stat_loss_pct"
 			{
@@ -134,7 +146,11 @@
 			}
 			"radius"					"225"
 			"speed"						"2200 2400 2600 2800 3000 3200 3400"
-			"damage"					"1235 2185 2775 5080 10000 19800 39300"
+			"damage"
+			{
+				"value"								"600 1100 1600 2100 2600 3100 3600"
+				"CalculateSpellDamageTooltip"		"1"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -159,9 +175,9 @@
 			"bonus_armor"						"0.6 0.7 0.8 1.0 1.2 1.4"
 			"bonus_hp_regen"					
 			{
-				"value"																	"3 5 10 15 20 35 50"
-				"special_bonus_unique_timbersaw_reactive_armor_regen_per_stack"			"+25%"
-
+				"value"																"0.3 0.4 0.5 0.6 0.7 0.8 0.9"
+				"CalculateSpellHealTooltip"											"1"
+				"special_bonus_unique_timbersaw_reactive_armor_regen_per_stack"		"+25%"
 			}			
 			"stack_limit"
 			{
@@ -186,22 +202,26 @@
 			}
 			"initial_shield"
 			{
-				"value"  						"500 1000 2500 5000 7500 15000 30000"
+				"value"  						"2000"
+				"CalculateSpellHealTooltip"		"1"
 				"RequiresScepter"				"1"
 			}
 			"shield_per_sec"
 			{
-				"value"  						"100 250 500 1000 2500 5000 7500"
+				"value"  						"1000"
+				"CalculateSpellHealTooltip"		"1"
 				"RequiresScepter"				"1"
 			}
 			"shield_per_sec_per_enemy"
 			{
-				"value"  						"50 125 250 500 1250 2500 3750"
+				"value"  						"750"
+				"CalculateSpellHealTooltip"		"1"
 				"RequiresScepter"				"1"
 			}
 			"max_shield"
 			{
-				"value"							"1500 2500 5000 10000 25000 50000 75000"
+				"value"							"8000"
+				"CalculateSpellHealTooltip"		"1"
 				"RequiresScepter"				"1"
 			}
 			"duration"
@@ -221,7 +241,8 @@
 			}
 			"base_explosion"
 			{
-				"value"							"2000 3250 5000 7500 9000 12000 15000"
+				"value"							"2000"
+				"CalculateSpellDamageTooltip"	"1"
 				"RequiresScepter"				"1"
 			}
 		}
@@ -271,8 +292,16 @@
 		{
 			"speed"					"900.0"
 			"radius"				"200"
-			"pass_damage"			"1850 4755 13000 16150 16950 17750"
-			"damage_per_second"		"835 2250 6375 8000 8375 8750"
+			"pass_damage"
+			{
+				"value"								"1100 1550 2000 2450 2900 3350"
+				"CalculateSpellDamageTooltip"		"1"
+			}
+			"damage_per_second"
+			{
+				"value"								"500 750 1000 1250 1500 1750"
+				"CalculateSpellDamageTooltip"		"1"
+			}
 			"slow"
 			{
 				"value"				"5"
@@ -341,13 +370,15 @@
 			}
 			"pass_damage"
 			{
-				"value"				"1850 4755 13000 16150 16950 17750"
-				"RequiresScepter"	"1"
+				"value"								"1100 1550 2000 2450 2900 3350"
+				"CalculateSpellDamageTooltip"		"1"
+					"RequiresScepter"				"1"
 			}
-			"damage_per_second"		
+			"damage_per_second"
 			{
-				"value"				"835 2250 6375 8000 8375 8750"
-				"RequiresScepter"	"1"
+				"value"								"500 750 1000 1250 1500 1750"
+				"CalculateSpellDamageTooltip"		"1"
+				"RequiresScepter"					"1"
 			}
 			"slow"					
 			{

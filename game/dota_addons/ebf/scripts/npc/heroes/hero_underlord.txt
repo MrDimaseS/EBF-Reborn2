@@ -30,8 +30,8 @@
 		{
 			"AbilityCooldown"
 			{
-				"value"								"12"
-				"special_bonus_unique_underlord_5"	"-2"
+				"value"								"13"
+				"special_bonus_unique_underlord_5"	"-3"
 			}
 			"radius"					
 			{
@@ -44,9 +44,9 @@
 				"special_bonus_unique_underlord_7"	"+2"
 			}
 			"wave_count"							"6"
-			"wave_damage"								
+			"wave_damage"
 			{
-				"value"								"335 500 645 1230 2150 3500 5500"
+				"value"								"300 500 700 900 1100 1300 1500"
 				"CalculateSpellDamageTooltip"		"1"
 			}
 			"wave_interval"							"1.0"
@@ -116,7 +116,11 @@
 
 			"pit_duration"							"12.0"
 			"pit_interval"							"3.6"
-			"pit_damage"							"150 250 450 850 1450 2800 5250"
+			"pit_damage"
+			{
+				"value"								"200 300 400 500 600 700 800"
+				"CalculateSpellDamageTooltip"		"1"
+			}
 			"ensnare_duration"
 			{
 				"value"								"1.8"
@@ -157,17 +161,19 @@
 			}
 			"bonus_damage_from_creep"
 			{
-				"value"								"40 60 80 120 175 250 360"
+				"value"								"20 40 60 80 100 120 140"
 				"CalculateSpellDamageTooltip"		"0"
+				"CalculateAttackDamageTooltip"		"1"
 			}
 			"bonus_damage_from_hero"
 			{
-				"value"								"600 900 1350 2025 3040 4560 6835"
+				"value"								"300 350 400 450 500 550 600"
 				"CalculateSpellDamageTooltip"		"0"
+				"CalculateAttackDamageTooltip"		"1"
 			}
 			"bonus_damage_duration"
 			{
-				"value"								"75"
+				"value"								"65"
 				"CalculateSpellDamageTooltip"		"0"
 				"DamageTypeTooltip"					"DAMAGE_TYPE_NONE"
 			}
@@ -186,7 +192,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-																
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
@@ -212,12 +217,12 @@
 			
 		"AbilityValues"
 		{
-
 			"radius"						"600"
-			"teleport_delay"				"6.0 5.0 4.0"
+			"teleport_delay"				"6.0 5.0 4.0 3.0 2.0 1.0"
 			"scepter_health_bonus" 
 			{
-				"special_bonus_scepter"	"+1000 +1500 +2000"
+				"special_bonus_scepter"		"+1000 +1500 +2000 +2500 +3000 +3500"
+				"CalculateAttributeTooltip"	"1"
 			}			
 		}
 	}
@@ -274,15 +279,17 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-				"duration"				"20.0"
-				"damage_reduction"		"14 22 30 38 46 54"
-				"bonus_ms"				"10 20 30 40 50 60"
-				"buff_duration"			"7.0"
-				"minimum_distance"		"2000"
-				"spawn_pit_on_cast"
-				{
-					"special_bonus_scepter"	"+1"
-				}
+			"duration"				"20.0"
+			"damage_reduction"		"14 22 30 38 46 54"
+			"bonus_ms"				"10 20 30 40 50 60"
+			"buff_duration"			"7.0"
+			"minimum_distance"		"2000"
+			"spawn_pit_on_cast"
+			{
+				"special_bonus_scepter"	"+1"
+			}
+			"warp_channel_duration"			"3.5"
+			"distance_from_fountain"		"1425"
 		}
 	}
 
@@ -307,7 +314,6 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-
 			"animation_rate"		"0.8"
 			"stop_distance"			"100"
 		}

@@ -36,12 +36,17 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"strike_damage"			
+			"strike_damage"
 			{
-				"value"									"565 1125 1875 2815 5625 11250 22500"
+				"value"									"300 600 900 1200 1500 1800 2100"
 				"special_bonus_scepter"					"+100%"
+				"CalculateSpellDamageTooltip"			"1"
 			}
-			"duration_damage"							"375 750 1250 1875 3750 7500 15000"
+			"duration_damage"
+			{
+				"value"									"200 400 600 800 1000 1200 1400"
+				"CalculateSpellDamageTooltip"			"1"
+			}
 			"movement_slow"								"-20 -35 -50 -65 -80 -95 -110"
 			"projectile_speed"							"900"
 			"damage_interval"		
@@ -49,10 +54,10 @@
 				"value"									"3.0"
 				"special_bonus_unique_queen_of_pain_4"	"-0.7"
 			}
-			"duration_heal"
+			"duration_damage"
 			{
-				"value"												"356 675 1065 1500 2815 5250 9750"
-				"special_bonus_unique_queen_of_pain_strike_heal"	"+25%"
+				"value"									"100 200 300 400 500 600 700"
+				"CalculateSpellHealTooltip"				"1"
 			}
 			"generate_scream"
 			{
@@ -101,21 +106,22 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"min_blink_range"				"200"
+			"min_blink_range"					"200"
 			"shard_damage"			
 			{
-				"RequiresShard"				"1"
-				"value"						"1400 1750 2050 2725 3875 5810 9125"
+				"RequiresShard"					"1"
+				"value"							"1250"
+				"CalculateSpellDamageTooltip"	"1"
 			}
 			"shard_duration"
 			{
-				"RequiresShard"				"1"
-				"value"						"1.75"
+				"RequiresShard"					"1"
+				"value"							"1.75"
 			}	
 			"shard_aoe"
 			{
-				"RequiresShard"				"1"
-				"value"						"300"
+				"RequiresShard"					"1"
+				"value"							"300"
 			}									
 		}
 	}
@@ -156,8 +162,9 @@
 			"projectile_speed"									"900"
 			"damage"										
 			{
-				"value"											"840 1250 1800 3425 6890 13850 27800"
+				"value"											"750 1500 2250 3000 3750 4500 5250"
 				"special_bonus_unique_queen_of_pain_2" 			"+50%"
+				"CalculateSpellDamageTooltip"					"1"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
@@ -195,21 +202,22 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"starting_aoe"		"100"
-			"distance"			"900"
-			"final_aoe"			"450"
-			"speed"				"900"
+			"starting_aoe"									"100"
+			"distance"										"900"
+			"final_aoe"										"450"
+			"speed"											"900"
 			"damage"			
 			{
-				"value"											"6380 13355 28200 51550 58200 63450"
-				"special_bonus_unique_queen_of_pain_7"			"+50%"
+				"value"										"3500 5000 6500 8000 9500 11000"
+				"special_bonus_unique_queen_of_pain_7"		"+50%"
+				"CalculateSpellDamageTooltip"				"1"
 			}
-			"knockback_distance"	"350"
-			"knockback_duration" "1.4"
+			"knockback_distance"							"350"
+			"knockback_duration" 							"1.4"
 			"AbilityCooldown"
 			{	
-				"value"											"90"
-				"special_bonus_unique_queen_of_pain_3"			"-65"
+				"value"										"80"
+				"special_bonus_unique_queen_of_pain_3"		"-45"
 			}
 		}
 	}

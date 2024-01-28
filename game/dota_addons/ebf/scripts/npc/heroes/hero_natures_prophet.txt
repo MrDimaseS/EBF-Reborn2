@@ -34,7 +34,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"vision_range"						"250"
+			"vision_range"
+			{
+				"value"						"250"
+				"affected_by_aoe_increase"	"1"
+			}
 			"tree_radius"						"150"
 			"tree_count"						"8"
 			"duration"							"6"
@@ -48,9 +52,17 @@
 				"value"							"0"
 				"special_bonus_unique_furion_7"	"+2"
 			}
-			"sprout_damage"						"120 215 375 550 860 1485 2550"
+			"sprout_damage"
+			{
+				"value"							"140 200 260 320 380 440 500"
+				"CalculateSpellDamageTooltip"	"1"
+			}
 			"sprout_damage_inteval"				"0.5"
-			"sprout_damage_radius"				"275"
+			"sprout_damage_radius"
+			{
+				"value"						"275"
+				"affected_by_aoe_increase"	"1"
+			}
 
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -127,14 +139,18 @@
 
 		"AbilityValues"
 		{
-			"max_stacks"				
+			"max_stacks"
 			{
 				"value"														"6 8 10 12 14 16 18"
 				"special_bonus_unique_furion_teleportation_max_stacks"		"+4"
 			}
 			
 			"buff_duration"													"15"
-			"damage_per_stack"												"120 150 190 235 285 365 500"
+			"damage_per_stack"
+			{
+				"value"														"60"
+				"CalculateAttackDamageTooltip"								"1"
+			}
 			"armor_per_stack"												"1 1.25 1.5 1.75 2 2.25 2.5"	
 		}
 	}
@@ -169,7 +185,7 @@
 		"AbilityValues"
 		{
 			"duration"				"7"
-			"damage_per_tree"		"325 610 1110 1810 2060 2275"
+			"damage_per_tree"		"200"
 			"slow_per_tree"			"7"
 			"radius"				
 			{
@@ -220,13 +236,15 @@
 			"duration"								"60 60 60 60"
 			"treant_health_tooltip"
 			{	
-				"value"								"2750 6000 11000 25000 44000 95000 180000"
+				"value"								"550"
 				"special_bonus_unique_furion"		"x2.5"
+				"CalculateAttributeTooltip"			"1"
 			}
 			"treant_dmg_tooltip"	
 			{	
-				"value"								"180 320 500 1000 1750 3500 7000"
+				"value"								"130 210 280 350 420 490 560"
 				"special_bonus_unique_furion"		"x2.5"
+				"CalculateAttributeTooltip"			"1"
 				
 			}
 			"treant_large_bonus"					"50"
@@ -234,18 +252,21 @@
 			"treant_duration"						"60"
 			"treant_health"
 			{
-				"value"								"2750 6000 11000 25000 44000 95000 180000"
+				"value"								"550"
 				"special_bonus_unique_furion"		"x2.5"
+				"CalculateAttributeTooltip"			"1"
 			}
 			"treant_damage_min"
 			{
-				"value"								"180 320 500 1000 1750 3500 7000"
+				"value"								"110 190 270 350 430 510 590"
 				"special_bonus_unique_furion"		"x2.5"
+				"CalculateAttributeTooltip"			"1"
 			}
 			"treant_damage_max"
 			{
-				"value"								"180 320 500 1000 1750 3500 7000"
+				"value"								"150 230 310 390 470 550 630"
 				"special_bonus_unique_furion"		"x2.5"
+				"CalculateAttributeTooltip"			"1"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
@@ -291,8 +312,9 @@
 			"max_targets"						"10 12 14 16 18 20"
 			"damage"
 			{
-				"value"							"2275 5025 11200 21700 26100 30500"
-				"special_bonus_unique_furion_5"	"+50%"
+				"value"							"1200 1550 1900 2250 2600 2950"
+				"special_bonus_unique_furion_5"	"+25%"
+				"CalculateSpellDamageTooltip"	"1"
 			}
 			"damage_percent_add"
 			{
@@ -301,7 +323,11 @@
 				"DamageTypeTooltip"				"DAMAGE_TYPE_NONE"
 			}
 			"jump_delay"						"0.25"
-			"kill_damage"						"60 115 200 255 275 295"
+			"kill_damage"
+			{
+				"value"							"60 120 180 240 300 360"
+				"CalculateAttackDamageTooltip"	"1"
+			}
 			"kill_damage_duration"
 			{
 				"value"							"60"

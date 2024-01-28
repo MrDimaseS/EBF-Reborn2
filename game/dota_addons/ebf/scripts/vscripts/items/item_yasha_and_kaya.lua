@@ -61,6 +61,7 @@ function modifier_item_yasha_and_kaya_2_passive:OnRefresh()
 	self.bonus_damage = self:GetSpecialValueFor("bonus_damage")
 	self.spell_amp = self:GetSpecialValueFor("spell_amp")
 	self.spell_lifesteal_amp = self:GetSpecialValueFor("spell_lifesteal_amp")
+	self.mana_regen_multiplier = self:GetSpecialValueFor("mana_regen_multiplier")
 	
 	self.lifesteal_percent = self:GetSpecialValueFor("lifesteal_percent") / 100
 	self.berserk_mana_steal = self:GetSpecialValueFor("berserk_mana_steal") / 100
@@ -114,7 +115,7 @@ function modifier_item_yasha_and_kaya_2_passive:DeclareFunctions()
 			MODIFIER_PROPERTY_CAST_RANGE_BONUS_STACKING,
 			MODIFIER_PROPERTY_ATTACK_RANGE_BONUS,
 			MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
-			MODIFIER_PROPERTY_MANA_REGEN_CONSTANT,
+			MODIFIER_PROPERTY_MP_REGEN_AMPLIFY_PERCENTAGE,
 			MODIFIER_EVENT_ON_TAKEDAMAGE,
 			MODIFIER_EVENT_ON_ATTACK_RECORD,
 			MODIFIER_EVENT_ON_ATTACK_RECORD_DESTROY,
@@ -298,6 +299,11 @@ end
 function modifier_item_yasha_and_kaya_2_passive:GetModifierConstantManaRegen()
 	return self.bonus_mana_regen
 end
+
+function modifier_item_yasha_and_kaya_2_passive:GetModifierMPRegenAmplify_Percentage()
+	return self.mana_regen_multiplier
+end
+
 
 function modifier_item_yasha_and_kaya_2_passive:IsHidden()
 	return true

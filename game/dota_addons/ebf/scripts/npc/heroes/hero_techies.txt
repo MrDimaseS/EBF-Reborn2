@@ -37,8 +37,11 @@
 		{
 			"radius"								"500"
 			"proximity_threshold"					"1.0"
-			"damage"								"7000 22000 65000 190000 250000 358000"
-
+			"damage"					
+			{
+				"value"								"4000 5750 7500 9250 11000 12750"
+				"CalculateSpellDamageTooltip"		"1"
+			}
 			"building_damage_pct"					"30"
 			"activation_delay"			
 			{
@@ -52,7 +55,7 @@
 			}
 			"AbilityChargeRestoreTime"
 			{
-				"value"								"17 16 15 13 12 10"
+				"value"								"19 17 15 13.9 12.8 11.7"
 				"special_bonus_unique_techies_3"	"-3"
 			}
 			"outer_damage"							"50"
@@ -85,7 +88,7 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"25"
+		"AbilityCooldown"				"40 35 30 25 25 25 25"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -95,11 +98,16 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"radius"					"700"
+			"radius"				
+			{
+				"value"		"400"
+				"affected_by_aoe_increase"	"1"	
+			}
 			"damage"
 			{
-				"value"					"2250 3500 6750 13250 26750 58500 127000"
+				"value"							"2000 3000 4000 5000 6000 70000"
 				"special_bonus_unique_techies" "+75%"
+				"CalculateSpellDamageTooltip"	"1"
 			}
 			"stun_duration"				"1.4"
 			"AbilityCastPoint"			"1.0 1.0 1.0 1.0 0.75 0.5 0.25"
@@ -133,7 +141,7 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"12 10 8 6 5 4 3"
+		"AbilityCooldown"				"9"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -149,19 +157,24 @@
 		{
 			"duration"				"1.2"
 			"countdown"				"2"
-			"radius"				
+			"radius"
 			{
 				"value"			"250"
 				"special_bonus_unique_techies_2"	"+125"
 			}
-			"damage"	 			"900 2160 5180 12500 30000 71650 172000"
-			"slow"					"25 35 45 55 65 75 85"
-			"secondary_slow"		"15 25 35 45 55 65 75"
-			"secondary_slow_duration"		"3"
+			"damage"
+			{
+				"value"							"800 1600 2400 3200 4000 4800 5600"
+				"CalculateSpellDamageTooltip"	"+125"
+			}
+			"slow"								"25 35 45 55 65 75 85"
+			"secondary_slow"					"15 25 35 45 55 65 75"
+			"secondary_slow_duration"			"3"
 			"explosion_radius"		
 			{
-				"value"				"300"
+				"value"								"300"
 				"special_bonus_unique_techies_2"	"+125"
+				"affected_by_aoe_increase"			"1"	
 			}
 			"speed"					"500.0"
 			"acceleration"			"2000"
@@ -211,12 +224,17 @@
 			"duration"				"6"
 			"disarm_duration"		"3.3"
 			"bonus_ms"				"18 22 26 30 34 38 42"
-			"stun_radius"			"400"
+			"stun_radius"			
+			{
+				"value"		"400"
+				"affected_by_aoe_increase"	"1"	
+			}
 			"shard_damage"	
 			{
-				"value"					"900 1980 4350 9600 21100 46400 102000"
+				"value"					"3000"
 				"RequiresShard"			"1"
 				"DamageTypeTooltip"		"DAMAGE_TYPE_MAGICAL"
+				"CalculateSpellDamageTooltip"	"1"
 			}	
 		}
 	}

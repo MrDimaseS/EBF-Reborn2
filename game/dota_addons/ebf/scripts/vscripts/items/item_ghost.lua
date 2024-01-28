@@ -237,6 +237,13 @@ function modifier_item_ethereal_blade_passive:OnRefresh()
 	self.regen_amp = self:GetSpecialValueFor("regen_amp")
 	self.bonus_mana = self:GetSpecialValueFor("bonus_mana")
 	self.bonus_mana_regen = self:GetSpecialValueFor("bonus_mana_regen")
+	
+	self:GetCaster()._aoeModifiersList = self:GetCaster()._aoeModifiersList or {}
+	self:GetCaster()._aoeModifiersList[self] = true
+end
+
+function modifier_item_ethereal_blade_passive:OnDestroy()
+	self:GetCaster()._aoeModifiersList[self] = nil
 end
 
 function modifier_item_ethereal_blade_passive:DeclareFunctions()

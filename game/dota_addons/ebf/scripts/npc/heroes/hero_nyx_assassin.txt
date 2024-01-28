@@ -46,8 +46,9 @@
 			"speed"								"1600"
 			"impale_damage"		
 			{
-				"value"							"1415 2200 3085 4810 9010 17255 37610"
-				"special_bonus_unique_nyx_2"	"+75%"
+				"value"							"1000 1600 2200 2800 3400 4000 4600"
+				"special_bonus_unique_nyx_2"	"+50%"
+				"CalculateSpellDamageTooltip"	"1"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -96,8 +97,8 @@
 			"max_mana_burn"								"20"
 			"float_multiplier"		
 			{
-				"value"									"5 10 20 40 60 80 160"
-				"special_bonus_unique_nyx_5"			"+50%"
+				"value"									"2.3 3.2 4.1 5 5.9 6.8 7.7"
+				"special_bonus_unique_nyx_5"			"+100%"
 			}
 			"aoe"
 			{
@@ -151,7 +152,7 @@
 				"value"													"2.0"
 				"special_bonus_unique_nyx_6"							"+0.6"
 			}
-			"damage_reflect_pct"										"100"
+			"damage_reflect_pct"										"125"
 			"bonus_armor"												"7 10 13 16 19 22 25"
 			"burrow_radius"												"300"
 		}
@@ -199,8 +200,8 @@
 			"movement_speed"					"16 18 20 22 24 26"
 			"bonus_damage"					
 			{
-				"value"											"10000 30000 80000 135000 150000 165000" 
-				"special_bonus_unique_nyx_vendetta_damage"		"+75%"
+				"value"											"3000 4000 5000 6000 7000 8000" 
+				"special_bonus_unique_nyx_vendetta_damage"		"+50%"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"health_regen_rate_scepter"			"3"
@@ -261,7 +262,11 @@
 			"impale_bonus_cast_range"			"525"
 			"mana_burn_bonus_cast_range"		"450"
 			"impale_cooldown_reduction"			"50"
-			"carapace_radius"					"300"
+			"carapace_radius"			
+			{
+				"value"			"300"
+				"affected_by_aoe_increase"	"1"
+			}
 			"carapace_armor_multiplier"			"2"
 		}
 	}
@@ -293,57 +298,6 @@
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"0"
-	}
-	//=================================================================================================================
-	// Nyx Assassin: Jolt
-	//=================================================================================================================
-	"nyx_assassin_jolt"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
-		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
-		"FightRecapLevel"				"1"
-		"AbilitySound"					"Hero_NyxAssassin.ManaBurn.Target"
-
-		// Unit Targeting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"	
-		
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"800"
-		"AbilityCastPoint"				"0.4 0.4 0.4 0.4"
-		
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"13 10 7 4"
-
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"100"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			"float_multiplier"		
-			{
-				"value"		"3.5 4 4.5 5"
-				"special_bonus_unique_nyx_5"			"+50%"
-			}
-			"aoe"
-			{
-				"value"		"0"
-				"special_bonus_unique_nyx"		"+300"
-			}
-			"damage_echo_duration"		"15"
-			"damage_echo_pct"			"25"
-		}
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
-		"AbilityCastGestureSlot"		"DEFAULT"
 	}
 	//=================================================================================================================
 	// Ability: Special Bonus

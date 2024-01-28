@@ -11,6 +11,9 @@ end
 modifier_boss_axe_counter_helix_passive = class({})
 LinkLuaModifier( "modifier_boss_axe_counter_helix_passive", "bosses/boss_axes/boss_axe_counter_helix", LUA_MODIFIER_MOTION_NONE )
 
+function modifier_boss_axe_counter_helix_passive:OnCreated()
+end
+
 function modifier_boss_axe_counter_helix_passive:DeclareFunctions()
 	local funcs = {
 		MODIFIER_EVENT_ON_ATTACK_LANDED,
@@ -35,9 +38,9 @@ function modifier_boss_axe_counter_helix_passive:OnAttackLanded( params )
 		if not self:GetAbility():IsCooldownReady() then return end
 		if params.attacker:GetTeamNumber()==params.target:GetTeamNumber() then return end
 		if params.attacker:IsOther() or params.attacker:IsBuilding() then return end
-		if not IsEntitySafe(params.attacker:IsNull()) then return end
-		if not IsEntitySafe(params.target:IsNull()) then return end
-		if not Params.target:IsAlive() then return end
+		if not IsEntitySafe(params.attacker) then return end
+		if not IsEntitySafe(params.target) then return end
+		if not params.target:IsAlive() then return end
 		local caster = self:GetCaster()
 		
 		local stacks = TernaryOperator( self:GetSpecialValueFor("hero_trigger"), params.attacker:IsRealHero(), 1 )

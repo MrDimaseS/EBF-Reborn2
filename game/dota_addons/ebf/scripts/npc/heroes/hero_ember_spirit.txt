@@ -38,11 +38,15 @@
 				"value"							"3"
 				"LinkedSpecialBonus"			"special_bonus_unique_ember_spirit_2"
 			}			
-			"radius"							"400"
+			"radius"						
+			{
+				"value"			"400"
+				"affected_by_aoe_increase"	"1"
+			}
 			"damage_per_second"
 			{
-				"value"													"710 1250 2100 3800 6350 10500 19000"
-				"special_bonus_unique_ember_spirit_11"					"+100%"
+				"value"													"500 700 900 1100 1300 1500 1700"
+				"special_bonus_unique_ember_spirit_11"					"+50%"
 				"DamageTypeTooltip"										"DAMAGE_TYPE_MAGICAL"
 				"CalculateSpellDamageTooltip"							"1"
 			}
@@ -92,9 +96,10 @@
 			"radius"												"250 350 450 550 650 750 850"
 			"bonus_hero_damage"
 			{
-				"value"												"950 1500 2500 4500 8000 15000 25000"
+				"value"												"450 850 1250 1650 2050 2450 2850"
 				"special_bonus_unique_ember_spirit_6"				"+100%"
 				"CalculateSpellDamageTooltip"						"0"
+				"CalculateAttackDamageTooltip"						"1"
 			}
 			"attack_interval"										"0.1"
 			"AbilityCharges"
@@ -144,23 +149,25 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"							"20"
-			"radius"							"400"
+			"duration"									"20"
+			"radius"									"400"
 			"absorb_amount"					
 			{
-				"value"							"850 2100 5200 13000 32000 78500 195000"
+				"value"									"600 1350 2100 2850 3550 4250 4950"
 				"special_bonus_unique_ember_spirit_1"	"+100%"
-				"DamageTypeTooltip"				"DAMAGE_TYPE_MAGICAL"
+				"DamageTypeTooltip"						"DAMAGE_TYPE_MAGICAL"
+				"CalculateSpellHealTooltip"				"1"
 			}				
-			"tick_interval"						"0.2"
+			"tick_interval"								"0.2"
 			"damage_per_second"				
 			{
-				"value"							"500 750 1000 1400 2500 4500 8500"
+				"value"									"250 350 450 550 650 750 850"
 				"special_bonus_unique_ember_spirit_3"	"+100%"
-				"CalculateSpellDamageTooltip"	"1"
+				"DamageTypeTooltip"						"DAMAGE_TYPE_MAGICAL"
+				"CalculateSpellDamageTooltip"			"1"
 			}
-			"blind_pct"							"50"
-			"shield_pct_absorb"					"70"
+			"blind_pct"									"50"
+			"shield_pct_absorb"							"70"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -205,12 +212,16 @@
 		"AbilityValues"
 		{
 			"speed_multiplier"				"250"
-			"AbilityChargeRestoreTime"		
+			"AbilityChargeRestoreTime"
 			{
 				"value"			"38.0"
 				"special_bonus_unique_ember_spirit_5"	"-12"
 			}
-			"damage"				"3330 12250 37250 66550 74900 83250"
+			"damage"
+			{
+				"value"									"1000 2000 3000 4000 5000 6000"
+				"CalculateSpellDamageTooltip"			"1"
+			}
 			"radius"				"450"
 			"duration"				"45.0"
 			"scepter_range"
@@ -235,7 +246,7 @@
 			}
 			"shard_damage_per_second"	
 			{
-				"value"						"1250 3500 8000 15000 16000 17000"
+				"value"						"450"
 				"RequiresShard"				"1"
 				"CalculateSpellDamageTooltip"	"1"
 			}
@@ -281,22 +292,26 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-				"speed_multiplier"		"250"
-				"max_charges"			"3"
-				"charge_restore_time"	"35.0"
-				"damage"				"6500 18500 45000 100000 125000 150000"
-				"radius"				
-				{
-					"value"		"450"
-					"affected_by_aoe_increase"	"1"
-				}
-				"speed"					"1300"
-                "scepter_mana_cost"		
-				{
-					"value"			"75"
-					"RequiresScepter"		"1"
-				}
-                "shard_remnant_speed_pct"	"300"
+			"speed_multiplier"		"250"
+			"max_charges"			"3"
+			"charge_restore_time"	"35.0"
+			"damage"
+			{
+				"value"									"1000 2000 3000 4000 5000 6000"
+				"CalculateSpellDamageTooltip"			"1"
+			}
+			"radius"				
+			{
+				"value"		"450"
+				"affected_by_aoe_increase"	"1"
+			}
+			"speed"					"1300"
+			"scepter_mana_cost"		
+			{
+				"value"			"75"
+				"RequiresScepter"		"1"
+			}
+			"shard_remnant_speed_pct"	"300"
 		}
 	}
 	//=================================================================================================================

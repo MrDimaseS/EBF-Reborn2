@@ -42,7 +42,6 @@
 	"item_magic_stick"						"REMOVE"
 	"item_branches"							"REMOVE"
 	"item_recipe_magic_wand"				"REMOVE"
-	"item_recipe_holy_locket"				"REMOVE"
 	"item_helm_of_the_dominator"			"REMOVE"
 	"item_helm_of_the_overlord"				"REMOVE"
 	"item_glimmer_cape"						"REMOVE"
@@ -744,8 +743,16 @@
 			"blink_damage_cooldown"	"3.0"
 			"blink_range_clamp"		"960"
 			"bonus_intellect"		"25"
-			"heal_amount"			"1500"
-			"mana_amount"			"100"
+			"heal_amount"
+			{
+				"value"							"1000"
+				"CalculateSpellHealTooltip"		"1"
+			}
+			"mana_amount"
+			{
+				"value"							"100"
+				"CalculateSpellHealTooltip"		"1"
+			}
 		}
 	}
 	//=================================================================================================================
@@ -1187,7 +1194,7 @@
 			"duration"							"4.5"
 			"passive_reflection_constant"
 			{
-				"value"							"100"
+				"value"							"200"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"passive_reflection_pct"			""
@@ -1346,7 +1353,7 @@
 			"bonus_all_stats"		"9"
 			"restore_per_charge"
 			{
-				"value"						"17"
+				"value"						"25"
 				"CalculateSpellHealTooltip"	"1"
 			}
 			"charge_gain_timer"		"8"
@@ -2535,7 +2542,7 @@
 			"slow"						"50"
 			"bonus_spell_damage"
 			{
-				"value"							"500"
+				"value"							"750"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"slow_duration"				"1.2"
@@ -2596,7 +2603,7 @@
 			"spell_crit_multiplier"			"75"
 			"spell_crit_flat"
 			{
-				"value"							"500"
+				"value"							"750"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"crit_multiplier"				"160"
@@ -3185,7 +3192,7 @@
 		{
 			"bonus_strength"				"35"
 			"bonus_hp_per_str"				"3"
-			"bonus_hp_regen_per_str"		"0.3"
+			"bonus_hp_regen_per_str"		"0.15"
 			
 			"duration"						"12"
 			"power_multiplier"				"2"
@@ -3442,7 +3449,11 @@
 				"value"							"300"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"aura_damage_illusions"	"30"
+			"aura_damage_illusions"
+			{
+				"value"							"100"
+				"CalculateSpellDamageTooltip"	"1"
+			}
 			"blind_pct"				"17"
 			"aura_radius"			"700"
 		}
@@ -3734,7 +3745,7 @@
 			
 			"unholy_bonus_armor"				"4"
 			"unholy_bonus_slow_resistance"		"35"
-			"unholy_health_drain_per_second"	"1"
+			"unholy_health_drain_per_second"	"2"
 		}
 	}
 	"item_shadow_amulet"
@@ -5515,7 +5526,11 @@
 				"value"							"875"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"replenish_mana"				"200"
+			"replenish_mana"
+			{
+				"value"							"200"
+				"CalculateAttributeTooltip"		"1"
+			}
 			"replenish_radius"		
 			{
 				"value"						"1200"
@@ -6182,7 +6197,11 @@
 			"blast_movement_slow"		"-80"
 			"duration"					"4.0"
 			"blast_agility_multiplier"	"1.5"
-			"blast_damage_base"			"800"
+			"blast_damage_base"
+			{
+				"value"							"250"
+				"CalculateSpellDamageTooltip"	"1"
+			}
 			"ethereal_damage_bonus"		"-25"
 			"projectile_speed"			"1275"
 		}
@@ -6557,7 +6576,11 @@
 		{
 			"cast_range_bonus"			"350"
 			"vision_bonus"				"350"
-			"mana_regen"				"30"
+			"mana_regen"
+			{
+				"value"							"10"
+				"CalculateAttributeTooltip"		"1"
+			}
 			"radius"					"800"
 			"duration"					"6"
 		}
@@ -6837,7 +6860,11 @@
 		"AbilityValues"
 		{
 			"debuff_amp"				"20"
-			"spell_amp"					"50"
+			"spell_amp"
+			{
+				"value"						"15"
+				"CalculateAttributeTooltip"	"1"
+			}
 		}
 	}
 	//=================================================================================================================
@@ -6862,7 +6889,11 @@
 		"AbilityValues"
 		{
 			"reflect_chance"			"75"
-			"all_stats"					"1500"
+			"all_stats"
+			{
+				"value"							"100"
+				"CalculateAttributeTooltip"		"1"
+			}
 			"block_cooldown"			"12.0"
 		}
 	}
@@ -7011,7 +7042,7 @@
 		{
 			"bonus_health"
 			{
-				"value"						"250"
+				"value"						"500"
 				"CalculateAttributeTooltip"	"1"
 			}
 			"bonus_mana"
@@ -7026,7 +7057,11 @@
 				"value"						"10.0"
 				"CalculateAttributeTooltip"	"1"
 			}
-			"mana_regen"			"2.0"
+			"mana_regen"
+			{
+				"value"						"1.0"
+				"CalculateAttributeTooltip"	"1"
+			}
 			"regen_duration"		"10"
 		}
 	}
@@ -7177,8 +7212,16 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"magic_damage"				"500"
-			"attack_speed"				"100"
+			"magic_damage"
+			{
+				"value"						"450"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"attack_speed"
+			{
+				"value"						"30"
+				"CalculateAttributeTooltip"	"1"
+			}
 			"duration"					"1.75"
 		}
 	}
@@ -7758,7 +7801,7 @@
 		{
 			"bonus_health"
 			{
-				"value"						"375"
+				"value"						"750"
 				"CalculateAttributeTooltip"	"1"
 			}
 			"chance_bounty_rune"	"16"
@@ -7930,7 +7973,7 @@
 		
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"1.0"
+		"AbilityCooldown"				"4.0"
 					
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
@@ -7946,9 +7989,13 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_attack_range"			"75"
-			"bonus_damage"					"3500"
-			"active_bonus_attack_range"		"350"
+			"bonus_attack_range"				"75"
+			"bonus_damage"
+			{
+				"value"							"2500"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"active_bonus_attack_range"			"350"
 		}
 	}
 	
@@ -7978,7 +8025,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_agility"				"900"
+			"bonus_agility"
+			{
+				"value"						"200"
+				"CalculateAttributeTooltip"	"1"
+			}
 			"passive_movement_bonus"	"25"
 			"visibility_radius"			"1025"
 			"duration"					"35.0"
@@ -8082,16 +8133,32 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage"				"6000"
-			"bonus_strength"			"1200"
+			"bonus_damage"
+			{
+				"value"						"160"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"bonus_strength"
+			{
+				"value"						"160"
+				"CalculateAttributeTooltip"	"1"
+			}
 			"range"						"400"
 			"slow"						"50"
 			"slow_duration"				"3"
 			"angle"						"360"
 			"knockback_duration"		"0.3"
 			"knockback_distance"		"250"
-			"nuke_base_dmg"				"80000"
-			"nuke_str_dmg"				"6"
+			"nuke_base_dmg"
+			{
+				"value"							"3500"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"nuke_str_dmg"
+			{
+				"value"							"1.5"
+				"CalculateSpellDamageTooltip"	"1"
+			}
 		}
 	}
 	
@@ -8161,8 +8228,16 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"primary_stat"			 	"5000"
-			"primary_stat_universal"	"2000"
+			"primary_stat"
+			{
+				"value"							"700"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"primary_stat_universal"
+			{
+				"value"							"250"
+				"CalculateAttributeTooltip"		"1"
+			}
 		}
 	}
 	//=================================================================================================================
@@ -8237,8 +8312,16 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_strength"			"1200"
-			"bonus_intellect"			"1200"
+			"bonus_strength"
+			{
+				"value"							"250"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_intellect"
+			{
+				"value"							"250"
+				"CalculateAttributeTooltip"		"1"
+			}
 			"summon_duration"			"75"
 		}
 	}
@@ -8272,8 +8355,12 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_attack_speed"			"350"
-			"bonus_ms"						"15"
+			"bonus_attack_speed"
+			{
+				"value"							"75"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_ms"							"15"
 		}
 	}
 	
@@ -8361,7 +8448,7 @@
 		{
 			"bonus_mana"
 			{
-				"value"						"300"
+				"value"						"150"
 				"CalculateAttributeTooltip"	"1"
 			}
 			"bonus_movement_speed"			"35"
@@ -8390,7 +8477,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage"					"1800"
+			"bonus_damage"
+			{
+				"value"						"160"
+				"CalculateAttributeTooltip"	"1"
+			}
 			"bonus_lifesteal"				"16"
 			"bonus_spell_lifesteal"			"8"
 			"bonus_amp"						"14"
@@ -8424,7 +8515,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_strength"			"2500"
+			"bonus_strength"
+			{
+				"value"							"200"
+				"CalculateAttributeTooltip"		"1"
+			}
 			"duration"					"8"
 		}
 	}
@@ -8514,7 +8609,7 @@
 		{
 			"bonus_intelligence"
 			{
-				"value"						"35"
+				"value"						"70"
 				"CalculateAttributeTooltip"	"1"
 			}
 			"bonus_armor"
@@ -8559,7 +8654,7 @@
 		{
 			"base_attack_damage"			"20"
 			"magic_resistance"				"16"
-			"status_resistance"				"12"
+			"status_resistance"				"10"
 		}
 	}
 	
@@ -8592,12 +8687,12 @@
 			}
 			"damage_return_hero"
 			{
-				"value"						"150"
+				"value"						"300"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"damage_return_creep"
 			{
-				"value"						"100"
+				"value"						"200"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 		}
@@ -8712,9 +8807,13 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"attack_speed"			"120"
-			"evasion"				"16"
-			"movment"				"7"
+			"attack_speed"
+			{
+				"value"						"26"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"evasion"						"16"
+			"movment"						"7"
 		}
 	}
 	
@@ -8740,11 +8839,19 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"armor"					"12"
-			"magic_resistance"		"10"
-			"damage"				"3250"
-			"radius"				"375"
-			"damage_illusions"		"750"
+			"armor"								"4"
+			"magic_resistance"					"10"
+			"damage"
+			{
+				"value"							"350"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"radius"							"375"
+			"damage_illusions"
+			{
+				"value"							"300"
+				"CalculateAttributeTooltip"		"1"
+			}
 		}
 	}
 	
@@ -8899,12 +9006,12 @@
 		{
 			"primary_attribute"
 			{
-				"value"						"35"
+				"value"						"70"
 				"CalculateAttributeTooltip"	"1"
 			}
 			"lifesteal"
 			{
-				"value"						"35"
+				"value"						"70"
 				"CalculateAttributeTooltip"	"1"
 			}
 		}
@@ -9028,7 +9135,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"damage"					"9000"
+			"damage"
+			{
+				"value"						"450"
+				"CalculateAttributeTooltip"	"1"
+			}
 			"melee_attack_range"		"100"
 			"maim_chance"				"25"
 			"maim_slow_movement"		"20"
@@ -9087,63 +9198,6 @@
 			}		
 		}
 	}
-	
-	
-	//=================================================================================================================
-	// 
-	//=================================================================================================================
-	"item_warhammer"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-		
-		// Stats
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"750"
-				
-		// Item Info
-		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
-		"ItemPurchasable"				"0"
-
-		// Stats
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"20.0"
-
-		"Model"							"models/props_gameplay/neutral_box.vmdl"
-		
-		// Special	
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"bonus_strength"			"10"
-			}
-			"02"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"armor_reduction"			"3"
-			}		
-			"03"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"duration"			"6"
-			}	
-			"04"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"damage"			"75"
-			}		
-		}
-	}
-	
-	
 	//=================================================================================================================
 	// 
 	//=================================================================================================================
@@ -9175,8 +9229,16 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_health_regen"			"100"
-			"bonus_mana_regen"				"6.0"
+			"bonus_health_regen"
+			{
+				"value"						"30"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"bonus_mana_regen"
+			{
+				"value"						"2.5"
+				"CalculateAttributeTooltip"	"1"
+			}
 			"duration"						"4"
 			"speed"							"18"
 			"bullwhip_delay_time"			"0.3"
@@ -9244,10 +9306,14 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_mana"				"1750"
-			"aura_radius"				"1200"
-			"status_resistance"			"10"
-			"magic_resistance"			"10"
+			"bonus_mana"
+			{
+				"value"						"300"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"aura_radius"					"1200"
+			"status_resistance"				"15"
+			"magic_resistance"				"15"
 		}
 	}
 	
@@ -9313,7 +9379,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_all_stats"			"2000"
+			"bonus_all_stats"
+			{
+				"value"							"130"
+				"CalculateAttributeTooltip"		"1"
+			}
 			"night_vision"				"400"
 			"duration"					"4"
 		}
@@ -9344,10 +9414,14 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_strength"					"2000"
+			"bonus_strength"
+			{
+				"value"							"350"
+				"CalculateAttributeTooltip"		"1"
+			}
 			"movement_speed"					"50"
 			"model_scale"						"60"
-			"pct_str_damage_per_second"			"500"
+			"pct_str_damage_per_second"			"100"
 			"damage_radius"						"100"
 		}
 	}
@@ -9432,12 +9506,22 @@
 		"AbilityValues"
 		{
 			"range"						"700"
-			"damage"					"120000"
+			"damage"
+			{
+				"value"						"2000"
+				"CalculateSpellDamageTooltip"	"1"
+			}
 			"interval"					"3"
 			"slow"						"40"
 			"slow_duration"				"0.3"
 			"cyclone_duration"			"0.75"
-			"bonus_mana_regen"			"24"
+			"bonus_mana_regen"
+			{
+				"value"						"4"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"max_targets"				"2"
+			"passive_movement_bonus"		"35"
 		}
 	}
 	
@@ -9514,7 +9598,7 @@
 		{
 			"bonus_health"
 			{
-				"value"						"375"
+				"value"						"750"
 				"CalculateAttributeTooltip"	"1"
 			}
 			"spell_amp"
@@ -9592,10 +9676,18 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"status_resistance"	"40"
-			"bonus_health"		"25000"
+			"status_resistance"				"40"
+			"bonus_health"
+			{
+				"value"						"2500"
+				"CalculateAttributeTooltip"	"1"
+			}
 			"duration"			"3"
-			"hp_regen"			"750"
+			"hp_regen"
+			{
+				"value"						"100"
+				"CalculateAttributeTooltip"	"1"
+			}
 		}
 	}
 	"item_sample_picker"
@@ -9816,7 +9908,11 @@
 		{
 			"radius"				"300"
 			"damage"				"100"
-			"attack_speed"			"200"
+			"attack_speed"
+			{
+				"value"						"20"
+				"CalculateAttributeTooltip"	"1"
+			}
 		}
 	}
 	
@@ -9849,7 +9945,7 @@
 			"duration"			"4"
 			"all_stats"
 			{
-				"value"						"25"
+				"value"						"50"
 				"CalculateAttributeTooltip"	"1"
 			}
 		}
@@ -10003,17 +10099,17 @@
 		{
 			"bonus_health"
 			{
-				"value"						"750"
+				"value"						"1500"
 				"CalculateAttributeTooltip"	"1"
 			}
 			"bonus_health_regen"
 			{
-				"value"						"10"
+				"value"						"20"
 				"CalculateAttributeTooltip"	"1"
 			}
 			"aura_health_regen"	
 			{
-				"value"						"25"
+				"value"						"50"
 				"CalculateAttributeTooltip"	"1"
 			}
 			"radius"						"350"
@@ -10044,7 +10140,7 @@
 		{
 			"bonus_mana"
 			{
-				"value"						"400"
+				"value"						"200"
 				"CalculateAttributeTooltip"	"1"
 			}
 			"bonus_strength"				"0"
@@ -10084,7 +10180,7 @@
 		{
 			"bonus_all_stats"
 			{
-				"value"						"20"
+				"value"						"40"
 				"CalculateAttributeTooltip"	"1"
 			}
 			"mana_regen"
@@ -10148,17 +10244,23 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-
-			"bonus_strength"			"325"
-
-			"leap_distance"				"400"
-			"leap_speed"				"800.0"
-			"leap_acceleration"			"1250.0"
-            "radius"                    "225"
-            "flop_damage"               "50000"
-	        "slow_duration"             "1.0"
-	        "slow"           			"-100"
-	        "max_bounces"				"2"
+			"bonus_strength"
+			{
+				"value"							"100"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"leap_distance"						"400"
+			"leap_speed"						"800.0"
+			"leap_acceleration"					"1250.0"
+            "radius"							"225"
+            "flop_damage"
+			{
+				"value"							"1500"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+	        "slow_duration"						"1.0"
+	        "slow"								"-100"
+	        "max_bounces"						"2"
 		}
 	}
 
@@ -10349,6 +10451,11 @@
 		{
 			"cast_range_bonus"					"125"
 			"mana_reduction_pct"				"-10"
+			"bonus_mana_regen"
+			{
+				"value"							"1.25"
+				"CalculateAttributeTooltip"		"1"
+			}
 		}
 	}
 	"item_manacles_of_power"
@@ -10483,11 +10590,23 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"all_stats"						"40"
-			"bonus_damage"					"240"
+			"all_stats"
+			{
+				"value"						"70"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"bonus_damage"
+			{
+				"value"						"120"
+				"CalculateAttributeTooltip"	"1"
+			}
 			"count"							"2"
 			"secondary_target_range_bonus"	"225"
-			"proc_bonus_damage"				"600"
+			"proc_bonus_damage"
+			{
+				"value"						"200"
+				"CalculateAttributeTooltip"	"1"
+			}
 		}
 	}
 	//=================================================================================================================
@@ -10515,11 +10634,22 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"aspd"							"80"
-			"bonus_damage"					"1600"
+			"aspd"
+			{
+				"value"						"15"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"bonus_damage"
+			{
+				"value"						"400"
+				"CalculateAttributeTooltip"	"1"
+			}
 			"duration"						"8"
-			"health_sacrifice"				"2500"
-
+			"health_sacrifice"
+			{
+				"value"						"1000"
+				"CalculateAttributeTooltip"	"1"
+			}
 		}
 	}
 	"item_spark_of_courage"
@@ -10680,9 +10810,17 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_attack_speed"	"75"
-			"bonus_damage"			"2400"
-			"bonus_armor"			"30"
+			"bonus_attack_speed"
+			{
+				"value"						"35"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"bonus_damage"
+			{
+				"value"						"300"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"bonus_armor"					"20"
 		}
 	}
 	"item_duelist_gloves"
@@ -10791,10 +10929,18 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"move_speed"			"40"
-			"mana"					"3500"
-			"magic_block"			"10000"
-			"min_damage"			"75"
+			"move_speed"					"40"
+			"mana"
+			{
+				"value"						"300"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"magic_block"
+			{
+				"value"						"3000"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"min_damage"					"75"
 		}
 	}
 	"item_turtle_shell"
@@ -10895,8 +11041,12 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_armor"				"12"
-			"all_stats"					"135"
+			"bonus_armor"				"7"
+			"all_stats"
+			{
+				"value"					"70"
+				"CalculateAttributeTooltip"	"1"
+			}
 			"counter_cooldown"			"5"
 		}
 	}
@@ -10923,8 +11073,16 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_health"			"75000"
-			"heal"					"100000"
+			"bonus_health"
+			{
+				"value"							"3000"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"heal"
+			{
+				"value"							"1000"
+				"CalculateSpellHealTooltip"		"1"
+			}
 			"health_threshold"		"20"
 		}
 	}
@@ -10947,8 +11105,16 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"health_regen"			"200"
-			"mana_regen"			"5"
+			"health_regen"
+			{
+				"value"							"60"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"mana_regen"
+			{
+				"value"							"6"
+				"CalculateAttributeTooltip"		"1"
+			}
 			"penalty"				"0.5"
 			"movespeed_pct"				"10"
 			"radius"					"200"
@@ -10982,10 +11148,18 @@
 			"radius"						"600"
 			"slow_duration"					"0.2"
 			"damage_reset_interval"			"7"
-			"damage_threshold"				"3500"
+			"damage_threshold"
+			{
+				"value"							"1800"
+				"CalculateAttributeTooltip"		"1"
+			}
 			"slow"							"100"
 			"projectile_speed"				"1000"
-			"projectile_damage"				"4250"
+			"projectile_damage"
+			{
+				"value"							"1250"
+				"CalculateSpellDamageTooltip"	"1"
+			}
 			"target_count"					"4"
 			"bonus_armor"					"12"
 		}
@@ -11009,8 +11183,16 @@
 		"AbilityValues"
 		{
 			"conversion_pct"					"20"
-			"bonus_health_regen"					"5"
-			"bonus_mana_regen"					"2.5"
+			"bonus_health_regen"
+			{
+				"value"							"25"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_mana_regen"
+			{
+				"value"							"2.5"
+				"CalculateAttributeTooltip"		"1"
+			}
 		}
 	}
 	"item_safety_bubble"
@@ -11040,7 +11222,7 @@
 			"restore_time"			"5"
 			"bonus_hp_regen"
 			{
-				"value"						"12.5"
+				"value"						"25"
 				"CalculateAttributeTooltip"	"1"
 			}
 		}
@@ -11065,8 +11247,16 @@
 		"AbilityValues"
 		{
 			"vision_penalty"			"15"
-			"bonus_spell_damage"		"50"
-			"bonus_mana"				"400"
+			"bonus_spell_damage"
+			{
+				"value"							"25"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_mana"
+			{
+				"value"							"150"
+				"CalculateAttributeTooltip"		"1"
+			}
 		}
 	}
 	"item_nemesis_curse"
@@ -11088,10 +11278,14 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"debuff_self"			"8"
-			"debuff_enemy"			"12"
-			"debuff_enemy_duration"	"5"
-			"bonus_damage"			"2000"
+			"debuff_self"					"8"
+			"debuff_enemy"					"12"
+			"debuff_enemy_duration"			"5"
+			"bonus_damage"
+			{
+				"value"						"350"
+				"CalculateAttributeTooltip"	"1"
+			}
 		}
 	}
 	"item_avianas_feather"
@@ -11138,11 +11332,15 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"armor_bonus"			"12"
-			"move_speed"			"30"
-			"active_armor"			"20"
-			"active_duration"		"8"
-			"bonus_health"			"9500"
+			"armor_bonus"					"6"
+			"move_speed"					"30"
+			"active_armor"					"12"
+			"active_duration"				"8"
+			"bonus_health"
+			{
+				"value"						"2250"
+				"CalculateAttributeTooltip"	"1"
+			}
 		}
 	}
 }

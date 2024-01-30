@@ -388,8 +388,6 @@ function RemoveAbilityChanges( panel, abilityName ){
 		
 		let token = "#DOTA_Tooltip_Ability_" + abilityNameWeAreChecking + "_ebf_changes"
 		let locale = $.Localize( token )
-		$.Msg( token )
-		$.Msg( locale )
 		abilityChanges.RemoveAndDeleteChildren()
 		if(locale != token){
 			abilityChanges.style.visibility = "visible";
@@ -404,7 +402,6 @@ function RemoveAbilityChanges( panel, abilityName ){
 				notePrelude = $.CreatePanel("Label", noteContainer, `EBFChangesNoteContainerPrelude`);
 				notePrelude.SetHasClass( "Version", true );
 				notePrelude.text = $.Localize( "#prefix_ebf_changes" );
-				$.Msg( notePrelude.text )
 				
 				noteDescription = $.CreatePanel("Label", noteContainer, `EBFChangesNoteContainerDescription`);
 				noteDescription.SetHasClass( "NoteLine", true );
@@ -626,7 +623,7 @@ function AlterAbilityDescriptions( ){
 			} else if ( split_specials[i].length > 0 ) {
 				var value = Abilities.GetSpecialValueFor( item, split_specials[i] )
 				let specialValue = abilityValues[split_specials[i]]
-				if( specialValue.value != undefined ){
+				if( specialValue && specialValue.value != undefined ){
 					specialValue = specialValue.value
 				}
 				let font_colour = "#EEEEEE"

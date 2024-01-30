@@ -50,7 +50,7 @@ function modifier_signet_of_destiny_buff:OnCreated()
 end
 
 function modifier_signet_of_destiny_buff:OnRefresh()
-	self.soul_damage_amount = self:GetSpecialValueFor("soul_damage_amount")
+	self.soul_heal_amount = self:GetSpecialValueFor("soul_heal_amount")
 	self.hp_regen_reduction_enemy = self:GetSpecialValueFor("hp_regen_reduction_enemy")
 	self.enemy_hp_drain = self:GetSpecialValueFor("enemy_hp_drain") / 100
 	if IsServer() then
@@ -70,7 +70,7 @@ function modifier_signet_of_destiny_buff:OnIntervalThink()
 	local ability = self:GetAbility()
 	local parent = self:GetParent()
 	
-	parent:HealEvent( self.soul_damage_amount + self.enemy_hp_drain * parent:GetHealthDeficit(), ability, caster )
+	parent:HealEvent( self.soul_heal_amount + self.enemy_hp_drain * parent:GetHealthDeficit(), ability, caster )
 end
 
 function modifier_signet_of_destiny_buff:DeclareFunctions()

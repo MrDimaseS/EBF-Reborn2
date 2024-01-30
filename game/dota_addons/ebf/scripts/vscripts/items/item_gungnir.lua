@@ -13,7 +13,7 @@ item_gungifier_4 = class(item_gungnir)
 
 function item_gungifier_4:OnSpellStart()
 	local caster = self:GetCaster()
-	local point = self:GetCursorTarget()
+	local point = self:GetCursorPosition()
 	
 	for _, target in ipairs( caster:FindAllUnitsInRadius( point, self:GetSpecialValueFor("radius") ) ) do
 		self:FireTrackingProjectile("particles/items4_fx/nullifier_proj.vpcf", target, self:GetSpecialValueFor("projectile_speed"))
@@ -93,7 +93,7 @@ function modifier_gungnir_passive:OnAttackLanded( params )
 		if attackData and attackData.proc then
 			local damage = self.proc_damage + params.original_damage * self.proc_pct
 			
-			self:GetAbility():DealDamage( params.attacker, params.target, damage, {damage_type = DAMAGE_TYPE_PURE, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION}, OVERHEAD_ALERT_BONUS_SPELL_DAMAGE )
+			self:GetAbility():DealDamage( params.attacker, params.target, damage, {damage_type = DAMAGE_TYPE_PURE}, OVERHEAD_ALERT_BONUS_SPELL_DAMAGE )
 		end
 	end
 end

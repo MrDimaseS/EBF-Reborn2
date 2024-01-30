@@ -79,5 +79,5 @@ function modifier_bristleback_bristleback_autocast:OnIntervalThink()
 end
 
 function modifier_bristleback_bristleback_autocast:IsHidden()
-	return false
+	return true
 end

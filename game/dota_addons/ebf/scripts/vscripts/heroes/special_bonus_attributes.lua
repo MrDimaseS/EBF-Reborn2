@@ -51,10 +51,39 @@ function special_bonus_attributes:Spawn()
 end
 
 function special_bonus_attributes:OnHeroCalculateStatBonus()
+	local hero = self:GetCaster() 
 	local modifier = self:GetCaster():FindModifierByName("modifier_special_bonus_attributes_stat_rescaling")
+	CustomNetTables:SetTableValue("hero_attributes", tostring( self:GetCaster():entindex() ), {mana_type = self:GetCaster()._heroManaType, strength = self:GetCaster():GetStrength(), agility = self:GetCaster():GetAgility(), intellect = self:GetCaster():GetIntellect(), str_gain = math.sum( 1, hero:GetLevel()+1, hero:GetStrengthGain()*0.5 ), agi_gain = math.sum( 1, hero:GetLevel()+1, hero:GetAgilityGain()*0.5 ), int_gain = math.sum( 1, hero:GetLevel()+1, hero:GetIntellectGain()*0.5 ), spell_amp = self:GetCaster():GetSpellAmplification( false )})
 	if modifier then 
 		modifier:SetStackCount( self:GetCaster():GetPrimaryAttribute() )
 		modifier:ForceRefresh() 
+	end
+	CustomGameEventManager:RegisterListener( "request_hero_inventory", function( userdata, keys ) self:SendUpdatedInventoryContents(keys) end )
+end
+
+function special_bonus_attributes:OnInventoryContentsChanged()
+	Timers:CreateTimer( function() self:SendUpdatedInventoryContents({unit = self:GetCaster():entindex()}) end )
+end
+
+function special_bonus_attributes:SendUpdatedInventoryContents( info )
+	if not self.stopUnnecessaryUpdates then
+		self.stopUnnecessaryUpdates = true
+		local inventory = {}
+		for i = 0, 8 do
+			if self:GetCaster():GetItemInSlot(i) then
+				inventory[i] = self:GetCaster():GetItemInSlot(i):GetAbilityKeyValues()
+			else
+				inventory[i] = -1
+			end
+		end
+			print( self:GetCaster():GetItemInSlot(DOTA_ITEM_NEUTRAL_SLOT) )
+		if self:GetCaster():GetItemInSlot(DOTA_ITEM_NEUTRAL_SLOT) then
+			inventory[9] = self:GetCaster():GetItemInSlot(DOTA_ITEM_NEUTRAL_SLOT):GetAbilityKeyValues()
+		else
+			inventory[9] = -1
+		end
+		CustomGameEventManager:Send_ServerToAllClients( "client_update_ability_kvs", {unit = self:GetCaster():entindex(), inventory = inventory} )
+		Timers:CreateTimer( function() self.stopUnnecessaryUpdates = false end )
 	end
 end
 
@@ -142,7 +171,7 @@ function modifier_special_bonus_attributes_stat_rescaling:OnCreated()
 		self.baseManaRegen = 0
 	end
 
-	self.bonusSpellAmp = 0.04
+	self.bonusSpellAmp = 0.03
 	self.bonusDamage = 1.5
 	self.baseMR = 25
 	
@@ -230,6 +259,9 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierOverrideAbi
 			or toboolean(GetAbilityKeyValuesByName(params.ability:GetAbilityName()).AbilityValues[special_value].CalculateAttackDamageTooltip)
 			or toboolean(GetAbilityKeyValuesByName(params.ability:GetAbilityName()).AbilityValues[special_value].CalculateAttributeTooltip) then
 				params.ability._processValuesForScaling[special_value].affected_by_lvl_increase = true
+			end
+			if GetAbilityKeyValuesByName(params.ability:GetAbilityName()).AbilityValues[special_value].ForceCalculateLevelBonus then
+				params.ability._processValuesForScaling[special_value].affected_by_lvl_increase = toboolean(GetAbilityKeyValuesByName(params.ability:GetAbilityName()).AbilityValues[special_value].ForceCalculateLevelBonus)
 			end
 		elseif special_value == "AbilityDamage" then
 			params.ability._processValuesForScaling[special_value].affected_by_lvl_increase = true
@@ -345,7 +377,7 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierBaseAttack_
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierSpellAmplify_Percentage()
-	local SPELL_AMP_PRIMARY = 0.08
+	local SPELL_AMP_PRIMARY = 0.06
 	local SPELL_AMP_UNIVERSAL = 0.03
 	local bonusSpellAmp = 0
 	if self:GetStackCount() == DOTA_ATTRIBUTE_STRENGTH then

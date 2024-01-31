@@ -17,14 +17,7 @@ modifier_item_radiance_2_passive = class({})
 LinkLuaModifier( "modifier_item_radiance_2_passive", "items/item_radiance.lua" ,LUA_MODIFIER_MOTION_NONE )
 
 function modifier_item_radiance_2_passive:OnCreated()
-	self.bonus_all = self:GetSpecialValueFor("bonus_all")
-	self.bonus_damage = self:GetSpecialValueFor("bonus_damage")
-	self.evasion = self:GetSpecialValueFor("evasion")
-	
-	self.aura_radius = self:GetSpecialValueFor("aura_radius")
-	self.aura_damage = self:GetSpecialValueFor("aura_damage")
-	self.aura_damage_illusions = self:GetSpecialValueFor("aura_damage_illusions")
-	
+	self:OnRefresh()
 	if IsServer() then
 		if not self:GetCaster():IsIllusion() then
 			local itemFX = ParticleManager:CreateParticle( "particles/items2_fx/radiance_owner.vpcf", PATTACH_POINT_FOLLOW, self:GetCaster() )
@@ -32,6 +25,16 @@ function modifier_item_radiance_2_passive:OnCreated()
 		end
 		self:StartIntervalThink(1)
 	end
+end
+
+function modifier_item_radiance_2_passive:OnRefresh()
+	self.bonus_all = self:GetSpecialValueFor("bonus_all")
+	self.bonus_damage = self:GetSpecialValueFor("bonus_damage")
+	self.evasion = self:GetSpecialValueFor("evasion")
+	
+	self.aura_radius = self:GetSpecialValueFor("aura_radius")
+	self.aura_damage = self:GetSpecialValueFor("aura_damage")
+	self.aura_damage_illusions = self:GetSpecialValueFor("aura_damage_illusions")
 end
 
 function modifier_item_radiance_2_passive:OnIntervalThink()
@@ -45,7 +48,7 @@ function modifier_item_radiance_2_passive:OnIntervalThink()
 	local ability = self:GetAbility()
 	if caster:IsAlive() and not caster:IsInvulnerable() then
 		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), self.aura_radius ) ) do
-		   ability:DealDamage( caster, enemy, TernaryOperator( self.aura_damage_illusions, caster:IsIllusion(), self.aura_damage ) )
+			ability:DealDamage( caster, enemy, TernaryOperator( self.aura_damage_illusions, caster:IsIllusion(), self.aura_damage ) )
 		end
 	 end
 end

@@ -741,11 +741,19 @@ function CHoldoutGameMode:OnHeroLevelUp(event)
 		then
 			hero:SetAbilityPoints( hero:GetAbilityPoints() + 1)
 		end
-		for _, modifier in ipairs( hero:FindAllModifiers() ) do
-			if modifier:GetDuration() < 0 and modifier:GetName() ~= "modifier_special_bonus_attributes_stat_rescaling" then
-				modifier:Destroy()
-				hero:AddNewModifier( modifier:GetCaster(), modifier:GetAbility(), modifier:GetName(), {} ) 
+		for i=DOTA_ITEM_SLOT_1, DOTA_ITEM_SLOT_6 do
+			local item = hero:GetItemInSlot(i)
+			if current_item then
+				item:OnUnequip()
+				item:OnEquip()
+				item:RefreshIntrinsicModifier()
 			end
+		end
+		local neutralItem =	hero:GetItemInSlot(DOTA_ITEM_NEUTRAL_SLOT)  
+		if neutralItem then
+			neutralItem:OnUnequip()
+			neutralItem:OnEquip()
+			neutralItem:RefreshIntrinsicModifier()
 		end
 	end
 end
@@ -1880,9 +1888,9 @@ function CHoldoutGameMode:OnNPCSpawned( event )
 		local heroName = spawnedUnit:GetUnitName()
 	end
 	if spawnedUnit:IsRealHero() then
-		-- if not spawnedUnit:HasModifier("modifier_thinker_hero_regeneration") then
-			-- spawnedUnit:AddNewModifier( spawnedUnit, nil, "modifier_thinker_hero_regeneration", {} )
-		-- end
+		if not spawnedUnit:HasModifier("modifier_thinker_hero_regeneration") then
+			spawnedUnit:AddNewModifier( spawnedUnit, nil, "modifier_thinker_hero_regeneration", {} )
+		end
 		if spawnedUnit:IsTempestDouble() then
 			spawnedUnit:AddNewModifier( spawnedUnit, nil, "modifier_special_bonus_attributes_stat_rescaling", {} )
 		end

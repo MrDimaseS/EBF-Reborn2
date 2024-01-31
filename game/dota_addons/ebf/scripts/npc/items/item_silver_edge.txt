@@ -1,269 +1,326 @@
 "DOTAAbilities"
 {
 	//=================================================================================================================
-	// Recipe: phylactery_2
+	// Recipe: TITAN
 	//=================================================================================================================
-	"item_recipe_phylactery_2"
+	"item_recipe_silver_edge_2"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"item_recipe_phylactery"
+		"BaseClass"						"item_recipe_silver_edge"
+		"Model"							"models/props_gameplay/recipe.vmdl"
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"25"
+		"ItemCost"						"25"	
 		"ItemShopTags"					""
 		
 		// Recipe
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemRecipe"					"1"
-		"ItemResult"					"item_phylactery_2"
+		"ItemResult"					"item_silver_edge_2"
 		"ItemRequirements"
 		{
-			"01"						"item_phylactery;item_orb_1"
+			"01"						"item_silver_edge;item_relic;item_reaver"
 		}
 	}
-	
-	//=================================================================================================================
-	// phylactery_
-	//=================================================================================================================
-	"item_phylactery_2"
+	"item_silver_edge_2"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"item_lua"
-		"ScriptFile"					"items/item_phylactery.lua"
-		"AbilityTextureName"			"phylactery/phylactery_2"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"ScriptFile"					"items/item_silver_edge"
+		"AbilityTextureName"			"shadowblade/silver_edge_2"
 		
-		
-		// Stats
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
+		"FightRecapLevel"				"1"
+
+		// Stats		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"6.0"
+		"AbilityCooldown"				"24.0"
+		"AbilitySharedCooldown"			"shadow_blade"
 
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemShopTags"					"hard_to_tag"
-		"ItemQuality"					"common"
-		"ItemAliases"					"phylactery"
-		"ShouldBeSuggested"				"1"
-
+		"AbilityManaCost"				"75"
+		"ItemCost"						"1090"
+		"ItemShopTags"					"damage;attack_speed;movespeed;hard_to_tag"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"sb;invis;shadow blade"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_all_stats"			"60"
-			"bonus_health"				"860"
-			"bonus_mana"				"260"
-			"slow"						"50"
-			"bonus_spell_damage"
+			"bonus_damage" 					"100"
+			"bonus_attack_speed"			"35"
+			"bonus_strength"				"15"
+			"windwalk_duration"				"14.0"
+			"windwalk_movement_speed"		"25"
+			"windwalk_fade_time"			"0.3"
+			"windwalk_bonus_damage"
 			{
 				"value"							"1500"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"bonus_damage_radius"		"300"
-			"slow_duration"				"1.2"
+			"backstab_duration"					"4"
+			
+			"bash_chance_melee"					"25"
+			"bash_chance_ranged"				"10"
+			"bash_duration"						"1.2"
+			"bash_cooldown"						"2.3"
+			"bonus_chance_damage"
+			{
+				"value"							"500"
+				"CalculateSpellDamageTooltip"	"1"
+			}
 		}
 	}
 	//=================================================================================================================
-	// Recipe: phylactery_3
+	// Recipe: TITAN
 	//=================================================================================================================
-	"item_recipe_phylactery_3"
+	"item_recipe_silver_edge_3"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"item_recipe_phylactery"
+		"BaseClass"						"item_recipe_silver_edge"
 		"Model"							"models/props_gameplay/recipe.vmdl"
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"25"
+		"ItemCost"						"25"	
 		"ItemShopTags"					""
 		
 		// Recipe
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemRecipe"					"1"
-		"ItemResult"					"item_phylactery_3"
+		"ItemResult"					"item_silver_edge_3"
 		"ItemRequirements"
 		{
-			"01"						"item_phylactery_2;item_orb_2"
+			"01"						"item_silver_edge_2;item_scythe_2;item_reaver_2"
 		}
 	}
+	
 	//=================================================================================================================
-	// phylactery_
+	// silver_edgeh Of Titan
 	//=================================================================================================================
-	"item_phylactery_3"
+	"item_silver_edge_3"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"item_lua"
-		"ScriptFile"					"items/item_phylactery.lua"
-		"AbilityTextureName"			"phylactery/phylactery_3"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"ScriptFile"					"items/item_silver_edge"
+		"AbilityTextureName"			"shadowblade/silver_edge_3"
 		
-		
-		// Stats
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
+		"FightRecapLevel"				"1"
+
+		// Stats		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"6.0"
+		"AbilityCooldown"				"24.0"
+		"AbilitySharedCooldown"			"shadow_blade"
 
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemShopTags"					"hard_to_tag"
-		"ItemQuality"					"common"
-		"ItemAliases"					"phylactery"
-		"ShouldBeSuggested"				"1"
-
+		"AbilityManaCost"				"75"
+		"ItemCost"						"1090"
+		"ItemShopTags"					"damage;attack_speed;movespeed;hard_to_tag"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"sb;invis;shadow blade"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_health"				"2850"
-			"bonus_mana"				"450"			
-			"bonus_all_stats"			"225"			
-			"slow"						"50"
-			"bonus_spell_damage"
+			"bonus_damage" 					"100"
+			"bonus_attack_speed"			"35"
+			"bonus_strength"				"15"
+			"windwalk_duration"				"14.0"
+			"windwalk_movement_speed"		"25"
+			"windwalk_fade_time"			"0.3"
+			"windwalk_bonus_damage"
 			{
-				"value"							"2250"
+				"value"							"1500"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"bonus_damage_radius"		"600"
-			"slow_duration"				"1.2"
+			"backstab_duration"					"4"
+			
+			"bash_chance_melee"					"25"
+			"bash_chance_ranged"				"10"
+			"bash_duration"						"1.2"
+			"bash_cooldown"						"2.3"
+			"bonus_chance_damage"
+			{
+				"value"							"500"
+				"CalculateSpellDamageTooltip"	"1"
+			}
 		}
 	}
 	//=================================================================================================================
-	// Recipe: Divine phylactery_
+	// Recipe: TITAN
 	//=================================================================================================================
-	"item_recipe_phylactery_4"
+	"item_recipe_silver_edge_4"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"item_recipe_phylactery"
+		"BaseClass"						"item_recipe_silver_edge"
 		"Model"							"models/props_gameplay/recipe.vmdl"
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"25"
+		"ItemCost"						"25"	
 		"ItemShopTags"					""
 		
 		// Recipe
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemRecipe"					"1"
-		"ItemResult"					"item_phylactery_4"
+		"ItemResult"					"item_silver_edge_4"
 		"ItemRequirements"
 		{
-			"01"						"item_phylactery_3;item_orb_3"
+			"01"						"item_silver_edge_3;item_scythe_3;item_reaver_3"
 		}
 	}
 
 	//=================================================================================================================
-	// divine soul
+	// silver_edge Of Deity
 	//=================================================================================================================
-	"item_phylactery_4"
+	"item_silver_edge_4"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"item_lua"
-		"ScriptFile"					"items/item_phylactery.lua"
-		"AbilityTextureName"			"phylactery/phylactery_4"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"ScriptFile"					"items/item_silver_edge"
+		"AbilityTextureName"			"shadowblade/silver_edge_4"
 		
-		
-		// Stats
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
+		"FightRecapLevel"				"1"
+
+		// Stats		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"6.0"
+		"AbilityCooldown"				"24.0"
+		"AbilitySharedCooldown"			"shadow_blade"
 
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemShopTags"					"hard_to_tag"
-		"ItemQuality"					"common"
-		"ItemAliases"					"phylactery"
-		"ShouldBeSuggested"				"1"
-
+		"AbilityManaCost"				"75"
+		"ItemCost"						"1090"
+		"ItemShopTags"					"damage;attack_speed;movespeed;hard_to_tag"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"sb;invis;shadow blade"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_health"				"8800"
-			"bonus_mana"				"1000"			
-			"bonus_all_stats"			"720"			
-			"slow"						"50"
-			"bonus_spell_damage"
+			"bonus_damage" 					"100"
+			"bonus_attack_speed"			"35"
+			"bonus_strength"				"15"
+			"windwalk_duration"				"14.0"
+			"windwalk_movement_speed"		"25"
+			"windwalk_fade_time"			"0.3"
+			"windwalk_bonus_damage"
 			{
-				"value"							"3000"
+				"value"							"1500"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"bonus_damage_radius"		"900"
-			"slow_duration"				"1.2"
+			"backstab_duration"					"4"
+			
+			"bash_chance_melee"					"25"
+			"bash_chance_ranged"				"10"
+			"bash_duration"						"1.2"
+			"bash_cooldown"						"2.3"
+			"bonus_chance_damage"
+			{
+				"value"							"500"
+				"CalculateSpellDamageTooltip"	"1"
+			}
 		}
 	}
 	//=================================================================================================================
-	// Recipe: Divine phylactery_
+	// Recipe: TITAN
 	//=================================================================================================================
-	"item_recipe_phylactery_5"
+	"item_recipe_silver_edge_5"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"item_recipe_phylactery"
+		"BaseClass"						"item_recipe_silver_edge"
 		"Model"							"models/props_gameplay/recipe.vmdl"
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"25"
+		"ItemCost"						"25"	
 		"ItemShopTags"					""
 		
 		// Recipe
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemRecipe"					"1"
-		"ItemResult"					"item_phylactery_5"
+		"ItemResult"					"item_silver_edge_5"
 		"ItemRequirements"
 		{
-			"01"						"item_phylactery_4;item_orb_4"
+			"01"						"item_silver_edge_4;item_scythe_4;item_reaver_4"
 		}
 	}
-
 	//=================================================================================================================
-	// divine soul
+	// silver_edge Of Bahamut
 	//=================================================================================================================
-	"item_phylactery_5"
+	"item_silver_edge_5"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"item_lua"
-		"ScriptFile"					"items/item_phylactery.lua"
-		"AbilityTextureName"			"phylactery/phylactery_5"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"ScriptFile"					"items/item_silver_edge"
+		"AbilityTextureName"			"shadowblade/silver_edge_5"
 		
-		
-		// Stats
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
+		"FightRecapLevel"				"1"
+
+		// Stats		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"6.0"
+		"AbilityCooldown"				"24.0"
+		"AbilitySharedCooldown"			"shadow_blade"
 
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemShopTags"					"hard_to_tag"
-		"ItemQuality"					"common"
-		"ItemAliases"					"phylactery"
-		"ShouldBeSuggested"				"1"
-
+		"AbilityManaCost"				"75"
+		"ItemCost"						"1090"
+		"ItemShopTags"					"damage;attack_speed;movespeed;hard_to_tag"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"sb;invis;shadow blade"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_health"				"30800"
-			"bonus_mana"				"3000"			
-			"bonus_all_stats"			"2235"			
-			"slow"						"50"
-			"bonus_spell_damage"
+			"bonus_damage" 					"100"
+			"bonus_attack_speed"			"35"
+			"bonus_strength"				"15"
+			"windwalk_duration"				"14.0"
+			"windwalk_movement_speed"		"25"
+			"windwalk_fade_time"			"0.3"
+			"windwalk_bonus_damage"
 			{
-				"value"							"4000"
+				"value"							"1500"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"bonus_damage_radius"		"1200"
-			"slow_duration"				"1.2"
+			"backstab_duration"					"4"
+			
+			"bash_chance_melee"					"25"
+			"bash_chance_ranged"				"10"
+			"bash_duration"						"1.2"
+			"bash_cooldown"						"2.3"
+			"bonus_chance_damage"
+			{
+				"value"							"500"
+				"CalculateSpellDamageTooltip"	"1"
+			}
 		}
 	}
 }

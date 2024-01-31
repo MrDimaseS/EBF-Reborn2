@@ -216,7 +216,7 @@ end
 function modifier_item_spear_of_justice_buff:GetModifierAttackSpeedBonus_Constant(params)
 	if self._checkingAttackSpeed then return end
 	self._checkingAttackSpeed = true
-	local attackSpeed = self:GetParent():GetAttackSpeed()
+	local attackSpeed = self:GetParent():GetAttackSpeed( false )
 	self._checkingAttackSpeed = nil
 	return attackSpeed * 100
 end

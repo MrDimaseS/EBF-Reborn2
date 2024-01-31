@@ -1,7 +1,7 @@
 modifier_hero_rage_system = class({})
 
 function modifier_hero_rage_system:OnCreated()
-	self:GetParent()._baseMaxRage = self:GetParent():GetMaxMana()
+	self:GetParent()._baseMaxRage = 100
 	self:GetParent()._currentRage = 0
 	self.lastTimeInCombat = 0
 	if IsServer() then
@@ -21,7 +21,11 @@ function modifier_hero_rage_system:OnIntervalThink()
 end
 
 function modifier_hero_rage_system:DeclareFunctions()
-	return { MODIFIER_PROPERTY_EXTRA_MANA_BONUS, MODIFIER_EVENT_ON_ABILITY_EXECUTED, MODIFIER_EVENT_ON_TAKEDAMAGE }
+	return { MODIFIER_PROPERTY_EXTRA_MANA_BONUS, 
+			 MODIFIER_EVENT_ON_ABILITY_EXECUTED,
+			 MODIFIER_EVENT_ON_TAKEDAMAGE,
+			 MODIFIER_EVENT_ON_TAKEDAMAGE,
+			 MODIFIER_PROPERTY_MANACOST_PERCENTAGE_STACKING }
 end
 
 function modifier_hero_rage_system:GetModifierExtraManaBonus()
@@ -39,6 +43,12 @@ end
 function modifier_hero_rage_system:OnAbilityExecuted( params )
 	if params.unit == self:GetParent() then
 		params.unit:ModifyRage( -params.ability:GetEffectiveManaCost( -1 ) )
+	end
+end
+
+function modifier_hero_rage_system:GetModifierPercentageManacostStacking( params )
+	if params.ability and params.ability:IsItem() then
+		return 80
 	end
 end
 

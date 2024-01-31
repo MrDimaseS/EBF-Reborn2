@@ -21,6 +21,7 @@ function Spawn( entityKeyValues )
 	thisEntity.berserker = thisEntity:FindAbilityByName("boss_troll_warlord_berserkers_blood")
 	
 	thisEntity:AddActivityModifier("melee")
+	thisEntity:AddNewModifier( thisEntity, nil, "modifier_item_aghanims_shard", {} )
 	
 	Timers:CreateTimer(0.1, function()
 		thisEntity.rage:SetLevel(GameRules.gameDifficulty)

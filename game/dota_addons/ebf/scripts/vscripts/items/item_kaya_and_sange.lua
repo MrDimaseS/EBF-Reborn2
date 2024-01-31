@@ -84,9 +84,6 @@ function modifier_item_kaya_and_sange_2_passive:OnTakeDamage(params)
 				modifier:ForceRefresh()
 			end
 		end
-		if params.inflictor and self.mana_restore_pct > 0 then
-			params.unit:GiveMana( params.damage * self.mana_restore_pct )
-		end
 	end
 	if self.spell_lifesteal > 0 and params.attacker == self:GetParent() and params.damage_category == DOTA_DAMAGE_CATEGORY_SPELL and params.inflictor and not ( HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL ) or HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_HPLOSS ) or HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_REFLECTION )) then
 		local spell_lifesteal = self.spell_lifesteal

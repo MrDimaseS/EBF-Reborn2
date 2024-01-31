@@ -29,8 +29,7 @@ function modifier_uber_dagon_passive:OnCreated()
 end
 
 function modifier_uber_dagon_passive:OnRefresh()
-	self.bonus_other = self:GetSpecialValueFor("bonus_other")
-	self.bonus_intellect = self:GetSpecialValueFor("bonus_intellect")
+	self.bonus_all = self:GetSpecialValueFor("bonus_all")
 	self.bonus_mana_regen = self:GetSpecialValueFor("bonus_mana_regen")
 	self.bonus_cooldown = self:GetSpecialValueFor("bonus_cooldown")
 	self.spell_lifesteal = self:GetSpecialValueFor("passive_spell_lifesteal")
@@ -78,15 +77,15 @@ function modifier_uber_dagon_passive:OnTakeDamage( params )
 end
 
 function modifier_uber_dagon_passive:GetModifierBonusStats_Strength()
-	return self.bonus_other
+	return self.bonus_all
 end
 
 function modifier_uber_dagon_passive:GetModifierBonusStats_Agility()
-	return self.bonus_other
+	return self.bonus_all
 end
 
 function modifier_uber_dagon_passive:GetModifierBonusStats_Intellect()
-	return self.bonus_intellect
+	return self.bonus_all
 end
 
 function modifier_uber_dagon_passive:GetModifierConstantManaRegen()

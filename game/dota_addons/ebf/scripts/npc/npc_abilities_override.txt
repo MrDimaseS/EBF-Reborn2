@@ -3745,7 +3745,7 @@
 			
 			"unholy_bonus_armor"				"4"
 			"unholy_bonus_slow_resistance"		"35"
-			"unholy_health_drain_per_second"	"2"
+			"unholy_health_drain_per_second"	"2.5"
 		}
 	}
 	"item_shadow_amulet"
@@ -3842,29 +3842,6 @@
 			}
 		}
 	}
-
-	//=================================================================================================================
-	// Recipe: Silver Edge
-	//=================================================================================================================
-	"item_recipe_silver_edge"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		
-		// Item Info
-		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"120"	
-		"ItemShopTags"					""
-		
-		// Recipe
-		//-------------------------------------------------------------------------------------------------------------
-		"ItemRecipe"					"1"
-		"ItemResult"					"item_silver_edge"
-		"ItemRequirements"
-		{
-			"01"						"item_invis_sword;item_relic"
-		}
-	}
 	"item_recipe_echo_sabre"
 	{
 		// General
@@ -3924,7 +3901,28 @@
 			"slow_duration"				"0.8"
 		}
 	}
-	
+	//=================================================================================================================
+	// Recipe: Silver Edge
+	//=================================================================================================================
+	"item_recipe_silver_edge"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"250"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_silver_edge"
+		"ItemRequirements"
+		{
+			"01"						"item_invis_sword;item_basher"
+		}
+	}
 	//=================================================================================================================
 	// Silver Edge
 	//=================================================================================================================
@@ -3932,6 +3930,10 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_silver_edge"
+		"AbilityTextureName"			"item_silver_edge"
+		
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
 		"FightRecapLevel"				"1"
 
@@ -3954,17 +3956,28 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage" 					"260"
-			"bonus_attack_speed"			"30"
+			"bonus_damage" 					"100"
+			"bonus_attack_speed"			"35"
+			"bonus_strength"				"15"
 			"windwalk_duration"				"14.0"
 			"windwalk_movement_speed"		"25"
 			"windwalk_fade_time"			"0.3"
 			"windwalk_bonus_damage"
 			{
-				"value"						"1500"
+				"value"							"1500"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"backstab_duration"				"4"
+			"backstab_duration"					"4"
+			
+			"bash_chance_melee"					"25"
+			"bash_chance_ranged"				"10"
+			"bash_duration"						"1.2"
+			"bash_cooldown"						"2.3"
+			"bonus_chance_damage"
+			{
+				"value"							"500"
+				"CalculateSpellDamageTooltip"	"1"
+			}
 		}
 	}
 
@@ -5284,7 +5297,26 @@
 			"secondary_application_radius"		"300"
 		}
 	}
-	
+	"item_recipe_veil_of_discord"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"300"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_veil_of_discord"
+		"ItemRequirements"
+		{
+			"01"						"item_helm_of_iron_will;item_ultimate_orb"
+		}
+	}
 	//=================================================================================================================
 	// Veil of discord
 	//=================================================================================================================
@@ -5315,7 +5347,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_all_stats"			"5"
+			"bonus_all_stats"			"19"
 			"bonus_armor"				"6"
 			"bonus_hp_regen"			"5"
 			"spell_amp"					"10"
@@ -6043,7 +6075,7 @@
 		"ItemResult"					"item_aeon_disk"
 		"ItemRequirements"
 		{
-			"01"						"item_vitality_booster;item_energy_booster"
+			"01"						"item_vitality_booster;item_energy_booster;item_ultimate_orb"
 		}
 	}
 	"item_aeon_disk"
@@ -6073,6 +6105,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"bonus_all"					"15"
 			"bonus_health"				"250"
 			"bonus_mana"				"300"
 			"health_threshold_pct"		"45"
@@ -6182,9 +6215,9 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_agility"				"35"
-			"bonus_strength"			"20"
 			"bonus_intellect"			"20"
+			"bonus_agility"				"20"
+			"bonus_strength"			"45"
 			
 			"bonus_evasion"				"12"
 			"status_resistance"			"16"

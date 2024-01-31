@@ -564,9 +564,11 @@ function UpdateItemTooltip( panel, unit, itemSlot ){
 					attributeType = true
 					finalTextToken = finalTextToken + '+ '
 				}
+				specialValue = Math.floor( specialValue * 100 + 0.5 )/100
+				let realValue = Math.floor( Abilities.GetSpecialValueFor( item, key ) * 100 + 0.5 )/100
 				let font_colour = "#EEEEEE"
-				if( Abilities.GetSpecialValueFor( item, key ) != specialValue){font_colour = "#3ed038"};
-				finalTextToken = finalTextToken + "<b><font color='"+font_colour+"'>" + Abilities.GetSpecialValueFor( item, key )
+				if( realValue != specialValue){font_colour = "#3ed038"};
+				finalTextToken = finalTextToken + "<b><font color='"+font_colour+"'>" + realValue
 				if( percentageType ){
 					finalTextToken = finalTextToken + '%' + "</font></b>";
 				} else {
@@ -619,6 +621,7 @@ function AlterAbilityDescriptions( ){
 		RemoveAbilityChanges();
 		lastRememberedState = lastState;
 		for (var i in split_specials ) { // REPLACE SPECIAL VALUES
+			$.Msg( split_specials[i] )
 			if ( split_specials[i].match(" ") ) {
 			} else if ( split_specials[i].length > 0 ) {
 				var value = Abilities.GetSpecialValueFor( item, split_specials[i] )

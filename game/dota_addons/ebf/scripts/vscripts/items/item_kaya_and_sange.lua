@@ -10,6 +10,10 @@ item_kaya_and_sange_3 = class(item_kaya_and_sange_2)
 item_kaya_and_sange_4 = class(item_kaya_and_sange_2)
 item_kaya_and_sange_5 = class(item_kaya_and_sange_2)
 
+function item_kaya_and_sange_5:IsRearmable()
+	return false
+end
+
 modifier_item_kaya_and_sange_2_passive = class({})
 LinkLuaModifier( "modifier_item_kaya_and_sange_2_passive", "items/item_kaya_and_sange.lua" ,LUA_MODIFIER_MOTION_NONE )
 

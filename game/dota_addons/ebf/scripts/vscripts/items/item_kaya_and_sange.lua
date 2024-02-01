@@ -2,6 +2,10 @@ LinkLuaModifier( "modifier_item_aeon_disk_effect", "items/item_aeon_disk.lua" ,L
 LinkLuaModifier( "modifier_item_aeon_disk_cooldown", "items/item_aeon_disk.lua" ,LUA_MODIFIER_MOTION_NONE )
 item_kaya_and_sange_2 = class({})
 
+function item_kaya_and_sange_2:IsRearmable()
+	return false
+end
+
 function item_kaya_and_sange_2:GetIntrinsicModifierName()
 	return "modifier_item_kaya_and_sange_2_passive"
 end

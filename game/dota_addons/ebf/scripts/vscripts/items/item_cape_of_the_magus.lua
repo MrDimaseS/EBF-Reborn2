@@ -125,18 +125,20 @@ function modifier_item_cape_of_the_magus_passive_aura:OnTooltip()
 end
 
 function modifier_item_cape_of_the_magus_passive_aura:OnTakeDamage(params)
+	print( params.attacker == self:GetParent(), params.inflictor )
 	if params.attacker == self:GetParent() and params.inflictor 
 	and not ( HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL ) 
 			  or HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_HPLOSS ) 
 			  or HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_REFLECTION ) ) 
 	then
 		local spell_lifesteal = self.aura_spell_lifesteal
+		print("gucci", spell_lifesteal, params.damage)
 		if not params.unit:IsConsideredHero() then
 			spell_lifesteal =  spell_lifesteal / 5
 		end
 		
 		local EHPMult = self:GetParent().EHP_MULT or 1
-		local lifesteal = params.damage * spell_lifesteal / 100 * math.max( 1, EHPMult )
+		local lifesteal = params.damage * spell_lifesteal * math.max( 1, EHPMult )
 		
 		self.lifeToGive = (self.lifeToGive or 0) + lifesteal
 		if self.lifeToGive > 1 then

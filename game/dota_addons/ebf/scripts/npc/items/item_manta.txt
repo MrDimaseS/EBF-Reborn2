@@ -3,11 +3,11 @@
 	//=================================================================================================================
 	// Recipe: TITAN
 	//=================================================================================================================
-	"item_recipe_silver_edge_2"
+	"item_recipe_manta_2"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"item_recipe_silver_edge"
+		"BaseClass"						"item_recipe_manta"
 		"Model"							"models/props_gameplay/recipe.vmdl"
 		
 		// Item Info
@@ -18,75 +18,66 @@
 		// Recipe
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemRecipe"					"1"
-		"ItemResult"					"item_silver_edge_2"
+		"ItemResult"					"item_manta_2"
 		"ItemRequirements"
 		{
-			"01"						"item_silver_edge;item_relic;item_reaver"
+			"01"						"item_manta;item_orb_1;item_eagle"
 		}
 	}
-	"item_silver_edge_2"
+	"item_manta_2"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"item_lua"
-		"ScriptFile"					"items/item_silver_edge"
-		"AbilityTextureName"			"shadowblade/silver_edge_2"
+		"BaseClass"						"item_manta"
+		"AbilityTextureName"			"manta/manta_2"
 		
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
-		"FightRecapLevel"				"1"
+		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
 
 		// Stats		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"24.0"
-		"AbilitySharedCooldown"			"shadow_blade"
-
+		"AbilityCooldown"				"50.0"
+		"AbilityCastPoint"				"0.0"
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"75"
-		"ItemCost"						"1090"
-		"ItemShopTags"					"damage;attack_speed;movespeed;hard_to_tag"
+		"AbilityManaCost"				"165"
+		"ItemCost"						"990"
+		"ItemShopTags"					"agi;str;int;attack_speed;move_speed;hard_to_tag"
 		"ItemQuality"					"epic"
-		"ItemAliases"					"sb;invis;shadow blade"
+		"ItemAliases"					"manta style"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage" 					"300"
-			"bonus_attack_speed"			"50"
-			"bonus_strength"				"40"
-			"windwalk_duration"				"14.0"
-			"windwalk_movement_speed"		"25"
-			"windwalk_fade_time"			"0.3"
-			"windwalk_bonus_damage"
-			{
-				"value"							"2500"
-				"CalculateSpellDamageTooltip"	"1"
-			}
-			"backstab_duration"					"4"
-			"backstab_slow"						"100"
-			
-			"bash_chance_melee"					"25"
-			"bash_chance_ranged"				"10"
-			"bash_duration"						"1.2"
-			"bash_cooldown"						"2.3"
-			"bonus_chance_damage"
-			{
-				"value"							"750"
-				"CalculateSpellDamageTooltip"	"1"
-			}
+			"bonus_strength"							"55"
+			"bonus_agility"								"110"
+			"bonus_intellect"							"55"
+			"bonus_attack_speed"						"15"
+			"bonus_movement_speed"						"10"
+			"images_count"								"2"
+			"tooltip_illusion_duration"					"20"
+			"images_do_damage_percent_melee"			"-55"
+			"tooltip_damage_outgoing_melee"				"45"
+			"images_take_damage_percent"				"200"
+			"tooltip_damage_incoming_total_pct"			"300"
+			"images_do_damage_percent_ranged"			"-64"
+			"tooltip_damage_outgoing_ranged"			"36"
+			"invuln_duration"							"0.1"
+			"vision_radius"								"1000"
 		}
 	}
 	//=================================================================================================================
 	// Recipe: TITAN
 	//=================================================================================================================
-	"item_recipe_silver_edge_3"
+	"item_recipe_manta_3"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"item_recipe_silver_edge"
+		"BaseClass"						"item_recipe_manta"
 		"Model"							"models/props_gameplay/recipe.vmdl"
 		
 		// Item Info
@@ -97,23 +88,22 @@
 		// Recipe
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemRecipe"					"1"
-		"ItemResult"					"item_silver_edge_3"
+		"ItemResult"					"item_manta_3"
 		"ItemRequirements"
 		{
-			"01"						"item_silver_edge_2;item_scythe_2;item_reaver_2"
+			"01"						"item_manta_2;item_orb_2;item_eagle_2"
 		}
 	}
 	
 	//=================================================================================================================
-	// silver_edgeh Of Titan
+	// mantah Of Titan
 	//=================================================================================================================
-	"item_silver_edge_3"
+	"item_manta_3"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"item_lua"
-		"ScriptFile"					"items/item_silver_edge"
-		"AbilityTextureName"			"shadowblade/silver_edge_3"
+		"BaseClass"						"item_manta"
+		"AbilityTextureName"			"manta/manta_3"
 		
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
 		"FightRecapLevel"				"1"
@@ -137,39 +127,31 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage" 					"900"
-			"bonus_attack_speed"			"65"
-			"bonus_strength"				"115"
-			"windwalk_duration"				"14.0"
-			"windwalk_movement_speed"		"25"
-			"windwalk_fade_time"			"0.3"
-			"windwalk_bonus_damage"
-			{
-				"value"							"3500"
-				"CalculateSpellDamageTooltip"	"1"
-			}
-			"backstab_duration"					"4"
-			"backstab_slow"						"100"
-			
-			"bash_chance_melee"					"25"
-			"bash_chance_ranged"				"10"
-			"bash_duration"						"1.2"
-			"bash_cooldown"						"2.3"
-			"bonus_chance_damage"
-			{
-				"value"							"1000"
-				"CalculateSpellDamageTooltip"	"1"
-			}
+			"bonus_strength"							"195"
+			"bonus_agility"								"365"
+			"bonus_intellect"							"195"
+			"bonus_attack_speed"						"15"
+			"bonus_movement_speed"						"10"
+			"images_count"								"2"
+			"tooltip_illusion_duration"					"20"
+			"images_do_damage_percent_melee"			"-53"
+			"tooltip_damage_outgoing_melee"				"57"
+			"images_take_damage_percent"				"200"
+			"tooltip_damage_incoming_total_pct"			"300"
+			"images_do_damage_percent_ranged"			"-56"
+			"tooltip_damage_outgoing_ranged"			"44"
+			"invuln_duration"							"0.1"
+			"vision_radius"								"1000"
 		}
 	}
 	//=================================================================================================================
 	// Recipe: TITAN
 	//=================================================================================================================
-	"item_recipe_silver_edge_4"
+	"item_recipe_manta_4"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"item_recipe_silver_edge"
+		"BaseClass"						"item_recipe_manta"
 		"Model"							"models/props_gameplay/recipe.vmdl"
 		
 		// Item Info
@@ -180,23 +162,22 @@
 		// Recipe
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemRecipe"					"1"
-		"ItemResult"					"item_silver_edge_4"
+		"ItemResult"					"item_manta_4"
 		"ItemRequirements"
 		{
-			"01"						"item_silver_edge_3;item_scythe_3;item_reaver_3"
+			"01"						"item_manta_3;item_orb_3;item_eagle_3"
 		}
 	}
 
 	//=================================================================================================================
-	// silver_edge Of Deity
+	// manta Of Deity
 	//=================================================================================================================
-	"item_silver_edge_4"
+	"item_manta_4"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"item_lua"
-		"ScriptFile"					"items/item_silver_edge"
-		"AbilityTextureName"			"shadowblade/silver_edge_4"
+		"BaseClass"						"item_manta"
+		"AbilityTextureName"			"manta/manta_4"
 		
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
 		"FightRecapLevel"				"1"
@@ -220,39 +201,31 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage" 					"2700"
-			"bonus_attack_speed"			"80"
-			"bonus_strength"				"340"
-			"windwalk_duration"				"14.0"
-			"windwalk_movement_speed"		"25"
-			"windwalk_fade_time"			"0.3"
-			"windwalk_bonus_damage"
-			{
-				"value"							"4500"
-				"CalculateSpellDamageTooltip"	"1"
-			}
-			"backstab_duration"					"4"
-			"backstab_slow"						"100"
-			
-			"bash_chance_melee"					"25"
-			"bash_chance_ranged"				"10"
-			"bash_duration"						"1.2"
-			"bash_cooldown"						"2.3"
-			"bonus_chance_damage"
-			{
-				"value"							"1250"
-				"CalculateSpellDamageTooltip"	"1"
-			}
+			"bonus_strength"							"620"
+			"bonus_agility"								"1135"
+			"bonus_intellect"							"620"
+			"bonus_attack_speed"						"15"
+			"bonus_movement_speed"						"10"
+			"images_count"								"2"
+			"tooltip_illusion_duration"					"20"
+			"images_do_damage_percent_melee"			"-31"
+			"tooltip_damage_outgoing_melee"				"69"
+			"images_take_damage_percent"				"200"
+			"tooltip_damage_incoming_total_pct"			"300"
+			"images_do_damage_percent_ranged"			"-48"
+			"tooltip_damage_outgoing_ranged"			"52"
+			"invuln_duration"							"0.1"
+			"vision_radius"								"1000"
 		}
 	}
 	//=================================================================================================================
 	// Recipe: TITAN
 	//=================================================================================================================
-	"item_recipe_silver_edge_5"
+	"item_recipe_manta_5"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"item_recipe_silver_edge"
+		"BaseClass"						"item_recipe_manta"
 		"Model"							"models/props_gameplay/recipe.vmdl"
 		
 		// Item Info
@@ -263,22 +236,21 @@
 		// Recipe
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemRecipe"					"1"
-		"ItemResult"					"item_silver_edge_5"
+		"ItemResult"					"item_manta_5"
 		"ItemRequirements"
 		{
-			"01"						"item_silver_edge_4;item_scythe_4;item_reaver_4"
+			"01"						"item_manta_4;item_orb_4;item_eagle_4"
 		}
 	}
 	//=================================================================================================================
-	// silver_edge Of Bahamut
+	// manta Of Bahamut
 	//=================================================================================================================
-	"item_silver_edge_5"
+	"item_manta_5"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"item_lua"
-		"ScriptFile"					"items/item_silver_edge"
-		"AbilityTextureName"			"shadowblade/silver_edge_5"
+		"BaseClass"						"item_manta"
+		"AbilityTextureName"			"manta/manta_5"
 		
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
 		"FightRecapLevel"				"1"
@@ -302,29 +274,21 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage" 					"8700"
-			"bonus_attack_speed"			"95"
-			"bonus_strength"				"1015"
-			"windwalk_duration"				"14.0"
-			"windwalk_movement_speed"		"25"
-			"windwalk_fade_time"			"0.3"
-			"windwalk_bonus_damage"
-			{
-				"value"							"6500"
-				"CalculateSpellDamageTooltip"	"1"
-			}
-			"backstab_duration"					"4"
-			"backstab_slow"						"100"
-			
-			"bash_chance_melee"					"25"
-			"bash_chance_ranged"				"10"
-			"bash_duration"						"1.2"
-			"bash_cooldown"						"2.3"
-			"bonus_chance_damage"
-			{
-				"value"							"1600"
-				"CalculateSpellDamageTooltip"	"1"
-			}
+			"bonus_strength"							"1925"
+			"bonus_agility"								"3500"
+			"bonus_intellect"							"1925"
+			"bonus_attack_speed"						"15"
+			"bonus_movement_speed"						"10"
+			"images_count"								"2"
+			"tooltip_illusion_duration"					"20"
+			"images_do_damage_percent_melee"			"-19"
+			"tooltip_damage_outgoing_melee"				"81"
+			"images_take_damage_percent"				"200"
+			"tooltip_damage_incoming_total_pct"			"300"
+			"images_do_damage_percent_ranged"			"-40"
+			"tooltip_damage_outgoing_ranged"			"60"
+			"invuln_duration"							"0.1"
+			"vision_radius"								"1000"
 		}
 	}
 }

@@ -936,7 +936,7 @@
 			"bonus_armor"			"7"
 			"bonus_health_regen"	"6.5"
 			"bonus_mana_regen"		"2.5"
-			"bonus_all"				"10"
+			"bonus_all"				"15"
 			"active_duration"		"6"
 			"active_radius"			"700"
 		}
@@ -2522,6 +2522,7 @@
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"6.0"
+		"AbilitySharedCooldown"			"phylactery"
 
 
 		// Item Info
@@ -2584,6 +2585,7 @@
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"6.0"
+		"AbilitySharedCooldown"			"khanda"
 
 
 		// Item Info
@@ -2615,7 +2617,26 @@
 			"slow_duration"					"1.5"
 		}
 	}
-
+	"item_recipe_sheepstick"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"250"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_sheepstick"
+		"ItemRequirements"
+		{
+			"01"						"item_mystic_staff;item_tiara_of_selemene"
+		}
+	}
 	//=================================================================================================================
 	// Sheepstick
 	//=================================================================================================================
@@ -2623,6 +2644,10 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_sheepstick"
+		"AbilityTextureName"			"item_sheepstick"
+		
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
@@ -2650,12 +2675,12 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_strength"		"10"
-			"bonus_agility"			"10"
-			"bonus_intellect"		"35"
-			"bonus_mana_regen"		"3"
-			"sheep_duration"		"3.5"
-			"sheep_movement_speed"	"140"
+			"bonus_intellect"			"30"
+			"bonus_mana_regen"			"8.5"
+			"sheep_duration"			"2.8"
+			"sheep_movement_speed"		"140"
+			
+			"units_hexed"				"1"
 		}
 	}
 	//=================================================================================================================
@@ -3195,7 +3220,7 @@
 			"bonus_hp_regen_per_str"		"0.15"
 			
 			"duration"						"12"
-			"power_multiplier"				"2"
+			"power_multiplier"				"50"
 			"AbilityCooldown"				"60"
 			
 			"health_regen_pct"				"0"
@@ -3665,9 +3690,9 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_strength"		"10"
-			"bonus_agility"			"26"
-			"bonus_intellect"		"10"
+			"bonus_strength"		"15"
+			"bonus_agility"			"31"
+			"bonus_intellect"		"15"
 			"bonus_attack_speed"	"15"
 			"bonus_movement_speed"	"10"
 			"images_count"			"2"
@@ -3968,6 +3993,7 @@
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"backstab_duration"					"4"
+			"backstab_slow"						"100"
 			
 			"bash_chance_melee"					"25"
 			"bash_chance_ranged"				"10"
@@ -5681,7 +5707,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"0"	
+		"ItemCost"						"125"
 		"ItemShopTags"					""
 
 		
@@ -5691,7 +5717,7 @@
 		"ItemResult"					"item_abyssal_blade"
 		"ItemRequirements"
 		{
-			"01"						"item_basher;item_vitality_booster;item_ring_of_tarrasque"
+			"01"						"item_basher;item_vitality_booster;item_ring_of_tarrasque;item_reaver"
 		}
 	}
 	//=================================================================================================================
@@ -5701,6 +5727,10 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_abyssal_blade"
+		"AbilityTextureName"			"item_abyssal_blade"
+		
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
@@ -5709,7 +5739,7 @@
 
 		// Stats		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"60"
+		"AbilityCooldown"				"35"
 		"AbilityCastRange"				"140"
 		"AbilityCastPoint"				"0.0"
 
@@ -5728,25 +5758,30 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage"				"75"
-			"bonus_health"				"250"
-			"bonus_health_regen"		"10"
-			"bonus_strength"			"10"
+			"bonus_damage"						"75"
+			"bonus_health"						"250"
+			"bonus_health_regen"				"10"
+			"bonus_strength"					"35"
 			
-			"bash_chance_melee"			"25"
-			"bash_chance_ranged"		"10"
-			"bash_duration"				"1.2"
-			"bash_cooldown"				"2.3"
+			"bash_chance_melee"					"25"
+			"bash_chance_ranged"				"10"
+			"bash_duration"						"2"
+			"bash_cooldown"						"2.3"
+			"bash_radius"						"325"
 			"bonus_chance_damage"
 			{
-				"value"						"600"
+				"value"							"800"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"stun_duration"				"1.6"
+			"bonus_str_damage"
+			{
+				"value"							"80"
+				"CalculateSpellDamageTooltip"	"0"
+			}
+			"active_multiplier"					"100"
 			
-			"block_damage_melee"		"70"
-			"block_damage_ranged"		"35"
-			"block_chance"				"60"
+			"block_damage_pct"					"60"
+			"block_chance"						"50"
 		}
 	}
 	//=================================================================================================================

@@ -3,151 +3,151 @@
 	//=================================================================================================================
 	// Recipe: TITAN
 	//=================================================================================================================
-	"item_recipe_angels_demise_2"
+	"item_recipe_sheepstick_2"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"item_recipe_angels_demise"
+		"BaseClass"						"item_recipe_sheepstick"
 		"Model"							"models/props_gameplay/recipe.vmdl"
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"20"	
+		"ItemCost"						"25"	
 		"ItemShopTags"					""
 		
 		// Recipe
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemRecipe"					"1"
-		"ItemResult"					"item_angels_demise_2"
+		"ItemResult"					"item_sheepstick_2"
 		"ItemRequirements"
 		{
-			"01"						"item_angels_demise;item_orb_1;item_relic"
+			"01"						"item_sheepstick;item_mystic_staff_2"
+		}
+	}
+	"item_sheepstick_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_sheepstick"
+		"AbilityTextureName"			"sheepstick/sheepstick_2"
+		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"FightRecapLevel"				"2"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"800"
+		"AbilityCastPoint"				"0.0"
+
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"35.0"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"100"
+		"ItemCost"						"1135"
+		"ItemShopTags"					"int;regen_mana;agi;hard_to_tag"
+		"ItemQuality"					"rare"
+		"ItemAliases"					"hex;sheepstick;scythe of vyse"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_intellect"			"120"
+			"bonus_mana_regen"			"12.5"
+			"sheep_duration"			"2.8"
+			"bonus_duration"			"0.5"
+			"sheep_movement_speed"		"140"
+			
+			"units_hexed"				"2"
+		}
+	}
+	//=================================================================================================================
+	// Recipe: TITAN
+	//=================================================================================================================
+	"item_recipe_sheepstick_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_sheepstick"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"25"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_sheepstick_3"
+		"ItemRequirements"
+		{
+			"01"						"item_sheepstick_2;item_mystic_staff_3"
 		}
 	}
 	
 	//=================================================================================================================
-	// angels_demiseh Of Titan
+	// sheepstickh Of Titan
 	//=================================================================================================================
-	"item_angels_demise_2"
+	"item_sheepstick_3"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"item_angels_demise"
-		"AbilityTextureName"			"angels_demise/angels_demise_2"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_sheepstick"
+		"AbilityTextureName"			"sheepstick/sheepstick_3"
 		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"FightRecapLevel"				"2"
+
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"6.0"
-		"AbilitySharedCooldown"			"khanda"
-		
-		"ItemCost"						"6200"
-		"ItemShopTags"					"int;hard_to_tag"
-		"ItemQuality"					"rare"
-		"ItemAliases"					"staff;misery;sm"
-		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
-		"ShouldBeSuggested"				"1"
-		
-		"AbilityValues"
-		{				
-			"bonus_damage"					"250"
-			"crit_chance"					"30"
-			"spell_crit_multiplier"			"100"
-			
-			"spell_crit_flat"
-			{
-				"value"							"1000"
-				"CalculateSpellDamageTooltip"	"1"
-			}
-			"crit_multiplier"				"175"
-			"tooltip_crit_damage"			"75"
-			
-			"bonus_health"					"1000"
-			"bonus_mana"					"250"			
-			"bonus_all_stats"				"68"
-			"slow"							"50"
-			"slow_duration"					"1.5"
-		}
-	}
-	//=================================================================================================================
-	// Recipe: TITAN
-	//=================================================================================================================
-	"item_recipe_angels_demise_3"
-	{
-		// General
+		"AbilityCastRange"				"800"
+		"AbilityCastPoint"				"0.0"
+
+		// Stats		
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"item_recipe_angels_demise"
-		"Model"							"models/props_gameplay/recipe.vmdl"
-		
+		"AbilityCooldown"				"35.0"
+
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"25"	
-		"ItemShopTags"					""
-		
-		// Recipe
-		//-------------------------------------------------------------------------------------------------------------
-		"ItemRecipe"					"1"
-		"ItemResult"					"item_angels_demise_3"
-		"ItemRequirements"
-		{
-			"01"						"item_angels_demise_2;item_orb_2;item_scythe_2"
-		}
-	}
-	
-	//=================================================================================================================
-	// angels_demiseh Of Titan
-	//=================================================================================================================
-	"item_angels_demise_3"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"item_angels_demise"
-		"AbilityTextureName"			"angels_demise/angels_demise_3"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Stats
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"6.0"
-		"AbilitySharedCooldown"			"khanda"
-		
-		"ItemCost"						"6200"
-		"ItemShopTags"					"int;hard_to_tag"
+		"AbilityManaCost"				"100"
+		"ItemCost"						"1135"
+		"ItemShopTags"					"int;regen_mana;agi;hard_to_tag"
 		"ItemQuality"					"rare"
-		"ItemAliases"					"staff;misery;sm"
+		"ItemAliases"					"hex;sheepstick;scythe of vyse"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
-		"ShouldBeSuggested"				"1"
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage"					"850"
-			"bonus_health"					"2500"
-			"bonus_mana"					"350"
-			"bonus_all_stats"				"255"
+			"bonus_intellect"			"390"
+			"bonus_mana_regen"			"18.5"
+			"sheep_duration"			"2.8"
+			"bonus_duration"			"0.5"
+			"sheep_movement_speed"		"140"
 			
-			"spell_crit_multiplier"			"125"
-			"spell_crit_flat"
-			{
-				"value"							"1250"
-				"CalculateSpellDamageTooltip"	"1"
-			}
-			"slow"							"50"
-			"slow_duration"					"1.5"
-			
-			"crit_chance"					"30"
-			"crit_multiplier"				"190"
-			"tooltip_crit_damage"			"90"
+			"units_hexed"				"3"
 		}
 	}
 	//=================================================================================================================
 	// Recipe: TITAN
 	//=================================================================================================================
-	"item_recipe_angels_demise_4"
+	"item_recipe_sheepstick_4"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"item_recipe_angels_demise"
+		"BaseClass"						"item_recipe_sheepstick"
 		"Model"							"models/props_gameplay/recipe.vmdl"
 		
 		// Item Info
@@ -158,67 +158,68 @@
 		// Recipe
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemRecipe"					"1"
-		"ItemResult"					"item_angels_demise_4"
+		"ItemResult"					"item_sheepstick_4"
 		"ItemRequirements"
 		{
-			"01"						"item_angels_demise_3;item_orb_3;item_scythe_3"
+			"01"						"item_sheepstick_3;item_mystic_staff_4"
 		}
 	}
 
 	//=================================================================================================================
-	// angels_demise Of Deity
+	// sheepstick Of Deity
 	//=================================================================================================================
-	"item_angels_demise_4"
+	"item_sheepstick_4"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"item_angels_demise"
-		"AbilityTextureName"			"angels_demise/angels_demise_4"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_sheepstick"
+		"AbilityTextureName"			"sheepstick/sheepstick_4"
 		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"FightRecapLevel"				"2"
+
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"6.0"
-		"AbilitySharedCooldown"			"khanda"
-		
-		"ItemCost"						"6200"
-		"ItemShopTags"					"int;hard_to_tag"
+		"AbilityCastRange"				"800"
+		"AbilityCastPoint"				"0.0"
+
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"35.0"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"100"
+		"ItemCost"						"1135"
+		"ItemShopTags"					"int;regen_mana;agi;hard_to_tag"
 		"ItemQuality"					"rare"
-		"ItemAliases"					"staff;misery;sm"
+		"ItemAliases"					"hex;sheepstick;scythe of vyse"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
-		"ShouldBeSuggested"				"1"
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage"					"2650"
-			"bonus_health"					"10000"
-			"bonus_mana"					"550"
-			"bonus_all_stats"				"825"
+			"bonus_intellect"			"1200"
+			"bonus_mana_regen"			"28.5"
+			"sheep_duration"			"2.8"
+			"bonus_duration"			"0.5"
+			"sheep_movement_speed"		"140"
 			
-			"spell_crit_multiplier"			"150"
-			"spell_crit_flat"
-			{
-				"value"							"1500"
-				"CalculateSpellDamageTooltip"	"1"
-			}
-			"slow"							"50"
-			"slow_duration"					"1.5"
-			
-			"crit_chance"					"30"
-			"crit_multiplier"				"205"
-			"tooltip_crit_damage"			"105"
+			"units_hexed"				"4"
 		}
 	}
 	//=================================================================================================================
 	// Recipe: TITAN
 	//=================================================================================================================
-	"item_recipe_angels_demise_5"
+	"item_recipe_sheepstick_5"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"item_recipe_angels_demise"
+		"BaseClass"						"item_recipe_sheepstick"
 		"Model"							"models/props_gameplay/recipe.vmdl"
 		
 		// Item Info
@@ -229,56 +230,57 @@
 		// Recipe
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemRecipe"					"1"
-		"ItemResult"					"item_angels_demise_5"
+		"ItemResult"					"item_sheepstick_5"
 		"ItemRequirements"
 		{
-			"01"						"item_angels_demise_4;item_orb_4;item_scythe_4"
+			"01"						"item_sheepstick_4;item_mystic_staff_5"
 		}
 	}
 	//=================================================================================================================
-	// angels_demise Of Bahamut
+	// sheepstick Of Bahamut
 	//=================================================================================================================
-	"item_angels_demise_5"
+	"item_sheepstick_5"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"item_angels_demise"
-		"AbilityTextureName"			"angels_demise/angels_demise_5"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_sheepstick"
+		"AbilityTextureName"			"sheepstick/sheepstick_5"
 		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"FightRecapLevel"				"2"
+
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"6.0"
-		"AbilitySharedCooldown"			"khanda"
-		
-		"ItemCost"						"6200"
-		"ItemShopTags"					"int;hard_to_tag"
-		"ItemQuality"					"rare"
-		"ItemAliases"					"staff;misery;sm"
-		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
-		"ShouldBeSuggested"				"1"
+		"AbilityCastRange"				"800"
+		"AbilityCastPoint"				"0.0"
 
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"35.0"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"100"
+		"ItemCost"						"1135"
+		"ItemShopTags"					"int;regen_mana;agi;hard_to_tag"
+		"ItemQuality"					"rare"
+		"ItemAliases"					"hex;sheepstick;scythe of vyse"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage"					"8650"
-			"bonus_health"					"25000"
-			"bonus_mana"					"700"
-			"bonus_all_stats"				"2560"
+			"bonus_intellect"			"4200"
+			"bonus_mana_regen"			"45"
+			"sheep_duration"			"2.8"
+			"bonus_duration"			"0.5"
+			"sheep_movement_speed"		"140"
 			
-			"spell_crit_multiplier"			"175"
-			"spell_crit_flat"
-			{
-				"value"							"2000"
-				"CalculateSpellDamageTooltip"	"1"
-			}
-			"slow"							"50"
-			"slow_duration"					"1.5"
-			
-			"crit_chance"					"30"
-			"crit_multiplier"				"220"
-			"tooltip_crit_damage"			"120"
+			"units_hexed"				"5"
 		}
 	}
 }

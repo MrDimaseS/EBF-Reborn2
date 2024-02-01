@@ -56,22 +56,22 @@ function modifier_tidehunter_kraken_shell_effect:DeclareFunctions()
 end
 
 function modifier_tidehunter_kraken_shell_effect:GetModifierIncomingDamage_Percentage( params )
-	if self:GetParent():PassivesDisabled() and self:GetRemainingTime() < 0 then return end
+	if self:GetParent():PassivesDisabled() and self:GetDuration() <= 0 then return end
+	local ability = self:GetAbility()
+	local caster = self:GetCaster()
 	if not self.triggered then
 		EmitSoundOn( "Hero_Tidehunter.KrakenShell", self:GetParent() )
 		ParticleManager:FireParticle( "particles/units/heroes/hero_tidehunter/tidehunter_krakenshell_purge.vpcf", PATTACH_POINT_FOLLOW, self:GetParent() )
 		
 		self.triggered = true
 		self:SetDuration( self.linger_duration, true )
-		self:GetAbility():SetCooldown()
+		ability:SetCooldown()
 		ability:SetFrozenCooldown( true )
 		self:OnIntervalThink()
 		self:StartIntervalThink(0.1)
 	end
 	if self:GetSpecialValueFor("should_ravage") > 0 then
-        local caster = self:GetCaster()
         local target = params.attacker
-        local ability = self:GetAbility()
 		self.ravage = self:GetCaster():FindAbilityByName("tidehunter_ravage")
 		if self.ravage:GetLevel() > 0 then
 			local nfx = ParticleManager:CreateParticle("particles/units/heroes/hero_tidehunter/tidehunter_ravage_tentacle_model.vpcf", PATTACH_POINT, caster)

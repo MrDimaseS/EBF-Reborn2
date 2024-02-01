@@ -130,7 +130,7 @@ function modifier_item_armlet_active:OnIntervalThink()
 	
 end
 
-function modifier_item_armlet_active:OnDestroy()
+function modifier_item_armlet_active:OnRemoved()
 	if not IsServer() then return end
 	local ability = self:GetAbility()
 	local caster = self:GetCaster()

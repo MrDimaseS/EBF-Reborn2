@@ -3,11 +3,11 @@
 	//=================================================================================================================
 	// Recipe: TITAN
 	//=================================================================================================================
-	"item_recipe_silver_edge_2"
+	"item_recipe_abyssal_blade_2"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"item_recipe_silver_edge"
+		"BaseClass"						"item_recipe_abyssal_blade"
 		"Model"							"models/props_gameplay/recipe.vmdl"
 		
 		// Item Info
@@ -18,75 +18,81 @@
 		// Recipe
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemRecipe"					"1"
-		"ItemResult"					"item_silver_edge_2"
+		"ItemResult"					"item_abyssal_blade_2"
 		"ItemRequirements"
 		{
-			"01"						"item_silver_edge;item_relic;item_reaver"
+			"01"						"item_abyssal_blade;item_demon_edge;item_reaver_2"
 		}
 	}
-	"item_silver_edge_2"
+	"item_abyssal_blade_2"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"item_lua"
-		"ScriptFile"					"items/item_silver_edge"
-		"AbilityTextureName"			"shadowblade/silver_edge_2"
+		"ScriptFile"					"items/item_abyssal_blade"
+		"AbilityTextureName"			"abyssal_blade/abyssal_blade_2"
 		
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
 		"FightRecapLevel"				"1"
 
 		// Stats		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"24.0"
-		"AbilitySharedCooldown"			"shadow_blade"
+		"AbilityCooldown"				"35"
+		"AbilityCastRange"				"140"
+		"AbilityCastPoint"				"0.0"
 
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"75"
-		"ItemCost"						"1090"
-		"ItemShopTags"					"damage;attack_speed;movespeed;hard_to_tag"
+		"AbilityManaCost"				"150"
+		"ItemCost"						"1350"
+		"ItemShopTags"					"damage;str;hard_to_tag"
 		"ItemQuality"					"epic"
-		"ItemAliases"					"sb;invis;shadow blade"
+		"ItemAliases"					"abyssal blade"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage" 					"300"
-			"bonus_attack_speed"			"50"
-			"bonus_strength"				"40"
-			"windwalk_duration"				"14.0"
-			"windwalk_movement_speed"		"25"
-			"windwalk_fade_time"			"0.3"
-			"windwalk_bonus_damage"
-			{
-				"value"							"2500"
-				"CalculateSpellDamageTooltip"	"1"
-			}
-			"backstab_duration"					"4"
-			"backstab_slow"						"100"
+			"bonus_damage"						"125"
+			"bonus_health"						"1000"
+			"bonus_health_regen"				"27"
+			"bonus_strength"					"110"
 			
 			"bash_chance_melee"					"25"
 			"bash_chance_ranged"				"10"
-			"bash_duration"						"1.2"
+			"bash_duration"						"2"
 			"bash_cooldown"						"2.3"
+			"bash_radius"						"325"
 			"bonus_chance_damage"
 			{
-				"value"							"750"
+				"value"							"1100"
 				"CalculateSpellDamageTooltip"	"1"
 			}
+			"bonus_str_damage"
+			{
+				"value"							"90"
+				"CalculateSpellDamageTooltip"	"0"
+			}
+			"active_multiplier"					"100"
+			
+			"block_damage_pct"					"100"
+			"block_chance"						"50"
 		}
 	}
 	//=================================================================================================================
 	// Recipe: TITAN
 	//=================================================================================================================
-	"item_recipe_silver_edge_3"
+	"item_recipe_abyssal_blade_3"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"item_recipe_silver_edge"
+		"BaseClass"						"item_recipe_abyssal_blade"
 		"Model"							"models/props_gameplay/recipe.vmdl"
 		
 		// Item Info
@@ -97,79 +103,85 @@
 		// Recipe
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemRecipe"					"1"
-		"ItemResult"					"item_silver_edge_3"
+		"ItemResult"					"item_abyssal_blade_3"
 		"ItemRequirements"
 		{
-			"01"						"item_silver_edge_2;item_scythe_2;item_reaver_2"
+			"01"						"item_abyssal_blade_2;item_relic;item_reaver_3"
 		}
 	}
 	
 	//=================================================================================================================
-	// silver_edgeh Of Titan
+	// abyssal_bladeh Of Titan
 	//=================================================================================================================
-	"item_silver_edge_3"
+	"item_abyssal_blade_3"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"item_lua"
-		"ScriptFile"					"items/item_silver_edge"
-		"AbilityTextureName"			"shadowblade/silver_edge_3"
+		"ScriptFile"					"items/item_abyssal_blade"
+		"AbilityTextureName"			"abyssal_blade/abyssal_blade_3"
 		
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
 		"FightRecapLevel"				"1"
 
 		// Stats		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"24.0"
-		"AbilitySharedCooldown"			"shadow_blade"
+		"AbilityCooldown"				"35"
+		"AbilityCastRange"				"140"
+		"AbilityCastPoint"				"0.0"
 
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"75"
-		"ItemCost"						"1090"
-		"ItemShopTags"					"damage;attack_speed;movespeed;hard_to_tag"
+		"AbilityManaCost"				"150"
+		"ItemCost"						"1350"
+		"ItemShopTags"					"damage;str;hard_to_tag"
 		"ItemQuality"					"epic"
-		"ItemAliases"					"sb;invis;shadow blade"
+		"ItemAliases"					"abyssal blade"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage" 					"900"
-			"bonus_attack_speed"			"65"
-			"bonus_strength"				"115"
-			"windwalk_duration"				"14.0"
-			"windwalk_movement_speed"		"25"
-			"windwalk_fade_time"			"0.3"
-			"windwalk_bonus_damage"
-			{
-				"value"							"3500"
-				"CalculateSpellDamageTooltip"	"1"
-			}
-			"backstab_duration"					"4"
-			"backstab_slow"						"100"
+			"bonus_damage"						"325"
+			"bonus_health"						"2500"
+			"bonus_health_regen"				"65"
+			"bonus_strength"					"335"
 			
 			"bash_chance_melee"					"25"
 			"bash_chance_ranged"				"10"
-			"bash_duration"						"1.2"
+			"bash_duration"						"2"
 			"bash_cooldown"						"2.3"
+			"bash_radius"						"325"
 			"bonus_chance_damage"
 			{
-				"value"							"1000"
+				"value"							"1400"
 				"CalculateSpellDamageTooltip"	"1"
 			}
+			"bonus_str_damage"
+			{
+				"value"							"100"
+				"CalculateSpellDamageTooltip"	"0"
+			}
+			"active_multiplier"					"100"
+			
+			"block_damage_pct"					"140"
+			"block_chance"						"50"
 		}
 	}
 	//=================================================================================================================
 	// Recipe: TITAN
 	//=================================================================================================================
-	"item_recipe_silver_edge_4"
+	"item_recipe_abyssal_blade_4"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"item_recipe_silver_edge"
+		"BaseClass"						"item_recipe_abyssal_blade"
 		"Model"							"models/props_gameplay/recipe.vmdl"
 		
 		// Item Info
@@ -180,79 +192,85 @@
 		// Recipe
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemRecipe"					"1"
-		"ItemResult"					"item_silver_edge_4"
+		"ItemResult"					"item_abyssal_blade_4"
 		"ItemRequirements"
 		{
-			"01"						"item_silver_edge_3;item_scythe_3;item_reaver_3"
+			"01"						"item_abyssal_blade_3;item_scythe_2;item_reaver_4"
 		}
 	}
 
 	//=================================================================================================================
-	// silver_edge Of Deity
+	// abyssal_blade Of Deity
 	//=================================================================================================================
-	"item_silver_edge_4"
+	"item_abyssal_blade_4"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"item_lua"
-		"ScriptFile"					"items/item_silver_edge"
-		"AbilityTextureName"			"shadowblade/silver_edge_4"
+		"ScriptFile"					"items/item_abyssal_blade"
+		"AbilityTextureName"			"abyssal_blade/abyssal_blade_4"
 		
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
 		"FightRecapLevel"				"1"
 
 		// Stats		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"24.0"
-		"AbilitySharedCooldown"			"shadow_blade"
+		"AbilityCooldown"				"35"
+		"AbilityCastRange"				"140"
+		"AbilityCastPoint"				"0.0"
 
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"75"
-		"ItemCost"						"1090"
-		"ItemShopTags"					"damage;attack_speed;movespeed;hard_to_tag"
+		"AbilityManaCost"				"150"
+		"ItemCost"						"1350"
+		"ItemShopTags"					"damage;str;hard_to_tag"
 		"ItemQuality"					"epic"
-		"ItemAliases"					"sb;invis;shadow blade"
+		"ItemAliases"					"abyssal blade"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage" 					"2700"
-			"bonus_attack_speed"			"80"
-			"bonus_strength"				"340"
-			"windwalk_duration"				"14.0"
-			"windwalk_movement_speed"		"25"
-			"windwalk_fade_time"			"0.3"
-			"windwalk_bonus_damage"
-			{
-				"value"							"4500"
-				"CalculateSpellDamageTooltip"	"1"
-			}
-			"backstab_duration"					"4"
-			"backstab_slow"						"100"
+			"bonus_damage"						"925"
+			"bonus_health"						"8000"
+			"bonus_health_regen"				"160"
+			"bonus_strength"					"1010"
 			
 			"bash_chance_melee"					"25"
 			"bash_chance_ranged"				"10"
-			"bash_duration"						"1.2"
+			"bash_duration"						"2"
 			"bash_cooldown"						"2.3"
+			"bash_radius"						"325"
 			"bonus_chance_damage"
 			{
-				"value"							"1250"
+				"value"							"1700"
 				"CalculateSpellDamageTooltip"	"1"
 			}
+			"bonus_str_damage"
+			{
+				"value"							"110"
+				"CalculateSpellDamageTooltip"	"0"
+			}
+			"active_multiplier"					"100"
+			
+			"block_damage_pct"					"180"
+			"block_chance"						"50"
 		}
 	}
 	//=================================================================================================================
 	// Recipe: TITAN
 	//=================================================================================================================
-	"item_recipe_silver_edge_5"
+	"item_recipe_abyssal_blade_5"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"item_recipe_silver_edge"
+		"BaseClass"						"item_recipe_abyssal_blade"
 		"Model"							"models/props_gameplay/recipe.vmdl"
 		
 		// Item Info
@@ -263,68 +281,73 @@
 		// Recipe
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemRecipe"					"1"
-		"ItemResult"					"item_silver_edge_5"
+		"ItemResult"					"item_abyssal_blade_5"
 		"ItemRequirements"
 		{
-			"01"						"item_silver_edge_4;item_scythe_4;item_reaver_4"
+			"01"						"item_abyssal_blade_4;item_scythe_3;item_reaver_5"
 		}
 	}
 	//=================================================================================================================
-	// silver_edge Of Bahamut
+	// abyssal_blade Of Bahamut
 	//=================================================================================================================
-	"item_silver_edge_5"
+	"item_abyssal_blade_5"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"item_lua"
-		"ScriptFile"					"items/item_silver_edge"
-		"AbilityTextureName"			"shadowblade/silver_edge_5"
+		"ScriptFile"					"items/item_abyssal_blade"
+		"AbilityTextureName"			"abyssal_blade/abyssal_blade_5"
 		
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
 		"FightRecapLevel"				"1"
 
 		// Stats		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"24.0"
-		"AbilitySharedCooldown"			"shadow_blade"
+		"AbilityCooldown"				"35"
+		"AbilityCastRange"				"140"
+		"AbilityCastPoint"				"0.0"
 
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"75"
-		"ItemCost"						"1090"
-		"ItemShopTags"					"damage;attack_speed;movespeed;hard_to_tag"
+		"AbilityManaCost"				"150"
+		"ItemCost"						"1350"
+		"ItemShopTags"					"damage;str;hard_to_tag"
 		"ItemQuality"					"epic"
-		"ItemAliases"					"sb;invis;shadow blade"
+		"ItemAliases"					"abyssal blade"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage" 					"8700"
-			"bonus_attack_speed"			"95"
-			"bonus_strength"				"1015"
-			"windwalk_duration"				"14.0"
-			"windwalk_movement_speed"		"25"
-			"windwalk_fade_time"			"0.3"
-			"windwalk_bonus_damage"
-			{
-				"value"							"6500"
-				"CalculateSpellDamageTooltip"	"1"
-			}
-			"backstab_duration"					"4"
-			"backstab_slow"						"100"
+			"bonus_damage"						"2725"
+			"bonus_health"						"25000"
+			"bonus_health_regen"				"375"
+			"bonus_strength"					"3510"
 			
 			"bash_chance_melee"					"25"
 			"bash_chance_ranged"				"10"
-			"bash_duration"						"1.2"
+			"bash_duration"						"2"
 			"bash_cooldown"						"2.3"
+			"bash_radius"						"325"
 			"bonus_chance_damage"
 			{
-				"value"							"1600"
+				"value"							"2100"
 				"CalculateSpellDamageTooltip"	"1"
 			}
+			"bonus_str_damage"
+			{
+				"value"							"120"
+				"CalculateSpellDamageTooltip"	"0"
+			}
+			"active_multiplier"					"100"
+			"block_damage_pct"					"220"
+			"block_chance"						"50"
 		}
 	}
 }

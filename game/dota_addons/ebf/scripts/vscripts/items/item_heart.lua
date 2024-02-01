@@ -23,25 +23,37 @@ LinkLuaModifier( "modifier_item_heart_active", "items/item_heart.lua" ,LUA_MODIF
 
 function modifier_item_heart_active:OnCreated()
 	self:OnRefresh()
-end
-
-function modifier_item_heart_active:OnRefresh()
-	self.power_multiplier = self:GetSpecialValueFor("power_multiplier")-1
-	self.bonus_hp_regen_per_str = self:GetSpecialValueFor("bonus_hp_regen_per_str")
-	self.bonus_hp_per_str = self:GetSpecialValueFor("bonus_hp_per_str")
-	self.magic_resist = self:GetSpecialValueFor("magic_resist")
-	self.magic_immune = self:GetSpecialValueFor("magic_immune") == 1
-	if IsServer() and self.magic_immune then
-		local magicFX = ParticleManager:CreateParticle("particles/items_fx/black_king_bar_avatar.vpcf", PATTACH_POINT_FOLLOW, self:GetParent() )
-		self:AddEffect( magicFX )
-		
+	if IsServer() then
+		if self.magic_immune then
+			local magicFX = ParticleManager:CreateParticle("particles/items_fx/black_king_bar_avatar.vpcf", PATTACH_POINT_FOLLOW, self:GetParent() )
+			self:AddEffect( magicFX )
+		end
 		self:StartIntervalThink(0)
 	end
 end
 
+function modifier_item_heart_active:OnRefresh()
+	self.power_multiplier = self:GetSpecialValueFor("power_multiplier")-1
+	self.bonus_hp_regen_per_str = self:GetSpecialValueFor("bonus_hp_regen_per_str") + 0.15
+	self.bonus_hp_per_str = self:GetSpecialValueFor("bonus_hp_per_str") + 22
+	if self:GetParent()._primaryAttribute == DOTA_ATTRIBUTE_STRENGTH then
+		self.bonus_hp_per_str = self.bonus_hp_per_str + 11
+	elseif self:GetParent()._primaryAttribute == DOTA_ATTRIBUTE_ALL then
+		self.bonus_hp_per_str = self.bonus_hp_per_str + 4
+	end
+	self.magic_resist = self:GetSpecialValueFor("magic_resist")
+	self.magic_immune = self:GetSpecialValueFor("magic_immune") == 1
+	
+	self.strengthAccountedFor = 0
+	self.strengthPerSec = (self:GetParent():GetStrength() / 0.6)*FrameTime()
+end
+
 function modifier_item_heart_active:OnIntervalThink()
-	self:GetParent():HealEvent( self.bonus_hp_per_str * self:GetParent():GetStrength(), self:GetAbility(), self:GetParent() )
-	self:StartIntervalThink(-1)
+	self:GetParent():HealEvent( self.bonus_hp_per_str * self.strengthPerSec, self:GetAbility(), self:GetParent() )
+	self.strengthAccountedFor = self.strengthAccountedFor + self.strengthPerSec
+	if self.strengthAccountedFor >= self:GetParent():GetStrength() then
+		self:StartIntervalThink(-1)
+	end
 end
 
 function modifier_item_heart_active:CheckState()

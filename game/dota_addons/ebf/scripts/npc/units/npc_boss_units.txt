@@ -2402,6 +2402,7 @@
 		"ModelScale"				"1.4"
 		"Level"						"10"
 		"ConsideredHero"			"1"
+		"vscripts"					"ai/ai_boss_roshan_beast"
 		
 		// Abilities
 		//----------------------------------------------------------------
@@ -2475,35 +2476,6 @@
 		"Creature"
 		{
 			"CanRespawn"				"0"
-			"States"
-			{
-				"Invade"
-				{
-					"Name"				"Invade"
-					"Aggression"		"100.0"
-					"Avoidance"			"0.0"
-					"Support"			"0.0"
-				}
-			}
-			
-			"OffensiveAbilities"
-			{
-				"Ability1"				
-				{
-					"Name"				"creature_fire_breath"
-					"AOE"				"1"
-					"Radius"			"650"
-					"MinimumTargets"	"1"
-				}
-				"Ability3"				
-				{
-					"Name"				"roshan_slam"
-					"AOE"				"1"
-					"Radius"			"350"
-					"MinimumTargets"	"1"
-				}
-			}
-			"DisableResistance"			"0.0"
 		}
 	}
 
@@ -4612,7 +4584,7 @@
 			}
 		}
 	}
-	"npc_dota_boss26_mini"
+	"npc_dota_minion_ursine_scout"
 	{
 		// General
 		//----------------------------------------------------------------
@@ -4624,18 +4596,17 @@
 		"ModelScale" 				"0.5"
 		"MinimapIcon"				"minimap_enemyicon"
 		"MinimapIconSize"			"275"
+		"vscripts"					"ai/ai_minion_ursine_scout"
 
 		// Abilities
 		//----------------------------------------------------------------
-		"AbilityLayout"              "2"
-		"Ability1"					"boss_ursa_rage"			// Ability 1.
-		"Ability2"					""			// Ability 1.
-		"Ability3"					"necrolyte_heartstopper_aura"
+		"AbilityLayout"             "2"
+		"Ability1"					"boss_ursine_fury_swipes"			// Ability 1.
 
 		// Armor
 		//----------------------------------------------------------------
-		"ArmorPhysical"				"1"			// Physical protection.
-		"MagicalResistance"			"25"		// Magical protection.
+		"ArmorPhysical"				"5"			// Physical protection.
+		"MagicalResistance"			"60"		// Magical protection.
 		
 		// Attack
 		//----------------------------------------------------------------
@@ -4692,35 +4663,17 @@
 		{
 			//Basic AI State
 			//------------------------------------------------------------
-			"DefaultState"				"Invade"
-			"States"
-			{
-				"Invade"
-				{
-					"Name"				"Invade"
-					"Aggression"		"100.0"
-					"Avoidance"			"0.0"
-					"Support"			"0.0"
-				}
-			}
-
-			
-			"DefaultState"				"Invade"
-			
-			"OffensiveAbilities"
-			{
-				"Ability2"
-				{
-					"Name"				"creature_melee_smash2"
-					"AOE"                "1"
-       				"Radius"             "500"
-					"MinimumTargets"	"1"
-				}
-			}
 			"DisableResistance"			"0.0"
+			"AttachWearables"
+			{
+				"Wearable1" { "ItemDef" "5888" }
+				"Wearable1" { "ItemDef" "5893" }
+				"Wearable1" { "ItemDef" "5894" }
+				"Wearable1" { "ItemDef" "5895" }
+			}
 		}
 	}
-	"npc_dota_boss26"
+	"npc_dota_boss_ursine_guardian"
 	{
 		// General
 		//----------------------------------------------------------------
@@ -4733,12 +4686,15 @@
 		"ConsideredHero"			"1"
 		"MinimapIcon"				"minimap_enemyicon"
 		"MinimapIconSize"			"275"
+		"vscripts"					"ai/ai_boss_ursine_guardian"
 
 		// Abilities
 		//----------------------------------------------------------------
 		"AbilityLayout"              "2"
-		"Ability1"					"boss_ursa_rage"			// Ability 1.
-		"Ability2"					""			// Ability 1.
+		"Ability1"					"boss_ursine_guardian_earthshock"			// Ability 1.
+		"Ability2"					"boss_ursine_guardian_overpower"			// Ability 1.
+		"Ability3"					"boss_ursine_fury_swipes"					// Ability 1.
+		"Ability4"					"boss_ursine_guardian_enrage"				// Ability 1.
 
 		// Armor
 		//----------------------------------------------------------------
@@ -4793,70 +4749,28 @@
 		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_BASIC"
 		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_HERO"
 		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
-		
+		"HasInventory"				"1"
 		// Creature Data
 		//----------------------------------------------------------------
 		"Creature"
 		{
-			//Basic AI State
-			//------------------------------------------------------------
-			"DefaultState"				"Invade"
-			"States"
-			{
-				"Invade"
-				{
-					"Name"				"Invade"
-					"Aggression"		"100.0"
-					"Avoidance"			"0.0"
-					"Support"			"0.0"
-				}
-			}
-
-			
-			"DefaultState"				"Invade"
-			
-			"OffensiveAbilities"
-			{
-				"Ability2"
-				{
-					"Name"				"creature_melee_smash2"
-					"AOE"                "1"
-       				"Radius"             "500"
-					"MinimumTargets"	"1"
-				}
-			}
 			"AttachWearables"
 			{
-			"Wearable1" { "ItemDef" "5794" }
+				"Wearable1" { "ItemDef" "12981" }
+				"Wearable1" { "ItemDef" "12982" }
+				"Wearable1" { "ItemDef" "12983" }
+				"Wearable1" { "ItemDef" "12984" }
 			}
-			"DisableResistance"			"0.0"
+			"EquippedItems"
+			{
+				"Radiance"
+				{
+					"Item"					"item_ultimate_scepter"
+				}
+			}
 		}
 	}
-	"npc_dota_boss26_mini_h"
-	{
-		"include_keys_from"				"npc_dota_boss26_mini"
-		
-		"Ability1"					"boss_ursa_rage_h"			// Ability 1.
-	}
-	"npc_dota_boss26_h"
-	{
-		"include_keys_from"				"npc_dota_boss26"
-		
-		"Ability1"					"boss_ursa_rage_h"			// Ability 1.
-	}
-	"npc_dota_boss26_mini_vh"
-	{
-		"include_keys_from"				"npc_dota_boss26_mini"
-		
-		"Ability1"					"boss_ursa_rage_vh"			// Ability 1.
-	}
-	"npc_dota_boss26_vh"
-	{
-		"include_keys_from"				"npc_dota_boss26"
-		
-		"Ability1"					"boss_ursa_rage_vh"			// Ability 1.
-	}
-	"npc_dota_boss27"
+	"npc_dota_boss_ursine_shaman"
 	{
 		// General
 		//----------------------------------------------------------------
@@ -4869,13 +4783,15 @@
 		"ConsideredHero"			"1"
 		"MinimapIcon"				"minimap_enemyicon"
 		"MinimapIconSize"			"275"
+		"vscripts"					"ai/ai_boss_ursine_shaman"
 
 		// Abilities
 		//----------------------------------------------------------------
-		"AbilityLayout"              "2"
-		"Ability1"					"boss_ursa_rage"			// Ability 1.
-		"Ability2"					"boss_summon_beast"			// Ability 1.
-		"Ability3"					"enchantress_untouchable"
+		"AbilityLayout"				"2"
+		"Ability1"					"boss_ursine_shaman_inner_beast"			// Ability 1.
+		"Ability2"					"boss_ursine_shaman_howl"			// Ability 1.
+		"Ability3"					"boss_ursine_shaman_primal_roar"
+		"Ability4"					"boss_ursine_shaman_drums_of_slom"
 
 		// Armor
 		//----------------------------------------------------------------
@@ -4930,6 +4846,7 @@
 		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_BASIC"
 		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_HERO"
 		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+		"HasInventory"				"1"
 		
 		// Creature Data
 		//----------------------------------------------------------------
@@ -4937,196 +4854,24 @@
 		{
 			//Basic AI State
 			//------------------------------------------------------------
-			"DefaultState"				"Invade"
-			"States"
-			{
-				"Invade"
-				{
-					"Name"				"Invade"
-					"Aggression"		"50.0"
-					"Avoidance"			"0.0"
-					"Support"			"0.0"
-				}
-			}
-
-			
-			"DefaultState"				"Invade"
-			
-			"OffensiveAbilities"
-			{
-				"Ability2"
-				{
-					"Name"				"boss_summon_beast"
-					"AOE"                "1"
-       				"Radius"             "2500"
-					"MinimumTargets"	"1"
-				}
-			}
 			"AttachWearables"
 			{
-				"Wearable1" { "ItemDef" "6893" }
-				"Wearable2" { "ItemDef" "4292" }
-				"Wearable3" { "ItemDef" "4293" }
-				"Wearable4" { "ItemDef" "4295" }
-				"Wearable5" { "ItemDef" "6893" }
+				"Wearable1" { "ItemDef" "13162" }
+				"Wearable2" { "ItemDef" "13163" }
+				"Wearable3" { "ItemDef" "13164" }
+				"Wearable4" { "ItemDef" "13166" }
+				"Wearable5" { "ItemDef" "13168" }
+			}
+			"EquippedItems"
+			{
+				"Radiance"
+				{
+					"Item"					"item_ultimate_scepter"
+				}
 			}
 			"DisableResistance"			"0.0"
 		}
 	}
-	"npc_dota_boss27_h"
-	{
-		"include_keys_from"				"npc_dota_boss27"
-		
-		"Ability1"					"boss_ursa_rage_h"			// Ability 1.
-	}
-	"npc_dota_boss27_vh"
-	{
-		"include_keys_from"				"npc_dota_boss27"
-		
-		"Ability1"					"boss_ursa_rage_vh"			// Ability 1.
-	}
-	"npc_dota_boss28"
-	{
-		// General
-		//----------------------------------------------------------------
-		"Model"						"models/heroes/drow/drow_base.vmdl"
-		"BaseClass"					"npc_dota_creature"
-		"SoundSet"					"n_creep_Melee"
-		"GameSoundsFile"			"soundevents/game_sounds_creeps.vsndevts"
-		"Level"						"60"
-		"ModelScale" 				"1.75"
-		"ConsideredHero"			"1"
-		"MinimapIcon"				"minimap_enemyicon"
-		"MinimapIconSize"			"275"
-
-		// Abilities
-		//----------------------------------------------------------------
-		"AbilityLayout"              "4"
-		"Ability1"					"boss_ursa_rage"			// Ability 1.
-		"Ability2"					"creature_melee_smash3"			// Ability 1.
-		"Ability3"					"boss_lifesteal"			// Ability 1.
-		"Ability4"					"normal_splash_2"
-
-		// Armor
-		//----------------------------------------------------------------
-		"ArmorPhysical"				"0"			// Physical protection.
-		"MagicalResistance"			"34.6"		// Magical protection.
-		
-		// Attack
-		//----------------------------------------------------------------
-		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
-		"AttackDamageMin"			"35000"		// Damage range min.
-		"AttackDamageMax"			"50000"		// Damage range max.
-		"BaseAttackSpeed"			"350"
-		"AttackRate"				"1.8"		// Speed of attack.
-		"AttackAnimationPoint"		"0.2"		// Normalized time in animation cycle to attack.
-		"AttackAcquisitionRange"	"15000"		// Range within a target can be acquired.
-		"AttackRange"				"200"		// Range within a target can be attacked.
-		"ProjectileModel"			""			// Particle system model for projectile.
-		"ProjectileSpeed"			"0"			// Speed of projectile.		
-		// Bounds
-		//----------------------------------------------------------------
-		"BoundsHullName"			"DOTA_HULL_SIZE_REGULAR"			// Hull type used for navigation/locomotion.
-		"RingRadius"				"100"
-		"HealthBarOffset"			"320"
-
-		// Bounty
-		//----------------------------------------------------------------
-		"BountyXP"					"0"		// Experience earn.
-		"BountyGoldMin"				"0"			// Gold earned min.
-		"BountyGoldMax"				"0"			// Gold earned max.
-
-		// Movement
-		//----------------------------------------------------------------
-		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
-		"MovementSpeed"				"420"		// Speed.
-		"MovementTurnRate"			"0.1"		// Turning rate.
-
-		// Status
-		//----------------------------------------------------------------
-		"StatusHealth"				"5402500"		// Base health.
-		"StatusHealthRegen"			"9000"			// Health regeneration rate.
-		"StatusMana"				"5000"			// Base mana.
-		"StatusManaRegen"			"50"			// Mana regeneration rate.		 
-		
-		// Vision
-		//----------------------------------------------------------------
-		"VisionDaytimeRange"		"800"		// Range of vision during day light.
-		"VisionNighttimeRange"		"800"		// Range of vision at night time.
-
-		// Team
-		//----------------------------------------------------------------
-		"TeamName"					"DOTA_TEAM_BADGUYS"
-		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_BASIC"
-		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_HERO"
-		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
-		
-		// Creature Data
-		//----------------------------------------------------------------
-		"Creature"
-		{
-			//Basic AI State
-			//------------------------------------------------------------
-			"DefaultState"				"Invade"
-			"States"
-			{
-				"Invade"
-				{
-					"Name"				"Invade"
-					"Aggression"		"100.0"
-					"Avoidance"			"0.0"
-					"Support"			"0.0"
-					"RoamDistance" 		"1500.0"
-				}
-			}
-
-			
-			"DefaultState"				"Invade"
-			
-			"OffensiveAbilities"
-			{
-				"Ability2"
-				{
-					"Name"				"creature_melee_smash3"
-					"AOE"                "1"
-       				"Radius"             "300"
-					"MinimumTargets" "1"
-				}
-			}
-			"AttachWearables"
-			{
-				"Wearable1" { "ItemDef" "5665" }
-				"Wearable2" { "ItemDef" "6552" }
-				"Wearable3" { "ItemDef" "6553" }
-				"Wearable4" { "ItemDef" "6554" }
-				"Wearable5" { "ItemDef" "5794" }
-				"Wearable6" { "ItemDef" "6555" }
-			}
-		
-			"DisableResistance"			"0.0"
-		}
-	}
-	"npc_dota_boss28_h"
-	{
-		"include_keys_from"				"npc_dota_boss28"
-		
-		"Ability1"					"boss_ursa_rage_h"			// Ability 1.
-		"Ability2"					"creature_melee_smash3"			// Ability 1.
-		"Ability3"					"boss_lifesteal"			// Ability 1.
-		"Ability4"					"creature_melee_smash3_h"			// Ability 1.
-		"Ability5"					"normal_splash_2"
-	}
-	"npc_dota_boss28_vh"
-	{
-		"include_keys_from"				"npc_dota_boss28"
-		
-		"Ability1"					"boss_ursa_rage_vh"			// Ability 1.
-		"Ability2"					"creature_melee_smash3_vh_a"			// Ability 1.
-		"Ability3"					"boss_lifesteal"			// Ability 1.
-		"Ability4"					"creature_melee_smash3_vh_b"			// Ability 1.
-		"Ability5"					"normal_splash_2"
-	}
-
 	"npc_dota_boss30"
 	{
 		// General

@@ -2,6 +2,8 @@ special_bonus_attributes = class({})
 
 function special_bonus_attributes:OnHeroLevelUp()
 	local hero = self:GetCaster()
+	if hero:IsIllusion() then return end
+	
 	local strGain = math.sum( 1, hero:GetLevel()-1, hero:GetStrengthGain()*0.5 )
 	local agiGain = math.sum( 1, hero:GetLevel()-1, hero:GetAgilityGain()*0.5 ) 
 	local intGain = math.sum( 1, hero:GetLevel()-1, hero:GetIntellectGain()*0.5 )
@@ -26,6 +28,7 @@ end
 
 function special_bonus_attributes:OnUpgrade()
 	local hero = self:GetCaster()
+	if hero:IsIllusion() then return end
 	
 	local totalStrValue = self.originalBaseStr + math.sumT( 1, hero:GetLevel()-1, hero:GetStrengthGain() * 0.5 ) + (hero:GetLevel()-1 * hero:GetStrengthGain() )
 	local totalAgiValue = self.originalBaseAgi + math.sumT( 1, hero:GetLevel()-1, hero:GetAgilityGain() * 0.5 ) + (hero:GetLevel()-1 * hero:GetAgilityGain() )
@@ -38,35 +41,54 @@ function special_bonus_attributes:OnUpgrade()
 	
 	hero:ModifyStrength( totalStrValue * attribute_multiplier ) 
 	hero:ModifyAgility( totalAgiValue * attribute_multiplier ) 
-	hero:ModifyIntellect( totalIntValue * attribute_multiplier ) 
+	hero:ModifyIntellect( totalIntValue * attribute_multiplier )
 end
 
 function special_bonus_attributes:Spawn()
 	if not IsServer() then return end
 	local hero = self:GetCaster()
+	
+	local heroName = hero:GetUnitName()
+	local originalHero
+	for _, ogHero in ipairs( HeroList:GetRealHeroes() ) do
+		if heroName == ogHero:GetUnitName() then
+			originalHero = ogHero
+		end
+	end
+	
 	self.originalBaseStr = hero:GetBaseStrength()
 	self.originalBaseAgi = hero:GetBaseAgility()
 	self.originalBaseInt = hero:GetBaseIntellect()
-	Timers:CreateTimer( 0.1, function() hero:AddNewModifier( hero, self, "modifier_special_bonus_attributes_stat_rescaling", {} ) end )
+
+	Timers:CreateTimer( 0.1, function()
+		hero:AddNewModifier( originalHero or hero, self, "modifier_special_bonus_attributes_stat_rescaling", {} )
+		if originalHero then
+			hero:ModifyStrength( originalHero:GetBaseStrength() - hero:GetBaseStrength() )
+			hero:ModifyAgility( originalHero:GetBaseAgility() - hero:GetBaseAgility() )
+			hero:ModifyIntellect( originalHero:GetBaseIntellect() - hero:GetBaseIntellect() )
+		end
+	end )
 end
 
 function special_bonus_attributes:OnHeroCalculateStatBonus()
+	if not IsEntitySafe( self ) then return end
 	local hero = self:GetCaster() 
 	local modifier = self:GetCaster():FindModifierByName("modifier_special_bonus_attributes_stat_rescaling")
 	CustomNetTables:SetTableValue("hero_attributes", tostring( self:GetCaster():entindex() ), {mana_type = self:GetCaster()._heroManaType, strength = self:GetCaster():GetStrength(), agility = self:GetCaster():GetAgility(), intellect = self:GetCaster():GetIntellect(), str_gain = math.sum( 1, hero:GetLevel()+1, hero:GetStrengthGain()*0.5 ), agi_gain = math.sum( 1, hero:GetLevel()+1, hero:GetAgilityGain()*0.5 ), int_gain = math.sum( 1, hero:GetLevel()+1, hero:GetIntellectGain()*0.5 ), spell_amp = self:GetCaster():GetSpellAmplification( false )})
 	if modifier then 
 		modifier:SetStackCount( self:GetCaster():GetPrimaryAttribute() )
-		modifier:ForceRefresh() 
+		modifier:ForceRefresh()
 	end
 	CustomGameEventManager:RegisterListener( "request_hero_inventory", function( userdata, keys ) self:SendUpdatedInventoryContents(keys) end )
 end
 
 function special_bonus_attributes:OnInventoryContentsChanged()
+	if not IsEntitySafe( self ) then return end
 	Timers:CreateTimer( function() self:SendUpdatedInventoryContents({unit = self:GetCaster():entindex()}) end )
 end
 
 function special_bonus_attributes:SendUpdatedInventoryContents( info )
-	if not self.stopUnnecessaryUpdates then
+	if IsEntitySafe( self ) and not self.stopUnnecessaryUpdates and IsEntitySafe( self:GetCaster() ) then
 		self.stopUnnecessaryUpdates = true
 		local inventory = {}
 		for i = 0, 8 do
@@ -76,7 +98,6 @@ function special_bonus_attributes:SendUpdatedInventoryContents( info )
 				inventory[i] = -1
 			end
 		end
-			print( self:GetCaster():GetItemInSlot(DOTA_ITEM_NEUTRAL_SLOT) )
 		if self:GetCaster():GetItemInSlot(DOTA_ITEM_NEUTRAL_SLOT) then
 			inventory[9] = self:GetCaster():GetItemInSlot(DOTA_ITEM_NEUTRAL_SLOT):GetAbilityKeyValues()
 		else
@@ -85,72 +106,6 @@ function special_bonus_attributes:SendUpdatedInventoryContents( info )
 		CustomGameEventManager:Send_ServerToAllClients( "client_update_ability_kvs", {unit = self:GetCaster():entindex(), inventory = inventory} )
 		Timers:CreateTimer( function() self.stopUnnecessaryUpdates = false end )
 	end
-end
-
-modifier_special_bonus_attributes_pct = class({})
-LinkLuaModifier( "modifier_special_bonus_attributes_pct", "heroes/special_bonus_attributes", LUA_MODIFIER_MOTION_NONE )
-
-function modifier_special_bonus_attributes_pct:OnCreated()
-	if IsServer() then
-		self.originalBaseStr = self:GetParent():GetBaseStrength()
-		self.originalBaseAgi = self:GetParent():GetBaseAgility()
-		self.originalBaseInt = self:GetParent():GetBaseIntellect()
-		
-		self:OnRefresh()
-	end
-end
-
-function modifier_special_bonus_attributes_pct:OnRefresh()
-	self.attribute_multiplier = self:GetSpecialValueFor("value") / 100
-	if IsServer() and self.attribute_multiplier > 0 then
-		local hero = self:GetParent()
-		
-		local intendedStr = self.originalBaseStr + (hero:GetLevel() - 1) * hero:GetStrengthGain()
-		local intendedAgi = self.originalBaseStr + (hero:GetLevel() - 1) * hero:GetAgilityGain()
-		local intendedInt = self.originalBaseStr + (hero:GetLevel() - 1) * hero:GetIntellectGain()
-		
-		local currentStrBonus = intendedStr * self.attribute_multiplier
-		local currentAgiBonus = intendedStr * self.attribute_multiplier
-		local currentIntBonus = intendedStr * self.attribute_multiplier
-		
-		local currStr = hero:GetBaseStrength()
-		local currAgi = hero:GetBaseAgility()
-		local currInt = hero:GetBaseIntellect()
-		
-		local actualStr = currStr - (self.lastStrBonus or 0) + currentStrBonus
-		local actualAgi = currAgi - (self.lastAgiBonus or 0) + currentAgiBonus
-		local actualInt = currInt - (self.lastIntBonus or 0) + currentIntBonus
-		
-		if actualStr ~= currStr then
-			hero:SetBaseStrength( math.max( 0, actualStr ) )
-		end
-		if actualAgi ~= currAgi then
-			hero:SetBaseAgility(  math.max( 0, actualAgi ) )
-		end
-		if actualInt ~= currInt then
-			hero:SetBaseIntellect(  math.max( 0, actualInt ) )
-		end
-		
-		self.lastStrBonus = currentStrBonus
-		self.lastAgiBonus = currentAgiBonus
-		self.lastIntBonus = currentIntBonus
-	end
-end
-
-function modifier_special_bonus_attributes_pct:IsHidden()
-	return true
-end
-
-function modifier_special_bonus_attributes_pct:IsPurgable()
-	return false
-end
-
-function modifier_special_bonus_attributes_pct:RemoveOnDeath()
-	return false
-end
-
-function modifier_special_bonus_attributes_pct:IsPermanent()
-	return true
 end
 
 modifier_special_bonus_attributes_stat_rescaling = class({})
@@ -164,7 +119,8 @@ end
 function modifier_special_bonus_attributes_stat_rescaling:OnCreated()
 	self:GetParent()._heroManaType = CustomNetTables:GetTableValue("hero_attributes", tostring(self:GetParent():entindex())).mana_type or "Mana"
 	
-	self.baseMana = self:GetParent():GetIntellect() * 11
+	self.baseMana = self:GetCaster()._baseManaForIllusions or self:GetParent():GetIntellect() * 11
+	self:GetParent()._baseManaForIllusions = self.baseMana
 	self.baseManaRegen = self:GetParent():GetIntellect() * 0.04
 	if self:GetParent()._heroManaType ~= "Mana" then
 		self.baseMana = 0
@@ -180,7 +136,11 @@ function modifier_special_bonus_attributes_stat_rescaling:OnCreated()
 	self:GetParent().cooldownModifiers = {}
 	self:GetParent()._aoeModifiersList = {}
 	self.baseArmor = self:GetParent():GetPhysicalArmorBaseValue() + ( self:GetParent():GetAgility() / 6 - 0.065 * self:GetParent():GetAgility() )
-	
+	self:GetParent()._baseArmorForIllusions = self.baseArmor
+	if self:GetParent():IsIllusion() then
+		self.baseArmor = self:GetCaster()._baseArmorForIllusions or (self:GetParent():GetPhysicalArmorBaseValue() + math.min( 0.065 * self:GetParent():GetAgility(), 0.9*self:GetParent():GetAgility()^(math.log(2)/math.log(5)) ))
+	end
+	self:GetParent()._primaryAttribute = self:GetParent():GetPrimaryAttribute()
 	self:OnRefresh()
 	if IsServer() then
 		self:SetStackCount( self:GetParent():GetPrimaryAttribute() )
@@ -205,13 +165,14 @@ function modifier_special_bonus_attributes_stat_rescaling:OnRefresh()
 		end
 		if self.baseMR then
 			local intArmor =  math.min( 0.04 * self:GetParent():GetIntellect(), 0.55*self:GetParent():GetIntellect()^(math.log(2)/math.log(5)) )
-			if self:GetParent():IsIllusion() then
-				intArmor = 0
-			end
-			self:GetParent():SetBaseMagicalResistanceValue( -self:GetParent():GetIntellect() * 0.1 + self.baseMR + intArmor )
+			local totalVal = -self:GetParent():GetIntellect() * 0.1 + self.baseMR + intArmor
+			self:GetParent():SetBaseMagicalResistanceValue( totalVal )
+			Timers:CreateTimer( function() -- illusion fix, idk why the fuck it needs a frame delay for them
+				self:GetParent():SetBaseMagicalResistanceValue( totalVal )
+			end)
 		end
 	end
-end
+end	
 
 -- function modifier_special_bonus_attributes_stat_rescaling:CheckState()
 	-- return {[MODIFIER_STATE_NO_HEALTH_BAR] = true}
@@ -219,9 +180,9 @@ end
 
 function modifier_special_bonus_attributes_stat_rescaling:DeclareFunctions()
   local funcs = {
-		-- MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,
-		-- MODIFIER_PROPERTY_STATS_AGILITY_BONUS,
-		-- MODIFIER_PROPERTY_STATS_INTELLECT_BONUS,
+		MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,
+		MODIFIER_PROPERTY_STATS_AGILITY_BONUS,
+		MODIFIER_PROPERTY_STATS_INTELLECT_BONUS,
 		MODIFIER_PROPERTY_BASEATTACK_BONUSDAMAGE,
 		MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
 		MODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE,
@@ -229,7 +190,7 @@ function modifier_special_bonus_attributes_stat_rescaling:DeclareFunctions()
 		MODIFIER_PROPERTY_MANA_REGEN_CONSTANT,
 		MODIFIER_PROPERTY_MANA_BONUS,
 		MODIFIER_PROPERTY_HEALTH_BONUS,
-		MODIFIER_PROPERTY_TOTAL_CONSTANT_BLOCK_UNAVOIDABLE_PRE_ARMOR,
+		MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
 		MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE,
 		MODIFIER_PROPERTY_COOLDOWN_PERCENTAGE,
 		MODIFIER_PROPERTY_CASTTIME_PERCENTAGE,
@@ -237,6 +198,10 @@ function modifier_special_bonus_attributes_stat_rescaling:DeclareFunctions()
 		MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL_VALUE
   }
   return funcs
+end
+
+function modifier_special_bonus_attributes_stat_rescaling:GetModifierAttackSpeedBonus_Constant()
+  return self.attackspeed
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierOverrideAbilitySpecial(params)
@@ -324,8 +289,10 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierPercentageC
   return self:GetModifierPercentageCooldown( params )
 end
 
-function modifier_special_bonus_attributes_stat_rescaling:GetModifierAttackSpeedBonus_Constant()
-  return self.attackspeed
+function modifier_special_bonus_attributes_stat_rescaling:GetModifierPhysicalArmorBonus()
+	if not self:GetParent():IsRangedAttacker() then
+		return 4
+	end
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierHealthBonus()
@@ -404,18 +371,6 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierMoveSpeedBo
 	end
 end
 
-function modifier_special_bonus_attributes_stat_rescaling:GetModifierPhysical_ConstantBlockUnavoidablePreArmor( params )
-	if not self:GetParent():IsRangedAttacker() and params.damage_category == DOTA_DAMAGE_CATEGORY_ATTACK and params.damage > 0 then
-		local roll = RollPercentage( 80 )
-		local isHero = params.attacker:IsConsideredHero()
-		if roll or not isHero then
-			local block = params.damage * TernaryOperator( 0.35, isHero, TernaryOperator( 0.5, roll, 0.85 ) )
-			SendOverheadEventMessage( nil, OVERHEAD_ALERT_BLOCK, self:GetParent(), block, nil )
-			return block
-		end
-	end
-end
-
 function modifier_special_bonus_attributes_stat_rescaling:IsHidden()
   return true
 end
@@ -426,4 +381,8 @@ end
 
 function modifier_special_bonus_attributes_stat_rescaling:IsPurgable()
   return false
+end
+
+function modifier_special_bonus_attributes_stat_rescaling:AllowIllusionDuplicate()
+  return true
 end

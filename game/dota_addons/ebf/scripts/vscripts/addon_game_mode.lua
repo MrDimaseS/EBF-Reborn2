@@ -1885,7 +1885,7 @@ function CHoldoutGameMode:OnNPCSpawned( event )
 		spawnedUnit:RemoveAbility("neutral_upgrade")
 	end
 	if spawnedUnit:IsIllusion() then
-		local heroName = spawnedUnit:GetUnitName()
+		--
 	end
 	if spawnedUnit:IsRealHero() then
 		if not spawnedUnit:HasModifier("modifier_thinker_hero_regeneration") then

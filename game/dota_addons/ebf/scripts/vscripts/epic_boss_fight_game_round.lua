@@ -119,25 +119,37 @@ function CHoldoutGameRound:Begin()
 	
 	local MAX_TIME_TO_RESOLVE_SPAWNS = 60
 	for spawnGroup, spawnTable in pairs( self._vSpawners ) do
-		MAX_TIME_TO_RESOLVE_SPAWNS = math.max( MAX_TIME_TO_RESOLVE_SPAWNS, spawnTable._flInitialWait + math.ceil(spawnTable._nTotalUnitsToSpawn / spawnTable._nUnitsPerSpawn) * spawnTable._flSpawnInterval )
+		if spawnTable._nTotalUnitsToSpawn > 0 then
+			MAX_TIME_TO_RESOLVE_SPAWNS = math.max( MAX_TIME_TO_RESOLVE_SPAWNS, spawnTable._flInitialWait + math.ceil(spawnTable._nTotalUnitsToSpawn / spawnTable._nUnitsPerSpawn) * spawnTable._flSpawnInterval )
+		end
 	end
 	local unitMultiplier =  math.min( 3, math.floor( self._HP_difficulty_multiplier / 2 + 0.5 ) )
 	self._HP_difficulty_multiplier = self._HP_difficulty_multiplier / unitMultiplier
 	for spawnGroup, spawnTable in pairs( self._vSpawners ) do
 		if not spawnTable._NoCountScaling then
-			spawnTable._nOriginalTotalUnitsToSpawn = spawnTable._nOriginalTotalUnitsToSpawn or spawnTable._nTotalUnitsToSpawn
-			spawnTable._nOrignalUnitsPerSpawn = spawnTable._nOrignalUnitsPerSpawn or spawnTable._nUnitsPerSpawn
-			spawnTable._flOriginalSpawnInterval = spawnTable._flOriginalSpawnInterval or spawnTable._flSpawnInterval
-			local newUnitCount = spawnTable._nOriginalTotalUnitsToSpawn * unitMultiplier
-			local timeForMaxSpawn = spawnTable._flInitialWait + math.ceil(newUnitCount / spawnTable._nOrignalUnitsPerSpawn) * spawnTable._flOriginalSpawnInterval
-			if timeForMaxSpawn >= MAX_TIME_TO_RESOLVE_SPAWNS then
-				local newSpawnInterval = (MAX_TIME_TO_RESOLVE_SPAWNS - spawnTable._flInitialWait) / math.ceil(newUnitCount / spawnTable._nOrignalUnitsPerSpawn)
-				if newSpawnInterval <= spawnTable._flOriginalSpawnInterval / 2 then
-					spawnTable._nUnitsPerSpawn = spawnTable._nOrignalUnitsPerSpawn * 2
+			if spawnTable._nTotalUnitsToSpawn == -1 then -- infinite spawner acts differently
+				spawnTable._nOrignalInitialUnitsSpawned = spawnTable._nOrignalInitialUnitsSpawned or spawnTable._nInitialUnitsSpawned
+				spawnTable._nOrignalUnitsPerSpawn = spawnTable._nOrignalUnitsPerSpawn or spawnTable._nUnitsPerSpawn
+				
+				spawnTable._nInitialUnitsSpawned = spawnTable._nOrignalInitialUnitsSpawned * unitMultiplier
+				spawnTable._nUnitsPerSpawn = spawnTable._nOrignalUnitsPerSpawn * unitMultiplier
+			else
+				spawnTable._nOriginalTotalUnitsToSpawn = spawnTable._nOriginalTotalUnitsToSpawn or spawnTable._nTotalUnitsToSpawn
+				spawnTable._nOrignalUnitsPerSpawn = spawnTable._nOrignalUnitsPerSpawn or spawnTable._nUnitsPerSpawn
+				spawnTable._flOriginalSpawnInterval = spawnTable._flOriginalSpawnInterval or spawnTable._flSpawnInterval
+				local newUnitCount = spawnTable._nOriginalTotalUnitsToSpawn * unitMultiplier
+				
+				
+				local timeForMaxSpawn = spawnTable._flInitialWait + math.ceil(newUnitCount / spawnTable._nOrignalUnitsPerSpawn) * spawnTable._flOriginalSpawnInterval
+				if timeForMaxSpawn >= MAX_TIME_TO_RESOLVE_SPAWNS then
+					local newSpawnInterval = (MAX_TIME_TO_RESOLVE_SPAWNS - spawnTable._flInitialWait) / math.ceil(newUnitCount / spawnTable._nOrignalUnitsPerSpawn)
+					if newSpawnInterval <= spawnTable._flOriginalSpawnInterval / 2 then
+						spawnTable._nUnitsPerSpawn = spawnTable._nOrignalUnitsPerSpawn * 2
+					end
+					spawnTable._flSpawnInterval = (MAX_TIME_TO_RESOLVE_SPAWNS - spawnTable._flInitialWait) / math.ceil(newUnitCount / spawnTable._nUnitsPerSpawn)
 				end
-				spawnTable._flSpawnInterval = (MAX_TIME_TO_RESOLVE_SPAWNS - spawnTable._flInitialWait) / math.ceil(newUnitCount / spawnTable._nUnitsPerSpawn)
+				spawnTable._nTotalUnitsToSpawn = newUnitCount
 			end
-			spawnTable._nTotalUnitsToSpawn = newUnitCount
 			spawnTable.HealthMultiplier = self._HP_difficulty_multiplier
 		else
 			spawnTable.HealthMultiplier = self._OGHP_difficulty_multiplier
@@ -145,7 +157,7 @@ function CHoldoutGameRound:Begin()
 	end
 	for _, spawner in pairs( self._vSpawners ) do
 		spawner:Begin()
-		self._nCoreUnitsTotal = self._nCoreUnitsTotal + spawner:GetTotalUnitsToSpawn( true )
+		self._nCoreUnitsTotal = self._nCoreUnitsTotal + math.max( 0, spawner:GetTotalUnitsToSpawn( true ) )
 		if self._nRoundNumber == 36 then
 			self._nCoreUnitsTotal = self._nCoreUnitsTotal + 1
 		end

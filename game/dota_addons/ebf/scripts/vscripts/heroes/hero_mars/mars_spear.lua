@@ -93,7 +93,8 @@ function mars_spear:OnProjectileThinkHandle(iProjectile)
 			end
 		end
 	end
-	if projectileData.shard then
+	if projectileData.shard and GameRules:GetGameTime() - projectileData.lastShardThinkTime > projectileData.lastShardThinkInterval then
+		projectileData.lastShardThinkTime = GameRules:GetGameTime()
 		CreateModifierThinker(caster, self, "modifier_special_mars_spear_burning_trail_thinker", {duration = projectileData.trail_duration}, position, caster:GetTeamNumber(), false)
 	end
 end
@@ -116,8 +117,10 @@ function mars_spear:LaunchSpear( origin, direction, secondary, maxDistance )
 	local knockback_duration = self:GetSpecialValueFor("knockback_duration")
 	local knockback_distance = self:GetSpecialValueFor("knockback_distance")
 	local shard_trail_duration = self:GetSpecialValueFor("shard_trail_duration")
+	local shard_trail_radius = self:GetSpecialValueFor("shard_trail_radius")
+	local shard_trail_interval = (shard_trail_radius / speed) * 0.75
 
-	local impale = not self:GetAutoCastState()
+	local impale = self:GetAutoCastState()
 
 	--Purely cosmetic only-------
 	if not secondary then
@@ -135,6 +138,8 @@ function mars_spear:LaunchSpear( origin, direction, secondary, maxDistance )
 											   impale = impale,
 											   impaledUnits = {},
 											   shard = caster:HasShard(),
+											   lastShardThinkTime = 0,
+											   lastShardThinkInterval = shard_trail_interval,
 											   trail_duration = shard_trail_duration}
 end
 

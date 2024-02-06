@@ -33,7 +33,7 @@ function modifier_item_heart_active:OnCreated()
 end
 
 function modifier_item_heart_active:OnRefresh()
-	self.power_multiplier = self:GetSpecialValueFor("power_multiplier")-1
+	self.power_multiplier = self:GetSpecialValueFor("power_multiplier")/100
 	self.bonus_hp_regen_per_str = self:GetSpecialValueFor("bonus_hp_regen_per_str") + 0.15
 	self.bonus_hp_per_str = self:GetSpecialValueFor("bonus_hp_per_str") + 22
 	if self:GetParent()._primaryAttribute == DOTA_ATTRIBUTE_STRENGTH then
@@ -41,6 +41,8 @@ function modifier_item_heart_active:OnRefresh()
 	elseif self:GetParent()._primaryAttribute == DOTA_ATTRIBUTE_ALL then
 		self.bonus_hp_per_str = self.bonus_hp_per_str + 4
 	end
+	self.bonus_hp_per_str = self.bonus_hp_per_str * self.power_multiplier
+	self.bonus_hp_regen_per_str = self.bonus_hp_regen_per_str * self.power_multiplier
 	self.magic_resist = self:GetSpecialValueFor("magic_resist")
 	self.magic_immune = self:GetSpecialValueFor("magic_immune") == 1
 	
@@ -82,7 +84,7 @@ function modifier_item_heart_active:GetModifierConstantHealthRegen()
 end
 
 function modifier_item_heart_active:OnTooltip()
-	return 1+self.power_multiplier
+	return self.power_multiplier*100
 end
 
 function modifier_item_heart_active:GetEffectName()

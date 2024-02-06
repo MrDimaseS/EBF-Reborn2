@@ -116,10 +116,6 @@ function modifier_item_cloak_of_the_protector_ebf_aura:OnCreated()
 end
 
 function modifier_item_cloak_of_the_protector_ebf_aura:OnRefresh()
-	self.block_chance = self:GetAbility():GetSpecialValueFor("block_chance")
-	self.block_damage_ranged = self:GetAbility():GetSpecialValueFor("block_damage_ranged")
-	self.block_damage_melee = self:GetAbility():GetSpecialValueFor("block_damage_melee")
-	
 	self.aura_health_regen = self:GetAbility():GetSpecialValueFor("aura_health_regen")
 	self.magic_resistance_aura = self:GetAbility():GetSpecialValueFor("magic_resistance_aura")
 end
@@ -127,8 +123,7 @@ end
 function modifier_item_cloak_of_the_protector_ebf_aura:DeclareFunctions(params)
 	local funcs = {
 		MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS,
-		MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT,
-		MODIFIER_PROPERTY_PHYSICAL_CONSTANT_BLOCK 
+		MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT
     }
     return funcs
 end
@@ -139,17 +134,6 @@ end
 
 function modifier_item_cloak_of_the_protector_ebf_aura:GetModifierMagicalResistanceBonus()
 	return self.magic_resistance_aura
-end
-
-function modifier_item_cloak_of_the_protector_ebf_aura:GetModifierPhysical_ConstantBlock(params)
-	if params.damage_category == DOTA_DAMAGE_CATEGORY_ATTACK and RollPseudoRandomPercentage( DOTA_PSEUDO_RANDOM_CUSTOM_GAME_1, self.block_chance, self:GetParent() ) then
-		local originalBlock = TernaryOperator( self.block_damage_ranged, self:GetParent():IsRangedAttacker(), self.block_damage_melee )
-		local blockAmount = originalBlock * (1 - self:GetParent():GetPhysicalArmorMultiplier())
-		
-		local block = math.min( params.original_damage, originalBlock )
-		SendOverheadEventMessage( self:GetParent():GetPlayerOwner(), OVERHEAD_ALERT_BLOCK, self:GetParent(), block, self:GetParent():GetPlayerOwner() )
-		return blockAmount
-	end
 end
 
 LinkLuaModifier( "modifier_item_cloak_of_the_protector_ebf_active", "items/item_cloak_of_the_protector.lua" ,LUA_MODIFIER_MOTION_NONE )
@@ -187,7 +171,6 @@ function modifier_item_cloak_of_the_protector_ebf_active:GetModifierIncomingDama
 	if IsServer() then
 		local barrier_block = math.min( self.barrier_block, math.max( self.barrier_block, params.damage ) )
 		self.barrier_block = self.barrier_block - params.damage
-		print( self.barrier_block )
 		if self.barrier_block <= 0 then 
 			self:Destroy()
 			return

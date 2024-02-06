@@ -22,12 +22,13 @@ function CHoldoutGameSpawner:ReadConfiguration( name, kv, gameRound )
 	self._nChampionLevel = tonumber( kv.ChampionLevel or 1 )
 	self._nChampionMax = tonumber( kv.ChampionMax or 1 )
 	self._nCreatureLevel = tonumber( kv.CreatureLevel or 1 )
-	self._nTotalUnitsToSpawn = tonumber( kv.TotalUnitsToSpawn or 0 )
+	self._nTotalUnitsToSpawn = TernaryOperator( tonumber( kv.TotalUnitsToSpawn or 0 ), kv.TotalUnitsToSpawn ~= 'X', -1 )
 	self._nTotalCoreUnitsToSpawn = 0
-	if GameRules.BossKV[self._szNPCClassName] and GameRules.BossKV[self._szNPCClassName].ConsideredHero and GameRules.BossKV[self._szNPCClassName].ConsideredHero == "1" then
+	if GameRules.BossKV[self._szNPCClassName] and GameRules.BossKV[self._szNPCClassName].ConsideredHero and tonumber( GameRules.BossKV[self._szNPCClassName].ConsideredHero ) == 1 then
 		self._nTotalCoreUnitsToSpawn = self._nTotalUnitsToSpawn
 	end	
 	self._nUnitsPerSpawn = tonumber( kv.UnitsPerSpawn or 1 )
+	self._nInitialUnitsSpawned = tonumber( kv.InitialUnitsSpawned or self._nUnitsPerSpawn )
 
 	self._flChampionChance = tonumber( kv.ChampionChance or 0 )
 	self._flInitialWait = tonumber( kv.WaitForTime or 0 )
@@ -122,7 +123,7 @@ function CHoldoutGameSpawner:Think()
 		return
 	end
 	
-	if GameRules:GetGameTime() >= self._flNextSpawnTime then
+	if GameRules:GetGameTime() >= self._flNextSpawnTime and not self:IsFinishedSpawning() then
 		self:_DoSpawn()
 		for _,s in pairs( self._dependentSpawners ) do
 			s:ParentSpawned( self )
@@ -147,7 +148,12 @@ end
 
 
 function CHoldoutGameSpawner:IsFinishedSpawning()
-	return ( self._nTotalUnitsToSpawn <= self._nUnitsSpawnedThisRound ) or ( self._groupWithUnit ~= nil )
+	if self._nTotalUnitsToSpawn == -1 then -- spawn while any core unit is alive or must still be spawned
+		print( "finished spawning?", self._gameRound._nCoreUnitsTotal, self._gameRound._nCoreUnitsKilled)
+		return (self._gameRound._nCoreUnitsTotal - self._gameRound._nCoreUnitsKilled) <= 0
+	else
+		return (self._nTotalUnitsToSpawn <= self._nUnitsSpawnedThisRound) or ( self._groupWithUnit ~= nil )
+	end
 end
 
 
@@ -197,8 +203,12 @@ end
 
 
 function CHoldoutGameSpawner:_DoSpawn()
-	local nUnitsToSpawn = math.min( self._nUnitsPerSpawn, self._nTotalUnitsToSpawn - self._nUnitsSpawnedThisRound )
-	
+	local nUnitsToSpawn = self._nUnitsPerSpawn
+	if self._nTotalUnitsToSpawn > 0 then
+		nUnitsToSpawn = math.min( nUnitsToSpawn, self._nTotalUnitsToSpawn - self._nUnitsSpawnedThisRound )
+	elseif self._nUnitsSpawnedThisRound == 0 then
+		nUnitsToSpawn = self._nInitialUnitsSpawned
+	end
 	if self._currentlyAttemptingToSpawnUnit then return false end
 	if nUnitsToSpawn <= 0 then
 		return
@@ -255,7 +265,7 @@ function CHoldoutGameSpawner:_DoSpawn()
 				-- entUnit:SetInitialGoalEntity( entWp )
 			-- end
 			self._nUnitsCurrentlyAlive = self._nUnitsCurrentlyAlive + 1
-			entUnit.Holdout_IsCore = true
+			entUnit.Holdout_IsCore = self._nTotalCoreUnitsToSpawn > 0
 			entUnit:SetDeathXP( 0 )
 			bossManager:ProcessBossScaling(entUnit)
 		end)

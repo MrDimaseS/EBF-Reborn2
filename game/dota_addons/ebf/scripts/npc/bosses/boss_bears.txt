@@ -4,8 +4,8 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"ability_lua"
-		"AbilityTextureName"			"axe_berserkers_call"
+		"BaseClass"						"ursa_earthshock"
+		"AbilityTextureName"			"ursa_earthshock"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
@@ -17,15 +17,13 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"0"
 
-        "HasShardUpgrade"               "1"
-
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityDuration"				"4.0"
 
 		// Damage.
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"75 125 175 225"
+		"AbilityDamage"					"6500 7500 8000 8500"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -53,25 +51,7 @@
 				"value"				"1.5"
 				"RequiresShard"		"1"
 			}
-			"fury_swipe_stacks_on_hit"
-			{
-				"value"				"0"
-				"special_bonus_unique_ursa_earthshock_furyswipes"			"+2"
-			}
-			"AbilityCooldown"				
-			{
-				"value"				"14 12 10 8"
-				"special_bonus_unique_ursa_3"	"=0.25"
-			}
-			"AbilityCharges"		
-			{
-				"value"	"0"
-				"special_bonus_unique_ursa_3"	"+2"
-			}
-			"AbilityChargeRestoreTime"
-			{
-				"value"	"14 12 10 8"
-			}
+			"AbilityCooldown"		"14"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 		"AbilityCastGestureSlot"		"DEFAULT"
@@ -80,40 +60,35 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"ability_lua"
-		"AbilityTextureName"			"axe_berserkers_call"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT"
-		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
-		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
-		"FightRecapLevel"				"1"
-		"AbilitySound"					"Hero_Axe.Berserkers_Call"
-
-		"HasScepterUpgrade"               "1"
+		"BaseClass"						"ursa_overpower"
+		"AbilityTextureName"			"ursa_overpower"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"AbilitySound"					"Hero_Ursa.Overpower"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastPoint"				"0.3"
- 		"AbilityCastAnimation"			"ACT_DOTA_OVERRIDE_ABILITY_1"
+		"AbilityCastAnimation"			"ACT_DOTA_OVERRIDE_ABILITY_3"
 		"AbilityCastGestureSlot"		"DEFAULT"
+		"AbilityCastRange"				"0"
+		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"11"
-
-		// Damage.
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"0 0 0 0"
+		"AbilityCooldown"				"12 11 10 9"
+		"AbilityDuration"				"20"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"110"	
+		"AbilityManaCost"				"30 40 50 60"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"radius"							"750"
-			"duration"							"8.0"
+				"max_attacks"				"3 4 5 6"
+				"attack_speed_bonus_pct"	"400"
+				"slow_resist"				"15 20 25 30"
 		}
 	}
 	"boss_ursine_fury_swipes"
@@ -121,119 +96,60 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_lua"
-		"AbilityTextureName"			"axe_berserkers_call"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT"
+		"ScriptFile"					"bosses/boss_bears/boss_ursine_fury_swipes.lua"
+		"AbilityTextureName"			"ursa_fury_swipes"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
-		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
-		"AbilitySound"					"Hero_Axe.Berserkers_Call"
-
-		"HasScepterUpgrade"               "1"
-
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastPoint"				"0.3"
- 		"AbilityCastAnimation"			"ACT_DOTA_OVERRIDE_ABILITY_1"
-		"AbilityCastGestureSlot"		"DEFAULT"
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"11"
-
-		// Damage.
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"0 0 0 0"
-
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"110"	
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"radius"							"750"
-			"duration"							"8.0"
+			"bonus_reset_time"						"8"
+			"damage_per_stack"						"700 900 1100 1300"
+			"stun_stack_count"						"12"
+			"stun_duration"							"1.6"
+			"stack_loss_on_dispel"					"50"
 		}
 	}
 	"boss_ursine_guardian_enrage"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"ability_lua"
-		"AbilityTextureName"			"axe_berserkers_call"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT"
+		"BaseClass"						"ursa_enrage"
+		"AbilityTextureName"			"ursa_enrage"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"FightRecapLevel"				"1"
-		"AbilitySound"					"Hero_Axe.Berserkers_Call"
+		"AbilitySound"					"Hero_Ursa.Enrage"
 
-		"HasScepterUpgrade"               "1"
-
+		"HasScepterUpgrade"				"1"
+		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastPoint"				"0.3"
- 		"AbilityCastAnimation"			"ACT_DOTA_OVERRIDE_ABILITY_1"
+		"AbilityCastAnimation"			"ACT_DOTA_OVERRIDE_ABILITY_4"
 		"AbilityCastGestureSlot"		"DEFAULT"
+		"AbilityCastRange"				"0"
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"11"
-
-		// Damage.
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"0 0 0 0"
+		"AbilityCooldown"				"70 50 30"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"110"	
+		"AbilityManaCost"				"0 0 0"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
-		{
-			"radius"							"750"
-			"duration"							"8.0"
-		}
-	}
-	"boss_ursine_guardian_earthshock"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"ability_lua"
-		"AbilityTextureName"			"axe_berserkers_call"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT"
-		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
-		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
-		"FightRecapLevel"				"1"
-		"AbilitySound"					"Hero_Axe.Berserkers_Call"
-
-		"HasScepterUpgrade"               "1"
-
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastPoint"				"0.3"
- 		"AbilityCastAnimation"			"ACT_DOTA_OVERRIDE_ABILITY_1"
-		"AbilityCastGestureSlot"		"DEFAULT"
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"11"
-
-		// Damage.
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"0 0 0 0"
-
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"110"	
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			"radius"							"750"
-			"duration"							"8.0"
+		{			
+			"damage_reduction"					"80"
+			"status_resistance"					"80"
+			"duration"							"4 4.5 5"
+			"cooldown_scepter"					"30 24 18"
 		}
 	}
 	"boss_ursine_shaman_inner_beast"
@@ -242,38 +158,20 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"beastmaster_inner_beast"
 		"AbilityTextureName"			"beastmaster_inner_beast"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT"
-		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
-		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
-		"FightRecapLevel"				"1"
-		"AbilitySound"					"Hero_Axe.Berserkers_Call"
-
-		"HasScepterUpgrade"               "1"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastPoint"				"0.3"
- 		"AbilityCastAnimation"			"ACT_DOTA_OVERRIDE_ABILITY_1"
-		"AbilityCastGestureSlot"		"DEFAULT"
+		"AbilityCastPoint"				"0.0 0.0 0.0 0.0"
 
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"11"
-
-		// Damage.
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"0 0 0 0"
-
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"110"	
-		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"radius"									"1200"
-			"bonus_attack_speed"						"80 120 160 200"
+			"radius"						"1200"
+			"bonus_attack_speed"			"100 150 200 250"
 		}
 	}
 	"boss_ursine_shaman_howl"
@@ -282,44 +180,61 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"lycan_howl"
 		"AbilityTextureName"			"lycan_howl"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT"
-		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
-		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
-		"FightRecapLevel"				"1"
-		"AbilitySound"					"Hero_Axe.Berserkers_Call"
-
-		"HasScepterUpgrade"               "1"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilitySound"					"Hero_Lycan.Howl"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		
+		"precache"
+		{
+			"soundfile"					"soundevents/game_sounds_heroes/game_sounds_lycan.vsndevts"
+		}
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastPoint"				"0.3"
- 		"AbilityCastAnimation"			"ACT_DOTA_OVERRIDE_ABILITY_1"
-		"AbilityCastGestureSlot"		"DEFAULT"
+		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"11"
-
-		// Damage.
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"0 0 0 0"
-
+		"AbilityCooldown"				"22 20 18 16"
+	
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"110"	
-		
+		"AbilityManaCost"				"40"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityModifierSupportBonus"	"5"
+
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"howl_duration"							"8"		
-			"attack_damage_reduction"				"25 30 35 40"
-			"total_attack_damage_reduction"			"0"
-			"special_bonus_unique_lycan_5"			"+1"
-			"armor"									"4 5 6 7"
-			"radius"								"2000"
-			"fear_duration"							"1 1.5 2 2.5"
+			"howl_duration"		"8"		
+			"attack_damage_reduction"		
+			{
+				"value"							"25 30 35 40"
+				"special_bonus_unique_lycan_6"	"+20"
+			}
+			"total_attack_damage_reduction"		
+			{
+				"value"		"0"
+				"special_bonus_unique_lycan_5"	"+1"
+			}
+			"armor"			
+			{
+				"value"				"4 5 6 7"
+				"special_bonus_unique_lycan_howl_armor"			"+2"
+			}
+			"radius"			
+			{
+				"value"		"2000"
+				"affected_by_aoe_increase"	"1"
+			}
+			"fear_duration"		"1 1.5 2 2.5"
 		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
+		"AbilityCastGestureSlot"	"DEFAULT" 
 	}
 	"boss_ursine_shaman_primal_roar"
 	{
@@ -327,109 +242,111 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"beastmaster_primal_roar"
 		"AbilityTextureName"			"beastmaster_primal_roar"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"		
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
-		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
-		"FightRecapLevel"				"1"
-		"AbilitySound"					"Hero_Axe.Berserkers_Call"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"FightRecapLevel"				"2"
+		"AbilitySound"					"Hero_Beastmaster.Primal_Roar"
 
-		"HasScepterUpgrade"               "1"
-		"MaxLevel"							"4"
+		"AbilityDraftUltScepterAbility"		"beastmaster_drums_of_slom"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastPoint"				"0.3"
- 		"AbilityCastAnimation"			"ACT_DOTA_OVERRIDE_ABILITY_1"
-		"AbilityCastGestureSlot"		"DEFAULT"
+		"AbilityCastPoint"				"0.5 0.5 0.5"
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_4"
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"11"
-
-		// Damage.
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"0 0 0 0"
+		
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"110"	
+		"AbilityManaCost"				"100 125 150"		
+		
+		// Cast Range
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"600"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityModifierSupportValue"	"0.6"	// Applies multiple modifiers
+
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"							"3.75"
+			"duration"					"3.75"
 			"damage"					
 			{
-				"value"							"15000 20000 25000 28000"
-				"CalculateSpellDamageTooltip" 	1"
+				"value"							"6000 6500 7000 7500"
+				"CalculateSpellDamageTooltip"	"1"
 			}
 			"side_damage"				
 			{
-				"value"							"15000 20000 25000"
+				"value"							"6000 6500 7000 7500"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"damage_radius"				
 			{
-				"value"							"300"
-				"DamageTypeTooltip"				"DAMAGE_TYPE_NONE"
-				"CalculateSpellDamageTooltip"	"0"
-				"affected_by_aoe_increase"		"1"
+				"value"		"300"
+				"DamageTypeTooltip"		"DAMAGE_TYPE_NONE"
+				"CalculateSpellDamageTooltip"		"0"
+				"affected_by_aoe_increase"	"1"
 			}
-			"slow_movement_speed_pct"			"-60"
-			"slow_attack_speed_pct"				"-60"
+			"slow_movement_speed_pct"	"-60"
+			"slow_attack_speed_pct"		"-60"
 			"push_distance"				
 			{
-				"value"							"450"
+				"value"		"450"
 					"affected_by_aoe_increase"	"1"
 			}
-			"push_duration"						"1.0"
-			"slow_duration"						"3 3.5 4"
-			"movement_speed"					"40"
+			"push_duration"				"1.0"
+			"slow_duration"				"3 3.5 4"
+			"movement_speed"			"40"
 			"movement_speed_duration"			"3.0 3.5 4"
-			"AbilityCooldown"					"45"
+			"AbilityCooldown"				"90 75 60"
 		}
 	}
 	"boss_ursine_shaman_drums_of_slom"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"							"ability_lua"
-		"AbilityTextureName"				"axe_berserkers_call"
-		"AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT"
-		"SpellImmunityType"					"SPELL_IMMUNITY_ENEMIES_YES"
-		"SpellDispellableType"				"SPELL_DISPELLABLE_NO"
-		"FightRecapLevel"					"1"
-		"AbilitySound"						"Hero_Axe.Berserkers_Call"
-		
-		"MaxLevel"							"4"
-
-		"HasScepterUpgrade"					"1"
-
+		"BaseClass"						"beastmaster_drums_of_slom"
+		"AbilityTextureName"			"beastmaster_drums_of_slom"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_ElderTitan.EchoStomp"
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastPoint"				"0.3"
- 		"AbilityCastAnimation"			"ACT_DOTA_OVERRIDE_ABILITY_1"
-		"AbilityCastGestureSlot"		"DEFAULT"
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"11"
-
-		// Damage.
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"0 0 0 0"
-
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"110"	
+		"AbilityCastPoint"				"0"
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_5"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"radius"							"750"
-			"duration"							"8.0"
+			"radius"							"600"
+			"max_stacks"						"20"
+			"stack_decay_time"					"1.0"
+			"min_drum_hit_interval"				"0.4"
+			"max_drum_hit_interval"				"3"
+
+			"base_damage"						
+			{
+				"value"							"3500"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"heal_pct"							"25"
+			"creep_heal_pct"					"5"
+			"aura_radius"						"1200"
 		}
 	}
 }

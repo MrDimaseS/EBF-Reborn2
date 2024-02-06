@@ -40,6 +40,7 @@ function bossManager:ProcessBossScaling(spawnedUnit)
 	spawnedUnit.hasBeenProcessed = true
 	
 	local HP_difficulty_multiplier = currentRound._HP_difficulty_multiplier
+	print( HP_difficulty_multiplier )
 	if spawnedUnit._spawnerOrigin then
 		HP_difficulty_multiplier = spawnedUnit._spawnerOrigin.HealthMultiplier
 	end

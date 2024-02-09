@@ -358,10 +358,20 @@ function Vector_raiseZ(vec, inc) {
 (function () {
     $.RegisterForUnhandledEvent( "DOTAShowAbilityTooltipForEntityIndex", RemoveAbilityChanges );
     $.RegisterForUnhandledEvent( "DOTAShowAbilityInventoryItemTooltip", UpdateItemTooltip );
+    $.RegisterForUnhandledEvent( "DOTAShowAbilityTooltip", RemoveItemAttributes );
+    $.RegisterForUnhandledEvent( "DOTAShowAbilityTooltipForEntityIndex", RemoveItemAttributes );
     $.RegisterForUnhandledEvent( "DOTAHUDShowDamageArmorTooltip", UpdateStatsTooltip );
     $.RegisterForUnhandledEvent( "DOTAHideAbilityTooltip", ClearItemTooltip );
     GameEvents.Subscribe("client_update_ability_kvs", RegisterInventoryData);
 })();
+
+function RemoveItemAttributes(){
+	const tooltipManager = dotaHud.FindChildTraverse('Tooltips');
+	const tooltipPanel = tooltipManager.FindChildTraverse('DOTAAbilityTooltip');
+	const abilityAttributes = tooltipPanel.FindChildTraverse('AbilityAttributes');
+	
+	abilityAttributes.style.visibility = 'collapse'
+}
 
 function GetDotaHud() {
     let p = $.GetContextPanel();
@@ -583,7 +593,9 @@ function UpdateItemTooltip( panel, unit, itemSlot ){
 		var lIndex = finalTextToken.lastIndexOf("<br>")
 		finalTextToken = finalTextToken.substring(0, lIndex);
 		abilityAttributes.text = finalTextToken
-		abilityAttributes.style["visibility"] = "visible";
+		abilityAttributes.style.visibility = 'visible'
+	} else {
+		abilityAttributes.style.visibility = 'collapse'
 	}
 	unitWeAreChecking = unit
 	abilityIndexWeAreChecking = itemSlot
@@ -621,7 +633,6 @@ function AlterAbilityDescriptions( ){
 		RemoveAbilityChanges();
 		lastRememberedState = lastState;
 		for (var i in split_specials ) { // REPLACE SPECIAL VALUES
-			$.Msg( split_specials[i] )
 			if ( split_specials[i].match(" ") ) {
 			} else if ( split_specials[i].length > 0 ) {
 				var value = Abilities.GetSpecialValueFor( item, split_specials[i] )

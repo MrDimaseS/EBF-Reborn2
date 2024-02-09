@@ -39,6 +39,7 @@ end
 
 function modifier_ebfr_lotus_orb_active:OnAbilityExecuted( params )
 	if params.unit == self:GetCaster() and params.target == self:GetParent() then
+		if params.ability:GetName() == "item_ultimate_scepter" then return end
 		
 		local newTarget
 		local targetSelection = params.target:FindFriendlyUnitsInRadius( params.target:GetAbsOrigin(), self.active_radius, {flag = params.ability:GetAbilityTargetFlags(), type = params.ability:GetAbilityTargetType() } )

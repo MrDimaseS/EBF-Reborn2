@@ -4579,7 +4579,7 @@
 			{
 				"Radiance"
 				{
-					"Item"					"item_radiance_3"
+					"Item"					"item_skeleton_king_radiance"
 				}
 			}
 		}
@@ -4878,22 +4878,25 @@
 		//----------------------------------------------------------------
 		"Model"						"models/heroes/nerubian_assassin/nerubian_assassin.vmdl"
 		"BaseClass"					"npc_dota_creature"
-		"SoundSet"					"n_creep_Melee"
-		"GameSoundsFile"			"soundevents/game_sounds_creeps.vsndevts"
+		"SoundSet"					"Hero_NyxAssassin"
+		"GameSoundsFile"			"soundevents/game_sounds_heroes/game_sounds_nyx_assassin.vsndevts"
 		"Level"						"60"
 		"ModelScale" 				"1.5"
 		"ConsideredHero"			"1"
 		"MinimapIcon"				"minimap_enemyicon"
 		"MinimapIconSize"			"275"
+		"vscripts"					"ai/ai_boss_psionic_assassin"
 
 		// Abilities
 		//----------------------------------------------------------------
-		"AbilityLayout"             "3"
-		"Ability1"					"boss_melee_impale"		
-		"Ability2"					"boss_melee_impale_b"
+		"Ability1"					"boss_psionic_assassin_impale"		
+		"Ability2"					"boss_psionic_assassin_mind_flare"
+		"Ability3"					"boss_psionic_assassin_reflecting_carapace"
+		"Ability4"					"boss_psionic_assassin_vendetta"
+		
 		// Armor
 		//----------------------------------------------------------------
-		"ArmorPhysical"				"7.9"			// Physical protection.
+		"ArmorPhysical"				"8"			// Physical protection.
 		"MagicalResistance"			"58"		// Magical protection.
 		
 		// Attack
@@ -4949,160 +4952,101 @@
 		//----------------------------------------------------------------
 		"Creature"
 		{
-			//Basic AI State
-			//------------------------------------------------------------
-			"DefaultState"				"Invade"
-			"States"
-			{
-				"Invade"
-				{
-					"Name"				"Invade"
-					"Aggression"		"100.0"
-					"Avoidance"			"0.0"
-					"Support"			"0.0"
-				}
-			}
-
-			
-			"DefaultState"				"Invade"
-			
-			"OffensiveAbilities"
-			{
-				"Ability1"
-				{
-					"Name"				"boss_melee_impale"
-					"AOE"                "1"
-       				"Radius"             "1500"
-					"MinimumTargets" "1"
-				}
-				"Ability3"
-				{
-					"Name"				"boss_melee_impale_b"
-					"AOE"                "1"
-       				"Radius"             "1500"
-					"MinimumTargets" "1"
-				}
-			}
 			"AttachWearables"
 			{
-				"Wearable1" { "ItemDef" "8114" }
-				"Wearable2" { "ItemDef" "8115" }
-				"Wearable3" { "ItemDef" "8116" }
-				"Wearable4" { "ItemDef" "8117" }
+				"Wearable1" { "ItemDef" "8005" }
+				"Wearable2" { "ItemDef" "7736" }
+				"Wearable3" { "ItemDef" "12957" }
+				"Wearable4" { "ItemDef" "6679" }
 			}
-		
-			"DisableResistance"			"0.0"
 		}
 	}
-
-	"npc_dota_boss_psionic_assassin_h"
+	"npc_dota_minion_psionic_scarab"
 	{
-		"include_keys_from"				"npc_dota_boss_psionic_assassin"
-		"Ability1"						"boss_melee_impale_h"
-		"Ability3"						"boss_melee_impale_b_h"
+		// General
+		//----------------------------------------------------------------
+		"Model"						"models/heroes/nerubian_assassin/nerubian_assassin.vmdl"
+		"BaseClass"					"npc_dota_creature"
+		"SoundSet"					"Hero_NyxAssassin"
+		"GameSoundsFile"			"soundevents/game_sounds_heroes/game_sounds_nyx_assassin.vsndevts"
+		"Level"						"60"
+		"ModelScale" 				"0.8"
+		"ConsideredHero"			"0"
+		"MinimapIcon"				"minimap_enemyicon"
+		"MinimapIconSize"			"275"
+		"vscripts"					"ai/ai_minion_psionic_scarab"
+
+		// Abilities
+		//----------------------------------------------------------------
+		"Ability1"					"boss_psionic_assassin_mind_flare"
 		
+		// Armor
+		//----------------------------------------------------------------
+		"ArmorPhysical"				"4"			// Physical protection.
+		"MagicalResistance"			"30"		// Magical protection.
+		
+		// Attack
+		//----------------------------------------------------------------
+		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackDamageMin"			"20000"		// Damage range min.
+		"AttackDamageMax"			"22750"		// Damage range max.
+		"BaseAttackSpeed"			"250"
+		"AttackRate"				"1.8"		// Speed of attack.
+		"AttackAnimationPoint"		"0.2"		// Normalized time in animation cycle to attack.
+		"AttackAcquisitionRange"	"15000"		// Range within a target can be acquired.
+		"AttackRange"				"200"		// Range within a target can be attacked.
+		"ProjectileModel"			""			// Particle system model for projectile.
+		"ProjectileSpeed"			"0"			// Speed of projectile.		
+		// Bounds
+		//----------------------------------------------------------------
+		"BoundsHullName"			"DOTA_HULL_SIZE_REGULAR"			// Hull type used for navigation/locomotion.
+		"RingRadius"				"100"
+		"HealthBarOffset"			"320"
+
+		// Bounty
+		//----------------------------------------------------------------
+		"BountyXP"					"0"		// Experience earn.
+		"BountyGoldMin"				"0"			// Gold earned min.
+		"BountyGoldMax"				"0"			// Gold earned max.
+
+		// Movement
+		//----------------------------------------------------------------
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"				"542"		// Speed.
+		"MovementTurnRate"			"0.1"		// Turning rate.
+
+		// Status
+		//----------------------------------------------------------------
+		"StatusHealth"				"1005075"		// Base health.
+		"StatusHealthRegen"			"500"			// Health regeneration rate.
+		"StatusMana"				"5000"			// Base mana.
+		"StatusManaRegen"			"50"			// Mana regeneration rate.		 
+		
+		// Vision
+		//----------------------------------------------------------------
+		"VisionDaytimeRange"		"800"		// Range of vision during day light.
+		"VisionNighttimeRange"		"800"		// Range of vision at night time.
+
+		// Team
+		//----------------------------------------------------------------
+		"TeamName"					"DOTA_TEAM_BADGUYS"
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_BASIC"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_HERO"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+		
+		// Creature Data
+		//----------------------------------------------------------------
 		"Creature"
 		{
-			//Basic AI State
-			//------------------------------------------------------------
-			"DefaultState"				"Invade"
-			"States"
-			{
-				"Invade"
-				{
-					"Name"				"Invade"
-					"Aggression"		"100.0"
-					"Avoidance"			"0.0"
-					"Support"			"0.0"
-				}
-			}
-
-			
-			"DefaultState"				"Invade"
-			
-			"OffensiveAbilities"
-			{
-				"Ability1"
-				{
-					"Name"				"boss_melee_impale_h"
-					"AOE"                "1"
-       				"Radius"             "1500"
-					"MinimumTargets" "1"
-				}
-				"Ability3"
-				{
-					"Name"				"boss_melee_impale_b_h"
-					"AOE"                "1"
-       				"Radius"             "1500"
-					"MinimumTargets" "1"
-				}
-			}
 			"AttachWearables"
 			{
-				"Wearable1" { "ItemDef" "8114" }
-				"Wearable2" { "ItemDef" "8115" }
-				"Wearable3" { "ItemDef" "8116" }
-				"Wearable4" { "ItemDef" "8117" }
+				"Wearable1" { "ItemDef" "5567" }
+				"Wearable2" { "ItemDef" "5568" }
+				"Wearable3" { "ItemDef" "5569" }
+				"Wearable4" { "ItemDef" "5570" }
 			}
-		
-			"DisableResistance"			"0.0"
 		}
 	}
-
-	"npc_dota_boss_psionic_assassin_vh"
-	{
-		"include_keys_from"				"npc_dota_boss_psionic_assassin"
-		"Ability1"						"boss_melee_impale_vh"
-		"Ability3"						"boss_melee_impale_b_vh"
-		
-		"Creature"
-		{
-			//Basic AI State
-			//------------------------------------------------------------
-			"DefaultState"				"Invade"
-			"States"
-			{
-				"Invade"
-				{
-					"Name"				"Invade"
-					"Aggression"		"100.0"
-					"Avoidance"			"0.0"
-					"Support"			"0.0"
-				}
-			}
-
-			
-			"DefaultState"				"Invade"
-			
-			"OffensiveAbilities"
-			{
-				"Ability1"
-				{
-					"Name"				"boss_melee_impale_vh"
-					"AOE"                "1"
-       				"Radius"             "1500"
-					"MinimumTargets" "1"
-				}
-				"Ability3"
-				{
-					"Name"				"boss_melee_impale_b_vh"
-					"AOE"                "1"
-       				"Radius"             "1500"
-					"MinimumTargets" "1"
-				}
-			}
-			"AttachWearables"
-			{
-				"Wearable1" { "ItemDef" "8114" }
-				"Wearable2" { "ItemDef" "8115" }
-				"Wearable3" { "ItemDef" "8116" }
-				"Wearable4" { "ItemDef" "8117" }
-			}
-		
-			"DisableResistance"			"0.0"
-		}
-	}
-
 	"npc_dota_boss31"
 	{
 		// General

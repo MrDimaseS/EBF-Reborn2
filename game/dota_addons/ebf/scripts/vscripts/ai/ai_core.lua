@@ -639,13 +639,14 @@ function AICore:FindOptimalRadiusInRangeForEntity(entity, range, radius, exclusi
 end
 
 function AICore:HandleBasicAI( entity )
-	if RollPercentage( 7 ) then
+	if RollPercentage( 5 ) then
+		local newPos = entity:GetAbsOrigin() + RandomVector( entity:GetIdealSpeed() * 0.75 )
 		ExecuteOrderFromTable({
 			UnitIndex = entity:entindex(),
 			OrderType = DOTA_UNIT_ORDER_MOVE_TO_POSITION,
-			Position = entity:GetAbsOrigin() + RandomVector( entity:GetIdealSpeed() )
+			Position = newPos
 		})
-		return 1.5
+		return CalculateDistance(newPos, entity:GetAbsOrigin()) / entity:GetIdealSpeed()
 	end
 	if not entity:IsAttacking() then
 		local target = AICore:NearestEnemyHeroInRange( entity, -1, true)

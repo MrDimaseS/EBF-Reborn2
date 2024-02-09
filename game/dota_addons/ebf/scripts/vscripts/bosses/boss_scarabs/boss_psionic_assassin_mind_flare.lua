@@ -5,10 +5,20 @@ function boss_psionic_assassin_mind_flare:GetIntrinsicModifierName()
 end
 
 function boss_psionic_assassin_mind_flare:OnSpellStart()
+	local caster = self:GetCaster()
 	local target = self:GetCursorTarget()
 	
-	EmitSoundOn( "Hero_NyxAssassin.Jolt.Cast", self:GetCaster() )
+	EmitSoundOn( "Hero_NyxAssassin.Jolt.Cast", caster )
 	self:MindFlare( target )
+	
+	local radius = self:GetSpecialValueFor("aoe")
+	if radius > 0 then
+		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), radius ) ) do
+			if enemy ~= target then
+				self:MindFlare( enemy )
+			end
+		end
+	end
 end
 
 function boss_psionic_assassin_mind_flare:MindFlare( target )
@@ -22,7 +32,6 @@ function boss_psionic_assassin_mind_flare:MindFlare( target )
 		for _, addedDamage in ipairs( jolt.damage_tracker[target:entindex()] ) do
 			damage = damage + addedDamage
 			jolt.damage_tracker[target:entindex()] = {0}
-			print( damage, addedDamage )
 		end
 	end
 	
@@ -38,7 +47,6 @@ LinkLuaModifier( "modifier_boss_psionic_assassin_mind_flare_handler", "bosses/bo
 function modifier_boss_psionic_assassin_mind_flare_handler:OnCreated()
 	self:OnRefresh()
 	if IsServer() then
-		print("created!")
 		self:StartIntervalThink( 1 )
 	end
 end
@@ -49,10 +57,9 @@ function modifier_boss_psionic_assassin_mind_flare_handler:OnRefresh()
 end
 
 function modifier_boss_psionic_assassin_mind_flare_handler:OnIntervalThink()
-	print("dathinky")
 	for enemy, damageTable in pairs( self.damage_tracker ) do
-		table.insert( damageTable, 0, 1 )
-		if #self.damage_tracker >= self.damage_echo_duration then
+		table.insert( damageTable, 1, 0 )
+		if #damageTable >= self.damage_echo_duration then
 			table.remove( damageTable, 15 )
 		end
 	end
@@ -64,9 +71,13 @@ end
 
 function modifier_boss_psionic_assassin_mind_flare_handler:OnTakeDamage( params )
 	if params.attacker:HasAbility("boss_psionic_assassin_mind_flare") then
-		if params.ability and params.ability:GetAbilityName() == "boss_psionic_assassin_mind_flare" then return end
+		if params.inflictor and params.inflictor:GetAbilityName() == "boss_psionic_assassin_mind_flare" then return end
 		self.damage_tracker = self.damage_tracker or {}
 		self.damage_tracker[params.unit:entindex()] = self.damage_tracker[params.unit:entindex()] or {0}
 		self.damage_tracker[params.unit:entindex()][1] = self.damage_tracker[params.unit:entindex()][1] + params.damage
 	end
+end
+
+function modifier_boss_psionic_assassin_mind_flare_handler:IsHidden()
+	return true
 end

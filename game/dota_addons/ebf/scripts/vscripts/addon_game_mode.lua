@@ -498,6 +498,8 @@ IGNORE_SPELL_AMP_KV = {
 	["obsidian_destroyer_arcane_orb"] = {["mana_pool_damage_pct"] = true},
 	["phantom_assassin_fan_of_knives"] = {["pct_health_damage_initial"] = true,["pct_health_damage"] = true},
 	["huskar_life_break"] = {["health_cost_percent"] = true,["health_damage"] = true},
+	["winter_wyvern_arctic_burn"] = {["percent_damage"] = true},
+	["elder_titan_earth_splitter"] = {["damage_pct"] = true},
 	["item_orchid"] = {["silence_damage_percent"] = true},
 	["item_bloodthorn"] = {["silence_damage_percent"] = true},
 	["item_bloodthorn_2"] = {["silence_damage_percent"] = true},
@@ -509,8 +511,6 @@ IGNORE_SPELL_AMP_KV = {
 -- spell_name = spell_amp_reduction (100 for no spell amp)
 IGNORE_SPELL_AMP_FILTER = {
 	["muerta_pierce_the_veil"] = 75,
-	["winter_wyvern_arctic_burn"] = 100,
-	["elder_titan_earth_splitter"] = 100,
 	["shadow_demon_disseminate"] = 100,
 	["item_revenants_brooch"] = 100,
 	["item_revenants_brooch_2"] = 100,

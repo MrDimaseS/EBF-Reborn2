@@ -45,3 +45,7 @@ function modifier_boss_psionic_assassin_vendetta_handler:OnDeath( params )
 		self:GetAbility():TriggerVendetta()
 	end
 end
+
+function modifier_boss_psionic_assassin_vendetta_handler:IsHidden() 
+	return true
+end

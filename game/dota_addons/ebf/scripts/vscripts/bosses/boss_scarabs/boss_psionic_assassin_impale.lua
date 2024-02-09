@@ -9,7 +9,7 @@ function boss_psionic_assassin_impale:OnSpellStart()
 	
 	EmitSoundOn( "Hero_NyxAssassin.Impale", caster )
 	
-	self:FireLinearProjectile( "particles/units/heroes/hero_nyx_assassin/nyx_assassin_impale.vpcf", CalculateDirection( target, caster ) * self:GetSpecialValueFor("speed"), self:GetSpecialValueFor("length"), self:GetSpecialValueFor("width") )
+	self:FireLinearProjectile( "particles/units/heroes/hero_nyx_assassin/nyx_assassin_impale.vpcf", CalculateDirection( target, caster ) * self:GetSpecialValueFor("speed"), math.min( self:GetSpecialValueFor("length"), CalculateDistance( caster, target ) ), self:GetSpecialValueFor("width") )
 end
 
 function boss_psionic_assassin_impale:OnProjectileHit(target, position)
@@ -31,6 +31,6 @@ function boss_psionic_assassin_impale:OnProjectileHit(target, position)
 		
 		EmitSoundOn("Hero_NyxAssassin.Burrow.Out", caster)
 		EmitSoundOn("Hero_NyxAssassin.SpikedCarapace.Stun", caster)
-		ParticleManager:FireParticle("particles/units/heroes/hero_nyx_assassin/nyx_assassin_spiked_carapace_burrow.vpcf", PATTACH_POINT, caster, {[0]=caster:GetAbsOrigin(), [1]=Vector(radius, 0, 0)})
+		ParticleManager:FireParticle("particles/units/heroes/hero_leshrac/leshrac_split_earth.vpcf", PATTACH_POINT, caster, {[0]=GetGroundPosition( caster:GetAbsOrigin(), caster ), [1]=Vector(radius, 0, 0)})
 	end
 end

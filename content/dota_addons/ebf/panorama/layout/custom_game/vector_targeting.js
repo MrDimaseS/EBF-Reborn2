@@ -358,6 +358,7 @@ function Vector_raiseZ(vec, inc) {
 (function () {
     $.RegisterForUnhandledEvent( "DOTAShowAbilityTooltipForEntityIndex", RemoveAbilityChanges );
     $.RegisterForUnhandledEvent( "DOTAShowAbilityInventoryItemTooltip", UpdateItemTooltip );
+    $.RegisterForUnhandledEvent( "DOTAShowAbilityShopItemTooltip", ShowItemAttributes );
     $.RegisterForUnhandledEvent( "DOTAShowAbilityTooltip", RemoveItemAttributes );
     $.RegisterForUnhandledEvent( "DOTAShowAbilityTooltipForEntityIndex", RemoveItemAttributes );
     $.RegisterForUnhandledEvent( "DOTAHUDShowDamageArmorTooltip", UpdateStatsTooltip );
@@ -371,6 +372,14 @@ function RemoveItemAttributes(){
 	const abilityAttributes = tooltipPanel.FindChildTraverse('AbilityAttributes');
 	
 	abilityAttributes.style.visibility = 'collapse'
+}
+
+function ShowItemAttributes(){
+	const tooltipManager = dotaHud.FindChildTraverse('Tooltips');
+	const tooltipPanel = tooltipManager.FindChildTraverse('DOTAAbilityTooltip');
+	const abilityAttributes = tooltipPanel.FindChildTraverse('AbilityAttributes');
+	
+	abilityAttributes.style.visibility = 'visible'
 }
 
 function GetDotaHud() {
@@ -544,6 +553,8 @@ function UpdateItemTooltip( panel, unit, itemSlot ){
 	const tooltipPanel = tooltipManager.FindChildTraverse('DOTAAbilityTooltip');
 	const abilityDetails = tooltipPanel.FindChildTraverse('AbilityCoreDetails');
 	const abilityAttributes = tooltipPanel.FindChildTraverse('AbilityAttributes');
+	
+	abilityAttributes.style.visibility = 'collapse'
 	
 	let finalTextToken = ""
 	if (panel.inventoryData == undefined || panel.inventoryData.AbilityValues == undefined){ return }

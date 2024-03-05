@@ -14,7 +14,7 @@ function modifier_boss_rift_guardian_shield:OnCreated()
 	self.max_barrier = self:GetParent():GetMaxHealth() * self:GetSpecialValueFor("max_hp_shield") / 100
 	self.barrier = self.max_barrier
 	self.barrier_regen = self.barrier * self:GetSpecialValueFor("shield_regen") / 100
-	print( self.barrier_regen )
+	
 	self.shield_damage = self:GetSpecialValueFor("shield_damage")
 	self.radius = self:GetSpecialValueFor("radius")
 	self.break_stun = self:GetSpecialValueFor("break_stun")
@@ -67,7 +67,7 @@ function modifier_boss_rift_guardian_shield:OnDestroy()
 		entUnit:SetBaseMaxHealth(gate_attacks * fullScaling + math.ceil(gate_attacks) / 2 * halfScaling + minScaling * 1 )
 		entUnit:SetMaxHealth( gate_attacks * fullScaling + math.ceil(gate_attacks) / 2 * halfScaling + minScaling * 1 )
 		entUnit:SetHealth( entUnit:GetMaxHealth() )
-		entUnit:AddNewModifier( caster, ability, "modifier_boss_rift_guardian_shield_rift", {})
+		entUnit:AddNewModifier( caster, ability, "modifier_boss_rift_guardian_shield_rift", {duration = gate_duration})
 	end)
 	StopSoundOn( "Hero_EmberSpirit.FlameGuard.Loop", caster )
 end
@@ -108,6 +108,7 @@ if IsServer() then
 	end
 	
 	function modifier_boss_rift_guardian_shield_rift:OnDestroy()
+		if self:GetRemainingTime() > 0 then return end
 		local caster = self:GetCaster()
 		local rift = self:GetParent()
 		local ability = self:GetAbility()
@@ -118,6 +119,7 @@ if IsServer() then
 				ParticleManager:FireParticle( "particles/units/heroes/heroes_underlord/abbysal_underlord_portal_arrival_burst.vpcf", PATTACH_POINT_FOLLOW, entUnit )
 			end)
 		end
+		rift:ForceKill( false )
 	end
 end
 

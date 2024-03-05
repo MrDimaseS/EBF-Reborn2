@@ -348,7 +348,7 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 
-		"AbilityCooldown"						"30"
+		"AbilityCooldown"						"60 55 50 45"
 		"AbilityValues"
 		{
 			"max_hp_shield"						"35 40 45 50"
@@ -359,7 +359,7 @@
 				"value"							"10000 11000 12000 13000"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"duration"							"15"
+			"duration"							"20"
 			"break_stun"						"5"
 			"gate_duration"						"6"
 			"gate_attacks"						"6"
@@ -383,11 +383,13 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 
 		"AbilityCooldown"						"22 20 18 16"
+		"AbilityCastRange"						"1500"
 		"AbilityChannelAnimation"				"ACT_DOTA_FLAIL"
 		"AbilityChannelTime"					"12"
 		"AbilityValues"
 		{
 			"raze_damage"						"25000"
+			"radius"							"175"
 			"break_duration"					"4"
 			"persist_duration"					"1.5"
 		}
@@ -405,6 +407,7 @@
 		"AbilityTextureName"			"oracle_false_promise"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 
@@ -426,12 +429,14 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ember_spirit_sleight_of_fist"
 		"AbilityTextureName"			"ember_spirit_sleight_of_fist"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 
 		"AbilityCooldown"				"6 5 4 3"
+		"AbilityCastRange"				"250"
 		"AbilityValues"
 		{
 			"radius"					"850"

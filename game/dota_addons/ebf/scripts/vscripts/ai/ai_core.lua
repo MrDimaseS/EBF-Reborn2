@@ -699,18 +699,38 @@ function AICore:FindOptimalLineInRangeForEntity(entity, range, width, distance, 
 	return castPosition
 end
 
-function AICore:FindOptimalTargetInRangeForEntity(entity, range, radius, exclusionFct, bIncludeTeamMates)
+function AICore:FindOptimalTargetInRangeForEntity(entity, range, radius, exclusionFct, bIncludeTeamMates, flMinimumValue)
 	local allEnemies = entity:FindEnemyUnitsInRadius( entity:GetAbsOrigin(), range + radius, {type = DOTA_UNIT_TARGET_HERO, flag = DOTA_UNIT_TARGET_FLAG_FOW_VISIBLE } )
 	if bIncludeTeamMates then
 		allEnemies = entity:FindAllUnitsInRadius( entity:GetAbsOrigin(), range + radius, {type = DOTA_UNIT_TARGET_HERO, flag = DOTA_UNIT_TARGET_FLAG_FOW_VISIBLE } )
 	end
 	local castTarget
-	local maxTargets = 0
+	local maxTargets = flMinimumValue or 0
 	for _, enemy in ipairs( allEnemies ) do -- attempt to at least get a hero target, also serves to optimize
 		if not exclusionFct or not exclusionFct( enemy ) then -- isn't already affected by a pool
 			local potentialTargets = entity:FindEnemyUnitsInRadius( enemy:GetAbsOrigin(), radius )
 			if #potentialTargets > maxTargets then
 				castTarget = enemy
+				maxTargets = #potentialTargets
+			end
+		end
+	end
+	
+	return castTarget
+end
+
+function AICore:FindOptimalAllyInRangeForEntity(entity, range, radius, exclusionFct)
+	local allEnemies = entity:FindFriendlyUnitsInRadius( entity:GetAbsOrigin(), range + radius, {type = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_CREEP, flag = DOTA_UNIT_TARGET_FLAG_FOW_VISIBLE } )
+	
+	local castTarget
+	local maxTargets = 0
+	
+	for _, ally in ipairs( allEnemies ) do -- attempt to at least get a hero target, also serves to optimize
+		if not exclusionFct or not exclusionFct( ally ) then -- isn't already affected by a pool
+			local potentialTargets = entity:FindEnemyUnitsInRadius( ally:GetAbsOrigin(), radius )
+			print( #potentialTargets, maxTargets )
+			if #potentialTargets > maxTargets then
+				castTarget = ally
 				maxTargets = #potentialTargets
 			end
 		end

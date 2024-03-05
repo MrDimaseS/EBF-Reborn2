@@ -46,20 +46,19 @@ end
 
 function modifier_boss_rift_general_atrophy_aura:OnDeath(params)
 	local parent = self:GetParent()
-	print( params.unit:IsSameTeam( parent ), ( CalculateDistance(params.unit, parent) <= self.radius or params.attacker == parent ) )
 	if not params.unit:IsSameTeam( parent ) and ( CalculateDistance(params.unit, parent) <= self.radius or params.attacker == parent ) then
 		local stacks = TernaryOperator( self.bossStacks, params.unit:IsConsideredHero(), 1 )
-		print( stacks )
 		self:SetStackCount( self:GetStackCount() + stacks )
 	end
 end
 
 function modifier_boss_rift_general_atrophy_aura:GetModifierPreAttack_BonusDamage()
+	if self:GetCaster():PassivesDisabled() then return end
 	return self:GetStackCount() * self.stackDamage
 end
 
 function modifier_boss_rift_general_atrophy_aura:IsAura()
-	return true
+	return not self:GetCaster():PassivesDisabled()
 end
 
 function modifier_boss_rift_general_atrophy_aura:GetModifierAura()

@@ -20,11 +20,8 @@ DAMAGE_TYPES = {
 	    [8] = "DAMAGE_TYPE_HP_REMOVAL",
 }
 
-require("lua_item/simple_item")
-require("lua_boss/boss_32_meteor")
 require( "epic_boss_fight_game_round" )
 require( "epic_boss_fight_game_spawner" )
-require('lib.optionsmodule')
 require( "libraries/Timers" )
 require( "libraries/vector_targeting" )
 require("libraries/disable_help")
@@ -1306,8 +1303,6 @@ function CHoldoutGameMode:OnThink()
 					self:_RefreshPlayers(true)
 					
 					self._nRoundNumber = self._nRoundNumber + 1
-					simple_item:SetRoundNumer(self._nRoundNumber)
-					boss_meteor:SetRoundNumer(self._nRoundNumber)
 					GameRules._roundnumber = self._nRoundNumber
 					print("this should update")
 					for nPlayerID = 0, DOTA_MAX_TEAM_PLAYERS-1 do

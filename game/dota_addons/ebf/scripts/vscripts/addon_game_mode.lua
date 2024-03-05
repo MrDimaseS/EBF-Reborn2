@@ -66,7 +66,6 @@ function Precache( context )
 	PrecacheResource( "soundfile", "soundevents/game_sounds_items.vsndevts", context)
 	PrecacheResource( "soundfile", "soundevents/game_sounds_custom.vsndevts", context)
 
-	PrecacheItemByNameSync( "item_tombstone", context )
 	PrecacheItemByNameSync( "item_bag_of_gold", context )
 	
 	--Precache models
@@ -103,6 +102,7 @@ function Precache( context )
 	
 	PrecacheUnitByNameSync("npc_dota_boss_ogre_magi", context)
 	PrecacheUnitByNameSync("npc_dota_visage_familiar1", context)
+	PrecacheResource( "model", "models/heroes/tiny/tiny_04/tiny_04.vmdl", context )
 	PrecacheResource( "model", "models/heroes/tiny/tiny_04/tiny_04.vmdl", context )
 	PrecacheResource( "model", "models/heroes/tiny/tiny_04/tiny_04.vmdl", context )
 end
@@ -157,6 +157,7 @@ function CHoldoutGameMode:InitGameMode()
 	GameRules:SetHeroSelectionTime( 60.0 )
 	GameRules:SetHeroSelectPenaltyTime( 5.0 )
 	GameRules:SetCustomGameSetupAutoLaunchDelay( 0 )
+	GameRules:SetHeroRespawnEnabled( true )
 	
 	if IsInToolsMode() or GameRules:IsCheatMode() then
 		GameRules:SetPreGameTime( 99999 )
@@ -169,38 +170,41 @@ function CHoldoutGameMode:InitGameMode()
 		Life._MaxLife = 4
 		GameRules._bonusLifeRoundDivider = 5
 		GameRules.gameDifficulty = 1
-		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 5)
+		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 10)
+		GameRules:GetGameModeEntity():SetFixedRespawnTime( 30 )
 	elseif GetMapName() == "epic_boss_fight_hard" then 
 		Life._life = 2
 		Life._MaxLife = 2
 		GameRules._bonusLifeRoundDivider = 10
 		GameRules.gameDifficulty = 2
-		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 7)
+		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 8)
+		GameRules:GetGameModeEntity():SetFixedRespawnTime( 60 )
 	elseif GetMapName() == "epic_boss_fight_impossible" then
 		Life._life = 2
 		Life._MaxLife = 2
 		GameRules._bonusLifeRoundDivider = 15
 		GameRules.gameDifficulty = 3
-		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 7)
+		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 6)
 	elseif GetMapName() == "epic_boss_fight_challenger" then
 		Life._life = 1
 		Life._MaxLife = 1
 		GameRules._bonusLifeRoundDivider = 99
 		GameRules.gameDifficulty = 3
-		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 7)
+		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 6)
+		GameRules:GetGameModeEntity():SetFixedRespawnTime( 120 )
 	elseif GetMapName() == "epic_boss_fight_nightmare" then
 		Life._life = 1
 		Life._MaxLife = 1
 		GameRules._bonusLifeRoundDivider = 99
-		GameRules.gameDifficulty = 3
-		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 10)
+		GameRules.gameDifficulty = 4
+		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 5)
+		GameRules:GetGameModeEntity():SetFixedRespawnTime( 180 )
 	end
 
 	GameRules._live = Life._life
 	GameRules._used_live = 0
 
 	self:_ReadGameConfiguration()
-	GameRules:SetHeroRespawnEnabled( false )
 	GameRules:SetUseUniversalShopMode( true )
 	GameRules:SetTreeRegrowTime( 15.0 )
 	GameRules:SetCreepMinimapIconScale( 4 )
@@ -439,6 +443,27 @@ function CHoldoutGameMode:FilterOrders( filterTable )
 			return false
 		end
 	end
+	if unit:GetTeam() ~= DOTA_TEAM_GOODGUYS
+	and (orderType == DOTA_UNIT_ORDER_CAST_POSITION
+	or orderType == DOTA_UNIT_ORDER_CAST_TARGET 
+	or orderType == DOTA_UNIT_ORDER_CAST_NO_TARGET) then
+		local ability = EntIndexToHScript( filterTable.entindex_ability )
+		local radius
+		local position
+		if orderType == DOTA_UNIT_ORDER_CAST_POSITION then
+			position = Vector( filterTable.position_x, filterTable.position_y, filterTable.position_z )
+			radius = ability:GetAOERadius( )
+		elseif orderType == DOTA_UNIT_ORDER_CAST_TARGET then
+			local target = EntIndexToHScript( filterTable.entindex_target )
+			position = target:GetAbsOrigin()
+			radius = target:GetPaddedCollisionRadius() + 120
+		elseif orderType == DOTA_UNIT_ORDER_CAST_NO_TARGET then
+			position = unit:GetAbsOrigin()
+			radius = ability:GetTrueCastRange( ) - unit:GetCastRangeBonus()
+			print( radius )
+		end
+		ParticleManager:FireWarningParticle(position, radius)
+	end
 	if ability and ability:GetName() == "rubick_spell_steal" and target == unit then
 		DisplayError(unit:GetPlayerOwnerID(), "dota_hud_error_cant_cast_on_self")
 		return false
@@ -474,7 +499,7 @@ function CHoldoutGameMode:FilterHealing( filterTable )
 	
 	if not target_index then return true end
 	local target = EntIndexToHScript( target_index )
-	filterTable["heal"] = math.min( filterTable["heal"], target:GetHealthDeficit() )
+	filterTable["heal"] = math.min( filterTable["heal"], target:GetMaxHealth() )
     if not healer_index then return true end
 	local healer = EntIndexToHScript( healer_index )
 	healer.damage_healed_ingame = (healer.damage_healed_ingame or 0) + filterTable["heal"]
@@ -643,10 +668,6 @@ function CHoldoutGameMode:OnHeroPick (event)
 	local ID = hero:GetPlayerID()
 	hero:SetGold(0 , false)
 	hero:SetGold(0 , true)
-	local player = PlayerResource:GetPlayer(ID)
-	if not player then return end --tester
- 	player.HB = true
- 	player.Health_Bar_Open = false
 	--[[Timers:CreateTimer(2.5,function()
  			if self._NewGamePlus == true and PlayerResource:GetGold(ID)>= 80000 then
  				self._Buy_Asura_Core(ID)
@@ -754,6 +775,18 @@ function CHoldoutGameMode:OnHeroLevelUp(event)
 			neutralItem:OnUnequip()
 			neutralItem:OnEquip()
 			neutralItem:RefreshIntrinsicModifier()
+		end
+		for i = 0, hero:GetAbilityCount() - 1 do
+			local ability = hero:GetAbilityByIndex( i )
+			if ability then
+				if ability:IsAttributeBonus() then
+					local passive = hero:FindModifierByName( ability:GetIntrinsicModifierName() )
+					if passive then
+						passive:Destroy()
+					end
+				end
+				ability:RefreshIntrinsicModifier()
+			end
 		end
 	end
 end
@@ -869,17 +902,19 @@ function CHoldoutGameMode:OnConnectFull()
 		GameRules._averageMMRForMatch = averageMMR
 		for nPlayerID = 0, DOTA_MAX_TEAM_PLAYERS-1 do
 			if PlayerResource:IsValidPlayerID( nPlayerID ) then
-				local mmrPlayer = {mmr = mmrTable[nPlayerID]}
-				local winMMR = CalculateMMRChangeForPlayer( GetMapName(), averageMMR, true ) - averageMMR
-				local lossMMR = CalculateMMRChangeForPlayer( GetMapName(), averageMMR, false ) - averageMMR
-				-- calc after player amount
 				local playerMultiplier = 1 + ( self._MaxPlayers - players ) * ( 50 / (self._MaxPlayers-1) ) / 100
-				mmrPlayer.win = math.floor(winMMR*playerMultiplier + 0.5 )
-				mmrPlayer.loss = math.floor(lossMMR/playerMultiplier + 0.5 )
-				if not IsDedicatedServer() or GameRules:IsCheatMode() then
+				local mmrPlayer = {mmr = mmrTable[nPlayerID]}
+				local winMMR = math.floor( (10 + GameRules.gameDifficulty * 5) + 0.5 )
+				local lossMMR = (-2*winMMR) * ((#self._vRounds - self._nRoundNumber) / #self._vRounds)
+				
+				if not IsDedicatedServer() or GameRules:IsCheatMode() or IsInToolsMode() then
 					winMMR = 0
 					lossMMR = 0
 				end
+				
+				mmrPlayer.win = math.floor(winMMR*playerMultiplier + 0.5 )
+				mmrPlayer.loss = math.floor(lossMMR/playerMultiplier + 0.5 )
+				
 				CustomNetTables:SetTableValue("mmr", tostring( nPlayerID ), mmrPlayer)
 		   end
 		end
@@ -1274,11 +1309,23 @@ function CHoldoutGameMode:OnThink()
 					simple_item:SetRoundNumer(self._nRoundNumber)
 					boss_meteor:SetRoundNumer(self._nRoundNumber)
 					GameRules._roundnumber = self._nRoundNumber
-					
+					print("this should update")
 					for nPlayerID = 0, DOTA_MAX_TEAM_PLAYERS-1 do
 						if PlayerResource:GetTeam( nPlayerID ) == DOTA_TEAM_GOODGUYS then
 							if PlayerResource:HasSelectedHero( nPlayerID ) then
 								PlayerResource:SetCustomBuybackCost(nPlayerID, GameRules._roundnumber * 100)
+								local playerMultiplier = 1 + ( self._MaxPlayers - HeroList:GetActiveHeroCount() ) * ( 50 / (self._MaxPlayers-1) ) / 100
+								local winMMR = 10+GameRules.gameDifficulty*5
+								local lossMMR = winMMR * (-2) * ((#self._vRounds - self._nRoundNumber) / #self._vRounds)
+								local mmrTable = CustomNetTables:GetTableValue("mmr", tostring( nPlayerID ) )
+								if not IsDedicatedServer() or IsInToolsMode() or GameRules:IsCheatMode() then
+									mmrTable.win = 0
+									mmrTable.loss = 0
+								else
+									mmrTable.win = math.floor( winMMR * playerMultiplier + 0.5 )
+									mmrTable.loss = math.floor( lossMMR / playerMultiplier + 0.5 )
+								end
+								CustomNetTables:SetTableValue("mmr", tostring( nPlayerID ), mmrTable)
 							end
 						end
 					end
@@ -1426,13 +1473,17 @@ function CHoldoutGameMode:RegisterStatsForPlayer( playerID, bWon, bAbandon )
 	local AUTH_KEY = GetDedicatedServerKeyV3(statSettings.modID)
 	local SERVER_LOCATION = statSettings.serverLocation
 	
+	local playerMultiplier = 1 + ( self._MaxPlayers - HeroList:GetActiveHeroCount() ) * ( 50 / (self._MaxPlayers-1) ) / 100
+	local winMMR = 10+GameRules.gameDifficulty*5
+	local lossMMR = (-2*winMMR) * ((#self._vRounds - self._nRoundNumber) / #self._vRounds)
+	local winMMR = math.floor( winMMR*playerMultiplier + 0.5 )
+	local lossMMR = math.floor( lossMMR/playerMultiplier + 0.5 )
+	
 	
 	local packageLocation = SERVER_LOCATION..AUTH_KEY.."/players/"..tostring(PlayerResource:GetSteamID(playerID))..'.json'
 	local getRequestPlayer = CreateHTTPRequestScriptVM( "GET", packageLocation)
 
 	if bAbandon then -- an abandon was registered
-		local averageMMR = 0
-		local players = 0
 		for nPlayerID = 0, DOTA_MAX_TEAM_PLAYERS-1 do
 			if PlayerResource:IsValidPlayerID( nPlayerID ) then
 				local decoded = CustomNetTables:GetTableValue("mmr", tostring( nPlayerID ) )
@@ -1440,27 +1491,8 @@ function CHoldoutGameMode:RegisterStatsForPlayer( playerID, bWon, bAbandon )
 					if PlayerResource:GetConnectionState( nPlayerID ) == DOTA_CONNECTION_STATE_ABANDONED
 					or ( PlayerResource:GetConnectionState( nPlayerID ) == DOTA_CONNECTION_STATE_DISCONNECTED 
 					and PlayerResource.disconnect[nPlayerID] and PlayerResource.disconnect[nPlayerID] + 5*60 <= GameRules:GetGameTime() ) then
+						CustomNetTables:SetTableValue("mmr", tostring( nPlayerID ), {mmr = decoded.mmr, win = 0, loss = lossMMR*3 })
 					else
-						averageMMR = averageMMR + decoded.mmr
-						players = players + 1
-					end
-				end
-			end
-		end
-		averageMMR = averageMMR / players
-		local playerMultiplier = 1 + ( self._MaxPlayers - HeroList:GetActiveHeroCount() ) * ( 50 / (self._MaxPlayers-1) ) / 100
-		for nPlayerID = 0, DOTA_MAX_TEAM_PLAYERS-1 do
-			if PlayerResource:IsValidPlayerID( nPlayerID ) then
-				local decoded = CustomNetTables:GetTableValue("mmr", tostring( nPlayerID ) )
-				if decoded then
-					if PlayerResource:GetConnectionState( nPlayerID ) == DOTA_CONNECTION_STATE_ABANDONED
-					or ( PlayerResource:GetConnectionState( nPlayerID ) == DOTA_CONNECTION_STATE_DISCONNECTED 
-					and PlayerResource.disconnect[nPlayerID] and PlayerResource.disconnect[nPlayerID] + 5*60 <= GameRules:GetGameTime() ) then
-						CustomNetTables:SetTableValue("mmr", tostring( nPlayerID ), {mmr = decoded.mmr, win = 0, loss = -120 })
-						local decoded = CustomNetTables:GetTableValue("mmr", tostring( nPlayerID ) )
-					else
-						local winMMR = math.floor( (CalculateMMRChangeForPlayer( GetMapName(), averageMMR, true ) - averageMMR)*playerMultiplier + 0.5 )
-						local lossMMR = math.floor( (CalculateMMRChangeForPlayer( GetMapName(), averageMMR, false ) - averageMMR)/playerMultiplier + 0.5 )
 						CustomNetTables:SetTableValue("mmr", tostring( nPlayerID ), {mmr = decoded.mmr, win = winMMR, loss = lossMMR})
 					end
 				end
@@ -1493,14 +1525,14 @@ function CHoldoutGameMode:RegisterStatsForPlayer( playerID, bWon, bAbandon )
 			putData.mmr = math.max( putData.mmr - 120, -1)
 			mmrTable.mmr = putData.mmr 
 			mmrTable.win = 0
-			mmrTable.loss = -120
+			mmrTable.loss = lossMMR * 3
 		else
 			if bWon then
-				putData.mmr = putData.mmr + mmrTable.win
+				putData.mmr = putData.mmr + winMMR
 				mmrTable.mmr = putData.mmr 
 				mmrTable.loss = 0
 			else
-				putData.mmr = math.max( putData.mmr + mmrTable.loss, 0 )
+				putData.mmr = math.max( putData.mmr + lossMMR, 0 )
 				mmrTable.mmr = putData.mmr 
 				mmrTable.win = 0
 			end
@@ -1956,7 +1988,6 @@ end
 end]]--
 
 function CHoldoutGameMode:OnEntityKilled( event )
-	local check_tombstone = true
 	local killedUnit = EntIndexToHScript( event.entindex_killed )
 	local attacker = EntIndexToHScript( event.entindex_attacker )
 	if killedUnit:GetUnitName() == "npc_dota_treasure" then
@@ -1998,17 +2029,17 @@ function CHoldoutGameMode:OnEntityKilled( event )
 				GameRules.lastManStanding:AddNewModifier( GameRules.lastManStanding, nil, "modifier_last_man_standing", {} )
 			end
 		end
-		if GetMapName() ~= "epic_boss_fight_challenger" and GetMapName() ~= "epic_boss_fight_nightmare" then
-			if check_tombstone == true and killedUnit.NoTombStone ~= true then
-				local newItem = CreateItem( "item_tombstone", killedUnit, killedUnit )
-				newItem:SetPurchaseTime( 0 )
-				newItem:SetPurchaser( killedUnit )
-				local tombstone = SpawnEntityFromTableSynchronous( "dota_item_tombstone_drop", {} )
-				tombstone:SetContainedItem( newItem )
-				tombstone:SetAngles( 0, RandomFloat( 0, 360 ), 0 )
-				FindClearSpaceForUnit( tombstone, killedUnit:GetAbsOrigin(), true )
-			end
-		end
+		-- if GetMapName() ~= "epic_boss_fight_challenger" and GetMapName() ~= "epic_boss_fight_nightmare" then
+			-- if check_tombstone == true and killedUnit.NoTombStone ~= true then
+				-- local newItem = CreateItem( "item_tombstone", killedUnit, killedUnit )
+				-- newItem:SetPurchaseTime( 0 )
+				-- newItem:SetPurchaser( killedUnit )
+				-- local tombstone = SpawnEntityFromTableSynchronous( "dota_item_tombstone_drop", {} )
+				-- tombstone:SetContainedItem( newItem )
+				-- tombstone:SetAngles( 0, RandomFloat( 0, 360 ), 0 )
+				-- FindClearSpaceForUnit( tombstone, killedUnit:GetAbsOrigin(), true )
+			-- end
+		-- end
 	end
 end
 

@@ -70,6 +70,22 @@ function AICore:NearestEnemyHeroInRange( entity, range , magic_immune)
 	return target
 end
 
+function AICore:FurthestEnemyHeroInRange( entity, range, magic_immune )
+	local flags = DOTA_UNIT_TARGET_FLAG_FOW_VISIBLE + DOTA_UNIT_TARGET_FLAG_NO_INVIS
+	if magic_immune then
+		flags = flags + DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES
+	end
+	if entity:GetTauntTarget() then return entity:GetTauntTarget() end
+	
+	local enemies = FindUnitsInRadius( entity:GetTeamNumber(), entity:GetAbsOrigin(), nil, range, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, flags, FIND_FARTHEST, false )
+	
+	local target = enemies[1]
+	if entity:GetTauntTarget() then 
+		target = entity:GetTauntTarget()
+	end
+	return target
+end
+
 function AICore:BeingAttacked( entity )
 	local enemies = FindUnitsInRadius( entity:GetTeamNumber(), entity:GetAbsOrigin(), nil, 9999, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_ALL, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES, 0, false )
 	local count = 0
@@ -319,17 +335,9 @@ end
 
 function AICore:TotalEnemyHeroesInRange( entity, range)
 	local flags = DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES + DOTA_UNIT_TARGET_FLAG_FOW_VISIBLE + DOTA_UNIT_TARGET_FLAG_NO_INVIS
-	local enemies = FindUnitsInRadius( entity:GetTeamNumber(), entity:GetAbsOrigin(), nil, range, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, flags, 0, false )
+	local enemies = FindUnitsInRadius( entity:GetTeamNumber(), entity:GetAbsOrigin(), nil, range, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, flags, 0, false )
 	
-	local count = 0
-	
-	for _,enemy in pairs(enemies) do
-		local distanceToEnemy = (entity:GetAbsOrigin() - enemy:GetAbsOrigin()):Length2D()
-		if enemy:IsAlive() and distanceToEnemy < range then
-			count = count + 1
-		end
-	end
-	return count
+	return #enemies
 end
 
 function AICore:OptimalHitPosition(entity, range, radius, magic_immune)
@@ -608,8 +616,11 @@ function AICore:HighestThreatHeroInRange(entity, range, basethreat, magic_immune
 	return target
 end
 
-function AICore:FindOptimalRadiusInRangeForEntity(entity, range, radius, exclusionFct)
+function AICore:FindOptimalRadiusInRangeForEntity(entity, range, radius, exclusionFct, bIncludeTeamMates)
 	local allEnemies = entity:FindEnemyUnitsInRadius( entity:GetAbsOrigin(), range + radius, {type = DOTA_UNIT_TARGET_HERO, flag = DOTA_UNIT_TARGET_FLAG_FOW_VISIBLE } )
+	if bIncludeTeamMates then
+		allEnemies = entity:FindAllUnitsInRadius( entity:GetAbsOrigin(), range + radius, {type = DOTA_UNIT_TARGET_HERO, flag = DOTA_UNIT_TARGET_FLAG_FOW_VISIBLE } )
+	end
 	local castPosition
 	local maxTargets = 0
 	for _, enemy in ipairs( allEnemies ) do -- attempt to at least get a hero target, also serves to optimize
@@ -638,25 +649,132 @@ function AICore:FindOptimalRadiusInRangeForEntity(entity, range, radius, exclusi
 	return castPosition
 end
 
-function AICore:HandleBasicAI( entity )
-	if RollPercentage( 5 ) then
-		local newPos = entity:GetAbsOrigin() + RandomVector( entity:GetIdealSpeed() * 0.75 )
-		ExecuteOrderFromTable({
-			UnitIndex = entity:entindex(),
-			OrderType = DOTA_UNIT_ORDER_MOVE_TO_POSITION,
-			Position = newPos
-		})
-		return CalculateDistance(newPos, entity:GetAbsOrigin()) / entity:GetIdealSpeed()
+function AICore:FindOptimalRadiusInRangeForEntityClamped( entity, range, maxRange, radius, exclusionFct )
+	local allEnemies = entity:FindEnemyUnitsInRing( entity:GetAbsOrigin(), maxRange, range, {type = DOTA_UNIT_TARGET_HERO, flag = DOTA_UNIT_TARGET_FLAG_FOW_VISIBLE } )
+	local castPosition
+	local maxTargets = 0
+	for _, enemy in ipairs( allEnemies ) do -- attempt to at least get a hero target, also serves to optimize
+		if not exclusionFct or not exclusionFct( enemy ) then -- isn't already affected by a pool
+			local potentialTargets = entity:FindEnemyUnitsInRadius( enemy:GetAbsOrigin(), radius )
+			local centers = {}
+			for _, target in ipairs( potentialTargets ) do -- find all possible circle centers
+				table.insert( centers, (enemy:GetAbsOrigin() + target:GetAbsOrigin()) / 2 )
+			end
+			for _, center in ipairs( centers ) do -- find optimal center
+				local centerTargets = entity:FindEnemyUnitsInRadius( center, radius )
+				local actualTargets = 0
+				for _, target in ipairs( centerTargets ) do
+					if not exclusionFct or not exclusionFct( target ) then
+						actualTargets = actualTargets + 1
+					end
+				end
+				if actualTargets > maxTargets then
+					castPosition = center
+					maxTargets = actualTargets
+				end
+			end
+		end
 	end
-	if not entity:IsAttacking() then
-		local target = AICore:NearestEnemyHeroInRange( entity, -1, true)
-		if target and not ( entity:GetAttackTarget() and CalculateDistance( entity:GetAttackTarget(), entity ) <= entity:GetIdealSpeed() ) then
+	
+	return castPosition
+end
+
+function AICore:FindOptimalLineInRangeForEntity(entity, range, width, distance, exclusionFct, bIncludeTeamMates)
+	local allEnemies = entity:FindEnemyUnitsInRadius( entity:GetAbsOrigin(), range, {type = DOTA_UNIT_TARGET_HERO, flag = DOTA_UNIT_TARGET_FLAG_FOW_VISIBLE } )
+	if bIncludeTeamMates then
+		allEnemies = entity:FindAllUnitsInRadius( entity:GetAbsOrigin(), range, {type = DOTA_UNIT_TARGET_HERO, flag = DOTA_UNIT_TARGET_FLAG_FOW_VISIBLE } )
+	end
+	local castPosition
+	local currentTargets = {}
+	for _, enemy in ipairs( allEnemies ) do -- attempt to at least get a hero target, also serves to optimize
+		if not exclusionFct or not exclusionFct( enemy ) then -- isn't already affected by a pool
+			local potentialTargets = entity:FindEnemyUnitsInLine( entity:GetAbsOrigin(), entity:GetAbsOrigin() + CalculateDirection( enemy, entity ) * distance, width )
+			if #potentialTargets > #currentTargets then
+				currentTargets = potentialTargets
+				castPosition = enemy:GetAbsOrigin()
+			end
+		end
+	end
+	
+	return castPosition
+end
+
+function AICore:FindOptimalTargetInRangeForEntity(entity, range, radius, exclusionFct, bIncludeTeamMates)
+	local allEnemies = entity:FindEnemyUnitsInRadius( entity:GetAbsOrigin(), range + radius, {type = DOTA_UNIT_TARGET_HERO, flag = DOTA_UNIT_TARGET_FLAG_FOW_VISIBLE } )
+	if bIncludeTeamMates then
+		allEnemies = entity:FindAllUnitsInRadius( entity:GetAbsOrigin(), range + radius, {type = DOTA_UNIT_TARGET_HERO, flag = DOTA_UNIT_TARGET_FLAG_FOW_VISIBLE } )
+	end
+	local castTarget
+	local maxTargets = 0
+	for _, enemy in ipairs( allEnemies ) do -- attempt to at least get a hero target, also serves to optimize
+		if not exclusionFct or not exclusionFct( enemy ) then -- isn't already affected by a pool
+			local potentialTargets = entity:FindEnemyUnitsInRadius( enemy:GetAbsOrigin(), radius )
+			if #potentialTargets > maxTargets then
+				castTarget = enemy
+				maxTargets = #potentialTargets
+			end
+		end
+	end
+	
+	return castTarget
+end
+
+EBF_AI_ROAMING = 0
+EBF_AI_ATTACKING = 1
+
+function AICore:HandleBasicAI( entity )
+	if not entity._currentBasicBehaviorState then
+		entity._currentBasicBehaviorState = EBF_AI_ROAMING
+	end
+	if entity._currentBasicBehaviorState == EBF_AI_ROAMING then
+		if not entity:IsAttacking() then
+			local target = AICore:NearestEnemyHeroInRange( entity, -1, true)
+			if target and not ( entity:GetAttackTarget() and CalculateDistance( entity:GetAttackTarget(), entity ) <= entity:GetIdealSpeed() ) then
+				entity._currentBasicBehaviorState = EBF_AI_ATTACKING
+				ExecuteOrderFromTable({
+					UnitIndex = entity:entindex(),
+					OrderType = DOTA_UNIT_ORDER_ATTACK_MOVE,
+					Position = target:GetAbsOrigin()
+				})
+				return AI_THINK_RATE
+			end
+		end
+		if not entity:IsMoving() then
 			ExecuteOrderFromTable({
 				UnitIndex = entity:entindex(),
-				OrderType = DOTA_UNIT_ORDER_ATTACK_MOVE,
-				Position = target:GetAbsOrigin()
+				OrderType = DOTA_UNIT_ORDER_MOVE_TO_POSITION,
+				Position = Vector(0,0,0) + ActualRandomVector( CalculateDistance( entity, Vector(0,0,0) ) + entity:GetIdealSpeed() * 3 )
 			})
 			return AI_THINK_RATE
+		end
+	elseif entity._currentBasicBehaviorState == EBF_AI_ATTACKING then
+		if RollPercentage( 5 ) then
+			local newPos = entity:GetAbsOrigin() + RandomVector( entity:GetIdealSpeed() * 0.75 )
+			ExecuteOrderFromTable({
+				UnitIndex = entity:entindex(),
+				OrderType = DOTA_UNIT_ORDER_MOVE_TO_POSITION,
+				Position = newPos
+			})
+			return CalculateDistance(newPos, entity:GetAbsOrigin()) / entity:GetIdealSpeed()
+		end
+		if not entity:IsAttacking() then
+			local target = AICore:NearestEnemyHeroInRange( entity, -1, true)
+			if target and not ( entity:GetAttackTarget() and CalculateDistance( entity:GetAttackTarget(), entity ) <= entity:GetIdealSpeed() ) then
+				ExecuteOrderFromTable({
+					UnitIndex = entity:entindex(),
+					OrderType = DOTA_UNIT_ORDER_ATTACK_MOVE,
+					Position = target:GetAbsOrigin()
+				})
+				return AI_THINK_RATE
+			else
+				entity._currentBasicBehaviorState = EBF_AI_ROAMING
+				ExecuteOrderFromTable({
+					UnitIndex = entity:entindex(),
+					OrderType = DOTA_UNIT_ORDER_MOVE_TO_POSITION,
+					Position = entity:GetAbsOrigin() + RandomVector( entity:GetIdealSpeed() )
+				})
+				return AI_THINK_RATE
+			end
 		end
 	end
 	return AI_THINK_RATE

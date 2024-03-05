@@ -29,23 +29,28 @@ function visage_summon_familiars:OnSpellStart()
 	end
 
 	for i=1,totalCount do
-		local familiar = caster:CreateSummon("npc_dota_visage_familiar1", caster:GetAbsOrigin() + caster:GetForwardVector() * 128 + 96 * caster:GetLeftVector() * math.floor( (1+i-totalCount%2)/2 ) * (-1)^i )
-		
-		local stone = familiar:FindAbilityByName( "visage_summon_familiars_stone_form" )
-		if stone then
-			stone:SetLevel( self:GetLevel() )
-		end
-		familiar.visage = caster
-		familiar:AddNewModifier( caster, self, "modifier_visage_summon_familiars_damage_charge", {} )
-		familiar:AddNewModifier( caster, self, "modifier_visage_summon_familiars_talents", {} )
+		local position =  caster:GetAbsOrigin() + caster:GetForwardVector() * 128 + 96 * caster:GetLeftVector() * math.floor( (1+i-totalCount%2)/2 ) * (-1)^i
+		CreateUnitByNameAsync( "npc_dota_visage_familiar1", position, true, nil, nil, caster:GetTeam(), function(familiar)
+			familiar:SetControllableByPlayer(caster:GetPlayerID(), true)
+			familiar:SetOwner(self)
+			familiar:StartGesture( ACT_DOTA_SPAWN )
+			
+			local stone = familiar:FindAbilityByName( "visage_summon_familiars_stone_form" )
+			if stone then
+				stone:SetLevel( self:GetLevel() )
+			end
+			familiar.visage = caster
+			familiar:AddNewModifier( caster, self, "modifier_visage_summon_familiars_damage_charge", {} )
+			familiar:AddNewModifier( caster, self, "modifier_visage_summon_familiars_talents", {} )
 
-		familiar:SetCoreHealth(health)
-		familiar:SetPhysicalArmorBaseValue(armor)
-		familiar:SetBaseMoveSpeed(speed)
-		familiar:SetAverageBaseDamage(damage, 20)
+			familiar:SetCoreHealth(health)
+			familiar:SetPhysicalArmorBaseValue(armor)
+			familiar:SetBaseMoveSpeed(speed)
+			familiar:SetAverageBaseDamage(damage, 20)
 
-		FindClearSpaceForUnit(familiar, familiar:GetAbsOrigin(), false)
-		ParticleManager:FireParticle("particles/units/heroes/hero_visage/visage_summon_familiars.vpcf", PATTACH_POINT, caster, {[0]=familiar:GetAbsOrigin()})
+			FindClearSpaceForUnit(familiar, familiar:GetAbsOrigin(), false)
+			ParticleManager:FireParticle("particles/units/heroes/hero_visage/visage_summon_familiars.vpcf", PATTACH_POINT, caster, {[0]=familiar:GetAbsOrigin()})
+		end)
 	end
 	
 	local stone_form = caster:FindAbilityByName("visage_stone_form_self_cast")

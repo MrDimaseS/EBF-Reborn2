@@ -298,7 +298,7 @@ function boss_evil_core_spawn(keys)
 			if caster:IsNull() then return end
 			if not caster:IsAlive() and not caster.hasSummonedAsura then
 				caster.hasSummonedAsura = true
-				spawn_unit_arround( caster, "npc_dota_boss36_guardian", 50, 1, nil, true)
+				spawn_unit_arround( caster, "npc_dota_boss_rift_guardian", 50, 1, nil, true)
 				return
 			end
 			local weakness = true
@@ -359,7 +359,7 @@ function boss_evil_core_take_damage(keys)
 				gold_rain(caster,10000,10,25)
 				Timers:CreateTimer(1.0,function()
 					for _,unit in pairs ( Entities:FindAllByName( "npc_dota_creature")) do
-						if unit:GetTeamNumber() == DOTA_TEAM_NEUTRALS and not ( unit:GetUnitName() == "npc_dota_boss36" or unit:GetUnitName() == "npc_dota_boss36_guardian" ) then
+						if unit:GetTeamNumber() == DOTA_TEAM_NEUTRALS and not ( unit:GetUnitName() == "npc_dota_boss36" or unit:GetUnitName() == "npc_dota_boss_rift_guardian" ) then
 							unit:ForceKill(true)
 						end
 					end
@@ -367,13 +367,13 @@ function boss_evil_core_take_damage(keys)
 				if caster:IsAlive() then
 					Timers:CreateTimer(4,function()
 						caster.hasSummonedAsura = true
-						spawn_unit_arround( caster, "npc_dota_boss36_guardian", 50, 1, nil, true)
+						spawn_unit_arround( caster, "npc_dota_boss_rift_guardian", 50, 1, nil, true)
 						Timers:CreateTimer(6.0,function()
 							caster:ForceKill(true)
 						end)
 					end)
 				else
-					-- spawn_unit_arround( caster, "npc_dota_boss36_guardian", 50, 1, nil, true)
+					-- spawn_unit_arround( caster, "npc_dota_boss_rift_guardian", 50, 1, nil, true)
 				end
 				for nPlayerID = 0, DOTA_MAX_PLAYERS-1 do
 					if PlayerResource:IsValidPlayer( nPlayerID ) then

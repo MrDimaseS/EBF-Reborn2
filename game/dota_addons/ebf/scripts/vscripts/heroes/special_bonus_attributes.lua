@@ -129,7 +129,7 @@ function modifier_special_bonus_attributes_stat_rescaling:OnCreated()
 
 	self.bonusSpellAmp = 0.03
 	self.bonusDamage = 1.5
-	self.baseMR = 25
+	self.baseMR = 15
 	
 	self.internal_ability_scaling = 0.2
 	
@@ -158,16 +158,18 @@ function modifier_special_bonus_attributes_stat_rescaling:OnRefresh()
 	if IsServer() then
 		if self.baseArmor then
 			local agilityArmor = math.min( 0.065 * self:GetParent():GetAgility(), 0.9*self:GetParent():GetAgility()^(math.log(2)/math.log(5)) )
-			if self:GetParent():IsIllusion() then
-				agilityArmor = 0
-			end
 			self:GetParent():SetPhysicalArmorBaseValue( self.baseArmor + agilityArmor )
+			Timers:CreateTimer( function() -- illusion fix, idk why the fuck it needs a frame delay for them
+				if not IsEntitySafe( self:GetParent() ) then return end
+				self:GetParent():SetPhysicalArmorBaseValue( self.baseArmor + agilityArmor )
+			end)
 		end
 		if self.baseMR then
 			local intArmor =  math.min( 0.04 * self:GetParent():GetIntellect(), 0.55*self:GetParent():GetIntellect()^(math.log(2)/math.log(5)) )
 			local totalVal = -self:GetParent():GetIntellect() * 0.1 + self.baseMR + intArmor
 			self:GetParent():SetBaseMagicalResistanceValue( totalVal )
 			Timers:CreateTimer( function() -- illusion fix, idk why the fuck it needs a frame delay for them
+				if not IsEntitySafe( self:GetParent() ) then return end
 				self:GetParent():SetBaseMagicalResistanceValue( totalVal )
 			end)
 		end
@@ -361,7 +363,7 @@ end
 
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierMagicalResistanceBonus()
 	if not self:GetParent():IsRangedAttacker() then 
-		return 20
+		return 12
 	end
 end
 

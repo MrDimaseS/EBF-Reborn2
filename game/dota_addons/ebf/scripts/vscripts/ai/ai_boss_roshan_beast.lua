@@ -70,13 +70,3 @@ function AIThink(thisEntity)
 		return AI_THINK_RATE 
 	end
 end
-
-function CleanUpCogs(thisEntity)
-	for _,cog in pairs( FindUnitsInRadius( thisEntity:GetTeam(), thisEntity:GetOrigin(), nil, 99999, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_ALL, 0, 0, false ) ) do
-		if cog:GetUnitName() == "npc_dota_rattletrap_cog" or cog:GetName() == "npc_dota_rattletrap_cog" or cog:GetUnitLabel() == "npc_dota_rattletrap_cog" then
-			if cog:GetOwnerEntity() == thisEntity then
-				cog:ForceKill( false )
-			end
-		end
-	end
-end

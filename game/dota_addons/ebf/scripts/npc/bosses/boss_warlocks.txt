@@ -3,10 +3,12 @@
 	//=================================================================================================================
 	// Ability: Warlock's Fatal Bonds
 	//=================================================================================================================
-	"warlock_fatal_bonds"
+	"boss_demonic_cultist_fatal_bonds"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"warlock_fatal_bonds"
+		"AbilityTextureName"			"warlock_fatal_bonds"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
@@ -25,7 +27,7 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"36 30 24 18"
+		"AbilityCooldown"				"18"
 
 		// Damage.
 		//-------------------------------------------------------------------------------------------------------------
@@ -33,7 +35,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"120 130 140 150"		
+		"AbilityManaCost"				"50"		
 		
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
@@ -43,40 +45,22 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"count"
-			{
-				"value"						"6"
-				"LinkedSpecialBonus"		"special_bonus_unique_warlock_9"
-			}
-
-			"damage_share_percentage"
-			{
-				"value"						"12 16 20 24"
-				"LinkedSpecialBonus"		"special_bonus_unique_warlock_5"
-			}
-
-			"duration"						"19 21 23 25"
-			"search_aoe"					
-			{
-				"value"			"700"
-				"affected_by_aoe_increase"	"1"
-			}
-			"imp_duration"					"15"
-			"imp_level"
-			{
-				"value"						"1 2 3 4"
-				"special_bonus_shard"		"+1"
-			}
+			"count"							"6"
+			"damage_share_percentage"		"18 24 30 36"
+			"duration"						"25"
+			"search_aoe"					"2000"
 		}
 	}
 	
 	//=================================================================================================================
 	// Ability: Warlock's Shadow Word
 	//=================================================================================================================
-	"warlock_shadow_word"
+	"boss_demonic_cultist_shadow_word"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"warlock_shadow_word"
+		"AbilityTextureName"			"warlock_shadow_word"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
@@ -93,7 +77,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"120 130 140 150"		
+		"AbilityManaCost"				"75"		
 		
 		// Cast Range
 		//-------------------------------------------------------------------------------------------------------------
@@ -107,32 +91,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-				"damage"					
-				{
-					"value"				"15 25 35 45"
-					"special_bonus_unique_warlock_7"		"+18"
-				}
-				"duration"					
-				{
-					"value"				"10.0"
-					"special_bonus_unique_warlock_8"	"+2"
-				}
-				"tick_interval"				"1.0"
-				"spell_aoe"					
-				{
-					"value"					"0"
-					"special_bonus_unique_warlock_3" "450"
-					"affected_by_aoe_increase"	"1"
-				}
-				"shard_movement_speed_pct"					
-				{
-					"value"					"0"
-					"RequiresShard"			"1"
-				}	
-				"AbilityCooldown"					
-				{
-					"value"										"14"
-				}
+			"damage"				"7500 10000 12500 15000"
+			"duration"				"10.0"
+			"tick_interval"			"1.0"
+			"spell_aoe"				"450"
+			"AbilityCooldown"		"14"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}	
@@ -140,10 +103,13 @@
 	//=================================================================================================================
 	// Ability: Warlock's Upheaval
 	//=================================================================================================================
-	"warlock_upheaval"
+	"boss_demonic_cultist_upheaval"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"bosses/boss_warlocks/boss_demonic_cultist_upheaval"
+		"AbilityTextureName"			"warlock_upheaval"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_CHANNELLED | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
@@ -154,15 +120,7 @@
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.4"
-		"AbilityChannelTime"			"10 12 14 16"
-
-		// Damage.
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"0 0 0 0"
-
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"70 80 90 100"		
+		"AbilityChannelTime"			"15"
 		
 		// Cast Range
 		//-------------------------------------------------------------------------------------------------------------
@@ -172,18 +130,13 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"aoe"					
-			{
-				"value"				"500 550 600 650"
-				"special_bonus_unique_warlock_upheaval_aoe"			"+65"
-				"affected_by_aoe_increase"	"1"
-			}
-			"slow_per_second"		"11 14 17 20"
-			"duration"				"3.0"
-			"max_slow"				"55 70 85 100"
-			"aspd_per_second"		"10"
-			"damage_per_second"		"10"
-			"max_damage"			"35 60 85 110"
+			"aoe"							"650"
+			"slow_per_second"				"11"
+			"aspd_per_second"				"10"
+			"duration"						"3.0"
+			"max_slow"						"100"
+			"damage_per_second"				"3500"
+			"max_damage"					"25000"
 			"damage_tick_interval"	
 			{
 				"value"					"1"
@@ -192,8 +145,6 @@
 
 			"AbilityCooldown"			"35"
 			"imps_interval"				"2"
-			"minor_imp_duration"		"15"
-			"major_imp_duration"		"40"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -201,30 +152,27 @@
 	//=================================================================================================================
 	// Ability: Warlock's Rain of Chaos / Chaotic Offering
 	//=================================================================================================================
-	"warlock_rain_of_chaos"
+	"boss_demonic_cultist_rain_of_chaos"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"bosses/boss_warlocks/boss_demonic_cultist_rain_of_chaos"
+		"AbilityTextureName"			"warlock_rain_of_chaos"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
-		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
 		"FightRecapLevel"				"2"
-		"HasScepterUpgrade"			"1"
 		"AbilitySound"					"Hero_Warlock.RainOfChaos"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.5 0.5 0.5"
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_4"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"160"
-
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"200 400 600"		
+		"AbilityCooldown"					"120 100 80 80"
 		
 		// Cast Range
 		//-------------------------------------------------------------------------------------------------------------
@@ -238,86 +186,35 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"golem_duration"			"60 60 60"
-			"stun_duration"				"0.8"
-			"aoe"						
-			{
-				"value"			"600"
-				"affected_by_aoe_increase"	"1"
-			}
-			"golem_hp"					"1400 2300 3200"
-			"golem_dmg"					"110 170 230"
-			"golem_armor"				"8 12 14"
-			"golem_movement_speed"		"320 340 360"
-			"golem_health_regen"		"25 50 75"
-			"golem_gold_bounty"			"100 150 200"
-			"stun_delay"				"0.5"
-			"number_of_golems_scepter"
-			{
-				"value"	"2"
-				"RequiresScepter"		"1"
-			}
-			"golem_hp_scepter"
-			{
-				"value"			"900 1700 2600"
-				"RequiresScepter"		"1"
-			}
-			"golem_dmg_scepter"
-			{
-				"value"				"80 125 170"
-				"RequiresScepter"		"1"
-			}
-			"golem_gold_bounty_scepter"
-			{
-				"value"					"50 75 100"
-				"RequiresScepter"		"1"
-			}
-			"bonus_magic_resistance"
-			{
-				"value"			"0"
-				"special_bonus_unique_warlock_1"		"+80"
-			}
-			"bonus_armor"
-			{
-				"value"			"0"
-				"special_bonus_unique_warlock_2"		"+20"
-			}
-			"tooltip_golem_armor"
-			{
-				"value"			"8 12 14"
-				"special_bonus_unique_warlock_2"		"+20"
-			}
-			"bonus_slow_resistance"			"60"
+			"stun_delay"						"0.5"
+			"stun_duration"						"0.8"
+			"aoe"								"600"
+			
+			"golem_count"						"1 1 1 2"
 		}
 	}
 	
 	//=================================================================================================================
 	// Ability: Warlock's Golem Flaming Fists
 	//=================================================================================================================
-	"warlock_golem_flaming_fists"
+	"boss_demonic_golem_flaming_fists"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"warlock_golem_flaming_fists"
+		"AbilityTextureName"			"warlock_golem_flaming_fists"
 		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"MaxLevel"						"3"
+		"MaxLevel"						"4"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PURE"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"damage"				"40 50 60"
-			}
-			"02"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"radius"			"300 300 300"
-			}
+			"damage"						"4000 5000 6000 6500"
+			"radius"						"300"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -325,30 +222,24 @@
 	//=================================================================================================================
 	// Ability: Warlock's Golem Permanent Immolation
 	//=================================================================================================================
-	"warlock_golem_permanent_immolation"
+	"boss_demonic_golem_permanent_immolation"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"warlock_golem_permanent_immolation"
+		"AbilityTextureName"			"warlock_golem_permanent_immolation"
 		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"MaxLevel"						"3"
+		"MaxLevel"						"8"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"aura_radius"			"300"
-			}
-			"02"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"aura_damage"			"30 50 70"
-			}
+			"aura_radius"				"600 600 600 600"
+			"aura_damage"				"3000 3300 3600 4000"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -356,25 +247,24 @@
 	//=================================================================================================================
 	// Ability: Warlock Imps Explosion
 	//=================================================================================================================
-	"warlock_imp_explode"
+	"minion_demonic_imp_explode"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"bosses/boss_warlocks/minion_demonic_imp_explode"
+		"AbilityTextureName"			"warlock_imp_explode"
 		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
-		"MaxLevel"						"1"
+		"MaxLevel"						"3"
 
 		"AbilityValues"
 		{
-			"explosion_delay"			".2"
-			"explosion_radius"			"400"
-			"explosion_dmg"				"30 60 90 120 180"			
-			"explosion_nonhero_reduce" 	"50"
-
-			"bonus_hp"					"0 50 100 150 250"
-			"bonus_dmg"					"0 2 4 6 8"
-			"bonus_movespeed"			"0 15 30 45 60"
+			"explosion_delay"			".2 1.2"
+			"explosion_radius"			"400 800"
+			"explosion_dmg"				"25000 75000"
+			"die_on_attack"				"1 0"
 		}
 	}
 }

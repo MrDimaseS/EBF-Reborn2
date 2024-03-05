@@ -2,6 +2,7 @@ function UpdateHealthBar() {
   var playerId = $.GetContextPanel().GetAttributeInt("player_id", -1);
   var healthBar = $.GetContextPanel().FindChildTraverse("HealthBar");
   var manaBar = $.GetContextPanel().FindChildTraverse("ManaBar");
+  var respawn = $.GetContextPanel().FindChildTraverse("HeroRespawn");
   if (playerId >= 0) {
     var heroEntIndex = Players.GetPlayerHeroEntityIndex(playerId);
     var healthPercent = Entities.GetHealthPercent(heroEntIndex);
@@ -16,6 +17,12 @@ function UpdateHealthBar() {
     var saturation = isLowHealth ? "0" : "1";
     manaBar.style.washColor = color;
     manaBar.style.saturation = saturation;
+	
+	if (Players.GetRespawnSeconds( playerId ) < 0 ){
+		respawn.text = ""
+	} else {
+		respawn.text = Players.GetRespawnSeconds( playerId )
+	}
   }
 
   // Call the function again after a delay

@@ -139,13 +139,57 @@ GameUI.SetMouseCallback(function(eventName, arg, arg2, arg3) {
 });
 
 //Listen for class changes
-$.RegisterForUnhandledEvent("StyleClassesChanged", CheckAbilityVectorTargeting);
+$.RegisterForUnhandledEvent("StyleClassesChanged", UpdatePanels);
 
-function CheckAbilityVectorTargeting(panel) {
+function UpdatePanels(panel) {
 	if (panel == null) {
 		return;
 	}
+	CheckAbilityVectorTargeting(panel);
+	CheckTalentUpdates(panel);
+}
 
+function CheckTalentUpdates( panel ){
+	if (panel.paneltype == "DOTAStatBranch") {
+		let talentCont = panel.FindChildTraverse( "StatBranchColumn" )
+		if( talentCont && !talentCont.BHasClass("Override") ){
+			let talents = talentCont.FindChildrenWithClassTraverse( "StatBonusLabel" )
+			let firstTalentIndex = -1
+			let currentTalentTier = 0
+			let talentsLocalized = 0
+			for( i=0;i<25;i++){
+				let abilityIndex = Entities.GetAbility( Players.GetLocalPlayerPortraitUnit(), i )
+				let abilityName = Abilities.GetAbilityName( abilityIndex )
+				if( abilityName.search("special_bonus") != -1 && abilityName != "special_bonus_attributes" ){
+					if(firstTalentIndex == -1){
+						firstTalentIndex = abilityIndex
+					}
+					talentsLocalized++;
+					let talentNameCont = talentCont.FindChildTraverse("UpgradeName" + talentsLocalized)
+					let talentParent = talentNameCont.GetParent()
+					let customTitle = talentParent.FindChildTraverse( talentNameCont.id + "Override" )
+					if(!customTitle){
+						customTitle = $.CreatePanel("Label", talentParent, talentNameCont.id + "Override" );
+						customTitle.SetParent( talentParent )
+						customTitle.SetHasClass( "StatBonusLabel", true );
+						customTitle.SetHasClass( "Override", true );
+					}
+					let talentTitle = $.Localize( "#DOTA_Tooltip_Ability_" + abilityName, customTitle )
+					if( talentTitle.search(/\[!s:value]/) != -1){
+						customTitle.style.visibility = "visible"
+						talentNameCont.style.visibility = "collapse"
+						customTitle.text = talentTitle.replace( /\[!s:value]/, Abilities.GetLevelSpecialValueFor(abilityIndex, "value", 1) )
+					} else {
+						talentNameCont.style.visibility = "visible"
+						customTitle.style.visibility = "collapse"
+					}
+				}
+			}
+		}
+	}
+}
+
+function CheckAbilityVectorTargeting( panel ){
 	//Check if the panel is an ability or item panel
 	const abilityIndex = GetAbilityFromPanel(panel)
 	if (abilityIndex >= 0) {

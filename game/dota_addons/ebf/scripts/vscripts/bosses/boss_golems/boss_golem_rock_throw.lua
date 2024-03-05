@@ -1,5 +1,9 @@
 boss_golem_rock_throw = class({})
 
+function boss_golem_rock_throw:GetAOERadius()
+	return self:GetSpecialValueFor("radius")
+end
+
 function boss_golem_rock_throw:OnSpellStart()
 	local caster = self:GetCaster()
 	local position = self:GetCursorPosition()

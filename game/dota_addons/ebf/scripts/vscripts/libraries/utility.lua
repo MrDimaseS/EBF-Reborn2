@@ -143,6 +143,35 @@ function CDOTA_BaseNPC_Hero:CreateSummon(unitName, position, duration)
 	return summon
 end
 
+function CDOTA_BaseNPC_Hero:CreateSummonAsync(unitName, position, duration, asyncFunc)
+	CreateUnitByNameAsync( unitName, position, true, nil, nil, self:GetTeam(),
+	function(entUnit)
+		entUnit:SetControllableByPlayer(self:GetPlayerID(), true)
+		self.summonTable = self.summonTable or {}
+		table.insert(self.summonTable, entUnit)
+		entUnit:SetOwner(self)
+		if duration and duration > 0 then
+			entUnit:AddNewModifier(self, nil, "modifier_kill", {duration = duration})
+		end
+		entUnit:StartGesture( ACT_DOTA_SPAWN )
+		asyncFunc( entUnit )
+	end)
+end
+
+function CDOTA_BaseNPC_Hero:CreateSummon(unitName, position, duration)
+	local summon = CreateUnitByName(unitName, position, true, self, nil, self:GetTeam())
+	summon:SetControllableByPlayer(self:GetPlayerID(), true)
+	self.summonTable = self.summonTable or {}
+	table.insert(self.summonTable, summon)
+	summon:SetOwner(self)
+	if duration and duration > 0 then
+		summon:AddNewModifier(self, nil, "modifier_kill", {duration = duration})
+	end
+	
+	summon:StartGesture( ACT_DOTA_SPAWN )
+	return summon
+end
+
 function CDOTA_BaseNPC:CreateSummon(unitName, position, duration)
 	local summon = CreateUnitByName(unitName, position, true, self, nil, self:GetTeam())
 	
@@ -200,8 +229,8 @@ function CDOTABaseAbility:DealDamage(attacker, victim, damage, data, spellText)
 	local localdamage = damage or self:GetAbilityDamage() or 0
 	local ability = self or internalData.ability
 	
-	if not IsEntitySafe( victim ) or not victim:IsAlive() then return end
-	if not IsEntitySafe( attacker ) or not attacker:IsAlive() then return end
+	if not IsEntitySafe( victim ) then return end
+	if not IsEntitySafe( attacker ) then return end
 	if not IsEntitySafe( ability ) then return end
 	
 	local returnDamage = ApplyDamage({victim = victim, attacker = attacker, ability = ability, damage_type = damageType, damage = localdamage, damage_flags = damageFlags})
@@ -976,10 +1005,7 @@ function CDOTA_BaseNPC:FindAllUnitsInRadius(position, radius, hData)
 end
 
 function ParticleManager:FireWarningParticle(position, radius)
-	local thinker = ParticleManager:CreateParticle("particles/ui_mouseactions/range_finder_ward_aoe_ring.vpcf", PATTACH_WORLDORIGIN, nil)
-			ParticleManager:SetParticleControl(thinker, 2, position)
-			ParticleManager:SetParticleControl(thinker, 3, Vector(radius,0,0))
-	Timers:CreateTimer( 0.5, function() ParticleManager:ClearParticle( thinker ) end )
+	ParticleManager:FireParticle("particles/ui_mouseactions/ping_warning_danger.vpcf", PATTACH_WORLDORIGIN, nil, {[0] = position, [1] = Vector(255,0,0), [2] = Vector( radius/30,0,0 )})
 end
 
 function ParticleManager:FireGenericWarningParticle( position, endPos, radius )
@@ -1254,6 +1280,7 @@ function CDOTABaseAbility:FireLinearProjectile(FX, velocity, distance, width, da
 		Source = internalData.source or self:GetCaster(),
 		iUnitTargetTeam = internalData.team or DOTA_UNIT_TARGET_TEAM_ENEMY,
 		iUnitTargetType = internalData.type or DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC,
+		iUnitTargetFlags = internalData.flags or DOTA_UNIT_TARGET_FLAG_NONE,
 		ExtraData = internalData.extraData
 	}
 	return ProjectileManager:CreateLinearProjectile( info )

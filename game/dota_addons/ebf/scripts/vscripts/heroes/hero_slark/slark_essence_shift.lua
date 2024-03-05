@@ -24,7 +24,7 @@ function modifier_slark_essence_shift_handler:OnAttackLanded(params)
 		local debuff = params.target:AddNewModifier(caster, ability, "modifier_slark_essence_shift_attr_debuff", {duration = duration})
 		local buff = caster:AddNewModifier(caster, ability, "modifier_slark_essence_shift_agi_buff", {duration = duration})
 		
-		ParticleManager:FireRopeParticle( "particles/units/heroes/hero_slark/slark_essence_shift.vpcf", PATTACH_POINT_FOLLOW, target, caster )
+		ParticleManager:FireRopeParticle( "particles/units/heroes/hero_slark/slark_essence_shift.vpcf", PATTACH_POINT_FOLLOW, params.target, caster )
 		
 		caster:CalculateStatBonus( true )
 	end
@@ -71,7 +71,7 @@ function modifier_slark_essence_shift_attr_debuff:DeclareFunctions()
 end
 
 function modifier_slark_essence_shift_attr_debuff:OnDeath(params)
-	if params.unit == self:GetParent() and params.unit:IsConsideredHero() and CalculateDistance( params.unit, self:GetCaster() ) <= 300 then
+	if params.unit == self:GetParent() and params.unit.Holdout_IsCore then
 		local modifier = self:GetCaster():FindModifierByName( "modifier_slark_essence_shift_handler" )
 		modifier:SetStackCount( modifier:GetStackCount() + self.perma_agi )
 	end

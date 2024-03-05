@@ -25,7 +25,7 @@ function AIThink(thisEntity)
 	if not thisEntity:IsAlive() then
 		return
 	end
-	if thisEntity:GetTeamNumber() == DOTA_TEAM_NEUTRALS and not thisEntity:IsChanneling() then-- no spells left to be cast and not currently attacking
+	if thisEntity:GetTeamNumber() ~= DOTA_TEAM_GOODGUYS and not thisEntity:IsChanneling() then-- no spells left to be cast and not currently attacking
 		if not thisEntity:IsAttacking() then
 			local target = AICore:NearestEnemyHeroInRange( thisEntity, -1, true)
 			if target and target ~= thisEntity:GetAttackTarget() then

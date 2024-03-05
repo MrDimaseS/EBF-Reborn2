@@ -1,0 +1,443 @@
+"DOTAAbilities"
+{	
+	"minion_rift_cleric_dark_artistry"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"grimstroke_dark_artistry"
+		"AbilityTextureName"			"grimstroke_dark_artistry"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"FightRecapLevel"				"1"
+
+		"AbilityCastPoint"				"0.6"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_3"
+
+		"AbilityCooldown"				"5"
+		"AbilityManaCost"				"100"
+
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityModifierSupportValue"	"0.5"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"start_radius"					"150"
+			"end_radius"					"300"
+			"projectile_speed"				"2000"
+			"damage"						"22000 24000 26000 28000"
+			"bonus_damage_per_target"		"5000 7500 10000 12500"
+			"movement_slow_pct"				"80"
+			"slow_duration"					"1.75"
+			"vision_duration"				"2.0"
+			"abilitycastrange"				"2000"
+		}
+	}
+	//=================================================================================================================
+	// Grimstroke: Phantom's Embrace
+	//=================================================================================================================
+	"minion_rift_cleric_ink_creature"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"grimstroke_ink_creature"
+		"AbilityTextureName"			"grimstroke_ink_creature"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"FightRecapLevel"				"1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastAnimation"				"ACT_DOTA_GS_INK_CREATURE"
+		"AbilityCastGestureSlot"			"DEFAULT"
+		"AbilityCastRange"					"900"
+		"AbilityCastPoint"					"0.0"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"					"18"
+		
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"					"80"
+		"AbilityModifierSupportValue"		"0.5"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"spawn_time"					"0.0"
+			"speed"							"1150"
+			"latch_duration"				"5"
+			"destroy_attacks"				"15"
+			"hero_attack_multiplier"		"3"
+			"damage_per_second"				"2500 3000 3500 4000"
+			"enemy_vision_time"				"4"
+			"tick_interval"					"0.5"
+			"infection_search_radius"		"1000"
+			"pop_damage"					"28000 32000 36000 40000"
+			"return_projectile_speed"		"1150"
+			"latched_unit_offset"			"130"
+			"latched_unit_offset_short"		"95"
+		}
+	}
+	//=================================================================================================================
+	// Grimstroke: Ink Swell
+	//=================================================================================================================
+	"minion_rift_cleric_spirit_walk"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"grimstroke_spirit_walk"
+		"AbilityTextureName"			"grimstroke_spirit_walk"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES_ENEMIES_NO"
+		"AbilitySound"					"Hero_ObsidianDestroyer.AstralImprisonment"
+		"FightRecapLevel"				"1"
+		
+        "HasShardUpgrade"               "1"
+
+		// Time
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"						"27 24 21 18"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"						"500 600 700 800"
+		"AbilityCastPoint"						"0.15"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"						"120 130 140 150"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityModifierSupportValue"			"0.75"
+
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"buff_duration"						"5"
+			"movespeed_bonus_pct"				"20"
+			"radius"							"675"
+			"max_damage"						"27000"
+			"max_stun"							"1.3 1.8 2.3 2.8"
+			"damage_per_tick"					"1100"
+			"tick_rate"							"0.2"
+			"tick_dps_tooltip"					"5500"
+			"max_threshold_duration"			"2.5"
+			"shard_bonus_damage_pct"		
+			{
+				"value"							"30"
+				"RequiresShard"					"1"
+			}	
+			"shard_heal_pct"		
+			{
+				"value"							"30"
+				"RequiresShard"					"1"
+			}
+			"shard_creep_penalty"
+			{
+				"value"							"0.2"
+				"RequiresShard"					"1"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+		"AbilityCastGestureSlot"		"DEFAULT"
+	}
+	//=================================================================================================================
+	// Grimstroke: Soulbind
+	//=================================================================================================================
+	"minion_rift_cleric_soul_chain"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"grimstroke_soul_chain"
+		"AbilityTextureName"			"grimstroke_soul_chain"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"FightRecapLevel"				"1"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastAnimation"			"ACT_DOTA_GS_SOUL_CHAIN"
+		"AbilityCastGestureSlot"		"DEFAULT"
+		"AbilityCooldown"				"70 65 60"
+		"AbilityCastRange"				"700 800 900"
+		"AbilityCastPoint"				"0.15"
+		"AbilityManaCost"				"150 200 250"
+		
+		"AbilityModifierSupportValue"	"0.75"
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"chain_duration"			"6.0 7.0 8.0"
+			"chain_latch_radius"		"600"
+			"chain_break_distance"		"700"
+			"leash_limit_multiplier"	"1.3"
+			"leash_radius_buffer"		"50"
+			"creep_duration_pct"		"100.0"
+		}
+	}
+	"boss_rift_general_firestorm"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"abyssal_underlord_firestorm"
+		"AbilityTextureName"			"abyssal_underlord_firestorm"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+
+        "HasShardUpgrade"               "1"
+
+		"AbilityCastRange"				"600 625 650 675"
+		"AbilityCastPoint"				"0.5"
+		"FightRecapLevel"				"1"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"110 125 140 155"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"AbilityCooldown"					"16 15 14 13"
+			"radius"							"500"
+			"wave_duration"						"7.0"
+			"wave_count"
+			{
+				"value"							"6"
+				"special_bonus_shard"			"+3"
+			}
+			"wave_damage"								
+			{
+				"value"							"8000 10000 12000 14000"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"wave_interval"						"1.0"
+			"burn_damage"						"3"
+			"burn_interval"						"1.0"
+			"burn_duration"						"2.0"
+			"can_target_units"
+			{
+				"special_bonus_shard"			"+1"
+			}
+			"shard_wave_interval_reduction"	
+			{
+				"special_bonus_shard"			"+25"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+	//=================================================================================================================
+	// Abyssal Underlord: Pit of Malice
+	//=================================================================================================================
+	"boss_rift_general_pit_of_malice"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"abyssal_underlord_pit_of_malice"
+		"AbilityTextureName"			"abyssal_underlord_pit_of_malice"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"AbilitySound"					"Hero_AbyssalUnderlord.PitOfMalice"
+
+		"AbilityCastRange"				"675"
+		"AbilityCastPoint"				"0.25"
+		"FightRecapLevel"				"1"
+
+		"HasScepterUpgrade"				"1"
+		
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"21 19 17 15"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"80 100 120 140"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"radius"						"475"
+			"pit_duration"					"12.0"
+			"pit_interval"					"3.6"
+			"pit_damage"					"5000"
+			"ensnare_duration"				"1.2 1.4 1.6 1.8"
+			"speed_bonus"
+			{
+				"special_bonus_scepter" 	"+40"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
+	}
+	//=================================================================================================================
+	// Abyssal Underlord: Atrophy Aura
+	//=================================================================================================================
+	"boss_rift_general_atrophy_aura"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"bosses/boss_asura/boss_rift_general_atrophy_aura"
+		"AbilityTextureName"			"abyssal_underlord_atrophy_aura"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_AURA"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+
+		"AbilityValues"
+		{
+			"radius"							"900"
+			"damage_reduction_pct"
+			{
+				"value"							"25 28 31 34"
+				"CalculateSpellDamageTooltip"	"0"
+			}
+			"bonus_damage_from_creep"
+			{
+				"value"							"500 600 700 800"
+				"CalculateSpellDamageTooltip"	"0"
+			}
+			"hero_multiplier"					"6"
+			"bonus_shared_by_allies_pct"		"50"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+	//=================================================================================================================
+	// Abyssal Underlord: Atrophy Aura
+	//=================================================================================================================
+	"boss_rift_guardian_fire_shield"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"bosses/boss_asura/boss_rift_guardian_fire_shield"
+		"AbilityTextureName"			"ember_spirit_flame_guard"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+
+		"AbilityCooldown"						"30"
+		"AbilityValues"
+		{
+			"max_hp_shield"						"35 40 45 50"
+			"shield_regen"						"1"
+			"radius"							"1200"
+			"shield_damage"
+			{
+				"value"							"10000 11000 12000 13000"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"duration"							"15"
+			"break_stun"						"5"
+			"gate_duration"						"6"
+			"gate_attacks"						"6"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+	//=================================================================================================================
+	// Abyssal Underlord: Atrophy Aura
+	//=================================================================================================================
+	"boss_rift_guardian_hell_on_earth"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"bosses/boss_asura/boss_rift_guardian_hell_on_earth"
+		"AbilityTextureName"			"nevermore_shadowraze1"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+
+		"AbilityCooldown"						"22 20 18 16"
+		"AbilityChannelAnimation"				"ACT_DOTA_FLAIL"
+		"AbilityChannelTime"					"12"
+		"AbilityValues"
+		{
+			"raze_damage"						"25000"
+			"break_duration"					"4"
+			"persist_duration"					"1.5"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+	//=================================================================================================================
+	// Abyssal Underlord: Atrophy Aura
+	//=================================================================================================================
+	"boss_rift_guardian_obliterate"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"bosses/boss_asura/boss_rift_guardian_obliterate"
+		"AbilityTextureName"			"oracle_false_promise"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+
+		"AbilityCooldown"						"60 55 50 45"
+		"AbilityValues"
+		{
+			"slow"								"100"
+			"damage_amp"						"100"
+			"duration"							"5 6 7 8"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+	//=================================================================================================================
+	// Abyssal Underlord: Atrophy Aura
+	//=================================================================================================================
+	"boss_rift_guardian_flaming_fist"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ember_spirit_sleight_of_fist"
+		"AbilityTextureName"			"ember_spirit_sleight_of_fist"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+
+		"AbilityCooldown"				"6 5 4 3"
+		"AbilityValues"
+		{
+			"radius"					"850"
+			"bonus_hero_damage"			"0"
+			"attack_interval"			"0.1"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+}

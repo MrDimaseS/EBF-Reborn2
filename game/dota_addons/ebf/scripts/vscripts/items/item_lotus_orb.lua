@@ -44,17 +44,20 @@ function modifier_ebfr_lotus_orb_active:OnAbilityExecuted( params )
 		local newTarget
 		local targetSelection = params.target:FindFriendlyUnitsInRadius( params.target:GetAbsOrigin(), self.active_radius, {flag = params.ability:GetAbilityTargetFlags(), type = params.ability:GetAbilityTargetType() } )
 		for _, unit in ipairs( targetSelection ) do	
-			if unit:IsConsideredHero() then
+			if unit:IsConsideredHero() and unit ~= params.target then
 				newTarget = unit
 				break
 			end
 		end
 		if not newTarget then
 			for _, unit in ipairs( targetSelection ) do
-				newTarget = unit
-				break
+				if unit ~= params.target then
+					newTarget = unit
+					break
+				end
 			end
 		end
+		if not newTarget then newTarget = params.target end
 		if newTarget then
 			params.unit:SetCursorCastTarget( newTarget )
 			params.ability:OnSpellStart()

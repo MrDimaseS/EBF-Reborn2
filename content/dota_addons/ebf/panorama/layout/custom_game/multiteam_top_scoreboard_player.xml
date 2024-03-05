@@ -9,13 +9,6 @@
 		<include src="file://{resources}/scripts/custom_game/multiteam_top_scoreboard_badge.js" />
 		<include src="file://{resources}/scripts/custom_game/multiteam_hero_top_hp.js" />
 	</scripts>
-	<script><![CDATA[
-	function PortraitClicked()
-	{
-		// TODO: ctrl and alt click support
-		Players.PlayerPortraitClicked( $.GetContextPanel().GetAttributeInt( "player_id", -1 ), false, false );
-	}
-	]]></script>
 	<Panel hittest="false" class="ScoreboardPlayerWrapper">
 		<Panel hittest="false" class="PlayerRankWrapper">
 			<Panel hittest="false" id="RankMedal"/>
@@ -23,7 +16,10 @@
 		</Panel>
 		<Panel hittest="false" class="ScoreboardPlayer">
 			<Button class="PlayerPortraitWrapper" onmouseactivate="PortraitClicked();">
-				<Image hittest="false" id="HeroIcon" />
+				<Panel class="PlayerIconWrapper">
+					<Image hittest="false" id="HeroIcon" />
+					<Label hittest="false" id="HeroRespawn" text="120"/>
+				</Panel>
 				<ProgressBar id="HealthBar" class="TopBarHealthBar" value="0" min="0" max="100" />
 				<ProgressBar id="ManaBar"	class="TopBarManaBar"	value="0" min="0" max="100" />
 			</Button>

@@ -1,0 +1,65 @@
+"DOTAAbilities"
+{
+	"item_demonic_cultist_assault"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_assault"
+		"AbilityTextureName"			"item_assault"
+		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_TOGGLE"
+		"AbilityCastRange" 				"700"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemShopTags"					"damage"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"radiance"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ShouldBeSuggested"				"1"
+		"ItemPurchasable"				"0"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		
+
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_attack_speed"	"0"
+			"bonus_armor"			"0"
+			"aura_radius"			"1200"
+			"aura_attack_speed"		"100"
+			"aura_positive_armor"	"10"
+			"aura_negative_armor"	"-10"
+		}
+	}
+	"item_demonic_cultist_vladmir"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_vladmir"
+		"AbilityTextureName"			"item_vladmir"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"465"
+		"ItemShopTags"					"lifesteal;damage;armor;regen_mana"
+		"ItemQuality"					"rare"
+		"ItemAliases"					"vladmir's offering;vlads"
+		"ItemPurchasable"				"0"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"armor_aura"					"4.0"
+			"mana_regen_aura"				"1.75"
+			"lifesteal_aura"				"15"
+			"damage_aura"					"25"
+			"aura_radius"					"1200"
+		}
+	}
+}

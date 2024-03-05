@@ -1,0 +1,1 @@
+boss_rift_guardian_obliterate = class({})

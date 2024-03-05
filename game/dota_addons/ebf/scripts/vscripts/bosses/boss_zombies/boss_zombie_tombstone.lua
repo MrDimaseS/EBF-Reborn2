@@ -9,11 +9,11 @@ function boss_zombie_tombstone:OnSpellStart()
 	local tombstone = self:GetCaster():CreateSummon( "npc_dota_unit_tombstone4", caster:GetAbsOrigin() - caster:GetForwardVector() * 128, duration, false )
 	
 	tombstone:AddNewModifier(caster, self, "modifier_boss_zombie_tombstone", {duration = duration})
-	tombstone:SetBaseMaxHealth( self:GetSpecialValueFor("tombstone_health") * HeroList:GetActiveHeroCount() )
 	local totalHeroes = HeroList:GetActiveHeroCount()
 	local fullScaling = math.min( totalHeroes, 5 )
 	local halfScaling = math.min( totalHeroes - fullScaling, 3 )
 	local minScaling = math.min( totalHeroes - fullScaling - halfScaling, 0 )
+	tombstone:SetBaseMaxHealth( tombstone_health * fullScaling + math.ceil(tombstone_health) / 2 * halfScaling + minScaling * 1 )
 	tombstone:SetMaxHealth( tombstone_health * fullScaling + math.ceil(tombstone_health) / 2 * halfScaling + minScaling * 1 )
 	tombstone:SetHealth( tombstone:GetMaxHealth() )
 	

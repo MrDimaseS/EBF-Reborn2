@@ -113,11 +113,16 @@ function modifier_item_ghost_form_ally:DeclareFunctions()
 			MODIFIER_PROPERTY_SPELL_LIFESTEAL_AMPLIFY_PERCENTAGE,
 			MODIFIER_PROPERTY_LIFESTEAL_AMPLIFY_PERCENTAGE,
 			MODIFIER_PROPERTY_HP_REGEN_AMPLIFY_PERCENTAGE,
+			MODIFIER_PROPERTY_EVASION_CONSTANT
 	}
 end
 
 function modifier_item_ghost_form_ally:GetModifierMagicalResistanceDecrepifyUnique()
 	return self.ethereal_damage_bonus
+end
+
+function modifier_item_ghost_form_ally:GetModifierEvasion_Constant()
+	return 100
 end
 
 function modifier_item_ghost_form_ally:GetAbsoluteNoDamagePhysical()

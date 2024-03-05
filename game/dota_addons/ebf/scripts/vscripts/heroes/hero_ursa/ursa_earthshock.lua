@@ -84,7 +84,7 @@ function ursa_earthshock:EarthShock()
 			if furySwipes and furySwipes:IsTrained() then
 				if fury_swipe_stacks_on_hit > 0 then
 					local modifier = enemy:AddNewModifier(caster, furySwipes, "modifier_ursa_fury_swipes_damage_increase", {duration = furySwipesDuration})
-					modifier:SetStackCount( modifier:GetStackCount() + talent2Swipes )
+					modifier:SetStackCount( modifier:GetStackCount() + fury_swipe_stacks_on_hit )
 				end
 				if not caster:PassivesDisabled() then
 					local furySwipesBonus = enemy:GetModifierStackCount( "modifier_ursa_fury_swipes_damage_increase", caster ) * furySwipesDamage

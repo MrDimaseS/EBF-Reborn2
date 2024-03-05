@@ -4,12 +4,12 @@ function antimage_counterspell:GetIntrinsicModifierName()
 	return "modifier_antimage_counterspell_passive"
 end
 
-function antimage_counterspell:OnSpellStart()
-	local caster = self:GetCaster()
+function antimage_counterspell:OnSpellStart(target)
+	local hTarget = target or self:GetCaster()
 	
-	caster:AddNewModifier( caster, self, "modifier_antimage_counterspell_active", {duration = self:GetSpecialValueFor("max_duration")} )
-	ParticleManager:FireParticle("particles/units/heroes/hero_antimage/antimage_spellshield.vpcf", PATTACH_POINT_FOLLOW, caster, {[0] = "attach_hitloc"})
-	EmitSoundOn( "Hero_Antimage.Counterspell.Cast", caster )
+	hTarget:AddNewModifier( caster, self, "modifier_antimage_counterspell_active", {duration = self:GetSpecialValueFor("max_duration")} )
+	ParticleManager:FireParticle("particles/units/heroes/hero_antimage/antimage_spellshield.vpcf", PATTACH_POINT_FOLLOW, hTarget, {[0] = "attach_hitloc"})
+	EmitSoundOn( "Hero_Antimage.Counterspell.Cast", hTarget )
 end
 
 modifier_antimage_counterspell_active = class({})
@@ -100,11 +100,23 @@ modifier_antimage_counterspell_passive = class({})
 LinkLuaModifier( "modifier_antimage_counterspell_passive", "heroes/hero_antimage/antimage_counterspell", LUA_MODIFIER_MOTION_NONE )
 
 function modifier_antimage_counterspell_passive:DeclareFunctions()
-	return {MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS}
+	return {MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS, MODIFIER_EVENT_ON_ABILITY_FULLY_CAST }
 end
 
 function modifier_antimage_counterspell_passive:GetModifierMagicalResistanceBonus(params)
 	return self:GetSpecialValueFor("magic_resistance")
+end
+
+function modifier_antimage_counterspell_passive:OnAbilityFullyCast(params)
+	if params.ability:GetName() == "antimage_mana_overload" then
+		local caster = self:GetCaster()
+		for _, target in ipairs( caster:FindFriendlyUnitsInRadius( params.ability:GetCursorPosition(), 150 ) ) do
+			if target:IsIllusion() and target:GetUnitName() == caster:GetUnitName() then
+				self:GetAbility():OnSpellStart( target )
+				return
+			end
+		end
+	end
 end
 
 function modifier_antimage_counterspell_passive:IsHidden()

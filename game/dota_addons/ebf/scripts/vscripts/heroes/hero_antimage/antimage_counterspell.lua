@@ -7,15 +7,15 @@ end
 function antimage_counterspell:OnSpellStart(target)
 	local hTarget = target or self:GetCaster()
 	
-	hTarget:AddNewModifier( caster, self, "modifier_antimage_counterspell_active", {duration = self:GetSpecialValueFor("max_duration")} )
+	hTarget:AddNewModifier( self:GetCaster(), self, "modifier_antimage_counterspell_barrier", {duration = self:GetSpecialValueFor("max_duration")} )
 	ParticleManager:FireParticle("particles/units/heroes/hero_antimage/antimage_spellshield.vpcf", PATTACH_POINT_FOLLOW, hTarget, {[0] = "attach_hitloc"})
 	EmitSoundOn( "Hero_Antimage.Counterspell.Cast", hTarget )
 end
 
-modifier_antimage_counterspell_active = class({})
-LinkLuaModifier( "modifier_antimage_counterspell_active", "heroes/hero_antimage/antimage_counterspell", LUA_MODIFIER_MOTION_NONE )
+modifier_antimage_counterspell_barrier = class({})
+LinkLuaModifier( "modifier_antimage_counterspell_barrier", "heroes/hero_antimage/antimage_counterspell", LUA_MODIFIER_MOTION_NONE )
 
-function modifier_antimage_counterspell_active:OnCreated()
+function modifier_antimage_counterspell_barrier:OnCreated()
 	if IsServer() then
 		self.barrier = self:GetSpecialValueFor("barrier")
 		self.max_duration = self:GetSpecialValueFor("max_duration")
@@ -24,20 +24,20 @@ function modifier_antimage_counterspell_active:OnCreated()
 		
 		self.degen_acceleration = (self.barrier / self.degen_duration) * FrameTime()
 		self.barrier_degen = 0
-	
+		
 		self:StartIntervalThink( self.duration )
 	end
 	if IsServer() then self:SetHasCustomTransmitterData(true) end
 end
 
-function modifier_antimage_counterspell_active:OnRefresh()
+function modifier_antimage_counterspell_barrier:OnRefresh()
 	if IsServer() then
 		self.barrier = self.barrier + self:GetSpecialValueFor("barrier")
 		self:SendBuffRefreshToClients()
 	end
 end
 
-function modifier_antimage_counterspell_active:OnIntervalThink()
+function modifier_antimage_counterspell_barrier:OnIntervalThink()
 	if self.barrier_degen == 0 then
 		self:StartIntervalThink( 0 )
 	end
@@ -49,16 +49,16 @@ function modifier_antimage_counterspell_active:OnIntervalThink()
 	self:SendBuffRefreshToClients()
 end
 
-function modifier_antimage_counterspell_active:CheckState()
+function modifier_antimage_counterspell_barrier:CheckState()
 	return {[MODIFIER_STATE_DEBUFF_IMMUNE] = true}
 end
 
-function modifier_antimage_counterspell_active:DeclareFunctions()
+function modifier_antimage_counterspell_barrier:DeclareFunctions()
 	return { MODIFIER_PROPERTY_INCOMING_SPELL_DAMAGE_CONSTANT, 
 			 MODIFIER_PROPERTY_INCOMING_DAMAGE_CONSTANT }
 end
 
-function modifier_antimage_counterspell_active:GetModifierIncomingDamageConstant( params )
+function modifier_antimage_counterspell_barrier:GetModifierIncomingDamageConstant( params )
 	if not self:GetCaster():HasShard() then return end
 	if IsServer() then
 		local barrier = math.min( self.barrier, math.max( self.barrier, params.damage ) )
@@ -71,7 +71,7 @@ function modifier_antimage_counterspell_active:GetModifierIncomingDamageConstant
 	end
 end
 
-function modifier_antimage_counterspell_active:GetModifierIncomingSpellDamageConstant( params )
+function modifier_antimage_counterspell_barrier:GetModifierIncomingSpellDamageConstant( params )
 	if self:GetCaster():HasShard() then return end
 	if IsServer() then
 		local barrier = math.min( self.barrier, math.max( self.barrier, params.damage ) )
@@ -84,16 +84,20 @@ function modifier_antimage_counterspell_active:GetModifierIncomingSpellDamageCon
 	end
 end
 
-function modifier_antimage_counterspell_active:AddCustomTransmitterData()
+function modifier_antimage_counterspell_barrier:AddCustomTransmitterData()
 	return {barrier = self.barrier}
 end
 
-function modifier_antimage_counterspell_active:HandleCustomTransmitterData(data)
+function modifier_antimage_counterspell_barrier:HandleCustomTransmitterData(data)
 	self.barrier = data.barrier
 end
 
-function modifier_antimage_counterspell_active:GetEffectName()
+function modifier_antimage_counterspell_barrier:GetEffectName()
 	return "particles/units/heroes/hero_antimage/antimage_counterspell_shield.vpcf"
+end
+
+function modifier_antimage_counterspell_barrier:IsHidden()
+	return false
 end
 
 modifier_antimage_counterspell_passive = class({})

@@ -28,7 +28,7 @@ function bossPowerScale:OnRefresh(keys)
 	self.bonusDamage = self:GetParent():GetAverageBaseDamage() * self.bonusDamagePct / 100
 	
 	if difficulty >= 3 then
-		self.bonusCooldownReduction = 33
+		self.bonusCooldownReduction = 0
 		self.bonusArmor = self.bonusArmor + 5.55
 		self.bonusMR = 33
 		self.bonusMS = 15

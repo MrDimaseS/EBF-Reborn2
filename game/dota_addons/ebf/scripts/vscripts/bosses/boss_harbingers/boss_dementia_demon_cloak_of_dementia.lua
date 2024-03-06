@@ -13,6 +13,7 @@ end
 
 function modifier_boss_dementia_demon_cloak_of_dementia:OnRefresh()
 	self.mania_damage_pct = self:GetSpecialValueFor("mania_damage_pct") / 100
+	self.remaining_damage_split = self:GetSpecialValueFor("remaining_damage_split") / 100
 end
 
 function modifier_boss_dementia_demon_cloak_of_dementia:DeclareFunctions()
@@ -39,9 +40,10 @@ function modifier_boss_dementia_demon_cloak_of_dementia:GetModifierIncomingDamag
 			end
 			ability:DealDamage( params.attacker, demon, params.damage * self.mania_damage_pct, {damage_type = params.damage_type, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL + DOTA_DAMAGE_FLAG_REFLECTION} )
 			ParticleManager:FireRopeParticle( "particles/units/heroes/hero_shadow_demon/shadow_demon_disseminate.vpcf", PATTACH_POINT_FOLLOW, parent, demon )
+			local splitDamage = (damage_split * (1-self.mania_damage_pct)) * self.remaining_damage_split
 			for _, enemy in ipairs( enemies ) do
 				if not (enemy == demon or enemy == parent) then
-					ability:DealDamage( parent, enemy, (damage_split * (1-self.mania_damage_pct)) / unitCount, {damage_type = params.damage_type, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL + DOTA_DAMAGE_FLAG_REFLECTION} )
+					ability:DealDamage( parent, enemy, splitDamage, {damage_type = params.damage_type, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL + DOTA_DAMAGE_FLAG_REFLECTION} )
 					ParticleManager:FireRopeParticle( "particles/units/heroes/hero_shadow_demon/shadow_demon_disseminate.vpcf", PATTACH_POINT_FOLLOW, demon, enemy )
 				end
 			end

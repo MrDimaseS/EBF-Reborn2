@@ -24,6 +24,7 @@ function special_bonus_attributes:OnHeroLevelUp()
 	if intGain > 0 then
 		hero:ModifyIntellect( intGain )
 	end
+	self:SendUpdatedInventoryContents( info )
 end
 
 function special_bonus_attributes:OnUpgrade()
@@ -68,6 +69,7 @@ function special_bonus_attributes:Spawn()
 			hero:ModifyIntellect( originalHero:GetBaseIntellect() - hero:GetBaseIntellect() )
 		end
 	end )
+	CustomGameEventManager:RegisterListener( "request_hero_inventory", function( userdata, keys ) self:SendUpdatedInventoryContents(keys) end )
 end
 
 function special_bonus_attributes:OnHeroCalculateStatBonus()
@@ -79,7 +81,6 @@ function special_bonus_attributes:OnHeroCalculateStatBonus()
 		modifier:SetStackCount( self:GetCaster():GetPrimaryAttribute() )
 		modifier:ForceRefresh()
 	end
-	CustomGameEventManager:RegisterListener( "request_hero_inventory", function( userdata, keys ) self:SendUpdatedInventoryContents(keys) end )
 end
 
 function special_bonus_attributes:OnInventoryContentsChanged()

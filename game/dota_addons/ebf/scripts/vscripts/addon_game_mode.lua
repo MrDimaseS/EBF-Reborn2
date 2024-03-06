@@ -592,20 +592,8 @@ function CHoldoutGameMode:FilterDamage( filterTable )
 	if ability and ability:GetName() == "muerta_gunslinger" and attacker:HasModifier("modifier_muerta_pierce_the_veil_buff") then
 		filterTable.damage = damage / ( 1+ ( attacker:GetSpellAmplification( false ) * (IGNORE_SPELL_AMP_FILTER["muerta_pierce_the_veil"]/100)) )
 	end
-	if inflictor and attacker and not attacker:IsNull() and attacker.HasModifier and  attacker:HasModifier("spellcrit") then
-		local critDamage = 1
-		for _, modifier in ipairs( attacker:FindAllModifiersByName("spellcrit") ) do
-			local item = modifier:GetAbility()
-			local critChance = item:GetSpecialValueFor("spell_crit_chance")
-			local newCritDamage = item:GetSpecialValueFor("spell_crit_multiplier") / 100
-			if critDamage < newCritDamage and RollPercentage( critChance ) then
-				critDamage = newCritDamage
-			end
-		end
-		if critDamage > 1 then
-			filterTable["damage"] = damage * critDamage
-			SendOverheadEventMessage( attacker:GetPlayerOwner(), OVERHEAD_ALERT_DEADLY_BLOW, victim, damage * critDamage, attacker:GetPlayerOwner() )
-		end
+	if attacker and attacker:IsRealHero() and ability and ability:GetAbilityDamage() > 0 then
+		filterTable.damage = filterTable.damage * ( 1 + attacker:GetLevel() * 0.2 )
 	end
 	
 	if attacker.GetPlayerOwner and attacker:GetPlayerOwner() and attacker ~= victim then

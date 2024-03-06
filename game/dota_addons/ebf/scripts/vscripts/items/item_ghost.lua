@@ -153,7 +153,6 @@ function modifier_item_ghost_form_ally:GetModifierMoveSpeedBonus_Percentage()
 	return self.slow
 end
 
-
 function modifier_item_ghost_form_ally:GetEffectName()
 	return "particles/items_fx/ghost.vpcf"
 end
@@ -183,7 +182,11 @@ function modifier_item_ghost_form_enemy:CheckState()
 end
 
 function modifier_item_ghost_form_enemy:GetAbsoluteNoDamagePhysical()
-	return 
+	return nil
+end
+
+function modifier_item_ghost_form_ally:GetModifierEvasion_Constant()
+	return 0
 end
 
 modifier_item_ghost_passive = class({})

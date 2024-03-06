@@ -1021,7 +1021,7 @@
 		"DOTA_Tooltip_ability_item_demonic_cultist_assault_bonus_armor"										"+$armor"
 		
 		"DOTA_Tooltip_ability_boss_mania_demon_cloak_of_mania"												"Cloak of Mania"
-		"DOTA_Tooltip_ability_boss_mania_demon_cloak_of_mania_Description"									"Mania Demons cannot be damaged by spells while a Melancholy Demon is alive.\nWhen a Mania Demon is damaged by spell damage, %melancholy_damage_pct%%% the damage is taken by the nearest Melancholy Demon instead and the remaining damage is spread over every other unit on the map."
+		"DOTA_Tooltip_ability_boss_mania_demon_cloak_of_mania_Description"									"Mania Demons cannot be damaged by spells while a Melancholy Demon is alive.\nWhen a Mania Demon is damaged by spell damage, %melancholy_damage_pct%%% the damage is taken by the nearest Melancholy Demon instead.\nEach enemy unit takes %remaining_damage_split%%% of the remaining damage."
 		"DOTA_Tooltip_modifier_boss_mania_demon_cloak_of_mania"												"Cloak of Mania - Buff"
 		"DOTA_Tooltip_modifier_boss_mania_demon_cloak_of_mania_Description"									"Taking no spell damage as long as a Melancholy Demon exists."
 		
@@ -1074,7 +1074,7 @@
 		"DOTA_Tooltip_ability_boss_mania_demon_requiem_of_insanity_Note1"									"Fear and movement slow do not apply if the Requiem was released on death."
 			
 		"DOTA_Tooltip_ability_boss_dementia_demon_cloak_of_dementia"										"Cloak of Melancholy"
-		"DOTA_Tooltip_ability_boss_dementia_demon_cloak_of_dementia_Description"							"Melancholy Demons cannot be damaged by attacks while a Mania Demon is alive.\nWhen a Melancholy Demon is damaged by attack damage, %mania_damage_pct%%% the damage is taken by the nearest Mania Demon instead and the remaining damage is spread over every other unit on the map."
+		"DOTA_Tooltip_ability_boss_dementia_demon_cloak_of_dementia_Description"							"Melancholy Demons cannot be damaged by attacks while a Mania Demon is alive.\nWhen a Melancholy Demon is damaged by attack damage, %mania_damage_pct%%% the damage is taken by the nearest Mania Demon instead.\nEach enemy unit takes %remaining_damage_split%%% of the remaining damage."
 		"DOTA_Tooltip_modifier_boss_dementia_demon_cloak_of_dementia"										"Cloak of Melancholy - Buff"
 		"DOTA_Tooltip_modifier_boss_dementia_demon_cloak_of_dementia_Description"							"Taking no attack damage as long as a Mania Demon exists."
 		
@@ -1109,11 +1109,11 @@
 		"DOTA_Tooltip_ability_boss_dementia_demon_demented_purge_charge_restore_time_tooltip_scepter"		"BASE CHARGE RESTORE TIME:"
 		"DOTA_Tooltip_ability_boss_dementia_demon_demented_purge_max_charges"								"MAX CHARGES:"
 
-        "DOTA_Tooltip_ability_sboss_dementia_demon_share_pain" 												"Share Pain"		
-        "DOTA_Tooltip_ability_sboss_dementia_demon_share_pain_Description" 									"Whenever the target takes damage, all enemies, including the target itself if it is an enemy, within %radius% range of the target also receive a portion of that damage. Can target enemy and allied units. Effect is paused if the target is hidden by Disruption."
-		"DOTA_Tooltip_ability_sboss_dementia_demon_share_pain_duration" 									"DURATION:"			        
-		"DOTA_Tooltip_ability_sboss_dementia_demon_share_pain_damage_reflection_pct" 						"%SHARED DAMAGE:"		
-		"DOTA_Tooltip_ability_sboss_dementia_demon_share_pain_abilitycastrange"								"CAST RANGE:"	    
+        "DOTA_Tooltip_ability_boss_dementia_demon_share_pain" 												"Share Pain"		
+        "DOTA_Tooltip_ability_boss_dementia_demon_share_pain_Description" 									"Whenever the target takes damage, all enemies, including the target itself if it is an enemy, within %radius% range of the target also receive a portion of that damage. Can target enemy and allied units. Effect is paused if the target is hidden by Disruption."
+		"DOTA_Tooltip_ability_boss_dementia_demon_share_pain_duration" 										"DURATION:"			        
+		"DOTA_Tooltip_ability_boss_dementia_demon_share_pain_damage_reflection_pct" 						"%SHARED DAMAGE:"		
+		"DOTA_Tooltip_ability_boss_dementia_demon_share_pain_abilitycastrange"								"CAST RANGE:"	    
 
 		"DOTA_Tooltip_ability_boss_dementia_demon_cloak_of_dementia"										"Nihilism Aura"
 		"DOTA_Tooltip_ability_minion_mania_splinter_manic_auraDescription"									"Shards of Melancholy reduce all all healing received, lifesteal and health regeneration by %heal_reduction_aura%%% in a %radius% unit radius. When they land an attack, they reduce all healing received, lifesteal and health regeneration by %heal_reduction_atk%%% for %debuff_duration% seconds."
@@ -1483,8 +1483,8 @@
 		"DOTA_Tooltip_ability_antimage_counterspell_shard_description"                                      "Counterspell's Barrier blocks all types of damage."
 		"DOTA_Tooltip_ability_antimage_counterspell_ebf_changes"                                      		"Counterspell grants Barrier instead of reflecting spells."
 		"DOTA_Tooltip_ability_antimage_mana_break_Description"                                              "Burns an opponent's mana on each attack and deals damage equal to a percentage of the mana burnt. The damage is dealt regardless of the mana burned.\n\nIf this leaves the enemy with no mana, their attack speed and movement speed are slowed and the damage dealt becomes Pure."
-		"DOTA_Tooltip_modifier_antimage_counterspell_active"                                                "Counterspell - Barrier"
-		"DOTA_Tooltip_modifier_antimage_counterspell_active_Description"                                    "Debuff Immune and blocking spell damage."
+		"DOTA_Tooltip_modifier_antimage_counterspell_barrier"                                                "Counterspell - Barrier"
+		"DOTA_Tooltip_modifier_antimage_counterspell_barrier_Description"                                    "Debuff Immune and blocking spell damage."
 
 
 		//Axe
@@ -2244,6 +2244,7 @@
 		"DOTA_Tooltip_ability_special_bonus_all_stats_50"                                                   "+{s:value} All Stats"
 		"DOTA_Tooltip_ability_special_bonus_all_stats_500"                                                  "+{s:value} All Stats"
 		"DOTA_Tooltip_ability_special_bonus_armor_25"                                                       "+{s:value} Armor"
+		"DOTA_Tooltip_ability_special_bonus_attack_base_damage_1000"                                        "+{s:value} Base Attack Damage"
 		"DOTA_Tooltip_ability_special_bonus_attack_damage_1000"                                             "+{s:value} Attack Damage"
 		"DOTA_Tooltip_ability_special_bonus_attack_damage_125"                                              "+{s:value} Attack Damage"
 		"DOTA_Tooltip_ability_special_bonus_attack_damage_1250"                                             "+{s:value} Attack Damage"

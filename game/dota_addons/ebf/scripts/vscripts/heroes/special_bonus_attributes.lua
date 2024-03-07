@@ -15,6 +15,10 @@ function special_bonus_attributes:OnHeroLevelUp()
 	intGain = intGain * (1+attribute_multiplier)
 	
 	
+	hero._internalStrGain = strGain
+	hero._internalAgiGain = agiGain
+	hero._internalIntGain = intGain
+	
 	if strGain > 0 then
 		hero:ModifyStrength( strGain ) 
 	end
@@ -57,6 +61,10 @@ function special_bonus_attributes:Spawn()
 		end
 	end
 	
+	hero._internalStrGain = strGain
+	hero._internalAgiGain = agiGain
+	hero._internalIntGain = intGain
+	
 	self.originalBaseStr = hero:GetBaseStrength()
 	self.originalBaseAgi = hero:GetBaseAgility()
 	self.originalBaseInt = hero:GetBaseIntellect()
@@ -76,7 +84,7 @@ function special_bonus_attributes:OnHeroCalculateStatBonus()
 	if not IsEntitySafe( self ) then return end
 	local hero = self:GetCaster() 
 	local modifier = self:GetCaster():FindModifierByName("modifier_special_bonus_attributes_stat_rescaling")
-	CustomNetTables:SetTableValue("hero_attributes", tostring( self:GetCaster():entindex() ), {mana_type = self:GetCaster()._heroManaType, strength = self:GetCaster():GetStrength(), agility = self:GetCaster():GetAgility(), intellect = self:GetCaster():GetIntellect(), str_gain = math.sum( 1, hero:GetLevel()+1, hero:GetStrengthGain()*0.5 ), agi_gain = math.sum( 1, hero:GetLevel()+1, hero:GetAgilityGain()*0.5 ), int_gain = math.sum( 1, hero:GetLevel()+1, hero:GetIntellectGain()*0.5 ), spell_amp = self:GetCaster():GetSpellAmplification( false )})
+	
 	if modifier then 
 		modifier:SetStackCount( self:GetCaster():GetPrimaryAttribute() )
 		modifier:ForceRefresh()
@@ -85,6 +93,7 @@ end
 
 function special_bonus_attributes:OnInventoryContentsChanged()
 	if not IsEntitySafe( self ) then return end
+	if not IsEntitySafe( self:GetCaster() ) then return end
 	Timers:CreateTimer( function() self:SendUpdatedInventoryContents({unit = self:GetCaster():entindex()}) end )
 end
 
@@ -151,6 +160,7 @@ function modifier_special_bonus_attributes_stat_rescaling:OnCreated()
 		elseif self:GetParent()._heroManaType == "Stamina" then
 			Timers:CreateTimer( 0.1, function() self:GetParent():AddNewModifier( self:GetParent(), self:GetAbility(), "modifier_hero_stamina_system", {} ) end )
 		end
+		self:StartIntervalThink( 0.3 )
 	end
 end
 
@@ -176,6 +186,10 @@ function modifier_special_bonus_attributes_stat_rescaling:OnRefresh()
 		end
 	end
 end	
+
+function modifier_special_bonus_attributes_stat_rescaling:OnIntervalThink()
+	CustomNetTables:SetTableValue("hero_attributes", tostring( self:GetCaster():entindex() ), {mana_type = self:GetCaster()._heroManaType, strength = self:GetCaster():GetStrength(), agility = self:GetCaster():GetAgility(), intellect = self:GetCaster():GetIntellect(), str_gain = self:GetCaster()._internalStrGain, agi_gain = self:GetCaster()._internalAgiGain, int_gain = self:GetCaster()._internalIntGain, spell_amp = self:GetCaster():GetSpellAmplification( false )})
+end
 
 function modifier_special_bonus_attributes_stat_rescaling:CheckState()
 	return {[MODIFIER_STATE_ALLOW_PATHING_THROUGH_TREES] = true}

@@ -78,6 +78,7 @@ function modifier_minion_hellish_servant_infernal_servitude_checker:OnRefresh()
 	self.bonus_damage = self:GetSpecialValueFor("bonus_damage")
 	self.bonus_armor = self:GetSpecialValueFor("bonus_armor")
 	self.bonus_magic_resist = self:GetSpecialValueFor("bonus_magic_resist")
+	self.creep_power = self:GetSpecialValueFor("creep_power") / 100
 end
 
 function modifier_minion_hellish_servant_infernal_servitude_checker:DeclareFunctions()
@@ -87,15 +88,15 @@ function modifier_minion_hellish_servant_infernal_servitude_checker:DeclareFunct
 end
 
 function modifier_minion_hellish_servant_infernal_servitude_checker:GetModifierDamageOutgoing_Percentage()
-	return self.bonus_damage
+	return TernaryOperator( self.bonus_damage, self:GetParent():IsConsideredHero(), self.bonus_damage * self.creep_power )
 end
 
 function modifier_minion_hellish_servant_infernal_servitude_checker:GetModifierPhysicalArmorBonus()
-	return self.bonus_armor
+	return
 end
 
 function modifier_minion_hellish_servant_infernal_servitude_checker:GetModifierMagicalResistanceBonus()
-	return self.bonus_magic_resist
+	return TernaryOperator( self.bonus_magic_resist, self:GetParent():IsConsideredHero(), self.bonus_magic_resist * self.creep_power )
 end
 
 function modifier_minion_hellish_servant_infernal_servitude_checker:GetAttributes()

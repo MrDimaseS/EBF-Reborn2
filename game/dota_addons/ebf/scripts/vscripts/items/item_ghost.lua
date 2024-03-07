@@ -185,7 +185,7 @@ function modifier_item_ghost_form_enemy:GetAbsoluteNoDamagePhysical()
 	return nil
 end
 
-function modifier_item_ghost_form_ally:GetModifierEvasion_Constant()
+function modifier_item_ghost_form_enemy:GetModifierEvasion_Constant()
 	return 0
 end
 

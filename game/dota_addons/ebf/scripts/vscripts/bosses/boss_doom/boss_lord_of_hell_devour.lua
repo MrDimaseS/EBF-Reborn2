@@ -21,10 +21,9 @@ function boss_lord_of_hell_devour:OnSpellStart()
 	local target = self:GetCursorTarget()
 	
 	caster:AddNewModifier( caster, self, "modifier_boss_lord_of_hell_devour_eating", {duration = self:GetSpecialValueFor("duration")} )
-	
 	for i = 0, target:GetAbilityCount() - 1 do
 		local ability = target:GetAbilityByIndex( i )
-        if ability and ability:IsPassive() and not ability:IsAttributeBonus() then
+        if ability and ability:IsPassive() and not ability:IsAttributeBonus() and ability:GetAbilityName() ~= "neutral_upgrade" then
 			if not caster:HasAbility( ability:GetAbilityName() ) then
 				local addedAbility = caster:AddAbility( ability:GetAbilityName() )
 				if addedAbility then

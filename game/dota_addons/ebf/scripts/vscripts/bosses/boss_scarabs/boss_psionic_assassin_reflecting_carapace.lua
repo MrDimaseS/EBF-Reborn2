@@ -45,7 +45,21 @@ modifier_boss_psionic_assassin_reflecting_carapace_reflect = class({})
 LinkLuaModifier( "modifier_boss_psionic_assassin_reflecting_carapace_reflect", "bosses/boss_scarabs/boss_psionic_assassin_reflecting_carapace.lua" ,LUA_MODIFIER_MOTION_NONE )
 
 function modifier_boss_psionic_assassin_reflecting_carapace_reflect:OnCreated()
+	self.delay_duration = self:GetSpecialValueFor("delay_duration")
+	self:StartIntervalThink( self.delay_duration )
+end
+
+function modifier_boss_psionic_assassin_reflecting_carapace_reflect:OnIntervalThink()
 	self.damage_reflect_pct = self:GetSpecialValueFor("damage_reflect_pct")
+	self:StartIntervalThink( -1 )
+end
+
+function modifier_boss_psionic_assassin_reflecting_carapace_reflect:OnDestroy()
+	if self:GetRemainingTime() > 0 then return end -- dispelled
+	local vendetta = self:GetCaster():FindAbilityByName("boss_psionic_assassin_vendetta")
+	if vendetta then
+		vendetta:TriggerVendetta()
+	end
 end
 
 function modifier_boss_psionic_assassin_reflecting_carapace_reflect:DeclareFunctions()
@@ -53,6 +67,7 @@ function modifier_boss_psionic_assassin_reflecting_carapace_reflect:DeclareFunct
 end
 
 function modifier_boss_psionic_assassin_reflecting_carapace_reflect:OnTakeDamage( params )
+	if not self.damage_reflect_pct then return end
 	if HasBit(params.damage_flags, DOTA_DAMAGE_FLAG_HPLOSS) or HasBit(params.damage_flags, DOTA_DAMAGE_FLAG_REFLECTION) then return end
 	if params.unit == self:GetParent() then
 		self:GetAbility():DealDamage( params.unit, params.attacker, params.original_damage, {damage_type = params.damage_type, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL + DOTA_DAMAGE_FLAG_REFLECTION} )

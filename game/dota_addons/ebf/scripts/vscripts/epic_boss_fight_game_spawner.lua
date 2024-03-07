@@ -22,7 +22,7 @@ function CHoldoutGameSpawner:ReadConfiguration( name, kv, gameRound )
 	self._nChampionLevel = tonumber( kv.ChampionLevel or 1 )
 	self._nChampionMax = tonumber( kv.ChampionMax or 1 )
 	self._nCreatureLevel = tonumber( kv.CreatureLevel or 1 )
-	self._nTotalUnitsToSpawn = TernaryOperator( tonumber( kv.TotalUnitsToSpawn or 0 ), kv.TotalUnitsToSpawn ~= 'X', -1 )
+	self._nTotalUnitsToSpawn = TernaryOperator( -1, kv.TotalUnitsToSpawn == 'X', tonumber( kv.TotalUnitsToSpawn or 0 ) )
 	self._nTotalCoreUnitsToSpawn = 0
 	if GameRules.BossKV[self._szNPCClassName] and GameRules.BossKV[self._szNPCClassName].ConsideredHero and tonumber( GameRules.BossKV[self._szNPCClassName].ConsideredHero ) == 1 then
 		self._nTotalCoreUnitsToSpawn = self._nTotalUnitsToSpawn
@@ -149,7 +149,6 @@ end
 
 function CHoldoutGameSpawner:IsFinishedSpawning()
 	if self._nTotalUnitsToSpawn == -1 then -- spawn while any core unit is alive or must still be spawned
-		print( "finished spawning?", self._gameRound._nCoreUnitsTotal, self._gameRound._nCoreUnitsKilled)
 		return (self._gameRound._nCoreUnitsTotal - self._gameRound._nCoreUnitsKilled) <= 0
 	else
 		return (self._nTotalUnitsToSpawn <= self._nUnitsSpawnedThisRound) or ( self._groupWithUnit ~= nil )

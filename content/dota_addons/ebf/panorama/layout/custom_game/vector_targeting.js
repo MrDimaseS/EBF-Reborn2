@@ -413,6 +413,7 @@ function Vector_raiseZ(vec, inc) {
 function RemoveItemAttributes(){
 	const tooltipManager = dotaHud.FindChildTraverse('Tooltips');
 	const tooltipPanel = tooltipManager.FindChildTraverse('DOTAAbilityTooltip');
+	if( !tooltipPanel ){return}
 	const abilityAttributes = tooltipPanel.FindChildTraverse('AbilityAttributes');
 	
 	abilityAttributes.style.visibility = 'collapse'
@@ -421,6 +422,7 @@ function RemoveItemAttributes(){
 function ShowItemAttributes(){
 	const tooltipManager = dotaHud.FindChildTraverse('Tooltips');
 	const tooltipPanel = tooltipManager.FindChildTraverse('DOTAAbilityTooltip');
+	if( !tooltipPanel ){return}
 	const abilityAttributes = tooltipPanel.FindChildTraverse('AbilityAttributes');
 	
 	abilityAttributes.style.visibility = 'visible'
@@ -535,7 +537,7 @@ function UpdateStatsTooltip(){
 	const strGain = strContainer.FindChildTraverse('StrengthGainLabel');
 	const strValues = strContainer.FindChildTraverse('StrengthDetails');
 	strGain.text = '(+' + Math.floor(stats.str_gain*10 + 0.5) / 10 + ' next lvl)'
-	strValues.text = (Math.floor((stats.strength)*10 + 0.5)/10) * 22 + ' HP and ' + Math.floor((stats.strength * 0.15)*10 + 0.5) / 10 + ' HP Regen'
+	strValues.text = (Math.floor((stats.strength * 22)*10 + 0.5)/10) + ' HP and ' + Math.floor((stats.strength * 0.15)*10 + 0.5) / 10 + ' HP Regen'
 	if(strContainer.BHasClass( "PrimaryAttribute") ){
 		const strDamage = strContainer.FindChildTraverse('StrengthDamageLabel');
 		strDamage.text = (Math.floor((stats.strength * 1.5)*10 + 0.5)/10) + ' Damage, ' + (Math.floor((stats.strength * 0.6)*10 + 0.5)/10) + '% Spell Amp and ' + (Math.floor((stats.strength * 11)*10 + 0.5)/10) + ' HP';
@@ -577,7 +579,9 @@ function UpdateStatsTooltip(){
 
 function ClearItemTooltip( panel ){
 	const tooltipManager = dotaHud.FindChildTraverse('Tooltips');
+	if( !tooltipManager ){return}
 	const tooltipPanel = tooltipManager.FindChildTraverse('DOTAAbilityTooltip');
+	if( !tooltipPanel ){return}
 	const abilityAttributes = tooltipPanel.FindChildTraverse('AbilityAttributes');
 	const abilityDescription = tooltipPanel.FindChildTraverse('AbilityDescriptionContainer');
 	
@@ -587,8 +591,10 @@ function ClearItemTooltip( panel ){
 	
 	unitWeAreChecking = -1
 	abilityIndexWeAreChecking = -1
+	scheduleHandle = null
 }
 
+let scheduleHandle
 function UpdateItemTooltip( panel, unit, itemSlot ){
 	let item = Entities.GetItemInSlot( unit, itemSlot );
 	let item_name = Abilities.GetAbilityName( item );
@@ -598,10 +604,12 @@ function UpdateItemTooltip( panel, unit, itemSlot ){
 	const abilityDetails = tooltipPanel.FindChildTraverse('AbilityCoreDetails');
 	const abilityAttributes = tooltipPanel.FindChildTraverse('AbilityAttributes');
 	
+	unitWeAreChecking = unit
+	abilityIndexWeAreChecking = itemSlot
 	abilityAttributes.style.visibility = 'collapse'
 	
 	let finalTextToken = ""
-	if (panel.inventoryData == undefined || panel.inventoryData.AbilityValues == undefined){ return }
+	if (panel.inventoryData == undefined && panel.inventoryData.AbilityValues == undefined){ return }
 	for (const key in panel.inventoryData.AbilityValues) {
 		let localeToken  = "#DOTA_Tooltip_Ability_" + item_name + "_" + key
 		let localizedToken = $.Localize(localeToken)
@@ -652,8 +660,6 @@ function UpdateItemTooltip( panel, unit, itemSlot ){
 	} else {
 		abilityAttributes.style.visibility = 'collapse'
 	}
-	unitWeAreChecking = unit
-	abilityIndexWeAreChecking = itemSlot
 	
 	abilityValues = {}
 	for (const key in panel.inventoryData){
@@ -665,9 +671,8 @@ function UpdateItemTooltip( panel, unit, itemSlot ){
 			}
 		}
 	}
-	
+	scheduleHandle = $.Schedule( 0, AlterAbilityDescriptions )
 	lastRememberedState = null
-	$.Schedule( 0, AlterAbilityDescriptions )
 }
 
 let lastState = false
@@ -818,32 +823,26 @@ function AlterAbilityDescriptions( ){
 		}
 	}
 	if( unitWeAreChecking != -1 || abilityIndexWeAreChecking != -1 ){
-		$.Schedule( 0, AlterAbilityDescriptions )
+		scheduleHandle = $.Schedule( 0, AlterAbilityDescriptions )
 	}
 }
 
 function RegisterInventoryData(data) {
-    for (let i=0;i<=9;i++) {
-        if ( i<9 ) {
-            let inventorySlotPanel = dotaHud.FindChildTraverse("inventory_slot_"+i);
-            let inventorySlotButton = inventorySlotPanel.FindChildTraverse("AbilityButton");
-			inventorySlotButton.inventoryData = null;
-			inventorySlotButton.inventoryData = data.inventory[i]
-        } else {
-            let inventoryNeutralPanel = dotaHud.FindChildTraverse("inventory_neutral_slot");
-            let inventorySlotButton = inventoryNeutralPanel.FindChildTraverse("AbilityButton");
-			inventorySlotButton.inventoryData = null;
-			inventorySlotButton.inventoryData = data.inventory[i]
-        }
-    }
-}
-
-function ThinkItemDescription( ){
-	if(currentItemSlot != -1){
-		let inventorySlotPanel = inventoryPanels.FindChildTraverse("inventory_slot_" + currentItemSlot);
-		if (currentItemSlot == 16){
-			inventorySlotPanel = inventoryPanels.FindChildTraverse("inventory_neutral_slot");
+	if( data.unit == Players.GetLocalPlayerPortraitUnit() )
+	{
+	$.Msg( data.unit, ", ", Players.GetLocalPlayerPortraitUnit() )
+		for (let i=0;i<=9;i++) {
+			if ( i<9 ) {
+				let inventorySlotPanel = dotaHud.FindChildTraverse("inventory_slot_"+i);
+				let inventorySlotButton = inventorySlotPanel.FindChildTraverse("AbilityButton");
+				inventorySlotButton.inventoryData = null;
+				inventorySlotButton.inventoryData = data.inventory[i]
+			} else {
+				let inventoryNeutralPanel = dotaHud.FindChildTraverse("inventory_neutral_slot");
+				let inventorySlotButton = inventoryNeutralPanel.FindChildTraverse("AbilityButton");
+				inventorySlotButton.inventoryData = null;
+				inventorySlotButton.inventoryData = data.inventory[i]
+			}
 		}
-		$.Schedule( 0.03, ThinkItemDescription )
 	}
 }

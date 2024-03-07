@@ -29,14 +29,14 @@ end
 
 function AIThink(thisEntity)
 	if thisEntity:GetTeamNumber() ~= DOTA_TEAM_GOODGUYS and not thisEntity:IsChanneling() and not thisEntity:GetCurrentActiveAbility() then
-		if thisEntity.shield:IsFullyCastable() and AICore:TotalEnemyHeroesInRange( thisEntity, thisEntity.shield:GetSpecialValueFor("radius") ) >= 1 then
-			ExecuteOrderFromTable({
-						UnitIndex = thisEntity:entindex(),
-						OrderType = DOTA_UNIT_ORDER_CAST_NO_TARGET,
-						AbilityIndex = thisEntity.shield:entindex()
-					})
-			return thisEntity.shield:GetCastPoint() + AI_THINK_RATE
-		end
+		-- if thisEntity.shield:IsFullyCastable() and AICore:TotalEnemyHeroesInRange( thisEntity, thisEntity.shield:GetSpecialValueFor("radius") ) >= 1 then
+			-- ExecuteOrderFromTable({
+						-- UnitIndex = thisEntity:entindex(),
+						-- OrderType = DOTA_UNIT_ORDER_CAST_NO_TARGET,
+						-- AbilityIndex = thisEntity.shield:entindex()
+					-- })
+			-- return thisEntity.shield:GetCastPoint() + AI_THINK_RATE
+		-- end
 		if thisEntity.hell:IsFullyCastable() and AICore:TotalEnemyHeroesInRange( thisEntity, thisEntity.hell:GetTrueCastRange() ) >= 1 then
 			ExecuteOrderFromTable({
 						UnitIndex = thisEntity:entindex(),
@@ -45,18 +45,18 @@ function AIThink(thisEntity)
 					})
 			return thisEntity.hell:GetCastPoint() + AI_THINK_RATE
 		end
-		if thisEntity.fist:IsFullyCastable()  then
-			local castPosition = AICore:FindOptimalRadiusInRangeForEntity( thisEntity, thisEntity.fist:GetTrueCastRange(), thisEntity.fist:GetSpecialValueFor("radius") )
-			if castPosition then
-				ExecuteOrderFromTable({
-					UnitIndex = thisEntity:entindex(),
-					OrderType = DOTA_UNIT_ORDER_CAST_POSITION,
-					Position = castPosition,
-					AbilityIndex = thisEntity.fist:entindex()
-				})
-				return thisEntity.fist:GetCastPoint() + AI_THINK_RATE
-			end
-		end
+		-- if thisEntity.fist:IsFullyCastable()  then
+			-- local castPosition = AICore:FindOptimalRadiusInRangeForEntity( thisEntity, thisEntity.fist:GetTrueCastRange(), thisEntity.fist:GetSpecialValueFor("radius") )
+			-- if castPosition then
+				-- ExecuteOrderFromTable({
+					-- UnitIndex = thisEntity:entindex(),
+					-- OrderType = DOTA_UNIT_ORDER_CAST_POSITION,
+					-- Position = castPosition,
+					-- AbilityIndex = thisEntity.fist:entindex()
+				-- })
+				-- return thisEntity.fist:GetCastPoint() + AI_THINK_RATE
+			-- end
+		-- end
 		if thisEntity.obliterate:IsFullyCastable() then
 			local target = AICore:NearestEnemyHeroInRange( thisEntity, -1, true)
 			if target then

@@ -22,26 +22,12 @@ end
 modifier_boss_psionic_assassin_vendetta_handler = class({})
 LinkLuaModifier( "modifier_boss_psionic_assassin_vendetta_handler", "bosses/boss_scarabs/boss_psionic_assassin_vendetta.lua" ,LUA_MODIFIER_MOTION_NONE )
 
-function modifier_boss_psionic_assassin_vendetta_handler:OnCreated()
-	if IsServer() then
-		self:StartIntervalThink( 0.1 )
-	end
-end
-
-function modifier_boss_psionic_assassin_vendetta_handler:OnIntervalThink()
-	if self.reflectionTriggered and not self:GetCaster():HasModifier("modifier_boss_psionic_assassin_reflecting_carapace_reflect") then
-		self.reflectionTriggered = false
-	elseif self:GetCaster():HasModifier("modifier_boss_psionic_assassin_reflecting_carapace_reflect") then
-		self.reflectionTriggered = true
-	end
-end
-
 function modifier_boss_psionic_assassin_vendetta_handler:DeclareFunctions()
 	return {MODIFIER_EVENT_ON_DEATH}
 end
 
 function modifier_boss_psionic_assassin_vendetta_handler:OnDeath( params )
-	if params.attacker == self:GetParent() then
+	if params.attacker == self:GetParent() and params.unit:IsRealHero() then
 		self:GetAbility():TriggerVendetta()
 	end
 end

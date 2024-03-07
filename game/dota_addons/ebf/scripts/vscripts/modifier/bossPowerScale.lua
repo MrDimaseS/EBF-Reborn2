@@ -137,9 +137,27 @@ function bossPowerScale:DeclareFunctions()
 	MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS,
 	MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE,
 	MODIFIER_EVENT_ON_DEATH,
-	MODIFIER_EVENT_ON_TAKEDAMAGE 
+	MODIFIER_EVENT_ON_TAKEDAMAGE,
+	MODIFIER_EVENT_ON_ABILITY_START
   }
   return funcs
+end
+
+function bossPowerScale:OnAbilityStart(event)
+	local radius
+	local position
+	if orderType == DOTA_UNIT_ORDER_CAST_POSITION then
+		position = Vector( filterTable.position_x, filterTable.position_y, filterTable.position_z )
+		radius = params.ability:GetAOERadius( )
+	elseif orderType == DOTA_UNIT_ORDER_CAST_TARGET then
+		local target = EntIndexToHScript( filterTable.entindex_target )
+		position = target:GetAbsOrigin()
+		radius = target:GetPaddedCollisionRadius() + 120
+	elseif orderType == DOTA_UNIT_ORDER_CAST_NO_TARGET then
+		position = unit:GetAbsOrigin()
+		radius = params.ability:GetTrueCastRange( ) - unit:GetCastRangeBonus()
+	end
+	ParticleManager:FireWarningParticle(position, radius)
 end
 
 function bossPowerScale:OnDeath(event)

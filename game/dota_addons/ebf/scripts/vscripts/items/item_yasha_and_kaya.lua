@@ -350,7 +350,7 @@ function modifier_item_yasha_and_kaya_2_archon:OnIntervalThink()
 end
 
 function modifier_item_yasha_and_kaya_2_archon:GetModifierCastSpeed( params )
-	if not params.ability:IsItem() then return self.cooldown_stacks * self:GetStackCount() end 
+	if params.ability and not params.ability:IsItem() then return self.cooldown_stacks * self:GetStackCount() end 
 end
 
 modifier_item_yasha_and_kaya_2_archon_as = class({})

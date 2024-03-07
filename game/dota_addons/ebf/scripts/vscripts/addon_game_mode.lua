@@ -92,10 +92,9 @@ function Precache( context )
 	PrecacheUnitByNameSync("npc_dota_boss_greater_treant", context)
 	PrecacheUnitByNameSync("npc_dota_troll_warlord_axe", context)
 	
-    PrecacheUnitByNameSync("npc_dota_boss32_trueform", context)
-    PrecacheUnitByNameSync("npc_dota_boss32_trueform_h", context)
-    PrecacheUnitByNameSync("npc_dota_boss32_trueform_vh", context)
-	
+    PrecacheUnitByNameSync("npc_dota_minion_rift_cleric", context)
+    PrecacheUnitByNameSync("npc_dota_boss_rift_general", context)
+    PrecacheUnitByNameSync("npc_dota_unit_underlord_portal", context)
 	
 	PrecacheUnitByNameSync("npc_dota_boss_ogre_magi", context)
 	PrecacheUnitByNameSync("npc_dota_visage_familiar1", context)
@@ -439,27 +438,6 @@ function CHoldoutGameMode:FilterOrders( filterTable )
 			DisplayError(unit:GetPlayerOwnerID(), "dota_hud_error_target_has_disable_help")
 			return false
 		end
-	end
-	if unit:GetTeam() ~= DOTA_TEAM_GOODGUYS
-	and (orderType == DOTA_UNIT_ORDER_CAST_POSITION
-	or orderType == DOTA_UNIT_ORDER_CAST_TARGET 
-	or orderType == DOTA_UNIT_ORDER_CAST_NO_TARGET) then
-		local ability = EntIndexToHScript( filterTable.entindex_ability )
-		local radius
-		local position
-		if orderType == DOTA_UNIT_ORDER_CAST_POSITION then
-			position = Vector( filterTable.position_x, filterTable.position_y, filterTable.position_z )
-			radius = ability:GetAOERadius( )
-		elseif orderType == DOTA_UNIT_ORDER_CAST_TARGET then
-			local target = EntIndexToHScript( filterTable.entindex_target )
-			position = target:GetAbsOrigin()
-			radius = target:GetPaddedCollisionRadius() + 120
-		elseif orderType == DOTA_UNIT_ORDER_CAST_NO_TARGET then
-			position = unit:GetAbsOrigin()
-			radius = ability:GetTrueCastRange( ) - unit:GetCastRangeBonus()
-			print( radius )
-		end
-		ParticleManager:FireWarningParticle(position, radius)
 	end
 	if ability and ability:GetName() == "rubick_spell_steal" and target == unit then
 		DisplayError(unit:GetPlayerOwnerID(), "dota_hud_error_cant_cast_on_self")

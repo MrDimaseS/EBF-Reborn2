@@ -13,15 +13,13 @@ function boss_death_avatar_death_seeker:OnSpellStart()
 end
 
 function boss_death_avatar_death_seeker:OnProjectileHit( target, position )
+	local caster = self:GetCaster()
 	if target then
-		local caster = self:GetCaster()
-		
 		target:AddNewModifier( caster, self, "modifier_boss_death_avatar_death_seeker_debuff", {duration = self:GetSpecialValueFor("ethereal_duration")} )
-		
-		caster:RemoveNoDraw()
-		FindClearSpaceForUnit( caster, position, true )
-		caster:RemoveModifierByName("modifier_invulnerable")
 	end
+	caster:RemoveNoDraw()
+	FindClearSpaceForUnit( caster, position, true )
+	caster:RemoveModifierByName("modifier_invulnerable")
 end
 
 modifier_boss_death_avatar_death_seeker_debuff = class({})

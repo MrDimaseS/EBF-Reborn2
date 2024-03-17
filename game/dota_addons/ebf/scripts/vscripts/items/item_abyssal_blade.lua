@@ -6,11 +6,14 @@ function item_abyssal_blade:GetIntrinsicModifierName()
 end
 
 function item_abyssal_blade:OnSpellStart(  )
+	local target = self:GetCursorTarget()
+	
+	EmitSoundOn( "DOTA_Item.AbyssalBlade.Activate", self:GetCaster() )
+	if target:TriggerSpellAbsorb( self ) then return end
 	
 	self.activatedBash = true
 	self:Bash( self:GetCursorTarget() )
 	
-	EmitSoundOn( "DOTA_Item.AbyssalBlade.Activate", self:GetCaster() )
 end
 
 function item_abyssal_blade:Bash( target )
@@ -25,6 +28,7 @@ function item_abyssal_blade:Bash( target )
 	if self.activatedBash then
 		local active_multiplier = self:GetSpecialValueFor("active_multiplier") / 100
 		
+		bash_duration = bash_duration * (1+active_multiplier)
 		bash_radius = bash_radius * (1+active_multiplier)
 		bonus_chance_damage = bonus_chance_damage * (1+active_multiplier)
 		bonus_str_damage = bonus_str_damage * (1+active_multiplier)

@@ -9,6 +9,10 @@ function visage_summon_familiars:IsHiddenWhenStolen()
     return false
 end
 
+function visage_summon_familiars:Spawn()
+	if IsServer() then PrecacheUnitByNameAsync( "npc_dota_visage_familiar1", function() print("precache done", self:GetCaster():GetPlayerID()) end ) end
+end
+
 function visage_summon_familiars:OnSpellStart()
 	local caster = self:GetCaster()
 	
@@ -31,25 +35,41 @@ function visage_summon_familiars:OnSpellStart()
 	for i=1,totalCount do
 		local position =  caster:GetAbsOrigin() + caster:GetForwardVector() * 128 + 96 * caster:GetLeftVector() * math.floor( (1+i-totalCount%2)/2 ) * (-1)^i
 		CreateUnitByNameAsync( "npc_dota_visage_familiar1", position, true, nil, nil, caster:GetTeam(), function(familiar)
+			print("1")
 			familiar:SetControllableByPlayer(caster:GetPlayerID(), true)
-			familiar:SetOwner(self)
+			print("2")
+			familiar:SetOwner(caster)
+			print("3")
 			familiar:StartGesture( ACT_DOTA_SPAWN )
+			print("4")
 			
 			local stone = familiar:FindAbilityByName( "visage_summon_familiars_stone_form" )
+			print("5")
 			if stone then
 				stone:SetLevel( self:GetLevel() )
+			print("6")
 			end
 			familiar.visage = caster
+			print("7")
 			familiar:AddNewModifier( caster, self, "modifier_visage_summon_familiars_damage_charge", {} )
+			print("8")
 			familiar:AddNewModifier( caster, self, "modifier_visage_summon_familiars_talents", {} )
+			print("9")
+			familiar:AddNewModifier( caster, self, "modifier_generic_level_scaling_for_summons", {} )
 
 			familiar:SetCoreHealth(health)
+			print("10")
 			familiar:SetPhysicalArmorBaseValue(armor)
+			print("11")
 			familiar:SetBaseMoveSpeed(speed)
+			print("12")
 			familiar:SetAverageBaseDamage(damage, 20)
+			print("13")
 
 			FindClearSpaceForUnit(familiar, familiar:GetAbsOrigin(), false)
+			print("14")
 			ParticleManager:FireParticle("particles/units/heroes/hero_visage/visage_summon_familiars.vpcf", PATTACH_POINT, caster, {[0]=familiar:GetAbsOrigin()})
+			print("15")
 		end)
 	end
 	

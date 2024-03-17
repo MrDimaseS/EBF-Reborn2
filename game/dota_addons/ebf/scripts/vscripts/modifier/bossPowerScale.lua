@@ -144,18 +144,18 @@ function bossPowerScale:DeclareFunctions()
 end
 
 function bossPowerScale:OnAbilityStart(event)
-	local radius
+	if event.unit ~= self:GetParent() then return end
+	local radius = 64
 	local position
-	if orderType == DOTA_UNIT_ORDER_CAST_POSITION then
-		position = Vector( filterTable.position_x, filterTable.position_y, filterTable.position_z )
-		radius = params.ability:GetAOERadius( )
-	elseif orderType == DOTA_UNIT_ORDER_CAST_TARGET then
-		local target = EntIndexToHScript( filterTable.entindex_target )
-		position = target:GetAbsOrigin()
-		radius = target:GetPaddedCollisionRadius() + 120
-	elseif orderType == DOTA_UNIT_ORDER_CAST_NO_TARGET then
-		position = unit:GetAbsOrigin()
-		radius = params.ability:GetTrueCastRange( ) - unit:GetCastRangeBonus()
+	if event.ability:GetCursorTarget() then
+		position = event.ability:GetCursorTarget():GetAbsOrigin()
+		radius = event.ability:GetCursorTarget():GetPaddedCollisionRadius() + 120
+	elseif event.ability:GetCursorTargetingNothing() then
+		position = event.unit:GetAbsOrigin()
+		radius = event.ability:GetTrueCastRange( ) - event.unit:GetCastRangeBonus()
+	else
+		position = event.ability:GetCursorPosition()
+		radius = event.ability:GetAOERadius( )
 	end
 	ParticleManager:FireWarningParticle(position, radius)
 end

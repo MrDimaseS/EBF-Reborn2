@@ -204,7 +204,8 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"abyssal_underlord_firestorm"
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"bosses/boss_asura/boss_rift_general_firestorm"
 		"AbilityTextureName"			"abyssal_underlord_firestorm"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
@@ -228,17 +229,13 @@
 			"AbilityCooldown"					"16 15 14 13"
 			"radius"							"500"
 			"wave_duration"						"7.0"
-			"wave_count"
-			{
-				"value"							"6"
-				"special_bonus_shard"			"+3"
-			}
+			"wave_count"						"9"
 			"wave_damage"								
 			{
 				"value"							"8000 10000 12000 14000"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"wave_interval"						"1.0"
+			"wave_interval"						"0.75"
 			"burn_damage"						"3"
 			"burn_interval"						"1.0"
 			"burn_duration"						"2.0"
@@ -260,7 +257,8 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"abyssal_underlord_pit_of_malice"
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"bosses/boss_asura/boss_rift_general_pit_of_malice"
 		"AbilityTextureName"			"abyssal_underlord_pit_of_malice"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
@@ -291,10 +289,6 @@
 			"pit_interval"					"3.6"
 			"pit_damage"					"5000"
 			"ensnare_duration"				"1.2 1.4 1.6 1.8"
-			"speed_bonus"
-			{
-				"special_bonus_scepter" 	"+40"
-			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}

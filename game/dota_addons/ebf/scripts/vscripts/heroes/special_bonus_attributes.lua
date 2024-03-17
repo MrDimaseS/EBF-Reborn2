@@ -4,9 +4,9 @@ function special_bonus_attributes:OnHeroLevelUp()
 	local hero = self:GetCaster()
 	if hero:IsIllusion() then return end
 	
-	local strGain = math.sum( 1, hero:GetLevel()-1, hero:GetStrengthGain()*0.5 )
-	local agiGain = math.sum( 1, hero:GetLevel()-1, hero:GetAgilityGain()*0.5 ) 
-	local intGain = math.sum( 1, hero:GetLevel()-1, hero:GetIntellectGain()*0.5 )
+	local strGain = math.sum( 1, hero:GetLevel()-1, hero:GetStrengthGain()*0.8 )
+	local agiGain = math.sum( 1, hero:GetLevel()-1, hero:GetAgilityGain()*0.8 ) 
+	local intGain = math.sum( 1, hero:GetLevel()-1, hero:GetIntellectGain()*0.8 )
 	
 	local attribute_multiplier = self:GetSpecialValueFor("value") / 100
 	
@@ -35,9 +35,9 @@ function special_bonus_attributes:OnUpgrade()
 	local hero = self:GetCaster()
 	if hero:IsIllusion() then return end
 	
-	local totalStrValue = self.originalBaseStr + math.sumT( 1, hero:GetLevel()-1, hero:GetStrengthGain() * 0.5 ) + (hero:GetLevel()-1 * hero:GetStrengthGain() )
-	local totalAgiValue = self.originalBaseAgi + math.sumT( 1, hero:GetLevel()-1, hero:GetAgilityGain() * 0.5 ) + (hero:GetLevel()-1 * hero:GetAgilityGain() )
-	local totalIntValue = self.originalBaseInt + math.sumT( 1, hero:GetLevel()-1, hero:GetIntellectGain() * 0.5 ) + (hero:GetLevel()-1 * hero:GetIntellectGain() )
+	local totalStrValue = self.originalBaseStr + math.sumT( 1, hero:GetLevel()-1, hero:GetStrengthGain() * 0.8 ) + (hero:GetLevel()-1 * hero:GetStrengthGain() )
+	local totalAgiValue = self.originalBaseAgi + math.sumT( 1, hero:GetLevel()-1, hero:GetAgilityGain() * 0.8 ) + (hero:GetLevel()-1 * hero:GetAgilityGain() )
+	local totalIntValue = self.originalBaseInt + math.sumT( 1, hero:GetLevel()-1, hero:GetIntellectGain() * 0.8 ) + (hero:GetLevel()-1 * hero:GetIntellectGain() )
 	
 	local attribute_multiplier = (self:GetSpecialValueFor( "value" ) - self:GetLevelSpecialValueFor( "value", self:GetLevel()-2 ) ) / 100
 	if self:GetLevel() == 1 then -- no way to get 0 out of specialvalue and getlevel
@@ -61,9 +61,9 @@ function special_bonus_attributes:Spawn()
 		end
 	end
 	
-	hero._internalStrGain = strGain
-	hero._internalAgiGain = agiGain
-	hero._internalIntGain = intGain
+	hero._internalStrGain = hero:GetStrengthGain()
+	hero._internalAgiGain = hero:GetAgilityGain()
+	hero._internalIntGain = hero:GetIntellectGain()
 	
 	self.originalBaseStr = hero:GetBaseStrength()
 	self.originalBaseAgi = hero:GetBaseAgility()
@@ -78,6 +78,7 @@ function special_bonus_attributes:Spawn()
 		end
 	end )
 	CustomGameEventManager:RegisterListener( "request_hero_inventory", function( userdata, keys ) self:SendUpdatedInventoryContents(keys) end )
+	CustomGameEventManager:Send_ServerToAllClients( "update_talent_pips", {unit = self:GetCaster():entindex()} )
 end
 
 function special_bonus_attributes:OnHeroCalculateStatBonus()
@@ -160,7 +161,9 @@ function modifier_special_bonus_attributes_stat_rescaling:OnCreated()
 		elseif self:GetParent()._heroManaType == "Stamina" then
 			Timers:CreateTimer( 0.1, function() self:GetParent():AddNewModifier( self:GetParent(), self:GetAbility(), "modifier_hero_stamina_system", {} ) end )
 		end
-		self:StartIntervalThink( 0.3 )
+		if self:GetParent():IsRealHero() and not self:GetParent():IsClone() then
+			self:StartIntervalThink( 0.3 )
+		end
 	end
 end
 
@@ -211,6 +214,7 @@ function modifier_special_bonus_attributes_stat_rescaling:DeclareFunctions()
 		MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE,
 		MODIFIER_PROPERTY_COOLDOWN_PERCENTAGE,
 		MODIFIER_PROPERTY_CASTTIME_PERCENTAGE,
+		MODIFIER_PROPERTY_STATUS_RESISTANCE_STACKING,
 		MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL,
 		MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL_VALUE
   }
@@ -309,6 +313,12 @@ end
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierPhysicalArmorBonus()
 	if not self:GetParent():IsRangedAttacker() then
 		return 4
+	end
+end
+
+function modifier_special_bonus_attributes_stat_rescaling:GetModifierStatusResistanceStacking()
+	if not self:GetParent():IsRangedAttacker() then
+		return 25
 	end
 end
 

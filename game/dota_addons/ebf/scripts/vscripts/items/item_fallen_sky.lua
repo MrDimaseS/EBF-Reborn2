@@ -20,6 +20,10 @@ function item_fallen_sky:OnSpellStart()
 	local caster = self:GetCaster()
 	local position = self:GetCursorPosition()
 	
+	if caster:HasModifier("modifier_item_fallen_sky_broken") then
+		position = caster:GetAbsOrigin()
+	end
+	
 	local distance = CalculateDistance( caster, position )
 	local clamp = self:GetSpecialValueFor("blink_range_clamp")
 	local range = self:GetSpecialValueFor("blink_range")
@@ -105,6 +109,9 @@ function modifier_item_fallen_sky_debuff_ebf:IsHidden()
 	return true
 end
 
+modifier_item_fallen_sky_broken = class({})
+LinkLuaModifier( "modifier_item_fallen_sky_broken", "items/item_fallen_sky.lua" ,LUA_MODIFIER_MOTION_NONE )
+
 modifier_ebfr_fallen_sky_passive = class({})
 LinkLuaModifier( "modifier_ebfr_fallen_sky_passive", "items/item_fallen_sky.lua" ,LUA_MODIFIER_MOTION_NONE )
 function modifier_ebfr_fallen_sky_passive:GetAttributes()
@@ -137,7 +144,7 @@ end
 
 function modifier_ebfr_fallen_sky_passive:OnTakeDamage(params)
 	if params.unit == self:GetParent() and params.attacker:IsConsideredHero() and self:GetAbility():GetCooldownTimeRemaining() < self.damage_cd then
-		self:GetAbility():SetCooldown( self.damage_cd )
+		self:GetParent():AddNewModifier( self:GetCaster(), self:GetAbility(), "modifier_item_fallen_sky_broken", {duration = self.damage_cd } )
 	end
 end
 

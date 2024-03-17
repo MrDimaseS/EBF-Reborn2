@@ -259,7 +259,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-			// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_grimstroke/grimstroke_spirit_walk"
+		"AbilityTextureName"			"grimstroke_spirit_walk"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
@@ -314,17 +316,12 @@
 				"CalculateSpellDamageTooltip"			"1"
 			}
 			"max_stun"									"2.8"
-			"damage_per_tick"
-			{
-				"value"									"50 80 110 140 170 200 230"
-				"special_bonus_unique_grimstroke_5"		"+80%"
-				"CalculateSpellDamageTooltip"			"1"
-			}
-			"tick_rate"					"0.2"
+			"tick_rate"									"0.2"
 			"tick_dps_tooltip"
 			{
 				"value"									"250 400 550 700 850 1000 1150"
 				"special_bonus_unique_grimstroke_5"		"+80%"
+				"special_bonus_shard"					"+40%"
 				"CalculateSpellDamageTooltip"			"1"
 			}
 			"max_threshold_duration"					"2.5"

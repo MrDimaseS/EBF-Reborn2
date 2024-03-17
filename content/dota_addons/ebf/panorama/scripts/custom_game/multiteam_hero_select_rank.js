@@ -274,7 +274,6 @@ function UpdateTimer() {
 			var teamColor = GameUI.CustomUIConfig().team_colors[teamId];
 			teamColor = teamColor.replace(";", "");
 			var gradientText = 'gradient( linear, 0% 0%, 0% 100%, from( ' + teamColor + '40  ), to( #00000000 ) );';
-			//			$.Msg( gradientText );
 			teamGradient.style.backgroundColor = gradientText;
 		}
 

@@ -40,7 +40,6 @@ function bossManager:ProcessBossScaling(spawnedUnit)
 	spawnedUnit.hasBeenProcessed = true
 	
 	local HP_difficulty_multiplier = currentRound._HP_difficulty_multiplier
-	print( HP_difficulty_multiplier )
 	if spawnedUnit._spawnerOrigin then
 		HP_difficulty_multiplier = spawnedUnit._spawnerOrigin.HealthMultiplier
 	end
@@ -84,14 +83,6 @@ function bossManager:ProcessBossScaling(spawnedUnit)
 	local powerScale = spawnedUnit:AddNewModifier(spawnedUnit, nil, "bossPowerScale",{})
 	powerScale:SetStackCount( GetRoundNumber() * 100 + GetGameDifficulty()*10 + (TeamCount() - 1) )
 	powerScale:ForceRefresh( ) -- force client/server update
-	
-	if spawnedUnit.Holdout_IsCore then
-		spawnedUnit:AddNewModifier( spawnedUnit, nil, "modifier_rune_haste", {duration = 3} )
-		spawnedUnit:SetUnitCanRespawn( true )
-		GameRules._getDeadCoreUnitsForGarbageCollection = GameRules._getDeadCoreUnitsForGarbageCollection or {}
-		GameRules._getDeadCoreUnitsForGarbageCollection[GetRoundNumber()] = GameRules._getDeadCoreUnitsForGarbageCollection[GetRoundNumber()] or {}
-		table.insert( GameRules._getDeadCoreUnitsForGarbageCollection[GetRoundNumber()], spawnedUnit )
-	end
 	
 	spawnedUnit.EHP_MULT = 1
 	if spawnedUnit:GetUnitName() ~= "npc_dota_boss36" then -- don't scale evil core ever

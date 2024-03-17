@@ -4,6 +4,9 @@ function boss_death_avatar_plague_ward:OnSpellStart()
 	local caster = self:GetCaster()
 	
 	local duration = self:GetSpecialValueFor("duration")
+	if not caster:IsAlive() then 
+		return
+	end
 	for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), self:GetTrueCastRange() ) ) do
 		Timers:CreateTimer( duration, function()
 			for i = 1, self:GetSpecialValueFor("wards_spawned") do

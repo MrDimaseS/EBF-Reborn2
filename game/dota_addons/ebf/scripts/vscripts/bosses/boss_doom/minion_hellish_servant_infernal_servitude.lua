@@ -38,6 +38,9 @@ function modifier_minion_hellish_servant_infernal_servitude_handler:GetAuraSearc
 end
 
 function modifier_minion_hellish_servant_infernal_servitude_handler:GetAuraEntityReject(entity)
+	if not IsEntitySafe( entity ) then return end
+	if not IsEntitySafe( self ) then return end
+	if not IsEntitySafe( self:GetCaster() ) then return end
 	return entity:GetUnitName() == self:GetCaster():GetUnitName()
 end
 
@@ -64,6 +67,8 @@ modifier_minion_hellish_servant_infernal_servitude_checker = class({})
 LinkLuaModifier("modifier_minion_hellish_servant_infernal_servitude_checker", "bosses/boss_doom/minion_hellish_servant_infernal_servitude", LUA_MODIFIER_MOTION_NONE)
 
 function modifier_minion_hellish_servant_infernal_servitude_checker:OnCreated()
+	if not IsEntitySafe( self ) then return end
+	if not IsEntitySafe( self:GetCaster() ) then return end
 	self:OnRefresh()
 	if IsServer() then
 		local FX = ParticleManager:CreateParticle("particles/units/heroes/hero_wisp/wisp_tether.vpcf", PATTACH_POINT_FOLLOW, self:GetCaster())
@@ -88,6 +93,8 @@ function modifier_minion_hellish_servant_infernal_servitude_checker:DeclareFunct
 end
 
 function modifier_minion_hellish_servant_infernal_servitude_checker:GetModifierDamageOutgoing_Percentage()
+	if not IsEntitySafe( self ) then return end
+	if not IsEntitySafe( self:GetParent() ) then return end
 	return TernaryOperator( self.bonus_damage, self:GetParent():IsConsideredHero(), self.bonus_damage * self.creep_power )
 end
 
@@ -96,6 +103,8 @@ function modifier_minion_hellish_servant_infernal_servitude_checker:GetModifierP
 end
 
 function modifier_minion_hellish_servant_infernal_servitude_checker:GetModifierMagicalResistanceBonus()
+	if not IsEntitySafe( self ) then return end
+	if not IsEntitySafe( self:GetParent() ) then return end
 	return TernaryOperator( self.bonus_magic_resist, self:GetParent():IsConsideredHero(), self.bonus_magic_resist * self.creep_power )
 end
 

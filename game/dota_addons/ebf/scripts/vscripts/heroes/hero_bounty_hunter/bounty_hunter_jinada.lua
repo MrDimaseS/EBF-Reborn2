@@ -20,7 +20,7 @@ function bounty_hunter_jinada:GetIntrinsicModifierName()
 	return "modifier_bounty_hunter_jinada_handler"
 end
 
-function bounty_hunter_jinada:TriggerJinada(target)
+function bounty_hunter_jinada:TriggerJinada(target, bForceGoldSteal )
 	local caster = self:GetCaster()
 	EmitSoundOn("Hero_BountyHunter.Jinada", target)
 
@@ -29,14 +29,20 @@ function bounty_hunter_jinada:TriggerJinada(target)
 				ParticleManager:ReleaseParticleIndex(nfx)
 	
 	self:DealDamage( caster, target, self:GetSpecialValueFor("bonus_damage") )
-	caster:AddGold( self:GetTalentSpecialValueFor("gold_steal") )
+	if self:IsCooldownReady() or bForceGoldSteal then
+		caster:AddGold( self:GetSpecialValueFor("gold_steal") )
+	end
+	if self:IsCooldownReady() and not bForceGoldSteal then
+		self:SetCooldown()
+	end
 end
 
 modifier_bounty_hunter_jinada_handler = class({})
 LinkLuaModifier("modifier_bounty_hunter_jinada_handler", "heroes/hero_bounty_hunter/bounty_hunter_jinada", LUA_MODIFIER_MOTION_NONE)
 
 function modifier_bounty_hunter_jinada_handler:DeclareFunctions()
-	return {MODIFIER_EVENT_ON_ATTACK_LANDED}
+	return {MODIFIER_EVENT_ON_ATTACK_LANDED, 
+			MODIFIER_EVENT_ON_ORDER}
 end
 
 function modifier_bounty_hunter_jinada_handler:OnAttackLanded(params)
@@ -46,16 +52,11 @@ function modifier_bounty_hunter_jinada_handler:OnAttackLanded(params)
 		local target = params.target
 		local ability = self:GetAbility()
 
-		if attacker == caster and ability:IsCooldownReady() then
-			ability:TriggerJinada(target)
+		if attacker == caster and ( ( ability:IsCooldownReady() and (self.autocast or self:GetAbility():GetAutoCastState()) )
+									or self:GetSpecialValueFor("passive_damage") == 1) then
+			ability:TriggerJinada(target, false)
 		end
 	end
-end
-
-
-function modifier_bounty_hunter_jinada_handler:DeclareFunctions()
-	return {MODIFIER_EVENT_ON_ATTACK, 
-			MODIFIER_EVENT_ON_ORDER}
 end
 
 function modifier_bounty_hunter_jinada_handler:OnOrder(params)
@@ -65,14 +66,6 @@ function modifier_bounty_hunter_jinada_handler:OnOrder(params)
 		else
 			self.autocast = false
 		end
-	end
-end
-
-function modifier_bounty_hunter_jinada_handler:OnAttack(params)
-	if params.attacker == self:GetParent() and params.target and (( self:GetAbility():GetAutoCastState() and self:GetAbility():IsCooldownReady() ) or self.autocast) then
-		self:GetAbility():TriggerJinada(params.target)
-		self:GetAbility():SetCooldown()
-		self.autocast = false
 	end
 end
 

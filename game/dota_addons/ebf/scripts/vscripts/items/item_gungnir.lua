@@ -61,7 +61,7 @@ function modifier_gungnir_passive:DeclareFunctions()
 			MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT,
 			MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,
 			MODIFIER_PROPERTY_STATS_AGILITY_BONUS,
-			MODIFIER_EVENT_ON_ATTACK_LANDED,
+			MODIFIER_PROPERTY_PROCATTACK_BONUS_DAMAGE_PURE,
 			MODIFIER_EVENT_ON_ATTACK_RECORD, 
 			MODIFIER_EVENT_ON_ATTACK_RECORD_DESTROY, 
 			}
@@ -87,13 +87,13 @@ function modifier_gungnir_passive:GetModifierPreAttack_BonusDamage()
 	return self.attack_damage
 end
 
-function modifier_gungnir_passive:OnAttackLanded( params )
+function modifier_gungnir_passive:GetModifierProcAttack_BonusDamage_Pure( params )
 	if params.attacker == self:GetParent() then
 		local attackData = self.attacksOnRecord[self.keyToAttack[params.record]]
 		if attackData and attackData.proc then
 			local damage = self.proc_damage + params.original_damage * self.proc_pct
-			
-			self:GetAbility():DealDamage( params.attacker, params.target, damage, {damage_type = DAMAGE_TYPE_PURE}, OVERHEAD_ALERT_BONUS_SPELL_DAMAGE )
+			SendOverheadEventMessage(params.target, OVERHEAD_ALERT_BONUS_SPELL_DAMAGE, params.target, damage, params.attacker)
+			return damage
 		end
 	end
 end

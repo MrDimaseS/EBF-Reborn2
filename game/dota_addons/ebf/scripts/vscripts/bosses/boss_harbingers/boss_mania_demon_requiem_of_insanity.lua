@@ -30,7 +30,7 @@ function boss_mania_demon_requiem_of_insanity:OnSpellStart(bDied)
 	local requiem_line_width_start = self:GetSpecialValueFor("requiem_line_width_start")
 	local requiem_line_width_end = self:GetSpecialValueFor("requiem_line_width_end")
 	
-	
+	self.splinters_created = {}
 	for i = 1, requiemLines do
 		local direction = RotateVector2D( caster:GetForwardVector(), ToRadians( angleRotation * (i-1) ) )
 		
@@ -54,8 +54,12 @@ function boss_mania_demon_requiem_of_insanity:OnProjectileHit( target, position 
 	target:AddNewModifier( caster, self, "modifier_nevermore_requiem_slow", {duration = self:GetSpecialValueFor("requiem_slow_duration")} )
 	target:AddNewModifier( caster, self, "modifier_nevermore_requiem_fear", {duration = self:GetSpecialValueFor("requiem_slow_duration")} )
 	
-	CreateUnitByNameAsync( "npc_dota_minion_mania_splinter", target:GetAbsOrigin() + ActualRandomVector( 128, 32 ), true, nil, nil, caster:GetTeamNumber(),
-	function(entUnit)
-		entUnit:MoveToTargetToAttack( target )
-	end)
+	if target:IsRealHero() and not self.splinters_created[target] then
+		self.splinters_created[target] = true
+		CreateUnitByNameAsync( "npc_dota_minion_mania_splinter", target:GetAbsOrigin() + ActualRandomVector( 128, 32 ), true, nil, nil, caster:GetTeamNumber(),
+		function(entUnit)
+			entUnit:MoveToTargetToAttack( target )
+		end)
+		self.splinters_created[target] = true
+	end
 end

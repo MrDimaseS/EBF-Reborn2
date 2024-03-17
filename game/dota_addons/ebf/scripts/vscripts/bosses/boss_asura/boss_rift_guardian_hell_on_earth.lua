@@ -57,7 +57,7 @@ function modifier_boss_rift_guardian_hell_on_earth:StartRazeSequence( razeType )
 	else
 		self.distance = self:GetAbility():GetTrueCastRange()
 	end
-	self:StartIntervalThink( 0.05 )
+	self:StartIntervalThink( 0.08 )
 end
 
 function modifier_boss_rift_guardian_hell_on_earth:OnIntervalThink()
@@ -97,8 +97,10 @@ function modifier_boss_rift_guardian_hell_on_earth:ContinueTargetedSequence( )
 	local caster = self:GetCaster()
 	self.created_projectiles = self.created_projectiles + 1
 	for _, hero in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), self:GetAbility():GetTrueCastRange(), {type = DOTA_UNIT_TARGET_HERO} ) ) do
-		local position = GetGroundPosition(hero:GetAbsOrigin() + ActualRandomVector( self.radius * 2 ), nil)
-		self:GetAbility():CreateTimedRaze( position )
+		if hero:IsRealHero() then
+			local position = GetGroundPosition(hero:GetAbsOrigin() + ActualRandomVector( self.radius * 2 ), nil)
+			self:GetAbility():CreateTimedRaze( position )
+		end
 	end
 end
 

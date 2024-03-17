@@ -40,8 +40,6 @@ function boss_golem_split:CreateGolem( position )
 	
 	golem:SetBaseMoveSpeed( caster:GetBaseMoveSpeed() / splitPct )
 	
-	print( caster:GetBaseMoveSpeed() / splitPct, golem:GetBaseMoveSpeed() )
-	
 	golem:ApplyKnockBack( position + RandomVector( 50 ), travel_time, travel_time, RandomInt( distance / 2, distance ), 128, golem, split )
 	
 	golem.hasBeenProcessed = true

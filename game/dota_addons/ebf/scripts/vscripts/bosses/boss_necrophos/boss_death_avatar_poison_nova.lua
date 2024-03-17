@@ -57,6 +57,10 @@ end
 
 function modifier_boss_death_avatar_poison_nova_innate:OnIntervalThink()
 	local caster = self:GetCaster()
+	if not caster:IsAlive() then 
+		self:StartIntervalThink( -1 )
+		return
+	end
 	if caster:PassivesDisabled() then return end
 	if caster:IsStunned() then return end
 	if caster:IsHexed() then return end

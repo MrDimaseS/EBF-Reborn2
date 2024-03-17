@@ -31,7 +31,6 @@ function SetFlyoutScoreboardVisible( bVisible )
 	$.RegisterEventHandler( "DOTACustomUI_SetFlyoutScoreboardVisible", $.GetContextPanel(), SetFlyoutScoreboardVisible );
 
 	GameEvents.Subscribe( "ptb_teams_changed", function() {
-		$.Msg( "Teams were changed!" );
 		$( "#TeamsContainer" ).RemoveAndDeleteChildren();
 
 		g_ScoreboardHandle = ScoreboardUpdater_InitializeScoreboard( scoreboardConfig, $( "#TeamsContainer" ) );

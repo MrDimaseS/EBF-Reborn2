@@ -267,6 +267,7 @@ function CHoldoutGameSpawner:_DoSpawn()
 			entUnit.Holdout_IsCore = self._nTotalCoreUnitsToSpawn > 0
 			entUnit:SetDeathXP( 0 )
 			bossManager:ProcessBossScaling(entUnit)
+			entUnit:AddNewModifier( spawnedUnit, nil, "modifier_rune_haste", {duration = 3} )
 		end)
 	end
 end

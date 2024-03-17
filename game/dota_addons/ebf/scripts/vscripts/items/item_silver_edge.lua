@@ -8,6 +8,7 @@ function item_silver_edge:OnSpellStart()
 	local caster = self:GetCaster()
 	
 	caster:AddNewModifier( caster, self, "modifier_item_silver_edge_bash_walk", {duration = self:GetSpecialValueFor("windwalk_fade_time")+0.1} )
+	caster:AddNewModifier( caster, self, "modifier_item_silver_edge_bash_walk", {duration = self:GetSpecialValueFor("windwalk_fade_time")+0.1} )
 	EmitSoundOn( "DOTA_Item.InvisibilitySword.Activate", caster )
 end
 
@@ -37,6 +38,7 @@ function modifier_item_silver_edge_bash_walk:OnRefresh()
 end
 
 function modifier_item_silver_edge_bash_walk:OnIntervalThink()
+	self.invisible = true
 	self:SetDuration( self.windwalk_duration, true )
 	self:StartIntervalThink( -1 )
 end

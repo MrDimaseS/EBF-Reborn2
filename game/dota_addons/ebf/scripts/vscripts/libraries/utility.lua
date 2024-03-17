@@ -206,8 +206,23 @@ function CDOTA_BaseNPC:PerformAbilityAttack(target, bProcs, ability)
 	Timers:CreateTimer(function() self.autoAttackFromAbilityState = nil end)
 end
 
-function CDOTA_BaseNPC:PerformGenericAttack(target, immediate, neverMiss)
-	self:PerformAttack(target, true, true, true, false, not immediate, false, neverMiss or false)
+function CDOTA_BaseNPC:PerformGenericAttack(target, immediate, bNeverMiss, flBonusDamage, bDamagePct)
+	local neverMiss = false
+	if bNeverMiss == true then neverMiss = true end
+	if flBonusDamage then
+		if bDamagePct then
+			if type(bDamagePct) ~= 'number' then
+				bDamagePct = flBonusDamage
+			end
+			self:AddNewModifier(caster, nil, "modifier_generic_attack_bonus_pct", {damage = bDamagePct})
+		end
+		if flBonusDamage and (not bDamagePct or type(bDamagePct) == 'number') then
+			self:AddNewModifier(caster, nil, "modifier_generic_attack_bonus", {damage = flBonusDamage})
+		end
+	end
+	self:PerformAttack(target, true, true, true, false, not immediate, false, neverMiss)
+	self:RemoveModifierByName("modifier_generic_attack_bonus")
+	self:RemoveModifierByName("modifier_generic_attack_bonus_pct")
 end
 
 function CDOTA_Modifier_Lua:AttachEffect(pID)
@@ -895,6 +910,18 @@ function CDOTA_BaseNPC:HealEvent(amount, sourceAb, healer)
 	local postHP = self:GetHealth()
 	SendOverheadEventMessage(self, OVERHEAD_ALERT_HEAL, self, postHP - preHP, healer)
 	return postHP - preHP
+end
+
+function CBaseEntity:RollPRNG( percentage )
+	return RollPseudoRandomPercentage( percentage, self:entindex() * 1000, self )
+end
+
+function CDOTA_Ability_Lua:RollPRNG( percentage )
+	return RollPseudoRandomPercentage( percentage, self:GetAbility():entindex() * 1000, self:GetCaster() )
+end
+
+function CDOTA_Modifier_Lua:RollPRNG( percentage )
+	return RollPseudoRandomPercentage( percentage, self:GetAbility():entindex() * 1000 + self:GetSerialNumber(), self:GetParent() )
 end
 
 function CDOTA_BaseNPC:SwapAbilityIndexes(index, swapname)

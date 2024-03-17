@@ -23,6 +23,8 @@ function boss_golem_rock_throw:OnProjectileHit( target, position )
 		self:DealDamage( caster, target, damage )
 		self:Stun( target, duration )
 		
-		CreateUnitByName( "npc_dota_boss_mud_golem", target:GetAbsOrigin() + RandomVector( 250 ), true, nil, nil, caster:GetTeam() )
+		if target:IsRealHero() then
+			CreateUnitByName( "npc_dota_boss_mud_golem", target:GetAbsOrigin() + RandomVector( 250 ), true, nil, nil, caster:GetTeam() )
+		end
 	end
 end

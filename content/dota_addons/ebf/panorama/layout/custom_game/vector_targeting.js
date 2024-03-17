@@ -1,11 +1,3 @@
-// ----------------------------------------------------------
-// Vector Targeting Library
-// ========================
-// Version: 1.0
-// Github: https://github.com/Nibuja05/dota_vector_targeting
-// ----------------------------------------------------------
-
-
 GameEvents.Subscribe("ebf_error_message", function(data) {
 	GameEvents.SendEventClientSide("dota_hud_error_message", {
 		"splitscreenplayer": 0,
@@ -24,8 +16,22 @@ const hud = dotaHud.FindChildTraverse("HUDElements");
 (function() {
     const talents = hud.FindChildTraverse("UpgradeStatName");
     if (talents !== null && talents !== undefined) {
-        talents.text = "+25% to Base Attributes";
+        talents.text = "+35% to Base Attributes";
     }
+	const pips = hud.FindChildTraverse("UpgradeStatLevelContainer");
+    if (pips !== null && pips !== undefined) {
+		for( i=0;i<4;i++){
+			let oldPip = pips.FindChildTraverse( "StatUp" + (i + 7) )
+			if(oldPip !== null && oldPip !== undefined){
+				oldPip.SetParent( dotaHud )
+				oldPip.DeleteAsync(0)
+			}
+			let levelPip = $.CreatePanel("Panel", dotaHud, "StatUp" + (i + 7) );
+			levelPip.SetHasClass( "LevelPanel", true );
+			levelPip.SetParent( pips )
+		}
+    }
+	UpdateTalentPips()
 })();
 
 (function() {
@@ -94,6 +100,7 @@ function UpdateManaBar(){
 		}
     }
 	GameEvents.SendCustomGameEventToServer( "request_hero_inventory", {unit: currentTarget} )
+	UpdateTalentPips
 }
 (function() {
     UpdateManaBar()
@@ -402,30 +409,26 @@ function Vector_raiseZ(vec, inc) {
 (function () {
     $.RegisterForUnhandledEvent( "DOTAShowAbilityTooltipForEntityIndex", RemoveAbilityChanges );
     $.RegisterForUnhandledEvent( "DOTAShowAbilityInventoryItemTooltip", UpdateItemTooltip );
-    $.RegisterForUnhandledEvent( "DOTAShowAbilityShopItemTooltip", ShowItemAttributes );
-    $.RegisterForUnhandledEvent( "DOTAShowAbilityTooltip", RemoveItemAttributes );
-    $.RegisterForUnhandledEvent( "DOTAShowAbilityTooltipForEntityIndex", RemoveItemAttributes );
+    $.RegisterForUnhandledEvent( "DOTAShowAbilityShopItemTooltip", ManageItemAttributes );
+    $.RegisterForUnhandledEvent( "DOTAShowAbilityTooltip", ManageItemAttributes );
+    $.RegisterForUnhandledEvent( "DOTAShowAbilityTooltipForEntityIndex", ManageItemAttributes );
     $.RegisterForUnhandledEvent( "DOTAHUDShowDamageArmorTooltip", UpdateStatsTooltip );
     $.RegisterForUnhandledEvent( "DOTAHideAbilityTooltip", ClearItemTooltip );
     GameEvents.Subscribe("client_update_ability_kvs", RegisterInventoryData);
+    GameEvents.Subscribe("update_talent_pips", UpdateTalentPips);
 })();
 
-function RemoveItemAttributes(){
+function ManageItemAttributes( abilityPanel, abilityName ){
 	const tooltipManager = dotaHud.FindChildTraverse('Tooltips');
 	const tooltipPanel = tooltipManager.FindChildTraverse('DOTAAbilityTooltip');
 	if( !tooltipPanel ){return}
 	const abilityAttributes = tooltipPanel.FindChildTraverse('AbilityAttributes');
-	
-	abilityAttributes.style.visibility = 'collapse'
-}
 
-function ShowItemAttributes(){
-	const tooltipManager = dotaHud.FindChildTraverse('Tooltips');
-	const tooltipPanel = tooltipManager.FindChildTraverse('DOTAAbilityTooltip');
-	if( !tooltipPanel ){return}
-	const abilityAttributes = tooltipPanel.FindChildTraverse('AbilityAttributes');
-	
-	abilityAttributes.style.visibility = 'visible'
+	if ( abilityName.match("item") ){ 
+		abilityAttributes.style.visibility = 'visible' 
+	} else {
+		abilityAttributes.style.visibility = 'collapse'
+	}
 }
 
 function GetDotaHud() {
@@ -540,7 +543,7 @@ function UpdateStatsTooltip(){
 	strValues.text = (Math.floor((stats.strength * 22)*10 + 0.5)/10) + ' HP and ' + Math.floor((stats.strength * 0.15)*10 + 0.5) / 10 + ' HP Regen'
 	if(strContainer.BHasClass( "PrimaryAttribute") ){
 		const strDamage = strContainer.FindChildTraverse('StrengthDamageLabel');
-		strDamage.text = (Math.floor((stats.strength * 1.5)*10 + 0.5)/10) + ' Damage, ' + (Math.floor((stats.strength * 0.6)*10 + 0.5)/10) + '% Spell Amp and ' + (Math.floor((stats.strength * 11)*10 + 0.5)/10) + ' HP';
+		strDamage.text = (Math.floor((stats.strength * 1.5)*10 + 0.5)/10) + ' Damage, ' + (Math.floor((stats.strength * 0.06)*10 + 0.5)/10) + '% Spell Amp and ' + (Math.floor((stats.strength * 11)*10 + 0.5)/10) + ' HP';
 	}
 	
 	const agiContainer = attributesContainer.FindChildTraverse('AgilityContainer');
@@ -822,7 +825,7 @@ function AlterAbilityDescriptions( ){
 			}
 		}
 	}
-	if( unitWeAreChecking != -1 || abilityIndexWeAreChecking != -1 ){
+	if( unitWeAreChecking != -1 && abilityIndexWeAreChecking != -1 ){
 		scheduleHandle = $.Schedule( 0, AlterAbilityDescriptions )
 	}
 }
@@ -830,7 +833,6 @@ function AlterAbilityDescriptions( ){
 function RegisterInventoryData(data) {
 	if( data.unit == Players.GetLocalPlayerPortraitUnit() )
 	{
-	$.Msg( data.unit, ", ", Players.GetLocalPlayerPortraitUnit() )
 		for (let i=0;i<=9;i++) {
 			if ( i<9 ) {
 				let inventorySlotPanel = dotaHud.FindChildTraverse("inventory_slot_"+i);
@@ -842,6 +844,20 @@ function RegisterInventoryData(data) {
 				let inventorySlotButton = inventoryNeutralPanel.FindChildTraverse("AbilityButton");
 				inventorySlotButton.inventoryData = null;
 				inventorySlotButton.inventoryData = data.inventory[i]
+			}
+		}
+	}
+}
+
+function UpdateTalentPips() {
+	const pips = hud.FindChildTraverse("UpgradeStatLevelContainer");
+	let upgrader = Entities.GetAbilityByName( Players.GetLocalPlayerPortraitUnit(), "special_bonus_attributes" )
+	let upgraderLevel = Abilities.GetLevel( upgrader )
+	if (pips !== null && pips !== undefined) {
+		for( i=0;i<10;i++){
+			let levelPip = pips.FindChildTraverse( "StatUp" + i )
+			if (pips !== null && pips !== undefined) {
+				levelPip.SetHasClass( "active_level", upgraderLevel > i )
 			}
 		}
 	}

@@ -10,7 +10,6 @@ let NGPlusCurrentActive = false;
 let NGPlusCurrentStartTime;
 
 function EvaluateNGPlusVoting( event ){
-	$.Msg( event )
 	if( NGPlusCurrentActive ){
 		if ( event.active != undefined && event.active == 0 ){
 			$("#Vote").visible = false;

@@ -140,8 +140,6 @@
 		"MaxLevel"						"7"
 		"LevelsBetweenUpgrades"			"3"
 
-        "HasShardUpgrade"               "1"
-
 		// Casting
 		// ---------------------------------------------------------------------------
 		"AbilityCastRange"				"1200"
@@ -164,27 +162,20 @@
 			"base_damage"
 			{
 				"value"								"140 200 260 320 380 440 500"
-				"special_bonus_shard"				"+12%"
 				"CalculateSpellDamageTooltip"		"1"
 			}
 			"hp_perc_damage"
 			{
 				"value"								"1.75"
 				"special_bonus_unique_phoenix_5"	"+0.5"
-				"special_bonus_shard"				"+12%"
 				"CalculateSpellDamageTooltip"		"0"
 			}
 			"base_heal"
 			{
 				"value"								"70 100 130 160 190 220 250"
-				"special_bonus_shard"				"+12%"
 				"CalculateSpellHealTooltip"			"1"
 			}
-			"hp_perc_heal"
-			{
-				"value"								"0.5 1.0 1.5 2.0 2.5 3.0 3.5"
-				"special_bonus_shard"				"+12%"
-			}
+			"hp_perc_heal"							"0.5 1.0 1.5 2.0 2.5 3.0 3.5"
 			"radius"								"130"
 			"tick_interval"					"0.2"
 			"forward_move_speed"			"250"
@@ -192,7 +183,7 @@
 			"turn_rate"						"25"
 			"shard_move_slow_pct"
 			{
-				"value"						"12"
+				"value"						"0"
 				"RequiresShard"				"1"
 			}
 		}
@@ -237,6 +228,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_phoenix/phoenix_supernova"
+		"AbilityTextureName"			"phoenix_supernova"
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
@@ -246,7 +240,8 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"FightRecapLevel"				"2"
-		"HasScepterUpgrade"			"1"
+		"HasScepterUpgrade"				"1"
+		"HasShardUpgrade"				"1"
 		"AbilitySound"					"Hero_Phoenix.SuperNova.Begin"
 		"MaxLevel"						"6"
 		"LevelsBetweenUpgrades"			"6"
@@ -259,7 +254,7 @@
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"180"
+		"AbilityCooldown"				"180 170 160 150 140 130"
 		"AbilityDuration"				"5.0"
 
 		// Cost
@@ -270,42 +265,37 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"aura_radius"				"1200"
+			"aura_radius"							"1200"
 			"damage_per_sec"
 			{
-				"value"							"600 900 1200 1500 1800 2100"
-				"CalculateSpellDamageTooltip"	"1"
+				"value"								"600 900 1200 1500 1800 2100"
+				"CalculateSpellDamageTooltip"		"1"
 			}
 			"stun_duration"
 			{
-				"value"					"3.0"
-				"LinkedSpecialBonus"	"special_bonus_unique_phoenix_2"
+				"value"								"3.0"
+				"LinkedSpecialBonus"				"special_bonus_unique_phoenix_2"
 			}
 			"max_hero_attacks"
 			{
-				"value"					"36 48 60 72 81 90"
-				"LinkedSpecialBonus"	"special_bonus_unique_phoenix_1"
+				"value"								"10"
+				"special_bonus_unique_phoenix_1"	"+3"
+				"special_bonus_scepter"				"+1"
 			}
-			"max_hero_attacks_scepter"
-			{
-				"value"					"36 48 60 72 81 90"
-				"LinkedSpecialBonus"	"special_bonus_unique_phoenix_1"
-				"RequiresScepter"		"1"
-			}
+			"hero_damage"							"3"
 			"cast_range_tooltip_scepter"
 			{
-				"value"					"500"
-				"RequiresScepter"		"1"
+				"value"								"500"
+				"RequiresScepter"					"1"
 			}
-			"aura_radius"				"1200"
-			"damage_interval"			"1.0"
-            "attacks_to_kill"
+			"shard_spell_amplification"
 			{
-				"value"			        "36 48 60 72 81 90"
-                "special_bonus_scepter" "+6 +12 +18 +24 +28 +35"
-            }
-            "captain_attack_value"   "3"
-            "boss_attack_value"      "3"
+				"value"								"50"
+				"CalculateAttributeTooltip"			"1"
+				"RequiresShard"						"1"
+			}
+			"aura_radius"							"1200"
+			"damage_interval"						"1.0"
 		}
 	}
 

@@ -24,7 +24,6 @@ const LOCAL_PLAYER_ID = Game.GetLocalPlayerID();
 
 function CreatePanelForPlayer(player_id) {
     const player_root = $.GetContextPanel().GetParent().FindChildTraverse(`_dynamic_player_${player_id}`);
-	$.Msg( player_root );
     if (!player_root) return;
 
     const disable_help_button = player_root.FindChildTraverse("DisableHelpButton");
@@ -41,7 +40,6 @@ function CreatePanelForPlayer(player_id) {
                 disable: disable_help_button.checked,
                 to: player_id,
             });
-            $.Msg (disable_help_button);
         });
     }
 }

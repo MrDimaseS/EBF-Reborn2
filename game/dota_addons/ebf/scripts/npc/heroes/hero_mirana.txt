@@ -8,6 +8,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_mirana/mirana_starfall"
+		"AbilityTextureName"			"mirana_starfall"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
@@ -30,7 +33,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"80 125 170 215 260 305 350"
+		"AbilityManaCost"				"80 90 100 110 120 130 140"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -38,15 +41,16 @@
 		{
 			"starfall_radius"	
 			{
-				"value"			"675"		
+				"value"						"150"		
 				"affected_by_aoe_increase"	"1"
 			}
 			"starfall_secondary_radius"
 			{
-				"value"			"650"
+				"value"						"150"
 				"affected_by_aoe_increase"	"1"
 			}
 			"secondary_starfall_damage_percent"	 "75"
+			"debuff_duration"					 "5"
 			"damage"	 
 			{
 				"value"							"750 1500 2250 3000 3750 4500 5250"
@@ -78,56 +82,48 @@
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"3000"
+		"AbilityCastRange"				"0"
 		"AbilityCastPoint"				"0.5 0.5 0.5 0.5"
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDuration"				"3.11 3.11 3.11 3.11"
-
-		// Damage.
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"600 1500 2400 3300 4200 5100 6000"
+		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"100 150 200 250 300 350 400"
+		"AbilityManaCost"				"90"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"arrow_speed"				"900.0"
-			"arrow_width"				"115"
-			"arrow_range"				"3000"
-			"arrow_max_stunrange"		"1500"
-			"arrow_min_stun"			"0.01"
-			"arrow_max_stun"			"5.0"
+			"arrow_speed"							"1500.0"
+			"arrow_width"							"115"
+			"arrow_range"							""
+			"arrow_max_stun"						"2.6"
+			"arrow_damage"
+			{	
+				"value"								"1500 2400 3300 4200 5100 6000 6900"
+				"CalculateSpellDamageTooltip"		"1"
+			}
 			"arrow_bonus_damage"
 			{	
-				"value"							"1500 1600 1700 1800 1900 2000 2100"
-				"CalculateSpellDamageTooltip"	"1"
+				"value"								"10"
+				"CalculateSpellDamageTooltip"		"0"
 			}
-			"AbilityDamage"					"600 1500 2400 3300 4200 5100 6000"
-			"arrow_vision"				"400"
+			"bonus_damage_range"					"100"
+			"arrow_vision"							"400"
 			"scepter_radius"
 			{	
-				"value"					"500"
-				"RequiresScepter"		"1"
+				"value"								"500"
+				"RequiresScepter"					"1"
 			}
-			"scepter_starstorm_target_pct"
-			{	
-				"value"					"50"
-				"RequiresScepter"		"1"
-			}
+			"scepter_starstorm_target_pct"			""
 			"total_arrows"
 			{	
 				"value"								"1"
-				"special_bonus_unique_mirana_2"		"+12"
+				"special_bonus_unique_mirana_2"		"+2"
 			}
 			"arrow_angle"							"30"
 			"AbilityCooldown"
 			{	
-				"value"								"19 18 17 16 15.2 14.3 13.4"
+				"value"								"16"
 				"special_bonus_unique_mirana_3"		"-2"
 			}
 		}

@@ -313,31 +313,53 @@ function CHoldoutGameRound:End(bWon)
 	for _,spawner in pairs( self._vSpawners ) do
 		spawner:End()
 	end
-	-- clear cached units
-	GameRules._getDeadCoreUnitsForGarbageCollection = GameRules._getDeadCoreUnitsForGarbageCollection or {}
-	if GameRules._getDeadCoreUnitsForGarbageCollection[roundNumber-2] then
-		local delay = 0
-		for _, unit in ipairs( GameRules._getDeadCoreUnitsForGarbageCollection[roundNumber-2] ) do
-			for _, checkTarget in ipairs( unit:FindAllUnitsInRadius(unit:GetAbsOrigin(), -1) ) do
-				if checkTarget.FindAllModifiers then
-					for _, modifier in ipairs( checkTarget:FindAllModifiers() ) do
-						if modifier:GetCaster() == unit then
-							modifier:Destroy()
-						end
-					end
-				end
-			end
-			Timers:CreateTimer( delay, function() UTIL_Remove( unit ) end)
-			delay = delay + 0.1
-		end
-		GameRules._getDeadCoreUnitsForGarbageCollection[roundNumber-2] = nil
-	end
+	-- if GameRules._getDeadCoreUnitsForGarbageCollection[roundNumber-1] then
+		-- local delay = 0
+		-- for _, unit in ipairs( GameRules._getDeadCoreUnitsForGarbageCollection[roundNumber-1] ) do
+			-- for _, checkTarget in ipairs( unit:FindAllUnitsInRadius(unit:GetAbsOrigin(), -1) ) do
+				-- if checkTarget.FindAllModifiers then
+					-- for _, modifier in ipairs( checkTarget:FindAllModifiers() ) do
+						-- if modifier:GetCaster() == unit then
+							-- modifier:Destroy()
+						-- end
+					-- end
+				-- end
+			-- end
+			-- Timers:CreateTimer( delay, function() UTIL_Remove( unit ) end)
+			-- delay = delay + 0.1
+		-- end
+		-- GameRules._getDeadCoreUnitsForGarbageCollection[roundNumber-1] = nil
+	-- end
 end
 
 
 function CHoldoutGameRound:Think()
 	for _, spawner in pairs( self._vSpawners ) do
 		spawner:Think()
+	end
+	-- clear cached units
+	local delay = 1.5
+	for unit, _ in pairs( GameRules._getDeadCoreUnitsForGarbageCollection ) do
+		if IsEntitySafe( unit ) then
+			for i = 0, unit:GetAbilityCount() - 1 do
+				local ability = unit:GetAbilityByIndex( i )
+				if ability and ability:NumModifiersUsingAbility() > 0 then
+					goto continue
+				end
+			end
+			for i=DOTA_ITEM_SLOT_1, DOTA_ITEM_SLOT_9 do
+				local item = unit:GetItemInSlot(i)
+				if item and item:NumModifiersUsingAbility() > 0 then
+					goto continue
+				end
+			end
+		end
+		GameRules._getDeadCoreUnitsForGarbageCollection[unit] = nil
+		if IsEntitySafe( unit ) then
+			Timers:CreateTimer( delay, function() UTIL_Remove( unit ) end)
+			delay = delay + 0.1
+		end
+		::continue::
 	end
 end
 
@@ -383,13 +405,28 @@ function CHoldoutGameRound:OnNPCSpawned( event )
 		return
 	end
 	local nCoreUnitsRemaining = self._nCoreUnitsTotal - self._nCoreUnitsKilled
-
+	
 	if spawnedUnit:GetTeamNumber() == DOTA_TEAM_NEUTRALS then
 		table.insert( self._vEnemiesRemaining, spawnedUnit )
 		spawnedUnit:SetDeathXP( 0 )
 		spawnedUnit.unitName = spawnedUnit:GetUnitName()
 	end
-	bossManager:ManageBossScaling(spawnedUnit)
+	if spawnedUnit:IsCreature() then
+		for i = 0, spawnedUnit:GetAbilityCount() - 1 do
+			local ability = spawnedUnit:GetAbilityByIndex( i )
+			if ability then
+				ability:SetRefCountsModifiers(true)
+			end
+		end
+		for i=DOTA_ITEM_SLOT_1, DOTA_ITEM_SLOT_9 do
+			local current_item = spawnedUnit:GetItemInSlot(i)
+			if current_item then
+				current_item:SetRefCountsModifiers(true)
+			end
+		end
+		spawnedUnit:SetUnitCanRespawn( true )
+		bossManager:ManageBossScaling(spawnedUnit)
+	end
 end
 
 
@@ -411,7 +448,6 @@ function CHoldoutGameRound:OnEntityKilled( event )
 			break
 		end
 	end
-
 	if killedUnit.Holdout_IsCore then
 		self._nCoreUnitsKilled = self._nCoreUnitsKilled + 1
 		-- self:_CheckForGoldBagDrop( killedUnit )
@@ -421,13 +457,13 @@ function CHoldoutGameRound:OnEntityKilled( event )
 		end
 	end
 	
+	GameRules._getDeadCoreUnitsForGarbageCollection[killedUnit] = true
+	for _, modifier in ipairs( killedUnit:FindAllModifiers() ) do
+		modifier:Destroy()
+	end
 	Timers:CreateTimer( 1.5, function()
-		for _, modifier in ipairs( killedUnit:FindAllModifiers() ) do
-			modifier:Destroy()
-		end
-		killedUnit:AddNoDraw()
+		if IsEntitySafe( killedUnit ) then killedUnit:AddNoDraw() end
 	end)
-	
 	
 	for _,unit in pairs( FindUnitsInRadius( DOTA_TEAM_NEUTRALS, Vector( 0, 0, 0 ), nil, FIND_UNITS_EVERYWHERE, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_ALL, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false )) do
 		if unit:IsCreature() and unit:IsAlive() then

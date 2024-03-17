@@ -34,10 +34,8 @@ function tidehunter_anchor_smash:OnSpellStart()
 	caster:AddNewModifier( caster, self, "modifier_tidehunter_smash_attack", {})
     local enemies = caster:FindEnemyUnitsInRadius(point, radius, {})
     for _,enemy in pairs(enemies) do
-		if not enemy:TriggerSpellAbsorb( self ) then
-			caster:PerformAbilityAttack(enemy, true, ability, damage)
-			enemy:AddNewModifier(caster, self, "modifier_tidehunter_anchor_smash", {Duration = duration})
-		end
+		caster:PerformAbilityAttack(enemy, true, ability, damage)
+		enemy:AddNewModifier(caster, self, "modifier_tidehunter_anchor_smash", {Duration = duration})
     end
 	caster:RemoveModifierByName("modifier_tidehunter_anchor_smash_caster")
 	caster:RemoveModifierByName("modifier_tidehunter_smash_attack")

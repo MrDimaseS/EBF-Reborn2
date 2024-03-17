@@ -1631,6 +1631,13 @@
 		//Grimstroke
 		"DOTA_Tooltip_ability_grimstroke_dark_portrait_description"                                         "Creates an ink illusion of a target allied hero. Illusion is debuff immune, has 95%% magic resistance, and has bonus movement speed and attack damage."
 		"DOTA_Tooltip_ability_grimstroke_dark_portrait_ebf_changes"                                      	"Targets allied heroes."
+		
+		"DOTA_Tooltip_ability_grimstroke_spirit_walk_Description"											"Grimstroke shrouds an allied unit in ink, increasing its movement speed and dispelling it. Enemies in range of the allied unit are damaged with inky tendrils over time. When the buff is removed, it applies damage and stuns in an area around the unit.<br><br>DISPEL TYPE: Basic Dispel."
+		"DOTA_Tooltip_ability_grimstroke_spirit_walk_ebf_changes"											"Ink Swell always deals maximum damage and stun, dispels on cast"
+		"DOTA_Tooltip_ability_grimstroke_spirit_walk_shard_description"			"Causes Ink Swell to deal %shard_bonus_damage_pct%%% more damage and heal the target for %shard_heal_pct%%% of the damage Ink Swell deals. On cast, Strong Dispels instead and Basic Dispels constantly for the duration.<br><br>DISPEL TYPE: Strong Dispel."
+		"DOTA_Tooltip_ability_grimstroke_spirit_walk_max_damage"											"EXPLOSION DAMAGE:"
+		"DOTA_Tooltip_ability_grimstroke_spirit_walk_max_stun"												"EXPLOSION STUN DURATION:"
+		"DOTA_Tooltip_ability_grimstroke_spirit_walk_max_threshold_duration"								""
 
 
 		//Hoodwink
@@ -1736,6 +1743,13 @@
 		"DOTA_Tooltip_modifier_mars_arena_of_blood_aura_buff_Description"									"Taking %dMODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE%%% less damage and dealing %dMODIFIER_PROPERTY_TOTALDAMAGEOUTGOING_PERCENTAGE%%% more damage."
 		
 		//Mirana
+		"DOTA_Tooltip_ability_mirana_starfall_Description"													"Calls down a wave of meteors to damage nearby enemy units. Enemies hit by the Starstorm are debuffed for %debuff_duration% seconds, or until they are attacked or hit by one of Mirana's abilities. When the debuff is removed, the target will be hit with a Lesser Starstorm which deals only %secondary_starfall_damage_percent%%% of the damage and does not apply the debuff.\nIf the Starstorm was removed by one of Mirana's abilities, they are hit by a regular Starstorm instead."
+		"DOTA_Tooltip_ability_mirana_starfall_ebf_changes"													"Secondary Starstorm is triggered by attacking or dealing damage with an ability."
+		
+		"DOTA_Tooltip_ability_mirana_arrow_Description"														"Fires a long-range arrow with deadly precision, which stuns and damages the first enemy unit it strikes. The damage and stun duration increase by %arrow_bonus_damage%%% for every %bonus_damage_range% the arrow travels. Instantly kills the first non-ancient creep it hits."
+		"DOTA_Tooltip_ability_mirana_arrow_arrow_bonus_damage"												""
+		"DOTA_Tooltip_ability_mirana_arrow_arrow_arrow_damage"												"BASE DAMAGE:"
+		
 		"DOTA_Tooltip_ability_mirana_invis_evasion"															"%EVASION:"
 		"DOTA_Tooltip_ability_mirana_invis_Description"                                                     "Turns Mirana and all allied heroes invisible, granting them bonus movement speed and evasion. If a hero is revealed, invisibility will restore after the fade delay as long as Moonlight Shadow's duration has not expired."
 		
@@ -1866,7 +1880,9 @@
 		"DOTA_Tooltip_modifier_pangolier_shield_crash_barrier_Description"									"Blocking %dMODIFIER_PROPERTY_INCOMING_DAMAGE_CONSTANT% damage."
 		
 		//Phoenix
-		"DOTA_Tooltip_ability_phoenix_sun_ray_shard_description"                                            "Sun Ray can be cast during Supernova and slows for %shard_move_slow_pct%%%. All healing and damage is increased by %shard_move_slow_pct%%%"
+		"DOTA_Tooltip_ability_phoenix_sun_ray_shard_description"                                            ""
+		"DOTA_Tooltip_ability_phoenix_supernova_shard_description"											"Phoenix gains %shard_spell_amplification%%% spell amplification and can cast spells during Supernova."
+		"DOTA_Tooltip_ability_phoenix_supernova_shard_spell_amplification"									"%SPELL AMPLIFICATION:"
 		
 		//Primal Beast
 		"DOTA_Tooltip_ability_primal_beast_uproar_Description"                                              "The Beast's temper passively provides bonus damage. Additionally, when Primal Beast takes a total of %damage_limit%%% of his maximum health or more in damage, he accumulates stacks of Uproar. \n\n When activated, Primal Beast releases a roar that slows surrounding enemies and grants the Beast additional attack damage and armor for %roar_duration% seconds based on his current stacks of Uproar."
@@ -1999,7 +2015,24 @@
 		"DOTA_Tooltip_ability_snapfire_firesnap_cookie_target_heal"                                         "TARGET HEAL:"
 		"DOTA_Tooltip_ability_snapfire_firesnap_cookie_ebf_changes"                                      	"Heals the target."
 
-
+		// Sniper
+		"DOTA_Tooltip_ability_sniper_headshot_Description"													"Sniper increases his accuracy, giving him a chance to deal additional damage and briefly root.\nIf your chance to Headshot is larger than 100%%, Headshot will roll multiple times, increasing the damage dealt and the root duration by each Headshot proc.\nHeadshot damage is added directly to attack damage."
+		"DOTA_Tooltip_ability_sniper_headshot_slow_duration"												"ROOT DURATION:"
+		"DOTA_Tooltip_ability_sniper_headshot_ebf_changes"													"Roots instead of slowing. Synergizes more with Take Aim, allowing chances above 100%"
+		"DOTA_Tooltip_modifier_sniper_headshot_root"														"Headshot - Root"
+		"DOTA_Tooltip_modifier_sniper_headshot_root_Description"											"Rooted."
+		
+		"DOTA_Tooltip_ability_sniper_take_aim_Description"													"Extends the attack range of Sniper's rifle. Can be activated to increase Headshot chance and gain an additional %active_attack_range_bonus% attack range bonus. Slows you for the duration."
+		"DOTA_Tooltip_ability_sniper_take_aim_headshot_chance"												"%BONUS HEADSHOT CHANCE:"
+		"DOTA_Tooltip_ability_sniper_take_aim_slow"															"%ACTIVE SLOW:"
+		"DOTA_Tooltip_ability_sniper_take_aim_ebf_changes"													"Increases Headshot chance above 100%."
+		
+		"DOTA_Tooltip_ability_sniper_assassinate_Description"												"Sniper locks onto a target enemy unit and, after a short aiming duration, fires a devastating shot that deals Sniper's attack damage plus bonus damage at long range and mini-stuns the target.\nWhenever Sniper kills an enemy hero with Assassinate, refreshes all of his abilities. Whenever Sniper kills an enemy creep with Assassinate, it bounces to the nearest unit dealing %bounce_power%%% of the bonus damage, prioritizing creeps."
+		"DOTA_Tooltip_ability_sniper_assassinate_scepter_description"										"Sniper Assassinates all units within %scepter_radius% radius of the primary target."
+		"DOTA_Tooltip_ability_sniper_assassinate_scepter_radius"											"AREA OF EFFECT:"
+		"DOTA_Tooltip_ability_sniper_assassinate_impact_damage"												"IMPACT DAMAGE:"
+		"DOTA_Tooltip_ability_sniper_assassinate_ebf_changes"												"Refreshes all abilities on hero kill, bounces on creep kill. Scepter affects all units in a radius."
+		
 		//Spectre
 		"DOTA_Tooltip_ability_spectre_desolate_Description"													"Deals bonus damage whenever Spectre attacks an enemy. If the unit does not have any allied units within a %radius% radius around them, the damage is increased by %lonely_multiplier%%%."
 		"DOTA_Tooltip_ability_spectre_desolate_ebf_changes"                                      			"Always deals some damage, deals more damage to units without allies."
@@ -2048,8 +2081,8 @@
 		
 		
 		//Tidehunter
-		"DOTA_Tooltip_ability_tidehunter_kraken_shell_Description"                                          "Whenever Tidehunter is damaged while this ability is off cooldown, his abyssal nature purges him of all debuffs and negates the damage taken. The buff that renders him immune to damage and purges him lingers for %linger_duration% seconds.\n\nDISPEL TYPE: Strong Dispel<br>COOLDOWN TYPE: When Buff Expires<br>AUTOCAST TYPE: While Attacking."
-		"DOTA_Tooltip_ability_tidehunter_kraken_shell_ebf_changes"											"Reworked entirely."
+		"DOTA_Tooltip_ability_tidehunter_kraken_shell_Description"                                          "Whenever Tidehunter is damaged while this ability is off cooldown, his abyssal nature purges him of all debuffs and negates the damage taken. The buff that renders him immune to damage and purges him lingers for %linger_duration% seconds.\n\nDISPEL TYPE: Strong Dispel<br>COOLDOWN TYPE: When Buff Expires"
+		"DOTA_Tooltip_ability_tidehunter_kraken_shell_ebf_changes"											"Turns Tidehunter immune to damage on a cooldown, rather than giving damage block."
 		"DOTA_Tooltip_modifier_tidehunter_kraken_shell_effect"                                              "Kraken Shell"
 		"DOTA_Tooltip_modifier_tidehunter_kraken_shell_effect_Description"                                  "Purging yourself constantly and taking no damage."
 		
@@ -2287,7 +2320,7 @@
 		"DOTA_Tooltip_ability_special_bonus_intelligence_750"                                               "+{s:value} Intelligence"
 		"DOTA_Tooltip_ability_special_bonus_intelligence_300"                                               "+{s:value} Intelligence"
 		"DOTA_Tooltip_ability_special_bonus_intelligence_400"                                               "+{s:value} Intelligence"
-		"DOTA_Tooltip_ability_special_bonus_intelligence_6000"                                              "+{s:value} Intelligence"
+		"DOTA_Tooltip_ability_special_bonus_intelligence_600"												"+{s:value} Intelligence"
 		"DOTA_Tooltip_ability_special_bonus_mp_regen_875"                                                   "+{s:value} Mana Regen"
 		"DOTA_Tooltip_ability_special_bonus_strength_100"                                                   "+{s:value} Strength"
 		"DOTA_Tooltip_ability_special_bonus_strength_110"                                                   "+{s:value} Strength"
@@ -2328,6 +2361,8 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_bounty_hunter_2"                                         "+{s:bonus_bonus_damage}% Shuriken Toss Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_bounty_hunter_7"											"{s:bonus_AbilityCharges} Shuriken Toss Charges"
 		"DOTA_Tooltip_ability_special_bonus_unique_bounty_hunter_4"                                         "+{s:bonus_bonus_damage}% Jinada Damage"
+		"DOTA_Tooltip_ability_special_bonus_unique_bounty_hunter_jinada_no_cooldown"						"Jinada Damage Passive"
+		"DOTA_Tooltip_ability_special_bonus_unique_bounty_hunter_jinada_no_cooldown_Description"			"Jinada always applies its damage, regardless of cooldown."
 		"DOTA_Tooltip_ability_special_bonus_unique_brewmaster_7"											"+{s:bonus_damage}% Thunder Clap Damage/Radius"
 		"DOTA_Tooltip_ability_special_bonus_unique_bristleback_2"                                           "+{s:value}% Quill Stack Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_bristleback_3"                                           "+{s:bonus_damage_per_stack}% Warpath Damage Per Stack"
@@ -2515,6 +2550,7 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_sniper_1"                                                "+{s:value}% Shrapnel DPS"
 		"DOTA_Tooltip_ability_special_bonus_unique_sniper_2"												"+{s:bonus_AbilityCharges} Shrapnel Charges"
 		"DOTA_Tooltip_ability_special_bonus_unique_sniper_headshot_damage"                                  "+{s:bonus_damage}% Headshot Damage"
+		"DOTA_Tooltip_ability_special_bonus_unique_sniper_6"												"+{s:bonus_bonus_attack_range}% Take Aim Range"
 		"DOTA_Tooltip_ability_special_bonus_unique_spectre_2"                                               "+{s:bonus_bonus_damage}% Desolate Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_spectre_4"                                               "+{s:bonus_armor_reduction} Haunt Armor Reduction"
 		"DOTA_Tooltip_ability_special_bonus_unique_spectre_6"                                               "+{s:bonus_damage}% Spectral Dagger Damage"
@@ -2980,7 +3016,7 @@
 		"DOTA_Tooltip_ability_item_blink_treads_bonus_movement_speed_ranged"                                "+Move Speed (Ranged Heroes)"
 		"DOTA_Tooltip_ability_item_blink_treads_bonus_other"                                                "+$other_attr"
 		"DOTA_Tooltip_ability_item_blink_treads_bonus_stat"                                                 "+$selected_attrib"
-		"DOTA_Tooltip_ability_item_blink_treads_Description"                                                "<h1>Active: Flowing Blink</h1> Teleport to a target point up to %blink_range% units away.<br><br>When you target yourself with this ability, it does not go on cooldown and instead switches the primary stance.<br><br>Flowing Blink cannot be used for %blink_damage_cooldown% seconds after taking damage from an enemy hero.\n\n<h1>Passive: Overwhelming Stance</h1>Selected attribute becomes Strength and all enemies in a %radius% AoE have %movement_slow%%% movement speed slow and %attack_slow% attack speed slow for %duration% seconds, and take damage equal to %base_damage% + %damage_pct%%% of your strength.\n\n<h1>Passive: Swift Stance</h1>Selected attribute becomes Agility and ayou gain %bonus_movement%%% phased movement speed and +%bonus_agi_active% Agility for %duration% seconds.\n\n<h1>Passive: Arcane Stance</h1>Selected attribute becomes Intelligence this item's cooldown is reduced to %arcane_blink_cd% seconds (%arcane_blink_dmg_cd% when damaged). When cast, restores %heal_amount% health and %mana_amount% mana."
+		"DOTA_Tooltip_ability_item_blink_treads_Description"                                                "<h1>Active: Flowing Blink</h1> Teleport to a target point up to %blink_range% units away.<br><br>When you target yourself with this ability, it does not go on cooldown and instead switches the primary stance.<br><br>After taking damage from an enemy hero, Flowing Blink does not teleport you when used for %blink_damage_cooldown% seconds.\n\n<h1>Passive: Overwhelming Stance</h1>Selected attribute becomes Strength and all enemies in a %radius% AoE have %movement_slow%%% movement speed slow and %attack_slow% attack speed slow for %duration% seconds, and take damage equal to %base_damage% + %damage_pct%%% of your strength.\n\n<h1>Passive: Swift Stance</h1>Selected attribute becomes Agility and ayou gain %bonus_movement%%% phased movement speed and +%bonus_agi_active% Agility for %duration% seconds.\n\n<h1>Passive: Arcane Stance</h1>Selected attribute becomes Intelligence this item's cooldown is reduced to %arcane_blink_cd% seconds (%arcane_blink_dmg_cd% when damaged). When cast, restores %heal_amount% health and %mana_amount% mana."
 		
 		"DOTA_Tooltip_ability_item_blink_treads2"                                                           "Darkfoot's Treads"
 		"DOTA_Tooltip_ability_item_blink_treads2_bonus_attack_speed"                                        "+$attack"
@@ -2988,8 +3024,7 @@
 		"DOTA_Tooltip_ability_item_blink_treads2_bonus_movement_speed_ranged"                               "+Move Speed (Ranged Heroes)"
 		"DOTA_Tooltip_ability_item_blink_treads2_bonus_other"                                               "+$other_attr"
 		"DOTA_Tooltip_ability_item_blink_treads2_bonus_stat"                                                "+$selected_attrib"
-		"DOTA_Tooltip_ability_item_blink_treads2_Description"                                               "<h1>Active: Flowing Blink</h1> Teleport to a target point up to %blink_range% units away.<br><br>When you target yourself with this ability, it does not go on cooldown and instead switches the primary stance.<br><br>Flowing Blink cannot be used for %blink_damage_cooldown% seconds after taking damage from an enemy hero.\n\n<h1>Passive: Overwhelming Stance</h1>Selected attribute becomes Strength and all enemies in a %radius% AoE have %movement_slow%%% movement speed slow and %attack_slow% attack speed slow for %duration% seconds, and take damage equal to %base_damage% + %damage_pct%%% of your strength.\n\n<h1>Passive: Swift Stance</h1>Selected attribute becomes Agility and ayou gain %bonus_movement%%% phased movement speed and +%bonus_agi_active% Agility for %duration% seconds.\n\n<h1>Passive: Arcane Stance</h1>Selected attribute becomes Intelligence this item's cooldown is reduced to %arcane_blink_cd% seconds (%arcane_blink_dmg_cd% when damaged). When cast, restores %heal_amount% health and %mana_amount% mana."
-		
+		"DOTA_Tooltip_ability_item_blink_treads2_Description"                                               "<h1>Active: Flowing Blink</h1> Teleport to a target point up to %blink_range% units away.<br><br>When you target yourself with this ability, it does not go on cooldown and instead switches the primary stance.<br><br>After taking damage from an enemy hero, Flowing Blink does not teleport you when used for %blink_damage_cooldown% seconds.\n\n<h1>Passive: Overwhelming Stance</h1>Selected attribute becomes Strength and all enemies in a %radius% AoE have %movement_slow%%% movement speed slow and %attack_slow% attack speed slow for %duration% seconds, and take damage equal to %base_damage% + %damage_pct%%% of your strength.\n\n<h1>Passive: Swift Stance</h1>Selected attribute becomes Agility and ayou gain %bonus_movement%%% phased movement speed and +%bonus_agi_active% Agility for %duration% seconds.\n\n<h1>Passive: Arcane Stance</h1>Selected attribute becomes Intelligence this item's cooldown is reduced to %arcane_blink_cd% seconds (%arcane_blink_dmg_cd% when damaged). When cast, restores %heal_amount% health and %mana_amount% mana."
 		
 		"DOTA_Tooltip_ability_item_blink_treads3"                                                           "Helldiver's Treads"
 		"DOTA_Tooltip_ability_item_blink_treads3_bonus_attack_speed"                                        "+$attack"
@@ -2997,8 +3032,7 @@
 		"DOTA_Tooltip_ability_item_blink_treads3_bonus_movement_speed_ranged"                               "+Move Speed (Ranged Heroes)"
 		"DOTA_Tooltip_ability_item_blink_treads3_bonus_other"                                               "+$other_attr"
 		"DOTA_Tooltip_ability_item_blink_treads3_bonus_stat"                                                "+$selected_attrib"
-		"DOTA_Tooltip_ability_item_blink_treads3_Description"                                               "<h1>Active: Flowing Blink</h1> Teleport to a target point up to %blink_range% units away.<br><br>When you target yourself with this ability, it does not go on cooldown and instead switches the primary stance.<br><br>Flowing Blink cannot be used for %blink_damage_cooldown% seconds after taking damage from an enemy hero.\n\n<h1>Passive: Overwhelming Stance</h1>Selected attribute becomes Strength and all enemies in a %radius% AoE have %movement_slow%%% movement speed slow and %attack_slow% attack speed slow for %duration% seconds, and take damage equal to %base_damage% + %damage_pct%%% of your strength.\n\n<h1>Passive: Swift Stance</h1>Selected attribute becomes Agility and ayou gain %bonus_movement%%% phased movement speed and +%bonus_agi_active% Agility for %duration% seconds.\n\n<h1>Passive: Arcane Stance</h1>Selected attribute becomes Intelligence this item's cooldown is reduced to %arcane_blink_cd% seconds (%arcane_blink_dmg_cd% when damaged). When cast, restores %heal_amount% health and %mana_amount% mana."
-		
+		"DOTA_Tooltip_ability_item_blink_treads3_Description"                                               "<h1>Active: Flowing Blink</h1> Teleport to a target point up to %blink_range% units away.<br><br>When you target yourself with this ability, it does not go on cooldown and instead switches the primary stance.<br><br>After taking damage from an enemy hero, Flowing Blink does not teleport you when used for %blink_damage_cooldown% seconds.\n\n<h1>Passive: Overwhelming Stance</h1>Selected attribute becomes Strength and all enemies in a %radius% AoE have %movement_slow%%% movement speed slow and %attack_slow% attack speed slow for %duration% seconds, and take damage equal to %base_damage% + %damage_pct%%% of your strength.\n\n<h1>Passive: Swift Stance</h1>Selected attribute becomes Agility and ayou gain %bonus_movement%%% phased movement speed and +%bonus_agi_active% Agility for %duration% seconds.\n\n<h1>Passive: Arcane Stance</h1>Selected attribute becomes Intelligence this item's cooldown is reduced to %arcane_blink_cd% seconds (%arcane_blink_dmg_cd% when damaged). When cast, restores %heal_amount% health and %mana_amount% mana."
 		
 		"DOTA_Tooltip_ability_item_blink_treads4"                                                           "Skywalker's Treads"
 		"DOTA_Tooltip_ability_item_blink_treads4_bonus_attack_speed"                                        "+$attack"
@@ -3006,8 +3040,7 @@
 		"DOTA_Tooltip_ability_item_blink_treads4_bonus_movement_speed_ranged"                               "+Move Speed (Ranged Heroes)"
 		"DOTA_Tooltip_ability_item_blink_treads4_bonus_other"                                               "+$other_attr"
 		"DOTA_Tooltip_ability_item_blink_treads4_bonus_stat"                                                "+$selected_attrib"
-		"DOTA_Tooltip_ability_item_blink_treads4_Description"                                               "<h1>Active: Flowing Blink</h1> Teleport to a target point up to %blink_range% units away.<br><br>When you target yourself with this ability, it does not go on cooldown and instead switches the primary stance.<br><br>Flowing Blink cannot be used for %blink_damage_cooldown% seconds after taking damage from an enemy hero.\n\n<h1>Passive: Overwhelming Stance</h1>Selected attribute becomes Strength and all enemies in a %radius% AoE have %movement_slow%%% movement speed slow and %attack_slow% attack speed slow for %duration% seconds, and take damage equal to %base_damage% + %damage_pct%%% of your strength.\n\n<h1>Passive: Swift Stance</h1>Selected attribute becomes Agility and ayou gain %bonus_movement%%% phased movement speed and +%bonus_agi_active% Agility for %duration% seconds.\n\n<h1>Passive: Arcane Stance</h1>Selected attribute becomes Intelligence this item's cooldown is reduced to %arcane_blink_cd% seconds (%arcane_blink_dmg_cd% when damaged). When cast, restores %heal_amount% health and %mana_amount% mana."
-		
+		"DOTA_Tooltip_ability_item_blink_treads4_Description"                                               "<h1>Active: Flowing Blink</h1> Teleport to a target point up to %blink_range% units away.<br><br>When you target yourself with this ability, it does not go on cooldown and instead switches the primary stance.<br><br>After taking damage from an enemy hero, Flowing Blink does not teleport you when used for %blink_damage_cooldown% seconds.\n\n<h1>Passive: Overwhelming Stance</h1>Selected attribute becomes Strength and all enemies in a %radius% AoE have %movement_slow%%% movement speed slow and %attack_slow% attack speed slow for %duration% seconds, and take damage equal to %base_damage% + %damage_pct%%% of your strength.\n\n<h1>Passive: Swift Stance</h1>Selected attribute becomes Agility and ayou gain %bonus_movement%%% phased movement speed and +%bonus_agi_active% Agility for %duration% seconds.\n\n<h1>Passive: Arcane Stance</h1>Selected attribute becomes Intelligence this item's cooldown is reduced to %arcane_blink_cd% seconds (%arcane_blink_dmg_cd% when damaged). When cast, restores %heal_amount% health and %mana_amount% mana."
 		
 		"DOTA_Tooltip_ability_item_blink_treads5"                                                           "Outergod's Treads"
 		"DOTA_Tooltip_ability_item_blink_treads5_bonus_attack_speed"                                        "+$attack"
@@ -3015,8 +3048,10 @@
 		"DOTA_Tooltip_ability_item_blink_treads5_bonus_movement_speed_ranged"                               "+Move Speed (Ranged Heroes)"
 		"DOTA_Tooltip_ability_item_blink_treads5_bonus_other"                                               "+$other_attr"
 		"DOTA_Tooltip_ability_item_blink_treads5_bonus_stat"                                                "+$selected_attrib"
-		"DOTA_Tooltip_ability_item_blink_treads5_Description"                                               "<h1>Active: Flowing Blink</h1> Teleport to a target point up to %blink_range% units away.<br><br>When you target yourself with this ability, it does not go on cooldown and instead switches the primary stance.<br><br>Flowing Blink cannot be used for %blink_damage_cooldown% seconds after taking damage from an enemy hero.\n\n<h1>Passive: Overwhelming Stance</h1>Selected attribute becomes Strength and all enemies in a %radius% AoE have %movement_slow%%% movement speed slow and %attack_slow% attack speed slow for %duration% seconds, and take damage equal to %base_damage% + %damage_pct%%% of your strength.\n\n<h1>Passive: Swift Stance</h1>Selected attribute becomes Agility and ayou gain %bonus_movement%%% phased movement speed and +%bonus_agi_active% Agility for %duration% seconds.\n\n<h1>Passive: Arcane Stance</h1>Selected attribute becomes Intelligence this item's cooldown is reduced to %arcane_blink_cd% seconds (%arcane_blink_dmg_cd% when damaged). When cast, restores %heal_amount% health and %mana_amount% mana."
+		"DOTA_Tooltip_ability_item_blink_treads5_Description"                                               "<h1>Active: Flowing Blink</h1> Teleport to a target point up to %blink_range% units away.<br><br>When you target yourself with this ability, it does not go on cooldown and instead switches the primary stance.<br><br>After taking damage from an enemy hero, Flowing Blink does not teleport you when used for %blink_damage_cooldown% seconds.\n\n<h1>Passive: Overwhelming Stance</h1>Selected attribute becomes Strength and all enemies in a %radius% AoE have %movement_slow%%% movement speed slow and %attack_slow% attack speed slow for %duration% seconds, and take damage equal to %base_damage% + %damage_pct%%% of your strength.\n\n<h1>Passive: Swift Stance</h1>Selected attribute becomes Agility and ayou gain %bonus_movement%%% phased movement speed and +%bonus_agi_active% Agility for %duration% seconds.\n\n<h1>Passive: Arcane Stance</h1>Selected attribute becomes Intelligence this item's cooldown is reduced to %arcane_blink_cd% seconds (%arcane_blink_dmg_cd% when damaged). When cast, restores %heal_amount% health and %mana_amount% mana."
 		
+		"DOTA_Tooltip_modifier_blink_treads_broken"															"Blink Treads - Broken"
+		"DOTA_Tooltip_modifier_blink_treads_broken_Description"												"Casting Blink Treads won't teleport you, but still triggers all its benefits."
 		
 		"DOTA_Tooltip_ability_item_bloodstone_Description"                                                  "<h1>Active: Bloodpact</h1> Multiplies Bloodstone's Spell Lifesteal by %lifesteal_multiplier%x.<br><br>Duration: %buff_duration% seconds."
 		"DOTA_Tooltip_modifier_item_bloodstone_drained"                                                     "Drained"
@@ -4637,7 +4672,7 @@
 		"DOTA_Tooltip_modifier_item_satanic_active_Description"												"Unable to be slowed or rooted, gaining %dMODIFIER_PROPERTY_STATUS_RESISTANCE_STACKING%%% status resistance and lifesteal from this item increased to %dMODIFIER_PROPERTY_TOOLTIP%%%"
 		
 		// METEOR HAMMER
-		"DOTA_Tooltip_Ability_item_fallen_sky_Description"													"<h1>Active: Fallen Sky</h1> Transform into a meteor that strikes down at the target area after %land_time% seconds. Enemies within %damage_radius% radius take %damage_base% + %damage_pct_instant%%% of your Strength as damage instantly. Enemies within a %impact_radius% AoE are stunned for %stun_duration% seconds and start burning, taking %burn_dps% + %damage_pct_over_time%%% of your Strength as damage every %burn_interval% second for %burn_duration% seconds.<BR><BR> Range: %abilitycastrange%"
+		"DOTA_Tooltip_Ability_item_fallen_sky_Description"													"<h1>Active: Fallen Sky</h1> Transform into a meteor that strikes down at the target area after %land_time% seconds. Enemies within %damage_radius% radius take %damage_base% + %damage_pct_instant%%% of your Strength as damage instantly. Enemies within a %impact_radius% AoE are stunned for %stun_duration% seconds and start burning, taking %burn_dps% + %damage_pct_over_time%%% of your Strength as damage every %burn_interval% second for %burn_duration% seconds.<br><br>After taking damage from an enemy hero, Fallen Sky does not teleport you when used for %blink_damage_cooldown% seconds.<BR><BR> Range: %abilitycastrange%"
 		"DOTA_Tooltip_Ability_item_fallen_sky_Lore"															"One of the few surviving creations of the acolytes of the Wyrmforge."
 		"DOTA_Tooltip_Ability_item_fallen_sky_bonus_strength"												"+$str"
 		"DOTA_Tooltip_ability_item_fallen_sky_bonus_agility"												"+$agi"	
@@ -4649,7 +4684,7 @@
 		"DOTA_Tooltip_Ability_item_fallen_sky_bonus_mana_regen"												""
 		
 		"DOTA_Tooltip_Ability_item_fallen_sky_2"															"Shrouded Sky"
-		"DOTA_Tooltip_Ability_item_fallen_sky_2_Description"												"<h1>Active: Fallen Sky</h1> Transform into a meteor that strikes down at the target area after %land_time% seconds. Enemies within %damage_radius% radius take %damage_base% + %damage_pct_instant%%% of your Strength as damage instantly. Enemies within a %impact_radius% AoE are stunned for %stun_duration% seconds and start burning, taking %burn_dps% + %damage_pct_over_time%%% of your Strength as damage every %burn_interval% second for %burn_duration% seconds.<BR><BR> Range: %abilitycastrange%"
+		"DOTA_Tooltip_Ability_item_fallen_sky_2_Description"												"<h1>Active: Fallen Sky</h1> Transform into a meteor that strikes down at the target area after %land_time% seconds. Enemies within %damage_radius% radius take %damage_base% + %damage_pct_instant%%% of your Strength as damage instantly. Enemies within a %impact_radius% AoE are stunned for %stun_duration% seconds and start burning, taking %burn_dps% + %damage_pct_over_time%%% of your Strength as damage every %burn_interval% second for %burn_duration% seconds.<br><br>After taking damage from an enemy hero, Fallen Sky does not teleport you when used for %blink_damage_cooldown% seconds.<BR><BR> Range: %abilitycastrange%"
 		"DOTA_Tooltip_Ability_item_fallen_sky_2_Lore"														"One of the few surviving creations of the acolytes of the Wyrmforge."
 		"DOTA_Tooltip_Ability_item_fallen_sky_2_bonus_strength"												"+$str"
 		"DOTA_Tooltip_ability_item_fallen_sky_2_bonus_agility"												"+$agi"	
@@ -4659,7 +4694,7 @@
 		"DOTA_Tooltip_ability_item_fallen_sky_2_spell_lifesteal_amp"										"%+Spell Lifesteal Amplification"
 		
 		"DOTA_Tooltip_Ability_item_fallen_sky_3"															"Blazing Sky"
-		"DOTA_Tooltip_Ability_item_fallen_sky_3_Description"												"<h1>Active: Fallen Sky</h1> Transform into a meteor that strikes down at the target area after %land_time% seconds. Enemies within %damage_radius% radius take %damage_base% + %damage_pct_instant%%% of your Strength as damage instantly. Enemies within a %impact_radius% AoE are stunned for %stun_duration% seconds and start burning, taking %burn_dps% + %damage_pct_over_time%%% of your Strength as damage every %burn_interval% second for %burn_duration% seconds.<BR><BR> Range: %abilitycastrange%"
+		"DOTA_Tooltip_Ability_item_fallen_sky_3_Description"												"<h1>Active: Fallen Sky</h1> Transform into a meteor that strikes down at the target area after %land_time% seconds. Enemies within %damage_radius% radius take %damage_base% + %damage_pct_instant%%% of your Strength as damage instantly. Enemies within a %impact_radius% AoE are stunned for %stun_duration% seconds and start burning, taking %burn_dps% + %damage_pct_over_time%%% of your Strength as damage every %burn_interval% second for %burn_duration% seconds.<br><br>After taking damage from an enemy hero, Fallen Sky does not teleport you when used for %blink_damage_cooldown% seconds.<BR><BR> Range: %abilitycastrange%"
 		"DOTA_Tooltip_Ability_item_fallen_sky_3_Lore"														"One of the few surviving creations of the acolytes of the Wyrmforge."
 		"DOTA_Tooltip_Ability_item_fallen_sky_3_bonus_strength"												"+$str"
 		"DOTA_Tooltip_ability_item_fallen_sky_3_bonus_agility"												"+$agi"	
@@ -4669,7 +4704,7 @@
 		"DOTA_Tooltip_ability_item_fallen_sky_3_spell_lifesteal_amp"										"%+Spell Lifesteal Amplification"
 		
 		"DOTA_Tooltip_Ability_item_fallen_sky_4"															"Radiant Sky"
-		"DOTA_Tooltip_Ability_item_fallen_sky_4_Description"												"<h1>Active: Fallen Sky</h1> Transform into a meteor that strikes down at the target area after %land_time% seconds. Enemies within %damage_radius% radius take %damage_base% + %damage_pct_instant%%% of your Strength as damage instantly. Enemies within a %impact_radius% AoE are stunned for %stun_duration% seconds and start burning, taking %burn_dps% + %damage_pct_over_time%%% of your Strength as damage every %burn_interval% second for %burn_duration% seconds.<BR><BR> Range: %abilitycastrange%"
+		"DOTA_Tooltip_Ability_item_fallen_sky_4_Description"												"<h1>Active: Fallen Sky</h1> Transform into a meteor that strikes down at the target area after %land_time% seconds. Enemies within %damage_radius% radius take %damage_base% + %damage_pct_instant%%% of your Strength as damage instantly. Enemies within a %impact_radius% AoE are stunned for %stun_duration% seconds and start burning, taking %burn_dps% + %damage_pct_over_time%%% of your Strength as damage every %burn_interval% second for %burn_duration% seconds.<br><br>After taking damage from an enemy hero, Fallen Sky does not teleport you when used for %blink_damage_cooldown% seconds.<BR><BR> Range: %abilitycastrange%"
 		"DOTA_Tooltip_Ability_item_fallen_sky_4_Lore"														"One of the few surviving creations of the acolytes of the Wyrmforge."
 		"DOTA_Tooltip_Ability_item_fallen_sky_4_bonus_strength"												"+$str"
 		"DOTA_Tooltip_ability_item_fallen_sky_4_bonus_agility"												"+$agi"	
@@ -4679,7 +4714,7 @@
 		"DOTA_Tooltip_ability_item_fallen_sky_4_spell_lifesteal_amp"										"%+Spell Lifesteal Amplification"
 		
 		"DOTA_Tooltip_Ability_item_fallen_sky_5"															"Oblivion's Sky"
-		"DOTA_Tooltip_Ability_item_fallen_sky_5_Description"												"<h1>Active: Fallen Sky</h1> Transform into a meteor that strikes down at the target area after %land_time% seconds. Enemies within %damage_radius% radius take %damage_base% + %damage_pct_instant%%% of your Strength as damage instantly. Enemies within a %impact_radius% AoE are stunned for %stun_duration% seconds and start burning, taking %burn_dps% + %damage_pct_over_time%%% of your Strength as damage every %burn_interval% second for %burn_duration% seconds.<BR><BR> Range: %abilitycastrange%"
+		"DOTA_Tooltip_Ability_item_fallen_sky_5_Description"												"<h1>Active: Fallen Sky</h1> Transform into a meteor that strikes down at the target area after %land_time% seconds. Enemies within %damage_radius% radius take %damage_base% + %damage_pct_instant%%% of your Strength as damage instantly. Enemies within a %impact_radius% AoE are stunned for %stun_duration% seconds and start burning, taking %burn_dps% + %damage_pct_over_time%%% of your Strength as damage every %burn_interval% second for %burn_duration% seconds.<br><br>After taking damage from an enemy hero, Fallen Sky does not teleport you when used for %blink_damage_cooldown% seconds.<BR><BR> Range: %abilitycastrange%"
 		"DOTA_Tooltip_Ability_item_fallen_sky_5_Lore"														"One of the few surviving creations of the acolytes of the Wyrmforge."
 		"DOTA_Tooltip_Ability_item_fallen_sky_5_bonus_strength"												"+$str"
 		"DOTA_Tooltip_ability_item_fallen_sky_5_bonus_agility"												"+$agi"	
@@ -4689,6 +4724,8 @@
 		"DOTA_Tooltip_ability_item_fallen_sky_5_spell_lifesteal_amp"										"%+Spell Lifesteal Amplification"
 		"DOTA_Tooltip_modifier_item_fallen_sky_debuff_ebf"													"Fallen Sky - Burn"
 		"DOTA_Tooltip_modifier_item_fallen_sky_debuff_ebf_Description"										"Taking damage."
+		"DOTA_Tooltip_modifier_item_fallen_sky_broken"														"Fallen Sky - Broken"
+		"DOTA_Tooltip_modifier_item_fallen_sky_broken_Description"											"Casting Fallen Sky won't teleport you, but still triggers all its benefits."
 		
 		// Lotus Orb
 		"DOTA_Tooltip_ability_item_lotus_orb_Description"													"<h1>Active: Echo Shell</h1>Applies an Echo to the target unit for %active_duration% seconds which causes most targeted spells cast by Echo Shell's owner to be casted one additional time on another unit of the same team within %echo_radius% units. The Echo Shell is then removed.<br><br>Units can be affected by multiple Echoes.<br><br>Range: %abilitycastrange%<br>Dispel Type: <span class=\'GameplayValues GameplayVariable\'>Basic Dispel</span>"
@@ -4840,31 +4877,31 @@
 		"DOTA_Tooltip_ability_item_sheepstick_5_bonus_intellect"											"+$int"
 		"DOTA_Tooltip_ability_item_sheepstick_5_bonus_mana_regen"											"+$mana_regen"
 		
-		"DOTA_Tooltip_ability_item_abyssal_blade_Description"												"<h1>Active: Overwhelm</h1><b><font color='#CCCCCC'>Bashes</font></b> a target enemy unit. Damage and radius are increased by %active_multiplier%%%.<br><br>Range: %abilitycastrange%\n\n<h1>Passive: Overwhelming Bash</h1> Grants melee heroes a %bash_chance_melee%%% (%bash_chance_ranged%%% for ranged) chance on hit to stun the target and all enemies within %bash_radius% units for %bash_duration% seconds, dealing %bonus_chance_damage% + %bonus_str_damage%%% of your Strength as bonus physical damage.\n\n<h1>Passive: Damage Block</h1> Grants a %block_chance%%% chance to reduce damage taken from incoming attacks by %block_damage_pct%%% of your Strength."
+		"DOTA_Tooltip_ability_item_abyssal_blade_Description"												"<h1>Active: Overwhelm</h1><b><font color='#CCCCCC'>Bashes</font></b> a target enemy unit. Damage, duration and radius are increased by %active_multiplier%%%.<br><br>Range: %abilitycastrange%\n\n<h1>Passive: Overwhelming Bash</h1> Grants melee heroes a %bash_chance_melee%%% (%bash_chance_ranged%%% for ranged) chance on hit to stun the target and all enemies within %bash_radius% units for %bash_duration% seconds, dealing %bonus_chance_damage% + %bonus_str_damage%%% of your Strength as bonus physical damage.\n\n<h1>Passive: Damage Block</h1> Grants a %block_chance%%% chance to reduce damage taken from incoming attacks by %block_damage_pct%%% of your Strength."
 		
 		"DOTA_Tooltip_ability_item_abyssal_blade_2"															"Vacuous Blade"
-		"DOTA_Tooltip_ability_item_abyssal_blade_2_Description"												"<h1>Active: Overwhelm</h1><b><font color='#CCCCCC'>Bashes</font></b> a target enemy unit. Damage and radius are increased by %active_multiplier%%%.<br><br>Range: %abilitycastrange%\n\n<h1>Passive: Overwhelming Bash</h1> Grants melee heroes a %bash_chance_melee%%% (%bash_chance_ranged%%% for ranged) chance on hit to stun the target and all enemies within %bash_radius% units for %bash_duration% seconds, dealing %bonus_chance_damage% + %bonus_str_damage%%% of your Strength as bonus physical damage.\n\n<h1>Passive: Damage Block</h1> Grants a %block_chance%%% chance to reduce damage taken from incoming attacks by %block_damage_pct%%% of your Strength."
+		"DOTA_Tooltip_ability_item_abyssal_blade_2_Description"												"<h1>Active: Overwhelm</h1><b><font color='#CCCCCC'>Bashes</font></b> a target enemy unit. Damage, duration and radius are increased by %active_multiplier%%%.<br><br>Range: %abilitycastrange%\n\n<h1>Passive: Overwhelming Bash</h1> Grants melee heroes a %bash_chance_melee%%% (%bash_chance_ranged%%% for ranged) chance on hit to stun the target and all enemies within %bash_radius% units for %bash_duration% seconds, dealing %bonus_chance_damage% + %bonus_str_damage%%% of your Strength as bonus physical damage.\n\n<h1>Passive: Damage Block</h1> Grants a %block_chance%%% chance to reduce damage taken from incoming attacks by %block_damage_pct%%% of your Strength."
 		"DOTA_Tooltip_ability_item_abyssal_blade_2_bonus_damage"											"+$damage"
 		"DOTA_Tooltip_ability_item_abyssal_blade_2_bonus_health"											"+$health"
 		"DOTA_Tooltip_ability_item_abyssal_blade_2_bonus_health_regen"										"+$hp_regen"
 		"DOTA_Tooltip_ability_item_abyssal_blade_2_bonus_strength"											"+$str"
 		
 		"DOTA_Tooltip_ability_item_abyssal_blade_3"															"Damning Blade"
-		"DOTA_Tooltip_ability_item_abyssal_blade_3_Description"												"<h1>Active: Overwhelm</h1><b><font color='#CCCCCC'>Bashes</font></b> a target enemy unit. Damage and radius are increased by %active_multiplier%%%.<br><br>Range: %abilitycastrange%\n\n<h1>Passive: Overwhelming Bash</h1> Grants melee heroes a %bash_chance_melee%%% (%bash_chance_ranged%%% for ranged) chance on hit to stun the target and all enemies within %bash_radius% units for %bash_duration% seconds, dealing %bonus_chance_damage% + %bonus_str_damage%%% of your Strength as bonus physical damage.\n\n<h1>Passive: Damage Block</h1> Grants a %block_chance%%% chance to reduce damage taken from incoming attacks by %block_damage_pct%%% of your Strength."
+		"DOTA_Tooltip_ability_item_abyssal_blade_3_Description"												"<h1>Active: Overwhelm</h1><b><font color='#CCCCCC'>Bashes</font></b> a target enemy unit. Damage, duration and radius are increased by %active_multiplier%%%.<br><br>Range: %abilitycastrange%\n\n<h1>Passive: Overwhelming Bash</h1> Grants melee heroes a %bash_chance_melee%%% (%bash_chance_ranged%%% for ranged) chance on hit to stun the target and all enemies within %bash_radius% units for %bash_duration% seconds, dealing %bonus_chance_damage% + %bonus_str_damage%%% of your Strength as bonus physical damage.\n\n<h1>Passive: Damage Block</h1> Grants a %block_chance%%% chance to reduce damage taken from incoming attacks by %block_damage_pct%%% of your Strength."
 		"DOTA_Tooltip_ability_item_abyssal_blade_3_bonus_damage"											"+$damage"
 		"DOTA_Tooltip_ability_item_abyssal_blade_3_bonus_health"											"+$health"
 		"DOTA_Tooltip_ability_item_abyssal_blade_3_bonus_health_regen"										"+$hp_regen"
 		"DOTA_Tooltip_ability_item_abyssal_blade_3_bonus_strength"											"+$str"
 		
 		"DOTA_Tooltip_ability_item_abyssal_blade_4"															"Redeeming Blade"
-		"DOTA_Tooltip_ability_item_abyssal_blade_4_Description"												"<h1>Active: Overwhelm</h1><b><font color='#CCCCCC'>Bashes</font></b> a target enemy unit. Damage and radius are increased by %active_multiplier%%%.<br><br>Range: %abilitycastrange%\n\n<h1>Passive: Overwhelming Bash</h1> Grants melee heroes a %bash_chance_melee%%% (%bash_chance_ranged%%% for ranged) chance on hit to stun the target and all enemies within %bash_radius% units for %bash_duration% seconds, dealing %bonus_chance_damage% + %bonus_str_damage%%% of your Strength as bonus physical damage.\n\n<h1>Passive: Damage Block</h1> Grants a %block_chance%%% chance to reduce damage taken from incoming attacks by %block_damage_pct%%% of your Strength."
+		"DOTA_Tooltip_ability_item_abyssal_blade_4_Description"												"<h1>Active: Overwhelm</h1><b><font color='#CCCCCC'>Bashes</font></b> a target enemy unit. Damage, duration and radius are increased by %active_multiplier%%%.<br><br>Range: %abilitycastrange%\n\n<h1>Passive: Overwhelming Bash</h1> Grants melee heroes a %bash_chance_melee%%% (%bash_chance_ranged%%% for ranged) chance on hit to stun the target and all enemies within %bash_radius% units for %bash_duration% seconds, dealing %bonus_chance_damage% + %bonus_str_damage%%% of your Strength as bonus physical damage.\n\n<h1>Passive: Damage Block</h1> Grants a %block_chance%%% chance to reduce damage taken from incoming attacks by %block_damage_pct%%% of your Strength."
 		"DOTA_Tooltip_ability_item_abyssal_blade_4_bonus_damage"											"+$damage"
 		"DOTA_Tooltip_ability_item_abyssal_blade_4_bonus_health"											"+$health"
 		"DOTA_Tooltip_ability_item_abyssal_blade_4_bonus_health_regen"										"+$hp_regen"
 		"DOTA_Tooltip_ability_item_abyssal_blade_4_bonus_strength"											"+$str"
 		
 		"DOTA_Tooltip_ability_item_abyssal_blade_5"															"Forsaken Blade"
-		"DOTA_Tooltip_ability_item_abyssal_blade_5_Description"												"<h1>Active: Overwhelm</h1><b><font color='#CCCCCC'>Bashes</font></b> a target enemy unit. Damage and radius are increased by %active_multiplier%%%.<br><br>Range: %abilitycastrange%\n\n<h1>Passive: Overwhelming Bash</h1> Grants melee heroes a %bash_chance_melee%%% (%bash_chance_ranged%%% for ranged) chance on hit to stun the target and all enemies within %bash_radius% units for %bash_duration% seconds, dealing %bonus_chance_damage% + %bonus_str_damage%%% of your Strength as bonus physical damage.\n\n<h1>Passive: Damage Block</h1> Grants a %block_chance%%% chance to reduce damage taken from incoming attacks by %block_damage_pct%%% of your Strength."
+		"DOTA_Tooltip_ability_item_abyssal_blade_5_Description"												"<h1>Active: Overwhelm</h1><b><font color='#CCCCCC'>Bashes</font></b> a target enemy unit. Damage, duration and radius are increased by %active_multiplier%%%.<br><br>Range: %abilitycastrange%\n\n<h1>Passive: Overwhelming Bash</h1> Grants melee heroes a %bash_chance_melee%%% (%bash_chance_ranged%%% for ranged) chance on hit to stun the target and all enemies within %bash_radius% units for %bash_duration% seconds, dealing %bonus_chance_damage% + %bonus_str_damage%%% of your Strength as bonus physical damage.\n\n<h1>Passive: Damage Block</h1> Grants a %block_chance%%% chance to reduce damage taken from incoming attacks by %block_damage_pct%%% of your Strength."
 		"DOTA_Tooltip_ability_item_abyssal_blade_5_bonus_damage"											"+$damage"
 		"DOTA_Tooltip_ability_item_abyssal_blade_5_bonus_health"											"+$health"
 		"DOTA_Tooltip_ability_item_abyssal_blade_5_bonus_health_regen"										"+$hp_regen"

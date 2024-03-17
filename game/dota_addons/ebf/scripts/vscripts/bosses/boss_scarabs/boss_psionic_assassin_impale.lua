@@ -1,5 +1,9 @@
 boss_psionic_assassin_impale = class({})
 
+function boss_psionic_assassin_impale:GetAOERadius()
+	return self:GetSpecialValueFor("unburrow_aoe")
+end
+
 function boss_psionic_assassin_impale:OnSpellStart()
 	local caster = self:GetCaster()
 	local target = self:GetCursorPosition()

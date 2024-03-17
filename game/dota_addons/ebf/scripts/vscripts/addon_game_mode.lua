@@ -107,7 +107,6 @@ end
 function Activate()
 	GameRules.holdOut = CHoldoutGameMode()
 	GameRules.holdOut:InitGameMode()
-
 end
 
 function CHoldoutGameMode:InitGameMode()
@@ -144,6 +143,7 @@ function CHoldoutGameMode:InitGameMode()
 	-- else
 		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_BADGUYS, 0 )
 	-- end
+	GameRules._getDeadCoreUnitsForGarbageCollection = {}
 	
 	GameRules:SetPreGameTime( 30 )
 	GameRules:SetShowcaseTime( 0 )
@@ -433,7 +433,7 @@ function CHoldoutGameMode:FilterOrders( filterTable )
 	local unit = EntIndexToHScript(filterTable.units["0"] or 0)
 	local ability = EntIndexToHScript(filterTable.entindex_ability)
 	local target = EntIndexToHScript(filterTable.entindex_target)
-	if orderType == DOTA_UNIT_ORDER_MOVE_TO_TARGET then
+	if orderType == DOTA_UNIT_ORDER_MOVE_TO_TARGET or orderType == DOTA_UNIT_ORDER_CAST_TARGET then
 		if (target and target:GetTeam() == unit:GetTeam() and PlayerResource:IsDisableHelpSetForPlayerID(target:GetPlayerOwnerID(), unit:GetPlayerOwnerID())) then
 			DisplayError(unit:GetPlayerOwnerID(), "dota_hud_error_target_has_disable_help")
 			return false
@@ -497,7 +497,7 @@ IGNORE_SPELL_AMP_KV = {
 	["enigma_black_hole"] = {["scepter_pct_damage"] = true},
 	["obsidian_destroyer_arcane_orb"] = {["mana_pool_damage_pct"] = true},
 	["phantom_assassin_fan_of_knives"] = {["pct_health_damage_initial"] = true,["pct_health_damage"] = true},
-	["huskar_life_break"] = {["health_cost_percent"] = true,["health_damage"] = true},
+	["huskar_life_break"] = {["health_cost_percent"] = true, ["health_damage"] = true, ["tooltip_health_cost_percent"] = true, ["tooltip_health_damage"] = true, },
 	["winter_wyvern_arctic_burn"] = {["percent_damage"] = true},
 	["elder_titan_earth_splitter"] = {["damage_pct"] = true},
 	["item_orchid"] = {["silence_damage_percent"] = true},
@@ -1388,7 +1388,8 @@ end
 
 
 function CHoldoutGameMode:RegisterStatsForRound( round )
-	if not IsDedicatedServer() or IsInToolsMode() then return end
+	if not IsDedicatedServer() then return end
+	-- if IsInToolsMode() then return end
 	
 	local statSettings = LoadKeyValues("scripts/vscripts/statcollection/settings.kv")
 	local AUTH_KEY = GetDedicatedServerKeyV3(statSettings.modID)
@@ -1692,7 +1693,8 @@ function CHoldoutGameMode:_CheckForDefeat()
 	for nPlayerID = 0, DOTA_MAX_TEAM_PLAYERS-1 do
 		if PlayerResource:GetTeam( nPlayerID ) == DOTA_TEAM_GOODGUYS then
 			PlayerNumberRadiant = PlayerNumberRadiant + 1
-			if not PlayerResource:HasSelectedHero( nPlayerID ) and self._nRoundNumber == 1 and self._currentRound == nil then
+			if not PlayerResource:HasSelectedHero( nPlayerID ) and self._nRoundNumber == 1 and self._currentRound == nil 
+			and not (PlayerResource:GetConnectionState( nPlayerID ) == DOTA_CONNECTION_STATE_ABANDONED or PlayerResource:GetConnectionState( nPlayerID ) == DOTA_CONNECTION_STATE_DISCONNECTED) then
 				AllRPlayersDead = false
 			elseif PlayerResource:HasSelectedHero( nPlayerID ) then
 				local hero = PlayerResource:GetSelectedHeroEntity( nPlayerID )

@@ -24,18 +24,19 @@ end
 function boss_psionic_assassin_mind_flare:MindFlare( target )
 	local caster = self:GetCaster()
 	
-	local damage = self:GetSpecialValueFor("base_damage")
+	local base_damage = self:GetSpecialValueFor("base_damage")
+	local damage_echo_pct = self:GetSpecialValueFor("damage_echo_pct") / 100
+	local damage = 0
 	local jolt = caster:FindModifierByName(self:GetIntrinsicModifierName())
 	if jolt then
 		if not jolt.damage_tracker then jolt.damage_tracker = {} end
 		if not jolt.damage_tracker[target:entindex()] then jolt.damage_tracker[target:entindex()] = {0} end
 		for _, addedDamage in ipairs( jolt.damage_tracker[target:entindex()] ) do
-			damage = damage + addedDamage
-			jolt.damage_tracker[target:entindex()] = {0}
+			damage = damage + addedDamage * damage_echo_pct
 		end
 	end
-	
-	self:DealDamage( caster, target, damage )
+	jolt.damage_tracker[target:entindex()] = {0}
+	self:DealDamage( caster, target, base_damage + damage )
 	
 	ParticleManager:FireRopeParticle("particles/units/heroes/hero_nyx_assassin/nyx_assassin_jolt.vpcf", PATTACH_POINT_FOLLOW, caster, target)
 	EmitSoundOn( "Hero_NyxAssassin.Jolt.Target", target )
@@ -71,6 +72,7 @@ end
 
 function modifier_boss_psionic_assassin_mind_flare_handler:OnTakeDamage( params )
 	if params.attacker:HasAbility("boss_psionic_assassin_mind_flare") then
+		if params.attacker ~= self:GetParent() and params.attacker:IsConsideredHero() then return end
 		if params.inflictor and params.inflictor:GetAbilityName() == "boss_psionic_assassin_mind_flare" then return end
 		self.damage_tracker = self.damage_tracker or {}
 		self.damage_tracker[params.unit:entindex()] = self.damage_tracker[params.unit:entindex()] or {0}

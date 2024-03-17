@@ -34,6 +34,10 @@ function item_blink_treads:OnSpellStart()
 	local caster = self:GetCaster()
 	local position = self:GetCursorPosition()
 	
+	if caster:HasModifier("modifier_blink_treads_broken") then
+		position = caster:GetAbsOrigin()
+	end
+	
 	if self:GetCursorTarget() == caster then
 		if self.chosenAttribute == DOTA_ATTRIBUTE_STRENGTH then
 			self.passiveModifier:SetStackCount(DOTA_ATTRIBUTE_INTELLECT)
@@ -132,6 +136,9 @@ function item_blink_treads5:GetAbilityTextureName( iLvl )
 	end
 end
 
+modifier_blink_treads_broken = class({})
+LinkLuaModifier( "modifier_blink_treads_broken", "items/item_blink_treads.lua" ,LUA_MODIFIER_MOTION_NONE )
+
 modifier_blink_treads_passive = class({})
 LinkLuaModifier( "modifier_blink_treads_passive", "items/item_blink_treads.lua" ,LUA_MODIFIER_MOTION_NONE )
 
@@ -171,7 +178,7 @@ end
 
 function modifier_blink_treads_passive:OnTakeDamage(params)
 	if params.unit == self:GetParent() and params.attacker:IsConsideredHero() and self:GetAbility():GetCooldownTimeRemaining() < self.damage_cd and params.damage > 25 then
-		self:GetAbility():SetCooldown( TernaryOperator( self.damage_cd, self:GetStackCount() == DOTA_ATTRIBUTE_INTELLECT, self.arcane_blink_dmg_cd ) )
+		self:GetParent():AddNewModifier( self:GetCaster(), self:GetAbility(), "modifier_blink_treads_broken", {duration = TernaryOperator( self.damage_cd, self:GetStackCount() == DOTA_ATTRIBUTE_INTELLECT, self.arcane_blink_dmg_cd )} )
 	end
 end
 

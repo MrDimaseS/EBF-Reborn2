@@ -45,12 +45,15 @@ function AICore:RandomEnemyHeroInRange( entity, range , magic_immune)
 		flags = flags + DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES
 	end
 	if entity:GetTauntTarget() then return entity:GetTauntTarget() end
-	local enemies = FindUnitsInRadius( entity:GetTeamNumber(), entity:GetAbsOrigin(), nil, range, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, flags, 0, false )
+	local enemies = FindUnitsInRadius( entity:GetTeamNumber(), entity:GetAbsOrigin(), nil, range / 2, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, flags, 0, false )
 	if #enemies > 0 then
 		local index = RandomInt( 1, #enemies )
 		return enemies[index]
-	else
-		return nil
+	end
+	enemies = FindUnitsInRadius( entity:GetTeamNumber(), entity:GetAbsOrigin(), nil, range / 2, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_ALL, flags, 0, false )
+	if #enemies > 0 then
+		local index = RandomInt( 1, #enemies )
+		return enemies[index]
 	end
 end
 
@@ -61,13 +64,10 @@ function AICore:NearestEnemyHeroInRange( entity, range , magic_immune)
 	end
 	if entity:GetTauntTarget() then return entity:GetTauntTarget() end
 	
-	local enemies = FindUnitsInRadius( entity:GetTeamNumber(), entity:GetAbsOrigin(), nil, range, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, flags, FIND_CLOSEST, false )
-	
-	local target = enemies[1]
-	if entity:GetTauntTarget() then 
-		target = entity:GetTauntTarget()
-	end
-	return target
+	local enemies = FindUnitsInRadius( entity:GetTeamNumber(), entity:GetAbsOrigin(), nil, range/2, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, flags, FIND_CLOSEST, false )
+	if #enemies > 0 then return enemies[1] end
+	enemies = FindUnitsInRadius( entity:GetTeamNumber(), entity:GetAbsOrigin(), nil, range, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_ALL, flags, FIND_CLOSEST, false )
+	if #enemies > 0 then return enemies[1] end
 end
 
 function AICore:FurthestEnemyHeroInRange( entity, range, magic_immune )
@@ -78,6 +78,9 @@ function AICore:FurthestEnemyHeroInRange( entity, range, magic_immune )
 	if entity:GetTauntTarget() then return entity:GetTauntTarget() end
 	
 	local enemies = FindUnitsInRadius( entity:GetTeamNumber(), entity:GetAbsOrigin(), nil, range, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, flags, FIND_FARTHEST, false )
+	if #enemies > 0 then return enemies[1] end
+	enemies = FindUnitsInRadius( entity:GetTeamNumber(), entity:GetAbsOrigin(), nil, range/2, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_ALL, flags, FIND_FARTHEST, false )
+	if #enemies > 0 then return enemies[1] end
 	
 	local target = enemies[1]
 	if entity:GetTauntTarget() then 

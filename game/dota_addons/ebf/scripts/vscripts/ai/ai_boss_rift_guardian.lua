@@ -29,14 +29,14 @@ end
 
 function AIThink(thisEntity)
 	if thisEntity:GetTeamNumber() ~= DOTA_TEAM_GOODGUYS and not thisEntity:IsChanneling() and not thisEntity:GetCurrentActiveAbility() then
-		-- if thisEntity.shield:IsFullyCastable() and AICore:TotalEnemyHeroesInRange( thisEntity, thisEntity.shield:GetSpecialValueFor("radius") ) >= 1 then
-			-- ExecuteOrderFromTable({
-						-- UnitIndex = thisEntity:entindex(),
-						-- OrderType = DOTA_UNIT_ORDER_CAST_NO_TARGET,
-						-- AbilityIndex = thisEntity.shield:entindex()
-					-- })
-			-- return thisEntity.shield:GetCastPoint() + AI_THINK_RATE
-		-- end
+		if thisEntity.shield:IsFullyCastable() and AICore:TotalEnemyHeroesInRange( thisEntity, thisEntity.shield:GetSpecialValueFor("radius") ) >= 1 then
+			ExecuteOrderFromTable({
+						UnitIndex = thisEntity:entindex(),
+						OrderType = DOTA_UNIT_ORDER_CAST_NO_TARGET,
+						AbilityIndex = thisEntity.shield:entindex()
+					})
+			return thisEntity.shield:GetCastPoint() + AI_THINK_RATE
+		end
 		if thisEntity.hell:IsFullyCastable() and AICore:TotalEnemyHeroesInRange( thisEntity, thisEntity.hell:GetTrueCastRange() ) >= 1 then
 			ExecuteOrderFromTable({
 						UnitIndex = thisEntity:entindex(),

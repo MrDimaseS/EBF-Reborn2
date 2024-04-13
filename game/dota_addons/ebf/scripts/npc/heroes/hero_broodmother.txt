@@ -28,7 +28,7 @@
 		"AbilityCastRange"				"900"
 		"AbilityCastPoint"				"0.2 0.2 0.2 0.2 0.1 0.1"
 		"AbilityCooldown"				"20"
-		"AbilityManaCost"				"120 180 240 300 360 460"
+		"AbilityManaCost"				"100"
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
@@ -44,18 +44,20 @@
 			{
 				"value"									"2200 3200 4200 5200 6200 7200"
 				"special_bonus_unique_broodmother_3"	"+50%"
-				"CalculateSpellDamageTooltip" 			"1"
+				"CalculateAttackDamageTooltip" 			"1"
 			}
 			"damage_bonus"
 			{
-				"value"									"30 60 90 120 150 180 210"
+				"value"									"230 260 290 320 350 380 410"
 				"special_bonus_unique_broodmother_3"	"+50%"
 				"CalculateAttackDamageTooltip"			"1"
+				"CalculateSpellDamageTooltip"			"0"
 			}
 			"hp_bonus"
 			{		
-				"value"									"500"
+				"value"									"1600"
 				"special_bonus_unique_broodmother_7"	"+100%"
+				"CalculateAttributeTooltip" 			"1"
 			}
 			"count"										"3"
 			"projectile_speed"							"1200"
@@ -63,6 +65,7 @@
 			{
 				"value"									"1600"
 				"special_bonus_unique_broodmother_7" 	"+100%"
+				"CalculateAttributeTooltip" 			"1"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -124,19 +127,23 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_broodmother/broodmother_spin_web"
+		"AbilityTextureName"			"broodmother_spin_web"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"AbilitySound"					"Hero_Broodmother.SpinWebCast"
 		"MaxLevel"						"7"
 		"LevelsBetweenUpgrades"			"3"
 		"LinkedAbility"					"broodmother_sticky_snare"
+		"HasScepterUpgrade"				"1"
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"1000"
 		"AbilityCastPoint"				"0.4"
 		"AbilityCooldown"				"0.0"
-		"AbilityManaCost"				"40 60 80 100 120 140 160"
+		"AbilityManaCost"				"40"
 		"AbilityCharges"				"4 6 8 10 12 14 16"
 			
 		// Special
@@ -160,6 +167,27 @@
 			{
 				"value"				"30"
 				"special_bonus_unique_broodmother_5" "-10"
+			}
+			"scepter_movement_loss"	
+			{
+				"value"											"-5"
+				"RequiresScepter"								"1"
+			}
+			"scepter_dps"	
+			{
+				"value"											"1000"
+				"CalculateSpellDamageTooltip"					"1"
+				"RequiresScepter"	"1"
+			}
+			"scepter_ms_threshold"	
+			{
+				"value"											"-100"
+				"RequiresScepter"								"1"
+			}
+			"scepter_debuff_duration"	
+			{
+				"value"											"2.5"
+				"RequiresScepter"								"1"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -194,7 +222,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"70 85 100 115 130 145 160"
+		"AbilityManaCost"				"70 75 80 85 90 95 100"
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
@@ -251,7 +279,7 @@
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
 
 		"AbilityCooldown"				"15"
-		"AbilityManaCost"				"50 80 110 140 170 200 230"
+		"AbilityManaCost"				"80"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -260,6 +288,7 @@
 			"bonus_damage"			
 			{
 				"value"							"100 135 170 205 240 275 310"
+				"special_bonus_unique_broodmother_insatiable_hunger_damage"	"+35"
 				"CalculateSpellDamageTooltip"	"0"
 			}
 			"lifesteal_pct"			
@@ -306,8 +335,8 @@
 		"FightRecapLevel"				"1"
 		"MaxLevel"						"1"
 		"LevelsBetweenUpgrades"			"1"
-		"HasScepterUpgrade"				"1"
-		"IsGrantedByScepter"			"1"
+		"HasScepterUpgrade"				"0"
+		"IsGrantedByScepter"			"0"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -415,7 +444,17 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"ad_linked_abilities"			"broodmother_spin_web"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
 		"BaseClass"						"special_bonus_base"
-		
-		
+	}
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_broodmother_insatiable_hunger_damage"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"ad_linked_abilities"			"broodmother_spin_web"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+		"BaseClass"						"special_bonus_base"
 	}
 }

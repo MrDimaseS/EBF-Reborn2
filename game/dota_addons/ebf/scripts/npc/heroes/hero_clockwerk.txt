@@ -75,7 +75,7 @@
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"50"
+		"AbilityCooldown"				"35"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -86,10 +86,11 @@
 		"AbilityValues"
 		{
 			"buff_duration"					"13"
-			"bonus_movement_speed"			"0"
-			"bonus_attack_speed"			"250"
-			"debuff_duration"				"3"
-			"hookshot_damage_bonus_pct"		"0"
+			"bonus_movement_speed"			"100"
+			"bonus_attack_speed"			"100"
+			"bonus_barrier"					"250"
+			"debuff_duration"				"0"
+			"hookshot_damage_bonus_pct"		"50"
 			"hookshot_radius_bonus_pct"		"50"
 			"hookshot_duration_bonus_pct"	"50"
 			"rocket_flare_interval"			"0.15"
@@ -108,6 +109,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_clockwerk/rattletrap_battery_assault"
+		"AbilityTextureName"			"rattletrap_battery_assault"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
@@ -134,7 +138,7 @@
 		"AbilityValues"
 		{
 			"radius"									"275 275 275 275"
-			"duration"									"12"
+			"duration"									"10.5"
 			"interval"
 			{	
 				"value"									"0.7 0.7 0.7 0.7"
@@ -146,11 +150,61 @@
 				"special_bonus_unique_clockwerk_3"		"+100%"
 				"CalculateSpellDamageTooltip"			"1"
 			}
-			"creep_damage_multiplier"					"1"
+			"mini_stun_duration"						"0.1"
+			"creep_damage_multiplier"					"2"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
+	//=================================================================================================================
+	// Rattletrap: Power Cogs
+	//=================================================================================================================
+	"clockwerk_tech_barrier"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_clockwerk/clockwerk_tech_barrier"
+		"AbilityTextureName"			"clockwerk_tech_barrier"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"AbilitySound"					"Hero_Rattletrap.Power_Cogs"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
 		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"duration"															"5.0"
+			"damage"
+			{	
+				"value"															"500 1250 2000 2750 3500 4250 5000"
+				"special_bonus_unique_clockwerk_3"								"+100%"
+				"CalculateSpellDamageTooltip"									"1"
+			}
+			"mana_burn"		
+			{
+				"value"															"35"
+				"LinkedSpecialBonus"											"special_bonus_unique_clockwerk_8"
+			}
+			"push_length"														"300"
+			"push_duration"														"1"
+			"barrier"
+			{	
+				"value"															"1200 1600 2000 2400 2800 3200 3600"
+				"special_bonus_unique_clockwerk_tech_barrier_bonus_barrier"		"+50%"
+				"CalculateAttributeTooltip"										"1"
+			}
+			"debuff_immunity_duration"		
+			{
+				"value"															"0"
+				"special_bonus_unique_clockwerk_6"								"1.25"
+			}
+			"magic_resist"			"50"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
+	}
 	//=================================================================================================================
 	// Rattletrap: Power Cogs
 	//=================================================================================================================
@@ -218,7 +272,6 @@
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
-
 	//=================================================================================================================
 	// Rattletrap: Rocket Flare
 	//=================================================================================================================
@@ -243,7 +296,7 @@
 		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"35 50 65 80 95 110 125"
+		"AbilityManaCost"				"35 40 45 50 55 60 70"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -267,7 +320,6 @@
 			"slow_pct"		"100"
 			"slow_duration"	"0.4"
 		}
-		
 	}
 	
 	//=================================================================================================================
@@ -302,7 +354,7 @@
 		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"150 225 300 375 450 525"
+		"AbilityManaCost"				"100 125 150 175 200 225"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -481,9 +533,21 @@
 			"01"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"value"				"1100"
+				"value"				"15"
 				"ad_linked_abilities"			"rattletrap_power_cogs"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
 			}
 		}
+	}
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_clockwerk_tech_barrier_bonus_barrier"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
+		"ad_linked_abilities"			"slark_shadow_dance"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.		
 	}
 }

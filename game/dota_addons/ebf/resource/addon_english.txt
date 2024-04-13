@@ -936,7 +936,7 @@
 		"DOTA_Tooltip_ability_boss_psionic_assassin_impale_unburrow_damage"									"UNBURROW DAMAGE:"
 		
 		"DOTA_Tooltip_ability_boss_psionic_assassin_reflecting_carapace"									"Reflecting Carapace"
-		"DOTA_Tooltip_ability_boss_psionic_assassin_reflecting_carapace_Description"						"When the Psionic Assassin takes more than %hp_trigger_threshold%%% of its maximum health in damage since the last time it went off cooldown, it extends its barbed protection. The spikes take %delay_duration% seconds to fully form, after which the Psionic Assassin reflects %damage_reflect_pct%%% of all damage taken back to the unit that damaged the Psionic Assassin."
+		"DOTA_Tooltip_ability_boss_psionic_assassin_reflecting_carapace_Description"						"When the Psionic Assassin takes more than %hp_trigger_threshold%%% of its maximum health in damage since the last time it went off cooldown, it extends its barbed protection. The spikes take %delay_duration% seconds to fully form, after which the Psionic Assassin reflects %damage_reflect_pct%%% of all damage taken back to the unit that damaged the Psionic Assassin. The damage reflection increases linearly over the duration."
 		"DOTA_Tooltip_ability_boss_psionic_assassin_reflecting_carapace_Lore"								"While their carapace is relatively thin, it's guarded by a retractable field of razor-sharp spikes."
 		"DOTA_Tooltip_ability_boss_psionic_assassin_reflecting_carapace_Note0"								"The damage is calculated after all reductions."
 		"DOTA_Tooltip_ability_boss_psionic_assassin_reflecting_carapace_Note2"								"The damage reflected will have the same damage type as it had when it was dealt to Nyx."
@@ -1021,7 +1021,7 @@
 		"DOTA_Tooltip_ability_item_demonic_cultist_assault_bonus_armor"										"+$armor"
 		
 		"DOTA_Tooltip_ability_boss_mania_demon_cloak_of_mania"												"Cloak of Mania"
-		"DOTA_Tooltip_ability_boss_mania_demon_cloak_of_mania_Description"									"Mania Demons cannot be damaged by spells while a Melancholy Demon is alive.\nWhen a Mania Demon is damaged by spell damage, %melancholy_damage_pct%%% the damage is taken by the nearest Melancholy Demon instead.\nEach enemy unit takes %remaining_damage_split%%% of the remaining damage."
+		"DOTA_Tooltip_ability_boss_mania_demon_cloak_of_mania_Description"									"Mania Demons cannot be damaged by spells while a Melancholy Demon is alive.\nWhen a Mania Demon is damaged by spell damage, %melancholy_damage_pct%%% the damage is taken by the nearest Melancholy Demon instead.\nEach enemy unit takes %remaining_damage_split%%% of the remaining damage, the attacker takes double."
 		"DOTA_Tooltip_modifier_boss_mania_demon_cloak_of_mania"												"Cloak of Mania - Buff"
 		"DOTA_Tooltip_modifier_boss_mania_demon_cloak_of_mania_Description"									"Taking no spell damage as long as a Melancholy Demon exists."
 		
@@ -1074,7 +1074,7 @@
 		"DOTA_Tooltip_ability_boss_mania_demon_requiem_of_insanity_Note1"									"Fear and movement slow do not apply if the Requiem was released on death."
 			
 		"DOTA_Tooltip_ability_boss_dementia_demon_cloak_of_dementia"										"Cloak of Melancholy"
-		"DOTA_Tooltip_ability_boss_dementia_demon_cloak_of_dementia_Description"							"Melancholy Demons cannot be damaged by attacks while a Mania Demon is alive.\nWhen a Melancholy Demon is damaged by attack damage, %mania_damage_pct%%% the damage is taken by the nearest Mania Demon instead.\nEach enemy unit takes %remaining_damage_split%%% of the remaining damage."
+		"DOTA_Tooltip_ability_boss_dementia_demon_cloak_of_dementia_Description"							"Melancholy Demons cannot be damaged by attacks while a Mania Demon is alive.\nWhen a Melancholy Demon is damaged by attack damage, %mania_damage_pct%%% the damage is taken by the nearest Mania Demon instead.\nEach enemy unit takes %remaining_damage_split%%% of the remaining damage, the attacker takes double."
 		"DOTA_Tooltip_modifier_boss_dementia_demon_cloak_of_dementia"										"Cloak of Melancholy - Buff"
 		"DOTA_Tooltip_modifier_boss_dementia_demon_cloak_of_dementia_Description"							"Taking no attack damage as long as a Mania Demon exists."
 		
@@ -1743,15 +1743,18 @@
 		"DOTA_Tooltip_modifier_mars_arena_of_blood_aura_buff_Description"									"Taking %dMODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE%%% less damage and dealing %dMODIFIER_PROPERTY_TOTALDAMAGEOUTGOING_PERCENTAGE%%% more damage."
 		
 		//Mirana
-		"DOTA_Tooltip_ability_mirana_starfall_Description"													"Calls down a wave of meteors to damage nearby enemy units. Enemies hit by the Starstorm are debuffed for %debuff_duration% seconds, or until they are attacked or hit by one of Mirana's abilities. When the debuff is removed, the target will be hit with a Lesser Starstorm which deals only %secondary_starfall_damage_percent%%% of the damage and does not apply the debuff.\nIf the Starstorm was removed by one of Mirana's abilities, they are hit by a regular Starstorm instead."
-		"DOTA_Tooltip_ability_mirana_starfall_ebf_changes"													"Secondary Starstorm is triggered by attacking or dealing damage with an ability."
+		"DOTA_Tooltip_ability_mirana_starfall_Description"													"Calls down a wave of meteors to damage nearby enemy units. Enemies hit by the Starstorm are debuffed for %debuff_duration% seconds, or until they are attacked or hit by one of Mirana's abilities. When the debuff is removed, the target will be hit with a Lesser Starstorm which deals only %secondary_starfall_damage_percent%%% of the damage and does not apply the debuff.\nIf the Starstorm was removed by one of Mirana's cast abilities, they are hit by a regular Starstorm instead.\nThe radius is equal to Mirana's attack range + %starfall_radius%"
+		"DOTA_Tooltip_ability_mirana_starfall_ebf_changes"													"Secondary Starstorm is triggered by attacking or dealing damage with an ability and can affect all units hit."
+		"DOTA_Tooltip_modifier_mirana_starfall_debuff"														"Starfall - Debuff"
+		"DOTA_Tooltip_modifier_mirana_starfall_debuff_Description"											"Next attack triggers a Lesser Starstorm, next ability triggers a regular Starstorm."
 		
 		"DOTA_Tooltip_ability_mirana_arrow_Description"														"Fires a long-range arrow with deadly precision, which stuns and damages the first enemy unit it strikes. The damage and stun duration increase by %arrow_bonus_damage%%% for every %bonus_damage_range% the arrow travels. Instantly kills the first non-ancient creep it hits."
 		"DOTA_Tooltip_ability_mirana_arrow_arrow_bonus_damage"												""
-		"DOTA_Tooltip_ability_mirana_arrow_arrow_arrow_damage"												"BASE DAMAGE:"
+		"DOTA_Tooltip_ability_mirana_arrow_arrow_damage"													"BASE DAMAGE:"
 		
 		"DOTA_Tooltip_ability_mirana_invis_evasion"															"%EVASION:"
 		"DOTA_Tooltip_ability_mirana_invis_Description"                                                     "Turns Mirana and all allied heroes invisible, granting them bonus movement speed and evasion. If a hero is revealed, invisibility will restore after the fade delay as long as Moonlight Shadow's duration has not expired."
+		"DOTA_Tooltip_ability_mirana_invis_magic_resistance"												"%MAGIC RESISTANCE:"
 		
 		
 		//Morphling
@@ -1800,6 +1803,13 @@
 
 		
 		//Shadow Fiend
+		"DOTA_Tooltip_ability_nevermore_necromastery_Description"											"Shadow Fiend steals fragments of the soul from units he damages with Shadowraze, that die under the effects of Presence of the Dark Lord or that he personally kills, gaining bonus damage.<br>Each effect triggers separately and he gains %hero_stack_multiplier%x the amount of soul fragments from Heroes.\nOn death, he releases %necromastery_soul_release%%% of them from bondage."
+		"DOTA_Tooltip_ability_nevermore_necromastery_shard_description"										"Every %AbilityCooldown% seconds, Shadow Fiend's next attack deals critical damage based on the amount of souls he has and fear his target."
+		"DOTA_Tooltip_ability_nevermore_necromastery_shard_crit_pct"										"%BONUS CRITICAL DAMAGE PER STACK:"
+		"DOTA_Tooltip_modifier_nevermore_necromastery_passive"												"Necromastery - Damage"
+		"DOTA_Tooltip_modifier_nevermore_necromastery_passive_Description"									"Gaining %dMODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE% attack damage."
+		
+		
 		"DOTA_Tooltip_ability_nevermore_dark_lord_creep_buff_duration"                                      "CREEP BONUS DURATION:"
 		"DOTA_Tooltip_ability_nevermore_dark_lord_Description"                                              "Shadow Fiend's presence reduces the armor of nearby enemies. Every enemy hero killed nearby temporarily improves the armor reduction by %bonus_armor_per_stack% and every creep killed improves it by %creep_armor_per_stack%.\nCreep stacks have a shorter duration."
 		"DOTA_Tooltip_ability_nevermore_dark_lord_kill_buff_duration"                                       "HERO BONUS DURATION:"
@@ -1808,6 +1818,7 @@
 		"DOTA_Tooltip_modifier_nevermore_dark_lord_passive_aura"                                            "Presence of the Dark Lord - Aura"
 		"DOTA_Tooltip_modifier_nevermore_dark_lord_passive_aura_Description"                                "Armor changed by %dMODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS%."
 		
+		"DOTA_Tooltip_ability_nevermore_requiem_damage"														"DAMAGE PER LINE:"
 		
 		//Night Stalker
 		"DOTA_Tooltip_ability_night_stalker_crippling_fear_Description"                                     "Night Stalker horrifies all nearby enemies, causing them to become silenced and miss a percentage of their attacks while near him.\n\nAt night, the effect lasts longer and he passively causes enemies within the ability's radius to miss attacks. This miss chance stacks with the active miss chance."
@@ -1893,6 +1904,9 @@
 		"DOTA_Tooltip_modifier_primal_beast_uproar_ebf_debuff"                                              "UPROAR"
 		"DOTA_Tooltip_modifier_primal_beast_uproar_ebf_debuff_Description"                                  "Slowed by Primal Beast"
 		"DOTA_Tooltip_modifier_primal_beast_uproar_ebf_Description"                                         "Primal Beast deals increased damage and slows enemy"
+		
+		// Invoker
+		"DOTA_Tooltip_ability_invoker_invoke_scepter_description"											"Grants all of Invoker's abilities 2 charges and increases the level of Quas, Wex and Exort."
 		
 		//Pudge
 		"DOTA_Tooltip_ability_pudge_flesh_heap_Description"                                                 "Gives Pudge a guaranteed damage block against all types of damage. Passively grants bonus strength that increases each time Pudge kills an enemy unit or it dies in his vicinity.\nFlesh Heap's stacks increase by %hero_stacks% when a creep-hero is killed and by %creep_stacks% otherwise.\nSummoned units, such as Illusions and units created by abilities, give temporary stacks of Flesh Heap, which disappear after %temporary_duration% seconds.\nFlesh Heap is retroactive, meaning it can gain charges before it is skilled, which then become active."
@@ -2008,7 +2022,6 @@
 		"DOTA_Tooltip_modifier_slark_essence_shift_handler_Description"                                     "%dMODIFIER_PROPERTY_STATS_AGILITY_BONUS% Agility permanently gained."
 		"DOTA_Tooltip_modifier_slark_pounce_debuff"                                                         "Pounce - Slow"
 		"DOTA_Tooltip_modifier_slark_pounce_debuff_Description"                                             "Attack speed and movement speed slowed by %dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT%%%"
-		
 		
 		//Snapfire
 		"DOTA_Tooltip_ability_snapfire_firesnap_cookie_Description"                                         "Snapfire feeds a potent cookie to Mortimer or an ally, healing them and causing them to hop a short distance. The hopping unit stuns and damages enemies in the landing zone."
@@ -2256,9 +2269,43 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_riki_6_Description"										"Reduces cooldown and increases attack speed."
 		"DOTA_Tooltip_ability_special_bonus_unique_riki_7"													"+{s:bonus_radius} Smoke Screen Radius"
 		"DOTA_Tooltip_ability_special_bonus_unique_riki_8"													"+{s:bonus_bonus_movespeed}% Cloak and Dagger Movement Speed"
-
-
-
+		
+		// Broodmother
+		"DOTA_Tooltip_ability_broodmother_spin_web_scepter_description"										"Units lose %scepter_movement_loss%%% movement speed per second and take %scepter_dps% damage per second while in Broodmother's Webs. Once a unit has their movement speed reduced by %scepter_ms_threshold%%% by the Web, they are rooted and disarmed for %scepter_debuff_duration% seconds and get affected by Silken Bola."
+		
+		"DOTA_Tooltip_ability_broodmother_spawn_spiderlings_damage_bonus"									"SPIDERLING ATTACK DAMAGE:"
+		"DOTA_Tooltip_modifier_broodmother_spin_web_effect"													"Spin Web - Effect"
+		"DOTA_Tooltip_modifier_broodmother_spin_web_effect_Description"										"In Broodmother's Web."
+		
+		// Clockwerk
+		"DOTA_Tooltip_modifier_rattletrap_battery_assault_active"											"Battery Assault"
+		"DOTA_Tooltip_modifier_rattletrap_battery_assault_active_Description"								"Periodically stunning and damaging a random enemy in range."
+		
+		"DOTA_Tooltip_ability_clockwerk_tech_barrier"														"Tech Barrier"
+		"DOTA_Tooltip_ability_clockwerk_tech_barrier_Description"											"Forms a barrier of holographic light around Clockwerk each time he Casts one of his Abilities.\nBarrier blocks all forms of damage, if a unit deals enough damage to break the barrier, are knocked back, take damage and have a percentage of their current mana burned."
+		"DOTA_Tooltip_ability_clockwerk_tech_barrier_Lore"													"One of Clockwerk's inventions of which he is most proud is the power cog - though it is sometimes despised by his allies."
+		"DOTA_Tooltip_ability_clockwerk_tech_barrier_Note0"													"Cogs can shock invisible units."
+		"DOTA_Tooltip_ability_clockwerk_tech_barrier_duration"												"DURATION:"
+		"DOTA_Tooltip_ability_clockwerk_tech_barrier_attacks_to_destroy"									"ATTACKS REQUIRED:"
+		"DOTA_Tooltip_ability_clockwerk_tech_barrier_damage"												"DAMAGE:"
+		"DOTA_Tooltip_ability_clockwerk_tech_barrier_mana_burn"												"%CURRENT MANA BURNED:"
+		"DOTA_Tooltip_ability_clockwerk_tech_barrier_barrier"												"BARRIER:"
+		"DOTA_Tooltip_modifier_clockwerk_tech_barrier_barrier"												"Tech Barrier"
+		"DOTA_Tooltip_modifier_clockwerk_tech_barrier_barrier_Description"									"Blocking all damage taken."
+		
+		"DOTA_Tooltip_ability_rattletrap_overclocking_Description"											"Supercharges Clockwerks abilities:<br><b>Battery Assault</b> affects all enemies in its range<br><b>Tech Barrier</b> provides more barrier<br><b>Rocket Flare</b> has a reduced cooldown and fire additional rockets to either side of the target<br><b>Hookshot</b> stun radius and duration is increased<br><b>Jetpack</b> moves faster."
+		"DOTA_Tooltip_ability_rattletrap_overclocking_bonus_barrier"										"%TECH BARRIER BONUS BARRIER:"
+		
+		// Phantom Assassin
+		"DOTA_Tooltip_ability_phantom_assassin_blur_Description"											"Phantom Assassin focuses inward, increasing her ability to evade enemy attacks. Can be activated to blur her body, causing her to be impossible to see. Attacking an enemy hero-type unit makes her temporarily visible.\n\nStacks diminishingly with other sources of Evasion."
+		"DOTA_Tooltip_ability_phantom_assassin_blur_fade_duration"											"BLUR RESTORE DELAY:"
+		
+		"DOTA_Tooltip_modifier_phantom_assassin_blur_fade"													"Blur - Active"
+		"DOTA_Tooltip_modifier_phantom_assassin_blur_fade_Description"										"Invisible and untargetable."
+		
+		"DOTA_Tooltip_modifier_phantom_assassin_blur_cd"													"Blur - Visible"
+		"DOTA_Tooltip_modifier_phantom_assassin_blur_cd_Description"										"Visible to enemies."
+		
 		//TALENTS  ==============================================================================================
 
 		"DOTA_Tooltip_ability_special_bonus_12_crit_2"                                                      "+{s:crit_chance}% Critical Strike ({s:crit_multiplier}%)"
@@ -2369,6 +2416,7 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_bristleback_6"                                           "+{s:bonus_max_damage_reduction}%/{s:bonus_min_damage_reduction}% Bristleback Max/Min Damage Reduction"
 		"DOTA_Tooltip_ability_special_bonus_unique_broodmother_3"                                           "+{s:bonus_damage}% Spawn Spiderlings Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_broodmother_7"                                           "+{s:bonus_hp_bonus}% Spiderlings Health"
+		"DOTA_Tooltip_ability_special_bonus_unique_broodmother_insatiable_hunger_damage"					"+{s:bonus_bonus_damage}% Insatiable Hunger Bonus Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_centaur_3"                                               "+{s:bonus_return_damage}% Retaliate Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_centaur_4"                                               "+{s:bonus_edge_damage}% Double Edge Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_clinkz_1"                                                "+{s:bonus_damage_bonus}% Tar Bomb Attack/Impact Damage"
@@ -2376,6 +2424,8 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_clinkz_8"                                                "+{s:bonus_health_gain_pct}% Death Pact Damage to Health"
 		"DOTA_Tooltip_ability_special_bonus_unique_clockwerk_3"                                             "+{s:bonus_damage}% Battery Assault Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_clockwerk_flare_damage"                                  "+{s:bonus_damage}% Rocket Flare Damage"
+		"DOTA_Tooltip_ability_special_bonus_unique_clockwerk_tech_barrier_bonus_barrier"					"+{s:bonus_barrier}% Barrier From Tech Barrier"
+		"DOTA_Tooltip_ability_special_bonus_unique_clockwerk_6"												"{s:bonus_debuff_immunity_duration} Tech Barrier Debuff Immunity"
 		"DOTA_Tooltip_ability_special_bonus_unique_crystal_maiden_2"                                        "+{s:bonus_nova_damage}% Crystal Nova Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_crystal_maiden_3"                                        "+{s:bonus_damage}% Freezing Field Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_dark_willow_4"                                           "+{s:value}% Bedlam Damage"
@@ -2463,7 +2513,8 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_mars_spear_on_attack_Description"                        "Every attack against a Hero has a chance to send out a Spear of Mars towards the attacked unit. Spear of Mars does not go further than the unit's position."
 		"DOTA_Tooltip_ability_special_bonus_unique_mirana_2"                                                "+{s:bonus_total_arrows} Multishot Sacred Arrows"
 		"DOTA_Tooltip_ability_special_bonus_unique_mirana_3"												"-{s:bonus_AbilityCooldown}s Sacred Arrow cooldown"
-		"DOTA_Tooltip_ability_special_bonus_unique_mirana_5"												"+{s:bonus_evasion}% Moonlight Shadow Evasion"
+		"DOTA_Tooltip_ability_special_bonus_unique_mirana_5"												"+{s:bonus_spell_amplification}x Evasion Moonlight Shadow Spell Amp"
+		"DOTA_Tooltip_ability_special_bonus_unique_mirana_5_Description"									"Heroes under Moonlight Shadow gain spell amplification equal to the evasion times the multiplier"
 		"DOTA_Tooltip_ability_special_bonus_unique_mirana_7"                                                "+{s:bonus_damage}% Starstorm Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_monkey_king_12"                                          "Jingu Mastery Works Against Creeps"
 		"DOTA_Tooltip_ability_special_bonus_unique_monkey_king_2"                                           "+{s:value}% Jingu Mastery Damage"
@@ -2478,6 +2529,8 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_nevermore_2"                                             "+{s:value}% Shadowraze Base Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_nevermore_3"                                             "Presence Aura Armor To Allies"
 		"DOTA_Tooltip_ability_special_bonus_unique_nevermore_7"                                             "+{s:bonus_stack_bonus_damage}% Shadowraze Stack Damage"
+		"DOTA_Tooltip_ability_special_bonus_unique_nevermore_necromastery_immortality"						"Instant Respawn On Max Necromastery"
+		"DOTA_Tooltip_ability_special_bonus_unique_nevermore_necromastery_immortality_Description"			"If you die while your Necromastery stacks are on the maximum amount, you instantly respawn."
 		"DOTA_Tooltip_ability_special_bonus_unique_night_stalker_3"                                         "+{s:bonus_bonus_damage}% Dark Ascension Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_night_stalker_4"                                         "+{s:bonus_damage}% Void Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_night_stalker_6"											"-{s:bonus_AbilityCooldown}s Crippling Fear Cooldown"
@@ -2541,8 +2594,8 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_slardar_2"                                               "+{s:value}% Bash of the Deep Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_slark"                                                   "+{s:value}s Pounce Debuff Duration"
 		"DOTA_Tooltip_ability_special_bonus_unique_slark_2"                                                 "+{s:value}% Dark Pact Damage"
-		"DOTA_Tooltip_ability_special_bonus_unique_slark_4"                                                 "+{s:value}s Essence Shift Duration"
-		"DOTA_Tooltip_ability_special_bonus_unique_slark_5"                                                 "+{s:bonus_agi_gain} Stats gained per Essence Shift Stack"
+		"DOTA_Tooltip_ability_special_bonus_unique_slark_4"                                                 "+{s:bonus_duration}s Essence Shift Duration"
+		"DOTA_Tooltip_ability_special_bonus_unique_slark_5"                                                 "+{s:bonus_agi_gain} Base Stats gained per Essence Shift Stack"
 		"DOTA_Tooltip_ability_special_bonus_unique_snapfire_5"                                              "+{s:bonus_target_heal}% Firesnap Cookie Heal"
 		"DOTA_Tooltip_ability_special_bonus_unique_snapfire_7"                                              "+{s:bonus_damage}% Scatterblast Damage/Duration"
 		"DOTA_Tooltip_ability_special_bonus_unique_snapfire_lil_shredder_damage"                            "+{s:bonus_damage}% Lil' Shredder Damage"
@@ -2574,7 +2627,7 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_tiny_5"													"Toss Can Toss Tiny"
 		"DOTA_Tooltip_ability_special_bonus_unique_tiny_5_Description"										"If Auto-Cast is on, Tiny throws himself, ignoring enemies."
 		"DOTA_Tooltip_ability_special_bonus_unique_timbersaw_reactive_armor_regen_per_stack"				"+{s:bonus_bonus_hp_regen}% Reactive Armor Regeneration Per Stack"
-		"DOTA_Tooltip_ability_special_bonus_unique_treant_2"                                                "+{s:value}% Leech Seed Damage/Heal"
+		"DOTA_Tooltip_ability_special_bonus_unique_treant_2"                                                "+{s:bonus_leech_damage}% Leech Seed Damage/Heal"
 		"DOTA_Tooltip_ability_special_bonus_unique_treant_8" 												"+{s:bonus_heal_per_second}% Living Armor Heal Per Second"
 		"DOTA_Tooltip_ability_special_bonus_unique_treant_9"												"+{s:bonus_damage_per_second}% Nature's Grasp Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_troll_warlord_3"                                         "+{s:bonus_axe_damage}% Whirling Axes Damage"
@@ -2622,6 +2675,7 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_witch_doctor_7"											"+{s:bonus_bonus_damage}% Maledict Burst Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_wraith_king_3"                                           "+{s:value} Wraithfire Blast DPS"
 		"DOTA_Tooltip_ability_special_bonus_unique_wraith_king_6"											"+{s:bonus_talent_skeleton_damage}% Skeletons Attack Damage"
+		"DOTA_Tooltip_ability_special_bonus_unique_wraith_king_10"											"-{s:bonus_AbilityCooldown}% Mortal Strike Cooldown"
 		"DOTA_Tooltip_ability_special_bonus_unique_zeus_2"                                                  "+{s:bonus_arc_damage}% Arc Lightning Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_zeus_4"                                                  "+{s:bonus_damage}% Thundergod's Wrath Damage"
 		"DOTA_Tooltip_ability_special_bonusspecial_bonus_finger_of_death_health_per_kill"                   "+{s:value} Max Health Per Finger of Death Stack Kill"
@@ -4877,31 +4931,34 @@
 		"DOTA_Tooltip_ability_item_sheepstick_5_bonus_intellect"											"+$int"
 		"DOTA_Tooltip_ability_item_sheepstick_5_bonus_mana_regen"											"+$mana_regen"
 		
-		"DOTA_Tooltip_ability_item_abyssal_blade_Description"												"<h1>Active: Overwhelm</h1><b><font color='#CCCCCC'>Bashes</font></b> a target enemy unit. Damage, duration and radius are increased by %active_multiplier%%%.<br><br>Range: %abilitycastrange%\n\n<h1>Passive: Overwhelming Bash</h1> Grants melee heroes a %bash_chance_melee%%% (%bash_chance_ranged%%% for ranged) chance on hit to stun the target and all enemies within %bash_radius% units for %bash_duration% seconds, dealing %bonus_chance_damage% + %bonus_str_damage%%% of your Strength as bonus physical damage.\n\n<h1>Passive: Damage Block</h1> Grants a %block_chance%%% chance to reduce damage taken from incoming attacks by %block_damage_pct%%% of your Strength."
+
+		"DOTA_Tooltip_ability_item_item_basher_Description"													"<h1>Passive: Bash</h1> Grants melee heroes a %bash_chance_melee%%% (%bash_chance_ranged%%% for ranged) chance on hit to stun the target, dealing %bonus_chance_damage% + %bonus_str_damage%%% of your Strength as bonus physical damage.\nHas a %bash_cooldown% second internal cooldown (%bash_cooldown_ranged% for ranged heroes)."
+		
+		"DOTA_Tooltip_ability_item_abyssal_blade_Description"												"<h1>Active: Overwhelm</h1><b><font color='#CCCCCC'>Bashes</font></b> a target enemy unit. Damage, duration and radius are increased by %active_multiplier%%%.<br><br>Range: %abilitycastrange%\n\n<h1>Passive: Overwhelming Bash</h1> Grants melee heroes a %bash_chance_melee%%% (%bash_chance_ranged%%% for ranged) chance on hit to stun the target and all enemies within %bash_radius% units for %bash_duration% seconds, dealing %bonus_chance_damage% + %bonus_str_damage%%% of your Strength as bonus physical damage.\nHas a %bash_cooldown% second internal cooldown (%bash_cooldown_ranged% for ranged heroes).\n\n<h1>Passive: Damage Block</h1> Grants a %block_chance%%% chance to reduce damage taken from incoming attacks by %block_damage_pct%%% of your Strength."
 		
 		"DOTA_Tooltip_ability_item_abyssal_blade_2"															"Vacuous Blade"
-		"DOTA_Tooltip_ability_item_abyssal_blade_2_Description"												"<h1>Active: Overwhelm</h1><b><font color='#CCCCCC'>Bashes</font></b> a target enemy unit. Damage, duration and radius are increased by %active_multiplier%%%.<br><br>Range: %abilitycastrange%\n\n<h1>Passive: Overwhelming Bash</h1> Grants melee heroes a %bash_chance_melee%%% (%bash_chance_ranged%%% for ranged) chance on hit to stun the target and all enemies within %bash_radius% units for %bash_duration% seconds, dealing %bonus_chance_damage% + %bonus_str_damage%%% of your Strength as bonus physical damage.\n\n<h1>Passive: Damage Block</h1> Grants a %block_chance%%% chance to reduce damage taken from incoming attacks by %block_damage_pct%%% of your Strength."
+		"DOTA_Tooltip_ability_item_abyssal_blade_2_Description"												"<h1>Active: Overwhelm</h1><b><font color='#CCCCCC'>Bashes</font></b> a target enemy unit. Damage, duration and radius are increased by %active_multiplier%%%.<br><br>Range: %abilitycastrange%\n\n<h1>Passive: Overwhelming Bash</h1> Grants melee heroes a %bash_chance_melee%%% (%bash_chance_ranged%%% for ranged) chance on hit to stun the target and all enemies within %bash_radius% units for %bash_duration% seconds, dealing %bonus_chance_damage% + %bonus_str_damage%%% of your Strength as bonus physical damage.\nHas a %bash_cooldown% second internal cooldown (%bash_cooldown_ranged% for ranged heroes).\n\n<h1>Passive: Damage Block</h1> Grants a %block_chance%%% chance to reduce damage taken from incoming attacks by %block_damage_pct%%% of your Strength."
 		"DOTA_Tooltip_ability_item_abyssal_blade_2_bonus_damage"											"+$damage"
 		"DOTA_Tooltip_ability_item_abyssal_blade_2_bonus_health"											"+$health"
 		"DOTA_Tooltip_ability_item_abyssal_blade_2_bonus_health_regen"										"+$hp_regen"
 		"DOTA_Tooltip_ability_item_abyssal_blade_2_bonus_strength"											"+$str"
 		
 		"DOTA_Tooltip_ability_item_abyssal_blade_3"															"Damning Blade"
-		"DOTA_Tooltip_ability_item_abyssal_blade_3_Description"												"<h1>Active: Overwhelm</h1><b><font color='#CCCCCC'>Bashes</font></b> a target enemy unit. Damage, duration and radius are increased by %active_multiplier%%%.<br><br>Range: %abilitycastrange%\n\n<h1>Passive: Overwhelming Bash</h1> Grants melee heroes a %bash_chance_melee%%% (%bash_chance_ranged%%% for ranged) chance on hit to stun the target and all enemies within %bash_radius% units for %bash_duration% seconds, dealing %bonus_chance_damage% + %bonus_str_damage%%% of your Strength as bonus physical damage.\n\n<h1>Passive: Damage Block</h1> Grants a %block_chance%%% chance to reduce damage taken from incoming attacks by %block_damage_pct%%% of your Strength."
+		"DOTA_Tooltip_ability_item_abyssal_blade_3_Description"												"<h1>Active: Overwhelm</h1><b><font color='#CCCCCC'>Bashes</font></b> a target enemy unit. Damage, duration and radius are increased by %active_multiplier%%%.<br><br>Range: %abilitycastrange%\n\n<h1>Passive: Overwhelming Bash</h1> Grants melee heroes a %bash_chance_melee%%% (%bash_chance_ranged%%% for ranged) chance on hit to stun the target and all enemies within %bash_radius% units for %bash_duration% seconds, dealing %bonus_chance_damage% + %bonus_str_damage%%% of your Strength as bonus physical damage.\nHas a %bash_cooldown% second internal cooldown (%bash_cooldown_ranged% for ranged heroes).\n\n<h1>Passive: Damage Block</h1> Grants a %block_chance%%% chance to reduce damage taken from incoming attacks by %block_damage_pct%%% of your Strength."
 		"DOTA_Tooltip_ability_item_abyssal_blade_3_bonus_damage"											"+$damage"
 		"DOTA_Tooltip_ability_item_abyssal_blade_3_bonus_health"											"+$health"
 		"DOTA_Tooltip_ability_item_abyssal_blade_3_bonus_health_regen"										"+$hp_regen"
 		"DOTA_Tooltip_ability_item_abyssal_blade_3_bonus_strength"											"+$str"
 		
 		"DOTA_Tooltip_ability_item_abyssal_blade_4"															"Redeeming Blade"
-		"DOTA_Tooltip_ability_item_abyssal_blade_4_Description"												"<h1>Active: Overwhelm</h1><b><font color='#CCCCCC'>Bashes</font></b> a target enemy unit. Damage, duration and radius are increased by %active_multiplier%%%.<br><br>Range: %abilitycastrange%\n\n<h1>Passive: Overwhelming Bash</h1> Grants melee heroes a %bash_chance_melee%%% (%bash_chance_ranged%%% for ranged) chance on hit to stun the target and all enemies within %bash_radius% units for %bash_duration% seconds, dealing %bonus_chance_damage% + %bonus_str_damage%%% of your Strength as bonus physical damage.\n\n<h1>Passive: Damage Block</h1> Grants a %block_chance%%% chance to reduce damage taken from incoming attacks by %block_damage_pct%%% of your Strength."
+		"DOTA_Tooltip_ability_item_abyssal_blade_4_Description"												"<h1>Active: Overwhelm</h1><b><font color='#CCCCCC'>Bashes</font></b> a target enemy unit. Damage, duration and radius are increased by %active_multiplier%%%.<br><br>Range: %abilitycastrange%\n\n<h1>Passive: Overwhelming Bash</h1> Grants melee heroes a %bash_chance_melee%%% (%bash_chance_ranged%%% for ranged) chance on hit to stun the target and all enemies within %bash_radius% units for %bash_duration% seconds, dealing %bonus_chance_damage% + %bonus_str_damage%%% of your Strength as bonus physical damage.\nHas a %bash_cooldown% second internal cooldown (%bash_cooldown_ranged% for ranged heroes).\n\n<h1>Passive: Damage Block</h1> Grants a %block_chance%%% chance to reduce damage taken from incoming attacks by %block_damage_pct%%% of your Strength."
 		"DOTA_Tooltip_ability_item_abyssal_blade_4_bonus_damage"											"+$damage"
 		"DOTA_Tooltip_ability_item_abyssal_blade_4_bonus_health"											"+$health"
 		"DOTA_Tooltip_ability_item_abyssal_blade_4_bonus_health_regen"										"+$hp_regen"
 		"DOTA_Tooltip_ability_item_abyssal_blade_4_bonus_strength"											"+$str"
 		
 		"DOTA_Tooltip_ability_item_abyssal_blade_5"															"Forsaken Blade"
-		"DOTA_Tooltip_ability_item_abyssal_blade_5_Description"												"<h1>Active: Overwhelm</h1><b><font color='#CCCCCC'>Bashes</font></b> a target enemy unit. Damage, duration and radius are increased by %active_multiplier%%%.<br><br>Range: %abilitycastrange%\n\n<h1>Passive: Overwhelming Bash</h1> Grants melee heroes a %bash_chance_melee%%% (%bash_chance_ranged%%% for ranged) chance on hit to stun the target and all enemies within %bash_radius% units for %bash_duration% seconds, dealing %bonus_chance_damage% + %bonus_str_damage%%% of your Strength as bonus physical damage.\n\n<h1>Passive: Damage Block</h1> Grants a %block_chance%%% chance to reduce damage taken from incoming attacks by %block_damage_pct%%% of your Strength."
+		"DOTA_Tooltip_ability_item_abyssal_blade_5_Description"												"<h1>Active: Overwhelm</h1><b><font color='#CCCCCC'>Bashes</font></b> a target enemy unit. Damage, duration and radius are increased by %active_multiplier%%%.<br><br>Range: %abilitycastrange%\n\n<h1>Passive: Overwhelming Bash</h1> Grants melee heroes a %bash_chance_melee%%% (%bash_chance_ranged%%% for ranged) chance on hit to stun the target and all enemies within %bash_radius% units for %bash_duration% seconds, dealing %bonus_chance_damage% + %bonus_str_damage%%% of your Strength as bonus physical damage.\nHas a %bash_cooldown% second internal cooldown (%bash_cooldown_ranged% for ranged heroes).\n\n<h1>Passive: Damage Block</h1> Grants a %block_chance%%% chance to reduce damage taken from incoming attacks by %block_damage_pct%%% of your Strength."
 		"DOTA_Tooltip_ability_item_abyssal_blade_5_bonus_damage"											"+$damage"
 		"DOTA_Tooltip_ability_item_abyssal_blade_5_bonus_health"											"+$health"
 		"DOTA_Tooltip_ability_item_abyssal_blade_5_bonus_health_regen"										"+$hp_regen"

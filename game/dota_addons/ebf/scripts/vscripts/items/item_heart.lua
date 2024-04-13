@@ -91,6 +91,10 @@ function modifier_item_heart_active:GetEffectName()
 	return "particles/items_fx/item_heart_active.vpcf"
 end
 
+function modifier_item_heart_active:IsPurgable()
+	return not self.magic_immune
+end
+
 modifier_item_heart_passive = class({})
 LinkLuaModifier( "modifier_item_heart_passive", "items/item_heart.lua" ,LUA_MODIFIER_MOTION_NONE )
 

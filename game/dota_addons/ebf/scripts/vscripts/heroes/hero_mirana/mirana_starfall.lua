@@ -1,108 +1,55 @@
-mirana_starcall = class({})
-LinkLuaModifier("modifier_mirana_starcall", "heroes/hero_mirana/mirana_starcall", LUA_MODIFIER_MOTION_NONE)
+mirana_starfall = class({})
 
-function mirana_starcall:IsStealable()
+function mirana_starfall:IsStealable()
     return true
 end
 
-function mirana_starcall:IsHiddenWhenStolen()
+function mirana_starfall:IsHiddenWhenStolen()
     return false
 end
 
-function mirana_starcall:GetIntrinsicModifierName()
-    return "modifier_mirana_starcall"
-end
-
-function mirana_starcall:GetBehavior()
-	if self:GetCaster():HasTalent("special_bonus_unique_mirana_starcall_1") then
-		return DOTA_ABILITY_BEHAVIOR_NO_TARGET + DOTA_ABILITY_BEHAVIOR_AUTOCAST
-	else
-		return DOTA_ABILITY_BEHAVIOR_NO_TARGET
-	end
-end
-
-function mirana_starcall:OnTalentLearned()
-	if self:GetCaster():HasTalent("special_bonus_unique_mirana_starcall_1") then
-		self:ToggleAutoCast()
-	elseif self:GetAutoCastState() then
-		self:ToggleAutoCast()
-	end
-end
-
-function mirana_starcall:OnSpellStart()
+function mirana_starfall:OnSpellStart()
     local caster = self:GetCaster()
 	
-    local damage = self:GetTalentSpecialValueFor("damage")
-    -- local agi_damage = self:GetTalentSpecialValueFor("agi_damage")/100
-    -- damage = damage + caster:GetAgility() * agi_damage
-	local radius = self:GetTalentSpecialValueFor("radius")
-	self:StarFall( radius, damage, 0 )
-	local damage2 = damage * self:GetTalentSpecialValueFor("wave_damage") / 100
-	local target
-	for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), radius, {order = FIND_CLOSEST} ) ) do
-		if not enemy:IsMinion() then
-			target = enemy
-			break
-		end
+	EmitSoundOn("Ability.Starfall", caster)
+	
+    local damage = self:GetSpecialValueFor("damage")
+	local radius = caster:GetAttackRange() + self:GetSpecialValueFor("starfall_radius")
+	self.castAbility = true
+	for _,enemy in pairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), radius ) ) do
+		self:StarDrop( enemy, damage )
 	end
-	self:StarFall( radius, damage2, self:GetTalentSpecialValueFor("wave_delay"), target )
-	-- if caster:HasTalent("special_bonus_unique_mirana_starcall_2") then
-		-- local damage3 = damage * caster:FindTalentValue("special_bonus_unique_mirana_starcall_2", "damage")
-		-- self:StarFall( radius, damage3, self:GetSpecialValueFor("wave_delay") )
-	-- end
+	self.castAbility = false
 end
 
-function mirana_starcall:StarFall( radius, damage, delay, target)
+function mirana_starfall:StarDrop(target, flDamage, bLesser)
 	local caster = self:GetCaster()
-	 Timers:CreateTimer(delay or 0, function()
-		if target then
-			self:StarDrop( target )
-		end
-        local enemies = caster:FindEnemyUnitsInRadius(caster:GetAbsOrigin(), radius)
-        for _,enemy in pairs(enemies) do
-			if not target or (target and enemy ~= target and enemy:IsMinion()) then
-				self:StarDrop( enemy, damage)
-			end
-        end
-    end)
-end
-
-function mirana_starcall:StarDrop(target, damage)
-	local caster = self:GetCaster()
-	ParticleManager:FireParticle("particles/units/heroes/hero_mirana/mirana_loadout.vpcf", PATTACH_POINT_FOLLOW, target, {[0]=target:GetAbsOrigin()})
-	Timers:CreateTimer(0.57, function() --particle delay
+	local damage = flDamage or self:GetSpecialValueFor("damage")
+	local abilityCast = self.castAbility
+	ParticleManager:FireParticle("particles/units/heroes/hero_mirana/mirana_starfall_attack.vpcf", PATTACH_POINT_FOLLOW, target, {[0]=target:GetAbsOrigin()})
+	Timers:CreateTimer(0.5, function() --particle delay
 		EmitSoundOn("Ability.StarfallImpact", target)
-		if not target:TriggerSpellAbsorb(self) then
-			self:DealDamage(caster, target, damage, {}, 0) 
-			if caster:HasTalent("special_bonus_unique_mirana_starcall_2") then
-				local tDur = caster:FindTalentValue("special_bonus_unique_mirana_starcall_2")
-				target:Daze(self, caster, tDur)
-				target:Break(self, caster, tDur)
-			end
-		end
+		self:DealDamage(caster, target, damage, {damage_flags = TernaryOperator( DOTA_DAMAGE_FLAG_PROPERTY_FIRE, not abilityCast, DOTA_DAMAGE_FLAG_NONE )})
+		if not bLesser then target:AddNewModifier( caster, self, "modifier_mirana_starfall_debuff", {duration = self:GetSpecialValueFor("debuff_duration")}) end
 	end)
 end
 
-modifier_mirana_starcall = class({})
-function modifier_mirana_starcall:OnCreated(table)
-    if IsServer() then
-        self:StartIntervalThink(0.15)
-    end
+modifier_mirana_starfall_debuff = class({})
+LinkLuaModifier("modifier_mirana_starfall_debuff", "heroes/hero_mirana/mirana_starfall", LUA_MODIFIER_MOTION_NONE)
+
+function modifier_mirana_starfall_debuff:DeclareFunctions()
+	return {MODIFIER_EVENT_ON_TAKEDAMAGE}
 end
 
-function modifier_mirana_starcall:OnIntervalThink()
-    if self:GetParent():HasTalent("special_bonus_unique_mirana_starcall_1") and self:GetParent():IsAlive() and self:GetAbility():GetAutoCastState() then
-		local caster = self:GetCaster()
-		local enemies = caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), self:GetTalentSpecialValueFor("radius") )
-		if #enemies > 0 then
-			self:GetAbility():OnSpellStart()
-			self:StartIntervalThink(self:GetParent():FindTalentValue("special_bonus_unique_mirana_starcall_1"))
-		else
-			self:StartIntervalThink(0.35)
-		end
-    end
+function modifier_mirana_starfall_debuff:OnTakeDamage( params )
+	if params.attacker == self:GetCaster() and params.unit == self:GetParent() and not HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_PROPERTY_FIRE ) then
+		local ability = self:GetAbility()
+		local damage = self:GetSpecialValueFor("damage")
+		local triggerDamage = params.inflictor and self:GetCaster():HasAbility( params.inflictor:GetAbilityName() )
+		ability:StarDrop( params.unit, damage * TernaryOperator( 1, triggerDamage, self:GetSpecialValueFor("secondary_starfall_damage_percent") / 100 ), not triggerDamage )
+		self:Destroy()
+	end
 end
 
-function modifier_mirana_starcall:IsHidden()
-    return true
-end
+modifier_mirana_starfall_starfall_immunity = class({})
+LinkLuaModifier("modifier_mirana_starfall_starfall_immunity", "heroes/hero_mirana/mirana_starfall", LUA_MODIFIER_MOTION_NONE)

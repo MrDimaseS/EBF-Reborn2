@@ -15,13 +15,10 @@ function item_sheepstick:OnSpellStart()
 	local duration = self:GetSpecialValueFor("sheep_duration")
 	local bonus_duration = self:GetSpecialValueFor("bonus_duration")
 	
-	target:AddNewModifier( caster, self, "modifier_sheepstick_debuff", {duration = duration} )
-	
+	local hex = target:AddNewModifier( caster, self, "modifier_sheepstick_debuff", {duration = duration} )
 	while maxUnitsHexed > 0 do
-		print(maxUnitsHexed) 
 		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( target:GetAbsOrigin(), self:GetTrueCastRange() ) ) do
 			if not HasValInTable( unitsHexed, enemy ) then
-				print("huh")
 				table.insert( unitsHexed, enemy )
 				maxUnitsHexed = maxUnitsHexed - 1
 				

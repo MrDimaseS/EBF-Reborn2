@@ -1,0 +1,1 @@
+invoker_sun_strike = class({})

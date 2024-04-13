@@ -85,7 +85,6 @@ function modifier_shadow_shaman_bound_shackles:OnIntervalThink()
 	ability:DealDamage( caster, target, self.damage*self.tick )
 	caster:HealEvent( self.heal*self.tick, ability, caster )
 	ApplyDamage({ victim = self:GetParent(), attacker = self:GetCaster(), damage = self.damage*self.tick, damage_type = self:GetAbility():GetAbilityDamageType(), ability = self:GetAbility()})
-	
 end
 
 function modifier_shadow_shaman_bound_shackles:OnDestroy()

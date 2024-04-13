@@ -30,6 +30,7 @@ function modifier_boss_psionic_assassin_reflecting_carapace_handler:OnTakeDamage
 		self.health_lost = self.health_lost + params.damage
 		if self.health_lost >= self:GetParent():GetMaxHealth() * self.hp_trigger_threshold then
 			params.unit:AddNewModifier( params.unit, self:GetAbility(), "modifier_boss_psionic_assassin_reflecting_carapace_reflect", {duration = self.reflect_duration} )
+			params.unit:Dispel( params.unit, true )
 			EmitSoundOn( "Hero_NyxAssassin.SpikedCarapace", params.unit )
 			self.health_lost = 0
 			self:GetAbility():SetCooldown()
@@ -45,13 +46,18 @@ modifier_boss_psionic_assassin_reflecting_carapace_reflect = class({})
 LinkLuaModifier( "modifier_boss_psionic_assassin_reflecting_carapace_reflect", "bosses/boss_scarabs/boss_psionic_assassin_reflecting_carapace.lua" ,LUA_MODIFIER_MOTION_NONE )
 
 function modifier_boss_psionic_assassin_reflecting_carapace_reflect:OnCreated()
+	self.damage_reflect_pct = 0
+	self.max_damage_reflect_pct = self:GetSpecialValueFor("damage_reflect_pct")
 	self.delay_duration = self:GetSpecialValueFor("delay_duration")
-	self:StartIntervalThink( self.delay_duration )
+	self.reflect_scaling = self.max_damage_reflect_pct / self.delay_duration
+	self:StartIntervalThink( 0.1 )
 end
 
 function modifier_boss_psionic_assassin_reflecting_carapace_reflect:OnIntervalThink()
-	self.damage_reflect_pct = self:GetSpecialValueFor("damage_reflect_pct")
-	self:StartIntervalThink( -1 )
+	self.damage_reflect_pct = math.min( self.damage_reflect_pct + self.reflect_scaling * 0.1, self.max_damage_reflect_pct )
+	if self.damage_reflect_pct >= self.max_damage_reflect_pct then
+		self:StartIntervalThink( -1 )
+	end
 end
 
 function modifier_boss_psionic_assassin_reflecting_carapace_reflect:OnDestroy()

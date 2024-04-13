@@ -5,6 +5,7 @@ SECONDS_TO_COMBO_BREAK = 10
 
 function bossPowerScale:OnCreated(keys)
 	self:SetHasCustomTransmitterData( true )
+	self:OnRefresh()
 end
 
 function bossPowerScale:OnRefresh(keys)
@@ -23,10 +24,6 @@ function bossPowerScale:OnRefresh(keys)
 	self.bonusSpellDamage = ( ( (1 + difficulty * 0.25) - 1 ) * 100 ) * logisticFunction
 	
 	
-	self:GetParent().bossOriginalModel = self:GetParent():GetModelName()
-	self:GetParent():SetPhysicalArmorBaseValue( self.baseArmor * 0.4 )
-	self.bonusDamage = self:GetParent():GetAverageBaseDamage() * self.bonusDamagePct / 100
-	
 	if difficulty >= 3 then
 		self.bonusCooldownReduction = 0
 		self.bonusArmor = self.bonusArmor + 5.55
@@ -34,25 +31,35 @@ function bossPowerScale:OnRefresh(keys)
 		self.bonusMS = 15
 	end
 	
-	self:SendBuffRefreshToClients()
 	self.treewalk = false
 	self.dmgTakenSinceCheck = 0
 	self.lastHPPctSinceCheck = self:GetParent():GetHealthPercent()
 	self.HPRageThreshold = 2.4
 	self.enrageTimer = 90
 	if self:GetParent():IsConsideredHero() then 
-		self.baseStatusResistance = math.max( 2.5*(difficulty+1), 15 * roundNumber/16 * (1 + difficulty/10) )
+		self.baseStatusResistance = 10
+		if self:GetParent():IsConsideredHero() then
+			self.baseStatusResistance = self.baseStatusResistance + 10 * difficulty
+		else
+			self.baseStatusResistance = self.baseStatusResistance + 2.5 * difficulty
+		end
 		self.actualStatusResistance = self.baseStatusResistance
 		self.statusResistIncreasePerTick = ( (MAX_STATUS_RESIST - self.baseStatusResistance) / SECONDS_TO_COMBO_BREAK ) * 0.25
 	end
-	self:StartIntervalThink( 0.25 ) 
-	self:OnIntervalThink( )
+	self:StartIntervalThink( 0.25 )
+	
+	if IsServer() then 
+		self:GetParent().bossOriginalModel = self:GetParent():GetModelName() 
+		self:GetParent():SetPhysicalArmorBaseValue( self.baseArmor * 0.4 )
+		self.bonusDamage = self:GetParent():GetAverageBaseDamage() * self.bonusDamagePct / 100
+		self:SendBuffRefreshToClients()
+	end
 end
 
 function bossPowerScale:OnIntervalThink()
-	self.treewalk = not self:GetParent():IsLeashed()
 
 	if IsServer() then
+		self.treewalk = not self:GetParent():IsLeashed()
 		if self:GetParent():IsInvulnerable() or self:GetParent():IsInvulnerable() or self:GetParent():IsOutOfGame() then return end
 		self.enrageTimer = self.enrageTimer - 0.25
 		if self.enrageTimer <= 0 then
@@ -97,7 +104,7 @@ function bossPowerScale:CheckState()
 	if self.treewalk  then
 		states[MODIFIER_STATE_ALLOW_PATHING_THROUGH_TREES] = true
 	end
-	if self:GetParent():IsConsideredHero()  then
+	if self:GetParent():IsConsideredHero() then
 		states[MODIFIER_STATE_NO_HEALTH_BAR] = true
 	end
 	return states
@@ -115,6 +122,7 @@ function bossPowerScale:AddCustomTransmitterData()
 		bonusMR = self.bonusMR,
 		bonusCooldownReduction = self.bonusCooldownReduction,
 		bonusMS = self.bonusMS,
+		bossOriginalModel = self.bossOriginalModel,
 	}
 end
 
@@ -123,8 +131,8 @@ function bossPowerScale:HandleCustomTransmitterData( data )
 	self.bonusArmor = data.bonusArmor
 	self.bonusSpellDamage = data.bonusSpellDamage
 	self.bonusMR = data.bonusMR
-	self.bonusMR = data.bonusMR
 	self.bonusMS = data.bonusMS
+	self.bossOriginalModel = data.bossOriginalModel
 end
 
 function bossPowerScale:DeclareFunctions()

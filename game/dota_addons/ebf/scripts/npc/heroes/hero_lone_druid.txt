@@ -186,6 +186,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_lone_druid/lone_druid_spirit_bear"
+		"AbilityTextureName"			"lone_druid_spirit_bear"
 					
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"DisplayAdditionalHeroes"		"1"
@@ -205,16 +208,25 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bear_hp"									"2500 4500 8500 15000 25000 45000 85000"
-			"bear_regen_tooltip"						"15"
+			"bear_hp"
+			{
+				"value"									"5500 7000 8500 10000 11500 13000 14500"
+				"special_bonus_unique_lone_druid_7"		"+70%"
+				"CalculateAttributeTooltip"				"1"
+			}
+			"bear_regen_tooltip"
+			{
+				"value"									"15"
+				"CalculateAttributeTooltip"				"1"
+			}
 			"bear_bat"
 			{
 				"value"									"1.75"
-				"special_bonus_unique_lone_druid_10"	"-0.35"
+				"special_bonus_unique_lone_druid_10"	"-0.4"
 			}
 			"bear_armor"
 			{
-				"value"									"10"
+				"value"									"0 2 4 6 8 10 12"
 				"special_bonus_unique_lone_druid_2"		"+15"
 			}
 			"backlash_damage"							"20.0"
@@ -230,18 +242,8 @@
 				"value"									"0"
 				"special_bonus_unique_lone_druid_5"		"+40"
 			}
-			"bonus_bear_hp"
-			{
-				"value"									"0"
-				"special_bonus_unique_lone_druid_7"		"+100000"
-			}
-			"bonus_bear_armor"
-			{
-				"value"									"0 2 4 6 8 10 12"
-				"special_bonus_unique_lone_druid_2"		"+8"
-			}
-			"damage_gain_per_druid_level"				"50"
-			"hp_gain_per_druid_level"					"500"
+			"damage_gain_per_druid_level"				"100"
+			"hp_gain_per_druid_level"					"900"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -260,10 +262,6 @@
 		"LevelsBetweenUpgrades"			"6"
 		"AbilitySound"					"Hero_LoneDruid.TrueForm.Cast"
 
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"100"
-
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastAnimation"			"ACT_DOTA_OVERRIDE_ABILITY_3"
@@ -278,16 +276,21 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_armor"				"10 12 14 16 18 24"
+			"bonus_armor"							"8 10 12 14 16 18"
 			"bonus_hp"
 			{
 				"value"								"5000 10000 15000 20000 25000 30000"
-				"special_bonus_unique_lone_druid_7"	"+75%"
+				"special_bonus_unique_lone_druid_7"	"+70%"
 				"CalculateSpellHealTooltip"			"1"
 			}
 			"base_attack_time"			"1.7"
-			"duration"					"60"
+			"duration"					"40"
 			"transformation_time"		"1.933"
+			"AbilityCooldown"
+			{
+				"value"					"100"
+				"special_bonus_unique_lone_druid_8"			"-50%"
+			}
 		}
 	}
 
@@ -341,13 +344,13 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
-		"MaxLevel"						"6"
-		"LevelsBetweenUpgrades"			"6"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
 		"AbilitySound"					"LoneDruid_SpiritBear.Entangle"
 
 		// Damage.
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"1200 2800 7000 16500 17500 18500"
+		"AbilityDamage"								"300 400 500 600 700 800 900"
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
@@ -357,16 +360,22 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"AbilityDamage"
+			{
+				"value"								"300 400 500 600 700 800 900"
+				"CalculateSpellDamageTooltip"		"1"
+				"special_bonus_unique_lone_druid_7"	"+75%"
+			}
 			"damage"
 			{
-				"value"								"300 400 500 600 700 800"
-				"special_bonus_unique_lone_druid_7"	"+75%"
+				"value"								"300 400 500 600 700 800 900"
 				"CalculateSpellDamageTooltip"		"1"
+				"special_bonus_unique_lone_druid_7"	"+75%"
 			}
 			"entangle_chance"						"25"
+			"hero_entangle_chance"					"25"
 			"hero_duration"							"2.8"
 			"creep_damage_multiplier"				"3"
-			"hero_entangle_chance"					"15"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -386,8 +395,8 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
-		"MaxLevel"						"6"
-		"LevelsBetweenUpgrades"			"6"
+		"MaxLevel"						"7"
+		"LevelsBetweenUpgrades"			"3"
 		"AbilitySound"					"LoneDruid_SpiritBear.Entangle"
 
 		// Casting
@@ -453,28 +462,14 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"6"
+		"LevelsBetweenUpgrades"			"3"
 
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"spell_resistance"		"33"
-			}
-			"02"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"bonus_building_damage"		"10 20 30 40"
-			}
-			"03"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"true_form_bonus_building_damage"		"15 30 45 60"
-			}
+			"spell_resistance"			"15 18 21 24 27 30 33"
 		}
 	}
 	

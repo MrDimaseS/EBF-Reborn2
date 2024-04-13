@@ -58,6 +58,10 @@ function modifier_item_butterfly_untouchable:GetEffectName()
 	return "particles/items2_fx/butterfly_buff.vpcf"
 end
 
+function modifier_item_butterfly_untouchable:IsPurgable()
+	return not self.magic_immune
+end
+
 modifier_item_butterfly_zephyr = class({})
 LinkLuaModifier( "modifier_item_butterfly_zephyr", "items/item_butterfly.lua", LUA_MODIFIER_MOTION_NONE )
 

@@ -20,7 +20,7 @@ function item_abyssal_blade:Bash( target )
 	local caster = self:GetCaster()
 	
 	local bash_duration = self:GetSpecialValueFor("bash_duration")
-	local bash_cooldown = self:GetSpecialValueFor("bash_cooldown")
+	local bash_cooldown = TernaryOperator( self:GetSpecialValueFor("bash_cooldown_ranged"), caster:IsRangedAttacker(), self:GetSpecialValueFor("bash_cooldown"))
 	local bash_radius = self:GetSpecialValueFor("bash_radius")
 	local bonus_chance_damage = self:GetSpecialValueFor("bonus_chance_damage")
 	local bonus_str_damage = self:GetSpecialValueFor("bonus_str_damage") / 100
@@ -35,15 +35,20 @@ function item_abyssal_blade:Bash( target )
 		self.activatedBash =  false
 	end
 	
-	for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( target:GetAbsOrigin(), bash_radius ) ) do
-		self:DealDamage( caster, enemy, bonus_chance_damage + caster:GetStrength() * bonus_str_damage, {damage_type = DAMAGE_TYPE_PHYSICAL} )
-		self:Stun( enemy, bash_duration )
+	if bash_radius > 0 then
+		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( target:GetAbsOrigin(), bash_radius ) ) do
+			self:DealDamage( caster, enemy, bonus_chance_damage + caster:GetStrength() * bonus_str_damage, {damage_type = DAMAGE_TYPE_PHYSICAL} )
+			if caster:IsRealHero() then self:Stun( enemy, bash_duration ) end
+		end
+		ParticleManager:FireParticle( "particles/items5_fx/abyssal_blade_aoe_bash.vpcf", PATTACH_WORLDORIGIN, nil, {[0] = target:GetAbsOrigin(), [1] = Vector(bash_radius,bash_radius,bash_radius)} )
+	else
+		self:SetCooldown( bash_cooldown )
 	end
-	ParticleManager:FireParticle( "particles/items5_fx/abyssal_blade_aoe_bash.vpcf", PATTACH_WORLDORIGIN, nil, {[0] = target:GetAbsOrigin(), [1] = Vector(bash_radius,bash_radius,bash_radius)} )
 	caster:AddNewModifier( caster, self, "modifier_item_generic_bash_cd", {duration = bash_cooldown} )
 	EmitSoundOn( "DOTA_Item.SkullBasher", target )
 end
 
+item_basher = class(item_abyssal_blade)
 item_abyssal_blade_2 = class(item_abyssal_blade)
 item_abyssal_blade_3 = class(item_abyssal_blade)
 item_abyssal_blade_4 = class(item_abyssal_blade)
@@ -101,6 +106,7 @@ function modifier_item_abyssal_blade_passive:GetModifierPreAttack_BonusDamage()
 end
 
 function modifier_item_abyssal_blade_passive:GetModifierPhysical_ConstantBlockUnavoidablePreArmor( params )
+	if self.block_chance == 0 then return end
 	if params.damage_category ~= DOTA_DAMAGE_CATEGORY_ATTACK or params.damage <= 0 then return end
 	local roll = RollPseudoRandomPercentage( self.block_chance, self:GetAbility():entindex()+1, params.attacker )
 	if roll then

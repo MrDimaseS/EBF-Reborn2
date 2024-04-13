@@ -18,6 +18,10 @@ LinkLuaModifier("modifier_special_effect_donator", "/modifiers/modifier_special_
 LinkLuaModifier( "modifier_generic_attack_bonus", "libraries/modifiers/modifier_generic_attack_bonus.lua", LUA_MODIFIER_MOTION_NONE )
 LinkLuaModifier( "modifier_generic_attack_bonus_pct", "libraries/modifiers/modifier_generic_attack_bonus_pct.lua", LUA_MODIFIER_MOTION_NONE )
 
+LinkLuaModifier( "bossHealthRescale", "modifier/bossHealthRescale.lua", LUA_MODIFIER_MOTION_NONE )
+LinkLuaModifier( "bossPowerScale", "modifier/bossPowerScale.lua", LUA_MODIFIER_MOTION_NONE )
+LinkLuaModifier( "modifier_healthbar_dummy", "modifier/modifier_healthbar_dummy.lua", LUA_MODIFIER_MOTION_NONE )
+
 if IsClient() then -- Load clientside utility lib
 	print("client-side has been initialized")
 	require("libraries/client_util")

@@ -98,6 +98,7 @@ function Precache( context )
 	
 	PrecacheUnitByNameSync("npc_dota_boss_ogre_magi", context)
 	PrecacheUnitByNameSync("npc_dota_visage_familiar1", context)
+	PrecacheUnitByNameSync("npc_dota_lone_druid_bear1", context)
 	PrecacheResource( "model", "models/heroes/tiny/tiny_04/tiny_04.vmdl", context )
 	PrecacheResource( "model", "models/heroes/tiny/tiny_04/tiny_04.vmdl", context )
 	PrecacheResource( "model", "models/heroes/tiny/tiny_04/tiny_04.vmdl", context )
@@ -328,6 +329,7 @@ function CHoldoutGameMode:InitGameMode()
 	
 	CustomGameEventManager:RegisterListener('epic_boss_fight_ng_voted', function(id, event) return self:NewGamePlus_ProcessVotes( event ) end )
 	CustomGameEventManager:RegisterListener('Vote_Round', Dynamic_Wrap( CHoldoutGameMode, 'vote_Round'))
+	CustomGameEventManager:RegisterListener( "request_hero_inventory", function( id, event ) self:SendUpdatedInventoryContents( event ) end )
 
 	GameRules:GetGameModeEntity():SetDamageFilter( Dynamic_Wrap( CHoldoutGameMode, "FilterDamage" ), self )
 	GameRules:GetGameModeEntity():SetAbilityTuningValueFilter( Dynamic_Wrap( CHoldoutGameMode, "FilterAbilityValues" ), self )
@@ -344,10 +346,15 @@ function CHoldoutGameMode:InitGameMode()
 	PlayerResource.disconnect = {}
 end
 
+function CHoldoutGameMode:SendUpdatedInventoryContents( info )
+	local hero = EntIndexToHScript( info.unit )
+	if not IsEntitySafe( hero ) then return end
+	if not IsEntitySafe( hero._attributesAbility ) then return end
+	hero._attributesAbility:SendUpdatedInventoryContents({unit = hero:entindex()})
+end
 
 function CHoldoutGameMode:OnGameStart (event)
  	CustomGameEventManager:Send_ServerToAllClients("UpdateLife", {life = Life._life})
-	
 end
 
 function CHoldoutGameMode:chat_time(event)
@@ -624,6 +631,7 @@ function CHoldoutGameMode:OnHeroPick (event)
 	
 	-- set hero base stats to their intended values
 	
+	if playerID == -1 then return end
 	if PlayerResource:GetSelectedHeroEntity( playerID ) and hero ~= PlayerResource:GetSelectedHeroEntity( playerID ) then return end -- ignore non-main units like meepo, spirit bear etc
 	hero.damageDone = 0
 	hero.Ressurect = 0
@@ -684,7 +692,7 @@ function CHoldoutGameMode:OnHeroPick (event)
 	hero.damage_taken_ingame = 0
 	hero.damage_healed_ingame = 0
 	
-	
+	print( hero:GetUnitName() )
 	hero._heroManaType = GameRules.HeroKV[hero:GetUnitName()].ManaType or "Mana"
 	
 	if hero:GetManaType() == "Mana" then
@@ -1270,7 +1278,6 @@ function CHoldoutGameMode:OnThink()
 					
 					self._nRoundNumber = self._nRoundNumber + 1
 					GameRules._roundnumber = self._nRoundNumber
-					print("this should update")
 					for nPlayerID = 0, DOTA_MAX_TEAM_PLAYERS-1 do
 						if PlayerResource:GetTeam( nPlayerID ) == DOTA_TEAM_GOODGUYS then
 							if PlayerResource:HasSelectedHero( nPlayerID ) then

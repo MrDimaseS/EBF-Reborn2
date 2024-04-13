@@ -8,6 +8,14 @@ function earth_spirit_boulder_smash:IsHiddenWhenStolen()
 	return false
 end
 
+function earth_spirit_boulder_smash:GetCastRange( position, target )
+	if target or IsClient() then
+		return self.BaseClass.GetCastRange( self, position, target )
+	else
+		return 20000
+	end
+end
+
 function earth_spirit_boulder_smash:OnAbilityPhaseStart()
     local caster = self:GetCaster()
     local target = self:GetCursorTarget()
@@ -17,14 +25,14 @@ function earth_spirit_boulder_smash:OnAbilityPhaseStart()
 	end
 	
     local position = self:GetCursorPosition()
-	local stones = caster:FindFriendlyUnitsInRadius(position, self:GetSpecialValueFor("rock_search_aoe"), {type = DOTA_UNIT_TARGET_ALL, flag = DOTA_UNIT_TARGET_FLAG_INVULNERABLE, order = FIND_CLOSEST})
+	local stones = caster:FindFriendlyUnitsInRadius(caster:GetAbsOrigin(), self:GetSpecialValueFor("rock_search_aoe"), {type = DOTA_UNIT_TARGET_ALL, flag = DOTA_UNIT_TARGET_FLAG_INVULNERABLE, order = FIND_CLOSEST})
     for _,stone in ipairs(stones) do
     	if stone:GetName() == "npc_dota_earth_spirit_stone" then
 			self.target = stone
     		return true
     	end
     end
-	local enemies = caster:FindEnemyUnitsInRadius(position, self:GetSpecialValueFor("rock_search_aoe"), {order = FIND_CLOSEST})
+	local enemies = caster:FindEnemyUnitsInRadius(caster:GetAbsOrigin(), self:GetSpecialValueFor("rock_search_aoe"), {order = FIND_CLOSEST})
     for _,enemy in ipairs(enemies) do
 		self.target = enemy
 		return true

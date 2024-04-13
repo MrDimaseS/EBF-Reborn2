@@ -14,12 +14,6 @@ function bossManager:EHPFix(EHP_GOAL,HP) --you enter the current HP
 	return Multiplier
 end
 
-LinkLuaModifier( "bossHealthRescale", "modifier/bossHealthRescale.lua", LUA_MODIFIER_MOTION_NONE )
-LinkLuaModifier( "bossPowerScale", "modifier/bossPowerScale.lua", LUA_MODIFIER_MOTION_NONE )
-LinkLuaModifier( "status_immune", "modifier/status_immune.lua", LUA_MODIFIER_MOTION_NONE )
-LinkLuaModifier( "modifier_healthbar_dummy", "modifier/modifier_healthbar_dummy.lua", LUA_MODIFIER_MOTION_NONE )
-
-
 function bossManager:NewGamePlusBoss(spawnedUnit)
 
   if self.MainClass._NewGamePlus == true then
@@ -81,8 +75,10 @@ function bossManager:ProcessBossScaling(spawnedUnit)
 	-- end
 	
 	local powerScale = spawnedUnit:AddNewModifier(spawnedUnit, nil, "bossPowerScale",{})
-	powerScale:SetStackCount( GetRoundNumber() * 100 + GetGameDifficulty()*10 + (TeamCount() - 1) )
-	powerScale:ForceRefresh( ) -- force client/server update
+	if powerScale then
+		powerScale:SetStackCount( GetRoundNumber() * 100 + GetGameDifficulty()*10 + (TeamCount() - 1) )
+		powerScale:ForceRefresh()
+	end
 	
 	spawnedUnit.EHP_MULT = 1
 	if spawnedUnit:GetUnitName() ~= "npc_dota_boss36" then -- don't scale evil core ever

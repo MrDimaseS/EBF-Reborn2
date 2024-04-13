@@ -25,7 +25,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"75 90 105 120 135 150 165"
+		"AbilityManaCost"				"75 80 85 90 95 100 105"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -95,7 +95,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"75 90 105 120 135 150 165"
+		"AbilityManaCost"				"75 80 85 90 95 100 105"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -165,7 +165,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"75 90 105 120 135 150 165"
+		"AbilityManaCost"				"75 80 85 90 95 100 105"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -212,6 +212,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_shadow_fiend/nevermore_necromastery"
+		"AbilityTextureName"			"nevermore_necromastery"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"OnCastbar"					"0"
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_4"
@@ -229,11 +232,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"625"
 		"AbilityCastPoint"				"0.0 0.0 0.0 0.0"
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"3"
-
+		
 		// Damage.
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityDamage"					"0 0 0 0"
@@ -248,35 +247,41 @@
 		{
 			"necromastery_damage_per_soul"
 			{
-				"value"								"20 30 50 80 120 200 360"
+				"value"								"10 20 30 40 50 60 70"
 				"special_bonus_unique_nevermore_1"	"+25%"
 				"DamageTypeTooltip"					"DAMAGE_TYPE_NONE"
 				"CalculateSpellDamageTooltip"		"0"
+				"CalculateAttackDamageTooltip"		"1"
 			}
-			"necromastery_max_souls"				"11 14 17 20 23 26 29"
-			"necromastery_soul_release"				"0.8"
-			"necromastery_max_souls_scepter"
+			"necromastery_max_souls"
 			{
-				"value"								"15 20 25 30 35 40 45"
-				"RequiresScepter"					"1"
-			}	
-			"attack_range_bonus" "0"
-			"shard_souls_per_kill"
+				"value"								"22 28 34 40 46 52 58"
+				"special_bonus_scepter"				"10"
+			}
+			"hero_stack_multiplier"					"2"
+			"necromastery_soul_release"				"30"
+			"AbilityCooldown"
 			{
-				"value"								"2"
+				"value"								"0"
+				"special_bonus_shard"				"+3"
 				"RequiresShard"						"1"
 			}
+			"shard_souls_per_kill"					""
 			"shard_crit_pct"
 			{
-				"value"								"190"
+				"value"								"10"
 				"RequiresShard"						"1"
-			}	
+			}
 			"shard_fear_duration"
 			{
 				"value"								"0.5"
 				"RequiresShard"						"1"
-			}				
-			
+			}		
+			"immortality"
+			{
+				"value"														"0"
+				"special_bonus_unique_nevermore_necromastery_immortality"	"+1"
+			}			
 		}
 	}
 	//=================================================================================================================
@@ -300,7 +305,6 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"900"
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_5"
-		"AbilityCooldown"			"10"
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
@@ -330,6 +334,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_shadow_fiend/nevermore_requiem"
+		"AbilityTextureName"			"nevermore_requiem"
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_NORMAL_WHEN_STOLEN"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
@@ -346,13 +353,10 @@
 		"AbilityCastPoint"				"1.67 1.67 1.67"
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_6"
 
-		// Damage.
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"800 1200 1600 2000 2400 2800 3200"
-
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"150 200 250 300 350 400"
+		"AbilityManaCost"				"150 175 200 225 250 275"
+		"AbilityDamage"					""
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
@@ -362,42 +366,45 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"AbilityDamage"					"800 1200 1600 2000 2400 2800 3200"
-			"requiem_radius"	"1000"		
-			"requiem_reduction_ms"	"-20 -25 -30 -35 -40 -45"
-			"requiem_reduction_mres"	"-5 -10 -15 -20 -25 -30"
+			"damage"
+			{
+				"value"							"800 1200 1600 2000 2400 2800 3200"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"requiem_radius"					"1000"		
+			"requiem_reduction_ms"				"-20 -25 -30 -35 -40 -45"
+			"requiem_reduction_mres"			"-14 -16 -18 -20 -22 -24"
 			"requiem_slow_duration"	
 			{
-				"value"		"0.9"
-				"LinkedSpecialBonus"		"special_bonus_unique_nevermore_6"
+				"value"							"0.9"
+				"LinkedSpecialBonus"			"special_bonus_unique_nevermore_6"
 			}
 			"requiem_slow_duration_max"	
 			{
-				"value"					"2.7"
-				"LinkedSpecialBonus"		"special_bonus_unique_nevermore_6"
+				"value"							"2.7"
+				"LinkedSpecialBonus"			"special_bonus_unique_nevermore_6"
 				"LinkedSpecialBonusField"		"value2"
 			}
-			"requiem_reduction_radius"	"700 700 700"
-			"requiem_soul_conversion"	"1"
-			"requiem_line_width_start"	"125"
-			"requiem_line_width_end"	"350"
-			"requiem_line_speed"	"700 700 700"
-			"soul_death_release"	"0.5"
+			"requiem_reduction_radius"			"700 700 700"
+			"requiem_soul_conversion"			"2"
+			"requiem_line_width_start"			"125"
+			"requiem_line_width_end"			"350"
+			"requiem_line_speed"				"700 700 700"
 			"requiem_heal_pct_scepter"	
 			{
-				"value"			"50"
-				"RequiresScepter"			"1"
+				"value"							"50"
+				"RequiresScepter"				"1"
 			}	
 			"requiem_damage_pct_scepter"	
 			{
-				"value"			"100"
-				"RequiresScepter"			"1"
+				"value"							"50"
+				"RequiresScepter"				"1"
 				"CalculateSpellDamageTooltip"	"0"
 			}
 			"AbilityCooldown"				
 			{
-				"value"		"120 110 100"
-				"special_bonus_scepter"	"-30"
+				"value"							"120 110 100"
+				"special_bonus_scepter"			"-30"
 			}
 		}
 	}
@@ -544,6 +551,17 @@
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"ad_linked_abilities"			"nevermore_shadowraze2"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+		"BaseClass"						"special_bonus_base"
+	}
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_nevermore_necromastery_immortality"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"BaseClass"						"special_bonus_base"
 	}
 

@@ -29,6 +29,7 @@ function special_bonus_attributes:OnHeroLevelUp()
 		hero:ModifyIntellect( intGain )
 	end
 	self:SendUpdatedInventoryContents( info )
+	CustomGameEventManager:Send_ServerToAllClients( "hero_leveled_up", {unit = self:GetCaster():entindex()} )
 end
 
 function special_bonus_attributes:OnUpgrade()
@@ -47,6 +48,8 @@ function special_bonus_attributes:OnUpgrade()
 	hero:ModifyStrength( totalStrValue * attribute_multiplier ) 
 	hero:ModifyAgility( totalAgiValue * attribute_multiplier ) 
 	hero:ModifyIntellect( totalIntValue * attribute_multiplier )
+	
+	CustomGameEventManager:Send_ServerToAllClients( "update_talent_pips", {unit = self:GetCaster():entindex()} )
 end
 
 function special_bonus_attributes:Spawn()
@@ -68,6 +71,8 @@ function special_bonus_attributes:Spawn()
 	self.originalBaseStr = hero:GetBaseStrength()
 	self.originalBaseAgi = hero:GetBaseAgility()
 	self.originalBaseInt = hero:GetBaseIntellect()
+	
+	hero._attributesAbility = self
 
 	Timers:CreateTimer( 0.1, function()
 		hero:AddNewModifier( originalHero or hero, self, "modifier_special_bonus_attributes_stat_rescaling", {} )
@@ -77,8 +82,6 @@ function special_bonus_attributes:Spawn()
 			hero:ModifyIntellect( originalHero:GetBaseIntellect() - hero:GetBaseIntellect() )
 		end
 	end )
-	CustomGameEventManager:RegisterListener( "request_hero_inventory", function( userdata, keys ) self:SendUpdatedInventoryContents(keys) end )
-	CustomGameEventManager:Send_ServerToAllClients( "update_talent_pips", {unit = self:GetCaster():entindex()} )
 end
 
 function special_bonus_attributes:OnHeroCalculateStatBonus()
@@ -95,6 +98,7 @@ end
 function special_bonus_attributes:OnInventoryContentsChanged()
 	if not IsEntitySafe( self ) then return end
 	if not IsEntitySafe( self:GetCaster() ) then return end
+	if self:GetCaster():IsFakeHero( ) then return end
 	Timers:CreateTimer( function() self:SendUpdatedInventoryContents({unit = self:GetCaster():entindex()}) end )
 end
 
@@ -115,6 +119,7 @@ function special_bonus_attributes:SendUpdatedInventoryContents( info )
 			inventory[9] = -1
 		end
 		CustomGameEventManager:Send_ServerToAllClients( "client_update_ability_kvs", {unit = self:GetCaster():entindex(), inventory = inventory} )
+		CustomGameEventManager:Send_ServerToAllClients( "hero_leveled_up", {unit = self:GetCaster():entindex()} )
 		Timers:CreateTimer( function() self.stopUnnecessaryUpdates = false end )
 	end
 end
@@ -128,7 +133,7 @@ end
 
 
 function modifier_special_bonus_attributes_stat_rescaling:OnCreated()
-	self:GetParent()._heroManaType = CustomNetTables:GetTableValue("hero_attributes", tostring(self:GetParent():entindex())).mana_type or "Mana"
+	self:GetParent()._heroManaType = (CustomNetTables:GetTableValue("hero_attributes", tostring(self:GetParent():entindex())) or {}).mana_type or "Mana"
 	
 	self.baseMana = self:GetCaster()._baseManaForIllusions or self:GetParent():GetIntellect() * 11
 	self:GetParent()._baseManaForIllusions = self.baseMana
@@ -215,8 +220,9 @@ function modifier_special_bonus_attributes_stat_rescaling:DeclareFunctions()
 		MODIFIER_PROPERTY_COOLDOWN_PERCENTAGE,
 		MODIFIER_PROPERTY_CASTTIME_PERCENTAGE,
 		MODIFIER_PROPERTY_STATUS_RESISTANCE_STACKING,
+		MODIFIER_PROPERTY_EXTRA_HEALTH_PERCENTAGE,
 		MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL,
-		MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL_VALUE
+		MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL_VALUE,
   }
   return funcs
 end
@@ -295,7 +301,7 @@ end
 
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierPercentageCooldown( params )
   local castSpeed = 0
-  for modifier,_ in pairs( self:GetParent().cooldownModifiers ) do
+  for modifier,_ in pairs( self:GetParent().cooldownModifiers or {} ) do
 	if IsModifierSafe( modifier ) then
 		castSpeed = castSpeed + modifier:GetModifierCastSpeed( params )
 	else
@@ -319,6 +325,12 @@ end
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierStatusResistanceStacking()
 	if not self:GetParent():IsRangedAttacker() then
 		return 25
+	end
+end
+
+function modifier_special_bonus_attributes_stat_rescaling:GetModifierExtraHealthPercentage()
+	if not self:GetParent():IsRangedAttacker() then
+		return 1.25
 	end
 end
 

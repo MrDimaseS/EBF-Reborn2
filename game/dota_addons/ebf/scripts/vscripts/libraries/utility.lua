@@ -130,11 +130,11 @@ function CDOTABaseAbility:CreateDummy(position, duration)
 end
 
 function CDOTA_BaseNPC_Hero:CreateSummon(unitName, position, duration)
-	local summon = CreateUnitByName(unitName, position, true, self, nil, self:GetTeam())
-	summon:SetControllableByPlayer(self:GetPlayerID(), true)
+	local summon = CreateUnitByName(unitName, position, true, self:GetPlayerOwner(), self:GetPlayerOwner(), self:GetTeam())
+	summon:SetControllableByPlayer(self:GetPlayerID(), false)
 	self.summonTable = self.summonTable or {}
 	table.insert(self.summonTable, summon)
-	summon:SetOwner(self)
+	-- summon:SetOwner(self)
 	if duration and duration > 0 then
 		summon:AddNewModifier(self, nil, "modifier_kill", {duration = duration})
 	end
@@ -1532,4 +1532,36 @@ end
 
 function CDOTA_BaseNPC:GetManaType()
 	return self._heroManaType or "Mana"
+end
+
+if not CDOTA_BaseNPC.oldAddNewModifier then
+	CDOTA_BaseNPC.oldAddNewModifier = CDOTA_BaseNPC.AddNewModifier
+end
+
+function CDOTA_BaseNPC:AddNewModifier(modifierCaster, modifierAbility, modifierName, modifierTable)
+	local kv = modifierTable or {}
+	local duration = kv.Duration or kv.duration or -1
+	kv.duration = nil
+	kv.Duration = nil
+	kv.original_duration = duration
+	kv.duration = duration
+	local modifier = self:oldAddNewModifier( modifierCaster,  modifierAbility, modifierName, kv )
+	if not IsModifierSafe( modifier ) then return end
+	if duration == -1 or kv.ignoreStatusResist then return modifier end
+	if modifier.IsDebuff and not modifier:IsDebuff() then return modifier end -- force as buff
+	if not ( self.GetTeamNumber and modifierCaster.GetTeamNumber ) then return modifier end
+	if not self:IsSameTeam( modifierCaster ) then
+		if self:IsRealHero() then
+			modifier:SetDuration( duration * ( 1-self:GetStatusResistance( ) ), true )
+		else
+			local statusResistance = 1
+			for _, modifier in ipairs( self:FindAllModifiers() ) do
+				if modifier.GetModifierStatusResistanceStacking and modifier:GetModifierStatusResistanceStacking() then
+					statusResistance = statusResistance * (1-modifier:GetModifierStatusResistanceStacking() / 100)
+				end
+			end
+			modifier:SetDuration( duration * statusResistance, true )
+		end
+	end
+	return modifier
 end

@@ -16,7 +16,7 @@ function Spawn( entityKeyValues )
 	
 	thisEntity.berserk = thisEntity:FindAbilityByName("boss_zombie_berserk")
 	Timers:CreateTimer(0.1, function()
-		thisEntity.berserk:SetLevel(3+GameRules.gameDifficulty)
+		thisEntity.berserk:SetLevel(4+GameRules.gameDifficulty)
 	end)
 end
 

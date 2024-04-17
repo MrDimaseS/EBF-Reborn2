@@ -16,9 +16,11 @@ function Spawn( entityKeyValues )
 	
 	thisEntity.rite = thisEntity:FindAbilityByName("boss_slark_bloodrite")
 	thisEntity.shift = thisEntity:FindAbilityByName("boss_slark_essence_shift")
+	thisEntity.rage = thisEntity:FindAbilityByName("boss_slark_bloodrite")
 	Timers:CreateTimer(0.1, function()
 		thisEntity.rite:SetLevel(GameRules.gameDifficulty)
 		thisEntity.shift:SetLevel(GameRules.gameDifficulty)
+		thisEntity.rage:SetLevel(GameRules.gameDifficulty)
 	end)
 end
 
@@ -34,7 +36,36 @@ function AIThink(thisEntity)
 					Position = castPosition,
 					AbilityIndex = thisEntity.rite:entindex()
 				})
-				return 0.1
+				return AI_THINK_RATE
+			end
+		end
+		if thisEntity.rage:IsFullyCastable() then
+			local allies = thisEntity:FindFriendlyUnitsInRadius( thisEntity:GetAbsOrigin(), thisEntity.rage:GetTrueCastRange() )
+			local target
+			for _, ally in ipairs( allies ) do
+				if ally:HasModifier("modifier_bloodseeker_bloodrage") then
+					if target then
+						local targetRage = target:FindModifierByName("modifier_bloodseeker_bloodrage")
+						local allyRage = target:FindModifierByName("modifier_bloodseeker_bloodrage")
+						if targetRage and allyRage and allyRage:GetRemainingTime() < targetRage:GetRemainingTime() then
+							target = ally
+						end
+					else
+						target = ally
+					end
+				else
+					target = ally
+					break
+				end
+			end
+			if target then
+				ExecuteOrderFromTable({
+					UnitIndex = thisEntity:entindex(),
+					OrderType = DOTA_UNIT_ORDER_CAST_TARGET,
+					AbilityIndex = thisEntity.rage:entindex(),
+					TargetIndex = target:entindex()
+				})
+				return AI_THINK_RATE
 			end
 		end
 		-- no spells left to be cast and not currently attacking
@@ -49,7 +80,7 @@ function AIThink(thisEntity)
 				return AI_THINK_RATE
 			end
 		end
-		return AI_THINK_RATE
+		return AICore:HandleBasicAI( thisEntity )
 	else 
 		return AI_THINK_RATE 
 	end

@@ -6,7 +6,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"slark_pounce"
 		"AbilityTextureName"			"slark_pounce"
-		"MaxLevel"						"3"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
@@ -24,14 +24,14 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"pounce_damage"			"160 240 320"
+			"pounce_damage"			"160 240 320 500"
 			"pounce_distance"		"700"
 			"pounce_speed"			"933.33"
 			"pounce_acceleration"	"7000.0"
 			"pounce_radius"			"120"
 			"leash_duration"		"3.25"
 			"leash_radius"			"400"
-			"essence_stacks"		"1 2 3"
+			"essence_stacks"		"1 2 3 4"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -55,8 +55,8 @@
 		"AbilityValues"
 		{
 			"agi_gain"					"6"
-			"stat_loss"					"1 1 2"
-			"duration"					"8 10 12"
+			"stat_loss"					"1 1 2 2"
+			"duration"					"8 10 12 14"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -80,7 +80,7 @@
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"12"
+		"AbilityCooldown"				"7"
 	
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -90,12 +90,65 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"radius"						"600"
-			"silence_duration"				"6"
-			"damage"						"1400"
-			"delay"							"2.6 2.3 2.0"
-			"delay_plus_castpoint_tooltip"	"2.9"
+			"radius"						"400"
+			"silence_duration"				"3.5"
+			"damage"						"1400 1500 1600 1800"
+			"delay"							"2.6 2.3 2.0 1.7"
+			"delay_plus_castpoint_tooltip"	"2.9 2.6 2.3 2.0"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+	"boss_slark_bloodrage"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"bloodseeker_bloodrage"
+		"AbilityTextureName"			"bloodseeker_bloodrage"
+		"MaxLevel"						"4"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PURE"	
+
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"hero_bloodseeker.bloodRage"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.2"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"25"	
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"14 12 10 8"
+		
+		// Cast Range
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"800"
+		
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityModifierSupportValue"	"0.1"	// Primarily about the damage
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"duration"									"30"
+			"attack_speed"								"120 180 240 300"
+			"spell_amp"									"40 60 80 100"
+			"damage_pct"				
+			{
+				"value"		"1.5"
+				"DamageTypeTooltip"			"DAMAGE_TYPE_PURE"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+		"AbilityCastGestureSlot"		"DEFAULT"
 	}
 }

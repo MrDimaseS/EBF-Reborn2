@@ -17,6 +17,7 @@ function Spawn( entityKeyValues )
 	thisEntity.split = thisEntity:FindAbilityByName("boss_leshrac_split_earth")
 	thisEntity.lightning = thisEntity:FindAbilityByName("boss_leshrac_lightning_storm")
 	thisEntity.nova = thisEntity:FindAbilityByName("boss_leshrac_pulse_nova")
+	thisEntity.nihilism = thisEntity:FindAbilityByName("boss_leshrac_nihilism")
 	
 	thisEntity:AddNewModifier( thisEntity, nil, "modifier_item_aghanims_shard", {} )
 	Timers:CreateTimer(0.1, function()
@@ -40,7 +41,7 @@ function AIThink(thisEntity)
 					Position = castPosition,
 					AbilityIndex = thisEntity.split:entindex()
 				})
-				return 0.1
+				return AI_THINK_RATE
 			end
 		end
 		if thisEntity.lightning:IsFullyCastable() and thisEntity:GetAttackTarget() then
@@ -51,10 +52,19 @@ function AIThink(thisEntity)
 				AbilityIndex = thisEntity.lightning:entindex(),
 				TargetIndex = target:entindex()
 			})
-			return 0.1
+			return AI_THINK_RATE
 		end
 		if not thisEntity.nova:GetToggleState() and thisEntity.nova:IsOwnersManaEnough() then
 			thisEntity.nova:ToggleAbility()
+		end
+		
+		if thisEntity.nihilism:IsFullyCastable() and AICore:NearestEnemyHeroInRange( thisEntity, 1000, true) then
+			ExecuteOrderFromTable({
+				UnitIndex = thisEntity:entindex(),
+				OrderType = DOTA_UNIT_ORDER_CAST_NO_TARGET,
+				AbilityIndex = thisEntity.nihilism:entindex()
+			})
+			return AI_THINK_RATE
 		end
 		-- no spells left to be cast and not currently attacking
 		if not thisEntity:IsAttacking() then

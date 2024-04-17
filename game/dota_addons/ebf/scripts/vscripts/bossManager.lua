@@ -108,10 +108,10 @@ function bossManager:ManageBossScaling(spawnedUnit)
 		if GameRules._currentRound == nil then return end
 		spawnedUnit:SetHullRadius( math.min( 48, 24 * (1 + (spawnedUnit:GetModelScale()-1)/2) ) )
 		Timers:CreateTimer(function()
-			if spawnedUnit:IsConsideredHero() and spawnedUnit:GetUnitName() ~= "npc_dota_healthbar_dummy" then
-				local dummy = CreateUnitByName("npc_dota_healthbar_dummy", spawnedUnit:GetAbsOrigin(), false, nil, nil, spawnedUnit:GetTeam())
-				dummy:SetHealthBarOffsetOverride( spawnedUnit:GetBaseHealthBarOffset() )
-				dummy:AddNewModifier(spawnedUnit, nil, "modifier_healthbar_dummy", {})
+			if spawnedUnit:IsConsideredHero() and spawnedUnit:GetUnitName() ~= "npc_dota_healthbar_dummy" and not spawnedUnit._healthBarDummy then
+				spawnedUnit._healthBarDummy = CreateUnitByName("npc_dota_healthbar_dummy", spawnedUnit:GetAbsOrigin(), false, nil, nil, spawnedUnit:GetTeam())
+				spawnedUnit._healthBarDummy:SetHealthBarOffsetOverride( spawnedUnit:GetBaseHealthBarOffset() )
+				spawnedUnit._healthBarDummy:AddNewModifier(spawnedUnit, nil, "modifier_healthbar_dummy", {})
 				spawnedUnit:AddNewModifier(spawnedUnit, nil, "modifier_hide_healthbar", {})
 			end
 			if spawnedUnit.hasBeenProcessed then return end

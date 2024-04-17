@@ -1,7 +1,7 @@
 item_sheepstick = class({})
 
 function item_sheepstick:GetIntrinsicModifierName()
-	return "modifier_modifier_item_sheepstick_passive"
+	return "modifier_item_sheepstick_passive"
 end
 
 function item_sheepstick:OnSpellStart()

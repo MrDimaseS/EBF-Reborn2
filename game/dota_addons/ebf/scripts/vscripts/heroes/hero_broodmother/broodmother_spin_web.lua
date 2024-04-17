@@ -132,7 +132,7 @@ end
 
 function modifier_broodmother_spin_web_effect:DeclareFunctions()
     return {MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE,
-            MODIFIER_PROPERTY_HEALTH_REGEN_PERCENTAGE,
+            MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT,
 			MODIFIER_PROPERTY_TRANSLATE_ACTIVITY_MODIFIERS }
 end
 
@@ -140,7 +140,7 @@ function modifier_broodmother_spin_web_effect:GetModifierMoveSpeedBonus_Percenta
     return self.bonus_movespeed
 end
 
-function modifier_broodmother_spin_web_effect:GetModifierHealthRegenPercentage()
+function modifier_broodmother_spin_web_effect:GetModifierConstantHealthRegen()
     return self.health_regen
 end
 

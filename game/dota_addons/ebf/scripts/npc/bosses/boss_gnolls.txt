@@ -6,7 +6,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"gnoll_assassin_envenomed_weapon"
 		"AbilityTextureName"			"gnoll_assassin_envenomed_weapon"
-		"MaxLevel"						"3"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
@@ -15,10 +15,10 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"damage_per_second"				"50 75 100"
+			"damage_per_second"				"50 75 100 125"
 			"non_hero_duration"				"20.0"
 			"hero_duration"					"2.0"
-			"regen_reduction"				"35 50 65"
+			"regen_reduction"				"35 50 65 80"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -28,9 +28,9 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"berserker_troll_break"
 		"AbilityTextureName"			"berserker_troll_break"
-		"MaxLevel"						"3"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"		
-		"AbilityCooldown"				"12 10 8"
+		"AbilityCooldown"				"12 10 8 7"
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
@@ -44,7 +44,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"furbolg_enrage_attack_speed"
 		"AbilityTextureName"			"furbolg_enrage_attack_speed"
-		"MaxLevel"						"3"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		
 
@@ -52,7 +52,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_aspd"				"200 300 400"
+			"bonus_aspd"				"200 300 400 500"
 			"duration"					"5"
 			"radius"					"1200"
 		}
@@ -67,7 +67,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"furbolg_enrage_damage"
 		"AbilityTextureName"			"furbolg_enrage_damage"
-		"MaxLevel"						"3"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		
 
@@ -75,10 +75,28 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_dmg_pct"				"100 150 200"
+			"bonus_dmg_pct"				"100 150 200 250"
 			"duration"					"5"
 			"radius"					"1200"
 		}
 	}
-
+	"boss_gnoll_berserkers_blood"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"huskar_berserkers_blood"
+		"AbilityTextureName"			"huskar_berserkers_blood"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"MaxLevel"						"4"
+				
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"maximum_attack_speed"			"250 300 350 400"
+			"maximum_magic_resist"			"60 70 80 90"
+			"hp_threshold_max"				"1"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
 }

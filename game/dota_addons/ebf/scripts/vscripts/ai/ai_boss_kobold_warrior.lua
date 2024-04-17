@@ -14,9 +14,9 @@ function Spawn( entityKeyValues )
 		end
 	end)
 	
-	thisEntity.disarm = thisEntity:FindAbilityByName("boss_kobold_disarm")
+	thisEntity.packleader = thisEntity:FindAbilityByName("boss_kobold_packleaders_aura")
 	Timers:CreateTimer(0.1, function()
-		thisEntity.disarm:SetLevel(GameRules.gameDifficulty)
+		thisEntity.packleader:SetLevel(GameRules.gameDifficulty)
 	end)
 end
 

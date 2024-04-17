@@ -1632,7 +1632,7 @@ function CHoldoutGameMode:_RefreshPlayers(bWon)
 						hero:RemoveModifierByName( "modifier_fountain_invulnerability" )
 					end
 					
-					
+					hero:RefreshAllCooldowns( true )
 					if bWon ~= nil then
 						local hBottle = hero:FindItemInInventory("item_bottle_ebf" )
 						if hBottle then
@@ -1896,6 +1896,12 @@ function CHoldoutGameMode:OnNPCSpawned( event )
 		if spawnedUnit:IsTempestDouble() then
 			spawnedUnit:AddNewModifier( spawnedUnit, nil, "modifier_special_bonus_attributes_stat_rescaling", {} )
 		end
+		Timers:CreateTimer( function()
+			local invuln = spawnedUnit:FindModifierByName( "modifier_fountain_invulnerability" )
+			if IsModifierSafe( invuln ) then
+				invuln:SetDuration( 10, true )
+			end
+		end)
 		if GameRules.lastManStanding then GameRules.lastManStanding:RemoveModifierByName("modifier_last_man_standing") end
 		if not spawnedUnit.buyBackInitialized and PlayerResource:GetGoldSpentOnBuybacks( spawnedUnit:GetPlayerID() ) > 0 then -- only way to detect a buyback...
 			spawnedUnit.buyBackInitialized = true

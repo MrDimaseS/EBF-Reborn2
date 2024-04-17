@@ -6,7 +6,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"slardar_sprint"
 		"AbilityTextureName"			"slardar_sprint"
-		"MaxLevel"						"3"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"AbilitySound"					"Hero_Slardar.Sprint"
@@ -23,15 +23,15 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"					"29 23 17"
+		"AbilityCooldown"					"17"
 		
 		"AbilityValues"
 		{			
-			"bonus_speed"					"40"
+			"bonus_speed"					"30 35 40 45"
 			"duration"						"10"
 			"river_speed"					"18"
-			"puddle_regen"					"150"
-			"puddle_armor"					"10"
+			"puddle_regen"					"250"
+			"puddle_armor"					"15"
 			"puddle_status_resistance"		"40"
 			"river_speed_tooltip"			"18"
 		}
@@ -47,20 +47,20 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"slardar_slithereen_crush"
 		"AbilityTextureName"			"slardar_slithereen_crush"
-		"MaxLevel"						"3"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Slardar.Slithereen_Crush"
-        "HasScepterUpgrade"			"1"
+        "HasScepterUpgrade"				"1"
         "HasShardUpgrade"               "1"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"350"
-		"AbilityCastPoint"				"1.6"
+		"AbilityCastPoint"				"1.2"
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
@@ -81,13 +81,13 @@
 		"AbilityValues"
 		{
 			"crush_radius"						"350"
-			"crush_extra_slow"					"-25 -30 -35"
-			"crush_attack_slow_tooltip"			"-25 -30 -35"
-			"crush_extra_slow_duration"			"4 5 6"
-			"stun_duration"						"1 1.25 1.5"
-			"puddle_duration"					"4 5 6"
+			"crush_extra_slow"					"-25 -30 -35 -40"
+			"crush_attack_slow_tooltip"			"-25 -30 -35 -40"
+			"crush_extra_slow_duration"			"4 5 6 7"
+			"stun_duration"						"1 1.25 1.5 1.75"
+			"puddle_duration"					"4 5 6 7"
 			"puddle_radius"						"250"
-			"crush_damage"						"2500 3500 4500"
+			"crush_damage"						"2500 3500 4500 5500"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -101,7 +101,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"slardar_bash"
 		"AbilityTextureName"			"slardar_bash"
-		"MaxLevel"						"6"
+		"MaxLevel"						"8"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
@@ -116,9 +116,9 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage"				"125 150 175 800 975 1150"
-			"duration"					"0.1 0.1 0.1 0.5 0.6 0.7"
-			"attack_count"				"10 10 10 6 6 6"
+			"bonus_damage"				"125 150 175 200 800 975 1150 1350"
+			"duration"					"0.1 0.1 0.1 0.5 0.6 0.7 0.8"
+			"attack_count"				"10 10 10 6 6 6 6"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -131,7 +131,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"slardar_amplify_damage"
 		"AbilityTextureName"			"slardar_amplify_damage"
-		"MaxLevel"						"3"
+		"MaxLevel"						"4"
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
@@ -162,7 +162,7 @@
 		
 		"AbilityValues"
 		{
-			"armor_reduction"					"-6 -8 -10"
+			"armor_reduction"					"-6 -8 -10 -12"
 			"duration"							"18"
 			"puddle_radius"						"100"
 			"puddle_duration"					"5"
@@ -175,7 +175,7 @@
 		"BaseClass"						"ability_lua"
 		"ScriptFile"					"bosses/boss_slardars/boss_naga_mirror_image"
 		"AbilityTextureName"			"naga_siren_mirror_image"
-		"MaxLevel"						"3"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilitySound"					"Hero_NagaSiren.MirrorImage"
 		
@@ -191,7 +191,7 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"40 35 30"
+		"AbilityCooldown"				"40"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -202,7 +202,7 @@
 		"AbilityValues"
 		{
 			"illusion_duration"			"26"
-			"outgoing_damage"			"-75 -65 -55"
+			"outgoing_damage"			"-65 -55 -45 -35"
 			"incoming_damage"			"350"
 			"images_count"				"3"
 			"invuln_duration"			"0.5"
@@ -215,7 +215,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"naga_siren_ensnare"
 		"AbilityTextureName"			"naga_siren_ensnare"
-		"MaxLevel"						"3"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
@@ -246,7 +246,7 @@
 			"net_speed"						"1500"
 			"fake_ensnare_distance"			"900 900 900 900"	
 			"AbilityCooldown"				"35"
-			"AbilityCastRange"				"500 750 1000"
+			"AbilityCastRange"				"500 750 1000 1250"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}	
@@ -260,7 +260,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"naga_siren_rip_tide"
 		"AbilityTextureName"			"naga_siren_rip_tide"
-		"MaxLevel"						"3"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
@@ -279,7 +279,7 @@
 		{
 			"hits"						"6"
 			"armor_reduction"			"-2 -3 -4"
-			"damage"					"440 480 520"
+			"damage"					"500 600 700 800"
 			"radius"					"300"
 			"duration"					"4.0"
 			"debuff_duration"			"10"
@@ -296,7 +296,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"tidehunter_gush"
 		"AbilityTextureName"			"tidehunter_gush"
-		"MaxLevel"						"3"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
@@ -304,7 +304,7 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
-		"HasScepterUpgrade"			"1"
+		"HasScepterUpgrade"				"1"
 		"AbilitySound"					"Ability.GushCast"
 
 		// Casting
@@ -325,10 +325,10 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"gush_damage"			"1750 2000 2250"
+			"gush_damage"			"1750 2000 2250 2500"
 			"projectile_speed"		"2500"
 			"movement_speed"		"-40"
-			"negative_armor"		"3 5 7"
+			"negative_armor"		"3 5 7 8"
 			"speed_scepter"			"1000"
 			"aoe_scepter"			"260"
 			"cooldown_scepter"		"12"
@@ -346,7 +346,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"tidehunter_kraken_shell"
 		"AbilityTextureName"			"tidehunter_kraken_shell"
-		"MaxLevel"						"3"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilitySound"					"Hero_Tidehunter.KrakenShell"
 
@@ -354,8 +354,8 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"damage_reduction"			"450 500 550"
-			"damage_cleanse"			"10000"
+			"damage_reduction"			"1000 1100 1200 1300"
+			"damage_cleanse"			"25000"
 			"damage_reset_interval"		"7.0 7.0 7.0 7.0"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -370,7 +370,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"tidehunter_anchor_smash"
 		"AbilityTextureName"			"tidehunter_anchor_smash"
-		"MaxLevel"						"3"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
@@ -386,7 +386,7 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"10.0 8.0 6.0"
+		"AbilityCooldown"				"10.0 8.0 6.0 4.0"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -413,7 +413,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"tidehunter_ravage"
 		"AbilityTextureName"			"tidehunter_ravage"
-		"MaxLevel"						"3"
+		"MaxLevel"						"4"
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
@@ -436,7 +436,7 @@
 
 		// Damage.
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"2000 3000 3500"
+		"AbilityDamage"					"2000 3000 3500 4000"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -448,7 +448,7 @@
 		{
 			"radius"					"1250"
 			"speed"						"725"
-			"duration"					"2.4 2.6 2.8"
+			"duration"					"2.4 2.6 2.8 3.0"
 		}
 	}
 }

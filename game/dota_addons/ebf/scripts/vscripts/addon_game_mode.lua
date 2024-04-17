@@ -1395,8 +1395,7 @@ end
 
 
 function CHoldoutGameMode:RegisterStatsForRound( round )
-	if not IsDedicatedServer() then return end
-	-- if IsInToolsMode() then return end
+	if not IsDedicatedServer() or IsInToolsMode() or GameRules:IsCheatMode() then return end
 	
 	local statSettings = LoadKeyValues("scripts/vscripts/statcollection/settings.kv")
 	local AUTH_KEY = GetDedicatedServerKeyV3(statSettings.modID)
@@ -1405,23 +1404,20 @@ function CHoldoutGameMode:RegisterStatsForRound( round )
 	local packageLocation = SERVER_LOCATION..AUTH_KEY.."/rounds/round_"..round..".json"
 	local getRequest = CreateHTTPRequestScriptVM( "GET", packageLocation)
 	
-	local difficulty = string.gsub(GetMapName(), "epic_boss_fight_", "")
+	local difficulty = GameRules.gameDifficulty
 	
-	if self.statsSentForRound then return end
-	self.statsSentForRound = true
+	if self._statsSentForRound then return end
+	self._statsSentForRound = true
 	
 	getRequest:Send( function( result )
 		local decoded = {}
 		if tostring(result.Body) ~= 'null' then
 			decoded = json.decode(result.Body)
-		else return
 		end
-		
-		local putData = deepcopy( decoded ) or {}
 
-		putData[difficulty] = (putData[difficulty] or 0) + 1
+		decoded[GameRules.gameDifficulty] = (decoded[GameRules.gameDifficulty] or 0) + 1
 		
-		local encoded = json.encode(putData)
+		local encoded = json.encode(decoded)
 		
 		local putRequest = CreateHTTPRequestScriptVM( "PUT", packageLocation)
 		putRequest:SetHTTPRequestRawPostBody("application/json", encoded)
@@ -1517,13 +1513,13 @@ function CHoldoutGameMode:RegisterStatsForPlayer( playerID, bWon, bAbandon )
 end
 
 function CHoldoutGameMode:RegisterStatsForHero( hero, bWon )
-	if not IsDedicatedServer() or IsInToolsMode() then return end
-	if not (GetMapName() == "epic_boss_fight_nightmare" or GetMapName() == "epic_boss_fight_challenger") then return end
+	if not IsDedicatedServer() or IsInToolsMode() or GameRules:IsCheatMode() then return end
+	if GameRules.gameDifficulty < 3 then return end
 	
 	local statSettings = LoadKeyValues("scripts/vscripts/statcollection/settings.kv")
 	local AUTH_KEY = GetDedicatedServerKeyV3(statSettings.modID)
 	local SERVER_LOCATION = statSettings.serverLocation
-	local heroName = hero:GetUnitName()
+	local heroName = string.gsub(hero:GetUnitName(), "npc_dota_hero_", "")
 	
 	self.statsSentForHero = self.statsSentForHero or {}
 	if self.statsSentForHero[hero] then return end
@@ -1574,10 +1570,6 @@ function CHoldoutGameMode:RegisterStatsForHero( hero, bWon )
 		
 		putData.plays = (decoded.plays or 0) + 1
 		putData.wins = wins
-		
-		-- MMR
-		putData.mmr = decoded.mmr or 3000
-		putData.mmr = math.floor( CalculateMMRChangeForPlayer( GetMapName(), putData.mmr, bWon ) + 0.5 )
 		
 		local encoded = json.encode(putData)
 		local putRequest = CreateHTTPRequestScriptVM( "PUT", packageLocation)

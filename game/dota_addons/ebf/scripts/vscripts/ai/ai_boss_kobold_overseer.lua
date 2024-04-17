@@ -39,7 +39,7 @@ function AIThink(thisEntity)
 				return AI_THINK_RATE
 			end
 		end
-		if thisEntity.howl:IsFullyCastable() and ( AICore:TotalEnemyHeroesInRange( thisEntity, range) >= math.ceil(HeroList:GetActiveHeroCount() / 2) or thisEntity:IsAttacking() ) then
+		if thisEntity.howl:IsFullyCastable() and ( AICore:TotalEnemyHeroesInRange( thisEntity, thisEntity.howl:GetSpecialValueFor("radius")) >= math.ceil(HeroList:GetActiveHeroCount() / 2) or thisEntity:IsAttacking() ) then
 			ExecuteOrderFromTable({
 				UnitIndex = thisEntity:entindex(),
 				OrderType = DOTA_UNIT_ORDER_CAST_NO_TARGET,

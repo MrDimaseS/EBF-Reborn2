@@ -350,7 +350,151 @@
 			"blink_range_clamp"				"960"
 		}
 	}
+	"item_recipe_cyclone"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"135"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_cyclone"
+		"ItemRequirements"
+		{
+			"01"						"item_staff_of_wizardry;item_void_stone;item_wind_lace"
+		}
+	}
 	
+	//=================================================================================================================
+	// Cyclone
+	//=================================================================================================================
+	"item_cyclone"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_CUSTOM"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_CUSTOM"
+		"FightRecapLevel"				"1"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"550"
+		"AbilityCastPoint"				"0.0"
+
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"23.0"
+		"AbilitySharedCooldown"			"cyclone"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"175"
+		"ItemCost"						"2625"
+		"ItemShopTags"					"int;regen_mana;move_speed;hard_to_tag"
+		"ItemQuality"					"rare"
+		"ItemAliases"					"cyclone euls;eul's scepter of divinity"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ShouldBeSuggested"				"1"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_intellect"		"10"
+			"bonus_mana_regen"		"2.5"
+			"bonus_movement_speed"	"20"
+			"cyclone_duration"		"2.5"
+			"tooltip_drop_damage"
+			{
+				"value"				"500"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+		}
+	}
+	
+	
+	//=================================================================================================================
+	// Recipe: Wind Waker
+	//=================================================================================================================
+	"item_recipe_wind_waker"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"280"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_wind_waker"
+		"ItemRequirements"
+		{
+			"01"						"item_cyclone*;item_mystic_staff"
+		}
+	}
+	
+	//=================================================================================================================
+	// Wind Waker
+	//=================================================================================================================
+	"item_wind_waker"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_CUSTOM"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_CUSTOM"
+		"FightRecapLevel"				"1"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"550"
+		"AbilityCastPoint"				"0.0"
+
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"13.0"
+		"AbilitySharedCooldown"			"cyclone"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"175"
+		"ItemCost"						"6825"
+		"ItemShopTags"					"int;regen_mana;move_speed;hard_to_tag"
+		"ItemQuality"					"rare"
+		"ItemAliases"					"cyclone;wind waker;ww"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ShouldBeSuggested"				"1"
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_movement_speed"	"30"
+			"bonus_mana_regen"		"3.0"
+			"bonus_intellect"		"35"
+			"cyclone_duration"		"2.5"
+			"tooltip_drop_damage"
+			{
+				"value"				"500"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"tornado_speed"			"300"
+		}
+	}
+
 	//=================================================================================================================
 	// Aghanim's Shard
 	//=================================================================================================================
@@ -6380,7 +6524,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"item_lua"
-		"ScriptFile"					"items/item_nullifer"
+		"ScriptFile"					"items/item_nullifier"
 		"AbilityTextureName"			"item_nullifier"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"

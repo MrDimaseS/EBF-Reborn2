@@ -92,6 +92,9 @@ function modifier_item_skadi_debuff:OnRefresh()
 	self.cold_attack_slow_melee = self:GetSpecialValueFor("cold_attack_slow_melee")
 	self.cold_attack_slow_ranged = self:GetSpecialValueFor("cold_attack_slow_ranged")
 	self.heal_reduction = -self:GetSpecialValueFor("heal_reduction")
+	if IsServer() then
+		self:OnIntervalThink()
+	end
 end
 
 function modifier_item_skadi_debuff:OnIntervalThink()

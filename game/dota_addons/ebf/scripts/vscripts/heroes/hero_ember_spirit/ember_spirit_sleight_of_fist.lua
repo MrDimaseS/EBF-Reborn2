@@ -24,7 +24,9 @@ function ember_spirit_sleight_of_fist:OnSpellStart()
 	local startPos = caster:GetAbsOrigin()
 
 	local radius = self:GetTalentSpecialValueFor("radius")
-	local jumpRate = self:GetTalentSpecialValueFor("attack_interval")
+	local jumpRate = self:GetTalentSpecialValueFor("attack_interval") / caster:GetAttackSpeed(false)
+	print( caster:GetAttackSpeed(false) )
+	local minAttacks = self:GetTalentSpecialValueFor("min_attacks")
 
 	self.hitUnits = {}
 
@@ -43,8 +45,8 @@ function ember_spirit_sleight_of_fist:OnSpellStart()
 		if remnant then
 			remnant:SpawnRemnant(startPos, duration)
 		end
-		local modifier = caster:AddNewModifier(caster, self, "modifier_ember_spirit_sleight_of_fist_caster", {Duration = math.max(#enemies*jumpRate+0.1,jumpRate)})
-		caster:AddNewModifier(caster, self, "modifier_ember_spirit_sleight_of_fist_caster_invulnerability", {Duration = math.max(#enemies*jumpRate+0.1,jumpRate)})
+		local modifier = caster:AddNewModifier(caster, self, "modifier_ember_spirit_sleight_of_fist_caster", {Duration = math.max(math.max(minAttacks, #enemies)*jumpRate+0.1,jumpRate)})
+		caster:AddNewModifier(caster, self, "modifier_ember_spirit_sleight_of_fist_caster_invulnerability", {Duration = math.max(math.max(minAttacks, #enemies)*jumpRate+0.1) + 0.25})
 		
 		local remenantFx = 	ParticleManager:CreateParticle("particles/units/heroes/hero_ember_spirit/ember_spirit_sleight_of_fist_caster.vpcf", PATTACH_WORLDORIGIN, nil )
 				 			ParticleManager:SetParticleControl(remenantFx, 0, startPos)
@@ -54,7 +56,18 @@ function ember_spirit_sleight_of_fist:OnSpellStart()
 		modifier:AddEffect( remenantFx )
 		
 		Timers:CreateTimer(function()
-			if current < #enemies and not caster:HasModifier("modifier_ember_spirit_fire_remnant") then
+			print( current, #enemies, minAttacks )
+			if current >= #enemies then -- less enemies than attacks
+				local hitCount = 0
+				for _,enemy in pairs(self.hitUnits) do
+					hitCount = hitCount + 1
+				end
+				if current < minAttacks and hitCount >= #enemies then -- not hit attack limit yet, wipe board state
+					print("wiped")
+					self.hitUnits = {}
+				end				
+			end
+			if (current < #enemies or current < minAttacks) and not caster:HasModifier("modifier_ember_spirit_fire_remnant") then
 				for _,enemy in pairs(enemies) do
 					if not self.hitUnits[enemy:entindex()] then
 						EmitSoundOn("Hero_EmberSpirit.SleightOfFist.Damage", enemy)
@@ -75,7 +88,7 @@ function ember_spirit_sleight_of_fist:OnSpellStart()
 						
 			            self.hitUnits[enemy:entindex()] = true
 			            current = current + 1
-			            return jumpRate
+						return jumpRate
 			        end
 				end
 			else
@@ -84,7 +97,6 @@ function ember_spirit_sleight_of_fist:OnSpellStart()
 				ParticleManager:ClearParticle(remenantFx)
 
 				caster:RemoveModifierByName("modifier_ember_spirit_sleight_of_fist_caster")
-				caster:RemoveModifierByName("modifier_ember_spirit_sleight_of_fist_caster_invulnerability")
 				if not caster:HasModifier("modifier_ember_spirit_fire_remnant") then FindClearSpaceForUnit(caster, startPos, true) end
 
 				local secondPoint = caster:GetAbsOrigin()

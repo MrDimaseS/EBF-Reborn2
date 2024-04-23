@@ -55,6 +55,7 @@ end
 
 function modifier_boss_psionic_assassin_reflecting_carapace_reflect:OnIntervalThink()
 	self.damage_reflect_pct = math.min( self.damage_reflect_pct + self.reflect_scaling * 0.1, self.max_damage_reflect_pct )
+	print( self.damage_reflect_pct )
 	if self.damage_reflect_pct >= self.max_damage_reflect_pct then
 		self:StartIntervalThink( -1 )
 	end

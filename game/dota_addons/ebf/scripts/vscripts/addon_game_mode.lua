@@ -1414,8 +1414,8 @@ function CHoldoutGameMode:RegisterStatsForRound( round )
 		if tostring(result.Body) ~= 'null' then
 			decoded = json.decode(result.Body)
 		end
-
-		decoded[GameRules.gameDifficulty] = (decoded[GameRules.gameDifficulty] or 0) + 1
+		
+		decoded[tostring(difficulty)] = tostring(tonumber(decoded[tostring(difficulty)] or 0) + 1)
 		
 		local encoded = json.encode(decoded)
 		
@@ -2026,9 +2026,9 @@ function CHoldoutGameMode:_TestAbandons( cmdName, victory, abandon )
 	local won = victory == "1"
 	local abandoned = abandon == "1"
 
-	for _, hero in ipairs( HeroList:GetRealHeroes() ) do
-		self:RegisterStatsForPlayer( hero:GetPlayerID(), won, abandoned )
-	end
+	
+	self._statsSentForRound = false
+	self:RegisterStatsForRound( "won" )
 end
 
 -- Custom game specific console command "holdout_test_round"

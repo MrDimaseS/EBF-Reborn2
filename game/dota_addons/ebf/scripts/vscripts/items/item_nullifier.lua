@@ -63,8 +63,12 @@ end
 
 function modifier_item_nullifier_dispel:OnRefresh()
 	self.hard_dispel = self:GetSpecialValueFor("hard_dispel") == 1
-	self.magic_immune = self:GetSpecialValueFor("magic_immune") == 1 and self:GetCaster():IsSameTeam( self:GetParent() )
+	self.magic_immune = self:GetSpecialValueFor("magic_immune") == 1
 	self.magic_resist = self:GetSpecialValueFor("magic_resist")
+	if not self:GetCaster():IsSameTeam( self:GetParent() ) then
+		self.magic_immune = false
+		self.magic_resist = 0
+	end
 end
 
 function modifier_item_nullifier_dispel:OnIntervalThink()
@@ -99,6 +103,10 @@ end
 
 function modifier_item_nullifier_dispel:StatusEffectPriority()
 	return 5
+end
+
+function modifier_item_nullifier_dispel:IsPurgable()
+	return false
 end
 
 modifier_item_nullifier_passive = class({})

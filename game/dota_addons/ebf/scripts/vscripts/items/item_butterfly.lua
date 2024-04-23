@@ -9,6 +9,9 @@ function item_butterfly:OnSpellStart()
 	
 	local stacks = self:GetSpecialValueFor("max_stacks")
 	local duration = self:GetSpecialValueFor("duration")
+	if self:GetSpecialValueFor("magic_immune") == 1 then
+		caster:Dispel( caster, false )
+	end
 	caster:AddNewModifier( caster, self, "modifier_item_butterfly_untouchable", {duration = duration} )
 	if stacks > 0 then
 		caster:AddNewModifier( caster, self, "modifier_item_butterfly_zephyr", {duration = duration} ):SetStackCount( stacks )

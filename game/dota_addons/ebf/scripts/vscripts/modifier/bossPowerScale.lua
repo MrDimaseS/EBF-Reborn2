@@ -39,9 +39,9 @@ function bossPowerScale:OnRefresh(keys)
 	if self:GetParent():IsConsideredHero() then 
 		self.baseStatusResistance = 10
 		if self:GetParent():IsConsideredHero() then
-			self.baseStatusResistance = self.baseStatusResistance + 10 * difficulty
+			self.baseStatusResistance = self.baseStatusResistance + 5 * difficulty
 		else
-			self.baseStatusResistance = self.baseStatusResistance + 2.5 * difficulty
+			self.baseStatusResistance = self.baseStatusResistance + 1.2 * difficulty
 		end
 		self.actualStatusResistance = self.baseStatusResistance
 		self.statusResistIncreasePerTick = ( (MAX_STATUS_RESIST - self.baseStatusResistance) / SECONDS_TO_COMBO_BREAK ) * 0.25
@@ -106,6 +106,9 @@ function bossPowerScale:CheckState()
 	end
 	if self:GetParent():IsConsideredHero() then
 		states[MODIFIER_STATE_NO_HEALTH_BAR] = true
+	end
+	if self:GetParent():IsHexed() then
+		states[MODIFIER_STATE_PASSIVES_DISABLED] = true
 	end
 	return states
 end

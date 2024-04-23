@@ -7,6 +7,9 @@ end
 function item_heart:OnSpellStart()
 	local caster = self:GetCaster()
 	
+	if self:GetSpecialValueFor("magic_immune") == 1 then
+		caster:Dispel( caster, false )
+	end
 	caster:AddNewModifier( caster, self, "modifier_item_heart_active", {duration = self:GetSpecialValueFor("duration")} )
 	EmitSoundOn( "DOTA_Item.HealingSalve.Activate", caster )
 end

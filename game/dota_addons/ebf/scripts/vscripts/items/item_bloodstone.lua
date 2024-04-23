@@ -9,6 +9,9 @@ function item_bloodstone2:OnSpellStart()
 	
 	-- self:DealDamage( caster, caster, caster:GetMaxHealth() * self:GetSpecialValueFor("hp_cost") / 100, {damage_type = DAMAGE_TYPE_PURE, damage_flags = DOTA_DAMAGE_FLAG_HPLOSS + DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL + DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_NO_DAMAGE_MULTIPLIERS + DOTA_DAMAGE_FLAG_NON_LETHAL } )
 	
+	if self:GetSpecialValueFor("magic_immune") == 1 then
+		caster:Dispel( caster, false )
+	end
 	caster:AddNewModifier( caster, self, "modifier_item_bloodstone_ebf_active", {duration = self:GetSpecialValueFor("buff_duration")} )
 end
 
@@ -58,6 +61,10 @@ end
 
 function modifier_item_bloodstone_ebf_active:GetEffectAttachType()
 	return PATTACH_OVERHEAD_FOLLOW
+end
+
+function modifier_item_bloodstone_ebf_active:IsPurgable()
+	return not self.magic_immune
 end
 
 modifier_item_bloodstone_ebf_drained = class({})

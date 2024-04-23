@@ -343,7 +343,7 @@ function modifier_item_yasha_and_kaya_2_archon:OnDestroy()
 end
 
 function modifier_item_yasha_and_kaya_2_archon:OnIntervalThink()
-	if self:GetStackCount() > 1 then
+	if self:GetStackCount() > 1 and not self:GetParent():HasActiveAbility() then
 		self:DecrementStackCount( ) 
 		self:StartIntervalThink(self.loss_per_sec)
 	end

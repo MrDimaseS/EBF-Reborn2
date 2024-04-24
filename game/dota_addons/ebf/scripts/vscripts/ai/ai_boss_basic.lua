@@ -14,10 +14,18 @@ function Spawn( entityKeyValues )
 		end
 	end)
 	
-	-- thisEntity.disarm = thisEntity:FindAbilityByName("boss_kobold_disarm")
-	-- Timers:CreateTimer(0.1, function()
-		-- thisEntity.disarm:SetLevel(GameRules.gameDifficulty)
-	-- end)
+	thisEntity.basicAbilities = {}
+	for i = 0, thisEntity:GetAbilityCount() - 1 do
+        local ability = thisEntity:GetAbilityByIndex( i )
+        if ability then
+			thisEntity.basicAbilities[ability:GetName()] = ability
+        end
+    end
+	Timers:CreateTimer(0.1, function()
+		for abilityName, abilityEntity in pairs( thisEntity.basicAbilities ) do
+			abilityEntity:SetLevel(GameRules.gameDifficulty)
+		end
+	end)
 end
 
 

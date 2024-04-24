@@ -22,6 +22,33 @@
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
+	"boss_gnoll_assassin_coup_de_grace"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"phantom_assassin_coup_de_grace"
+		"AbilityTextureName"			"phantom_assassin_coup_de_grace"
+		"MaxLevel"						"4"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		
+		"precache"
+		{
+			"particle"					"particles/units/heroes/hero_phantom_assassin/phantom_assassin_mark_overhead.vpcf"
+			"particle"					"particles/units/heroes/hero_phantom_assassin/phantom_assassin_crit_impact.vpcf"
+		}
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"crit_chance"				"17"
+			"crit_bonus"				"325 375 425 475"
+			"duration"					"6"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
 	"boss_gnoll_berserker_break"
 	{
 		// General
@@ -38,7 +65,26 @@
 			"duration"				"3.0"
 		}
 	}
-	"boss_gnoll_berserker_break_enrage_speed"
+	"boss_gnoll_berserker_maim"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"lycan_summon_wolves_critical_strike"
+		"AbilityTextureName"			"lycan_summon_wolves_critical_strike"
+		"MaxLevel"						"4"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"maim_chance"						"20"
+			"maim_duration"						"4.0"
+			"maim_movement_speed"				"25"
+			"maim_attack_speed"					"60"
+			"maim_damage"						"180 200 220 240"
+		}
+	}
+	"boss_gnoll_berserker_enrage_speed"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
@@ -52,16 +98,16 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_aspd"				"200 300 400 500"
-			"duration"					"5"
-			"radius"					"1200"
+			"bonus_aspd"						"350 400 450 500"
+			"duration"							"5"
+			"radius"							"1200"
 		}
 	}
 
 	//=================================================================================================================
 	// Furbolg Champion: Enrage Damage
 	//=================================================================================================================
-	"boss_gnoll_berserker_break_enrage_damage"
+	"boss_gnoll_berserker_enrage_damage"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------

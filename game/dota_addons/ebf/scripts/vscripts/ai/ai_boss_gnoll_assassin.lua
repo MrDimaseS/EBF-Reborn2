@@ -15,8 +15,10 @@ function Spawn( entityKeyValues )
 	end)
 	
 	thisEntity.venom = thisEntity:FindAbilityByName("boss_gnoll_assassin_envenomed_weapon")
+	thisEntity.coup = thisEntity:FindAbilityByName("boss_gnoll_assassin_coup_de_grace")
 	Timers:CreateTimer(0.1, function()
 		thisEntity.venom:SetLevel(GameRules.gameDifficulty)
+		thisEntity.coup:SetLevel(GameRules.gameDifficulty)
 	end)
 end
 

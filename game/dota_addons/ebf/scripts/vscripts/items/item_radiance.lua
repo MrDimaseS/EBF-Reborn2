@@ -136,7 +136,7 @@ function modifier_item_zero_passive:OnCreated()
 	self.aura_damage_illusions = self:GetSpecialValueFor("aura_damage_illusions")
 	
 	if IsServer() then
-		if not self:GetCaster():IsFakeHero()() then
+		if not self:GetCaster():IsFakeHero() then
 			local itemFX = ParticleManager:CreateParticle("particles/econ/events/fall_2021/radiance_owner_fall_2021.vpcf", PATTACH_POINT_FOLLOW, self:GetCaster() )
 			self:AddEffect( itemFX )
 		end

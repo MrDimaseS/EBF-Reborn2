@@ -761,6 +761,8 @@ function AICore:HandleBasicAI( entity )
 				})
 				return AI_THINK_RATE
 			end
+		else
+			entity._currentBasicBehaviorState = EBF_AI_ATTACKING
 		end
 		if not entity:IsMoving() then
 			ExecuteOrderFromTable({
@@ -771,8 +773,8 @@ function AICore:HandleBasicAI( entity )
 			return AI_THINK_RATE
 		end
 	elseif entity._currentBasicBehaviorState == EBF_AI_ATTACKING then
-		if RollPercentage( 5 ) then
-			local newPos = ( entity:GetAttackTarget() or entity ) + RandomVector( math.min( entity:GetAttackRange() * RandomFloat( 0.75, 1.0 ), entity:GetIdealSpeed() * 0.5 )  )
+		if RollPercentage( 12 ) then
+			local newPos = ( entity:GetAttackTarget() or entity ):GetAbsOrigin() + RandomVector( math.min( entity:GetAttackRange() * RandomFloat( 0.75, 1.0 ), entity:GetIdealSpeed() * 0.5 )  )
 			ExecuteOrderFromTable({
 				UnitIndex = entity:entindex(),
 				OrderType = DOTA_UNIT_ORDER_MOVE_TO_POSITION,

@@ -1274,7 +1274,7 @@ function CHoldoutGameMode:OnThink()
 					self._currentRound:End(true)
 					self._currentRound = nil
 					-- Heal all players
-					self:_RefreshPlayers(true)
+					self:_RefreshPlayers(true, true)
 					
 					self._nRoundNumber = self._nRoundNumber + 1
 					GameRules._roundnumber = self._nRoundNumber
@@ -1606,7 +1606,7 @@ function CHoldoutGameMode:_Connection_states()
 end
 
 
-function CHoldoutGameMode:_RefreshPlayers(bWon)
+function CHoldoutGameMode:_RefreshPlayers( bWon, bRefreshCooldowns )
 	for nPlayerID = 0, DOTA_MAX_TEAM_PLAYERS-1 do
 		if PlayerResource:GetTeam( nPlayerID ) == DOTA_TEAM_GOODGUYS then
 			if PlayerResource:HasSelectedHero( nPlayerID ) then
@@ -1623,8 +1623,7 @@ function CHoldoutGameMode:_RefreshPlayers(bWon)
 						hero:SetAbsOrigin(ogPos)
 						hero:RemoveModifierByName( "modifier_fountain_invulnerability" )
 					end
-					
-					hero:RefreshAllCooldowns( true )
+					if bRefreshCooldowns then hero:RefreshAllCooldowns( true ) end
 					if bWon ~= nil then
 						local hBottle = hero:FindItemInInventory("item_bottle_ebf" )
 						if hBottle then

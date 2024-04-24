@@ -313,7 +313,7 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierPercentageC
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierPercentageCasttime( params )
-  return self:GetModifierPercentageCooldown( params )
+  return self:GetModifierPercentageCooldown( params ) * 2
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierPhysicalArmorBonus()

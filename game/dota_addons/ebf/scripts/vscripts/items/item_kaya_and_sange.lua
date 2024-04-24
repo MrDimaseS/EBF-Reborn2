@@ -36,7 +36,8 @@ function modifier_item_kaya_and_sange_2_passive:OnRefresh()
 	self.spell_lifesteal = self:GetSpecialValueFor("spell_lifesteal")
 	self.health_threshold_pct = self:GetSpecialValueFor("health_threshold_pct")
 	self.buff_duration = self:GetSpecialValueFor("buff_duration")
-	self.cooldown_duration = self:GetSpecialValueFor("cooldown_duration")
+	
+	self.endurance_duration = self:GetSpecialValueFor("endurance_duration")
 	
 	self.max_stacks = self:GetSpecialValueFor("max_stacks")
 	self.total_duration = self:GetSpecialValueFor("buffer_duration") + self:GetSpecialValueFor("loss_timer")
@@ -55,13 +56,20 @@ function modifier_item_kaya_and_sange_2_passive:DeclareFunctions()
 			MODIFIER_PROPERTY_HEALTH_BONUS,
 			MODIFIER_PROPERTY_MANA_BONUS,
 			MODIFIER_PROPERTY_MIN_HEALTH,
-			MODIFIER_EVENT_ON_TAKEDAMAGE
+			MODIFIER_EVENT_ON_TAKEDAMAGE,
+			MODIFIER_EVENT_ON_ABILITY_FULLY_CAST
 	}
 end
 
 function modifier_item_kaya_and_sange_2_passive:GetMinHealth()
 	if self.health_threshold_pct and self.health_threshold_pct > 1 and self:GetAbility():IsCooldownReady() and not self:GetParent():IsIllusion() then
 		return math.floor( self:GetParent():GetMaxHealth() * self.health_threshold_pct / 100 )
+	end
+end
+
+function modifier_item_kaya_and_sange_2_passive:OnAbilityFullyCast(params)
+	if params.unit == self:GetParent() and params.ability:GetCooldown(-1) > 0 then
+		self:GetParent():AddNewModifier( self:GetParent(), self:GetAbility(), "modifier_item_kaya_and_sange_endurance", {duration = self.endurance_duration} )
 	end
 end
 
@@ -169,63 +177,77 @@ modifier_item_kaya_and_sange_vengeance = class({})
 LinkLuaModifier( "modifier_item_kaya_and_sange_vengeance", "items/item_kaya_and_sange.lua", LUA_MODIFIER_MOTION_NONE )
 
 function modifier_item_kaya_and_sange_vengeance:OnCreated()
-	self.barrier = 0
-	if IsServer() then self:SetHasCustomTransmitterData(true) end
 	self:OnRefresh()
 end
 
 function modifier_item_kaya_and_sange_vengeance:OnRefresh()
 	self.spell_amp_stacks = self:GetSpecialValueFor("spell_amp_stacks")
 	self.buffer_duration = self:GetSpecialValueFor("buffer_duration")
-	self.mana_to_barrier = self:GetSpecialValueFor("mana_to_barrier")
 	self.loss_per_sec = self:GetSpecialValueFor("loss_timer") / self:GetStackCount()
 	self.loss_float = 0
 	
 	if IsServer() then
 		self:StartIntervalThink(self.buffer_duration)
-		self:SendBuffRefreshToClients()
 	end
 end
 
 function modifier_item_kaya_and_sange_vengeance:OnIntervalThink()
 	if self:GetStackCount() > 1 then
-		self.barrier = self.barrier - self.barrier / self:GetStackCount()
 		self:DecrementStackCount( )
 		self:StartIntervalThink(self.loss_per_sec)
-		self:SendBuffRefreshToClients()
 	end
 end
 
 function modifier_item_kaya_and_sange_vengeance:DeclareFunctions()
-	return {MODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE, MODIFIER_EVENT_ON_SPENT_MANA, MODIFIER_PROPERTY_INCOMING_DAMAGE_CONSTANT}
+	return {MODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE}
 end
 
 function modifier_item_kaya_and_sange_vengeance:GetModifierSpellAmplify_Percentage()
 	return self.spell_amp_stacks * self:GetStackCount()
 end
 
-function modifier_item_kaya_and_sange_vengeance:OnSpentMana( params )
-	if params.unit == self:GetParent() then
-		self.barrier = math.max( 0, self.barrier ) + params.cost * self.mana_to_barrier
-		self:SendBuffRefreshToClients()
-	end
+modifier_item_kaya_and_sange_endurance = class({})
+LinkLuaModifier( "modifier_item_kaya_and_sange_endurance", "items/item_kaya_and_sange.lua", LUA_MODIFIER_MOTION_NONE )
+
+function modifier_item_kaya_and_sange_endurance:OnCreated()
+	self:OnRefresh()
 end
 
-function modifier_item_kaya_and_sange_vengeance:GetModifierIncomingDamageConstant( params )
-	if IsServer() and self.barrier > 0 then
-		local barrier = math.min( self.barrier, math.max( self.barrier, params.damage ) )
-		self.barrier = self.barrier - params.damage
-		self:SendBuffRefreshToClients()
-		return -barrier
-	else
-		return self.barrier
-	end
+function modifier_item_kaya_and_sange_endurance:OnRefresh()
+	self.endurance_bonus = self:GetSpecialValueFor("endurance_bonus") / 100
+	self.restore_amp = self:GetSpecialValueFor("restore_amp") * self.endurance_bonus
+	self.status_resistance = self:GetSpecialValueFor("status_resistance") * self.endurance_bonus
 end
 
-function modifier_item_kaya_and_sange_vengeance:AddCustomTransmitterData()
-	return {barrier = self.barrier}
+function modifier_item_kaya_and_sange_endurance:DeclareFunctions()
+	return {MODIFIER_PROPERTY_STATUS_RESISTANCE_STACKING,
+			MODIFIER_PROPERTY_HEAL_AMPLIFY_PERCENTAGE_SOURCE,
+			MODIFIER_PROPERTY_LIFESTEAL_AMPLIFY_PERCENTAGE,
+			MODIFIER_PROPERTY_HP_REGEN_AMPLIFY_PERCENTAGE,
+			MODIFIER_PROPERTY_MP_REGEN_AMPLIFY_PERCENTAGE,
+			MODIFIER_PROPERTY_TOOLTIP}
 end
 
-function modifier_item_kaya_and_sange_vengeance:HandleCustomTransmitterData(data)
-	self.barrier = data.barrier
+function modifier_item_kaya_and_sange_endurance:GetModifierStatusResistanceStacking()
+	return self.status_resistance
+end
+
+function modifier_item_kaya_and_sange_endurance:GetModifierHealAmplify_PercentageSource()
+	return self.restore_amp
+end
+
+function modifier_item_kaya_and_sange_endurance:GetModifierHPRegenAmplify_Percentage()
+	return self.restore_amp
+end
+
+function modifier_item_kaya_and_sange_endurance:GetModifierMPRegenAmplify_Percentage()
+	return self.restore_amp
+end
+
+function modifier_item_kaya_and_sange_endurance:GetModifierLifestealRegenAmplify_Percentage()
+	return self.restore_amp
+end
+
+function modifier_item_kaya_and_sange_endurance:OnTooltip()
+	return self.endurance_bonus * 100
 end

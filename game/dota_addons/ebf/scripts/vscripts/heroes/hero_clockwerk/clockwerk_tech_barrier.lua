@@ -46,12 +46,13 @@ function modifier_clockwerk_tech_barrier_barrier:DeclareFunctions()
 end
 
 function modifier_clockwerk_tech_barrier_barrier:GetModifierIncomingDamageConstant( params )
-	if IsServer() then
+	if IsServer() and not self._deactivatedBarrier then
 		local barrier = math.min( self.barrier, math.max( self.barrier, params.damage ) )
 		self.barrier = self.barrier - params.damage
 		if self.barrier > 0 then
 			self:SendBuffRefreshToClients()
 		else
+			self._deactivatedBarrier = true
 			self:GetAbility():DealDamage( self:GetCaster(), params.attacker, self.damage, {damage_type = DAMAGE_TYPE_MAGICAL} )
 			params.attacker:ApplyKnockBack( self:GetCaster():GetAbsOrigin(), self.push_duration, self.push_duration, self.push_length, 0, self:GetCaster(), self:GetAbility() )
 			params.attacker:ReduceMana( params.attacker:GetMana() * self.mana_burn, self:GetAbility() )

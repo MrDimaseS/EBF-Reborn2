@@ -24,13 +24,15 @@ function Spawn( entityKeyValues )
 		thisEntity.devour:SetLevel(GameRules.gameDifficulty)
 		thisEntity.scorch:SetLevel(GameRules.gameDifficulty)
 		thisEntity.blade:SetLevel(GameRules.gameDifficulty)
-		thisEntity.blade:ToggleAutoCast()
 		thisEntity.doom:SetLevel(GameRules.gameDifficulty)
 	end)
 end
 
 function AIThink(thisEntity)
 	if thisEntity:GetTeamNumber() ~= DOTA_TEAM_GOODGUYS and not thisEntity:IsChanneling() and not thisEntity:GetCurrentActiveAbility() then
+		if thisEntity.blade:IsFullyCastable() and not thisEntity.blade:GetAutoCastState() then
+			thisEntity.blade:ToggleAutoCast()
+		end
 		if thisEntity.devour:IsFullyCastable() then
 			local potentialTargets = thisEntity:FindAllUnitsInRadius( thisEntity:GetAbsOrigin(), thisEntity:GetIdealSpeed() * 4 )
 			local castTarget

@@ -386,6 +386,7 @@ function MergeTables( t1, t2 )
 end
 
 function PrintAll(t)
+	if not t then return end
 	print( "-------",t,"-------" )
 	for k,v in pairs(t) do
 		print(k,v)

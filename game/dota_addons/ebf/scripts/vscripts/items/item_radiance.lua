@@ -4,6 +4,7 @@ function item_radiance_2:GetIntrinsicModifierName()
 	return "modifier_item_radiance_2_passive"
 end
 
+item_skeleton_king_radiance = class(item_radiance_2)
 item_radiance = class(item_radiance_2)
 item_radiance_3 = class(item_radiance_2)
 

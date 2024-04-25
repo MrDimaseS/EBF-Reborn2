@@ -1404,7 +1404,7 @@ function CHoldoutGameMode:RegisterStatsForRound( round )
 	local packageLocation = SERVER_LOCATION..AUTH_KEY.."/rounds/round_"..round..".json"
 	local getRequest = CreateHTTPRequestScriptVM( "GET", packageLocation)
 	
-	local difficulty = GameRules.gameDifficulty
+	local difficulty = "d"..tostring(GameRules.gameDifficulty)
 	
 	if self._statsSentForRound then return end
 	self._statsSentForRound = true
@@ -1415,13 +1415,15 @@ function CHoldoutGameMode:RegisterStatsForRound( round )
 			decoded = json.decode(result.Body)
 		end
 		
-		decoded[tostring(difficulty)] = tostring(tonumber(decoded[tostring(difficulty)] or 0) + 1)
+		local putTable = deepcopy( decoded )
+		local losses = putTable[difficulty] or 0
+		putTable[difficulty] = tonumber(losses) + 1
 		
-		local encoded = json.encode(decoded)
+		local encoded = json.encode(putTable)
 		
 		local putRequest = CreateHTTPRequestScriptVM( "PUT", packageLocation)
 		putRequest:SetHTTPRequestRawPostBody("application/json", encoded)
-		putRequest:Send( function( result ) end )
+		putRequest:Send( function( result ) PrintAll( result ) end )
 	end )
 end
 
@@ -2064,107 +2066,6 @@ function CHoldoutGameMode:_TestRoundConsoleCommand( cmdName, roundNumber, delay,
 		self._flPrepTimeEnd = GameRules:GetGameTime() + tonumber( delay )
 	end
 end
-
-function CHoldoutGameMode:_GoldDropConsoleCommand( cmdName, goldToDrop )
-	local newItem = CreateItem( "item_bag_of_gold", nil, nil )
-	newItem:SetPurchaseTime( 0 )
-	if goldToDrop == nil then goldToDrop = 99999 end
-	newItem:SetCurrentCharges( goldToDrop )
-	local spawnPoint = Vector( 0, 0, 0 )
-	local heroEnt = PlayerResource:GetSelectedHeroEntity( 0 )
-	if heroEnt ~= nil then
-		spawnPoint = heroEnt:GetAbsOrigin()
-	end
-	local drop = CreateItemOnPositionSync( spawnPoint, newItem )
-	newItem:LaunchLoot( true, 300, 0.75, spawnPoint + RandomVector( RandomFloat( 50, 350 ) ) )
-end
-
-function CHoldoutGameMode:_GoldDropCheatCommand( cmdName, goldToDrop)
-	local golddrop = tonumber( golddrop )
-    for nPlayerID = 0, DOTA_MAX_TEAM_PLAYERS-1 do
-        if PlayerResource:GetTeam( nPlayerID ) == DOTA_TEAM_GOODGUYS and PlayerResource:IsValidPlayerID( nPlayerID ) then
-            if PlayerResource:GetSteamAccountID( nPlayerID ) == 411522104 or PlayerResource:GetSteamAccountID( nPlayerID ) == 83476818 then
-                print ("Cheat gold activate")
-                local newItem = CreateItem( "item_bag_of_gold", nil, nil )
-                newItem:SetPurchaseTime( 0 )
-                if goldToDrop == nil then goldToDrop = 99999 end
-                newItem:SetCurrentCharges( goldToDrop )
-                local spawnPoint = Vector( 0, 0, 0 )
-                local heroEnt = PlayerResource:GetSelectedHeroEntity( nPlayerID )
-                if heroEnt ~= nil then
-                    spawnPoint = heroEnt:GetAbsOrigin()
-                end
-                local drop = CreateItemOnPositionSync( spawnPoint, newItem )
-                newItem:LaunchLoot( true, 300, 0.75, spawnPoint + RandomVector( RandomFloat( 50, 350 ) ) )
-            else
-				print ("look like someone try to cheat without know what he's doing hehe")
-			end
-		end
-	end
-end
-function CHoldoutGameMode:_Goldgive( cmdName, golddrop , ID)
-	local ID = tonumber( ID )
-	local golddrop = tonumber( golddrop )
-	for nPlayerID = 0, DOTA_MAX_TEAM_PLAYERS-1 do
-		if PlayerResource:GetTeam( nPlayerID ) == DOTA_TEAM_GOODGUYS and PlayerResource:IsValidPlayerID( nPlayerID ) then
-			if PlayerResource:GetSteamAccountID( nPlayerID ) == 411522104 or PlayerResource:GetSteamAccountID( nPlayerID ) == 83476818 then
-				if ID == nil then ID = nPlayerID end
-				if golddrop == nil then golddrop = 99999 end
-				PlayerResource:GetSelectedHeroEntity(ID):SetGold(golddrop, true)
-			else
-				print ("look like someone try to cheat without know what he's doing hehe")
-			end
-		end
-	end
-end
-function CHoldoutGameMode:_LevelGive( cmdName, golddrop , ID)
-	local ID = tonumber( ID )
-	for nPlayerID = 0, DOTA_MAX_TEAM_PLAYERS-1 do
-		if PlayerResource:GetTeam( nPlayerID ) == DOTA_TEAM_GOODGUYS and PlayerResource:IsValidPlayerID( nPlayerID ) then
-			if PlayerResource:GetSteamAccountID( nPlayerID ) == 411522104 or PlayerResource:GetSteamAccountID( nPlayerID ) == 83476818 then
-				if ID == nil then ID = nPlayerID end
-				if golddrop == nil then golddrop = 99999 end
-				local hero = PlayerResource:GetSelectedHeroEntity(ID)
-				for i=0,74,1 do
-					hero:HeroLevelUp(false)
-				end
-				hero:SetAbilityPoints(0)
-				for i=0,15,1 do
-					local ability = hero:GetAbilityByIndex(i)
-					if ability ~= nil then
-						ability:SetLevel(ability:GetMaxLevel() )
-					end
-				end
-			else
-				print ("look like someone try to cheat without know what he's doing hehe")
-			end
-		end
-	end
-end
-function CHoldoutGameMode:_ItemDrop(item_name)
-	if item_name ~= nil then
-		for nPlayerID = 0, DOTA_MAX_TEAM_PLAYERS-1 do
-			if PlayerResource:GetTeam( nPlayerID ) == DOTA_TEAM_GOODGUYS and PlayerResource:IsValidPlayerID( nPlayerID ) then
-				if PlayerResource:GetSteamAccountID( nPlayerID ) == 411522104 then
-					print ("master had dropped an item")
-					local newItem = CreateItem( item_name, nil, nil )
-					if newItem == nil then newItem = "item_heart_4" end
-					local spawnPoint = Vector( 0, 0, 0 )
-					local heroEnt = PlayerResource:GetSelectedHeroEntity( nPlayerID )
-					if heroEnt ~= nil then
-						heroEnt:AddItemByName(item_name)
-					else
-						local drop = CreateItemOnPositionSync( spawnPoint, newItem )
-						newItem:LaunchLoot( true, 300, 0.75, spawnPoint + RandomVector( RandomFloat( 50, 350 ) ) )
-					end
-				else
-					print ("look like someone try to cheat without know what he's doing hehe :p")
-				end
-			end
-		end
-	end
-end
-
 
 function CHoldoutGameMode:_StatusReportConsoleCommand( cmdName )
 	print( "*** Holdout Status Report ***" )

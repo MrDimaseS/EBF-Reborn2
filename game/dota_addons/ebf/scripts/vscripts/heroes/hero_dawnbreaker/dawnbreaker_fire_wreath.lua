@@ -255,9 +255,6 @@ function modifier_starbreaker_fire_wreath_activity:Smash()
 		end
 	end
 
-	-- self stun
-	ability:Stun( target, self.selfstun )
-
 	-- increment luminosity stack
 	if #enemies>0 then
 		local mod1 = self.parent:FindModifierByName( "modifier_dawnbreaker_luminosity_lua" )

@@ -29,13 +29,15 @@ function Spawn( entityKeyValues )
 		thisEntity.nova:SetLevel(GameRules.gameDifficulty)
 		thisEntity.aura:SetLevel(GameRules.gameDifficulty)
 		thisEntity.poison:SetLevel(GameRules.gameDifficulty)
-		thisEntity.poison:ToggleAutoCast()
 	end)
 end
 
 
 function AIThink(thisEntity)
 	if thisEntity:GetTeamNumber() ~= DOTA_TEAM_GOODGUYS and not thisEntity:IsChanneling() and not thisEntity:GetCurrentActiveAbility() then
+		if thisEntity.poison:IsFullyCastable() and not thisEntity.poison:GetAutoCastState() then
+			thisEntity.poison:ToggleAutoCast()
+		end
 		if thisEntity.pulse:IsFullyCastable() then
 			ExecuteOrderFromTable({
 						UnitIndex = thisEntity:entindex(),

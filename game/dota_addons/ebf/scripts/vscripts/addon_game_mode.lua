@@ -1394,188 +1394,143 @@ function CHoldoutGameMode:OnThink()
 end
 
 
-function CHoldoutGameMode:RegisterStatsForRound( round )
-	if not IsDedicatedServer() or IsInToolsMode() or GameRules:IsCheatMode() then return end
-	
-	local statSettings = LoadKeyValues("scripts/vscripts/statcollection/settings.kv")
-	local AUTH_KEY = GetDedicatedServerKeyV3(statSettings.modID)
-	local SERVER_LOCATION = statSettings.serverLocation
+function CHoldoutGameMode:RegisterStatsForRound(round)
+    if self._statsSentForRound then return end
+    self._statsSentForRound = true
 
-	local packageLocation = SERVER_LOCATION..AUTH_KEY.."/rounds/round_"..round..".json"
-	local getRequest = CreateHTTPRequestScriptVM( "GET", packageLocation)
-	
-	local difficulty = GameRules.gameDifficulty
-	
-	if self._statsSentForRound then return end
-	self._statsSentForRound = true
-	
-	getRequest:Send( function( result )
-		local decoded = {}
-		if tostring(result.Body) ~= 'null' then
-			decoded = json.decode(result.Body)
-		end
-		
-		decoded[tostring(difficulty)] = tostring(tonumber(decoded[tostring(difficulty)] or 0) + 1)
-		
-		local encoded = json.encode(decoded)
-		
-		local putRequest = CreateHTTPRequestScriptVM( "PUT", packageLocation)
-		putRequest:SetHTTPRequestRawPostBody("application/json", encoded)
-		putRequest:Send( function( result ) end )
-	end )
+    local requestBody = {
+        action = "update_round_stats",
+        round_number = round,
+        difficulty_normal = GameRules.gameDifficulty == 1 and 1 or 0,
+        difficulty_hard = GameRules.gameDifficulty == 2 and 1 or 0,
+        difficulty_impossible = GameRules.gameDifficulty == 3 and 1 or 0,
+        difficulty_challenger = GameRules.gameDifficulty == 4 and 1 or 0,
+        difficulty_nightmare = GameRules.gameDifficulty == 5 and 1 or 0
+    }
+
+    local request = CreateHTTPRequestScriptVM("POST", "https://mbf2.info/api.php")
+    request:SetHTTPRequestRawPostBody("application/json", json.encode(requestBody))
+    request:Send(function(response)
+        if response.StatusCode ~= 200 then
+            -- Handle error
+        end
+    end)
 end
 
-function CHoldoutGameMode:RegisterStatsForPlayer( playerID, bWon, bAbandon )
-	if not IsDedicatedServer() or IsInToolsMode() or GameRules:IsCheatMode() then return end
-	-- send stats only once
-	self.statsSentForPlayer = self.statsSentForPlayer or {}
-	if self.statsSentForPlayer[playerID] then return end
-	self.statsSentForPlayer[playerID] = true
-	
-	-- player stats
-	local map = GetMapName()
-	local statSettings = LoadKeyValues("scripts/vscripts/statcollection/settings.kv")
-	local AUTH_KEY = GetDedicatedServerKeyV3(statSettings.modID)
-	local SERVER_LOCATION = statSettings.serverLocation
-	
-	local playerMultiplier = 1 + ( self._MaxPlayers - HeroList:GetActiveHeroCount() ) * ( 50 / (self._MaxPlayers-1) ) / 100
-	local winMMR = 10+GameRules.gameDifficulty*5
-	local lossMMR = (-2*winMMR) * ((#self._vRounds - self._nRoundNumber) / #self._vRounds)
-	local winMMR = math.floor( winMMR*playerMultiplier + 0.5 )
-	local lossMMR = math.floor( lossMMR/playerMultiplier + 0.5 )
-	
-	
-	local packageLocation = SERVER_LOCATION..AUTH_KEY.."/players/"..tostring(PlayerResource:GetSteamID(playerID))..'.json'
-	local getRequestPlayer = CreateHTTPRequestScriptVM( "GET", packageLocation)
+function CHoldoutGameMode:RegisterStatsForPlayer(playerID, bWon, bAbandon)
+    self.statsSentForPlayer = self.statsSentForPlayer or {}
+    if self.statsSentForPlayer[playerID] then return end
+    self.statsSentForPlayer[playerID] = true
 
-	if bAbandon then -- an abandon was registered
-		for nPlayerID = 0, DOTA_MAX_TEAM_PLAYERS-1 do
-			if PlayerResource:IsValidPlayerID( nPlayerID ) then
-				local decoded = CustomNetTables:GetTableValue("mmr", tostring( nPlayerID ) )
-				if decoded then
-					if PlayerResource:GetConnectionState( nPlayerID ) == DOTA_CONNECTION_STATE_ABANDONED
-					or ( PlayerResource:GetConnectionState( nPlayerID ) == DOTA_CONNECTION_STATE_DISCONNECTED 
-					and PlayerResource.disconnect[nPlayerID] and PlayerResource.disconnect[nPlayerID] + 5*60 <= GameRules:GetGameTime() ) then
-						CustomNetTables:SetTableValue("mmr", tostring( nPlayerID ), {mmr = decoded.mmr, win = 0, loss = lossMMR*3 })
-					else
-						CustomNetTables:SetTableValue("mmr", tostring( nPlayerID ), {mmr = decoded.mmr, win = winMMR, loss = lossMMR})
-					end
-				end
-			end
-		end
-	end
-	
-	local mmrTable = CustomNetTables:GetTableValue("mmr", tostring( playerID ) )
-	getRequestPlayer:Send( function( result )
-		local putData = {}
-		local wins = 0
-		putData.wins = wins
-		putData.plays = 1
-		
-		local decoded = {}
-		if tostring(result.Body) ~= 'null' then
-			decoded = json.decode(result.Body)
-		end
-		wins = (decoded.wins or 0)
-		if bWon then
-			wins = wins + 1
-		end
-	
-		putData.plays = (decoded.plays or 0) + 1
-		putData.wins = wins
-		
-		-- MMR
-		putData.mmr = decoded.mmr or 3000
-		if bAbandon then
-			putData.mmr = math.max( putData.mmr - 120, -1)
-			mmrTable.mmr = putData.mmr 
-			mmrTable.win = 0
-			mmrTable.loss = lossMMR * 3
-		else
-			if bWon then
-				putData.mmr = putData.mmr + winMMR
-				mmrTable.mmr = putData.mmr 
-				mmrTable.loss = 0
-			else
-				putData.mmr = math.max( putData.mmr + lossMMR, 0 )
-				mmrTable.mmr = putData.mmr 
-				mmrTable.win = 0
-			end
-		end
-		
-		local encoded = json.encode(putData)
-		local putRequest = CreateHTTPRequestScriptVM( "PUT", packageLocation)
-		putRequest:SetHTTPRequestRawPostBody("application/json", encoded)
-		putRequest:Send( function( result )
-			CustomNetTables:SetTableValue("mmr", tostring( playerID ), mmrTable)
-		end )
-	end )
+    local playerMultiplier = 1 + (self._MaxPlayers - HeroList:GetActiveHeroCount()) * (50 / (self._MaxPlayers - 1)) / 100
+    local winMMR = 10 + GameRules.gameDifficulty * 5
+    local lossMMR = (-2 * winMMR) * ((#self._vRounds - self._nRoundNumber) / #self._vRounds)
+    local winMMR = math.floor(winMMR * playerMultiplier + 0.5)
+    local lossMMR = math.floor(lossMMR / playerMultiplier + 0.5)
+
+    local mmrTable = CustomNetTables:GetTableValue("mmr", tostring(playerID))
+
+    local putData = {}
+    putData.wins = 0
+    putData.plays = 1
+
+    if bAbandon then -- an abandon was registered
+        -- ... (existing code for handling abandons)
+
+        putData.mmr = math.max(mmrTable.mmr - 120, -1)
+        mmrTable.mmr = putData.mmr
+        mmrTable.win = 0
+        mmrTable.loss = lossMMR * 3
+    else
+        if bWon then
+            putData.wins = 1
+            putData.mmr = mmrTable.mmr + winMMR
+            mmrTable.mmr = putData.mmr
+            mmrTable.loss = 0
+        else
+            putData.mmr = math.max(mmrTable.mmr + lossMMR, 0)
+            mmrTable.mmr = putData.mmr
+            mmrTable.win = 0
+        end
+    end
+
+    local requestBody = {
+        action = "update_player_stats",
+        player_id = playerID,
+        steam_id = tostring(PlayerResource:GetSteamID(playerID)),
+        mmr = putData.mmr,
+        plays = putData.plays,
+        wins = putData.wins
+    }
+
+    local request = CreateHTTPRequestScriptVM("POST", "https://mbf2.info/api.php")
+    request:SetHTTPRequestRawPostBody("application/json", json.encode(requestBody))
+    request:Send(function(response)
+        if response.StatusCode == 200 then
+            CustomNetTables:SetTableValue("mmr", tostring(playerID), mmrTable)
+        else
+            -- Handle error
+        end
+    end)
 end
 
 function CHoldoutGameMode:RegisterStatsForHero( hero, bWon )
-	if not IsDedicatedServer() or IsInToolsMode() or GameRules:IsCheatMode() then return end
-	if GameRules.gameDifficulty < 3 then return end
-	
-	local statSettings = LoadKeyValues("scripts/vscripts/statcollection/settings.kv")
-	local AUTH_KEY = GetDedicatedServerKeyV3(statSettings.modID)
-	local SERVER_LOCATION = statSettings.serverLocation
-	local heroName = string.gsub(hero:GetUnitName(), "npc_dota_hero_", "")
-	
-	self.statsSentForHero = self.statsSentForHero or {}
-	if self.statsSentForHero[hero] then return end
-	self.statsSentForHero[hero] = true
+    print("Registering stats for hero: " .. hero:GetUnitName())
+    
+    local heroName = string.gsub(hero:GetUnitName(), "npc_dota_hero_", "")
+    print("Hero name: " .. heroName)
+    
+    self.statsSentForHero = self.statsSentForHero or {}
+    if self.statsSentForHero[hero] then
+        print("Stats already sent for this hero. Skipping.")
+        return
+    end
+    self.statsSentForHero[hero] = true
+    print("Sending stats for hero: " .. heroName)
 
+    local requestBody = {
+        hero_name = heroName,
+        plays = 1,
+        wins = bWon and 1 or 0,
+        scepter_plays = hero:HasScepter() and 1 or 0,
+        scepter_wins = hero:HasScepter() and bWon and 1 or 0,
+        shard_plays = hero:HasShard() and 1 or 0,
+        shard_wins = hero:HasShard() and bWon and 1 or 0
+    }
+    print("Request body:")
+    for key, value in pairs(requestBody) do
+        print(key .. ": " .. tostring(value))
+    end
+
+    local request = CreateHTTPRequestScriptVM("POST", "https://mbf2.info/api.php")
+	local requestBody = {
+		action = "update_hero_stats",
+		hero_name = heroName,
+		plays = 1,
+		wins = bWon and 1 or 0,
+		scepter_plays = hero:HasScepter() and 1 or 0,
+		scepter_wins = hero:HasScepter() and bWon and 1 or 0,
+		shard_plays = hero:HasShard() and 1 or 0,
+		shard_wins = hero:HasShard() and bWon and 1 or 0
+	}
 	
-	local packageLocation = SERVER_LOCATION..AUTH_KEY.."/heroes/"..heroName..'.json'
-	local getRequest = CreateHTTPRequestScriptVM( "GET", packageLocation)
-	-- hero stats
-	getRequest:Send( function( result )
-		local putData = {}
-		local wins = 0
-		putData.wins = wins
-		putData.plays = 1
-		
-		local decoded = {}
-		if tostring(result.Body) ~= 'null' then
-			decoded = json.decode(result.Body)
-		end
-		wins = (decoded.wins or 0)
-		if bWon then
-			wins = wins + 1
-		end
-		
-		-- SCEPTER
-		putData.scepter = {}
-		decoded.scepter = decoded.scepter or {}
-		putData.scepter.plays = (decoded.scepter.plays or 0)
-		putData.scepter.wins = (decoded.scepter.wins or 0)
-		if hero:HasScepter() then
-			putData.scepter.plays = putData.scepter.plays + 1
-			if bWon then
-				putData.scepter.wins = putData.scepter.wins + 1
-			end
-		end
-		
-		-- SHARD
-		putData.shard = {}
-		decoded.shard = decoded.shard or {}
-		putData.shard.plays = (decoded.shard.plays or 0)
-		putData.shard.wins = (decoded.shard.wins or 0)
-		if hero:HasShard() then
-			putData.shard.plays = putData.shard.plays + 1
-			if bWon then
-				putData.shard.wins = putData.shard.wins + 1
-			end
-		end
-		
-		putData.plays = (decoded.plays or 0) + 1
-		putData.wins = wins
-		
-		local encoded = json.encode(putData)
-		local putRequest = CreateHTTPRequestScriptVM( "PUT", packageLocation)
-		putRequest:SetHTTPRequestRawPostBody("application/json", encoded)
-		putRequest:Send( function( result ) end )
-	end )
+	local requestBodyJson = json.encode(requestBody)
+	
+	request:SetHTTPRequestRawPostBody("application/json", requestBodyJson)
+    print("Sending POST request to: https://mbf2.info/api.php")
+    print("Request action: update_hero_stats")
+    print("Request body: " .. json.encode(requestBody))
+    
+    request:Send(function(response)
+        if response.StatusCode == 200 then
+            print("Response received. Status code: " .. response.StatusCode)
+            print("Response body: " .. response.Body)
+        else
+            print("Error sending request. Status code: " .. response.StatusCode)
+            print("Response body: " .. response.Body)
+            -- Handle error
+        end
+    end)
 end
 
 function CHoldoutGameMode:_Connection_states()

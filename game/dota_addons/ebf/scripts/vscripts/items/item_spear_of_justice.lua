@@ -37,7 +37,7 @@ modifier_spear_of_justice_active = class({})
 LinkLuaModifier( "modifier_spear_of_justice_active", "items/item_spear_of_justice.lua" ,LUA_MODIFIER_MOTION_NONE )
 
 function modifier_spear_of_justice_active:OnCreated()
-	self.bonus_attack_speed = self:GetAbility():GetSpecialValueFor("bonus_attack_speed")
+	self.bonus_attack_speed = self:GetAbility():GetSpecialValueFor("active_attack_speed")
 end
 
 function modifier_spear_of_justice_active:DeclareFunctions(params)

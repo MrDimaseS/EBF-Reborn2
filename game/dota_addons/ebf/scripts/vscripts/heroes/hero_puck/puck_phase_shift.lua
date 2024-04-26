@@ -14,7 +14,7 @@ function puck_phase_shift:OnSpellStart()
 	self.phase = caster:AddNewModifier(caster, self, "modifier_puck_phase_shift_immune", {})
 	EmitSoundOn("Hero_Puck.Phase_Shift", caster)
 	self:SetFrozenCooldown( true )
-	
+	ProjectileManager:ProjectileDodge( caster )
 	if caster:HasShard() then
 		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), caster:GetAttackRange() + self:GetSpecialValueFor("shard_attack_range_bonus") ) ) do
 			caster:PerformGenericAttack(enemy, false, false)
@@ -51,6 +51,7 @@ function modifier_puck_phase_shift_immune:CheckState()
 			[MODIFIER_STATE_NO_HEALTH_BAR] = true,
 			[MODIFIER_STATE_NO_UNIT_COLLISION] = true,
 			[MODIFIER_STATE_UNSELECTABLE] = true,
+			[MODIFIER_STATE_UNTARGETABLE] = true,
 			[MODIFIER_STATE_OUT_OF_GAME] = true}
 end
 
@@ -64,6 +65,10 @@ end
 
 function modifier_puck_phase_shift_immune:GetEffectName()
 	return "particles/units/heroes/hero_puck/puck_phase_shift.vpcf"
+end
+
+function modifier_puck_phase_shift_immune:IsPurgable()
+	return false
 end
 
 modifier_puck_phase_shift_shard = class({})

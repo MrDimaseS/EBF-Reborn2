@@ -1,5 +1,9 @@
 puck_dream_coil = class({})
 
+function puck_dream_coil:GetAOERadius()
+	return self:GetSpecialValueFor("coil_break_radius")
+end
+
 function puck_dream_coil:OnSpellStart()
 	local caster = self:GetCaster()
 	local position = self:GetCursorPosition()

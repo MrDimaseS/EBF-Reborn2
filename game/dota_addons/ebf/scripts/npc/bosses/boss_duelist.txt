@@ -1,0 +1,390 @@
+"DOTAAbilities"
+{	
+	"boss_infernal_duelist_overwhelming_odds"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"legion_commander_overwhelming_odds"
+		"AbilityTextureName"			"legion_commander_overwhelming_odds"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_LegionCommander.Overwhelming.Location"
+		"HasShardUpgrade"				"1"
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"0"
+		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"100 110 120 130"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{			
+			"damage"							"9500 11000 12500 14000"
+			"damage_per_unit"					"1000 1250 1500 1750"
+			"damage_per_hero"					"3000 3750 4500 5250"
+			"illusion_dmg_pct"		
+			{
+				"value"							"25"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"bonus_attack_speed"				"150 175 200 225"
+			"duration"							"5.0"
+			"radius"							"750"
+			"AbilityCooldown"					"15"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+	//=================================================================================================================
+	// Legion Commander: Moment of Courage
+	//=================================================================================================================
+	"boss_infernal_duelist_moment_of_courage"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"legion_commander_overwhelming_odds"
+		"AbilityTextureName"			"legion_commander_overwhelming_odds"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilitySound"					"Hero_LegionCommander.Courage"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"1.9 1.5 1.1 0.7"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"trigger_chance"			
+			{
+				"value"				"25"
+				"LinkedSpecialBonus"        "special_bonus_unique_legion_commander_3"																	
+			}
+			"buff_duration"				"1.0"
+			"hp_leech_percent"			
+			{
+				"value"		"55 65 75 85"
+				"special_bonus_unique_legion_commander_7" "+50"
+			}
+			
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+
+	//=================================================================================================================
+	// Legion Commander: Duel
+	//=================================================================================================================
+	"boss_infernal_duelist_duel"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"legion_commander_duel"
+		"AbilityTextureName"			"legion_commander_duel"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES | DOTA_UNIT_TARGET_FLAG_NOT_CREEP_HERO"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"FightRecapLevel"				"2"
+		"AbilitySound"					"Hero_LegionCommander.Duel"
+		"HasShardUpgrade"				"1"
+		"HasScepterUpgrade"				"1"
+		"MaxLevel"						"4"
+
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"600"
+		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"75 75 75"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityModifierSupportValue"	"3.0"	// Value much higher than cost.
+
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"duration"									"3.5 4.0 4.5 5.0"
+			"reward_damage"								""
+			"victory_range"								"600"
+			"AbilityCooldown"							"20"
+		}
+	}
+	"boss_infernal_duelist_spear"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"mars_spear"
+		"AbilityTextureName"			"mars_spear"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_DIRECTIONAL"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_Mars.Spear.Cast"
+
+        "HasShardUpgrade"               "1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.25"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"14.0 13.0 12.0 11.0"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"100 110 120 130"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+				"damage"				
+				{
+					"value"		"100 175 250 325"
+					"LinkedSpecialBonus"	"special_bonus_unique_mars_spear_bonus_damage"
+				}
+				"spear_speed"		"1400"
+				"spear_width"		
+				{
+					"value"		"125"
+					"affected_by_aoe_increase"	"1"		
+				}
+				"spear_vision"		
+				{
+					"value"		"300"
+					"affected_by_aoe_increase"	"1"		
+				}
+				"spear_range"		"900 1000 1100 1200"
+				"activity_duration"		"1.7"
+				"stun_duration"		
+				{
+					"value"		"1.3 1.6 1.9 2.2"
+					"LinkedSpecialBonus"	"special_bonus_unique_mars_spear_stun_duration"
+				}
+				"knockback_duration"	"0.25"
+				"knockback_distance"	"75"
+				"shard_trail_duration"	
+				{
+					"value"		"10.0"
+					"RequiresShard"				"1"
+				}
+				"shard_trail_radius"
+				{
+					"value"			"200"
+					"RequiresShard"						"1"
+					"affected_by_aoe_increase"	"1"		
+				}
+				"shard_dps"					
+				{
+					"value"			"40"
+					"RequiresShard"						"1"
+					"CalculateSpellDamageTooltip"	"1"
+				}
+				"shard_move_slow_pct"					
+				{
+					"value"		"20"
+					"RequiresShard"						"1"
+				}
+				"shard_debuff_linger_duration"
+				{
+					"value"		"2.0"
+					"RequiresShard"						"1"
+				}
+				"shard_interval"					
+				{
+					"value"		"0.5"
+					"RequiresShard"						"1"
+				}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_5"
+	}
+
+	//=================================================================================================================
+	// Mars: God's Rebuke
+	//=================================================================================================================
+	"boss_infernal_duelist_gods_rebuke"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"mars_gods_rebuke"
+		"AbilityTextureName"			"mars_gods_rebuke"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_NORMAL_WHEN_STOLEN"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_Mars.Shield.Cast"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
+		"AbilityCastPoint"				"0.2"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"90"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"crit_mult"
+			{
+				"value"								"150 200 250 300"
+				"special_bonus_unique_mars_gods_rebuke_extra_crit"		"+65"
+				"DamageTypeTooltip"			"DAMAGE_TYPE_PHYSICAL"
+			}
+			"angle"						"140"
+			"radius"					
+			{
+				"value"					"500"
+				"special_bonus_unique_mars_rebuke_radius"		"+100"
+				"affected_by_aoe_increase"	"1"		
+
+			}
+			"knockback_duration"		"0.3"
+			"knockback_distance"		"150"
+			"knockback_slow"			"40"
+			"knockback_slow_duration"
+			{
+				"value"	"2.5"
+				"special_bonus_unique_mars_rebuke_slow"		"+0"
+			}
+			"activity_duration"			"2"
+			"bonus_damage_vs_heroes"	"10 15 20 25"
+			"AbilityCooldown"
+			{
+				"value"					"16 14 12 10"
+				"special_bonus_unique_mars_rebuke_cooldown"				"-3"
+			}
+		}
+	}
+	"boss_infernal_duelist_arena"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"mars_arena_of_blood"
+		"AbilityTextureName"			"mars_arena_of_blood"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+ 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+ 		"AbilitySound"					"Hero_Mars.ArenaOfBlood.Start"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"400"
+		"AbilityCastPoint"				"0.2"
+ 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_1"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"100 95 90"
+		
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"150 200 250"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+				"duration"				"5 6 7"
+				"radius"			
+				{
+					"value"		"550"
+					"affected_by_aoe_increase"	"1"		
+				}
+				"width"				"100"
+				"spear_damage"		"80 160 240"
+				"formation_time"	"0.1"
+				"spear_distance_from_wall"	"160"
+				"spear_attack_interval"	"1"
+				"warrior_count"		"14"
+				"first_warrior_angle"	"0.0"
+				"warrior_fade_min_dist"	"350.0"
+				"warrior_fade_max_dist"	"450.0"
+		}
+	}
+	"boss_fallen_angel_mystic_flare"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"skywrath_mage_mystic_flare"
+		"AbilityTextureName"			"skywrath_mage_mystic_flare"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"FightRecapLevel"				"2"
+
+		"HasScepterUpgrade"			"1"
+		"HasShardUpgrade"			"1"
+
+		"AbilityDraftUltShardAbility" "skywrath_mage_shield_of_the_scion"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"1200"
+		"AbilityCastPoint"				"0.1 0.1 0.1 0.1"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
+		"AbilityCastGestureSlot"		"DEFAULT"
+		
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"60.0 40.0 20.0"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"300 550 800"
+			
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+				"radius"
+				{
+					"value"	"170"
+					"affected_by_aoe_increase"	"1"
+				}
+				"duration"				"2.0"
+				"damage"				
+				{
+					"value"			"800 1200 1600"
+					"LinkedSpecialBonus"	"special_bonus_unique_skywrath_5"
+				}
+				"damage_interval"		"0.1"
+				"scepter_radius"		
+				{
+					"value"		"700"
+					"RequiresScepter"	"1"
+					"affected_by_aoe_increase"	"1"
+				}
+		}
+	}
+}

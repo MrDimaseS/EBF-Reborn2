@@ -1,0 +1,281 @@
+"DOTAAbilities"
+{	
+	"minion_frost_elemental_ice_vortex"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ancient_apparition_ice_vortex"
+		"AbilityTextureName"			"ancient_apparition_ice_vortex"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"AbilitySound"					"Hero_Ancient_Apparition.IceVortexCast"
+
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastAnimation"			"ACT_DOTA_ICE_VORTEX"
+		"AbilityCastGestureSlot"		"DEFAULT"
+		"AbilityCastRange"				"5000"
+		"AbilityCastPoint"				"0.01 0.01 0.01 0.01"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityDuration"				"6 8 10 12"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"40 50 60 70"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"AbilityCooldown"				"4"
+			"radius"						"300"
+			"drag_speed"					"40 50 60 70"
+			"movement_speed_pct"			"-16 -19 -22 -25"
+			"spell_resist_pct"				"-16 -19 -22 -25"
+			"shard_dps"						"180 220 260 300"
+			"vortex_duration"				"6 8 10 12"
+		}
+	}
+	//=================================================================================================================
+	// Creature: Acid Spray
+	//=================================================================================================================
+	"minion_frost_elemental_ice_blast"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"bosses/boss_wyvern/minion_frost_elemental_ice_blast"
+		"AbilityTextureName"			"ancient_apparition_ice_vortex"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"FightRecapLevel"				"2"
+		"HasShardUpgrade"				"1"
+		"AbilitySound"					"Hero_Ancient_Apparition.IceBlast.Target"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.01 0.01 0.01"
+		"AbilityCastRange"				"0"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
+		
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"60.0 50.0 40.0"
+		
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"175"
+		
+		// Damage.
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityDamage"					"250 325 400"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"radius"						"375"
+			"frostbite_duration"			"10"
+			"dot_damage"					"125 150 175 200"
+			"speed"							"1500"
+			"kill_pct"						"12 13 14 15"
+		}
+	}
+	"minion_frost_lich_chain_frost"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"lich_chain_frost"
+		"AbilityTextureName"			"lich_chain_frost"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"MaxLevel"						"4"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"FightRecapLevel"				"2"
+		"AbilitySound"					"Hero_Lich.ChainFrost"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"750"
+		"AbilityCastPoint"				"0.3"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_6"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"30"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"180 300 420"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityModifierSupportValue"	"0.0"	// Primarily about the damage
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"damage"							"1200 1300 1400 1500"
+			"bonus_jump_damage"					"150 200 250 300"
+			"jumps"								"10 10 10"
+			"jump_range"						"600"
+			"slow_movement_speed"				"-65"
+			"slow_attack_speed"					"-65"
+			"slow_duration"						"2.5"
+			"initial_projectile_speed"			"1050"
+			"projectile_speed"					"850"
+			"vision_radius"						"800"
+			"has_unlimited_jumps"				"1"
+			"should_fire_chain_frost_on_death"	"1"
+		}
+	}
+	"boss_winter_wyvern_arctic_burn"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"									"winter_wyvern_arctic_burn"
+		"AbilityTextureName"						"winter_wyvern_arctic_burn"
+		"AbilityBehavior"							"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitDamageType"						"DAMAGE_TYPE_MAGICAL"		
+		"SpellImmunityType"							"SPELL_IMMUNITY_ENEMIES_NO"
+		"AbilitySound"								"Hero_WinterWyvern.ArcticBurn.Cast"
+		"SpellDispellableType"						"SPELL_DISPELLABLE_NO"
+
+        "HasScepterUpgrade"							"1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"							"0.0 0.0 0.0 0.0"
+		
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"							"26 24 22 20"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"							"100"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"duration"							"7 8 9 10"
+			"attack_range_bonus"				"350 400 450 500"
+			"percent_damage"					"10"
+			"tick_rate"							"1.0"
+			"damage_duration"		
+			{
+				"value"							"3.5 4.0 4.5 5.0"
+				"CalculateSpellDamageTooltip"	"0"
+				"DamageTypeTooltip"				"DAMAGE_TYPE_NONE"
+			}
+			"move_slow"							"40"
+			"night_vision_bonus"				"400"
+			"projectile_speed_bonus"			"500"
+			"tree_destruction_radius"
+			{
+				"value"							"175"
+				"affected_by_aoe_increase"		"1"	
+			}
+			"attack_point"						"0.1"
+			"max_attacks"						"5"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+	"boss_winter_wyvern_splinter_blast"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"								"ability_lua"
+		"ScriptFile"							"bosses/boss_wyvern/boss_winter_wyvern_splinter_blast"
+		"AbilityTextureName"					"winter_wyvern_splinter_blast"
+		"AbilityBehavior"						"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitTargetTeam"					"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitTargetType"					"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"					"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"						"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"					"SPELL_DISPELLABLE_YES"
+		"FightRecapLevel"						"1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"						"1200"
+		"AbilityCastPoint"						"0.3 0.3 0.3 0.3"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"						"6"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"						"105 115 125 135"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"projectile_speed"		"750"
+			"projectile_max_time"	"1.0"
+			"split_radius"			
+			{
+				"value"						"500"
+				"affected_by_aoe_increase"	"1"	
+			}
+			"bonus_movespeed"				"-30"
+			"movespeed_slow_tooltip"		"30"
+			"duration"						"4.0"
+			"secondary_projectile_speed"	"1000"
+			"damage"						"2500 2750 3000 3250"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
+	}
+	"boss_winter_wyvern_cold_embrace"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"								"ability_lua"
+		"ScriptFile"							"bosses/boss_wyvern/boss_winter_wyvern_cold_embrace"
+		"AbilityTextureName"					"winter_wyvern_cold_embrace"
+		"AbilityBehavior"						"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"					"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"					"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+		"SpellImmunityType"						"SPELL_IMMUNITY_ALLIES_YES"
+		"SpellDispellableType"					"SPELL_DISPELLABLE_NO"
+		"FightRecapLevel"						"1"
+		"AbilitySound"							"Hero_Winter_Wyvern.ColdEmbrace"
+
+        "HasShardUpgrade"            			 "1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"						"850 900 950 1000"
+		"AbilityCastPoint"						"0.3 0.3 0.3 0.3"
+		
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"						"32 28 24 20"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"						"50 60 70 80"
+				
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"duration"							"4.0"
+			"heal_percentage"					"2.25 3 3.75 4.5"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+}

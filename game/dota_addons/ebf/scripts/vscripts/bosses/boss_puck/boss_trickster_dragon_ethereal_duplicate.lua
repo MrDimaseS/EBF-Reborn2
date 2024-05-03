@@ -1,0 +1,1 @@
+boss_trickster_dragon_ethereal_duplicate = class({})

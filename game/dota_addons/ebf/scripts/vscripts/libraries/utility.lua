@@ -932,7 +932,7 @@ function CDOTA_BaseNPC:SwapAbilityIndexes(index, swapname)
 	swapability:SetAbilityIndex(index)
 end
 
-function FindAllUnits()
+function FindAllUnits(hData)
 	local team = DOTA_TEAM_GOODGUYS
 	local data = hData or {}
 	local iTeam = data.team or DOTA_UNIT_TARGET_TEAM_BOTH

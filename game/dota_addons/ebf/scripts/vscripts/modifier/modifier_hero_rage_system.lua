@@ -54,9 +54,12 @@ end
 
 function modifier_hero_rage_system:OnTakeDamage( params )
 	if params.attacker == self:GetParent() or params.unit == self:GetParent() then
-		local amt = (( params.original_damage / params.unit:GetMaxHealth() ) * 100)
-		amt = amt * TernaryOperator( 1, params.unit:IsConsideredHero(), 0.2 )
-		self:GetParent():ModifyRage( amt * TernaryOperator( 0.1, params.inflictor ~= nil, 0.5 ) )
+		local amt = (( params.damage / params.unit:GetMaxHealth() ) * 100)
+		if params.attacker == self:GetParent() then
+			amt = amt * TernaryOperator( 1, params.unit:IsConsideredHero(), 0.2 )
+			amt = amt * TernaryOperator( 0.1, params.inflictor and params.attacker == self:GetParent(), 0.5 )
+		end
+		self:GetParent():ModifyRage( amt )
 		self.lastTimeInCombat = GameRules:GetGameTime()
 	end
 end

@@ -55,7 +55,6 @@ end
 
 function modifier_boss_psionic_assassin_reflecting_carapace_reflect:OnIntervalThink()
 	self.damage_reflect_pct = math.min( self.damage_reflect_pct + self.reflect_scaling * 0.1, self.max_damage_reflect_pct )
-	print( self.damage_reflect_pct )
 	if self.damage_reflect_pct >= self.max_damage_reflect_pct then
 		self:StartIntervalThink( -1 )
 	end
@@ -77,7 +76,7 @@ function modifier_boss_psionic_assassin_reflecting_carapace_reflect:OnTakeDamage
 	if not self.damage_reflect_pct then return end
 	if HasBit(params.damage_flags, DOTA_DAMAGE_FLAG_HPLOSS) or HasBit(params.damage_flags, DOTA_DAMAGE_FLAG_REFLECTION) then return end
 	if params.unit == self:GetParent() then
-		self:GetAbility():DealDamage( params.unit, params.attacker, params.original_damage, {damage_type = params.damage_type, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL + DOTA_DAMAGE_FLAG_REFLECTION} )
+		self:GetAbility():DealDamage( params.unit, params.attacker, params.original_damage * self.damage_reflect_pct / 100, {damage_type = params.damage_type, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL + DOTA_DAMAGE_FLAG_REFLECTION} )
 		ParticleManager:FireRopeParticle( "particles/units/heroes/hero_nyx_assassin/nyx_assassin_spiked_carapace_hit.vpcf", PATTACH_POINT_FOLLOW, params.unit, params.attacker )
 	end
 end

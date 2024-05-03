@@ -49,6 +49,10 @@ function Precache( context )
 	PrecacheResource( "particle", "particles/units/heroes/hero_ursa/ursa_claw_right.vpcf", context )
 	
 	PrecacheResource( "particle", "particles/ui_mouseactions/range_finder_cone.vpcf", context )
+	PrecacheResource( "particle", "particles/boss/ancestral_rage_overhead_overhead.vpcf", context )
+	PrecacheResource( "particle", "particles/units/heroes/hero_lone_druid/lone_druid_battle_cry_overhead.vpcf", context )
+	PrecacheResource( "particle", "particles/units/heroes/hero_bounty_hunter/bounty_hunter_track_shield.vpcf", context )
+	PrecacheResource( "particle", "particles/units/heroes/hero_bounty_hunter/bounty_hunter_track_trail.vpcf", context )
 		
 
 	PrecacheResource( "particle", "particles/units/heroes/hero_treant/treant_foot_step.vpcf", context )
@@ -74,15 +78,6 @@ function Precache( context )
 	PrecacheResource( "model", "models/heroes/tiny/tiny_04/tiny_04.vmdl", context )
 
 	--Precache bosses
-	PrecacheUnitByNameSync("npc_dota_boss32_vh", context)
-	PrecacheUnitByNameSync("npc_dota_boss32_h", context)
-	PrecacheUnitByNameSync("npc_dota_boss32", context)
-	PrecacheUnitByNameSync("npc_dota_boss31_vh", context)
-	PrecacheUnitByNameSync("npc_dota_boss31_h", context)
-	PrecacheUnitByNameSync("npc_dota_boss31", context)
-	PrecacheUnitByNameSync("npc_dota_boss30_vh", context)
-	PrecacheUnitByNameSync("npc_dota_boss30_h", context)
-	PrecacheUnitByNameSync("npc_dota_boss30", context)
 	PrecacheUnitByNameSync("npc_dota_boss_naga_illusionist", context)
 	PrecacheUnitByNameSync("npc_dota_boss_troll_warlord", context)
 	PrecacheUnitByNameSync("npc_dota_boss_clockwerk_mecha", context)
@@ -99,9 +94,6 @@ function Precache( context )
 	PrecacheUnitByNameSync("npc_dota_boss_ogre_magi", context)
 	PrecacheUnitByNameSync("npc_dota_visage_familiar1", context)
 	PrecacheUnitByNameSync("npc_dota_lone_druid_bear1", context)
-	PrecacheResource( "model", "models/heroes/tiny/tiny_04/tiny_04.vmdl", context )
-	PrecacheResource( "model", "models/heroes/tiny/tiny_04/tiny_04.vmdl", context )
-	PrecacheResource( "model", "models/heroes/tiny/tiny_04/tiny_04.vmdl", context )
 end
 
 -- Actually make the game mode when we activate

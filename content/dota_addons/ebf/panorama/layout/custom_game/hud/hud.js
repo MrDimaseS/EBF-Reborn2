@@ -699,7 +699,10 @@ function CheckTalentUpdates( ){
 				if( talentTitle.search(/\[!s:value]/) != -1){
 					customTitle.style.visibility = "visible"
 					talentNameCont.style.visibility = "collapse"
-					customTitle.text = talentTitle.replace( /\[!s:value]/, Abilities.GetLevelSpecialValueFor(abilityIndex, "value", 1) )
+					let specialValue = Math.round(Abilities.GetLevelSpecialValueFor(abilityIndex, "value", 1) * 100) / 100
+					let specialEnd = +parseFloat(specialValue).toFixed( 2 );
+					
+					customTitle.text = talentTitle.replace( /\[!s:value]/, specialEnd )
 				} else {
 					talentNameCont.style.visibility = "visible"
 					customTitle.style.visibility = "collapse"

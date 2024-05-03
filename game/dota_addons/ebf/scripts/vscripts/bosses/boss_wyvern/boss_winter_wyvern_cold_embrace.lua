@@ -1,0 +1,1 @@
+boss_winter_wyvern_cold_embrace = class({})

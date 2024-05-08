@@ -10,7 +10,11 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"AbilitySound"					"Hero_Ancient_Apparition.IceVortexCast"
-
+		
+		"precache"
+		{
+			"particle"					"particles/units/heroes/hero_ancient_apparition/ancient_ice_vortex.vpcf"
+		}
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -49,7 +53,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_lua"
 		"ScriptFile"					"bosses/boss_wyvern/minion_frost_elemental_ice_blast"
-		"AbilityTextureName"			"ancient_apparition_ice_vortex"
+		"AbilityTextureName"			"ancient_apparition_ice_blast"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
@@ -58,6 +62,11 @@
 		"HasShardUpgrade"				"1"
 		"AbilitySound"					"Hero_Ancient_Apparition.IceBlast.Target"
 
+		"precache"
+		{
+			"particle"					"particles/units/heroes/hero_ancient_apparition/ancient_apparition_ice_blast_final.vpcf"
+		}
+		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.01 0.01 0.01"
@@ -66,7 +75,7 @@
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"60.0 50.0 40.0"
+		"AbilityCooldown"				"50.0 45.0 40.0 35.0"
 		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -74,7 +83,7 @@
 		
 		// Damage.
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"250 325 400"
+		"AbilityDamage"						"800 900 1000 1100"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -103,6 +112,11 @@
 		"FightRecapLevel"				"2"
 		"AbilitySound"					"Hero_Lich.ChainFrost"
 
+		"precache"
+		{
+			"particle"					"particles/units/heroes/hero_lich/lich_chain_frost.vpcf"
+		}
+
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"750"
@@ -111,11 +125,11 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"30"
+		"AbilityCooldown"				"12"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"180 300 420"
+		"AbilityManaCost"				"180"
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
@@ -151,8 +165,14 @@
 		"AbilitySound"								"Hero_WinterWyvern.ArcticBurn.Cast"
 		"SpellDispellableType"						"SPELL_DISPELLABLE_NO"
 
-        "HasScepterUpgrade"							"1"
-
+		"precache"
+		{
+			"particle"					"particles/units/heroes/hero_winter_wyvern/wyvern_arctic_burn_buff.vpcf"
+			"particle"					"particles/units/heroes/hero_winter_wyvern/wyvern_arctic_burn_slow.vpcf"
+			"particle"					"particles/units/heroes/hero_winter_wyvern/winter_wyvern_arctic_attack.vpcf"
+			"particle"					"particles/units/heroes/hero_winter_wyvern/wyvern_arctic_burn_start.vpcf"
+		}
+		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"							"0.0 0.0 0.0 0.0"
@@ -196,8 +216,7 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"								"ability_lua"
-		"ScriptFile"							"bosses/boss_wyvern/boss_winter_wyvern_splinter_blast"
+		"BaseClass"								"winter_wyvern_splinter_blast"
 		"AbilityTextureName"					"winter_wyvern_splinter_blast"
 		"AbilityBehavior"						"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityUnitTargetTeam"					"DOTA_UNIT_TARGET_TEAM_BOTH"
@@ -207,6 +226,13 @@
 		"SpellDispellableType"					"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"						"1"
 
+		"precache"
+		{
+			"particle"					"particles/units/heroes/hero_winter_wyvern/wyvern_splinter_blast.vpcf"
+			"particle"					"particles/units/heroes/hero_winter_wyvern/wyvern_splinter_blast_main.vpcf"
+			"particle"					"particles/units/heroes/hero_winter_wyvern/wyvern_splinter_blast_slow.vpcf"
+		}
+		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"						"1200"
@@ -247,14 +273,18 @@
 		"ScriptFile"							"bosses/boss_wyvern/boss_winter_wyvern_cold_embrace"
 		"AbilityTextureName"					"winter_wyvern_cold_embrace"
 		"AbilityBehavior"						"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
-		"AbilityUnitTargetTeam"					"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetTeam"					"DOTA_UNIT_TARGET_TEAM_BOTH"
 		"AbilityUnitTargetType"					"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
 		"SpellImmunityType"						"SPELL_IMMUNITY_ALLIES_YES"
 		"SpellDispellableType"					"SPELL_DISPELLABLE_NO"
 		"FightRecapLevel"						"1"
 		"AbilitySound"							"Hero_Winter_Wyvern.ColdEmbrace"
 
-        "HasShardUpgrade"            			 "1"
+		"precache"
+		{
+			"particle"					"particles/units/heroes/hero_winter_wyvern/wyvern_cold_embrace_buff.vpcf"
+			"particle"					"particles/units/heroes/hero_winter_wyvern/wyvern_cold_embrace_start.vpcf"
+		}
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------

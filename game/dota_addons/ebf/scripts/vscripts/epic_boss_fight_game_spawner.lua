@@ -29,7 +29,6 @@ function CHoldoutGameSpawner:ReadConfiguration( name, kv, gameRound )
 	end	
 	self._nUnitsPerSpawn = tonumber( kv.UnitsPerSpawn or 1 )
 	self._nInitialUnitsSpawned = tonumber( kv.InitialUnitsSpawned or self._nUnitsPerSpawn )
-
 	self._flChampionChance = tonumber( kv.ChampionChance or 0 )
 	self._flInitialWait = tonumber( kv.WaitForTime or 0 )
 	self._flSpawnInterval = tonumber( kv.SpawnInterval or 0 )
@@ -131,18 +130,27 @@ function CHoldoutGameSpawner:Think()
 	end
 	
 	if GameRules:GetGameTime() >= self._flNextSpawnTime then
-		if self._nTotalUnitsToSpawn == -1 then -- stop spawning if cap reached OR no heroes currently alive
+		if self._nTotalUnitsToSpawn == -1 then
+			local unitsSpawned = 0
+			local heroesAlive = 0
+			for _, unit in ipairs( FindUnitsInRadius( DOTA_TEAM_NEUTRALS, Vector(0,0), nil, -1, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_ALL, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false) ) do
+				if unit:GetUnitName() == self._szNPCClassName then
+					unitsSpawned = unitsSpawned + 1
+				end
+				if unit:IsConsideredHero() then
+					heroesAlive = heroesAlive + 1
+				end
+			end
+			 -- wait with spawning if cap reached OR no heroes currently alive OR max units reached (initial + 2 spawns max)
+			if heroesAlive == 0 or unitsSpawned >= self._nUnitsPerSpawn * 2 + self._nInitialUnitsSpawned then
+				self._flNextSpawnTime = self._flNextSpawnTime + 1
+				return
+			end
 		end
 		
 		self:_DoSpawn()
 		for _,s in pairs( self._dependentSpawners ) do
 			s:ParentSpawned( self )
-		end
-
-		if self:IsFinishedSpawning() then
-			self._flNextSpawnTime = nil
-		else
-			self._flNextSpawnTime = self._flNextSpawnTime + self._flSpawnInterval
 		end
 	end
 end

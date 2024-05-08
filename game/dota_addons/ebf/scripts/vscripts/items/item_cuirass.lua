@@ -29,6 +29,7 @@ function item_cuirass_3:OnSpellStart()
 	local particleFX = TernaryOperator( "particles/econ/events/ti10/shivas_guard_ti10_active.vpcf", affects_allies, "particles/items2_fx/shivas_guard_active.vpcf" )
 	if magic_resist > 0 then
 		caster:AddNewModifier( caster, self, "modifier_black_king_bar_immune", {duration = bkb_duration} )
+		caster:Dispel( caster )
 	end
 	
 	ParticleManager:FireParticle( particleFX, PATTACH_POINT_FOLLOW, caster, {[1] = Vector( endRadius, endRadius / blastSpeed , blastSpeed )})
@@ -39,10 +40,12 @@ function item_cuirass_3:OnSpellStart()
 					local damage = self:DealDamage( caster, unit, damage, {damage_type = DAMAGE_TYPE_MAGICAL} )
 					unit:AddNewModifier( caster, self, "modifier_item_shivas_guard_blast", {duration = duration} )
 					unit:AddNewModifier( caster, self, "modifier_item_veil_of_discord_debuff", {duration = amp_duration} )
+					unit:Dispel( caster )
 					ParticleManager:FireParticle( "particles/items2_fx/shivas_guard_impact.vpcf", PATTACH_POINT_FOLLOW, unit )	
 				elseif affects_allies then
 					unit:AddNewModifier( caster, self, "modifier_black_king_bar_immune", {duration = bkb_duration} )
 					ParticleManager:FireParticle( "particles/items2_fx/shivas_guard_impact.vpcf", PATTACH_POINT_FOLLOW, unit )	
+					unit:Dispel( caster )
 				end
 				unitsToHit[unit:entindex()] = true
 			end

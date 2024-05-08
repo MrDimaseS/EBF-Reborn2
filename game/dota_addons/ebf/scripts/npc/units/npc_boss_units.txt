@@ -3336,16 +3336,16 @@
 
 		// Attack
 		//----------------------------------------------------------------
-		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
 		"AttackDamageMin"			"6100"		// Damage range min.
 		"AttackDamageMax"			"8200"		// Damage range max.	
 		"BaseAttackSpeed"			"350"
 		"AttackRate"				"3.0"		// Speed of attack.
 		"AttackAnimationPoint"		"0.3"		// Normalized time in animation cycle to attack.
 		"AttackAcquisitionRange"	"15000"		// Range within a target can be acquired.
-		"AttackRange"				"100"		// Range within a target can be attacked.
-		"ProjectileModel"			""			// Particle system model for projectile.
-		"ProjectileSpeed"			"0"			// Speed of projectile.		   
+		"AttackRange"				"900"		// Range within a target can be attacked.
+		"ProjectileModel"			"particles/units/heroes/hero_winter_wyvern/winter_wyvern_base_attack.vpcf"			// Particle system model for projectile.
+		"ProjectileSpeed"			"900"			// Speed of projectile.		   
 
 		// Bounds
 		//----------------------------------------------------------------
@@ -3403,7 +3403,8 @@
 		"GameSoundsFile"			"soundevents/game_sounds_heroes/game_sounds_lich.vsndevts"
 		"SoundSet"					"n_creep_Melee"
 		"Level"						"13"
-		"ModelScale" 				"2.0"
+		"ModelScale" 				"1.4"
+		"vscripts"					"ai/ai_minion_frost_lich"
 	
 		// Abilities
 		//----------------------------------------------------------------
@@ -3419,16 +3420,16 @@
 
 		// Attack
 		//----------------------------------------------------------------
-		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
 		"AttackDamageMin"			"3250"		// Damage range min.
 		"AttackDamageMax"			"3750"		// Damage range max.
 		"BaseAttackSpeed"			"350"
 		"AttackRate"				"3.6"		// Speed of attack.
 		"AttackAnimationPoint"		"0.3"		// Normalized time in animation cycle to attack.
 		"AttackAcquisitionRange"	"15000"		// Range within a target can be acquired.
-		"AttackRange"				"100"		// Range within a target can be attacked.
-		"ProjectileModel"			""			// Particle system model for projectile.
-		"ProjectileSpeed"			"0"			// Speed of projectile.		   
+		"AttackRange"				"500"		// Range within a target can be attacked.
+		"ProjectileModel"			"particles/units/heroes/hero_lich/lich_base_attack.vpcf"			// Particle system model for projectile.
+		"ProjectileSpeed"			"1200"			// Speed of projectile.		   
 
 		// Bounds
 		//----------------------------------------------------------------
@@ -3444,7 +3445,7 @@
 		// Movement
 		//----------------------------------------------------------------
 		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
-		"MovementSpeed"				"245"		// Speed.
+		"MovementSpeed"				"350"		// Speed.
 
 		// Status
 		//----------------------------------------------------------------
@@ -3484,12 +3485,13 @@
 	{
 		// General
 		//----------------------------------------------------------------
-		"Model"						"models/heroes/lich/lich.vmdl"
+		"Model"						"models/heroes/ancient_apparition/ancient_apparition.vmdl"
 		"BaseClass"					"npc_dota_creature"
-		"GameSoundsFile"			"soundevents/game_sounds_heroes/game_sounds_lich.vsndevts"
+		"GameSoundsFile"			"soundevents/game_sounds_heroes/game_sounds_ancient_apparition.vsndevts"
 		"SoundSet"					"n_creep_Melee"
 		"Level"						"13"
-		"ModelScale" 				"2.0"
+		"ModelScale" 				"1.4"
+		"vscripts"					"ai/ai_minion_frost_elemental"
 	
 		// Abilities
 		//----------------------------------------------------------------
@@ -3505,16 +3507,16 @@
 
 		// Attack
 		//----------------------------------------------------------------
-		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
 		"AttackDamageMin"			"3250"		// Damage range min.
 		"AttackDamageMax"			"3750"		// Damage range max.
 		"BaseAttackSpeed"			"350"
 		"AttackRate"				"3.6"		// Speed of attack.
 		"AttackAnimationPoint"		"0.3"		// Normalized time in animation cycle to attack.
 		"AttackAcquisitionRange"	"15000"		// Range within a target can be acquired.
-		"AttackRange"				"100"		// Range within a target can be attacked.
-		"ProjectileModel"			""			// Particle system model for projectile.
-		"ProjectileSpeed"			"0"			// Speed of projectile.		   
+		"AttackRange"				"1500"		// Range within a target can be attacked.
+		"ProjectileModel"			"particles/units/heroes/hero_ancient_apparition/ancient_apparition_base_attack.vpcf"			// Particle system model for projectile.
+		"ProjectileSpeed"			"1200"			// Speed of projectile.		   
 
 		// Bounds
 		//----------------------------------------------------------------
@@ -3530,11 +3532,11 @@
 		// Movement
 		//----------------------------------------------------------------
 		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
-		"MovementSpeed"				"245"		// Speed.
+		"MovementSpeed"				"150"		// Speed.
 
 		// Status
 		//----------------------------------------------------------------
-		"StatusHealth"				"36000"		// Base health.
+		"StatusHealth"				"25000"		// Base health.
 		"StatusHealthRegen"			"0"			// Health regeneration rate.
 		"StatusMana"				"1000"			// Base mana.
 		"StatusManaRegen"			"5"			// Mana regeneration rate.		 

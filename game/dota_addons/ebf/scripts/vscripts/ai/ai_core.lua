@@ -620,9 +620,10 @@ function AICore:HighestThreatHeroInRange(entity, range, basethreat, magic_immune
 end
 
 function AICore:FindOptimalRadiusInRangeForEntity(entity, range, radius, exclusionFct, bIncludeTeamMates)
-	local allEnemies = entity:FindEnemyUnitsInRadius( entity:GetAbsOrigin(), range + radius, {type = DOTA_UNIT_TARGET_HERO, flag = DOTA_UNIT_TARGET_FLAG_FOW_VISIBLE } )
+	local totalRange = TernaryOperator( -1, range == -1, range + radius )
+	local allEnemies = entity:FindEnemyUnitsInRadius( entity:GetAbsOrigin(), totalRange, {type = DOTA_UNIT_TARGET_HERO, flag = DOTA_UNIT_TARGET_FLAG_FOW_VISIBLE } )
 	if bIncludeTeamMates then
-		allEnemies = entity:FindAllUnitsInRadius( entity:GetAbsOrigin(), range + radius, {type = DOTA_UNIT_TARGET_HERO, flag = DOTA_UNIT_TARGET_FLAG_FOW_VISIBLE } )
+		allEnemies = entity:FindAllUnitsInRadius( entity:GetAbsOrigin(), totalRange, {type = DOTA_UNIT_TARGET_HERO, flag = DOTA_UNIT_TARGET_FLAG_FOW_VISIBLE } )
 	end
 	local castPosition
 	local maxTargets = 0
@@ -710,7 +711,7 @@ function AICore:FindOptimalTargetInRangeForEntity(entity, range, radius, exclusi
 	local castTarget
 	local maxTargets = flMinimumValue or 0
 	for _, enemy in ipairs( allEnemies ) do -- attempt to at least get a hero target, also serves to optimize
-		if not exclusionFct or not exclusionFct( enemy ) then -- isn't already affected by a pool
+		if not exclusionFct or not exclusionFct( enemy, castTarget ) then -- isn't already affected by a pool
 			local potentialTargets = entity:FindEnemyUnitsInRadius( enemy:GetAbsOrigin(), radius )
 			if #potentialTargets > maxTargets then
 				castTarget = enemy
@@ -731,7 +732,6 @@ function AICore:FindOptimalAllyInRangeForEntity(entity, range, radius, exclusion
 	for _, ally in ipairs( allEnemies ) do -- attempt to at least get a hero target, also serves to optimize
 		if not exclusionFct or not exclusionFct( ally ) then -- isn't already affected by a pool
 			local potentialTargets = entity:FindEnemyUnitsInRadius( ally:GetAbsOrigin(), radius )
-			print( #potentialTargets, maxTargets )
 			if #potentialTargets > maxTargets then
 				castTarget = ally
 				maxTargets = #potentialTargets

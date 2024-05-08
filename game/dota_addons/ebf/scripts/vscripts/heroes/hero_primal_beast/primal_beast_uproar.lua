@@ -94,12 +94,9 @@ function primal_beast_uproar:OnSpellStart()
 		} -- kv
 	)
 
-	if caster:HasTalent("special_bonus_unique_primal_beast_roar_dispells") then
+	if self:GetSpecialValueFor( "should_dispell" ) == 1 then
 		caster:Dispel(caster, true)
-		local magicImmune = caster:AddNewModifier( caster, self, "modifier_magic_immune", {duration = stack} )
-		
-		local FX = ParticleManager:CreateParticle( "particles/items_fx/black_king_bar_avatar.vpcf", PATTACH_POINT_FOLLOW, caster )
-		magicImmune:AddEffect( FX )
+		local magicImmune = caster:AddNewModifier( caster, self, "modifier_black_king_bar_immune", {duration = stack} )
 	end
 	
 	-- find enemies

@@ -1,1 +1,0 @@
-boss_winter_wyvern_splinter_blast = class({})

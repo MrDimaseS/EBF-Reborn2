@@ -371,7 +371,7 @@ end
 
 function CHoldoutGameRound:IsFinished()
 	for _, spawner in pairs( self._vSpawners ) do
-		if not spawner:IsFinishedSpawning() then
+		if not spawner:IsFinishedSpawning() and spawner:GetTotalUnitsToSpawn() > 0 then
 			return false
 		end
 	end

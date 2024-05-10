@@ -33,7 +33,10 @@ function modifier_boss_trickster_dragon_ethereal_duplicate:OnAbilityFullyCast( p
 			end
 		end
 		illusion:SetCoreHealth( illusion:GetMaxHealth() / self.incoming_damage )
-		illusion:SetHealth( math.ceil( illusion:GetMaxHealth() * (params.unit:GetHealthPercent() / 100) ) )
+		Timers:CreateTimer( function()
+			if not IsEntitySafe( params.unit ) then return end
+			illusion:SetHealth( math.ceil( illusion:GetMaxHealth() * (params.unit:GetHealthPercent() / 100) ) )
+		end)
 		
 		illusion:AddNewModifier( params.unit, self:GetAbility(), "modifier_boss_trickster_dragon_ethereal_duplicate_illusion", {duration = self.duration} )
 	end

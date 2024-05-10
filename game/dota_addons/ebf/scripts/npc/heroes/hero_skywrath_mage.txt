@@ -84,7 +84,6 @@
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.0 0.0 0.0 0.0"
-		"AbilityCastRange"				"1600"
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
@@ -100,8 +99,17 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{ 
-			"launch_radius"						"1600"
-			"slow_radius"						"250"
+			"launch_radius"		
+			{
+				"value"								"1600"
+				"special_bonus_unique_skywrath_4"	"=0"
+				"affected_by_aoe_increase"	"1"
+			}
+			"slow_radius"		
+			{
+				"value"			"250"
+				"affected_by_aoe_increase"	"1"
+			}
 			"speed"								"800 800 800 800"
 			"damage"					
 			{
@@ -116,6 +124,7 @@
 			"scepter_radius"
 			{
 				"value"							"700"
+				"affected_by_aoe_increase"		"1"
 				"RequiresScepter"				"1"
 			}
 			"creep_damage_pct"					"75"

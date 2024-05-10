@@ -5,15 +5,10 @@ function modifier_generic_attack_bonus:OnCreated(kv)
 end
 
 function modifier_generic_attack_bonus:DeclareFunctions()
-    local funcs = {
-        MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
-    }
-
-    return funcs
+    return {MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE}
 end
 
 function modifier_generic_attack_bonus:GetModifierPreAttack_BonusDamage( params )
-	print(self.damage )
     return self.damage
 end
 

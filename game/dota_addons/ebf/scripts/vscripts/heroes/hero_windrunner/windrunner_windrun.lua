@@ -74,7 +74,7 @@ function modifier_windrunner_windrun_aura:GetModifierAura()
 end
 
 function modifier_windrunner_windrun_aura:IsHidden()
-    return true
+    return false
 end
 
 modifier_windrunner_windrun_windrun = class({})

@@ -60,7 +60,7 @@ function AIThink(thisEntity)
 			end
 		end
 		if thisEntity.orb:IsFullyCastable() and RollPercentage( 35 ) then
-			local castPosition = AICore:FindOptimalLineInRangeForEntity( thisEntity, thisEntity.coil:GetSpecialValueFor("max_distance"), thisEntity.coil:GetSpecialValueFor("radius"), thisEntity.coil:GetSpecialValueFor("max_distance") )
+			local castPosition = AICore:FindOptimalLineInRangeForEntity( thisEntity, thisEntity.orb:GetSpecialValueFor("max_distance"), thisEntity.orb:GetSpecialValueFor("radius"), thisEntity.orb:GetSpecialValueFor("max_distance") )
 			if castPosition then
 				ExecuteOrderFromTable({
 					UnitIndex = thisEntity:entindex(),
@@ -68,19 +68,18 @@ function AIThink(thisEntity)
 					Position = castPosition,
 					AbilityIndex = thisEntity.orb:entindex()
 				})
-				return thisEntity.coil:GetCastPoint() + 0.1
+				return thisEntity.orb:GetCastPoint() + 0.1
 			end
 		end
-		if thisEntity.shift:IsFullyCastable() and RollPercentage( 25 ) then
+		if thisEntity.shift:IsFullyCastable() and RollPercentage( 50 ) then
 			local units = thisEntity:FindEnemyUnitsInRadius( thisEntity:GetAbsOrigin(), thisEntity:GetAttackRange() + thisEntity.shift:GetSpecialValueFor("shard_attack_range_bonus") )
 			if #units > 0 then
 				ExecuteOrderFromTable({
 					UnitIndex = thisEntity:entindex(),
-					OrderType = DOTA_UNIT_ORDER_CAST_POSITION,
-					Position = castPosition,
+					OrderType = DOTA_UNIT_ORDER_CAST_NO_TARGET,
 					AbilityIndex = thisEntity.shift:entindex()
 				})
-				return thisEntity.shift:GetCastPoint() + 0.1
+				return thisEntity.shift:GetCastPoint() + 0.5
 			end
 		end
 		-- no spells left to be cast and not currently attacking

@@ -206,8 +206,10 @@ function CDOTA_BaseNPC:PerformAbilityAttack(target, bProcs, ability)
 	Timers:CreateTimer(function() self.autoAttackFromAbilityState = nil end)
 end
 
-function CDOTA_BaseNPC:PerformGenericAttack(target, immediate, bNeverMiss, flBonusDamage, flDamagePct)
+function CDOTA_BaseNPC:PerformGenericAttack(target, immediate, bNeverMiss, flBonusDamage, flDamagePct, bSuppressCleave )
 	local neverMiss = false
+	
+	self._suppressCleave = bSuppressCleave or false
 	if bNeverMiss == true then neverMiss = true end
 	if flDamagePct and flDamagePct ~= 0 then
 		self:AddNewModifier(caster, nil, "modifier_generic_attack_bonus_pct", {damage = flDamagePct})
@@ -220,6 +222,11 @@ function CDOTA_BaseNPC:PerformGenericAttack(target, immediate, bNeverMiss, flBon
 	self:PerformAttack(target, true, true, true, false, not immediate, false, neverMiss)
 	self:RemoveModifierByName("modifier_generic_attack_bonus")
 	self:RemoveModifierByName("modifier_generic_attack_bonus_pct")
+	self._suppressCleave = false
+end
+
+function CDOTA_BaseNPC:IsCleaveSuppressed()
+	return self._suppressCleave
 end
 
 function CDOTA_Modifier_Lua:AttachEffect(pID)

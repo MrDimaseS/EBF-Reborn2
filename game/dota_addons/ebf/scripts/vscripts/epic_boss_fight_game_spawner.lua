@@ -200,7 +200,6 @@ function CHoldoutGameSpawner:_UpdateRandomSpawn()
 		print( string.format( "Failed to get random spawn info for spawner %s.", self._szName ) )
 		return
 	end
-	
 	local entSpawner = Entities:FindByName( nil, spawnInfo.szSpawnerName )
 	if not entSpawner then
 		print( string.format( "Failed to find spawner named %s for %s.", spawnInfo.szSpawnerName, self._szName ) )
@@ -235,20 +234,14 @@ function CHoldoutGameSpawner:_DoSpawn()
 	if self._szSpawnerName == "" then
 		self:_UpdateRandomSpawn()
 	end
-
-	local vBaseSpawnLocation = self:_GetSpawnLocation()
-	if not vBaseSpawnLocation then return end
+	
 	for iUnit = 1,nUnitsToSpawn do
-		local bIsChampion = RollPercentage( self._flChampionChance )
-		if self._nChampionsSpawnedThisRound >= self._nChampionMax then
-			bIsChampion = false
-		end
-
 		local szNPCClassToSpawn = self._szNPCClassName
-		if bIsChampion and self._szChampionNPCClassName ~= "" then
-			szNPCClassToSpawn = self._szChampionNPCClassName
-		end
-
+		
+		local vBaseSpawnLocation = self:_GetSpawnLocation()
+		self:_UpdateRandomSpawn()
+		if not vBaseSpawnLocation then return end
+		
 		local vSpawnLocation = vBaseSpawnLocation
 		if not self._bDontOffsetSpawn then
 			vSpawnLocation = vSpawnLocation + RandomVector( RandomFloat( 0, 200 ) )

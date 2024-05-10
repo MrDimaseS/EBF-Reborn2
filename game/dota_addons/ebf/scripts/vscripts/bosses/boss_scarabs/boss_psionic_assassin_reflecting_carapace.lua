@@ -62,6 +62,7 @@ end
 
 function modifier_boss_psionic_assassin_reflecting_carapace_reflect:OnDestroy()
 	if self:GetRemainingTime() > 0 then return end -- dispelled
+	if not IsServer() then return end -- dispelled
 	local vendetta = self:GetCaster():FindAbilityByName("boss_psionic_assassin_vendetta")
 	if vendetta then
 		vendetta:TriggerVendetta()

@@ -1,7 +1,7 @@
 item_blade_mail = class({})
 
 function item_blade_mail:GetCastRange( target, position )
-	return self:GetSpecialValueFor("radius") - self:GetCaster():GetCastRangeBonus()
+	return self:GetSpecialValueFor("reflection_radius") - self:GetCaster():GetCastRangeBonus()
 end
 
 function item_blade_mail:GetIntrinsicModifierName()
@@ -23,7 +23,7 @@ function item_blade_mail:GetDefaultFunctions()
 		MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
 		MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
 		MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
-		MODIFIER_EVENT_ON_TAKEDAMAGE,
+		MODIFIER_EVENT_ON_ATTACK_LANDED,
     }
 end
 
@@ -48,7 +48,7 @@ item_conquerors_splint = class(item_blade_mail)
 function item_conquerors_splint:ApplyReturn( damage, attacker )
 	local caster = self:GetCaster()
 	local damage_pct = self:GetSpecialValueFor("passive_reflect_pct")
-	caster:PerformGenericAttack( attacker, true, true, damage, damage_pct )
+	caster:PerformGenericAttack( attacker, true, true, damage, damage_pct, true )
 end
 
 function item_conquerors_splint:GetDefaultFunctions()
@@ -56,7 +56,7 @@ function item_conquerors_splint:GetDefaultFunctions()
 		MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
 		MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT,
 		MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
-		MODIFIER_EVENT_ON_TAKEDAMAGE,
+		MODIFIER_EVENT_ON_ATTACK_LANDED,
 		MODIFIER_PROPERTY_PREATTACK_CRITICALSTRIKE,
     }
 end
@@ -89,7 +89,6 @@ function item_martyrs_bulwark:GetDefaultFunctions()
 		MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
 		MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
 		MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
-		MODIFIER_EVENT_ON_TAKEDAMAGE,
 		MODIFIER_EVENT_ON_ATTACK_LANDED,
     }
 end
@@ -179,10 +178,10 @@ function modifier_item_blade_mail_passive:OnRefresh()
 	
 	self.active_reflection_pct = self:GetSpecialValueFor("active_reflection_pct") / 100
 	self.reflection_const = self:GetSpecialValueFor("passive_reflection_constant")
+	self.reflection_radius = self:GetSpecialValueFor("reflection_radius")
 	self.internal_cd = self:GetSpecialValueFor("internal_cd")
 	
 	self.chain_damage = self:GetSpecialValueFor("chain_damage")
-	self.radius = self:GetSpecialValueFor("radius")
 	self.chain_chance = self:GetSpecialValueFor("chain_chance")
 	
 	self.crit_chance = self:GetSpecialValueFor("crit_chance")
@@ -197,16 +196,16 @@ function modifier_item_blade_mail_passive:DeclareFunctions(params)
     return funcs
 end
 
-function modifier_item_blade_mail_passive:OnTakeDamage(params)
+function modifier_item_blade_mail_passive:OnAttackLanded(params)
     local hero = self:GetParent()
     local dmg = params.damage
 	local dmgtype = params.damage_type
 	local attacker = params.attacker
 	local blademailActive = hero:HasModifier( self:GetAbility():GetEffectModifier() )
 	
-	if HasBit(params.damage_flags, DOTA_DAMAGE_FLAG_HPLOSS) or HasBit(params.damage_flags, DOTA_DAMAGE_FLAG_REFLECTION) then return end
-	
-	if not attacker:IsSameTeam( hero ) and params.unit == hero and GameRules:GetGameTime() > self._lastHitTime + self.internal_cd then
+	if not ( IsEntitySafe( attacker ) and attacker:IsAlive() ) then return end
+	if self.OnAttackLandedBehavior then self:OnAttackLandedBehavior( params ) end
+	if not attacker:IsSameTeam( hero ) and params.target == hero and GameRules:GetGameTime() > self._lastHitTime + self.internal_cd and CalculateDistance( hero, attacker ) <= self.reflection_radius then
 		local baseDamage = self.reflection_const * TernaryOperator( 1 + self.active_reflection_pct, blademailActive, 1 )
 		self:GetAbility():ApplyReturn(baseDamage, attacker)
 		if blademailActive then
@@ -273,7 +272,7 @@ end
 modifier_item_martyrs_bulwark_passive = class(modifier_item_blade_mail_passive)
 LinkLuaModifier( "modifier_item_martyrs_bulwark_passive", "items/item_blade_mail.lua" ,LUA_MODIFIER_MOTION_NONE )
 
-function modifier_item_martyrs_bulwark_passive:OnAttackLanded( params )
+function modifier_item_martyrs_bulwark_passive:OnAttackLandedBehavior( params )
     local hero = self:GetParent()
 	local attacker = params.attacker
 	if attacker == hero and (RollPercentage( self.chain_chance ) or hero:HasModifier("modifier_item_blade_mail_passive_taunt")) then
@@ -285,7 +284,7 @@ modifier_item_blade_mail_passive_taunt = class({})
 LinkLuaModifier( "modifier_item_blade_mail_passive_taunt", "items/item_blade_mail.lua" ,LUA_MODIFIER_MOTION_NONE )
 
 function modifier_item_blade_mail_passive_taunt:OnCreated(table)
-	self.radius = self:GetTalentSpecialValueFor("radius")
+	self.reflection_radius = self:GetTalentSpecialValueFor("reflection_radius")
 	self.taunts_enemies = tonumber(self:GetSpecialValueFor("taunts_enemies")) == 1
 end
 
@@ -298,7 +297,7 @@ function modifier_item_blade_mail_passive_taunt:GetModifierAura()
 end
 
 function modifier_item_blade_mail_passive_taunt:GetAuraRadius()
-	return self.radius
+	return self.reflection_radius
 end
 
 function modifier_item_blade_mail_passive_taunt:GetAuraDuration()

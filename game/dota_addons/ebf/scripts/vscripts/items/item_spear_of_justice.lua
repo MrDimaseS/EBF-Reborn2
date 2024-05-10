@@ -120,7 +120,7 @@ end
 function modifier_item_spear_of_justice:OnAttackLanded(params)
 	if IsServer() then
 		if params.attacker == self:GetParent() then
-			if self.splash_damage > 0 and not params.attacker:IsIllusion() then
+			if self.splash_damage > 0 and not params.attacker:IsIllusion() and not params.attacker:IsCleaveSuppressed() then
 				local ability = self:GetAbility()
 				local units = 0
 				local direction = CalculateDirection( params.target, params.attacker)

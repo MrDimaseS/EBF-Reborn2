@@ -28,11 +28,15 @@ modifier_legion_commander_duel_wins = class({})
 LinkLuaModifier( "modifier_legion_commander_duel_wins","heroes/hero_legion_commander/legion_commander_duel.lua",LUA_MODIFIER_MOTION_NONE )
 
 function modifier_legion_commander_duel_wins:DeclareFunctions()
-	return {MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE }
+	return {MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE, MODIFIER_EVENT_ON_MODIFIER_ADDED }
 end
 
 function modifier_legion_commander_duel_wins:GetModifierPreAttack_BonusDamage()
 	return self:GetStackCount()
+end
+
+function modifier_legion_commander_duel_wins:OnModifierAdded( params )
+	PrintAll( params )
 end
 
 function modifier_legion_commander_duel_wins:IsHidden()
@@ -55,7 +59,7 @@ modifier_legion_commander_duel_taunt = class({})
 LinkLuaModifier( "modifier_legion_commander_duel_taunt","heroes/hero_legion_commander/legion_commander_duel.lua",LUA_MODIFIER_MOTION_NONE )
 
 function modifier_legion_commander_duel_taunt:OnCreated( kv )
-	self.reward = self:GetTalentSpecialValueFor("reward_damage")
+	self.reward = self:GetSpecialValueFor("reward_damage")
 	if IsServer() then
 		self.target = EntIndexToHScript( kv.target )
 		self:GetParent():SetForceAttackTarget( self.target )
@@ -102,7 +106,7 @@ end
 
 function modifier_legion_commander_duel_taunt:GetModifierIncomingDamage_Percentage()
 	if self:GetParent() == self:GetCaster() and self:GetCaster():HasScepter() then
-		return -self:GetTalentSpecialValueFor("scepter_damage_reduction_pct")
+		return -self:GetSpecialValueFor("scepter_damage_reduction_pct")
 	end
 end
 

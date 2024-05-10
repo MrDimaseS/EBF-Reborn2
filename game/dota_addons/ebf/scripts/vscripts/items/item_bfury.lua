@@ -42,7 +42,7 @@ function item_bfury_passive:GetModifierPreAttack_BonusDamage()
 end
 
 function item_bfury_passive:OnAttackLanded( params )
-	if params.attacker == self:GetParent() and not params.attacker:IsIllusion() then
+	if params.attacker == self:GetParent() and not params.attacker:IsIllusion() and not params.attacker:IsCleaveSuppressed() then
 		local ability = self:GetAbility()
 		local units = 0
 		local direction = CalculateDirection( params.target, params.attacker)

@@ -45,7 +45,6 @@ end
 function modifier_guardian_greaves_passive:OnRefresh()
 	self.bonus_movement = self:GetSpecialValueFor("bonus_movement")
 	self.bonus_health = self:GetSpecialValueFor("bonus_health")
-	self.bonus_mana = self:GetSpecialValueFor("bonus_mana")
 	self.mana_regen = self:GetSpecialValueFor("mana_regen")
 	self.bonus_all_stats = self:GetSpecialValueFor("bonus_all_stats")
 	self.bonus_armor = self:GetSpecialValueFor("bonus_armor")

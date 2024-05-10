@@ -17,9 +17,9 @@ function modifier_item_lifesteal_ebf:OnCreated()
 end
 
 function modifier_item_lifesteal_ebf:OnRefresh()
-	self.bonus_armor = self:GetAbility():GetSpecialValueFor("bonus_armor")
+	self.armor = self:GetAbility():GetSpecialValueFor("armor")
+	self.mana_regen = self:GetAbility():GetSpecialValueFor("mana_regen")
 	self.bonus_all = self:GetAbility():GetSpecialValueFor("bonus_all")
-	self.bonus_damage = self:GetAbility():GetSpecialValueFor("bonus_damage")
 	self.aura_radius = self:GetAbility():GetSpecialValueFor("aura_radius")
 end
 
@@ -27,6 +27,7 @@ function modifier_item_lifesteal_ebf:DeclareFunctions(params)
 	local funcs = {
 		MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
 		MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
+		MODIFIER_PROPERTY_MANA_REGEN_CONSTANT,
 		MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,
 		MODIFIER_PROPERTY_STATS_INTELLECT_BONUS,
 		MODIFIER_PROPERTY_STATS_AGILITY_BONUS,
@@ -34,12 +35,12 @@ function modifier_item_lifesteal_ebf:DeclareFunctions(params)
     return funcs
 end
 
-function modifier_item_lifesteal_ebf:GetModifierPreAttack_BonusDamage()
-	return self.bonus_damage
+function modifier_item_lifesteal_ebf:GetModifierPhysicalArmorBonus()
+	return self.armor
 end
 
-function modifier_item_lifesteal_ebf:GetModifierPhysicalArmorBonus()
-	return self.bonus_armor
+function modifier_item_lifesteal_ebf:GetModifierConstantManaRegen()
+	return self.mana_regen
 end
 
 function modifier_item_lifesteal_ebf:GetModifierBonusStats_Strength()
@@ -95,7 +96,6 @@ LinkLuaModifier( "modifier_item_lifesteal_ebf_aura", "items/item_lifesteal.lua" 
 modifier_item_lifesteal_ebf_aura = class({})
 
 function modifier_item_lifesteal_ebf_aura:OnCreated()
-	if IsServer() then self:SetHasCustomTransmitterData(true) end
 	self:OnRefresh( )
 end
 
@@ -105,8 +105,6 @@ function modifier_item_lifesteal_ebf_aura:OnRefresh()
 	self.hp_regen_aura = self:GetAbility():GetSpecialValueFor("hp_regen_aura")
 	self.lifesteal_aura = self:GetAbility():GetSpecialValueFor("lifesteal_aura")
 	self.damage_aura = self:GetAbility():GetSpecialValueFor("damage_aura")
-	
-	if IsServer() then self:SendBuffRefreshToClients() end
 end
 
 function modifier_item_lifesteal_ebf_aura:DeclareFunctions(params)

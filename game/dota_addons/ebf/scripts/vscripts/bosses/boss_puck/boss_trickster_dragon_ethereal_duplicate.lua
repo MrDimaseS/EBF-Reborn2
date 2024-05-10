@@ -61,12 +61,21 @@ function modifier_boss_trickster_dragon_ethereal_duplicate_illusion:OnDestroy()
 end
 
 function modifier_boss_trickster_dragon_ethereal_duplicate_illusion:DeclareFunctions()
-	return {MODIFIER_PROPERTY_DISABLE_HEALING, MODIFIER_PROPERTY_BONUSDAMAGEOUTGOING_PERCENTAGE, MODIFIER_PROPERTY_BASEDAMAGEOUTGOING_PERCENTAGE }
+	return {MODIFIER_PROPERTY_DISABLE_HEALING, MODIFIER_PROPERTY_BONUSDAMAGEOUTGOING_PERCENTAGE, MODIFIER_PROPERTY_BASEDAMAGEOUTGOING_PERCENTAGE, MODIFIER_PROPERTY_IS_ILLUSION, MODIFIER_PROPERTY_ILLUSION_LABEL }
 end
 
 function modifier_boss_trickster_dragon_ethereal_duplicate_illusion:GetDisableHealing()
 	return 1
 end
+
+function modifier_boss_trickster_dragon_ethereal_duplicate_illusion:GetIsIllusion()
+	return 1
+end
+
+function modifier_boss_trickster_dragon_ethereal_duplicate_illusion:GetModifierIllusionLabel()
+	return 1
+end
+
 function modifier_boss_trickster_dragon_ethereal_duplicate_illusion:GetModifierBonusDamageOutgoing_Percentage()
 	return -100
 end

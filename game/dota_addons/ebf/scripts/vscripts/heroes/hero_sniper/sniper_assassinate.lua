@@ -48,7 +48,7 @@ function sniper_assassinate:OnProjectileHitHandle(target, vLocation, projectile)
 	if target and not target:TriggerSpellAbsorb( self ) then
 		EmitSoundOn("Hero_Sniper.AssassinateDamage", caster)
 		self:Stun(target, self:GetSpecialValueFor("ministun_duration") )
-		caster:PerformGenericAttack(target, true, nil, nil, true)
+		caster:PerformGenericAttack(target, true, true)
 		local impact_power = self.projectileTable[projectile].impact_power
 		self:DealDamage( caster, target, self:GetSpecialValueFor("impact_damage") * impact_power )
 		if not target:IsAlive() then

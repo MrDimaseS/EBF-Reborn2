@@ -24,15 +24,19 @@
 	//  DOTA_ABILITY_BEHAVIOR_DIRECTIONAL = 1024 : This ability has a direction from the hero		
 	//  DOTA_ABILITY_BEHAVIOR_IMMEDIATE = 2048 : This ability does not interrupt other abilities
 	
+	"item_enchanted_mango"					"REMOVE"
+	"item_faerie_fire"						"REMOVE"
+	"item_flask"							"REMOVE"
+	"item_clarity"							"REMOVE"
+	
 	"item_blades_of_attack"					"REMOVE"
-	"item_broadsword"						"REMOVE"
 	"item_mithril_hammer"					"REMOVE"
+	"item_demon_edge"						"REMOVE"
 	"item_claymore"							"REMOVE"
 	"item_quelling_blade"					"REMOVE"
 	"item_crown"							"REMOVE"
 	"item_urn_of_shadows"					"REMOVE"
 	"item_falcon_blade"						"REMOVE"
-	"item_blitz_knuckles"					"REMOVE"
 	"item_fluffy_hat"						"REMOVE"
 	"item_soul_ring"						"REMOVE"
 	"item_orb_of_corrosion"					"REMOVE"
@@ -67,7 +71,53 @@
 	"item_bottle"							"REMOVE"
 	"item_crimson_guard"					"REMOVE"
 	"item_vanguard"							"REMOVE"
-	
+
+	//=================================================================================================================
+	// Smoke of Deceit
+	//=================================================================================================================
+	"item_smoke_of_deceit"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"Model"							"models/props_gameplay/smoke.vmdl"
+		"Effect"						"dropped_smoke"		
+		"FightRecapLevel"				"1"
+																																																																												 
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"90.0"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"500"
+		"ItemShopTags"					"consumable"
+		"ItemQuality"					"consumable"
+		"ItemAliases"					"smoke of deceit"
+		"ItemStackable"					"1"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"ItemPermanent"					"0"
+		"ItemInitialCharges"			"1"
+		"ItemDisplayCharges"			"1"
+		"ItemStockMax"					"3"
+		"ItemStockTime"					"720.0"			  
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemSupport"					"1"
+		"ItemAlertable"					"1"
+
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"application_radius"	"1200"
+			"visibility_radius"		"1025"
+			"bonus_movement_speed"		"15"
+			"duration"				"45.0"
+			"second_cast_cooldown"	"2.0"
+			"secondary_application_radius"		"300"
+		}
+	}
 	//=================================================================================================================
 	// Recipe: force_boots
 	//=================================================================================================================
@@ -125,17 +175,35 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_movement_speed"			"50"
-			"bonus_intellect"				"10"
-			"bonus_health"					"175"
-			"bonus_damage_melee"			"280"
-			"bonus_damage_range"			"220"
-			"bonus_armor"					"4"
+			"bonus_movement_speed"				"50"
+			"bonus_intellect"
+			{
+				"value"							"10"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_health"
+			{
+				"value"							"275"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_damage_melee"
+			{
+				"value"							"50"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_damage_range"
+			{
+				"value"							"30"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_armor"						"4"
 			
-			"push_length"					"600"
-			"phase_movement_speed"  		"20"
-			"phase_movement_speed_range"	"10"
-			"phase_duration"				"3.0"
+			"push_length"						"600"
+			"phase_movement_speed"  			"20"
+			"phase_movement_speed_range"		"10"
+			"phase_duration"					"3.0"
+			
+			"hp_regen"							""
 		}
 	}
 	//=================================================================================================================
@@ -149,7 +217,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"175"
+		"ItemCost"						"25"
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -200,45 +268,61 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-				"bonus_strength"			"6"
-				"bonus_agility"				"6"
-				"bonus_intellect"			"24"
-				"spell_amp"					"10"
-				"mana_regen_multiplier"		"12"
-				"spell_lifesteal_amp"		"8"
+			"bonus_strength"
+			{
+				"value"						"6"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"bonus_agility"
+			{
+				"value"						"6"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"bonus_intellect"
+			{
+				"value"						"24"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"spell_amp"
+			{
+				"value"						"10"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"mana_regen_multiplier"		"12"
+			"spell_lifesteal_amp"		"8"
 
-				"burn_dps_buildings"
-				{
-					"value"					"250"
-					"CalculateSpellDamageTooltip"	"1"
-				}
-				"burn_dps_units"
-				{
-					"value"					"250"
-					"CalculateSpellDamageTooltip"	"1"
-				}
-				"burn_slow"					"20"
-				"burn_duration"				"6"
-				"stun_duration"				"0.5"
-				"burn_interval"				"1.0"
-				"land_time"					".5"
-				"impact_radius"		
-				{
-					"value"		"400"
-					"affected_by_aoe_increase"	"1"
-				}
-				"max_duration"		"2"
-				"impact_damage_buildings"
-				{
-					"value"							"80"
-					"CalculateSpellDamageTooltip"	"1"
-				}
-				"impact_damage_units"
-				{
-					"value"							"650"
-					"CalculateSpellDamageTooltip"	"1"
-				}
-				"enemy_particles_visible"		"0"
+			"burn_dps_buildings"
+			{
+				"value"					"250"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"burn_dps_units"
+			{
+				"value"					"250"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"burn_slow"					"20"
+			"burn_duration"				"6"
+			"stun_duration"				"0.5"
+			"burn_interval"				"1.0"
+			"land_time"					".5"
+			"impact_radius"		
+			{
+				"value"		"400"
+				"affected_by_aoe_increase"	"1"
+			}
+			"max_duration"		"2"
+			"impact_damage_buildings"
+			{
+				"value"							"80"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"impact_damage_units"
+			{
+				"value"							"650"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"enemy_particles_visible"		"0"
 		}
 	}
 	//=================================================================================================================
@@ -301,14 +385,30 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_strength"				"31"
-			"bonus_agility"					"6"
-			"bonus_intellect"				"24"
-			"spell_amp"						"10"
+			"bonus_strength"
+			{
+				"value"						"31"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"bonus_agility"
+			{
+				"value"						"6"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"bonus_intellect"
+			{
+				"value"						"24"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"spell_amp"
+			{
+				"value"						"12"
+				"CalculateAttributeTooltip"	"1"
+			}
 			"mana_regen_multiplier"			"12"
 			"spell_lifesteal_amp"			"8"
-			"bonus_health_regen"			"0"
-			"bonus_mana_regen"				"0"
+			"bonus_health_regen"			""
+			"bonus_mana_regen"				""
 
 			"damage_base"
 			{
@@ -408,13 +508,21 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_intellect"		"10"
-			"bonus_mana_regen"		"2.5"
-			"bonus_movement_speed"	"20"
-			"cyclone_duration"		"2.5"
+			"bonus_intellect"
+			{
+				"value"							"10"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_mana_regen"
+			{
+				"value"							"2.5"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_movement_speed"				"20"
+			"cyclone_duration"					"2.5"
 			"tooltip_drop_damage"
 			{
-				"value"				"500"
+				"value"							"500"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 		}
@@ -482,16 +590,24 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_movement_speed"	"30"
-			"bonus_mana_regen"		"3.0"
-			"bonus_intellect"		"35"
-			"cyclone_duration"		"2.5"
+			"bonus_movement_speed"				"30"
+			"bonus_mana_regen"
+			{
+				"value"							"3.0"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_intellect"
+			{
+				"value"							"35"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"cyclone_duration"					"2.5"
 			"tooltip_drop_damage"
 			{
-				"value"				"500"
+				"value"							"500"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"tornado_speed"			"300"
+			"tornado_speed"						"300"
 		}
 	}
 
@@ -565,10 +681,10 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"lifetime"				"360"
-			"vision_range_tooltip"	"1600"
-			"health"				"200"
-			"duration_minutes_tooltip"				"6"
+			"lifetime"					"360"
+			"vision_range_tooltip"		"1600"
+			"health"					"200"
+			"duration_minutes_tooltip"	"6"
 		}
 	}
 	
@@ -716,7 +832,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-				"bonus_movement_speed"	"45"
+			"bonus_movement_speed"	"45"
 		}
 	}
 	//=================================================================================================================
@@ -787,25 +903,29 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"blink_range"			"1200"
-			"blink_damage_cooldown"	"3.0"
-			"blink_range_clamp"		"960"
-			"bonus_strength"		"25"
+			"blink_range"						"1200"
+			"blink_damage_cooldown"				"3.0"
+			"blink_range_clamp"					"960"
+			"bonus_strength"
+			{
+				"value"							"25"
+				"CalculateAttributeTooltip"		"1"
+			}
 			"radius"		
 			{
 				"value"	"800"
-				"affected_by_aoe_increase"	"1"
+				"affected_by_aoe_increase"		"1"
 			}
-			"movement_slow"		"50"
-			"attack_slow"		"50"
-			"duration"		"6"
+			"movement_slow"						"50"
+			"attack_slow"						"50"
+			"duration"							"6"
 			"damage_base"
 			{
-				"value"				"500"
+				"value"							"500"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"damage_pct_instant"	"500"
-			"damage_pct_over_time"	"1000"
+			"damage_pct_instant"				"500"
+			"damage_pct_over_time"				"1000"
 		}
 	}
 
@@ -841,13 +961,21 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"blink_range"			"1200"
-			"blink_damage_cooldown"	"3.0"
-			"blink_range_clamp"		"960"
-			"bonus_agility"			"25"
-			"bonus_movement"		"40"
-			"bonus_agi_active"		"35"
-			"duration"				"6"
+			"blink_range"					"1200"
+			"blink_damage_cooldown"			"3.0"
+			"blink_range_clamp"				"960"
+			"bonus_agility"
+			{
+				"value"						"25"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"bonus_movement"				"40"
+			"bonus_agi_active"
+			{
+				"value"						"35"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"duration"						"6"
 		}
 	}
 
@@ -883,10 +1011,14 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"blink_range"			"1400"
-			"blink_damage_cooldown"	"3.0"
-			"blink_range_clamp"		"960"
-			"bonus_intellect"		"25"
+			"blink_range"						"1400"
+			"blink_damage_cooldown"				"3.0"
+			"blink_range_clamp"					"960"
+			"bonus_intellect"
+			{
+				"value"							"25"
+				"CalculateAttributeTooltip"		"1"
+			}
 			"heal_amount"
 			{
 				"value"							"1000"
@@ -910,7 +1042,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"440"	
+		"ItemCost"						"125"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -933,7 +1065,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"440"	
+		"ItemCost"						"125"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -956,7 +1088,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"440"	
+		"ItemCost"						"125"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -990,7 +1122,11 @@
 		"AbilityValues"
 		{
 			"bonus_armor"			"3"
-			"bonus_regen"			"8"
+			"bonus_regen"
+			{
+				"value"						"8"
+				"CalculateAttributeTooltip"	"1"
+			}
 		}
 	}
 	"item_javelin"
@@ -1001,7 +1137,7 @@
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"180"
+		"ItemCost"						"225"
 		"ItemShopTags"					"damage"
 		"ItemQuality"					"component"
 		"ItemAliases"					"javelin"
@@ -1013,7 +1149,7 @@
 			"bonus_chance"						"30"
 			"bonus_chance_damage"
 			{
-				"value"							"300"
+				"value"							"60"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 		}
@@ -1029,7 +1165,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"250"	
+		"ItemCost"						"25"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -1078,12 +1214,20 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_armor"			"7"
-			"bonus_health_regen"	"6.5"
-			"bonus_mana_regen"		"2.5"
-			"bonus_all"				"15"
-			"active_duration"		"25"
-			"active_radius"			"700"
+			"bonus_armor"					"7"
+			"bonus_health_regen"
+			{
+				"value"						"6.5"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"bonus_mana_regen"				"2.5"
+			"bonus_all"
+			{
+				"value"						"15"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"active_duration"				"25"
+			"active_radius"					"700"
 		}
 	}
 
@@ -1107,7 +1251,7 @@
 		"ItemResult"					"item_orchid"
 		"ItemRequirements"
 		{
-			"01"						"item_staff_of_wizardry;item_hyperstone;item_demon_edge;item_pers"
+			"01"						"item_staff_of_wizardry;item_blitz_knuckles;item_broadsword;item_pers"
 		}
 	}
 	"item_orchid"
@@ -1141,12 +1285,28 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_attack_speed"		"30"
-			"bonus_damage"				"50"
-			"bonus_mana_regen"			"3.5"
-			"bonus_health_regen"		"6.0"
-			"bonus_intellect"			"12"
-			"silence_damage_percent"	"15"
+			"bonus_attack_speed"			"15"
+			"bonus_damage"
+			{
+				"value"						"15"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"bonus_mana_regen"
+			{
+				"value"						"3.5"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"bonus_health_regen"
+			{
+				"value"						"6.0"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"bonus_intellect"
+			{
+				"value"						"12"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"silence_damage_percent"	"10"
 			"silence_duration"			"5"
 		}
 	}
@@ -1206,25 +1366,37 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_intellect"			"15"
-			"bonus_attack_speed"		"60"
-			"bonus_mana_regen"			"3"
-			"bonus_health_regen"		"6.5"	
-			"silence_duration"			"5"
-			"silence_damage_percent"	"15"
-			"bonus_damage"				"10"
+			"bonus_intellect"
+			{
+				"value"						"10"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"bonus_damage"
+			{
+				"value"						"25"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"bonus_attack_speed"			"45"
+			"bonus_mana_regen"				"3"
+			"bonus_health_regen"
+			{
+				"value"						"6.5"
+				"CalculateAttributeTooltip"	"1"
+			}
 			
+			"silence_duration"			"5"
+			"silence_damage_percent"	"10"
 			"proc_damage"
 			{
-				"value"							"250"
+				"value"							"50"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"passive_proc_damage"
 			{
-				"value"							"300"
+				"value"							"60"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"proc_chance"				"40"
+			"proc_chance"						"40"
 		}
 	}
 	
@@ -1235,7 +1407,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"450"	
+		"ItemCost"						"150"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -1244,7 +1416,7 @@
 		"ItemResult"					"item_bfury"
 		"ItemRequirements"
 		{
-			"01"						"item_demon_edge;item_pers"
+			"01"						"item_relic;item_pers"
 		}
 	}
 	
@@ -1273,9 +1445,21 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage"					"120"
-			"bonus_health_regen"			"7.5"
-			"bonus_mana_regen"				"2.75"
+			"bonus_damage"
+			{
+				"value"						"65"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"bonus_health_regen"
+			{
+				"value"						"7.5"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"bonus_mana_regen"
+			{
+				"value"						"2.75"
+				"CalculateAttributeTooltip"	"1"
+			}
 			
 			"splash_damage"					"30"
 			"splash_damage_ranged"			"15"
@@ -1294,7 +1478,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"325"	
+		"ItemCost"						"135"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -1303,7 +1487,7 @@
 		"ItemResult"					"item_blade_mail"
 		"ItemRequirements"
 		{
-			"01"						"item_demon_edge;item_chainmail"
+			"01"						"item_broadsword;item_chainmail"
 		}
 	}
 	//=================================================================================================================
@@ -1337,14 +1521,18 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage"						"50"
+			"bonus_damage"
+			{
+				"value"						"15"
+				"CalculateAttributeTooltip"	"1"
+			}
 			"bonus_armor"						"4"
 			"bonus_intellect"					"0"
 			"radius"							"800"
 			"duration"							"4.5"
 			"passive_reflection_constant"
 			{
-				"value"							"400"
+				"value"							"40"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"passive_reflection_pct"			""
@@ -1371,7 +1559,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_all_stats"		"6"
+			"bonus_all_stats"
+			{
+				"value"						"6"
+				"CalculateAttributeTooltip"	"1"
+			}
 		}
 	}
 	//=================================================================================================================
@@ -1396,7 +1588,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_all_stats"			"15"
+			"bonus_all_stats"
+			{
+				"value"						"15"
+				"CalculateAttributeTooltip"	"1"
+			}
 		}
 	}
 	//=================================================================================================================
@@ -1448,7 +1644,66 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_evasion"			"10"
+			"bonus_evasion"				"10"
+		}
+	}
+	"item_magic_wand"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"Model"							"models/props_gameplay/magic_wand.vmdl"
+		
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"15.0"
+		"AbilitySharedCooldown"			"magicwand"
+		"AbilityCastRange"				"1200"
+
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"145"
+		"ItemShopTags"					"regen_health;regen_mana;boost_health;boost_mana;int;agi;str"
+		"ItemQuality"					"common"
+		"ItemAliases"					"magic wand"
+		"ItemRequiresCharges"			"1"
+		"ItemDisplayCharges"			"1"
+		"ShouldBeSuggested"				"1"
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"max_charges"			"20"
+			"charge_radius"			"1200"
+			"bonus_all_stats"		"3"
+			"restore_per_charge"	"15"
+		}
+	}
+	"item_recipe_holy_locket"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"225"
+		"ItemShopTags"					""
+		
+		// Sound
+		//-------------------------------------------------------------------------------------------------------------			
+		"UIPickupSound"					"Item.PickUpRingShop"
+		"UIDropSound"					"Item.DropRingShop"
+		"WorldDropSound"				"Item.DropRingWorld"
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_holy_locket"
+		"ItemRequirements"
+		{
+			"01"						"item_diadem;item_magic_wand"
 		}
 	}
 	//=================================================================================================================
@@ -1497,16 +1752,20 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"heal_increase"			"30"
-			"max_charges"			"20"
-			"charge_radius"			"1200"
-			"bonus_all_stats"		"9"
+			"heal_increase"					"30"
+			"max_charges"					"20"
+			"charge_radius"					"1200"
+			"bonus_all_stats"
+			{
+				"value"						"9"
+				"CalculateAttributeTooltip"	"1"
+			}
 			"restore_per_charge"
 			{
 				"value"						"25"
 				"CalculateSpellHealTooltip"	"1"
 			}
-			"charge_gain_timer"		"8"
+			"charge_gain_timer"				"8"
 		}
 	}
 	//=================================================================================================================
@@ -1570,9 +1829,21 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_health"						"275"
-			"bonus_mana_regen"					"1.75"
-			"bonus_all_stats"					"8"
+			"bonus_health"
+			{
+				"value"							"275"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_mana_regen"
+			{
+				"value"							"1.75"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"bonus_all_stats"
+			{
+				"value"							"8"
+				"CalculateAttributeTooltip"		"1"
+			}
 			"bonus_armor"						"2"
 			
 			"soul_radius"						"1400"
@@ -1591,173 +1862,6 @@
 			"hp_regen_reduction_enemy"			"45"
 			"enemy_hp_drain"					"0.75"
 			"duration"							"8.0"
-		}
-	}
-	//=================================================================================================================
-	// Clarity
-	//=================================================================================================================
-	"item_clarity"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
-		"Model"							"models/props_gameplay/clarity.vmdl"		
-		// Stats
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"250"
-		"AbilityCastPoint"				"0.0"
-		
-		// Item Info
-		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"10"
-		"ItemShopTags"					"consumable"
-		"ItemQuality"					"consumable"
-		"ItemAliases"					"clarity"
-		"ItemStackable"					"1"
-		"ItemPermanent"					"0"
-		"ItemInitialCharges"			"1"
-		"SideShop"						"0"
-
-		// Special	
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			"mana_regen"
-			{
-				"value"						"15"
-				"CalculateAttributeTooltip"	"1"
-			}
-			"buff_duration"			"25"
-		}
-	}
-	//=================================================================================================================
-	// Faerie Fire
-	//=================================================================================================================
-	"item_faerie_fire"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"	
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
-		// Stats
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastPoint"				"0.0"
-		"AbilityCooldown"				"5.0"
-
-		// Item Info
-		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"65"
-		"ItemShopTags"					"damage"
-		"ItemQuality"					"consumable"
-		"ItemAliases"					"faerie fire"
-		"ItemStackable"					"0"
-		"ItemPermanent"					"0"
-		"ItemInitialCharges"			"1"
-		"ItemHideCharges"				"1"
-		"IsTempestDoubleClonable"		"0"
-		"ShouldBeInitiallySuggested"	"1"
-		
-		// Sounden
-		//-------------------------------------------------------------------------------------------------------------			
-		"UIPickupSound"					"Item.PickUpRingShop"
-		"UIDropSound"					"Item.DropRingShop"
-		"WorldDropSound"				"Item.DropRingWorld"
-
-		// Special	
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-				"bonus_damage"			"2"
-				"hp_restore"
-				{
-					"value"						"85"
-					"CalculateAttributeTooltip"	"1"
-				}
-		}
-	}
-	//=================================================================================================================
-	// Enchanted Mango
-	//=================================================================================================================
-	"item_enchanted_mango"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
-		"Model"							"models/props_gameplay/mango.vmdl"
-		// Stats
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"250"
-		"AbilityCastPoint"				"0.0"
-		
-		// Item Info
-		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"30"
-		"ItemShopTags"					"consumable"
-		"ItemQuality"					"consumable"
-		"ItemAliases"					"enchanted mango"
-		"ItemStackable"					"0"
-		"ItemPermanent"					"0"
-		"ItemInitialCharges"			"1"
-		"SideShop"						"0"
-		"ItemHideCharges"				"1"
-
-		// Special	
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			"hp_regen"		"1.0"
-			"replenish_amount"
-			{
-				"value"						"150"
-				"CalculateAttributeTooltip"	"1"
-			}
-		}
-	}
-		
-	
-	//=================================================================================================================
-	// Flask
-	//=================================================================================================================
-	"item_flask"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
-		"Model"							"models/props_gameplay/salve.vmdl"
-		
-		// Stats
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"250"
-		"AbilityCastPoint"				"0.0"
-		
-		// Item Info
-		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"22"
-		"ItemShopTags"					"consumable"
-		"ItemQuality"					"consumable"
-		"ItemAliases"					"healing salve"
-		"ItemStackable"					"1"
-		"ItemPermanent"					"0"
-		"ItemInitialCharges"			"1"
-
-		// Special	
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			"buff_duration"			"13"
-			"health_regen"
-			{
-				"value"						"120"
-				"CalculateAttributeTooltip"	"1"
-			}
-			"break_on_hero_damage"	"1"
 		}
 	}
 	//=================================================================================================================
@@ -1894,7 +1998,7 @@
 		"ItemResult"					"item_phase_boots"
 		"ItemRequirements"
 		{
-			"01"						"item_boots*;item_relic"
+			"01"						"item_boots*;item_broadsword;item_chainmail"
 		}
 	}
 	//=================================================================================================================
@@ -1922,14 +2026,22 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_movement_speed"			"50"
-			"bonus_damage_melee"			"240"
-			"bonus_damage_range"			"200"
-			"phase_movement_speed"			"20"
-			"phase_movement_speed_range"	"10"
-			"phase_duration"				"3.0"
-			"bonus_attack_speed"			"0"
-			"bonus_armor"					"4"
+			"bonus_movement_speed"				"50"
+			"bonus_damage_melee"
+			{
+				"value"							"25"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_damage_range"
+			{
+				"value"							"15"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"phase_movement_speed"				"20"
+			"phase_movement_speed_range"		"10"
+			"phase_duration"					"3.0"
+			"bonus_attack_speed"				"0"
+			"bonus_armor"						"4"
 		}
 	}
 	//=================================================================================================================
@@ -1952,7 +2064,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-				"bonus_strength"		"10"
+			"bonus_strength"
+			{
+				"value"							"10"
+				"CalculateAttributeTooltip"		"1"
+			}
 		}
 	}
 
@@ -1976,7 +2092,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-				"bonus_agility"			"10"
+			"bonus_agility"
+			{
+				"value"							"10"
+				"CalculateAttributeTooltip"		"1"
+			}
 		}
 	}
 	
@@ -2000,7 +2120,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-				"bonus_intellect"		"10"
+			"bonus_intellect"
+			{
+				"value"							"10"
+				"CalculateAttributeTooltip"		"1"
+			}
 		}
 	}
 	//=================================================================================================================
@@ -2022,12 +2146,12 @@
 
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"bonus_agility"
 			{
-				"var_type"				"FIELD_INTEGER"
-				"bonus_agility"			"25"
+				"value"							"25"
+				"CalculateAttributeTooltip"		"1"
 			}
 		}
 	}
@@ -2051,12 +2175,12 @@
 
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"bonus_agility"
 			{
-				"var_type"				"FIELD_INTEGER"
-				"bonus_strength"		"25"
+				"value"							"25"
+				"CalculateAttributeTooltip"		"1"
 			}
 		}
 	}
@@ -2084,7 +2208,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-				"bonus_armor"			"2"
+			"bonus_armor"			"2"
 		}
 	}
 
@@ -2110,7 +2234,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-				"bonus_armor"			"3"
+			"bonus_armor"			"3"
 		}
 	}
 	"item_platemail"
@@ -2132,30 +2256,34 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-				"bonus_armor"			"6"
+			"bonus_armor"			"6"
 		}
 	}
-	"item_demon_edge"
+	"item_broadsword"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
+
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"450"
+		"ItemCost"						"250"
 		"ItemShopTags"					"damage"
-		"ItemQuality"					"secret_shop"
-		"ItemAliases"					"demon edge"
-		"SecretShop"					"1"
+		"ItemQuality"					"component"
+		"ItemAliases"					"broadsword"
 
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-				"bonus_damage"			"50"
+			"bonus_damage"
+			{
+				"value"						"15"
+				"CalculateAttributeTooltip"	"1"
+			}
 		}
 	}
+	
 	//=================================================================================================================
 	// Sacred Relic
 	//=================================================================================================================
@@ -2167,7 +2295,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"1850"
+		"ItemCost"						"850"
 		"ItemShopTags"					"damage"
 		"ItemQuality"					"secret_shop"
 		"ItemAliases"					"sacred relic"
@@ -2177,7 +2305,31 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage"				"200"
+			"bonus_damage"
+			{
+				"value"						"55"
+				"CalculateAttributeTooltip"	"1"
+			}
+		}
+	}
+	"item_blitz_knuckles"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"250"
+		"ItemShopTags"					"attack_speed"
+		"ItemQuality"					"component"
+		"ItemAliases"					"blitz knuckles"
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_attack_speed"		"15"
 		}
 	}
 	//=================================================================================================================
@@ -2201,7 +2353,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-				"bonus_attack_speed"	"30"
+			"bonus_attack_speed"	"30"
 		}
 	}
 	//=================================================================================================================
@@ -2223,12 +2375,12 @@
 
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"bonus_intellect"
 			{
-				"var_type"				"FIELD_INTEGER"
-				"bonus_intellect"		"25"
+				"value"							"25"
+				"CalculateAttributeTooltip"		"1"
 			}
 		}
 	}
@@ -2253,12 +2405,12 @@
 
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"bonus_mana"
 			{
-				"var_type"				"FIELD_INTEGER"
-				"bonus_mana"			"250"
+				"value"							"250"
+				"CalculateAttributeTooltip"		"1"
 			}
 		}
 	}
@@ -2282,18 +2434,17 @@
 
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"bonus_mana"
 			{
-				"var_type"				"FIELD_INTEGER"
-				"bonus_mana"			"150"
+				"value"							"150"
+				"CalculateAttributeTooltip"		"1"
 			}
-			
-			"02"
+			"bonus_health"
 			{
-				"var_type"				"FIELD_INTEGER"
-				"bonus_health"			"200"
+				"value"							"200"
+				"CalculateAttributeTooltip"		"1"
 			}
 		}
 	}
@@ -2317,12 +2468,12 @@
 
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"bonus_health"
 			{
-				"var_type"				"FIELD_INTEGER"
-				"bonus_health"			"250"
+				"value"							"250"
+				"CalculateAttributeTooltip"		"1"
 			}
 		}
 	}
@@ -2343,9 +2494,9 @@
 		"ItemResult"					"item_power_treads"
 		"ItemRequirements"
 		{
-			"01"						"item_boots*;item_hyperstone;item_ogre_axe"
-			"04"						"item_boots*;item_hyperstone;item_staff_of_wizardry"
-			"06"						"item_boots*;item_hyperstone;item_blade_of_alacrity"
+			"01"						"item_boots*;item_blitz_knuckles;item_ogre_axe"
+			"04"						"item_boots*;item_blitz_knuckles;item_staff_of_wizardry"
+			"06"						"item_boots*;item_blitz_knuckles;item_blade_of_alacrity"
 		}
 	}
 	//=================================================================================================================
@@ -2372,8 +2523,12 @@
 		{
 			"bonus_movement_speed_ranged"	"45"
 			"bonus_movement_speed_melee"	"55"
-			"bonus_stat"					"10"
-			"bonus_attack_speed"			"40"
+			"bonus_stat"
+			{
+				"value"							"10"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_attack_speed"			"15"
 		}
 	}
 	"item_ring_of_health"
@@ -2399,7 +2554,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-				"bonus_health_regen"	"4.5"
+			"bonus_health_regen"
+			{
+				"value"							"4.5"
+				"CalculateAttributeTooltip"		"1"
+			}
 		}
 	}
 	//=================================================================================================================
@@ -2423,7 +2582,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-				"bonus_mana_regen"		"1.75"
+			"bonus_mana_regen"					"1.75"
 		}
 	}
 	"item_ring_of_tarrasque"
@@ -2450,7 +2609,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-				"bonus_health_regen"	"12"
+			"bonus_health_regen"
+			{
+				"value"							"12"
+				"CalculateAttributeTooltip"		"1"
+			}
 		}
 	}
 	"item_tiara_of_selemene"
@@ -2472,7 +2635,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-				"bonus_mana_regen"		"6"
+			"bonus_mana_regen"					"6"
 		}
 	}
 	//=================================================================================================================
@@ -2486,7 +2649,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"750"	
+		"ItemCost"						"0"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -2495,7 +2658,7 @@
 		"ItemResult"					"item_vladmir"
 		"ItemRequirements"
 		{
-			"01"						"item_lifesteal"
+			"01"						"item_lifesteal;item_diadem;item_void_stone;item_buckler"
 		}
 	}
 	//=================================================================================================================
@@ -2522,11 +2685,18 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"armor_aura"					"4.0"
-			"mana_regen_aura"				"1.75"
-			"lifesteal_aura"				"6"
-			"damage_aura"					"18"
-			"aura_radius"					"1200"
+			"armor"								"2"
+			"mana_regen"						"0.75"
+			"bonus_all"
+			{
+				"value"							"8"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"armor_aura"						"2.0"
+			"mana_regen_aura"					"1.0"
+			"lifesteal_aura"					"6"
+			"damage_aura"						"18"
+			"aura_radius"						"1200"
 		}
 	}
 	//=================================================================================================================
@@ -2580,11 +2750,19 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"health_regen"				"8.5"
+			"health_regen"
+			{
+				"value"							"8.5"
+				"CalculateAttributeTooltip"		"1"
+			}
 			"magic_resistance"			"10"
 			"barrier_debuff_duration"	"50.0"
 			"tooltip_resist"			"20"
-			"aura_health_regen"			"2.5"
+			"aura_health_regen"
+			{
+				"value"							"2.5"
+				"CalculateAttributeTooltip"		"1"
+			}
 			"magic_resistance_aura"		"8"
 			"aura_radius"				"1200"
 			"barrier_block"
@@ -2608,7 +2786,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"175"	
+		"ItemCost"						"5"
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -2617,7 +2795,7 @@
 		"ItemResult"					"item_pavise"
 		"ItemRequirements"
 		{
-			"01"						"item_energy_booster;item_chainmail;item_vitality_booster"
+			"01"						"item_energy_booster;item_ring_of_protection;item_vitality_booster"
 		}
 	}
 	"item_pavise"
@@ -2651,14 +2829,18 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_armor"				"3"
-			"bonus_mana"				"250"
-			"bonus_health"				"275"
-			"duration"					"8"
+			"bonus_armor"						"3"
+			"bonus_mana"						"250"
+			"bonus_health"
+			{
+				"value"							"275"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"duration"							"8"
 			"absorb_amount"
 			{
 				"value"							"1500"
-				"CalculateAttributeTooltip"	"1"
+				"CalculateAttributeTooltip"		"1"
 			}
 		}
 	}
@@ -2687,16 +2869,24 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_health"				"200"
-			"bonus_mana"				"200"			
-			"bonus_all_stats"			"7"			
-			"slow"						"50"
+			"bonus_health"
+			{
+				"value"							"200"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_mana"						"200"			
+			"bonus_all_stats"
+			{
+				"value"							"7"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"slow"								"50"
 			"bonus_spell_damage"
 			{
 				"value"							"750"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"slow_duration"				"1.2"
+			"slow_duration"						"1.2"
 		}
 	}
 	//=================================================================================================================
@@ -2750,21 +2940,33 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage"					"50"
-			"crit_chance"					"30"
-			"spell_crit_multiplier"			"75"
+			"bonus_damage"
+			{
+				"value"							"50"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"crit_chance"						"30"
+			"spell_crit_multiplier"				"75"
 			"spell_crit_flat"
 			{
 				"value"							"750"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"crit_multiplier"				"160"
-			"tooltip_crit_damage"			"60"
-			"bonus_health"					"200"
-			"bonus_mana"					"200"			
-			"bonus_all_stats"				"8"
-			"slow"							"50"
-			"slow_duration"					"1.5"
+			"crit_multiplier"					"160"
+			"tooltip_crit_damage"				"60"
+			"bonus_health"
+			{
+				"value"							"200"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_mana"						"200"			
+			"bonus_all_stats"
+			{
+				"value"							"8"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"slow"								"50"
+			"slow_duration"						"1.5"
 		}
 	}
 	"item_recipe_sheepstick"
@@ -2825,12 +3027,16 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_intellect"			"30"
-			"bonus_mana_regen"			"8.5"
-			"sheep_duration"			"2.8"
-			"sheep_movement_speed"		"140"
+			"bonus_intellect"
+			{
+				"value"							"30"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_mana_regen"					"8.5"
+			"sheep_duration"					"2.8"
+			"sheep_movement_speed"				"140"
 			
-			"units_hexed"				"1"
+			"units_hexed"						"1"
 		}
 	}
 	//=================================================================================================================
@@ -2844,7 +3050,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"225"	
+		"ItemCost"						"25"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -2887,8 +3093,16 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_intellect"		"10"
-			"bonus_health"			"275"
+			"bonus_intellect"
+			{
+				"value"							"10"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_health"
+			{
+				"value"							"275"
+				"CalculateAttributeTooltip"		"1"
+			}
 			"push_length"			"600"
 			"enemy_cast_range"			"850"
 			"push_time"				"0.5"
@@ -2907,7 +3121,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"450"	
+		"ItemCost"						"25"
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -2943,8 +3157,16 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_agility"			"15"
-			"bonus_strength"		"10"
+			"bonus_agility"
+			{
+				"value"							"15"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_strength"
+			{
+				"value"							"10"
+				"CalculateAttributeTooltip"		"1"
+			}
 			"base_attack_range"		"150"
 		}
 	}
@@ -2959,7 +3181,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"350"	
+		"ItemCost"						"25"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -3005,10 +3227,26 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_intellect"		"15"
-			"bonus_health"			"200"
-			"bonus_agility"			"20"
-			"bonus_strength"		"15"
+			"bonus_health"
+			{
+				"value"							"200"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_agility"
+			{
+				"value"							"20"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_intellect"
+			{
+				"value"							"15"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_strength"
+			{
+				"value"							"15"
+				"CalculateAttributeTooltip"		"1"
+			}
 			"base_attack_range"		"150"
 			"push_length"			"600"
 			"enemy_length"			"450"
@@ -3084,13 +3322,25 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_int"							"18"
-			"bonus_str"							"18"
-			"bonus_agi"							"18"
+			"bonus_int"
+			{
+				"value"							"18"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_str"
+			{
+				"value"							"18"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_agi"
+			{
+				"value"							"18"
+				"CalculateAttributeTooltip"		"1"
+			}
 			"damage"
 			{
 				"value"							"2000"
-				"CalculateSpellDamageTooltip"		"1"
+				"CalculateSpellDamageTooltip"	"1"
 			}
 			"mana_cost_tooltip"					"200"
 			"passive_spell_lifesteal"			"3"
@@ -3108,7 +3358,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"0"	
+		"ItemCost"						"3500"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -3117,7 +3367,7 @@
 		"ItemResult"					"item_ultimate_scepter"
 		"ItemRequirements"
 		{
-			"01"						"item_orb_2;item_soul_booster"
+			"01"						"item_ultimate_orb;item_soul_booster"
 		}
 	}
 	
@@ -3151,9 +3401,17 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_all_stats"			"150"
-			"bonus_health"				"5000"
-			"bonus_mana"				"3000"
+			"bonus_all_stats"
+			{
+				"value"							"15"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_health"
+			{
+				"value"							"425"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_mana"						"425"
 		}
 	}
 	
@@ -3256,9 +3514,13 @@
 	    
 	    "AbilityValues"
 	    {
-			"bonus_health_regen"		"18"
-			"bonus_mana_regen"			"8.0"
-			"bonus_damage"				"0"
+			"bonus_health_regen"
+			{
+				"value"							"18"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_mana_regen"					"8.0"
+			"bonus_damage"						"0"
 		}
 	}
 	//=================================================================================================================
@@ -3281,7 +3543,7 @@
 		"ItemResult"					"item_assault"
 		"ItemRequirements"
 		{
-			"01"						"item_chainmail;item_hyperstone;item_buckler"
+			"01"						"item_chainmail;item_hyperstone;item_buckler;item_diadem"
 		}
 	}
 	//=================================================================================================================
@@ -3310,10 +3572,15 @@
 		{
 			"bonus_attack_speed"	"35"
 			"bonus_armor"			"3"
+			"bonus_all"
+			{
+				"value"							"8"
+				"CalculateAttributeTooltip"		"1"
+			}
 			"aura_radius"			"1200"
 			"aura_attack_speed"		"20"
 			"aura_positive_armor"	"3"
-			"aura_negative_armor"	"-5"
+			"aura_negative_armor"	"-2"
 		}
 	}
 	//=================================================================================================================
@@ -3327,7 +3594,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"175"	
+		"ItemCost"						"535"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -3336,7 +3603,7 @@
 		"ItemResult"					"item_heart"
 		"ItemRequirements"
 		{
-			"01"						"item_ring_of_tarrasque;item_reaver"
+			"01"						"item_reaver"
 		}
 	}
 	//=================================================================================================================
@@ -3365,15 +3632,19 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_strength"				"35"
-			"bonus_hp_per_str"				"3"
-			"bonus_hp_regen_per_str"		"0.15"
+			"bonus_strength"
+			{
+				"value"							"40"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_hp_per_str"					"3"
+			"bonus_hp_regen_per_str"			"0.15"
 			
-			"duration"						"12"
-			"power_multiplier"				"25"
-			"AbilityCooldown"				"60"
+			"duration"							"12"
+			"power_multiplier"					"25"
+			"AbilityCooldown"					"60"
 			
-			"health_regen_pct"				"0"
+			"health_regen_pct"					""
 		}
 	}
 	//=================================================================================================================
@@ -3403,8 +3674,16 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_strength"		"10"
-			"bonus_damage"			"48"
+			"bonus_strength"
+			{
+				"value"							"10"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_damage"
+			{
+				"value"							"48"
+				"CalculateAttributeTooltip"		"1"
+			}
 			"duration"				"6"
 			"max_level"				"4"
 			"model_scale"			"30"     // Percentage over model scale
@@ -3422,7 +3701,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"375"	
+		"ItemCost"						"25"
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -3446,7 +3725,7 @@
 
 		// Stats		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"27"
+		"AbilityCooldown"				"30"
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
@@ -3462,32 +3741,48 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_intellect"			"8"
-			"bonus_strength"			"8"
-			"bonus_agility"				"8"
-			"bonus_hp_regen"			"8"
-			"bonus_armor"				"6"
+			"bonus_intellect"
+			{
+				"value"							"8"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_strength"
+			{
+				"value"							"8"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_agility"
+			{
+				"value"							"8"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_hp_regen"
+			{
+				"value"							"8"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_armor"						"6"
 			
-			"aura_radius"				"1200"
-			"aura_attack_speed"			"-45"
-			"hp_regen_degen_aura"		"25"
+			"aura_radius"						"1200"
+			"aura_attack_speed"					"-45"
+			"hp_regen_degen_aura"				"25"
 			
 			"blast_damage"
 			{
 				"value"							"1000"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"blast_movement_speed"		"-40"
-			"blast_debuff_duration"		"4.0"
+			"blast_movement_speed"				"-40"
+			"blast_debuff_duration"				"4.0"
 			"blast_radius"			
 			{
-				"value"					"900"
-				"affected_by_aoe_increase"	"1"
+				"value"							"900"
+				"affected_by_aoe_increase"		"1"
 			}
-			"blast_speed"				"400"
-			"illusion_multiplier_pct"	"150"
-			"spell_amp"					"15"				
-			"resist_debuff_duration"	"16.0"
+			"blast_speed"						"400"
+			"illusion_multiplier_pct"			"150"
+			"spell_amp"							"15"				
+			"resist_debuff_duration"			"16.0"
 		}
 	}
 	//=================================================================================================================
@@ -3533,8 +3828,12 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-				"bonus_health"			"425"
-				"bonus_mana"			"425"
+			"bonus_health"
+			{
+				"value"							"425"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_mana"						"425"
 		}
 	}
 	//=================================================================================================================
@@ -3547,7 +3846,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"50"	
+		"ItemCost"						"350"
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -3556,7 +3855,7 @@
 		"ItemResult"					"item_monkey_king_bar"
 		"ItemRequirements"
 		{
-			"01"						"item_javelin;item_eagle;item_demon_edge"
+			"01"						"item_javelin;item_eagle;item_relic"
 		}
 	}
 	//=================================================================================================================
@@ -3584,12 +3883,20 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage"						"50"
-			"bonus_agility"						"35"
+			"bonus_damage"
+			{
+				"value"							"55"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_agility"
+			{
+				"value"							"35"
+				"CalculateAttributeTooltip"		"1"
+			}
 			"bonus_chance"						"80"
 			"bonus_chance_damage"
 			{
-				"value"							"400"
+				"value"							"70"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 		}
@@ -3611,7 +3918,7 @@
 		"ItemResult"					"item_radiance"
 		"ItemRequirements"
 		{
-			"01"						"item_demon_edge;item_talisman_of_evasion;item_ultimate_orb" 
+			"01"						"item_relic;item_talisman_of_evasion;item_ultimate_orb" 
 		}
 	}
 	//=================================================================================================================
@@ -3638,8 +3945,16 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_all"							"15"
-			"bonus_damage"						"50"
+			"bonus_all"
+			{
+				"value"							"15"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_damage"
+			{
+				"value"							"55"
+				"CalculateAttributeTooltip"		"1"
+			}
 			"aura_damage"
 			{
 				"value"							"300"
@@ -3673,7 +3988,7 @@
 		"ItemResult"					"item_butterfly"
 		"ItemRequirements"
 		{
-			"01"						"item_eagle;item_talisman_of_evasion;item_hyperstone;item_demon_edge"
+			"01"						"item_eagle;item_talisman_of_evasion;item_hyperstone;item_broadsword"
 		}
 	}
 	//=================================================================================================================
@@ -3705,14 +4020,22 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_agility"				"35"
-			"bonus_evasion"				"15"
-			"bonus_attack_speed"		"35"
-			"bonus_attack_speed_pct"	"0"
-			"bonus_damage"				"70"
+			"bonus_agility"
+			{
+				"value"							"35"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_evasion"						"15"
+			"bonus_attack_speed"				"30"
+			"bonus_attack_speed_pct"			"0"
+			"bonus_damage"
+			{
+				"value"							"30"
+				"CalculateAttributeTooltip"		"1"
+			}
 			
-			"duration"					"8.0"
-			"evasion_multiplier"		"2"
+			"duration"							"8.0"
+			"evasion_multiplier"				"2"
 		}
 	}
 	"item_recipe_lesser_crit"
@@ -3732,7 +4055,7 @@
 		"ItemResult"					"item_lesser_crit"
 		"ItemRequirements"
 		{
-			"01"						"item_demon_edge"
+			"01"						"item_broadsword;item_broadsword"
 		}
 	}
 	"item_lesser_crit"
@@ -3753,10 +4076,14 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage"				"50"
-			"crit_chance"				"20"
-			"crit_multiplier"			"160"
-			"tooltip_crit_damage"		"60"
+			"bonus_damage"
+			{
+				"value"							"32"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"crit_chance"						"30"
+			"crit_multiplier"					"160"
+			"tooltip_crit_damage"				"60"
 		}
 	}
 	//=================================================================================================================
@@ -3770,7 +4097,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"25"	
+		"ItemCost"						"425"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -3803,9 +4130,13 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage"				"250"
-			"crit_chance"				"20"
-			"crit_multiplier"			"200"
+			"bonus_damage"
+			{
+				"value"							"88"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"crit_chance"				"30"
+			"crit_multiplier"			"225"
 		}
 	}
 	//=================================================================================================================
@@ -3862,21 +4193,33 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_strength"		"15"
-			"bonus_agility"			"31"
-			"bonus_intellect"		"15"
-			"bonus_attack_speed"	"15"
-			"bonus_movement_speed"	"10"
-			"images_count"			"2"
-			"tooltip_illusion_duration"			"20"
-			"images_do_damage_percent_melee"	"-67"
+			"bonus_strength"
+			{
+				"value"								"15"
+				"CalculateAttributeTooltip"			"1"
+			}
+			"bonus_agility"
+			{
+				"value"								"31"
+				"CalculateAttributeTooltip"			"1"
+			}
+			"bonus_intellect"
+			{
+				"value"								"15"
+				"CalculateAttributeTooltip"			"1"
+			}
+			"bonus_attack_speed"					"15"
+			"bonus_movement_speed"					"10"
+			"images_count"							"2"
+			"tooltip_illusion_duration"				"20"
+			"images_do_damage_percent_melee"		"-67"
 			"tooltip_damage_outgoing_melee"			"33"
-			"images_take_damage_percent"	"200"
-			"tooltip_damage_incoming_total_pct"			"300"
-			"images_do_damage_percent_ranged"	"-72"
-			"tooltip_damage_outgoing_ranged"			"28"
-			"invuln_duration"		"0.1"
-			"vision_radius"			"1000"
+			"images_take_damage_percent"			"200"
+			"tooltip_damage_incoming_total_pct"		"300"
+			"images_do_damage_percent_ranged"		"-72"
+			"tooltip_damage_outgoing_ranged"		"28"
+			"invuln_duration"						"0.1"
+			"vision_radius"							"1000"
 		}
 	}
 	"item_recipe_armlet"
@@ -3896,7 +4239,7 @@
 		"ItemResult"					"item_armlet"
 		"ItemRequirements"
 		{
-			"01"						"item_helm_of_iron_will;item_hyperstone;item_demon_edge"
+			"01"						"item_helm_of_iron_will;item_blitz_knuckles;item_broadsword"
 		}
 	}
 	//=================================================================================================================
@@ -3927,13 +4270,25 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage"						"50"
-			"bonus_attack_speed"				"40"
+			"bonus_damage"
+			{
+				"value"							"15"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_attack_speed"				"15"
 			"bonus_armor"						"3"
-			"bonus_health_regen"				"8"
+			"bonus_health_regen"
+			{
+				"value"							"8"
+				"CalculateAttributeTooltip"		"1"
+			}
 			
 			"unholy_bonus_damage"				"100"
-			"unholy_bonus_strength"				"25"
+			"unholy_bonus_strength"
+			{
+				"value"							"25"
+				"CalculateAttributeTooltip"		"1"
+			}
 			"unholy_bonus_strength_pct"			"10"
 			"str_ramp_up"						"0.6"
 			
@@ -3972,8 +4327,8 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{			
-			"fade_time"				"1.25"
-			"fade_duration"			"15"
+			"fade_time"					"1.25"
+			"fade_duration"				"15"
 		}
 	}
 
@@ -3996,7 +4351,7 @@
 		"ItemResult"					"item_invis_sword"
 		"ItemRequirements"
 		{
-			"01"						"item_shadow_amulet*;item_hyperstone;item_broadsword"
+			"01"						"item_shadow_amulet*;item_blitz_knuckles;item_broadsword"
 		}
 	}
 	//=================================================================================================================
@@ -4027,14 +4382,18 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage" 				"50"
-			"bonus_attack_speed"		"35"
-			"windwalk_duration"			"14.0"
-			"windwalk_movement_speed"	"20"
-			"windwalk_fade_time"		"0.3"
+			"bonus_damage"
+			{
+				"value"							"20"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_attack_speed"				"20"
+			"windwalk_duration"					"14.0"
+			"windwalk_movement_speed"			"20"
+			"windwalk_fade_time"				"0.3"
 			"windwalk_bonus_damage"
 			{
-				"value"						"875"
+				"value"							"875"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 		}
@@ -4056,7 +4415,7 @@
 		"ItemResult"					"item_echo_sabre"
 		"ItemRequirements"
 		{
-			"01"						"item_ogre_axe;item_demon_edge;item_void_stone"
+			"01"						"item_ogre_axe;item_broadsword;item_void_stone"
 		}
 	}
 	//=================================================================================================================
@@ -4073,7 +4432,7 @@
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.0"
-		"AbilityCooldown"				"6.0"
+		"AbilityCooldown"				"5.0"
 		"AbilitySharedCooldown"			"echo_sabre"
 
 		// Item Info
@@ -4091,11 +4450,19 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage"				"50"
-			"bonus_strength"			"15"
-			"bonus_mana_regen"			"1.75"
-			"movement_slow"				"100"
-			"slow_duration"				"0.8"
+			"bonus_damage"
+			{
+				"value"							"25"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_strength"
+			{
+				"value"							"15"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_mana_regen"					"1.75"
+			"movement_slow"						"100"
+			"slow_duration"						"0.8"
 		}
 	}
 	//=================================================================================================================
@@ -4108,7 +4475,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"250"	
+		"ItemCost"						"125"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -4153,12 +4520,20 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage" 					"100"
-			"bonus_attack_speed"			"35"
-			"bonus_strength"				"15"
-			"windwalk_duration"				"14.0"
-			"windwalk_movement_speed"		"25"
-			"windwalk_fade_time"			"0.3"
+			"bonus_damage"
+			{
+				"value"							"55"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_attack_speed"				"25"
+			"bonus_strength"
+			{
+				"value"							"15"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"windwalk_duration"					"14.0"
+			"windwalk_movement_speed"			"25"
+			"windwalk_fade_time"				"0.3"
 			"windwalk_bonus_damage"
 			{
 				"value"							"1500"
@@ -4170,7 +4545,7 @@
 			"bash_chance_melee"					"25"
 			"bash_chance_ranged"				"10"
 			"bash_duration"						"1.2"
-			"bash_cooldown"						"2.3"
+			"bash_cooldown"						"5.0"
 			"bonus_chance_damage"
 			{
 				"value"							"500"
@@ -4224,12 +4599,20 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_strength"				"16"
-			"bonus_agility"					"16"
-			"status_resistance"				"14"
-			"bonus_attack_speed"			"12"
-			"movement_speed_percent_bonus"	"12"
-			"hp_regen_amp"					"16"
+			"bonus_strength"
+			{
+				"value"							"16"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_agility"
+			{
+				"value"							"16"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"status_resistance"					"14"
+			"bonus_attack_speed"				"12"
+			"movement_speed_percent_bonus"		"12"
+			"hp_regen_amp"						"16"
 		}
 	}
 	//=================================================================================================================
@@ -4278,13 +4661,21 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_agility"					"16"
-			"bonus_intellect"				"16"
-			"bonus_attack_speed"			"12"
-			"mana_regen_multiplier"			"16"
-			"movement_speed_percent_bonus"	"12"
-			"spell_amp"						"16"
-			"spell_lifesteal_amp"			"22"
+			"bonus_agility"
+			{
+				"value"							"16"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_intellect"
+			{
+				"value"							"16"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_attack_speed"				"12"
+			"mana_regen_multiplier"				"16"
+			"movement_speed_percent_bonus"		"12"
+			"spell_amp"							"16"
+			"spell_lifesteal_amp"				"22"
 		}
 	}
 	//=================================================================================================================
@@ -4307,7 +4698,7 @@
 		"ItemResult"					"item_satanic"
 		"ItemRequirements"
 		{
-			"01"						"item_reaver;item_lifesteal"
+			"01"						"item_reaver;item_lifesteal;item_broadsword"
 		}
 	}
 	
@@ -4341,8 +4732,16 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_strength"					"25"
-			"bonus_damage"						"25"
+			"bonus_strength"
+			{
+				"value"							"25"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_damage"
+			{
+				"value"							"25"
+				"CalculateAttributeTooltip"		"1"
+			}
 			"lifesteal_percent"					"8.5"
 			
 			"unholy_lifesteal_total_tooltip"	"100"
@@ -4407,9 +4806,17 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{		
-			"bonus_intellect"		"15"
-			"bonus_hp"				"300"
-			"duration"				"2.0"
+			"bonus_intellect"
+			{
+				"value"							"15"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_hp"
+			{
+				"value"							"300"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"duration"							"2.0"
 		}
 	}
 	//=================================================================================================================
@@ -4471,13 +4878,27 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage"				"60"
-			"bonus_attack_speed"		"30"
+			"bonus_damage"
+			{
+				"value"							"30"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_intellect"
+			{
+				"value"							"25"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_hp"
+			{
+				"value"							"350"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_attack_speed"				"30"
 			
-			"chain_chance"				"30"
+			"chain_chance"						"30"
 			"chain_damage"
 			{
-				"value"							"800"
+				"value"							"160"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"chain_strikes"						"4"
@@ -4486,8 +4907,6 @@
 			"chain_cooldown"					"0.2"
 			"illusion_multiplier_pct"			"150"
 			
-			"bonus_intellect"					"24"
-			"bonus_hp"							"350"
 			"duration"							"2.0"
 			"radius"				
 			{
@@ -4532,7 +4951,10 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_mjollnir.lua"
+		"AbilityTextureName"			"item_mjollnir"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 
@@ -4556,32 +4978,26 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage"				"50"
-			"bonus_attack_speed"		"65"
-			"static_duration"			"15.0"
-			"static_chance"				"20"
-			"static_strikes"			"4"
-			"static_damage"
+			"bonus_damage"
 			{
-				"value"							"1125"
-				"CalculateSpellDamageTooltip"	"1"
+				"value"							"35"
+				"CalculateAttributeTooltip"		"1"
 			}
-			"static_primary_radius"		"600"
-			"static_seconary_radius"	"900"
-			"static_radius"				"900"
-			"static_cooldown"			"1.0"
-			"chain_chance"				"30"
+			"bonus_attack_speed"				"65"
+			"static_duration"					"15.0"
+			"static_attack_speed"				"40"
+			
+			"chain_chance"						"30"
 			"chain_damage"
 			{
-				"value"							"900"
+				"value"							"180"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"chain_strikes"				"12"
-			"chain_radius"				"650"
-			"chain_delay"				"0.25"
-			"chain_cooldown"			"0.2"
-			"max_charges"				"0"
-			"illusion_multiplier_pct"	"150"
+			"chain_strikes"						"6"
+			"chain_radius"						"650"
+			"chain_delay"						"0.25"
+			"chain_cooldown"					"0.2"
+			"illusion_multiplier_pct"			"150"
 		}
 	}
 	"item_orb_of_venom"
@@ -4664,20 +5080,28 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_all_stats"			"22"
-			"bonus_health"				"220"
-			"bonus_mana"				"220"
+			"bonus_all_stats"
+			{
+				"value"							"22"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_health"
+			{
+				"value"							"220"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_mana"						"220"
 			"cold_damage_per_second"
 			{
 				"value"							"250"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"cold_slow_melee"			"-20"
-			"cold_attack_slow_melee"	"-30"
-			"cold_slow_ranged"			"-40"
-			"cold_attack_slow_ranged"	"-60"
-			"cold_duration"				"4.0"
-			"heal_reduction"			"40"
+			"cold_slow_melee"					"-20"
+			"cold_attack_slow_melee"			"-30"
+			"cold_slow_ranged"					"-40"
+			"cold_attack_slow_ranged"			"-60"
+			"cold_duration"						"4.0"
+			"heal_reduction"					"40"
 		}
 	}
 	//=================================================================================================================
@@ -4720,9 +5144,13 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{	
-			"bonus_strength"		"16"
-			"status_resistance"		"12"
-			"hp_regen_amp"			"12"
+			"bonus_strength"
+			{
+				"value"							"16"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"status_resistance"					"12"
+			"hp_regen_amp"						"12"
 		}
 	}
 	
@@ -4746,7 +5174,7 @@
 		"ItemResult"					"item_maelstrom"
 		"ItemRequirements"
 		{
-			"01"						"item_demon_edge;item_javelin;item_hyperstone"
+			"01"						"item_broadsword;item_javelin;item_blitz_knuckles"
 		}
 	}
 	//=================================================================================================================
@@ -4770,20 +5198,51 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage"				"50"
-			"bonus_attack_speed"		"30"
+			"bonus_damage"
+			{
+				"value"							"25"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_attack_speed"				"25"
 			
-			"chain_chance"				"30"
+			"chain_chance"						"30"
 			"chain_damage"
 			{
-				"value"							"600"
+				"value"							"120"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"chain_strikes"				"4"
-			"chain_radius"				"900"
-			"chain_delay"				"0.25"
-			"chain_cooldown"			"0.2"
-			"illusion_multiplier_pct"	"150"
+			"chain_strikes"						"4"
+			"chain_radius"						"900"
+			"chain_delay"						"0.25"
+			"chain_cooldown"					"0.2"
+			"illusion_multiplier_pct"			"150"
+		}
+	}
+	//=================================================================================================================
+	// Blight Stone
+	//=================================================================================================================
+	"item_blight_stone"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"75"
+		"ItemShopTags"					"hard_to_tag"
+		"ItemQuality"					"component"
+		"ItemAliases"					"blight stone"
+		"ShouldBeInitiallySuggested"	"1"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"corruption_armor"		"-2"
+			"corruption_duration"	"8.0"
 		}
 	}
 	"item_recipe_desolator"
@@ -4794,7 +5253,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"450"	
+		"ItemCost"						"25"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -4803,7 +5262,7 @@
 		"ItemResult"					"item_desolator"
 		"ItemRequirements"
 		{
-			"01"						"item_demon_edge;item_blight_stone"
+			"01"						"item_relic;item_blight_stone"
 		}
 	}
 	//=================================================================================================================
@@ -4827,9 +5286,13 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage"			"100"
-			"corruption_armor"		"-3"
-			"corruption_duration"	"7.0"
+			"bonus_damage"
+			{
+				"value"							"55"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"corruption_armor"					"-3"
+			"corruption_duration"				"7.0"
 		}
 	}
 	//=================================================================================================================
@@ -4877,10 +5340,18 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_intellect"			"16"
-			"mana_regen_multiplier"		"12"
-			"spell_amp"					"8"
-			"spell_lifesteal_amp"		"8"
+			"bonus_intellect"
+			{
+				"value"							"16"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"mana_regen_multiplier"				"12"
+			"spell_amp"
+			{
+				"value"							"8"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"spell_lifesteal_amp"				"8"
 		}
 	}
 	//=================================================================================================================
@@ -4926,7 +5397,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_agility"					"16"
+			"bonus_agility"
+			{
+				"value"							"16"
+				"CalculateAttributeTooltip"		"1"
+			}
 			"bonus_attack_speed"			"15"
 			"movement_speed_percent_bonus"	"12"
 		}
@@ -4942,7 +5417,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"650"
+		"ItemCost"						"45"
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -4951,7 +5426,7 @@
 		"ItemResult"					"item_mask_of_madness"
 		"ItemRequirements"
 		{
-			"01"						"item_lifesteal"
+			"01"						"item_lifesteal;item_broadsword"
 		}
 	}
 	
@@ -4982,14 +5457,18 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage"					"20"
-			"bonus_attack_speed"			"10"
-			"lifesteal_percent"				"6.5"
-			"creep_lifesteal_reduction_pct"	"0"
-			"berserk_bonus_attack_speed"	"110"
-			"berserk_bonus_movement_speed"	"30"
-			"berserk_armor_reduction"		"8"
-			"berserk_duration"				"6.0"
+			"bonus_damage"
+			{
+				"value"							"20"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_attack_speed"				""
+			"lifesteal_percent"					"6.5"
+			"creep_lifesteal_reduction_pct"		"0"
+			"berserk_bonus_attack_speed"		"110"
+			"berserk_bonus_movement_speed"		"30"
+			"berserk_armor_reduction"			"8"
+			"berserk_duration"					"6.0"
 		}
 	}
 	//=================================================================================================================
@@ -5037,12 +5516,20 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_cooldown"			"10"
-			"cast_range_bonus"			""
-			"bonus_health"				"425"
-			"bonus_mana"				"425"
-			"bonus_health_regen"		"6.5"
-			"bonus_mana_regen"			"2.25"
+			"bonus_cooldown"					"10"
+			"cast_range_bonus"					""
+			"bonus_health"
+			{
+				"value"							"425"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_mana"						"425"
+			"bonus_health_regen"
+			{
+				"value"							"6.5"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_mana_regen"					"2.25"
 		}
 	}
 	"item_voodoo_mask"
@@ -5135,8 +5622,16 @@
 		"AbilityValues"
 		{
 			"bonus_spell_resist"					"14"
-			"bonus_strength"						"35"
-			"bonus_health"							"300"
+			"bonus_strength"
+			{
+				"value"								"25"
+				"CalculateAttributeTooltip"			"1"
+			}
+			"bonus_health"
+			{
+				"value"								"300"
+				"CalculateAttributeTooltip"			"1"
+			}
 			"mana_restore_pct"						"2.5"
 			
 			"stack_threshold"						"10"
@@ -5181,7 +5676,7 @@
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.0"
-		"AbilityCooldown"				"30.0"
+		"AbilityCooldown"				"35.0"
 		"AbilityManaCost"				"0"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 
@@ -5199,12 +5694,16 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_aoe"				""
-			"bonus_health"			"550"
-			"bonus_mana"			"550"
-			"spell_lifesteal"		"5"
-			"buff_duration"			"6"
-			"lifesteal_multiplier"	"2"
+			"bonus_aoe"							""
+			"bonus_health"
+			{
+				"value"							"550"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_mana"						"550"
+			"spell_lifesteal"					"5"
+			"buff_duration"						"6"
+			"lifesteal_multiplier"				"2"
 		}
 	}
 	//=================================================================================================================
@@ -5227,7 +5726,7 @@
 		"ItemResult"					"item_witch_blade"
 		"ItemRequirements"
 		{
-			"01"						"item_hyperstone;item_platemail;item_staff_of_wizardry;item_void_stone"
+			"01"						"item_blitz_knuckles;item_chainmail;item_staff_of_wizardry;item_void_stone"
 		}
 	}
 	"item_witch_blade"
@@ -5251,14 +5750,18 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_attack_speed"	"35"
-			"bonus_intellect"		"12"
-			"bonus_mana_regen"		"1.75"
-			"bonus_armor"			"6"
-			"int_damage_multiplier"	"7.5"
-			"slow"					"25"
-			"slow_duration"			"4"
-			"projectile_speed"		"300"
+			"bonus_attack_speed"				"20"
+			"bonus_intellect"
+			{
+				"value"							"12"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_mana_regen"					"1.75"
+			"bonus_armor"						"3"
+			"int_damage_multiplier"				"7.5"
+			"slow"								"25"
+			"slow_duration"						"4"
+			"projectile_speed"					"300"
 		}
 	}
 	//=================================================================================================================
@@ -5272,7 +5775,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"0"	
+		"ItemCost"						"25"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -5313,15 +5816,19 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{				
-			"bonus_intellect"		"45"				
-			"bonus_attack_speed"	"40"	
-			"bonus_armor"			"8"
-			"projectile_speed"		"300"
-			"int_damage_multiplier"	"10"
-			"slow"					"25"
-			"slow_duration"			"4"
-			"active_mres_reduction"	"10"
-			"passive_cooldown"		"4"
+			"bonus_intellect"
+			{
+				"value"							"40"
+				"CalculateAttributeTooltip"		"1"
+			}			
+			"bonus_attack_speed"				"30"	
+			"bonus_armor"						"4"
+			"projectile_speed"					"300"
+			"int_damage_multiplier"				"10"
+			"slow"								"25"
+			"slow_duration"						"4"
+			"active_mres_reduction"				"10"
+			"passive_cooldown"					"4"
 		}
 	}
 	//=================================================================================================================
@@ -5344,7 +5851,7 @@
 		"ItemResult"					"item_revenants_brooch"
 		"ItemRequirements"
 		{
-			"01"						"item_demon_edge;item_voodoo_mask"
+			"01"						"item_relic;item_voodoo_mask"
 		}
 	}
 	//=================================================================================================================
@@ -5373,9 +5880,13 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{				
-			"bonus_damage"			"70"
-			"spell_lifesteal"		"4"
-			"manacost_per_hit"		"75"
+			"bonus_damage"
+			{
+				"value"							"70"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"spell_lifesteal"					"4"
+			"manacost_per_hit"					"75"
 		}
 	}
 	//=================================================================================================================
@@ -5389,7 +5900,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"600"	
+		"ItemCost"						"25"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -5433,66 +5944,28 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_armor"			"6"
-			"bonus_all_stats"		"6"
-			"self_movement_speed"	"25"
-			"bonus_mana_regen_pct"	"1.75"
-			"target_movement_speed"	"18"
-			"target_attack_speed"	"70"
-			"target_armor"			"7"
-			"duration"				"8"
+			"bonus_all_stats"
+			{
+				"value"							"6"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_mana"						"250"
+			"bonus_health"
+			{
+				"value"							"275"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_armor"						"4"
+			"self_movement_speed"				"25"
+			"target_movement_speed"				"15"
+			"target_attack_speed"				"70"
+			"target_armor"						"7"
+			"duration"							"8"
 			"absorb_amount"
 			{
 				"value"							"2000"
 				"CalculateAttributeTooltip"		"1"
 			}
-		}
-	}
-
-	//=================================================================================================================
-	// Smoke of Deceit
-	//=================================================================================================================
-	"item_smoke_of_deceit"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
-		"Model"							"models/props_gameplay/smoke.vmdl"
-		"Effect"						"dropped_smoke"		
-		"FightRecapLevel"				"1"
-																																																																												 
-		// Stats		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"90.0"
-
-		// Item Info
-		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"20"
-		"ItemShopTags"					"consumable"
-		"ItemQuality"					"consumable"
-		"ItemAliases"					"smoke of deceit"
-		"ItemStackable"					"1"
-		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
-		"ItemPermanent"					"0"
-		"ItemInitialCharges"			"1"
-		"ItemDisplayCharges"			"1"
-		"ItemStockMax"					"3"
-		"ItemStockTime"					"720.0"			  
-		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
-		"ItemSupport"					"1"
-		"ItemAlertable"					"1"
-
-
-		// Special	
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			"application_radius"	"1200"
-			"visibility_radius"		"1025"
-			"bonus_movement_speed"		"15"
-			"duration"				"45.0"
-			"second_cast_cooldown"	"2.0"
-			"secondary_application_radius"		"300"
 		}
 	}
 	"item_recipe_veil_of_discord"
@@ -5503,7 +5976,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"300"	
+		"ItemCost"						"75"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -5512,7 +5985,7 @@
 		"ItemResult"					"item_veil_of_discord"
 		"ItemRequirements"
 		{
-			"01"						"item_helm_of_iron_will;item_ultimate_orb"
+			"01"						"item_helm_of_iron_will;item_diadem"
 		}
 	}
 	//=================================================================================================================
@@ -5545,16 +6018,24 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_all_stats"			"19"
-			"bonus_armor"				"6"
-			"bonus_hp_regen"			"5"
-			"spell_amp"					"10"
+			"bonus_all_stats"
+			{
+				"value"							"6"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_armor"						"6"
+			"bonus_hp_regen"
+			{
+				"value"							"5"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"spell_amp"							"10"
 			"debuff_radius"			
 			{
-				"value"					"900"
-				"affected_by_aoe_increase"	"1"
+				"value"							"900"
+				"affected_by_aoe_increase"		"1"
 			}
-			"resist_debuff_duration"	"16.0"
+			"resist_debuff_duration"			"16.0"
 		}
 	}
 	//=================================================================================================================
@@ -5607,18 +6088,22 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_armor"			"4"
-			"aura_radius"			"1200"
-			"aura_health_regen"		"4.5"
+			"bonus_armor"						"4"
+			"aura_radius"						"1200"
+			"aura_health_regen"
+			{
+				"value"							"4.5"
+				"CalculateAttributeTooltip"		"1"
+			}
 			"heal_amount"
 			{
-				"value"						"680"
-				"CalculateSpellHealTooltip"	"1"
+				"value"							"680"
+				"CalculateSpellHealTooltip"		"1"
 			}
 			"heal_radius"			
 			{
-				"value"				"1200"
-				"affected_by_aoe_increase"	"1"
+				"value"							"1200"
+				"affected_by_aoe_increase"		"1"
 			}
 		}
 	}
@@ -5679,7 +6164,7 @@
 			"replenish_amount"				"175"
 			"replenish_radius"		
 			{
-				"value"			"1200"
+				"value"						"1200"
 				"affected_by_aoe_increase"	"1"
 			}
 		}
@@ -5740,27 +6225,30 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_movement"				"50"
-			"bonus_armor"					"4"
-			"mana_regen"					"4.5"
-			"aura_health_regen"				"5"
-			"aura_armor"					"3"
-			"aura_mana_regen"				"1.5"
-			"aura_radius"					"1200"
-			"aura_health_regen_bonus"		"25"
-			"aura_mana_regen_bonus"			"5"
-			"aura_armor_bonus"				"8"
-			"aura_bonus_threshold"			"25"
+			"bonus_movement"					"50"
+			"bonus_armor"						"4"
+			"mana_regen"						"4.5"
+			"aura_health_regen"
+			{
+				"value"							"5"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"aura_armor"						"3"
+			"aura_mana_regen"					"1.5"
+			"aura_radius"						"1200"
+			"aura_health_regen_bonus"
+			{
+				"value"							"25"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"aura_armor_bonus"					"8"
+			"aura_bonus_threshold"				"25"
 			"replenish_health"
 			{
 				"value"							"1750"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"replenish_mana"
-			{
-				"value"							"200"
-				"CalculateAttributeTooltip"		"1"
-			}
+			"replenish_mana"					"200"
 			"replenish_radius"		
 			{
 				"value"						"1200"
@@ -5802,9 +6290,17 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{		
-			"bonus_intellect"		"15"
-			"bonus_hp"				"300"
-			"duration"				"2.0"
+			"bonus_intellect"
+			{
+				"value"							"15"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_hp"
+			{
+				"value"							"300"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"duration"							"2.0"
 		}
 	}
 	
@@ -5828,7 +6324,7 @@
 		"ItemResult"					"item_basher"
 		"ItemRequirements"
 		{
-			"01"						"item_javelin;item_demon_edge;item_ogre_axe"
+			"01"						"item_javelin;item_broadsword;item_ogre_axe"
 		}
 	}
 	//=================================================================================================================
@@ -5860,11 +6356,19 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage"				"50"
-			"bonus_strength"			"10"
-			"bash_chance_melee"			"15"
-			"bash_chance_ranged"		"6"
-			"bash_duration"				"2"
+			"bonus_damage"
+			{
+				"value"							"25"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_strength"
+			{
+				"value"							"10"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bash_chance_melee"					"15"
+			"bash_chance_ranged"				"6"
+			"bash_duration"						"2"
 			"bash_cooldown"						"5.0"
 			"bash_cooldown_ranged"				"9.0"
 			"bonus_chance_damage"
@@ -5941,10 +6445,26 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage"						"75"
-			"bonus_health"						"250"
-			"bonus_health_regen"				"10"
-			"bonus_strength"					"35"
+			"bonus_damage"
+			{
+				"value"							"75"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_health"
+			{
+				"value"							"250"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_health_regen"
+			{
+				"value"							"10"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_strength"
+			{
+				"value"							"35"
+				"CalculateAttributeTooltip"		"1"
+			}
 			
 			"bash_chance_melee"					"15"
 			"bash_chance_ranged"				"6"
@@ -6022,12 +6542,16 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_evasion"				"12"
-			"bonus_strength"			"20"
-			"disarm_range"				"5.0"
-			"disarm_melee"				"3.0"
-			"status_resistance"			"14"
-			"hp_regen_amp"				"14"
+			"bonus_evasion"						"12"
+			"bonus_strength"
+			{
+				"value"							"20"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"disarm_range"						"5.0"
+			"disarm_melee"						"3.0"
+			"status_resistance"					"14"
+			"hp_regen_amp"						"14"
 		}
 	}
 	//=================================================================================================================
@@ -6040,7 +6564,7 @@
 	
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"0"
+		"ItemCost"						"25"
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -6049,7 +6573,7 @@
 		"ItemResult"					"item_tranquil_boots"
 		"ItemRequirements"
 		{
-			"01"						"item_boots;item_ring_of_tarrasque;item_ring_of_tarrasque;item_ring_of_tarrasque"
+			"01"						"item_boots;item_ring_of_tarrasque"
 		}
 	}
 	//=================================================================================================================
@@ -6080,11 +6604,15 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_movement_speed"		"65"
-			"bonus_armor"				"0"
-			"bonus_health_regen"		"40"
-			"heal_duration"				"20.0"
-			"heal_amount"				"250"
+			"bonus_movement_speed"				"65"
+			"bonus_armor"						"0"
+			"bonus_health_regen"
+			{
+				"value"							"20"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"heal_duration"						"20.0"
+			"heal_amount"						"250"
 			"heal_interval"				"0.334"
 			"break_time"				"13"
 			"break_count"				"1"
@@ -6147,14 +6675,22 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"aura_movement_speed"			"20"
-			"bonus_str"						"10"
-			"bonus_int"						"10"
-			"bonus_attack_speed_pct"		"45"
-			"bonus_movement_speed_pct"		"13"
-			"duration"						"6"
-			"radius"						"1200"
-			"charges_tooltip"				"8"
+			"aura_movement_speed"				"20"
+			"bonus_str"
+			{
+				"value"							"10"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_int"
+			{
+				"value"							"10"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_attack_speed_pct"			"45"
+			"bonus_movement_speed_pct"			"13"
+			"duration"							"6"
+			"radius"							"1200"
+			"charges_tooltip"					"8"
 		}
 	}
 	//=================================================================================================================
@@ -6168,7 +6704,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"475"	
+		"ItemCost"						"125"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -6213,15 +6749,27 @@
 		"AbilityValues"
 		{
 			"aura_movement_speed"	"20"
-			"bonus_str"				"8"
-			"bonus_int"				"8"
-			"bonus_attack_speed_pct"	"50"
-			"bonus_movement_speed_pct"	"15"
-			"duration"				"6"
-			"radius"				"1200"
-			"bonus_movement_speed"	"65"
-			"bonus_health_regen"	"60"
-			"bonus_ms_duration"		"1.5"
+			"bonus_str"
+			{
+				"value"							"11"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_int"
+			{
+				"value"							"11"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_attack_speed_pct"			"50"
+			"bonus_movement_speed_pct"			"15"
+			"duration"							"6"
+			"radius"							"1200"
+			"bonus_movement_speed"				"65"
+			"bonus_health_regen"
+			{
+				"value"							"30"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_ms_duration"					"1.5"
 		}
 	}
 	//=================================================================================================================
@@ -6324,14 +6872,22 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_all"					"15"
-			"bonus_health"				"250"
-			"bonus_mana"				"300"
-			"health_threshold_pct"		"45"
-			"status_resistance"			"75"
-			"outgoing_damage_reduction"	"-100"
-			"buff_duration"				"5.0"
-			"cooldown_duration"			"105.0"
+			"bonus_all"
+			{
+				"value"							"15"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_health"
+			{
+				"value"							"250"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_mana"						"300"
+			"health_threshold_pct"				"45"
+			"status_resistance"					"75"
+			"outgoing_damage_reduction"			"-100"
+			"buff_duration"						"5.0"
+			"cooldown_duration"					"105.0"
 		}
 	}
 	//=================================================================================================================
@@ -6356,7 +6912,7 @@
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"650"
+		"ItemCost"						"375"
 		"ItemShopTags"					"int;agi;str;hard_to_tag"
 		"ItemQuality"					"component"
 		"ItemAliases"					"ghost scepter"
@@ -6366,9 +6922,13 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_all_stats"				"5"
-			"duration"						"4.0"
-			"ethereal_damage_bonus"			"-25"
+			"bonus_all_stats"
+			{
+				"value"							"9"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"duration"							"4.0"
+			"ethereal_damage_bonus"				"-25"
 		}
 	}
 	//=================================================================================================================
@@ -6390,7 +6950,7 @@
 		"ItemResult"					"item_ethereal_blade"
 		"ItemRequirements"
 		{
-			"01"						"item_ghost*;item_heavens_halberd;item_ultimate_orb;item_aether_lens"
+			"01"						"item_ghost*;item_heavens_halberd;item_aether_lens"
 		}
 	}	
 
@@ -6434,27 +6994,35 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_other"				"20"
-			"bonus_strength"			"45"
+			"bonus_other"
+			{
+				"value"							"10"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_strength"
+			{
+				"value"							"30"
+				"CalculateAttributeTooltip"		"1"
+			}
 			
-			"bonus_evasion"				"12"
-			"status_resistance"			"16"
-			"regen_amp"					"25"
-			"bonus_mana"				"300"
-			"bonus_cast_range"			"250"
-			"bonus_aoe"					"75"
-			"bonus_mana_regen"			"3"
+			"bonus_evasion"						"12"
+			"status_resistance"					"16"
+			"regen_amp"							"25"
+			"bonus_mana"						"300"
+			"bonus_cast_range"					"250"
+			"bonus_aoe"							"75"
+			"bonus_mana_regen"					"3"
 			
-			"blast_movement_slow"		"-80"
-			"duration"					"4.0"
-			"blast_agility_multiplier"	"1.5"
+			"blast_movement_slow"				"-80"
+			"duration"							"4.0"
+			"blast_agility_multiplier"			"1.5"
 			"blast_damage_base"
 			{
 				"value"							"250"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"ethereal_damage_bonus"		"-25"
-			"projectile_speed"			"1275"
+			"ethereal_damage_bonus"				"-25"
+			"projectile_speed"					"1275"
 		}
 	}
 	//=================================================================================================================
@@ -6504,13 +7072,25 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_strength"			"16"
-			"bonus_intellect"			"16"
-			"mana_regen_multiplier"		"16"
-			"spell_amp"					"16"
-			"status_resistance"			"14"
-			"hp_regen_amp"				"14"
-			"spell_lifesteal_amp"		"14"
+			"bonus_strength"
+			{
+				"value"							"16"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_intellect"
+			{
+				"value"							"16"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"spell_amp"
+			{
+				"value"							"16"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"mana_regen_multiplier"				"16"
+			"status_resistance"					"14"
+			"hp_regen_amp"						"14"
+			"spell_lifesteal_amp"				"14"
 		}
 	}
 	//=================================================================================================================
@@ -6524,7 +7104,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"710"	
+		"ItemCost"						"25"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -6533,7 +7113,7 @@
 		"ItemResult"					"item_nullifier"
 		"ItemRequirements"
 		{
-			"01"						"item_helm_of_iron_will;item_demon_edge"
+			"01"						"item_helm_of_iron_will;item_relic"
 		}
 	}
 	
@@ -6570,12 +7150,20 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage"				"60"
-			"bonus_armor"				"3"
-			"bonus_regen"				"8"
+			"bonus_damage"
+			{
+				"value"							"75"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_armor"						"3"
+			"bonus_regen"
+			{
+				"value"							"8"
+				"CalculateAttributeTooltip"		"1"
+			}
 			
-			"duration"					"5.0"
-			"projectile_speed"			"1100"
+			"duration"							"5.0"
+			"projectile_speed"					"1100"
 		}
 	}
 	

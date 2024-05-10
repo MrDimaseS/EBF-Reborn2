@@ -139,6 +139,7 @@ function modifier_item_silver_edge_passive:OnRefresh()
 	self.bash_chance_ranged = self:GetSpecialValueFor("bash_chance_ranged")
 	self.bash_duration = self:GetSpecialValueFor("bash_duration")
 	self.bash_cooldown = self:GetSpecialValueFor("bash_cooldown")
+	self.bash_cooldown_ranged = self:GetSpecialValueFor("bash_cooldown_ranged")
 	self.bonus_chance_damage = self:GetSpecialValueFor("bonus_chance_damage")
 	
 	self.backstab_duration = self:GetSpecialValueFor("backstab_duration")
@@ -183,7 +184,8 @@ function modifier_item_silver_edge_passive:OnAttackLanded( params )
 				
 				EmitSoundOn( "DOTA_Item.SilverEdge.Target", params.target )
 			end
-			params.attacker:AddNewModifier( params.attacker, ability, "modifier_item_generic_bash_cd", {duration = self.bash_cooldown} )
+			local bash_cooldown = TernaryOperator( self.bash_cooldown_ranged, caster:IsRangedAttacker(), self.bash_cooldown )
+			params.attacker:AddNewModifier( params.attacker, ability, "modifier_item_generic_bash_cd", {duration = bash_cooldown} )
 			EmitSoundOn( "DOTA_Item.SkullBasher", params.target )
 		end
 	end

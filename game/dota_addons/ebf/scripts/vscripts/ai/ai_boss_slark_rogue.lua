@@ -16,7 +16,7 @@ function Spawn( entityKeyValues )
 	
 	thisEntity.rite = thisEntity:FindAbilityByName("boss_slark_bloodrite")
 	thisEntity.shift = thisEntity:FindAbilityByName("boss_slark_essence_shift")
-	thisEntity.rage = thisEntity:FindAbilityByName("boss_slark_bloodrite")
+	thisEntity.rage = thisEntity:FindAbilityByName("boss_slark_bloodrage")
 	Timers:CreateTimer(0.1, function()
 		thisEntity.rite:SetLevel(GameRules.gameDifficulty)
 		thisEntity.shift:SetLevel(GameRules.gameDifficulty)

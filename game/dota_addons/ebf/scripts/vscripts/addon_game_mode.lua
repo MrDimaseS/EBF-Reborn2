@@ -1277,7 +1277,7 @@ function CHoldoutGameMode:OnThink()
 								local playerMultiplier = 1 + ( self._MaxPlayers - HeroList:GetActiveHeroCount() ) * ( 50 / (self._MaxPlayers-1) ) / 100
 								local winMMR = 10+GameRules.gameDifficulty*5
 								local lossMMR = winMMR * (-2) * ((#self._vRounds - self._nRoundNumber) / #self._vRounds)
-								local mmrTable = CustomNetTables:GetTableValue("mmr", tostring( nPlayerID ) )
+								local mmrTable = CustomNetTables:GetTableValue("mmr", tostring( nPlayerID ) ) or {}
 								if not IsDedicatedServer() or IsInToolsMode() or GameRules:IsCheatMode() then
 									mmrTable.win = 0
 									mmrTable.loss = 0

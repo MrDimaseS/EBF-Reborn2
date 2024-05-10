@@ -34,6 +34,9 @@ function modifier_item_blood_gem_passive:OnCreated()
 end
 
 function modifier_item_blood_gem_passive:OnRefresh()
+	self.bonus_health = self:GetAbility():GetSpecialValueFor("bonus_health")
+	self.bonus_mana = self:GetAbility():GetSpecialValueFor("bonus_mana")
+	
 	self.spell_lifesteal = self:GetAbility():GetSpecialValueFor("spell_lifesteal") / 100
 	self.lifesteal_percent = self:GetAbility():GetSpecialValueFor("lifesteal_percent") / 100
 	self.overheal_maximum = self:GetAbility():GetSpecialValueFor("overheal_maximum") / 100
@@ -44,9 +47,19 @@ end
 function modifier_item_blood_gem_passive:DeclareFunctions(params)
 	local funcs = {
 		MODIFIER_EVENT_ON_TAKEDAMAGE,
-		MODIFIER_PROPERTY_INCOMING_DAMAGE_CONSTANT
+		MODIFIER_PROPERTY_INCOMING_DAMAGE_CONSTANT,
+		MODIFIER_PROPERTY_HEALTH_BONUS,
+		MODIFIER_PROPERTY_MANA_BONUS,
     }
     return funcs
+end
+
+function modifier_item_blood_gem_passive:GetModifierHealthBonus()
+	return self.bonus_health
+end
+
+function modifier_item_blood_gem_passive:GetModifierManaBonus()
+	return self.bonus_mana
 end
 
 function modifier_item_blood_gem_passive:GetModifierIncomingDamageConstant( params )
@@ -132,7 +145,7 @@ function modifier_item_blood_gem_passive:OnTakeDamage(params)
 		self:SendBuffRefreshToClients()
 	end
 end
-	
+
 function modifier_item_blood_gem_passive:IsHidden()
 	return true
 end

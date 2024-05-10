@@ -55,8 +55,7 @@ end
 
 function modifier_item_eternal_shroud_passive:OnRefresh()
 	self.bonus_strength = self:GetSpecialValueFor("bonus_strength")
-	self.bonus_intellect = self:GetSpecialValueFor("bonus_intellect")
-	self.bonus_agility = self:GetSpecialValueFor("bonus_agility")
+	self.bonus_other = self:GetSpecialValueFor("bonus_other")
 	
 	self.bonus_armor = self:GetSpecialValueFor("bonus_armor")
 	self.stack_armor = self:GetSpecialValueFor("stack_armor")
@@ -134,11 +133,11 @@ function modifier_item_eternal_shroud_passive:GetModifierBonusStats_Strength()
 end
 
 function modifier_item_eternal_shroud_passive:GetModifierBonusStats_Intellect()
-	return self.bonus_intellect
+	return self.bonus_other
 end
 
 function modifier_item_eternal_shroud_passive:GetModifierBonusStats_Agility()
-	return self.bonus_agility
+	return self.bonus_other
 end
 
 function modifier_item_eternal_shroud_passive:GetModifierPhysicalArmorBonus()

@@ -1,7 +1,7 @@
 modifier_generic_attack_bonus_pct = class({})
 
 function modifier_generic_attack_bonus_pct:OnCreated(kv)
-	self.damage = kv.damage
+	self.damage = kv.damage - 100
 end
 
 function modifier_generic_attack_bonus_pct:DeclareFunctions()

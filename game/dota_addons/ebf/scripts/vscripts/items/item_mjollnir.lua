@@ -10,11 +10,12 @@ end
 
 function item_mjollnir_2:OnSpellStart()
 	local caster = self:GetCaster()
-	local target = self:GetCursorTarget()
 	
-	target:AddNewModifier( caster, self, "modifier_item_mjollnir_active_ebf", {duration = self:GetSpecialValueFor("static_duration")} )
+	caster:AddNewModifier( caster, self, "modifier_item_mjollnir_active_ebf", {duration = self:GetSpecialValueFor("static_duration")} )
+	EmitSoundOn( "DOTA_Item.Mjollnir.Activate", caster )
 end
 
+item_mjollnir = class(item_mjollnir_2)
 item_mjollnir_3 = class(item_mjollnir_2)
 item_mjollnir_4 = class(item_mjollnir_2)
 item_mjollnir_5 = class(item_mjollnir_2)
@@ -28,8 +29,7 @@ function modifier_item_mjollnir_ebf:OnCreated()
 	self.bonus_attack_speed = self:GetAbility():GetSpecialValueFor("bonus_attack_speed")
 	self.bonus_int = self:GetAbility():GetSpecialValueFor("bonus_intelligence")
 	
-	self.crit_chance = self:GetAbility():GetSpecialValueFor("crit_chance")
-	self.crit_multiplier = self:GetAbility():GetSpecialValueFor("crit_multiplier")
+	self.chain_chance = self:GetAbility():GetSpecialValueFor("chain_chance")
 	
 	self.chain_damage = self:GetAbility():GetSpecialValueFor("chain_damage")
 	self.chain_strikes = self:GetAbility():GetSpecialValueFor("chain_strikes")
@@ -67,11 +67,10 @@ end
 
 function modifier_item_mjollnir_ebf:OnAttackRecord(params)
 	if params.attacker == self:GetParent() and not params.attacker:IsIllusion() then
-		self.records[params.record] = RollPercentage( self.crit_chance )
+		self.records[params.record] = RollPercentage( self.chain_chance )
 		
 		if self.records[params.record] then
 			self.bash = true
-			return self.crit_multiplier
 		end
 	end
 end
@@ -85,7 +84,8 @@ end
 function modifier_item_mjollnir_ebf:OnAttackLanded(params)
 	if IsServer() then
 		if params.attacker == self:GetParent() and not params.attacker:IsIllusion() then
-			if params.target:IsAlive() and self.records[params.record] and self.lastChain <= GameRules:GetGameTime() then
+			local itemIsActive = params.attacker:HasModifier("modifier_item_mjollnir_active_ebf")
+			if params.target:IsAlive() and self.records[params.record] and (self.lastChain <= GameRules:GetGameTime() or itemIsActive) then
 				local caster = params.attacker
 				local ability = self:GetAbility()
 				local target = params.target
@@ -95,26 +95,41 @@ function modifier_item_mjollnir_ebf:OnAttackLanded(params)
 				local lastTarget = params.attacker
 				local currentTarget = params.target
 				
+				
 				self.lastChain = GameRules:GetGameTime() + self.chain_cooldown
 				EmitSoundOn( "Item.Maelstrom.Chain_Lightning", caster )
+				if itemIsActive then 
+					ParticleManager:FireParticle( "particles/units/heroes/hero_zuus/zuus_static_field.vpcf", PATTACH_POINT_FOLLOW, caster )
+				end
 				local targets = {[currentTarget] = true}
 				Timers:CreateTimer( function()
 					
 					ParticleManager:FireRopeParticle("particles/items_fx/chain_lightning.vpcf", PATTACH_POINT_FOLLOW, lastTarget, currentTarget, {})
 					EmitSoundOn( "Item.Maelstrom.Chain_Lightning.Jump", currentTarget )
-					ability:DealDamage( caster, currentTarget, self.chain_damage )
-					
-					if self.debuff_duration > 0 then
-						currentTarget:AddNewModifier( caster, ability, "modifier_item_mjollnir_rot_ebf", {duration = self.debuff_duration} )
+					if not currentTarget:IsSameTeam( caster ) then 
+						ability:DealDamage( caster, currentTarget, self.chain_damage ) 
+						if self.debuff_duration > 0 then
+							currentTarget:AddNewModifier( caster, ability, "modifier_item_mjollnir_rot_ebf", {duration = self.debuff_duration} )
+						end
 					end
 					
 					lastTarget = currentTarget
 					currentTarget = nil
 					for _, unit in ipairs( caster:FindEnemyUnitsInRadius( lastTarget:GetAbsOrigin(), self.chain_radius ) ) do
-						if not targets[unit] then
+						if not targets[unit] or (itemIsActive and unit ~= lastTarget) then
 							currentTarget = unit
 							targets[unit] = true
 							break
+						end
+					end
+					
+					if not currentTarget and itemIsActive then -- reset chain
+						for _, unit in ipairs( caster:FindFriendlyUnitsInRadius( lastTarget:GetAbsOrigin(), self.chain_radius ) ) do
+							if unit ~= lastTarget then
+								currentTarget = unit
+								targets = {}
+								break
+							end
 						end
 					end
 					
@@ -192,68 +207,25 @@ function modifier_item_mjollnir_ebf:GetAttributes()
 	return MODIFIER_ATTRIBUTE_MULTIPLE
 end
 
-
 modifier_item_mjollnir_active_ebf = class({})
 LinkLuaModifier( "modifier_item_mjollnir_active_ebf", "items/item_mjollnir.lua" ,LUA_MODIFIER_MOTION_NONE )
 
 
 function modifier_item_mjollnir_active_ebf:OnCreated()
-	self.static_chance = self:GetAbility():GetSpecialValueFor("static_chance")
-	self.static_strikes = self:GetAbility():GetSpecialValueFor("static_strikes")
-	self.static_damage = self:GetAbility():GetSpecialValueFor("static_damage")
-	self.static_radius = self:GetAbility():GetSpecialValueFor("static_radius")
-	self.static_cooldown = self:GetAbility():GetSpecialValueFor("static_cooldown")
-	
-	self.debuff_duration = self:GetAbility():GetSpecialValueFor("resist_linger_duration")
-	
-	self.lastChain = 0
-	self.records = {}
+	self.static_attack_speed = self:GetAbility():GetSpecialValueFor("static_attack_speed")
 end
 
 function modifier_item_mjollnir_active_ebf:DeclareFunctions(params)
-local funcs = {
-    MODIFIER_EVENT_ON_ATTACK_LANDED
-    }
+	local funcs = { MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT }
     return funcs
 end
 
-function modifier_item_mjollnir_active_ebf:OnAttackLanded(params)
-	if IsServer() then
-		if params.target == self:GetParent() then
-			if self.lastChain <= GameRules:GetGameTime() and RollPercentage( self.static_chance ) then
-				local parent = self:GetParent()
-				local caster = self:GetCaster()
-				local ability = self:GetAbility()
-				local attacker = attacker
-				
-				local unitsToHit = {[1] = attacker}
-				for _, unit in ipairs( caster:FindEnemyUnitsInRadius( parent:GetAbsOrigin(), self.static_radius ) ) do
-					if unit ~= attacker then
-						table.insert( unitsToHit, unit )
-						if #unitsToHit >= self.static_strikes then
-							break
-						end
-					end
-				end
-				
-				for _, target in ipairs( unitsToHit ) do
-					ParticleManager:FireRopeParticle("particles/items_fx/chain_lightning.vpcf", PATTACH_POINT_FOLLOW, parent, target, {})
-					EmitSoundOn( "Item.Maelstrom.Chain_Lightning.Jump", target )
-					ability:DealDamage( caster, target, self.static_damage )
-					
-					if self.debuff_duration > 0 then
-						target:AddNewModifier( caster, ability, "modifier_item_mjollnir_rot_ebf", {duration = self.debuff_duration} )
-					end
-				end
-				
-				self.lastChain = GameRules:GetGameTime() + self.static_cooldown
-			end
-		end
-	end
+function modifier_item_mjollnir_active_ebf:GetModifierAttackSpeedBonus_Constant(params)
+	return self.static_attack_speed
 end
 
 function modifier_item_mjollnir_active_ebf:GetEffectName()
-	return "particles/items2_fx/mjollnir_shield.vpcf"
+	return "particles/econ/items/razor/razor_arcana/razor_arcana_static_link_buff.vpcf"
 end
 
 modifier_item_mjollnir_rot_ebf = class({})
@@ -280,26 +252,4 @@ function modifier_item_mjollnir_rot_ebf:GetModifierIncomingDamage_Percentage(par
 	else
 		return self.spell_amp
 	end
-end
-
-LinkLuaModifier( "modifier_item_mjollnir_ebf_aura", "items/item_mjollnir.lua" ,LUA_MODIFIER_MOTION_NONE )
-modifier_item_mjollnir_ebf_aura = class({})
-
-function modifier_item_mjollnir_ebf_aura:OnCreated()
-	self:OnRefresh( )
-end
-
-function modifier_item_mjollnir_ebf_aura:OnRefresh()
-	self.mana_regen_aura = self:GetAbility():GetSpecialValueFor("aura_mana_regen")
-end
-
-function modifier_item_mjollnir_ebf_aura:DeclareFunctions(params)
-	local funcs = {
-		MODIFIER_PROPERTY_MANA_REGEN_CONSTANT,
-    }
-    return funcs
-end
-
-function modifier_item_mjollnir_ebf_aura:GetModifierConstantManaRegen()
-	return self.mana_regen_aura
 end

@@ -206,19 +206,16 @@ function CDOTA_BaseNPC:PerformAbilityAttack(target, bProcs, ability)
 	Timers:CreateTimer(function() self.autoAttackFromAbilityState = nil end)
 end
 
-function CDOTA_BaseNPC:PerformGenericAttack(target, immediate, bNeverMiss, flBonusDamage, bDamagePct)
+function CDOTA_BaseNPC:PerformGenericAttack(target, immediate, bNeverMiss, flBonusDamage, flDamagePct)
 	local neverMiss = false
 	if bNeverMiss == true then neverMiss = true end
-	if flBonusDamage then
-		if bDamagePct then
-			if type(bDamagePct) ~= 'number' then
-				bDamagePct = flBonusDamage
-			end
-			self:AddNewModifier(caster, nil, "modifier_generic_attack_bonus_pct", {damage = bDamagePct})
-		end
-		if flBonusDamage and (not bDamagePct or type(bDamagePct) == 'number') then
-			self:AddNewModifier(caster, nil, "modifier_generic_attack_bonus", {damage = flBonusDamage})
-		end
+	if flDamagePct and flDamagePct ~= 0 then
+		self:AddNewModifier(caster, nil, "modifier_generic_attack_bonus_pct", {damage = flDamagePct})
+		-- adjust flat bonus damage to account for reduced pct
+		flBonusDamage = math.floor( (flBonusDamage or 0) / (1+(flDamagePct-100)/100) )
+	end
+	if flBonusDamage and flBonusDamage ~= 0 then
+		self:AddNewModifier(caster, nil, "modifier_generic_attack_bonus", {damage = flBonusDamage})
 	end
 	self:PerformAttack(target, true, true, true, false, not immediate, false, neverMiss)
 	self:RemoveModifierByName("modifier_generic_attack_bonus")

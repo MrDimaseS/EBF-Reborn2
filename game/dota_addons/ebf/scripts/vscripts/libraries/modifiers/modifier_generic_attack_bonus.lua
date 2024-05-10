@@ -13,6 +13,7 @@ function modifier_generic_attack_bonus:DeclareFunctions()
 end
 
 function modifier_generic_attack_bonus:GetModifierPreAttack_BonusDamage( params )
+	print(self.damage )
     return self.damage
 end
 

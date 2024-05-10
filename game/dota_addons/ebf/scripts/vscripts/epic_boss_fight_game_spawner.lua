@@ -122,13 +122,6 @@ function CHoldoutGameSpawner:Think()
 		return
 	end
 	
-	if self:IsFinishedSpawning() then
-		self._flNextSpawnTime = nil
-		return
-	else
-		self._flNextSpawnTime = self._flNextSpawnTime + self._flSpawnInterval
-	end
-	
 	if GameRules:GetGameTime() >= self._flNextSpawnTime then
 		if self._nTotalUnitsToSpawn == -1 then
 			local unitsSpawned = 0
@@ -151,6 +144,12 @@ function CHoldoutGameSpawner:Think()
 		self:_DoSpawn()
 		for _,s in pairs( self._dependentSpawners ) do
 			s:ParentSpawned( self )
+		end
+		if self:IsFinishedSpawning() then
+			self._flNextSpawnTime = nil
+			return
+		else
+			self._flNextSpawnTime = self._flNextSpawnTime + self._flSpawnInterval
 		end
 	end
 end

@@ -8,7 +8,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"2000"	
+		"ItemCost"						"2500"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -17,7 +17,7 @@
 		"ItemResult"					"item_mjollnir_2"
 		"ItemRequirements"
 		{
-			"01"						"item_mjollnir;item_relic"
+			"01"						"item_mjollnir"
 		}
 	}
 	"item_mjollnir_2"
@@ -28,7 +28,7 @@
 		"ScriptFile"					"items/item_mjollnir.lua"
 		"AbilityTextureName"			"mjollnir/mjollnir_2"
 		
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
@@ -52,36 +52,33 @@
 		
 		"precache"
 		{
-			"particle" "particles/items2_fx/mjollnir_shield.vpcf"
+			"particle" "particles/units/heroes/hero_zuus/zuus_static_field.vpcf"
+			"particle" "particles/econ/items/razor/razor_arcana/razor_arcana_static_link_buff.vpcf"
 			"particle" "particles/items_fx/chain_lightning.vpcf"
 		}
 		
 		"AbilityValues"
 		{
-			"bonus_damage"				"380"
-			"bonus_attack_speed"		"80"
-			"static_duration"			"15.0"
-			"static_chance"				"20"
-			"static_strikes"			"4"
-			"static_damage"
+			"bonus_damage"
 			{
-				"value"							"2250"
-				"CalculateSpellDamageTooltip"	"1"
+				"value"							"70"
+				"CalculateAttributeTooltip"		"1"
 			}
-			"static_primary_radius"		"600"
-			"static_seconary_radius"	"900"
-			"static_radius"				"900"
-			"static_cooldown"			"1.0"
-			"crit_chance"				"35"
+			"bonus_attack_speed"				"95"
+			"static_duration"					"15.0"
+			"static_attack_speed"				"70"
+			
+			"chain_chance"						"35"
 			"chain_damage"
 			{
-				"value"							"1200"
+				"value"							"360"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"chain_strikes"				"12"
-			"chain_radius"				"650"
-			"chain_delay"				"0.20"
-			"chain_cooldown"			"0.15"
+			"chain_strikes"						"8"
+			"chain_radius"						"650"
+			"chain_delay"						"0.25"
+			"chain_cooldown"					"0.2"
+			"illusion_multiplier_pct"			"150"
 		}
 	}
 	"item_recipe_mjollnir_3"
@@ -92,7 +89,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"3500"	
+		"ItemCost"						"5505"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -101,7 +98,7 @@
 		"ItemResult"					"item_mjollnir_3"
 		"ItemRequirements"
 		{
-			"01"						"item_mjollnir_2;item_scythe_2"
+			"01"						"item_mjollnir_2"
 		}
 	}
 	"item_mjollnir_3"
@@ -112,7 +109,7 @@
 		"ScriptFile"					"items/item_mjollnir.lua"
 		"AbilityTextureName"			"mjollnir/mjollnir_3"
 		
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
@@ -142,30 +139,26 @@
 		
 		"AbilityValues"
 		{
-			"bonus_damage"				"1280"
-			"bonus_attack_speed"		"120"
-			"static_duration"			"15.0"
-			"static_chance"				"20"
-			"static_strikes"			"4"
-			"static_damage"
+			"bonus_damage"
 			{
-				"value"							"3375"
-				"CalculateSpellDamageTooltip"	"1"
+				"value"							"140"
+				"CalculateAttributeTooltip"		"1"
 			}
-			"static_primary_radius"		"600"
-			"static_seconary_radius"	"900"
-			"static_radius"				"900"
-			"static_cooldown"			"1.0"
-			"crit_chance"				"40"
+			"bonus_attack_speed"				"125"
+			"static_duration"					"15.0"
+			"static_attack_speed"				"100"
+			
+			"chain_chance"						"40"
 			"chain_damage"
 			{
-				"value"							"1500"
+				"value"							"720"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"chain_strikes"				"12"
-			"chain_radius"				"650"
-			"chain_delay"				"0.15"
-			"chain_cooldown"			"0.10"
+			"chain_strikes"						"10"
+			"chain_radius"						"650"
+			"chain_delay"						"0.25"
+			"chain_cooldown"					"0.2"
+			"illusion_multiplier_pct"			"150"
 		}
 	}
 	"item_recipe_mjollnir_4"
@@ -176,7 +169,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"8000"	
+		"ItemCost"						"14105"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -196,7 +189,7 @@
 		"ScriptFile"					"items/item_mjollnir.lua"
 		"AbilityTextureName"			"mjollnir/mjollnir_4"
 
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
@@ -226,30 +219,26 @@
 		
 		"AbilityValues"
 		{
-			"bonus_damage"				"3600"
-			"bonus_attack_speed"		"160"
-			"static_duration"			"15.0"
-			"static_chance"				"20"
-			"static_strikes"			"4"
-			"static_damage"
+			"bonus_damage"
 			{
-				"value"							"4500"
-				"CalculateSpellDamageTooltip"	"1"
+				"value"							"280"
+				"CalculateAttributeTooltip"		"1"
 			}
-			"static_primary_radius"		"600"
-			"static_seconary_radius"	"900"
-			"static_radius"				"900"
-			"static_cooldown"			"1.0"
+			"bonus_attack_speed"				"155"
+			"static_duration"					"15.0"
+			"static_attack_speed"				"130"
+			
+			"chain_chance"						"45"
 			"chain_damage"
 			{
-				"value"							"1800"
+				"value"							"1440"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"chain_strikes"				"12"
-			"chain_radius"				"650"
-			"chain_delay"				"0.10"
-			"chain_cooldown"			"0.05"
-			"crit_chance"				"45"
+			"chain_strikes"						"12"
+			"chain_radius"						"650"
+			"chain_delay"						"0.25"
+			"chain_cooldown"					"0.2"
+			"illusion_multiplier_pct"			"150"
 		}
 	}
 	//=================================================================================================================
@@ -263,7 +252,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"14000"	
+		"ItemCost"						"40675"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -272,7 +261,7 @@
 		"ItemResult"					"item_mjollnir_5"
 		"ItemRequirements"
 		{
-			"01"						"item_veil_of_discord2;item_orb_4;item_mjollnir_4"
+			"01"						"item_mjollnir_4;item_veil_of_discord"
 		}
 	}
 	"item_mjollnir_5"
@@ -283,7 +272,7 @@
 		"ScriptFile"					"items/item_mjollnir.lua"
 		"AbilityTextureName"			"mjollnir/mjollnir_5"
 
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
@@ -313,37 +302,30 @@
 		
 		"AbilityValues"
 		{
-			"bonus_damage"				"5000"
-			"bonus_attack_speed"		"200"
-			"static_duration"			"15.0"
-			"static_chance"				"20"
-			"static_strikes"			"4"
-			"static_damage"
+			"bonus_all_stats"					"12"
+			"bonus_damage"
 			{
-				"value"							"6000"
-				"CalculateSpellDamageTooltip"	"1"
+				"value"							"560"
+				"CalculateAttributeTooltip"		"1"
 			}
-			"static_primary_radius"		"600"
-			"static_seconary_radius"	"900"
-			"static_radius"				"900"
-			"static_cooldown"			"1.0"
+			"bonus_attack_speed"				"185"
+			"static_duration"					"15.0"
+			"static_attack_speed"				"160"
 			
-			"crit_chance"				"50"
+			"chain_chance"						"45"
 			"chain_damage"
 			{
-				"value"							"2100"
+				"value"							"2880"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"chain_strikes"				"12"
-			"chain_radius"				"650"
-			"chain_delay"				"0.05"
-			"chain_cooldown"			"0.05"
+			"chain_strikes"						"12"
+			"chain_radius"						"650"
+			"chain_delay"						"0.25"
+			"chain_cooldown"					"0.2"
+			"illusion_multiplier_pct"			"150"
 			
-			"bonus_all_stats"			"1600"
-			"aura_mana_regen"			"50"
-			"aura_radius"				"1200"
-			"spell_amp"					"32"
-			"resist_linger_duration"	"5.0"
+			"spell_amp"							"10"
+			"resist_linger_duration"			"5.0"
 		}
 	}
 }

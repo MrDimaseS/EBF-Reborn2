@@ -18,6 +18,7 @@ end
 item_cloak_of_the_protector_2 = class(item_cloak_of_the_protector)
 item_cloak_of_the_protector_3 = class(item_cloak_of_the_protector)
 item_cloak_of_the_protector_4 = class(item_cloak_of_the_protector)
+item_cloak_of_the_protector_5 = class(item_cloak_of_the_protector)
 
 modifier_item_cloak_of_the_protector_ebf = class({})
 LinkLuaModifier( "modifier_item_cloak_of_the_protector_ebf", "items/item_cloak_of_the_protector.lua" ,LUA_MODIFIER_MOTION_NONE )
@@ -29,6 +30,7 @@ function modifier_item_cloak_of_the_protector_ebf:OnRefresh()
 	self.magic_resistance = self:GetAbility():GetSpecialValueFor("magic_resistance")
 	self.bonus_armor = self:GetAbility():GetSpecialValueFor("bonus_armor")
 	self.bonus_all = self:GetAbility():GetSpecialValueFor("bonus_all_stats")
+	self.bonus_mana = self:GetAbility():GetSpecialValueFor("bonus_mana")
 	self.bonus_health = self:GetAbility():GetSpecialValueFor("bonus_health")
 	self.bonus_health_regen = self:GetAbility():GetSpecialValueFor("bonus_health_regen")
 	
@@ -44,6 +46,7 @@ function modifier_item_cloak_of_the_protector_ebf:DeclareFunctions(params)
 		MODIFIER_PROPERTY_STATS_AGILITY_BONUS,
 		MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT,
 		MODIFIER_PROPERTY_HEALTH_BONUS,
+		MODIFIER_PROPERTY_MANA_BONUS,
     }
     return funcs
 end
@@ -62,6 +65,10 @@ end
 
 function modifier_item_cloak_of_the_protector_ebf:GetModifierHealthBonus()
 	return self.bonus_health
+end
+
+function modifier_item_cloak_of_the_protector_ebf:GetModifierManaBonus()
+	return self.bonus_mana
 end
 
 function modifier_item_cloak_of_the_protector_ebf:GetModifierBonusStats_Strength()

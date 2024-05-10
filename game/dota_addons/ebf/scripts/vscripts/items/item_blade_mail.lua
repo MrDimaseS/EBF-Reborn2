@@ -45,6 +45,12 @@ end
 
 item_conquerors_splint = class(item_blade_mail)
 
+function item_conquerors_splint:ApplyReturn( damage, attacker )
+	local caster = self:GetCaster()
+	local damage_pct = self:GetSpecialValueFor("passive_reflect_pct")
+	caster:PerformGenericAttack( attacker, true, true, damage, damage_pct )
+end
+
 function item_conquerors_splint:GetDefaultFunctions()
 	return {
 		MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
@@ -71,13 +77,15 @@ function item_martyrs_bulwark:GetEffectName()
 end
 
 function item_blade_mail:GetEffectModifier()
-	return "modifier_item_martyrs_bulwark_wreath"
+	return "modifier_item_blade_mail_passive_taunt"
 end
 
 function item_martyrs_bulwark:GetDefaultFunctions()
 	return {
 		MODIFIER_PROPERTY_HEALTH_BONUS,
 		MODIFIER_PROPERTY_STATS_INTELLECT_BONUS,
+		MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,
+		MODIFIER_PROPERTY_STATS_AGILITY_BONUS,
 		MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
 		MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
 		MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
@@ -89,9 +97,9 @@ end
 function item_martyrs_bulwark:ApplyReturn( damage, attacker )
 	local caster = self:GetCaster()
 	
-	local roll = RollPercentage( self:GetSpecialValueFor("static_chance") )
-	if roll then	
-		self:ChainLightning( caster, attacker, damage )
+	local roll = RollPercentage( self:GetSpecialValueFor("chain_chance") )
+	if roll or caster:HasModifier("modifier_item_blade_mail_passive_taunt") then	
+		self:ChainLightning( caster, attacker, self:GetSpecialValueFor("chain_damage") )
 	else
 		ParticleManager:FireRopeParticle("particles/items2_fx/mjollnir_shield_arc_01.vpcf", PATTACH_POINT_FOLLOW, attacker, caster)
 		self:DealDamage( self:GetCaster(), attacker, damage, {damage_type = self:GetAbilityDamageType(), damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL + DOTA_DAMAGE_FLAG_REFLECTION} )
@@ -134,25 +142,12 @@ end
 function item_martyrs_bulwark:OnSpellStart()
 	local caster = self:GetCaster()
 
-	EmitSoundOn("Item.Gleipnir.Cast", caster)
 	EmitSoundOn("DOTA_Item.Mjollnir.Activate", caster)
 
 	if caster:HasModifier("modifier_item_blade_mail_passive_taunt") then
 		caster:RemoveModifierByName("modifier_item_blade_mail_passive_taunt")
 	end
 	caster:AddNewModifier(caster,self, "modifier_item_blade_mail_passive_taunt", {Duration = self:GetSpecialValueFor("duration")})
-	
-	for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), self:GetSpecialValueFor("radius") ) ) do
-		self:FireTrackingProjectile("particles/items3_fx/gleipnir_projectile.vpcf", enemy, 1900)
-	end
-end
-
-function item_martyrs_bulwark:OnProjectileHit( target, position )
-	local caster = self:GetCaster()
-	if not target then return end
-	target:AddNewModifier( caster, self, "modifier_gungnir_debuff", {duration = self:GetSpecialValueFor("root_duration")} )
-	EmitSoundOn("Item.Gleipnir.Target", target)
-	self:ChainLightning( caster, target, self:GetSpecialValueFor("passive_reflection_constant") )
 end
 
 function item_martyrs_bulwark:GetIntrinsicModifierName()
@@ -176,9 +171,8 @@ function modifier_item_blade_mail_passive:OnCreated()
 end
 
 function modifier_item_blade_mail_passive:OnRefresh()
-	self.bonus_hp = self:GetAbility():GetSpecialValueFor("bonus_hp")
 	self.bonus_hp_regen = self:GetAbility():GetSpecialValueFor("bonus_hp_regen")
-	self.bonus_intellect = self:GetAbility():GetSpecialValueFor("bonus_intellect")
+	self.bonus_all = self:GetAbility():GetSpecialValueFor("bonus_all")
 	self.bonus_armor = self:GetAbility():GetSpecialValueFor("bonus_armor")
 	self.bonus_damage = self:GetAbility():GetSpecialValueFor("bonus_damage")
 	self.bonus_attack_speed = self:GetAbility():GetSpecialValueFor("bonus_attack_speed")
@@ -187,7 +181,7 @@ function modifier_item_blade_mail_passive:OnRefresh()
 	self.reflection_const = self:GetSpecialValueFor("passive_reflection_constant")
 	self.internal_cd = self:GetSpecialValueFor("internal_cd")
 	
-	self.static_strikes = self:GetSpecialValueFor("static_strikes")
+	self.chain_damage = self:GetSpecialValueFor("chain_damage")
 	self.radius = self:GetSpecialValueFor("radius")
 	self.chain_chance = self:GetSpecialValueFor("chain_chance")
 	
@@ -217,27 +211,21 @@ function modifier_item_blade_mail_passive:OnTakeDamage(params)
 		self:GetAbility():ApplyReturn(baseDamage, attacker)
 		if blademailActive then
 			EmitSoundOn("DOTA_Item.BladeMail.Damage", hero)
-			local bounces = self.static_strikes
-			for _, enemy in ipairs( hero:FindEnemyUnitsInRadius( hero:GetAbsOrigin(), self.radius ) ) do
-				if enemy ~= params.unit then
-					self:GetAbility():ApplyReturn(baseDamage, enemy)
-					bounces = bounces - 1
-					if bounces <= 0 then
-						break
-					end
-				end
-			end
 		end
 		self._lastHitTime = GameRules:GetGameTime()
 	end
 end
 
-function modifier_item_blade_mail_passive:GetModifierHealthBonus()
-	return self.bonus_hp
+function modifier_item_blade_mail_passive:GetModifierBonusStats_Intellect()
+	return self.bonus_all
 end
 
-function modifier_item_blade_mail_passive:GetModifierBonusStats_Intellect()
-	return self.bonus_intellect
+function modifier_item_blade_mail_passive:GetModifierBonusStats_Strength()
+	return self.bonus_all
+end
+
+function modifier_item_blade_mail_passive:GetModifierBonusStats_Agility()
+	return self.bonus_all
 end
 
 function modifier_item_blade_mail_passive:GetModifierPhysicalArmorBonus()
@@ -288,8 +276,8 @@ LinkLuaModifier( "modifier_item_martyrs_bulwark_passive", "items/item_blade_mail
 function modifier_item_martyrs_bulwark_passive:OnAttackLanded( params )
     local hero = self:GetParent()
 	local attacker = params.attacker
-	if attacker == hero and RollPercentage( self.chain_chance ) then
-		self:GetAbility():ChainLightning( hero, params.target, self.reflection_const )
+	if attacker == hero and (RollPercentage( self.chain_chance ) or hero:HasModifier("modifier_item_blade_mail_passive_taunt")) then
+		self:GetAbility():ChainLightning( hero, params.target, self.chain_damage )
 	end
 end
 

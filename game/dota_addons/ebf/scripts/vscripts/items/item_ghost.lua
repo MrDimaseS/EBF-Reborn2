@@ -234,9 +234,9 @@ modifier_item_ethereal_blade_passive = class(modifier_item_ghost_passive)
 LinkLuaModifier( "modifier_item_ethereal_blade_passive", "items/item_ghost.lua" ,LUA_MODIFIER_MOTION_NONE )
 
 function modifier_item_ethereal_blade_passive:OnRefresh()
-	self.bonus_agility = self:GetSpecialValueFor("bonus_agility")
+	self.bonus_agility = self:GetSpecialValueFor("bonus_other")
 	self.bonus_strength = self:GetSpecialValueFor("bonus_strength")
-	self.bonus_intellect = self:GetSpecialValueFor("bonus_intellect")
+	self.bonus_intellect = self:GetSpecialValueFor("bonus_other")
 	
 	self.bonus_evasion = self:GetSpecialValueFor("bonus_evasion")
 	self.bonus_aoe = self:GetSpecialValueFor("bonus_aoe")

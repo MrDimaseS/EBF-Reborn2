@@ -35,6 +35,9 @@ function AIThink(thisEntity)
 		thisEntity:Stop()
 	end
 	if thisEntity:GetTeamNumber() ~= DOTA_TEAM_GOODGUYS and not thisEntity:IsChanneling() and not thisEntity:GetCurrentActiveAbility() then
+		if thisEntity:HasModifier("modifier_boss_trickster_dragon_ethereal_duplicate_illusion") then
+			return AICore:HandleBasicAI( thisEntity )
+		end
 		if thisEntity.rift:IsFullyCastable() and RollPercentage( 35 ) then
 			local castPosition = AICore:FindOptimalRadiusInRangeForEntity( thisEntity, thisEntity.rift:GetTrueCastRange(), thisEntity.rift:GetAOERadius(), nil, true )
 			if castPosition then
@@ -71,17 +74,17 @@ function AIThink(thisEntity)
 				return thisEntity.orb:GetCastPoint() + 0.1
 			end
 		end
-		if thisEntity.shift:IsFullyCastable() and RollPercentage( 50 ) then
-			local units = thisEntity:FindEnemyUnitsInRadius( thisEntity:GetAbsOrigin(), thisEntity:GetAttackRange() + thisEntity.shift:GetSpecialValueFor("shard_attack_range_bonus") )
-			if #units > 0 then
-				ExecuteOrderFromTable({
-					UnitIndex = thisEntity:entindex(),
-					OrderType = DOTA_UNIT_ORDER_CAST_NO_TARGET,
-					AbilityIndex = thisEntity.shift:entindex()
-				})
-				return thisEntity.shift:GetCastPoint() + 0.5
-			end
-		end
+		-- if thisEntity.shift:IsFullyCastable() and RollPercentage( 50 ) then
+			-- local units = thisEntity:FindEnemyUnitsInRadius( thisEntity:GetAbsOrigin(), thisEntity:GetAttackRange() + thisEntity.shift:GetSpecialValueFor("shard_attack_range_bonus") )
+			-- if #units > 0 then
+				-- ExecuteOrderFromTable({
+					-- UnitIndex = thisEntity:entindex(),
+					-- OrderType = DOTA_UNIT_ORDER_CAST_NO_TARGET,
+					-- AbilityIndex = thisEntity.shift:entindex()
+				-- })
+				-- return thisEntity.shift:GetCastPoint() + 0.5
+			-- end
+		-- end
 		-- no spells left to be cast and not currently attacking
 		return AICore:HandleBasicAI( thisEntity )
 	else 

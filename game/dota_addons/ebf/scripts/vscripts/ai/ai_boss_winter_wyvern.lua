@@ -54,7 +54,15 @@ function AIThink(thisEntity)
 			end
 		end
 		if thisEntity.embrace:IsFullyCastable() then
-			if thisEntity:GetHealthPercent() > 50 then
+			if thisEntity:GetHealthPercent() < 50 and RollPercentage( 100 - thisEntity:GetHealthPercent() ) then
+				ExecuteOrderFromTable({
+					UnitIndex = thisEntity:entindex(),
+					OrderType = DOTA_UNIT_ORDER_CAST_TARGET,
+					AbilityIndex = thisEntity.embrace:entindex(),
+					TargetIndex = thisEntity:entindex()
+				})
+				return thisEntity.embrace:GetCastPoint() + 0.1
+			elseif RollPercentage( 50 ) then
 				local target = AICore:WeakestEnemyHeroInRange( thisEntity, thisEntity.embrace:GetTrueCastRange() )
 				if target then
 					ExecuteOrderFromTable({
@@ -65,14 +73,6 @@ function AIThink(thisEntity)
 					})
 					return thisEntity.embrace:GetCastPoint() + 0.1
 				end
-			else
-				ExecuteOrderFromTable({
-					UnitIndex = thisEntity:entindex(),
-					OrderType = DOTA_UNIT_ORDER_CAST_TARGET,
-					AbilityIndex = thisEntity.embrace:entindex(),
-					TargetIndex = thisEntity:entindex()
-				})
-				return thisEntity.embrace:GetCastPoint() + 0.1
 			end
 		end
 		-- no spells left to be cast and not currently attacking

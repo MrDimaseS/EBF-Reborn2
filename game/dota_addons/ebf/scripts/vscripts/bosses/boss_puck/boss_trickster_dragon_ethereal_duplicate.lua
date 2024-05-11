@@ -59,7 +59,9 @@ end
 
 function modifier_boss_trickster_dragon_ethereal_duplicate_illusion:OnDestroy()
 	if IsServer() and self:GetParent():IsAlive() then
-		self:GetParent():ForceKill( false )
+		local parent = self:GetParent()
+		parent:ForceKill( false )
+		Timers:CreateTimer( 0.1, function() if IsEntitySafe(parent) then UTIL_Remove( parent ) end end )
 	end
 end
 

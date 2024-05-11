@@ -62,8 +62,12 @@ function modifier_antimage_counterspell_barrier:GetModifierIncomingDamageConstan
 	if not self:GetCaster():HasShard() then return end
 	if IsServer() then
 		local barrier = math.min( self.barrier, math.max( self.barrier, params.damage ) )
-		self.barrier = self.barrier - params.damage
-		self:SendBuffRefreshToClients()
+		self.barrier = math.max( 0, self.barrier - params.damage )
+		if self.barrier > 0 then
+			self:SendBuffRefreshToClients()
+		else
+			self:Destroy()
+		end
 		EmitSoundOn( "Hero_Antimage.Counterspell.Absorb", self:GetParent() )
 		return -barrier
 	else
@@ -75,8 +79,12 @@ function modifier_antimage_counterspell_barrier:GetModifierIncomingSpellDamageCo
 	if self:GetCaster():HasShard() then return end
 	if IsServer() then
 		local barrier = math.min( self.barrier, math.max( self.barrier, params.damage ) )
-		self.barrier = self.barrier - params.damage
-		self:SendBuffRefreshToClients()
+		self.barrier = math.max( 0, self.barrier - params.damage )
+		if self.barrier > 0 then
+			self:SendBuffRefreshToClients()
+		else
+			self:Destroy()
+		end
 		EmitSoundOn( "Hero_Antimage.Counterspell.Absorb", self:GetParent() )
 		return -barrier
 	else

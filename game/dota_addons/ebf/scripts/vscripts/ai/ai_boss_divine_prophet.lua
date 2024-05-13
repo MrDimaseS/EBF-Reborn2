@@ -14,13 +14,13 @@ function Spawn( entityKeyValues )
 	end)
 	
 	thisEntity.swarm = thisEntity:FindAbilityByName("boss_death_prophet_carrion_swarm")
-	thisEntity.stun = thisEntity:FindAbilityByName("boss_death_prophet_split_earth")
+	-- thisEntity.stun = thisEntity:FindAbilityByName("boss_death_prophet_split_earth")
 	thisEntity.siphon = thisEntity:FindAbilityByName("boss_death_prophet_spirit_siphon")
 	thisEntity.exorcism = thisEntity:FindAbilityByName("boss_death_prophet_exorcism")
 	
 	Timers:CreateTimer(0.1, function()
 		thisEntity.swarm:SetLevel(GameRules.gameDifficulty)
-		thisEntity.stun:SetLevel(GameRules.gameDifficulty)
+		-- thisEntity.stun:SetLevel(GameRules.gameDifficulty)
 		thisEntity.siphon:SetLevel(GameRules.gameDifficulty)
 		thisEntity.exorcism:SetLevel(GameRules.gameDifficulty)
 	end)
@@ -41,18 +41,18 @@ function AIThink(thisEntity)
 				return 0.1
 			end
 		end
-		if thisEntity.stun:IsFullyCastable() then
-			local castPosition = AICore:FindOptimalRadiusInRangeForEntity( thisEntity, thisEntity.stun:GetTrueCastRange(), thisEntity.stun:GetSpecialValueFor("radius") )
-			if castPosition then
-				ExecuteOrderFromTable({
-					UnitIndex = thisEntity:entindex(),
-					OrderType = DOTA_UNIT_ORDER_CAST_POSITION,
-					Position = castPosition,
-					AbilityIndex = thisEntity.stun:entindex()
-				})
-				return 0.1
-			end
-		end
+		-- if thisEntity.stun:IsFullyCastable() then
+			-- local castPosition = AICore:FindOptimalRadiusInRangeForEntity( thisEntity, thisEntity.stun:GetTrueCastRange(), thisEntity.stun:GetSpecialValueFor("radius") )
+			-- if castPosition then
+				-- ExecuteOrderFromTable({
+					-- UnitIndex = thisEntity:entindex(),
+					-- OrderType = DOTA_UNIT_ORDER_CAST_POSITION,
+					-- Position = castPosition,
+					-- AbilityIndex = thisEntity.stun:entindex()
+				-- })
+				-- return 0.1
+			-- end
+		-- end
 		if thisEntity.siphon:IsFullyCastable() then
 			local target = thisEntity:FindRandomEnemyInRadius( thisEntity:GetAbsOrigin(), thisEntity.siphon:GetTrueCastRange() )
 			if target then

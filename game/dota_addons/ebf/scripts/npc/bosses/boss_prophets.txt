@@ -19,6 +19,7 @@
 		"particle"
 		{
 			"particle"					"particles/units/heroes/hero_death_prophet/death_prophet_carrion_swarm.vpcf"
+			"particle"					"particles/units/heroes/hero_death_prophet/death_prophet_carrion_swarm_impact.vpcf"
 		}
 
 		// Casting
@@ -161,6 +162,11 @@
 		"FightRecapLevel"				"2"
 		"AbilitySound"					"Hero_DeathProphet.Exorcism.Cast"
         "HasScepterUpgrade"			"1"
+		
+		"precache"
+		{
+			"particle"					"particles/units/heroes/hero_death_prophet/death_prophet_exorcism_attack.vpcf"
+		}
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -193,6 +199,100 @@
 			
 			"movement_base"				"12 16 20"
 			"movement_bonus"			"8 12 16"
+		}
+	}
+	//=================================================================================================================
+	// MUERTA: The Calling
+	//=================================================================================================================
+	"minion_divine_gunslinger_the_calling"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"							"muerta_the_calling"
+		"AbilityTextureName"				"muerta_the_calling"
+		"AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_CAN_SELF_CAST"
+		"AbilityUnitDamageType"				"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"					"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"				"SPELL_DISPELLABLE_YES"
+		"AbilitySound"						"Hero_Muerta.Revenants.Cast"
+		
+		"precache"
+		{
+			"particle"						"particles/units/heroes/hero_muerta/muerta_calling.vpcf"
+			"particle"						"particles/units/heroes/hero_muerta/muerta_calling_aoe.vpcf"
+			"particle"						"particles/units/heroes/hero_muerta/muerta_calling_debuff_slow.vpcf"
+			"particle"						"particles/units/heroes/hero_muerta/muerta_calling_impact.vpcf"
+		}
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"					"580"
+		"AbilityCastPoint"					"0.1"
+		"AbilityCastAnimation"				"ACT_DOTA_CAST_ABILITY_2"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"					"30"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"					"145 160 175 190"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"damage"						"15000"
+			"duration"						"5 6 7 8"
+			"hit_radius"					
+			{
+				"value"						"120"
+				"affected_by_aoe_increase"	"1"	
+			}
+			"dead_zone_distance"			
+			{
+				"value"						"340"
+				"affected_by_aoe_increase"	"1"	
+			}
+			"num_revenants"					"4"
+			"speed_initial"					"0.2"
+			"speed_max"						"1.0"
+			"acceleration"					"0.75"
+			"rotation_initial"				"0"
+			"debug_draw"					"0"
+			"aura_movespeed_slow"			"-15 -20 -25 -30"
+			"aura_attackspeed_slow"			"-30 -40 -50 -60"
+			"silence_duration"				"1.5 2 2.5 3"
+			"rotation_direction"			"-1"
+			"show_warning"					"1"
+		}
+	}
+	//=================================================================================================================
+	// MUERTA: Gunslinger
+	//=================================================================================================================
+	"minion_divine_gunslinger_gunslinger"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"muerta_gunslinger"
+		"AbilityTextureName"			"muerta_gunslinger"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_TOGGLE | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
+		//"AbilitySound"					"Hero_PhantomAssassin.CoupDeGrace"
+		
+		"precache"
+		{
+			"particle"						"particles/units/heroes/hero_muerta/muerta_gunslinger.vpcf"
+		}
+
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_3"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"double_shot_chance"					"55 60 65 70"
+			"target_search_bonus_range"				"175"
 		}
 	}
 }

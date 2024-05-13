@@ -228,7 +228,7 @@ function CHoldoutGameRound:End(bWon)
 		
 		local expToProvide = self._nExpRemainingInRound
 		for _, hero in ipairs( HeroList:GetRealHeroes() ) do
-			local goldMuliplierSolo = TernaryOperator( 0.25, (self._heroesDiedThisRound[hero] or 0 > 0), 0)
+			local goldMuliplierSolo = TernaryOperator( 0.25, (self._heroesDiedThisRound[hero] or 0 == 0), 0)
 			local goldForLiving = self._nMaxGoldForVictory * (goldMuliplierTeam + goldMuliplierSolo)
 			local goldToProvide = self._nMaxGoldForVictory + self._nGoldRemainingInRound
 			

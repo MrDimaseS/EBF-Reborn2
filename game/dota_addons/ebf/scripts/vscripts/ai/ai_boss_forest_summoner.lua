@@ -27,24 +27,24 @@ end
 
 function AIThink(thisEntity)
 	if thisEntity:GetTeamNumber() ~= DOTA_TEAM_GOODGUYS and not thisEntity:IsChanneling() and not thisEntity:GetCurrentActiveAbility() then
-		if thisEntity.sprout:IsFullyCastable() then
-			local target
-			if thisEntity:GetAggroTarget() and CalculateDistance( thisEntity, thisEntity:GetAggroTarget() ) < thisEntity.sprout:GetTrueCastRange() and DotProduct( thisEntity:GetAggroTarget():GetForwardVector(), thisEntity:GetForwardVector() ) > 0 then
-				target = thisEntity:GetAggroTarget()
-			elseif thisEntity.call:IsFullyCastable() then
-				target = thisEntity:FindRandomEnemyInRadius( thisEntity:GetAbsOrigin(), thisEntity.sprout:GetTrueCastRange() )
-			end
-			if target then
-				ExecuteOrderFromTable({
-					UnitIndex = thisEntity:entindex(),
-					OrderType = DOTA_UNIT_ORDER_CAST_TARGET,
-					AbilityIndex = thisEntity.sprout:entindex(),
-					TargetIndex = target:entindex(),
-				})
-				return 0.1
-			end
-		end
-		if thisEntity.call:IsFullyCastable() then
+		-- if thisEntity.sprout:IsFullyCastable() then
+			-- local target
+			-- if thisEntity:GetAggroTarget() and CalculateDistance( thisEntity, thisEntity:GetAggroTarget() ) < thisEntity.sprout:GetTrueCastRange() and DotProduct( thisEntity:GetAggroTarget():GetForwardVector(), thisEntity:GetForwardVector() ) > 0 then
+				-- target = thisEntity:GetAggroTarget()
+			-- elseif thisEntity.call:IsFullyCastable() then
+				-- target = thisEntity:FindRandomEnemyInRadius( thisEntity:GetAbsOrigin(), thisEntity.sprout:GetTrueCastRange() )
+			-- end
+			-- if target then
+				-- ExecuteOrderFromTable({
+					-- UnitIndex = thisEntity:entindex(),
+					-- OrderType = DOTA_UNIT_ORDER_CAST_TARGET,
+					-- AbilityIndex = thisEntity.sprout:entindex(),
+					-- TargetIndex = target:entindex(),
+				-- })
+				-- return 0.1
+			-- end
+		-- end
+		if thisEntity.call:IsFullyCastable() and RollPercentage( 50 ) then
 			ExecuteOrderFromTable({
 						UnitIndex = thisEntity:entindex(),
 						OrderType = DOTA_UNIT_ORDER_CAST_NO_TARGET,
@@ -52,7 +52,7 @@ function AIThink(thisEntity)
 					})
 			return 0.1
 		end
-		if thisEntity.wrath:IsFullyCastable() and RollPercentage( 15 ) then
+		if thisEntity.wrath:IsFullyCastable() and RollPercentage( 25 ) then
 			ExecuteOrderFromTable({
 						UnitIndex = thisEntity:entindex(),
 						OrderType = DOTA_UNIT_ORDER_CAST_NO_TARGET,

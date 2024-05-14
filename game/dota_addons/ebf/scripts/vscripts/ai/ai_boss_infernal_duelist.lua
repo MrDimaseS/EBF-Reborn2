@@ -40,11 +40,12 @@ function AIThink(thisEntity)
 			})
 			return thisEntity.odds:GetCastPoint() + 0.1
 		end
-		if thisEntity.duel:IsFullyCastable() and thisEntity:IsAttacking() then
+		if thisEntity.duel:IsFullyCastable() and thisEntity:IsAttacking() and thisEntity:GetAttackTarget() then
 			ExecuteOrderFromTable({
 				UnitIndex = thisEntity:entindex(),
-				OrderType = DOTA_UNIT_ORDER_CAST_NO_TARGET,
-				AbilityIndex = thisEntity.duel:entindex()
+				OrderType = DOTA_UNIT_ORDER_CAST_TARGET,
+				AbilityIndex = thisEntity.duel:entindex(),
+				TargetIndex = thisEntity:GetAttackTarget():entindex(),
 			})
 			return thisEntity.duel:GetCastPoint() + 0.1
 		end

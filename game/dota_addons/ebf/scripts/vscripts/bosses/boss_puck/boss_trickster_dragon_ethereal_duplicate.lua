@@ -21,6 +21,7 @@ function modifier_boss_trickster_dragon_ethereal_duplicate:DeclareFunctions()
 end
 
 function modifier_boss_trickster_dragon_ethereal_duplicate:OnAbilityFullyCast( params )
+	if self:GetParent():PassivesDisbled() then return end
 	if params.unit == self:GetParent() then
 		local illusion = CreateUnitByName( params.unit:GetUnitName(), params.unit:GetAbsOrigin(), true, nil, nil, self:GetCaster():GetTeam() )
 		params.unit:Blink( params.unit:GetAbsOrigin() + RandomVector( 600 ) )

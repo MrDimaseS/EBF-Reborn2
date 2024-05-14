@@ -50,7 +50,7 @@ function AIThink(thisEntity)
 		if thisEntity.cull:IsFullyCastable() then
 			local target
 			thisEntity._cullingThreshold = thisEntity._cullingThreshold or thisEntity.cull:GetSpecialValueFor("damage") * ( 1+thisEntity:GetSpellAmplification(false) )
-			thisEntity.impatienceChance = thisEntity.impatienceChance or 10
+			thisEntity.impatienceChance = thisEntity.impatienceChance or 2.5
 			for index, enemy in ipairs( thisEntity:FindEnemyUnitsInRadius( thisEntity:GetAbsOrigin(), thisEntity:GetIdealSpeed() + thisEntity.cull:GetTrueCastRange(), {order = FIND_CLOSEST} ) ) do
 				if enemy:GetHealth() <= thisEntity._cullingThreshold or (RollPercentage( thisEntity.impatienceChance ) and index == 1) then
 					target = enemy

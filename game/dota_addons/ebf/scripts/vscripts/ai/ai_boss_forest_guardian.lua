@@ -29,7 +29,7 @@ end
 
 function AIThink(thisEntity)
 	if thisEntity:GetTeamNumber() ~= DOTA_TEAM_GOODGUYS and not thisEntity:IsChanneling() and not thisEntity:GetCurrentActiveAbility() then
-		if thisEntity.grasp:IsFullyCastable() then
+		if thisEntity.grasp:IsFullyCastable() and RollPercentage( 25 ) then
 			local optimalPosition = AICore:FindOptimalRadiusInRangeForEntity( thisEntity, thisEntity.grasp:GetTrueCastRange(), thisEntity.grasp:GetSpecialValueFor("latch_range") )
 			if optimalPosition then
 				ExecuteOrderFromTable({
@@ -53,7 +53,7 @@ function AIThink(thisEntity)
 				return 0.1
 			end
 		end
-		if thisEntity.leech:IsFullyCastable() then
+		if thisEntity.leech:IsFullyCastable() and RollPercentage( 75 ) then
 			local target
 			if thisEntity:GetAggroTarget() and CalculateDistance( thisEntity:GetAggroTarget(), thisEntity ) <= thisEntity.leech:GetTrueCastRange() and not thisEntity:GetAggroTarget():HasModifier("modifier_treant_leech_seed") then
 				target = thisEntity:GetAggroTarget()
@@ -70,7 +70,7 @@ function AIThink(thisEntity)
 				return 0.1
 			end
 		end
-		if thisEntity.overgrowth:IsFullyCastable() and #thisEntity:FindEnemyUnitsInRadius( thisEntity:GetAbsOrigin(), thisEntity.overgrowth:GetSpecialValueFor("radius") * 0.75, {flag = DOTA_UNIT_TARGET_FLAG_FOW_VISIBLE } ) >= math.max( 1, math.floor( HeroList:GetActiveHeroCount() / 2 ) ) then
+		if thisEntity.overgrowth:IsFullyCastable() and #thisEntity:FindEnemyUnitsInRadius( thisEntity:GetAbsOrigin(), thisEntity.overgrowth:GetSpecialValueFor("radius") * 0.75, {flag = DOTA_UNIT_TARGET_FLAG_FOW_VISIBLE } ) >= math.max( 1, math.floor( HeroList:GetActiveHeroCount() / 2 ) ) and RollPercentage( 25 ) then
 			ExecuteOrderFromTable({
 						UnitIndex = thisEntity:entindex(),
 						OrderType = DOTA_UNIT_ORDER_CAST_NO_TARGET,

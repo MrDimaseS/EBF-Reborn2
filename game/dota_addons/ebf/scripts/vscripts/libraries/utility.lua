@@ -1503,6 +1503,7 @@ MAP_MMR = {
 ["epic_boss_fight_hard"] = 3500,
 ["epic_boss_fight_challenger"] = 4750,
 ["epic_boss_fight_nightmare"] = 5260,
+["epic_boss_fight_event"] = 5260,
 }
 
 MMR_WEIGHT = 3000

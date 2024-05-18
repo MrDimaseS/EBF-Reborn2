@@ -188,6 +188,13 @@ function CHoldoutGameMode:InitGameMode()
 		GameRules.gameDifficulty = 4
 		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 5)
 		GameRules:GetGameModeEntity():SetFixedRespawnTime( 180 )
+	elseif GetMapName() == "epic_boss_fight_event" then
+		Life._life = 1
+		Life._MaxLife = 1
+		GameRules._bonusLifeRoundDivider = 99
+		GameRules.gameDifficulty = 4
+		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 12)
+		GameRules:GetGameModeEntity():SetFixedRespawnTime( 180 )
 	end
 
 	GameRules._live = Life._life
@@ -801,6 +808,8 @@ function CHoldoutGameMode:_ReadGameConfiguration()
 		self._MaxPlayers = 5
 	elseif GetMapName() == "epic_boss_fight_nightmare" then
 		self._MaxPlayers = 10
+	elseif GetMapName() == "epic_boss_fight_event" then
+		self._MaxPlayers = 12
 	else
 		self._MaxPlayers = 7
 	end
@@ -1113,6 +1122,21 @@ function CHoldoutGameMode:OnGameRulesStateChange()
 			end
 		end
 		GameRules:SetTimeOfDay(0.76)
+		
+		if GetMapName() == "epic_boss_fight_event" then
+			local function sendMessages()
+				Say(nil, "Epic Boss Fight spring EVENT! Buy Tomes and survive!", false)
+				Say(nil, "Round XP bonus: 0.00", false)
+				Say(nil, "Round GOLD bonus: x3", false)
+				Say(nil, "Round BOSS amount: x2", false)
+			end
+	
+			sendMessages()
+				
+			Timers:CreateTimer(120, function()
+				sendMessages()
+			end)
+		end
 	end
 end
 
@@ -1158,7 +1182,10 @@ function CHoldoutGameMode:_regenlifecheck()
 			Life._MaxLife = 1
 		elseif GetMapName() == "epic_boss_fight_nightmare" then
 			Life._life = 1
-		   Life._MaxLife = 1		
+		   Life._MaxLife = 1	
+		elseif GetMapName() == "epic_boss_fight_event" then
+			Life._life = 1
+		   Life._MaxLife = 1		   
 		end
 		
 		GameRules._live = Life._life

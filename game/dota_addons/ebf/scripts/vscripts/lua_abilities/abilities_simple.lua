@@ -197,7 +197,7 @@ function evil_core_summon(keys)
         end
     end
     local sfx=""
-        if GetMapName() == "epic_boss_fight_impossible" or GetMapName() == "epic_boss_fight_challenger" or GetMapName() == "epic_boss_fight_nightmare" then 
+        if GetMapName() == "epic_boss_fight_impossible" or GetMapName() == "epic_boss_fight_challenger" or GetMapName() == "epic_boss_fight_nightmare" or GetMapName() == "epic_boss_fight_event" then 
             sfx="_vh" 
         elseif GetMapName() == "epic_boss_fight_hard" or GetMapName() == "epic_boss_fight_boss_master" then
             sfx="_h"  
@@ -205,7 +205,7 @@ function evil_core_summon(keys)
 
     local number = 1
 
-    if GetMapName() == "epic_boss_fight_challenger" or GetMapName() == "epic_boss_fight_nightmare" then 
+    if GetMapName() == "epic_boss_fight_challenger" or GetMapName() == "epic_boss_fight_nightmare" or GetMapName() == "epic_boss_fight_event" then 
         number = 2
     end
 
@@ -811,7 +811,7 @@ function boss_death_time( keys )
         caster:GetTeamNumber(), origin, caster, FIND_UNITS_EVERYWHERE, targetTeam, targetType, targetFlag, FIND_CLOSEST, false)
     for _,unit in pairs( units ) do
         local particle = ParticleManager:CreateParticle("particles/generic_aoe_persistent_circle_1/death_timer_glow_rev.vpcf",PATTACH_POINT_FOLLOW,unit)
-        if GetMapName() == "epic_boss_fight_impossible" or GetMapName() == "epic_boss_fight_challenger" or GetMapName() == "epic_boss_fight_nightmare" or GetMapName() == "epic_boss_fight_boss_master" then timer = 4.0 else timer = 5.0 end
+        if GetMapName() == "epic_boss_fight_impossible" or GetMapName() == "epic_boss_fight_challenger" or GetMapName() == "epic_boss_fight_nightmare" or GetMapName() == "epic_boss_fight_boss_master" or GetMapName() == "epic_boss_fight_event" then timer = 4.0 else timer = 5.0 end
         ability:ApplyDataDrivenModifier( caster, unit, "target_warning", {duration = timer} )
         Timers:CreateTimer(timer,function()
 			if GameRules:IsGamePaused()	then return 0.1 end
@@ -849,7 +849,7 @@ function Chronosphere( keys )
 
     -- Special Variables
     local duration = 5
-    if GetMapName() == "epic_boss_fight_impossible" or GetMapName() == "epic_boss_fight_challenger" or GetMapName() == "epic_boss_fight_nightmare" or GetMapName() == "epic_boss_fight_boss_master" then duration = 4.0 else duration = 5.0 end
+    if GetMapName() == "epic_boss_fight_impossible" or GetMapName() == "epic_boss_fight_challenger" or GetMapName() == "epic_boss_fight_nightmare" or GetMapName() == "epic_boss_fight_boss_master" or GetMapName() == "epic_boss_fight_event" then duration = 4.0 else duration = 5.0 end
 
     -- Dummy
     local dummy_modifier = keys.dummy_aura
@@ -990,7 +990,7 @@ function projectile_death_orbs_hit( event )
             target.NoTombStone = false
         end)
     else 
-        if GetMapName() == "epic_boss_fight_impossible" or GetMapName() == "epic_boss_fight_challenger" or GetMapName() == "epic_boss_fight_nightmare" or GetMapName() == "epic_boss_fight_boss_master" then
+        if GetMapName() == "epic_boss_fight_impossible" or GetMapName() == "epic_boss_fight_challenger" or GetMapName() == "epic_boss_fight_nightmare" or GetMapName() == "epic_boss_fight_boss_master" or GetMapName() == "epic_boss_fight_event" then
             target:SetHealth( math.ceil(target:GetHealth()*0.33 + 1 ) )
         elseif GetMapName() == "epic_boss_fight_hard"then
             target:SetHealth( math.ceil(target:GetHealth()*0.5 + 1 ) )
@@ -1041,7 +1041,7 @@ function hell_tempest_charge( event )
             if caster.charge < caster:GetMaxMana() then
                 caster.charge = caster.charge + 0.25
                 caster:SetMana(math.ceil(caster.charge)) 
-                if GetMapName() == "epic_boss_fight_impossible" or GetMapName() == "epic_boss_fight_challenger" or GetMapName() == "epic_boss_fight_nightmare" or GetMapName() == "epic_boss_fight_boss_master" then
+                if GetMapName() == "epic_boss_fight_impossible" or GetMapName() == "epic_boss_fight_challenger" or GetMapName() == "epic_boss_fight_nightmare" or GetMapName() == "epic_boss_fight_boss_master" or GetMapName() == "epic_boss_fight_event" then
                     return 0.03
                 else
                     return 0.1
@@ -1200,7 +1200,7 @@ function doom_bringer_boss( event )
     local particle = ParticleManager:CreateParticle("particles/units/heroes/hero_doom_bringer/doom_bringer_doom_ring.vpcf",PATTACH_POINT_FOLLOW,target)
     local duration = 15
 	local hp_pct = 0.98
-	if GetMapName() == "epic_boss_fight_impossible" or GetMapName() == "epic_boss_fight_challenger" or GetMapName() == "epic_boss_fight_nightmare" then
+	if GetMapName() == "epic_boss_fight_impossible" or GetMapName() == "epic_boss_fight_challenger" or GetMapName() == "epic_boss_fight_nightmare" or GetMapName() == "epic_boss_fight_event" then
 		hp_pct = 0.92
 	elseif GetMapName() == "epic_boss_fight_hard" then
 		hp_pct = 0.95

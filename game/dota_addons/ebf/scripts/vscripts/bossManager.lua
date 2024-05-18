@@ -138,6 +138,8 @@ function GetGameDifficulty()
 		return 2
 	elseif GetMapName() == "epic_boss_fight_nightmare" then
 		return 3
+	elseif GetMapName() == "epic_boss_fight_event" then
+		return 3
 	else
 		return 0
 	end

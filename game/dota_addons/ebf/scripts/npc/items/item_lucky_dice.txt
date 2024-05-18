@@ -1,0 +1,323 @@
+"DOTAAbilities"
+{
+	//=================================================================================================================
+	// Recipe: lucky_dice_2
+	//=================================================================================================================
+	"item_recipe_lucky_dice"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_soul_booster"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"1110"
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_lucky_dice"
+		"ItemRequirements"
+		{
+			"01"						"item_vitality_booster;item_vitality_booster;item_pers"
+		}
+	}
+	//=================================================================================================================
+	// lucky_dice_
+	//=================================================================================================================
+	"item_lucky_dice"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_lucky_dice"
+		"AbilityTextureName"			"lucky_dice/lucky_dice"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"1220"
+		"ItemShopTags"					"damage;unique"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"lucky_dice_"
+		"ItemDeclarations"				"DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_health"
+			{
+				"value"							"500"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_health_regen"
+			{
+				"value"							"6.5"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_mana_regen"					"2.25"
+			"bonus_chance"						"15"
+		}
+	}
+	//=================================================================================================================
+	// Recipe: lucky_dice_2
+	//=================================================================================================================
+	"item_recipe_lucky_dice_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_soul_booster"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"3160"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_lucky_dice_2"
+		"ItemRequirements"
+		{
+			"01"						"item_lucky_dice"
+		}
+	}
+	
+	//=================================================================================================================
+	// lucky_dice_
+	//=================================================================================================================
+	"item_lucky_dice_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_lucky_dice"
+		"AbilityTextureName"			"lucky_dice/lucky_dice_2"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"1220"
+		"ItemShopTags"					"damage;unique"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"lucky_dice_"
+		"ItemDeclarations"				"DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_health"
+			{
+				"value"							"1000"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_health_regen"
+			{
+				"value"							"13"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_mana_regen"					"5.5"
+			"bonus_chance"						"30"
+		}
+	}
+	//=================================================================================================================
+	// Recipe: lucky_dice_3
+	//=================================================================================================================
+	"item_recipe_lucky_dice_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_soul_booster"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"6690"
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_lucky_dice_3"
+		"ItemRequirements"
+		{
+			"01"						"item_lucky_dice_2"
+		}
+	}
+	//=================================================================================================================
+	// lucky_dice_
+	//=================================================================================================================
+	"item_lucky_dice_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"										"item_lua"
+		"ScriptFile"									"items/item_lucky_dice"
+		"AbilityTextureName"							"lucky_dice/lucky_dice_3"
+		"AbilityBehavior"								"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		"ItemKillable"									"1"
+		"ItemSellable"             					    "1"
+		"ItemDroppable"            					    "1"
+		
+		"ItemCost"										"3135"
+		"ItemShopTags"									"damage;unique"
+		"ItemQuality"									"artifact"
+		"ItemAliases"									"lucky_dice_"
+		"ItemDisassembleRule"							"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		"ItemDeclarations"								"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_health"
+			{
+				"value"							"2000"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_health_regen"
+			{
+				"value"							"26"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_mana_regen"					"7.75"
+			"bonus_chance"						"50"
+		}
+	}
+	//=================================================================================================================
+	// Recipe: Divine lucky_dice_
+	//=================================================================================================================
+	"item_recipe_lucky_dice_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_soul_booster"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"16715"
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_lucky_dice_4"
+		"ItemRequirements"
+		{
+			"01"						"item_lucky_dice_3"
+		}
+	}
+
+	//=================================================================================================================
+	// divine soul
+	//=================================================================================================================
+	"item_lucky_dice_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"										"item_lua"
+		"ScriptFile"									"items/item_lucky_dice"
+		"AbilityTextureName"							"lucky_dice/lucky_dice_4"
+		"AbilityBehavior"								"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		"ItemKillable"									"1"
+		"ItemSellable"             					    "1"
+		"ItemDroppable"            					    "1"
+		
+		"ItemCost"										"3135"
+		"ItemShopTags"									"damage;unique"
+		"ItemQuality"									"artifact"
+		"ItemAliases"									"lucky_dice_"
+		"ItemDisassembleRule"							"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		"ItemDeclarations"								"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_health"
+			{
+				"value"							"4000"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_health_regen"
+			{
+				"value"							"52"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_mana_regen"					"10"
+			"bonus_chance"						"80"
+		}
+	}
+	//=================================================================================================================
+	// Recipe: Divine lucky_dice_
+	//=================================================================================================================
+	"item_recipe_lucky_dice_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_soul_booster"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"47455"
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_lucky_dice_5"
+		"ItemRequirements"
+		{
+			"01"						"item_lucky_dice_4"
+		}
+	}
+
+	//=================================================================================================================
+	// divine soul
+	//=================================================================================================================
+	"item_lucky_dice_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"										"item_lua"
+		"ScriptFile"									"items/item_lucky_dice"
+		"AbilityTextureName"							"lucky_dice/lucky_dice_5"
+		"AbilityBehavior"								"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		"ItemKillable"									"1"
+		"ItemSellable"             					    "1"
+		"ItemDroppable"            					    "1"
+		
+		"ItemCost"										"3135"
+		"ItemShopTags"									"damage;unique"
+		"ItemQuality"									"artifact"
+		"ItemAliases"									"lucky_dice_"
+		"ItemDisassembleRule"							"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		"ItemDeclarations"								"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_health"
+			{
+				"value"									"8000"
+				"CalculateAttributeTooltip"				"1"
+			}
+			"bonus_health_regen"
+			{
+				"value"									"104"
+				"CalculateAttributeTooltip"				"1"
+			}
+			"bonus_mana_regen"							"12.25"
+			"bonus_chance"								"120"
+		}
+	}
+}

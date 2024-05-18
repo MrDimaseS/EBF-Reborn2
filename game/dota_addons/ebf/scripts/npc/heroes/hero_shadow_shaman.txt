@@ -7,6 +7,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_shadow_shaman/shadow_shaman_ether_shock"
+		"AbilityTextureName"			"shadow_shaman_ether_shock"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
@@ -34,9 +37,9 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"start_radius"								"200 200 200 200"
-			"end_radius"								"300 300 300 300"
-			"end_distance"								"500 500 500 500"
+			"start_radius"								"200"
+			"end_radius"								"300"
+			"end_distance"								"600"
 			"targets"									"10"
 			"damage"
 			{
@@ -58,7 +61,7 @@
 		"BaseClass"						"ability_lua"
 		"ScriptFile"					"heroes/hero_shadow_shaman/shadow_shaman_voodoo"
 		"AbilityTextureName"			"shadow_shaman_voodoo"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AUTOCAST"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
 		"FightRecapLevel"				"1"
@@ -73,11 +76,7 @@
 			"movespeed"									"110 110 100 100 100 90"
 			"duration"									"1.25 2.0 2.75 3.5 3.75 4 4.25"
 			"linger_duration"							"0.75"
-			"cast_range"
-			{
-				"value"									"0"
-				"special_bonus_unique_shadow_shaman_7"	"+500"
-			}
+			"AbilityCastRange"							"500"
 			"ally_duration"
 			{
 				"value"									"0"
@@ -115,8 +114,8 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
 		"FightRecapLevel"				"1"
 
-		"HasShardUpgrade"               "1"
 		"MaxLevel"						"7"
+		"HasShardUpgrade"               "0"
 		"LevelsBetweenUpgrades"			"3"
 
 		// Casting
@@ -196,7 +195,8 @@
 		"FightRecapLevel"				"2"
 		"AbilitySound"					"Hero_ShadowShaman.SerpentWard"
 
-		"HasScepterUpgrade"			"1"
+		"HasScepterUpgrade"				"1"
+		"HasShardUpgrade"               "1"
 		"MaxLevel"						"6"
 		"LevelsBetweenUpgrades"			"6"
 
@@ -208,11 +208,11 @@
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"130 120 110 105.75 101.55 97.35"
+		"AbilityCooldown"								"110"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"200 550 900 1250 1600 1950 2300"
+		"AbilityManaCost"								"200 350 550 800 1050 1300"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -229,19 +229,32 @@
 			"duration"									"45.0 45.0 45.0"
 			"scepter_range"
 			{
-				"value"									"225"
+				"value"									"325"
 				"RequiresScepter"						"1"
 			}
-			"spawn_radius"								"150"
-			"hits_to_destroy_tooltip"
+			"scepter_attack_speed"
 			{
-				"value"									"2"
-				"special_bonus_unique_shadow_shaman_1"	"+1"
+				"value"									"100"
+				"RequiresScepter"						"1"
 			}
-			"hits_to_destroy_tooltip_creeps"
+			"shard_radius"
 			{
-				"value"									"4"
-				"special_bonus_unique_shadow_shaman_1"	"+2"
+				"value"									"325"
+				"RequiresShard"							"1"
+			}
+			"shard_duration"
+			{
+				"value"									"7"
+				"RequiresShard"							"1"
+			}
+			"spawn_radius"								"150"
+			"hits_to_destroy_tooltip"					"2"
+			"hits_to_destroy_tooltip_creeps"			"4"
+			
+			"ether_shock_on_death"
+			{
+				"value"									"0"
+				"special_bonus_unique_shadow_shaman_4"	"=1"
 			}
 		}
 	}

@@ -13,8 +13,10 @@ function item_nullifier:OnProjectileHit( target, position )
 		local caster = self:GetCaster()
 		
 		local modifierName = TernaryOperator( self:GetAlliedModifierName(), caster:IsSameTeam( target ), self:GetEnemyModifierName() )
-		target:AddNewModifier( caster, self, modifierName, {duration = self:GetSpecialValueFor("duration")} )
-		EmitSoundOn( self:GetTargetSoundName(), target )
+		if target:IsSameTeam( caster ) or not target:TriggerSpellAbsorb( self ) then
+			target:AddNewModifier( caster, self, modifierName, {duration = self:GetSpecialValueFor("duration")} )
+			EmitSoundOn( self:GetTargetSoundName(), target )
+		end
 	end
 end
 

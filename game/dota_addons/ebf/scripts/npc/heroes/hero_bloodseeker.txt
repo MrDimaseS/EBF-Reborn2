@@ -7,6 +7,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_bloodseeker/bloodseeker_bloodrage"
+		"AbilityTextureName"			"bloodseeker_bloodrage"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
@@ -29,7 +32,7 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"14 12 10 8 6.8 5.7 4.6"
+		"AbilityCooldown"				"8"
 		
 		// Cast Range
 		//-------------------------------------------------------------------------------------------------------------
@@ -43,21 +46,34 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"						"8"
+			"duration"										"8"
 			"attack_speed"		
 			{
 				"value"										"60 90 120 150 180 210 240"
-					"special_bonus_unique_bloodseeker_5"	"+25"
+				"special_bonus_unique_bloodseeker_5"		"+35"
 			}
 			"spell_amp"		
 			{
-				"value"										"15 20 30 45 65 90 120"
-				"special_bonus_unique_bloodseeker_6"		"+25"
+				"value"										"15 20 25 30 35 40 45"
+				"special_bonus_unique_bloodseeker_6"		"+10"
+				"CalculateAttributeTooltip"					"1"
+			}
+			"allied_attack_speed"		
+			{
+				"value"										"30 45 60 75 90 105 120"
+				"special_bonus_unique_bloodseeker_5"		"+35"
+			}
+			"allied_spell_amp"		
+			{
+				"value"										"5 10 15 20 25 30 35"
+				"special_bonus_unique_bloodseeker_6"		"+10"
+				"CalculateAttributeTooltip"					"1"
 			}
 			"damage_pct"
 			{
 				"value"										"1.5"
 				"DamageTypeTooltip"							"DAMAGE_TYPE_PURE"
+				"CalculateSpellDamageTooltip"				"0"
 			}
 			"shard_max_health_dmg"		
 			{
@@ -103,16 +119,28 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"radius"									"600"
-			"silence_duration"							"6"
+			"radius"
+			{
+				"value"													"600"
+				"special_bonus_unique_bloodseeker_instant_bloodrite"	"+50%"
+			}
+			"silence_duration"											"6"
 			"damage"
 			{
-				"value"									"1100 1800 2500 3200 3900 4600 5300"
-				"CalculateSpellDamageTooltip"			"1"
-				"special_bonus_unique_bloodseeker_2"	"+100%"
+				"value"													"1100 1800 2500 3200 3900 4600 5300"
+				"CalculateSpellDamageTooltip"							"1"
+				"special_bonus_unique_bloodseeker_2"					"+100%"
 			}
-			"delay"							"2.6"
-			"delay_plus_castpoint_tooltip"	"2.9"
+			"delay"
+			{
+				"value"													"2.6"
+				"special_bonus_unique_bloodseeker_instant_bloodrite"	"-2.6"
+			}
+			"delay_plus_castpoint_tooltip"
+			{
+				"value"													"2.9"
+				"special_bonus_unique_bloodseeker_instant_bloodrite"	"-2.6"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -140,52 +168,16 @@
 			"min_bonus_pct"					"80"
 			"bonus_movement_speed"
 			{
-				"value"						"32 48 64 80 96 112 128"
+				"value"						"16 24 32 40 48 56 64"
 				"LinkedSpecialBonus"		"special_bonus_unique_bloodseeker_4"
 			}			
-			"hero_kill_heal"				"3.0 4.5 6.0 7.5 9.0 10.5 12.0"
-			"creep_kill_heal"				"3.3 4.2 5.1 6.0 6.9 7.8 8.7"
-			"half_bonus_aoe"				"300"
+			"hero_kill_heal"				"2.0 2.5 3.0 3.5 4.0 4.5 5.0"
+			"creep_pct"						"25"
+			"kill_pct"						"400"
 			"max_bonus_pct"					"25"
+			"heal_duration"					"2.0"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
-	}
-	
-	"Blood_Seeker_Blood_Smell"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"ability_datadriven"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityTextureName"			"bloodseeker_thirst"
-		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
-
-		"AbilitySpecial"
-	    {
-	        "01"
-	        {
-	            "var_type"              "FIELD_FLOAT"
-	            "percent"                "0.5 1.0 1.5 2.0 3.5 4.25 5.0"
-	        }
-	    }
-
-	    "Modifiers"
-	    {
-	    	"blood_passive"
-	    	{
-	    		"IsHidden"	 "1"
-				"Passive"	 "1"
-				"OnAttackLanded"
-				{
-   					"RunScript"
-				    {
-				        "ScriptFile" "lua_abilities/abilities_simple.lua"
-				        "Function" "Blood_Seeker_Blood_Smell"
-				    }
-				}
-			}
-	    }
 	}
 	//=================================================================================================================
 	// Ability: Bloodseeker's Rupture
@@ -194,6 +186,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_bloodseeker/bloodseeker_rupture"
+		"AbilityTextureName"			"bloodseeker_rupture"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
@@ -216,10 +211,6 @@
 		"AbilityCastPoint"				"0.4"
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_6"
 
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"70"
-
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"100 150 200 250 300 350 400"
@@ -232,32 +223,38 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"										"12"
-			"movement_damage_pct"		
+			"duration"												"12"
+			"movement_damage_pct"									"100"
+			"damage_per_second"		
 			{
-				"value"										"350 450 550 650 750 850"
-				"CalculateSpellDamageTooltip"				"1"
+				"value"												"1050 1350 1650 1950 2250 2550"
+				"CalculateSpellDamageTooltip"						"1"
 			}
 			"hp_pct"
 			{
-				"value"										"10"
-				"special_bonus_unique_bloodseeker_7"		"+2.5"	
-				"CalculateSpellDamageTooltip"				"0"			
-			}
-			"damage_cap_amount"			
-			{
-				"value"										"200"
-				"CalculateSpellDamageTooltip"				"1"
+				"value"												"10"
+				"special_bonus_unique_bloodseeker_7"				"+2.5"	
+				"CalculateSpellDamageTooltip"						"0"			
 			}
 			"AbilityCastRange"			
 			{
-				"value"	"800"
-				"special_bonus_unique_bloodseeker_3"		"+475"				
+				"value"												"800"
+				"special_bonus_unique_bloodseeker_3"				"+475"				
 			}
 			"AbilityCharges"		
 			{
-				"value"	"0"
-				"special_bonus_unique_bloodseeker_rupture_charges"	"+2"
+				"value"												"1"
+				"special_bonus_unique_bloodseeker_rupture_charges"	"+1"
+			}
+			"AbilityCooldown"				
+			{
+				"value"												"65"
+				"special_bonus_unique_bloodseeker_rupture_charges"	"=0.25"
+			}
+			"AbilityChargeRestoreTime"		
+			{
+				"value"												"0"
+				"special_bonus_unique_bloodseeker_rupture_charges"	"=65"
 			}
 		}
 	}
@@ -300,6 +297,7 @@
 			"radius"				"450"
 			"movement_slow"			"25"
 			"thirst_bonus_pct"		"100"
+			"mist_max_barrier"		"50"
 		}
 	}
 	//=================================================================================================================
@@ -440,11 +438,21 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"BaseClass"						"special_bonus_base"		
 	}
-
 	//=================================================================================================================
 	// Ability: Special Bonus
 	//=================================================================================================================
 	"special_bonus_unique_bloodseeker_rupture_charges"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
+	}
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_bloodseeker_instant_bloodrite"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------

@@ -1186,11 +1186,15 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_chance"						"30"
+			"bonus_chance"
+			{
+				"value"								"30"
+				"affected_by_chance_increase"		"1"
+			}
 			"bonus_chance_damage"
 			{
-				"value"							"60"
-				"CalculateSpellDamageTooltip"	"1"
+				"value"								"60"
+				"CalculateSpellDamageTooltip"		"1"
 			}
 		}
 	}
@@ -2985,15 +2989,27 @@
 				"value"							"50"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"crit_chance"						"30"
+			"crit_chance"
+			{
+				"value"								"30"
+				"affected_by_chance_increase"		"1"
+			}
 			"spell_crit_multiplier"				"75"
 			"spell_crit_flat"
 			{
 				"value"							"750"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"crit_multiplier"					"160"
-			"tooltip_crit_damage"				"60"
+			"crit_multiplier"
+			{
+				"value"								"160"
+				"affected_by_crit_increase"			"1"
+			}
+			"tooltip_crit_damage"
+			{
+				"value"								"60"
+				"affected_by_crit_increase"			"1"
+			}
 			"bonus_health"
 			{
 				"value"							"200"
@@ -3678,7 +3694,7 @@
 				"CalculateAttributeTooltip"		"1"
 			}
 			"bonus_hp_per_str"					"3"
-			"bonus_hp_regen_per_str"			"0.15"
+			"bonus_hp_regen_per_str"			"0.1"
 			
 			"duration"							"12"
 			"power_multiplier"					"25"
@@ -3933,7 +3949,11 @@
 				"value"							"35"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"bonus_chance"						"80"
+			"bonus_chance"
+			{
+				"value"							"80"
+				"affected_by_chance_increase"	"1"
+			}
 			"bonus_chance_damage"
 			{
 				"value"							"70"
@@ -4118,12 +4138,20 @@
 		{
 			"bonus_damage"
 			{
-				"value"							"32"
-				"CalculateAttributeTooltip"		"1"
+				"value"								"32"
+				"CalculateAttributeTooltip"			"1"
 			}
-			"crit_chance"						"30"
-			"crit_multiplier"					"160"
-			"tooltip_crit_damage"				"60"
+			"crit_chance"
+			{
+				"value"								"30"
+				"affected_by_chance_increase"		"1"
+			}
+			"crit_multiplier"
+			{
+				"value"								"160"
+				"affected_by_crit_increase"			"1"
+			}
+			"tooltip_crit_damage"					"60"
 		}
 	}
 	//=================================================================================================================
@@ -4137,7 +4165,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"425"	
+		"ItemCost"						"225"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -4156,6 +4184,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"AbilityTextureName"			"item_greater_crit"
+		"ScriptFile"					"items/item_crit"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 
 		// Item Info
@@ -4172,11 +4203,20 @@
 		{
 			"bonus_damage"
 			{
-				"value"							"88"
-				"CalculateAttributeTooltip"		"1"
+				"value"								"88"
+				"CalculateAttributeTooltip"			"1"
 			}
-			"crit_chance"				"30"
-			"crit_multiplier"			"225"
+			"crit_chance"
+			{
+				"value"								"30"
+				"affected_by_chance_increase"		"1"
+			}
+			"crit_multiplier"
+			{
+				"value"								"180"
+				"affected_by_crit_increase"			"1"
+			}
+			"bonus_crit"							"10"
 		}
 	}
 	//=================================================================================================================
@@ -4582,8 +4622,16 @@
 			"backstab_duration"					"4"
 			"backstab_slow"						"100"
 			
-			"bash_chance_melee"					"25"
-			"bash_chance_ranged"				"10"
+			"bash_chance_melee"
+			{
+				"value"							"20"
+				"affected_by_chance_increase"	"1"
+			}
+			"bash_chance_ranged"
+			{
+				"value"							"15"
+				"affected_by_chance_increase"	"1"
+			}
 			"bash_duration"						"1.2"
 			"bash_cooldown"						"5.0"
 			"bonus_chance_damage"
@@ -4935,7 +4983,11 @@
 			}
 			"bonus_attack_speed"				"30"
 			
-			"chain_chance"						"30"
+			"chain_chance"
+			{
+				"value"								"30"
+				"affected_by_chance_increase"		"1"
+			}
 			"chain_damage"
 			{
 				"value"							"160"
@@ -5027,7 +5079,11 @@
 			"static_duration"					"15.0"
 			"static_attack_speed"				"40"
 			
-			"chain_chance"						"30"
+			"chain_chance"
+			{
+				"value"								"30"
+				"affected_by_chance_increase"		"1"
+			}
 			"chain_damage"
 			{
 				"value"							"180"
@@ -5245,7 +5301,11 @@
 			}
 			"bonus_attack_speed"				"25"
 			
-			"chain_chance"						"30"
+			"chain_chance"
+			{
+				"value"								"30"
+				"affected_by_chance_increase"		"1"
+			}
 			"chain_damage"
 			{
 				"value"							"120"
@@ -5312,7 +5372,10 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"								"item_lua"
+		"ScriptFile"							"items/item_desolator"
+		"AbilityTextureName"					"item_desolator"
+		"AbilityBehavior"						"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
@@ -5333,6 +5396,8 @@
 			}
 			"corruption_armor"					"-3"
 			"corruption_duration"				"7.0"
+			"kill_bonus_damage"					"75"
+			"kill_duration"						"10"
 		}
 	}
 	//=================================================================================================================
@@ -5509,6 +5574,59 @@
 			"berserk_bonus_movement_speed"		"30"
 			"berserk_armor_reduction"			"8"
 			"berserk_duration"					"6.0"
+		}
+	}
+	//=================================================================================================================
+	// Recipe: Perseverence
+	//=================================================================================================================
+	"item_recipe_pers"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_pers"
+		"ItemPurchasable"				"0"
+		"ItemRequirements"
+		{
+			"01"						"item_ring_of_health;item_void_stone"
+		}
+	}
+	
+	//=================================================================================================================
+	// Perseverence
+	//=================================================================================================================
+	"item_pers"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+ 
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"1400"
+		"ItemShopTags"					"regen_health;regen_mana"		
+		"ItemQuality"					"common"
+		"ItemAliases"					"perseverance"
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_health_regen"
+			{
+				"value"							"6.5"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_mana_regen"		"2.25"
 		}
 	}
 	//=================================================================================================================
@@ -6406,8 +6524,16 @@
 				"value"							"10"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"bash_chance_melee"					"15"
-			"bash_chance_ranged"				"6"
+			"bash_chance_melee"
+			{
+				"value"							"15"
+				"affected_by_chance_increase"	"1"
+			}
+			"bash_chance_ranged"
+			{
+				"value"							"12"
+				"affected_by_chance_increase"	"1"
+			}
 			"bash_duration"						"2"
 			"bash_cooldown"						"5.0"
 			"bash_cooldown_ranged"				"9.0"
@@ -6506,8 +6632,16 @@
 				"CalculateAttributeTooltip"		"1"
 			}
 			
-			"bash_chance_melee"					"15"
-			"bash_chance_ranged"				"6"
+			"bash_chance_melee"
+			{
+				"value"							"25"
+				"affected_by_chance_increase"	"1"
+			}
+			"bash_chance_ranged"
+			{
+				"value"							"20"
+				"affected_by_chance_increase"	"1"
+			}
 			"bash_duration"						"2"
 			"bash_cooldown"						"5.0"
 			"bash_cooldown_ranged"				"9.0"
@@ -6525,7 +6659,11 @@
 			"active_multiplier"					"100"
 			
 			"block_damage_pct"					"60"
-			"block_chance"						"50"
+			"block_chance"
+			{
+				"value"							"50"
+				"affected_by_chance_increase"	"1"
+			}
 		}
 	}
 	//=================================================================================================================

@@ -34,11 +34,10 @@ function modifier_ogre_magi_dumb_luck_passive:OnRefresh()
 	local caster = self:GetCaster()
 	local strength = caster:GetStrength()
 	
-	self.mana_per_str = self:GetSpecialValueFor("mana_per_str") * strength
-	self.mana_regen_per_str = self:GetSpecialValueFor("mana_regen_per_str") * strength
-	self.spell_amp_per_str = self:GetSpecialValueFor("spell_amp_per_str") * strength
 	self.str_for_benefit = self:GetSpecialValueFor("str_for_benefit")
-	self.multicast_per_str = strength * self:GetSpecialValueFor("multicast_per_str") / 100
+	self.mp_restore_per_str = self:GetSpecialValueFor("mp_restore_per_str") * (strength / self.str_for_benefit)
+	self.spell_amp_per_str = self:GetSpecialValueFor("spell_amp_per_str") * (strength / self.str_for_benefit)
+	self.multicast_per_str = strength * self:GetSpecialValueFor("multicast_per_str")
 	
 	self.multicast = caster:FindAbilityByName("ogre_magi_multicast")
 	if self.multicast and self.multicast:GetLevel() > 0 then
@@ -74,8 +73,7 @@ function modifier_ogre_magi_dumb_luck_passive:OnRefresh()
 end
 
 function modifier_ogre_magi_dumb_luck_passive:DeclareFunctions()
-	return {MODIFIER_PROPERTY_MANA_BONUS,
-			MODIFIER_PROPERTY_MANA_REGEN_CONSTANT,
+	return {MODIFIER_PROPERTY_MP_REGEN_AMPLIFY_PERCENTAGE,
 			MODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE,
 			MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL, 
 			MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL_VALUE,
@@ -83,12 +81,8 @@ function modifier_ogre_magi_dumb_luck_passive:DeclareFunctions()
 			}
 end
 
-function modifier_ogre_magi_dumb_luck_passive:GetModifierManaBonus()
-	return self.mana_per_str
-end
-
-function modifier_ogre_magi_dumb_luck_passive:GetModifierConstantManaRegen()
-	return self.mana_regen_per_str
+function modifier_ogre_magi_dumb_luck_passive:GetModifierMPRegenAmplify_Percentage()
+	return self.mp_restore_per_str
 end
 
 function modifier_ogre_magi_dumb_luck_passive:GetModifierSpellAmplify_Percentage()

@@ -1,5 +1,9 @@
 bloodseeker_blood_mist = class({})
 
+function bloodseeker_blood_mist:GetIntrinsicModifierName()
+	return "modifier_bloodseeker_blood_mist_passive"
+end
+
 function bloodseeker_blood_mist:OnToggle()
 	if self:GetToggleState() then
 		self:GetCaster():AddNewModifier( self:GetCaster(), self, "modifier_bloodseeker_blood_mist_toggle", {} )
@@ -36,7 +40,7 @@ function modifier_bloodseeker_blood_mist_toggle:OnIntervalThink()
 	local caster = self:GetCaster()
 	local parent = self:GetParent()
 	
-	ability:DealDamage( caster, parent, parent:GetMaxHealth() * self.damage * self.tick, {damage_type = DAMAGE_TYPE_PURE, damage_flags = DOTA_DAMAGE_FLAG_HPLOSS + DOTA_DAMAGE_FLAG_NON_LETHAL + DOTA_DAMAGE_FLAG_NO_DAMAGE_MULTIPLIERS + DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL } )
+	ability:DealDamage( caster, parent, parent:GetMaxHealth() * self.damage * self.tick, {damage_type = DAMAGE_TYPE_MAGICAL, damage_flags = DOTA_DAMAGE_FLAG_NON_LETHAL + DOTA_DAMAGE_FLAG_NO_DAMAGE_MULTIPLIERS + DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL } )
 end
 
 function modifier_bloodseeker_blood_mist_toggle:IsAura()
@@ -69,9 +73,10 @@ LinkLuaModifier( "modifier_bloodseeker_blood_mist_debuff", "heroes/hero_bloodsee
 function modifier_bloodseeker_blood_mist_debuff:OnCreated()
 	self.damage = self:GetSpecialValueFor("hp_cost_per_second") / 100
 	self.slow = -self:GetSpecialValueFor("movement_slow")
-	self.tick = 0.1
+	self.tick = 1
 	if IsServer() then
 		self:StartIntervalThink(self.tick)
+		self:OnIntervalThink()
 	end
 end
 

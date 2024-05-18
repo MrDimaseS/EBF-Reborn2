@@ -253,7 +253,6 @@
 	{
 		// General
  	//-------------------------------------------------------------------------------------------------------------
-			// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
@@ -468,13 +467,12 @@
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"value"
 			{
-				"var_type"				"FIELD_INTEGER"
-				"value"					"650" // (Astral Step Crit)
-				"ad_linked_abilities"		"void_spirit_astral_step"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+				"value"							"650"
+				"affected_by_crit_increase"		"1"
 			}
 		}
 	}

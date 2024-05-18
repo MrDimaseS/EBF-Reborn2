@@ -4,14 +4,6 @@ function shadow_shaman_voodoo:GetIntrinsicModifierName()
 	return "modifier_shadow_shaman_voodoo_passive"
 end
 
-function shadow_shaman_voodoo:GetBehavior()
-	if self:GetSpecialValueFor("cast_range") > 0 then
-		return DOTA_ABILITY_BEHAVIOR_UNIT_TARGET
-	else
-		return DOTA_ABILITY_BEHAVIOR_PASSIVE
-	end
-end
-
 function shadow_shaman_voodoo:ShouldUseResources()
 	return true
 end
@@ -22,7 +14,7 @@ end
 
 function shadow_shaman_voodoo:CastFilterResultTarget( target )
 	if target ~= self:GetCaster() then
-		return UnitFilter( target, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_NONE, self:GetCaster():GetTeamNumber() )
+		return UnitFilter( target, TernaryOperator( DOTA_UNIT_TARGET_TEAM_BOTH, self:GetSpecialValueFor("ally_duration") > 0, DOTA_UNIT_TARGET_TEAM_ENEMY), DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_NONE, self:GetCaster():GetTeamNumber() )
 	else
 		return UF_FAIL_OTHER
 	end
@@ -34,7 +26,11 @@ function shadow_shaman_voodoo:OnSpellStart()
 	
 	-- cosmetic
 	EmitSoundOn("Hero_ShadowShaman.Hex.Target", caster)
-	target:AddNewModifier(caster, self, "modifier_shadow_shaman_voodoo_effect", {duration = self:GetSpecialValueFor("ally_duration")})
+	if target:IsSameTeam( caster ) then
+		target:AddNewModifier(caster, self, "modifier_shadow_shaman_voodoo_effect", {duration = self:GetSpecialValueFor("ally_duration")})
+	else
+		target:AddNewModifier( caster, self, "modifier_shadow_shaman_voodoo", {duration = self:GetSpecialValueFor("duration")} )
+	end
 	caster:RemoveModifierByName("modifier_shadow_shaman_voodoo_effect")
 end
 
@@ -50,10 +46,14 @@ end
 
 function modifier_shadow_shaman_voodoo_passive:OnIntervalThink()
 	local caster = self:GetCaster()
-	if caster:HasModifier("modifier_shadow_shaman_voodoo_effect") then return end
 	local ability = self:GetAbility()
-	if self:GetAbility():IsCooldownReady() then
-		caster:AddNewModifier( caster, ability, "modifier_shadow_shaman_voodoo_effect", {} )
+	if self:GetAbility():IsCooldownReady() and not self:GetParent():PassivesDisabled() then
+		if caster:HasModifier("modifier_shadow_shaman_voodoo_effect") then return end
+		self.lingerModifier = caster:AddNewModifier( caster, ability, "modifier_shadow_shaman_voodoo_effect", {} )
+	elseif IsModifierSafe( self.lingerModifier ) and self.lingerModifier:GetRemainingTime() < 0 then
+		caster:RemoveModifierByName( "modifier_shadow_shaman_voodoo_effect" )
+	else
+		self.lingerModifier = nil
 	end
 end
 
@@ -73,17 +73,27 @@ function modifier_shadow_shaman_voodoo_effect:OnCreated()
 end
 
 function modifier_shadow_shaman_voodoo_effect:DeclareFunctions()
-	return {MODIFIER_EVENT_ON_TAKEDAMAGE}
+	return {MODIFIER_EVENT_ON_TAKEDAMAGE, MODIFIER_EVENT_ON_ATTACK_START }
+end
+
+function modifier_shadow_shaman_voodoo_effect:OnAttackStart( params )
+	if params.target == self:GetParent() then
+		self:ResolveEffect( params.attacker )
+	end
 end
 
 function modifier_shadow_shaman_voodoo_effect:OnTakeDamage( params )
 	if params.unit == self:GetParent() then
-		if self:GetParent():PassivesDisabled() and self:GetRemainingTime() < 0 then return end
-		if not self.triggered then
-			self.triggered = true
-			self:SetDuration( self.linger_duration, true )
-			self:GetAbility():SetCooldown()
-		end
-		params.attacker:AddNewModifier( self:GetCaster(), self:GetAbility(), "modifier_shadow_shaman_voodoo", {duration = self:GetSpecialValueFor("duration")} )
+		self:ResolveEffect( params.attacker )
 	end
+end
+
+function modifier_shadow_shaman_voodoo_effect:ResolveEffect( target )
+	if (self:GetRemainingTime() < 0 and self.triggered) or ( self:GetAbility():GetAutoCastState() and self:GetCaster() == self:GetParent() ) then return end
+	if not self.triggered then
+		self.triggered = true
+		self:SetDuration( self.linger_duration, true )
+		if self:GetAbility():IsCooldownReady() then self:GetAbility():SetCooldown() end
+	end
+	target:AddNewModifier( self:GetCaster(), self:GetAbility(), "modifier_shadow_shaman_voodoo", {duration = self:GetSpecialValueFor("duration")} )
 end

@@ -243,12 +243,65 @@ let abilityNameWeAreChecking
 let unitWeAreChecking
 let abilityIndexWeAreChecking
 let abilityValues
-function RemoveAbilityChanges( panel, abilityName ){
+
+function ReplaceSpecialValuesInDescription( description, ability )
+{
+	let split_specials = description.split(/[%%]/);
+	for (var i in split_specials ) { // REPLACE SPECIAL VALUES
+		if ( split_specials[i].match(" ") ) {
+		} else if ( split_specials[i].length > 0 ) {
+			var value = Abilities.GetSpecialValueFor( ability, split_specials[i] )
+			let font_colour = "#EEEEEE"
+			
+			if ( Number(value) === value && value % 1 !== 0 ) {
+				value = Math.round( (value*100) ) / 100;
+			}
+			
+			if ( description.match( "%" + split_specials[i] + "%%%") && value!=0 ) {
+				description = description.replace( "%" + split_specials[i] + "%%%","<b><font color='"+font_colour+"'>" + Math.abs(value) + "%</font></b>" );
+			} else if (value!=0) {
+				description = description.replace( "%" + split_specials[i] + "%","<b><font color='"+font_colour+"'>" + Math.abs(value) + "</font></b>" );
+			} else {
+			}
+		}
+	}
+	return description
+}
+
+function RemoveAbilityChanges( panel, abilityName, unitID ){
 	abilityNameWeAreChecking = abilityName
+	
+	let ability = Entities.GetAbilityByName( unitID, abilityName )
+	
 	$.Schedule( 0, function(){
 		const tooltipManager = dotaHud.FindChildTraverse('Tooltips');
 		const tooltipPanel = tooltipManager.FindChildTraverse('DOTAAbilityTooltip');
 		const abilityChanges = tooltipPanel.FindChildTraverse('AbilityGameplayChanges');
+		const abilityScepter = tooltipPanel.FindChildTraverse('ScepterUpgradeDescription');
+		const abilityShard = tooltipPanel.FindChildTraverse('ShardUpgradeDescription');
+		const abilityScepterText = abilityScepter.FindChildrenWithClassTraverse('AbilityDescription')[0];
+		const abilityShardText = abilityShard.FindChildrenWithClassTraverse('AbilityDescription')[0];
+		
+		if (abilityScepterText == undefined && abilityScepterText == null){
+			// $.Msg( "No Scepter" )
+		} else {
+			let token = "#DOTA_Tooltip_Ability_" + abilityNameWeAreChecking + "_scepter_description"
+			let locale = $.Localize( token )
+			
+			locale = ReplaceSpecialValuesInDescription( locale, ability )
+			locale = GameUI.ReplaceDOTAAbilitySpecialValues( abilityName, locale, abilityScepterText );
+			abilityScepterText.text = locale;
+		}
+		if (abilityShardText == undefined && abilityShardText == null){
+			// $.Msg( "No Shard" )
+		} else {
+			let token = "#DOTA_Tooltip_Ability_" + abilityNameWeAreChecking + "_shard_description"
+			let locale = $.Localize( token )
+			
+			locale = ReplaceSpecialValuesInDescription( locale, ability )
+			locale = GameUI.ReplaceDOTAAbilitySpecialValues( abilityName, locale, abilityShardText );
+			abilityShardText.text = locale;
+		}
 		
 		let token = "#DOTA_Tooltip_Ability_" + abilityNameWeAreChecking + "_ebf_changes"
 		let locale = $.Localize( token )
@@ -336,7 +389,7 @@ function UpdateStatsTooltip(){
 	const strGain = strContainer.FindChildTraverse('StrengthGainLabel');
 	const strValues = strContainer.FindChildTraverse('StrengthDetails');
 	strGain.text = '(+' + Math.floor(stats.str_gain*10 + 0.5) / 10 + ' next lvl)'
-	strValues.text = (Math.floor((stats.strength * 22)*10 + 0.5)/10) + ' HP and ' + Math.floor((stats.strength * 0.15)*10 + 0.5) / 10 + ' HP Regen'
+	strValues.text = (Math.floor((stats.strength * 22)*10 + 0.5)/10) + ' HP and ' + Math.floor((stats.strength * 0.008)*10 + 0.5) / 10 + '% Incoming Healing Amp'
 	if(strContainer.BHasClass( "PrimaryAttribute") ){
 		const strDamage = strContainer.FindChildTraverse('StrengthDamageLabel');
 		strDamage.text = (Math.floor((stats.strength * 1.5)*10 + 0.5)/10) + ' Damage, ' + (Math.floor((stats.strength * 0.06)*10 + 0.5)/10) + '% Spell Amp and ' + (Math.floor((stats.strength * 11)*10 + 0.5)/10) + ' HP';
@@ -361,7 +414,7 @@ function UpdateStatsTooltip(){
 	intGain.text =  '(+' + Math.floor(stats.int_gain*10 + 0.5) / 10 + ' next lvl)'
 	
 	const intMR = Math.min( 0.04 * stats.intellect, 0.55*stats.intellect**(Math.log(2)/Math.log(5)) )
-	intValues.text = (Math.floor((stats.intellect*2)*10 + 0.5)/10) + ' MP, ' + (Math.floor((stats.intellect*0.01)*10 + 0.5)/10) + ' MP Regen, ' + (Math.floor((stats.intellect*0.03)*10 + 0.5)/10) + '% Spell Amp and ' + Math.floor(intMR*10 + 0.5)/10 + '% Magic Resist'
+	intValues.text = (Math.floor((stats.intellect*0.01)*10 + 0.5)/10) + '% MP Restore Amp, ' + (Math.floor((stats.intellect*0.03)*10 + 0.5)/10) + '% Spell Amp and ' + Math.floor(intMR*10 + 0.5)/10 + '% Magic Resist'
 	if(intContainer.BHasClass( "PrimaryAttribute") ){
 		const intDamage = intContainer.FindChildTraverse('IntelligenceDamageLabel');
 		intDamage.text = (Math.floor((stats.intellect * 1.5)*10 + 0.5)/10) + ' Damage, ' + (Math.floor((stats.intellect * 0.06)*10 + 0.5)/10) + '% Spell Amp and ' + (Math.floor((stats.intellect * 11)*10 + 0.5)/10) + ' HP';
@@ -412,7 +465,7 @@ function UpdateItemTooltip( panel, unit, itemSlot ){
 	for (const key in panel.inventoryData.AbilityValues) {
 		let localeToken  = "#DOTA_Tooltip_Ability_" + item_name + "_" + key
 		let localizedToken = $.Localize(localeToken)
-		if( localeToken != localizedToken ){
+		if( localeToken != localizedToken && localizedToken != "" ){
 			let attributeType = false;
 			let percentageType = false;
 			if( localizedToken.search( /\+/ ) != -1 ){
@@ -489,7 +542,7 @@ function AlterAbilityDescriptions( ){
 		var description = $.Localize("#DOTA_Tooltip_Ability_" + item_name + "_Description");
 		let split_specials = description.split(/[%%]/);
 		abilityDescription.RemoveAndDeleteChildren();
-		RemoveAbilityChanges();
+		RemoveAbilityChanges( abilityDescription, item_name, unitWeAreChecking );
 		lastRememberedState = lastState;
 		for (var i in split_specials ) { // REPLACE SPECIAL VALUES
 			if ( split_specials[i].match(" ") ) {

@@ -60,22 +60,26 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_hp"				"0"
+			"bonus_hp"							"0"
 			"bonus_move_speed"
 			{
-				"value"						"15 25 35 45 55 65 75"
-				"LinkedSpecialBonus"		"special_bonus_unique_troll_warlord_2"
+				"value"							"15 25 35 45 55 65 75"
+				"LinkedSpecialBonus"			"special_bonus_unique_troll_warlord_2"
 
 			}
 			"bonus_armor"
 			{
-				"value"						"4 6 8 10 12 14 16"
-				"LinkedSpecialBonus"		"special_bonus_unique_troll_warlord"
+				"value"							"4 6 8 10 12 14 16"
+				"LinkedSpecialBonus"			"special_bonus_unique_troll_warlord"
 
 			}
-			"bonus_range"			"350"
-			"ensnare_chance"		"14 15 16 17 18 19 20"
-			"ensnare_duration"		"1.4"
+			"bonus_range"						"350"
+			"ensnare_chance"
+			{
+				"value"							"14 15 16 17 18 19 20"
+				"affected_by_chance_increase"	"1"
+			}
+			"ensnare_duration"					"1.4"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -191,7 +195,11 @@
 				"value"						"5"
 				"special_bonus_unique_troll_warlord_whirling_axes_debuff_duration"				"+2"
 			}
-			"blind_pct"					"60"
+			"blind_pct"
+			{
+				"value"							"60"
+				"affected_by_chance_increase"	"1"
+			}
 			"whirl_duration"			"3.0"
 			"AbilityCooldown"
 			{

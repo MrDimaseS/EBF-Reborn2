@@ -18,7 +18,7 @@ function item_sheepstick:OnSpellStart()
 	local hex = target:AddNewModifier( caster, self, "modifier_sheepstick_debuff", {duration = duration} )
 	while maxUnitsHexed > 0 do
 		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( target:GetAbsOrigin(), self:GetTrueCastRange() ) ) do
-			if not HasValInTable( unitsHexed, enemy ) then
+			if IsEntitySafe( enemy ) and enemy:IsAlive() and not HasValInTable( unitsHexed, enemy )  then
 				table.insert( unitsHexed, enemy )
 				maxUnitsHexed = maxUnitsHexed - 1
 				

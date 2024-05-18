@@ -2,43 +2,18 @@ shadow_shaman_shackles = class({})
 
 function shadow_shaman_shackles:GetChannelTime()
 	self.duration = self:GetSpecialValueFor( "channel_time" )
-
-	if IsServer() then
-		if self.shackleTarget ~= nil then
-			return self.duration
-		end
-
-		return 0.0
-	end
-
 	return self.duration
 end
 
 function shadow_shaman_shackles:OnSpellStart()
 	local hTarget = self:GetCursorTarget()
 	local hCaster = self:GetCaster()
-	self.shackleTarget = hTarget
 	
 	-- cosmetic
 	EmitSoundOn("Hero_ShadowShaman.Shackles.Cast", hCaster)
-
 	
 	if not hTarget:TriggerSpellAbsorb( self ) then
-		hTarget:AddNewModifier(hCaster, self, "modifier_shadow_shaman_bound_shackles", {duration = self:GetSpecialValueFor("channel_time")})
-	end
-	
-	if hCaster:HasShard() then
-		local serpents = hCaster:FindAbilityByName("shadow_shaman_mass_serpent_ward")
-		if serpents and serpents:GetLevel() > 0 then
-			local wards = self:GetSpecialValueFor("shard_ward_count")
-			local duration = self:GetSpecialValueFor("shard_ward_duration")
-			local distance = self:GetSpecialValueFor("shard_ward_spawn_distance")
-			local angle = 360/wards
-			for i = 1, wards do
-				local spawnPos = hTarget:GetAbsOrigin() + RotateVector2D( hCaster:GetForwardVector(), ToRadians( angle * (i-1) ) ) * distance
-				serpents:CreateWard( spawnPos, duration )
-			end
-		end
+		local mod = hTarget:AddNewModifier(hCaster, self, "modifier_shadow_shaman_bound_shackles", {duration = self:GetSpecialValueFor("channel_time")})
 	end
 end
 
@@ -67,7 +42,11 @@ function modifier_shadow_shaman_bound_shackles:OnCreated(kv)
 		ParticleManager:SetParticleControlEnt(shackles, 6, origin, PATTACH_POINT_FOLLOW, "attach_attack2", origin:GetAbsOrigin(), true)
 		
 		self:AddParticle(shackles, false, false, 10, false, false)
+		
+		
 	end
+	self.shackleTargets = self.shackleTargets or {}
+	table.insert( self.shackleTargets, self )
 end
 
 function modifier_shadow_shaman_bound_shackles:OnRefresh()
@@ -90,7 +69,10 @@ end
 function modifier_shadow_shaman_bound_shackles:OnDestroy()
 	StopSoundOn("Hero_ShadowShaman.Shackles", self:GetParent())
 	if IsServer() then
-		self:GetCaster():InterruptChannel()
+		table.removeval(self:GetAbility().shackles, self)
+		if #self:GetAbility().shackles == 0 then
+			self:GetCaster():InterruptChannel()
+		end
 	end
 end
 

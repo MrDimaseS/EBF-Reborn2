@@ -20,7 +20,7 @@
 		"ItemResult"					"item_desolator2"
 		"ItemRequirements"
 		{
-			"01"						"item_desolator;item_greater_crit"
+			"01"						"item_desolator"
 		}
 	}
 	
@@ -31,9 +31,10 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"item_datadriven"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_desolator"
 		"AbilityTextureName"			"desolator/desolator2"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
@@ -43,76 +44,20 @@
 		"ItemAliases"					"desolator"
 		"ItemDeclarations"				"DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
 
-
-		"Modifiers"
-		{
-			"desolator_stat"
-			{
-				"Passive"	 	"1"
-				"Attributes"    "MODIFIER_ATTRIBUTE_MULTIPLE"
-				"IsHidden"		"1"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"		"%bonus_damage"
-				}
-				"OnAttackStart"
-				{
-					"Random"
-					{
-   						"Chance" "%critical_chance"
-   						"OnSuccess"
-   						{
-   							"ApplyModifier"
-							{
-								"ModifierName" 	"critical_strike_deso"
-								"Target" 		"CASTER"
-							}
-   						}
-   						"OnFailure"
-   						{}
-					}
-				}
-				"OnAttackLanded"
-				{
-					"ApplyModifier"
-					{
-						"Target"			"TARGET"
-						"ModifierName"		"modifier_desolator_buff"
-						"Duration"			"%corruption_duration"
-					}
-					
-					"RemoveModifier"
-					{
-						"ModifierName" 	"critical_strike_deso"
-						"Target" 		"CASTER"
-					}
-				}
-			}
-			"critical_strike_deso"
-			{
-				"IsHidden"		"1"
-				"Attributes"        "MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_PREATTACK_CRITICALSTRIKE" 	"%critical_bonus"
-				}
-			}
-		}
-
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
 			"bonus_damage"
 			{
-				"value"							"200"
+				"value"							"110"
 				"CalculateAttributeTooltip"		"1"
 			}
 			"corruption_armor"					"-4"
 			"corruption_duration"				"7.0"
 			
-			"critical_bonus"					"220"
-			"critical_chance"					"30"
+			"kill_bonus_damage"					"100"
+			"kill_duration"						"10"
 		}
 	}
 	//=================================================================================================================
@@ -147,12 +92,15 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"								"item_datadriven"
-		"AbilityTextureName"            "desolator/desolator3"
-		"ItemKillable"                  "1"
-		"ItemSellable"                  "1"
-		"ItemDroppable"                 "1"
-		"AbilityBehavior"						"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"										"item_lua"
+		"ScriptFile"									"items/item_desolator"
+		"AbilityTextureName"							"desolator/desolator3"
+		"AbilityBehavior"								"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		"ItemKillable"									"1"
+		"ItemSellable"             					    "1"
+		"ItemDroppable"            					    "1"
+		
 		"ItemCost"										"3135"
 		"ItemShopTags"									"damage;unique"
 		"ItemQuality"									"artifact"
@@ -160,74 +108,20 @@
 		"ItemDisassembleRule"							"DOTA_ITEM_DISASSEMBLE_ALWAYS"
 		"ItemDeclarations"								"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
 		
-		"Modifiers"
-		{
-			"desolator_stat"
-			{
-				"Passive"	 	"1"
-				"Attributes"    "MODIFIER_ATTRIBUTE_MULTIPLE"
-				"IsHidden"		"1"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"		"%bonus_damage"
-				}
-				"OnAttackStart"
-				{
-					"Random"
-					{
-   						"Chance" "%critical_chance"
-   						"OnSuccess"
-   						{
-   							"ApplyModifier"
-							{
-								"ModifierName" 	"critical_strike_deso"
-								"Target" 		"CASTER"
-							}
-   						}
-   						"OnFailure"
-   						{}
-					}
-				}
-				"OnAttackLanded"
-				{
-					"ApplyModifier"
-					{
-						"Target"			"TARGET"
-						"ModifierName"		"modifier_desolator_buff"
-						"Duration"			"%corruption_duration"
-					}
-					
-					"RemoveModifier"
-					{
-						"ModifierName" 	"critical_strike_deso"
-						"Target" 		"CASTER"
-					}
-				}
-			}
-			"critical_strike_deso"
-			{
-				"IsHidden"		"1"
-				"Attributes"        "MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_PREATTACK_CRITICALSTRIKE" 	"%critical_bonus"
-				}
-			}
-		}
-		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
 			"bonus_damage"
 			{
-				"value"							"400"
+				"value"							"220"
 				"CalculateAttributeTooltip"		"1"
 			}
 			"corruption_armor"					"-5.5"
 			"corruption_duration"				"7.0"
-			"critical_bonus"					"240"
-			"critical_chance"					"35"
+			
+			"kill_bonus_damage"					"125"
+			"kill_duration"						"10"
 		}
 	}
 	//=================================================================================================================
@@ -262,87 +156,36 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"BaseClass"						"item_datadriven"
-		"AbilityTextureName"			"desolator/desolator4"
-		"ItemKillable"					"1"
-		"ItemSellable"					"1"
-		"ItemDroppable"					"1"
-		"ItemCost"						"60000"
-		"ItemShopTags"					"damage;unique;health;divine;T5;damage"
-		"ItemQuality"					"artifact"
-		"ItemAliases"					"soul"
-		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
-		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
-
-		"Modifiers"
-		{
-			"desolator_stat"
-			{
-				"Passive"	 	"1"
-				"Attributes"    "MODIFIER_ATTRIBUTE_MULTIPLE"
-				"IsHidden"		"1"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"		"%bonus_damage"
-				}
-				"OnAttackStart"
-				{
-					"Random"
-					{
-   						"Chance" "%critical_chance"
-   						"OnSuccess"
-   						{
-   							"ApplyModifier"
-							{
-								"ModifierName" 	"critical_strike_deso"
-								"Target" 		"CASTER"
-							}
-   						}
-   						"OnFailure"
-   						{}
-					}
-				}
-				"OnAttackLanded"
-				{
-					"ApplyModifier"
-					{
-						"Target"			"TARGET"
-						"ModifierName"		"modifier_desolator_buff"
-						"Duration"			"%corruption_duration"
-					}
-					
-					"RemoveModifier"
-					{
-						"ModifierName" 	"critical_strike_deso"
-						"Target" 		"CASTER"
-					}
-				}
-			}
-			"critical_strike_deso"
-			{
-				"IsHidden"		"1"
-				"Attributes"        "MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_PREATTACK_CRITICALSTRIKE" 	"%critical_bonus"
-				}
-			}
-		}
+		"BaseClass"										"item_lua"
+		"ScriptFile"									"items/item_desolator"
+		"AbilityTextureName"							"desolator/desolator4"
+		"AbilityBehavior"								"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		
+		"ItemKillable"									"1"
+		"ItemSellable"             					    "1"
+		"ItemDroppable"            					    "1"
+		
+		"ItemCost"										"3135"
+		"ItemShopTags"									"damage;unique"
+		"ItemQuality"									"artifact"
+		"ItemAliases"									"desolator"
+		"ItemDisassembleRule"							"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		"ItemDeclarations"								"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
 			"bonus_damage"
 			{
-				"value"							"800"
+				"value"							"440"
 				"CalculateAttributeTooltip"		"1"
 			}
 			"corruption_armor"					"-7.5"
 			"corruption_duration"				"7.0"
-			"critical_bonus"					"260"
-			"critical_chance"					"40"
+			
+			"kill_bonus_damage"					"150"
+			"kill_duration"						"10"
 		}
 	}
 	//=================================================================================================================
@@ -377,92 +220,36 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"BaseClass"						"item_datadriven"
-		"AbilityTextureName"			"desolator/desolator5"
-		"ItemKillable"					"1"
-		"ItemSellable"					"1"
-		"ItemDroppable"					"1"
-		"ItemCost"						"140000"
-		"ItemShopTags"					"damage;unique;health;bahamut;T6;damage"
-		"ItemQuality"					"artifact"
-		"ItemAliases"					"soul"
-		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
-		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
-
-		"AbilityCastPoint"	"0.0"
-		"AbilityCastPoint"	"1500.0"
-		"AbilityCooldown"	"0"
-		"AbilityManaCost"	"0"
-
-		"Modifiers"
-		{
-			"desolator_stat"
-			{
-				"Passive"	 	"1"
-				"Attributes"    "MODIFIER_ATTRIBUTE_MULTIPLE"
-				"IsHidden"		"1"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"		"%bonus_damage"
-				}
-				"OnAttackStart"
-				{
-					"Random"
-					{
-   						"Chance" "%critical_chance"
-   						"OnSuccess"
-   						{
-   							"ApplyModifier"
-							{
-								"ModifierName" 	"critical_strike_deso"
-								"Target" 		"CASTER"
-							}
-   						}
-   						"OnFailure"
-   						{}
-					}
-				}
-				"OnAttackLanded"
-				{
-					"ApplyModifier"
-					{
-						"Target"			"TARGET"
-						"ModifierName"		"modifier_desolator_buff"
-						"Duration"			"%corruption_duration"
-					}
-					
-					"RemoveModifier"
-					{
-						"ModifierName" 	"critical_strike_deso"
-						"Target" 		"CASTER"
-					}
-				}
-			}
-			"critical_strike_deso"
-			{
-				"IsHidden"		"1"
-				"Attributes"        "MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE"
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_PREATTACK_CRITICALSTRIKE" 	"%critical_bonus"
-				}
-			}
-		}
+		"BaseClass"										"item_lua"
+		"ScriptFile"									"items/item_desolator"
+		"AbilityTextureName"							"desolator/desolator5"
+		"AbilityBehavior"								"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		
+		"ItemKillable"									"1"
+		"ItemSellable"             					    "1"
+		"ItemDroppable"            					    "1"
+		
+		"ItemCost"										"3135"
+		"ItemShopTags"									"damage;unique"
+		"ItemQuality"									"artifact"
+		"ItemAliases"									"desolator"
+		"ItemDisassembleRule"							"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		"ItemDeclarations"								"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
 			"bonus_damage"
 			{
-				"value"							"1600"
+				"value"							"880"
 				"CalculateAttributeTooltip"		"1"
 			}
 			"corruption_armor"					"-10"
 			"corruption_duration"				"7.0"
-			"critical_bonus"					"280"
-			"critical_chance"					"45"
+			
+			"kill_bonus_damage"					"175"
+			"kill_duration"						"10"
 		}
 	}
 }

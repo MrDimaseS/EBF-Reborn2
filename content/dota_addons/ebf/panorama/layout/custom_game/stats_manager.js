@@ -119,6 +119,11 @@ function RemoveAbilityChanges( panel, abilityName ){
 		const tooltipManager = dotaHud.FindChildTraverse('Tooltips');
 		const tooltipPanel = tooltipManager.FindChildTraverse('DOTAAbilityTooltip');
 		const abilityChanges = tooltipPanel.FindChildTraverse('AbilityGameplayChanges');
+		const abilityScepter = tooltipPanel.FindChildTraverse('ScepterUpgradeDescription').FindChildTraverse('AbilityDescription');
+		const abilityShard = tooltipPanel.FindChildTraverse('ShardUpgradeDescription').FindChildTraverse('AbilityDescription');
+		
+		$.Msg( abilityScepter.text )
+		$.Msg( abilityShard.text )
 		
 		let token = "#DOTA_Tooltip_Ability_" + abilityNameWeAreChecking + "_ebf_changes"
 		let locale = $.Localize( token )
@@ -142,6 +147,7 @@ function RemoveAbilityChanges( panel, abilityName ){
 				noteDescription.text = locale;
 			}
 		}
+		if ability
 	} )
 }
 

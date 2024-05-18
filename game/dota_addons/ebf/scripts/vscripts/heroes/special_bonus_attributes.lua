@@ -131,13 +131,13 @@ function modifier_special_bonus_attributes_stat_rescaling:GetAttributes()
   return MODIFIER_ATTRIBUTE_PERMANENT + MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE --+ MODIFIER_ATTRIBUTE_MULTIPLE
 end
 
+HP_AMP_PER_STR = 0.8
+MP_AMP_PER_INT = 0.8
 
 function modifier_special_bonus_attributes_stat_rescaling:OnCreated()
 	self:GetParent()._heroManaType = (CustomNetTables:GetTableValue("hero_attributes", tostring(self:GetParent():entindex())) or {}).mana_type or "Mana"
 	
-	self.baseMana = self:GetCaster()._baseManaForIllusions or self:GetParent():GetIntellect() * 11
-	self:GetParent()._baseManaForIllusions = self.baseMana
-	self.baseManaRegen = self:GetParent():GetIntellect() * 0.04
+	self.baseManaRegen = 10
 	if self:GetParent()._heroManaType ~= "Mana" then
 		self.baseMana = 0
 		self.baseManaRegen = 0
@@ -151,6 +151,8 @@ function modifier_special_bonus_attributes_stat_rescaling:OnCreated()
 	
 	self:GetParent().cooldownModifiers = {}
 	self:GetParent()._aoeModifiersList = {}
+	self:GetParent()._critModifiersList = {}
+	self:GetParent()._chanceModifiersList = {}
 	self.baseArmor = self:GetParent():GetPhysicalArmorBaseValue() + ( self:GetParent():GetAgility() / 6 - 0.065 * self:GetParent():GetAgility() )
 	self:GetParent()._baseArmorForIllusions = self.baseArmor
 	if self:GetParent():IsIllusion() then
@@ -166,7 +168,7 @@ function modifier_special_bonus_attributes_stat_rescaling:OnCreated()
 		elseif self:GetParent()._heroManaType == "Stamina" then
 			Timers:CreateTimer( 0.1, function() self:GetParent():AddNewModifier( self:GetParent(), self:GetAbility(), "modifier_hero_stamina_system", {} ) end )
 		end
-		if self:GetParent():IsRealHero() and not self:GetParent():IsClone() then
+		if not self:GetParent():IsFakeHero() then
 			self:StartIntervalThink( 0.3 )
 		end
 	end
@@ -223,12 +225,44 @@ function modifier_special_bonus_attributes_stat_rescaling:DeclareFunctions()
 		MODIFIER_PROPERTY_EXTRA_HEALTH_PERCENTAGE,
 		MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL,
 		MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL_VALUE,
+		MODIFIER_PROPERTY_HEAL_AMPLIFY_PERCENTAGE_SOURCE,
+		MODIFIER_PROPERTY_LIFESTEAL_AMPLIFY_PERCENTAGE,
+		MODIFIER_PROPERTY_SPELL_LIFESTEAL_AMPLIFY_PERCENTAGE,
+		MODIFIER_PROPERTY_HP_REGEN_AMPLIFY_PERCENTAGE,
+		MODIFIER_PROPERTY_EVASION_CONSTANT,
+		MODIFIER_PROPERTY_MP_REGEN_AMPLIFY_PERCENTAGE
   }
   return funcs
 end
 
+function modifier_special_bonus_attributes_stat_rescaling:GetModifierEvasion_Constant()
+	if self:GetParent():IsStunned() or self:GetParent():IsHexed() or self:GetParent():IsRooted() then
+		return -999
+	end
+end
+
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierAttackSpeedBonus_Constant()
   return self.attackspeed
+end
+
+function modifier_special_bonus_attributes_stat_rescaling:GetModifierHealAmplify_PercentageSource()
+	return HP_AMP_PER_STR * (self:GetParent():GetStrength() / 100)
+end
+
+function modifier_special_bonus_attributes_stat_rescaling:GetModifierHPRegenAmplify_Percentage()
+	return HP_AMP_PER_STR * (self:GetParent():GetStrength() / 100)
+end
+
+function modifier_special_bonus_attributes_stat_rescaling:GetModifierLifestealRegenAmplify_Percentage()
+	return HP_AMP_PER_STR * (self:GetParent():GetStrength() / 100)
+end
+
+function modifier_special_bonus_attributes_stat_rescaling:GetModifierSpellLifestealRegenAmplify_Percentage()
+	return HP_AMP_PER_STR * (self:GetParent():GetStrength() / 100)
+end
+
+function modifier_special_bonus_attributes_stat_rescaling:GetModifierMPRegenAmplify_Percentage()
+	return MP_AMP_PER_INT * (self:GetParent():GetIntellect() / 100)
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierOverrideAbilitySpecial(params)
@@ -241,10 +275,18 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierOverrideAbi
 	if params.ability._processValuesForScaling[special_value] == nil and abilityValues then
 		params.ability._processValuesForScaling[special_value] = {}
 		params.ability._processValuesForScaling[special_value].affected_by_aoe_increase = false
+		params.ability._processValuesForScaling[special_value].affected_by_crit_increase = false
+		params.ability._processValuesForScaling[special_value].affected_by_chance_increase = false
 		params.ability._processValuesForScaling[special_value].affected_by_lvl_increase = false
 		if type(GetAbilityKeyValuesByName(params.ability:GetAbilityName()).AbilityValues[special_value]) == "table" then -- check for adjustments
 			if toboolean(GetAbilityKeyValuesByName(params.ability:GetAbilityName()).AbilityValues[special_value].affected_by_aoe_increase) then
 				params.ability._processValuesForScaling[special_value].affected_by_aoe_increase = true
+			end
+			if toboolean(GetAbilityKeyValuesByName(params.ability:GetAbilityName()).AbilityValues[special_value].affected_by_chance_increase) then
+				params.ability._processValuesForScaling[special_value].affected_by_chance_increase = true
+			end
+			if toboolean(GetAbilityKeyValuesByName(params.ability:GetAbilityName()).AbilityValues[special_value].affected_by_crit_increase) then
+				params.ability._processValuesForScaling[special_value].affected_by_crit_increase = true
 			end
 			if toboolean(GetAbilityKeyValuesByName(params.ability:GetAbilityName()).AbilityValues[special_value].CalculateSpellDamageTooltip)
 			or toboolean(GetAbilityKeyValuesByName(params.ability:GetAbilityName()).AbilityValues[special_value].CalculateSpellHealTooltip)
@@ -261,6 +303,8 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierOverrideAbi
 	end
 	if params.ability._processValuesForScaling[special_value]
 	and (params.ability._processValuesForScaling[special_value].affected_by_aoe_increase
+	or params.ability._processValuesForScaling[special_value].affected_by_crit_increase
+	or params.ability._processValuesForScaling[special_value].affected_by_chance_increase
 	or params.ability._processValuesForScaling[special_value].affected_by_lvl_increase) then
 		return 1
 	end
@@ -274,7 +318,7 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierOverrideAbi
 	if flBaseValue <= 0 then
 		return
 	end
-	if params.ability._processValuesForScaling[special_value].affected_by_aoe_increase then
+	if params.ability._processValuesForScaling[special_value].affected_by_aoe_increase  then
 		local aoe_bonus_positive = 0
 		local aoe_bonus_negative = 0
 		for modifier, active in pairs( self:GetCaster()._aoeModifiersList ) do
@@ -291,6 +335,54 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierOverrideAbi
 			end
 		end
 		local flNewValue = flBaseValue + aoe_bonus_positive + aoe_bonus_negative
+		return flNewValue
+	end
+	if params.ability._processValuesForScaling[special_value].affected_by_crit_increase then
+		local aoe_bonus_positive = 0
+		local aoe_bonus_negative = 0
+		for modifier, active in pairs( self:GetCaster()._critModifiersList ) do
+			if IsModifierSafe( modifier ) then
+				if modifier.GetModifierCriticalStrike_BonusDamage and modifier:GetModifierCriticalStrike_BonusDamage() then
+					if modifier:GetModifierCriticalStrike_BonusDamage() > 0 then
+						aoe_bonus_positive = math.max( aoe_bonus_positive, modifier:GetModifierCriticalStrike_BonusDamage() )
+					else
+						aoe_bonus_negative = math.min( aoe_bonus_negative, modifier:GetModifierCriticalStrike_BonusDamage() )
+					end
+				end
+			else
+				self:GetCaster()._critModifiersList[modifier] = nil
+			end
+		end
+		local flNewValue = flBaseValue + aoe_bonus_positive + aoe_bonus_negative
+		return flNewValue
+	end
+	if params.ability._processValuesForScaling[special_value].affected_by_chance_increase then
+		local aoe_bonus_positive = 0
+		local aoe_bonus_negative = 0
+		for modifier, active in pairs( self:GetCaster()._chanceModifiersList ) do
+			if IsModifierSafe( modifier ) then
+				if modifier.GetModifierChanceBonusConstant and modifier:GetModifierChanceBonusConstant() then
+					if modifier:GetModifierChanceBonusConstant() > 0 then
+						aoe_bonus_positive = math.max( aoe_bonus_positive, 1+modifier:GetModifierChanceBonusConstant()/100 )
+					else
+						aoe_bonus_negative = math.max( math.min( aoe_bonus_negative, 1+modifier:GetModifierChanceBonusConstant()/100 ), -0.99 )
+					end
+				end
+			else
+				self:GetCaster()._chanceModifiersList[modifier] = nil
+			end
+		end
+		local trueProbability = ((flBaseValue % 100)/100)
+		
+		local bonus_end_result = 0
+		if aoe_bonus_positive > 0 then
+			bonus_end_result = (((trueProbability * aoe_bonus_positive) / (1 + (aoe_bonus_positive-1) * trueProbability)) - trueProbability)*100
+		end
+		local minus_end_result = 0
+		if aoe_bonus_negative < 0 then
+			minus_end_result = (((trueProbability * aoe_bonus_negative) / (1 + (aoe_bonus_negative-1) * trueProbability)) - trueProbability)*100
+		end
+		local flNewValue = flBaseValue + bonus_end_result + minus_end_result
 		return flNewValue
 	end
 	if params.ability._processValuesForScaling[special_value].affected_by_lvl_increase then
@@ -351,18 +443,18 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierHealthBonus
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierManaBonus()
-	local mana = self.baseMana
-	if self:GetParent()._heroManaType ~= "Mana" then
-		mana = mana - self:GetParent():GetIntellect() * 2
-	end
-  return mana
+	-- local mana = self.baseMana
+	-- if self:GetParent()._heroManaType ~= "Mana" then
+		-- mana = mana - self:GetParent():GetIntellect() * 2
+	-- end
+  -- return mana
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierConstantManaRegen()
 	if self:GetParent()._heroManaType ~= "Mana" then
 		return -self:GetParent():GetIntellect() * 0.05
 	else
-		return self.baseManaRegen - self:GetParent():GetIntellect() * 0.04
+		return self.baseManaRegen - self:GetParent():GetIntellect() * 0.05
 	end
 end
 

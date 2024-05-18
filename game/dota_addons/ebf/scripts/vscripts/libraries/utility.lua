@@ -258,6 +258,7 @@ function CDOTABaseAbility:DealDamage(attacker, victim, damage, data, spellText)
 			SendOverheadEventMessage( nil,spellText,victim,returnDamage,nil)
 		end
 	end
+	print( damageType, damageFlags, localdamage, returnDamage )
 	
 	return returnDamage
 end
@@ -1090,7 +1091,11 @@ function ParticleManager:FireRopeParticle(effect, attach, owner, target, tCP)
 	
 	if tCP then
 		for cp, value in pairs(tCP) do
-			ParticleManager:SetParticleControl(FX, tonumber(cp), value)
+			if value.GetAbsOrigin then -- npc (has getabsorigin function
+				ParticleManager:SetParticleControlEnt(FX, tonumber(cp), value, attach, "attach_hitloc", value:GetAbsOrigin(), true)
+			else
+				ParticleManager:SetParticleControl(FX, tonumber(cp), value)
+			end
 		end
 	end
 	
@@ -1110,7 +1115,11 @@ function ParticleManager:CreateRopeParticle(effect, attach, owner, target, tCP)
 	
 	if tCP then
 		for cp, value in pairs(tCP) do
-			ParticleManager:SetParticleControl(FX, tonumber(cp), value)
+			if value.GetAbsOrigin then -- npc (has getabsorigin function
+				ParticleManager:SetParticleControlEnt(FX, tonumber(cp), value, attach, "attach_hitloc", value:GetAbsOrigin(), true)
+			else
+				ParticleManager:SetParticleControl(FX, tonumber(cp), value)
+			end
 		end
 	end
 	
@@ -1179,7 +1188,6 @@ function CDOTA_Modifier_Lua:AddIndependentStack(duration, limit, bDontDestroy, t
 			if self:GetStackCount() == 0 and self:GetDuration() == -1 and not dontDestroy then self:Destroy() end
 		end
 	end)
-	
 	table.insert(self.stackTimers, timerTable or {})
 	return timerTable
 end

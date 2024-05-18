@@ -30,7 +30,7 @@
 
 		// Damage.
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"1325 2150 3000 3950 6450 11100 19850"
+		"AbilityDamage"					"750 900 1050 1200 1350 1500 1750"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -44,23 +44,24 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"blast_speed"			"1000"
+			"AbilityDamage"								"750 900 1050 1200 1350 1500 1750"
+			"blast_speed"								"1000"
 			"blast_stun_duration"
 			{	
-				"value"					"2"
-				"LinkedSpecialBonus"	"special_bonus_unique_wraith_king_11"
+				"value"									"2"
+				"LinkedSpecialBonus"					"special_bonus_unique_wraith_king_11"
 	
 			}			
 			"blast_dot_duration"
 			{	
-				"value"			"2.0"
-				"LinkedSpecialBonus"	"special_bonus_unique_wraith_king_7"
+				"value"									"2.0"
+				"LinkedSpecialBonus"					"special_bonus_unique_wraith_king_7"
 			}			
-			"blast_slow"			"-20"
+			"blast_slow"								"-20"
 			"blast_dot_damage"
 			{	
 				"value"									"200 400 600 800 1000 1200 1400"
-				"CalculateSpellDamageTooltip"						"1"
+				"CalculateSpellDamageTooltip"			"1"
 				"special_bonus_unique_wraith_king_3"	"+50%"
 			}			
 		}
@@ -157,7 +158,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"crit_mult"									"300"
+			"crit_mult"
+			{
+				"value"									"300"
+				"affected_by_crit_increase"				"1"
+			}
 			"AbilityCooldown"
 			{
 				"value"									"5.5 4.75 4.0 3.25 2.5 1.75 1.0"

@@ -58,7 +58,7 @@
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"16 14 12 10 8.8 7.5 6.3"
+		"AbilityCooldown"				"16 14 12 10 8.75 7.5 6.25"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -66,28 +66,19 @@
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"duration"				"2.0"
+			"radius"				
 			{
-				"var_type"					"FIELD_FLOAT"
-				"duration"					"2.0"
+				"value"				"220"
+				"affected_by_aoe_increase"	"1"
 			}
-			"02"
+			"speed"					"1000"
+			"megameepo_net_offset"		
 			{
-				"var_type"					"FIELD_INTEGER"
-				"radius"					"220"
-			}
-			"03"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"speed"						"900"
-			}
-			"04"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"abilitycastrange"			""
-				"LinkedSpecialBonus"		"special_bonus_unique_meepo_4"
+				"value"			"160"
+				"affected_by_aoe_increase"	"1"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -101,39 +92,45 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_NORMAL_WHEN_STOLEN | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES | DOTA_ABILITY_BEHAVIOR_AUTOCAST"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_PURE"
-		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
-		"FightRecapLevel"				"1"
-		"AbilitySound"					"Hero_Meepo.Poof"
-		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
+		"AbilityBehavior"						"DOTA_ABILITY_BEHAVIOR_POINT | | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_NORMAL_WHEN_STOLEN | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES | DOTA_ABILITY_BEHAVIOR_AUTOCAST"
+		"AbilityUnitTargetTeam"					"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"					"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitDamageType"					"DAMAGE_TYPE_PURE"
+		"SpellImmunityType"						"SPELL_IMMUNITY_ENEMIES_NO"
+		"FightRecapLevel"						"1"
+		"AbilitySound"							"Hero_Meepo.Poof"
+		"MaxLevel"								"7"
+		"LevelsBetweenUpgrades"					"3"
 
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityChannelTime"			"0.0"
+		"AbilityChannelTime"					"0.0"
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"12 10 8 6 5.0 4.0 3.0"
+		"AbilityCooldown"						"6"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"80"
+		"AbilityManaCost"						"80"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
 			"AbilityCastPoint"					"1.5"
-			"radius"							"400"
+			"radius"				
+			{
+				"value"							"400"
+				"affected_by_aoe_increase"		"1"
+
+			}
 			"poof_damage"			
 			{
-				"value"							"450 675 1350 2650 5400 12000 25400"
-				"special_bonus_unique_meepo_2"	"+9000"
+				"value"							"600 900 1200 1500 1800 2100 2400"
+				"special_bonus_unique_meepo_2"	"+500"
+				"CalculateSpellDamageTooltip"	"1"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -192,18 +189,20 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{		
-				"health_steal_heroes"	
-				{
-					"value"						"33 56 117 238 489 1083 2381"
-					"LinkedSpecialBonus"		"special_bonus_unique_meepo_6"
-					"DamageTypeTooltip"			"DAMAGE_TYPE_PURE"
-				}
-				"health_steal_creeps"	
-				{
-					"value"						"33 56 117 238 489 1083 2381"
-					"LinkedSpecialBonus"		"special_bonus_unique_meepo_6"
-					"DamageTypeTooltip"			"DAMAGE_TYPE_PURE"
-				}			
+			"health_steal_heroes"	
+			{
+				"value"							"90 120 150 180 210 240 270"
+				"LinkedSpecialBonus"			"special_bonus_unique_meepo_6"
+				"DamageTypeTooltip"				"DAMAGE_TYPE_PURE"
+				"CalculateAttackDamageTooltip"	"1"
+			}
+			"health_steal_creeps"	
+			{
+				"value"							"90 120 150 180 210 240 270"
+				"LinkedSpecialBonus"			"special_bonus_unique_meepo_6"
+				"DamageTypeTooltip"				"DAMAGE_TYPE_PURE"
+				"CalculateAttackDamageTooltip"	"1"
+			}			
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -217,36 +216,9 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
-		"DisplayAdditionalHeroes"	"1"
-		"MaxLevel"						"3"
-		"LevelsBetweenUpgrades"			"12"
+		"DisplayAdditionalHeroes"		"1"
+		"MaxLevel"						"5"
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
-
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
-		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
-		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
-		"FightRecapLevel"				"1"
-		"AbilitySound"					"Hero_Sven.StormBoltImpact"
-
-
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"900"
-		"AbilityCastPoint"				"0.2 0.2 0.2 0.2"
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-
-
-		// Damage.
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"0"
-
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		
 			
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -254,56 +226,19 @@
 		{
 			"tooltip_clones"		
 			{
-				"value"								"1 2 3"
-				"LinkedSpecialBonus"				"special_bonus_unique_meepo_5"
+				"value"						"1 2 3 4 5"
+				"LinkedSpecialBonus"		"special_bonus_unique_meepo_5"
 			}
-			"tooltip_share_percentage"				"20"
+			"tooltip_share_percentage"		"20"
 			"tooltip_share_percentage_scepter"		"100"
-			"respawn"								"0.0"
-			"tooltip_respawn"						"20"
-			"magic_resist"							"10 15 20"
+			"respawn"		"0.0"
+			"tooltip_respawn"		"20"
+			"magic_resist"	"10 15 20"
 			"rat_pack"
 			{
-				"value"								"0"
-				"special_bonus_unique_meepo_7"		"+1"
+				"value"	"0"
+				"special_bonus_unique_meepo_7"	"+1"
 			}
-			"fling_damage"
-			{
-				"value"								"2400 5600 14000 32800 34500 36300"
-				"RequiresShard"						"1"
-			}
-			"AbilityManaCost"				
-			{
-				"value"						"0"
-				"special_bonus_shard"				"+75"
-			}
-			"AbilityCooldown"				
-			{
-				"value"  		"18 16 14"
-				"RequiresShard"				"1"
-			}
-			
-			"fling_radius"
-			{
-				"value"						"300"
-				"RequiresShard"				"1"
-			}
-			"fling_movespeed"
-			{
-				"value"						"900"
-				"RequiresShard"				"1"
-			}
-			"fling_slow_duration"
-			{
-				"value"						"3"
-				"RequiresShard"				"1"
-			}
-			"movement_slow"
-			{
-				"value"						"-60"
-				"RequiresShard"				"1"
-			}
-			
 		}
 	}
 	//=================================================================================================================
@@ -332,14 +267,18 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"radius"						"600"
-			"duration"						"20"
+			"radius"						
+			{
+				"value"			"600"
+				"affected_by_aoe_increase"	"1"
+			}
+			"duration"						"25"
 			"model_scale"					"0"
 			"damage_distribution_duration"	"6"	
 			"end_knockback_duration"		"0.3"
 			"end_knockback_distance"		"400"
 			"end_knockback_height"			"0"		
-			"stats_pct"						"50"
+			"stats_pct"						"40"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 		"AbilityCastGestureSlot"		"DEFAULT"
@@ -382,8 +321,12 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"fling_damage"					"4500 9643 22500 49091 48462 48000"
-			"fling_radius" 					"300"
+			"fling_damage"					"2250"
+			"fling_radius" 					
+			{
+				"value"						"300"
+				"affected_by_aoe_increase"	"1"
+			}
 			"fling_movespeed"				"900"
 			"fling_slow_duration"			"3"
 			"movement_slow"					"-60"
@@ -442,7 +385,7 @@
 			"01"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"value"				"3"
+				"value"				"2.5"
 				"ad_linked_abilities"			"meepo_earthbind"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
 			}
 		}

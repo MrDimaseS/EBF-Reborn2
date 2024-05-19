@@ -65,7 +65,6 @@ function CHoldoutGameRound:Begin()
 	print("round has started")
 	self._vEnemiesRemaining = {}
 	self._vEventHandles = {
-		ListenToGameEvent( "npc_spawned", Dynamic_Wrap( CHoldoutGameRound, "OnNPCSpawned" ), self ),
 		ListenToGameEvent( "entity_killed", Dynamic_Wrap( CHoldoutGameRound, "OnEntityKilled" ), self ),
 		ListenToGameEvent( "dota_holdout_revive_complete", Dynamic_Wrap( CHoldoutGameRound, 'OnHoldoutReviveComplete' ), self )
 	}
@@ -425,7 +424,6 @@ function CHoldoutGameRound:OnNPCSpawned( event )
 			end
 		end
 		spawnedUnit:SetUnitCanRespawn( true )
-		bossManager:ManageBossScaling(spawnedUnit)
 	end
 end
 

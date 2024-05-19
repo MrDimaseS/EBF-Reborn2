@@ -51,7 +51,7 @@ end
 function modifier_bloodseeker_thirst_buff:OnTakeDamage( params )
 	local caster = self:GetCaster()
 	if params.attacker ~= caster or params.attacker == params.unit then return end
-	if ( params.inflictor and caster:HasAbility( params.inflictor:GetAbilityName ) ) or not params.unit:IsAlive() then
+	if ( params.inflictor and caster:HasAbility( params.inflictor:GetAbilityName() ) ) or not params.unit:IsAlive() then
 		local stacks = 1
 		if params.unit:IsConsideredHero() then
 			stacks = stacks * self.hero_stacks

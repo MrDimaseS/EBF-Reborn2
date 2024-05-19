@@ -805,13 +805,13 @@ function CHoldoutGameMode:_ReadGameConfiguration()
 	-- self._MaxPlayers = genericKV[GetMapName()].MaxPlayers
 	
 	if GetMapName() == "epic_boss_fight_normal" then
-		self._MaxPlayers = 5
-	elseif GetMapName() == "epic_boss_fight_nightmare" then
 		self._MaxPlayers = 10
+	elseif GetMapName() == "epic_boss_fight_nightmare" then
+		self._MaxPlayers = 5
 	elseif GetMapName() == "epic_boss_fight_event" then
 		self._MaxPlayers = 12
 	else
-		self._MaxPlayers = 7
+		self._MaxPlayers = 6
 	end
 end
 
@@ -1923,6 +1923,12 @@ function CHoldoutGameMode:OnNPCSpawned( event )
 				PlayerResource:SetCustomBuybackCooldown( spawnedUnit:GetPlayerID(), 180 )
 			end
 		end
+	end
+	if spawnedUnit:IsCreature() then
+		bossManager:ManageBossScaling(spawnedUnit)
+	end
+	if GameRules._currentRound ~= nil then
+		GameRules._currentRound:OnNPCSpawned( event )
 	end
 	-- if spawnedUnit:IsConsideredHero() and spawnedUnit:GetUnitName() ~= "npc_dota_healthbar_dummy" then
 		-- local dummy = CreateUnitByName("npc_dota_healthbar_dummy", spawnedUnit:GetAbsOrigin(), false, nil, nil, spawnedUnit:GetTeam())

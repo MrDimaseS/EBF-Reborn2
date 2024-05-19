@@ -43,5 +43,6 @@ function shadow_shaman_ether_shock:EtherShock( target, source )
 	local damage = self:GetSpecialValueFor("damage")
 	EmitSoundOn("Hero_ShadowShaman.EtherShock.Target", target)
 	ParticleManager:FireRopeParticle( "particles/units/heroes/hero_shadowshaman/shadowshaman_ether_shock.vpcf", PATTACH_POINT_FOLLOW, caster, target, {[0] = source, [10] = target, [11] = target} )
+	if target:TriggerSpellAbsorb( self ) then return end
 	self:DealDamage( caster, target, damage )
 end

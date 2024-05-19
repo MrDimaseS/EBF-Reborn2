@@ -258,8 +258,6 @@ function CDOTABaseAbility:DealDamage(attacker, victim, damage, data, spellText)
 			SendOverheadEventMessage( nil,spellText,victim,returnDamage,nil)
 		end
 	end
-	print( damageType, damageFlags, localdamage, returnDamage )
-	
 	return returnDamage
 end
 

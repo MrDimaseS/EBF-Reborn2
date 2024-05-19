@@ -1,8 +1,11 @@
 shadow_shaman_shackles = class({})
 
 function shadow_shaman_shackles:GetChannelTime()
-	self.duration = self:GetSpecialValueFor( "channel_time" )
-	return self.duration
+	return self._channelTimeToVisualize
+end
+
+function shadow_shaman_shackles:UpdateChannelTime( channelTime )
+	self._channelTimeToVisualize = math.max( self._channelTimeToVisualize or 0, channelTime )
 end
 
 function shadow_shaman_shackles:OnSpellStart()
@@ -11,12 +14,17 @@ function shadow_shaman_shackles:OnSpellStart()
 	
 	-- cosmetic
 	EmitSoundOn("Hero_ShadowShaman.Shackles.Cast", hCaster)
-	
+	self.shackleTargets = self.shackleTargets or {}
 	if not hTarget:TriggerSpellAbsorb( self ) then
 		local mod = hTarget:AddNewModifier(hCaster, self, "modifier_shadow_shaman_bound_shackles", {duration = self:GetSpecialValueFor("channel_time")})
 	end
 end
 
+function shadow_shaman_shackles:OnChannelThink()
+	if #self.shackleTargets <= 0 then
+		self:GetCaster():InterruptChannel()
+	end
+end
 
 LinkLuaModifier("modifier_shadow_shaman_bound_shackles", "heroes/hero_shadow_shaman/shadow_shaman_shackles", LUA_MODIFIER_MOTION_NONE)
 modifier_shadow_shaman_bound_shackles = class({})
@@ -45,8 +53,10 @@ function modifier_shadow_shaman_bound_shackles:OnCreated(kv)
 		
 		
 	end
-	self.shackleTargets = self.shackleTargets or {}
-	table.insert( self.shackleTargets, self )
+	
+	self:GetAbility().shackleTargets = self:GetAbility().shackleTargets or {}
+	table.insert( self:GetAbility().shackleTargets, self )
+	self:GetAbility():UpdateChannelTime( self:GetRemainingTime() )
 end
 
 function modifier_shadow_shaman_bound_shackles:OnRefresh()
@@ -69,10 +79,7 @@ end
 function modifier_shadow_shaman_bound_shackles:OnDestroy()
 	StopSoundOn("Hero_ShadowShaman.Shackles", self:GetParent())
 	if IsServer() then
-		table.removeval(self:GetAbility().shackles, self)
-		if #self:GetAbility().shackles == 0 then
-			self:GetCaster():InterruptChannel()
-		end
+		table.removeval(self:GetAbility().shackleTargets, self)
 	end
 end
 

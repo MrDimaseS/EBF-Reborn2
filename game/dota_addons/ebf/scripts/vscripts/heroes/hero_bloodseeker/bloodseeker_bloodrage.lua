@@ -9,7 +9,7 @@ function bloodseeker_bloodrage:OnSpellStart()
 		caster:RemoveModifierByName("modifier_bloodseeker_bloodrage_buff")
 		self:EndCooldown()
 	else
-		caster:AddNewModifier( target, self, "modifier_bloodseeker_bloodrage_buff", { duration = duration} )
+		target:AddNewModifier( target, self, "modifier_bloodseeker_bloodrage_buff", { duration = duration} )
 	end
 	EmitSoundOn( "hero_bloodseeker.bloodRage", target )
 end

@@ -63,6 +63,7 @@ function modifier_shadow_shaman_mass_serpent_ward_handler:OnCreated()
 	self.hits_to_destroy_tooltip_creeps = self:GetParent():GetMaxHealth() / self:GetSpecialValueFor("hits_to_destroy_tooltip_creeps")
 	self.scepter_attack_speed = TernaryOperator( self:GetSpecialValueFor("scepter_attack_speed"), self:GetCaster():HasScepter(), 0 )
 	self.scepter_range = self:GetSpecialValueFor("scepter_range")
+	self.ether_shock_on_death = self:GetSpecialValueFor("ether_shock_on_death") == 1
 	
 	if IsServer() and self:GetCaster():HasScepter() then
 		self:StartIntervalThink( 0.1 )
@@ -70,7 +71,7 @@ function modifier_shadow_shaman_mass_serpent_ward_handler:OnCreated()
 end
 
 function modifier_shadow_shaman_mass_serpent_ward_handler:OnDestroy()
-	if IsServer() then
+	if IsServer() and self.ether_shock_on_death then
 		local ward = self:GetParent()
 		local shock = self:GetCaster():FindAbilityByName("shadow_shaman_ether_shock")
 		if shock and shock:IsTrained() then
@@ -87,8 +88,9 @@ function modifier_shadow_shaman_mass_serpent_ward_handler:OnIntervalThink()
 	if ward:IsAttacking() then return end
 	if not ward:FindRandomEnemyInRadius( ward:GetAbsOrigin(), ward:GetAttackRange() ) and CalculateDistance( ward, self:GetCaster() ) >= self:GetSpecialValueFor("scepter_range") * 2 then -- no viable attack target
 		local position = self:GetCaster():GetAbsOrigin() + RandomVector( self.scepter_range )
-		if self:GetCaster():GetAttackTarget() and CalculateDistance( position, self:GetCaster():GetAttackTarget() ) > ward:GetAttackRange() then
-			position = position + CalculateDirection( self:GetCaster():GetAttackTarget(), position ) * ( ( CalculateDistance( position, self:GetCaster():GetAttackTarget() ) - ward:GetAttackRange() ) + 50 )
+		local attackTarget = self:GetCaster():GetAttackTarget() or ward:FindRandomEnemyInRadius( self:GetCaster():GetAbsOrigin(), ward:GetAttackRange() + self.scepter_range )
+		if attackTarget and CalculateDistance( position, attackTarget ) > ward:GetAttackRange() then
+			position = position + CalculateDirection( attackTarget, position ) * ( ( CalculateDistance( position, attackTarget ) - ward:GetAttackRange() ) + 50 )
 		end
 		ward:Blink(position)
 	end

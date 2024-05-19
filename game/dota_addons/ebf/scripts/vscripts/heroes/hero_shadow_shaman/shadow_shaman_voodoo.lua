@@ -83,7 +83,7 @@ function modifier_shadow_shaman_voodoo_effect:OnAttackStart( params )
 end
 
 function modifier_shadow_shaman_voodoo_effect:OnTakeDamage( params )
-	if params.unit == self:GetParent() then
+	if params.unit == self:GetParent() and not params.attacker:IsSameTeam( params.unit ) then
 		self:ResolveEffect( params.attacker )
 	end
 end

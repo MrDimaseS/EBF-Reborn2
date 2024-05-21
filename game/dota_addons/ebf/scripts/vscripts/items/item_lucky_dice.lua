@@ -12,7 +12,7 @@ function item_lucky_dice:RefreshChanceModifiers()
 	local hero = self:GetCaster()
 	for i=DOTA_ITEM_SLOT_1, DOTA_ITEM_SLOT_6 do
 		local item = hero:GetItemInSlot(i)
-		if item then
+		if item and not item:IsInBackpack() then
 			item:OnUnequip()
 			item:OnEquip()
 			item:RefreshIntrinsicModifier()
@@ -22,7 +22,7 @@ function item_lucky_dice:RefreshChanceModifiers()
 	if neutralItem then
 		neutralItem:OnUnequip()
 		neutralItem:OnEquip()
-		neutralItem:RefreshIntrinsicModifier()
+			ability:RefreshIntrinsicModifier()
 	end
 	for i = 0, hero:GetAbilityCount() - 1 do
 		local ability = hero:GetAbilityByIndex( i )

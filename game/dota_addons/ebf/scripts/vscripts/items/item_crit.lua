@@ -12,7 +12,7 @@ function item_greater_crit:RefreshCritModifiers()
 	local hero = self:GetCaster()
 	for i=DOTA_ITEM_SLOT_1, DOTA_ITEM_SLOT_6 do
 		local item = hero:GetItemInSlot(i)
-		if item then
+		if item and not item:IsInBackpack() then
 			item:OnUnequip()
 			item:OnEquip()
 			item:RefreshIntrinsicModifier()
@@ -82,6 +82,7 @@ function modifier_item_crit_passive:GetModifierPreAttack_BonusDamage()
 end
 
 function modifier_item_crit_passive:GetModifierPreAttack_CriticalStrike()
+	print( self.crit_chance )
 	if self:RollPRNG( self.crit_chance ) then
 		return self:GetSpecialValueFor("crit_multiplier")
 	end

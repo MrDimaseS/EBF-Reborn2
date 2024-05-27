@@ -1,0 +1,143 @@
+"DOTAAbilities"
+{	
+	//=================================================================================================================
+	// Butcher: Meath Hook
+	//=================================================================================================================
+	"boss_butcher_meat_hook"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"							"pudge_meat_hook"
+		"AbilityTextureName"				"pudge_meat_hook"
+		"AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitDamageType"				"DAMAGE_TYPE_PURE"	
+		"SpellImmunityType"					"SPELL_IMMUNITY_ENEMIES_YES"
+		"FightRecapLevel"					"1"
+		"AbilitySound"						"Hero_Pudge.AttackHookExtend"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"4000"
+		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"110"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"damage"
+			{
+				"value"										"9500000"
+				"special_bonus_unique_pudge_7"				"+50%"
+				"special_bonus_facet_pudge_flayers_hook"	"-50%"
+				"CalculateSpellDamageTooltip"				"1"
+			}
+			"hook_speed"									"1500.0"
+			"hook_width"									"150"
+			"hook_distance"									"4000"
+			"vision_radius"									"1000"
+			"vision_duration"								"4"
+			"AbilityCooldown"				
+			{
+				"value"										"14"
+				"special_bonus_unique_pudge_5"				"-4"
+			}
+			"vector_target_distance"
+			{
+				"value"										"0"
+			}
+			"distance_to_damage"
+			{
+				"special_bonus_facet_pudge_flayers_hook"	"48"			
+				"CalculateSpellDamageTooltip"				"1"	
+			}
+			"min_distance_damage"
+			{
+				"special_bonus_facet_pudge_flayers_hook"	"10"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+
+
+	//=================================================================================================================
+	// Butcher: Dismember
+	//=================================================================================================================
+	"boss_butcher_dismember"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"pudge_dismember"
+		"AbilityTextureName"			"pudge_dismember"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PURE"	
+		"FightRecapLevel"				"2"
+		
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"160"
+		"AbilityCastPoint"				"0.2"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
+		"AbilityChannelAnimation"		"ACT_DOTA_CHANNEL_ABILITY_4"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"500"
+		
+		"AbilityValues"
+		{
+			"dismember_damage"		
+			{
+				"value"					"100000"
+				"special_bonus_unique_pudge_3"	"x1.8"	
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"ticks"		
+			{
+				"value"						"4"
+				"special_bonus_unique_pudge_6"	"+2"
+			}
+			"pull_units_per_second"		"75"
+			"pull_distance_limit"		"125"
+			"animation_rate"		"1.5"
+			"AbilityChannelTime"			
+			{
+				"value"				"8"
+				"special_bonus_unique_pudge_6"	"+0.75"
+			}
+			
+			"AbilityCooldown"				
+			{
+				"value"							"15"
+			}
+			"shard_regen_pct"			
+			{
+						"value"			"5000"
+				"RequiresShard"			"1"
+			}
+			"order_lock_duration"		
+			{
+				"value"				"2.75"
+				"RequiresShard"			"1"
+			}
+			"shard_cast_range"		
+			{
+				"value"				"300"
+				"RequiresShard"			"1"
+			}
+		}
+	}
+}

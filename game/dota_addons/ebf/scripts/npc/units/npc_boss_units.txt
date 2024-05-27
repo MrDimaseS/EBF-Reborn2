@@ -6462,6 +6462,112 @@
 		{
 		}
 	}
+	"npc_dota_boss_butcher"
+	{
+		// General
+		//----------------------------------------------------------------
+		"Model"						"models/heroes/pudge/pudge.vmdl"	// Model.
+		"BaseClass"					"npc_dota_creature"
+		"GameSoundsFile"			"soundevents/game_sounds_heroes/game_sounds_pudge.vsndevts"
+		"Level"						"69"
+		"ModelScale" 				"1.500"
+		"ConsideredHero"			"1"
+		"vscripts"					"ai/ai_boss_butcher"
+		
+		"precache"
+		{
+			"particle_folder"	"particles/units/heroes/hero_pudge"
+		}
+
+		// Abilities
+		//----------------------------------------------------------------
+		"Ability1"					"boss_butcher_meat_hook"				// Ability 1.
+		"Ability2"					"boss_butcher_dismember"				// Ability 2.
+
+		// Armor
+		//----------------------------------------------------------------
+		"ArmorPhysical"				"20"			// Physical protection.
+		"MagicalResistance"			"40"		// Magical protection.
+		
+		// Attack
+		//----------------------------------------------------------------
+		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackDamageMin"			"50000"		// Damage range min.
+		"AttackDamageMax"			"90000"		// Damage range max.
+		"BaseAttackSpeed"			"400"
+		"AttackRate"				"3.2"		// Speed of attack.
+		"AttackAnimationPoint"		"0.4"		// Normalized time in animation cycle to attack.
+		"AttackAcquisitionRange"	"3500"		// Range within a target can be acquired.
+		"AttackRange"				"466"		// Range within a target can be attacked.
+		"ProjectileModel"			""							// Particle system model for projectile.
+		"ProjectileSpeed"			"30"									// Speed of projectile.
+	
+		// Bounds
+		//----------------------------------------------------------------
+		"BoundsHullName"			"DOTA_HULL_SIZE_REGULAR"			// Hull type used for navigation/locomotion.
+		"RingRadius"				"150"
+		"HealthBarOffset"			"275"
+
+		// Bounty
+		//----------------------------------------------------------------
+		"BountyXP"					"0"		// Experience earn.
+		"BountyGoldMin"				"0"			// Gold earned min.
+		"BountyGoldMax"				"0"			// Gold earned max.
+
+		// Movement
+		//----------------------------------------------------------------
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"				"300"		// Speed.
+		"MovementTurnRate"			"66.6"		// Turning rate.
+
+		// Status
+		//----------------------------------------------------------------
+		"StatusHealth"				"10000000"		// Base health.
+		"StatusHealthRegen"			"5000"			// Health regeneration rate.
+		"StatusMana"				"10000"			// Base mana.
+		"StatusManaRegen"			"50"			// Mana regeneration rate.		 
+		
+		// Vision
+		//----------------------------------------------------------------
+		"VisionDaytimeRange"		"999"		// Range of vision during day light.
+		"VisionNighttimeRange"		"999"		// Range of vision at night time.
+
+		// Team
+		//----------------------------------------------------------------
+		"TeamName"					"DOTA_TEAM_BADGUYS"
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_BASIC"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_HERO"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+		
+		"HasInventory"				"1"
+		// Creature Data
+		//----------------------------------------------------------------
+		"Creature"
+		{
+			"AttachWearables"
+			{
+				"Wearable1" { "ItemDef" "6007" }
+				"Wearable2" { "ItemDef" "7756" }
+				"Wearable3" { "ItemDef" "9454" }
+				"Wearable4" { "ItemDef" "6295" }
+				"Wearable5" { "ItemDef" "6294" }
+				"Wearable6" { "ItemDef" "6298" }
+				"Wearable7" { "ItemDef" "6299" }
+			}
+
+			"EquippedItems"
+			{
+				"Blink"
+				{
+					"Item"					"item_butcher_overwhelming_blink"
+				}
+				"Scepter"
+				{
+					"Item"					"item_ultimate_scepter"
+				}
+			}
+		}
+	}
 	"npc_dota_boss_lord_of_hell"
 	{
 		// General

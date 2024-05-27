@@ -1,6 +1,42 @@
 "DOTAAbilities"
 {	
 	//=================================================================================================================
+	// Razor: Unstable Current
+	//=================================================================================================================
+	"razor_unstable_current"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI"
+		"MaxLevel"						"1"
+		"Innate"						"1"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"movespeed_per_level_pct"				"1"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+	
+	//=================================================================================================================
+	// Razor: Dynamo
+	//=================================================================================================================
+	"razor_dynamo"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"MaxLevel"						"1"
+		"AbilityValues"
+		{
+			"spell_amp_damage_divisor"	"100"
+			"spell_amp_mult"			"1"
+		}
+	}
+	//=================================================================================================================
 	// Razor: Plasma Field
 	//=================================================================================================================
 	"razor_plasma_field"
@@ -14,7 +50,6 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Ability.PlasmaField"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -80,7 +115,6 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"AbilitySound"					"Ability.static.start"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -101,15 +135,15 @@
 		{
 			"drain_length"
 			{
-				"value"							"10"
-				"special_bonus_unique_razor_3"	"+6"				
+				"value"											"10"
+				"special_bonus_unique_razor_3"					"+6"				
 			}
-			"drain_duration"					"18"
+			"drain_duration"									"18"
 			"drain_rate"
 			{
-				"value"							"50 100 150 200 250 300 350"
-				"special_bonus_unique_razor"	"+50"
-				"CalculateAttackDamageTooltip"	"1"
+				"value"											"50 100 150 200 250 300 350"
+				"special_bonus_unique_razor"					"+50"
+				"CalculateAttackDamageTooltip"					"1"
 			}
 			"drain_range_buffer"								"300"
 			"radius"											"200 200 200 200"
@@ -123,62 +157,73 @@
 			}
 			"pull_speed"			
 			{
-				"value"					"0"
-				"special_bonus_shard"		"+100"
+				"value"											"0"
+				"special_bonus_shard"							"+75"
 			}
 			"min_pull_range"
 						{
-				"value"					"0"
-				"special_bonus_shard"		"+175"
+				"value"											"0"
+				"special_bonus_shard"							"+175"
 			}
 			"AbilityCastRange"
 			{
-				"value"				"550"
-				"special_bonus_shard"		"+150"
+				"value"											"550"
+				"special_bonus_shard"							"+150"
 			}	
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
 
 	//=================================================================================================================
-	// Razor: Unstable Current
+	// Razor: Storm Surge
 	//=================================================================================================================
-	"razor_unstable_current"
+	"razor_storm_surge"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"HasShardUpgrade"               "1"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"self_movement_speed_pct"
-			{
-				"value"							"8 12 16 20 24 28 32"
-				"special_bonus_unique_razor_5"	"+21"
-			}
 			"strike_pct_chance"		"18"
 			"strike_target_count"	"3"
 			"strike_damage"			
 			{
-				"value"														"400 800 1200 1600 2000 2400 2800"
-				"special_bonus_unique_razor_storm_surge_damage_and_slow"	"+25%"
-				"DamageTypeTooltip"											"DAMAGE_TYPE_MAGICAL"
-				"CalculateSpellDamageTooltip"								"1"
+				"value"															"400 800 1200 1600 2000 2400 2800"
+				"special_bonus_unique_razor_storm_surge_damage_and_slow"		"+25%"
 			}
 			"strike_move_slow_pct"
 			{
-				"value"														"20 25 30 35 40 45 50"
-				"special_bonus_unique_razor_storm_surge_damage_and_slow"	"+25"
+				"value"				"25 30 35 40"
+				"special_bonus_unique_razor_storm_surge_damage_and_slow"		"+25"
 			}
 			"strike_slow_duration"			"1.0"
-			"strike_search_radius"			"700"	
+			"strike_search_radius"
+			{
+				"value"						"700"
+				"affected_by_aoe_increase"	"1"
+			}
 
-			"strike_internal_cd"			"3.0"
+			"strike_internal_cd"	
+			{
+				"value"										"3.0"
+				"special_bonus_unique_razor_3"				"-1"
+			}
+			"hit_targets_inside_eye_of_the_storm"
+			{
+				"value"		"0"
+				"special_bonus_facet_razor_thunderhead"			"=1"
+			}
+			"eye_of_the_storm_chance_multiplier"
+			{
+				"value"				"0"
+				"special_bonus_facet_razor_thunderhead"			"=2"
+			}
+
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}

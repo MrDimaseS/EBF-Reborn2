@@ -294,7 +294,8 @@ function modifier_pudge_meat_hook_movement:OnCreated( kv )
 	-- references
 	self.offset = 80
 	self.threshold = 80
-	self.speed = self:GetAbility():GetSpecialValueFor( "hook_speed" )
+	self.speed = self:GetSpecialValueFor( "hook_speed" )
+	self.distance_to_damage = self:GetSpecialValueFor( "distance_to_damage" ) / 100
 
 	if not IsServer() then return end
 
@@ -393,7 +394,10 @@ function modifier_pudge_meat_hook_movement:UpdateHorizontalMotion( me, dt )
 	local nextpos = me:GetOrigin() + self.direction * self.speed * dt
 	nextpos = GetGroundPosition( nextpos, me )
 	me:SetOrigin( nextpos )
-
+	
+	if self.distance_to_damage > 0 then
+		self:GetAbility():DealDamage( self:GetCaster(), me, self.speed * dt * self.distance_to_damage )
+	end
 	-- check caster still in cast position
 	if (self.caster:GetOrigin()-self.origin):Length2D() > self.threshold then
 		-- set effects

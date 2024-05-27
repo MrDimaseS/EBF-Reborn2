@@ -99,11 +99,11 @@ function modifier_void_spirit_resonant_pulse_shield:OnDestroy()
 end
 
 function modifier_void_spirit_resonant_pulse_shield:DeclareFunctions()
-	return {MODIFIER_PROPERTY_INCOMING_PHYSICAL_DAMAGE_CONSTANT}
+	return {MODIFIER_PROPERTY_INCOMING_DAMAGE_CONSTANT}
 end
 
 
-function modifier_void_spirit_resonant_pulse_shield:GetModifierIncomingPhysicalDamageConstant( params )
+function modifier_void_spirit_resonant_pulse_shield:GetModifierIncomingDamageConstant( params )
 	if IsServer() then
 		local barrier = math.min( self.damageBlock, math.max( self.damageBlock, params.damage ) )
 		self.damageBlock = self.damageBlock - params.damage

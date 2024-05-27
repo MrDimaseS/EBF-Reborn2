@@ -40,7 +40,7 @@ function modifier_nevermore_necromastery_passive:OnRefresh()
 end
 
 function modifier_nevermore_necromastery_passive:DeclareFunctions()
-	return {MODIFIER_PROPERTY_REINCARNATION, MODIFIER_EVENT_ON_TAKEDAMAGE, MODIFIER_PROPERTY_PREATTACK_CRITICALSTRIKE, MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE }
+	return {MODIFIER_PROPERTY_REINCARNATION, MODIFIER_EVENT_ON_TAKEDAMAGE, MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE }
 end
 
 function modifier_nevermore_necromastery_passive:ReincarnateTime()
@@ -83,22 +83,22 @@ function modifier_nevermore_necromastery_passive:OnTakeDamage( params )
 	end
 end
 
-function modifier_nevermore_necromastery_passive:GetModifierPreAttack_CriticalStrike( params )
-	if self:GetCaster():PassivesDisabled() then return end
-	if self:GetAbility():IsCooldownReady() and self:GetCaster():HasShard() then
-		self.crit_attack[params.record] = true
-		local critDamage = self:GetCritDamage() * 100
-		self:GetAbility():SetCooldown()
-		return critDamage
-	end
-end
+-- function modifier_nevermore_necromastery_passive:GetModifierPreAttack_CriticalStrike( params )
+	-- if self:GetCaster():PassivesDisabled() then return end
+	-- if self:GetAbility():IsCooldownReady() and self:GetCaster():HasShard() then
+		-- self.crit_attack[params.record] = true
+		-- local critDamage = self:GetCritDamage() * 100
+		-- self:GetAbility():SetCooldown()
+		-- return critDamage
+	-- end
+-- end
 
-function modifier_nevermore_necromastery_passive:GetCritDamage()
-	if self:GetCaster():PassivesDisabled() then return end
-	if self:GetAbility():IsCooldownReady() and self:GetCaster():HasShard() then
-		return 1 + self:GetStackCount() * self.shard_crit_pct
-	end
-end
+-- function modifier_nevermore_necromastery_passive:GetCritDamage()
+	-- if self:GetCaster():PassivesDisabled() then return end
+	-- if self:GetAbility():IsCooldownReady() and self:GetCaster():HasShard() then
+		-- return 1 + self:GetStackCount() * self.shard_crit_pct
+	-- end
+-- end
 
 function modifier_nevermore_necromastery_passive:IsPurgable()
 	return false

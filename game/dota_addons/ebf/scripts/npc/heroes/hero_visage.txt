@@ -15,7 +15,6 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Visage.GraveChill.Cast"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -35,17 +34,34 @@
 		{
 			"AbilityCooldown"				
 			{
-				"value"									"16 14 12 10 8.75 7.5 6.25"
+				"value"									"11"
 				"special_bonus_unique_visage_8"			"-3"
-			}	
+			}
 			"chill_duration"
 			{
-				"value"														"6"
+				"value"														"3 4 5 6 7 8 9"
 				"special_bonus_unique_visage_grave_chill_duration"			"+2"
 			}
 			"movespeed_bonus"				"15 20 25 30 35 40 45"
-			"attackspeed_bonus"				"68 92 116 140 164 188 280"
-			"radius"						"900"
+			"attackspeed_bonus"				"25 40 55 70 85 100 115"
+			"radius"
+			{
+				"value"			"900"
+				"affected_by_aoe_increase"	"1"
+			}
+			"target_radius"
+			{
+				"value"			"0"
+				"affected_by_aoe_increase"	"1"
+				"RequiresFacet"	"visage_sepulchre"
+				"special_bonus_facet_visage_sepulchre"		"300"
+			}
+			"penalty"
+			{
+				"value"	"0"
+				"RequiresFacet"	"visage_sepulchre"
+				"special_bonus_facet_visage_sepulchre"		"75"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}	
@@ -68,7 +84,6 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Visage.SoulAssumption.Cast"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 		"precache"
 		{
@@ -142,8 +157,8 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"HasShardUpgrade"				"1"
 		"AbilityDraftPreAbility"		"visage_summon_familiars_stone_form"
-		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
+		"MaxLevel"						"8"
+		"RequiredLevel"					"-1"
 		
 		"precache"
 		{
@@ -155,10 +170,14 @@
 		"AbilityValues"
 		{
 			"max_layers"						"4"
-			"damage_reduction"					"8 12 16 20 25 30 40"
-			"recovery_time"						"6 5 4 3 3 3 3"
+			"damage_reduction"					"4 8 12 16 20 25 30 40"
+			"recovery_time"						"7 6 5 4 3 3 3 3"
 			"minimum_damage"					"40"
-			"radius"							"1200"
+			"radius"
+			{
+				"affected_by_aoe_increase"		"1"
+				"value"							"900"
+			}
 			"max_damage_reduction"				"80"
 			"bonus_armor"
 			{
@@ -223,7 +242,7 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"130 110 90 70"
+		"AbilityCooldown"				"130 120 110 100 90 80"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -254,6 +273,40 @@
 			{
 				"value"								"2"
 				"special_bonus_unique_visage_6"		"+4"
+			}
+			"armor_reduction_per_hit"
+			{
+				"value"					"0"
+				"special_bonus_unique_visage_1"			"+1"
+			}
+			"armor_reduction_duration"
+			{
+				"value"					"0"
+				"special_bonus_unique_visage_1"			"+10"
+			}
+			// uncontrollable familiars info
+			"in_formation"
+			{
+				"value"					"0"
+				"special_bonus_facet_visage_faithful_followers"		"+1"
+			}
+			"back_distance"			"75"
+			"side_distance"			"75"
+			"return_distance"		
+			{
+				"value"		"1200"
+			}
+			"recall_duration"		"4"
+			"max_distance"			
+			{
+				"value"		"3500"
+				"affected_by_aoe_increase"	"1"
+			}
+			"attack_range_buffer"	"200"
+			"additional_target_search_radius"	
+			{
+				"value" "300"
+				"affected_by_aoe_increase"	"1"
 			}
 		}
 	}
@@ -305,7 +358,7 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_CAN_SELF_CAST | DOTA_ABILITY_BEHAVIOR_AOE| DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE | DOTA_ABILITY_BEHAVIOR_ALT_CASTABLE"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"MaxLevel"						"6"
@@ -355,7 +408,7 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_ALT_CASTABLE"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"

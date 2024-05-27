@@ -15,7 +15,6 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Spectre.DaggerCast"
 
@@ -42,23 +41,39 @@
 		{
 			"damage"
 			{
-				"value"								"990 1570 2265 3620 6950 13550 29925"
-				"special_bonus_unique_spectre_6"	"+75%"
-				"CalculateSpellDamageTooltip"		"1"
+				"value"									"700 1200 1700 2200 2700 3200 3700"
+				"special_bonus_unique_spectre_6"		"+75%"
+				"CalculateSpellDamageTooltip"			"1"
 			}
 			"bonus_movespeed"
 			{
-				"value"					"10 14 18 22 24 26 28"
-				"LinkedSpecialBonus"	"special_bonus_unique_spectre_3"
+				"value"									"10 14 18 22 24 26 28"
+				"LinkedSpecialBonus"					"special_bonus_unique_spectre_3"
 			}
-			"dagger_path_duration"		"12.0 12.0 12.0 12.0"
-			"hero_path_duration"		"7.0 7.0 7.0 7.0"
-			"buff_persistence"			"4.0 4.0 4.0 4.0"
-			"dagger_radius"				"125 125 125 125"
-			"path_radius"				"175 175 175 175"
-			"vision_radius"				"200"
-			"speed"						"800"
-			"dagger_grace_period"		"1.0"
+			"dagger_path_duration"						"12.0 12.0 12.0 12.0"
+			"hero_path_duration"						"7.0 7.0 7.0 7.0"
+			"buff_persistence"							"4.0 4.0 4.0 4.0"
+			"dagger_radius"			
+			{
+				"value"									"125"
+				"affected_by_aoe_increase"				"1"
+			}
+			"path_radius"			
+			{
+				"value"									"175"
+				"affected_by_aoe_increase"				"1"
+			}
+			"vision_radius"			
+			{
+				"value"									"200"
+				"affected_by_aoe_increase"				"1"
+			}
+			"speed"										"800"
+			"dagger_grace_period"						"1.0"
+			"applies_desolate"
+			{
+				"special_bonus_facet_spectre_forsaken"	"=1"					
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -77,7 +92,6 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PURE"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 		"AbilitySound"					"Hero_Spectre.Desolate"
 
 		// Special
@@ -86,8 +100,8 @@
 		{
 			"bonus_damage"
 			{
-				"value"													"210 340 470 600 730 860 990"
-				"special_bonus_unique_spectre_2"						"+25%"
+				"value"													"200 350 500 650 800 950 1100"
+				"special_bonus_unique_spectre_2"						"+20%"
 				"CalculateSpellDamageTooltip"							"1"
 			}
 			"lonely_multiplier"											"300"
@@ -95,6 +109,11 @@
 			{
 				"value"													"400"
 				"special_bonus_unique_spectre_desolate_radius"			"-100"
+			}
+			"count_creeps"
+			{
+				"value"													"1"
+				"special_bonus_facet_spectre_forsaken"					"=0"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -110,7 +129,6 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
         "HasShardUpgrade"               "1"
 
 
@@ -123,8 +141,16 @@
 				"value"									"11 12.5 14 15.5 17 18.5 20"
 				"special_bonus_unique_spectre_5"		"+5"
 			}
-			"min_radius"			"400"
-			"max_radius"			"800"
+			"min_radius"			
+			{
+				"value"		"300"
+				"affected_by_aoe_increase"	"1"
+			}
+			"max_radius"			
+			{
+				"value"		"800"
+				"affected_by_aoe_increase"	"1"
+			}
 			"activation_cooldown"
 			{
 				"value"				"0"
@@ -138,7 +164,7 @@
 			"activation_bonus_pct"
 			{
 				"value"				"0"
-				"special_bonus_shard"				"+100"
+				"special_bonus_shard"				"+50"
 			}
 			"activation_duration"
 			{
@@ -190,7 +216,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"								"5.0 6.0 7.0 8.0 9.0 10.0"
+			"duration"								"7.0"
 			"armor_reduction"
 			{
 				"value"								"-4 -5 -6 -7 -8 -9"
@@ -264,10 +290,20 @@
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0"
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"0"
+		
+		"AbilityValues"
+		{
+			"cast_dagger_on_target"
+			{
+				"value"						"0"
+				"special_bonus_facet_spectre_twist_the_knife"	"+1"
+			}
+			"AbilityCooldown"
+			{
+				"value"										"3.0"
+				"special_bonus_facet_spectre_twist_the_knife"	"=1.0"
+			}
+		}
 	}
 	//=================================================================================================================
 	// Ability: Special Bonus

@@ -14,6 +14,7 @@ end
 function modifier_riki_backstab_handler:OnRefresh()
 	self.backstab_angle = self:GetSpecialValueFor("backstab_angle")
 	self.fade_delay = self:GetSpecialValueFor("fade_delay")
+	self.creep_agility_multiplier = self:GetSpecialValueFor("creep_agility_multiplier")
 	self.attacks = {}
 	if IsServer() then
 		self:StartIntervalThink( 0 )
@@ -70,7 +71,7 @@ function modifier_riki_backstab_handler:GetModifierPreAttack_BonusDamage(params)
         if params.attacker == caster then
 			self.attacks[params.record] = false
             local agility_damage_multiplier = self:GetSpecialValueFor("damage_multiplier")
-            local damage = params.attacker:GetAgility() * agility_damage_multiplier
+            local damage = params.attacker:GetAgility() * agility_damage_multiplier * TernaryOperator( 1, params.target:IsConsideredHero(), self.creep_agility_multiplier )
             if not params.target:IsAtAngleWithEntity(caster, 360-self.backstab_angle ) 
 			or caster:HasModifier("modifier_riki_tricks_of_the_trade_handler") 
 			or params.target:HasModifier("modifier_riki_smoke_screen_aura_debuff") then 

@@ -19,7 +19,6 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_VoidSpirit.AetherRemnant.Cast"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 		"HasShardUpgrade"				"1"
 
 		// Casting
@@ -112,7 +111,6 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_VoidSpirit.Dissimilate.Cast"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -128,7 +126,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"130"
+		"AbilityManaCost"				"120"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -183,7 +181,6 @@
 		"AbilitySound"					"Hero_VoidSpirit.Pulse.Cast"
 		"HasScepterUpgrade"				"1"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 	
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -204,24 +201,28 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"radius"				"500"
-			"speed"					"1200"
+			"radius"												"500"
+			"speed"													"1200"
 			"damage"
 			{
-				"value"			"670 960 1325 2375 4600 7535 11915"
-				"special_bonus_unique_void_spirit_4"	"+150%"
-				"CalculateSpellDamageTooltip"			"1"
+				"value"												"670 960 1325 2375 4600 7535 11915"
+				"special_bonus_unique_void_spirit_4"				"+150%"
+				"CalculateSpellDamageTooltip"						"1"
 			}			
-			"buff_duration"			"10.0"
+			"buff_duration"											"10.0"
 			"base_absorb_amount"
 			{
-				"value"								"400 800 1200 1600 2000 2400 2800"
-				"CalculateSpellHealTooltip"			"1"
+				"value"												"400 800 1200 1600 2000 2400 2800"
+				"CalculateSpellHealTooltip"							"1"
+				"special_bonus_facet_void_spirit_phys_barrier"		"-100%"
+				"RequiresFacet"										"void_spirit_sanctuary"
 			}
 			"absorb_per_hero_hit"
 			{
-				"value"								"400 600 800 1000 1200 1400 1600"
-				"CalculateSpellHealTooltip"			"1"
+				"value"												"400 600 800 1000 1200 1400 1600"
+				"CalculateSpellHealTooltip"							"1"
+				"special_bonus_facet_void_spirit_phys_barrier"		"-100%"
+				"RequiresFacet"										"void_spirit_sanctuary"
 			}
 			"return_projectile_speed"	"900"
 			"AbilityCharges"		
@@ -241,8 +242,8 @@
 			}
 			"silence_duration_scepter"
 			{
-				"value"						"5.0"
-				"RequiresScepter"			"1"
+				"value"												"5.0"
+				"RequiresScepter"									"1"
 			}
 		}
 	}
@@ -307,7 +308,36 @@
 		}
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_2"
 	}
+	"void_spirit_symmetry"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI"
+		"MaxLevel"						"1"
+		// Casting
+		"AbilityValues"
+		{
+			"buff_duration"					"20.0"
+			"refresh_duration"				"10"
+			"absorb_per_damage_pct"			"40"
+			"return_projectile_speed"		"900"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
 
+	"void_spirit_intrinsic_edge"
+	{
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES | DOTA_ABILITY_BEHAVIOR_SKIP_FOR_KEYBINDS"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_NONE"	
+
+		"MaxLevel"						"1"
+		"Innate"						"1"
+
+		"AbilityValues"
+		{
+			"secondary_stat_bonus_pct"	"33"
+		}
+	}
 	//=================================================================================================================
 	// Ability: Special Bonus Start
 	//=================================================================================================================

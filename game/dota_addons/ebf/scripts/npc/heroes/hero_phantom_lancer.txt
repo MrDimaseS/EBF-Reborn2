@@ -14,7 +14,6 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_PhantomLancer.SpiritLance.Throw"
 
@@ -84,7 +83,6 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 		"FightRecapLevel"				"1"
 		"AbilitySound"			"Hero_PhantomLancer.Doppelganger.Cast"
 
@@ -118,6 +116,12 @@
 			{
 				"value"					"1"
 				"special_bonus_unique_phantom_lancer_doppel_illusion2_amt"		"+1"
+			}
+			"hp_missing_per_extra_illusion_pct"					
+			{
+				"value"					"0"
+				"special_bonus_facet_phantom_lancer_convergence"						"25"
+
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -190,20 +194,31 @@
 				"CalculateSpellDamageTooltip"	"0"
 			}
 			"illusion_from_illusion_duration"	"4"
-			"shard_bonus_illusions"
+			"shard_bonus_illusions"	
 			{
-				"value"							"0"
-				"RequiresShard"					"1"
+				"value"						"0"
+				"RequiresShard"				"1"
 			}
 			"invis_duration"
 			{
-				"value"							"8"
-				"RequiresShard"					"1"
+				"value"						"8"
+				"RequiresScepter"			"1"
 			}
 			"invis_movespeed"
 			{
-				"value"							"15"
-				"RequiresShard"					"1"
+				"value"						"15"
+				"RequiresScepter"			"1"
+			}
+			"uncontrollable_illusions"
+			{
+				"value"						"0"
+				"special_bonus_facet_phantom_lancer_divergence"	"+1"
+			}
+			"new_target_radius"
+			{
+				"value"						"0"
+				"special_bonus_facet_phantom_lancer_divergence"	"+700"
+				"RequiresFacet"			"2"
 			}
 		}
 	}
@@ -218,34 +233,35 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_TOGGLE"
 		"AbilitySound"			"Hero_PhantomLancer.PhantomEdge"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
-		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
+		"MaxLevel"						"8"
+		"Innate"						"1"
+		"RequiredLevel"					"-1"
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"13 10 7 4 4 4 4"
+		"AbilityCooldown"				"4"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"min_distance"				"50"
+			"min_distance"													"50"
 			"max_distance"				
 			{
-				"value"					"600 675 750 825 900 975 1050"
-				"LinkedSpecialBonus"	"special_bonus_unique_phantom_lancer"
+				"value"														"525 600 675 750 825 900 975 1050"
+				"special_bonus_unique_phantom_lancer"						"+300"
 			}
-			"bonus_speed"				"800"
+			"bonus_speed"													"800"
 			"bonus_agility"
 			{
-				"value"														"50 100 150 200 300 400 500"
+				"value"														"50 100 200 300 400 500 600 700"
 				"special_bonus_unique_phantom_lancer_phantom_rush_agility"	"+25%"
 				"CalculateAttributeTooltip"									"1"
 			}
 			"agility_duration"		
 			{
-				"value"										"1.5"
-				"special_bonus_unique_phantom_lancer_2"		"+2.5"
+				"value"														"0.75 1.0 1.25 1.5 1.75 2.0 2.25 2.5"
+				"special_bonus_unique_phantom_lancer_2"						"+2.5"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"

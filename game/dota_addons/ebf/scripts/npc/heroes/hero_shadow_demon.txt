@@ -1,5 +1,49 @@
 "DOTAAbilities"
-{	
+{
+	//=================================================================================================================
+	// Shadow Demon: Soul Crush
+	//=================================================================================================================
+	"shadow_demon_menace"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_SKIP_FOR_KEYBINDS"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"MaxLevel"						"1"
+		"Innate"						"1"
+		"AbilityValues"
+		{
+			"stack"						"0.5"
+			"duration"					"4"
+		}
+	}
+	//=================================================================================================================
+	// Ability: Soul Mastery Variant
+	//=================================================================================================================
+	"shadow_demon_shadow_servant"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"MaxLevel"						"8"
+		"DependentOnAbility"			"shadow_demon_disruption"		
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"illusion_outgoing_damage"	"-80 -75 -70 -65 -60 -55 -50 -45"
+			"illusion_outgoing_damage_tooltip"	"20 25 30 35 40 45 50 55"
+			"radius"							
+			{
+				"value"		"1500"
+				"affected_by_aoe_increase"	"1"
+			}
+			"illusion_incoming_damage"	"100"
+			"illusion_incoming_damage_tooltip"	"200"
+		}
+	}
 	//=================================================================================================================
 	// Shadow Demon: Shadow Demon Disruption
 	//=================================================================================================================
@@ -16,7 +60,6 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_ShadowDemon.Disruption"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
@@ -46,6 +89,11 @@
 			"illusion_outgoing_tooltip"	"30.0 45.0 60.0 75.0 90.0 105.0 120.0"
 			"illusion_incoming_damage"	"200"
 			"tooltip_total_illusion_incoming_damage"	"300"
+			"illusion_flat_damage"
+			{
+				"value"							"300 400 500 600 700 800 900"
+				"CalculateAttackDamageTooltip"	"1"
+			}
 			"AbilityCharges"
 			{
 				"value"	""
@@ -53,6 +101,11 @@
 			}
 			"illusion_bounty_base"		"0"
 			"illusion_bounty_growth"	"0"
+			"can_cast"
+			{
+				"value"			"0"
+				"special_bonus_facet_shadow_demon_disruption_cast"			"+1"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -69,7 +122,6 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"AbilitySound"					"Hero_ShadowDemon.Soul_Catcher"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
@@ -95,7 +147,16 @@
 				"special_bonus_unique_shadow_demon_disseminate_damage"		"+15"
 				"CalculateSpellDamageTooltip"								"0"
 			}
-			"radius"														"675"
+			"radius"					
+			{
+				"value"			"675"
+					"affected_by_aoe_increase"	"1"
+			}
+			"health_lost"		
+			{
+				"value"							"0"
+				"special_bonus_facet_shadow_demon_promulgate"			"=15"				
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -112,7 +173,6 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"AbilitySound"					"Hero_ShadowDemon.ShadowPoison"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------

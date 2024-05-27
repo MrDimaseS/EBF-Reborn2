@@ -15,7 +15,6 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -38,9 +37,18 @@
 		{
 			"charge_speed"				"1200"
 			"chargeup_time"				"2.2"
-			"knockback_radius"			"190"
-			"max_distance"				"2000"
-			"knockback_distance"		"200"
+			"knockback_radius"			
+			{
+				"value"						"190"
+				"affected_by_aoe_increase"	"1"	
+
+			}
+			"max_distance"					"2000"
+			"knockback_distance"		
+			{
+				"value"						"200"
+				"affected_by_aoe_increase"	"1"	
+			}
 			"knockback_damage"
 			{
 				"value"													"900 1800 2700 3600 4500 5400 6300"
@@ -89,7 +97,6 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
@@ -111,7 +118,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"effect_radius"														"230 245 260 275 290 305 320"
+			"effect_radius"				
+			{
+				"value"															"230"
+				"affected_by_aoe_increase"										"1"	
+			}
 			"step_distance"														"140"
 			"base_damage"
 			{
@@ -141,6 +152,32 @@
 				"value"															"0"
 				"special_bonus_unique_primal_beast_trample_unslowable"			"+1"
 			}
+
+			"bonus_movespeed_pct_self"
+			{
+				"value"															"0"
+				"special_bonus_facet_primal_beast_romp_n_stomp"					"=4"
+				"RequiresFacet"				"light_footed"
+			}
+			"bonus_movespeed_pct_allies"
+			{
+				"value"															"0"
+				"special_bonus_facet_primal_beast_romp_n_stomp"					"=0"
+				"RequiresFacet"				"light_footed"
+			}
+			"aura_radius"
+			{
+				"value"															"0"
+				"affected_by_aoe_increase"										"1"
+				"special_bonus_facet_primal_beast_romp_n_stomp"					"=1200"
+				"RequiresFacet"													"light_footed"
+			}
+			"bonus_movespeed_pct_extra"
+			{
+				"value"															"0"
+				"special_bonus_facet_primal_beast_romp_n_stomp"					"=6"
+				"RequiresFacet"													"light_footed"
+			}
 		}
 	}
 
@@ -159,7 +196,6 @@
 		"AbilityCooldown"				"0"
 		"HasScepterUpgrade" 					"1"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 
 		// Special
@@ -187,12 +223,21 @@
 			"stack_duration"			"20"
 			"move_slow_per_stack"		"8"
 			"slow_duration"				"3.0"
-			"radius"					"900"
+			"radius"					
+			{
+				"value"			"900"
+				"affected_by_aoe_increase"	"1"	
+			}
 			"roared_bonus_attack_speed"	"0"
 			"roared_bonus_armor"
 			{
 				"value"							"5 10 15 20 25 30 35"
 				"special_bonus_unique_primal_beast_uproar_armor"	"+20"
+			}
+			"roared_bonus_aoe_pct"
+			{
+				"value"									"0"
+				"special_bonus_facet_primal_beast_ferocity"	"+10"
 			}
 			"roar_duration"						"7"
 			"should_dispell"
@@ -296,7 +341,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"splash_radius"						"600"
+			"splash_radius"				
+			{
+				"value"		"600"
+				"affected_by_aoe_increase"	"1"	
+			}
 			"interval"							"0.75"
 			"ministun"							"0.25"
 			"cast_range"						"200"
@@ -363,14 +412,22 @@
 				"value"							"3250"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-            "impact_radius"						"225"    
+            "impact_radius"             
+			{
+				"value"	"225"    
+				"affected_by_aoe_increase"	"1"	
+			}
             "min_range"              			"550"
             "min_travel_time"					"0.45"
             "max_travel_time"					"1.7"
             "bounce_travel_time"				"0.6"
             "stun_duration"						"1.75"
 			"fragment_impact_distance"			"600"
-            "fragment_impact_radius"			"150"
+            "fragment_impact_radius"
+			{
+				"value"						"185"
+				"affected_by_aoe_increase"	"1"	
+			}
         }
     } 
 

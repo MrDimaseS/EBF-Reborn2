@@ -77,9 +77,9 @@ end
 
 function modifier_venomancer_venomous_gale_cancer:OnRefresh()
 	self.tick = self:GetSpecialValueFor("tick_interval")
-	self.movespeed = self:GetAbility():GetSpecialValueFor("movement_slow")
+	self.movespeed = self:GetSpecialValueFor("movement_slow")
 	self.msReduction = self.tick * self.movespeed / self:GetRemainingTime()
-	self.tick_damage = self:GetAbility():GetSpecialValueFor("tick_damage")
+	self.tick_damage = self:GetSpecialValueFor("tick_damage")
 end
 
 function modifier_venomancer_venomous_gale_cancer:OnDestroy()
@@ -91,6 +91,10 @@ function modifier_venomancer_venomous_gale_cancer:OnDestroy()
 			if self.nova then
 				self.nova:PoisonNova( parent )
 			end
+		end
+		if caster:HasShard() then
+			self:GetAbility():DealDamage( caster, parent, self:GetSpecialValueFor("explosion_damage") )
+			self:GetAbility():Stun( parent, self:GetSpecialValueFor("explosion_stun_duration") )
 		end
 	end
 end

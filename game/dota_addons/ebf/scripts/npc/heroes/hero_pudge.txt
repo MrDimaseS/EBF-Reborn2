@@ -1,21 +1,51 @@
 "DOTAAbilities"
 {	
-	"pudge_flesh_heap"
+	//=================================================================================================================
+	// Ability: Pudge: Graft Flesh (Innate)
+	//=================================================================================================================
+	"pudge_innate_graft_flesh"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_lua"
-		"ScriptFile"					"heroes/hero_pudge/pudge_flesh_heap"
-		"AbilityTextureName"			"pudge_flesh_heap"
+		"ScriptFile"					"heroes/hero_pudge/pudge_innate_graft_flesh"
+		"AbilityTextureName"			"pudge_innate_graft_flesh"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"MaxLevel"						"4"
+		"Innate"						"1"
+		"DependentOnAbility"			"pudge_dismember"
+
+		"AbilityValues"
+		{
+			"flesh_heap_strength_buff_amount"
+			{
+				"value"							"0.55 0.7 0.85 1.0 1.15 1.3 1.45"
+				"special_bonus_unique_pudge_1"	"x1.5"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"flesh_heap_range"		
+			{
+				"value"		"450"
+				"affected_by_aoe_increase"	"1"
+			}
+			"creep_stacks"						"1"
+			"hero_stacks"						"3"
+			"temporary_duration"				"90"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+	"pudge_flesh_heap"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"20 19 18 17 16.2 15.3 14.4"
+		"AbilityCooldown"				"17"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -31,17 +61,7 @@
 				"special_bonus_unique_pudge_1"	"x1.5"
 				"CalculateSpellHealTooltip"		"1"
 			}
-			"flesh_heap_strength_buff_amount"
-			{
-				"value"							"0.55 0.7 0.85 1.0 1.15 1.3 1.45"
-				"special_bonus_unique_pudge_1"	"x1.5"
-				"CalculateAttributeTooltip"		"1"
-			}
-			"creep_stacks"						"1"
-			"hero_stacks"						"3"
-			"flesh_heap_range"					"450"
 			"duration"							"8"
-			"temporary_duration"				"90"
 		}
 		
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -64,7 +84,6 @@
 		"AbilitySound"					"Hero_Pudge.AttackHookExtend"
 		
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -81,23 +100,33 @@
 		{
 			"damage"
 			{
-				"value"									"1500 2200 2900 3600 4300 5000 5700"
-				"special_bonus_unique_pudge_7"			"+50%"
-				"CalculateSpellDamageTooltip"			"1"
+				"value"										"1500 2200 2900 3600 4300 5000 5700"
+				"special_bonus_unique_pudge_7"				"+50%"
+				"special_bonus_facet_pudge_flayers_hook"	"-50%"
+				"CalculateSpellDamageTooltip"				"1"
 			}
-			"hook_speed"								"1450.0"
-			"hook_width"								"100"
-			"hook_distance"								"1300"
-			"vision_radius"								"500 500 500 500"
-			"vision_duration"							"4.0 4.0 4.0 4.0"
+			"hook_speed"									"1450.0"
+			"hook_width"									"100"
+			"hook_distance"									"1300"
+			"vision_radius"									"500 500 500 500"
+			"vision_duration"								"4.0 4.0 4.0 4.0"
 			"AbilityCooldown"				
 			{
-				"value"									"12"
-				"special_bonus_unique_pudge_5"			"-4"
+				"value"										"12"
+				"special_bonus_unique_pudge_5"				"-4"
 			}
 			"vector_target_distance"
 			{
-				"value"									"0"
+				"value"										"0"
+			}
+			"distance_to_damage"
+			{
+				"special_bonus_facet_pudge_flayers_hook"	"12 18 24 30 36 42 48"			
+				"CalculateSpellDamageTooltip"				"1"	
+			}
+			"min_distance_damage"
+			{
+				"special_bonus_facet_pudge_flayers_hook"	"10"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -120,7 +149,6 @@
 		"HasScepterUpgrade"				"1"
 		
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 
 		// Casting

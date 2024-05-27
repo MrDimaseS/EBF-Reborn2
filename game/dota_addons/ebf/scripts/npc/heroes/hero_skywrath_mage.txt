@@ -15,8 +15,7 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_SkywrathMage.ArcaneBolt.Cast"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
-		"HasScepterUpgrade"			"1"
+		"HasShardUpgrade"				"1"
 		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -45,17 +44,15 @@
 			}
 			"int_multiplier"											"0"
 			"vision_duration"											"3.34"
-			"extra_bolt_search_radius"									"700"
-			"lifesteal_duration"										"5"
-			"lifesteal_amt"			
+			"extra_bolt_search_radius"
 			{
-				"value"													"20"
-				"special_bonus_unique_skywrath_arcane_bolt_lifesteal"	"+25"
+				"value"				"700"
+				"affected_by_aoe_increase"	"1"
 			}
 			"total_bolt_count"
 			{
 				"value"													"1"
-				"special_bonus_scepter"									"+2"
+				"special_bonus_scepter"									"+1"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -78,7 +75,6 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_SkywrathMage.ConcussiveShot.Cast"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 		"HasScepterUpgrade"				"1"
 
 		// Casting
@@ -119,7 +115,11 @@
 			}
 			"slow_duration"						"4.0"
 			"movement_speed_pct"				"40"
-			"shot_vision"						"300"
+			"shot_vision"
+			{
+				"value"							"300"
+				"affected_by_aoe_increase"		"1"
+			}
 			"vision_duration"					"3.34"
 			"scepter_radius"
 			{
@@ -149,7 +149,6 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"AbilitySound"					"Hero_SkywrathMage.AncientSeal.Target"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 		"HasScepterUpgrade"			"1"
 
 		// Casting
@@ -260,22 +259,47 @@
 		"BaseClass"						"ability_lua"
 		"ScriptFile"					"heroes/hero_skywrath_mage/skywrath_mage_shield_of_the_scion"
 		"AbilityTextureName"			"skywrath_mage_shield_of_the_scion"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
-		"IsGrantedByShard"				"1"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
 		"MaxLevel"						"1"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"stack_duration"			"35"
-			"bonus_intelligence"
+			"damage_barrier_base"
 			{
-				"value"								"2"
-				"CalculateAttributeTooltip"			"1"
+				"value"								"100"
+				"CalculateSpellHealTooltip"			"1"
 			}
-			"bonus_armor"				"0.5"
-			"creep_chance"				"25"
+			"damage_barrier_per_level"
+			{
+				"value"								"10"
+				"CalculateSpellHealTooltip"			"1"
+			}
+			"barrier_duration"						"15"
+			"creep_pct"								"20"
+		}
+	}
+	//=================================================================================================================
+	// Skywrath Mage: Staff of the Scion
+	//=================================================================================================================
+	"skywrath_mage_staff_of_the_scion"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_skywrath_mage/skywrath_mage_staff_of_the_scion"
+		"AbilityTextureName"			"skywrath_mage_staff_of_the_scion"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"MaxLevel"						"1"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			// can tweak not refreshing casted ability, can tweak not refreshing ultimate
+			"cooldown_reduction"		"0.1"
+			"creep_chance"				"20"
 		}
 	}
 	//=================================================================================================================

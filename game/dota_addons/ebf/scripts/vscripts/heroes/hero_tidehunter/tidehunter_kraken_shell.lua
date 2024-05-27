@@ -26,8 +26,41 @@ function modifier_tidehunter_kraken_shell_passive:OnIntervalThink()
 	end
 end
 
+function modifier_tidehunter_kraken_shell_passive:DeclareFunctions()
+	return {MODIFIER_EVENT_ON_DEATH,
+			MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL,
+			MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL_VALUE}
+end
+
+function modifier_tidehunter_kraken_shell_passive:GetModifierOverrideAbilitySpecial(params)
+	if params.ability == self:GetAbility() then
+		local caster = params.ability:GetCaster()
+		local specialValue = params.ability_special_value
+		if specialValue == "linger_duration" then
+			return 1
+		end
+	end
+end
+
+function modifier_tidehunter_kraken_shell_passive:GetModifierOverrideAbilitySpecialValue(params)
+	if params.ability == self:GetAbility() then
+		local caster = params.ability:GetCaster()
+		local specialValue = params.ability_special_value
+		if specialValue == "linger_duration" then
+			local flBaseValue = params.ability:GetLevelSpecialValueNoOverride( specialValue, params.ability_special_level )
+			return flBaseValue + self:GetStackCount() * self:GetSpecialValueFor("bonus_duration_per_kill")
+		end
+	end
+end
+
+function modifier_tidehunter_kraken_shell_passive:OnDeath( params )
+	if params.unit:IsConsideredHero() and params.unit:HasModifier("modifier_tidehunter_anchor_smash") then
+		self:IncrementStackCount()
+	end
+end
+
 function modifier_tidehunter_kraken_shell_passive:IsHidden()
-	return true
+	return self:GetStackCount() == 0
 end
 
 function modifier_tidehunter_kraken_shell_passive:IsPurgable()

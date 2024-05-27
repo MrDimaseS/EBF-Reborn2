@@ -36,12 +36,20 @@
 		{
 			"damage_per_second"
 			{
-				"value"							"800"
+				"value"							"700"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"duration"					"8"
-			"width"						"275"
-			"length"					"400"
+			"width"		
+			{
+				"value"			"275"
+				"affected_by_aoe_increase"	"1"
+			}
+			"length"		
+			{
+				"value"			"400"
+				"affected_by_aoe_increase"	"1"
+			}
 			"move_slow_pct"				"30"
 			"building_dmg_pct"			"40"
 			"debuff_linger_duration"	"2.0"
@@ -66,7 +74,6 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Shredder.WhirlingDeath.Cast"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -84,7 +91,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"whirling_radius"						"325"
+			"whirling_radius"			
+			{
+				"value"		"325"
+				"affected_by_aoe_increase"	"1"
+			}
 			"whirling_damage"
 			{
 				"value"								"850 1300 1750 2200 2650 3100 3550"
@@ -119,12 +130,10 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Shredder.TimberChain.Cast"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
-		"AbilityCastRange"				"750 900 1050 1200"
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
@@ -138,18 +147,71 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"chain_radius"				"90"
-			"range"
+			"chain_radius"									"90"
+			"AbilityCastRange"				
 			{
-				"value"					"750 900 1050 1200 1350 1500 1650"
-				"LinkedSpecialBonus"	"special_bonus_unique_timbersaw_3"
+				"value"										"750 900 1050 1200 1350 1500 1650"
+				"special_bonus_unique_timbersaw_3"			"+75%"
 			}
-			"radius"					"225"
-			"speed"						"2200 2400 2600 2800 3000 3200 3400"
+			"radius"		
+			{
+				"value"										"225 225 225 225"
+			}
+			"speed"				
+			{
+				"value"										"2200 2400 2600 2800 3000 3200 3400"
+				"special_bonus_unique_timbersaw_3"			"+75%"
+			}
 			"damage"
 			{
-				"value"								"600 1100 1600 2100 2600 3100 3600"
-				"CalculateSpellDamageTooltip"		"1"
+				"value"										"500 950 1400 1850 2300 2750 3200"
+				"CalculateSpellDamageTooltip"				"1"
+			}
+			"tree_splinter_count"
+			{
+				"value"										"0"
+				"special_bonus_facet_shredder_shredder"		"10"
+				"RequiresFacet"								"shredder_shredder"
+			}
+			"tree_splinter_distance"
+			{
+				"value"										"0"
+				"special_bonus_facet_shredder_shredder"		"700"
+				"RequiresFacet"								"shredder_shredder"
+				"affected_by_aoe_increase"					"1"
+			}					
+
+			"tree_splinter_width"
+			{
+				"value"										"0"
+				"special_bonus_facet_shredder_shredder"		"100"
+				"RequiresFacet"								"shredder_shredder"
+				"affected_by_aoe_increase"					"1"
+			}
+			"tree_splinter_speed"
+			{
+				"value"										"0"
+				"special_bonus_facet_shredder_shredder"		"1600"
+				"RequiresFacet"								"shredder_shredder"
+			}
+			"tree_splinter_damage"
+			{
+				"value"										"0"
+				"special_bonus_facet_shredder_shredder"		"200 400 600 800 1000 1200 1400"
+				"RequiresFacet"								"shredder_shredder"
+				"CalculateSpellDamageTooltip"				"1"
+			}
+			"tree_splinter_slow_duration"
+			{
+				"value"										"0"
+				"special_bonus_facet_shredder_shredder"		"0.75"
+				"RequiresFacet"								"shredder_shredder"
+			}
+			"tree_splinter_slow_pct"
+			{
+				"value"										"0"
+				"special_bonus_facet_shredder_shredder"		"30 40 50 60 70 80 90"
+				"RequiresFacet"								"shredder_shredder"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -165,14 +227,13 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 		"HasScepterUpgrade"				"1"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_armor"						"0.6 0.7 0.8 1.0 1.2 1.4"
+			"bonus_armor"															"0.6 0.7 0.8 1.0 1.2 1.4"
 			"bonus_hp_regen"					
 			{
 				"value"																"0.3 0.4 0.5 0.6 0.7 0.8 0.9"
@@ -181,30 +242,30 @@
 			}			
 			"stack_limit"
 			{
-				"value"										"30"
-				"special_bonus_unique_timbersaw_2"			"+6"
+				"value"																"30"
+				"special_bonus_unique_timbersaw_2"									"+6"
 			}
-			"stack_duration"								"16"
+			"stack_duration"														"16"
 			"stacks_per_hero_attack"
 			{
-				"value"										"3"
-				"special_bonus_unique_timbersaw_2"			"+1"
+				"value"																"3"
+				"special_bonus_unique_timbersaw_2"									"+1"
 			}
 			"AbilityManaCost"				
 			{
-				"value"							"0"
-				"special_bonus_scepter"			"+200"
+				"value"																"0"
+				"special_bonus_scepter"												"+200"
 			}
 			"AbilityCooldown"				
 			{
-				"value"  						"45"
-				"RequiresScepter"				"1"
+				"value"  															"45"
+				"RequiresScepter"													"1"
 			}
 			"initial_shield"
 			{
-				"value"  						"2000"
-				"CalculateSpellHealTooltip"		"1"
-				"RequiresScepter"				"1"
+				"value"  															"2000"
+				"CalculateSpellHealTooltip"											"1"
+				"RequiresScepter"													"1"
 			}
 			"shield_per_sec"
 			{
@@ -290,11 +351,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"speed"					"900.0"
+			"speed"									"900.0"
 			"radius"				
 			{
 				"value"	"200"
-				"affected_by_aoe_increase"	"1"
+				"affected_by_aoe_increase"			"1"
 			}
 			"pass_damage"
 			{
@@ -308,23 +369,27 @@
 			}
 			"slow"
 			{
-				"value"				"5"
-				"LinkedSpecialBonus"	"special_bonus_unique_timbersaw_4"
+				"value"								"5"
+				"LinkedSpecialBonus"				"special_bonus_unique_timbersaw_4"
 			}
-			"damage_interval"		"0.5"
-			"break_distance"		"2000.0"
-			"mana_per_second"		"14 22 30 38 46 54"
-			"pass_slow_duration"	"0.5"
-			"slow_health_percentage"	"5"
+			"damage_interval"						"0.5"
+			"break_distance"		
+			{
+				"value"	"2000.0"
+				"affected_by_aoe_increase"	"1"
+			}
+			"mana_per_second"						"14 22 30 38 46 54"
+			"pass_slow_duration"					"0.5"
+			"slow_health_percentage"				"5"
 			"castpoint_scepter"		
 			{
-				"value"			"0.1"
-				"RequiresScepter"	"1"
+				"value"								"0.15"
+				"RequiresScepter"					"1"
 			}
 			"second_chakram"
 			{
-				"value"			"0"
-				"special_bonus_unique_timbersaw"	"+1"
+				"value"								"0"
+				"special_bonus_facet_shredder_second_chakram"	"+1"
 			}
 		}
 	}
@@ -364,61 +429,52 @@
 		{
 			"speed"					
 			{
-				"value"				"900.0"
-				"RequiresScepter"	"1"
+				"value"											"900.0"
 			}
 			"radius"				
 			{
-				"value"		"200"
-				"RequiresScepter"	"1"
+				"value"											"200"
 			}
 			"pass_damage"
 			{
-				"value"								"1100 1550 2000 2450 2900 3350"
-				"CalculateSpellDamageTooltip"		"1"
-					"RequiresScepter"				"1"
+				"value"											"1100 1550 2000 2450 2900 3350"
+				"CalculateSpellDamageTooltip"					"1"
+				"special_bonus_facet_shredder_second_chakram"	"-30%"
 			}
 			"damage_per_second"
 			{
-				"value"								"500 750 1000 1250 1500 1750"
-				"CalculateSpellDamageTooltip"		"1"
-				"RequiresScepter"					"1"
+				"value"											"500 750 1000 1250 1500 1750"
+				"CalculateSpellDamageTooltip"					"1"
+				"special_bonus_facet_shredder_second_chakram"	"-30%"
 			}
 			"slow"					
 			{
-				"value"			"5"
-				"LinkedSpecialBonus"	"special_bonus_unique_timbersaw_4"
-				"RequiresScepter"	"1"
+				"value"											"5"
+				"special_bonus_unique_timbersaw_4"				"+4"
 			}
 			"damage_interval"		
 			{
-				"value"			"0.5"
-				"RequiresScepter"	"1"
+				"value"											"0.5"
 			}
 			"break_distance"		
 			{
 				"value"			"2000.0"
-				"RequiresScepter"	"1"
 			}
 			"mana_per_second"		
 			{
 				"value"		"14 22 30 38 46 54"
-				"RequiresScepter"	"1"
 			}
 			"pass_slow_duration"	
 			{
 				"value"		"0.5"
-				"RequiresScepter"	"1"
 			}
 			"slow_health_percentage"	
 			{
 				"value"		"5"
-				"RequiresScepter"	"1"
 			}
 			"scepter_bonus_damage"	
 			{
 				"value"		"20"
-				"RequiresScepter"		"1"
 			}		
 			"second_chakram"
 			{
@@ -447,7 +503,74 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"0.0 0.0 0.0"
 	}
+	//=================================================================================================================
+	// Ability: Twisted Chakram
+	//=================================================================================================================
+	"shredder_twisted_chakram"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PURE"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"FightRecapLevel"				"1"
+		"MaxLevel"						"6"
+		"AbilitySound"					"Hero_VengefulSpirit.MagicMissile"
+		"AbilityTextureName"			"shredder_chakram_2"
+		"DependentOnAbility"			"shredder_chakram"
 
+
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"600"
+		"AbilityCastPoint"				"0.2"
+		
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"20 16 12"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"100"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"speed"					"900"
+			"radius"				
+			{
+				"value"		"125"
+				"affected_by_aoe_increase"	"1"	
+			}
+			"damage"
+			{
+				"value"											"1100 1550 2000 2450 2900 3350"
+				"CalculateSpellDamageTooltip"					"1"
+			}
+			"spread"				
+			{
+				"value"		"350"
+				"affected_by_aoe_increase"	"1"	
+			}
+			"min_throw_duration"			"0.0"
+			"max_throw_duration"			"0.5"
+			"min_target_distance"			"600"
+			"max_target_distance"			"600"
+
+			"slow"
+			{
+				"value"				"5"
+				"special_bonus_unique_timbersaw_4"	"+5"
+			}
+			"pass_slow_duration"	"2.0"
+			"slow_health_percentage"	"5"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
+	}
 	//=================================================================================================================
 	// Shredder: Return Chakram
 	//=================================================================================================================
@@ -466,6 +589,25 @@
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"0.0 0.0 0.0"
+	}
+	//=================================================================================================================
+	// Ability: Tree Killer
+	//=================================================================================================================
+	"shredder_exposure_therapy"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"MaxLevel"						"7"
+		"Innate"						"1"
+		"DependentOnAbility"			"shredder_chakram"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"mana_restore"					"3 4 5 6 7 8 9"
+		}
 	}
 	//=================================================================================================================
 	// Ability: Special Bonus

@@ -1,6 +1,79 @@
 "DOTAAbilities"
 {	
 	//=================================================================================================================
+	// Queen of Pain: Innate Anguish
+	//=================================================================================================================
+	"queenofpain_masochist"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"MaxLevel"						"1"
+		"AbilityValues"
+		{
+			"spell_amplification"
+			{
+				"value"						"15"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"spell_amplification_per_level"
+			{
+				"value"						"1"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"damage_reflected_to_self"		"2.2"
+		}
+	}
+
+	//=================================================================================================================
+	// Queen of Pain: Innate Seduction
+	//=================================================================================================================
+	"queenofpain_succubus"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"MaxLevel"						"1"
+		"AbilityValues"
+		{
+			"spell_lifesteal"				"6.0"
+			"close_radius"				
+			{
+				"value"		"300"
+				"affected_by_aoe_increase"	"1"
+			}
+			"max_radius"				
+			{
+				"value"	"800"
+				"affected_by_aoe_increase"	"1"
+			}
+			"spell_lifesteal_close"			"10.0"
+		}
+	}
+
+	//=================================================================================================================
+	// Queen of Pain: Innate Spell Reflect
+	//=================================================================================================================
+	"queenofpain_bondage"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"MaxLevel"						"1"
+		"Innate"						"1"
+
+		"AbilityValues"
+		{
+			"spell_reflect_pct"			"10.0"
+			"radius"					
+			{
+				"value"			"1200"
+				"affected_by_aoe_increase"	"1"
+			}
+		}
+	}
+	//=================================================================================================================
 	// Queen of Pain: Shadow Strike
 	//=================================================================================================================
 	"queenofpain_shadow_strike"
@@ -16,7 +89,6 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_QueenOfPain.ShadowStrike"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -29,7 +101,7 @@
 	
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"125 135 145 155 165 175 185"
+		"AbilityManaCost"				"125 130 135 140 145 150 155"
 	
 		
 		// Special	
@@ -54,11 +126,6 @@
 				"value"									"3.0"
 				"special_bonus_unique_queen_of_pain_4"	"-0.7"
 			}
-			"duration_damage"
-			{
-				"value"									"100 200 300 400 500 600 700"
-				"CalculateSpellHealTooltip"				"1"
-			}
 			"generate_scream"
 			{
 				"value"									"0"
@@ -67,9 +134,10 @@
 			"aoe_radius"
 			{
 				"value"									"0"
-				"special_bonus_scepter"					"+400"
+				"special_bonus_scepter"					"+375"
+				"affected_by_aoe_increase"				"1"
 			}
-			"duration"									"15"
+			"duration"									"16"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -86,7 +154,6 @@
 
         "HasShardUpgrade"               "1"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -139,7 +206,6 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"AbilitySound"					"Hero_QueenOfPain.ScreamOfPain"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -148,7 +214,7 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"7"
+		"AbilityCooldown"				"6"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------

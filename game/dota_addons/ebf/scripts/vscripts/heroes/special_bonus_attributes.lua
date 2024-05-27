@@ -186,8 +186,8 @@ function modifier_special_bonus_attributes_stat_rescaling:OnRefresh()
 			end)
 		end
 		if self.baseMR then
-			local intArmor =  math.min( 0.04 * self:GetParent():GetIntellect(), 0.55*self:GetParent():GetIntellect()^(math.log(2)/math.log(5)) )
-			local totalVal = -self:GetParent():GetIntellect() * 0.1 + self.baseMR + intArmor
+			local intArmor =  math.min( 0.04 * self:GetParent():GetIntellect(false), 0.55*self:GetParent():GetIntellect(false)^(math.log(2)/math.log(5)) )
+			local totalVal = -self:GetParent():GetIntellect(false) * 0.1 + self.baseMR + intArmor
 			self:GetParent():SetBaseMagicalResistanceValue( totalVal )
 			Timers:CreateTimer( function() -- illusion fix, idk why the fuck it needs a frame delay for them
 				if not IsEntitySafe( self:GetParent() ) then return end
@@ -198,7 +198,7 @@ function modifier_special_bonus_attributes_stat_rescaling:OnRefresh()
 end	
 
 function modifier_special_bonus_attributes_stat_rescaling:OnIntervalThink()
-	CustomNetTables:SetTableValue("hero_attributes", tostring( self:GetCaster():entindex() ), {mana_type = self:GetCaster()._heroManaType, strength = self:GetCaster():GetStrength(), agility = self:GetCaster():GetAgility(), intellect = self:GetCaster():GetIntellect(), str_gain = self:GetCaster()._internalStrGain, agi_gain = self:GetCaster()._internalAgiGain, int_gain = self:GetCaster()._internalIntGain, spell_amp = self:GetCaster():GetSpellAmplification( false )})
+	CustomNetTables:SetTableValue("hero_attributes", tostring( self:GetCaster():entindex() ), {mana_type = self:GetCaster()._heroManaType, strength = self:GetCaster():GetStrength(), agility = self:GetCaster():GetAgility(), intellect = self:GetCaster():GetIntellect(false), str_gain = self:GetCaster()._internalStrGain, agi_gain = self:GetCaster()._internalAgiGain, int_gain = self:GetCaster()._internalIntGain, spell_amp = self:GetCaster():GetSpellAmplification( false )})
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:CheckState()
@@ -262,7 +262,7 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierSpellLifest
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierMPRegenAmplify_Percentage()
-	return MP_AMP_PER_INT * (self:GetParent():GetIntellect() / 100)
+	return MP_AMP_PER_INT * (self:GetParent():GetIntellect(false) / 100)
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierOverrideAbilitySpecial(params)
@@ -320,7 +320,9 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierOverrideAbi
 	end
 	if params.ability._processValuesForScaling[special_value].affected_by_aoe_increase  then
 		local aoe_bonus_positive = 0
+		local aoe_bonus_positive_pct = 0
 		local aoe_bonus_negative = 0
+		local aoe_bonus_negative_pct = 0
 		for modifier, active in pairs( self:GetCaster()._aoeModifiersList ) do
 			if IsModifierSafe( modifier ) then
 				if modifier.GetModifierAoEBonusConstant and modifier:GetModifierAoEBonusConstant() then
@@ -330,11 +332,26 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierOverrideAbi
 						aoe_bonus_negative = math.min( aoe_bonus_negative, modifier:GetModifierAoEBonusConstant() )
 					end
 				end
+				if modifier.GetModifierAoEBonusConstantStacking and modifier:GetModifierAoEBonusConstantStacking() then
+					if modifier:GetModifierAoEBonusConstantStacking() > 0 then
+						aoe_bonus_positive = aoe_bonus_positive + modifier:GetModifierAoEBonusConstantStacking()
+					else
+						aoe_bonus_negative = aoe_bonus_negative - modifier:GetModifierAoEBonusConstantStacking()
+					end
+				end
+				if modifier.GetModifierAoEBonusPercentage and modifier:GetModifierAoEBonusPercentage() then
+					if modifier:GetModifierAoEBonusPercentage() > 0 then
+						aoe_bonus_positive_pct = math.max( aoe_bonus_positive_pct, modifier:GetModifierAoEBonusPercentage() )
+					else
+						aoe_bonus_negative_pct = math.min( aoe_bonus_negative_pct, modifier:GetModifierAoEBonusPercentage() )
+					end
+				end
 			else
 				self:GetCaster()._aoeModifiersList[modifier] = nil
 			end
 		end
-		local flNewValue = flBaseValue + aoe_bonus_positive + aoe_bonus_negative
+		local flNewValue = flBaseValue * (1+(aoe_bonus_positive_pct/100 + aoe_bonus_negative_pct/100)) + aoe_bonus_positive + aoe_bonus_negative
+		print( flNewValue, aoe_bonus_positive_pct )
 		return flNewValue
 	end
 	if params.ability._processValuesForScaling[special_value].affected_by_crit_increase then
@@ -435,9 +452,9 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierHealthBonus
 	elseif self:GetStackCount() == DOTA_ATTRIBUTE_AGILITY then
 		bonusBaseHP = self:GetParent():GetAgility() * BASE_HP_PRIMARY
 	elseif self:GetStackCount() == DOTA_ATTRIBUTE_INTELLECT then
-		bonusBaseHP = self:GetParent():GetIntellect() * BASE_HP_PRIMARY
+		bonusBaseHP = self:GetParent():GetIntellect(false) * BASE_HP_PRIMARY
 	else -- universal hero
-		bonusBaseHP = ( self:GetParent():GetStrength() + self:GetParent():GetAgility() + self:GetParent():GetIntellect() ) * BASE_HP_UNIVERSAL
+		bonusBaseHP = ( self:GetParent():GetStrength() + self:GetParent():GetAgility() + self:GetParent():GetIntellect(false) ) * BASE_HP_UNIVERSAL
 	end
 	return 75 + bonusBaseHP
 end
@@ -445,16 +462,16 @@ end
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierManaBonus()
 	-- local mana = self.baseMana
 	-- if self:GetParent()._heroManaType ~= "Mana" then
-		-- mana = mana - self:GetParent():GetIntellect() * 2
+		-- mana = mana - self:GetParent():GetIntellect(false) * 2
 	-- end
   -- return mana
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierConstantManaRegen()
 	if self:GetParent()._heroManaType ~= "Mana" then
-		return -self:GetParent():GetIntellect() * 0.05
+		return -self:GetParent():GetIntellect(false) * 0.05
 	else
-		return self.baseManaRegen - self:GetParent():GetIntellect() * 0.05
+		return self.baseManaRegen - self:GetParent():GetIntellect(false) * 0.05
 	end
 end
 
@@ -467,9 +484,9 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierBaseAttack_
 	elseif self:GetStackCount() == DOTA_ATTRIBUTE_AGILITY then
 		bonusBaseDamage = self:GetParent():GetAgility() * BASE_DAMAGE_PRIMARY
 	elseif self:GetStackCount() == DOTA_ATTRIBUTE_INTELLECT then
-		bonusBaseDamage = self:GetParent():GetIntellect() * BASE_DAMAGE_PRIMARY
+		bonusBaseDamage = self:GetParent():GetIntellect(false) * BASE_DAMAGE_PRIMARY
 	else -- universal hero
-		bonusBaseDamage = ( self:GetParent():GetStrength() + self:GetParent():GetAgility() + self:GetParent():GetIntellect() ) * BASE_DAMAGE_UNIVERSAL
+		bonusBaseDamage = ( self:GetParent():GetStrength() + self:GetParent():GetAgility() + self:GetParent():GetIntellect(false) ) * BASE_DAMAGE_UNIVERSAL
 	end
 	return self:GetParent():GetAgility() * self.bonusDamage + 30 + bonusBaseDamage
 end
@@ -483,11 +500,11 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierSpellAmplif
 	elseif self:GetStackCount() == DOTA_ATTRIBUTE_AGILITY then
 		bonusSpellAmp =  self:GetParent():GetAgility() * SPELL_AMP_PRIMARY
 	elseif self:GetStackCount() == DOTA_ATTRIBUTE_INTELLECT then
-		bonusSpellAmp =  self:GetParent():GetIntellect() * SPELL_AMP_PRIMARY
+		bonusSpellAmp =  self:GetParent():GetIntellect(false) * SPELL_AMP_PRIMARY
 	else -- universal hero
-		bonusSpellAmp =  ( self:GetParent():GetStrength() + self:GetParent():GetAgility() + self:GetParent():GetIntellect() ) * SPELL_AMP_UNIVERSAL
+		bonusSpellAmp =  ( self:GetParent():GetStrength() + self:GetParent():GetAgility() + self:GetParent():GetIntellect(false) ) * SPELL_AMP_UNIVERSAL
 	end
-	return self:GetParent():GetIntellect() * self.bonusSpellAmp + bonusSpellAmp
+	return self:GetParent():GetIntellect(false) * self.bonusSpellAmp + bonusSpellAmp
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierMagicalResistanceBonus()

@@ -140,7 +140,7 @@ function CHoldoutGameMode:InitGameMode()
 	
 	GameRules:SetPreGameTime( 30 )
 	GameRules:SetShowcaseTime( 0 )
-	GameRules:SetStrategyTime( 5 )
+	GameRules:SetStrategyTime( 30 )
 	GameRules:SetPostGameTime( 15 )
 	GameRules:SetCustomGameEndDelay( 15.0 )
 	GameRules:SetHeroSelectionTime( 60.0 )
@@ -529,6 +529,7 @@ IGNORE_SPELL_AMP_FILTER = {
 	["item_devastator_4"] = 100,
 	["item_devastator_5"] = 100,
 	["drow_ranger_multishot"] = 100,
+	["phoenix_dying_light"] = 100,
 }
 
 function CHoldoutGameMode:FilterAbilityValues( filterTable )
@@ -701,8 +702,8 @@ function CHoldoutGameMode:OnHeroPick (event)
 	end
 	
 	CustomNetTables:SetTableValue("game_stats", tostring( playerID ), {damage_dealt = 0, damage_taken = 0, damage_healed = 0, last_damage_dealt = 0})
-	CustomNetTables:SetTableValue("hero_attributes", tostring( hero:entindex() ), {mana_type = hero._heroManaType, strength = hero:GetStrength(), agility = hero:GetAgility(), intellect = hero:GetIntellect()})
-	CustomNetTables:SetTableValue("hero_attributes", tostring( hero:entindex() ), {mana_type = hero._heroManaType, strength = hero:GetStrength(), agility = hero:GetAgility(), intellect = hero:GetIntellect(), str_gain = hero:GetStrengthGain(), agi_gain = hero:GetAgilityGain(), int_gain = hero:GetIntellectGain(), spell_amp = hero:GetSpellAmplification( false )})
+	CustomNetTables:SetTableValue("hero_attributes", tostring( hero:entindex() ), {mana_type = hero._heroManaType, strength = hero:GetStrength(), agility = hero:GetAgility(), intellect = hero:GetIntellect(false)})
+	CustomNetTables:SetTableValue("hero_attributes", tostring( hero:entindex() ), {mana_type = hero._heroManaType, strength = hero:GetStrength(), agility = hero:GetAgility(), intellect = hero:GetIntellect(false), str_gain = hero:GetStrengthGain(), agi_gain = hero:GetAgilityGain(), int_gain = hero:GetIntellectGain(), spell_amp = hero:GetSpellAmplification( false )})
 
 	PlayerResource:SetCustomBuybackCooldown( playerID, 10 )
 	PlayerResource:SetCustomBuybackCost( playerID, 100 )

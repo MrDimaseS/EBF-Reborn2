@@ -12,7 +12,6 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Nevermore.Shadowraze"
 		"LinkedAbility"					"nevermore_shadowraze2"
@@ -37,7 +36,11 @@
 				"special_bonus_unique_nevermore_2"	"+50%"
 				"CalculateSpellDamageTooltip"		"1"
 			}
-			"shadowraze_radius"	"250"		
+			"shadowraze_radius"	
+			{
+				"value"		"250"		
+				"affected_by_aoe_increase"	"1"
+			}
 			"shadowraze_range"	"200"
 			"shadowraze_cooldown"	"3"
 			"stack_bonus_damage"
@@ -55,12 +58,25 @@
 				"value"					"0"
 				"special_bonus_unique_nevermore_raze_procsattacks"		"+1"
 			}
-			"movement_speed_pct"						"-15"
+			"movement_speed_debuff"
+			{
+				"value"											"0"
+				"special_bonus_facet_nevermore_shadowmire"		"10"
+			}
+			"attack_speed_debuff"
+			{
+				"value"											"0"
+				"special_bonus_facet_nevermore_shadowmire"		"10"
+			}
 			"turn_rate_pct"								"0"
 			"AbilityCooldown"				
 			{	
-				"value"									"10"	
-				"special_bonus_unique_nevermore_shadowraze_cooldown"		"-5"
+				"value"									"9"
+			}
+			"cooldown_reduction_on_hero_hit"
+			{
+				"value"					"0"
+				"special_bonus_shard"	"+2.0"
 			}
 		}
 	}
@@ -78,7 +94,6 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 		"FightRecapLevel"				"1"
 		"LinkedAbility"					"nevermore_shadowraze3"
 		
@@ -107,7 +122,11 @@
 				"special_bonus_unique_nevermore_2"	"+75%"
 				"CalculateSpellDamageTooltip"		"1"
 			}
-			"shadowraze_radius"	"250"		
+			"shadowraze_radius"	
+			{
+				"value"		"250"		
+				"affected_by_aoe_increase"	"1"
+			}
 			"shadowraze_range"	"450"
 			"shadowraze_cooldown"	"3"
 			"stack_bonus_damage" 
@@ -125,14 +144,26 @@
 				"value"					"0"
 				"special_bonus_unique_nevermore_raze_procsattacks"		"+1"
 			}
-			"movement_speed_pct"						"-15"
+			"movement_speed_debuff"
+			{
+				"value"											"0"
+				"special_bonus_facet_nevermore_shadowmire"		"10"
+			}
+			"attack_speed_debuff"
+			{
+				"value"											"0"
+				"special_bonus_facet_nevermore_shadowmire"		"10"
+			}
 			"turn_rate_pct"								"0"
 			"AbilityCooldown"				
 			{	
-				"value"									"10"	
-				"special_bonus_unique_nevermore_shadowraze_cooldown"		"-5"
+				"value"									"9"
 			}
-		
+			"cooldown_reduction_on_hero_hit"
+			{
+				"value"					"0"
+				"special_bonus_shard"	"+2.0"
+			}
 		}
 	}
 
@@ -149,7 +180,6 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 		"FightRecapLevel"				"1"
 		"LinkedAbility"					"nevermore_shadowraze1"
 		
@@ -177,7 +207,11 @@
 				"special_bonus_unique_nevermore_2"	"+75%"
 				"CalculateSpellDamageTooltip"		"1"
 			}
-			"shadowraze_radius"	"250"		
+			"shadowraze_radius"	
+			{
+				"value"		"250"		
+				"affected_by_aoe_increase"	"1"
+			}
 			"shadowraze_range"	"700"
 			"shadowraze_cooldown"	"3"
 			"stack_bonus_damage" 
@@ -195,12 +229,25 @@
 				"value"					"0"
 				"special_bonus_unique_nevermore_raze_procsattacks"		"+1"
 			}
-			"movement_speed_pct"						"-15"
+			"movement_speed_debuff"
+			{
+				"value"											"0"
+				"special_bonus_facet_nevermore_shadowmire"		"10"
+			}
+			"attack_speed_debuff"
+			{
+				"value"											"0"
+				"special_bonus_facet_nevermore_shadowmire"		"10"
+			}
 			"turn_rate_pct"								"0"
 			"AbilityCooldown"				
 			{	
-				"value"									"10"	
-				"special_bonus_unique_nevermore_shadowraze_cooldown"		"-5"
+				"value"									"9"
+			}
+			"cooldown_reduction_on_hero_hit"
+			{
+				"value"					"0"
+				"special_bonus_shard"	"+2.0"
 			}
 		}
 	}
@@ -215,18 +262,12 @@
 		"BaseClass"						"ability_lua"
 		"ScriptFile"					"heroes/hero_shadow_fiend/nevermore_necromastery"
 		"AbilityTextureName"			"nevermore_necromastery"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"OnCastbar"					"0"
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_4"
-				"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
-		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
-        "HasShardUpgrade"           "1"
-        "HasScepterUpgrade"           "1"
+		"DependentOnAbility"			"nevermore_requiem"
+        "HasScepterUpgrade"          	"1"
+		"Innate"						"1"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -247,7 +288,7 @@
 		{
 			"necromastery_damage_per_soul"
 			{
-				"value"								"10 20 30 40 50 60 70"
+				"value"								"5 15 20 25 30 35 40"
 				"special_bonus_unique_nevermore_1"	"+25%"
 				"DamageTypeTooltip"					"DAMAGE_TYPE_NONE"
 				"CalculateSpellDamageTooltip"		"0"
@@ -255,8 +296,8 @@
 			}
 			"necromastery_max_souls"
 			{
-				"value"								"22 28 34 40 46 52 58"
-				"special_bonus_scepter"				"10"
+				"value"								"40"
+				"special_bonus_scepter"				"+10"
 			}
 			"hero_stack_multiplier"					"2"
 			"necromastery_soul_release"				"30"
@@ -266,17 +307,6 @@
 				"special_bonus_shard"				"+3"
 				"RequiresShard"						"1"
 			}
-			"shard_souls_per_kill"					""
-			"shard_crit_pct"
-			{
-				"value"								"10"
-				"RequiresShard"						"1"
-			}
-			"shard_fear_duration"
-			{
-				"value"								"0.5"
-				"RequiresShard"						"1"
-			}		
 			"immortality"
 			{
 				"value"														"0"
@@ -298,7 +328,6 @@
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 		"OnCastbar"					"0"
 
 		// Casting
@@ -315,10 +344,10 @@
 				"special_bonus_unique_nevermore_5"			"-4"
 			}
 			"presence_radius"								"1200"
-			"bonus_armor_per_stack"							"1"
-			"creep_armor_per_stack"							"0.5"
-			"kill_buff_duration"							"10 10 10 10 15 20 25"
-			"creep_buff_duration"							"5 5 5 5 6 7 8"
+			"bonus_armor_per_stack"		{"special_bonus_facet_nevermore_lasting_presence"	"+2"}
+			"creep_armor_per_stack"		{"special_bonus_facet_nevermore_lasting_presence"	"+0.5"}
+			"kill_buff_duration"		{ "special_bonus_facet_nevermore_lasting_presence"	"+10 +10 +10 +10 +15 +20 +25"}
+			"kill_buff_duration"		{ "special_bonus_facet_nevermore_lasting_presence"	"+5 +5 +5 +5 +6 +7 +8"}
 			"affects_allies"
 			{
 				"value"								""
@@ -327,6 +356,49 @@
 		}
 	}
 	
+	//=================================================================================================================
+	// Ability: Frenzy
+	//=================================================================================================================	
+	"nevermore_frenzy"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_shadow_fiend/nevermore_frenzy"
+		"AbilityTextureName"			"nevermore_frenzy"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"FightRecapLevel"				"1"
+		"MaxLevel"						"7"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"16.0"
+		"AbilityManaCost"				"75"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_attack_speed"	
+			{
+				"value"													"40 50 60 70 80 90 100"
+				"special_bonus_unique_nevermore_4"						"+30"
+			}
+			"cast_speed_pct"		
+			{
+				"value"													"100"
+				"special_bonus_unique_nevermore_frenzy_castspeed"		"+40"
+			}
+			"cast_speed_pct_tooltip"
+			{
+				"value"													"0"
+				"special_bonus_unique_nevermore_frenzy_castspeed"		"=140"
+			}
+			"duration"													"8"
+			"soul_cost"													"5"
+		}
+	}
 	//=================================================================================================================
 	// Ability: Nevermore Requiem of Souls
 	//=================================================================================================================

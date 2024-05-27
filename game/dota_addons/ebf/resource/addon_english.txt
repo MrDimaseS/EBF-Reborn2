@@ -1768,6 +1768,11 @@
 
 		//Enigma
 		"DOTA_Tooltip_ability_enigma_demonic_conversion_Description"                                        "Transforms a creep or part of a creep-hero's soul into three fragments of Enigma himself.  These eidolons are all under Enigma's control, and repeated successful attacks cause them to multiply.  When this happens, the eidolons have their health restored.\nCreeps are instantly killed, creep-heroes take Pure damage equal to the eidolon's health for each eidolon created."
+		"DOTA_Tooltip_ability_enigma_demonic_conversion_Facet_enigma_fragment"								"Enigma spawns Eidolons upon receiving %damage_threshold%%% of his maximum health as damage. Resets after %damage_reset_interval% seconds."
+		
+		"DOTA_Tooltip_facet_enigma_fragment"																"Splitting Image"
+		"DOTA_Tooltip_facet_enigma_fragment_Description"													"Enigma creates Eidolons when damaged."
+		
 		"DOTA_Tooltip_ability_enigma_malefice_shard_description"                                            "Reduces Malefice tick rate and spreads Malefice to a new target each tick."
 		"DOTA_Tooltip_ability_enigma_malefice_ebf_changes"                                      			"Deals damage when creating the Eidolons and can be cast on Heroes."
 		"DOTA_Tooltip_ability_enigma_malefice_shard_spread_radius"                                          "SEARCH RADIUS:"
@@ -2069,9 +2074,9 @@
 		"DOTA_Tooltip_ability_invoker_invoke_scepter_description"											"Grants all of Invoker's abilities 2 charges and increases the level of Quas, Wex and Exort."
 		
 		//Pudge
-		"DOTA_Tooltip_ability_pudge_flesh_heap_Description"                                                 "Gives Pudge a guaranteed damage block against all types of damage. Passively grants bonus strength that increases each time Pudge kills an enemy unit or it dies in his vicinity.\nFlesh Heap's stacks increase by %hero_stacks% when a creep-hero is killed and by %creep_stacks% otherwise.\nSummoned units, such as Illusions and units created by abilities, give temporary stacks of Flesh Heap, which disappear after %temporary_duration% seconds.\nFlesh Heap is retroactive, meaning it can gain charges before it is skilled, which then become active."
+		"DOTA_Tooltip_ability_pudge_innate_graft_flesh_Description"                                        "Passively grants bonus strength that increases each time Pudge kills an enemy unit or it dies in his vicinity.\nFlesh Heap's stacks increase by %hero_stacks% when a creep-hero is killed and by %creep_stacks% otherwise.\nSummoned units, such as Illusions and units created by abilities, give temporary stacks of Flesh Heap, which disappear after %temporary_duration% seconds."
 		"DOTA_Tooltip_ability_pudge_flesh_heap_Note0"                                                       "Flesh Heap's damage block is applied after all forms of reduction, including other sources of damage block."
-		"DOTA_Tooltip_ability_pudge_flesh_heap_ebf_changes"                                      			"Grants temporary stacks when killing creeps and fake heroes."
+		"DOTA_Tooltip_ability_pudge_innate_graft_flesh_ebf_changes"                                      	"Grants temporary stacks when killing creeps and fake heroes."
 		"DOTA_Tooltip_ability_pudge_rot_Description"                                                        "A toxic cloud that deals intense damage and slows movement--harming not only enemy units but Pudge himself.\nPudge is not affected by the movement slow and does not take the bonus damage based on his Strength."
 		"DOTA_Tooltip_ability_pudge_rot_scepter_bonus_enemy_damage"                                         "%INCREASED ENEMY DAMAGE:"
 		"DOTA_Tooltip_ability_pudge_rot_scepter_description"                                                "Increases Rot's radius, enemies take increased damage from Rot and have their health regeneration reduced."
@@ -2095,6 +2100,9 @@
 		"DOTA_Tooltip_ability_pugna_nether_ward_spell_damage_reduction"                                     "%SPELL DAMAGE REDUCTION:"
 		"DOTA_Tooltip_ability_pugna_nether_ward_attack_rate"                                    			"WARD ATTACK RATE:"
 		"DOTA_Tooltip_ability_pugna_nether_ward_mana_multiplier"                                            ""
+		"DOTA_Tooltip_ability_pugna_nether_ward_Facet_pugna_siphoning_ward"									"Nether Ward restores mana and health to Pugna based on how much damage is dealt."
+		"DOTA_Tooltip_ability_pugna_nether_ward_mana_restore_pct"											"%DAMAGE TO MANA:"
+		"DOTA_Tooltip_ability_pugna_nether_ward_health_restore_pct"											"%DAMAGE TO HEALTH:"
 		
 		"DOTA_Tooltip_ability_pugna_life_drain_Description"													"When an enemy unit within the radius is affected by one of your spells, that unit has its life drained by you. For the duration, a tether forms that deals damage to the enemy unit and heals you.\nLife Drain can only affect one hero when triggered, but has no limit to creeps if Life Drain was triggered by an area of effect spell. Healing from creeps is reduced by %creep_pct%%%%.\nThe tether is broken when you are silenced, stunned or the enemy unit moves more than %drain_buffer% further than the effect radius.\nRestores mana if at full health instead."
 		"DOTA_Tooltip_ability_pugna_life_drain_health_drain"												"DAMAGE"
@@ -2149,10 +2157,8 @@
 		"DOTA_Tooltip_modifier_skywrath_mage_ancient_seal_debuff"											"Ancient Seal - Debuff"
 		"DOTA_Tooltip_modifier_skywrath_mage_ancient_seal_debuff_Description"								"Magic resistance reduced by %dMODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS%%%"
 		"DOTA_Tooltip_ability_skywrath_mage_shield_of_the_scion"                                            "Shield of the Scion"
-		"DOTA_Tooltip_ability_skywrath_mage_shield_of_the_scion_bonus_armor"                                "BONUS ARMOR:"
-		"DOTA_Tooltip_ability_skywrath_mage_shield_of_the_scion_bonus_intelligence"                         "BONUS INTELLIGENCE:"
-		"DOTA_Tooltip_ability_skywrath_mage_shield_of_the_scion_Description"                                "Every time Skywrath Mage deals magic damage to an enemy hero with an ability, he gains a buff that grants bonus Intelligence and Armor. Each charge stacks independently. Creeps have a %creep_chance%%% chance to grant a charge instead."
-		"DOTA_Tooltip_ability_skywrath_mage_shield_of_the_scion_stack_duration"                             "STACK DURATION:"
+		"DOTA_Tooltip_ability_skywrath_mage_shield_of_the_scion_Description"								"Every time Skywrath Mage deals magic damage to an enemy with an ability, he gains a magic damage barrier equal to %damage_barrier_base% + %damage_barrier_per_level% per his hero level, creeps provide %creep_pct%%% less barrier. Each buff stacks independently."
+		"DOTA_Tooltip_ability_skywrath_mage_staff_of_the_scion_Description"									"Every time Skywrath Mage deals magic damage to an enemy with an ability, he reduces all his ability cooldowns by %cooldown_reduction%s. Creeps have a %creep_chance%%% chance to reduce cooldowns instead"
 		"DOTA_Tooltip_modifier_skywrath_mage_shield_of_the_scion_handler"                                   "Shield of the Scion"
 		"DOTA_Tooltip_modifier_skywrath_mage_shield_of_the_scion_handler_Description"                       "Gaining %dMODIFIER_PROPERTY_STATS_INTELLECT_BONUS% intelligence and %dMODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS% armor."
 		
@@ -2168,6 +2174,7 @@
 		"DOTA_Tooltip_ability_slark_essence_shift_Note2"                                                    "To permanently steal Agility, Slark doesn't need to land the killing blow, as long as the enemy hero is killed within 300 range of Slark while having the Essence Shift debuff."
 		"DOTA_Tooltip_ability_slark_essence_shift_permanent_agi"                                            "AGILITY GAINED/KILL:"
 		"DOTA_Tooltip_ability_slark_essence_shift_str_gain"                                                 "STRENGTH GAINED/HIT:"
+		
 		"DOTA_Tooltip_ability_slark_pounce_Description"                                                     "Slark leaps forward, attacking every enemy within his attack range and stopping at the first hero he connects with. Enemies leapt through are attacked and have their attack and movement speed slowed for a duration."
 		"DOTA_Tooltip_ability_slark_pounce_leash_duration"                                                  "DEBUFF DURATION:"
 		"DOTA_Tooltip_ability_slark_pounce_leash_slow"                                                      "%DEBUFF SLOW:"
@@ -2176,9 +2183,11 @@
 		"DOTA_Tooltip_ability_slark_pounce_Note1"                                                           "Spell Immune units cannot be leashed."
 		"DOTA_Tooltip_ability_slark_pounce_Note2"                                                           "Trees will be destroyed around Slark's landing location."
 		"DOTA_Tooltip_ability_slark_pounce_scepter_description"                                             "Provides charges, reduces cooldown and increases range."
+		
 		"DOTA_Tooltip_ability_slark_shadow_dance_Description"                                               "When used, Slark hides himself in a cloud of shadows, becoming immune to detection. Attacking, casting spells, and using items will not reveal Slark.\nPassively, if Slark has not been damaged for at least %neutral_disable% seconds, he gains bonus movement speed and health regeneration."
+		
 		"DOTA_Tooltip_modifier_slark_essence_shift_agi_buff"                                                "Essence Shift - Buff"
-		"DOTA_Tooltip_modifier_slark_essence_shift_agi_buff_Description"                                    "Gaining %dMODIFIER_PROPERTY_STATS_AGILITY_BONUS% Agility %dMODIFIER_PROPERTY_STATS_STRENGTH_BONUS% Strength and %dMODIFIER_PROPERTY_STATS_INTELLECT_BONUS% Intelligence."
+		"DOTA_Tooltip_modifier_slark_essence_shift_agi_buff_Description"                                    "Gaining %dMODIFIER_PROPERTY_STATS_AGILITY_BONUS% Agility."
 		"DOTA_Tooltip_modifier_slark_essence_shift_attr_debuff"                                             "Essence Shift - Debuff"
 		"DOTA_Tooltip_modifier_slark_essence_shift_attr_debuff_Description"                                 "Armor reduced and movement speed slowed."
 		"DOTA_Tooltip_modifier_slark_essence_shift_handler"                                                 "Essence Shift - Agility"
@@ -2211,6 +2220,7 @@
 		
 		//Spectre
 		"DOTA_Tooltip_ability_spectre_desolate_Description"													"Deals bonus damage whenever Spectre attacks an enemy. If the unit does not have any allied units within a %radius% radius around them, the damage is increased by %lonely_multiplier%%%."
+		"DOTA_Tooltip_ability_spectre_desolate_Facet_spectre_forsaken" 										"If an enemy has only non-hero allies nearby, it will still take the solo multiplier."
 		"DOTA_Tooltip_ability_spectre_desolate_ebf_changes"                                      			"Always deals some damage, deals more damage to units without allies."
 
 		"DOTA_Tooltip_ability_spectre_haunt_Description"													"You call upon your extraplanar selves. For the duration, when you attack an enemy unit, all other enemy heroes are attacked. This can include the triggering enemy unit, if they are a hero.\nWhile Haunt is active, Reality becomes castable, allowing you to teleport to the targeted hero. Additionally, your attacks temporarily reduce armor and Desolate always applies its lonely multiplier to the damage dealt."
@@ -2258,6 +2268,8 @@
 		
 		//Tidehunter
 		"DOTA_Tooltip_ability_tidehunter_kraken_shell_Description"                                          "Whenever Tidehunter is damaged while this ability is off cooldown, his abyssal nature purges him of all debuffs and negates the damage taken. The buff that renders him immune to damage and purges him lingers for %linger_duration% seconds.\n\nDISPEL TYPE: Strong Dispel<br>COOLDOWN TYPE: When Buff Expires"
+		"DOTA_Tooltip_ability_tidehunter_kraken_shell_Facet_tidehunter_kraken_swell"						"Kraken Shell gains permanent Duration when an enemy hero dies under the effects of Anchor Smash."
+		"DOTA_Tooltip_ability_tidehunter_kraken_shell_bonus_duration_per_kill"								"DURATION INCREASE PER HERO KILL"
 		"DOTA_Tooltip_ability_tidehunter_kraken_shell_ebf_changes"											"Turns Tidehunter immune to damage on a cooldown, rather than giving damage block."
 		"DOTA_Tooltip_modifier_tidehunter_kraken_shell_effect"                                              "Kraken Shell"
 		"DOTA_Tooltip_modifier_tidehunter_kraken_shell_effect_Description"                                  "Purging yourself constantly and taking no damage."
@@ -2266,16 +2278,12 @@
 		
 		//Tinker
 		"DOTA_Tooltip_ability_tinker_rearm"																	"Rearm"
-		"DOTA_Tooltip_ability_tinker_rearm_abilitydraft_note"												"For abilities with charges, a single charge of the ability will be added everytime Rearm is cast."
-		"DOTA_Tooltip_ability_tinker_rearm_Description"														"CHANNELED - Resets the cooldown on most of Tinker's items and abilities.\nEach time Tinker Rearms an ability, the duration of the buffs and debuffs he applies are reduced by %duration_debuff%%% for %debuff_duration% seconds. Stacks are independent from each other and stack up to %debuff_max% times."
+		"DOTA_Tooltip_ability_tinker_rearm_Description"														"CHANNELED - Resets the cooldown on Tinker's abilities."
 		"DOTA_Tooltip_ability_tinker_rearm_Lore"															"A new battery here, another set of rockets there, Boush continually improves on existing technology."
 		"DOTA_Tooltip_ability_tinker_rearm_Note0"															"Rearm works on all items except Aeon Disk and items that can otherwise not be refreshed."
-		"DOTA_Tooltip_ability_tinker_rearm_ebf_changes"														"Each cast of Rearm reduces your buff and debuff durations temporarily."
 		"DOTA_Tooltip_ability_tinker_rearm_abilitychanneltime"												"TIME TO REARM:"
 		"DOTA_Tooltip_modifier_tinker_rearm_hidden"															"Rearm"
 		"DOTA_Tooltip_modifier_tinker_rearm_hidden_Description"												"Resetting ability cooldowns."
-		"DOTA_Tooltip_modifier_tinker_rearm_debuff"															"Rearm Sickness"
-		"DOTA_Tooltip_modifier_tinker_rearm_debuff_Description"												"The duration of your buffs and debuffs are reduced by %dMODIFIER_PROPERTY_TOOLTIP%%%."
 		
 		//Tiny
 		"DOTA_Tooltip_ability_tiny_toss_Description"														"Grabs the nearest unit in a %grab_radius% radius around Tiny, ally or enemy, and launches it at the target position to deal damage where they land.\nIf no unit is around to grab, throws a boulder instead."
@@ -2392,8 +2400,21 @@
 		"DOTA_Tooltip_ability_zuus_arc_lightning_damage_health_pct"                                         ""
 		"DOTA_Tooltip_ability_zuus_arc_lightning_Description"                                               "Hurls a bolt of lightning that leaps through nearby enemy units that deals damage."
 		"DOTA_Tooltip_ability_zuus_arc_lightning_Lore"                                                      "Arc Lightning is Zeus' favorite spell to use against puny mortals."
-		"DOTA_Tooltip_ability_zuus_arc_lightning_ebf_changes"												"Does not scale in damage based on maximum health."
-
+		
+		"DOTA_Tooltip_ability_zuus_static_field"															"Static Field"
+		"DOTA_Tooltip_ability_zuus_static_field_Description"												"Zeus shocks any enemy that he attacks or is hit by his abilities, causing damage equal to a percentage of their current health, attacks deal less damage. Deals less damage against Hero units."		
+		"DOTA_Tooltip_ability_zuus_static_field_Facet_zuus_livewire"										"Static Field deals more damage to nearby enemies."
+		"DOTA_Tooltip_ability_zuus_static_field_damage_threshold_min"										"%MIN RANGE DAMAGE BONUS:"
+		"DOTA_Tooltip_ability_zuus_static_field_damage_threshold_max"										"%MAX RANGE DAMAGE BONUS:"
+		"DOTA_Tooltip_ability_zuus_static_field_damage_health_pct_spell"									"%SPELL HERO HEALTH LOSS:"
+		"DOTA_Tooltip_ability_zuus_static_field_damage_health_pct_attack"									"%ATTACK HERO HEALTH LOSS:"
+		"DOTA_Tooltip_ability_zuus_static_field_creep_health_pct_spell"										"%SPELL CREEP HEALTH LOSS:"
+		"DOTA_Tooltip_ability_zuus_static_field_creep_health_pct_attack"									"%ATTACK CREEP HEALTH LOSS:"
+		"DOTA_Tooltip_ability_zuus_static_field_ebf_changes"												"Deals less damage to Hero units and when triggered by attacks."
+		
+		// Queen of Pain
+		"DOTA_Tooltip_ability_queenofpain_masochist_Description"											"Queen of Pain has bonus Spell Amplification which increases every level, but a percentage of her spell damage is reflected back to her."
+		"DOTA_Tooltip_ability_queenofpain_masochist_spell_amplification_per_level"							"%SPELL AMPLIFICATION/LEVEL:"
 		
 		// Riki
 		"DOTA_Tooltip_ability_riki_smoke_screen_Description"												"Throws down a smoke bomb, silencing enemies, and causing them to miss attacks.\nUnits in Smoke Screen are always Backstabbed."
@@ -2405,30 +2426,34 @@
 		"DOTA_Tooltip_ability_riki_blink_strike_Description"												"Teleports behind the target unit, momentarily slowing them and striking for bonus damage if it is an enemy.\nUnits in Smoke Screen are stunned instead."
 		"DOTA_Tooltip_ability_riki_blink_strike_slow"														"SLOW/STUN DURATION:"
 		
-		"DOTA_Tooltip_ability_riki_backstab_Description"													"Riki fades into the shadows, becoming invisible. Every time Riki strikes his enemy from behind, he can <b>Backstab</b>, dealing bonus damage based on his Agility. Bonus damage is doubled against non-hero units. When Riki attacks, he becomes visible."
+		"DOTA_Tooltip_ability_riki_backstab_Description"													"Riki fades into the shadows, becoming invisible. Every time Riki strikes his enemy from behind, he can <b>Backstab</b>, dealing bonus damage based on his Agility. When Riki attacks, he becomes visible."
+		"DOTA_Tooltip_ability_riki_backstab_damage_multiplier"												"BACKSTAB DAMAGE/AGILITY"
 		"DOTA_Tooltip_ability_riki_backstab_bonus_xp_kill"													""
 		"DOTA_Tooltip_ability_riki_backstab_bonus_xp_assist"												""
+		"DOTA_Tooltip_ability_riki_backstab_Facet_riki_exterminator"										"Backstab deals %creep_agility_multiplier%x damage to Creeps."
 		
 		"DOTA_Tooltip_ability_riki_tricks_of_the_trade_Description"											"CHANNELED - Riki phases out of the world while striking all enemy units from behind in an area around him, Backstabbing them. While phased out his Agility greatly increases."
         "DOTA_Tooltip_ability_riki_tricks_of_the_trade_scepter_description"									"Increases cast range and duration, and Tricks of the Trade applies Blink Strike's effects on attack."
-		"DOTA_Tooltip_ability_riki_tricks_of_the_trade_Lore"												"The Stealth Assassin is not afraid to fight dirty, and specializes in attacking his opponents from behind."
 		"DOTA_Tooltip_ability_riki_tricks_of_the_trade_ebf_changes"											"Hits all units in the radius."
 		"DOTA_Tooltip_ability_riki_tricks_of_the_trade_Note0"												"Moving while phased out will cancel the ability."
 		"DOTA_Tooltip_ability_riki_tricks_of_the_trade_radius"												"RADIUS:"
 		"DOTA_Tooltip_ability_riki_tricks_of_the_trade_attack_count"										""
 		"DOTA_Tooltip_ability_riki_tricks_of_the_trade_attack_rate"											"SECONDS PER ATTACK"
 		"DOTA_Tooltip_ability_riki_tricks_of_the_trade_damage_pct"											"%ATTACK DAMAGE:"
-		"DOTA_Tooltip_ability_riki_tricks_of_the_trade_agility_pct"											"%AGILITY BONUS:"
+		"DOTA_Tooltip_ability_riki_tricks_of_the_trade_agility_pct"											"BONUS AGILITY:"
 		"DOTA_Tooltip_ability_riki_tricks_of_the_trade_duration"											"DURATION:"
 		"DOTA_Tooltip_ability_riki_tricks_of_the_trade_AbilityCastRange"									"CAST RANGE:"
 		"DOTA_Tooltip_ability_riki_tricks_of_the_trade_scepter_cast_range"									""
 		"DOTA_Tooltip_ability_riki_tricks_of_the_trade_scepter_attacks"										""
 		"DOTA_Tooltip_ability_riki_tricks_of_the_trade_scepter_targets"										""
 		"DOTA_Tooltip_ability_riki_tricks_of_the_trade_damage_multiplier"									"AGI DAMAGE MULT:"
+		"DOTA_Tooltip_ability_riki_tricks_of_the_trade_Facet_riki_exterminator"								""
+		
 		"DOTA_Tooltip_ability_special_bonus_unique_riki_1"													"+{s:bonus_damage_multiplier} Backstab Multiplier"
+		"DOTA_Tooltip_ability_special_bonus_unique_riki_2"													"+{s:bonus_agility_pct}% Tricks of the Trade Agility Increase"
 		"DOTA_Tooltip_ability_special_bonus_unique_riki_3"													"-{s:bonus_AbilityCooldown}s Smoke Screen Cooldown"
 		"DOTA_Tooltip_ability_special_bonus_unique_riki_4"													"+{s:bonus_radius} Tricks of the Trade Radius"
-		"DOTA_Tooltip_ability_special_bonus_unique_riki_5"													"Tricks of the Trade<br>Hard Dispels"
+		"DOTA_Tooltip_ability_special_bonus_unique_riki_5"													"Tricks of the Trade Hard Dispels"
 		"DOTA_Tooltip_ability_special_bonus_unique_riki_5_Description"										"Can be cast when stunned, rooted or leashed"
 		"DOTA_Tooltip_ability_special_bonus_unique_riki_6"													"{s:bonus_AbilityCooldown}% Faster Tricks of the Trade"
 		"DOTA_Tooltip_ability_special_bonus_unique_riki_6_Description"										"Reduces cooldown and increases attack speed."
@@ -2752,6 +2777,7 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_razor_4"                                                 "+{s:bonus_damage_min}% Plasma Field Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_sand_king_2"                                             "+{s:bonus_sand_storm_damage}% Sand Storm Damage Per Second"
 		"DOTA_Tooltip_ability_special_bonus_unique_sand_king_8"                                             "+{s:value}% Caustic Finale Damage"
+		"DOTA_Tooltip_ability_special_bonus_unique_sand_king_scorpion_strike_damage"						"+{s:bonus_attack_damage}% Stinger Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_shadow_demon_1"                                          "+{s:value}% Demonic Purge/Cleanse Damage/Heal"
 		"DOTA_Tooltip_ability_special_bonus_unique_shadow_shaman_3"											"+{s:bonus_damage}% Ether Shock Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_shadow_demon_4"                                          "+{s:bonus_hit_damage}% Shadow Poison Damage"
@@ -2762,6 +2788,7 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_shadow_shaman_7"                                         "Hex Castable On Allies"
 		"DOTA_Tooltip_ability_special_bonus_unique_shadow_shaman_7-Description"                             "Transfers Hex's passive benefits to your ally for {s:bonus_ally_duration} seconds. {s:bonus_cast_range} Cast Range"
 		"DOTA_Tooltip_ability_special_bonus_unique_silencer"                                                "+{s:bonus_damage}% Arcane Curse Damage"
+		"DOTA_Tooltip_ability_special_bonus_unique_silencer_4"                                              "+{s:bonus_damage_per_silence}% Last Word Damage/Slow"
 		"DOTA_Tooltip_ability_special_bonus_unique_skywrath"												"-{s:bonus_AbilityCooldown}s Ancient Seal Cooldown"
 		"DOTA_Tooltip_ability_special_bonus_unique_skywrath_5"                                              "+{s:value}% Mystic Flare Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_slardar"                                                 "+{s:value}% Slithereen Crush Damage"
@@ -2775,7 +2802,8 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_snapfire_lil_shredder_damage"                            "+{s:bonus_damage}% Lil' Shredder Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_snapfire_mortimer_kisses_impact_damage"                  "+{s:bonus_damage_per_impact}% Mortimer Kisses Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_sniper_1"                                                "+{s:value}% Shrapnel DPS"
-		"DOTA_Tooltip_ability_special_bonus_unique_sniper_2"												"+{s:bonus_AbilityCharges} Shrapnel Charges"
+		"DOTA_Tooltip_ability_special_bonus_unique_sniper_2"												"-{s:bonus_AbilityChargeRestoreTime}s Shrapnel Charge Restore Time"
+		"DOTA_Tooltip_ability_special_bonus_unique_sniper_3"												"+{s:bonus_slow_duration} Headshot Root Duration"
 		"DOTA_Tooltip_ability_special_bonus_unique_sniper_headshot_damage"                                  "+{s:bonus_damage}% Headshot Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_sniper_6"												"+{s:bonus_bonus_attack_range}% Take Aim Range"
 		"DOTA_Tooltip_ability_special_bonus_unique_spectre_2"                                               "+{s:bonus_bonus_damage}% Desolate Damage"
@@ -2797,6 +2825,8 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_tinker"                                                  "+{s:bonus_laser_damage}% Laser Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_tinker_5"                                                "-{s:bonus_channel_tooltip}s Rearm Channel Time"
 		"DOTA_Tooltip_ability_special_bonus_unique_tinker_7"                                                "+{s:bonus_damage_absorb}% Defense Matrix Damage Absorbed"
+		"DOTA_Tooltip_ability_special_bonus_unique_tinker_rearm_magic_resistance"							"Rearm {s:bonus_armor_duration}s Debuff Immunity "
+		"DOTA_Tooltip_ability_special_bonus_unique_tinker_rearm_magic_resistance_Description"				"Grants {s:bonus_magic_resistance}% Bonus Magic Resistance."
 		"DOTA_Tooltip_ability_special_bonus_unique_tiny"                                                    "+{s:bonus_avalanche_damage}% Avalanche Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_tiny_5"													"Toss Can Toss Tiny"
 		"DOTA_Tooltip_ability_special_bonus_unique_tiny_5_Description"										"If Auto-Cast is on, Tiny throws himself, ignoring enemies."
@@ -2850,6 +2880,7 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_wraith_king_3"                                           "+{s:value} Wraithfire Blast DPS"
 		"DOTA_Tooltip_ability_special_bonus_unique_wraith_king_6"											"+{s:bonus_talent_skeleton_damage}% Skeletons Attack Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_wraith_king_mortal_strike_cd"							"-{s:bonus_AbilityCooldown}% Mortal Strike Cooldown"
+		"DOTA_Tooltip_ability_special_bonus_unique_zeus"													"+{s:bonus_targets}% Heavenly Jump Target"
 		"DOTA_Tooltip_ability_special_bonus_unique_zeus_2"                                                  "+{s:bonus_arc_damage}% Arc Lightning Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_zeus_4"                                                  "+{s:bonus_damage}% Thundergod's Wrath Damage"
 		"DOTA_Tooltip_ability_special_bonusspecial_bonus_finger_of_death_health_per_kill"                   "+{s:value} Max Health Per Finger of Death Stack Kill"

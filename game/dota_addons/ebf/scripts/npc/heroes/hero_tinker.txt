@@ -1,5 +1,25 @@
 "DOTAAbilities"
-{	
+{
+	//=================================================================================================================
+	// Ability: Tinker Innate: Item CDR
+	//=================================================================================================================
+	"tinker_eureka"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"Innate"						"1"
+		"MaxLevel"						"1"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"int_per_one_cdr"				"100"
+			"one_percent_tooltip"			"1"
+			"max_cdr"						"60"
+		}
+	}
 	//=================================================================================================================
 	// Tinker: Defense Matrix ( shard ability )
 	//=================================================================================================================
@@ -14,7 +34,6 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 		
 		"FightRecapLevel"				"1"
 		
@@ -28,7 +47,7 @@
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"12"
+		"AbilityCooldown"				"20"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -44,15 +63,89 @@
 				"CalculateSpellDamageTooltip"	"1"
 				"special_bonus_unique_tinker_7"	"+50%"
 			}
-			"status_resistance"					"40"
+			"status_resistance"
+			{
+				"value"															"40"
+				"special_bonus_unique_tinker_defense_matrix_status_resistance"	"+10"
+			}
 			"barrier_duration"					"15"
+			
 			"cooldown_reduction"
 			{
 				"value"							"0"
 				"special_bonus_unique_tinker_defense_matrix_cdr"		"+25"
 			}
-
+			"flicker_range"
+			{
+				"value"											"0"
+				"special_bonus_facet_tinker_translocator"	"+300"
+			}
+			"flicker_angle"							"120"
 		}
+	}
+	//=================================================================================================================
+	// Tinker: March of the Machines
+	//=================================================================================================================
+	"tinker_march_of_the_machines"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"AbilitySound"					"Hero_Tinker.March_of_the_Machines"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"300"
+		"AbilityCastPoint"				"0.53"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"35.0"
+
+		// Damage.
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityDamage"					"0"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"110 130 150 170 190 210 230"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"radius"				
+			{
+				"value"											"900"
+				"affected_by_aoe_increase"						"1"
+			}
+			"collision_radius"									"50"
+			"splash_radius"										"150"
+			"duration"
+			{
+				"value"											"6.0"
+				"special_bonus_unique_tinker_march_duration"	"+1.0"
+			}
+			"speed"												"400"
+			"machines_per_sec"									"24"
+			"distance"											"1800"
+			"damage"											"160 240 320 400 480 560 640"
+			
+			"heal_per_second"
+			{
+				"value"											"0"
+				"special_bonus_facet_tinker_repair_bots"		"+80 +120 +160 +200 +240 +280 +320"
+			}
+
+			"heal_duration"
+			{
+				"value"											"0"
+				"special_bonus_facet_tinker_repair_bots"		"+4"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
 	//=================================================================================================================
 	// Tinker: Laser
@@ -70,7 +163,6 @@
 		"FightRecapLevel"				"1"
 		"HasScepterUpgrade"			"1"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 		"AbilitySound"					"Hero_Tinker.Laser"
 
 		// Casting
@@ -81,7 +173,6 @@
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"16"
-
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -114,9 +205,9 @@
 			}	
 			"radius_explosion"
 			{
-				"value"							"250"
-				"special_bonus_unique_tinker_4"	"+50"
-				"affected_by_aoe_increase"		"1"
+				"value"			"0"
+				"special_bonus_unique_tinker_4"	"+250"
+				"affected_by_aoe_increase"	"1"
 			}
 			"splash_pct"						"100"
 			"scepter_bonus_cast_range"				
@@ -152,7 +243,6 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 		"AbilitySound"					"Hero_Tinker.Laser"
 		"MaxLevel"						"1"
@@ -209,7 +299,6 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Tinker.Heat-Seeking_Missile"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -279,28 +368,39 @@
 
 		// Time
 		//-------------------------------------------------------------------------------------------------------------
-	    "AbilityCooldown"               "9 8 7 6.5 6.0 5.4"
+	    "AbilityCooldown"               "8 7 6 5 4 3"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-	    "AbilityManaCost"               "140 195 250 305 360 415"
+	    "AbilityManaCost"               "125 175 225 275 325 375"
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 	    "AbilityValues"
 	    {
 			"channel_tooltip"
 			{
-				"value"					"3.75 3.25 2.75 2.25 1.75 1.25"
+				"value"							"3.75 3.25 2.75 2.25 1.75 1.25"
 				"special_bonus_unique_tinker_5"	"-25%"
 			}
 			"AbilityChannelTime"
 			{
-				"value"					"3.75 3.25 2.75 2.25 1.75 1.25"
+				"value"							"3.75 3.25 2.75 2.25 1.75 1.25"
 				"special_bonus_unique_tinker_5"	"-25%"
 			}
-			"debuff_duration"			"12"
-			"duration_debuff"			"15"
-			"debuff_max"				"5"
+			"debuff_immunity_duration"
+			{
+				"value"													"0"
+				"special_bonus_unique_tinker_rearm_magic_resistance"	"+4"
+			}
+			"magic_resistance"
+			{
+				"value"													"0"
+				"special_bonus_unique_tinker_rearm_magic_resistance"	"+50"
+			}
+			"affects_items"
+			{
+				"value"									"0"
+			}
 	    }
 	}
 	
@@ -318,7 +418,6 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 		"FightRecapLevel"				"1"
 		"IsGrantedByShard"				"1"
 
@@ -343,7 +442,7 @@
 		{
 			"damage"
 			{
-				"value"							"500"
+				"value"							"1500"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"knockback_distance"	"600"

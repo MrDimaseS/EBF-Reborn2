@@ -57,16 +57,8 @@ function modifier_phantom_assassin_blur_handler:OnIntervalThink()
 end
 
 function modifier_phantom_assassin_blur_handler:DeclareFunctions()
-    funcs = {
-               MODIFIER_PROPERTY_EVASION_CONSTANT,
-			   MODIFIER_EVENT_ON_DEATH
-            }
+    funcs = {MODIFIER_EVENT_ON_DEATH}
     return funcs
-end
-
-function modifier_phantom_assassin_blur_handler:GetModifierEvasion_Constant(params)
-	if self:GetParent():PassivesDisabled() then return end
-    return self.evasion
 end
 
 function modifier_phantom_assassin_blur_handler:OnDeath(params)
@@ -92,15 +84,25 @@ end
 
 function modifier_phantom_assassin_blur_fade:OnRefresh()
 	self.fade_duration = self:GetSpecialValueFor("fade_duration")
+	self.manacost_reduction_during_blur_pct = self:GetSpecialValueFor("manacost_reduction_during_blur_pct")
+	self.manacost_reduction_after_blur_pct = self:GetSpecialValueFor("manacost_reduction_after_blur_pct")
 end
 
 function modifier_phantom_assassin_blur_fade:DeclareFunctions()
-	return { MODIFIER_EVENT_ON_TAKEDAMAGE, MODIFIER_PROPERTY_INVISIBILITY_LEVEL }
+	return { MODIFIER_EVENT_ON_TAKEDAMAGE, MODIFIER_PROPERTY_MANACOST_PERCENTAGE_STACKING }
 end
 
 function modifier_phantom_assassin_blur_fade:CheckState()
 	if not self:GetParent():HasModifier("modifier_phantom_assassin_blur_cd") then
-		return { [MODIFIER_STATE_INVISIBLE] = true, [MODIFIER_STATE_UNTARGETABLE] = true }
+		return { [MODIFIER_STATE_UNTARGETABLE] = true }
+	end
+end
+
+function modifier_phantom_assassin_blur_fade:GetModifierPercentageManacostStacking()
+	if self:GetCaster():HasModifier("modifier_phantom_assassin_blur_cd") then
+		return self.manacost_reduction_after_blur_pct
+	else
+		return self.manacost_reduction_during_blur_pct
 	end
 end
 
@@ -122,14 +124,6 @@ end
 
 function modifier_phantom_assassin_blur_fade:GetEffectName()
 	return "particles/units/heroes/hero_phantom_assassin/phantom_assassin_active_blur.vpcf"
-end
-
-function modifier_phantom_assassin_blur_fade:GetModifierInvisibilityLevel()
-	if self:GetParent():HasModifier("modifier_phantom_assassin_blur_cd") then
-		return
-	else
-		return 1
-	end
 end
 
 function modifier_phantom_assassin_blur_fade:IsHidden()

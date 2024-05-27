@@ -48,13 +48,14 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_TOGGLE | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
-		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
+		"MaxLevel"						"8"
+		"Innate"						"1"
+		"RequiredLevel"					"-1"
 		"AbilitySound"					"Hero_TrollWarlord.BerserkersRage.Toggle"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastPoint"				"0.2 0.2 0.2 0.2"
+		"AbilityCastPoint"				"0.2"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -63,23 +64,24 @@
 			"bonus_hp"							"0"
 			"bonus_move_speed"
 			{
-				"value"							"15 25 35 45 55 65 75"
+				"value"							"5 15 25 35 45 55 65 75"
 				"LinkedSpecialBonus"			"special_bonus_unique_troll_warlord_2"
 
 			}
 			"bonus_armor"
 			{
-				"value"							"4 6 8 10 12 14 16"
+				"value"							"2 4 6 8 10 12 14 16"
 				"LinkedSpecialBonus"			"special_bonus_unique_troll_warlord"
 
 			}
 			"bonus_range"						"350"
+			"base_attack_time"					"1.4"
 			"ensnare_chance"
 			{
-				"value"							"14 15 16 17 18 19 20"
+				"value"							"20"
 				"affected_by_chance_increase"	"1"
 			}
-			"ensnare_duration"					"1.4"
+			"ensnare_duration"					"2.0"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -99,7 +101,6 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_TrollWarlord.WhirlingAxes.Ranged"
 
@@ -165,7 +166,6 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_TrollWarlord.WhirlingAxes.Melee"
 
@@ -279,28 +279,37 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
  		"AbilityCastAnimation"			"ACT_INVALID"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 		
 		// Casting
 		"AbilityValues"
 		{
 			"attack_speed"
 			{
-				"value"						"15 20 25 30 35 40 45"
-				"LinkedSpecialBonus"		"special_bonus_unique_troll_warlord_5"
+				"value"										"15 20 25 30 35 40 45"
+				"special_bonus_unique_troll_warlord_5"		"+5"
 			}
-			"max_stacks"			"12"
+			"max_stacks"			
+			{
+				"value"						"12"
+				"special_bonus_shard"			"+3"
+			}
 			"extra_attack_chance_per_stack"
 			{
-				"value"	"3"
-				"RequiresShard"	"1"
+				"value"							"4"
+				"RequiresShard"					"1"
 			}
 			"base_chance"
 			{
-				"value"	"20"
-				"RequiresShard"	"1"
+				"value"							"18"
+				"RequiresShard"					"1"
+				"affected_by_chance_increase"	"1"
 			}
-			"range_buffer"	"175"
+			"range_buffer"						"175"
+			"armor_per_stack"
+			{
+				"value"			"0"
+				"special_bonus_facet_troll_warlord_insensitive"			"+1"				
+			}
 		}
 	}
 	
@@ -338,20 +347,27 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"trance_duration"								"6.5"	
+			"trance_duration"								"5.5 6.0 6.5 7.0 7.5"	
 			"AbilityCooldown"
 			{
-				"value"										"90 80 70 66.1 62.2 58.3"
+				"value"										"70"
 				"special_bonus_unique_troll_warlord_7"		"-15"
 			}
-			"lifesteal"										"40 60 80 85 90 95"
+			"lifesteal"										"40"
 			"attack_speed"									"140 170 200 230 260 290"
 			"movement_speed"
 			{
-				"value"										"25 40 55 65 75 85"
-				"special_bonus_unique_troll_warlord_battle_trance_movespeed"		"+20"
+				"value"																"25 30 35 40 45 50"
 			}
-			"range"				"900"
+			"slow_resistance"
+			{
+				"special_bonus_unique_troll_warlord_battle_trance_movespeed"		"+50"
+			}
+			"range"				
+			{
+				"value"	"900"
+				"affected_by_aoe_increase"	"1"
+			}
 		}
 	}
 

@@ -31,7 +31,7 @@ function ursa_enrage:OnSpellStart()
 
 		caster:StartGesture(ACT_DOTA_OVERRIDE_ABILITY_4)
 		caster:Purge(false, true, false, true, true)
-		caster:AddNewModifier(caster, self, "modifier_ursa_enrage_active", {Duration = self:GetTalentSpecialValueFor("duration")})
+		caster:AddNewModifier(caster, self, "modifier_ursa_enrage_active", {Duration = self:GetSpecialValueFor("duration")})
 		self:SetCooldown(0.5)
 	end
 end
@@ -40,7 +40,7 @@ modifier_ursa_enrage_shard_handler = class({})
 LinkLuaModifier("modifier_ursa_enrage_shard_handler", "heroes/hero_ursa/ursa_enrage", LUA_MODIFIER_MOTION_NONE)
 
 function modifier_ursa_enrage_shard_handler:OnCreated()
-	self.shard_spellcast_duration = self:GetTalentSpecialValueFor("shard_spellcast_duration")
+	self.shard_spellcast_duration = self:GetSpecialValueFor("shard_spellcast_duration")
 end
 
 function modifier_ursa_enrage_shard_handler:DeclareFunctions()
@@ -65,15 +65,22 @@ LinkLuaModifier("modifier_ursa_enrage_active", "heroes/hero_ursa/ursa_enrage", L
 
 function modifier_ursa_enrage_active:OnCreated()
 	local caster = self:GetCaster()
-	self.damage_reduction = self:GetTalentSpecialValueFor("damage_reduction")
-	self.status_resistance = self:GetTalentSpecialValueFor("status_resistance")
-	self.shard_spellcast_duration = self:GetTalentSpecialValueFor("shard_spellcast_duration")
+	self.damage_reduction = self:GetSpecialValueFor("damage_reduction")
+	self.status_resistance = self:GetSpecialValueFor("status_resistance")
+	self.shard_spellcast_duration = self:GetSpecialValueFor("shard_spellcast_duration")
+	self.damage_increase_duration = self:GetSpecialValueFor("damage_increase_duration")
+	if self.damage_increase_duration > 0 and IsServer() then
+		self.grudge_bearer = caster:AddNewModifier( caster, self:GetAbility(), "modifier_ursa_enrage_grudge_bearer", {} )
+	end
 end
 
 function modifier_ursa_enrage_active:OnDestroy()
 	local caster = self:GetCaster()
 	if IsServer() then
 		self:GetAbility():SetCooldown()
+		if IsModifierSafe( self.grudge_bearer ) then
+			self.grudge_bearer:SetDuration( self.damage_increase_duration, true )
+		end
 	end
 end
 
@@ -127,4 +134,27 @@ end
 
 function modifier_ursa_enrage_active:IsPurgable()
 	return false
+end
+
+modifier_ursa_enrage_grudge_bearer = class({})
+LinkLuaModifier("modifier_ursa_enrage_grudge_bearer", "heroes/hero_ursa/ursa_enrage", LUA_MODIFIER_MOTION_NONE)
+
+function modifier_ursa_enrage_grudge_bearer:OnCreated()
+	self.damage_reduction = self:GetSpecialValueFor("damage_reduction") / 100
+	self.damage_increase = self:GetSpecialValueFor("damage_increase") / 100
+end
+
+function modifier_ursa_enrage_grudge_bearer:DeclareFunctions()
+	return {MODIFIER_EVENT_ON_TAKEDAMAGE, MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE }
+end
+
+function modifier_ursa_enrage_grudge_bearer:OnTakeDamage( params )
+	if params.unit == self:GetParent() then
+		local damageAbsorbed = params.original_damage * (1 - self.damage_reduction)
+		self:SetStackCount( math.floor( self:GetStackCount() + damageAbsorbed * self.damage_increase ) )
+	end
+end
+
+function modifier_ursa_enrage_grudge_bearer:GetModifierPreAttack_BonusDamage()
+	return self:GetStackCount()
 end

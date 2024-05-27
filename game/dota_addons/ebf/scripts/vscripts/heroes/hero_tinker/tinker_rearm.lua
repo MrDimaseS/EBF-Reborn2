@@ -27,10 +27,13 @@ function tinker_rearm:OnChannelFinish(bInterrupted)
 				end
 			end
 		end
-		refresh("GetItemInSlot", DOTA_ITEM_SLOT_1, DOTA_ITEM_SLOT_9)
+		if self:GetSpecialValueFor("affects_items") == 1 then refresh("GetItemInSlot", DOTA_ITEM_SLOT_1, DOTA_ITEM_SLOT_9) end
 		refresh("GetAbilityByIndex", 0, 5)
 		
-		caster:AddNewModifier( caster, self, "modifier_tinker_rearm_debuff", { duration = self:GetSpecialValueFor("debuff_duration") })
+		local bkb = self:GetSpecialValueFor("debuff_immunity_duration")
+		if bkb > 0 then
+			caster:AddNewModifier( caster, self, "modifier_black_king_bar_immune", { duration = bkb })
+		end
 	else
 		caster:FadeGesture(_G["ACT_DOTA_TINKER_REARM" .. math.min(self:GetLevel(), 3)])
 	end

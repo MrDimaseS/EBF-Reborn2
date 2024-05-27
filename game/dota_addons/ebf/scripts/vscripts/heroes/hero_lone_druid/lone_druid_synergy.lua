@@ -131,17 +131,17 @@ function modifier_lone_druid_synergy_aura:OnRefresh()
 	
 	self.bonus_health_regen = self:GetCaster():GetStrength() * 0.15
 	self.bonus_attack_speed = math.floor( math.min( self:GetCaster():GetAgility() * self.stat_share, 25*(self.stat_share*self:GetCaster():GetAgility())^(math.log(2)/math.log(10)) ) )
-	self.bonus_mana = self.stat_share * self:GetCaster():GetIntellect() * 2
-	self.bonus_mana_regen = self.stat_share * self:GetCaster():GetIntellect() * 0.01
-	self.bonus_spell_amp = self.stat_share * ( self:GetCaster():GetStrength() + self:GetCaster():GetAgility() + self:GetCaster():GetIntellect() ) * 0.03
+	self.bonus_mana = self.stat_share * self:GetCaster():GetIntellect(false) * 2
+	self.bonus_mana_regen = self.stat_share * self:GetCaster():GetIntellect(false) * 0.01
+	self.bonus_spell_amp = self.stat_share * ( self:GetCaster():GetStrength() + self:GetCaster():GetAgility() + self:GetCaster():GetIntellect(false) ) * 0.03
 
-	self.bonus_base_damage = self.stat_share * ( self:GetCaster():GetStrength() + self:GetCaster():GetAgility() + self:GetCaster():GetIntellect() ) * 1.4
+	self.bonus_base_damage = self.stat_share * ( self:GetCaster():GetStrength() + self:GetCaster():GetAgility() + self:GetCaster():GetIntellect(false) ) * 1.4
 	
 	if IsServer() then
 		local agilityArmor = math.min( 0.065 * self:GetCaster():GetAgility(), 0.9*self:GetCaster():GetAgility()^(math.log(2)/math.log(5)) )
 		self:GetParent():SetPhysicalArmorBaseValue( 10 + agilityArmor )
 		
-		local intArmor =  math.min( 0.04 * self:GetCaster():GetIntellect(), 0.55*self:GetCaster():GetIntellect()^(math.log(2)/math.log(5)) )
+		local intArmor =  math.min( 0.04 * self:GetCaster():GetIntellect(false), 0.55*self:GetCaster():GetIntellect(false)^(math.log(2)/math.log(5)) )
 		self:GetParent():SetBaseMagicalResistanceValue( 25 + intArmor )
 		
 		local entangle = self:GetParent():FindAbilityByName("lone_druid_spirit_bear_entangle")

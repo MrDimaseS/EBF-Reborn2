@@ -69,7 +69,13 @@ end
 function modifier_item_lucky_dice_passive:OnRemoved()
 	self:GetCaster()._chanceModifiersList[self] = nil
 	
-	if IsServer() then self:GetAbility():RefreshChanceModifiers() end
+	if IsServer() then
+		Timers:CreateTimer( function()
+			if IsModifierSafe( self ) and IsEntitySafe( self:GetAbility() ) then
+				self:GetAbility():RefreshChanceModifiers()
+			end
+		end )
+	end
 end
 
 function modifier_item_lucky_dice_passive:DeclareFunctions()

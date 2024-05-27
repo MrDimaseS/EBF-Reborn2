@@ -92,7 +92,7 @@ end
 function modifier_ogre_magi_dumb_luck_passive:GetModifierBonusStats_Intellect()
 	if self._checkingForIntellect then return end
 	self._checkingForIntellect = true
-	local intellect = self:GetCaster():GetIntellect()
+	local intellect = self:GetCaster():GetIntellect(true)
 	self._checkingForIntellect = false
 	return -intellect
 end

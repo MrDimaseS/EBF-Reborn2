@@ -53,7 +53,8 @@ function modifier_riki_tricks_of_the_trade_handler:OnCreated(table)
 		
 	self.radius = self:GetSpecialValueFor("radius")
 	self.attack_rate = self:GetSpecialValueFor("attack_rate")
-	self.agility_pct = caster:GetAgility() * self:GetSpecialValueFor("agility_pct") / 100
+	self.agility_pct = self:GetSpecialValueFor("agility_pct")
+	self.agility_pct = self:GetSpecialValueFor("agility_pct")
 	
     if IsServer() then
 		local nfx = ParticleManager:CreateParticle("particles/units/heroes/hero_riki/riki_tricks.vpcf", PATTACH_WORLDORIGIN, nil)

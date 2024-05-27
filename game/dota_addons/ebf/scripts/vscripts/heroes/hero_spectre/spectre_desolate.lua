@@ -15,6 +15,7 @@ function modifier_spectre_desolate_passive:OnRefresh()
 	self.damage = self:GetTalentSpecialValueFor("bonus_damage")
 	self.lonely_multiplier = self:GetTalentSpecialValueFor("lonely_multiplier") / 100
 	self.radius = self:GetTalentSpecialValueFor("radius")
+	self.count_creeps = self:GetTalentSpecialValueFor("count_creeps") == 1
 end
 
 function modifier_spectre_desolate_passive:DeclareFunctions()
@@ -27,8 +28,10 @@ function modifier_spectre_desolate_passive:GetModifierProcAttack_BonusDamage_Pur
 		if not params.attacker:HasModifier("modifier_spectre_haunt_active") then
 			for _, ally in ipairs( params.attacker:FindEnemyUnitsInRadius( params.target:GetAbsOrigin(), self.radius) ) do
 				if params.target ~= ally then
-					solo = false
-					break
+					if ally:IsConsideredHero() or ( self.count_creeps and not ally:IsConsideredHero() ) then
+						solo = false
+						break
+					end
 				end
 			end
 		end
@@ -41,7 +44,8 @@ function modifier_spectre_desolate_passive:GetModifierProcAttack_BonusDamage_Pur
 			ParticleManager:SetParticleControlForward( hitFX, 0, vDir )
 			ParticleManager:ReleaseParticleIndex( hitFX )
 		end
-		return damage -- self:GetAbility():DealDamage( params.attacker, params.target, damage )
+		-- self:GetAbility():DealDamage( params.attacker, params.target, damage )
+		return damage
 	end
 end
 

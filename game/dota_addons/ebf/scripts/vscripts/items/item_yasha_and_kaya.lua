@@ -76,7 +76,7 @@ function modifier_item_yasha_and_kaya_2_passive:OnRefresh()
 	
 	self.buff_duration = self:GetSpecialValueFor("buff_duration")
 	
-	self.crit_chance = self:GetAbility():GetSpecialValueFor("crit_chance")
+	self.crit_chance = self:GetAbility():GetSpecialValueFor("chain_chance")
 	self.chain_damage = self:GetAbility():GetSpecialValueFor("chain_damage")
 	self.chain_strikes = self:GetAbility():GetSpecialValueFor("chain_strikes")
 	self.chain_radius = self:GetAbility():GetSpecialValueFor("chain_radius")

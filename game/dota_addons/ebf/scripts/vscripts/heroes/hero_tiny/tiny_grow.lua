@@ -81,6 +81,7 @@ function modifier_tiny_grow_passive:OnIntervalThink()
 	self.spell_bonus_damage = 1 + self:GetSpecialValueFor("spell_bonus_damage") / 100
 	self.spell_bonus_range = 1 + self:GetSpecialValueFor("spell_bonus_range") / 100
 	self.bonus_armor = self:GetSpecialValueFor("bonus_armor")
+	self.move_speed = self:GetSpecialValueFor("move_speed")
 	self.attack_speed_reduction = self:GetSpecialValueFor("attack_speed_reduction") / 100
 
 	if IsServer() then self:GetParent():CalculateStatBonus( true ) end
@@ -90,6 +91,7 @@ function modifier_tiny_grow_passive:DeclareFunctions()
 	return {MODIFIER_PROPERTY_BASEATTACK_BONUSDAMAGE,
 			MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
 			MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
+			MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT,
 			MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL,
 			MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL_VALUE}
 end
@@ -104,6 +106,10 @@ end
 
 function modifier_tiny_grow_passive:GetModifierPhysicalArmorBonus()
 	return self.bonus_armor
+end
+
+function modifier_tiny_grow_passive:GetModifierMoveSpeedBonus_Constant()
+	return self.move_speed
 end
 
 function modifier_tiny_grow_passive:GetModifierAttackSpeedBonus_Constant()

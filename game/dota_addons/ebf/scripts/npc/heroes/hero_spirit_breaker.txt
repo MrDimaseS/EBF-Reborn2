@@ -14,14 +14,12 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"FightRecapLevel"				"1"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 		"AbilitySound"					"Hero_Spirit_Breaker.ChargeOfDarkness"
-		"HasScepterUpgrade"			"1"
+		"HasShardUpgrade"				"1"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"12"
 		"AbilityCastPoint"				"0.1"
 		"AbilityCastRange"				"0"
 
@@ -39,38 +37,50 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-				"movement_speed"		
-				{
-					"value"				"275 325 375 425 475 525 575"
-					"special_bonus_unique_spirit_breaker_4" "+200"
-				}
-				"stun_duration"			"2.1"
-				"bash_radius"			
-				{
-					"value"			"300 300 300 300"
-					"affected_by_aoe_increase"	"1"
-				}
-				"vision_radius"			
-				{
-					"value"		"400 400 400 400"
-					"affected_by_aoe_increase"	"1"
-				}
-				"vision_duration"		"0.94 0.94 0.94 0.94"
-				"scepter_cooldown"		
-				{
-					"value"						"8"
-					"RequiresScepter"			"1"
-				}
-				"scepter_speed"		
-				{
-					"value"			"175"
-					"RequiresScepter"			"1"
-				}
-				"scepter_cast_point"		
-				{
-					"value"			"0.1"
-					"RequiresScepter"			"1"
-				}
+			"movement_speed"		
+			{
+				"value"				"275 325 375 425 475 525 575"
+				"special_bonus_unique_spirit_breaker_4" "+200"
+			}
+			"stun_duration"			"2.1"
+			"bash_radius"			
+			{
+				"value"			"300 300 300 300"
+				"affected_by_aoe_increase"	"1"
+			}
+			"vision_radius"			
+			{
+				"value"		"400 400 400 400"
+				"affected_by_aoe_increase"	"1"
+			}
+			"vision_duration"		"0.94 0.94 0.94 0.94"
+			"AbilityCooldown"				
+			{
+				"value"										"13"
+				"special_bonus_unique_spirit_breaker_4"		"-4"
+			}
+			"out_of_world_time"		"0"
+			"guaranteed_bash_time"	"0"
+			"reveal_charge"			"0"
+
+			"windup_time"			"0"
+			"linger_time_min"		
+			{
+				"value"				 "0"
+				"special_bonus_facet_spirit_breaker_bull_rush"	"0.5"				
+			}
+
+			"linger_time_max"
+			{
+				"value"				"0"
+				"special_bonus_facet_spirit_breaker_bull_rush"	"3"				
+			}
+
+			"charge_for_max_linger"
+			{
+				"value"				"0"
+				"special_bonus_facet_spirit_breaker_bull_rush"	"5"				
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -90,7 +100,6 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Spirit_Breaker.EmpoweringHaste.Cast"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -129,11 +138,10 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
 		"AbilitySound"					"Hero_Spirit_Breaker.GreaterBash"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"1.5 1.5 1.5 1.5"
+		"AbilityCooldown"				"1.2"
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
@@ -145,22 +153,23 @@
 		{
 			"chance_pct"
 			{
-				"value"							"17"
-				"LinkedSpecialBonus"			"special_bonus_unique_spirit_breaker_1"
-				"affected_by_chance_increase"	"1"
+				"value"									"17"
+				"special_bonus_unique_spirit_breaker_1" "+17"
+				"affected_by_chance_increase"			"1"
 			}
 			"damage"					
 			{
-				"value"							"250 300 350 400 450 500 550"
-				"LinkedSpecialBonus"			"special_bonus_unique_spirit_breaker_3"
-				"CalculateSpellDamageTooltip"	"1"
+				"value"									"250 300 350 400 450 500 550"
+				"special_bonus_unique_spirit_breaker_3" "+250"
+				"CalculateSpellDamageTooltip"			"1"
 			}
-			"duration"							"1.8"
-			"knockback_duration"				"0.5 0.5 0.5 0.5"
-			"knockback_distance"				"143"
-			"knockback_height"					"50 50 50 50"
-			"bonus_movespeed_pct"				"17"
-			"movespeed_duration"				"3.0 3.0 3.0 3.0"
+			"duration"									"1.5"
+			"knockback_duration"						"0.5"
+			"knockback_distance"						"50"
+			"knockback_height"							"50"
+			"bonus_movespeed_pct"						"17"
+			"movespeed_duration"						"3.0 3.0 3.0 3.0"
+			"creep_multiplier"							"1"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -205,7 +214,7 @@
 		{
 			"damage"				
 			{
-				"value"													"1750 2500 3250 4000 4750 5500"
+				"value"													"1500 2500 3500 4500 5500 6500"
 				"CalculateSpellDamageTooltip"							"1"
 			}
 			"fade_time"													"1.0 1.0 1.0"
@@ -213,6 +222,35 @@
 			{
 				"value"													"50"
 				"special_bonus_unique_spirit_breaker_nether_strike_cd"	"-50%"
+			}
+			"shard_bonus_damage"	
+			{
+				"value"													"0"
+				"RequiresShard"											"1"
+			}
+			"shard_break_duration"
+			{
+				"value"													"0.0"
+				"RequiresShard"											"1"
+			}
+			"shard_spell_immune_duration"
+			{
+				"value"													"0.0"
+				"RequiresShard"											"1"
+			}
+
+			"knockback_amp"
+			{
+				"value"													"0"
+				"special_bonus_facet_spirit_breaker_imbalanced"			"+100"
+				"RequiresFacet" "spirit_breaker_imbalanced"
+			}
+
+			"knockback_amp_duration"
+			{
+				"value"													"0"
+				"special_bonus_facet_spirit_breaker_imbalanced"			"+6"
+				"RequiresFacet" 										"spirit_breaker_imbalanced"
 			}
 		}
 	}
@@ -229,7 +267,7 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_DoomBringer.ScorchedEarthAura"
-		"IsGrantedByShard"				"1"
+		"IsGrantedByScepter"				"1"
 		"MaxLevel"						"1"
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -248,9 +286,13 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"radius"				"900"
+			"radius"				
+			{
+				"value"				"900"
+				"affected_by_aoe_increase"	"1"
+			}
 			"duration"				"6"
-			"magic_resistance"		"25"
+			"magic_resistance"		"75"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_5"
 		"AbilityCastGestureSlot"		"DEFAULT"

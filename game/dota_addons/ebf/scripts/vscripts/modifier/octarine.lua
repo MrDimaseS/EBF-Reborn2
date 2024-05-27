@@ -41,7 +41,7 @@ function octarine:GetMana()
   return self:GetAbility():GetLevelSpecialValueFor("bonus_mana",0)
 end
 
-function octarine:GetIntellect()
+function octarine:GetIntellect(false)
   return self:GetAbility():GetLevelSpecialValueFor("bonus_intelligence",0)
 end
 

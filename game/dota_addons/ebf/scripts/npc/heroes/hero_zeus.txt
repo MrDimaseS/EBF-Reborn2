@@ -14,7 +14,6 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"AbilitySound"					"Hero_Zuus.ArcLightning.Cast"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -27,7 +26,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"80 95 110 125 140 155 170"
+		"AbilityManaCost"				"75 80 85 90 95 100 105"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -35,14 +34,17 @@
 		{
 			"arc_damage"
 			{
-				"value"							"850 1200 1550 1800 2150 2400 2750"
-				"special_bonus_unique_zeus_2"	"+50%"
+				"value"							"900 1200 1500 1800 2100 2400 2700"
+				"special_bonus_unique_zeus_2"	"+35%"
 				"CalculateSpellDamageTooltip"	"1"
-			}			
-			"radius"							"500"
+			}
+			"radius"				
+			{
+				"value"			"500 500 500 500"
+				"affected_by_aoe_increase"	"1"
+			}
 			"jump_count"						"5 7 9 11 13 15 17"
 			"jump_delay"						"0.25"
-			"damage_health_pct"					"0"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -62,7 +64,6 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Zuus.LightningBolt"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -72,6 +73,7 @@
 		// Damage.
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityDamage"					"1250 2000 2750 3500 4250 5000 5750"
+		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"6.0"
@@ -91,31 +93,31 @@
 		{
 			"true_sight_radius"		
 			{
-				"value"		"750"
-				"affected_by_aoe_increase"	"1"
+				"value"							"750"
+				"affected_by_aoe_increase"		"1"
 			}
 			"sight_radius_day"		
 			{
-				"value"		"750"
-				"affected_by_aoe_increase"	"1"
+				"value"							"750"
+				"affected_by_aoe_increase"		"1"
 			}
 			"sight_radius_night"	
 			{
-				"value"			"750"
-				"affected_by_aoe_increase"	"1"
+				"value"							"750"
+				"affected_by_aoe_increase"		"1"
 			}
-			"sight_duration"		"5"
+			"sight_duration"					"5"
 			"spread_aoe"	
 			{
-				"value"			"325"
-				"affected_by_aoe_increase"	"1"
+				"value"							"325"
+				"affected_by_aoe_increase"		"1"
 			}
 			"ministun_duration"		
 			{
-				"value"			"0.35"
-				"LinkedSpecialBonus"	"special_bonus_unique_zeus_3"
+				"value"							"0.35"
+				"LinkedSpecialBonus"			"special_bonus_unique_zeus_3"
 			}
-			"creep_damage_bonus_pct"		"100"
+			"creep_damage_bonus_pct"			"100"
 			"AbilityDamage"
 			{
 				"value"							"1250 2000 2750 3500 4250 5000 5750"
@@ -136,7 +138,6 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
 		"FightRecapLevel"				"1"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -145,7 +146,7 @@
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"					"50 80 110 140 170 200 230"
+		"AbilityManaCost"					"50 60 70 80 90 100 110 120"
 		"AbilityCooldown"					"25 20 15 10 8 6 4"
 
 		// Special
@@ -160,15 +161,33 @@
 			"hop_distance"				"500"
 			"hop_duration"		"0.5"
 			"hop_height"		"250"
-			"range"				"700 750 800 850 900 950 1000"
-			"duration"			"2.2"
-			"move_slow"				"100"
-			"aspd_slow"				"100"
-			"cast_slow"			"50"
+			"range"				
+			{
+				"value"						"700 800 900 1000"
+				"affected_by_aoe_increase"	"1"
+			}
+			"duration"						"1.6"
+			"move_slow"						"80"
+			"aspd_slow"						"100"
 			"targets"			
 			{
-				"value" "4"
-				"special_bonus_unique_zeus"	"+4"
+				"value" 												"1 1 1 1 2 3"
+				"special_bonus_unique_zeus"								"+100%"
+			}
+			"AbilityCooldown"					
+			{
+				"value"													"26 22 18 14 14 14"
+				"special_bonus_unique_zeus_jump_cooldown"				"-4"	
+			}
+			"postjump_movespeed_duration"
+			{
+				"value"													"0"
+				"special_bonus_unique_zeus_jump_postjump_movespeed"		"+1.6"
+			}			
+			"postjump_movespeed"
+			{
+				"value"													"0"
+				"special_bonus_unique_zeus_jump_postjump_movespeed"		"+30"
 			}
 		}
 	}
@@ -209,38 +228,18 @@
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"cloud_duration"	"30"
+			"cloud_bolt_interval"	"2.5"
+			"cloud_radius"			
 			{
-				"var_type"			"FIELD_FLOAT"
-				"cloud_duration"	"30"
+				"value"			"450"
+				"affected_by_aoe_increase"	"1"
 			}
-			"02"
-			{
-				"var_type"			"FIELD_FLOAT"
-				"cloud_bolt_interval"	"2.5"
-			}
-			"03"
-			{
-				"var_type"			"FIELD_INTEGER"
-				"cloud_radius"			"450"
-			}
-			"04"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"hits_to_kill_tooltip"		"8"
-			}
-			"05"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"creep_hits_to_kill_tooltip"		"8"
-			}
-			"06"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"cloud_bounty_tooltip"		"125"
-			}
+			"hits_to_kill_tooltip"		"8"
+			"creep_hits_to_kill_tooltip"		"16"
+			"cloud_bounty_tooltip"		"125"
 		}
 	}
 	
@@ -254,22 +253,69 @@
 		"BaseClass"						"ability_lua"
 		"ScriptFile"					"heroes/hero_zeus/zuus_static_field"
 		"AbilityTextureName"			"zuus_static_field"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES | DOTA_ABILITY_BEHAVIOR_INNATE_UI"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"	
 		"AbilitySound"					"Hero_Zuus.StaticField"
 		"MaxLevel"						"1"
-		"IsGrantedByShard"			    "1"
+		"Innate"						"1"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"damage_health_pct"			""
-			"damage_health_pct_spell"	"2.25"
-			"damage_health_pct_attack"	"0.25"
-			"creep_health_pct_spell"	"8"
-			"creep_health_pct_attack"	"0.8"
+			"damage_health_pct"						""
+			"damage_health_pct_max_close"			""
+			"damage_health_pct_min_close"			""
+			
+			"damage_health_pct_spell"
+			{
+				"value"								"0.75"
+				"CalculateSpellDamageTooltip"		"0"
+				"DamageTypeTooltip"					"DAMAGE_TYPE_MAGICAL"
+			}
+			"damage_health_pct_attack"
+			{
+				"value"								"0.2"
+				"CalculateSpellDamageTooltip"		"0"
+				"DamageTypeTooltip"					"DAMAGE_TYPE_MAGICAL"
+			}
+			"creep_health_pct_spell"
+			{
+				"value"								"4"
+				"CalculateSpellDamageTooltip"		"0"
+				"DamageTypeTooltip"					"DAMAGE_TYPE_MAGICAL"
+			}
+			"creep_health_pct_attack"
+			{
+				"value"								"0.8"
+				"CalculateSpellDamageTooltip"		"0"
+				"DamageTypeTooltip"					"DAMAGE_TYPE_MAGICAL"
+			}
+			
+			"damage_threshold_max"
+			{
+				"value"								"0"					
+				"special_bonus_facet_zuus_livewire"	"=50"
+			}
+			"damage_threshold_min"
+			{
+				"value"								"0"					
+				"special_bonus_facet_zuus_livewire"	"=175"
+			}
+			
+			"distance_threshold_max"
+			{
+				"value"								"0"					
+				"special_bonus_facet_zuus_livewire"	"1200"
+				"affected_by_aoe_increase"			"1"
+			}
+			"distance_threshold_min"
+			{
+				"value"								"0"					
+				"special_bonus_facet_zuus_livewire"	"200"
+				"affected_by_aoe_increase"			"1"
+			}
 		}
 	}
 	"zuus_lightning_hands"
@@ -303,7 +349,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"attack_range_bonus"				"100"
+			"attack_speed_bonus"				"30"
 			"arc_lightning_damage_pct"			"50"
 			"arc_lightning_damage_illusion_pct"	"20"
 		}
@@ -357,13 +403,16 @@
 				"CalculateSpellDamageTooltip"	"1"
 				"special_bonus_unique_zeus_4"	"+33%"
 			}
-			"damage_pct"
+			"growing_delay"
 			{
-				"value"							"5"
-				"CalculateSpellDamageTooltip"	"0"
+				"value"						"0"
+				"special_bonus_facet_zuus_divine_rampage"	".2"
 			}
-			"second_strike_delay"				"0.75"
-			"second_strike_damage_percent"		"50"
+			"grow_kill_amp"
+			{
+				"value"						"0"
+				"special_bonus_facet_zuus_divine_rampage"	"15"
+			}
 		}
 	}
 	//=================================================================================================================

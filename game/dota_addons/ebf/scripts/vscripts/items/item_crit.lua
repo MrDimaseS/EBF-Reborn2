@@ -12,17 +12,16 @@ function item_greater_crit:RefreshCritModifiers()
 	local hero = self:GetCaster()
 	for i=DOTA_ITEM_SLOT_1, DOTA_ITEM_SLOT_6 do
 		local item = hero:GetItemInSlot(i)
+		print( item )
 		if item and not item:IsInBackpack() then
 			item:OnUnequip()
 			item:OnEquip()
-			item:RefreshIntrinsicModifier()
 		end
 	end
 	local neutralItem =	hero:GetItemInSlot(DOTA_ITEM_NEUTRAL_SLOT)  
 	if neutralItem then
 		neutralItem:OnUnequip()
 		neutralItem:OnEquip()
-		neutralItem:RefreshIntrinsicModifier()
 	end
 	for i = 0, hero:GetAbilityCount() - 1 do
 		local ability = hero:GetAbilityByIndex( i )
@@ -53,8 +52,12 @@ function modifier_item_crit_passive:OnCreated()
 	self:GetCaster()._critModifiersList = self:GetCaster()._critModifiersList or {}
 	self:GetCaster()._critModifiersList[self] = true
 	
-	if IsServer() then Timers:CreateTimer( function() 
-		self:GetAbility():RefreshCritModifiers() end )
+	if IsServer() then
+		Timers:CreateTimer( function()
+			if IsModifierSafe( self ) and IsEntitySafe( self:GetAbility() ) then
+				self:GetAbility():RefreshCritModifiers()
+			end
+		end )
 	end
 end
 
@@ -69,7 +72,13 @@ end
 function modifier_item_crit_passive:OnRemoved()
 	self:GetCaster()._critModifiersList[self] = nil
 	
-	self:GetAbility():RefreshCritModifiers()
+	if IsServer() then
+		Timers:CreateTimer( function()
+			if IsModifierSafe( self ) and IsEntitySafe( self:GetAbility() ) then
+				self:GetAbility():RefreshCritModifiers()
+			end
+		end )
+	end
 end
 
 function modifier_item_crit_passive:DeclareFunctions()

@@ -15,7 +15,6 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Warlock.FatalBonds"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 		"HasShardUpgrade"				"1"
 
 		// Casting
@@ -61,12 +60,6 @@
 				"value"			"700"
 				"affected_by_aoe_increase"	"1"
 			}
-			"imp_duration"					"15"
-			"imp_level"
-			{
-				"value"						"1 2 3 4 5 6 7"
-				"special_bonus_shard"		"+1"
-			}
 		}
 	}
 	
@@ -86,7 +79,6 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Warlock.ShadowWordCastGood"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 
 		// Casting
@@ -111,26 +103,25 @@
 		{
 			"damage"					
 			{
-				"value"								"150 250 350 450 550 650 750"
-				"special_bonus_unique_warlock_7"	"+40%"
-				"CalculateSpellDamageTooltip"		"1"
+				"value"										"160 240 320 400 480 560 640"
+				"special_bonus_unique_warlock_7"			"+40%"
+				"CalculateSpellDamageTooltip"				"1"
 			}
 			"duration"					
 			{
-				"value"								"10.0"
-				"special_bonus_unique_warlock_8"	"+2"
+				"value"										"10.0"
+				"special_bonus_unique_warlock_8"			"+2"
 			}
-			"tick_interval"				"1.0"
-			"shard_aoe"					
+			"tick_interval"									"1.0"
+			"spell_aoe"					
 			{
-				"value"					"450"
-				"RequiresShard"			"1"
-					"affected_by_aoe_increase"	"1"
+				"value"										"300"
+					"affected_by_aoe_increase"				"1"
 			}
 			"shard_movement_speed_pct"					
 			{
-				"value"					"0"
-				"RequiresShard"			"1"
+				"value"										"0"
+				"RequiresShard"								"1"
 			}	
 			"AbilityCooldown"					
 			{
@@ -154,7 +145,6 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"AbilitySound"					"Hero_Warlock.Upheaval"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
         "HasShardUpgrade"               "1"
 
 		// Casting
@@ -180,32 +170,40 @@
 		{
 			"aoe"					
 			{
-				"value"				"500 550 600 650 700 750 800"
-				"special_bonus_unique_warlock_upheaval_aoe"			"+75"
+				"value"											"575 600 625 650 675 700 725"
+				"special_bonus_unique_warlock_upheaval_aoe"		"+50"
+				"affected_by_aoe_increase"						"1"
 			}
-			"slow_per_second"		"10 15 20 25 30 35 40"
-			"duration"				"3.0"
-			"max_slow"				"55 70 85 100 100 100 100"
-			"aspd_per_second"		"10"
+			"slow_per_second"									"11 14 17 20 23 26 29"
+			"duration"											"3.0"
+			"max_slow"											"55 70 85 100 100 100 100"
+			"aspd_per_second"									"10"
+			
+			"base_damage"			
+			{
+				"special_bonus_unique_warlock_3" 				"=400"
+				"CalculateSpellDamageTooltip"					"1"
+			}
 			"damage_per_second"	
 			{
-				"value"							"100 150 200 250 300 350 400"
-				"CalculateSpellDamageTooltip"	"1"
+				"value"											"100 150 200 250 300 350 400"
+				"CalculateSpellDamageTooltip"					"1"
 			}
 			"max_damage"	
 			{
-				"value"							"350 600 850 1100 1350 1600 1850"
-				"CalculateSpellDamageTooltip"	"1"
+				"value"											"350 600 850 1100 1350 1600 1850"
+				"special_bonus_unique_warlock_3"				"+400"
+				"CalculateSpellDamageTooltip"					"1"
 			}
 			"damage_tick_interval"	
 			{
 				"value"					"1"
 				"DamageTypeTooltip"		"DAMAGE_TYPE_NONE"
 			}
-			"AbilityCooldown"			"35"
+			"AbilityCooldown"			"30"
+			
 			"imps_interval"				"2"
-			"minor_imp_duration"		"15"
-			"major_imp_duration"		"40"
+			"minor_imp_duration"		"15"	
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -254,8 +252,12 @@
 		{
 			"golem_duration"			"60 60 60"
 			"stun_duration"				"1.0"
-			"aoe"						"600"
-			"golem_hp"					"10000 20000 40000 80000 160000 320000"
+			"aoe"						
+			{
+				"value"			"600"
+				"affected_by_aoe_increase"	"1"
+			}
+			"golem_hp"					"20000 35000 65000 120000 320000 640000"
 			"golem_dmg"					"2000 6000 18000 21000 25000 30000"
 			"golem_armor"				"10 15 20 40 60 80"
 			"golem_movement_speed"		"320 340 360 380 400 420"
@@ -269,7 +271,7 @@
 			}
 			"golem_hp_scepter"
 			{
-				"value"					"7500 15000 30000 60000 120000 240000"
+				"value"					"15000 26000 45000 90000 240000 480000"
 				"RequiresScepter"		"1"
 			}
 			"golem_dmg_scepter"
@@ -297,6 +299,13 @@
 				"value"									"10 15 20 40 60 80"
 				"special_bonus_unique_warlock_2"		"+20"
 			}
+			"bonus_slow_resistance"			"60"
+
+			"tooltip_manahealthboost"
+			{
+				"value"			"0"
+				"special_bonus_facet_warlock_golem"			"+100"
+			}
 		}
 	}
 	
@@ -313,21 +322,20 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PURE"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"damage"
 			{
-				"var_type"				"FIELD_FLOAT"
-				"damage"				"800 1710 3475 4690 5245 5760"
+				"value" 						"400 500 600 700 800 900"
+				"CalculateSpellDamageTooltip"	"1"
 			}
-			"02"
+			"radius"
 			{
-				"var_type"				"FIELD_INTEGER"
-				"radius"			"300 300 300"
+				"value" 						"300 300 300"
+				"affected_by_aoe_increase"		"1"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -346,23 +354,34 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"aura_radius"				
 			{
-				"var_type"				"FIELD_INTEGER"
-				"aura_radius"			"300"
+				"value"								"300"
+				"affected_by_aoe_increase"			"1"
 			}
-			"02"
+			"aura_damage"
 			{
-				"var_type"				"FIELD_INTEGER"
-				"aura_damage"			"380 930 2330 5235 5870 6520"
+				"value" 							"300 500 700 900 1100 1300"
+				"CalculateSpellDamageTooltip"		"1"
 			}
+
+			"health_bonus_pct"						"0"
+			"share_damage"							"0"
+			"tick_interval"							"0.5"
+			"manahealthboost"
+			{
+				"value"								"0"
+				"special_bonus_facet_warlock_golem" "+100"				
+			}
+			
+			"manaboost_scale_mult"					".25"
 		}
+
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
 	"warlock_imp_explode"
@@ -372,18 +391,110 @@
 		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
-		"MaxLevel"						"1"
+		"MaxLevel"						"7"
 
 		"AbilityValues"
 		{
 			"explosion_delay"			".2"
-			"explosion_radius"			"400"
-			"explosion_dmg"				"255 540 1100 1760 2975 5550 10000 18000"
+			"explosion_radius"			
+			{
+				"value"		"400"
+				"affected_by_aoe_increase"	"1"
+			}
+			"explosion_dmg"
+			{
+				"value" 							"250 750 1250 1750 2250 2750 3250 3750"
+				"CalculateSpellDamageTooltip"		"1"
+			}
+			"explosion_nonhero_reduce"			 	"50"
+
+			"bonus_hp"								"0 80 160 240 320"
+			"bonus_dmg"								"0 4 8 12 16"
+			"bonus_movespeed"						"0 15 30 45 60"
+		}
+	}
+	"warlock_imp_explode_major"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"warlock_imp_explode"
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"MaxLevel"						"7"
+		"AbilityTextureName"			"warlock_imp_explode"
+
+		"AbilityValues"
+		{
+			"explosion_delay"			".2"
+			"explosion_radius"			
+			{
+				"value"		"600"
+				"affected_by_aoe_increase"	"1"
+			}
+			"explosion_dmg"
+			{
+				"value" 							"1000 2000 3000 4000 5000 6000 7000 8000"
+				"CalculateSpellDamageTooltip"		"1"
+			}
 			"explosion_nonhero_reduce" 	"50"
 
-			"bonus_hp"					"200 600 1800 5400 12500 20000 32500 50000"
-			"bonus_dmg"					"100 250 500 1000 1500 2500 4000 7500"
+			"bonus_hp"					"0 100 200 300 400"
+			"bonus_dmg"					"0 8 16 24 32"
 			"bonus_movespeed"			"0 15 30 45 60"
+		}
+	}
+	//=================================================================================================================
+	// Warlock: Innate Eldritch Summoning
+	//=================================================================================================================
+	"warlock_eldritch_summoning"
+	{
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"MaxLevel"						"7"		
+		"HasShardUpgrade"				"1"
+		"Innate"						"1"
+		"DependentOnAbility"			"warlock_rain_of_chaos"
+
+		"AbilityValues"
+		{
+			"minor_imp_duration"			"15"
+			"imp_level"
+			{
+				"value"						"1 2 3 4 5 6 7"
+				"special_bonus_shard"		"+1"
+			}
+
+			"golem_can_summon"				"0"
+			"tooltip_imp_health"			"50 130 210 290 370"
+			"tooltip_imp_explode"
+			{
+				"value" 							"250 750 1250 1750 2250 2750 3250 3750"
+				"CalculateSpellDamageTooltip"		"1"
+			}
+			"tooltip_imp_explode_radius"	
+			{
+				"value"		"400"
+				"affected_by_aoe_increase"	"1"
+			}
+		}	
+	}
+	//=================================================================================================================
+	// Warlock Black Grimoire Variant
+	//=================================================================================================================
+	"warlock_black_grimoire"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"MaxLevel"						"1"
+		"AbilityValues"
+		{	
+			// purely for tooltips on variant selection, actual KV's are on the item
+			"tooltip_xp"				"250"
+			"tooltip_seconds"			"420"
 		}
 	}
 	//=================================================================================================================

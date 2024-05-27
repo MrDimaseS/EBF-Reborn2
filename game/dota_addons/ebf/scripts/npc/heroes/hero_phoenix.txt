@@ -1,5 +1,47 @@
 "DOTAAbilities"
-{	
+{
+	//=================================================================================================================
+	// Phoenix Innate Outburst
+	//=================================================================================================================
+	"phoenix_dying_light"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"MaxLevel"						"1"
+		"AbilityValues"
+		{
+			"radius"					
+			{
+				"value"						"450"
+				"affected_by_aoe_increase"	"1"
+			}
+			"damage_pct"					
+			{
+				"value"							"6"
+				"CalculateSpellDamageTooltip"	"0"
+			}
+		}
+	}
+	//=================================================================================================================
+	// Phoenix Innate Blinding Sun
+	//=================================================================================================================
+	"phoenix_blinding_sun"
+	{
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI | DOTA_ABILITY_BEHAVIOR_SKIP_FOR_KEYBINDS"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_NONE"	
+
+		"MaxLevel"						"1"
+		"Innate"						"1"
+
+		"AbilityValues"
+		{
+			"blind_per_second"	"2"
+			"blind_duration"	"5"	
+		}
+	}
 	//=================================================================================================================
 	// Phoenix: Icarus Dive
 	//=================================================================================================================
@@ -14,7 +56,6 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Phoenix.IcarusDive.Cast"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -43,7 +84,7 @@
 			"burn_duration"				"4"
 			"damage_per_second"
 			{
-				"value"										"150 350 550 750 950 1150 1350"
+				"value"										"200 400 600 800 1000 1200 1400"
 				"special_bonus_unique_phoenix_dive_damage"	"+50%"
 				"CalculateSpellDamageTooltip"				"1"
 			}
@@ -87,7 +128,6 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Phoenix.FireSpirits.Cast"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -138,7 +178,6 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Phoenix.SunRay.Cast"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 		// Casting
 		// ---------------------------------------------------------------------------
@@ -313,7 +352,6 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"AbilitySound"					"Hero_Phoenix.FireSpirits.Launch"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------

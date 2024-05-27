@@ -13,7 +13,6 @@
 		"AbilitySound"					"Hero_WinterWyvern.ArcticBurn.Cast"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
         "HasScepterUpgrade"             "1"
 
@@ -33,15 +32,15 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"				"10"
-			"attack_range_bonus"	"350 400 450 500 550 600 650"
+			"duration"							"7 8 9 10 11 12"
+			"attack_range_bonus"				"300 325 350 375 400 425 450"
 			"percent_damage"
 			{
-				"value"							"0.85 1.0 1.15 1.3 1.45 1.6 1.75"
+				"value"							"1.75"
 				"CalculateSpellDamageTooltip"	"0"
 				"DamageTypeTooltip"				"DAMAGE_TYPE_MAGICAL"
 			}
-			"tick_rate"				"1.0"
+			"tick_rate"							"1.0"
 			"damage_duration"
 			{
 				"value"							"5.0"
@@ -54,20 +53,19 @@
 				"value"							"16 24 32 40 48 56 64"
 				"LinkedSpecialBonus"			"special_bonus_unique_winter_wyvern_1"
 			}
-			"night_vision_bonus"	"400"
-			"projectile_speed_bonus"	"500"
-			"tree_destruction_radius"	"175"
-			"attack_point"			"0.1"
-			"max_attacks"			"5"
+			"projectile_speed_bonus"			"500"
+			"tree_destruction_radius"			"175"
+			"attack_point"						"0.1"
+			"max_attacks"						"5"
 			"mana_cost_scepter"
 			{
-				"value"						"20"
-				"RequiresScepter"			"1"
+				"value"							"20"
+				"RequiresScepter"				"1"
 			}
 			"movement_scepter"
 			{
-				"value"		"25"
-				"RequiresScepter"			"1"
+				"value"							"25"
+				"RequiresScepter"				"1"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -80,7 +78,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-			// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
@@ -88,12 +85,10 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
-		"FightRecapLevel"				"1"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"1200"
+		"AbilityCastRange"				"1150"
 		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
 
 		// Time		
@@ -108,22 +103,27 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"projectile_speed"		"650"
-			"projectile_max_time"	"1.0"
+			"projectile_speed"							"1200"
+			"projectile_max_time"						"1.0"
 			"split_radius"
 			{
-				"value"			"500"
-				"LinkedSpecialBonus"	"special_bonus_unique_winter_wyvern_2"
+				"value"									"500"
+				"LinkedSpecialBonus"					"special_bonus_unique_winter_wyvern_2"
 			}
-			"bonus_movespeed"		"-30"
-			"movespeed_slow_tooltip"		"30"
-			"duration"				"4.0"
-			"secondary_projectile_speed"		"800"
+			"bonus_movespeed"							"-28 -32 -36 -40 -44 -48 -52"
+			"movespeed_slow_tooltip"					"28 32 36 40 44 48 52"
+			"duration"									"4.0"
+			"secondary_projectile_speed"				"1000"
 			"damage"
 			{
 				"value"									"1000 1800 2600 3400 4200 5000 5800"
 				"special_bonus_unique_winter_wyvern_7"	"+30%"
 				"CalculateSpellDamageTooltip"			"1"
+			}
+			"stun_duration"				
+			{
+				"value"		"0"
+				"special_bonus_unique_winter_wyvern_4" "+1.5"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -143,15 +143,15 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Winter_Wyvern.ColdEmbrace"
-		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
-        "HasShardUpgrade"             "1"
+		"MaxLevel"						"7"
+
+        "HasShardUpgrade"				"1"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"850 900 950 1000"
-		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
+		"AbilityCastRange"				"850 900 950 1000 1050 1100 1150"
+		"AbilityCastPoint"				"0.3"
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
@@ -172,17 +172,18 @@
 				"special_bonus_unique_winter_wyvern_5"	"+50%"
 				"CalculateSpellHealTooltip"				"1"
 			}
-			"heal_percentage"							"1.75 2.5 3.25 4 4.75 5.5 6.25"
+			"heal_percentage"							"4.5"
 			"shard_cooldown_reduction"
 			{
-				"value"							"4.0"	
-				"RequiresShard"					"1"
+				"value"									"4.0"	
+				"RequiresShard"							"1"
 			}
 			"shard_splinter_range"
 			{
-				"value"							"1200"	
-				"RequiresShard"					"1"
+				"value"									"1200"	
+				"RequiresShard"							"1"
 			}
+			
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -213,7 +214,7 @@
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"90 85 80 77 74.1 71.1"
+		"AbilityCooldown"				"75"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -223,16 +224,37 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"radius"				"525"
-			"damage_reduction"		"0"
-			"damage_amplification"	"0"
-			"bonus_attack_speed"	"65"
-			"duration"
+			"radius"			
 			{
-				"value"					"4.5 5 5.5 6.0 6.5 7.0"
-				"LinkedSpecialBonus"	"special_bonus_unique_winter_wyvern_3"
+				"value"									"525"
+				"affected_by_aoe_increase"				"1"	
 			}
-			"early_out_timer"	"2.5"
+			"damage_reduction"							"0"
+			"damage_amplification"						"30"
+			"bonus_attack_speed"	
+			{
+				"value"									"65"
+				"special_bonus_unique_winter_wyvern_3"	"+55"
+			}
+			"duration"									"2"
+			"max_duration"								"4 5.5 7 8.5 10 11.5"
+			"bonus_duration_per_hero"					"2"
+			"bonus_duration_per_creep"					"0.5"
+		}
+	}
+	//=================================================================================================================
+	// Winter Wyvern: Innate Scholar
+	//=================================================================================================================
+	"winter_wyvern_eldwurm_scholar"
+	{
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_SKIP_FOR_KEYBINDS"
+
+		"MaxLevel"						"1"
+		"Innate"						"1"
+
+		"AbilityValues"
+		{
+			"share_percentage"			"20"
 		}
 	}
 	//=================================================================================================================

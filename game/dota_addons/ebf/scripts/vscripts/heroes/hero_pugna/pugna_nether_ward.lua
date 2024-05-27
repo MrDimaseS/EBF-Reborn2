@@ -27,6 +27,8 @@ function modifier_pugna_nether_ward_thinker:OnCreated( kv )
 	self.attack_rate = self:GetSpecialValueFor( "attack_rate" )
 	self.debuff_duration = self:GetSpecialValueFor( "debuff_duration" )
 	self.pips = self:GetSpecialValueFor("attacks_to_destroy_tooltip")
+	self.health_restore_pct = self:GetSpecialValueFor("health_restore_pct") / 100
+	self.mana_restore_pct = self:GetSpecialValueFor("mana_restore_pct") / 100
 	
 	if IsServer() then
 		self:StartIntervalThink( self.attack_rate )
@@ -43,11 +45,25 @@ function modifier_pugna_nether_ward_thinker:OnIntervalThink()
 	local parent = self:GetParent()
 	local ability = self:GetAbility()
 	parent:EmitSound("Hero_Pugna.NetherWard.Attack")
+	local totalDamageDealt = 0
 	for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( parent:GetAbsOrigin(), self.radius ) ) do
-		ability:DealDamage( caster, enemy, self.base_damage )
+		local damageDealt = ability:DealDamage( caster, enemy, self.base_damage )
 		enemy:AddNewModifier( caster, ability, "modifier_pugna_nether_ward_aura", {duration = self.debuff_duration} )
 		ParticleManager:FireRopeParticle("particles/units/heroes/hero_pugna/pugna_ward_attack.vpcf", PATTACH_ABSORIGIN_FOLLOW, parent, enemy)
-		if enemy:IsConsideredHero() then enemy:EmitSound("Hero_Pugna.NetherWard.Target") end
+		if enemy:IsConsideredHero() then 
+			enemy:EmitSound("Hero_Pugna.NetherWard.Target")
+		else
+			damageDealt = damageDealt * 0.2
+		end
+		totalDamageDealt = totalDamageDealt + damageDealt
+	end
+	if totalDamageDealt > 0 then
+		if self.health_restore_pct > 0 then
+			caster:HealEvent(totalDamageDealt * self.health_restore_pct, ability, caster)
+		end
+		if self.mana_restore_pct > 0 then
+			caster:GiveMana( totalDamageDealt * self.mana_restore_pct )
+		end
 	end
 end
 

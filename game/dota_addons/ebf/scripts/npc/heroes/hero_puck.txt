@@ -1,6 +1,25 @@
 "DOTAAbilities"
 {	
 	//=================================================================================================================
+	// Puck: Innate Sagaciousness (restore on projectile disjoint)
+	//=================================================================================================================
+	"puck_puckish"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"		
+		"Innate"					"1"
+		"MaxLevel"					"1"
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"mana_restore_pct"				"2"
+			"hp_restore_pct"				"2"
+			"dodged_spell_multiplier"		"5"
+		}
+	}
+	//=================================================================================================================
 	// Puck: Illusory Orb
 	//=================================================================================================================
 	"puck_illusory_orb"
@@ -13,7 +32,6 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Puck.Illusory_Orb"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -28,21 +46,74 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"radius"									"225"		
+			"radius"					
+			{
+				"value"									"225"		
+				"affected_by_aoe_increase"				"1"
+			}
 			"max_distance"								"1950"
-			"orb_speed"									"550"
-			"orb_vision"								"450"
-			"vision_duration"							"3.34"
+			"orb_speed"
+			{
+				"value"									"550"
+				"special_bonus_facet_puck_curveball"	"+200"
+			}
+			"orb_vision"
+			{
+				"value"									"450"		
+				"affected_by_aoe_increase"				"1"
+			}
+			"vision_duration"							"2.5"
 			"damage"			
-			{		
+			{
 				"value"									"750 1500 2250 3000 3750 4500 5250"
 				"special_bonus_unique_puck_orb_damage"	"+50%"
-				"CalculateSpellDamageTooltip"				"1"
+				"CalculateSpellDamageTooltip"			"1"
 			}
 			"AbilityCooldown"
 			{
-				"value"									"9"
+				"value"									"8"
 				"special_bonus_unique_puck_8"			"-2"
+			}
+			"warning_sound_time"					"0.25"
+			"curve_orb"
+			{
+				"value"								"0"
+				"special_bonus_facet_puck_curveball"			"=1"
+			}
+			"curve_orb_duration_multiplier"
+			{
+				"value"								"0"
+				"special_bonus_facet_puck_curveball"			"=100"
+			}
+			"curve_orb_max_acceleration"
+			{
+				"value"								"0"
+				"special_bonus_facet_puck_curveball"			"=0.0015"
+			}
+			"curve_orb_pullback_bonus_launch_speed"
+			{
+				"value"								"0"
+				"special_bonus_facet_puck_curveball"			"0.25"
+			}
+			"curve_strength"
+			{
+				"value"								"0"
+				"special_bonus_facet_puck_curveball"			"0.6"
+			}
+			"orb_particle_offset_z"
+			{
+				"value"								"0"
+				"special_bonus_facet_puck_curveball"			"80.0"
+			}
+			"vector_reticle_distance"
+			{
+				"value"								"0"
+				"special_bonus_facet_puck_curveball"			"300.0"
+			}
+			"vector_reticle_radius"
+			{
+				"value"								"0"
+				"special_bonus_facet_puck_curveball"			"50.0"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -78,7 +149,6 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Puck.Waning_Rift"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -101,6 +171,7 @@
 			{
 				"value"					"400"
 				"special_bonus_unique_puck_rift_radius"		"+250"
+				"affected_by_aoe_increase"	"1"
 			}
 			"silence_duration"		
 			{
@@ -118,6 +189,39 @@
 				"value"					"400"
 				"special_bonus_unique_puck_rift_radius"		"+250"
 			}
+			"push_pull_enabled"
+			{
+				"value"						"0"
+				"special_bonus_facet_puck_jostling_rift"	"=1"
+			}
+
+			"knock_distance"
+			{
+				"value"						"0"
+				"affected_by_aoe_increase"	"1"
+				"special_bonus_facet_puck_jostling_rift"	"+75 +100 +125 +150"
+				"RequiresFacet"			"puck_jostling_rift"
+			}
+			"knock_duration"
+			{
+				"value"						"0"
+				"special_bonus_facet_puck_jostling_rift"	"0.3"
+				"RequiresFacet"			"puck_jostling_rift"
+			}
+			
+			"pull_distance"
+			{
+				"value"						"0"
+				"affected_by_aoe_increase"	"1"
+				"special_bonus_facet_puck_jostling_rift"	"+75 +100 +125 +150"
+				"RequiresFacet"			"puck_jostling_rift"
+			}
+			"pull_duration"
+			{
+				"value"						"0"
+				"special_bonus_facet_puck_jostling_rift"	"0.3"
+				"RequiresFacet"			"puck_jostling_rift"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -134,13 +238,12 @@
 		"AbilityTextureName"			"puck_phase_shift"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT | DOTA_ABILITY_BEHAVIOR_CHANNELLED | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
 		"AbilitySound"					"Hero_Puck.Phase_Shift"
-		"HasShardUpgrade"			"1"
+		"HasShardUpgrade"				"1"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastPoint"				"0 0 0 0"
+		"AbilityCastPoint"				"0.01"
 		"AbilityChannelTime"			"3.25"
 
 		// Time		
@@ -220,13 +323,13 @@
 			"stun_duration"									"1.0"
 			"coil_initial_damage"
 			{	
-				"value"										"1500 2300 3100 3900 4700 5500"
+				"value"										"1750 2500 3250 3750 4250 4750"
 				"special_bonus_unique_puck_coil_damage"		"+50%"
 				"CalculateSpellDamageTooltip"				"1"
 			}
 			"coil_stun_duration"		
 			{
-				"value"										"3.3"
+				"value"										"2.5"
 				"special_bonus_unique_puck_4"				"+1"
 			}
 			"coil_break_damage"			

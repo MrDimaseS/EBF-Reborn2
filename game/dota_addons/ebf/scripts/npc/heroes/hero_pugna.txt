@@ -16,7 +16,6 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Pugna.NetherBlast"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -31,7 +30,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"structure_damage_mod"		"0.5"
+			"structure_damage_mod"				"0.5"
 			"delay"
 			{
 				"value"							"0.8"
@@ -44,7 +43,7 @@
 			}
 			"blast_damage"
 			{
-				"value"							"1000 1800 2600 3400 4200 5000 5800"
+				"value"							"950 1700 2450 3200 3950 4700 5450"
 				"special_bonus_unique_pugna_2"	"+50%"
 				"CalculateSpellDamageTooltip"	"1"
 			}
@@ -74,7 +73,6 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"AbilitySound"					"Hero_Pugna.Decrepify"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -96,12 +94,12 @@
 			"bonus_heal_amp_pct_allies"			"5 10 15 20 25 30 35"
 			"bonus_movement_speed_allies"		
 			{
-				"value"						"0"
+				"value"							"0"
 				"special_bonus_unique_pugna_decrepify_ally_movespeed"		"+10"
 			}
 			"bonus_spell_damage_pct"	
 			{
-				"value"							"-30 -35 -40 -45 -50 -55 -60"
+				"value"							"-20 -25 -30 -35 -40 -45 -50"
 				"DamageTypeTooltip"				"DAMAGE_TYPE_MAGICAL"
 			}
 			"bonus_movement_speed"				"-30 -35 -40 -45 -50 -55 -60"
@@ -136,7 +134,6 @@
 		"AbilitySound"					"Hero_Pugna.NetherWard"
 		"HasShardUpgrade"			"1"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.2 0.2 0.2 0.2"
@@ -177,6 +174,23 @@
 			{
 				"value"							"150"
 				"special_bonus_shard"			"+350"
+			}
+			
+			"health_restore_pct"
+			{
+				"value"					"0"
+				"special_bonus_facet_pugna_siphoning_ward" "+15"
+			}
+
+			"mana_restore_pct"
+			{
+				"value"					"0"
+				"special_bonus_facet_pugna_siphoning_ward" "+0.15"			
+			}
+			"self_restoration_range"					
+			{
+				"value"			"1200"
+				"affected_by_aoe_increase"	"1"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"

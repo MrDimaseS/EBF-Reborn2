@@ -74,8 +74,6 @@ function modifier_silencer_glaives_of_wisdom_autocast:DeclareFunctions()
 			MODIFIER_EVENT_ON_ATTACK_START,
 			MODIFIER_PROPERTY_PROCATTACK_BONUS_DAMAGE_PURE,
 			MODIFIER_PROPERTY_PROJECTILE_NAME,
-			MODIFIER_EVENT_ON_DEATH,
-			MODIFIER_PROPERTY_STATS_INTELLECT_BONUS 
 			}
 end
 
@@ -92,6 +90,7 @@ end
 function modifier_silencer_glaives_of_wisdom_autocast:OnAttack(params)
 	if params.attacker == self:GetParent() and params.target and (( self:GetAbility():GetAutoCastState() and self:GetAbility():IsFullyCastable() ) or self.autocast) then
 		local ability = self:GetAbility()
+		if self:GetCaster():IsSilenced() then return end
 		if ability.forceGlaivesBehavior then return end
 		self.attacks[params.record] = true
 		EmitSoundOn( "Hero_Silencer.GlaivesOfWisdom", params.attacker )
@@ -104,8 +103,8 @@ function modifier_silencer_glaives_of_wisdom_autocast:GetModifierProcAttack_Bonu
 	local ability = self:GetAbility()
 	if self.attacks[params.record] or ability.forceGlaivesBehavior then
 		caster:AddNewModifier( caster, ability, "modifier_silencer_glaives_of_wisdom_intellect_bonus", {duration = self:GetSpecialValueFor("int_steal_duration")} )
-		if caster:HasShard() then
-			params.target:AddNewModifier( caster, ability, "modifier_silencer_glaives_of_wisdom_shard", {} )
+		if self:GetSpecialValueFor("stacks_for_silence") > 0 then
+			params.target:AddNewModifier( caster, ability, "modifier_silencer_glaives_of_wisdom_shard", {duration = self:GetSpecialValueFor("debuff_linger_duration")} )
 		end
 		
 		if not ability.forceGlaivesBehavior then -- ignore bounce behavior
@@ -124,27 +123,15 @@ function modifier_silencer_glaives_of_wisdom_autocast:GetModifierProcAttack_Bonu
 		
 		self.attacks[params.record] = nil
 		ability.forceGlaivesBehavior = nil
-		return caster:GetIntellect() * self:GetSpecialValueFor("intellect_damage_pct")/100
+		return caster:GetIntellect(false) * self:GetSpecialValueFor("intellect_damage_pct")/100
 	end
 end
 
 function modifier_silencer_glaives_of_wisdom_autocast:GetModifierProjectileName(params)
+	if self:GetCaster():IsSilenced() then return end
 	if IsServer() and (self:GetAbility():IsCooldownReady() and self:GetAbility():GetAutoCastState()) or self.autocast then
 		return "particles/units/heroes/hero_silencer/silencer_glaives_of_wisdom.vpcf"
 	end
-end
-
-function modifier_silencer_glaives_of_wisdom_autocast:OnDeath(params)
-	local caster = self:GetCaster()
-	if not caster:IsSameTeam( params.unit ) and ( params.attacker == caster or CalculateDistance( caster, params.unit ) <= self:GetSpecialValueFor("permanent_int_steal_range") ) then
-		if params.unit:IsConsideredHero() then
-			self:IncrementStackCount()
-		end
-	end
-end
-
-function modifier_silencer_glaives_of_wisdom_autocast:GetModifierBonusStats_Intellect()
-	return self:GetSpecialValueFor("permanent_int_steal_amount") * self:GetStackCount()
 end
 
 function modifier_silencer_glaives_of_wisdom_autocast:IsHidden()

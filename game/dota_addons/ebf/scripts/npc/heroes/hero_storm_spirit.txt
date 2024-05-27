@@ -32,23 +32,15 @@
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"radius"				
 			{
-				"var_type"					"FIELD_INTEGER"
-				"radius"					"750"
+				"value"		"750"
+				"affected_by_aoe_increase"	"1"
 			}
-			"02"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"charges"					"3"
-			}
-			"03"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"duration"					"12"
-			}
+			"charges"				"3"
+			"duration"				"12"
 		}
 	}
 
@@ -65,7 +57,6 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_StormSpirit.StaticRemnantPlant"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -73,7 +64,6 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"3.5"
 		"AbilityDuration"				"12.0"
 
 		// Cost
@@ -86,21 +76,53 @@
 		{
 			"static_remnant_radius"
 			{
-				"value"									"350"
-				"affected_by_aoe_increase"				"1"
+				"value"										"350"
+				"affected_by_aoe_increase"					"1"
 			}
 			"static_remnant_damage_radius"
 			{
-				"value"									"350"
-				"DamageTypeTooltip"						"DAMAGE_TYPE_NONE"
-				"affected_by_aoe_increase"				"1"
+				"value"										"350"
+				"DamageTypeTooltip"							"DAMAGE_TYPE_NONE"
+				"affected_by_aoe_increase"					"1"
 			}
-			"static_remnant_delay"						"1.0"
+			"static_remnant_delay"							"0.75"
+			"AbilityCooldown"
+			{
+				"value"										"3.5"
+				"special_bonus_unique_storm_spirit_8"		"-1.25"
+			}
 			"static_remnant_damage"
 			{
-				"value"									"1200 1800 2400 3000 3600 4200 4800"
-				"special_bonus_unique_storm_spirit_5"	"+40%"
-				"CalculateSpellDamageTooltip"			"1"
+				"value"										"1200 1800 2400 3000 3600 4200 4800"
+				"special_bonus_unique_storm_spirit_5"		"+40%"
+				"CalculateSpellDamageTooltip"				"1"
+			}
+			"is_point_targeted"
+			{
+				"value"													"0"
+				"special_bonus_facet_storm_spirit_static_slide"		"+1"
+			}
+			"AbilityCastRange"
+			{
+				"value"													"0"
+				"special_bonus_facet_storm_spirit_static_slide"		"800"
+			}
+			"static_remnant_travel_speed"
+			{
+				"value"													"0"
+				"special_bonus_facet_storm_spirit_static_slide"		"325"
+			}
+			"static_remnant_vision_radius_day"
+			{
+				"value"													"500"
+				"special_bonus_facet_storm_spirit_static_slide"		"=100"
+				"affected_by_aoe_increase"	"1"
+			}
+			"static_remnant_vision_radius_night"
+			{
+				"value"													"500"
+				"special_bonus_facet_storm_spirit_static_slide"		"=100"
+				"affected_by_aoe_increase"	"1"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -123,7 +145,6 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
 		"FightRecapLevel"				"1"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 		"HasScepterUpgrade"				"1"
 		"AbilitySound"					"Hero_StormSpirit.ElectricVortex"
 		
@@ -146,19 +167,26 @@
 		{
 			"electric_vortex_pull_distance"			"180 200 220 240 260 280 300"		
 			"electric_vortex_pull_tether_range"		"1200.0"		
-			"electric_vortex_self_slow"	"-50"
+			"electric_vortex_self_slow"				"-50"
 			"electric_vortex_self_slow_duration"	"3.0"
 			"AbilityDuration"				
 			{
-				"value"								"2.6"
-				"special_bonus_unique_storm_spirit"	"+0.4"
+				"value"								"2.0"
+				"special_bonus_unique_storm_spirit"	"+0.3"
 			}
 			"radius"
 			{
 				"value"								"475"
 				"special_bonus_scepter"				"+475"
+				"affected_by_aoe_increase"			"1"
 			}
 			"radius_scepter"						""
+
+			"enemy_overload_duration"			
+			{
+				"value"				"0"
+				"special_bonus_facet_storm_spirit_shock_collar"			"=6"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -176,7 +204,6 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"AbilitySound"					"Hero_StormSpirit.Overload"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 		"HasShardUpgrade"				"1"
 		
@@ -188,10 +215,13 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"overload_aoe"								"300"
+			"overload_aoe"
+			{
+				"value"									"300"		
+				"affected_by_aoe_increase"				"1"
+			}
 			"overload_move_slow"						"-80"
 			"overload_attack_slow"						"-80"
-			"AbilityDuration"							"0.8"
 			"overload_damage"
 			{
 				"value"									"250 500 750 1000 1250 1500 1750"
@@ -227,7 +257,20 @@
 			{
 				"value"							"40 48 56 64 72 80 88"
 				"RequiresShard"					"1"
-			}																	
+			}
+			"overload_cast_range"
+			{
+				"value"							"0"
+				"special_bonus_unique_storm_spirit_overload_aspd"		"+150.0"
+			}
+			"overload_bounces"
+			{
+				"special_bonus_unique_storm_spirit_7"	"=2"
+			}
+			"overload_damage_pct"
+			{
+				"special_bonus_unique_storm_spirit_7"	"=65"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -281,6 +324,31 @@
 			}		
 			"blocker_duration"							"5"		
 			"scepter_remnant_interval"					"300"		
+		}
+	}
+	//=================================================================================================================
+	// Storm: Bloodstorm
+	//=================================================================================================================
+	"storm_spirit_galvanized"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_SKIP_FOR_KEYBINDS"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"MaxLevel"						"1"
+		"Innate"						"1"
+		"AbilityValues"
+		{
+			"perma_mp_per_kill"		"0.1"
+			"mp_per_kill"			"0.2"
+			"charges_per_ult"		"5"
+			"aoe"					
+			{
+				"value"		"1200"
+				"affected_by_aoe_increase"	"1"
+			}
+			"charges_per_death"		"3"
 		}
 	}
 	//=================================================================================================================

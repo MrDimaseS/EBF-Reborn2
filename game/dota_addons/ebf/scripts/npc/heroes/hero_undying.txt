@@ -17,7 +17,6 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"AbilitySound"					"Hero_Undying.Decay.Cast"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 		"FightRecapLevel"				"1"
 		"HasScepterUpgrade"				"1"
 
@@ -84,7 +83,6 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Undying.SoulRip.Cast"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -122,6 +120,21 @@
 				"affected_by_aoe_increase"	"1"
 			}
 			"tombstone_heal"				"4 8 12 16 20 24 28"
+			"strength_share_percent"
+			{
+				"value"						"0"
+				"special_bonus_facet_undying_ripped"	"+10"
+			}
+			"strength_share_duration"
+			{
+				"value"						"0"
+				"special_bonus_facet_undying_ripped"	"+10"
+			}
+			"strength_share_model_scale"
+			{
+				"value"						"0"
+				"special_bonus_facet_undying_ripped"	"+15"
+			}
 		}
 	}	
 
@@ -138,7 +151,6 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"AbilitySound"					"Hero_Undying.Tombstone"
 		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"3"
 		"HasShardUpgrade"				"1"
 
 		// Casting
@@ -150,7 +162,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"120 140 160 180 200 220 240"
+		"AbilityManaCost"				"125 150 175 200 225 250 275"
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -184,9 +196,13 @@
 			}
 			"bunker_units"				"1"
 			"bunker_heal_pct"			"0"
-			"tombstone_grab_radius"		"350"
-			"tombstone_bunker_cd"		"3"
-
+			"tombstone_grab_radius"		
+			{
+				"value"	"350"
+				"affected_by_aoe_increase"	"1"
+			}
+			"tombstone_bunker_cd"		"2"
+			"tombstone_stun_penalty"	"2"
 			"zombie_damage_interval"
 			{
 				"value"					"0"
@@ -253,7 +269,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-									// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
@@ -279,7 +294,7 @@
 				"value"						"15 17 19 21 23 25"
 				"DamageTypeTooltip"			"DAMAGE_TYPE_NONE"
 			}
-			"slow_duration"					"6"
+			"slow_duration"					"3"
 			"str_percentage"			
 			{
 				"value"									"40 45 50 55 60 65"
@@ -293,8 +308,35 @@
 				"value"						"140"
 				"special_bonus_shard"		"-35"
 			}
+			"spawn_zombie_on_attack"
+			{
+				"value"										"0"
+				"special_bonus_facet_undying_rotting_mitts"	"+1"
+			}
+			"zombie_duration"
+			{
+				"value"										"0"
+				"special_bonus_facet_undying_rotting_mitts"	"+3"
+			}
+			"zombie_spawn_padding"							"36"	
 		}
 	}
+	"undying_ceaseless_dirge"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_SKIP_FOR_KEYBINDS"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"MaxLevel"						"1"
+		"Innate"						"1"
+		"AbilityCooldown"				"480"
+
+		"AbilityValues"
+		{
+			"respawn_delay"				"2.0"
+		}
+	}	
 	//=================================================================================================================
 	// Ability: Special Bonus
 	//=================================================================================================================

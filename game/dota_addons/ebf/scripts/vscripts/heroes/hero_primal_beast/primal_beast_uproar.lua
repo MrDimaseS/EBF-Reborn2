@@ -342,7 +342,9 @@ function modifier_primal_beast_uproar_ebf_buff:OnCreated( kv )
 	-- references
 	self.damage = self:GetAbility():GetSpecialValueFor( "bonus_damage_per_stack" )
 	self.armor = self:GetAbility():GetSpecialValueFor( "roared_bonus_armor" )
+	self.aoe = self:GetAbility():GetSpecialValueFor( "roared_bonus_aoe_pct" )
 
+	self:GetCaster()._aoeModifiersList[self] = true
 	if not IsServer() then return end
 	self.stack = kv.stack
 
@@ -362,6 +364,7 @@ function modifier_primal_beast_uproar_ebf_buff:OnRefresh( kv )
 end
 
 function modifier_primal_beast_uproar_ebf_buff:OnRemoved()
+	self:GetCaster()._aoeModifiersList[self] = nil
 end
 
 function modifier_primal_beast_uproar_ebf_buff:OnDestroy()
@@ -389,6 +392,7 @@ function modifier_primal_beast_uproar_ebf_buff:DeclareFunctions()
 	local funcs = {
 		MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
 		MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
+		MODIFIER_PROPERTY_AOE_BONUS_PERCENTAGE
 	}
 
 	return funcs
@@ -399,6 +403,9 @@ function modifier_primal_beast_uproar_ebf_buff:GetModifierPreAttack_BonusDamage(
 end
 function modifier_primal_beast_uproar_ebf_buff:GetModifierPhysicalArmorBonus()
 	return self.armor * self.stack
+end
+function modifier_primal_beast_uproar_ebf_buff:GetModifierAoEBonusPercentage()
+	return self.aoe * self.stack
 end
 
 --------------------------------------------------------------------------------

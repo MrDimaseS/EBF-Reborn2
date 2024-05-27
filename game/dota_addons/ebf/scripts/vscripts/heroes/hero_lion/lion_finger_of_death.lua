@@ -28,7 +28,7 @@ function lion_finger_of_death:OnSpellStart()
 	 
 		local base_damage = self:GetSpecialValueFor("damage")
 		local damage_per_kill = self:GetSpecialValueFor("damage_per_kill")
-		local extra_int = TernaryOperator( self:GetSpecialValueFor("damage_per_int") * caster:GetIntellect(), caster:HasScepter(), 0 )
+		local extra_int = TernaryOperator( self:GetSpecialValueFor("damage_per_int") * caster:GetIntellect(false), caster:HasScepter(), 0 )
 		local kill_count = caster:GetModifierStackCount("modifier_lion_finger_of_death_bonus", caster)
 		local damage = math.ceil(base_damage + extra_int + damage_per_kill * kill_count)
 

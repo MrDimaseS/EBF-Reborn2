@@ -512,6 +512,7 @@ IGNORE_SPELL_AMP_KV = {
 	["item_bloodthorn_3"] = {["silence_damage_percent"] = true},
 	["item_bloodthorn_4"] = {["silence_damage_percent"] = true},
 	["item_bloodthorn_5"] = {["silence_damage_percent"] = true},
+	["pangolier_gyroshell"] = {["damage_pct"] = true},
 }
 
 -- spell_name = spell_amp_reduction (100 for no spell amp)
@@ -576,6 +577,10 @@ function CHoldoutGameMode:FilterDamage( filterTable )
 	-- MUERTA SPECIFIC FIX
 	if ability and ability:GetName() == "muerta_gunslinger" and attacker:HasModifier("modifier_muerta_pierce_the_veil_buff") then
 		filterTable.damage = damage / ( 1+ ( attacker:GetSpellAmplification( false ) * (IGNORE_SPELL_AMP_FILTER["muerta_pierce_the_veil"]/100)) )
+	end
+	-- ORACLE SPECIFIC FIX: Purifying Flames Ignore Spell Amp
+	if ability and ability:GetName() == "oracle_purifying_flames" and attacker:IsSameTeam( victim ) then
+		filterTable.damage = damage / ( 1+ attacker:GetSpellAmplification( false ) )
 	end
 	if attacker and attacker:IsRealHero() and ability and ability:GetAbilityDamage() > 0 then
 		filterTable.damage = filterTable.damage * ( 1 + attacker:GetLevel() * 0.2 )

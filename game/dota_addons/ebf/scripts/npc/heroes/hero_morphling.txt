@@ -1,6 +1,35 @@
 "DOTAAbilities"
 {	
 	//=================================================================================================================
+	// Morphling: Innate - Become Agility
+	//=================================================================================================================
+	"morphling_ebb"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI"
+		"MaxLevel"						"1"
+	}
+	//=================================================================================================================
+	// Morphling: Innate - Become Strength
+	//=================================================================================================================
+	"morphling_flow"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"MaxLevel"						"1"
+		"AbilityValues"
+		{
+			"agi_pct_at_max_cooldown_speed"			"175"
+			"agi_pct_at_min_cooldown_speed"			"50"
+			"min_cooldown_speed_pct"				"0"
+			"max_cooldown_speed_pct"				"50"
+		}
+	}
+	//=================================================================================================================
 	// Morphling: Waveform
 	//=================================================================================================================
 	"morphling_waveform"
@@ -73,8 +102,6 @@
 		"AbilitySound"					"Hero_Morphling.AdaptiveStrike"
 		"LinkedAbility"					"morphling_adaptive_strike_str"
 
-        "HasShardUpgrade"               "1"
-
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"600 650 700 750 800 850 900"
@@ -114,12 +141,6 @@
 			}
 			"projectile_speed"					"1150"
 			"shared_cooldown"					"3"
-			"bonus_attributes"		
-			{
-				"value"							"30 50 70 90 110 130 150"
-				"special_bonus_shard"			"+25%"
-				"CalculateAttributeTooltip"		"1"
-			}
 		}
 	}
 	
@@ -140,8 +161,6 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Morphling.AdaptiveStrike"
 		"LinkedAbility"					"morphling_adaptive_strike_agi"
-
-		"HasShardUpgrade"               "1"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -179,12 +198,6 @@
 			"knockback_max"					"500"
 			"projectile_speed"					"1150"
 			"shared_cooldown"					"3"
-			"bonus_attributes"		
-			{
-				"value"							"30 50 70 90 110 130 150"
-				"special_bonus_shard"			"+25%"
-				"CalculateAttributeTooltip"		"1"
-			}
 		}
 	}
 	
@@ -230,13 +243,22 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"points_per_tick"		"1 2 4 6 10 20 40"
-			"morph_cooldown"		"0.2 0.1 0.0666 0.05 0.04 0.0333"
-			"morph_rate_tooltip"										"5 20 60 120 250 500 1200"
+			"points_per_tick"
+			{
+				"value"													"1 1 1 1 2 3 4"
+				"CalculateAttributeTooltip"								"1"
+			}
+			"morph_cooldown"											"0.2 0.1 0.06 0.05 0.05 0.05 0.05"
+			"morph_rate_tooltip"
+			{
+				"value"													"10 15 20 25 50 75 100"
+				"CalculateAttributeTooltip"								"1"
+			}
 			"mana_cost"				
 			{
 				"value"													"5 10 15 20 25 30 35"
 				"special_bonus_unique_morphling_morph_no_manacost"		"-100%"
+				"special_bonus_shard"		"-50%"
 			}
 			"castable_while_stunned"
 			{
@@ -266,13 +288,22 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"points_per_tick"		"1 2 4 6 10 20 40"
-			"morph_cooldown"		"0.2 0.1 0.0666 0.05 0.04 0.0333"
-			"morph_rate_tooltip"										"5 20 60 120 250 500 1200"
-			"mana_cost"				
+			"points_per_tick"
+			{
+				"value"													"1 1 1 1 2 3 4"
+				"CalculateAttributeTooltip"								"1"
+			}
+			"morph_cooldown"											"0.2 0.1 0.06 0.05 0.05 0.05 0.05"
+			"morph_rate_tooltip"
+			{
+				"value"													"10 15 20 25 50 75 100"
+				"CalculateAttributeTooltip"								"1"
+			}
+			"mana_cost"
 			{
 				"value"													"5 10 15 20 25 30 35"
 				"special_bonus_unique_morphling_morph_no_manacost"		"-100%"
+				"special_bonus_shard"		"-50%"
 			}
 			"castable_while_stunned"
 			{

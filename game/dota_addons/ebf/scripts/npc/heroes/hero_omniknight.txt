@@ -1,6 +1,49 @@
 "DOTAAbilities"
 {	
 	//=================================================================================================================
+	// Omniknight: Degen Aura
+	//=================================================================================================================
+	"omniknight_degen_aura"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_AURA | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"MaxLevel"						"7"
+		"Innate"						"1"
+		"DependentOnAbility"			"omniknight_guardian_angel"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"speed_bonus"												"40 50 60 70 80 90 100"
+			"radius"				
+			{
+				"value"													"300"
+				"affected_by_aoe_increase"								"1"
+			}
+			"bonus_damage_per_stack"		
+			{
+				"value"						"0"
+				"special_bonus_facet_omniknight_omnipresent"			"+1"				
+			}
+			"stack_interval"				
+			{
+				"value"						"0"
+				"special_bonus_facet_omniknight_omnipresent"			"+0.5"				
+			}
+			"max_stacks"					
+			{
+				"value"						"0"
+				"special_bonus_facet_omniknight_omnipresent"			"+20"				
+			}
+			
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+	//=================================================================================================================
 	// Omniknight: Purification
 	//=================================================================================================================
 	"omniknight_purification"
@@ -59,33 +102,6 @@
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
 	//=================================================================================================================
-	// Omniknight: Degen Aura
-	//=================================================================================================================
-	"omniknight_degen_aura"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_AURA | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
-		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
-		"MaxLevel"						"1"
-		"IsGrantedByShard"				"1"
-
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"400"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			"speed_bonus"			"40"
-			"radius"				"400"
-		}
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
-	}
-
-	//=================================================================================================================
 	// Omniknight: Martyr (Heavenly Grace)
 	//=================================================================================================================
 	"omniknight_martyr"
@@ -133,7 +149,11 @@
 			"duration"				
 			{
 				"value"								"6"
-				"LinkedSpecialBonus"				"special_bonus_unique_omniknight_5"
+				"special_bonus_unique_omniknight_5" "+2"
+			}
+			"magic_resist"
+			{
+				"special_bonus_shard"		"=60"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -145,7 +165,7 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AUTOCAST | DOTA_ABILITY_BEHAVIOR_ATTACK"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
@@ -153,20 +173,12 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PURE"	
 		"AbilitySound"					"Hero_Omniknight.Repel"
 		"MaxLevel"						"7"
-        
-
+		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"350"
+		"AbilityCastRange"				"150"
 		"AbilityCastPoint"				"0.3"
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-
-		// Damage.
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"0 0 0 0"
-
+		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"30 40 50 60 70 80 90"
@@ -177,33 +189,22 @@
 		{
 			"AbilityCooldown"				
 			{
-				"value"					"10"
-				"special_bonus_unique_omniknight_3"		"-6"
+				"value"									"10"
+				"special_bonus_unique_omniknight_3"		"-5"
 			}
 			"base_damage"
 			{
-				"value"								"60 80 100 120 140 160 180"
-				"special_bonus_unique_omniknight_4"	"+75"
-				"CalculateSpellDamageTooltip"		"0"
+				"value"									"130"
+				"special_bonus_unique_omniknight_4"		"+75"
+				"CalculateSpellDamageTooltip"			"0"
 			}
 			"bonus_damage"
 			{
-				"value"								"500 750 1000 1250 1500 1750 2000"
-				"CalculateSpellDamageTooltip"		"1"
+				"value"									"550 800 1050 1300 1550 1800 2050"
+				"CalculateSpellDamageTooltip"			"1"
 			}
-			"duration"					"5"
-			"movement_slow"				"14 18 22 26 30 34 38"
 			
-			"heal_pct"
-			{
-				"value"					"0"
-				"special_bonus_shard"	"30"
-			}
-			"attack_cooldown"
-			{
-				"value"					"-1"
-				"special_bonus_shard"	"=6"
-			}
+			"attack_cooldown"							"-1"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}

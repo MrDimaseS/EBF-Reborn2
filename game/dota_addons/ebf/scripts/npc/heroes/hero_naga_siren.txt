@@ -1,5 +1,28 @@
 "DOTAAbilities"
-{	
+{
+	//=================================================================================================================
+	// Naga Siren: Slippereen
+	//=================================================================================================================
+	"naga_siren_eelskin"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES | DOTA_ABILITY_BEHAVIOR_SKIP_FOR_KEYBINDS"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_NONE"	
+
+		"MaxLevel"						"1"
+		"Innate"						"1"
+		"AbilityValues"
+		{
+			"evasion_per_naga"				"6"
+			"radius"		
+			{
+				"value"						"900"
+				"affected_by_aoe_increase"	"1"
+			}
+		}
+	}
 	//=================================================================================================================
 	// Naga Siren: Mirror Image
 	//=================================================================================================================
@@ -17,35 +40,43 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"40 35 30 25 21.89 18.75 16.63"
+		"AbilityCooldown"				"25"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"70 115 160 205 250 295 340"
+		"AbilityManaCost"				"75 90 105 120 135 150 165"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"illusion_duration"			"26"
+			"illusion_duration"						"26"
 			"outgoing_damage"
 			{
-				"value"						"-75 -70 -65 -60 -57.5 -55 -52.5"
-				"LinkedSpecialBonus"		"special_bonus_unique_naga_siren_4"
+				"value"								"-75 -70 -65 -60 -55 -50 -45 -40"
+				"special_bonus_unique_naga_siren_4" "+10"
 			}
 			"outgoing_damage_tooltip"
 			{
-				"value"						"25 30 35 40 42.5 45 47.5"
-				"LinkedSpecialBonus"		"special_bonus_unique_naga_siren_4"
+				"value"								"25 30 35 40 45 50 55 60"
+				"special_bonus_unique_naga_siren_4" "+10"
 			}
-			"incoming_damage"			"250"
-			"tooltip_incoming_damage_total_pct"			"350"
-			"images_count"
+			"incoming_damage"			
 			{
-				"value"						"3 3 3 3"
-				"LinkedSpecialBonus"		"special_bonus_unique_naga_siren"
+				"value"								"250"
+				"special_bonus_unique_naga_siren_3"	"-50"
 			}
-			"invuln_duration"			"0.3"
+			"tooltip_incoming_damage_total_pct"			
+			{
+				"value"								"350"
+				"special_bonus_unique_naga_siren_3"	"-50"
+			}
+			"images_count"				
+			{
+				"value"								"3"
+			"special_bonus_unique_naga_siren" 		"+1"
+			}
+			"invuln_duration"						"0.5"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -81,32 +112,40 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"					"5.0"
+			"duration"												"5.0"
 			"net_speed"					
 			{
-				"value"						"1500"
-				"special_bonus_scepter"				"+50%"
+				"value"												"1500"
+				"special_bonus_scepter"								"+50%"
 			}
-			"fake_ensnare_distance"		"900 900 900 900"	
+			"fake_ensnare_distance"									"900 900 900 900"	
 			"AbilityCooldown"				
 			{
-				"value"												"21 18 15 12 10.3 8.5 6.8"
+				"value"												"21 18 15 12 10.25 8.5 6.75"
 				"special_bonus_unique_naga_siren_net_cooldown"		"-2"
 			}
 			"AbilityCastRange"
 			{
-				"value"							"575 600 625 650 675 700 725"
-				"special_bonus_scepter"			"+50%"
+				"value"												"575 600 625 650 675 700 725"
+				"special_bonus_scepter"								"+50%"
 			}
 			"can_target_magic_immune"
 			{
-				"value"							"0"
-				"special_bonus_scepter"			"+1"
+				"value"												"0"
+				"special_bonus_scepter"								"+1"
+			}
+			"can_target_invulnerable"
+			{
+				"value"							"1"
+			}
+			"does_break"
+			{
+				"value"											"0"
+				"special_bonus_unique_naga_siren_net_breaks"	"+1"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
-	}	
-
+	}
 	//=================================================================================================================
 	// Naga Siren: Rip Tide
 	//=================================================================================================================
@@ -133,67 +172,80 @@
 		{
 			"hits"						
 			{
-				"value"									"8 8 8 8 7 6 5"
-				"special_bonus_unique_naga_siren_3" 	"-1"
+				"value"									"12 12 12 12 10 8 6"
+				"special_bonus_unique_naga_siren_3" 	"-2"
 			}
 			"armor_reduction"			
 			{	
-				"value"								"-2 -4 -6 -8 -8 -8 -8"
+				"value"									"-2 -4 -6 -8 -8 -8 -8"
 			}
 			"damage"	
 			{
-				"value"								"340 410 480 550 620 690 760"
-				"special_bonus_unique_naga_siren_2"	"+25%"
-				"CalculateSpellDamageTooltip"		"1"
+				"value"									"250 350 450 550 650 750 850"
+				"special_bonus_unique_naga_siren_2"		"+30%"
+				"CalculateSpellDamageTooltip"			"1"
 			}
-			"radius"					"300"
-			"duration"					"4.0"
-			"debuff_duration"			"10"
+			"radius"
+			{
+				"value"									"300"
+				"affected_by_aoe_increase"				"1"
+			}
+			"duration"									"4.0"
+			"debuff_duration"							"10"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}	
-
 	//=================================================================================================================
-	// Naga Siren: Crit
+	// Naga Siren: Undertow
 	//=================================================================================================================
-	"naga_siren_crit"
+	"naga_siren_deluge"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
-
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_NagaSiren.Riptide.Cast"
-		"MaxLevel"						"1"
-		"FightRecapLevel"				"1"
-		"IsGrantedByScepter"			"1"
-		"HasScepterUpgrade"				"1"
+		"MaxLevel"						"7"
+
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0 0 0 0"
+		"AbilityManaCost"				"70 80 90 100 110 120 130"
+		"AbilityCooldown"				"10"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"damage"	
 			{
-				"var_type"					"FIELD_INTEGER"
-				"chance"					"60"
+				"value"								"800 1300 1800 2300 2800 3300 3800"
+				"special_bonus_unique_naga_siren_2" "+30%"
 			}
-			"02"
+			
+			"radius"
 			{
-				"var_type"					"FIELD_INTEGER"
-				"crit"			"120"
+				"value"								"300"
+				"affected_by_aoe_increase"			"1"
 			}
+			"duration"					
+			{
+				"value"								"5 5 5 5 6 7 8"				
+			}
+			"debuff_duration"						"10"
+
+			"status_resistance"
+			{
+				"value"						"		-11 -14 -17 -20 -20 -20 -20"
+			}
+
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
-	}	
-
+	}
 	//=================================================================================================================
 	// Naga Siren: Song of the Siren
 	//=================================================================================================================
@@ -220,7 +272,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"150 200 250 300 350 400 450"
+		"AbilityManaCost"				"150 250 350 450 550 650"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -239,12 +291,16 @@
 			"animation_rate"							"0.55 0.55 0.55"
 			"heal_pct"
 			{
-				"value"									"0"
-				"special_bonus_shard"					"+5"
+				"value"									"2 4 6"
+				"special_bonus_shard"					"+4"
+			}
+			"mana_pct"
+			{
+				"special_bonus_shard"					"+4"
 			}
 			"AbilityCooldown"
 			{
-				"value"									"180 160 140 120 100 80"
+				"value"									"180 140 100 85 70 55"
 				"special_bonus_unique_naga_siren_5" 	"-20"
 			}
 		}

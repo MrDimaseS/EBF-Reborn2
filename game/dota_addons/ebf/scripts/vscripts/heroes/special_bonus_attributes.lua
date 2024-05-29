@@ -351,7 +351,6 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierOverrideAbi
 			end
 		end
 		local flNewValue = flBaseValue * (1+(aoe_bonus_positive_pct/100 + aoe_bonus_negative_pct/100)) + aoe_bonus_positive + aoe_bonus_negative
-		print( flNewValue, aoe_bonus_positive_pct )
 		return flNewValue
 	end
 	if params.ability._processValuesForScaling[special_value].affected_by_crit_increase then

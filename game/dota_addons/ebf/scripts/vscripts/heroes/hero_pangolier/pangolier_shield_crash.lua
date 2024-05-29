@@ -59,8 +59,8 @@ function pangolier_shield_crash:Strike(vDir)
 	local swashbuckle = caster:FindAbilityByName("pangolier_swashbuckle")
 	if not swashbuckle or swashbuckle:GetLevel() <= 0 then return end
 	--Ability specials
-	local range = swashbuckle:GetTalentSpecialValueFor("range")
-	local width = swashbuckle:GetTalentSpecialValueFor("start_radius")
+	local range = swashbuckle:GetSpecialValueFor("range")
+	local width = swashbuckle:GetSpecialValueFor("start_radius")
 
 	local direction = vDir or caster:GetForwardVector()
 	
@@ -112,7 +112,7 @@ end
 function modifier_pangolier_shield_crash_movement:OnTakeDamage(params)
 	if params.inflictor == self:GetAbility() then
 		local caster = self:GetCaster()
-		local duration = self:GetTalentSpecialValueFor("duration")
+		local duration = self:GetSpecialValueFor("duration")
 		
 		local damageBlock = TernaryOperator( self.hero_shield, params.unit:IsConsideredHero(), self.creep_shield )
 		

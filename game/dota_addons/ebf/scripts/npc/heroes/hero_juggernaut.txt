@@ -1,39 +1,69 @@
 "DOTAAbilities"
 {	
 	//=================================================================================================================
-	// Ability: Juggernaut Blade Dance
+	// Juggernaut: Innate Face to Face
 	//=================================================================================================================
-	"juggernaut_blade_dance"
+	"juggernaut_duelist"
+	{
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI"
+
+		"MaxLevel"						"1"
+		"Innate"						"1"
+
+		"AbilityValues"
+		{
+			"front_angle"				"55"
+			"front_damage_increase"		"10"
+		}
+	}
+	//=================================================================================================================
+	// Juggernaut: Exile Facet
+	//=================================================================================================================
+	"juggernaut_bladeform"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"MaxLevel"						"7"
-	
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
+
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"MaxLevel"						"1"
 		"AbilityValues"
 		{
-			"blade_dance_crit_chance"
-			{
-				"value"								"20 25 30 35 40 45 50"
-				"affected_by_chance_increase"		"1"
-			}
-			"blade_dance_crit_mult"
-			{
-				"value"								"190"
-				"affected_by_crit_increase"			"1"
-				"special_bonus_unique_juggernaut_4"	"+25"
-			}
-			"blade_dance_lifesteal"
-			{
-				"value"	"0"
-				"special_bonus_unique_juggernaut_blade_dance_lifesteal"	"+25"
-			}
+			"max_stacks"					"5"
+			"stack_gain_time"				"2.0"
+			"agi_bonus_pct_per_stack"		"4.0"
+			"movement_speed_pct_per_stack"	"2"
+			"linger_duration"				"3"
 		}
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
-
+	//=================================================================================================================
+	// Innate Mask (Spin crit)
+	//=================================================================================================================
+	"juggernaut_innate_mask_spin_crit"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"MaxLevel"						"1"
+		"AbilityValues"
+		{
+			"mana_reduction_on_hit_tooltip"		"1"
+		}
+	}
+	//=================================================================================================================
+	// Innate Mask (Crit Lifesteal)
+	//=================================================================================================================
+	"juggernaut_innate_mask_crit_lifesteal"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"MaxLevel"						"1"
+		"AbilityValues"
+		{	
+			"lifesteal_flat_tooltip"					"5"
+			"blade_dance_lifesteal_consumed_tooltip"	"15"
+		}
+	}
 	//=================================================================================================================
 	// Ability: Juggernaut Blade Fury
 	//=================================================================================================================
@@ -105,6 +135,11 @@
 				"special_bonus_shard"		"+35"
 				"RequiresShard"				"1"
 			}
+			"can_crit"
+			{
+				"value"						"0"
+				"special_bonus_facet_juggernaut_bladestorm"	"+1"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -160,6 +195,39 @@
 	}
 
 	//=================================================================================================================
+	// Ability: Juggernaut Blade Dance
+	//=================================================================================================================
+	"juggernaut_blade_dance"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"MaxLevel"						"7"
+	
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"blade_dance_crit_chance"
+			{
+				"value"								"35"
+				"affected_by_chance_increase"		"1"
+			}
+			"blade_dance_crit_mult"
+			{
+				"value"								"130 150 170 190 210 230 250"
+				"affected_by_crit_increase"			"1"
+				"special_bonus_unique_juggernaut_4"	"+25"
+			}
+			"blade_dance_lifesteal"
+			{
+				"value"	"0"
+				"special_bonus_unique_juggernaut_blade_dance_lifesteal"	"+25"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+	//=================================================================================================================
 	// Ability: Juggernaut Omni Slash
 	//=================================================================================================================
 	"juggernaut_omni_slash"
@@ -206,7 +274,7 @@
 			"attack_rate_multiplier"									"1.5"
 			"bonus_damage"
 			{
-				"value"													"400 450 500 550 600 650"
+				"value"													"300 350 400 450 500 550"
 				"CalculateAttackDamageTooltip"							"1"
 			}
 			"bonus_attack_speed"		"40"

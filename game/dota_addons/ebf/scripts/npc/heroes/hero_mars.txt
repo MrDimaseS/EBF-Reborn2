@@ -1,5 +1,27 @@
 "DOTAAbilities"
-{	
+{
+	//=================================================================================================================
+	// Ability: Mars: Legionnaire's Resolve
+	//=================================================================================================================
+	"mars_dauntless"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"MaxLevel"						"1"
+		"Innate"						"1"
+
+		"AbilityValues"
+		{
+			"health_regen_per_enemy"	"25"
+			"radius"					
+			{
+				"value"		"2000"
+				"affected_by_aoe_increase"	"1"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
 	//=================================================================================================================
 	// Ability: Spear of Mars
 	//=================================================================================================================
@@ -187,7 +209,7 @@
 		"ScriptFile"					"heroes/hero_mars/mars_bulwark"
 		"AbilityTextureName"			"mars_bulwark"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_TOGGLE"
-        "HasScepterUpgrade"			"1"
+        "HasScepterUpgrade"				"1"
 		"MaxLevel"						"7"
 
 		// Special
@@ -197,13 +219,13 @@
 			"physical_damage_reduction"
 			{
 				"value"		"20 25 30 35 40 45 50"
-				"special_bonus_unique_mars_bulwark_damage_reduction"		"+12"
+				"special_bonus_unique_mars_bulwark_damage_reduction"		"+14"
 			}
 			"forward_angle"					"140"
 			"physical_damage_reduction_side"
 			{
 				"value"												"15 17.5 20 22.5 25 27.5 30"
-				"special_bonus_unique_mars_bulwark_damage_reduction"		"+6"
+				"special_bonus_unique_mars_bulwark_damage_reduction"		"+7"
 			}
 			"side_angle"					"240"
 			"redirect_chance"
@@ -242,10 +264,26 @@
             }
             "scepter_bonus_damage"
             {
-                "value"            				  "1500"
-                "RequiresScepter"           	 "1"
+                "value"								"750"
+                "RequiresScepter"					"1"
+				"CalculateAttackDamageTooltip"		"1"
 
             }
+			"stationary_attack_delay"
+			{
+				"value"											"0.0"
+				"RequiresScepter"								"1"
+			}
+			"knockback_distance"
+			{
+				"value"											"325"
+				"RequiresScepter"								"1"
+			}
+			"soldier_attack_range"
+			{
+				"value"											"275"
+				"RequiresScepter"								"1"
+			}
 			"rebuke_chance"
 			{
 				"value"											"0"
@@ -292,15 +330,15 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"				"10 12 14 16 18 20"
+			"duration"						"10 12 14 16 18 20"
 			"radius"			
 			{
 				"value"		"550"
 				"affected_by_aoe_increase"	"1"		
 			}
-			"width"					"130"
-			"damage_amplification"	"19 21 23 25 27 29"
-			"damage_reduction"		"-19 -21 -23 -25 -27 -29"
+			"width"							"130"
+			"damage_amplification"			"19 21 23 25 27 29"
+			"damage_reduction"				"-19 -21 -23 -25 -27 -29"
 			"spear_damage"
 			{
 				"value"							"800 1600 2400 3200 4000 4800"
@@ -313,6 +351,30 @@
 			"first_warrior_angle"	"0.0"
 			"warrior_fade_min_dist"	"350.0"
 			"warrior_fade_max_dist"	"450.0"
+
+			"cast_around_self_and_leash"	"0"
+
+			"obscure_vision"
+			{
+				"value"		"0"
+				"special_bonus_facet_mars_arena"	"1"
+			}
+			"arena_kill_buff_duration"				
+			{
+				"value"				"0"
+				"special_bonus_facet_mars_victory_feast"			"+15"				
+			}
+			"arena_kill_buff_damage_pct"
+						{
+				"value"				"0"
+				"special_bonus_facet_mars_victory_feast"			"+20"				
+			}
+			
+			"arena_kill_buff_heal_pct"
+			{
+				"value"				"0"
+				"special_bonus_facet_mars_victory_feast"			"+20"				
+			}
 		}
 	}
 
@@ -412,14 +474,12 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"value"
 			{
-				"var_type"						"FIELD_INTEGER"
-				"value"				"32000"
-				"ad_linked_abilities"			"mars_arena_of_blood"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+				"value" 						"180"
+				"CalculateAttributeTooltip"		"1"
 			}
 		}
 	}

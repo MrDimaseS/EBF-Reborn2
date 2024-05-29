@@ -30,14 +30,23 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"80 90 100 110 120 130 140"
+		"AbilityManaCost"				"75"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"shock_speed"						"900"
-			"shock_width"						"200"
+			"shock_speed"				
+			{
+				"value"							"1200"
+				"special_bonus_shard"			"+400"
+
+			}
+			"shock_width"				
+			{
+				"value"							"200"
+				"affected_by_aoe_increase"		"1"
+			}
 			"shock_damage"				
 			{
 				"value"							"900 1600 2300 3000 3700 4400 5100"				
@@ -50,13 +59,13 @@
 			"pull_distance"						"150"
 			"basic_slow_duration"		
 			{
-				"value"							"0.9"
+				"value"							"1.0"
 				"special_bonus_unique_magnus_6"	"+0.5"
 			}
 			"return_damage_pct"			
 			{
 				"value"							"0"
-				"special_bonus_shard"			"+50"
+				"special_bonus_shard"			"+75"
 			}
 			"AbilityCastRange"
 			{
@@ -66,54 +75,6 @@
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
-
-	
-	//=================================================================================================================
-	// Magnataur: Greater Shockwave (scepter ability)
-	//=================================================================================================================
-	"magnataur_greater_shockwave"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT  | DOTA_ABILITY_BEHAVIOR_VECTOR_TARGETING | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
-		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
-		"AbilitySound"					"Hero_ShadowShaman.SerpentWard"
-		"FightRecapLevel"				"1"
-		"HasScepterUpgrade"				"1"
-		"MaxLevel"						"1"
-		"IsGrantedByScepter"			"1"
-		"HasScepterUpgrade"				"1"
-		"MaxLevel"						"7"
-		
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"1500"
-		"AbilityCastPoint"				"0.1"
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_4"
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"16"
-
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"100"
-
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"length"		"1200"
-			}
-		}
-	}
-	
-
 	//=================================================================================================================
 	// Magnataur: Empower
 	//=================================================================================================================
@@ -152,24 +113,41 @@
 		{
 			"empower_duration"		
 			{
-				"value" 						"25 25 25 25 35 45 55"
-				"special_bonus_unique_magnus_4"	"+25"
+				"value" 						"30 33 36 39 42 45 48"
+				"special_bonus_unique_magnus_4"	"+10"
 			}
 			"bonus_damage_pct"		
 			{
-				"value" 						"30 40 50 60 70 80 90"
+				"value" 						"16 24 32 40 48 56 64"
 				"special_bonus_unique_magnus_2"	"+10"
 			}
 			"cleave_damage_pct"		
 			{
-				"value" 						"30 40 50 60 70 80 90"
+				"value" 						"16 24 32 40 48 56 64"
 				"special_bonus_unique_magnus_2"	"+10"
+			}
+			"cleave_starting_width"
+			{
+				"value"			"150"
+				"affected_by_aoe_increase"	"1"
 			}			
-			"cleave_starting_width"			"150"
-			"cleave_ending_width"			"360"
-			"cleave_distance"				"650"
-			"aura_radius"					"900"
-			"self_multiplier"				"100"
+			"cleave_ending_width"
+			{
+				"value"			"360"
+				"affected_by_aoe_increase"	"1"
+
+			}			
+			"cleave_distance"			
+			{
+				"value"		"650"
+				"affected_by_aoe_increase"	"1"
+			}
+			"secondary_cleave_distance"	
+			{
+				"value"			"0"
+				//"special_bonus_shard"	"+400"
+			}
+			"self_multiplier"		"50"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -189,15 +167,10 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Magnataur.Skewer.Cast"
 		"MaxLevel"						"7"
-		"HasScepterUpgrade"			"0"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"16"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -207,26 +180,47 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"skewer_speed"					"900"
+			"AbilityCooldown"
+			{
+				"value"										"16"
+				"special_bonus_unique_magnus_7"				"-5"
+			}
+			"skewer_speed"									"900"
 			"range"		
 			{
-				"value" 					"900 975 1050 1125 1200 1275 1350"
-				"LinkedSpecialBonus"		"special_bonus_unique_magnus_3"
+				"value" 									"900 975 1050 1125 1200 1275 1350"
+				"special_bonus_unique_magnus_3"				"+275"
 			}
-			"slow_pct"						"20 30 40 50 60 70 80"
-			"skewer_radius"					"145"
-			"slow_duration"					"3.25"
+			"slow_pct"										"20 30 40 50 60 70 80"
+			"skewer_radius"				
+			{
+				"value"										"145"
+				"affected_by_aoe_increase"					"1"
+			}
+			"slow_duration"									"3.25"
 			"skewer_damage"
 			{
-				"value" 						"700 1400 2100 2800 3500 4200 4900"
-				"CalculateSpellDamageTooltip"	"1"
+				"value" 									"700 1400 2100 2800 3500 4200 4900"
+				"CalculateSpellDamageTooltip"				"1"
 			}
-			"tree_radius"					"200"
-			"tool_attack_slow"				"10 20 30 40 50 60 70"
-			"damage_distance_pct"
+			"tree_radius"				
 			{
-				"value" 						"60 90 120 150 180 210 240"
-				"CalculateSpellDamageTooltip"	"1"
+				"value"										"200"
+				"affected_by_aoe_increase"					"1"
+			}
+			"tree_hit_damage"
+			{
+				"special_bonus_facet_magnataur_run_through"	"10 15 20 25"
+					
+			}
+			"cliff_hit_damage"
+			{
+				"special_bonus_facet_magnataur_run_through"	"40 60 80 100"
+			}				
+			"terrain_hit_cooldown"
+			{
+				"value"										"0"
+				"special_bonus_facet_magnataur_run_through"	"0.5"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
@@ -256,10 +250,8 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.3 0.3 0.3 0.3 0.2 0.2"
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
-
-		"AbilityCooldown"				"120"
 		"AbilityManaCost"				"150 225 300 375 450 525"
-		"AbilityCastRange"				"800"
+		"AbilityCastRange"				"410"
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
@@ -269,18 +261,44 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"pull_radius"						"400 450 500 550 600 800"
+			"AbilityCooldown"				
+			{
+				"value"														"120"
+				"special_bonus_facet_magnataur_reverse_reverse_polarity"	"=100"				
+			}
+			"pull_radius"					
+			{
+				"value"														"430"
+				"affected_by_aoe_increase"									"1"
+				"special_bonus_facet_magnataur_reverse_reverse_polarity"	"-100%"				
+			}
+			"push_radius"					
+			{
+				"value"														"0"
+				"special_bonus_facet_magnataur_reverse_reverse_polarity"	"+700"				
+				"affected_by_aoe_increase"									"1"
+			}
+			"max_knockback_distance"	
+			{
+				"value"														"0"
+				"special_bonus_facet_magnataur_reverse_reverse_polarity"	"+850"				
+				"affected_by_aoe_increase"									"1"
+			}	
 			"polarity_damage"				
 			{
-				"value"							"1625 4460 12000 26000 32300 38600"
-				"CalculateSpellDamageTooltip"	"1"
+				"value"														"1000 2000 3000 4000 5000 6000"
+				"CalculateSpellDamageTooltip"								"1"
 			}
 			"hero_stun_duration"
 			{
-				"value"							"3.75 4.25 4.75 5.25 5.75 6.25"
-				"special_bonus_unique_magnus_5"	"+1"
+				"value"														"2.5 3.0 3.5 4.0 4.5 5.0"
+				"special_bonus_unique_magnus_5"								"+0.8"
 			}
-			"pull_duration"						"0.0 0.0 0.0"
+			"pull_duration"		
+			{
+				"value"														"0.0"
+				"special_bonus_facet_magnataur_reverse_reverse_polarity"	"+0.2"
+			}
 			"stat_buff_duration"
 			{
 				"value"					"0"
@@ -289,7 +307,7 @@
 			"stats_per_stack"
 			{
 				"value"					"0"
-				"special_bonus_unique_magnus_reverse_polarity_stats"			"+250"
+				"special_bonus_unique_magnus_reverse_polarity_stats"			"+100"
 			}
 		}
 	}
@@ -323,7 +341,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"125"
+		"AbilityManaCost"				"100"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -331,7 +349,7 @@
 		{
 			"damage"
 			{
-				"value"					"2750"
+				"value"					"3000"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"radius"					"325"

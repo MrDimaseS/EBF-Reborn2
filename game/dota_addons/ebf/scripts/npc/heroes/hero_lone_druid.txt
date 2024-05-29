@@ -55,24 +55,32 @@
 		{
 			"bonus_attack_speed"		
 			{
-				"value"								"20 35 50 65 80 95 110"		
-				"special_bonus_unique_lone_druid_6"	"+40"
+				"value"											"20 35 50 65 80 95 110"		
+				"special_bonus_unique_lone_druid_6"				"+40"
 			}
-			"lifesteal_percent"						"20 25 35 40 45 50 60"
-			"armor_sharing"							"40 50 60 70 80 90 100"
-			"duration"								"20"
-			"active_bonus"							"35"
+			"lifesteal_percent"									"20 25 35 40 45 50 60"
+			"armor_sharing"				
+			{
+				"value"  										"8 12 16 20 24 28 32"
+				"special_bonus_facet_lone_druid_bear_with_me"	"+100%"
+			}
+			"lifesteal_both_ways"
+			{
+				"value"											"0"
+				"special_bonus_facet_lone_druid_bear_with_me"	"=1"
+			}
+			"duration"											"20"
+			"active_bonus"										"35"
 
 			"AbilityCooldown"
 			{
-				"value"								"0"
-				"special_bonus_scepter"				"+40"
+				"value"											"0"
+				"special_bonus_scepter"							"+40"
 			}
-
 			"AbilityManaCost"
 			{
-				"value"								"0"
-				"special_bonus_scepter"				"+50"
+				"value"											"0"
+				"special_bonus_scepter"						"+50"
 			}
 		}
 	}
@@ -182,14 +190,12 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"ability_lua"
-		"ScriptFile"					"heroes/hero_lone_druid/lone_druid_spirit_bear"
-		"AbilityTextureName"			"lone_druid_spirit_bear"
-					
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"DisplayAdditionalHeroes"		"1"
 		"AbilitySound"					"Hero_LoneDruid.SpiritBear.Cast"
-		"MaxLevel"						"7"
+		"Innate"						"1"
+		"RequiredLevel"					"-1"
+		"MaxLevel"						"8"
 		"HasScepterUpgrade"				"1"
 		
 		// Casting
@@ -206,9 +212,7 @@
 		{
 			"bear_hp"
 			{
-				"value"									"5500 7000 8500 10000 11500 13000 14500"
-				"special_bonus_unique_lone_druid_7"		"+70%"
-				"CalculateAttributeTooltip"				"1"
+				"value"									"4000 5500 7000 8500 10000 11500 13000 14500"
 			}
 			"bear_regen_tooltip"
 			{
@@ -222,7 +226,7 @@
 			}
 			"bear_armor"
 			{
-				"value"									"0 2 4 6 8 10 12"
+				"value"									"0 2 4 6 8 10 12 14"
 				"special_bonus_unique_lone_druid_2"		"+15"
 			}
 			"backlash_damage"							"20.0"
@@ -240,7 +244,7 @@
 			}
 			"damage_gain_per_druid_level"
 			{
-				"value"									"150"
+				"value"									"50"
 				"CalculateAttributeTooltip"				"1"
 			}
 			"hp_gain_per_druid_level"
@@ -285,16 +289,37 @@
 			"bonus_hp"
 			{
 				"value"								"5000 10000 15000 20000 25000 30000"
-				"special_bonus_unique_lone_druid_7"	"+70%"
+				"special_bonus_facet_lone_druid_unbearable"			"-100%"
+				"RequiresFacet"						"lone_druid_bear_with_me"
+				
 				"CalculateSpellHealTooltip"			"1"
 			}
-			"base_attack_time"			"1.7"
-			"duration"					"40"
+			"base_attack_time"			
+			{
+				"value"					"0"
+				"special_bonus_facet_lone_druid_unbearable"			"0.1"
+				"RequiresFacet"							"lone_druid_unbearable"
+			}
+			
+			"duration"					
+			{
+				"value"						"40"
+			}
 			"transformation_time"		"1.933"
 			"AbilityCooldown"
 			{
 				"value"					"100"
 				"special_bonus_unique_lone_druid_8"			"-50%"
+			}	
+			"transform_bear"				
+			{
+				"value"										"0"
+				"special_bonus_facet_lone_druid_unbearable"			"1"
+			}
+			"entangling_claws_cooldown_reduction_pct"
+			{
+				"value"										"0"
+				"special_bonus_facet_lone_druid_unbearable"			"75"
 			}
 		}
 	}
@@ -328,12 +353,11 @@
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"transformation_time"
 			{
-				"var_type"					"FIELD_FLOAT"
-				"transformation_time"		"1.933"
+				"value" "1.933"
 			}
 		}
 	}

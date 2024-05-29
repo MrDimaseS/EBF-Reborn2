@@ -1,5 +1,26 @@
 "DOTAAbilities"
-{	
+{
+	//=================================================================================================================
+	// Keeper of the Light: Illuminate End
+	//=================================================================================================================
+	"keeper_of_the_light_mana_magnifier"
+	{
+		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_SKIP_FOR_KEYBINDS"
+
+		"MaxLevel"						"1"
+		"Innate"						"1"
+
+		"AbilityValues"
+		{
+			"aura_radius"	
+			{
+				"value"		"900"
+				"affected_by_aoe_increase"	"1"
+			}
+			"bonus_mana_pct"	"15"
+		}
+	}
 	//=================================================================================================================
 	// Keeper of the Light: Illuminate
 	//=================================================================================================================
@@ -83,15 +104,12 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"AbilitySound"					"Hero_KeeperOfTheLight.ManaLeak.Cast"
-		"MaxLevel"						"1"
+		"MaxLevel"						"6"
+		"HasShardUpgrade"				"1"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.2"
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"14"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -99,7 +117,7 @@
 
 		// Cast Range
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"700 750 800 850 900 950 1000"
+		"AbilityCastRange"				"850"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -107,11 +125,25 @@
 		{
 			"duration"					"6"
 			"slow"						"10"
-			"magic_resistance"			"35"
+			"magic_resistance"			"20 25 30 35 40 45"
 			"stun_duration"			
 			{
-				"value"			"0"
-				"special_bonus_unique_keeper_of_the_light_10"	"+1.5"
+				"value"					"0"
+			}
+			"AbilityCooldown"			
+			{
+				"value"					"14"
+				"special_bonus_shard"	"=0"
+			}
+			"AbilityChargeRestoreTime"			
+			{
+				"value"					"0"
+				"special_bonus_shard"	"=14"
+			}
+			"AbilityCharges"
+			{
+				"value"					"0"
+				"special_bonus_shard"	"=2"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -268,6 +300,66 @@
 			"illuminate_heal"			"50 60 70 80 90 100"
 		}
 	}
+	//=================================================================================================================
+	// Keeper of the Light: Recall
+	//=================================================================================================================
+	"keeper_of_the_light_recall"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_ALT_CASTABLE | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_CUSTOM"
+		"AbilityUnitTargetFlags"			"DOTA_UNIT_TARGET_FLAG_INVULNERABLE"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"MaxLevel"						"6"
+		"AbilitySound"					"Hero_KeeperOfTheLight.Recall.Cast"
+		"HasShardUpgrade"				"1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.3 0.3 0.3"
+ 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"0"
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"150"		
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"teleport_delay"	
+			{
+				"value"							"6 5 4 3 2 1"
+			}
+			"movespeed_bonus_duration"			"4"
+			"ally_movespeed_pct"
+			{
+				"value"							"12 16 20 24 28 32"	
+			}
+			"AbilityCooldown"			
+			{
+				"value"							"15"
+				"special_bonus_shard"			"=0"
+			}
+			"AbilityChargeRestoreTime"			
+			{
+				"value"							"0 0 0"
+				"special_bonus_shard"			"15"
+			}
+			"AbilityCharges"
+			{
+				"value"							"0"
+				"special_bonus_shard"			"=2"
+			}
+		}
+	}
+
 	"keeper_of_the_light_will_o_wisp"
 	{
 		// General

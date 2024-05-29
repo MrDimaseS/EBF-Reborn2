@@ -10,7 +10,7 @@ function mars_arena_of_blood:IsHiddenWhenStolen()
 end
 
 function mars_arena_of_blood:GetAOERadius()	
-	return self:GetTalentSpecialValueFor("radius")		
+	return self:GetSpecialValueFor("radius")		
 end
 
 function mars_arena_of_blood:OnSpellStart()			
@@ -18,9 +18,9 @@ function mars_arena_of_blood:OnSpellStart()
 	local target_point = self:GetCursorPosition()
 	local caster = self:GetCaster()		
 
-	local formation_time = self:GetTalentSpecialValueFor("formation_time")
-	local duration = self:GetTalentSpecialValueFor("duration")
-	local radius = self:GetTalentSpecialValueFor("radius")
+	local formation_time = self:GetSpecialValueFor("formation_time")
+	local duration = self:GetSpecialValueFor("duration")
+	local radius = self:GetSpecialValueFor("radius")
 
 	EmitSoundOnLocationWithCaster(target_point, "Hero_Mars.ArenaOfBlood.Start", caster)
 
@@ -55,7 +55,28 @@ LinkLuaModifier("modifier_mars_arena_of_blood_damage_reduction", "heroes/hero_ma
 function modifier_mars_arena_of_blood_damage_reduction:IsHidden() return true end
 
 function modifier_mars_arena_of_blood_damage_reduction:OnCreated(keys)
-	self.radius = self:GetAbility():GetTalentSpecialValueFor("radius")
+	self.radius = self:GetAbility():GetSpecialValueFor("radius")
+	self.arena_kill_buff_duration = self:GetAbility():GetSpecialValueFor("arena_kill_buff_duration")
+	self.arena_kill_buff_heal_pct = self:GetAbility():GetSpecialValueFor("arena_kill_buff_heal_pct") / 100
+end
+
+function modifier_mars_arena_of_blood_aura_buff:DeclareFunctions()
+	return {MODIFIER_EVENT_ON_DEATH}
+end
+
+function modifier_mars_arena_of_blood_aura_buff:OnDeath( params )
+	if self.arena_kill_buff_duration > 0 and CalculateDistance( params.unit, self:GetParent() ) <= self.radius and not params.unit:IsSameTeam( self:GetCaster() ) then
+		local healing = self.arena_kill_buff_heal_pct
+		if not params.unit:IsConsideredHero() then
+			healing = healing * 0.2
+		end
+		local caster = self:GetCaster()
+		local ability = self:GetAbility()
+		for _, ally in ipairs( self:GetCaster():FindFriendlyUnitsInRadius( self:GetParent():GetAbsOrigin(), self.radius ) ) do
+			ally:HealEvent( ally:GetMaxHealth() * healing, ability, caster )
+			ally:AddNewModifier( caster, ability, "modifier_mars_arena_of_blood_victory_feast", {duration = self.arena_kill_buff_duration} )
+		end
+	end
 end
 
 function modifier_mars_arena_of_blood_damage_reduction:IsAura()
@@ -90,6 +111,34 @@ function modifier_mars_arena_of_blood_damage_reduction:IsAuraActiveOnDeath()
     return false
 end
 
+modifier_mars_arena_of_blood_victory_feast = class({})
+LinkLuaModifier("modifier_mars_arena_of_blood_victory_feast", "heroes/hero_mars/mars_arena_of_blood.lua", LUA_MODIFIER_MOTION_NONE)
+
+function modifier_mars_arena_of_blood_victory_feast:IsDebuff() return false end
+
+function modifier_mars_arena_of_blood_victory_feast:OnCreated()
+	self:OnRefresh()
+end
+
+function modifier_mars_arena_of_blood_victory_feast:OnRefresh()
+	self.arena_kill_buff_damage_pct = self:GetAbility():GetSpecialValueFor("arena_kill_buff_damage_pct")
+	if IsServer() then
+		self:AddIndependentStack( self:GetRemainingTime() )
+	end
+end
+
+function modifier_mars_arena_of_blood_victory_feast:DeclareFunctions()
+	local funcs = {
+		MODIFIER_PROPERTY_BASEDAMAGEOUTGOING_PERCENTAGE,
+	}
+
+	return funcs
+end
+
+function modifier_mars_arena_of_blood_victory_feast:GetModifierBaseDamageOutgoing_Percentage()
+	return self.arena_kill_buff_damage_pct * self:GetStackCount()
+end
+
 --Caster buff
 modifier_mars_arena_of_blood_aura_buff = class({})
 LinkLuaModifier("modifier_mars_arena_of_blood_aura_buff", "heroes/hero_mars/mars_arena_of_blood.lua", LUA_MODIFIER_MOTION_NONE)
@@ -98,18 +147,8 @@ function modifier_mars_arena_of_blood_aura_buff:IsDebuff() return false end
 
 function modifier_mars_arena_of_blood_aura_buff:OnCreated(table)
 	local caster = self:GetCaster()
-	self.damage_amplification = self:GetTalentSpecialValueFor("damage_amplification")
-	self.damage_reduction = self:GetTalentSpecialValueFor("damage_reduction")
-end
-
-function modifier_mars_arena_of_blood_aura_buff:OnIntervalThink()
-	local parent = self:GetParent()
-	for i = 0, parent:GetAbilityCount() - 1 do
-		local ability = parent:GetAbilityByIndex( i )
-		if ability and not ability:IsCooldownReady() then
-			ability:ModifyCooldown( -self.cdr  )
-		end
-	end
+	self.damage_amplification = self:GetSpecialValueFor("damage_amplification")
+	self.damage_reduction = self:GetSpecialValueFor("damage_reduction")
 end
 
 function modifier_mars_arena_of_blood_aura_buff:DeclareFunctions()

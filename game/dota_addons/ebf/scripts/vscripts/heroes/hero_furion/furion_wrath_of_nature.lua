@@ -32,8 +32,8 @@ function furion_wrath_of_nature:OnSpellStart()
 	
 	local atLeastOneEnemy = false
 	
-	caster:RemoveModifierByName("modifier_furion_wrath_of_nature_damage")
-	local buff = caster:AddNewModifier( caster, self, "modifier_furion_wrath_of_nature_damage", {duration = self:GetSpecialValueFor("kill_damage_duration")})
+	-- caster:RemoveModifierByName("modifier_furion_wrath_of_nature_damage")
+	-- local buff = caster:AddNewModifier( caster, self, "modifier_furion_wrath_of_nature_damage", {duration = self:GetSpecialValueFor("kill_damage_duration")})
 	
 	Timers:CreateTimer(0,function()
 		if bounces <= 0 then
@@ -58,7 +58,7 @@ function furion_wrath_of_nature:OnSpellStart()
 				
 				
 				self:DealDamage(caster, enemy, damage, {}, 0)
-				buff:IncrementStackCount()
+				-- buff:IncrementStackCount()
 				if entangleDuration > 0 then
 					enemy:AddNewModifier(caster, self, "modifier_furion_wrath_of_nature_root", {duration = entangleDuration})
 				end

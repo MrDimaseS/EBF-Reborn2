@@ -63,6 +63,10 @@ function lion_finger_of_death:OnSpellStart()
 				end)
 			end
 		end
+		local punchDur = self:GetSpecialValueFor("punch_duration")
+		if punchDur > 0 then
+			caster:AddNewModifier( caster, self, "modifier_lion_finger_punch", {duration = punchDur} )
+		end
 	end
 end
 
@@ -90,7 +94,12 @@ function modifier_lion_finger_of_death_bonus:RemoveOnDeath() return false end
 function modifier_lion_finger_of_death_bonus:OnCreated() if not IsServer() then return end self:SetStackCount(1) end
 function modifier_lion_finger_of_death_bonus:OnRefresh() if not IsServer() then return end self:IncrementStackCount() end
 function modifier_lion_finger_of_death_bonus:DeclareFunctions()
-	return {MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL, MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL_VALUE, MODIFIER_PROPERTY_TOOLTIP, MODIFIER_PROPERTY_HEALTH_BONUS} 
+	return {MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL, 
+			MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL_VALUE, 
+			MODIFIER_PROPERTY_TOOLTIP, 
+			MODIFIER_PROPERTY_HEALTH_BONUS, 
+			MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
+			MODIFIER_EVENT_ON_ATTACK_LANDED } 
 end
 function modifier_lion_finger_of_death_bonus:OnStackCountChanged(old)
 	if IsServer() then self:GetParent():CalculateStatBonus(true) end
@@ -122,6 +131,17 @@ function modifier_lion_finger_of_death_bonus:GetModifierHealthBonus()
 end
 function modifier_lion_finger_of_death_bonus:OnTooltip() return self:GetStackCount() * self:GetAbility():GetSpecialValueFor("damage_per_kill") end
 
+function modifier_lion_finger_of_death_bonus:GetModifierPreAttack_BonusDamage()
+	if self:GetCaster():HasModifier("modifier_lion_finger_punch") then
+		return self:GetStackCount() * self:GetSpecialValueFor("punch_bonus_damage_per_stack")
+	end
+end
+
+function modifier_lion_finger_of_death_bonus:OnAttackLanded( params )
+	if self:GetCaster():HasModifier("modifier_lion_finger_punch") and params.attacker == self:GetCaster() then
+		target:AddNewModifier(caster, self, "modifier_lion_finger_of_death_death", {duration = self:GetAbility():GetSpecialValueFor("punch_grace_period")})
+	end
+end
 
 modifier_lion_finger_of_death_death = class({})
 function modifier_lion_finger_of_death_death:IsHidden() return false end

@@ -28,15 +28,11 @@ modifier_legion_commander_duel_wins = class({})
 LinkLuaModifier( "modifier_legion_commander_duel_wins","heroes/hero_legion_commander/legion_commander_duel.lua",LUA_MODIFIER_MOTION_NONE )
 
 function modifier_legion_commander_duel_wins:DeclareFunctions()
-	return {MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE, MODIFIER_EVENT_ON_MODIFIER_ADDED }
+	return {MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE }
 end
 
 function modifier_legion_commander_duel_wins:GetModifierPreAttack_BonusDamage()
 	return self:GetStackCount()
-end
-
-function modifier_legion_commander_duel_wins:OnModifierAdded( params )
-	PrintAll( params )
 end
 
 function modifier_legion_commander_duel_wins:IsHidden()
@@ -60,6 +56,8 @@ LinkLuaModifier( "modifier_legion_commander_duel_taunt","heroes/hero_legion_comm
 
 function modifier_legion_commander_duel_taunt:OnCreated( kv )
 	self.reward = self:GetSpecialValueFor("reward_damage")
+	self.assist_reward_damage = self:GetSpecialValueFor("assist_reward_damage")
+	self.unitsHit = {}
 	if IsServer() then
 		self.target = EntIndexToHScript( kv.target )
 		self:GetParent():SetForceAttackTarget( self.target )
@@ -83,12 +81,26 @@ function modifier_legion_commander_duel_taunt:OnDestroy( kv )
 			if not self.target:IsAlive() then -- LC won
 				wins:SetStackCount( wins:GetStackCount() + self.reward )
 				EmitSoundOn( "Hero_LegionCommander.Duel.Victory", self:GetParent() )
+				
 			end
 			if not self:GetParent():IsAlive() then -- LC lost
 				wins:SetStackCount( math.max( 0, wins:GetStackCount() - self.reward ) )
 			end
 		else
 			StopSoundOn( "Hero_LegionCommander.Duel", target )
+			if self.assist_reward_damage > 0 then
+				if self.target:IsAlive() then -- LC won, increase damage for winners
+					for unit, attacked in pairs( self.unitsHit ) do
+						local wins = unit:AddNewModifier( self:GetCaster(), self:GetAbility(), "modifier_legion_commander_duel_wins", {} )
+						wins:SetStackCount( wins:GetStackCount() + self.assist_reward_damage )
+					end
+				else -- LC won, reduce damage for losers
+					for unit, attacked in pairs( self.unitsHit ) do
+						local wins = unit:AddNewModifier( self:GetCaster(), self:GetAbility(), "modifier_legion_commander_duel_wins", {} )
+						wins:SetStackCount( math.max( 0, wins:GetStackCount() - self.assist_reward_damage ) )
+					end
+				end
+			end
 		end
 	end
 end
@@ -104,9 +116,11 @@ function modifier_legion_commander_duel_taunt:DeclareFunctions()
 	return { MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE }
 end
 
-function modifier_legion_commander_duel_taunt:GetModifierIncomingDamage_Percentage()
+function modifier_legion_commander_duel_taunt:GetModifierIncomingDamage_Percentage( params )
 	if self:GetParent() == self:GetCaster() and self:GetCaster():HasScepter() then
 		return -self:GetSpecialValueFor("scepter_damage_reduction_pct")
+	elseif self:GetParent() ~= self:GetCaster() and params.attacker ~= self:GetCaster() then
+		self.unitsHit[params.attacker] = true
 	end
 end
 

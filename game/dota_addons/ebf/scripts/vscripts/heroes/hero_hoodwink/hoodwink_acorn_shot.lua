@@ -66,6 +66,7 @@ function hoodwink_acorn_shot:OnProjectileHitHandle( target, position, projectile
 		
 		EmitSoundOn( "Hero_Hoodwink.AcornShot.Target", target )
 		
+		local can_bounce_off_of_trees = self:GetSpecialValueFor("can_bounce_off_of_trees")
 		if self.projectileData[projectile].bounces > 0 then
 			for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( position, self:GetCastRange() ) ) do
 				if enemy ~= target then
@@ -78,7 +79,7 @@ function hoodwink_acorn_shot:OnProjectileHitHandle( target, position, projectile
 					return
 				end
 			end
-			if not data.isGroundTargeted then
+			if not data.isGroundTargeted and can_bounce_off_of_trees then
 				local newPos = position + RandomVector( self:GetSpecialValueFor("bonus_range") )
 				local direction = CalculateDirection( newPos, position )
 				local distance = CalculateDistance( newPos, position )

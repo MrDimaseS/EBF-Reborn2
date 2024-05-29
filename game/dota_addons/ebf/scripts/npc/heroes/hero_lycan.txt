@@ -1,6 +1,22 @@
 "DOTAAbilities"
 {	
 	//=================================================================================================================
+	// Lycan Innate Apex Predator
+	//=================================================================================================================
+	"lycan_apex_predator"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_SKIP_FOR_KEYBINDS"
+		"MaxLevel"						"1"
+		"Innate"						"1"
+		"AbilityValues"
+		{
+			"damage_amp_per_level"			"2"
+		}
+	}
+	//=================================================================================================================
 	// Lycan: Summon Wolves
 	//=================================================================================================================
 	"lycan_summon_wolves"
@@ -22,39 +38,96 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"30"
 
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"115 120 125 130 135 140 145"
-
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"wolf_index"						"1 2 3 4 5 6 7"
-			"wolf_duration"						"50"
-			"wolf_bat"							"1.2 1.15 1.1 1.05 1.0 0.95 0.9"
-			"wolf_damage"						"400 500 850 1450 2750 5400 11000"
-			"wolf_hp"					
+			"AbilityManaCost"				
 			{
-				"value"							"1650 3500 7500 16500 34500 74000 160000"
-				"special_bonus_unique_lycan_7"	"+67000"
+				"value"			"115 120 125 130"
+				"special_bonus_facet_lycan_spirit_wolves" "-50"
+			}
+			"wolf_index"									"1 2 3 4 5 6 7"
+			"wolf_duration"				
+			{
+				"value"										"50"
+				"special_bonus_facet_lycan_spirit_wolves"	"=25"
+			}
+			"wolf_bat"										"1.2 1.15 1.1 1.05 1.0 0.95 0.9"
+			"wolf_damage"
+			{
+				"value"										"115 145 175 205 235 265 295"
+				"special_bonus_unique_lycan_3"				"+100"
+				"CalculateAttributeTooltip"					"1"
+				"RequiresFacet"								"lycan_pack_leader"
+			}
+			"wolf_hp"
+			{
+				"value"										"1650 1900 2150 24000 2650 2900 3150"
+				"special_bonus_unique_lycan_7"				"+3500"
+				"RequiresFacet"								"lycan_pack_leader"
 			}
 			"bonus_health"
 			{
-				"value"							"0"
-				"special_bonus_unique_lycan_7"	"+67000"
+				"value"										"1325 1525 1725 1925 2125 2325 2525"
+				"special_bonus_unique_lycan_7"				"+3500"
+				"CalculateAttributeTooltip"					"1"
 			}
 			"bonus_damage"
 			{
-				"value"							"0"
-				"special_bonus_unique_lycan_3"	"+150"
+				"value"										"92 116 140 164 188 212 236"
+				"special_bonus_unique_lycan_3"				"+100"
+				"CalculateAttributeTooltip"					"1"
 			}
-			"bash_chance"						"15"
-			"bash_duration"						"1.0"
-			"tooltip_wolf_count"			
+			"bash_chance"									"15"
+			"bash_duration"									"1.0"
+			"wolf_count"			
 			{
-				"value"							"2 2 2 2"
-				"special_bonus_unique_lycan_2"	"+2"
+				"value"										"2"
+				"special_bonus_unique_lycan_2"				"+2"
+			}
+
+			"is_lone_wolf"	
+			{
+				"value"					"0"
+				"special_bonus_facet_lycan_spirit_wolves"					"+1"
+			}
+			"back_distance"
+			{
+				"value"						"0"
+				"special_bonus_facet_lycan_spirit_wolves"					"+150"
+			}
+			"side_distance"
+			{
+				"value"						"0"
+				"special_bonus_facet_lycan_spirit_wolves"					"+75"
+			}
+			"model_scale"
+			{
+				"value"						"0"
+				"special_bonus_facet_lycan_spirit_wolves"					"-15"
+			}
+			"invis_level"				
+			{
+				"value"						"0"
+				"special_bonus_facet_lycan_spirit_wolves"					"0.05"
+			}
+			"health_per_wolf"				
+			{
+				"value"														"500 1000 1500 2000 2500 3000 3500"	
+				"special_bonus_unique_lycan_7"								"+2500"
+				"RequiresFacet"												"lycan_spirit_wolves"
+				"CalculateAttributeTooltip"									"1"
+			}
+			"damage_per_wolf"				
+			{
+				"value"														"80 140 200 260 320 380 440"	
+				"special_bonus_unique_lycan_3"								"+80"
+				"RequiresFacet"												"lycan_spirit_wolves"
+			}
+			"death_fx_time"
+			{
+				"special_bonus_facet_lycan_spirit_wolves"					"1.0"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -74,7 +147,7 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
 		
-		"MaxLevel"						"7"
+		"MaxLevel"						"6"
 		"LevelsBetweenUpgrades"			"6"
 		
 		"FightRecapLevel"				"1"
@@ -88,7 +161,7 @@
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"300"
-		"AbilityCooldown"				"125 120 115 110 105 100 95"
+		"AbilityCooldown"				"110 100 90"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -101,7 +174,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"lifesteal_percent"		"30"		
+			"lifesteal_percent"		"40"		
 			"lifesteal_range"		"1200"		
 			"attack_range"			"150"		
 		}
@@ -240,6 +313,16 @@
 			{
 				"value"							"2500 3500 4500 5500 6500 7500"
 				"CalculateSpellHealTooltip"		"1"
+			}
+			"is_wolfpack"
+			{
+				"value"				"0"
+				"special_bonus_facet_lycan_pack_leader"			"+1"
+			}
+			"kill_duration_extension"
+			{
+				"value"				"0"
+				"special_bonus_facet_lycan_pack_leader"			"+5"
 			}
 		}
 	}

@@ -33,18 +33,23 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{	
-			"radius"								"400"
-			"rockets_per_second"					"10"
+			"radius"											"400"
+			"rockets_per_second"								"10"
 			"rocket_damage"
 			{
-				"value"								"80 140 200 260 320 380 440"
-				"special_bonus_unique_gyrocopter_3"	"+50%"
-				"CalculateSpellDamageTooltip"		"1"
+				"value"											"80 140 200 260 320 380 440"
+				"special_bonus_unique_gyrocopter_3"				"+50%"
+				"CalculateSpellDamageTooltip"					"1"
 			}
 			"bonus_movement_speed"
 			{
-				"value"								"0"
-				"special_bonus_unique_gyrocopter_4"	"+30"
+				"value"											"0"
+				"special_bonus_unique_gyrocopter_4"				"+30"
+			}
+			"bonus_movement_speed_per_hit"
+			{
+				"value"											"0 0 0 0"
+				"special_bonus_facet_gyrocopter_afterburner"	"=1 =2 =3 =4 =5 =6 =7"					
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -247,6 +252,23 @@
 			"strike_delay"				"1.0"
 			"total_strikes"				"3"
 			"strike_separation"			"500"
+			
+			"tracking_strike_radius"				
+			{
+				"value"							"0"
+				"special_bonus_facet_gyrocopter_secondary_strikes"			"+200"
+				"affected_by_aoe_increase"	"1"
+			}
+			"tracking_strike_delay"	
+			{
+				"value"				"0"
+				"special_bonus_facet_gyrocopter_secondary_strikes"			"+0.0"
+			}
+			"tracking_missile_damage"	
+			{
+				"value"				"0"
+				"special_bonus_facet_gyrocopter_secondary_strikes"			"=50"
+			}
 		}
 	}
 	//=================================================================================================================

@@ -1,6 +1,24 @@
 "DOTAAbilities"
 {	
 	//=================================================================================================================
+	// Skywrath: Innate Max Mana Per Int
+	//=================================================================================================================
+	"obsidian_destroyer_ominous_discernment"
+	{
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_SKIP_FOR_KEYBINDS"
+
+		"MaxLevel"						"1"
+		"Innate"						"1"
+
+		"AbilityValues"
+		{
+			"bonus_max_mana_per_int"			
+			{
+				"value"						"0.1"
+			}
+		}
+	}
+	//=================================================================================================================
 	// Obsidian Destroyer: Arcane Orb
 	//=================================================================================================================
 	"obsidian_destroyer_arcane_orb"
@@ -29,7 +47,7 @@
 		{
 			"mana_pool_damage_pct"	
 			{
-				"value"										"125 125 125 125 130 135 140"
+				"value"										"100 100 100 100 110 120 130"
 				"special_bonus_unique_outworld_devourer"	"+20"
 				"CalculateSpellDamageTooltip"				"0"
 				"CalculateAttackDamageTooltip"				"1"
@@ -78,7 +96,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"prison_duration"				"4"
+			"prison_duration"					"4"
 			"damage"		
 			{
 				"value"							"900 1800 2700 3600 4500 5400 6300"
@@ -86,33 +104,52 @@
 			}
 			"mana_capacity_steal"	
 			{
-				"value"						"175 200 250 300 350 400 500"
-				"special_bonus_shard"		"+25%"
+				"value"							"175 200 250 300 350 400 500"
+				"special_bonus_shard"			"+25%"
 			}
-			"mana_capacity_duration"		"60"
+			"mana_capacity_duration"			"60"
 			"allied_movement_speed_pct"
 			{
-				"value"						"0"
-				"special_bonus_shard"		"+60"
+				"value"							"0"
+				"special_bonus_shard"			"+60"
 			}
 			"AbilityCooldown"		
 			{
-				"value"						"12"
+				"value"							"12"
 			}
-			"AbilityChargeRestoreTime"		"12"
+			"AbilityChargeRestoreTime"			"12"
 			"AbilityCharges"		
 			{
-				"value"						""
-			}										
-			"damage_radius"
+				"value"							""
+			}								
+			"damage_radius"		
 			{
-				"value"						"0"
+				"value"							"0"
+				"affected_by_aoe_increase"		"1"
+				"special_bonus_shard"			"+300"
+				"RequiresShard"					"1"
 			}
 			"AbilityCastRange"
 			{
-				"value"							"650"
+				"value"						"650"
 				"special_bonus_unique_outworld_devourer_astral_castrange"	"+100"
 			}
+			"debuff_duration"	
+			{
+				"value"							"0"
+				"special_bonus_facet_obsidian_destroyer_overwhelming_devourer"		"+5"				
+			}
+			"percentage_damage"
+			{
+				"value"							"0"
+				"special_bonus_facet_obsidian_destroyer_overwhelming_devourer"		"0"				
+			}				
+			"percentage_heal"
+			{
+				"value"																"0"
+				"special_bonus_facet_obsidian_destroyer_overwhelming_devourer"		"+100"			
+				"CalculateSpellHealTooltip"											"1"	
+			}	
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}	
@@ -169,18 +206,32 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"proc_chance"		"30"
-			"mana_restore"		"25 30 35 40 45 50 55"
-			
-			"mana_capacity_steal" 	"5"
-			"mana_capacity_duration"	"30 40 50 60"
-			"shard_bonus_mana"			"300"
-			"shard_mana_duration"		"10"
+			"proc_chance"
+			{
+				"value"								"30"
+				"affected_by_chance_increase"		"1"
+			}
+			"mana_restore"							"25 30 35 40 45 50 55"
 
+			"mana_increase"
+			{
+				"value"		"0"
+				"special_bonus_facet_obsidian_destroyer_obsidian_decimator"	"4"
+			}
+
+			"mana_increase_duration"
+			{
+				"value"		"0"
+				"special_bonus_facet_obsidian_destroyer_obsidian_decimator"	"7"
+			}
+			"mana_as_ms"
+			{
+				"special_bonus_unique_outworld_devourer_3"	"=1.5"
+			}
 			"scepter_barrier_threshold"	"20"
 			"scepter_barrier_duration"	"15"
-			"scepter_barrier_cooldown"	"60"
-			"scepter_max_mana_barrier_pct"	"50"
+			"scepter_barrier_cooldown"	"80"
+			"scepter_max_mana_barrier_pct"	"70"
 		}
 	}
 
@@ -234,6 +285,22 @@
 				"value"										"130"
 				"special_bonus_unique_outworld_devourer_5"	"-60"
 			}
+			"debuff_duration"	
+			{
+				"value"				"0"
+				"special_bonus_facet_obsidian_destroyer_overwhelming_devourer"		"+7"					
+			}
+			"percentage_damage"
+			{
+				"value"							"0"
+				"special_bonus_facet_obsidian_destroyer_overwhelming_devourer"		"0"					
+			}				
+			"percentage_heal"
+			{
+				"value"				"0"
+				"special_bonus_facet_obsidian_destroyer_overwhelming_devourer"		"+100"
+				"CalculateSpellHealTooltip"											"1"
+			}	
 		}
 	}
 	//=================================================================================================================

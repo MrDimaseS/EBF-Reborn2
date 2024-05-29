@@ -9,7 +9,6 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilitySound"					"Hero_Nightstalker.Void"
-        "HasScepterUpgrade"			"1"
 
 		// Unit Targeting
 		//-------------------------------------------------------------------------------------------------------------
@@ -46,20 +45,25 @@
 			"duration_night"							"4"
 			"movespeed_slow"							"-100"
 			"attackspeed_slow"							"-200"
-			"radius_scepter"		
+			"vision_penalty"		
 			{
-				"value"					"900"			
-				"RequiresScepter"		"1"
+				"value"			"100 200 300 400"
+				"affected_by_aoe_increase"	"1"
 			}
-			"scepter_ministun"		
+
+			"invisible_damage_pers"
 			{
-				"value"					"0.8"
-				"RequiresScepter"		"1"
+				"value"		"0"
+				"special_bonus_facet_night_stalker_blinding_void"	"=500"
+				"CalculateSpellDamageTooltip"			"1"
 			}
-			"scepter_zone_duration"
+
+			"invisible_damage_tickrate"	".1"
+			
+			"disable_vision"
 			{
-				"value"			"5"
-				"RequiresScepter"		"1"
+				"value"			"0"
+				"special_bonus_facet_night_stalker_blinding_void" "1"				
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -79,6 +83,7 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Nightstalker.Trickling_Fear"
 		"MaxLevel"						"7"
+        "HasScepterUpgrade"				"1"
 
 		// Unit Targeting
 		//-------------------------------------------------------------------------------------------------------------
@@ -99,26 +104,47 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration_day"			"3 4 5 6 7 8 9"
-			"duration_night"		"4 6 8 10 12 14 16"
-			"miss_chance"			"40"
-			"night_miss"			"10 15 20 25 30 35 40"
+			"duration_day"
+			{
+				"value"									"3.0 3.1 3.2 3.3 3.4 3.5 3.6"
+				"special_bonus_scepter" 				"=-1"
+			}
+			"duration_night"
+			{
+				"value"									"4.5 5 5.5 6 6.5 7 7.5"
+				"special_bonus_scepter" 				"=-1"
+			}
+			"mana_pers_day"
+			{
+				"value"									"0"
+				"special_bonus_scepter" 				"+90"
+			}
+
+			"mana_pers_night"
+			{
+				"value"									"0"
+				"special_bonus_scepter"					"+60"
+			}
+
+			"miss_chance"								"40"
+			"night_miss"								"10 15 20 25 30 35 40"
 			"radius"	
 			{
-				"value"		"375"
-				"affected_by_aoe_increase"	"1"
+				"value"									"375"
+				"affected_by_aoe_increase"				"1"
 			}
 			"dps"
 			{
-				"value"									"250 300 350 400 450 500 550"
+				"value"														"250 300 350 400 450 500 550"
+				"special_bonus_unique_night_stalker_crippling_fear_damage" 	"+50%"
 				"CalculateSpellDamageTooltip"			"1"
 			}
-			"tick_rate"				"0.1"
+			"tick_rate"									"0.1"
 			
 			"AbilityCooldown"
 			{
-				"value"				"15"
-				"special_bonus_unique_night_stalker_6" "-5"
+				"value"									"10"
+				"special_bonus_scepter"					"-5"
 			}				
 			
 		}

@@ -1,6 +1,63 @@
 "DOTAAbilities"
 {	
 	//=================================================================================================================
+	// Lifestealer: Feast
+	//=================================================================================================================
+	"life_stealer_feast"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_lifestealer/life_stealer_feast"
+		"AbilityTextureName"			"life_stealer_feast"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		
+		"MaxLevel"						"7"
+		"Innate"						"1"
+		"DependentOnAbility"			"life_stealer_infest"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"hp_leech_percent"			""
+			"hp_damage_percent"			""
+			"leech"
+			{
+				"value"											"50 100 150 200 250 300 350"
+				"special_bonus_unique_lifestealer_3"			"+50%"
+				"CalculateSpellHealTooltip"						"1"
+			}
+			"damage"
+			{
+				"value"											"100 200 300 400 500 600 700"
+				"special_bonus_unique_lifestealer_feast_damage"	"+50%"
+				"CalculateAttackDamageTooltip"					"1"
+			}									
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
+	}
+	//=================================================================================================================
+	// Life Stealer: Corpse Eater
+	//=================================================================================================================
+	"life_stealer_corpse_eater"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"MaxLevel"						"1"
+		"AbilityValues"
+		{			
+			"bonus_hp"
+			{
+				"value"											"20"
+				"CalculateAttributeTooltip"						"1"
+			}
+		}
+	}
+	//=================================================================================================================
 	// Lifestealer: Rage
 	//=================================================================================================================
 	"life_stealer_rage"
@@ -27,7 +84,7 @@
 		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"75 100 125 150 175 200 225"
+		"AbilityManaCost"				"80 100 120 140 160 180 200"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -45,49 +102,62 @@
 			}
 			"bonus_armor"
 			{
-				"value"											"16"
+				"value"											"0"
 				"special_bonus_unique_lifestealer_rage_armor"	"+9"
 			}
 			"bonus_magic_resist"								"80"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
-	
+
 	//=================================================================================================================
-	// Lifestealer: Feast
+	// Lifestealer: Unfettered Fury
 	//=================================================================================================================
-	"life_stealer_feast"
+	"life_stealer_unfettered"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"ability_lua"
-		"ScriptFile"					"heroes/hero_lifestealer/life_stealer_feast"
-		"AbilityTextureName"			"life_stealer_feast"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
-		
-		"MaxLevel"						"7"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"AbilitySound"					"Hero_LifeStealer.Rage"
 
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0"
+		"AbilityCastRange"				"0"
+		
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"17"
+		
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"80 100 120 140"
+			
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
-		{
-			"hp_leech_percent"			""
-			"hp_damage_percent"			""
-			"leech"
+		{		
+			"duration"
 			{
-				"value"											"50 100 150 200 250 300 350"
-				"special_bonus_unique_lifestealer_3"			"+50%"
-				"CalculateSpellHealTooltip"						"1"
+				"value"				"3.0 3.5 4.0 4.5 5.0 5.5 6.0"
+				"special_bonus_unique_lifestealer"	"+1.5"
 			}
-			"damage"
+			"magic_resist"
 			{
-				"value"											"100 200 300 400 500 600 700"
-				"special_bonus_unique_lifestealer_feast_damage"	"+50%"
-				"CalculateAttackDamageTooltip"					"1"
-			}									
+				"value"			"60"
+			}
+			"status_resist"
+			{
+				"value"			"60"					
+			}
+			"bonus_armor"
+			{
+				"value"											"0"
+				"special_bonus_unique_lifestealer_rage_armor"	"+9"
+			}
 		}
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
 	
 	
@@ -109,8 +179,7 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_LifeStealer.OpenWounds.Cast"
 
-		"MaxLevel"						"1"
-		"IsGrantedByShard"				"1"
+		"MaxLevel"						"7"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -130,12 +199,29 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"						"7"
-			"heal_percent"					"25"
-			"max_health_as_damage_pct"		""
-			"damage_threshold"				"10"
-			"spread_radius"					"700"
-			"slow_tooltip"					"50"
+			"duration"									"7"
+			"slow_steps"			
+			{
+				"value"									"-50 -50 -40 -30 -20 -10 -10 -10"
+				"special_bonus_unique_lifestealer_4"	"-15"
+
+			}
+			"heal_percent"			
+			{
+				"value"									"20 25 30 35 40 45 50"
+				"special_bonus_unique_lifestealer_6"	"+25"
+			}
+			"max_health_as_damage_pct"					"0"
+			"spread_radius"			
+			{
+				"value"									"700"
+				"affected_by_aoe_increase"				"1"
+			}
+			"slow_tooltip"			
+			{
+				"value"									"50"
+				"special_bonus_unique_lifestealer_4"	"+15"
+			}
 		}
 	}
 
@@ -165,19 +251,13 @@
 		{
 			"movement_slow"
 			{
-				"value"													"10 15 20 25 30 35 40"
-				"special_bonus_unique_lifestealer_6"					"+15"
+				"value"													"2 4 6 8 10 12 14"
+				"special_bonus_unique_lifestealer_6"					"+6"
 			}
-			"duration"													"1.5"
 			"attack_speed_bonus"
 			{
-				"value"													"25 40 55 70 100 130 160"
+				"value"													"30 50 70 90 110 130 150"
 				"special_bonus_unique_lifestealer_7"					"+50"
-			}
-			"miss_pct"
-			{
-				"value"													"0"
-				"special_bonus_unique_lifestealer_ghoul_frenzy_miss"	"+15"
 			}
 		}
 	}
@@ -247,32 +327,35 @@
 				"special_bonus_unique_lifestealer_infest_target_bonus"		"+15%"
 				"CalculateSpellHealTooltip"									"1"
 			}	
-			"self_regen"						"3 3.5 4 4.5 5 5.5 6"
-			"damage_threshold"					"500"
-			"infest_duration_scepter"
+			"self_regen"	
 			{
-				"value"					"5.0"
-				"RequiresScepter"		"1"
+				"value"														"5"
+				"special_bonus_scepter"										"+100%"
+			}			
+			"infest_duration_enemy"
+			{
+				"value"														"0"
+				"special_bonus_scepter"										"+5"
 			}
-			"cooldown_scepter"	
+			"AbilityCastRange"
 			{
-				"value"					"20"
-				"RequiresScepter"		"1"
+				"value"														"150"
+				"special_bonus_scepter"										"+250"
 			}
-			"cast_range_scepter"	
+			"attack_rate_enemy"
 			{
-				"value"					"500"
-				"RequiresScepter"		"1"
+				"value"														"0"
+				"special_bonus_scepter"										"+1.25"
 			}
-			"attack_rate_scepter"
+			"AbilityCooldown"
 			{
-				"value"					"1.25"
-				"RequiresScepter"		"1"
+				"value"														"80 65 50 43.75 37.5 30"
+				"special_bonus_scepter"										"-33.33%"
 			}
-			"bonus_regen_pct_scepter"
+			"open_wounds_duration_pct"
 			{
-				"value"				"100"
-				"RequiresScepter"		"1"
+				"value"														"0"
+				"special_bonus_shard"										"+50"
 			}
 		}
 	}

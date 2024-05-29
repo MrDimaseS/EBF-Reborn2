@@ -1,6 +1,28 @@
 "DOTAAbilities"
 {	
 	//=================================================================================================================
+	// Pangolier: Fortune Favors the Bold
+	//=================================================================================================================
+	"pangolier_fortune_favors_the_bold"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"MaxLevel"						"1"
+		"Innate"						"1"
+
+		"AbilityValues"
+		{
+			"aura_radius"				
+			{
+				"value"		"1200"
+				"affected_by_aoe_increase"	"1"
+			}
+			"chance_reduce"				"-40"			
+		}
+	}
+
+	//=================================================================================================================
 	// Pangolier: Swashbuckle
 	//=================================================================================================================
 	"pangolier_swashbuckle"
@@ -15,12 +37,11 @@
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastPoint"				"0.0"
-		"AbilityCastRange"				"850"
+		"AbilityCastPoint"				"0.15"
+		"AbilityCastRange"				"400 500 600 700 800 900 1000"
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"8"
 		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -30,15 +51,20 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"dash_range"							"850"
-			"range"
+			"AbilityCooldown"				
+			{	
+				"value"								"12"
+				"special_bonus_unique_pangolier_4"	"-2.5"
+			}
+			"dash_range"							"400 500 600 700 800 900 1000"
+			"range"					
 			{
-				"value"								"1000"
-				"LinkedSpecialBonus"				"special_bonus_unique_pangolier"
+				"value"								"700"
+				"special_bonus_unique_pangolier"	"+250"
 			}
 			"damage"
 			{
-				"value"								"250 450 650 850 1050 1250 1450"
+				"value"								"300 600 900 1200 1500 1800 2100"
 				"special_bonus_unique_pangolier_3"	"+100%"
 				"CalculateSpellDamageTooltip"		"0"
 				"CalculateAttackDamageTooltip"		"1"
@@ -57,9 +83,10 @@
 			}
 			"strikes"
 			{
-				"value"								"4"
+				"value"								"3"
 				"LinkedSpecialBonus"				"special_bonus_unique_pangolier_7"
 			}
+			"procs_onhit_effects"					"1"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -86,48 +113,61 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"0"
 		"AbilityCastPoint"				"0.0 0.0 0.0 0.0"
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"12"
 		
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"70 80 90 100 110 120 130"
-
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"AbilityCooldown"												"12"
+			"AbilityManaCost"												"70 80 90 100 110 120 130"
 			"damage"
 			{
-				"value"														"600 1200 1800 2400 3000 3600 4200"
+				"value"														"700 1300 1900 2500 3100 3700 4300"
+				"special_bonus_facet_pangolier_double_jump"					"x1.5"
 				"CalculateSpellDamageTooltip"								"1"
 			}
 			"base_shield"
 			{
 				"value"														"500 1000 1500 2000 2500 3000 3500"
 				"special_bonus_unique_pangolier_shield_crash_herostacks"	"+100%"
+				"special_bonus_facet_pangolier_double_jump"					"x1.5"
 				"CalculateSpellHealTooltip"									"1"
 			}
 			"hero_shield"
 			{
 				"value"														"500 1000 1500 2000 2500 3000 3500"
 				"special_bonus_unique_pangolier_shield_crash_herostacks"	"+100%"
+				"special_bonus_facet_pangolier_double_jump"					"x1.5"
 				"CalculateSpellHealTooltip"									"1"
 			}
 			"creep_shield"
 			{
 				"value"														"125 250 375 500 625 750 875"
 				"special_bonus_unique_pangolier_shield_crash_herostacks"	"+100%"
+				"special_bonus_facet_pangolier_double_jump"					"x1.5"
 				"CalculateSpellHealTooltip"									"1"
 			}
-			"duration"														"5"
+			"duration"														"10"
 			"radius"				
 			{
 				"value"			"500"
 				"special_bonus_unique_pangolier_shield_crash_radius"		"+125"
 				"affected_by_aoe_increase"	"1"		
+			}
+			"can_double_jump"
+			{
+				"value"														"0"
+				"special_bonus_facet_pangolier_double_jump"					"=1"
+			}
+			"max_damage_increase_pct"				
+			{
+				"value"					"0"
+				"special_bonus_facet_pangolier_double_jump"			"=50"
+			}
+			"max_barrier_increase_pct_tooltip"
+			{
+				"value"					"0"
+				"special_bonus_facet_pangolier_double_jump"			"=50"
 			}
 			"jump_duration"			"0.4"
 			"jump_duration_gyroshell"	"0.75"
@@ -137,6 +177,31 @@
 			
 			"slow"	"20 25 30 35 40 45 50"
 			"slow_duration"	"3"
+			
+			"parry_swashbuckles"
+			{
+				"value"				"0"
+				"special_bonus_facet_pangolier_auto_swashbuckle"	"+2"
+				"RequiresFacet"			"pangolier_auto_swashbuckle"
+			}
+			"parry_chance"
+			{
+				"value"				"0"
+				"special_bonus_facet_pangolier_auto_swashbuckle"	"+50"
+				"RequiresFacet"			"pangolier_auto_swashbuckle"
+			}
+			"parry_cooldown"
+			{
+				"value"				"0"
+				"special_bonus_facet_pangolier_auto_swashbuckle"	"+2"
+				"RequiresFacet"			"pangolier_auto_swashbuckle"
+			}
+			"parry_damage_threshold"
+			{
+				"value"				"0"
+				"special_bonus_facet_pangolier_auto_swashbuckle"	"+25"
+				"RequiresFacet"			"pangolier_auto_swashbuckle"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -176,15 +241,15 @@
 		{
 			"chance_pct"
 			{
-				"value"												"15 15 15 15 18 21 24"
+				"value"												"17"
 				"affected_by_chance_increase"						"1"
 			}
-			"duration"												"2.5 2.5 2.5 2.5 3.0 3.5 4"
-			"attack_slow"											"40 80 120 160 160 160 160"
+			"duration"												"2.0 2.5 3.0 3.5 4.0 4.5 5"
+			"attack_slow"											"160"
 			"armor"			
 			{
-				"value"												"2 4 6 8 8 8 8"
-				"special_bonus_unique_pangolier_luckyshot_armor"	"+3"
+				"value"												"9"
+				"special_bonus_unique_pangolier_luckyshot_armor"	"+4"
 			}
 		}
 		
@@ -224,10 +289,6 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"100 125 150 175 200 225"
 
-		// Damage.
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"1800 2600 3400 4200 5000 5800"
-
         "precache"
 		{
 			"model" "models/heroes/pangolier/pangolier_gyroshell.vmdl"
@@ -238,20 +299,36 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"AbilityDamage"					"1800 2600 3400 4200 5000 5800"
+			"damage_pct"				
+			{
+				"value"							"300 350 400 450 500 550"
+				"CalculateSpellDamageTooltip"	"0"		
+			}
 			"cast_time_tooltip"				"1.2"
 			"tick_interval"					"0.05"
-			"forward_move_speed"			"550"
-			"turn_rate_boosted"				"165"
-			"turn_rate"						"120"
+			"forward_move_speed"	
+			{
+				"value"		"550"
+				"special_bonus_facet_pangolier_thunderbolt"	"+115"
+			}
+			"turn_rate_boosted"		
+			{
+				"value"			"165"
+				"special_bonus_facet_pangolier_thunderbolt"	"+115"
+			}
+			"turn_rate"				
+			{
+				"value"		"120"
+				"special_bonus_facet_pangolier_thunderbolt"	"+110"
+			}
 			"radius"				
 			{
-				"value"						"400"
+				"value"			"400"
 				"affected_by_aoe_increase"	"1"		
 			}			
 			"hit_radius"			
 			{
-				"value"						"150"
+				"value"		"150"
 				"affected_by_aoe_increase"	"1"		
 			}			
 			"bounce_duration"				"0.4"
@@ -263,8 +340,9 @@
 			}			
 			"duration"				
 			{
-				"value"						"10.0"
-				"LinkedSpecialBonus"		"special_bonus_unique_pangolier_6"
+				"value"										"10.0"
+				"special_bonus_unique_pangolier_6"			"+2"
+				"special_bonus_facet_pangolier_thunderbolt"	"-2"
 			}
 			"jump_recover_time"				"0.25"
 			"shield_crash_cooldown"			"3"

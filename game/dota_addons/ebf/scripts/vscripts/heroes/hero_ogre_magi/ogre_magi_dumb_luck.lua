@@ -37,35 +37,9 @@ function modifier_ogre_magi_dumb_luck_passive:OnRefresh()
 	self.str_for_benefit = self:GetSpecialValueFor("str_for_benefit")
 	self.mp_restore_per_str = self:GetSpecialValueFor("mp_restore_per_str") * (strength / self.str_for_benefit)
 	self.spell_amp_per_str = self:GetSpecialValueFor("spell_amp_per_str") * (strength / self.str_for_benefit)
-	self.multicast_per_str = strength * self:GetSpecialValueFor("multicast_per_str")
 	
 	self.multicast = caster:FindAbilityByName("ogre_magi_multicast")
-	if self.multicast and self.multicast:GetLevel() > 0 then
-		local multicastScaler = self.multicast_per_str / self.str_for_benefit
-		for i = 1, 6 do
-			local multicastChance2 = self.multicast:GetLevelSpecialValueNoOverride("multicast_2_times", i-1)
-			if multicastChance2 > 0 then
-				self.multicast_chance_bonus_2[i-1] = math.floor(( multicastScaler * ((1-multicastChance2/100)/(1 - multicastChance2/100 + multicastScaler) )) * 1000)/10
-			end
-			
-			local multicastChance3 = self.multicast:GetLevelSpecialValueNoOverride("multicast_3_times", i-1)
-			if multicastChance3 > 0 then
-				self.multicast_chance_bonus_3[i-1] = math.floor(( multicastScaler * ((1-multicastChance3/100)/(1 - multicastChance3/100 + multicastScaler) )) * 1000)/10
-			end
-			
-			local multicastChance4 = self.multicast:GetLevelSpecialValueNoOverride("multicast_4_times", i-1)
-			if multicastChance4 > 0 then
-				self.multicast_chance_bonus_4[i-1] = math.floor(( multicastScaler * ((1-multicastChance4/100)/(1 - multicastChance4/100 + multicastScaler) )) * 1000)/10
-			end
-		end
-	else
-		for i = 1, 6 do
-			self.multicast_chance_bonus_2[i-1] = 0
-			self.multicast_chance_bonus_3[i-1] = 0
-			self.multicast_chance_bonus_4[i-1] = 0
-		end
-		
-	end
+	
 	if IsServer() then 
 		caster:CalculateGenericBonuses() 
 		caster:CalculateStatBonus( true ) 
@@ -75,8 +49,6 @@ end
 function modifier_ogre_magi_dumb_luck_passive:DeclareFunctions()
 	return {MODIFIER_PROPERTY_MP_REGEN_AMPLIFY_PERCENTAGE,
 			MODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE,
-			MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL, 
-			MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL_VALUE,
 			MODIFIER_PROPERTY_STATS_INTELLECT_BONUS 
 			}
 end
@@ -95,35 +67,6 @@ function modifier_ogre_magi_dumb_luck_passive:GetModifierBonusStats_Intellect()
 	local intellect = self:GetCaster():GetIntellect(true)
 	self._checkingForIntellect = false
 	return -intellect
-end
-
-function modifier_ogre_magi_dumb_luck_passive:GetModifierOverrideAbilitySpecial(params)
-	if params.ability == self.multicast then
-		local caster = params.ability:GetCaster()
-		local specialValue = params.ability_special_value
-		if specialValue == "multicast_2_times"
-		or specialValue == "multicast_3_times"
-		or specialValue == "multicast_4_times" then
-			return 1
-		end
-	end
-end
-
-function modifier_ogre_magi_dumb_luck_passive:GetModifierOverrideAbilitySpecialValue(params)
-	if params.ability == self.multicast then
-		local caster = params.ability:GetCaster()
-		local specialValue = params.ability_special_value
-		if specialValue == "multicast_2_times"then
-			local flBaseValue = params.ability:GetLevelSpecialValueNoOverride( specialValue, params.ability_special_level )
-			return flBaseValue + (self.multicast_chance_bonus_2[params.ability_special_level] or 0)
-		elseif specialValue == "multicast_3_times" then
-			local flBaseValue = params.ability:GetLevelSpecialValueNoOverride( specialValue, params.ability_special_level )
-			return flBaseValue + (self.multicast_chance_bonus_3[params.ability_special_level] or 0)
-		elseif specialValue == "multicast_4_times" then
-			local flBaseValue = params.ability:GetLevelSpecialValueNoOverride( specialValue, params.ability_special_level )
-			return flBaseValue + (self.multicast_chance_bonus_4[params.ability_special_level] or 0)
-		end
-	end
 end
 
 function modifier_ogre_magi_dumb_luck_passive:IsHidden()

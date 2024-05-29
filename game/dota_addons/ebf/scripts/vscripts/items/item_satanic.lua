@@ -101,9 +101,13 @@ function modifier_item_satanic_passive_effect:OnTakeDamage(params)
 		end
 	end
 end
-	
+
 function modifier_item_satanic_passive_effect:IsHidden()
 	return true
+end
+
+function modifier_item_satanic_passive_effect:IsPurgable()
+	return false
 end
 
 function modifier_item_satanic_passive_effect:GetAttributes()

@@ -1,5 +1,44 @@
 "DOTAAbilities"
 {	
+	//=================================================================================================================
+	// Muerta: Ofrenda
+	//=================================================================================================================
+	"muerta_ofrenda"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT"
+		//"AbilitySound"					"Hero_TemplarAssassin.Trap"
+		"MaxLevel"						"1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"300"
+		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_6"
+		
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"60.0"
+	
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"50"
+	}
+
+
+	//=================================================================================================================
+	// Ability: Ethereal attacks
+	//=================================================================================================================
+	"muerta_supernatural"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI"
+		"MaxLevel"						"1"
+		"Innate"						"1"
+	}
+
 	"muerta_dead_shot"
 	{
 		// General
@@ -111,6 +150,28 @@
 			"silence_duration"											"3.5"
 			"rotation_direction"										"-1"
 			"show_warning"												"1"
+			
+			"kill_check_radius"
+			{
+				"affected_by_aoe_increase"								"1"
+				"value"													"0"
+				"special_bonus_facet_muerta_dance_of_the_dead"			"+200"
+			}
+			"kill_radius_expansion"
+			{
+				"affected_by_aoe_increase"								"1"
+				"value"													"0"
+				"special_bonus_facet_muerta_dance_of_the_dead"			"+100"
+			}
+			"kill_radius_expansion_speed"
+			{
+				"value"													"0"
+				"special_bonus_facet_muerta_dance_of_the_dead"			"+0.25"
+			}
+			"hp_regen_pct"
+			{
+				"special_bonus_unique_muerta_calling_hp_regen"			"+1.5"
+			}
 		}
 	}
 	

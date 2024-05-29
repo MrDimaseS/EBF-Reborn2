@@ -36,21 +36,23 @@ end
 
 function furion_force_of_nature:SpawnTreant(position, bGreater)
 	local caster = self:GetCaster()
-	local tree = caster:CreateSummon( TernaryOperator( "npc_dota_furion_treant_large", bGreater, "npc_dota_furion_treant" ), position, self:GetSpecialValueFor("duration"))
+	local tree = caster:CreateSummon( "npc_dota_furion_treant", position, self:GetSpecialValueFor("treant_duration") )
 	FindClearSpaceForUnit(tree, position, true)
-	local maxHP = self:GetSpecialValueFor("treant_health_tooltip")
+	local maxHP = self:GetSpecialValueFor("treant_health")
 	if bGreater then
 		maxHP = maxHP * (1 + self:GetSpecialValueFor("treant_large_bonus") / 100)
 	end
 	tree:SetBaseMaxHealth(maxHP)
 	tree:SetMaxHealth(maxHP)
 	tree:SetHealth(maxHP)
-	local ad = self:GetSpecialValueFor("treant_dmg_tooltip")
+	local adMin = self:GetSpecialValueFor("treant_damage_min")
+	local adMax = self:GetSpecialValueFor("treant_damage_max")
 	if bGreater then
-		ad = ad * (1 + self:GetSpecialValueFor("treant_large_bonus") / 100)
+		adMin = adMin * (1 + self:GetSpecialValueFor("treant_large_bonus") / 100)
+		adMax = adMax * (1 + self:GetSpecialValueFor("treant_large_bonus") / 100)
 	end
-	tree:SetBaseDamageMax(ad)
-	tree:SetBaseDamageMin(ad)
+	tree:SetBaseDamageMax(adMax)
+	tree:SetBaseDamageMin(adMin)
 	
 	tree:MoveToPositionAggressive(position)
 end

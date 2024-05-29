@@ -25,6 +25,8 @@ function furion_sprout:OnSpellStart()
 	local duration = self:GetSpecialValueFor("duration")
 	local vision_range = self:GetSpecialValueFor("vision_range")
 	local trees = self:GetSpecialValueFor("tree_count")
+	local sprout_damage_radius = self:GetSpecialValueFor("sprout_damage_radius")
+	local sprout_damage = self:GetSpecialValueFor("sprout_damage")
 	local radius = self:GetSpecialValueFor("tree_radius")
 	local angle = math.pi/(trees/2)
 	
@@ -46,6 +48,10 @@ function furion_sprout:OnSpellStart()
 	EmitSoundOn("Hero_Furion.Sprout", dummy)
 	
 	ResolveNPCPositions( point, vision_range + radius ) 
+	
+	for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( point, sprout_damage_radius ) ) do
+		self:DealDamage( caster, enemy, sprout_damage, {damage_type = DAMAGE_TYPE_MAGICAL} )
+	end
 end
 
 
@@ -57,9 +63,9 @@ function modifier_furion_sprout_leash_thinker:OnCreated( kv )
 	self.max_greater_treants = self:GetSpecialValueFor("max_greater_treants")
 	
 	
-	self.sprout_damage_inteval = self:GetSpecialValueFor("sprout_damage_inteval")
-	self.sprout_current_inteval = self:GetSpecialValueFor("sprout_damage_inteval")
-	self.sprout_damage = self:GetSpecialValueFor("sprout_damage") * self.sprout_damage_inteval
+	self.sprout_heal_interval = self:GetSpecialValueFor("sprout_heal_interval")
+	self.sprout_current_inteval = self:GetSpecialValueFor("sprout_heal_interval")
+	self.sprout_heal_per_second = self:GetSpecialValueFor("sprout_heal_per_second") * self.sprout_heal_interval
 	self.sprout_damage_radius = self:GetSpecialValueFor("sprout_damage_radius")
 	
 	if IsServer() then
@@ -90,14 +96,16 @@ function modifier_furion_sprout_leash_thinker:OnIntervalThink()
 		end
 	end
 	
+	if self.sprout_heal_interval <= 0 then return end
+	
 	self.sprout_current_inteval = self.sprout_current_inteval - 1
 	if self.sprout_current_inteval <= 0 then
 		local caster = self:GetCaster()
 		local parent = self:GetParent()
 		local ability = self:GetAbility()
-		self.sprout_current_inteval = self.sprout_damage_inteval
-		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( parent:GetAbsOrigin(), self.sprout_damage_radius ) ) do
-			ability:DealDamage( caster, enemy, self.sprout_damage, {damage_type = DAMAGE_TYPE_MAGICAL} )
+		self.sprout_current_inteval = self.sprout_heal_interval
+		for _, ally in ipairs( caster:FindFriendlyUnitsInRadius( parent:GetAbsOrigin(), self.sprout_damage_radius ) ) do
+			ally:HealEvent( self.sprout_heal_per_second, ability, caster )
 		end
 	end
 end

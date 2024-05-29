@@ -165,9 +165,10 @@
 			}
 			"damage_pct"					
 			{
-				"value"											"1000"
-				"special_bonus_unique_lion_manadrain_damage"	"+1500%"
-				"CalculateSpellDamageTooltip"					"1"
+				"value"										"0"		
+				"special_bonus_facet_lion_essence_eater"	"+1000"
+				"RequiresFacet"								"lion_essence_eater"
+				"CalculateSpellDamageTooltip"				"1"
 			}
 			"magic_resist"
 			{
@@ -222,37 +223,92 @@
 				"CalculateSpellDamageTooltip"		"0"
 				"CalculateAttackDamageTooltip"		"1"
 			}			
-			"kill_grace_duration"				"10"
+			"kill_grace_duration"					"3"
 			"splash_radius_scepter"
 			{
-				"value"							"350"
-				"RequiresScepter"				"1"
+				"value"								"350"
+				"RequiresScepter"					"1"
 			}
 			"AbilityManaCost"
 			{
-				"value"							"200 400 600 800 1000 1200 1400"
-				"special_bonus_scepter"			"x0"
+				"value"								"200 400 600 800 1000 1200 1400"
+				"special_bonus_scepter"				"x0"
 			}
 			"AbilityCooldown"
 			{
-				"value"							"40"
-				"special_bonus_scepter"			"-50%"
-				"RequiresScepter"				"1"
+				"value"								"40"
+				"special_bonus_scepter"				"-50%"
+				"RequiresScepter"					"1"
 			}
 			"damage_delay"				
 			{
-				"value"				"0.25"
-				"CalculateSpellDamageTooltip"	"0"
-			}
-			"damage_per_int"
-			{
-				"value"						"5"
-				"RequiresScepter"			"1"
+				"value"								"0.25"
+				"CalculateSpellDamageTooltip"		"0"
 			}
 			"health_per_kill"
 			{
 				"value"								"0"
 				"special_bonus_unique_lion_11"		"+600"
+			}
+			
+			"punch_duration"
+			{
+				"value"								"0"
+				"special_bonus_facet_lion_fist_of_death"	"+20"
+				"RequiresFacet"			"lion_fist_of_death"
+			}
+			"punch_attack_range"
+			{
+				"value"						"0"
+				"special_bonus_facet_lion_fist_of_death"	"=250"
+				"RequiresFacet"			"lion_fist_of_death"
+			}
+			"punch_bonus_damage_base"
+			{
+				"value"						"0"
+				"special_bonus_facet_lion_fist_of_death"	"+400"
+				"RequiresFacet"			"lion_fist_of_death"
+			}
+			"punch_bonus_damage_per_stack"
+			{
+				"value"						"0"
+				"special_bonus_facet_lion_fist_of_death"	"+300"
+				"RequiresFacet"			"lion_fist_of_death"
+			}
+			"punch_grace_period"
+			{
+				"value"						"0"
+				"special_bonus_facet_lion_fist_of_death"	"+3"
+				"RequiresFacet"			"lion_fist_of_death"
+			}
+			"cleave_starting_width"
+			{
+				"value"						"0"
+				"special_bonus_facet_lion_fist_of_death"	"+150"
+				"affected_by_aoe_increase"	"1"
+				"RequiresFacet"			"lion_fist_of_death"
+			}
+			"cleave_ending_width"
+			{
+				"value"						"0"
+				"special_bonus_facet_lion_fist_of_death"	"+360"
+				"affected_by_aoe_increase"	"1"
+				"RequiresFacet"			"lion_fist_of_death"
+			}
+			"cleave_distance"
+			{
+				"value"						"0"
+				"special_bonus_facet_lion_fist_of_death"	"+650"
+				"affected_by_aoe_increase"	"1"
+				"RequiresFacet"			"lion_fist_of_death"
+			}
+			"cleave_damage"
+			{
+				"value"							"0"
+				"special_bonus_facet_lion_fist_of_death"	"+50"
+				"RequiresFacet"					"lion_fist_of_death"
+				"CalculateSpellDamageTooltip"	"0"
+				"DamageTypeTooltip"				"DAMAGE_TYPE_NONE"
 			}
 		}
 

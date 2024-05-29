@@ -24,7 +24,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"100 115 130 145 160 175 190"
+		"AbilityManaCost"				"100 110 120 130 140 150 160 170"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -32,17 +32,28 @@
 		{
 			"dragon_slave_damage"
 			{
-				"value"								"750 1500 2250 3000 3750 4500 5250"
-				"CalculateSpellDamageTooltip"					"1"
+				"value"								"850 1650 2450 3250 4050 4850 5650"
+				"LinkedSpecialBonus"				"lina_slow_burn"
+				"LinkedSpecialBonusField"			"impact_damage_pct"
+				"LinkedSpecialBonusOperation"		"SPECIAL_BONUS_MULTIPLY"
 				"CalculateSpellDamageTooltip" 		"1"
 			}
 			"dragon_slave_burn"
 			{
-				"value"								"100 200 300 400 500 600 700"
-				"CalculateSpellDamageTooltip"					"1"
+				"value"								"0"
+				"special_bonus_facet_lina_dot"		"=850 =1650 =2450 =3250 =4050 =4850 =5650"
+				"LinkedSpecialBonus"				"lina_slow_burn"
+				"LinkedSpecialBonusField"			"burn_percent_tooltip"
+				"LinkedSpecialBonusOperation"		"SPECIAL_BONUS_MULTIPLY"
 				"CalculateSpellDamageTooltip" 		"1"
 			}
-			"dragon_slave_burn_duration"			"3"
+			"dragon_slave_burn_duration_tooltip"
+			{
+				"value"							"0"
+				"LinkedSpecialBonus"			"lina_slow_burn"
+				"LinkedSpecialBonusField"		"burn_duration"
+				"LinkedSpecialBonusOperation"	"SPECIAL_BONUS_ADD"
+			}
 			"dragon_slave_speed"					"1200"
 			"dragon_slave_width_initial"	
 			{
@@ -60,11 +71,6 @@
 			{ 
 				"value"												"8"
 				"special_bonus_unique_lina_1"						"-3.5"
-			}
-			"target_crit_multiplier"
-			{
-				"value"												"0"
-				"special_bonus_unique_lina_dragon_slave_crits"		"+150"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -94,20 +100,44 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"115"
+		"AbilityManaCost"				"100 115 130 145 160 175 190"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"light_strike_array_aoe"	"650"
-			"light_strike_array_delay_time"	"0.5"
-			"light_strike_array_stun_duration"	"2.5"
-			"light_strike_array_damage"
+			"light_strike_array_aoe"	
 			{
-				"value"								"1100 1600 2100 2600 3100 3600 4100"
-				"CalculateSpellDamageTooltip"					"1"
-				"special_bonus_unique_lina_3"		"+75%"
+				"value" "250"
+				"affected_by_aoe_increase"	"1"
+			}
+			"light_strike_array_delay_time"	"0.5"
+			"light_strike_array_stun_duration"	"2.2"
+			"light_strike_array_damage"	
+			{
+				"value"							"1100 1600 2100 2600 3100 3600 4100"
+				"special_bonus_unique_lina_3"	"+75%"
+				"LinkedSpecialBonus"			"lina_slow_burn"
+				"LinkedSpecialBonusField"		"impact_damage_pct"
+				"LinkedSpecialBonusOperation"	"SPECIAL_BONUS_MULTIPLY"
+				"CalculateSpellDamageTooltip" 		"1"
+			}
+			"light_strike_array_burn_damage_tooltip"
+			{
+				"value"							"0"
+				"special_bonus_unique_lina_3"	"+75%"
+				"special_bonus_facet_lina_dot"	"=1100 =1600 =2100 =2600 =3100 =3600 =4100"
+				"LinkedSpecialBonus"			"lina_slow_burn"
+				"LinkedSpecialBonusField"		"burn_percent_tooltip"
+				"LinkedSpecialBonusOperation"	"SPECIAL_BONUS_MULTIPLY"
+				"CalculateSpellDamageTooltip" 		"1"
+			}
+			"light_strike_array_burn_duration_tooltip"
+			{
+				"value"							"0"
+				"LinkedSpecialBonus"			"lina_slow_burn"
+				"LinkedSpecialBonusField"		"burn_duration"
+				"LinkedSpecialBonusOperation"	"SPECIAL_BONUS_ADD"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -123,30 +153,47 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
-		"MaxLevel"						"7"
-		"HasShardUpgrade"			"1"
+		"MaxLevel"						"8"
+		"Innate"						"1"
+		"RequiredLevel"					"-1"
+
+		"HasShardUpgrade"				"1"
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
 			"fiery_soul_attack_speed_bonus"	
 			{
-				"value"									"4 8 12 16 20 24 28"
+				"value"									"2 4 8 12 16 20 24 28"
 				"special_bonus_unique_lina_2"			"+5"
 			}
 			"fiery_soul_move_speed_bonus"	
 			{
-				"value"									"1.0 1.5 2 2.5 3 3.5 4"
+				"value"									"0.5 1.0 1.5 2 2.5 3 3.5 4"
 				"special_bonus_unique_lina_2"			"+1"
 			}
+			"fiery_soul_magic_resist"
+			{
+				"special_bonus_unique_lina_4"			"+2.5"
+			}
 			"fiery_soul_max_stacks"						"15"
-			"fiery_soul_stack_duration"					"14"		
+			"fiery_soul_stack_duration"					"18"		
 			"bonus_spell_damage"
 			{
 				"value"									"0"
 				"special_bonus_shard"					"+200"
 				"CalculateSpellDamageTooltip"						"1"
-			}					
+			}		
+			"target_crit_multiplier"
+			{
+				"value"												"0"
+				"special_bonus_unique_lina_crit_debuff"				"+150"
+			}
+			"target_crit_debuff_duration"
+			{
+				"value"												"0"
+				"special_bonus_unique_lina_crit_debuff"				"3.0"
+			}			
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -176,8 +223,12 @@
 		"AbilityValues"
 		{
 			"flame_cloak_duration"					"6 6.5 7 7.5 8 8.5"
-			"magic_resistance"						"35 36 37 38 39 40"
-			"spell_amp"								"30 50 70 90 110 130"
+			"magic_resistance"						"35"
+			"spell_amp"
+			{
+				"value"								"35"
+				"CalculateAttributeTooltip"			"1"
+			}
 			"visualzdelta"							"100"
 			"zchangespeed"							"350"					
 		}
@@ -227,7 +278,26 @@
 			"damage"
 			{
 				"value"								"5000 7000 9000 11000 13000 15000"
+				"LinkedSpecialBonus"				"lina_slow_burn"
+				"LinkedSpecialBonusField"			"impact_damage_pct"
+				"LinkedSpecialBonusOperation"		"SPECIAL_BONUS_MULTIPLY"
 				"CalculateSpellDamageTooltip" 		"1"
+			}
+			"burn_damage_tooltip"
+			{
+				"value"							"0"
+				"special_bonus_facet_lina_dot"	"=5000 =7000 =9000 =11000 =13000 =15000"
+				"LinkedSpecialBonus"			"lina_slow_burn"
+				"LinkedSpecialBonusField"		"burn_percent_tooltip"
+				"LinkedSpecialBonusOperation"	"SPECIAL_BONUS_MULTIPLY"
+				"CalculateSpellDamageTooltip" 		"1"
+			}
+			"burn_duration_tooltip"
+			{
+				"value"							"0"
+				"LinkedSpecialBonus"			"lina_slow_burn"
+				"LinkedSpecialBonusField"		"burn_duration"
+				"LinkedSpecialBonusOperation"	"SPECIAL_BONUS_ADD"
 			}
 			"damage_delay"							"0.25"
 			"AbilityCooldown"
@@ -240,11 +310,24 @@
 				"value"								"0"
 				"special_bonus_unique_lina_7"		"+1"
 			}
-			"supercharge_duration"	"5"
+			"supercharge_duration"
+			{
+				"value"									"0"
+				"special_bonus_facet_lina_supercharge"	"+5"
+				"RequiresFacet"							"lina_supercharge"
+			}
 			"supercharge_stacks"	
 			{
-				"value"											"20"
-				"special_bonus_unique_lina_supercharge_stacks"	"+5"
+				"value"									"0"
+				"special_bonus_facet_lina_supercharge"	"+25"
+			}
+			"barrier_pct"
+			{
+				"special_bonus_unique_lina_7"			"125"
+			}
+			"barrier_duration"
+			{
+				"special_bonus_unique_lina_7"			"15"
 			}
 		}
 	}

@@ -1,5 +1,60 @@
 "DOTAAbilities"
 {	
+	
+	//=================================================================================================================
+	// Ability: Skeleton King Vampiric Aura (Vampiric Spirit)
+	//=================================================================================================================
+	"skeleton_king_vampiric_aura"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		
+		"MaxLevel"						"7"
+		"Innate"						"1"
+		"HasScepterUpgrade"				"1"
+		"DependentOnAbility"			"skeleton_king_reincarnation"
+		
+		"AbilityValues"
+		{
+			"vampiric_aura"
+			{
+				"value"									"20 25 30 35 40 45 50"
+				"special_bonus_unique_wraith_king_2"	"+10"
+			}
+
+			"creep_lifesteal_reduction_pct"				"40"
+
+			"duration"
+			{
+				"value"									"3.5 4 4.5 5 5.5 6.0 6.5 7.0"
+				"special_bonus_scepter"					"+1"
+			}
+			"scepter_attack_speed"
+			{
+				"value"									"75"
+			}
+			"scepter_move_speed_pct"
+			{
+				"value"									"25"
+			}
+			"scepter_respawn_pct"
+			{
+				"value"									"0"
+				"special_bonus_scepter"					"10"
+				"RequiresScepter"						"1"
+			}
+			"scepter_aura_radius"
+			{
+				"value"									"0"
+				"special_bonus_scepter"					"+1200"
+				"affected_by_aoe_increase"				"1"
+				"RequiresScepter"						"1"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
+	}
 	//=================================================================================================================
 	// Ability: Skeleton King
 	//=================================================================================================================
@@ -68,67 +123,88 @@
 	}
 	
 	//=================================================================================================================
-	// Ability: Skeleton King Vampiric Aura (Vampiric Spirit)
+	// Ability: Skeleton King Bone Guard
 	//=================================================================================================================
-	"skeleton_king_vampiric_aura"
+	"skeleton_king_bone_guard"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-		
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"MaxLevel"						"7"
 			
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.1"
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"70 80 90 100 110 120 130"
 		"AbilityCooldown"				"50"
 
+
 		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"70 80 90 100 110 120 130"
-		
+		//-------------------------------------------------------------------------------------------------------------		
 		"AbilityValues"
 		{
-			"vampiric_aura"
-			{
-				"value"									"20 30 40 50 55 60 65"
-				"special_bonus_unique_wraith_king_2"	"+8"
-			}
-			"creep_vampiric_aura"
-			{
-				"value"									"10 15 20 25 27.5 30 32.5"
-				"special_bonus_unique_wraith_king_2"	"+4"
-			}
-			"skeleton_duration"
-			{
-				"value"					"40"
-				"special_bonus_unique_wraith_king_vampiric_skeleton_duration"	"+25%"	
-			}
-			"AbilityCooldown"
-			{
-				"value"					"50"
-				"special_bonus_unique_wraith_king_vampiric_skeleton_duration"	"-25%"	
-			}
-			"max_skeleton_charges"			"2 4 6 8 9 10 11"
-			"min_skeleton_spawn"
-			{
-				"value"		"0"
-				"special_bonus_unique_wraith_king_5"	"+6"
-			}
+			"skeleton_duration"			"40"
+			"max_skeleton_charges"		"2 3 4 5 6 7 8"	
+			"min_skeleton_spawn"		"0"
 			"spawn_interval"			"0.25"
 			"reincarnate_time"			"3"
 			"gold_bounty"						"5"
 			"xp_bounty"						"5"
+
 			"skeleton_damage_tooltip"
 			{
-				"value"									"340"
-				"special_bonus_unique_wraith_king_6"	"+300%"
+				"value"							"170 195 220 245 270 295 320"
 				"CalculateSpellDamageTooltip"	"0"
+				"CalculateAttackDamageTooltip"	"1"
 			}
+
+			"talent_skeleton_damage"
+			{
+				"value"							"136 156 176 196 216 236 256"
+				"CalculateSpellDamageTooltip"	"0"
+				"CalculateAttackDamageTooltip"	"1"
+			}
+			"skeleton_building_damage_reduction"		"35"	
+			
+			"talent_skeleton_damage"
+			{
+				"value"							"250"
+				"CalculateSpellDamageTooltip"	"0"
+				"CalculateAttackDamageTooltip"	"1"
+			}
+
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
+	}
+
+	//=================================================================================================================
+	// Ability: Skeleton King Cursed Blade
+	//=================================================================================================================
+	"skeleton_king_spectral_blade"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PURE"
+		"MaxLevel"						"7"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------		
+		"AbilityValues"
+		{			
+			"cursed_damage_pct"							"50"
+			"cursed_damage"								
+			{
+				"value"									"150 300 450 600 750 900 1050"
+				"DamageTypeTooltip"						"DAMAGE_TYPE_PURE"
+				"CalculateAttackDamageTooltip"			"1"
+			}
+			"curse_cooldown"							"18 16 14 12"
+			"curse_cooldown_creep"						"6"
+			"curse_delay"								"3"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -201,56 +277,37 @@
 		"AbilityValues"
 		{
 			"reincarnate_time"		"3.0 3.0 3.0"
-			"slow_radius"			"900"
+			"slow_radius"			
+			{
+				"value"		"900"
+					"affected_by_aoe_increase"	"1"
+			}
 			"movespeed"				"-75"
 			"attackslow"			"-75"
 			"slow_duration"			"5.0"
-			"scepter_duration"
-			{
-				"value"							"0"
-				"special_bonus_scepter"			"+7"
-				"RequiresScepter"				"1"
-			}
-			"scepter_aura_radius"
-			{
-				"value"							"0"
-				"special_bonus_scepter"			"+1200"
-				"RequiresScepter"				"1"
-			}
-			"scepter_attack_speed"
-			{
-				"value"							"0"
-				"special_bonus_scepter"			"+75"
-				"RequiresScepter"				"1"
-			}
-			"scepter_move_speed_pct"
-			{
-				"value"							"0"
-				"special_bonus_scepter"			"+25"
-				"RequiresScepter"				"1"
-			}
 			"AbilityManaCost"
 			{
-				"value"							"300"
-				"special_bonus_shard"			"=0"
+				"value"					"180"
+				"special_bonus_shard"	"=0"
 			}
+
+			"clear_curse"
+			{
+				"value"						"0"
+				"special_bonus_facet_skeleton_king_facet_cursed_blade"	"=1"
+			}
+
 			"shard_skeleton_count"		
 			{
-				"value"							"1 2 3"
-				"special_bonus_shard"			"+3"
+				"value"						"0"
+				"special_bonus_facet_skeleton_king_facet_bone_guard" "2 3 4 5 6 7"				
 			}
-			"scepter_respawn_pct"
-			{
-				"value"							"0"
-				"special_bonus_scepter"			"10"
-				"RequiresScepter"				"1"
-			}
+
 			"AbilityCooldown"
 			{
-				"value"							"180 140 100 90 80 70"
-				"special_bonus_scepter"			"-25%"
+				"value"							"180 150 120 107.5 95 82.5"
+				"special_bonus_scepter"			"-15"
 			}
-			"scepter_cooldown_tooltip"			"-25"
 		}
 	}
 	

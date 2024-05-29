@@ -1,6 +1,45 @@
 "DOTAAbilities"
 {	
 	//=================================================================================================================
+	// Ability: Necrolyte's Sadist
+	//=================================================================================================================
+	"necrolyte_sadist"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"MaxLevel"						"1"
+		"Innate"						"1"
+		"DependentOnAbility"			""
+
+		"AbilityValues"
+		{
+			"health_regen"
+			{
+				"value"						"4"
+				"CalculateSpellHealTooltip"	"1"
+			}
+			"mana_regen"					"4"
+			"bonus_aoe"
+			{
+				"value"						"0"
+				"special_bonus_facet_necrolyte_profane_potency"	"+40"
+			}
+			"bonus_spell_amp"
+			{
+				"value"		"0"
+			}
+			"hero_multiplier" 							"6"
+			"kill_multiplier" 							"2"
+			"regen_duration"		
+			{
+				"value"															"10"
+				"special_bonus_unique_necrophos_heartstopper_regen_duration"	"+3"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+	//=================================================================================================================
 	// Necrolyte: Death Seeker (shard ability )
 	//=================================================================================================================
 	"necrolyte_death_seeker"
@@ -82,7 +121,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"area_of_effect"						"500"
+			"area_of_effect"		
+			{
+				"value"		"500"
+				"affected_by_aoe_increase"	"1"
+			}
 			"damage"
 			{
 				"value"								"1000 1600 2200 2800 3400 4000 4600"
@@ -107,13 +150,13 @@
 	//=================================================================================================================
 	// Ability: Necrolyte's Sadist
 	//=================================================================================================================
-	"necrolyte_sadist"
+	"necrolyte_ghost_shroud"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_lua"
-		"ScriptFile"					"heroes/hero_necrophos/necrolyte_sadist"
-		"AbilityTextureName"			"necrolyte_sadist"
+		"ScriptFile"					"heroes/hero_necrophos/necrolyte_ghost_shroud"
+		"AbilityTextureName"			"necrolyte_ghost_shroud"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"AbilitySound"					"Hero_Necrolyte.SpiritForm.Cast"
@@ -141,8 +184,17 @@
 			{
 				"value"												"12 16 20 24 28 32 36"
 				"special_bonus_unique_necrophos_3"					"+24"
-			}			
-			"slow_aoe"		"750"
+			}
+			"movement_transfer"
+			{
+				"value"												"0"
+				"special_bonus_facet_necrolyte_rapid_decay"			"25"				
+			}
+			"slow_aoe"		
+			{
+				"value"		"750"
+				"affected_by_aoe_increase"	"1"
+			}
 			"bonus_damage" "-40"
 			"AbilityCooldown"
 			{
@@ -188,7 +240,11 @@
 		
 		"AbilityValues"
 		{
-			"aura_radius"								"800"		
+			"aura_radius"			
+			{
+				"value"		"800"		
+				"affected_by_aoe_increase"	"1"
+			}
 			"aura_damage"
 			{
 				"value"									"0.52 0.6 0.68 0.76 0.84 0.92 1.00" 
@@ -203,19 +259,6 @@
 				"DamageTypeTooltip"						"DAMAGE_TYPE_NONE"
 				"CalculateSpellDamageTooltip"			"0"
 			} 	
-			"health_regen"
-			{
-				"value"									"4 5 6 7 8 9 10"
-				"CalculateSpellHealTooltip"				"1"
-			}
-			"mana_regen"								"1 1.25 1.5 2 2.5 3 3.5"
-			"hero_multiplier" 							"5"
-			"kill_multiplier" 							"2"
-			"regen_duration"		
-			{
-				"value"									"7"
-				"special_bonus_unique_necrophos_heartstopper_regen_duration"							"+2"
-			}
 			"heal_reduction_pct"
 			{
 				"value"					"0"

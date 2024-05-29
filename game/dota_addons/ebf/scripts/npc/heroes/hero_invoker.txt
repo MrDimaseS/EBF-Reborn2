@@ -22,12 +22,35 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"spell_lifesteal"
+			"lifesteal_per_instance"
 			{
-				"value"								"2 3 4 5 6 7 8 9 10"
-				"special_bonus_unique_invoker_13"	"x2"
+				"value"	"0"
+				"special_bonus_facet_invoker_elitist"	"2 4 6 8 10 12 14 16 18"
+				"special_bonus_unique_invoker_13"		"x2"				
+				"RequiresFacet"							"invoker_elitist"
+				"CalculateSpellHealTooltip"				"1"
 			}
-			"strength_bonus"						"10 15 25 40 60 85 115 150 200"
+			"intrinsic_attack_damage_dot_per_second"
+			{
+				// NOTE: 10 damage (post reduction) procs cold snap
+				"value"									"0"
+				"special_bonus_facet_invoker_agnostic"	"30 60 90 120 150 180 210 240 270"
+				"special_bonus_unique_invoker_13"		"x2"				
+				"RequiresFacet"							"invoker_agnostic"
+				"CalculateSpellDamageTooltip"			"1"
+				"DamageTypeTooltip"						"DAMAGE_TYPE_MAGICAL"
+			}
+			"intrinsic_attack_damage_dot_duration"
+			{
+				// NOTE: don't douple dip level 25 multiplicative effects here
+				"value"										"0"
+				"special_bonus_facet_invoker_agnostic"		"2"
+			}
+			"strength_bonus"
+			{
+				"value"										"1"
+				"CalculateAttributeTooltip"					"1"
+			}
 		}
 	}
 
@@ -54,15 +77,23 @@
 		{
 			"move_speed_per_instance"
 			{
-				"value"								"0.8 1.6 2.4 3.2 4 4.8 5.6 6.4 7.2"
-				"special_bonus_unique_invoker_13"	"x2"
-			}
-			"cooldown_reduction"
+				"value"								"0"
+				"special_bonus_facet_invoker_elitist"			"0.6 1.2 1.8 2.4 3.0 3.6 4.2 4.8 5.4"
+				"special_bonus_unique_invoker_13"	"x2"				
+				"RequiresFacet"					"invoker_elitist"
+			}			
+			"intrinsic_attack_speed"
 			{
-				"value"								"2 2.5 3 3.5 4 4.5 5 5.5 6"
-				"special_bonus_unique_invoker_13"	"x2"
+				"value"											"0"
+				"special_bonus_facet_invoker_agnostic"			"5 10 15 20 25 30 35 40 45"
+				"special_bonus_unique_invoker_13"				"x2"
+				"RequiresFacet"									"invoker_agnostic"
 			}
-			"agility_bonus"							"10 15 25 40 60 85 115 150 200"
+			"agility_bonus"
+			{
+				"value"											"1"
+				"CalculateAttributeTooltip"					"1"
+			}
 		}
 	}
 
@@ -88,13 +119,37 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"spell_amp"
+			"bonus_damage_per_instance"
 			{
-				"value"								"10 15 20 25 30 35 40 45 50"
+				"value"								"2 4 6 8 10 12 14 16 18"
 				"special_bonus_unique_invoker_13"	"x2"
-
 			}
-			"intelligence_bonus"					"10 15 25 40 60 85 115 150 200"
+			"magic_amp"
+			{
+				"value"								"0"
+				"special_bonus_facet_invoker_elitist"			"2 3 4 5 6 7 8 9 10"
+				"special_bonus_unique_invoker_13"	"x2"				
+				"RequiresFacet"					"invoker_elitist"
+			}
+			"resist_debuff_duration"
+			{
+				"value"											"0"
+				"special_bonus_facet_invoker_elitist"	"4"				
+			}
+			"intrinsic_attack_damage"
+			{
+				"value"								"0"
+				"special_bonus_unique_invoker_13"	"x2"
+				"special_bonus_facet_invoker_agnostic" "30 60 90 120 150 180 210 240 270"
+				"RequiresFacet"					"invoker_agnostic"
+				"CalculateSpellDamageTooltip"		"0"
+				"DamageTypeTooltip"					"DAMAGE_TYPE_PHYSICAL"
+			}
+			"intelligence_bonus"
+			{
+				"value"									"1"
+				"CalculateAttributeTooltip"				"1"
+			}
 		}
 	}
 
@@ -215,13 +270,13 @@
 			}
 			"AbilityCooldown"
 			{
-				"value"									"20"
+				"value"									"18"
 				"special_bonus_unique_invoker_9"		"-8"
 				"special_bonus_scepter"					"=0"
 			}
 			"AbilityChargeRestoreTime"
 			{
-				"value"									"20"
+				"value"									"18"
 				"special_bonus_unique_invoker_9"		"-8"
 			}
 			"duration"
@@ -283,10 +338,10 @@
 			}
 			"AbilityCooldown"
 			{
-				"value"									"35"
+				"value"									"32"
 				"special_bonus_scepter"					"=0"
 			}
-			"AbilityChargeRestoreTime"					"35"
+			"AbilityChargeRestoreTime"					"32"
 			"duration"					"60"
 			"area_of_effect"			"450"
 			"enemy_slow"
@@ -337,13 +392,13 @@
 			}
 			"AbilityCooldown"
 			{
-				"value"									"30"
+				"value"									"27"
 				"special_bonus_unique_invoker_3" 		"-6"
 				"special_bonus_scepter"					"=0"
 			}
 			"AbilityChargeRestoreTime"
 			{
-				"value"									"30"
+				"value"									"27"
 				"special_bonus_unique_invoker_9"		"-6"
 			}
 			"travel_distance"
@@ -445,12 +500,12 @@
 			}
 			"AbilityCooldown"
 			{
-				"value"									"30"
+				"value"									"27"
 				"special_bonus_scepter"					"=0"
 			}
 			"AbilityChargeRestoreTime"
 			{
-				"value"									"30"
+				"value"									"27"
 			}
 		}
 	}
@@ -511,12 +566,12 @@
 			}
 			"AbilityCooldown"
 			{
-				"value"									"17"
+				"value"									"15"
 				"special_bonus_scepter"					"=0"
 			}
 			"AbilityChargeRestoreTime"
 			{
-				"value"									"17"
+				"value"									"15"
 			}
 		}
 	}
@@ -559,12 +614,12 @@
 			}
 			"AbilityCooldown"
 			{
-				"value"									"55"
+				"value"									"50"
 				"special_bonus_scepter"					"=0"
 			}
 			"AbilityChargeRestoreTime"
 			{
-				"value"									"55"
+				"value"									"50"
 			}
 			"land_time"					"1.3"
 			"area_of_effect"			"475"
@@ -656,12 +711,12 @@
 			}
 			"AbilityCooldown"
 			{
-				"value"									"25"
+				"value"									"23"
 				"special_bonus_scepter"					"=0"
 			}
 			"AbilityChargeRestoreTime"
 			{
-				"value"									"25"
+				"value"									"23"
 			}
 		}
 	}
@@ -744,12 +799,12 @@
 			}
 			"AbilityCooldown"
 			{
-				"value"									"30"
+				"value"									"27"
 				"special_bonus_scepter"					"=0"
 			}
 			"AbilityChargeRestoreTime"
 			{
-				"value"									"30"
+				"value"									"27"
 			}
 		}
 			
@@ -842,12 +897,12 @@
 			}
 			"AbilityCooldown"
 			{
-				"value"									"25"
+				"value"									"23"
 				"special_bonus_scepter"					"=0"
 			}
 			"AbilityChargeRestoreTime"
 			{
-				"value"									"25"
+				"value"									"23"
 			}
 		}
 	}
@@ -916,12 +971,12 @@
 			}
 			"AbilityCooldown"
 			{
-				"value"									"40"
+				"value"									"36"
 				"special_bonus_scepter"					"=0"
 			}
 			"AbilityChargeRestoreTime"
 			{
-				"value"									"40"
+				"value"									"36"
 			}
 		}
 	}

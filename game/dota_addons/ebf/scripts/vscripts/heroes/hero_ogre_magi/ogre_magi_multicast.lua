@@ -4,6 +4,15 @@ function ogre_magi_multicast:GetIntrinsicModifierName()
 	return "modifier_ogre_magi_multicast_passive"
 end
 
+function ogre_magi_multicast:OnHeroCalculateStatBonus()
+	local caster = self:GetCaster()
+	
+	local strength = caster:GetStrength()
+	if strength == self.lastStrengthCheck then return end
+	self.lastStrengthCheck = strength
+	self:RefreshIntrinsicModifier()
+end
+
 modifier_ogre_magi_multicast_passive = class({})
 LinkLuaModifier("modifier_ogre_magi_multicast_passive", "heroes/hero_ogre_magi/ogre_magi_multicast", LUA_MODIFIER_MOTION_NONE)
 
@@ -12,6 +21,9 @@ function modifier_ogre_magi_multicast_passive:OnCreated()
 end
 
 function modifier_ogre_magi_multicast_passive:OnRefresh()
+	self.multicast_per_str = self:GetSpecialValueFor("strength_mult")
+	self.str_for_benefit = self:GetSpecialValueFor("str_for_benefit")
+	
 	if IsServer() then
 		local caster = self:GetCaster()
 		caster:RemoveModifierByName("modifier_ogre_magi_fireblast_multicast")
@@ -22,8 +34,37 @@ end
 function modifier_ogre_magi_multicast_passive:DeclareFunctions()
 	local funcs = {
 		MODIFIER_EVENT_ON_ABILITY_FULLY_CAST,
+		MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL, 
+		MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL_VALUE,
 	}
 	return funcs
+end
+
+function modifier_ogre_magi_multicast_passive:GetModifierOverrideAbilitySpecial(params)
+	if params.ability == self:GetAbility() then
+		local caster = params.ability:GetCaster()
+		local specialValue = params.ability_special_value
+		if specialValue == "multicast_2_times"
+		or specialValue == "multicast_3_times"
+		or specialValue == "multicast_4_times" then
+			return 1
+		end
+	end
+end
+
+function modifier_ogre_magi_multicast_passive:GetModifierOverrideAbilitySpecialValue(params)
+	if params.ability == self:GetAbility() then
+		local caster = params.ability:GetCaster()
+		local specialValue = params.ability_special_value
+		if specialValue == "multicast_2_times"
+		or specialValue == "multicast_3_times"
+		or specialValue == "multicast_4_times" then
+			local flBaseValue = params.ability:GetLevelSpecialValueNoOverride( specialValue, params.ability_special_level )
+			if flBaseValue > 0 then
+				return math.min( 100, (1-flBaseValue/100) + (self.multicast_per_str * (self:GetCaster():GetStrength() / self.str_for_benefit) ) )
+			end
+		end
+	end
 end
 
 function modifier_ogre_magi_multicast_passive:OnAbilityFullyCast(params)

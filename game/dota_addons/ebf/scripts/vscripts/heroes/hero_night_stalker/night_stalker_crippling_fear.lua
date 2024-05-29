@@ -4,13 +4,26 @@ function night_stalker_crippling_fear:GetIntrinsicModifierName()
 	return "modifier_night_stalker_crippling_fear_passive"
 end
 
+function night_stalker_crippling_fear:GetManaCost( iLvl )
+	if self:GetCaster():HasModifier("modifier_night_stalker_crippling_fear_active") then
+		return 0
+	else
+		return self.BaseClass.GetManaCost( self, iLvl )
+	end
+end
+
 function night_stalker_crippling_fear:OnSpellStart()
 	local caster = self:GetCaster()
 	
 	local duration = TernaryOperator( self:GetSpecialValueFor("duration_night"), not GameRules:IsDaytime() or caster:HasModifier("modifier_night_stalker_void_zone"), self:GetSpecialValueFor("duration_day") )
 	
-	EmitSoundOn("Hero_Nightstalker.Trickling_Fear", caster)
-	caster:AddNewModifier(caster, self, "modifier_night_stalker_crippling_fear_active", {duration = duration})
+	if caster:HasModifier("modifier_night_stalker_crippling_fear_active") then
+		caster:RemoveModifierByName("modifier_night_stalker_crippling_fear_active")
+	else
+		EmitSoundOn("Hero_Nightstalker.Trickling_Fear", caster)
+		caster:AddNewModifier(caster, self, "modifier_night_stalker_crippling_fear_active", {duration = duration})
+		self:SetCooldown( 0.5 )
+	end
 end
 
 modifier_night_stalker_crippling_fear_passive = class({})
@@ -57,16 +70,34 @@ LinkLuaModifier("modifier_night_stalker_crippling_fear_active", "heroes/hero_nig
 
 function modifier_night_stalker_crippling_fear_active:OnCreated()
 	self.radius = self:GetSpecialValueFor("radius")
+	self.mana_pers_night = self:GetSpecialValueFor("mana_pers_night")
+	self.mana_pers_day = self:GetSpecialValueFor("mana_pers_day")
+	self.tick_rate = self:GetSpecialValueFor("tick_rate")
 	if IsServer() then
 		local sFX = ParticleManager:CreateParticle( "particles/units/heroes/hero_night_stalker/nightstalker_crippling_fear_aura.vpcf", PATTACH_POINT_FOLLOW, self:GetParent() )
 		ParticleManager:SetParticleControl(sFX, 2, Vector(self.radius,self.radius,self.radius) )
 		self:AddEffect(sFX)
+		
+		if self.mana_pers_night > 0 then
+			self:StartIntervalThink( self.tick_rate )
+		end
+	end
+end
+
+function modifier_night_stalker_crippling_fear_active:OnIntervalThink( )
+	local cost = TernaryOperator( self.mana_pers_night, not GameRules:IsDaytime(), self.mana_pers_day ) * self.tick_rate
+	if self:GetParent():GetMana() <= cost then
+		self:Destroy()
+	else
+		self:GetParent():SpendMana( cost, self:GetAbility() )
 	end
 end
 
 function modifier_night_stalker_crippling_fear_active:OnDestroy()
 	if IsServer() then
 		EmitSoundOn("Hero_Nightstalker.Trickling_Fear_end", self:GetParent() )
+		
+		self:GetAbility():SetCooldown()
 	end
 end
 

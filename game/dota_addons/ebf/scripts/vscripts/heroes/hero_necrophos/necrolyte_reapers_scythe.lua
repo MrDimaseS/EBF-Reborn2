@@ -69,30 +69,21 @@ function modifier_necrolyte_reapers_scythe_upgrader:GetModifierOverrideAbilitySp
 	if params.ability:GetAbilityName() == "necrolyte_death_pulse" then
 		local caster = params.ability:GetCaster()
 		local specialValue = params.ability_special_value
-		if specialValue == "damage"then
-			local flBaseValue = params.ability:GetLevelSpecialValueNoOverride( specialValue, params.ability_special_level )
+		if specialValue == "damage" or specialValue == "heal" then
 			return 1
-		elseif specialValue == "heal" then
-			local flBaseValue = params.ability:GetLevelSpecialValueNoOverride( specialValue, params.ability_special_level )
+		end
+	end
+	if params.ability:GetAbilityName() == "necrolyte_ghost_shroud" then
+		local caster = params.ability:GetCaster()
+		local specialValue = params.ability_special_value
+		if specialValue == "duration" then
 			return 1
 		end
 	end
 	if params.ability:GetAbilityName() == "necrolyte_sadist" then
 		local caster = params.ability:GetCaster()
 		local specialValue = params.ability_special_value
-		if specialValue == "duration"then
-			local flBaseValue = params.ability:GetLevelSpecialValueNoOverride( specialValue, params.ability_special_level )
-			return 1
-		end
-	end
-	if params.ability:GetAbilityName() == "necrolyte_heartstopper_aura" then
-		local caster = params.ability:GetCaster()
-		local specialValue = params.ability_special_value
-		if specialValue == "health_regen"then
-			local flBaseValue = params.ability:GetLevelSpecialValueNoOverride( specialValue, params.ability_special_level )
-			return 1
-		elseif specialValue == "mana_regen" then
-			local flBaseValue = params.ability:GetLevelSpecialValueNoOverride( specialValue, params.ability_special_level )
+		if specialValue == "health_regen" or specialValue == "mana_regen" then
 			return 1
 		end
 	end
@@ -110,7 +101,7 @@ function modifier_necrolyte_reapers_scythe_upgrader:GetModifierOverrideAbilitySp
 			return flBaseValue + self:GetStackCount() * self.death_pulse_bonus_heal
 		end
 	end
-	if params.ability:GetAbilityName() == "necrolyte_sadist" then
+	if params.ability:GetAbilityName() == "necrolyte_ghost_shroud" then
 		local caster = params.ability:GetCaster()
 		local specialValue = params.ability_special_value
 		if specialValue == "duration"then
@@ -118,7 +109,7 @@ function modifier_necrolyte_reapers_scythe_upgrader:GetModifierOverrideAbilitySp
 			return flBaseValue + self:GetStackCount() * self.sadist_bonus_duration
 		end
 	end
-	if params.ability:GetAbilityName() == "necrolyte_heartstopper_aura" then
+	if params.ability:GetAbilityName() == "necrolyte_sadist" then
 		local caster = params.ability:GetCaster()
 		local specialValue = params.ability_special_value
 		if specialValue == "health_regen"then

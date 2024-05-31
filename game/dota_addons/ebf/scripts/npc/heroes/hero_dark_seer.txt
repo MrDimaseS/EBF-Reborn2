@@ -1,6 +1,58 @@
 "DOTAAbilities"
 {
 	//=================================================================================================================
+	// Dark Seer Innate Mastermind 
+	//=================================================================================================================
+	"dark_seer_quick_wit"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"MaxLevel"						"1"
+
+		"AbilityValues"
+		{
+			"int_to_atkspd"				"0.05"
+		}
+	}
+	//=================================================================================================================
+	// Dark Seer Innate Inertia
+	//=================================================================================================================
+	"dark_seer_heart_of_battle"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"MaxLevel"						"1"
+		"AbilityValues"
+		{
+			"radius"		
+			{
+				"value"			"900"
+				"affected_by_aoe_increase"	"1"
+			}
+			"movement_speed_pct"	"8"
+		}
+	}
+	//=================================================================================================================
+	// Dark Seer Innate Inertia
+	//=================================================================================================================
+	"dark_seer_mental_fortitude"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES | DOTA_ABILITY_BEHAVIOR_SKIP_FOR_KEYBINDS"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_NONE"	
+
+		"MaxLevel"						"1"
+		"Innate"						"1"
+	}
+	//=================================================================================================================
 	// Ability: Dark Seer: Normal Punch (Shard Ability)
 	//=================================================================================================================
 	"dark_seer_normal_punch"
@@ -118,7 +170,7 @@
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"600"
-		"AbilityCastPoint"				"0.4 0.4 0.4 0.4"
+		"AbilityCastPoint"				"0.2"
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
@@ -224,7 +276,7 @@
 			}
 			"trail_damage"			
 			{
-				"value" 						"350"
+				"value" 						"400"
 				"CalculateSpellDamageTooltip"	"1"
 				"RequiresShard"				"1"
 			}

@@ -22,6 +22,7 @@ function modifier_clockwerk_tech_barrier_barrier:OnRefresh()
 		self.damage = self:GetSpecialValueFor("damage")
 		self.push_length = self:GetSpecialValueFor("push_length")
 		self.push_duration = self:GetSpecialValueFor("push_duration")
+		self.aoe_effect = self:GetSpecialValueFor("aoe_effect")
 		if self:GetParent():HasModifier("modifier_rattletrap_overclocking") then
 			self.barrier = self.barrier * self:GetParent():FindModifierByName("modifier_rattletrap_overclocking"):GetAbility():GetSpecialValueFor("bonus_barrier") / 100
 		end
@@ -35,8 +36,29 @@ end
 
 function modifier_clockwerk_tech_barrier_barrier:OnDestroy()
 	if IsServer() then
-		EmitSoundOn( "Hero_Rattletrap.Power_Cog.Destroy", self:GetCaster() )
-		StopSoundOn( "Hero_Rattletrap.Power_Cogs", self:GetCaster() )
+		local caster = self:GetCaster()
+		EmitSoundOn( "Hero_Rattletrap.Power_Cog.Destroy", caster )
+		StopSoundOn( "Hero_Rattletrap.Power_Cogs", caster )
+		
+		if self.aoe_effect == 0 then
+			if self._deactivatedBarrier then
+				self:GetAbility():DealDamage( caster, self._deactivatedBarrier, self.damage, {damage_type = DAMAGE_TYPE_MAGICAL} )
+				self._deactivatedBarrier:ApplyKnockBack( caster:GetAbsOrigin(), self.push_duration, self.push_duration, self.push_length, 0, caster, self:GetAbility() )
+				self._deactivatedBarrier:ReduceMana( self._deactivatedBarrier:GetMana() * self.mana_burn, self:GetAbility() )
+				
+				EmitSoundOn("Hero_Rattletrap.Power_Cogs_Impact", self._deactivatedBarrier )
+				ParticleManager:FireRopeParticle( "particles/units/heroes/hero_rattletrap/rattletrap_cog_attack.vpcf", PATTACH_POINT_FOLLOW, caster, self._deactivatedBarrier )
+			end
+		else
+			for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), self.aoe_effect ) ) do
+				self:GetAbility():DealDamage( caster, enemy, self.damage, {damage_type = DAMAGE_TYPE_MAGICAL} )
+				enemy:ApplyKnockBack( caster:GetAbsOrigin(), self.push_duration, self.push_duration, self.push_length, 0, caster, self:GetAbility() )
+				enemy:ReduceMana( enemy:GetMana() * self.mana_burn, self:GetAbility() )
+				
+				EmitSoundOn("Hero_Rattletrap.Power_Cogs_Impact", enemy )
+				ParticleManager:FireRopeParticle( "particles/units/heroes/hero_rattletrap/rattletrap_cog_attack.vpcf", PATTACH_POINT_FOLLOW, caster,  enemy )
+			end
+		end
 	end
 end
 
@@ -52,13 +74,7 @@ function modifier_clockwerk_tech_barrier_barrier:GetModifierIncomingDamageConsta
 		if self.barrier > 0 then
 			self:SendBuffRefreshToClients()
 		else
-			self._deactivatedBarrier = true
-			self:GetAbility():DealDamage( self:GetCaster(), params.attacker, self.damage, {damage_type = DAMAGE_TYPE_MAGICAL} )
-			params.attacker:ApplyKnockBack( self:GetCaster():GetAbsOrigin(), self.push_duration, self.push_duration, self.push_length, 0, self:GetCaster(), self:GetAbility() )
-			params.attacker:ReduceMana( params.attacker:GetMana() * self.mana_burn, self:GetAbility() )
-			
-			EmitSoundOn("Hero_Rattletrap.Power_Cogs_Impact", params.attacker )
-			ParticleManager:FireRopeParticle( "particles/units/heroes/hero_rattletrap/rattletrap_cog_attack.vpcf", PATTACH_POINT_FOLLOW, self:GetCaster(), params.attacker )
+			self._deactivatedBarrier = params.attacker
 			self:Destroy()
 		end
 		return -barrier

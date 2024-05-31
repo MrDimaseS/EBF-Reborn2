@@ -1,5 +1,26 @@
 "DOTAAbilities"
 {	
+	"broodmother_spiders_milk"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI"
+		"MaxLevel"						"1"
+		"Innate"						"1"
+		"AbilityValues"
+		{
+			"kill_heal_heroes"						"0.4"
+			"kill_creeps_penalty"					"40"
+			"kill_heal_aoe"							
+			{
+				"value"								"600"
+				"affected_by_aoe_increase"			"1"
+			}
+			"kill_heal_duration"					"3"
+			"tick_rate"								"1"
+		}
+	
+	}
 	//=================================================================================================================
 	// Broodmother: Spawn Spiderlings
 	//=================================================================================================================
@@ -67,6 +88,12 @@
 				"special_bonus_unique_broodmother_7" 	"+100%"
 				"CalculateAttributeTooltip" 			"1"
 			}
+			
+			"slow_duration"	
+			{
+				"value"									"4"
+			}
+			"movement_speed" 							"25 35 45 55 65 75"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -98,28 +125,6 @@
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
-
-	//=================================================================================================================
-	// Broodmother: Spawn Spiderites
-	//=================================================================================================================
-	"broodmother_spawn_spiderite"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
-			
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			"spiderite_duration"			"60.0"
-			"buff_duration"					"2.0"
-		}
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
-	}
-
-
 	//=================================================================================================================
 	// Broodmother: Spin Web
 	//=================================================================================================================
@@ -149,115 +154,67 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"radius"				"900"
+			"radius"				
+			{
+				"value"		"1200"
+				"affected_by_aoe_increase"	"1"
+			}
 			"count"					
 			{
 				"value"				"3 5 7 9 11 13 15"
 				"special_bonus_unique_broodmother_6" "+3"
 			}
-			"health_regen"			
-			{
-				"value"											"10 25 40 55 70 85 100"
-				"special_bonus_unique_broodmother_web_hpregen"	"+40"
-				"CalculateSpellHealTooltip"						"1"
-			}
-			"bonus_movespeed"		"18 30 42 54 60 66 72"
+			"bonus_movespeed"							"10 22 34 46 58 70 82"
+			
 			"AbilityChargeRestoreTime"	
 			{
-				"value"				"30"
-				"special_bonus_unique_broodmother_5" "-10"
+				"value"				"27"
+				"special_bonus_unique_broodmother_5" "-7"
 			}
-			"scepter_movement_loss"	
+
+			"bonus_turn_rate"	"0.2"
+			"degen"
 			{
-				"value"											"-5"
-				"RequiresScepter"								"1"
-			}
-			"scepter_dps"	
-			{
-				"value"											"1000"
-				"CalculateSpellDamageTooltip"					"1"
-				"RequiresScepter"	"1"
-			}
-			"scepter_ms_threshold"	
-			{
-				"value"											"-100"
-				"RequiresScepter"								"1"
-			}
-			"scepter_debuff_duration"	
-			{
-				"value"											"2.5"
-				"RequiresScepter"								"1"
+				"special_bonus_facet_broodmother_necrotic_webs"	"=10 =15 =20 =25 =30 =35 =40"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
-	
 	//=================================================================================================================
-	// Broodmother: Silken Bola
+	// Broodmother: Incapacitating Bite
 	//=================================================================================================================
-	"broodmother_silken_bola"
+	"broodmother_incapacitating_bite"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
-		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
-		"MaxLevel"						"7"
-		"FightRecapLevel"				"1"
-		
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"750"
-		"AbilityCastPoint"				"0.1"
-		
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"12"
-
-
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"70 75 80 85 90 95 100"
-
-		// Stats
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityModifierSupportValue"	"0.3"	// Primarily about the damageo
-
+		"AbilityBehavior"								"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"SpellDispellableType"							"SPELL_DISPELLABLE_YES"
+		"SpellImmunityType"								"SPELL_IMMUNITY_ENEMIES_NO"
+		"MaxLevel"										"7"
+			
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"movement_speed"			
-			{
-					"value"		"25 35 45 55 65 75 85"
-					"special_bonus_unique_broodmother_4"	"+15"
-			}
-			"duration"				"6"
-			"projectile_speed"	"1200"
-			"impact_damage"			
-			{
-				"value"							"900 1200 1500 1800 2100 2400 2700"
-				"CalculateSpellDamageTooltip"	"1"
-				"DamageTypeTooltip"				"DAMAGE_TYPE_MAGICAL"
-			}
-			"attack_damage"			
-			{
-				"value"							"60 70 80 90 100 110 120"
-				"CalculateSpellDamageTooltip"	"0"
-				"CalculateAttackDamageTooltip"	"1"
-				"DamageTypeTooltip"				"DAMAGE_TYPE_MAGICAL"
-			}
 			"miss_chance"			
 			{
-				"value"									"40"
-				"special_bonus_unique_broodmother_4"	"+35"
-				"affected_by_chance_increase"			"1"
+				"value"									"15 20 25 30 35 40 45"
+				"special_bonus_unique_broodmother_4"	"+15"
+			}
+			"bonus_movespeed"		
+			{
+				"value"									"-15 -20 -25 -30"
+				"special_bonus_unique_broodmother_4"	"-30"
+			}
+			"duration"									"2.0 2.0 2.0 2.0"
+			"attack_damage"			
+			{
+				"value"									"20 40 60 80 100 120 140"					
+				"special_bonus_unique_broodmother_2"	"+100"
+				"CalculateAttributeTooltip"				"1"
 			}
 		}
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
 	//=================================================================================================================
 	// Broodmother: Insatiable Hunger

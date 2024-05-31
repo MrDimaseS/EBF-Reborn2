@@ -65,7 +65,11 @@ function lion_finger_of_death:OnSpellStart()
 		end
 		local punchDur = self:GetSpecialValueFor("punch_duration")
 		if punchDur > 0 then
-			caster:AddNewModifier( caster, self, "modifier_lion_finger_punch", {duration = punchDur} )
+			local stacks = 0
+			if caster:HasModifier("modifier_lion_finger_of_death_bonus") then
+				stacks = caster:FindModifierByName("modifier_lion_finger_of_death_bonus"):GetStackCount()
+			end
+			caster:AddNewModifier( caster, self, "modifier_lion_finger_punch", {duration = punchDur} ):SetStackCount( stacks )
 		end
 	end
 end
@@ -139,7 +143,7 @@ end
 
 function modifier_lion_finger_of_death_bonus:OnAttackLanded( params )
 	if self:GetCaster():HasModifier("modifier_lion_finger_punch") and params.attacker == self:GetCaster() then
-		target:AddNewModifier(caster, self, "modifier_lion_finger_of_death_death", {duration = self:GetAbility():GetSpecialValueFor("punch_grace_period")})
+		params.target:AddNewModifier(params.attacker, self:GetAbility(), "modifier_lion_finger_of_death_death", {duration = self:GetSpecialValueFor("punch_grace_period")})
 	end
 end
 

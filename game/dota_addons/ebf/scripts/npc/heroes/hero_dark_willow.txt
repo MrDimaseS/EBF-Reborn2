@@ -1,6 +1,25 @@
 "DOTAAbilities"
 {	
 	//=================================================================================================================
+	// Dark Willow: Cursed Crown
+	//=================================================================================================================
+	"dark_willow_pixie_dust"
+	{
+	// General
+		//-------------------------------------------------------------------------------------------------------------
+
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES | DOTA_ABILITY_BEHAVIOR_SKIP_FOR_KEYBINDS"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_NONE"	
+
+		"MaxLevel"						"1"
+		"Innate"						"1"
+		"AbilityValues"
+		{
+			"hp_regen"	"100"
+			"mana_regen_amp"	"100"
+		}
+	}
+	//=================================================================================================================
 	// Dark Willow: Bramble Maze
 	//=================================================================================================================
 	"dark_willow_bramble_maze"
@@ -21,10 +40,6 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"1000 1100 1200 1300 1400 1500 1600"
 		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
-		
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"22"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -34,19 +49,41 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"placement_range"				"500"
-			"placement_count"				"8"
-			"placement_duration"			"15"
-			"latch_duration"				"2.5"
-			"latch_range"					"90"
+			"placement_range"		
+			{
+				"value"		"500"
+			}
+			"placement_count"		
+			{
+				"value"				"8"
+				"special_bonus_facet_dark_willow_thorny_thicket"	"+4"
+			}
+			"placement_duration"		"15"
+			"extra_brambles_placement_duration"		"7.5"
+			"latch_duration"		"1.0 1.5 2.0 2.5"
+			"latch_range"		
+			{
+				"value"		"90"
+			}
 			"damage_per_tick"
 			{
 				"value"							"200 330 480 650 840 1050 1280"
 				"CalculateSpellDamageTooltip"	"1"
 			}
+			"spell_amp"
+			{
+				"value"					"0"
+				"special_bonus_facet_dark_willow_thorny_thicket"	"0"				
+			}
 			"latch_creation_interval"		"0.075"
-			"latch_creation_delay"			"0.1"
+			"latch_creation_delay"		"0.1"
 			"initial_creation_delay"		"0.3"
+
+			"AbilityCooldown"				
+			{
+				"value"					"22"
+				"special_bonus_unique_dark_willow_3"			"-7"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -157,13 +194,17 @@
 			"destination_travel_speed"	"2000"
 			"destination_radius"		
 			{
-				"value"		"400"
+				"value"						"400 450 500 550 600 650"
 				"affected_by_aoe_increase"	"1"		
 			}
-			"destination_status_duration"	"2.8 3.0 3.2 3.4 3.6"
-			"return_travel_speed"	"600"
-			"starting_height"		"300"
-			"telegraph_to_enemies"		"0"
+			"destination_status_duration"	"2.8 3.0 3.2 3.4 3.6 3.8"
+			"return_travel_speed"			"600"
+			"starting_height"				"300"
+			"telegraph_to_enemies"			"0"
+			"impact_damage"
+			{
+				"special_bonus_unique_dark_willow_2"	"+5000"
+			}
 		}
 	}
 
@@ -186,7 +227,6 @@
 	
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"14"
 		"AbilityCastPoint"				"0"
 		
 		// Cost
@@ -197,27 +237,45 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"AbilityCooldown"
+			{
+				"value"									"16"
+				"special_bonus_unique_dark_willow_5"	"-2"
+			}
+			
 			"duration"
 			{
-				"value"									"4"
-				"special_bonus_unique_dark_willow_1"	"+1.5"
+				"value"						"5"
+				"special_bonus_unique_dark_willow_1"			"+1.5"
 			}
+			"fade_time"					"0.3"	
 			"damage"
 			{
 				"value"									"1200 2000 2800 3600 4200 4800 5400"
 				"CalculateSpellDamageTooltip"			"1"
 			}							
-			"attack_range_bonus"				"600"
-			"max_damage_duration"			
+			"attack_range_bonus"			"600"
+			"max_damage_duration"
 			{
-				"value"							"3.5"
+				"value"							"3.0"
 				"CalculateSpellDamageTooltip"	"0"
 				"DamageTypeTooltip"				"DAMAGE_TYPE_NONE"
 			}
-			"scepter_radius"			
+			"aura_radius"
 			{
-				"value"							"900"
-				"RequiresScepter"				"1"
+				"value"												"0"
+				"special_bonus_facet_dark_willow_throwing_shade"	"=600"
+				"affected_by_aoe_increase"							"1"
+			}
+			"aura_linger"
+			{
+				"value"												"0"
+				"special_bonus_facet_dark_willow_throwing_shade"	"=0.75"
+			}
+			"aura_damage_pct"
+			{
+				"value"												"0"
+				"special_bonus_facet_dark_willow_throwing_shade"	"=25"
 			}
 		}
 	}
@@ -244,7 +302,7 @@
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"18 16 14 12 10.66 9.33 8"
+		"AbilityCooldown"				"17 15 13 11 10 9 8"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------

@@ -104,7 +104,8 @@ function spectre_haunt_single:OnSpellStart()
 	EmitSoundOn("Hero_Spectre.Reality", caster)
 	
 	local dagger = caster:FindAbilityByName("spectre_spectral_dagger")
-	if dagger and dagger:IsTrained() then
+	if not target:IsSameTeam( caster ) and dagger and dagger:IsTrained() then
+		caster:SetCursorCastTarget( target )
 		caster:SetCursorPosition( target:GetAbsOrigin() )
 		dagger:OnSpellStart()
 	end

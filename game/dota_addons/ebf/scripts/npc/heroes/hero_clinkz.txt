@@ -1,5 +1,62 @@
 "DOTAAbilities"
 {	
+	//=================================================================================================================
+	// Clinkz: Create Skeleton Archer Innate
+	//=================================================================================================================
+	"clinkz_bone_and_arrow"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_SKIP_FOR_KEYBINDS | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"AbilitySound"					"Hero_Clinkz.DeathPact"
+		"AbilityDraftUltScepterAbility" "clinkz_burning_army"
+		"MaxLevel"						"7"
+		"Innate"						"1"
+		"DependentOnAbility"			"clinkz_wind_walk"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"0"
+		"AbilityCastPoint"				"0.0"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_6"
+		
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"0.0"
+		"AbilityChargeRestoreTime"		"0"
+	
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{						
+			"skeleton_duration"					
+			{
+				"value"						"15 20 25 30 35 40 45"
+			}
+			
+			"skeleton_health"
+			{
+				"value"					"8"
+			}
+
+			"skeleton_health_tooltip"
+			{
+				"value"					"2"
+			}
+			"skeleton_building_damage_reduction"			"25"
+			"attack_rate"			"1.6"
+			"damage_percent"		
+			{
+				"value"					"20"
+			}
+		}
+	}
 	"clinkz_strafe"
 	{
 		// General
@@ -30,18 +87,36 @@
 			"attack_speed_bonus"			
 			{
 				"value"									"220"
-				"special_bonus_unique_clinkz_7"			"+160"
+				"special_bonus_unique_clinkz_7"			"+40"
 			}
 			"duration"									"2 2.5 3.0 3.5 4.0 4.5 5.0"
-			"attack_range_bonus"						"200"
+			"attack_range_bonus"			
+			{
+				"value"												"200"
+				"special_bonus_facet_clinkz_suppressive_fire"		"+100"
+			}
 			"AbilityCooldown"				
 			{
 				"value"									"15"
 				"special_bonus_unique_clinkz_4"			"-50%"
 
 			}
-			"strafe_skeleton_radius"					"1200"
+			"strafe_skeleton_radius"					
+			{
+				"value"		"1200"
+				"affected_by_aoe_increase"	"1"
+			}
 			"archer_attack_speed_pct"					"100"
+			"debuff_duration"					
+			{
+				"value"							"0"
+				"special_bonus_facet_clinkz_suppressive_fire"			"=1.0"
+			}
+			"blind_pct"
+			{
+				"value"							"0"
+				"special_bonus_facet_clinkz_suppressive_fire"			"=5"
+			}
 		}
 	}
 	//=================================================================================================================
@@ -82,7 +157,13 @@
 		{
 			"wave_count"			"6"
 			"range"					"850"				
-			"damage_pct"			"100"
+			"damage_pct"			"75"
+			"projectile_width"		
+			{
+				"value"		"200"
+				"affected_by_aoe_increase"	"1"
+			}
+			"archers_use_barrage"		"0"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -374,24 +455,24 @@
 			}
 			"damage_gain_pct"						"10"
 			
-			"skeleton_duration"						"45"
-			"skeleton_health"
+			"skeletons_spawned"			
 			{
-				"value"								"12"
-				
-			}
-			"skeleton_health_tooltip"
+				"value"				"1"
+			}	
+			"spawn_skeleton_on_origin"
 			{
-				"value"								"3"
-				
+				"value"				"0"
+				"special_bonus_facet_clinkz_engulfing_step"				"1"
 			}
-			"skeleton_building_damage_reduction"	"25"
-			"attack_rate"							"1.6"
-			"damage_percent"						"20"
+			
 			"creep_level"							""
 			
 			"AbilityCooldown"						"0.0"
-			"AbilityChargeRestoreTime"				"40"
+			"AbilityChargeRestoreTime"
+			{
+				"value"								"40"
+				"special_bonus_facet_clinkz_engulfing_step"		"-10"
+			}
 			"AbilityCharges"				
 			{
 				"value"								"2"

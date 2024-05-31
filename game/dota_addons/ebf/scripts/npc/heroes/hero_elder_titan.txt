@@ -1,5 +1,22 @@
 "DOTAAbilities"
 {	
+	//=================================================================================================================
+	// Dark Seer Innate Inertia
+	//=================================================================================================================
+	"elder_titan_momentum"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"MaxLevel"						"1"
+		"AbilityValues"
+		{
+			"attack_speed_from_movespeed"			"30"
+			"attack_speed_penalty"					"75"
+		}
+	}
 	"elder_titan_echo_stomp"
 	{
 		// General
@@ -123,7 +140,9 @@
 		"AbilitySound"					"Hero_ElderTitan.AncestralSpirit.Cast"
 
 		"MaxLevel"						"7"
-		"HasScepterUpgrade"			"1"
+		"RequiredLevel"					"-1"
+		"Innate"						"1"
+		"HasScepterUpgrade"				"1"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -154,15 +173,15 @@
 			"spirit_duration"						"10.0"
 			"buff_duration"							"10.0"
 			"speed"									"900"
-			"move_pct_creeps"						"5 6 7 8 9 10 11"
+			"move_pct_creeps"						"4 5 6 7 8 9 10 11"
 			"move_pct_heroes"				
 			{
-				"value"								"5 6 7 8 9 10 11"
+				"value"								"4 5 6 7 8 9 10 11"
 				"special_bonus_unique_elder_titan_bonus_spirit_speed"	"+2"
 			}
 			"damage_creeps"					
 			{
-				"value"								"60 140 220 300 380 460 540"
+				"value"								"30 60 140 220 300 380 460 540"
 				"special_bonus_unique_elder_titan"	"+350"
 				"CalculateSpellDamageTooltip"		"0"
 				"CalculateAttackDamageTooltip"		"1"
@@ -170,14 +189,14 @@
 			}
 			"damage_heroes"
 			{
-				"value"								"340 760 1180 1600 2020 2440 2860"
+				"value"								"100 340 760 1180 1600 2020 2440 2860"
 				"special_bonus_unique_elder_titan"	"+350"
 				"CalculateSpellDamageTooltip"		"0"
 				"CalculateAttackDamageTooltip"		"1"
 				"DamageTypeTooltip"					"DAMAGE_TYPE_NONE"
 			}
-			"armor_creeps"							"1.5 3 4.5 6 7.5 9 10.5"
-			"armor_heroes"							"1.5 3 4.5 6 7.5 9 10.5"
+			"armor_creeps"							"0.5 1.5 3 4.5 6 7.5 9 10.5"
+			"armor_heroes"							"0.5 1.5 3 4.5 6 7.5 9 10.5"
 			"move_pct_cap"							"40"
 			"scepter_magic_immune_per_hero"	
 			{
@@ -253,6 +272,23 @@
 			}
 			"armor_reduction_pct"	    "50 55 60 65 70 75 80"
 			"magic_resistance_pct"		"25 27.5 30 32.5 35 37.5 40"
+			
+			"max_stacks"				
+			{
+				"special_bonus_facet_elder_titan_deconstruction"		"20"
+			}
+			"magic_resistance_per_tick"		
+			{
+				"special_bonus_facet_elder_titan_deconstruction"		"1"
+			}
+			"armor_per_tick"				
+			{
+				"special_bonus_facet_elder_titan_deconstruction"		"1"
+			}
+			"tick_rate"						
+			{
+				"special_bonus_facet_elder_titan_deconstruction"		"1"		
+			}
 		}
 	}
 
@@ -281,6 +317,23 @@
 			}
 			"armor_reduction_pct"	    "50 55 60 65 70 75 80"
 			"magic_resistance_pct"		"25 27.5 30 32.5 35 37.5 40"
+			
+			"max_stacks"				
+			{
+				"special_bonus_facet_elder_titan_deconstruction"		"20"
+			}
+			"magic_resistance_per_tick"		
+			{
+				"special_bonus_facet_elder_titan_deconstruction"		"1"
+			}
+			"armor_per_tick"				
+			{
+				"special_bonus_facet_elder_titan_deconstruction"		"1"
+			}
+			"tick_rate"						
+			{
+				"special_bonus_facet_elder_titan_deconstruction"		"1"		
+			}
 		}
 	}
 

@@ -24,15 +24,20 @@ function storm_spirit_electric_vortex:OnSpellStart()
 	EmitSoundOn("Hero_StormSpirit.ElectricVortex", caster)
 	
 	local duration = self:GetSpecialValueFor("AbilityDuration")
+	local enemy_overload_duration = self:GetSpecialValueFor("enemy_overload_duration")
 	local enemies = caster:FindEnemyUnitsInRadius(caster:GetAbsOrigin(), self:GetSpecialValueFor("radius") )
 	for _,enemy in pairs(enemies) do	
 		if not enemy:TriggerSpellAbsorb( self ) then
 			enemy:AddNewModifier(caster, self, "modifier_storm_spirit_electric_vortex_pull", {Duration = duration})
+			if enemy_overload_duration > 0 then
+				enemy:AddNewModifier(caster, self, "modifier_storm_spirit_enemy_overload", {Duration = enemy_overload_duration})
+			end
 		end
 	end
 	if caster:HasScepter() then
 		caster:AddNewModifier(caster, self, "modifier_storm_spirit_electric_vortex_scepter", {Duration = duration})
 	end
+	
 end
 
 modifier_storm_spirit_electric_vortex_scepter = class({})

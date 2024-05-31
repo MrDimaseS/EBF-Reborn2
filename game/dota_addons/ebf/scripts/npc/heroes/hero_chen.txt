@@ -1,5 +1,68 @@
 "DOTAAbilities"
-{	
+{
+	
+	//=================================================================================================================
+	// Chen Innate
+	//=================================================================================================================
+	"chen_summon_convert"
+	{
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"AbilityTextureName"			"chen_test_of_faith_teleport"
+		"AbilityCooldown"				"30"
+		"MaxLevel"						"5"
+		"AbilitySound"					"Hero_Chen.HolyPersuasionCast"
+		"AbilityCastPoint"				"0.3"
+		"AbilityCastAnimation"			"ACT_DOTA_OVERRIDE_ABILITY_4"
+		"AbilityManaCost"				"50"
+		"Innate"						"1"
+		"DependentOnAbility"				"chen_holy_persuasion"
+
+		"AbilityValues"
+		{
+			"health_min"
+			{
+				"value"										"2200"
+				"CalculateAttributeTooltip"					"1"
+			}
+			"bonus_health_per_level"
+			{
+				"value"										"800"
+				"CalculateAttributeTooltip"					"1"
+			}
+
+			"summon_centaurs"
+			{
+				"special_bonus_facet_chen_centaur_convert"	"1"
+			}
+
+			"summon_wolves"
+			{
+				"special_bonus_facet_chen_wolf_convert"		"1"
+			}
+
+			"summon_hellbears"
+			{
+				"special_bonus_facet_chen_hellbear_convert"	"1"
+			}
+
+			"summon_trolls"
+			{
+				"special_bonus_facet_chen_troll_convert"	"1"
+			}
+
+			"summon_satyrs"
+			{
+				"special_bonus_facet_chen_satyr_convert"	"1"
+			}
+		}
+
+	}
+
+	"chen_innate_check_for_team_change"
+	{
+		"AbilityBehavior" 		"DOTA_ABILITY_BEHAVIOR_HIDDEN"
+	}
+
 	"chen_penitence"
 	{
 		// General
@@ -76,15 +139,20 @@
 		"AbilityValues"
 		{
 			"heal_rate"							"15 35 75 200 450 750 1250"
-			"aura_radius"						"1200"
+			"aura_radius"		
+			{
+				"value"							"1200"
+				"special_bonus_scepter"			"=-1"
+				"affected_by_aoe_increase"		"1"
+			}
 			"duration"							"6"
 			"teleport_delay"		
 			{
 				"value"							"6"
 				"special_bonus_unique_chen_3"	"-2"
 			}
-			"bonus_armor"						"12 16 20 24 28 32 36"
-			"heal_amp"							"20"
+			"bonus_armor"						"5 10 15 20 25 30 35"
+			"heal_amp"							"5 10 15 20 25 30 35"
 			"creep_bonus"						"1"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -122,35 +190,39 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"max_units"							"4"
-			"level_req"							"10"
-			"health_min"			
+			"max_units"								"4"
+			"level_req"								"10"
+			"health_min"
 			{
-				"value"							"7778 8889 15000 26389 48889 100000 206349"
-				"special_bonus_unique_chen_4"	"+50000"
+				"value"								"4000"
+				"special_bonus_unique_chen_4"		"+1200"
+				"CalculateAttributeTooltip"			"1"
 			}
-			"movement_speed_bonus"	"10 20 30 40 50 60 70"
+			"bonus_health_per_level"
+			{
+				"value"								"500"
+				"CalculateAttributeTooltip"			"1"
+			}
+			"movement_speed_bonus"					"5 10 20 30 40 50 60"
 			"damage_bonus"	
 			{
-				"value"								"50 150 275 600 1250 2850 6500"
-				"special_bonus_unique_chen_5"		"+750"
+				"value"								"20 70 110 150 190 230 270"
+				"special_bonus_unique_chen_5"		"+120"
+				"CalculateAttributeTooltip"			"1"
 			}
 			"is_martyr"
 			{
-				"value"			"0"
-				"special_bonus_scepter"			"+1"
+				"value"								"0"
+				"special_bonus_scepter"				"+1"
 			}
 			"creep_ability_level"
 			{
-				"value"			"0"
-				"special_bonus_shard"			"=2"
+				"value"								"0"
+				"special_bonus_shard"				"=2"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
-
-
-
 	//=================================================================================================================
 	// Chen: Martyrdom
 	//=================================================================================================================
@@ -186,9 +258,6 @@
 
 		}
 	}
-
-
-
 	//=================================================================================================================
 	// Chen: Hand of God
 	//=================================================================================================================
@@ -228,7 +297,7 @@
 				"special_bonus_unique_chen_2"	"+2000"
 				"CalculateSpellHealTooltip"		"1"
 			}
-			"hot_duration"	"8"
+			"hot_duration"	"10"
 			"heal_per_second"
 			{
 				"value"							"200 300 400 500 600 700"

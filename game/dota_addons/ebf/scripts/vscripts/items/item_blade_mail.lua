@@ -118,7 +118,7 @@ function item_martyrs_bulwark:ChainLightning( source, target, damage )
 			if currentTarget == nil then return end
 			
 			bounces = bounces - 1
-			self:DealDamage( caster, currentTarget, damage, {damage_type = self:GetAbilityDamageType(), damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL + DOTA_DAMAGE_FLAG_REFLECTION} )
+			self:DealDamage( caster, currentTarget, damage, {damage_type = self:GetAbilityDamageType()} )
 			ParticleManager:FireRopeParticle("particles/items_fx/chain_lightning.vpcf", PATTACH_POINT_FOLLOW, currentTarget, currentSource)
 			EmitSoundOn( "Item.Maelstrom.Chain_Lightning.Jump", currentTarget )
 			targets[currentTarget] = true

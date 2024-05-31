@@ -33,18 +33,30 @@ function clinkz_death_pact:OnSpellStart()
 	caster:HealEvent( damage * self:GetSpecialValueFor("health_gain_pct")/100, self, caster )
 	
 	-- skeleton
-	if not self.deathPactSkeletonArcher then
-		self.deathPactSkeletonArcher = caster:CreateSummon( "npc_dota_clinkz_skeleton_archer", target:GetAbsOrigin() + RandomVector(150), 30 )
+	local boneAndArrow = self:GetCaster():FindAbilityByName("clinkz_bone_and_arrow")
+	local skeletonDuration = 30
+	if boneAndArrow then
+		skeletonDuration = boneAndArrow:GetSpecialValueFor("skeleton_duration")
+	end
+	local spawn_skeleton_on_origin = self:GetSpecialValueFor("spawn_skeleton_on_origin") == 1
+	if not IsEntitySafe( self.deathPactSkeletonArcher ) then
+		self.deathPactSkeletonArcher = caster:CreateSummon( "npc_dota_clinkz_skeleton_archer", target:GetAbsOrigin() + RandomVector(150), skeletonDuration )
 		self.deathPactSkeletonArcher:SetUnitCanRespawn( true )
+	else
+		self.deathPactSkeletonArcher:RespawnUnit()
+		self.deathPactSkeletonArcher:AddNewModifier( caster, self, "modifier_clinkz_burning_army", {duration = skeletonDuration} )
+		
+		local tarBomb = caster:FindAbilityByName("clinkz_tar_bomb")
+		if tarBomb and tarBomb:IsTrained() then
+			self.deathPactSkeletonArcher:AddNewModifier( caster, tarBomb, "modifier_clinkz_tar_bomb_searing_arrows", {duration = skeletonDuration} )
+		end
 	end
-	self.deathPactSkeletonArcher:RespawnUnit()
-	self.deathPactSkeletonArcher:AddNewModifier( caster, self, "modifier_clinkz_burning_army", {duration = 30} )
-	
-	local tarBomb = caster:FindAbilityByName("clinkz_tar_bomb")
-	if tarBomb and tarBomb:IsTrained() then
-		self.deathPactSkeletonArcher:AddNewModifier( caster, tarBomb, "modifier_clinkz_tar_bomb_searing_arrows", {} )
+	if spawn_skeleton_on_origin then
+		FindClearSpaceForUnit(self.deathPactSkeletonArcher, caster:GetAbsOrigin(), true)
+		FindClearSpaceForUnit(caster, target:GetAbsOrigin() + RandomVector(150), true)
+	else
+		FindClearSpaceForUnit(self.deathPactSkeletonArcher, target:GetAbsOrigin() + RandomVector(150), true)
 	end
-	FindClearSpaceForUnit(self.deathPactSkeletonArcher, target:GetAbsOrigin() + RandomVector(150), true)
 end
 
 modifier_clinkz_death_pact_buff = class({})

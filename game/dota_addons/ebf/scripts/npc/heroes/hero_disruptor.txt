@@ -45,17 +45,18 @@
 			"AbilityCastRange"
 			{
 				"value"								"800"
-				"special_bonus_shard"				"+800"
+				"special_bonus_shard"				"+400"
 			}
 			"radius"						
 			{
 				"value" 							"240"
 				"special_bonus_unique_disruptor_3"	"+100"
+				"affected_by_aoe_increase"			"1"
 			}
 			"strikes"
 			{
 				"value"								"4"
-				"special_bonus_shard"				"+2"
+				"special_bonus_shard"				"+1"
 			}
 			"strike_interval"						"2.0"
 			"strike_damage"	
@@ -71,11 +72,17 @@
 			}
 			"slow_duration"
 			{
-				"value"								"0.4"
-				"special_bonus_unique_disruptor"	".4"
+				"value"											"0.4"
+				"special_bonus_unique_disruptor"				".4"
 			}
-			"slow_amount"							"100"
-			"shard_ground_delay"					"5"	
+			"slow_amount"										"100"
+			"shard_ground_delay"								"5"
+
+			"hits_units_inside_kinetic"
+			{
+				"value"											"0"
+				"special_bonus_facet_disruptor_thunderstorm"	"+1"
+			}
 		}
 	}
 
@@ -129,7 +136,7 @@
 			}
 			"bonus_damage"			
 			{
-				"value"									"1250 1750 2250 2750 3250 3750 4250"
+				"value"									"1000 1600 2200 2800 3400 4000 4800"
 				"special_bonus_unique_disruptor_9"		"+50%"
 				"CalculateSpellDamageTooltip"			"1"
 			}
@@ -169,9 +176,6 @@
 		"AbilityCastGestureSlot"		"DEFAULT"
 		"AbilityCastPoint"				"0.05 0.05 0.05 0.05"
 
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"10"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -185,21 +189,82 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"radius"						"350"
-			"formation_time"				"1"
+			"radius"								"350"
+			"AbilityCooldown"
+			{
+				"value"								"14"
+				"special_bonus_unique_disruptor_2"	"-3"	
+				"special_bonus_scepter"				"-50%"
+			}
+			"formation_time"
+			{
+				"value"								"1"
+				"special_bonus_scepter"				"=0"
+			}
 			"duration"
 			{
-				"value"						"5.2 6.4 7.6 8.8 10.0 11.2 12.4"
-				"LinkedSpecialBonus"		"special_bonus_unique_disruptor_5"
-			}
-			"damage_per_second"
-			{
-				"special_bonus_scepter"			"+250 +350 +450 +550 +650 +750 +850"
-				"CalculateSpellDamageTooltip"	"1"
+				"value"								"5.2 6.4 7.6 8.8 10.0 11.2 12.4"
+				"special_bonus_unique_disruptor_5"	"+2"
 			}
 		}
 	}	
 
+	//=================================================================================================================
+	// Disruptor: Kinetic Fence
+	//=================================================================================================================
+	"disruptor_kinetic_fence"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_VECTOR_TARGETING | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_Disruptor.KineticField"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastAnimation"			"ACT_DOTA_KINETIC_FIELD"
+		"AbilityCastGestureSlot"		"DEFAULT"
+		"AbilityCastPoint"				"0.05 0.05 0.05 0.05"
+
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"70"
+		"AbilityCooldown"				"0"
+		"AbilityCharges"				"2"		
+		
+		// Cast Range
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"900 900 900 900"
+
+		"AbilityValues"
+		{
+			"AbilityChargeRestoreTime"
+			{
+				"value"								"14"
+				"special_bonus_unique_disruptor_2"	"-3"
+				"special_bonus_scepter"				"-50%"
+			}
+			"radius"								"350"
+
+			"formation_time"			
+			{
+				"value"								"0.4"	
+				"special_bonus_scepter"				"=0"				
+			}
+			"duration"
+			{
+				"value"								"5.2 6.4 7.6 8.8 10.0 11.2 12.4"
+				"special_bonus_unique_disruptor_5"	"+2"
+			}
+			"wall_width"				
+			{	
+				"value"			"1200"
+				"affected_by_aoe_increase"	"1"
+			}
+		}
+	}
 	//=================================================================================================================
 	// Disruptor: Static Storm
 	//=================================================================================================================
@@ -242,24 +307,24 @@
 		{
 			"radius"	
 			{
-				"value"							"500"
-				"LinkedSpecialBonus"			"special_bonus_unique_disruptor_8"
+				"value"								"550"
+				"affected_by_aoe_increase"			"1"
+				"special_bonus_unique_disruptor_8"	"+150"
 			}
 			"pulses"	
 			{
-				"value"							"20"
-				"LinkedSpecialBonus"			"special_bonus_unique_disruptor_7"
-				"LinkedSpecialBonusField"		"value2"
+				"value"								"20"
+				"special_bonus_unique_disruptor_7" "+6"
 			}
 			"damage_max"
 			{
-				"value"							"2000 2750 3500 4250 5000 5750"
-				"CalculateSpellDamageTooltip"	"1"
+				"value"								"2000 2750 3500 4250 5000 5750"
+				"CalculateSpellDamageTooltip"		"1"
 			}
 			"duration"	
 			{
-				"value"							"6.0"
-				"LinkedSpecialBonus"			"special_bonus_unique_disruptor_7"
+				"value"								"6.0"
+				"special_bonus_unique_disruptor_7" "+1.5"
 			}
 		}
 	}

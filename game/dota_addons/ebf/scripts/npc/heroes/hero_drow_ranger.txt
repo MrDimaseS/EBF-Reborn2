@@ -1,6 +1,65 @@
 "DOTAAbilities"
 {	
 	//=================================================================================================================
+	// Drow Ranger: Creep Rally
+	//=================================================================================================================
+	"drow_ranger_creep_rally"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"MaxLevel"						"1"
+	}
+
+	//=================================================================================================================
+	// Drow Ranger: Drow Ranger: High Ground
+	//=================================================================================================================
+	"drow_ranger_vantage_point"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"MaxLevel"						"1"
+		"AbilityValues"
+		{
+			"damage_bonus"		"20"
+			"bonus_miss_chance"		"0"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Drow Ranger's Trueshot Aura
+	//=================================================================================================================
+	"drow_ranger_trueshot"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"Innate"						"1"
+		"MaxLevel"						"1"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+				"trueshot_agi_bonus_self"	"2"
+				"trueshot_agi_bonus_allies"	"1"
+				"trueshot_aspd_bonus_creeps"	
+				{
+					"value"			"0"
+					"special_bonus_facet_1"	"+3"
+				}
+				"radius"						
+				{
+					"value"			"1200"
+					"affected_by_aoe_increase"	"1"
+				}
+
+		}
+	}
+	//=================================================================================================================
 	// Ability: Drow Ranger	Frost Arrows
 	//=================================================================================================================
 	"drow_ranger_frost_arrows"
@@ -40,7 +99,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"frost_arrows_movement_speed"				"-10 -25 -40 -55 -60 -65 -70"
+			"frost_arrows_movement_speed"				"-40"
 			"damage"		
 			{	
 				"value"									"120 240 360 480 600 720 840"
@@ -144,11 +203,10 @@
 			"arrow_count_per_wave"						"4"
 			"arrow_damage_pct"
 			{
-				"value"									"175 220 250 290 350 440 600"
+				"value"									"100 120 140 160 180 200 220"
 				"special_bonus_unique_drow_ranger_1"	"+25%"
 				"CalculateSpellDamageTooltip"			 "0"
 			}
-			"arrow_slow_duration"			"3.5"
 			"arrow_width"					"90"
 			"arrow_speed"					"1200"
 			"arrow_range_multiplier"		"1.75"
@@ -156,8 +214,13 @@
 			"bypass_block"            		"1"
 			"AbilityCooldown"			
 			{
-				"value"											"20"
-				"special_bonus_unique_drow_ranger_6"			"-8"
+				"value"											"15"
+				"special_bonus_unique_drow_ranger_6"			"-6"
+			}
+			"multishot_movespeed"						
+			{
+				"value"										"0"
+				"special_bonus_facet_drow_ranger_sidestep"			"40"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CHANNEL_ABILITY_3"
@@ -181,10 +244,6 @@
 		"AbilityCastRange"				"900"
 		"AbilityCastPoint"				"0.25"
 
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"16 15 14 13 12.2 11.4 10.6"
-
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"70"
@@ -193,21 +252,31 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"wave_speed"		"2000.0"
+			"wave_speed"												"2000.0"
 			"wave_width"		
 			{
-				"value"			"250"
-				"LinkedSpecialBonus"	"special_bonus_unique_drow_ranger_4"
+				"value"													"250"
+				"LinkedSpecialBonus"									"special_bonus_unique_drow_ranger_4"
+				"affected_by_aoe_increase"								"1"
 			}
-			"silence_duration"			"6"
-			"knockback_distance_max"	"450"
-			"knockback_duration"		"0.75"
-			"knockback_height"		"0"
-			"wave_length"		"900"	
-			"bonus_movespeed"			
+			"silence_duration"											"3 3.5 4 4.5 5 5.5 6"
+			"knockback_distance_max"									"450"
+			"knockback_duration"										"0.9"
+			"knockback_height"											"0"
+			"wave_length"												"900"	
+			"bonus_movespeed"		
 			{
-				"value"					"10"
-				"special_bonus_unique_drow_ranger_gust_selfmovespeed"		"+15"
+				"value"													"0"
+				"special_bonus_unique_drow_ranger_gust_selfmovespeed"	"+40"
+			}
+			"AbilityCooldown"
+			{
+				"value"													"13"
+				"special_bonus_unique_drow_ranger_7"					"-3"
+			}
+			"gust_reveals_invis"
+			{
+				"value"													"1"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -242,16 +311,6 @@
 				"value"										"800 1200 1600 2000 2400 2800"
 				"CalculateAttackDamageTooltip"				"1"
 			}
-			"agility_multiplier"							"30 40 50 60 70 80"
-			"agility_range"									"1200"
-			"agility_multiplier_ally"						"50"
-			"split_count"
-			{		
-				"value"										"0"
-				"special_bonus_scepter"						"0"
-			}
-			"split_range"									"375"
-			"split_damage_reduction"						"0"
 			"disable_range"									"400"
 		}
 	}

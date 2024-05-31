@@ -47,6 +47,8 @@ LinkLuaModifier( "modifier_bristleback_bristleback_passive", "heroes/hero_bristl
 function modifier_bristleback_bristleback_passive:OnCreated()
 	if IsServer() then
 		self.quills = self:GetCaster():FindAbilityByName("bristleback_quill_spray")
+		self.snot = self:GetCaster():FindAbilityByName("bristleback_viscous_nasal_goo")
+		self.goo_radius = self:GetSpecialValueFor("goo_radius")
 	end
 end
 
@@ -80,8 +82,15 @@ function modifier_bristleback_bristleback_passive:GetModifierIncomingDamage_Perc
 		self.damageTaken = 0
 		Timers:CreateTimer( function()
 			if parent:GetHealth() == 0 then return end
-			if not self.quills:IsTrained() then return end
-			self.quills:Spray( )
+			if self.goo_radius > 0 then
+				if not self.snot:IsTrained() then return end
+				for _, enemy in ipairs( parent:FindEnemyUnitsInRadius( parent:GetAbsOrigin(), self.goo_radius ) ) do
+					self.snot:FireTrackingProjectile("particles/units/heroes/hero_bristleback/bristleback_viscous_nasal_goo.vpcf", enemy, self.snot:GetSpecialValueFor("goo_speed") )
+				end
+			else
+				if not self.quills:IsTrained() then return end
+				self.quills:Spray( )
+			end
 		end)
 	end
 

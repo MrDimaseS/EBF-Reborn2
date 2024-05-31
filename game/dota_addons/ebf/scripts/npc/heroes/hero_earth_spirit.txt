@@ -105,31 +105,42 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"radius"								"160"
+			"radius"				
+			{
+				"value"		"160"
+			}
 			"speed"									"1000"
 			"rock_speed"							"1600"
 			"delay"									"0.1"
 			"distance"			
 			{
-				"value"									"650.0"
-				"special_bonus_unique_earth_spirit_4"	"+325"
+				"value"									"750 750 750 750 850 950 1050"
+				"special_bonus_unique_earth_spirit_4"	"+200"
 			}
 			"damage"
 			{
 				"value"									"600"
-				"special_bonus_unique_earth_spirit"		"+400%"
+				"special_bonus_unique_earth_spirit"		"+280%"
 				"CalculateSpellDamageTooltip"			"1"
 			}
 			"stun_duration"			
 			{
-				"value"								"0.5"
-				"LinkedSpecialBonus"				"special_bonus_unique_earth_spirit_3"
+				"value"									"0.9"
+				"special_bonus_unique_earth_spirit_3"	"+0.5"
 			}
 			"rock_bonus_value"						"100"
 			"creep_multiplier"						"2.5"
-			"AbilityCooldown"						"12 11 10 9 8 7 6" 
 			
-			"damage_str"			""
+			"damage_str"							""
+			"AbilityCooldown"				
+			{
+				"value"								"16 12 8 4 4 4 4"
+			}		
+			"destroy_stone"
+			{
+				"value"								"1"
+				"special_bonus_facet_earth_spirit_stepping_stone"	"=0"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -179,21 +190,21 @@
 		{
 			"radius"				
 			{
-				"value"		"180"
-				"affected_by_aoe_increase"	"1"		
+				"value"									"180"
+				"affected_by_aoe_increase"				"1"		
 			}
 			"rock_damage"	
 			{
-				"value"									"500 1000 1500 2000 2500 3000 3500"
+				"value"									"500 1250 2000 2750 3500 4250 5000"
 				"CalculateSpellDamageTooltip"			"1"
 			}
-			"remnant_grip_radius_tooltip"		"200"
-			"pull_units_per_second_heroes"		"600"
-			"pull_units_per_second"				""
-			"total_pull_distance"				"1400"
+			"remnant_grip_radius_tooltip"				"200"
+			"pull_units_per_second_heroes"				"600"
+			"pull_units_per_second"						""
+			"total_pull_distance"						"1400"
 			
-			"duration"							"3.5"
-			"rock_bonus_damage"					"100"
+			"duration"									"3.5"
+			"rock_bonus_damage"							"100"
 			
 			"AbilityCooldown"		
 			{
@@ -213,9 +224,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
 		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
-		"MaxLevel"						"1"
+		"Innate"						"1"
+		"MaxLevel"						"7"
 		"AbilitySound"					"Hero_EarthSpirit.StoneRemnant.Impact"
-		"HasScepterUpgrade"				"1"
+		"RequiredLevel" 				"0"
+		"LevelsBetweenUpgrades"			"5"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -239,27 +252,45 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"							"60.0"
+			"duration"
+			{
+				"value"													"60.0"
+				"special_bonus_facet_earth_spirit_stepping_stone"		"=20.0"
+			}
 			"polarization_distance"
 			{
-				"value"							"0"
+				"value"			"0"
 				
 			}
 			"vision_radius"				
 			{
-				"value"							"0"
+				"value"													"0"
 			}		
 			"AbilityCharges"
 			{
-				"value"							"7 9 11 13 15"
+				"value"													"7 8 9 10 11 12 13"
+				"special_bonus_facet_earth_spirit_stepping_stone"		"=0 =0 =0 =0 =0 =0 =0"				
 			}
-			"rolling_offset_distance"			"150"
-			"hero_level_increment"				"10"
-			
-			"scepter_magnetize_duration"
+			"rolling_offset_distance"									"150"
+			"hero_level_increment"										"5"
+			"AbilityManaCost"
 			{
-				"value"							"2.0"
-				"RequiresScepter"				"1"
+				"value"													"0"
+				"special_bonus_facet_earth_spirit_stepping_stone"		"0"
+			}
+			"AbilityCooldown"
+			{
+				"value"													"0.0"
+				"special_bonus_facet_earth_spirit_stepping_stone"		"=4.0"
+			}
+			"AbilityChargeRestoreTime"
+			{
+				"value"													"18"
+				"special_bonus_facet_earth_spirit_stepping_stone"		"=4"
+			}
+			"is_stepping_stone"
+			{
+				"special_bonus_facet_earth_spirit_stepping_stone"		"=1"
 			}
 		}
 	}
@@ -277,9 +308,12 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
-		"MaxLevel"						"6"
-		"FightRecapLevel"				"1"
+		"MaxLevel"						"1"
+		"IsGrantedByScepter"			"1"
 		"AbilitySound"					"Hero_EarthSpirit.Petrify"
+
+		"HasScepterUpgrade"			"1"
+
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -300,14 +334,14 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"		"3"
+			"duration"							"3"
 			"damage"
 			{
-				"value"			"450"
-				"CalculateSpellDamageTooltip" "1"
+				"value"							"4500"
+				"CalculateSpellDamageTooltip"	"1"
 			}
-			"aoe"		"450"
-			"ally_cast_range"	"500"
+			"aoe"								"450"
+			"ally_cast_range"					"500"
 		}
 	}
 
@@ -354,7 +388,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"cast_radius"			"350"
+			"cast_radius"			
+			{
+				"value"	"350"
+				"affected_by_aoe_increase"	"1"		
+			}
 			"damage_per_second"	
 			{
 				"value"									"400 800 1200 1600 2000 2400"
@@ -368,8 +406,16 @@
 				"DamageTypeTooltip"		"DAMAGE_TYPE_NONE"
 				"CalculateSpellDamageTooltip" "0"
 			}
-			"rock_search_radius"						"400"
-			"rock_explosion_radius"						"600"
+			"rock_search_radius"			
+			{
+				"value"	"600"
+				"affected_by_aoe_increase"	"1"		
+			}
+			"rock_explosion_radius"			
+			{
+				"value"	"600"
+				"affected_by_aoe_increase"	"1"		
+			}
 			"damage_interval"							"1.0"
 			"rock_explosion_delay"						"8.0"
 			"shard_magnetize_spell_amp"
@@ -387,6 +433,23 @@
 			{
 				"value"									"0"
 				"special_bonus_unique_earth_spirit_2"	"=1"
+			}
+			
+			"magnetized_rocks_buff_self"
+			{
+				"value"															"0"
+				"special_bonus_facet_earth_spirit_resonance"	"=1"
+			}
+			"magnetized_rocks_buff_self_duration"
+			{
+				"value"															"0"
+				"special_bonus_facet_earth_spirit_resonance"	"+8"
+			}
+			"magnetized_rocks_bonus_self_damage"
+			{
+				"value"															"0"
+				"special_bonus_facet_earth_spirit_resonance"					"=400 =800 =1200 =1600 =2000 =2400"
+				"CalculateAttackDamageTooltip"									"1"
 			}
 		}
 	}

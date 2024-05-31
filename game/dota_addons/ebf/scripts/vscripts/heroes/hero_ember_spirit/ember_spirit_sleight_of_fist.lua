@@ -25,8 +25,8 @@ function ember_spirit_sleight_of_fist:OnSpellStart()
 
 	local radius = self:GetTalentSpecialValueFor("radius")
 	local jumpRate = self:GetTalentSpecialValueFor("attack_interval") / caster:GetAttackSpeed(false)
-	print( caster:GetAttackSpeed(false) )
 	local minAttacks = self:GetTalentSpecialValueFor("min_attacks")
+	local min_enemies_for_double_sleight = self:GetTalentSpecialValueFor("min_enemies_for_double_sleight")
 
 	self.hitUnits = {}
 
@@ -38,15 +38,12 @@ function ember_spirit_sleight_of_fist:OnSpellStart()
 					ParticleManager:ReleaseParticleIndex(castFx)
 					
 	---Remnant Only lasts 10 seconds.-----
-	local enemies = caster:FindEnemyUnitsInRadius(point, radius, {flag = self:GetAbilityTargetFlags()})
+	local enemies = caster:FindEnemyUnitsInRadius(point, radius, {flag = self:GetAbilityTargetFlags(), order = FIND_CLOSEST})
 	if #enemies > 0 then
 		local duration = self:GetTalentSpecialValueFor("duration")
-		local remnant = caster:FindAbilityByName("ember_remnant")
-		if remnant then
-			remnant:SpawnRemnant(startPos, duration)
-		end
-		local modifier = caster:AddNewModifier(caster, self, "modifier_ember_spirit_sleight_of_fist_caster", {Duration = math.max(math.max(minAttacks, #enemies)*jumpRate+0.1,jumpRate)})
-		caster:AddNewModifier(caster, self, "modifier_ember_spirit_sleight_of_fist_caster_invulnerability", {Duration = math.max(math.max(minAttacks, #enemies)*jumpRate+0.1) + 0.25})
+		
+		local modifier = caster:AddNewModifier(caster, self, "modifier_ember_spirit_sleight_of_fist_caster", {Duration = 10})
+		caster:AddNewModifier(caster, self, "modifier_ember_spirit_sleight_of_fist_caster_invulnerability", {Duration = 10})
 		
 		local remenantFx = 	ParticleManager:CreateParticle("particles/units/heroes/hero_ember_spirit/ember_spirit_sleight_of_fist_caster.vpcf", PATTACH_WORLDORIGIN, nil )
 				 			ParticleManager:SetParticleControl(remenantFx, 0, startPos)
@@ -56,14 +53,12 @@ function ember_spirit_sleight_of_fist:OnSpellStart()
 		modifier:AddEffect( remenantFx )
 		
 		Timers:CreateTimer(function()
-			print( current, #enemies, minAttacks )
 			if current >= #enemies then -- less enemies than attacks
 				local hitCount = 0
 				for _,enemy in pairs(self.hitUnits) do
 					hitCount = hitCount + 1
 				end
 				if current < minAttacks and hitCount >= #enemies then -- not hit attack limit yet, wipe board state
-					print("wiped")
 					self.hitUnits = {}
 				end				
 			end
@@ -92,16 +87,38 @@ function ember_spirit_sleight_of_fist:OnSpellStart()
 			        end
 				end
 			else
+				if min_enemies_for_double_sleight > 0 and #enemies >= min_enemies_for_double_sleight then
+					local enemy = enemies[1]
+					local firstPoint = caster:GetAbsOrigin()
+					local secondPoint = enemy:GetAbsOrigin() + caster:GetForwardVector() * 50
+					
+					ParticleManager:FireRopeParticle("particles/units/heroes/hero_ember_spirit/ember_spirit_sleightoffist_trail.vpcf", PATTACH_WORLDORIGIN, caster, secondPoint, {[0]=firstPoint, [1]=secondPoint})
+
+					FindClearSpaceForUnit(caster, secondPoint, true)
+					caster:FaceTowards(enemy:GetAbsOrigin())
+					
+					if enemy:IsConsideredHero() then
+						caster:AddNewModifier( caster, self, "modifier_ember_spirit_sleight_of_fist_bonus_damage", {} )
+					end
+					caster:PerformGenericAttack( enemy, true )
+					caster:RemoveModifierByName("modifier_ember_spirit_sleight_of_fist_bonus_damage")
+					
+					min_enemies_for_double_sleight = 0
+					return jumpRate
+				end
 				local firstPoint = caster:GetAbsOrigin()
 
 				ParticleManager:ClearParticle(remenantFx)
 
 				caster:RemoveModifierByName("modifier_ember_spirit_sleight_of_fist_caster")
+				caster:RemoveModifierByName("modifier_ember_spirit_sleight_of_fist_caster_invulnerability")
 				if not caster:HasModifier("modifier_ember_spirit_fire_remnant") then FindClearSpaceForUnit(caster, startPos, true) end
 
 				local secondPoint = caster:GetAbsOrigin()
 
 				ParticleManager:FireRopeParticle("particles/units/heroes/hero_ember_spirit/ember_spirit_sleightoffist_trail.vpcf", PATTACH_WORLDORIGIN, caster, secondPoint, {[0]=firstPoint, [1]=secondPoint})
+				
+				
 				return nil
 			end
 		end)

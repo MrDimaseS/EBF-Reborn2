@@ -1,6 +1,25 @@
 "DOTAAbilities"
 {	
 	//=================================================================================================================
+	// Death Prophet: Witchcraft 
+	//=================================================================================================================
+	"death_prophet_witchcraft"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_SKIP_FOR_KEYBINDS"
+		"MaxLevel"						"1"
+		"Innate"						"1"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"movement_speed_pct_per_level"		"0.5"
+			"cooldown_reduction_pct_per_level"	"0.5"
+		}
+	}
+	//=================================================================================================================
 	// Death Prophet: Carrion Swarm ( Crypt Swarm )
 	//=================================================================================================================
 	"death_prophet_carrion_swarm"
@@ -25,10 +44,6 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"5"
 
-		// Damage.
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"850 1650 2450 3250 4050 4850 5650"
-
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"80 90 100 110 120 130 140"		
@@ -36,24 +51,24 @@
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
-		{
-			"AbilityDamage"				
+		{"damage"
 			{
-				"value"							"850 1650 2450 3250 4050 4850 5650"
-				"CalculateSpellDamageTooltip"	"1"
+				"value"													"850 1650 2450 3250 3850 4450 5050"
+				"special_bonus_unique_death_prophet_crypt_swarm_damage"	"+15%"
+				"CalculateSpellDamageTooltip"							"1"
 			}
 			"start_radius"				
 			{
-				"value"			"110"
-				"affected_by_aoe_increase"	"1"
+				"value"													"110"
+				"affected_by_aoe_increase"								"1"
 			}
 			"end_radius"				
 			{
-				"value"			"300"
-				"affected_by_aoe_increase"	"1"
+				"value"													"300"
+				"affected_by_aoe_increase"								"1"
 			}
-			"range"						"810"
-			"speed"						"1100"
+			"range"														"810"
+			"speed"														"1100"
 			"slow_percent"
 			{
 				"value"													"0"
@@ -61,7 +76,7 @@
 			}
 			"slow_duration"
 			{
-				"value"				"0"
+				"value"													"0"
 				"special_bonus_unique_death_prophet_crypt_swarm_slow"	"+1"
 			}
 		}
@@ -88,7 +103,7 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"15 14 13 12 11.2 10.4 9.6"
+		"AbilityCooldown"				"12"
 		"AbilityDuration"				"6"
 
 		// Cost
@@ -101,15 +116,15 @@
 		{
 			"radius"
 			{
-				"value"							"425 425 425 425 500 575 650"
-				"affected_by_aoe_increase"		"1"
+				"value"											"425 425 425 425 500 575 650"
+				"affected_by_aoe_increase"						"1"
 			}			
-			"duration"							"6"
-			"projectile_speed"					"1000"
+			"duration"											"6"
+			"projectile_speed"									"1000"
 			"movement_slow"
 			{
-				"value"							"10 15 20 25 30 35 40"
-				"special_bonus_unique_death_prophet_silence_slow"		"+15"
+				"value"											"0"
+				"special_bonus_facet_death_prophet_suppress"	"15 20 25 30 35 40 45"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -222,15 +237,19 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"radius"					"700 700 700"
+			"radius"				
+			{
+														"value"	"700 700 700"
+														"affected_by_aoe_increase"	"1"
+			}
 			"spirits"				
 			{
-				"value"					"9 12 15 18 21 24"
+				"value"									"9 12 15 18 21 24"
 				"special_bonus_unique_death_prophet"	"+8"
 			}
-			"spirit_speed"				"525"
-			"max_distance"				"2000 2000 2000"
-			"give_up_distance"			"1200 1200 1200"
+			"spirit_speed"								"525"
+			"max_distance"								"2000 2000 2000"
+			"give_up_distance"							"1200 1200 1200"
 			"min_damage"
 			{
 				"value"									"620"
@@ -241,35 +260,44 @@
 				"value"									"670"
 				"CalculateSpellDamageTooltip"			"1"
 			}
-			"heal_percent"				"5"
+			"hero_spirit_min_damage"
+			{
+				"value"									"750 880 1010 1140 1270 1400"
+				"CalculateSpellDamageTooltip"			"1"
+			}
+			"hero_spirit_max_damage"
+			{
+				"value"									"800 930 1060 1190 1320 1450"
+				"CalculateSpellDamageTooltip"			"1"
+			}
+			"heal_percent"								"5"
 			"average_damage"
 			{
 				"value"									"450"
 				"CalculateSpellDamageTooltip"			"1"
 			}
-			"ghost_spawn_rate"			"0.35"
+			"ghost_spawn_rate"							"0.35"
 			"scepter_movespeed_slow"
 			{
-				"value"					"100"
-				"RequiresScepter"		"1"
+				"value"									"100"
+				"RequiresScepter"						"1"
 			}
 			"scepter_movespeed_debuff_duration"	
 			{
-				"value"					"0.3"
-				"RequiresScepter"		"1"
+				"value"									"0.3"
+				"RequiresScepter"						"1"
 			}
 			"scepter_spirit_life_duration"	
 			{
-				"value"					"20"
-				"RequiresScepter"		"1"
+				"value"									"20"
+				"RequiresScepter"						"1"
 			}
 			"scepter_spirit_bonus_damage"	
 			{	
-				"value"							"50"
-				"RequiresScepter"				"1"
+				"value"									"50"
+				"RequiresScepter"						"1"
 			}	
-			"movement_base"					"12 16 20 24 28 32"
-			"movement_bonus"				"8 12 16 20 24 28"
+			"movement_bonus"							"4 8 12 16 20 24"
 		}
 	}	
 	//=================================================================================================================

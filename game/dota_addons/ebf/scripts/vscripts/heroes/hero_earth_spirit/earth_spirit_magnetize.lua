@@ -65,6 +65,8 @@ LinkLuaModifier( "modifier_earth_spirit_magnetize_effect", "heroes/hero_earth_sp
 
 function modifier_earth_spirit_magnetize_effect:OnCreated(kv)
 	self.effectDur = kv.effectDur or self:GetDuration()
+	self.magnetized_rocks_buff_self = self:GetSpecialValueFor("magnetized_rocks_buff_self") == 1
+	self.magnetized_rocks_buff_self_duration = self:GetSpecialValueFor("magnetized_rocks_buff_self_duration")
 	self:OnRefresh()
 	if IsServer() then
 		self:StartIntervalThink(0.25)
@@ -72,6 +74,10 @@ function modifier_earth_spirit_magnetize_effect:OnCreated(kv)
 		self.counterFX = ParticleManager:CreateParticle("particles/units/heroes/hero_earth_spirit/earth_spirit_magnetize_counter.vpcf", PATTACH_OVERHEAD_FOLLOW, self:GetParent() )
 		ParticleManager:SetParticleControl(self.counterFX, 1, Vector( math.floor( math.ceil( self:GetRemainingTime()*10 )/100 ), math.ceil( self:GetRemainingTime() )%10, 1 ) )
 		self:AddOverHeadEffect( self.counterFX )
+		
+		if self.magnetized_rocks_buff_self and self:GetParent():GetName() == "npc_dota_earth_spirit_stone" then
+			self:GetCaster():AddNewModifier( self:GetCaster(), self:GetAbility(), "modifier_earth_spirit_magnetize_hero_self_buff", {duration = self.magnetized_rocks_buff_self_duration})
+		end
 	end
 end
 

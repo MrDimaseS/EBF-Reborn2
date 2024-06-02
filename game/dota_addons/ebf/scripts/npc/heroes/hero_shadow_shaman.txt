@@ -72,14 +72,13 @@
 		"AbilityValues"
 		{
 			"movespeed"									"110 110 100 100 100 90"
-			"duration"									"1.25 2.0 2.75 3.5 3.75 4 4.25"
+			"duration"				
+			{
+				"value"													"1.25 2.0 2.75 3.5 3.75 4 4.25"
+				"special_bonus_unique_shadow_shaman_7"					"+1.25"
+			}
 			"linger_duration"							"0.75"
 			"AbilityCastRange"							"500"
-			"ally_duration"
-			{
-				"value"									"0"
-				"special_bonus_unique_shadow_shaman_7"	"+13"
-			}
 			"AbilityCooldown"
 			{
 				"value"									"13"
@@ -90,6 +89,24 @@
 				"value"									"8 10 12 14 16 18 20"
 				"special_bonus_unique_shadow_shaman_hex_damage_amp"		"+10"
 			}
+			
+			"can_target_allies"
+			{
+				"value"												"0"
+				"special_bonus_facet_shadow_shaman_cluster_cluck"	"=1"
+			}
+			"ally_duration"
+			{
+				"value"									"0"
+				"special_bonus_facet_shadow_shaman_cluster_cluck"	"+13"
+			}
+			"ally_invuln_duration"									""
+			"ally_voodoo_duration"									""
+			"ally_invuln_vision_radius"								""
+			"ally_chicken_images_count"								""
+			"ally_chicken_images_take_damage_percent"				""
+			"ally_chicken_movement_speed_bonus_pct"					""
+			"tooltip_damage_incoming_total_pct"						""
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -252,6 +269,28 @@
 			{
 				"value"									"0"
 				"special_bonus_unique_shadow_shaman_4"	"=1"
+			}
+			
+			
+			"is_mega_ward"
+			{
+				"value"														"0"
+				"special_bonus_facet_shadow_shaman_massive_serpent_ward"	"+1"
+			}
+			"mega_ward_multiplier_tooltip"
+			{
+				"value"						"1"
+				"special_bonus_facet_shadow_shaman_massive_serpent_ward"	"=10"
+			}
+			"mega_ward_health_tooltip"
+			{
+				"value"						"1"
+				"special_bonus_facet_shadow_shaman_massive_serpent_ward"	"=7.5"
+			}
+			"mega_ward_health_reduction_pct"
+			{
+				"value"					"0"
+				"special_bonus_facet_shadow_shaman_massive_serpent_ward"		"=25"
 			}
 		}
 	}

@@ -33,12 +33,17 @@ function modifier_axe_counter_helix_passive:OnAttackLanded( params )
 		if params.target~=self:GetCaster() then return end
 		if self:GetCaster():PassivesDisabled() then return end
 		if not self:GetAbility():IsCooldownReady() then return end
-		if params.attacker:GetTeamNumber()==params.target:GetTeamNumber() then return end
 		if params.attacker:IsOther() or params.attacker:IsBuilding() then return end
+		if params.attacker == self:GetCaster() and not self:GetCaster():HasScepter() then return end
 		local caster = self:GetCaster()
 		
-		local stacks = TernaryOperator( self:GetSpecialValueFor("hero_trigger"), params.attacker:IsConsideredHero(), 1 )
-		self:SetStackCount( self:GetStackCount() + stacks )
+		if params.attacker == self:GetCaster() then
+			self:SetStackCount( self:GetStackCount() + self:GetSpecialValueFor("attacks_increase_counter") )
+		else
+			local stacks = TernaryOperator( self:GetSpecialValueFor("hero_trigger"), params.attacker:IsConsideredHero(), 1 )
+			self:SetStackCount( self:GetStackCount() + stacks )
+		end
+		
 		if self:GetStackCount() >= self:GetSpecialValueFor("trigger_attacks") then
 			local ability = self:GetAbility()
 			self:SetStackCount(0)

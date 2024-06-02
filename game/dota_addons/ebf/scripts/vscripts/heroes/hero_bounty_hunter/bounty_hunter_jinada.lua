@@ -28,7 +28,7 @@ function bounty_hunter_jinada:TriggerJinada(target, bForceGoldSteal )
 				ParticleManager:SetParticleControl(nfx, 0, target:GetAbsOrigin())
 				ParticleManager:ReleaseParticleIndex(nfx)
 	
-	self:DealDamage( caster, target, self:GetSpecialValueFor("bonus_damage") )
+	self:DealDamage( caster, target, self:GetSpecialValueFor("bonus_damage"), {damage_type = DAMAGE_TYPE_PHYSICAL, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_ATTACK_MODIFIER } )
 	if self:IsCooldownReady() or bForceGoldSteal then
 		caster:AddGold( self:GetSpecialValueFor("gold_steal") )
 	end

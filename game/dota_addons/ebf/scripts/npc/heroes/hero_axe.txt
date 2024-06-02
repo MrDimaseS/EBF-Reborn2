@@ -18,7 +18,7 @@
 		
 		"MaxLevel"						"7"
 
-		"HasScepterUpgrade"             "1"
+		"HasShardUpgrade"				"1"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -40,50 +40,31 @@
 		{
 			"radius"
 			{
-				"value"							"300"
-				"special_bonus_unique_axe_2"	"+100"
-				"affected_by_aoe_increase"		"1"
+				"value"								"300"
+				"special_bonus_unique_axe_2"		"+100"
+				"affected_by_aoe_increase"			"1"
 			}
 			"bonus_armor"	
 			{
-				"value"							"16 19 22 25 28 31 34"
-				"specialization_axe_juggernaut"	"+15"
-				"special_bonus_unique_axe_7"	"+8"
+				"value"								"14 16 18 20 22 24 26"
+				"special_bonus_facet_axe_call_out"	"+5"
+				"special_bonus_unique_axe_7"		"+12"
 			}
-			"duration"							"3 3.5 4 4.5 5 5.5 6"
+			"duration"								"3.0"
 			"AbilityCooldown"
 			{
-				"value"							"11"
-				"special_bonus_scepter" 		"-3.0"
-			}
-			"AbilityManaCost"
-			{
-				"value" 						"35"
-				"specialization_axe_juggernaut"	"-50"
-			}
-			"rage_generation"
-			{
-				"value" 						"50"
-				"RequiresSpecialization"		"specialization_axe_juggernaut"
-			}
-			"bonus_movespeed"
-			{
-				"value" 						"+15 +20 +25 +30 +35 +40 +45"
-				"RequiresSpecialization"		"specialization_axe_berserker"
-			}
-			"bonus_attackspeed"
-			{
-				"value" 						"+40 +65 +90 +115 +140 +165 +190"
-				"RequiresSpecialization"		"specialization_axe_berserker"
-			}
-			"affects_allies"
-			{
-				"value" 						"+15 +20 +25 +30 +35 +40 +45"
-				"RequiresSpecialization"		"specialization_axe_skald"
+				"value"								"11"
+				"special_bonus_scepter" 			"-3.0"
 			}
 			"applies_battle_hunger"
 			{
-				"special_bonus_scepter" "+1"
+				"special_bonus_shard"				"+1"
+			}
+			"bonus_attack_speed"
+			{
+				"value"								"0"
+				"special_bonus_facet_axe_call_out"	"45"
+
 			}
 		}
 	}
@@ -105,6 +86,7 @@
 		"AbilitySound"					"Hero_Axe.Battle_Hunger"
 		
 		"MaxLevel"						"7"
+		"HasShardUpgrade"               "1"
 
 		
 		// Casting
@@ -133,55 +115,32 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"AbilityCooldown"				"1"
+			"AbilityCooldown"						"1"
 			"AbilityManaCost"						"25"
 			"duration"								"12.0"
 			"slow"
 			{
-				"value"								"-8 -17 -26 -35 -55 -75 -95"
-				"special_bonus_unique_axe_6"		"-12"
+				"value"								"-11 -19 -27 -35 -43 -51 -59"
+				"special_bonus_unique_axe_6"		"-10"
 			}
 			"damage_per_second"	
 			{
 				"value"								"100 150 200 250 300 350 400"
-				"CalculateSpellDamageTooltip" 		"1"
-			}						
+				"CalculateSpellDamageTooltip"		"1"
+			}
 			"armor_multiplier"			
 			{
-				"value"								"1"
-				"CalculateSpellDamageTooltip" 		"1"
-				"RequiresSpecialization"			"specialization_axe_juggernaut"
+				"value"								"10"
 				"special_bonus_unique_axe"			"x2"
-			}					
-			"atk_multiplier"			
-			{
-				"value"								"9 9.5 10 10.5 11 11.5 12"
-				"RequiresSpecialization"			"specialization_axe_berserker"
-				"special_bonus_unique_axe"			"x2"
-			}
-			"armor_buff"
-			{
-				"value" 							"1 1.5 2 2.5 3 3.5 4"
-				"RequiresSpecialization"			"specialization_axe_juggernaut"
-			}
-			"armor_debuff"
-			{
-				"value" 							"2 3 4 5 6 7 8"
-				"RequiresSpecialization"			"specialization_axe_berserker"
-			}
-			"bonus_damage_debuff"
-			{
-				"value" 							"15 16 17 18 19 20 21"
-				"RequiresSpecialization"			"specialization_axe_skald"
 			}
 			"speed_bonus"
 			{
 				"value"								"0"
-				"special_bonus_unique_axe_8"		"+12"
+				"special_bonus_unique_axe_8"		"+10"
 			}
-			"scepter_armor_change"
+			"should_stack"
 			{
-				"special_bonus_scepter"				"+7"
+				"special_bonus_shard"				"1"
 			}
 		}		
 	}
@@ -203,7 +162,7 @@
 		
 		"MaxLevel"						"7"
 
-        "HasShardUpgrade"               "1"
+        "HasScepterUpgrade"               "1"
 
 		
 	
@@ -217,53 +176,33 @@
 				"CalculateSpellDamageTooltip"	"1"
 				"special_bonus_unique_axe_4" 	"+20%"
 			}
-			"radius"							"300"
-			"trigger_attacks"
+			"radius"					
 			{
-				"value"							"15"
-				"specialization_axe_berserker"	"-3"
-				"special_bonus_shard"			"-3"
+				"value"							"300"
+				"affected_by_aoe_increase"		"1"
 			}
-			"hero_trigger"						"3"
-			"self_trigger"
-			{
-				"specialization_axe_berserker"	"+1"
-			}
-			"time_to_trigger"
-			{
-				"specialization_axe_skald"		"+3"
-			}
+			"trigger_attacks"					"15"
+			
 			"AbilityCooldown"
 			{
 				"value"							"0.3"
-				"specialization_axe_juggernaut"	"=0"
+				"special_bonus_scepter"			"-0.3"
 			}
 			"debuff_duration"
 			{
-				"value"							"+6.0"
-				"RequiresSpecialization"		"specialization_axe_juggernaut"
+				"special_bonus_scepter"			"+6.0"
 			}
 			"damage_reduction"
 			{
-				"value"							"+6"
-				"RequiresSpecialization"		"specialization_axe_juggernaut"
-			}
-			"dmg_red_max_stacks"
+				"special_bonus_scepter"			"+9"
+			}	
+			"max_stacks"
 			{
-				"value"							"+5"	
-				"RequiresSpecialization"		"specialization_axe_juggernaut"
+				"special_bonus_scepter"			"+10"	
 			}
-			"shard_debuff_duration"
+			"attacks_increase_counter"
 			{
-				"special_bonus_shard"		"+6.0"
-			}
-			"shard_damage_reduction"
-			{
-				"special_bonus_shard"		"+15"
-			}
-			"shard_max_stacks"
-			{
-				"special_bonus_shard"		"+6"	
+				"special_bonus_scepter"			"1"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"

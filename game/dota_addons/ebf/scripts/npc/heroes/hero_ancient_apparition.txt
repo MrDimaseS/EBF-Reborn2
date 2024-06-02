@@ -1,5 +1,46 @@
 "DOTAAbilities"
 {	
+
+	//=================================================================================================================
+	// Ancient Apparition: Absolute Zero innate
+	//=================================================================================================================
+	"ancient_apparition_death_rime"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"MaxLevel"						"4"
+		"Innate"						"1"
+		"DependentOnAbility"			"ancient_apparition_ice_blast"
+		
+		"AbilityValues"
+		{
+			"damage"	
+			{
+				"value"											"100"
+				"special_bonus_unique_ancient_apparition_6"		"+50%"
+				"CalculateSpellDamageTooltip"					"1"
+			}
+			"slow"
+			{
+				"value"						"1.5"
+				"special_bonus_unique_ancient_apparition_6"			"+50%"
+			}
+			"cast_slow"
+			{
+				"value"						"0"
+			}
+			"strength_decrease"
+			{
+				"value"						"0"
+				"special_bonus_facet_ancient_apparition_bone_chill"		"0"
+			}
+		}
+	}	
+
 	//=================================================================================================================
 	// Ancient Apparition: Cold Feet
 	//=================================================================================================================
@@ -40,24 +81,25 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"damage"				
+			"aoe"
 			{
-				"value"										"300 500 700 900 1100 1300 1500 1700"
-				"special_bonus_unique_ancient_apparition_8"	"+50%"
-				"CalculateSpellDamageTooltip"				"1"
+				"value"												"0"
+				"RequiresFacet"										"ancient_apparition_exposure"
+				"special_bonus_facet_ancient_apparition_exposure"	"400"
+				"affected_by_aoe_increase"							"1"
+			}
+			"frost_stacks"	
+			{
+				"value"												"2 4 6 8 10 12 14"
+				"special_bonus_unique_ancient_apparition_8"			"+2"
 			}
 			"break_distance"
 			{
-				"value"		"715"
-				"special_bonus_unique_ancient_apparition_1"	"+300"
+				"value"												"800"
+				"special_bonus_unique_ancient_apparition_1"			"+300"
+					"affected_by_aoe_increase"	"1"
 			}
-			"stun_duration"										"2.8"
-			"area_of_effect"
-			{
-				"value"			"0"
-				"special_bonus_unique_ancient_apparition_6"		"+450"
-			}
-
+			"stun_duration"											"2.8"
 		}
 	}
 
@@ -96,38 +138,37 @@
 		{
 			"AbilityCooldown"
 			{
-				"value"												"7 6 5 4 3.4 2.9 2.3"
+				"value"												"4"
 				"special_bonus_unique_ancient_apparition_3"			"-50%"
 			}
 			"radius"				
 			{
-				"value"			"300"
-				"affected_by_aoe_increase"	"1"
+				"value"												"300"
+				"affected_by_aoe_increase"							"1"
 			}
-			"drag_speed"			"40 50 60 70 80 90 100"
+			"drag_speed"											"40 50 60 70 80 90 100"
 			"movement_speed_pct"
 			{
-				"value"				"-16 -19 -22 -25 -28 -31 -34"
-				"special_bonus_unique_ancient_apparition_4"	"-5"
+				"value"												"-16 -19 -22 -25 -28 -31 -34"
+				"special_bonus_unique_ancient_apparition_4"			"-5"
 			}
 			"spell_resist_pct"
 			{
-				"value"							"-16 -19 -22 -25 -28 -31 -34"
-				"special_bonus_unique_ancient_apparition_4"	"-5"
+				"value"												"-16 -19 -22 -25 -28 -31 -34"
+				"special_bonus_unique_ancient_apparition_4"			"-5"
 			}
-			"vision_aoe"						"275"
+			"vision_aoe"		
+			{
+				"value"												"200 220 240 260 280 300 320"
+				"affected_by_aoe_increase"							"1"
+			}
 			"vortex_duration"	
 			{
 				"value"															"12"
 				"special_bonus_unique_ancient_apparition_ice_vortex_duration"	"+4"
 
 			}
-			"shard_dps"
-			{
-				"value"												"120 180 240 300 360 420 480"
-				"DamageTypeTooltip"									"DAMAGE_TYPE_MAGICAL"
-				"CalculateSpellDamageTooltip"						"1"
-			}
+			"frost_stacks"														"1 2 3 4 5 6 7"
 		}
 	}
 
@@ -144,39 +185,31 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"AbilitySound"					"Hero_Ancient_Apparition.ChillingTouchCast"
-		
 		"MaxLevel"						"7"
-
-		"HasScepterUpgrade"			"1"
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-
-
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-
-
+		"HasScepterUpgrade"				"1"
+		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
 			"damage"
 			{
-				"value"											"400 800 1200 1600 2000 2400 2800"
+				"value"											"300 600 900 1200 1500 1800 2100"
 				"CalculateSpellDamageTooltip"					"1"
-				"special_bonus_unique_ancient_apparition_2"		"+25%"
+				"special_bonus_unique_ancient_apparition_2"		"+65%"
 			}
+			"frost_stacks"										"1"
+			"duration"											"4"
 			"slow"												"100"
-			"duration"											"0.5"
+			"slow_duration"										"1.0"
 			"attack_range_bonus"
 			{
-				"value"											"60 120 180 240 300 360 420"
+				"value"											"240"
 				"special_bonus_unique_ancient_apparition_7"		"+300"
 			}
 			"AbilityManaCost"
 			{
-				"value"											"20 24 28 32 36 40 44"
+				"value"											"45 50 55 60 65 70 75"
 				"special_bonus_scepter"							"-50%"
 			}
 			"AbilityCooldown"				
@@ -227,10 +260,25 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"radius_min"									"275"
-			"radius_grow"									"50.0"
-			"radius_max"									"1000"
-			"path_radius"									"275"
+			"radius_min"			
+			{
+				"value"	"275"
+					"affected_by_aoe_increase"	"1"
+			}
+			"radius_grow"			
+			{
+				"value"		"50.0"
+			}
+			"radius_max"			
+			{
+				"value"			"1000"
+					"affected_by_aoe_increase"	"1"
+			}
+			"path_radius"			
+			{
+				"value"		"275"
+				"affected_by_aoe_increase"	"1"
+			}
 			"frostbite_duration"	
 			{
 				"value"		"10"
@@ -242,24 +290,23 @@
 				"DamageTypeTooltip"									"DAMAGE_TYPE_MAGICAL"
 				"CalculateSpellDamageTooltip"						"1"
 			}
-			"dot_damage"
-			{
-				"value"												"125 200 320 512 820 1320 2045"
-				"DamageTypeTooltip"									"DAMAGE_TYPE_MAGICAL"
-				"CalculateSpellDamageTooltip"						"1"
-			}
-			"speed"											"1500"
+			"frost_stacks"											"2"
+			"speed"													"1500"
 			"kill_pct"
 			{	
-				"value"										"8"
-				"special_bonus_unique_ancient_apparition_5"	"+2"
+				"value"												"8"
+				"special_bonus_unique_ancient_apparition_5"			"+2"
 			}
 			"cold_feet_stun_duration_pct"
 			{
-				"value"						"0"
-				"special_bonus_shard"		"+60"
+				"value"												"0"
+				"special_bonus_shard"								"+60"
 			}
-			"target_sight_radius"	"500 500 500"
+			"target_sight_radius"	
+			{
+				"value"			"500"
+				"affected_by_aoe_increase"	"1"
+			}
 		}
 	}
 

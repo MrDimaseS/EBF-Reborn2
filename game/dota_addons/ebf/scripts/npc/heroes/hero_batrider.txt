@@ -1,5 +1,61 @@
 "DOTAAbilities"
 {	
+
+	//=================================================================================================================
+	// Batrider: Slow Burn
+	//=================================================================================================================
+	"batrider_smoldering_resin"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI"
+		"AbilitySound"					"Hero_Batrider.StickyNapalm.Impact"
+		"MaxLevel"						"1"
+		"Innate"						"1"
+		"AbilityValues"
+		{
+			"total_ticks"			"2"
+			"tick_rate"				"1"
+			"tick_attack_damage_pct"		"15"
+		}
+
+	}
+
+
+	//=================================================================================================================
+	// Batrider: Variant Displacement Buff
+	//=================================================================================================================
+	"batrider_stoked"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_INNATE_UI | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"MaxLevel"						"4"
+		"DependentOnAbility"			"batrider_flaming_lasso"
+
+		"AbilityValues"
+		{
+			"duration"					"7.0"
+			"movement_speed_pct"		"4 6 8 10"
+			"spell_amplification"		"2 4 6 8"
+		}
+
+	}
+	
+	//=================================================================================================================
+	// Batrider: Sticky Napalm
+	//=================================================================================================================
+	"batrider_sticky_napalm_application_damage"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"AbilitySound"					"Hero_Batrider.StickyNapalm.Impact"
+		"MaxLevel"						"1"
+
+	}	
 	//=================================================================================================================
 	// Batrider: Sticky Napalm
 	//=================================================================================================================
@@ -16,16 +72,7 @@
 		"AbilitySound"					"Hero_Batrider.StickyNapalm.Impact"
 		"HasShardUpgrade"				"1"
 		"MaxLevel"						"7"
-
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"550 600 650 700 750 800 850"
-		"AbilityCastPoint"				"0"
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"3.0 3.0 3.0 3.0"
-
+		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"25"
@@ -39,32 +86,45 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"AbilityCooldown"
+			{
+				"value"			"3.0"
+			}
+			"AbilityCastRange"
+			{
+				"value"				"600"
+			}
 			"damage"
 			{
-				"value"								"40 80 120 160 200 240 280"
-				"special_bonus_unique_batrider_4"	"+100%"
+				"value"								"50 100 150 200 250 300 350"
+				"special_bonus_unique_batrider_4"	"+50%"
 				"CalculateSpellDamageTooltip"		"1"
 			}
 			"radius"
 			{
-				"value"								"360 380 400 420 440 460 480"
-				"special_bonus_unique_batrider_7"	"+75"
+				"value"								"375"
+				"special_bonus_unique_batrider_7"	"+50"
+				"affected_by_aoe_increase"	"1"
 			}
 			"duration" 								"7"
 			"movement_speed_pct" 					"-2 -3 -4 -5 -6 -7 -8"			
 			"turn_rate_pct"							"-10 -20 -30 -40 -50 -60 -70"
 			"max_stacks"							"10"
 			"creep_damage_pct"						""
-			"hero_damage_pct"						"50"
+			"building_damage_pct"
+			{
+				"value"										"50"
+				"special_bonus_facet_batrider_arsonist"		"+25"
+			}	
 			"shard_extra_napalm"		
 			{
 				"value"								"2"
 				"RequiresShard"						"1"
 			}
-			"application_damage"
+			"damage"
 			{
-				"value"								"40 80 120 160 200 240 280"
-				"special_bonus_unique_batrider_4"	"+100%"
+				"value"								"50 100 150 200 250 300 350"
+				"special_bonus_unique_batrider_4"	"+50%"
 				"CalculateSpellDamageTooltip"		"1"
 			}
 		}
@@ -123,7 +183,7 @@
 			"explosion_radius"						"500"
 			"collision_radius"						"100 100 100 100"
 			"stun_duration"							"0.5 0.5 0.5 0.5"
-			"speed"									"1200"
+			"speed"									"1700"
 			"knockback_distance"	
 			{
 				"value"				"300"
@@ -186,7 +246,7 @@
 		{
 			"damage_per_second"
 			{
-				"value"								"300 600 900 1200 1500 1800 2100"
+				"value"								"250 500 750 1000 1250 1500 1750"
 				"CalculateSpellDamageTooltip"		"1"
 			}
 			"radius"				"200"
@@ -246,7 +306,7 @@
 			"break_distance"						"425"
 			"damage"
 			{
-				"value"								"1000 2000 3000 4000 5000 6000"
+				"value"								"2000 3500 5000 6500 8000 9500"
 				"CalculateSpellDamageTooltip"		"1"
 			}
 			"grab_radius_scepter"

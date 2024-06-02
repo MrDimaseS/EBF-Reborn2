@@ -39,27 +39,33 @@
 			}
 			"strike_crit_mult"
 			{
-				"value"										"950 1050 1150 1300 1500 1750 2050"
+				"value"										"120 140 160 180 200 220 240"
 				"affected_by_crit_increase"					"1"
+				"DamageTypeTooltip"							"DAMAGE_TYPE_PHYSICAL"
+			}
+			"strike_flat_damage"
+			{
+				"value"										"200 400 600 800 1000 1200 1400"
+				"CalculateAttackDamageTooltip"				"1"
 				"DamageTypeTooltip"							"DAMAGE_TYPE_PHYSICAL"
 			}
 			"AbilityCooldown"				
 			{
-				"value"										"22"	
+				"value"										"15"	
 			}
 			"strike_radius"				
 			{
 				"value"	"150"
-				"affected_by_aoe_increase"	"1"		
+				"affected_by_aoe_increase"					"1"		
 			}
-			"strike_cast_range"							"1100"
-			"soldier_spawn_duration"					"0"
-			"acceleration_z"							"5000"
-			"min_height_above_lowest"					"100"
-			"min_height_above_highest"					"150"
-			"max_horizontal_acceleration"				"30000"
-			"duration"									"0.2"
-			"spring_channel_pct"						"50"
+			"strike_cast_range"								"1100"
+			"soldier_spawn_duration"						"0"
+			"acceleration_z"								"5000"
+			"min_height_above_lowest"						"100"
+			"min_height_above_highest"						"150"
+			"max_horizontal_acceleration"					"30000"
+			"duration"										"0.2"
+			"spring_channel_pct"							"50"
 		}
 	}
 
@@ -170,12 +176,12 @@
 			"ground_jump_distance"			
 			{
 				"value"									"900"
-				"LinkedSpecialBonus"					"special_bonus_unique_monkey_king_7"
+				"special_bonus_unique_monkey_king_7"	"+450"
 			}
 			"perched_jump_distance"			
 			{
 				"value"									"1000"
-				"LinkedSpecialBonus"					"special_bonus_unique_monkey_king_7"
+				"special_bonus_unique_monkey_king_7"	"+450"
 			}
 			"jump_damage_cooldown"						"3.0"
 			"perched_day_vision"						"700"
@@ -191,6 +197,11 @@
 			}
 			"impact_movement_slow_tooltip"				"20 40 60 80 85 90 95"
 			"range"										"1000"
+			"fullhp_cdreduce"
+			{
+				"value"						"0"
+				"special_bonus_facet_monkey_king_simian_stride" "100"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -234,9 +245,13 @@
 				"special_bonus_unique_monkey_king_3"	"+50%"
 				"CalculateSpellDamageTooltip"			"1"
 			}
-			"impact_movement_slow"	"20 40 60 80 85 90 95"
-			"impact_slow_duration"	"4.0"
-			"impact_radius"			"375"
+			"impact_movement_slow"						"80"
+			"impact_slow_duration"						"4.0"
+			"impact_radius"			
+			{
+				"value"									"375"
+				"affected_by_aoe_increase"				"1"		
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -310,12 +325,16 @@
 			"move_speed"						"700"
 			"bonus_armor"						
 			{
-				"value"							"14 19 24 29 34 39"
+				"value"							"15 20 25 30 35 40"
 				"LinkedSpecialBonus"			"special_bonus_unique_monkey_king_4"
 			}
-			"attack_speed"						"1.4 1.3 1.2 1.1 1.0 0.9"
+			"attack_speed"						"1.1"
 			"duration"							"13.0"
-			"leadership_radius_buffer"			"30"
+			"leadership_time_buffer"
+			{
+				"value"								"0"
+				"special_bonus_facet_monkey_king_wukongs_faithful"	"+3.0"
+			}
 			"cast_range"					
 			{
 				"value"						"625"
@@ -330,7 +349,7 @@
 			"outer_attack_buffer"				"0"
 			"cooldown_scepter"				
 			{
-				"value"				"50"
+				"value"		"90 70 50"
 				"RequiresScepter"	"1"
 			}
 			"scepter_spawn_interval"

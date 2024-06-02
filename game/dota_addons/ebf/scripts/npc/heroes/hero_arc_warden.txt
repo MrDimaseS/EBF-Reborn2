@@ -71,7 +71,7 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_ArcWarden.MagneticField.Cast"
@@ -101,40 +101,73 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"radius"									"300"
-			"duration"									"3.5 4.5 5.5 6.5 7.5 8.5 9.5"
-			"tempest_duration"							"5 6 7 8 9 10 11"
-			"attack_speed_bonus"		
+			"radius"					
 			{
-				"value" 								"50 60 70 80 90 100 110"
-				"special_bonus_unique_arc_warden_3" 	"+50%"
+				"value"						"300"
+				"affected_by_aoe_increase"	"1"	
+				"special_bonus_shard"		"+75"
 			}
-			"evasion_chance"							"100"
-			"shard_magic_resist"
+			"projectile_slow"
 			{
-				"value"									"40"
-				"RequiresShard"							"1"
+				"value"						"0"
+				"RequiresShard"				"1"
+				"special_bonus_shard"		"+75"
 			}
 			"shard_slow_pct"
 			{
-				"value"									"30"
-				"RequiresShard"							"1"
-			}
-			"attack_range_bonus"						"150"
-			"attack_magic_damage"				
+				"value"						"30"
+				"RequiresShard"				"1"
+			}			
+			"duration"					
 			{
-				value									"240 480 800 1200 2000 3600 6000"
-				"special_bonus_unique_arc_warden_3" 	"+50%"
+				"value"						"3.5 4.5 5.5 6.5 7.5 8.5 9.5"
+				"RequiresFacet"				"arc_warden_order"
 			}
-			"AbilityCooldown"
+			"attack_speed_bonus"		
 			{
-				"value"									"20"
-				"special_bonus_unique_arc_warden_9"		"-9"
+				"value" 					"50 60 70 80 90 100 110"
+				"special_bonus_unique_arc_warden_3" 		"+20"
+				"RequiresFacet"				"arc_warden_order"
 			}
+			"evasion_chance"			
+			{
+				"value"					"100"
+				"RequiresFacet"			"arc_warden_order"
+			}
+
+			"tempest_duration"
+			{
+				"value"					"5 6 7 8 9 10 11"
+				"RequiresFacet"			"arc_warden_disorder"
+			}
+
+			"attack_range_bonus"				
+			{
+				"value"					"150"			
+				"RequiresFacet"			"arc_warden_disorder"
+			}
+
 			"attack_damage_bonus"
 			{
-				"value"									"240 480 800 1200 2000 3600 6000"
-				"special_bonus_unique_arc_warden_3" 	"+50%"
+				"value"										"200 400 600 800 1000 1200 1400"
+				"special_bonus_unique_arc_warden_3" 		"+250"
+				"RequiresFacet"								"arc_warden_disorder"
+			}
+
+			"attack_magic_damage"				
+			{
+				"value"										"200 400 600 800 1000 1200 1400"
+				"special_bonus_unique_arc_warden_3" 		"+200"
+			}			
+			"AbilityCooldown"
+			{
+				"value"										"17"
+				"special_bonus_unique_arc_warden_9"			"-7"
+			}
+			"affects_buildings"
+			{
+				"value"										"0"
+				"special_bonus_unique_arc_warden_7"			"=1"
 			}
 		}
 	}
@@ -237,7 +270,6 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"								"50"
 		"AbilityCastRange"								"700"
 
 
@@ -245,28 +277,28 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"AbilityCooldown"				
+			{	
+				"value"									"100 90 80 70 60 50"
+				
+			}
 			"duration"
 			{
-				"value"									"18 22 26 30 34 38"
+				"value"									"60"
 				"special_bonus_unique_arc_warden_6"		"+12"
 			}
 			"bounty"									"0"
 			"penalty_distance"			
 			{
-				"value"	"2000"
-				"affected_by_aoe_increase"	"1"	
+				"value"									"2000"
+				"affected_by_aoe_increase"				"1"	
 			}
 			"ignore_penalty_distance"		
 			{
 				"value"									"0"
-				"special_bonus_unique_arc_warden_8"		"+1"
+				"special_bonus_unique_arc_warden_8"		"+1"				
 			}
-			"attack_damage_penalty"						"50"
-			"tempest_double_cooldown_reduction"
-			{
-				"value"									"0"
-				"special_bonus_unique_arc_warden_7"		"+25"
-			}
+			"incoming_damage_penalty"					"60"		
 		}
 	}
 	//=================================================================================================================

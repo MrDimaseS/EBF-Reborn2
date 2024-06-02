@@ -1,6 +1,45 @@
 "DOTAAbilities"
 {	
 	//=================================================================================================================
+	// Leshrac: Chronoptic Nourishment
+	//=================================================================================================================
+	"leshrac_chronoptic_nourishment"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_SKIP_FOR_KEYBINDS | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"MaxLevel"						"7"
+		"DependentOnAbility"			"leshrac_pulse_nova"
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"mana_pct_per_hit"				"10 12 14 16 18 20 22"
+			"creep_penalty_reduction_pct"	"50"
+		}		
+	}
+
+	//=================================================================================================================
+	// Ability: Leshrac Innate: AoE
+	//=================================================================================================================
+	"leshrac_defilement"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"Innate"						"1"
+		"MaxLevel"						"1"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"aoe_per_int"				"0.03"
+		}
+	}
+
+	//=================================================================================================================
 	// Leshrac: Split Earth
 	//=================================================================================================================
 	"leshrac_split_earth"
@@ -26,7 +65,7 @@
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"9 9 9 9"
+		"AbilityCooldown"				"11"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -44,13 +83,13 @@
 			"delay"								"0.35"
 			"radius"
 			{
-				"value"							"150 175 200 225 250 275 300"
-				"LinkedSpecialBonus"			"special_bonus_unique_leshrac_5"
+				"value"							"135 160 185 210 235 260 285"
+				"affected_by_aoe_increase"		"1"
 			}
 			"duration"							"2"
 			"shard_radius_increase"
 			{
-				"value"							"75"
+				"value"							"45"
 				"RequiresShard"					"1"
 			}
 			"shard_max_count"
@@ -100,20 +139,42 @@
 		// Damage.
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityDuration"				"10"
-		"AbilityDamage"					"90 160 230 300 370 440 510"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"num_explosions"
+			"num_explosions"		
 			{
-				"value"								"40"
-				"special_bonus_unique_leshrac_1"	"+25"
+				"value"		"40"
+				"special_bonus_unique_leshrac_1" "+20"
 			}
-			"radius"				"500"
+		
+			"radius"			
+			{
+				"value"			"450"
+				"affected_by_aoe_increase"	"1"
+			}
 			"tower_bonus"			"0"
-			"AbilityDamage"					"90 160 230 300 370 440 510"
+			"affects_buildings"
+			{
+				"value"						"1"
+				"special_bonus_facet_leshrac_misanthropy"	"=0"
+			}
+			"damage"
+			{
+				"value"							"100 180 260 340 420 500 580"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"targets"
+			{
+				"value"						"1"
+			}
+			"AbilityDuration"
+			{
+				"value"						"10"
+				"special_bonus_facet_leshrac_misanthropy"	"=7"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -160,7 +221,11 @@
 				"CalculateSpellDamageTooltip"		"1"
 			}			
 			"jump_count"							"5 7 9 11 13 15 17"
-			"radius"								"475"
+			"radius"			
+			{
+				"value"								"450"
+				"affected_by_aoe_increase"			"1"
+			}
 			"jump_delay"							"0.25 0.25 0.25 0.25"
 			"movespeed_slow"						"75"
 			"attackspeed_slow"						"50"		
@@ -260,7 +325,11 @@
 		"AbilityValues"
 		{
 			"mana_cost_per_second"					"25 45 65 85 95 105"
-			"radius"								"525"
+				"radius"				
+				{
+					"value"							"500"
+					"affected_by_aoe_increase"		"1"
+				}
 			"damage"
 			{
 				"value"								"800 1350 1800 2250 2700 3150"

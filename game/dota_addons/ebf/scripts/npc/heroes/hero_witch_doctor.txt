@@ -21,7 +21,7 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"14"
+		"AbilityCooldown"				"20 20 20 20 18 16 14"
 		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -35,27 +35,29 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"hero_duration"			"1.0 1.0 1.0 1.0"
-			"creep_duration"		"1"
+			"hero_duration"										"0.8"
+			"creep_duration"									"0.8"
 			"base_damage"				
 			{
-				"value"					"500"
-				"CalculateSpellDamageTooltip"	"1"
+				"value"											"500"
+				"CalculateSpellDamageTooltip"					"1"
 			}
-			"bounce_range"			"575 575 575 575"
+			"bounce_range"										"575 575 575 575"
 			"bounces"				
 			{ 
-				"value"									"8"
-				"special_bonus_unique_witch_doctor_3"	"+8"
+				"value"											"2 4 6 8 8 8 8"
+				"special_bonus_unique_witch_doctor_3"			"+8"
 			}
-			"speed"					"1200"
-			"bounce_delay"			"0.3"
+			"speed"												"1200"
+			"bounce_delay"										"0.3"
 			"bounce_bonus_damage"
 			{
-				"value"							"100 150 200 250 350 400 450"
-				"CalculateSpellDamageTooltip"	"1"
+				"value"											"0"
+				"CalculateSpellDamageTooltip"					"1"
+				"special_bonus_facet_witch_doctor_headhunter"	"+350"
+				"RequiresFacet"									"witch_doctor_headhunter"
 			}
-			"creep_damage_pct"		"200"
+			"creep_damage_pct"									"200"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -94,18 +96,24 @@
 				"value"										"8 12 16 20 24 28 32"
 				"special_bonus_unique_witch_doctor_4"		"-25%"
 			}
-			"radius"										"500 550 600 650 700 750 800"
+				"radius"					
+				{
+					"value"													"500 550 600 650 700 750 800"
+					"special_bonus_facet_witch_doctor_voodoo_festeration"	"+200"
+					"affected_by_aoe_increase"	"1"
+				}
 			"heal"
 			{
 				"value"										"50 100 150 200 250 300 350"
-				"CalculateSpellHealTooltip"				"1"
+				"CalculateSpellHealTooltip"					"1"
 			}
 			"heal_interval"									"0.33"
 			"enemy_damage_pct"
 			{
-				"value"										"200"
-				"DamageTypeTooltip"							"DAMAGE_TYPE_MAGICAL"
-				"CalculateSpellDamageTooltip"				"1"
+				"value"														"100"
+				"special_bonus_facet_witch_doctor_voodoo_festeration"		"+100"
+				"DamageTypeTooltip"											"DAMAGE_TYPE_MAGICAL"
+				"CalculateSpellDamageTooltip"								"1"
 			}
 			"heal_pct"
 			{
@@ -142,7 +150,7 @@
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"575"
+		"AbilityCastRange"				"600"
 		"AbilityCastPoint"				"0.35 0.35 0.35 0.35"
 		"AbilityDamage"					""
 
@@ -156,23 +164,24 @@
 		{
 			"radius"
 			{
-				"value"									"180"
-				"special_bonus_unique_witch_doctor_6"	"+75"
+				"value"									"200"
+				"special_bonus_unique_witch_doctor_6"	"+100"
+				"affected_by_aoe_increase"				"1"
 			}
 			"damage"
 			{
-				"value"									"120 180 240 300 360 420 480"
+				"value"									"150 200 250 300 350 400 450"
 				"CalculateSpellDamageTooltip" 			"1"
 			}
 			"bonus_damage"
 			{
-				"value"									"12"
+				"value"									"12 12 12 12 14 16 18"
 				"special_bonus_unique_witch_doctor_7"	"+8"
 				"CalculateSpellDamageTooltip" 			"0"
 			}
 			"ticks"										"3"
 			"duration"									"12"
-			"AbilityCooldown"							"30 26 22 18 15.6 13.2 10.8"
+			"AbilityCooldown"							"30 26 22 18 18 18 18"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_5"
 	}
@@ -222,27 +231,35 @@
 		{
 			"damage"
 			{
-				"value"									"650 1000 1350 1700 2050 2400"
-				"special_bonus_unique_witch_doctor_5"	"+25%"
-				"CalculateSpellDamageTooltip"			"0"
-				"CalculateAttackDamageTooltip"			"1"
+				"value"											"650 1000 1350 1700 2050 2400"
+				"special_bonus_unique_witch_doctor_5"			"+25%"
+				"special_bonus_facet_witch_doctor_cleft_death"	"-30%"
+				"CalculateSpellDamageTooltip"					"0"
+				"CalculateAttackDamageTooltip"					"1"
 			}
-			"attack_range_tooltip"
+			"attack_range_tooltip"		
 			{
-				"value"			"700"
-				"LinkedSpecialBonus"	"special_bonus_unique_witch_doctor_1"
+				"value"		"600"
+				"special_bonus_unique_witch_doctor_1"	"+75"
 			}
-			"bounce_radius"
+			
+			"bounce_radius"				
 			{
-				"value"					"650 650 650"
+				"value"		"650 650 650"
 				"RequiresScepter"		"1"
+				"affected_by_aoe_increase"	"1"
 			}
-			"scepter_lifesteal"	
+			"scepter_lifesteal"			
 			{
-				"value"					"10"
+				"value"		"10"
 				"RequiresScepter"		"1"
 			}
 			"bonus_accuracy"			"50"
+			"initial_target_count"
+			{
+				"value"						"1"
+				"special_bonus_facet_witch_doctor_cleft_death"	"+1"
+			}
 		}
 	}
 	

@@ -13,15 +13,24 @@ function shadow_shaman_mass_serpent_ward:OnSpellStart()
 	local duration = self:GetSpecialValueFor("duration")
 	local direction = caster:GetForwardVector()
 	local angle = 360 / wards
-	for i = 1, wards do
-		local spawnPos = position + RotateVector2D( direction, ToRadians( angle * (i-1) ) ) * spawnRadius 
-		self:CreateWard( spawnPos, duration )
+	
+	local megaWard = self:GetSpecialValueFor("is_mega_ward") == 1
+	if megaWard then
+		self:CreateWard( spawnPos, duration, megaWard )
+	else
+		for i = 1, wards do
+			local spawnPos = position + RotateVector2D( direction, ToRadians( angle * (i-1) ) ) * spawnRadius 
+			self:CreateWard( spawnPos, duration )
+		end
 	end
 end
 
-function shadow_shaman_mass_serpent_ward:CreateWard( position, duration )
+function shadow_shaman_mass_serpent_ward:CreateWard( position, duration, bMegaWard )
 	local caster = self:GetCaster()
 	local ward = caster:CreateSummon( "npc_dota_shadow_shaman_ward_1", position, duration )
+	if bMegaWard then
+		ward:SetCoreHealth( ward:GetMaxHealth() * self:GetSpecialValueFor("mega_ward_health_tooltip") )
+	end
 	ward:AddNewModifier( caster, self, "modifier_shadow_shaman_mass_serpent_ward_handler", {duration = duration} )
 end
 
@@ -58,7 +67,7 @@ LinkLuaModifier("modifier_shadow_shaman_mass_serpent_ward_handler", "heroes/hero
 modifier_shadow_shaman_mass_serpent_ward_handler = class({})
 
 function modifier_shadow_shaman_mass_serpent_ward_handler:OnCreated()
-	self.damage_tooltip = self:GetSpecialValueFor("damage_tooltip")
+	self.damage_tooltip = self:GetSpecialValueFor("damage_tooltip") * self:GetSpecialValueFor("mega_ward_multiplier_tooltip")
 	self.hits_to_destroy_tooltip = self:GetParent():GetMaxHealth() / self:GetSpecialValueFor("hits_to_destroy_tooltip")
 	self.hits_to_destroy_tooltip_creeps = self:GetParent():GetMaxHealth() / self:GetSpecialValueFor("hits_to_destroy_tooltip_creeps")
 	self.scepter_attack_speed = TernaryOperator( self:GetSpecialValueFor("scepter_attack_speed"), self:GetCaster():HasScepter(), 0 )

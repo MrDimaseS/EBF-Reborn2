@@ -14,8 +14,8 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		
-		"MaxLevel"						"6"
-		"LevelsBetweenUpgrades"			"6"
+		"MaxLevel"						"1"
+		"LevelsBetweenUpgrades"			"1"
 		"FightRecapLevel"				"1"
 		"IsGrantedByShard"  			"1"
 		"HasShardUpgrade"				"1"
@@ -40,14 +40,20 @@
 		"AbilityValues"
 		{
 			"duration"										"10"
-			"attack_speed"									"50 60 70 80 90 100"
+			"attack_speed"									"50 "
 			"hp_regen"
 			{
-				"value"										"400 500 600 700 800 900"
+				"value"										"400"
 				"CalculateSpellHealTooltip"					"1"
 			}
 			"projectile_speed"								"900"
 			"move_speed"									"30"
+			"chemical_rage_cooldown_reduction_pct"
+			{
+				"value"					"0"
+				"special_bonus_facet_alchemist_mixologist"				"=50"
+			}
+
 		}
 	}
 
@@ -157,6 +163,11 @@
 				"special_bonus_unique_alchemist"	"+125"
 			}
 			"move_speed"				"5 7.5 10 12.5 15 17.5 20"
+			"chemical_rage_cooldown_reduction_pct"
+			{
+				"value"					"0"
+				"special_bonus_facet_alchemist_mixologist"				"=30"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -225,11 +236,10 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{		
-			"max_stacks"					"11"
+			"max_stacks"						"4 5 6 7 8 9 10"
 			"debuff_duration"				"4.0"
-			"slow_per_stack"				"3 4 5 6 7 8 9"
-			"status_resist_per_stack"		"1 1.25 1.5 1.75 2 2.25 2.5"
-
+			"slow_per_stack"				"4 4.5 5 5.5 6 6.5 7 7.5"
+			"attack_damage_per_stack"		"1.5 1.6 1.7 1.8 1.9 2.0 2.1"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -247,6 +257,7 @@
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
 		
 		"MaxLevel"						"1"
+		"Innate"						"1"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -315,14 +326,14 @@
 			"transformation_time"							"0.35"
 			"base_attack_time"
 			{
-				"value"										"1.2 1.15 1.1 1.05 1 0.95"		
+				"value"										"1.0"		
 				"special_bonus_unique_alchemist_8"			"-0.1"
 
 			}
 			"bonus_health"									"0"
 			"bonus_health_regen"
 			{
-				"value"										"500 800 1100 1400 1700 2000"
+				"value"										"600 900 1200 1500 1800 2100"
 				"special_bonus_unique_alchemist_4"			"+500"
 				"CalculateSpellHealTooltip"					"1"
 			}
@@ -330,7 +341,7 @@
 			"bonus_movespeed"
 			{
 				
-				"value"										"40 45 50 55 60 65"
+				"value"										"15 30 45 60 75 90"
 				"special_bonus_unique_alchemist_6"			"+50"
 			}
 			"scepter_gold_damage"

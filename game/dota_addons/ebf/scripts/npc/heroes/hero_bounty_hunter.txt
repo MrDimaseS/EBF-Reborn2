@@ -26,7 +26,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"375 425 475 525 575 625 675"
 		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
-		"AbilityManaCost"				"50 60 70 80 90 100 110"
+		"AbilityManaCost"				"65 70 75 80 85 90 95 100"
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
@@ -40,7 +40,7 @@
 		{
 			"bonus_damage"			
 			{
-				"value"									"1000 1500 2000 2500 3000 3500 4000"
+				"value"									"1000 1700 2400 3100 3800 4500 5200"
 				"special_bonus_unique_bounty_hunter_2"	"+100%"
 				"CalculateSpellDamageTooltip" 			"1"
 			}
@@ -105,9 +105,9 @@
 		{
 			"bonus_damage"
 			{
-				"value"									"1200 2000 2800 3600 4400 5200 6000"
+				"value"									"600 1000 1400 1800 2200 2600 3000"
 				"special_bonus_unique_bounty_hunter_4"	"+20%"
-				"CalculateSpellDamageTooltip" 			"1"
+				"CalculateAttackDamageTooltip" 			"1"
 			}
 			"gold_steal"
 			{
@@ -165,12 +165,12 @@
 			}
 			"AbilityCooldown"				
 			{
-				"value"						"18 16 14 12 10 8 6"
+				"value"						"15 14 13 12 11 10 9"
 				"special_bonus_shard" 		"-25%"
 			}
 			"AbilityChargeRestoreTime"		
 			{
-				"value"						"18 16 14 12 10 8 6"
+				"value"						"15 14 13 12 11 10 9"
 				"special_bonus_shard" 		"-25%"
 				"RequiresShard"				"1"
 			}
@@ -195,7 +195,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
@@ -224,12 +223,17 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"target_damage_amp"							"20"
 			"target_crit_multiplier"
 			{
 				"value"									"140 170 200 230 260 290"
 				"affected_by_crit_increase"				"1"
 			}
-			"bonus_gold_radius"							"1200"
+			"bonus_gold_radius"		
+			{
+				"value"		"1200"
+				"affected_by_aoe_increase"	"1"
+			}
 			"bonus_gold_self"
 			{
 				"value"									"30 50 70 90 110 130"
@@ -240,10 +244,8 @@
 				"value"									"15 25 35 45 55 65"
 				"special_bonus_unique_bounty_hunter_3"	"+25"
 			}
-			"duration"									"30.0 30.0 30.0"
-			"gold_steal"								"0.3 0.4 0.5"
+			"duration"									"15.0 20.0 25.0 30.0 35.0"
 			"bonus_move_speed_pct"						"16 20 24 28 32 36"
-			"toss_crit_multiplier"						"140 170 200 230 260 290"
 		}
 	}
 
@@ -285,6 +287,44 @@
 			"radius"					"150"
 		}
 	}
+	//=================================================================================================================
+	// Bounty Hunter: Innate Gold Steal (Mugging)
+	//=================================================================================================================
+	"bounty_hunter_cutpurse"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"DependentOnAbility"			"bounty_hunter_track"
+		"MaxLevel"						"4"
+		"Innate"						"1"
+		"AbilityValues"
+		{
+			"gold_steal"					"4 8 12 16"
+		}
+
+	}
+
+	//=================================================================================================================
+	// Ability: Stalkers Share (bonus gold from killstreaks)
+	//=================================================================================================================
+	"bounty_hunter_big_game_hunter"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI"
+		"MaxLevel"						"1"
+		"Innate"						"1"
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_killstreak_bounty"				"10"
+		}
+	}
+
 	//=================================================================================================================
 	// Ability: Special Bonus
 	//=================================================================================================================

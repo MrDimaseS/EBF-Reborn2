@@ -1,7 +1,8 @@
-LinkLuaModifier("modifier_lion_finger_of_death_bonus", "heroes/hero_lion/lion_finger_of_death.lua", LUA_MODIFIER_MOTION_NONE)
-LinkLuaModifier("modifier_lion_finger_of_death_death", "heroes/hero_lion/lion_finger_of_death.lua", LUA_MODIFIER_MOTION_NONE)
-
 lion_finger_of_death = class({})
+
+function lion_finger_of_death:GetIntrinsicModifierName()
+	return "modifier_lion_finger_of_death_bonus"
+end
 
 function lion_finger_of_death:GetBehavior()
 	if self:GetCaster():HasScepter() then
@@ -91,6 +92,7 @@ end
 --------------------------------------------------------------------------------
 
 modifier_lion_finger_of_death_bonus = class({})
+LinkLuaModifier("modifier_lion_finger_of_death_bonus", "heroes/hero_lion/lion_finger_of_death.lua", LUA_MODIFIER_MOTION_NONE)
 function modifier_lion_finger_of_death_bonus:IsBuff() return true end
 function modifier_lion_finger_of_death_bonus:IsPermanent() return true end
 function modifier_lion_finger_of_death_bonus:IsPurgable() return false end
@@ -142,12 +144,17 @@ function modifier_lion_finger_of_death_bonus:GetModifierPreAttack_BonusDamage()
 end
 
 function modifier_lion_finger_of_death_bonus:OnAttackLanded( params )
-	if self:GetCaster():HasModifier("modifier_lion_finger_punch") and params.attacker == self:GetCaster() then
-		params.target:AddNewModifier(params.attacker, self:GetAbility(), "modifier_lion_finger_of_death_death", {duration = self:GetSpecialValueFor("punch_grace_period")})
+	if self:GetCaster():HasModifier("modifier_lion_finger_punch") and params.attacker == self:GetCaster() and params.target:IsConsideredHero() and not params.target:HasModifier("modifier_lion_finger_of_death_death") then
+		params.target:AddNewModifier(params.attacker, self:GetAbility(), "modifier_lion_finger_of_death_punched", {duration = self:GetSpecialValueFor("punch_grace_period")})
 	end
 end
 
+function modifier_lion_finger_of_death_bonus:IsHidden()
+	return self:GetStackCount() <= 0
+end
+
 modifier_lion_finger_of_death_death = class({})
+LinkLuaModifier("modifier_lion_finger_of_death_death", "heroes/hero_lion/lion_finger_of_death.lua", LUA_MODIFIER_MOTION_NONE)
 function modifier_lion_finger_of_death_death:IsHidden() return false end
 function modifier_lion_finger_of_death_death:IsPurgable() return false end
 function modifier_lion_finger_of_death_death:GetAttributes() return MODIFIER_ATTRIBUTE_MULTIPLE end
@@ -158,6 +165,24 @@ function modifier_lion_finger_of_death_death:OnTooltip()
 	return self:GetAbility():GetSpecialValueFor("damage_per_kill")
 end
 function modifier_lion_finger_of_death_death:OnRemoved()
+	if not IsServer() then return end
+	if not self:GetParent():IsAlive() then
+		self:GetParent():EmitSoundParams("Hero_Lion.KillCounter", 1, 0.5, 0)
+		self:GetCaster():AddNewModifier(self:GetCaster(), self:GetAbility(), "modifier_lion_finger_of_death_bonus", {})
+	end
+end
+
+modifier_lion_finger_of_death_punched = class({})
+LinkLuaModifier("modifier_lion_finger_of_death_punched", "heroes/hero_lion/lion_finger_of_death.lua", LUA_MODIFIER_MOTION_NONE)
+function modifier_lion_finger_of_death_punched:IsHidden() return false end
+function modifier_lion_finger_of_death_punched:IsPurgable() return false end
+function modifier_lion_finger_of_death_punched:DeclareFunctions()
+	return {MODIFIER_PROPERTY_TOOLTIP}
+end
+function modifier_lion_finger_of_death_punched:OnTooltip()
+	return self:GetAbility():GetSpecialValueFor("damage_per_kill")
+end
+function modifier_lion_finger_of_death_punched:OnRemoved()
 	if not IsServer() then return end
 	if not self:GetParent():IsAlive() then
 		self:GetParent():EmitSoundParams("Hero_Lion.KillCounter", 1, 0.5, 0)

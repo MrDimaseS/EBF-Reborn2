@@ -9,32 +9,7 @@ function item_greater_crit:RefreshCritModifiers()
 	if self:GetCaster()._currentlyRefreshingAllModifiers then return end
 	self:GetCaster()._currentlyRefreshingAllModifiers = true
 	
-	local hero = self:GetCaster()
-	for i=DOTA_ITEM_SLOT_1, DOTA_ITEM_SLOT_6 do
-		local item = hero:GetItemInSlot(i)
-		print( item )
-		if item and not item:IsInBackpack() then
-			item:OnUnequip()
-			item:OnEquip()
-		end
-	end
-	local neutralItem =	hero:GetItemInSlot(DOTA_ITEM_NEUTRAL_SLOT)  
-	if neutralItem then
-		neutralItem:OnUnequip()
-		neutralItem:OnEquip()
-	end
-	for i = 0, hero:GetAbilityCount() - 1 do
-		local ability = hero:GetAbilityByIndex( i )
-		if ability then
-			if ability:IsAttributeBonus() then
-				local passive = hero:FindModifierByName( ability:GetIntrinsicModifierName() )
-				if passive then
-					passive:Destroy()
-				end
-			end
-			ability:RefreshIntrinsicModifier()
-		end
-	end
+	self:GetCaster():RefreshAllIntrinsicModifiers()
 	Timers:CreateTimer( function() self:GetCaster()._currentlyRefreshingAllModifiers = false end )
 end
 

@@ -738,32 +738,7 @@ function CHoldoutGameMode:OnHeroLevelUp(event)
 		then
 			hero:SetAbilityPoints( hero:GetAbilityPoints() + 1)
 		end
-		for i=DOTA_ITEM_SLOT_1, DOTA_ITEM_SLOT_6 do
-			local item = hero:GetItemInSlot(i)
-			if current_item then
-				item:OnUnequip()
-				item:OnEquip()
-				item:RefreshIntrinsicModifier()
-			end
-		end
-		local neutralItem =	hero:GetItemInSlot(DOTA_ITEM_NEUTRAL_SLOT)  
-		if neutralItem then
-			neutralItem:OnUnequip()
-			neutralItem:OnEquip()
-			neutralItem:RefreshIntrinsicModifier()
-		end
-		for i = 0, hero:GetAbilityCount() - 1 do
-			local ability = hero:GetAbilityByIndex( i )
-			if ability then
-				if ability:IsAttributeBonus() then
-					local passive = hero:FindModifierByName( ability:GetIntrinsicModifierName() )
-					if passive then
-						passive:Destroy()
-					end
-				end
-				ability:RefreshIntrinsicModifier()
-			end
-		end
+		hero:RefreshAllIntrinsicModifiers()
 	end
 end
 
@@ -856,6 +831,7 @@ function CHoldoutGameMode:OnConnectFull()
 				if tostring(result.Body) ~= 'null' then
 					decoded = json.decode(result.Body)
 				end
+				print( decoded, "error?")
 				mmrTable[nPlayerID] = decoded.mmr or 3000
 				averageMMR = averageMMR + mmrTable[nPlayerID]
 				

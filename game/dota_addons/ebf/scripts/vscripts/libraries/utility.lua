@@ -756,6 +756,43 @@ function CDOTA_BaseNPC:FindModifierByNameAndAbility( modifierName, ability )
 	end
 end
 
+function CDOTA_BaseNPC:RefreshAllIntrinsicModifiers()
+	for i=DOTA_ITEM_SLOT_1, DOTA_ITEM_SLOT_6 do
+		local item = self:GetItemInSlot(i)
+		if current_item then
+			local passive = self:FindModifierByNameAndAbility( current_item:GetIntrinsicModifierName(), currentItem )
+			if passive then
+				passive:Destroy()
+			end
+			item:RefreshIntrinsicModifier()
+		end
+	end
+	local neutralItem =	self:GetItemInSlot(DOTA_ITEM_NEUTRAL_SLOT)  
+	if neutralItem then
+		local passive = self:FindModifierByNameAndAbility( neutralItem:GetIntrinsicModifierName(), neutralItem )
+		if passive then
+			passive:Destroy()
+		end
+		neutralItem:RefreshIntrinsicModifier()
+	end
+	for i = 0, self:GetAbilityCount() - 1 do
+		local ability = self:GetAbilityByIndex( i )
+		if ability then
+			local passive = self:FindModifierByNameAndAbility( ability:GetIntrinsicModifierName(), ability )
+			local stacks = 0
+			if passive then
+				stacks = passive:GetStackCount()
+				passive:Destroy()
+			end
+			ability:RefreshIntrinsicModifier()
+			passive = self:FindModifierByNameAndAbility( ability:GetIntrinsicModifierName(), ability )
+			if IsModifierSafe( passive ) then
+				passive:SetStackCount( stacks )
+			end
+		end
+	end
+end
+
 function CDOTA_BaseNPC:IsFakeHero()
 	if self:IsIllusion() 
 	or (self:HasModifier("modifier_monkey_king_fur_army_soldier") or self:HasModifier("modifier_monkey_king_fur_army_soldier_hidden")) 

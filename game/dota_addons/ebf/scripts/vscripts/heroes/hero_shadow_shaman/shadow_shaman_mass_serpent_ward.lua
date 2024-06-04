@@ -16,7 +16,7 @@ function shadow_shaman_mass_serpent_ward:OnSpellStart()
 	
 	local megaWard = self:GetSpecialValueFor("is_mega_ward") == 1
 	if megaWard then
-		self:CreateWard( spawnPos, duration, megaWard )
+		self:CreateWard( position, duration, megaWard )
 	else
 		for i = 1, wards do
 			local spawnPos = position + RotateVector2D( direction, ToRadians( angle * (i-1) ) ) * spawnRadius 
@@ -30,6 +30,7 @@ function shadow_shaman_mass_serpent_ward:CreateWard( position, duration, bMegaWa
 	local ward = caster:CreateSummon( "npc_dota_shadow_shaman_ward_1", position, duration )
 	if bMegaWard then
 		ward:SetCoreHealth( ward:GetMaxHealth() * self:GetSpecialValueFor("mega_ward_health_tooltip") )
+		ward:SetModelScale( 3.5 )
 	end
 	ward:AddNewModifier( caster, self, "modifier_shadow_shaman_mass_serpent_ward_handler", {duration = duration} )
 end

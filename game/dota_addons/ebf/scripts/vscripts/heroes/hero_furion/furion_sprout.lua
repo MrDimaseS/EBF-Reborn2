@@ -24,10 +24,10 @@ function furion_sprout:OnSpellStart()
 	end
 	local duration = self:GetSpecialValueFor("duration")
 	local vision_range = self:GetSpecialValueFor("vision_range")
-	local trees = self:GetSpecialValueFor("tree_count")
+	local trees = 8
 	local sprout_damage_radius = self:GetSpecialValueFor("sprout_damage_radius")
 	local sprout_damage = self:GetSpecialValueFor("sprout_damage")
-	local radius = self:GetSpecialValueFor("tree_radius")
+	local radius = 150 or self:GetSpecialValueFor("tree_radius")
 	local angle = math.pi/(trees/2)
 	
 	-- Creates 16 temporary trees at each 45 degree interval around the clicked point

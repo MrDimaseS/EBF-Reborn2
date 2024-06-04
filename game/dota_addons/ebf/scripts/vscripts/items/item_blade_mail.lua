@@ -1,4 +1,4 @@
-item_blade_mail = class({})
+	item_blade_mail = class({})
 
 function item_blade_mail:GetCastRange( target, position )
 	return self:GetSpecialValueFor("reflection_radius") - self:GetCaster():GetCastRangeBonus()
@@ -201,11 +201,15 @@ function modifier_item_blade_mail_passive:OnAttackLanded(params)
     local dmg = params.damage
 	local dmgtype = params.damage_type
 	local attacker = params.attacker
-	local blademailActive = hero:HasModifier( self:GetAbility():GetEffectModifier() )
+	local blademailActive = IsModifierSafe( hero:FindModifierByNameAndAbility("modifier_item_blade_mail_passive_taunt", self:GetAbility() ) )
 	
 	if not ( IsEntitySafe( attacker ) and attacker:IsAlive() ) then return end
 	if self.OnAttackLandedBehavior then self:OnAttackLandedBehavior( params ) end
-	if not attacker:IsSameTeam( hero ) and params.target == hero and GameRules:GetGameTime() > self._lastHitTime + self.internal_cd and CalculateDistance( hero, attacker ) <= self.reflection_radius then
+	if not blademailActive then
+		if GameRules:GetGameTime() < self._lastHitTime + self.internal_cd then return end
+		if CalculateDistance( hero, attacker ) > self.reflection_radius then return end
+	end
+	if not attacker:IsSameTeam( hero ) and params.target == hero then
 		local baseDamage = self.reflection_const * TernaryOperator( 1 + self.active_reflection_pct, blademailActive, 1 )
 		self:GetAbility():ApplyReturn(baseDamage, attacker)
 		if blademailActive then
@@ -254,11 +258,11 @@ end
 modifier_item_conquerors_splint_passive = class(modifier_item_blade_mail_passive)
 LinkLuaModifier( "modifier_item_conquerors_splint_passive", "items/item_blade_mail.lua" ,LUA_MODIFIER_MOTION_NONE )
 
-function modifier_item_blade_mail_passive:GetModifierConstantHealthRegen()
+function modifier_item_conquerors_splint_passive:GetModifierConstantHealthRegen()
 	return self.bonus_hp_regen
 end
 
-function modifier_item_blade_mail_passive:GetModifierPreAttack_CriticalStrike( params )
+function modifier_item_conquerors_splint_passive:GetModifierPreAttack_CriticalStrike( params )
 	local roll = RollPseudoRandomPercentage( TernaryOperator( self.reflect_crit_chance, params.target:IsAttackingEntity( params.attacker ), self.crit_chance ), DOTA_PSEUDO_RANDOM_CUSTOM_GENERIC, params.attacker )
 	if roll then
 		return self.crit_multiplier

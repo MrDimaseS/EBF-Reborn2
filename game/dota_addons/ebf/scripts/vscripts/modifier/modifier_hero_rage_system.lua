@@ -83,3 +83,7 @@ end
 function modifier_hero_rage_system:GetPriority()
 	return MODIFIER_PRIORITY_HIGH
 end
+
+function modifier_hero_rage_system:IsHidden()
+	return true
+end

@@ -89,7 +89,7 @@ function modifier_item_satanic_passive_effect:OnTakeDamage(params)
 		if self.lifeToGive > 1 then
 			local lifeGained = self.lifeToGive
 			local preHP = params.attacker:GetHealth()
-			params.attacker:HealWithParams( lifeGained, params.inflictor, false, true, self, true )
+			params.attacker:HealWithParams( lifeGained, self:GetAbility(), false, true, self, true )
 			self.lifeToGive = self.lifeToGive - math.floor(self.lifeToGive)
 			local postHP = params.attacker:GetHealth()
 			

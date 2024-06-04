@@ -330,8 +330,7 @@
 		"DOTA_Tooltip_ability_boss_axe_counter_helix_radius"                                                "RADIUS:"
 		"DOTA_Tooltip_ability_boss_axe_counter_helix_shard_damage_reduction"                                "%ATTACK REDUCTION:"
 		"DOTA_Tooltip_ability_boss_axe_counter_helix_shard_debuff_duration"                                 "DEBUFF DURATION:"
-		"DOTA_Tooltip_ability_boss_axe_counter_helix_shard_description"                                     "Counter Helix now applies a stacking debuff to enemies hit by it that causes them to deal less total attack damage to boss_axe. Counter Helix no longer has a cooldown."
-		"DOTA_Tooltip_ability_boss_axe_counter_helix_shard_max_stacks"                                      "MAX STACKS:"
+		"DOTA_Tooltip_ability_boss_axe_counter_helix_max_stacks"                              		        "MAX STACKS:"
 		"DOTA_Tooltip_ability_boss_axe_counter_helix_trigger_attacks"                                       "ATTACKS TO HELIX:"
 		"DOTA_Tooltip_modifier_boss_axe_counter_helix_damage_reduction"                                     "Counter Helix - Debuff"
 		"DOTA_Tooltip_modifier_boss_axe_counter_helix_damage_reduction_Description"                         "Damage dealt to Crimson Reaver reduced."
@@ -1647,7 +1646,9 @@
 		"DOTA_Tooltip_modifier_axe_berserkers_call_taunt"													"You are forced to attack Axe"
 		"DOTA_Tooltip_ability_axe_berserkers_call_ebf_changes"												"Berserker's Call is an aura and can taunt units after casting."
 		"DOTA_Tooltip_ability_axe_counter_helix_Description"                                                "After a set number of attacks, Axe will perform a helix counter attack, dealing pure damage to all nearby enemies.\nAttacks from hero-type units count as %hero_trigger% attacks."
-		"DOTA_Tooltip_ability_axe_counter_helix_shard_description"                                          "Counter Helix now applies a stacking debuff to enemies hit by it that causes them to deal less total attack damage to Axe. Counter Helix attacks to trigger reduced."
+		"DOTA_Tooltip_ability_axe_counter_helix_debuff_duration"											"DEBUFF DURATION:"
+		"DOTA_Tooltip_ability_axe_counter_helix_damage_reduction"											"%ATTACK REDUCTION:"
+		"DOTA_Tooltip_ability_axe_counter_helix_max_stacks"													"MAX STACKS:"	
 		"DOTA_Tooltip_modifier_axe_counter_helix_passive"													"Attacks count"
 		"DOTA_Tooltip_ability_axe_counter_helix_ebf_changes"												"Creeps trigger Counterhelix less often compared to heroes."
 		"DOTA_Tooltip_ability_axe_culling_blade_Description"                                                "Axe spots a weakness and strikes, dealing pure damage. When an enemy hero is killed with Culling Blade or within %grace_period% of it landing, its cooldown is reduced by %hero_cd_reduction%%%, Axe gains bonus armor permanently and all nearby allied units gain bonus movement speed.\nCooldown is not reduced when a creep is killed."
@@ -1890,7 +1891,10 @@
 		"DOTA_Tooltip_ability_life_stealer_open_wounds_Description"											"Lifestealer rends an enemy unit, slowing the victim's movement speed and allowing all allies to regain health for a percentage of the damage they deal to that unit. All damage dealt will steal life, including damage from spells. The victim recovers movement speed over the duration.\nAdditionally, any hero that attacks the target benefits from Feast, doubled for Lifestealer.\nAfter receiving %damage_threshold%%% of their maximum health as damage, the Open Wounds fester and spread to a non-infected random enemy within %spread_radius% radius."
 		"DOTA_Tooltip_modifier_life_stealer_open_wounds_feast"												"Open Wounds - Feast"
 		"DOTA_Tooltip_modifier_life_stealer_open_wounds_feast_Description"									"Benefiting from Lifestealer's Feast against your attack target."
-
+		
+		// Lina
+		"DOTA_Tooltip_ability_lina_fiery_soul_shard_description"											"Lina's abilities deal %bonus_spell_damage% more damage for each Fiery Soul Charge."
+		
 		//Lion
 		"DOTA_Tooltip_ability_lion_finger_of_death_ebf"                                                     "Finger of Death"
 		"DOTA_Tooltip_ability_lion_finger_of_death_ebf_cast_range"                                          "CAST RANGE:"
@@ -1909,6 +1913,10 @@
 		"DOTA_Tooltip_ability_lion_finger_of_death_ebf_splash_radius_scepter"                               "SCEPTER AREA OF EFFECT:"
 		"DOTA_Tooltip_modifier_lion_finger_of_death_bonus"													"Finger of Death"
 		"DOTA_Tooltip_modifier_lion_finger_of_death_bonus_Description"										"Finger of Death gaining +%dMODIFIER_PROPERTY_TOOLTIP% damage."
+		"DOTA_Tooltip_modifier_lion_finger_of_death_death"													"Finger of Death - Fingered"
+		"DOTA_Tooltip_modifier_lion_finger_of_death_death_Description"										"Dying will increase Finger of Death's damage by +%dMODIFIER_PROPERTY_TOOLTIP%."
+		"DOTA_Tooltip_modifier_lion_finger_of_death_punched"												"Fist of Death - Punched"
+		"DOTA_Tooltip_modifier_lion_finger_of_death_punched_Description"									"Dying will increase Finger of Death's damage by +%dMODIFIER_PROPERTY_TOOLTIP%."
 		
 
 		//Lone Druid
@@ -2699,6 +2707,7 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_earthshaker_5"                                           "+{s:bonus_aftershock_range}% Aftershock Radius"
 		"DOTA_Tooltip_ability_special_bonus_unique_earthshaker_6" 											"+{s:bonus_aftershock_damage}% Aftershock Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_elder_titan_2"                                           "+{s:bonus_stomp_damage}% Echo Stomp Damage"
+		"DOTA_Tooltip_ability_special_bonus_unique_elder_titan_3"											"-{s:bonus_AbilityCooldown}% Earth Splitter Cooldown"
 		"DOTA_Tooltip_ability_special_bonus_unique_elder_titan_4"                                           "+{s:bonus_wake_damage_limit}% Echo Stomp Wake Threshold"
 		"DOTA_Tooltip_ability_special_bonus_unique_ember_spirit_1"											"+{s:bonus_absorb_amount}% Flame Guard Barrier Amount"
 		"DOTA_Tooltip_ability_special_bonus_unique_ember_spirit_3"											"+{s:bonus_active_damage_per_second}% Flame Guard DPS"
@@ -2714,6 +2723,7 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_furion_5"												"+{s:bonus_damage}% Wrath of Nature Base Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_furion_7"                                                "Sprout Trees Create {s:value} Greater Treant"
 		"DOTA_Tooltip_ability_special_bonus_unique_furion_7_Description"                                    "The first 2 Sprout Trees that are destroyed create a Greater Treant in their place."
+		"DOTA_Tooltip_ability_special_bonus_unique_furion_teleportation_barrier"							"+{s:bonus_barrier}% Teleportation Barrier"	
 		"DOTA_Tooltip_ability_special_bonus_unique_grimstroke_5"                                            "+{s:value}% Ink Swell Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_grimstroke_8"											"+{s:bonus_damage_per_second}% Phantom's Embrace DPS"
 		"DOTA_Tooltip_ability_special_bonus_unique_gyrocopter_2"											"{s:bonus_max_attacks}x Flak Cannon Attacks"	
@@ -2757,7 +2767,7 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_luna_3"                                                  "+{s:bonus_bonus_damage}% Lunar Blessing Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_magnus"                                                  "+{s:bonus_shock_damage}% Shockwave Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_marci_grapple_damage"                                    "+{s:bonus_impact_damage}% Dispose Damage"
-		"DOTA_Tooltip_ability_special_bonus_unique_marci_lunge_damage"                                      "+{s:value}% Rebound Damage"
+		"DOTA_Tooltip_ability_special_bonus_unique_marci_lunge_damage"                                      "+{s:bonus_impact_damage}% Rebound Damage"
     	"DOTA_Tooltip_ability_special_bonus_unique_marci_lunge_range"										"+{s:bonus_max_jump_distance}% Rebound Cast/Jump Range"
 		"DOTA_Tooltip_ability_special_bonus_unique_marci_guardian_damage"									"+{s:bonus_bonus_damage}% Sidekick Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_mars_spear_bonus_damage"                                 "+{s:value}% Spear Of Mars Damage"
@@ -2795,6 +2805,7 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_nyx_2"                                                   "+{s:value}% Impale Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_nyx_5"                                                   "+{s:bonus_float_multiplier}% Max Mana Burn Damage Multiplier"
 		"DOTA_Tooltip_ability_special_bonus_unique_nyx_vendetta_damage"										"+{s:bonus_bonus_damage}% Vendetta Damage"
+		"DOTA_Tooltip_ability_special_bonus_unique_nyx_jolt_cooldown"										"-{s:bonus_AbilityCooldown}s Mana Burn Cooldown"
 		"DOTA_Tooltip_ability_special_bonus_unique_ogre_magi"                                   	        "+{s:bonus_bonus_attack_speed}% Bloodlust Attack Speed"
 		"DOTA_Tooltip_ability_special_bonus_unique_ogre_magi_2"                                             "+{s:bonus_fireblast_damage}% Fireblast Damage"
 		"DOTA_Tooltip_ability_special_bonus_unique_ogre_magi_4"												"+{s:bonus_burn_damage}% Ignite DPS"
@@ -3226,7 +3237,7 @@
 		"DOTA_Tooltip_ability_item_bfury2_Lore"                                                             "Used in war to destroy waves of enemies."
 		
 		
-		"DOTA_Tooltip_ability_item_blade_mail_Description"                                                  "<h1>Active: Wall of Spikes</h1>For %duration% seconds, the damage returned is increased by %active_reflection_pct%%%.\n<h1>Passive: Damage Return</h1>Every time you are attacked by a unit within %reflection_radius%, you return %passive_reflection_constant% damage; this has a %internal_cd% second internal cooldown."
+		"DOTA_Tooltip_ability_item_blade_mail_Description"                                                  "<h1>Active: Wall of Spikes</h1>For %duration% seconds, the damage returned is increased by %active_reflection_pct%%% and the internal cooldown is removed.\n<h1>Passive: Damage Return</h1>Every time you are attacked by a unit within %reflection_radius%, you return %passive_reflection_constant% damage; this has a %internal_cd% second internal cooldown."
 		"DOTA_Tooltip_modifier_blade_mail_taunt"                                                            "Wall of Spikes"
 		"DOTA_Tooltip_modifier_blade_mail_taunt_Description"                                                "Return damage doubled."
 		
@@ -3235,7 +3246,7 @@
 
 		// Martyr's Bulwark
 		"DOTA_Tooltip_ability_item_martyrs_bulwark"															"Martyr's Bulwark"
-		"DOTA_Tooltip_ability_item_martyrs_bulwark_Description"												"<h1>Active: Wreath of Lightning</h1>You become Storm-charged for %duration% seconds<br><br>While Storm-charged, <b>Chain Lightning</b> triggers on every attack made by or dealt to you.\n<h1>Passive: Static Damage Return</h1>Every time you are attacked by a unit within %reflection_radius%, you return %passive_reflection_constant% magical damage; this has a %internal_cd% second internal cooldown and has a %chain_chance%%% chance of releasing a <b>Chain Lightning</b> instead.\n<h1>Passive: Chain Lightning</h1>Your attacks have a %chain_chance%%% chance to ignore evasion and deal %chain_damage% magical damage which bounces to up %chain_strikes% additional targets within %chain_radius% range."
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_Description"												"<h1>Active: Wreath of Lightning</h1>You become Storm-charged for %duration% seconds<br><br>While Storm-charged, <b>Chain Lightning</b> triggers on every attack made by or dealt to you and the internal cooldown is removed.\n<h1>Passive: Static Damage Return</h1>Every time you are attacked by a unit within %reflection_radius%, you return %passive_reflection_constant% magical damage; this has a %internal_cd% second internal cooldown and has a %chain_chance%%% chance of releasing a <b>Chain Lightning</b> instead.\n<h1>Passive: Chain Lightning</h1>Your attacks have a %chain_chance%%% chance to ignore evasion and deal %chain_damage% magical damage which bounces to up %chain_strikes% additional targets within %chain_radius% range."
 		"DOTA_Tooltip_ability_item_martyrs_bulwark_bonus_damage"                                            "+$damage"
 		"DOTA_Tooltip_ability_item_martyrs_bulwark_bonus_armor"												"+$armor"
 		"DOTA_Tooltip_ability_item_martyrs_bulwark_bonus_all"												"+$all"
@@ -3243,7 +3254,7 @@
 		"DOTA_Tooltip_ability_item_martyrs_bulwark_bonus_attack_speed"										"+$attack"
 		
 		"DOTA_Tooltip_ability_item_martyrs_bulwark_2"														"Shade's Bulwark"
-		"DOTA_Tooltip_ability_item_martyrs_bulwark_2_Description"											"<h1>Active: Wreath of Lightning</h1>You become Storm-charged for %duration% seconds<br><br>While Storm-charged, <b>Chain Lightning</b> triggers on every attack made by or dealt to you.\n<h1>Passive: Static Damage Return</h1>Every time you are attacked by a unit within %reflection_radius%, you return %passive_reflection_constant% magical damage; this has a %internal_cd% second internal cooldown and has a %chain_chance%%% chance of releasing a <b>Chain Lightning</b> instead.\n<h1>Passive: Chain Lightning</h1>Your attacks have a %chain_chance%%% chance to ignore evasion and deal %chain_damage% magical damage which bounces to up %chain_strikes% additional targets within %chain_radius% range."
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_2_Description"											"<h1>Active: Wreath of Lightning</h1>You become Storm-charged for %duration% seconds<br><br>While Storm-charged, <b>Chain Lightning</b> triggers on every attack made by or dealt to you and the internal cooldown is removed.\n<h1>Passive: Static Damage Return</h1>Every time you are attacked by a unit within %reflection_radius%, you return %passive_reflection_constant% magical damage; this has a %internal_cd% second internal cooldown and has a %chain_chance%%% chance of releasing a <b>Chain Lightning</b> instead.\n<h1>Passive: Chain Lightning</h1>Your attacks have a %chain_chance%%% chance to ignore evasion and deal %chain_damage% magical damage which bounces to up %chain_strikes% additional targets within %chain_radius% range."
 		"DOTA_Tooltip_ability_item_martyrs_bulwark_2_bonus_damage"                                          "+$damage"
 		"DOTA_Tooltip_ability_item_martyrs_bulwark_2_bonus_armor"											"+$armor"
 		"DOTA_Tooltip_ability_item_martyrs_bulwark_2_bonus_all"												"+$all"
@@ -3251,7 +3262,7 @@
 		"DOTA_Tooltip_ability_item_martyrs_bulwark_2_bonus_attack_speed"									"+$attack"
 		
 		"DOTA_Tooltip_ability_item_martyrs_bulwark_3"														"Hellion's Bulwark"
-		"DOTA_Tooltip_ability_item_martyrs_bulwark_3_Description"											"<h1>Active: Wreath of Lightning</h1>You become Storm-charged for %duration% seconds<br><br>While Storm-charged, <b>Chain Lightning</b> triggers on every attack made by or dealt to you.\n<h1>Passive: Static Damage Return</h1>Every time you are attacked by a unit within %reflection_radius%, you return %passive_reflection_constant% magical damage; this has a %internal_cd% second internal cooldown and has a %chain_chance%%% chance of releasing a <b>Chain Lightning</b> instead.\n<h1>Passive: Chain Lightning</h1>Your attacks have a %chain_chance%%% chance to ignore evasion and deal %chain_damage% magical damage which bounces to up %chain_strikes% additional targets within %chain_radius% range."
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_3_Description"											"<h1>Active: Wreath of Lightning</h1>You become Storm-charged for %duration% seconds<br><br>While Storm-charged, <b>Chain Lightning</b> triggers on every attack made by or dealt to you and the internal cooldown is removed.\n<h1>Passive: Static Damage Return</h1>Every time you are attacked by a unit within %reflection_radius%, you return %passive_reflection_constant% magical damage; this has a %internal_cd% second internal cooldown and has a %chain_chance%%% chance of releasing a <b>Chain Lightning</b> instead.\n<h1>Passive: Chain Lightning</h1>Your attacks have a %chain_chance%%% chance to ignore evasion and deal %chain_damage% magical damage which bounces to up %chain_strikes% additional targets within %chain_radius% range."
 		"DOTA_Tooltip_ability_item_martyrs_bulwark_3_bonus_damage"                                          "+$damage"
 		"DOTA_Tooltip_ability_item_martyrs_bulwark_3_bonus_armor"											"+$armor"
 		"DOTA_Tooltip_ability_item_martyrs_bulwark_3_bonus_all"												"+$all"
@@ -3259,7 +3270,7 @@
 		"DOTA_Tooltip_ability_item_martyrs_bulwark_3_bonus_attack_speed"									"+$attack"
 		
 		"DOTA_Tooltip_ability_item_martyrs_bulwark_4"														"Angel's Bulwark"
-		"DOTA_Tooltip_ability_item_martyrs_bulwark_4_Description"											"<h1>Active: Wreath of Lightning</h1>You become Storm-charged for %duration% seconds<br><br>While Storm-charged, <b>Chain Lightning</b> triggers on every attack made by or dealt to you.\n<h1>Passive: Static Damage Return</h1>Every time you are attacked by a unit within %reflection_radius%, you return %passive_reflection_constant% magical damage; this has a %internal_cd% second internal cooldown and has a %chain_chance%%% chance of releasing a <b>Chain Lightning</b> instead.\n<h1>Passive: Chain Lightning</h1>Your attacks have a %chain_chance%%% chance to ignore evasion and deal %chain_damage% magical damage which bounces to up %chain_strikes% additional targets within %chain_radius% range."
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_4_Description"											"<h1>Active: Wreath of Lightning</h1>You become Storm-charged for %duration% seconds<br><br>While Storm-charged, <b>Chain Lightning</b> triggers on every attack made by or dealt to you and the internal cooldown is removed.\n<h1>Passive: Static Damage Return</h1>Every time you are attacked by a unit within %reflection_radius%, you return %passive_reflection_constant% magical damage; this has a %internal_cd% second internal cooldown and has a %chain_chance%%% chance of releasing a <b>Chain Lightning</b> instead.\n<h1>Passive: Chain Lightning</h1>Your attacks have a %chain_chance%%% chance to ignore evasion and deal %chain_damage% magical damage which bounces to up %chain_strikes% additional targets within %chain_radius% range."
 		"DOTA_Tooltip_ability_item_martyrs_bulwark_4_bonus_damage"                                          "+$damage"
 		"DOTA_Tooltip_ability_item_martyrs_bulwark_4_bonus_armor"											"+$armor"
 		"DOTA_Tooltip_ability_item_martyrs_bulwark_4_bonus_all"												"+$all"
@@ -3267,7 +3278,7 @@
 		"DOTA_Tooltip_ability_item_martyrs_bulwark_4_bonus_attack_speed"									"+$attack"
 		
 		"DOTA_Tooltip_ability_item_martyrs_bulwark_5"														"Nothingness' Bulwark"
-		"DOTA_Tooltip_ability_item_martyrs_bulwark_5_Description"											"<h1>Active: Wreath of Lightning</h1>You become Storm-charged for %duration% seconds<br><br>While Storm-charged, <b>Chain Lightning</b> triggers on every attack made by or dealt to you.\n<h1>Passive: Static Damage Return</h1>Every time you are attacked by a unit within %reflection_radius%, you return %passive_reflection_constant% magical damage; this has a %internal_cd% second internal cooldown and has a %chain_chance%%% chance of releasing a <b>Chain Lightning</b> instead.\n<h1>Passive: Chain Lightning</h1>Your attacks have a %chain_chance%%% chance to ignore evasion and deal %chain_damage% magical damage which bounces to up %chain_strikes% additional targets within %chain_radius% range."
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_5_Description"											"<h1>Active: Wreath of Lightning</h1>You become Storm-charged for %duration% seconds<br><br>While Storm-charged, <b>Chain Lightning</b> triggers on every attack made by or dealt to you and the internal cooldown is removed.\n<h1>Passive: Static Damage Return</h1>Every time you are attacked by a unit within %reflection_radius%, you return %passive_reflection_constant% magical damage; this has a %internal_cd% second internal cooldown and has a %chain_chance%%% chance of releasing a <b>Chain Lightning</b> instead.\n<h1>Passive: Chain Lightning</h1>Your attacks have a %chain_chance%%% chance to ignore evasion and deal %chain_damage% magical damage which bounces to up %chain_strikes% additional targets within %chain_radius% range."
 		"DOTA_Tooltip_ability_item_martyrs_bulwark_5_bonus_damage"                                          "+$damage"
 		"DOTA_Tooltip_ability_item_martyrs_bulwark_5_bonus_armor"											"+$armor"
 		"DOTA_Tooltip_ability_item_martyrs_bulwark_5_bonus_all"												"+$all"
@@ -3276,35 +3287,35 @@
 		
 		// Conqueror's Splint
 		"DOTA_Tooltip_ability_item_conquerors_splint"														"Conqueror's Splint"
-		"DOTA_Tooltip_ability_item_conquerors_splint_Description"                                           "<h1>Active: Conqueror's Presence</h1>For %duration% seconds, the damage returned is increased by %active_reflection_pct%%% and enemies within %reflection_radius% units of you can only attack you.\n<h1>Passive: Returning Strike</h1>Every time you are attacked by a unit within %reflection_radius%, you counter-attack, dealing %passive_reflection_constant% + %passive_reflect_pct%%% of your attack damage; this has a %internal_cd% second internal cooldown.\n<h1>Passive: Vengeful Strike</h1>Grants each attack a %crit_chance%%% chance to deal %crit_multiplier%%% damage.<br><br>The chance to deal critical damage is increased to %reflect_crit_chance%%% against units attacking you."
+		"DOTA_Tooltip_ability_item_conquerors_splint_Description"                                           "<h1>Active: Conqueror's Presence</h1>For %duration% seconds, the damage returned is increased by %active_reflection_pct%%%, the internal cooldown is removed and enemies within %reflection_radius% units of you can only attack you.\n<h1>Passive: Returning Strike</h1>Every time you are attacked by a unit within %reflection_radius%, you counter-attack, dealing %passive_reflection_constant% + %passive_reflect_pct%%% of your attack damage; this has a %internal_cd% second internal cooldown.\n<h1>Passive: Vengeful Strike</h1>Grants each attack a %crit_chance%%% chance to deal %crit_multiplier%%% damage.<br><br>The chance to deal critical damage is increased to %reflect_crit_chance%%% against units attacking you."
 		"DOTA_Tooltip_ability_item_conquerors_splint_5_Note0"                                       		"Cleave is suppressed."
 		"DOTA_Tooltip_ability_item_conquerors_splint_bonus_damage"                                          "+$damage"
 		"DOTA_Tooltip_ability_item_conquerors_splint_bonus_armor"											"+$armor"
 		"DOTA_Tooltip_ability_item_conquerors_splint_bonus_hp_regen"										"+$hp_regen"
 		
 		"DOTA_Tooltip_ability_item_conquerors_splint_2"														"Conqueror's Ward"
-		"DOTA_Tooltip_ability_item_conquerors_splint_2_Description"                                         "<h1>Active: Conqueror's Presence</h1>For %duration% seconds, the damage returned is increased by %active_reflection_pct%%% and enemies within %reflection_radius% units of you can only attack you.\n<h1>Passive: Returning Strike</h1>Every time you are attacked by a unit within %reflection_radius%, you counter-attack, dealing %passive_reflection_constant% + %passive_reflect_pct%%% of your attack damage; this has a %internal_cd% second internal cooldown.\n<h1>Passive: Vengeful Strike</h1>Grants each attack a %crit_chance%%% chance to deal %crit_multiplier%%% damage.<br><br>The chance to deal critical damage is increased to %reflect_crit_chance%%% against units attacking you."
+		"DOTA_Tooltip_ability_item_conquerors_splint_2_Description"                                         "<h1>Active: Conqueror's Presence</h1>For %duration% seconds, the damage returned is increased by %active_reflection_pct%%%, the internal cooldown is removed and enemies within %reflection_radius% units of you can only attack you.\n<h1>Passive: Returning Strike</h1>Every time you are attacked by a unit within %reflection_radius%, you counter-attack, dealing %passive_reflection_constant% + %passive_reflect_pct%%% of your attack damage; this has a %internal_cd% second internal cooldown.\n<h1>Passive: Vengeful Strike</h1>Grants each attack a %crit_chance%%% chance to deal %crit_multiplier%%% damage.<br><br>The chance to deal critical damage is increased to %reflect_crit_chance%%% against units attacking you."
 		"DOTA_Tooltip_ability_item_conquerors_splint_5_Note0"                                       		"Cleave is suppressed."
 		"DOTA_Tooltip_ability_item_conquerors_splint_2_bonus_damage"                                        "+$damage"
 		"DOTA_Tooltip_ability_item_conquerors_splint_2_bonus_armor"											"+$armor"
 		"DOTA_Tooltip_ability_item_conquerors_splint_2_bonus_hp_regen"										"+$hp_regen"
 		
 		"DOTA_Tooltip_ability_item_conquerors_splint_3"														"Conqueror's Hellplate"
-		"DOTA_Tooltip_ability_item_conquerors_splint_3_Description"                                        "<h1>Active: Conqueror's Presence</h1>For %duration% seconds, the damage returned is increased by %active_reflection_pct%%% and enemies within %reflection_radius% units of you can only attack you.\n<h1><h1>Passive: Returning Strike</h1>Every time you are attacked by a unit within %reflection_radius%, you counter-attack, dealing %passive_reflection_constant% + %passive_reflect_pct%%% of your attack damage; this has a %internal_cd% second internal cooldown.\n<h1>Passive: Vengeful Strike</h1>Grants each attack a %crit_chance%%% chance to deal %crit_multiplier%%% damage.<br><br>The chance to deal critical damage is increased to %reflect_crit_chance%%% against units attacking you."
+		"DOTA_Tooltip_ability_item_conquerors_splint_3_Description"                                        "<h1>Active: Conqueror's Presence</h1>For %duration% seconds, the damage returned is increased by %active_reflection_pct%%%, the internal cooldown is removed and enemies within %reflection_radius% units of you can only attack you.\n<h1><h1>Passive: Returning Strike</h1>Every time you are attacked by a unit within %reflection_radius%, you counter-attack, dealing %passive_reflection_constant% + %passive_reflect_pct%%% of your attack damage; this has a %internal_cd% second internal cooldown.\n<h1>Passive: Vengeful Strike</h1>Grants each attack a %crit_chance%%% chance to deal %crit_multiplier%%% damage.<br><br>The chance to deal critical damage is increased to %reflect_crit_chance%%% against units attacking you."
 		"DOTA_Tooltip_ability_item_conquerors_splint_5_Note0"                                       		"Cleave is suppressed."
 		"DOTA_Tooltip_ability_item_conquerors_splint_3_bonus_damage"                                        "+$damage"
 		"DOTA_Tooltip_ability_item_conquerors_splint_3_bonus_armor"											"+$armor"
 		"DOTA_Tooltip_ability_item_conquerors_splint_3_bonus_hp_regen"										"+$hp_regen"
 		
 		"DOTA_Tooltip_ability_item_conquerors_splint_4"														"Conqueror's Regalia"
-		"DOTA_Tooltip_ability_item_conquerors_splint_4_Description"                                         "<h1>Active: Conqueror's Presence</h1>For %duration% seconds, the damage returned is increased by %active_reflection_pct%%% and enemies within %reflection_radius% units of you can only attack you.\n<h1>Passive: Returning Strike</h1>Every time you are attacked by a unit within %reflection_radius%, you counter-attack, dealing %passive_reflection_constant% + %passive_reflect_pct%%% of your attack damage; this has a %internal_cd% second internal cooldown.\n<h1>Passive: Vengeful Strike</h1>Grants each attack a %crit_chance%%% chance to deal %crit_multiplier%%% damage.<br><br>The chance to deal critical damage is increased to %reflect_crit_chance%%% against units attacking you."
+		"DOTA_Tooltip_ability_item_conquerors_splint_4_Description"                                         "<h1>Active: Conqueror's Presence</h1>For %duration% seconds, the damage returned is increased by %active_reflection_pct%%%, the internal cooldown is removed and enemies within %reflection_radius% units of you can only attack you.\n<h1>Passive: Returning Strike</h1>Every time you are attacked by a unit within %reflection_radius%, you counter-attack, dealing %passive_reflection_constant% + %passive_reflect_pct%%% of your attack damage; this has a %internal_cd% second internal cooldown.\n<h1>Passive: Vengeful Strike</h1>Grants each attack a %crit_chance%%% chance to deal %crit_multiplier%%% damage.<br><br>The chance to deal critical damage is increased to %reflect_crit_chance%%% against units attacking you."
 		"DOTA_Tooltip_ability_item_conquerors_splint_5_Note0"                                       		"Cleave is suppressed."
 		"DOTA_Tooltip_ability_item_conquerors_splint_4_bonus_damage"                                        "+$damage"
 		"DOTA_Tooltip_ability_item_conquerors_splint_4_bonus_armor"											"+$armor"
 		"DOTA_Tooltip_ability_item_conquerors_splint_4_bonus_hp_regen"										"+$hp_regen"
 		
 		"DOTA_Tooltip_ability_item_conquerors_splint_5"														"Conqueror's Abandon"
-		"DOTA_Tooltip_ability_item_conquerors_splint_5_Description"                                       	"<h1>Active: Conqueror's Presence</h1>For %duration% seconds, the damage returned is increased by %active_reflection_pct%%% and enemies within %reflection_radius% units of you can only attack you.\n<h1>Passive: Returning Strike</h1>Everytime you are attacked by a unit within %reflection_radius%, you counter-attack, dealing %passive_reflection_constant% + %passive_reflect_pct%%% of your attack damage; this has a %internal_cd% second internal cooldown.\n<h1>Passive: Vengeful Strike</h1>Grants each attack a %crit_chance%%% chance to deal %crit_multiplier%%% damage.<br><br>The chance to deal critical damage is increased to %reflect_crit_chance%%% against units attacking you."
+		"DOTA_Tooltip_ability_item_conquerors_splint_5_Description"                                       	"<h1>Active: Conqueror's Presence</h1>For %duration% seconds, the damage returned is increased by %active_reflection_pct%%%, the internal cooldown is removed and enemies within %reflection_radius% units of you can only attack you.\n<h1>Passive: Returning Strike</h1>Everytime you are attacked by a unit within %reflection_radius%, you counter-attack, dealing %passive_reflection_constant% + %passive_reflect_pct%%% of your attack damage; this has a %internal_cd% second internal cooldown.\n<h1>Passive: Vengeful Strike</h1>Grants each attack a %crit_chance%%% chance to deal %crit_multiplier%%% damage.<br><br>The chance to deal critical damage is increased to %reflect_crit_chance%%% against units attacking you."
 		"DOTA_Tooltip_ability_item_conquerors_splint_5_Note0"                                       		"Cleave is suppressed."
 		"DOTA_Tooltip_ability_item_conquerors_splint_5_bonus_damage"                                        "+$damage"
 		"DOTA_Tooltip_ability_item_conquerors_splint_5_bonus_armor"											"+$armor"

@@ -209,7 +209,11 @@ end
 function CDOTA_BaseNPC:PerformGenericAttack(target, immediate, bNeverMiss, flBonusDamage, flDamagePct, bSuppressCleave )
 	local neverMiss = false
 	
-	self._suppressCleave = bSuppressCleave or false
+	self._suppressCleave = false
+	if bSuppressCleave then
+		self._suppressCleave = bSuppressCleave
+		self:AddNewModifier(caster, nil, "modifier_generic_suppress_cleave", {})
+	end
 	if bNeverMiss == true then neverMiss = true end
 	if flDamagePct and flDamagePct ~= 0 then
 		self:AddNewModifier(caster, nil, "modifier_generic_attack_bonus_pct", {damage = flDamagePct})
@@ -222,11 +226,12 @@ function CDOTA_BaseNPC:PerformGenericAttack(target, immediate, bNeverMiss, flBon
 	self:PerformAttack(target, true, true, true, false, not immediate, false, neverMiss)
 	self:RemoveModifierByName("modifier_generic_attack_bonus")
 	self:RemoveModifierByName("modifier_generic_attack_bonus_pct")
+	self:RemoveModifierByName("modifier_generic_suppress_cleave")
 	self._suppressCleave = false
 end
 
 function CDOTA_BaseNPC:IsCleaveSuppressed()
-	return self._suppressCleave
+	return self._suppressCleave or self:HasModifier("modifier_generic_suppress_cleave")
 end
 
 function CDOTA_Modifier_Lua:AttachEffect(pID)

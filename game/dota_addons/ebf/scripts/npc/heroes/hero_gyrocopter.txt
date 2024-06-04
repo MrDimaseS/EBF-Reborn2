@@ -97,8 +97,12 @@
 				"LinkedSpecialBonus"	"special_bonus_unique_gyrocopter_6"
 			}
 			"attack_speed_bonus_pct"	"400 400 400 400"
-			"min_damage"				"50"
-			"max_distance"				"1500"
+			"hit_damage"
+			{
+				"value"					"900 1800 2700 3600 4500 5400 6300"
+				"special_bonus_unique_gyrocopter_homing_missile_damage"		"+25%"
+				"CalculateSpellDamageTooltip"	"1"
+			}
 			"pre_flight_time"			"2.5"
 			"hero_damage"				"2"
 			"speed"						"500"
@@ -118,12 +122,7 @@
 			{
 				"value"							"725"
 				"RequiresShard"				"1"
-			}
-			"AbilityDamage"
-			{
-				"value"							"900 1800 2700 3600 4500 5400 6300"
-				"CalculateSpellDamageTooltip"	"1"
-			}					
+			}				
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -156,12 +155,16 @@
 
 		//Duration
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDuration"				"10"
 						
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"AbilityDuration"
+			{
+				"value"								"12"
+				"special_bonus_unique_gyrocopter_2"	"x2"
+			}
 			"radius"
 			{
 				"value"									"1000"

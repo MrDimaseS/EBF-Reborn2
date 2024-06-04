@@ -66,7 +66,7 @@ function modifier_batrider_sticky_napalm_debuff:OnRefresh(table)
 	self.max_stacks = self:GetSpecialValueFor("max_stacks")
 	self.turnRate = self:GetSpecialValueFor("turn_rate_pct")
 	self.application_damage = self:GetSpecialValueFor("application_damage")
-	self.hero_damage_pct = self:GetSpecialValueFor("hero_damage_pct") / 100
+	self.hero_damage_pct = 1-self:GetSpecialValueFor("hero_damage_pct") / 100
 	if IsServer() then
 		self:SetStackCount( math.min(self:GetStackCount() + 1, self.max_stacks) )
 		ParticleManager:SetParticleControl(self.nfx, 1, Vector(math.floor(self:GetStackCount() / 10), self:GetStackCount() % 10, 0))

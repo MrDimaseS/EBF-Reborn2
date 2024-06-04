@@ -697,7 +697,6 @@ function CHoldoutGameMode:OnHeroPick (event)
 	hero.damage_taken_ingame = 0
 	hero.damage_healed_ingame = 0
 	
-	print( hero:GetUnitName() )
 	hero._heroManaType = GameRules.HeroKV[hero:GetUnitName()].ManaType or "Mana"
 	
 	if hero:GetManaType() == "Mana" then

@@ -400,7 +400,7 @@ function UpdateStatsTooltip(){
 	strValues.text = (Math.floor((stats.strength * 22)*10 + 0.5)/10) + ' HP and ' + Math.floor((stats.strength * 0.008)*10 + 0.5) / 10 + '% Incoming Healing Amp'
 	if(strContainer.BHasClass( "PrimaryAttribute") ){
 		const strDamage = strContainer.FindChildTraverse('StrengthDamageLabel');
-		strDamage.text = (Math.floor((stats.strength * 1.5)*10 + 0.5)/10) + ' Damage and ' + (Math.floor((stats.strength * 11)*10 + 0.5)/10) + ' HP';
+		strDamage.text = (Math.floor((stats.strength * 1.5)*10 + 0.5)/10) + ' Damage, ' + (Math.floor((stats.intellect * 0.02)*10 + 0.5)/10) + ' and ' + (Math.floor((stats.strength * 11)*10 + 0.5)/10) + ' HP';
 	}
 	
 	const agiContainer = attributesContainer.FindChildTraverse('AgilityContainer');
@@ -413,7 +413,7 @@ function UpdateStatsTooltip(){
 	agiValues.text = (Math.floor((stats.agility * 1.5)*10 + 0.5)/10) + ' Damage, ' + Math.floor(agilityArmor*10 + 0.5)/10 + ' Armor and ' + Math.floor(agilityAttackSpeed*10 + 0.5)/10 + ' Attack Speed'
 	if( agiContainer.BHasClass( "PrimaryAttribute") ){
 		const agiDamage = agiContainer.FindChildTraverse('AgilityDamageLabel');
-		agiDamage.text = (Math.floor((stats.agility * 1.5)*10 + 0.5)/10) + ' Damage and ' + (Math.floor((stats.agility * 11)*10 + 0.5)/10) + ' HP';
+		agiDamage.text = (Math.floor((stats.agility * 1.5)*10 + 0.5)/10) + ' Damage, ' + (Math.floor((stats.intellect * 0.02)*10 + 0.5)/10) + ' and ' + (Math.floor((stats.agility * 11)*10 + 0.5)/10) + ' HP';
 	}
 	
 	const intContainer = attributesContainer.FindChildTraverse('IntelligenceContainer');
@@ -425,7 +425,7 @@ function UpdateStatsTooltip(){
 	intValues.text = (Math.floor((stats.intellect*0.01)*10 + 0.5)/10) + '% MP Restore Amp, ' + (Math.floor((stats.intellect*0.02)*10 + 0.5)/10) + '% Spell Amp and ' + Math.floor(intMR*10 + 0.5)/10 + '% Magic Resist'
 	if(intContainer.BHasClass( "PrimaryAttribute") ){
 		const intDamage = intContainer.FindChildTraverse('IntelligenceDamageLabel');
-		intDamage.text = (Math.floor((stats.intellect * 1.5)*10 + 0.5)/10) + ' Damage and ' + (Math.floor((stats.intellect * 11)*10 + 0.5)/10) + ' HP';
+		intDamage.text = (Math.floor((stats.intellect * 1.5)*10 + 0.5)/10) + ' Damage, ' + (Math.floor((stats.intellect * 0.02)*10 + 0.5)/10) + ' and ' + (Math.floor((stats.intellect * 11)*10 + 0.5)/10) + ' HP';
 	}
 	
 	const allContainer = attributesContainer.FindChildTraverse('AllContainer');

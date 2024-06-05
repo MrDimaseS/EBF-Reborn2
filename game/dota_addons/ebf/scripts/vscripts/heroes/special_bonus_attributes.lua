@@ -143,7 +143,7 @@ function modifier_special_bonus_attributes_stat_rescaling:OnCreated()
 		self.baseManaRegen = 0
 	end
 
-	self.bonusSpellAmp = 0.03
+	self.bonusSpellAmp = 0.02
 	self.bonusDamage = 1.5
 	self.baseMR = 15
 	
@@ -491,18 +491,18 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierBaseAttack_
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierSpellAmplify_Percentage()
-	local SPELL_AMP_PRIMARY = 0.00
-	local SPELL_AMP_UNIVERSAL = 0.03
+	local SPELL_AMP_PRIMARY = 0.02
+	local SPELL_AMP_UNIVERSAL = 0.015
 	local bonusSpellAmp = 0
-	-- if self:GetStackCount() == DOTA_ATTRIBUTE_STRENGTH then
-		-- bonusSpellAmp =  self:GetParent():GetStrength() * SPELL_AMP_PRIMARY
-	-- elseif self:GetStackCount() == DOTA_ATTRIBUTE_AGILITY then
-		-- bonusSpellAmp =  self:GetParent():GetAgility() * SPELL_AMP_PRIMARY
-	-- elseif self:GetStackCount() == DOTA_ATTRIBUTE_INTELLECT then
-		-- bonusSpellAmp =  self:GetParent():GetIntellect(false) * SPELL_AMP_PRIMARY
-	-- else -- universal hero
-		-- bonusSpellAmp =  ( self:GetParent():GetStrength() + self:GetParent():GetAgility() + self:GetParent():GetIntellect(false) ) * SPELL_AMP_UNIVERSAL
-	-- end
+	if self:GetStackCount() == DOTA_ATTRIBUTE_STRENGTH then
+		bonusSpellAmp =  self:GetParent():GetStrength() * SPELL_AMP_PRIMARY
+	elseif self:GetStackCount() == DOTA_ATTRIBUTE_AGILITY then
+		bonusSpellAmp =  self:GetParent():GetAgility() * SPELL_AMP_PRIMARY
+	elseif self:GetStackCount() == DOTA_ATTRIBUTE_INTELLECT then
+		bonusSpellAmp =  self:GetParent():GetIntellect(false) * SPELL_AMP_PRIMARY
+	else -- universal hero
+		bonusSpellAmp =  ( self:GetParent():GetStrength() + self:GetParent():GetAgility() + self:GetParent():GetIntellect(false) ) * SPELL_AMP_UNIVERSAL
+	end
 	return self:GetParent():GetIntellect(false) * self.bonusSpellAmp + bonusSpellAmp
 end
 

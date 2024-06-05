@@ -48,6 +48,20 @@ const hud = dotaHud.FindChildTraverse("HUDElements");
     }
 })();
 
+(function() {
+    const mainPanel = hud.FindChildTraverse("Main");
+    if (mainPanel !== null && mainPanel !== undefined) {
+        mainPanel.style.width = "506px";
+    }
+})();
+
+(function() {
+    const shopItemRowContainers = hud.FindChildrenWithClassTraverse("ShopItemRowContainer");
+    shopItemRowContainers.forEach(container => {
+        container.style.width = "250px";
+    });
+})();
+
 /// Vector Targeting
 const CONSUME_EVENT = true;
 const CONTINUE_PROCESSING_EVENT = false;

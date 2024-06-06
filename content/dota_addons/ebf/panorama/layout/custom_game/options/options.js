@@ -39,84 +39,83 @@ const microHud = $.GetContextPanel().GetParent().GetParent().GetParent();
 const bottomhud = microHud.FindChildTraverse("CustomUIRoot");
 
 // Immediately-invoked function expression (IIFE) to encapsulate the code
-(function() {
-  // Find the checkbox element
-  const checkbox = bottomhud.FindChildTraverse("minimapvis");
+(function () {
+	// Find the checkbox element
+	const checkbox = bottomhud.FindChildTraverse("minimapvis");
 
-  // Function to handle checkbox change
-  function handleCheckboxChange() {
-    // Check if the checkbox is selected
-    const isChecked = checkbox.IsSelected();
+	// Function to handle checkbox change
+	function handleCheckboxChange() {
+		// Check if the checkbox is selected
+		const isChecked = checkbox.IsSelected();
 
-    // Toggle the minimap visibility based on the checkbox state
-    GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_MINIMAP, !isChecked);
-  }
+		// Toggle the minimap visibility based on the checkbox state
+		GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_MINIMAP, !isChecked);
+	}
 
-  // Attach event listener to the checkbox's "onactivate" event
-  checkbox.SetPanelEvent("onactivate", handleCheckboxChange);
+	// Attach event listener to the checkbox's "onactivate" event
+	checkbox.SetPanelEvent("onactivate", handleCheckboxChange);
 
-  // Execute the function when the page loads
-  handleCheckboxChange();
+	// Execute the function when the page loads
+	handleCheckboxChange();
 })();
 
 
-(function() {
+(function () {
 	// Find the checkbox element
 	const checkbox = $.GetContextPanel().FindChildTraverse("topuivis");
 	const bottomhud = $.GetContextPanel().GetParent().GetParent().GetParent().FindChildTraverse("CustomUIRoot");
-  
+
 	// Function to handle checkbox change
 	function handleCheckboxChange() {
-	  // Check if the checkbox is selected
-	  const isChecked = checkbox.IsSelected();
-  
-	  const topbar = bottomhud.FindChildTraverse("CustomUIContainer_HudTopBar");
-	  if (topbar !== null && topbar !== undefined) {
-		topbar.style.visibility = isChecked ? "collapse" : "visible";
-	  }
-  
-	  const somehud = $.GetContextPanel().GetParent().GetParent().GetParent();
-	  const clock_in_hud = somehud.FindChildTraverse("HUDElements");
-  
-	  const clock_element = clock_in_hud.FindChildTraverse("topbar");
-	  if (clock_element !== null && clock_element !== undefined) {
-		clock_element.style.marginTop = isChecked ? "0px" : "105px";
-	  }
-	}
-  
-	// Attach event listener to the checkbox's "onactivate" event
-	checkbox.SetPanelEvent("onactivate", handleCheckboxChange);
-  
-	// Execute the function when the page loads
-	handleCheckboxChange();
-  })();
-  
-
-  (function() {
-	// Function to handle checkbox change
-	function handleCheckboxChange(isChecked) {
-	  const bottomhud = $.GetContextPanel().GetParent().GetParent().GetParent().FindChildTraverse("CustomUIRoot");
-	  const hudTopButtons = bottomhud.FindChildTraverse("HUDTopButtons_menu");
-  
-	  // Check if hudTopButtons is found before accessing its style properties
-	  if (hudTopButtons !== null && hudTopButtons !== undefined) {
-		hudTopButtons.style["horizontal-align"] = isChecked ? "right" : "left";
-	  }
-	}
-  
-	// Find the checkbox element after a delay of 1 second
-	$.Schedule(1, function() {
-	  const checkbox = $.GetContextPanel().FindChildTraverse("rightsideui");
-  
-	  // Attach event listener to the checkbox's "onactivate" event
-	  checkbox.SetPanelEvent("onactivate", function() {
 		// Check if the checkbox is selected
 		const isChecked = checkbox.IsSelected();
-		handleCheckboxChange(isChecked);
-	  });
-  
-	  // Execute the function when the page loads
-	  handleCheckboxChange(checkbox.IsSelected());
+
+		const topbar = bottomhud.FindChildTraverse("CustomUIContainer_HudTopBar");
+		if (topbar !== null && topbar !== undefined) {
+			topbar.style.visibility = isChecked ? "collapse" : "visible";
+		}
+
+		const somehud = $.GetContextPanel().GetParent().GetParent().GetParent();
+		const clock_in_hud = somehud.FindChildTraverse("HUDElements");
+
+		const clock_element = clock_in_hud.FindChildTraverse("topbar");
+		if (clock_element !== null && clock_element !== undefined) {
+			clock_element.style.marginTop = isChecked ? "0px" : "105px";
+		}
+	}
+
+	// Attach event listener to the checkbox's "onactivate" event
+	checkbox.SetPanelEvent("onactivate", handleCheckboxChange);
+
+	// Execute the function when the page loads
+	handleCheckboxChange();
+})();
+
+
+(function () {
+	// Function to handle checkbox change
+	function handleCheckboxChange(isChecked) {
+		const bottomhud = $.GetContextPanel().GetParent().GetParent().GetParent().FindChildTraverse("CustomUIRoot");
+		const hudTopButtons = bottomhud.FindChildTraverse("HUDTopButtons_menu");
+
+		// Check if hudTopButtons is found before accessing its style properties
+		if (hudTopButtons !== null && hudTopButtons !== undefined) {
+			hudTopButtons.style["horizontal-align"] = isChecked ? "right" : "left";
+		}
+	}
+
+	// Find the checkbox element after a delay of 1 second
+	$.Schedule(1, function () {
+		const checkbox = $.GetContextPanel().FindChildTraverse("rightsideui");
+
+		// Attach event listener to the checkbox's "onactivate" event
+		checkbox.SetPanelEvent("onactivate", function () {
+			// Check if the checkbox is selected
+			const isChecked = checkbox.IsSelected();
+			handleCheckboxChange(isChecked);
+		});
+
+		// Execute the function when the page loads
+		handleCheckboxChange(checkbox.IsSelected());
 	});
-  })();
-  
+})();

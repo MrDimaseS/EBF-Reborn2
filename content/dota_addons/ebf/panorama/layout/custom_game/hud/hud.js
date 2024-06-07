@@ -460,7 +460,6 @@ function UpdateStatsTooltip() {
 	allGain.text = '(+' + Math.floor((stats.str_gain + stats.agi_gain + stats.int_gain) * 10 + 0.5) / 10 + ' next lvl)'
 	if (allContainer.BHasClass("PrimaryAttribute")) {
 		const allDamage = allContainer.FindChildTraverse('AllDamageLabel');
-		const allDamage = allContainer.FindChildTraverse('AllDamageLabel');
 		allDamage.text = (Math.floor(((stats.strength+stats.agility+stats.intellect))*10+ 0.5 )/10) + ' Damage, ' + (Math.floor((stats.strength+stats.agility+stats.intellect * 0.02)*10 + 0.5)/10) + '% Spell Amp and ' + (Math.floor(((stats.strength+stats.agility+stats.intellect) * 4)*10 + 0.5)/10) + ' HP';
 	}
 }
@@ -632,7 +631,7 @@ function AlterAbilityDescriptions() {
 				activeHeader.SetHasClass("Active", true);
 				activeHeader.SetHasClass("Header", true);
 				activeHeader.style["font-weight"] = "bold";
-				activeHeader.style["color"] = "#FFFFFF66";
+				activeHeader.style["color"] = "#FFFFFF66"; 
 
 				activeHeader.text = activeHeader_text;
 				activeContents.text = activeContents_text;

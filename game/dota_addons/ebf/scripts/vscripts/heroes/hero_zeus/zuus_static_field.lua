@@ -36,7 +36,7 @@ end
 function modifier_zuus_static_field_passive:OnTakeDamage(params)
 	if params.attacker ~= self:GetParent() then return end
 	if params.inflictor == self:GetAbility() then return end
-	if not self:GetParent():HasAbility( params.inflictor:GetAbilityName() ) then return end
+	if params.inflictor and not self:GetParent():HasAbility( params.inflictor:GetAbilityName() ) then return end
 	if self._processingStaticField[params.unit] then return end
 	self._processingStaticField[params.unit] = true
 
@@ -58,7 +58,7 @@ function modifier_zuus_static_field_passive:OnTakeDamage(params)
 		self.barrier = self.barrier + damageDealt * self.damage_to_barrier
 		self:SendBuffRefreshToClients()
 	end
-	self._processingStaticField[params.unit] = nil
+	Timers:CreateTimer( function() self._processingStaticField[params.unit] = nil end )
 end
 
 function modifier_zuus_static_field_passive:GetModifierIncomingDamageConstant( params )
@@ -80,7 +80,6 @@ end
 
 function modifier_zuus_static_field_passive:HandleCustomTransmitterData(data)
 	self.barrier = data.barrier
-	print( self.barrier, IsClient() )
 end
 
 function modifier_zuus_static_field_passive:IsHidden()

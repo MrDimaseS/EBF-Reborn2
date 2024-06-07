@@ -14,113 +14,127 @@ function zuus_arc_lightning:OnSpellStart()
 	local jumpDelay = self:GetSpecialValueFor("jump_delay")
 	
 	local applyAttack = self:GetSpecialValueFor("apply_attack")
+	local buffDur = self:GetSpecialValueFor("buff_duration")
 	
-	local dmgMax = self:GetSpecialValueFor("bonus_damage_max")
-	local dmgMin = self:GetSpecialValueFor("bonus_damage_min")
-	local rangeMax = self:GetSpecialValueFor("range_damage_max")
-	local rangeMin = self:GetSpecialValueFor("range_damage_min")
+	if buffDur > 0 then
+		caster:AddNewModifier( caster, self, "modifier_zuus_arc_lightning_divine_rampage", {duration = buffDur} )
+	end
 	
-	self:ChainLightning( target, caster, damage )
+	
+	self:ChainLightning( target, caster, damage, applyAttack )
 	local targetsHit = {[target] = true}
 	local prevTarget = target
 	Timers:CreateTimer(jumpDelay, function()
-		bounces = bounces - 1
-		
-		
-		
-		if bounces > 1 then
-			return jumpDelay
+		jumpCount = jumpCount - 1
+		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( prevTarget:GetAbsOrigin(), radius ) ) do
+			if not targetsHit[enemy] then
+				targetsHit[enemy] = true
+				self:ChainLightning( enemy, prevTarget, damage, applyAttack )
+				prevTarget = enemy
+				if jumpCount > 1 then
+					return jumpDelay
+				end
+			end
 		end
 	end)
 end
 
-function zeus_arc_lightning:ChainLightning( target, source, damage )
+function zuus_arc_lightning:ChainLightning( target, source, damage, bAttack )
 	local caster = self:GetCaster()
 	
 	ParticleManager:FireRopeParticle("particles/units/heroes/hero_zuus/zuus_arc_lightning.vpcf", PATTACH_POINT_FOLLOW, source, target, {})
 	EmitSoundOn("Hero_Zuus.ArcLightning.Target", target)
 	
 	if target:TriggerSpellAbsorb( self ) then return end
-	self:DealDamage( caster, target, damage )
+	
+	local dmgMax = self:GetSpecialValueFor("bonus_damage_max") / 100
+	local dmgMin = self:GetSpecialValueFor("bonus_damage_min") / 100
+	local rangeMax = self:GetSpecialValueFor("range_damage_max")
+	local rangeMin = self:GetSpecialValueFor("range_damage_min")
+	
+	local damageMultiplier = 1
+	if dmgMax > 0 then
+		local bonusDamage = dmgMax - dmgMin
+		local damageThreshold = rangeMin - rangeMax
+		local distance = CalculateDistance( caster, target ) - rangeMax
+		damageMultiplier = dmgMin + bonusDamage * math.min( math.max( 0, (damageThreshold-distance)/damageThreshold ), 1 )
+	end
+	
+	self:DealDamage( caster, target, damage * damageMultiplier )
+	if bAttack then
+		caster:PerformGenericAttack( target, true )
+	end
 end
 
 LinkLuaModifier("modifier_zuus_arc_lightning_divine_rampage", "heroes/hero_zeus/zuus_arc_lightning", LUA_MODIFIER_MOTION_NONE)
 modifier_zuus_arc_lightning_divine_rampage = class({})
 
 function modifier_zuus_arc_lightning_divine_rampage:OnCreated()
+	self:OnRefresh()
+end
+
+function modifier_zuus_arc_lightning_divine_rampage:OnRefresh()
 	self.bonus_spell_damage = self:GetSpecialValueFor("bonus_spell_damage") / 100
+	if IsServer() then
+		self:AddIndependentStack( self:GetRemainingTime() )
+	end
+end
+
+function modifier_zuus_arc_lightning_divine_rampage:DeclareFunctions()
+	return {MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL, 
+			MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL_VALUE, 
+			MODIFIER_PROPERTY_TOOLTIP,
+			MODIFIER_EVENT_ON_ABILITY_FULLY_CAST }
+end
+
+function modifier_zuus_arc_lightning_divine_rampage:OnAbilityFullyCast( params ) 
+	if params.unit ~= self:GetParent() then return end
+	if params.ability:GetAbilityName() == "zuus_lightning_bolt"
+	or params.ability:GetAbilityName() == "zuus_heavenly_jump" 
+	or params.ability:GetAbilityName() == "zuus_thundergods_wrath" then
+		Timers:CreateTimer( function() self:Destroy() end )
+	end
+end
+
+function modifier_zuus_arc_lightning_divine_rampage:GetModifierOverrideAbilitySpecial(params)
+	if params.ability:GetAbilityName() == "zuus_lightning_bolt"
+	or params.ability:GetAbilityName() == "zuus_heavenly_jump" 
+	or params.ability:GetAbilityName() == "zuus_thundergods_wrath" then
+		if params.ability_special_value == "damage" then
+			return 1
+		end
+	end
+end
+
+function modifier_zuus_arc_lightning_divine_rampage:GetModifierOverrideAbilitySpecialValue(params)
+	if params.ability:GetAbilityName() == "zuus_lightning_bolt"
+	or params.ability:GetAbilityName() == "zuus_heavenly_jump" 
+	or params.ability:GetAbilityName() == "zuus_thundergods_wrath" then
+		if params.ability_special_value == "damage"then
+			local flBaseValue = params.ability:GetLevelSpecialValueNoOverride( params.ability_special_value, params.ability_special_level )
+			return flBaseValue * ( 1 + self:GetStackCount() * self.bonus_spell_damage )
+		end
+	end
+end
+
+function modifier_zuus_arc_lightning_divine_rampage:OnTooltip() 
+	return self:GetStackCount() * self.bonus_spell_damage * 100
 end
 
 LinkLuaModifier("modifier_zuus_arc_lightning_passive", "heroes/hero_zeus/zuus_arc_lightning", LUA_MODIFIER_MOTION_NONE)
 modifier_zuus_arc_lightning_passive = class({})
 
-function modifier_zuus_arc_lightning_passive:OnCreated()
-	if IsServer() then self:SetHasCustomTransmitterData(true) end
-	self:OnRefresh()
-end
-
-function modifier_zuus_arc_lightning_passive:OnRefresh()
-	self.bonus_damage_spell = self:GetSpecialValueFor("bonus_damage_spell")
-	self.bonus_damage_attack = self:GetSpecialValueFor("bonus_damage_attack")
-	self.creep_multiplier = self:GetSpecialValueFor("creep_multiplier")
-	self.damage_to_barrier = self:GetSpecialValueFor("damage_to_barrier") / 100
-
-	if IsServer() then
-		self.barrier = 0
-		self:SendBuffRefreshToClients()
-	end
-end
-
 function modifier_zuus_arc_lightning_passive:DeclareFunctions()
-	return {MODIFIER_EVENT_ON_TAKEDAMAGE, MODIFIER_PROPERTY_INCOMING_DAMAGE_CONSTANT}
+	return {MODIFIER_EVENT_ON_ATTACK_START}
 end
 
-function modifier_zuus_arc_lightning_passive:OnTakeDamage(params)
+function modifier_zuus_arc_lightning_passive:OnAttackStart(params)
 	if params.attacker ~= self:GetParent() then return end
-	if params.inflictor == self:GetAbility() then return end
-	if not self:GetParent():HasAbility( params.inflictor:GetAbilityName() ) then return end
-	if self._processingStaticField then return end
-
-	local ability = self:GetAbility()
-	local damage = self.bonus_damage_attack
+	if not self:GetAbility():IsFullyCastable() then return end 
+	if params.attacker:IsSilenced() then return end
 	
-	if params.inflictor then
-		damage = self.bonus_damage_spell
-		EmitSoundOn( "Hero_Zuus.StaticField", params.unit )
-	end
-	if not params.unit:IsConsideredHero() then
-		damage = damage * self.creep_multiplier
-	end
-	
-	ParticleManager:FireParticle("particles/units/heroes/hero_zuus/zuus_arc_lightning.vpcf", PATTACH_POINT_FOLLOW, params.unit )
-	local damageDealt = ability:DealDamage( params.attacker, params.unit, damage )
-	
-	if self.damage_to_barrier > 0 then
-		self.barrier = self.barrier + damageDealt * self.damage_to_barrier
-		self:SendBuffRefreshToClients()
-	end
-end
-
-function modifier_zuus_arc_lightning_passive:GetModifierIncomingDamageConstant( params )
-	if self.barrier <= 0 then return end
-	if IsServer() then
-		local barrier = math.min( self.barrier, math.max( self.barrier, params.damage ) )
-		self.barrier = math.max( 0, self.barrier - params.damage )
-		
-		self:SendBuffRefreshToClients()
-		return -barrier
-	else
-		return self.barrier
-	end
-end
-
-function modifier_zuus_arc_lightning_passive:AddCustomTransmitterData()
-	return {barrier = self.barrier}
-end
-
-function modifier_zuus_arc_lightning_passive:HandleCustomTransmitterData(data)
-	self.barrier = data.barrier
-	print( self.barrier, IsClient() )
+	params.attacker:Stop()
+	params.attacker:CastAbilityOnTarget( params.target, self:GetAbility(), params.attacker:GetPlayerOwnerID() )
 end
 
 function modifier_zuus_arc_lightning_passive:IsHidden()

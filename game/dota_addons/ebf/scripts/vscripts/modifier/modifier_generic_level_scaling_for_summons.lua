@@ -52,7 +52,7 @@ function modifier_generic_level_scaling_for_summons:GetModifierOverrideAbilitySp
 		return
 	end
 	if params.ability._processValuesForScaling[special_value].affected_by_lvl_increase then
-		local flNewValue = flBaseValue * ( 1 + (self:GetCaster():GetLevel() - 1) * 0.2 )
+		local flNewValue = flBaseValue * ( 1 + (self:GetCaster():GetLevel() - 1) * 0.3 )
 		return flNewValue
 	end
 end

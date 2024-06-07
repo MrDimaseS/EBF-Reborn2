@@ -4,19 +4,9 @@ function omniknight_martyr:OnSpellStart()
     local caster = self:GetCaster()
     local target = self:GetCursorTarget()
     
-    local base_strength = self:GetTalentSpecialValueFor("base_strength")
-    local base_hpregen = self:GetTalentSpecialValueFor("base_hpregen")
-    local strength_bonus = self:GetTalentSpecialValueFor("strength_bonus")
-    local duration = self:GetTalentSpecialValueFor("duration")
-    local magic_resist = self:GetTalentSpecialValueFor("magic_resist")
+    local duration = self:GetSpecialValueFor("duration")
 
-    target:AddNewModifier(caster, self, "modifier_omniknight_martyr_buff", {
-        duration = duration, 
-        base_strength = base_strength, 
-        base_hpregen = base_hpregen, 
-        strength_bonus = strength_bonus, 
-        magic_resist = magic_resist
-    })
+    target:AddNewModifier(caster, self, "modifier_omniknight_martyr_buff", {duration = duration})
 
 	EmitSoundOn("Hero_Omniknight.Repel", target)
 end
@@ -26,14 +16,14 @@ LinkLuaModifier("modifier_omniknight_martyr_buff", "heroes/hero_omniknight/omnik
 modifier_omniknight_martyr_buff = class({})
 
 function modifier_omniknight_martyr_buff:OnCreated(kv)
-    self.base_strength = kv.base_strength or 0
-    self.base_hpregen = kv.base_hpregen or 0
-    self.strength_bonus = kv.strength_bonus or 0
-    self.magic_resist = kv.magic_resist or 0
+    self.base_strength = self:GetSpecialValueFor("base_strength")
+    self.base_hpregen = self:GetSpecialValueFor("base_hpregen")
+    self.strength_bonus = self:GetSpecialValueFor("strength_bonus")
+    self.magic_resist =self:GetSpecialValueFor("magic_resist")
 
     if IsServer() then
-        self.particle = ParticleManager:CreateParticle("particles/units/heroes/hero_omniknight/omniknight_repel_buff.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
-        self:AddParticle(self.particle, false, false, -1, false, false)
+        local particle = ParticleManager:CreateParticle("particles/units/heroes/hero_omniknight/omniknight_repel_buff.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
+        self:AddEffect(particle)
     end
 end
 
@@ -55,11 +45,7 @@ function modifier_omniknight_martyr_buff:GetModifierConstantHealthRegen()
 end
 
 function modifier_omniknight_martyr_buff:GetModifierMagicalResistanceBonus()
-    local magic_resist = self.magic_resist
-    if self:GetCaster():HasShard() then
-        magic_resist = magic_resist + (magic_resist * 0.6)
-    end
-    return magic_resist
+    return self.magic_resist
 end
 
 function modifier_omniknight_martyr_buff:OnTooltip()

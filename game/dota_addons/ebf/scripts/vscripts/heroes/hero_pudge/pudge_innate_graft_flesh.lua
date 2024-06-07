@@ -13,10 +13,10 @@ end
 
 function modifier_pudge_innate_graft_flesh_kills:OnRefresh()
 	self.strength_per_stack = self:GetSpecialValueFor("flesh_heap_strength_buff_amount")
-	self.creep_stacks = self:GetAbility():GetLevelSpecialValueFor("creep_stacks", 1)
-	self.hero_stacks = self:GetAbility():GetLevelSpecialValueFor("hero_stacks", 1)
-	self.flesh_heap_range = self:GetAbility():GetLevelSpecialValueFor("flesh_heap_range", 1)
-	self.temporary_duration = self:GetAbility():GetLevelSpecialValueFor("temporary_duration", 1)
+	self.creep_stacks = self:GetAbility():GetSpecialValueFor("creep_stacks")
+	self.hero_stacks = self:GetAbility():GetSpecialValueFor("hero_stacks")
+	self.flesh_heap_range = self:GetAbility():GetSpecialValueFor("flesh_heap_range")
+	self.temporary_duration = self:GetAbility():GetSpecialValueFor("temporary_duration")
 end
 
 function modifier_pudge_innate_graft_flesh_kills:OnIntervalThink()

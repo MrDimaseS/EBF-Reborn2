@@ -6486,8 +6486,8 @@
 
 		// Armor
 		//----------------------------------------------------------------
-		"ArmorPhysical"				"20"			// Physical protection.
-		"MagicalResistance"			"40"		// Magical protection.
+		"ArmorPhysical"				"12"			// Physical protection.
+		"MagicalResistance"			"20"		// Magical protection.
 		
 		// Attack
 		//----------------------------------------------------------------
@@ -6522,10 +6522,10 @@
 
 		// Status
 		//----------------------------------------------------------------
-		"StatusHealth"				"5000000"		// Base health.
+		"StatusHealth"				"420000"		// Base health.
 		"StatusHealthRegen"			"5000"			// Health regeneration rate.
-		"StatusMana"				"10000"			// Base mana.
-		"StatusManaRegen"			"50"			// Mana regeneration rate.		 
+		"StatusMana"				"5000"			// Base mana.
+		"StatusManaRegen"			"10"			// Mana regeneration rate.		 
 		
 		// Vision
 		//----------------------------------------------------------------
@@ -6568,6 +6568,107 @@
 			}
 		}
 	}
+	"npc_dota_boss_flash"
+	{	
+		// General
+		//----------------------------------------------------------------
+		"Model"						"models/heroes/rikimaru/rikimaru.vmdl"	// Model.
+		"BaseClass"					"npc_dota_creature"
+		"GameSoundsFile"			"soundevents/game_sounds_heroes/game_sounds_riki.vsndevts"
+		"Level"						"75"
+		"ModelScale" 				"0.800"
+		"ConsideredHero"			"1"
+		"vscripts"					"ai/ai_boss_flash"
+		
+		"precache"
+		{
+			"particle_folder"	"particles/units/heroes/hero_riki"
+		}
+
+		// Abilities
+		//----------------------------------------------------------------
+		"Ability1"					"boss_flash_permanent_invisibility"				// Ability 3.
+		"Ability4"					"boss_flash_smoke_screen"				// Ability 4.
+
+		// Armor
+		//----------------------------------------------------------------
+		"ArmorPhysical"				"8"			// Physical protection.
+		"MagicalResistance"			"50"		// Magical protection.
+		
+		// Attack
+		//----------------------------------------------------------------
+		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackDamageMin"			"2000"		// Damage range min.
+		"AttackDamageMax"			"8000"		// Damage range max.
+		"BaseAttackSpeed"			"2500"
+		"AttackRate"				"1"		// Speed of attack.
+		"AttackAnimationPoint"		"0.4"		// Normalized time in animation cycle to attack.
+		"AttackAcquisitionRange"	"3500"		// Range within a target can be acquired.
+		"AttackRange"				"120"		// Range within a target can be attacked.
+		"ProjectileModel"			""			// Particle system model for projectile.
+		"ProjectileSpeed"			"30"		// Speed of projectile.
+	
+		// Bounds
+		//----------------------------------------------------------------
+		"BoundsHullName"			"DOTA_HULL_SIZE_REGULAR"			// Hull type used for navigation/locomotion.
+		"RingRadius"				"75"
+		"HealthBarOffset"			"175"
+
+		// Bounty
+		//----------------------------------------------------------------
+		"BountyXP"					"0"		// Experience earn.
+		"BountyGoldMin"				"0"			// Gold earned min.
+		"BountyGoldMax"				"0"			// Gold earned max.
+
+		// Movement
+		//----------------------------------------------------------------
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"				"520"		// Speed.
+		"MovementTurnRate"			"99.9"		// Turning rate.
+
+		// Status
+		//----------------------------------------------------------------
+		"StatusHealth"				"250000"		// Base health.
+		"StatusHealthRegen"			"10000"			// Health regeneration rate.
+		"StatusMana"				"20000"			// Base mana.
+		"StatusManaRegen"			"100"			// Mana regeneration rate.		 
+		
+		// Vision
+		//----------------------------------------------------------------
+		"VisionDaytimeRange"		"999"		// Range of vision during day light.
+		"VisionNighttimeRange"		"999"		// Range of vision at night time.
+
+		// Team
+		//----------------------------------------------------------------
+		"TeamName"					"DOTA_TEAM_BADGUYS"
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_BASIC"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_HERO"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+		
+		"HasInventory"				"1"
+		// Creature Data
+		//----------------------------------------------------------------
+		"Creature"
+		{
+			"AttachWearables"
+			{
+				"Wearable1" { "ItemDef" "14771" }
+				"Wearable1" { "ItemDef" "14772" }
+				"Wearable1" { "ItemDef" "14774" }
+				"Wearable1" { "ItemDef" "14776" }
+				"Wearable1" { "ItemDef" "9773" }
+				"Wearable1" { "ItemDef" "7990" }
+			}
+
+			"EquippedItems"
+			{
+				//"Blink"
+				//{
+				//	"Item"					"item_butcher_overwhelming_blink"
+				//}
+			}
+		}
+	}
 	"npc_dota_boss_lord_of_hell"
 	{
 		// General
@@ -6603,8 +6704,8 @@
 		//----------------------------------------------------------------
 		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
 		"AttackDamageMin"			"86666"		// Damage range min.
-		"AttackDamageMax"			"109999"		// Damage range max.
-		"BaseAttackSpeed"			"333"
+		"AttackDamageMax"			"199999"		// Damage range max.
+		"BaseAttackSpeed"			"666"
 		"AttackRate"				"3.666"		// Speed of attack.
 		"AttackAnimationPoint"		"0.4"		// Normalized time in animation cycle to attack.
 		"AttackAcquisitionRange"	"3500"		// Range within a target can be acquired.
@@ -6890,19 +6991,19 @@
 		//----------------------------------------------------------------
 		"Ability1"					"boss_rift_guardian_fire_shield"			// Ability 1.
 		"Ability2"					"boss_rift_guardian_hell_on_earth"			// Ability 2.
-		"Ability3"					"boss_rift_guardian_obliterate"			// Ability 2.
-		"Ability4"					"boss_rift_guardian_flaming_fist"			// Ability 2.
+		"Ability3"					"boss_rift_guardian_obliterate"				// Ability 3.
+		"Ability4"					"boss_rift_guardian_flaming_fist"			// Ability 4.
 
 		// Armor
 		//----------------------------------------------------------------
-		"ArmorPhysical"				"20"			// Physical protection.
+		"ArmorPhysical"				"30"			// Physical protection.
 		"MagicalResistance"			"66.6"		// Magical protection.
 		
 		// Attack
 		//----------------------------------------------------------------
 		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
 		"AttackDamageMin"			"96666"		// Damage range min.
-		"AttackDamageMax"			"96666"		// Damage range max.
+		"AttackDamageMax"			"496666"		// Damage range max.
 		"BaseAttackSpeed"			"350"
 		"AttackRate"				"2.4"		// Speed of attack.
 		"AttackAnimationPoint"		"0.5"		// Normalized time in animation cycle to attack.

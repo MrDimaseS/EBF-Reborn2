@@ -9,19 +9,23 @@
 	</scripts>
 	<Panel class="Hud" hittest="false">
 		<Panel id="LifeCounter" hittest="false">
-			<Label hittest="false" id="Life" text="0"/>
+			<Label hittest="false" id="Life" text="0" />
 			<Label hittest="false" id="Retries" text="#HUD_Retries" />
 		</Panel>
 		<Panel id="BossRound" hittest="false">
-			<Label hittest="false" id="Rounds" text="0"/>
+			<Label hittest="false" id="Rounds" text="0" />
 			<Label hittest="false" id="Level" text="#HUD_Level" />
 		</Panel>
 		<Panel id="RoundOptions" hittest="false">
 			<Button id="Vote_Yes" onactivate='Yes()'>
 				<Label text="#Round_skip_btn" />
 			</Button>
-			<Label id="voteStatus" text=""/>
+			<Label id="voteStatus" text="" />
 		</Panel>
-		<Label hittest="false" id="RoundsTime" text="0"/>
+		<Panel id="VoteSkip">
+			<ToggleButton class="CheckBox" text="#Round_skipper" id="skipper" />
+			<Label id="timer" text="0s" />
+		</Panel>
+		<Label hittest="false" id="RoundsTime" text="0" />
 	</Panel>
 </root>

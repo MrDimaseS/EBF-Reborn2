@@ -116,7 +116,7 @@
   font-weight: semi-bold;
 }
 
-@define defaultFont: Radiance,FZLanTingHei-R-GBK,TH Sarabun New,YDYGO 540,Gulim,MingLiU;
+@define defaultFont: Radiance, FZLanTingHei-R-GBK, TH Sarabun New, YDYGO 540, Gulim, MingLiU;
 
 #RoundOptions {
   margin-top: 50px;
@@ -131,8 +131,7 @@
   background-image: url("file://{images}/hud/top_scorboard_center.psd");
 }
 
-#RoundOptions Label
-{
+#RoundOptions Label {
   vertical-align: middle;
   horizontal-align: center;
   font-size: 15px;
@@ -142,13 +141,11 @@
   horizontal-align: center;
   vertical-align: top;
   margin-top: 8px;
-  background-color: gradient(
-    linear,
-    0% 0%,
-    0% 100%,
-    from(#373d45),
-    to(#4d5860)
-  );
+  background-color: gradient(linear,
+      0% 0%,
+      0% 100%,
+      from(#373d45),
+      to(#4d5860));
   border-style: solid;
   border-width: 1px;
   padding: 4px 10px;
@@ -165,13 +162,11 @@
 }
 
 #Vote_Yes:enabled:hover {
-  background-color: gradient(
-    linear,
-    0% 0%,
-    0% 100%,
-    from(#4c5561),
-    to(#6c7d88)
-  );
+  background-color: gradient(linear,
+      0% 0%,
+      0% 100%,
+      from(#4c5561),
+      to(#6c7d88));
   border-top-color: #aaaaaa77;
   border-left-color: #aaaaaa33;
   border-bottom-color: #333333;
@@ -188,13 +183,11 @@
 }
 
 #Vote_Yes:active {
-  background-color: gradient(
-    linear,
-    0% 0%,
-    0% 100%,
-    from(#393939),
-    to(#555555)
-  );
+  background-color: gradient(linear,
+      0% 0%,
+      0% 100%,
+      from(#393939),
+      to(#555555));
   border-top-color: #222222;
   border-left-color: #303030;
   border-bottom-color: #666666;
@@ -217,4 +210,24 @@
 
 #Vote_Yes:active Label {
   transform: translateY(1px);
+}
+
+#skipper Label {
+  font-size: 14px;
+  text-align: center;
+}
+
+#VoteSkip {
+  flow-children: right;
+  vertical-align: middle;
+  horizontal-align: right;
+  text-align: center;
+  height: 30px;
+  margin-right: 42px;
+  margin-bottom: 13px;
+  sound: "ui_generic_button_click";
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: 100% 100%;
+  background-image: url("file://{images}/hud/top_scorboard_center.psd");
 }

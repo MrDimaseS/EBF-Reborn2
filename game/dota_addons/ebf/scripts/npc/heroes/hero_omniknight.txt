@@ -108,59 +108,68 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"ability_lua"
-		"ScriptFile"					"heroes/hero_omniknight/omniknight_martyr"
-		"AbilityTextureName"			"omniknight_martyr"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
-		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
-		"MaxLevel"						"7"
+		"BaseClass"                     "ability_lua"
+		"ScriptFile"                    "heroes/hero_omniknight/omniknight_martyr"
+		"AbilityTextureName"            "omniknight_martyr"
+		"AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitTargetTeam"         "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"         "DOTA_UNIT_TARGET_HERO"
+		"SpellImmunityType"             "SPELL_IMMUNITY_ALLIES_YES"
+		"MaxLevel"                      "7"
 		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"700"
-		"AbilityCastPoint"				"0.3"
+		"AbilityCastRange"              "800"
+		"AbilityCastPoint"              "0.3"
 		
-		// Time		
+		// Time        
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"14"
+		"AbilityCooldown"               "14"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"80 95 110 125 140 155 170"
+		"AbilityManaCost"               "120 160 220 260 310 340 450"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"base_strength"	
+			"base_strength"    
 			{
-				"value"								"35 70 105 140 175 210 245"
-				"CalculateAttributeTooltip"			"1"
+				"value"                             "35 70 105 140 175 210 245"
+				"CalculateAttributeTooltip"         "1"
 			}
 			"base_hpregen"
 			{
-				"value"								"15 20 25 30 35 40 45"
-				"CalculateSpellHealTooltip"			"1"
+				"value"                             "15 20 25 30 35 40 45"
+				"CalculateSpellHealTooltip"         "1"
 			}
 			"strength_bonus"
 			{
-				"value"								"15 20 25 30 35 40 45"
-				"CalculateAttributeTooltip"			"1"
+				"value"                             "15 20 25 30 35 40 45"
+				"CalculateAttributeTooltip"         "1"
 				"special_bonus_unique_omniknight_2" "+50%"
 			}
-			"duration"				
+			"duration"                
 			{
-				"value"								"6"
+				"value"                             "6"
 				"special_bonus_unique_omniknight_5" "+2"
 			}
 			"magic_resist"
 			{
-				"special_bonus_shard"		"=60"
+				"value"                             "20 25 30 35 40 45 50"
+			}
+			"radius"
+			{
+				"value"                             "400"
+			}
+			"special_bonus_shard"
+			{
+				"value"                             "60"
 			}
 		}
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
+		"AbilityAOERadius"              "800"
+		"AbilityCastAnimation"          "ACT_DOTA_CAST_ABILITY_2"
 	}
 	//=================================================================================================================
 	// Ability: Omniknight: Hammer of Purity (Shard)

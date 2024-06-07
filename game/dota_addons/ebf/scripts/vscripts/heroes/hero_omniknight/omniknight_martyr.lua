@@ -2,13 +2,28 @@ omniknight_martyr = class({})
 
 function omniknight_martyr:OnSpellStart()
     local caster = self:GetCaster()
-    local target = self:GetCursorTarget()
+    local target_point = self:GetCursorPosition()
     
     local duration = self:GetSpecialValueFor("duration")
+    local radius = self:GetSpecialValueFor("radius")
 
-    target:AddNewModifier(caster, self, "modifier_omniknight_martyr_buff", {duration = duration})
+    local allies = FindUnitsInRadius(
+        caster:GetTeamNumber(),
+        target_point,
+        nil,
+        radius,
+        DOTA_UNIT_TARGET_TEAM_FRIENDLY,
+        DOTA_UNIT_TARGET_HERO,
+        DOTA_UNIT_TARGET_FLAG_NONE,
+        FIND_ANY_ORDER,
+        false
+    )
 
-	EmitSoundOn("Hero_Omniknight.Repel", target)
+    for _, ally in pairs(allies) do
+        ally:AddNewModifier(caster, self, "modifier_omniknight_martyr_buff", {duration = duration})
+    end
+
+    EmitSoundOnLocationWithCaster(target_point, "Hero_Omniknight.Repel", caster)
 end
 
 LinkLuaModifier("modifier_omniknight_martyr_buff", "heroes/hero_omniknight/omniknight_martyr.lua", LUA_MODIFIER_MOTION_NONE)
@@ -19,7 +34,7 @@ function modifier_omniknight_martyr_buff:OnCreated(kv)
     self.base_strength = self:GetSpecialValueFor("base_strength")
     self.base_hpregen = self:GetSpecialValueFor("base_hpregen")
     self.strength_bonus = self:GetSpecialValueFor("strength_bonus")
-    self.magic_resist =self:GetSpecialValueFor("magic_resist")
+    self.magic_resist = self:GetSpecialValueFor("magic_resist")
 
     if IsServer() then
         local particle = ParticleManager:CreateParticle("particles/units/heroes/hero_omniknight/omniknight_repel_buff.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())

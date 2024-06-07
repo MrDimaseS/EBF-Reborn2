@@ -130,6 +130,7 @@ end
 
 function modifier_zuus_arc_lightning_passive:OnAttackStart(params)
 	if params.attacker ~= self:GetParent() then return end
+	if not self:GetAbility():GetAutoCastState() then return end 
 	if not self:GetAbility():IsFullyCastable() then return end 
 	if params.attacker:IsSilenced() then return end
 	

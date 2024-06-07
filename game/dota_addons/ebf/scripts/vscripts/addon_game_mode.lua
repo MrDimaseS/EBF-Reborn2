@@ -706,8 +706,18 @@ function CHoldoutGameMode:OnHeroPick (event)
 	end
 	
 	CustomNetTables:SetTableValue("game_stats", tostring( playerID ), {damage_dealt = 0, damage_taken = 0, damage_healed = 0, last_damage_dealt = 0})
-	CustomNetTables:SetTableValue("hero_attributes", tostring( hero:entindex() ), {mana_type = hero._heroManaType, strength = hero:GetStrength(), agility = hero:GetAgility(), intellect = hero:GetIntellect(false)})
-	CustomNetTables:SetTableValue("hero_attributes", tostring( hero:entindex() ), {mana_type = hero._heroManaType, strength = hero:GetStrength(), agility = hero:GetAgility(), intellect = hero:GetIntellect(false), str_gain = hero:GetStrengthGain(), agi_gain = hero:GetAgilityGain(), int_gain = hero:GetIntellectGain(), spell_amp = hero:GetSpellAmplification( false )})
+	for i = 0, hero:GetAbilityCount() - 1 do
+        local ability = hero:GetAbilityByIndex( i )
+        if ability then
+			local innate = ability:GetAbilityKeyValues().Innate
+			if innate and tonumber(innate) == 1 then
+				hero._innateAbilityName = ability:GetAbilityName()
+				break
+			end
+        end
+    end
+	
+	CustomNetTables:SetTableValue("hero_attributes", tostring( hero:entindex() ), {mana_type = hero._heroManaType, strength = hero:GetStrength(), agility = hero:GetAgility(), intellect = hero:GetIntellect(false), str_gain = hero:GetStrengthGain(), agi_gain = hero:GetAgilityGain(), int_gain = hero:GetIntellectGain(), spell_amp = hero:GetSpellAmplification( false ), innate = hero._innateAbilityName, facetID = hero:GetHeroFacetID()})
 
 	PlayerResource:SetCustomBuybackCooldown( playerID, 10 )
 	PlayerResource:SetCustomBuybackCost( playerID, 100 )

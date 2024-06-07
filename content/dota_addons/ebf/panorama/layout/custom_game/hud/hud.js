@@ -150,7 +150,31 @@ function close() {
 	CheckTalentUpdates()
 })();
 
-$.Msg("this is loaded")
+function FixFacetTooltips( ){
+	const facetInnateContainer = dotaHud.FindChildrenWithClassTraverse('RootInnateDisplay')[0];
+	facetInnateContainer.hittest = false;
+	
+	facetInnateContainer.SetPanelEvent("onmouseover", () => {});
+	facetInnateContainer.SetPanelEvent("onmouseout", () => {});
+	
+	const contentsContainer = facetInnateContainer.FindChildTraverse("ContentsContainer");
+	contentsContainer.hittest = false;
+	contentsContainer.hittestchildren = true;
+	
+	const facetHolder = contentsContainer.FindChildrenWithClassTraverse("FacetHolder")[0];
+	const heroID = Players.GetSelectedHeroID( Entities.GetPlayerOwnerID( Players.GetLocalPlayerPortraitUnit() ) )
+	const heroTable = CustomNetTables.GetTableValue( "hero_attributes", Players.GetLocalPlayerPortraitUnit() )
+	facetHolder.SetPanelEvent("onmouseover", () => {$.DispatchEvent('DOTAShowFacetTooltip', facetHolder, heroID, heroTable.facetID )});
+	facetHolder.SetPanelEvent("onmouseout", () => {$.DispatchEvent('DOTAHideFacetTooltip',facetHolder)});
+	
+	const innateHolder = contentsContainer.FindChildTraverse("InnateIcon");
+	innateHolder.SetPanelEvent("onmouseover", () => {$.DispatchEvent("DOTAShowAbilityTooltipForEntityIndex", innateHolder, heroTable.innate, Players.GetLocalPlayerPortraitUnit())});
+	innateHolder.SetPanelEvent("onmouseout", () => {$.DispatchEvent('DOTAHideAbilityTooltip',innateHolder)});
+}
+
+function PrintMessage( p1, p2, p3){
+	
+}
 
 GameEvents.Subscribe("dota_player_update_query_unit", UpdateManaBar);
 GameEvents.Subscribe("dota_player_update_selected_unit", UpdateManaBar);
@@ -160,7 +184,9 @@ $.RegisterForUnhandledEvent( "DOTAShowAbilityShopItemTooltip", ManageItemAttribu
 $.RegisterForUnhandledEvent( "DOTAShowAbilityTooltip", ManageItemAttributes );
 $.RegisterForUnhandledEvent( "DOTAShowAbilityTooltipForEntityIndex", ManageItemAttributes );
 $.RegisterForUnhandledEvent( "DOTAHUDShowDamageArmorTooltip", UpdateStatsTooltip );
+$.RegisterForUnhandledEvent( "DOTAShowInnateDisplayTooltip", PrintMessage );
 $.RegisterForUnhandledEvent( "DOTAHideAbilityTooltip", ClearItemTooltip );
+
 GameEvents.Subscribe("client_update_ability_kvs", RegisterInventoryData);
 GameEvents.Subscribe("hero_leveled_up", HandleLevelUp);
 GameEvents.Subscribe("update_talent_pips", UpdateTalentPips);
@@ -207,6 +233,7 @@ function UpdateManaBar(){
     }
 	UpdateTalentPips()
 	CheckTalentUpdates();
+	FixFacetTooltips()
 	GameEvents.SendCustomGameEventToServer( "request_hero_inventory", {unit: currentTarget} )
 }
 (function() {
@@ -304,9 +331,7 @@ function RemoveAbilityChanges( panel, abilityName, unitID ){
 			let token = "#DOTA_Tooltip_Ability_" + abilityNameWeAreChecking + "_shard_description"
 			let locale = $.Localize( token )
 			
-			$.Msg( "pre ", locale )
 			locale = ReplaceSpecialValuesInDescription( locale, ability )
-			$.Msg( "post ", locale )
 			locale = GameUI.ReplaceDOTAAbilitySpecialValues( abilityName, locale, abilityShardText );
 			abilityShardText.text = locale;
 		}
@@ -400,7 +425,7 @@ function UpdateStatsTooltip(){
 	strValues.text = (Math.floor((stats.strength * 22)*10 + 0.5)/10) + ' HP and ' + Math.floor((stats.strength * 0.008)*10 + 0.5) / 10 + '% Incoming Healing Amp'
 	if(strContainer.BHasClass( "PrimaryAttribute") ){
 		const strDamage = strContainer.FindChildTraverse('StrengthDamageLabel');
-		strDamage.text = (Math.floor((stats.strength * 1.5)*10 + 0.5)/10) + ' Damage, ' + (Math.floor((stats.intellect * 0.02)*10 + 0.5)/10) + ' and ' + (Math.floor((stats.strength * 11)*10 + 0.5)/10) + ' HP';
+		strDamage.text = (Math.floor((stats.strength * 1.5)*10 + 0.5)/10) + ' Damage, ' + (Math.floor((stats.strength * 0.02)*10 + 0.5)/10) + '% Spell Amp and ' + (Math.floor((stats.strength * 11)*10 + 0.5)/10) + ' HP';
 	}
 	
 	const agiContainer = attributesContainer.FindChildTraverse('AgilityContainer');
@@ -413,7 +438,7 @@ function UpdateStatsTooltip(){
 	agiValues.text = (Math.floor((stats.agility * 1.5)*10 + 0.5)/10) + ' Damage, ' + Math.floor(agilityArmor*10 + 0.5)/10 + ' Armor and ' + Math.floor(agilityAttackSpeed*10 + 0.5)/10 + ' Attack Speed'
 	if( agiContainer.BHasClass( "PrimaryAttribute") ){
 		const agiDamage = agiContainer.FindChildTraverse('AgilityDamageLabel');
-		agiDamage.text = (Math.floor((stats.agility * 1.5)*10 + 0.5)/10) + ' Damage, ' + (Math.floor((stats.intellect * 0.02)*10 + 0.5)/10) + ' and ' + (Math.floor((stats.agility * 11)*10 + 0.5)/10) + ' HP';
+		agiDamage.text = (Math.floor((stats.agility * 1.5)*10 + 0.5)/10) + ' Damage, ' + (Math.floor((stats.agility * 0.02)*10 + 0.5)/10) + '% Spell Amp and ' + (Math.floor((stats.agility * 11)*10 + 0.5)/10) + ' HP';
 	}
 	
 	const intContainer = attributesContainer.FindChildTraverse('IntelligenceContainer');
@@ -425,7 +450,7 @@ function UpdateStatsTooltip(){
 	intValues.text = (Math.floor((stats.intellect*0.01)*10 + 0.5)/10) + '% MP Restore Amp, ' + (Math.floor((stats.intellect*0.02)*10 + 0.5)/10) + '% Spell Amp and ' + Math.floor(intMR*10 + 0.5)/10 + '% Magic Resist'
 	if(intContainer.BHasClass( "PrimaryAttribute") ){
 		const intDamage = intContainer.FindChildTraverse('IntelligenceDamageLabel');
-		intDamage.text = (Math.floor((stats.intellect * 1.5)*10 + 0.5)/10) + ' Damage, ' + (Math.floor((stats.intellect * 0.02)*10 + 0.5)/10) + ' and ' + (Math.floor((stats.intellect * 11)*10 + 0.5)/10) + ' HP';
+		intDamage.text = (Math.floor((stats.intellect * 1.5)*10 + 0.5)/10) + ' Damage, ' + (Math.floor((stats.intellect * 0.02)*10 + 0.5)/10) + '% Spell Amp and ' + (Math.floor((stats.intellect * 11)*10 + 0.5)/10) + ' HP';
 	}
 	
 	const allContainer = attributesContainer.FindChildTraverse('AllContainer');
@@ -433,7 +458,7 @@ function UpdateStatsTooltip(){
 	allGain.text = '(+' + Math.floor((stats.str_gain+stats.agi_gain+stats.int_gain)*10 + 0.5 ) / 10 + ' next lvl)'
 	if(allContainer.BHasClass( "PrimaryAttribute") ){
 		const allDamage = allContainer.FindChildTraverse('AllDamageLabel');
-		allDamage.text = (Math.floor(((stats.strength+stats.agility+stats.intellect))*10+ 0.5 )/10) + ' Damage and ' + (Math.floor(((stats.strength+stats.agility+stats.intellect) * 4)*10 + 0.5)/10) + ' HP';
+		allDamage.text = (Math.floor(((stats.strength+stats.agility+stats.intellect))*10+ 0.5 )/10) + ' Damage, ' + (Math.floor((stats.strength+stats.agility+stats.intellect * 0.02)*10 + 0.5)/10) + '% Spell Amp and ' + (Math.floor(((stats.strength+stats.agility+stats.intellect) * 4)*10 + 0.5)/10) + ' HP';
 	}
 }
 

@@ -57,9 +57,38 @@ const hud = dotaHud.FindChildTraverse("HUDElements");
 
 (function() {
     const shopItemRowContainers = hud.FindChildrenWithClassTraverse("ShopItemRowContainer");
-    shopItemRowContainers.forEach(container => {
-        container.style.width = "250px";
-    });
+
+    function findShopPanel() {
+        const shop = hud.FindChildTraverse("shop");
+        if (!shop) {
+            $.Schedule(0.1, findShopPanel); 
+            return;
+        } else {
+            initializeShopItemRowContainerWidthAdjustment(shop, shopItemRowContainers);
+        }
+    }
+
+    findShopPanel();
+
+    function initializeShopItemRowContainerWidthAdjustment(shop, shopItemRowContainers) {
+        if (shopItemRowContainers.length === 0) {
+            return;
+        }
+
+        function updateShopItemRowContainerWidth() {
+            const isShopLarge = shop.BHasClass("ShopLarge");
+            const newWidth = isShopLarge ? "250px" : "60px";
+            shopItemRowContainers.forEach(container => {
+                container.style.width = newWidth;
+            });
+        }
+
+        // Initial update
+        updateShopItemRowContainerWidth();
+
+        // Listen for class changes on the shop
+        $.RegisterEventHandler("StyleClassesChanged", shop, updateShopItemRowContainerWidth);
+    }
 })();
 
 /// Vector Targeting

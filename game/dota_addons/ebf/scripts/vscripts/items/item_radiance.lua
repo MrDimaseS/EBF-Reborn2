@@ -48,10 +48,11 @@ function modifier_item_radiance_2_passive:OnIntervalThink()
 	local caster = self:GetCaster()
 	local ability = self:GetAbility()
 	if caster:IsAlive() and not caster:IsInvulnerable() then
-		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), self.aura_radius ) ) do
+		local enemies = caster:FindEnemyUnitsInRadius(caster:GetAbsOrigin(), self.aura_radius)
+		for _, enemy in ipairs(enemies) do
 			ability:DealDamage( caster, enemy, TernaryOperator( self.aura_damage_illusions, caster:IsIllusion(), self.aura_damage ) )
 		end
-	 end
+	end
 end
 
 function modifier_item_radiance_2_passive:DeclareFunctions(params)
@@ -195,7 +196,7 @@ function modifier_item_zero_burn:DeclareFunctions(params)
 	local funcs = {	MODIFIER_PROPERTY_MISS_PERCENTAGE, 
 					MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE, 
 					MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
-					MODIFIER_PROPERTY_HEAL_AMPLIFY_PERCENTAGE_SOURCE,
+					MODIFIER_PROPERTY_HEAL_AMPLIFY_PERCENTAGE,
 					MODIFIER_PROPERTY_LIFESTEAL_AMPLIFY_PERCENTAGE,
 					MODIFIER_PROPERTY_HP_REGEN_AMPLIFY_PERCENTAGE}
     return funcs

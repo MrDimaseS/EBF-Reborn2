@@ -51,7 +51,7 @@ const hud = dotaHud.FindChildTraverse("HUDElements");
 (function() {
     const mainPanel = hud.FindChildTraverse("Main");
     if (mainPanel !== null && mainPanel !== undefined) {
-        mainPanel.style.width = "506px";
+        mainPanel.style.width = "510px";
     }
 })();
 

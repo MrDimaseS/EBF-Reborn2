@@ -23,20 +23,31 @@ function FlashThink()
         return 1
     end
 
-    if thisEntity:IsChanneling() then
-        return 1
-    end
-
-    if thisEntity:GetCurrentActiveAbility() then
-        return 1
-    end
-
     local currentHealth = thisEntity:GetHealth()
     local healthLost = lastHealth - currentHealth
     lastHealth = currentHealth
 
-    if healthLost > thisEntity:GetMaxHealth() * 0.05 and thisEntity.smokeScreen and thisEntity.smokeScreen:IsFullyCastable() then
-        CastSmokeScreen()
+    if healthLost > thisEntity:GetMaxHealth() * 0.25 then
+        if IsAnotherFlashBossAround() then
+            if thisEntity.smokeScreen and thisEntity.smokeScreen:IsFullyCastable() then
+                CastSmokeScreen()
+            end
+            RunAway()
+            return 3
+        else
+            if thisEntity.smokeScreen and thisEntity.smokeScreen:IsFullyCastable() then
+                CastSmokeScreen()
+                return 1 -- Add a delay to ensure the cast completes
+            end
+            ContinueAttacking()
+            return 1
+        end
+    elseif healthLost > thisEntity:GetMaxHealth() * 0.01 then
+        if thisEntity.smokeScreen and thisEntity.smokeScreen:IsFullyCastable() then
+            CastSmokeScreen()
+            return 1 -- Add a delay to ensure the cast completes
+        end
+        ContinueAttacking()
         return 1
     end
 
@@ -44,7 +55,7 @@ function FlashThink()
         thisEntity:GetTeamNumber(),
         thisEntity:GetOrigin(),
         nil,
-        thisEntity:GetAcquisitionRange(),
+        3000, -- Search range
         DOTA_UNIT_TARGET_TEAM_ENEMY,
         DOTA_UNIT_TARGET_HERO,
         DOTA_UNIT_TARGET_FLAG_NONE,
@@ -65,41 +76,67 @@ function FlashThink()
 end
 
 function CastSmokeScreen()
-    ExecuteOrderFromTable({
+    local order = {
         UnitIndex = thisEntity:entindex(),
         OrderType = DOTA_UNIT_ORDER_CAST_POSITION,
         Position = thisEntity:GetAbsOrigin(),
-        AbilityIndex = thisEntity.smokeScreen:entindex()
-    })
+        AbilityIndex = thisEntity.smokeScreen:entindex(),
+        Queue = false,
+    }
+    ExecuteOrderFromTable(order)
+end
 
+function RunAway()
     local runDirection = FindRandomPointAround(thisEntity:GetAbsOrigin(), 1200)
     thisEntity:MoveToPosition(runDirection)
+end
 
-    Timers:CreateTimer(5, function()
-        if thisEntity:IsAlive() then
-            local enemies = FindUnitsInRadius(
-                thisEntity:GetTeamNumber(),
-                thisEntity:GetOrigin(),
-                nil,
-                thisEntity:GetAcquisitionRange(),
-                DOTA_UNIT_TARGET_TEAM_ENEMY,
-                DOTA_UNIT_TARGET_HERO,
-                DOTA_UNIT_TARGET_FLAG_NONE,
-                FIND_ANY_ORDER,
-                false
-            )
+function ContinueAttacking()
+    local enemies = FindUnitsInRadius(
+        thisEntity:GetTeamNumber(),
+        thisEntity:GetOrigin(),
+        nil,
+        3000, -- Search range
+        DOTA_UNIT_TARGET_TEAM_ENEMY,
+        DOTA_UNIT_TARGET_HERO,
+        DOTA_UNIT_TARGET_FLAG_NONE,
+        FIND_ANY_ORDER,
+        false
+    )
 
-            if #enemies > 0 then
-                local target = enemies[1]
-                thisEntity:MoveToTargetToAttack(target)
-            end
+    if #enemies > 0 then
+        local target = enemies[1]
+        thisEntity:MoveToTargetToAttack(target)
+    else
+    end
+end
+
+function IsAnotherFlashBossAround()
+    local units = FindUnitsInRadius(
+        thisEntity:GetTeamNumber(),
+        thisEntity:GetOrigin(),
+        nil,
+        2000, -- Search radius
+        DOTA_UNIT_TARGET_TEAM_FRIENDLY,
+        DOTA_UNIT_TARGET_ALL,
+        DOTA_UNIT_TARGET_FLAG_NONE,
+        FIND_ANY_ORDER,
+        false
+    )
+
+    for _, unit in pairs(units) do
+        if unit ~= thisEntity and unit:GetUnitName() == thisEntity:GetUnitName() then
+            return true
         end
-    end)
+    end
+
+    return false
 end
 
 function FindRandomPointAround(origin, radius)
     local x = RandomFloat(-1, 1)
     local y = RandomFloat(-1, 1)
     local vec = Vector(x, y, 0):Normalized()
-    return origin + vec * radius
+    local point = origin + vec * radius
+    return point
 end

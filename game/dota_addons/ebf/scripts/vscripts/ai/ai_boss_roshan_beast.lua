@@ -16,12 +16,12 @@ function Spawn( entityKeyValues )
 		end
 	end)
 	
-	thisEntity.fire = thisEntity:FindAbilityByName("creature_fire_breath")
+	thisEntity.roar = thisEntity:FindAbilityByName("roshan_revengeroar")
 	thisEntity.slam = thisEntity:FindAbilityByName("roshan_slam")
 	thisEntity.bash = thisEntity:FindAbilityByName("roshan_bash")
 	thisEntity.block = thisEntity:FindAbilityByName("roshan_spell_block")
 	Timers:CreateTimer(0.1, function()
-		thisEntity.fire:SetLevel(GameRules.gameDifficulty)
+		thisEntity.roar:SetLevel(GameRules.gameDifficulty)
 		thisEntity.slam:SetLevel(GameRules.gameDifficulty)
 		thisEntity.bash:SetLevel(GameRules.gameDifficulty)
 		thisEntity.block:SetLevel(GameRules.gameDifficulty)
@@ -31,14 +31,14 @@ end
 
 function AIThink(thisEntity)
 	if thisEntity:GetTeamNumber() ~= DOTA_TEAM_GOODGUYS and not thisEntity:IsChanneling() and not thisEntity:GetCurrentActiveAbility() then
-		if thisEntity.fire:IsFullyCastable() then
-			local optimalPosition = AICore:FindOptimalRadiusInRangeForEntity( thisEntity, thisEntity.fire:GetTrueCastRange() / 2, thisEntity.fire:GetTrueCastRange() / 2 )
+		if thisEntity.roar:IsFullyCastable() then
+			local optimalPosition = AICore:FindOptimalRadiusInRangeForEntity( thisEntity, thisEntity.roar:GetTrueCastRange() / 2, thisEntity.roar:GetTrueCastRange() / 2 )
 			if optimalPosition then
 				ExecuteOrderFromTable({
 					UnitIndex = thisEntity:entindex(),
 					OrderType = DOTA_UNIT_ORDER_CAST_POSITION,
 					Position = optimalPosition,
-					AbilityIndex = thisEntity.fire:entindex()
+					AbilityIndex = thisEntity.roar:entindex()
 				})
 				return 0.1
 			end

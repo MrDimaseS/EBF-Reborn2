@@ -145,7 +145,7 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"10"
+		"AbilityCooldown"				"12"
 		"AbilityCastRange"				"575"
 		"AbilityCastPoint"				"0.2"
 		"AbilityManaCost"				"75 85 95 105 115 125 135"
@@ -168,7 +168,7 @@
 			}
 			"bounce_count"
 			{
-				"value"							"5"
+				"value"							"6"
 				"LinkedSpecialBonus"			"special_bonus_unique_hoodwink_acorn_shot_bounces"
 			}
 			"bounce_range"						""
@@ -242,7 +242,7 @@
 			"projectile_speed"	"1300"
 			"total_damage"
 			{
-				"value"												"900 1800 2700 3600 4500 5300 6200"
+				"value"												"1800 2700 3600 4500 6500 7200 8900"
 				"special_bonus_unique_hoodwink_bushwhack_damage"	"+100%"
 				"CalculateSpellDamageTooltip"						"1"
 			}
@@ -273,12 +273,12 @@
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"0.0"
-		"AbilityCharges"				"2"
-		"AbilityChargeRestoreTime"		"12"
+		"AbilityCharges"				"12"
+		"AbilityChargeRestoreTime"		"25"
 		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"35"
+		"AbilityManaCost"				"30 50 80 120 160 240 350"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -289,22 +289,22 @@
 				"value"													"275"
 				"affected_by_aoe_increase"								"1"	
 			}
-			"movement_speed_pct"										"20 25 30 35 40 45 50"
+			"movement_speed_pct"										"5 7 9 11 13 15 17"
 			"duration"
 			{
-				"value"													"3.5 4.0 4.5 5.0 5.5 6.0 6.5"
+				"value"													"5.5 6.0 6.5 7.0 7.5 8.0 10"
 				"special_bonus_unique_hoodwink_scurry_duration"			"+1"
 			}
 			"movement_speed"											"15"
 			"cast_range"						
 			{
 				"value"													"0"
-				"special_bonus_facet_hoodwink_hunter"					"50 100 150 200 250 300 350"				
+				"special_bonus_facet_hoodwink_hunter"					"150 250 350 450 600 850 1100"				
 			}
 			"attack_range"
 			{
 				"value"													"0"
-				"special_bonus_facet_hoodwink_hunter"					"50 100 150 200 250 300 350"			
+				"special_bonus_facet_hoodwink_hunter"					"150 250 350 450 600 850 1100"			
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
@@ -342,7 +342,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"125 175 225 275 325 375"
+		"AbilityManaCost"				"125 200 250 300 350 450"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -360,7 +360,7 @@
 			"max_damage"
 			{
 				"value"													"5500 9000 12500 16000 19500 23000"
-				"special_bonus_unique_hoodwink_sharpshooter_damage"		"+125%"
+				"special_bonus_unique_hoodwink_sharpshooter_damage"		"+300%"
 				"CalculateSpellDamageTooltip"							"1"
 			}
 			"recoil_distance"			"350"
@@ -373,7 +373,7 @@
 			"base_power"				"0.2"
 			"AbilityCooldown"
 			{
-				"value"					"45"
+				"value"					"60"
 				"special_bonus_scepter"	"-15"
 			}
 		}
@@ -475,7 +475,7 @@
 			{
 				"var_type"						"FIELD_FLOAT"
 				"value"							"0"
-				"ad_linked_abilities"				"hoodwink_sharpshooter"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+				"ad_linked_abilities"				"hoodwink_sharpshooter"
 			}
 		}
 	}
@@ -538,7 +538,7 @@
 	}
 
 	//=================================================================================================================
-	// Talent: Hoodwink Scurry Duration
+	// Talent: Hoodwink Acorn Shot Bounces
 	//=================================================================================================================
   	"special_bonus_unique_hoodwink_acorn_shot_bounces"
 	{
@@ -552,7 +552,7 @@
 			"01"
 			{
 				"var_type"						"FIELD_INTEGER"
-				"value"							"5"
+				"value"							"+14"
 				"ad_linked_abilities"			"hoodwink_acorn_shot"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
 			}
 		}

@@ -121,7 +121,7 @@
 		"BaseClass"						"ability_lua"
 		"ScriptFile"					"heroes/hero_shadow_shaman/shadow_shaman_shackles"
 		"AbilityTextureName"			"shadow_shaman_shackles"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_CHANNELLED | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
@@ -134,17 +134,17 @@
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"400"
+		"AbilityCastRange"				"600"
 		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityChannelTime"			"2.75 3.5 4.25 4.75 5 5.25 5.5 5.75 6.0"
-		"AbilityCooldown"				"10"
+		"AbilityCooldown"				"14"
 		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"125 140 155 170 185 200 215"
+		"AbilityManaCost"				"225 250 275 300 325 350 375"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -153,24 +153,24 @@
 			"tick_interval"								"0.1 0.1 0.1 0.1"
 			"total_damage"
 			{
-				"value"									"750 1500 2250 3000 3750 4500 5250"
+				"value"									"500 1000 1500 1800 2400 2800 3200"
 				"special_bonus_unique_shadow_shaman_6"	"+50%"
 				"CalculateSpellDamageTooltip"			"1"
 			}
 			"total_heal"
 			{
-				"value"									"375 750 1125 1500 1875 2250 2625"
+				"value"									"275 550 725 1000 1250 1600 1800"
 				"special_bonus_unique_shadow_shaman_6"	"+50%"
 				"CalculateSpellHealTooltip"				"1"
 			}
 			"channel_time"
 			{
 				"value"									"2.75 3.5 4.25 4.75 5 5.25 5.5 5.75 6.0"
-				"special_bonus_unique_shadow_shaman_2"	"+1"
+				"special_bonus_unique_shadow_shaman_2"	"+2"
 			}
 			"AbilityCastRange"
 			{
-				"value"						"400"
+				"value"						"600"
 				"special_bonus_shard"		"+125"
 			}
 			"shard_ward_count"
@@ -187,6 +187,10 @@
 			{
 				"value"						"100"
 				"RequiresShard"				"1"
+			}
+			"radius"
+			{
+				"value"						"600" // Define the radius of the AoE
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
@@ -240,7 +244,7 @@
 				"CalculateSpellDamageTooltip"			"0"	
 				"CalculateAttackDamageTooltip"			"1"			
 			}
-			"duration"									"45.0 45.0 45.0"
+			"duration"									"30"
 			"scepter_range"
 			{
 				"value"									"325"
@@ -248,7 +252,7 @@
 			}
 			"scepter_attack_speed"
 			{
-				"value"									"100"
+				"value"									"400"
 				"RequiresScepter"						"1"
 			}
 			"shard_radius"

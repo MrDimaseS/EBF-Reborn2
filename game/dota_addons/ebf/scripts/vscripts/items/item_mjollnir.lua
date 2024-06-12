@@ -13,6 +13,16 @@ function item_mjollnir_2:OnSpellStart()
 	
 	caster:AddNewModifier( caster, self, "modifier_item_mjollnir_active_ebf", {duration = self:GetSpecialValueFor("static_duration")} )
 	EmitSoundOn( "DOTA_Item.Mjollnir.Activate", caster )
+	
+	local static_radius = self:GetSpecialValueFor("static_radius")
+	if static_radius > 0 then
+		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), static_radius ) ) do
+			ParticleManager:FireRopeParticle("particles/items_fx/chain_lightning.vpcf", PATTACH_POINT_FOLLOW, caster, enemy, {})
+			EmitSoundOn( "Item.Maelstrom.Chain_Lightning.Jump", enemy )
+			self:DealDamage( caster, enemy, self:GetSpecialValueFor("chain_damage") ) 
+			enemy:AddNewModifier( caster, self, "modifier_item_mjollnir_rot_ebf", {duration = self:GetSpecialValueFor("debuff_duration")} )
+		end
+	end
 end
 
 item_mjollnir = class(item_mjollnir_2)
@@ -24,22 +34,24 @@ modifier_item_mjollnir_ebf = class({})
 LinkLuaModifier( "modifier_item_mjollnir_ebf", "items/item_mjollnir.lua" ,LUA_MODIFIER_MOTION_NONE )
 
 function modifier_item_mjollnir_ebf:OnCreated()
-	self.bonus_damage = self:GetAbility():GetSpecialValueFor("bonus_damage")
-	self.bonus_all = self:GetAbility():GetSpecialValueFor("bonus_all_stats")
-	self.bonus_attack_speed = self:GetAbility():GetSpecialValueFor("bonus_attack_speed")
-	self.bonus_int = self:GetAbility():GetSpecialValueFor("bonus_intelligence")
+	self.bonus_damage = self:GetSpecialValueFor("bonus_damage")
+	self.bonus_all = self:GetSpecialValueFor("bonus_all_stats")
+	self.bonus_attack_speed = self:GetSpecialValueFor("bonus_attack_speed")
+	self.bonus_int = self:GetSpecialValueFor("bonus_intelligence")
 	
-	self.chain_chance = self:GetAbility():GetSpecialValueFor("chain_chance")
+	self.chain_chance = self:GetSpecialValueFor("chain_chance")
+	self.static_chance = self:GetSpecialValueFor("static_chance")
 	
-	self.chain_damage = self:GetAbility():GetSpecialValueFor("chain_damage")
-	self.chain_strikes = self:GetAbility():GetSpecialValueFor("chain_strikes")
-	self.chain_radius = self:GetAbility():GetSpecialValueFor("chain_radius")
-	self.chain_delay = self:GetAbility():GetSpecialValueFor("chain_delay")
-	self.chain_cooldown = self:GetAbility():GetSpecialValueFor("chain_cooldown")
+	self.chain_damage = self:GetSpecialValueFor("chain_damage")
+	self.chain_strikes = self:GetSpecialValueFor("chain_strikes")
+	self.chain_radius = self:GetSpecialValueFor("chain_radius")
+	self.chain_delay = self:GetSpecialValueFor("chain_delay")
+	self.chain_cooldown = self:GetSpecialValueFor("chain_cooldown")
+	self.bounce_penalty = self:GetSpecialValueFor("bounce_penalty")
 	
-	self.debuff_duration = self:GetAbility():GetSpecialValueFor("resist_linger_duration")
+	self.debuff_duration = self:GetSpecialValueFor("resist_linger_duration")
 
-	self.aura_radius = self:GetAbility():GetSpecialValueFor("aura_radius")
+	self.aura_radius = self:GetSpecialValueFor("aura_radius")
 	
 	self.lastChain = 0
 	self.records = {}
@@ -67,7 +79,11 @@ end
 
 function modifier_item_mjollnir_ebf:OnAttackRecord(params)
 	if params.attacker == self:GetParent() and not params.attacker:IsIllusion() then
-		self.records[params.record] = RollPercentage( self.chain_chance )
+		local chain_chance = self.chain_chance
+		if params.attacker:HasModifier("modifier_item_mjollnir_active_ebf") then
+			chain_chance = chain_chance + self.static_chance
+		end
+		self.records[params.record] = RollPercentage( chain_chance )
 		
 		if self.records[params.record] then
 			self.bash = true
@@ -94,6 +110,7 @@ function modifier_item_mjollnir_ebf:OnAttackLanded(params)
 				local strikes = self.chain_strikes
 				local lastTarget = params.attacker
 				local currentTarget = params.target
+				local strike_cost = 1
 				
 				
 				self.lastChain = GameRules:GetGameTime() + self.chain_cooldown
@@ -128,13 +145,14 @@ function modifier_item_mjollnir_ebf:OnAttackLanded(params)
 							if unit ~= lastTarget then
 								currentTarget = unit
 								targets = {}
+								strike_cost = strike_cost + self.bounce_penalty 
 								break
 							end
 						end
 					end
 					
 					if strikes > 0 and currentTarget then
-						strikes = strikes - 1
+						strikes = strikes - strike_cost
 						return self.chain_delay
 					end
 				end)
@@ -158,41 +176,12 @@ function modifier_item_mjollnir_ebf:GetModifierBonusStats_Agility()
 	return self.bonus_all
 end
 
-
 function modifier_item_mjollnir_ebf:GetModifierAttackSpeedBonus_Constant()
 	return self.bonus_attack_speed
 end
 
 function modifier_item_mjollnir_ebf:GetModifierPreAttack_BonusDamage()
 	return self.bonus_damage
-end
-
-function modifier_item_mjollnir_ebf:IsAura()
-	return self.aura_radius > 0
-end
-
-function modifier_item_mjollnir_ebf:GetModifierAura()
-	return "modifier_item_mjollnir_ebf_aura"
-end
-
-function modifier_item_mjollnir_ebf:GetAuraRadius()
-	return self.aura_radius
-end
-
-function modifier_item_mjollnir_ebf:GetAuraDuration()
-	return 0.5
-end
-
-function modifier_item_mjollnir_ebf:GetAuraSearchTeam()    
-	return DOTA_UNIT_TARGET_TEAM_FRIENDLY
-end
-
-function modifier_item_mjollnir_ebf:GetAuraSearchType()    
-	return DOTA_UNIT_TARGET_BASIC + DOTA_UNIT_TARGET_HERO
-end
-
-function modifier_item_mjollnir_ebf:GetAuraSearchFlags()    
-	return DOTA_UNIT_TARGET_FLAG_NONE
 end
 
 function modifier_item_mjollnir_ebf:IsHidden()
@@ -212,16 +201,6 @@ LinkLuaModifier( "modifier_item_mjollnir_active_ebf", "items/item_mjollnir.lua" 
 
 
 function modifier_item_mjollnir_active_ebf:OnCreated()
-	self.static_attack_speed = self:GetAbility():GetSpecialValueFor("static_attack_speed")
-end
-
-function modifier_item_mjollnir_active_ebf:DeclareFunctions(params)
-	local funcs = { MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT }
-    return funcs
-end
-
-function modifier_item_mjollnir_active_ebf:GetModifierAttackSpeedBonus_Constant(params)
-	return self.static_attack_speed
 end
 
 function modifier_item_mjollnir_active_ebf:GetEffectName()
@@ -233,7 +212,7 @@ LinkLuaModifier( "modifier_item_mjollnir_rot_ebf", "items/item_mjollnir.lua" ,LU
 
 
 function modifier_item_mjollnir_rot_ebf:OnCreated()
-	self.spell_amp = self:GetAbility():GetSpecialValueFor("spell_amp")
+	self.spell_amp = self:GetSpecialValueFor("spell_amp")
 end
 
 function modifier_item_mjollnir_rot_ebf:DeclareFunctions(params)

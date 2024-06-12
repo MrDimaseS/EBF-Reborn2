@@ -8,6 +8,10 @@ function shadow_shaman_shackles:UpdateChannelTime(channelTime)
     self._channelTimeToVisualize = math.max(self._channelTimeToVisualize or 0, channelTime)
 end
 
+function shadow_shaman_shackles:GetAOERadius()
+    return self:GetSpecialValueFor("radius")
+end
+
 function shadow_shaman_shackles:OnSpellStart()
     local hCaster = self:GetCaster()
     local vTargetPosition = self:GetCursorPosition()

@@ -26,6 +26,10 @@ function omniknight_martyr:OnSpellStart()
     EmitSoundOnLocationWithCaster(target_point, "Hero_Omniknight.Repel", caster)
 end
 
+function omniknight_martyr:GetAOERadius()
+    return self:GetSpecialValueFor("radius")
+end
+
 LinkLuaModifier("modifier_omniknight_martyr_buff", "heroes/hero_omniknight/omniknight_martyr.lua", LUA_MODIFIER_MOTION_NONE)
 
 modifier_omniknight_martyr_buff = class({})

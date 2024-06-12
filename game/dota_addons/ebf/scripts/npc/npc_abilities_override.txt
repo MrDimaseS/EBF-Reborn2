@@ -71,6 +71,7 @@
 	"item_bottle"							"REMOVE"
 	"item_crimson_guard"					"REMOVE"
 	"item_vanguard"							"REMOVE"
+	"item_diffusal_blade"					"REMOVE"
 
 	//=================================================================================================================
 	// Tome of Knowledge
@@ -3693,7 +3694,7 @@
 				"value"							"40"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"bonus_hp_per_str"					"3"
+			"bonus_hp_per_str"					"2"
 			"bonus_hp_regen_per_str"			"0.1"
 			
 			"duration"							"12"
@@ -3946,7 +3947,7 @@
 			}
 			"bonus_agility"
 			{
-				"value"							"35"
+				"value"							"25"
 				"CalculateAttributeTooltip"		"1"
 			}
 			"bonus_chance"
@@ -4981,7 +4982,7 @@
 				"value"							"350"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"bonus_attack_speed"				"30"
+			"bonus_attack_speed"				"20"
 			
 			"chain_chance"
 			{
@@ -5075,7 +5076,7 @@
 				"value"							"35"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"bonus_attack_speed"				"65"
+			"bonus_attack_speed"				"45"
 			"static_duration"					"15.0"
 			"static_attack_speed"				"40"
 			
@@ -5299,7 +5300,7 @@
 				"value"							"25"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"bonus_attack_speed"				"25"
+			"bonus_attack_speed"				"15"
 			
 			"chain_chance"
 			{
@@ -5507,8 +5508,8 @@
 				"value"							"16"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"bonus_attack_speed"			"15"
-			"movement_speed_percent_bonus"	"12"
+			"bonus_attack_speed"				"12"
+			"movement_speed_percent_bonus"		"12"
 		}
 	}
 	//=================================================================================================================
@@ -5852,7 +5853,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_aoe"							""
+			"bonus_aoe"							"0"
 			"bonus_health"
 			{
 				"value"							"550"
@@ -6623,7 +6624,7 @@
 			}
 			"bonus_health_regen"
 			{
-				"value"							"10"
+				"value"							"12"
 				"CalculateAttributeTooltip"		"1"
 			}
 			"bonus_strength"
@@ -6902,13 +6903,14 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
-		"ItemPermanent"					"1"
-		"FightRecapLevel"				"1"
+		"AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
+		"ItemPermanent"						"1"
+		"FightRecapLevel"					"1"
 
 		// Stats		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"30.0"
+		"AbilityCooldown"					"30.0"
+		"AbilitySharedCooldown"				"boots_of_bearing"
 		//"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 
 		// Item Info
@@ -7020,7 +7022,7 @@
 		"ItemResult"					"item_aeon_disk"
 		"ItemRequirements"
 		{
-			"01"						"item_vitality_booster;item_energy_booster;item_ultimate_orb"
+			"01"						"250"
 		}
 	}
 	"item_aeon_disk"

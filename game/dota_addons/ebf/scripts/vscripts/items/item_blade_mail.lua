@@ -61,7 +61,7 @@ function item_conquerors_splint:GetDefaultFunctions()
     }
 end
 
-function item_blade_mail:GetIntrinsicModifierName()
+function item_conquerors_splint:GetIntrinsicModifierName()
 	return "modifier_item_conquerors_splint_passive"
 end
 
@@ -263,7 +263,8 @@ function modifier_item_conquerors_splint_passive:GetModifierConstantHealthRegen(
 end
 
 function modifier_item_conquerors_splint_passive:GetModifierPreAttack_CriticalStrike( params )
-	local roll = RollPseudoRandomPercentage( TernaryOperator( self.reflect_crit_chance, params.target:IsAttackingEntity( params.attacker ), self.crit_chance ), DOTA_PSEUDO_RANDOM_CUSTOM_GENERIC, params.attacker )
+	local crit_chance = TernaryOperator( self.reflect_crit_chance, params.target:IsAttackingEntity( params.attacker ), self.crit_chance )
+	local roll = RollPseudoRandomPercentage( crit_chance, DOTA_PSEUDO_RANDOM_CUSTOM_GENERIC, params.attacker )
 	if roll then
 		return self.crit_multiplier
 	end

@@ -76,16 +76,16 @@ function modifier_item_yasha_and_kaya_2_passive:OnRefresh()
 	
 	self.buff_duration = self:GetSpecialValueFor("buff_duration")
 	
-	self.crit_chance = self:GetAbility():GetSpecialValueFor("chain_chance")
-	self.chain_damage = self:GetAbility():GetSpecialValueFor("chain_damage")
-	self.chain_strikes = self:GetAbility():GetSpecialValueFor("chain_strikes")
-	self.chain_radius = self:GetAbility():GetSpecialValueFor("chain_radius")
-	self.chain_delay = self:GetAbility():GetSpecialValueFor("chain_delay")
-	self.chain_cooldown = self:GetAbility():GetSpecialValueFor("chain_cooldown")
 	
-	self.static_strikes = self:GetAbility():GetSpecialValueFor("static_strikes")
-	self.static_damage = self:GetAbility():GetSpecialValueFor("static_damage")
-	self.static_radius = self:GetAbility():GetSpecialValueFor("static_radius")
+	self.chain_chance = self:GetSpecialValueFor("chain_chance")
+	self.static_chance = self:GetSpecialValueFor("static_chance")
+	
+	self.chain_damage = self:GetSpecialValueFor("chain_damage")
+	self.chain_strikes = self:GetSpecialValueFor("chain_strikes")
+	self.chain_radius = self:GetSpecialValueFor("chain_radius")
+	self.chain_delay = self:GetSpecialValueFor("chain_delay")
+	self.chain_cooldown = self:GetSpecialValueFor("chain_cooldown")
+	self.bounce_penalty = self:GetSpecialValueFor("bounce_penalty")
 	
 	self.max_stacks = self:GetSpecialValueFor("max_stacks")
 	self.total_duration = self:GetSpecialValueFor("buffer_duration") + self:GetSpecialValueFor("loss_timer")
@@ -137,8 +137,12 @@ function modifier_item_yasha_and_kaya_2_passive:OnAbilityFullyCast(params)
 end
 
 function modifier_item_yasha_and_kaya_2_passive:OnAttackRecord(params)
-	if params.attacker == self:GetParent() and not params.attacker:IsIllusion() and self.crit_chance > 0 and self.lastChain <= GameRules:GetGameTime() then
-		local trigger = RollPercentage( self.crit_chance )
+	if params.attacker == self:GetParent() and not params.attacker:IsIllusion() and self.chain_chance > 0 and self.lastChain <= GameRules:GetGameTime() then
+		local chain_chance = self.chain_chance
+		if params.attacker:HasModifier("modifier_item_yasha_and_kaya_2_wild_magic") then
+			chain_chance = chain_chance + self.static_chance
+		end
+		local trigger = RollPercentage( self.chain_chance )
 		self.records[params.record] = trigger
 		if self.records[params.record] then
 			self.bash = true
@@ -159,7 +163,8 @@ function modifier_item_yasha_and_kaya_2_passive:OnTakeDamage(params)
 			modifier:SetStackCount( math.min( modifier:GetStackCount() + 1, self.max_stacks ) )
 			modifier:ForceRefresh()
 		end
-		if self.crit_chance > 0 then
+		local itemIsActive = params.attacker:HasModifier("modifier_item_yasha_and_kaya_2_wild_magic")
+		if self.chain_chance > 0 then
 			if params.unit:IsAlive() and self.records[params.record] then
 				local caster = params.attacker
 				local ability = self:GetAbility()
@@ -168,35 +173,19 @@ function modifier_item_yasha_and_kaya_2_passive:OnTakeDamage(params)
 				local strikes = self.chain_strikes
 				local lastTarget = params.attacker
 				local currentTarget = params.unit
-				local damage = self.chain_damage
-				local bonusStrikes = 0
-				
-				if params.attacker:HasModifier("modifier_item_yasha_and_kaya_2_wild_magic") then
-					damage = self.static_damage
-					bonusStrikes = self.static_strikes
-				end
+				local strike_cost = 1
 				
 				self.lastChain = GameRules:GetGameTime() + self.chain_cooldown
 				EmitSoundOn( "Item.Maelstrom.Chain_Lightning", caster )
-				
-				if bonusStrikes > 0 then
-					for _, enemy in ipairs( params.attacker:FindEnemyUnitsInRadius( params.unit:GetAbsOrigin(), self.static_radius ) ) do
-						if enemy ~= currentTarget and bonusStrikes > 0 then
-							ParticleManager:FireRopeParticle("particles/items_fx/chain_lightning.vpcf", PATTACH_POINT_FOLLOW, params.attacker, enemy)
-							ability:DealDamage( caster, enemy, damage )
-							bonusStrikes = bonusStrikes - 1
-						elseif bonusStrikes == 0 then
-							break
-						end
-					end
-				end
 				
 				local targets = {[currentTarget] = true}
 				Timers:CreateTimer( function()
 					
 					ParticleManager:FireRopeParticle("particles/items_fx/chain_lightning.vpcf", PATTACH_POINT_FOLLOW, lastTarget, currentTarget, {})
 					EmitSoundOn( "Item.Maelstrom.Chain_Lightning.Jump", currentTarget )
-					ability:DealDamage( caster, currentTarget, damage )
+					if not currentTarget:IsSameTeam( caster ) then 
+						ability:DealDamage( caster, currentTarget, self.chain_damage )
+					end
 					
 					lastTarget = currentTarget
 					currentTarget = nil
@@ -208,8 +197,19 @@ function modifier_item_yasha_and_kaya_2_passive:OnTakeDamage(params)
 						end
 					end
 					
+					if not currentTarget and itemIsActive then -- reset chain
+						for _, unit in ipairs( caster:FindAllUnitsInRadius( lastTarget:GetAbsOrigin(), self.chain_radius ) ) do
+							if unit ~= lastTarget then
+								currentTarget = unit
+								targets = {}
+								strike_cost = strike_cost + self.bounce_penalty 
+								break
+							end
+						end
+					end
+					
 					if strikes > 0 and currentTarget then
-						strikes = strikes - 1
+						strikes = strikes - strike_cost
 						return self.chain_delay
 					end
 				end)

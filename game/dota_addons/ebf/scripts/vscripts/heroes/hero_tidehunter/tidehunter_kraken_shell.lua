@@ -90,6 +90,7 @@ end
 
 function modifier_tidehunter_kraken_shell_effect:GetModifierIncomingDamage_Percentage( params )
 	if self:GetParent():PassivesDisabled() and self:GetDuration() <= 0 then return end
+	if params.damage < 0 then return end
 	local ability = self:GetAbility()
 	local caster = self:GetCaster()
 	if not self.triggered then

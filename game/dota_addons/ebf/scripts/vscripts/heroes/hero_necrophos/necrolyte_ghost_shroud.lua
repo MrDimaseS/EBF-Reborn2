@@ -62,7 +62,7 @@ function modifier_necrolyte_ghost_shroud_ethereal:GetModifierMPRegenAmplify_Perc
 	return self.heal_amp
 end
 
-function modifier_necrolyte_ghost_shroud_ethereal_slow:GetModifierMoveSpeedBonus_Percentage()
+function modifier_necrolyte_ghost_shroud_ethereal:GetModifierMoveSpeedBonus_Percentage()
 	return self.movement_transfer
 end
 

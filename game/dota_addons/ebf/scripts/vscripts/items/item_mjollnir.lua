@@ -53,7 +53,7 @@ function modifier_item_mjollnir_ebf:OnCreated()
 
 	self.aura_radius = self:GetSpecialValueFor("aura_radius")
 	
-	self.lastChain = 0
+	self:GetParent()._internalLastMjollnirChain = 0
 	self.records = {}
 end
 
@@ -100,10 +100,10 @@ end
 function modifier_item_mjollnir_ebf:OnAttackLanded(params)
 	if IsServer() then
 		if params.attacker == self:GetParent() and not params.attacker:IsIllusion() then
-			local itemIsActive = params.attacker:HasModifier("modifier_item_mjollnir_active_ebf")
-			if params.target:IsAlive() and self.records[params.record] and (self.lastChain <= GameRules:GetGameTime() or itemIsActive) then
+			local ability = self:GetAbility()
+			local itemIsActive = params.attacker:FindModifierByNameAndAbility("modifier_item_mjollnir_active_ebf", ability )
+			if params.target:IsAlive() and self.records[params.record] and (self:GetParent()._internalLastMjollnirChain <= GameRules:GetGameTime() or itemIsActive) then
 				local caster = params.attacker
-				local ability = self:GetAbility()
 				local target = params.target
 				
 				local strikes = self.chain_strikes
@@ -113,7 +113,7 @@ function modifier_item_mjollnir_ebf:OnAttackLanded(params)
 				local strike_cost = 1
 				
 				
-				self.lastChain = GameRules:GetGameTime() + self.chain_cooldown
+				self:GetParent()._internalLastMjollnirChain = GameRules:GetGameTime() + self.chain_cooldown
 				EmitSoundOn( "Item.Maelstrom.Chain_Lightning", caster )
 				if itemIsActive then 
 					ParticleManager:FireParticle( "particles/units/heroes/hero_zuus/zuus_static_field.vpcf", PATTACH_POINT_FOLLOW, caster )
@@ -133,7 +133,7 @@ function modifier_item_mjollnir_ebf:OnAttackLanded(params)
 					lastTarget = currentTarget
 					currentTarget = nil
 					for _, unit in ipairs( caster:FindEnemyUnitsInRadius( lastTarget:GetAbsOrigin(), self.chain_radius ) ) do
-						if not targets[unit] or (itemIsActive and unit ~= lastTarget) then
+						if not targets[unit] then
 							currentTarget = unit
 							targets[unit] = true
 							break
@@ -141,7 +141,7 @@ function modifier_item_mjollnir_ebf:OnAttackLanded(params)
 					end
 					
 					if not currentTarget and itemIsActive then -- reset chain
-						for _, unit in ipairs( caster:FindFriendlyUnitsInRadius( lastTarget:GetAbsOrigin(), self.chain_radius ) ) do
+						for _, unit in ipairs( caster:FindAllUnitsInRadius( lastTarget:GetAbsOrigin(), self.chain_radius ) ) do
 							if unit ~= lastTarget then
 								currentTarget = unit
 								targets = {}

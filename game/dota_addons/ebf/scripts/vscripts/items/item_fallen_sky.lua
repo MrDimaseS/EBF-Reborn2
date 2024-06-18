@@ -48,7 +48,18 @@ function item_fallen_sky:OnSpellStart()
 		caster:Blink( realPos )
 		ParticleManager:FireParticle( "particles/items3_fx/blink_overwhelming_end.vpcf", PATTACH_POINT, caster )
 		EmitSoundOn( "Blink_Layer.Overwhelming", caster )
+		
+		EmitSoundOn( "DOTA_Item.MeteorHammer.Impact", caster )
+		ParticleManager:FireParticle( "particles/items3_fx/blink_overwhelming_burst.vpcf", PATTACH_POINT, caster, {[1] = Vector( damageRadius, damageRadius, damageRadius )} )
+		
+		local landFX = ParticleManager:CreateParticle("particles/items4_fx/meteor_hammer_aoe.vpcf", PATTACH_WORLDORIGIN, nil)
+		ParticleManager:SetParticleControl( landFX, 0, realPos )
+		ParticleManager:SetParticleControl( landFX, 1, Vector( stunRadius, stunRadius, stunRadius) )
+		ParticleManager:ClearParticle( landFX, false )
+		caster:RemoveNoDraw()
+		
 		-- EFFECTS
+		if not IsEntitySafe( self ) then return end
 		local damage = self:GetSpecialValueFor("damage_base") * (1+caster:GetSpellAmplification(false)) + caster:GetStrength() * self:GetSpecialValueFor("damage_pct_instant") / 100
 		
 		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), damageRadius ) ) do
@@ -60,14 +71,6 @@ function item_fallen_sky:OnSpellStart()
 			end
 		end
 		
-		EmitSoundOn( "DOTA_Item.MeteorHammer.Impact", caster )
-		ParticleManager:FireParticle( "particles/items3_fx/blink_overwhelming_burst.vpcf", PATTACH_POINT, caster, {[1] = Vector( damageRadius, damageRadius, damageRadius )} )
-		
-		local landFX = ParticleManager:CreateParticle("particles/items4_fx/meteor_hammer_aoe.vpcf", PATTACH_WORLDORIGIN, nil)
-		ParticleManager:SetParticleControl( landFX, 0, realPos )
-		ParticleManager:SetParticleControl( landFX, 1, Vector( stunRadius, stunRadius, stunRadius) )
-		ParticleManager:ClearParticle( landFX, false )
-		caster:RemoveNoDraw()
 	end)
 end
 

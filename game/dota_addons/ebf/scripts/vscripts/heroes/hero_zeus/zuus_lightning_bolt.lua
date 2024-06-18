@@ -70,7 +70,7 @@ function zuus_lightning_bolt:LightningBolt( target, source, flDamage )
 		if aoe > 0 then
 			for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( point, aoe ) ) do
 				if enemy ~= target then
-					self:DealDamage( caster, target, damage * TernaryOperator( 1, target:IsConsideredHer(), creep_damage_bonus_pct ) )
+					self:DealDamage( caster, enemy, damage * TernaryOperator( 1, target:IsConsideredHero(), creep_damage_bonus_pct ) )
 					self:Stun(target, stunDur, false)
 				end
 			end

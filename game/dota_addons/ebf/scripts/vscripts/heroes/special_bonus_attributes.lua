@@ -410,8 +410,8 @@ end
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierPercentageCooldown( params )
   local castSpeed = 0
   for modifier,_ in pairs( self:GetParent().cooldownModifiers or {} ) do
-	if IsModifierSafe( modifier ) then
-		castSpeed = castSpeed + modifier:GetModifierCastSpeed( params ) or 0
+	if IsModifierSafe( modifier ) and modifier.GetModifierCastSpeed then
+		castSpeed = castSpeed + (modifier:GetModifierCastSpeed( params ) or 0)
 	else
 		self:GetParent().cooldownModifiers[modifier] = nil
 	end

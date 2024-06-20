@@ -151,6 +151,7 @@ function CHoldoutGameMode:InitGameMode()
 	if IsInToolsMode() or GameRules:IsCheatMode() then
 		GameRules:SetPreGameTime( 99999 )
 		GameRules:SetHeroSelectionTime( 99999 )
+	GameRules:SetStrategyTime( 99999 )
 	end
 	
 	-- defining lifes
@@ -665,13 +666,6 @@ function CHoldoutGameMode:OnHeroPick (event)
 		end
 	end
 	
-	for i = 0, 10 do
-		local ability = hero:GetAbilityByIndex( i )
-		if ability and ability:IsInnateAbility() then
-			ability:SetLevel( 1 )
-		end
-	end
-
 	local courierPosition = hero:GetAbsOrigin()
 	if fountain ~= nil then
 		courierPosition = fountain:GetAbsOrigin()
@@ -698,6 +692,25 @@ function CHoldoutGameMode:OnHeroPick (event)
 	hero.damage_healed_ingame = 0
 	
 	hero._heroManaType = GameRules.HeroKV[hero:GetUnitName()].ManaType or "Mana"
+	
+	local facetID = hero:GetHeroFacetID()
+	local facetData
+	for _, facet in pairs(  GameRules.HeroKV[hero:GetUnitName()].Facets ) do
+		if tonumber(facet.FacetID or "1") == facetID then
+			for _, abilityData in pairs( facet.Abilities ) do
+				if abilityData.ReplaceAbility then
+					local abilityToReplace = hero:FindAbilityByName( abilityData.ReplaceAbility )
+					local abilityToAdd = hero:FindAbilityByName( abilityData.AbilityName )
+					
+					local abilityToReplaceIndex = abilityToReplace:GetAbilityIndex()
+					local abilityToAddIndex = abilityToAdd:GetAbilityIndex()
+					
+					hero:SwapAbilities( abilityData.AbilityName, abilityData.ReplaceAbility, true, false )
+					hero:RemoveAbilityByHandle( abilityToReplace )
+				end
+			end
+		end
+	end
 	
 	if hero:GetManaType() == "Mana" then
 		hero:SetBaseManaRegen( (hero:GetBaseIntellect() / 5) * 0.04 )

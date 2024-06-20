@@ -51,7 +51,7 @@ function modifier_ursa_enrage_shard_handler:DeclareFunctions()
 end
 
 function modifier_ursa_enrage_shard_handler:OnAbilityFullyCast( params )
-	if params.unit == self:GetCaster() and self:GetCaster():HasShard() and self:GetAbility():GetCooldownTimeRemaining() > 0 then
+	if params.unit == self:GetCaster() and self:GetCaster():HasShard() and self:GetAbility():GetCooldownTimeRemaining() > 0 and self:GetCaster():HasAbility( params.ability:GetAbilityName() ) then
 		self:GetAbility():ModifyCooldown( -self.shard_spellcast_duration )
 	end
 end
@@ -107,7 +107,7 @@ function modifier_ursa_enrage_active:GetModifierStatusResistanceStacking()
 end
 
 function modifier_ursa_enrage_active:OnAbilityFullyCast( params )
-	if params.unit == self:GetCaster() and self:GetCaster():HasShard() then
+	if params.unit == self:GetCaster() and self:GetCaster():HasShard() and self:GetCaster():HasAbility( params.ability:GetAbilityName() ) then
 		self:SetDuration( self:GetRemainingTime() + self.shard_spellcast_duration, true )
 	end
 end

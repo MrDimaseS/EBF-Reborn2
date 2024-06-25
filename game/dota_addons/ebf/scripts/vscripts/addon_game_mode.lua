@@ -696,17 +696,19 @@ function CHoldoutGameMode:OnHeroPick (event)
 	local facetID = hero:GetHeroFacetID()
 	local facetData
 	for _, facet in pairs(  GameRules.HeroKV[hero:GetUnitName()].Facets ) do
-		if tonumber(facet.FacetID or "1") == facetID then
+		if facet.Abilities and tonumber(facet.FacetID or "1") == facetID then
 			for _, abilityData in pairs( facet.Abilities ) do
 				if abilityData.ReplaceAbility then
 					local abilityToReplace = hero:FindAbilityByName( abilityData.ReplaceAbility )
 					local abilityToAdd = hero:FindAbilityByName( abilityData.AbilityName )
 					
-					local abilityToReplaceIndex = abilityToReplace:GetAbilityIndex()
-					local abilityToAddIndex = abilityToAdd:GetAbilityIndex()
-					
-					hero:SwapAbilities( abilityData.AbilityName, abilityData.ReplaceAbility, true, false )
-					hero:RemoveAbilityByHandle( abilityToReplace )
+					if IsEntitySafe( abilityToReplace ) and IsEntitySafe( abilityToAdd ) then
+						local abilityToReplaceIndex = abilityToReplace:GetAbilityIndex()
+						local abilityToAddIndex = abilityToAdd:GetAbilityIndex()
+						
+						hero:SwapAbilities( abilityData.AbilityName, abilityData.ReplaceAbility, true, false )
+						hero:RemoveAbilityByHandle( abilityToReplace )
+					end
 				end
 			end
 		end

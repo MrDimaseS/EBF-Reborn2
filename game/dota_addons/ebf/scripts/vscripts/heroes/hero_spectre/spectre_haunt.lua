@@ -50,7 +50,7 @@ function modifier_spectre_haunt_active:OnIntervalThink()
 	local caster = self:GetCaster()
 	local parent = self:GetParent()
 	for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( parent:GetAbsOrigin(), -1, {type = DOTA_UNIT_TARGET_HERO} ) ) do
-		params.attacker:PerformGenericAttack( enemy, true, true )
+		caster:PerformGenericAttack( enemy, true, true )
 	end
 end
 

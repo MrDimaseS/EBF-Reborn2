@@ -59,9 +59,9 @@ function modifier_necrophos_heart_stopper_passive_degen:OnIntervalThink()
 	local caster = self:GetCaster()
 	local parent = self:GetParent()
 	local ability = self:GetAbility()
-	if not IsSafeEntity( caster ) then return end
-	if not IsSafeEntity( ability ) then return end
-	if not IsSafeEntity( parent ) then return end
+	if not IsEntitySafe( caster ) then return end
+	if not IsEntitySafe( ability ) then return end
+	if not IsEntitySafe( parent ) then return end
 	if caster:IsOutOfGame() or caster:NoHealthBar() then return end
 	local damage = parent:GetMaxHealth() * ( TernaryOperator( self.aura_damage, parent:IsConsideredHero(), self.creep_damage ) ) / 100 + caster:GetHealthRegen() * self.heal_regen_to_damage
 	if ability and not ability:IsNull() then

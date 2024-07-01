@@ -170,23 +170,23 @@
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
+
 	"boss_ogre_destroyer_smash"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ogre_bruiser_ogre_smash"
 		"AbilityTextureName"			"ogre_bruiser_ogre_smash"
+		"MaxLevel"						"1"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_CAN_SELF_CAST | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
-		"MaxLevel"						"3"
 		
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastPoint"				"1.2"
-		"AnimationPlaybackRate"			"1.7"
+		"AbilityCastPoint"				"4.5"
 		"AbilityCooldown"				"12.0"
 		"AbilityManaCost"				"0"
 		
@@ -194,12 +194,18 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"radius"						"450"
-			"damage"						"7500 8500 9500"
-			"damage_pct"					"2"
-			"hero_stun_duration"			"1.0"
+				"radius"						
+				{
+
+					"value"			"600"
+					"affected_by_aoe_increase"		"1"
+				}
+
+				"damage"						"15000"
+				"damage_pct"					"2"
+				"hero_stun_duration"			"2"
 		}
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
 
 	"boss_troll_warlord_berserkers_rage"
@@ -337,8 +343,8 @@
 		// Casting
 		"AbilityValues"
 		{
-			"attack_speed"				"5 7 9"
-			"max_stacks"				"25"
+			"attack_speed"				"10"
+			"max_stacks"				"200"
 			"extra_attack_chance_per_stack"
 			{
 				"value"	"4"
@@ -396,6 +402,38 @@
 			}
 			"maim_attack_speed"			"60"
 			"maim_damage"				"500"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+
+	"boss_ogre_defender_cone_push"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"bosses/boss_ogres/boss_ogre_defender_cone_push"
+		"AbilityTextureName"			"tiny_toss_tree"
+		"MaxLevel"						"1"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_AUTOCAST | DOTA_ABILITY_BEHAVIOR_ATTACK"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"  // Ignore evasion
+		
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"1.5"
+		"AbilityCooldown"				"14.0"
+		"AbilityManaCost"				"100"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"cone_angle"				"90"		
+			"cone_distance"				"650"
+			"pushback_distance"			"800"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}

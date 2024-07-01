@@ -28,7 +28,7 @@ end
 
 function modifier_minion_demonic_imp_explode:OnAttackLanded( params )
 	if self.die_on_attack and params.attacker == self:GetParent() then
-		params.attacker:Kill( self:GetAbility(), params.attacker )
+		params.attacker:ForceKill(true)
 	end
 end
 

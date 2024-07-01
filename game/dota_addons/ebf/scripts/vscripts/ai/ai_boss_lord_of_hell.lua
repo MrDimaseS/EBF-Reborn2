@@ -2,8 +2,7 @@
 Broodking AI
 ]]
 
-
-function Spawn( entityKeyValues )
+function Spawn(entityKeyValues)
 	if not IsServer() then
 		return
 	end
@@ -20,6 +19,7 @@ function Spawn( entityKeyValues )
 	thisEntity.doom = thisEntity:FindAbilityByName("boss_lord_of_hell_doom")
 	thisEntity.blink = thisEntity:FindItemInInventory("item_lord_of_hell_overwhelming_blink")
 	thisEntity.shiva = thisEntity:FindItemInInventory("item_lord_of_hell_shivas")
+	
 	Timers:CreateTimer(0.1, function()
 		thisEntity.devour:SetLevel(GameRules.gameDifficulty)
 		thisEntity.scorch:SetLevel(GameRules.gameDifficulty)
@@ -33,68 +33,22 @@ function AIThink(thisEntity)
 		if thisEntity.blade:IsFullyCastable() and not thisEntity.blade:GetAutoCastState() then
 			thisEntity.blade:ToggleAutoCast()
 		end
+		
 		if thisEntity.devour:IsFullyCastable() then
-			local potentialTargets = thisEntity:FindAllUnitsInRadius( thisEntity:GetAbsOrigin(), thisEntity:GetIdealSpeed() * 4 )
-			local castTarget
-			for _, target in ipairs( potentialTargets ) do
-				if target:IsNeutralUnitType() then
-					for i = 0, target:GetAbilityCount() - 1 do
-						local ability = target:GetAbilityByIndex( i )
-						if ability and ability:IsPassive() and not ability:IsAttributeBonus() then
-							if not thisEntity:HasAbility( ability:GetAbilityName() ) then
-								castTarget = target
-								break
-							end
-						end
-					end
-				end
-			end
-			if not castTarget then
-				for _, target in ipairs( potentialTargets ) do
-					if not target:IsConsideredHero() then
-						for i = 0, target:GetAbilityCount() - 1 do
-							local ability = target:GetAbilityByIndex( i )
-							if ability and ability:IsPassive() and not ability:IsAttributeBonus() then
-								if not thisEntity:HasAbility( ability:GetAbilityName() ) then
-									castTarget = target
-									break
-								end
-							end
-						end
-					end
-				end
-			end
-			if not castTarget then
-				for _, target in ipairs( potentialTargets ) do
-					for i = 0, target:GetAbilityCount() - 1 do
-						local ability = target:GetAbilityByIndex( i )
-						if ability and ability:IsPassive() and not ability:IsAttributeBonus() then
-							if not thisEntity:HasAbility( ability:GetAbilityName() ) then
-								castTarget = target
-								break
-							end
-						end
-					end
-				end
-			end
-			if not castTarget then
-				for _, target in ipairs( potentialTargets ) do
-					castTarget = target
-					break
-				end
-			end
-			if castTarget then
+			local target = AICore:NearestEnemyHeroInRange(thisEntity, thisEntity.devour:GetCastRange(thisEntity:GetAbsOrigin(), thisEntity.devour), true)
+			if target then
 				ExecuteOrderFromTable({
 					UnitIndex = thisEntity:entindex(),
 					OrderType = DOTA_UNIT_ORDER_CAST_TARGET,
 					AbilityIndex = thisEntity.devour:entindex(),
-					TargetIndex = castTarget:entindex()
+					TargetIndex = target:entindex()
 				})
 				return thisEntity.devour:GetCastPoint() + AI_THINK_RATE
 			end
 		end
-		if thisEntity.scorch:IsFullyCastable() and AICore:TotalEnemyHeroesInRange( thisEntity, thisEntity.scorch:GetSpecialValueFor("radius") ) >= 1 then
-			local target = AICore:FurthestEnemyHeroInRange( thisEntity, -1, true)
+		
+		if thisEntity.scorch:IsFullyCastable() and AICore:TotalEnemyHeroesInRange(thisEntity, thisEntity.scorch:GetSpecialValueFor("radius")) >= 1 then
+			local target = AICore:FurthestEnemyHeroInRange(thisEntity, -1, true)
 			if target then
 				ExecuteOrderFromTable({
 					UnitIndex = thisEntity:entindex(),
@@ -104,8 +58,9 @@ function AIThink(thisEntity)
 				return thisEntity.scorch:GetCastPoint() + AI_THINK_RATE
 			end
 		end
+		
 		if thisEntity.doom:IsFullyCastable() then
-			local target = AICore:FindOptimalTargetInRangeForEntity( thisEntity, thisEntity.doom:GetTrueCastRange(), thisEntity.doom:GetSpecialValueFor("scepter_aura_radius"), nil, true)
+			local target = AICore:FindOptimalTargetInRangeForEntity(thisEntity, thisEntity.doom:GetTrueCastRange(), thisEntity.doom:GetSpecialValueFor("scepter_aura_radius"), nil, true)
 			if target then
 				ExecuteOrderFromTable({
 					UnitIndex = thisEntity:entindex(),
@@ -116,10 +71,11 @@ function AIThink(thisEntity)
 				return thisEntity.doom:GetCastPoint() + AI_THINK_RATE
 			end
 		end
-		if thisEntity.blink:IsFullyCastable() then
+		
+		if thisEntity.blink and thisEntity.blink:IsFullyCastable() then
 			local position = AICore:FindOptimalRadiusInRangeForEntity(thisEntity, thisEntity.blink:GetSpecialValueFor("blink_range"), thisEntity.blink:GetSpecialValueFor("radius"))
 			if not position then
-				local target = AICore:NearestEnemyHeroInRange( thisEntity, thisEntity.blink:GetSpecialValueFor("blink_range"), true )
+				local target = AICore:NearestEnemyHeroInRange(thisEntity, thisEntity.blink:GetSpecialValueFor("blink_range"), true)
 				if target then position = target:GetAbsOrigin() end
 			end
 			if position then
@@ -127,22 +83,26 @@ function AIThink(thisEntity)
 					UnitIndex = thisEntity:entindex(),
 					OrderType = DOTA_UNIT_ORDER_CAST_POSITION,
 					Position = position,
-					Position = position,
 					AbilityIndex = thisEntity.blink:entindex()
 				})
 				return AI_THINK_RATE
 			end
 		end
-		if thisEntity.shiva:IsFullyCastable() and AICore:TotalEnemyHeroesInRange( thisEntity, thisEntity.scorch:GetSpecialValueFor("radius") ) >= 1  then
-			ExecuteOrderFromTable({
-				UnitIndex = thisEntity:entindex(),
-				OrderType = DOTA_UNIT_ORDER_CAST_NO_TARGET,
-				AbilityIndex = thisEntity.shiva:entindex()
-			})
-			return AI_THINK_RATE
+		
+		if thisEntity.shiva and thisEntity.shiva:IsFullyCastable() then
+			local enemiesInRange = AICore:TotalEnemyHeroesInRange(thisEntity, thisEntity.shiva:GetSpecialValueFor("blast_radius"))
+			if enemiesInRange >= 1 then
+				ExecuteOrderFromTable({
+					UnitIndex = thisEntity:entindex(),
+					OrderType = DOTA_UNIT_ORDER_CAST_NO_TARGET,
+					AbilityIndex = thisEntity.shiva:entindex()
+				})
+				return AI_THINK_RATE
+			end
 		end
+		
 		-- no spells left to be cast and not currently attacking
-		return AICore:HandleBasicAI( thisEntity )
+		return AICore:HandleBasicAI(thisEntity)
 	else 
 		return AI_THINK_RATE 
 	end

@@ -1,0 +1,130 @@
+
+"DOTAAbilities"
+{	
+
+    //=================================================================================================================
+	// Roshan: RavageRoar
+	//=================================================================================================================
+	"roshan_revengeroar"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"20.0"
+		"AbilityCastPoint"				"0"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"radius"			"1000"
+			"damage"			"5000"
+			"damage_pct"		"100"
+			"duration"			"10"
+			"damage_growth"		"0"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+
+	//=================================================================================================================
+	// Roshan: Spell Block
+	//=================================================================================================================
+	"roshan_spell_block"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"15.0"
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+
+	//=================================================================================================================
+	// Roshan: Bash
+	//=================================================================================================================
+	"roshan_bash"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
+		"AbilityValues"
+		{
+			"bash_chance"
+			{
+				"value" "15"
+			}
+			"bonus_damage"
+			{
+				"value" "15000"
+			}
+			"stun_duration"
+			{
+				"value" "3"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Roshan: Slam
+	//=================================================================================================================
+	"roshan_slam"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"10.0"
+		"AbilityCastPoint"				"0.47 0.47 0.47 0.47"
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+		"AbilityValues"
+		{
+			"radius"
+			{
+				"value" "350"
+			}
+			"slow_duration_hero"
+			{
+				"value" "4"
+			}
+			"slow_duration_unit"
+			{
+				"value" "4"
+			}
+			"slow_amount"
+			{
+				"value" "50"
+			}
+			"damage"
+			{
+				"value" "2500"
+			}
+			"damage_growth"
+			{
+				"value" "0"
+			}
+		}
+	}
+}

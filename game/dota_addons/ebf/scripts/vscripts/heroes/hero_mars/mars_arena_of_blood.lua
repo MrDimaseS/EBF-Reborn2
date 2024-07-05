@@ -1,6 +1,5 @@
 mars_arena_of_blood = class({})
 
-
 function mars_arena_of_blood:IsStealable()
 	return true
 end
@@ -36,7 +35,8 @@ function mars_arena_of_blood:OnSpellStart()
 		for i = 1, 28 do
 			local position = target_point + RotateVector2D(initialDirection, ToRadians( offset * (i-1) ) ) * radius
 			dummy = CreateUnitByName("npc_dota_practice_hero", position, false, nil, nil, DOTA_TEAM_BADGUYS)
-			
+			dummy.hasBeenProcessed = true
+			dummy._healthBarDummy = true
 			dummy:AddNoDraw()
 			dummy:AddNewModifier(caster, self, "modifier_kill", {duration = duration})
 			dummy:AddNewModifier(caster, self, "modifier_hidden_generic", {})
@@ -60,11 +60,11 @@ function modifier_mars_arena_of_blood_damage_reduction:OnCreated(keys)
 	self.arena_kill_buff_heal_pct = self:GetAbility():GetSpecialValueFor("arena_kill_buff_heal_pct") / 100
 end
 
-function modifier_mars_arena_of_blood_aura_buff:DeclareFunctions()
+function modifier_mars_arena_of_blood_damage_reduction:DeclareFunctions()
 	return {MODIFIER_EVENT_ON_DEATH}
 end
 
-function modifier_mars_arena_of_blood_aura_buff:OnDeath( params )
+function modifier_mars_arena_of_blood_damage_reduction:OnDeath( params )
 	if self.arena_kill_buff_duration > 0 and CalculateDistance( params.unit, self:GetParent() ) <= self.radius and not params.unit:IsSameTeam( self:GetCaster() ) then
 		local healing = self.arena_kill_buff_heal_pct
 		if not params.unit:IsConsideredHero() then

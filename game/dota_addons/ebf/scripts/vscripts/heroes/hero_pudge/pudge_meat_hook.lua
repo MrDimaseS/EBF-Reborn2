@@ -112,7 +112,11 @@ function pudge_meat_hook:OnProjectileHitHandle( target, location, handle )
 	
 	caster:RemoveModifierByName("modifier_pudge_meat_hook_self")
 	-- damage
-	local damage = self:GetSpecialValueFor( "damage" )
+	local hook_distance = self:GetSpecialValueFor( "hook_distance" )
+	local damage_mult = (1 + math.min( 1, CalculateDistance( target, data.cast_location ) / hook_distance ) * self:GetSpecialValueFor( "distance_to_damage" ) / 100)
+	print( damage_mult, hook_distance, CalculateDistance( target, data.cast_location ) )
+	local damage = self:GetSpecialValueFor( "damage" ) * damage_mult
+	
 	if target:GetTeamNumber() ~= caster:GetTeamNumber() then
 		local damageTable = {
 			victim = target,
@@ -295,7 +299,7 @@ function modifier_pudge_meat_hook_movement:OnCreated( kv )
 	self.offset = 80
 	self.threshold = 80
 	self.speed = self:GetSpecialValueFor( "hook_speed" )
-	self.distance_to_damage = self:GetSpecialValueFor( "distance_to_damage" ) / 100
+	-- self.distance_to_damage = self:GetSpecialValueFor( "distance_to_damage" ) / 100
 
 	if not IsServer() then return end
 
@@ -395,9 +399,9 @@ function modifier_pudge_meat_hook_movement:UpdateHorizontalMotion( me, dt )
 	nextpos = GetGroundPosition( nextpos, me )
 	me:SetOrigin( nextpos )
 	
-	if self.distance_to_damage > 0 then
-		self:GetAbility():DealDamage( self:GetCaster(), me, self.speed * dt * self.distance_to_damage )
-	end
+	-- if self.distance_to_damage > 0 then
+		-- self:GetAbility():DealDamage( self:GetCaster(), me, self.speed * dt * self.distance_to_damage )
+	-- end
 	-- check caster still in cast position
 	if (self.caster:GetOrigin()-self.origin):Length2D() > self.threshold then
 		-- set effects

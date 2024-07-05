@@ -74,18 +74,6 @@ function modifier_pudge_innate_graft_flesh_temporary:DeclareFunctions()
 	return { MODIFIER_PROPERTY_STATS_STRENGTH_BONUS }
 end
 
-function modifier_pudge_innate_graft_flesh_temporary:OnDeath(params)
-	local caster = self:GetCaster()
-	if not caster:IsSameTeam( params.unit ) and ( params.attacker == caster or CalculateDistance( caster, params.unit ) <= self.flesh_heap_range ) then
-		local stacks = TernaryOperator( self.hero_stacks, params.unit:IsConsideredHero(), self.creep_stacks )
-		if params.unit:IsNeutralUnitType() or params.unit.Holdout_IsCore then
-			self:SetStackCount( self:GetStackCount() + stacks )
-		else
-			caster:AddNewModifier( caster, self:GetAbility(), "modifier_pudge_innate_graft_flesh_temporary", {duration = self.temporary_duration})
-		end
-	end
-end
-
-function modifier_pudge_innate_graft_flesh_temporary:GetModifierBonusStats_Strength()
+function modifier_pudge_innate_graft_flesh_temporary:GetModifierBonusStats_Strength()
 	return self:GetStackCount() * self.strength_per_stack
 end

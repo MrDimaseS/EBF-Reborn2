@@ -183,7 +183,7 @@ function modifier_item_silver_edge_passive:OnAttackLanded( params )
 				
 				EmitSoundOn( "DOTA_Item.SilverEdge.Target", params.target )
 			end
-			local bash_cooldown = TernaryOperator( self.bash_cooldown_ranged, caster:IsRangedAttacker(), self.bash_cooldown )
+			local bash_cooldown = TernaryOperator( self.bash_cooldown_ranged, params.attacker:IsRangedAttacker(), self.bash_cooldown )
 			params.attacker:AddNewModifier( params.attacker, ability, "modifier_item_generic_bash_cd", {duration = bash_cooldown} )
 			EmitSoundOn( "DOTA_Item.SkullBasher", params.target )
 		end

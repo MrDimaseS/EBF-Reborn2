@@ -17,3 +17,7 @@ function modifier_hidden_generic:CheckState()
 				}
 	return state
 end
+
+function modifier_hidden_generic:GetPriority()
+	return MODIFIER_PRIORITY_SUPER_ULTRA
+end

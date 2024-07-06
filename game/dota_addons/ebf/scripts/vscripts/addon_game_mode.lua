@@ -66,9 +66,7 @@ function Precache( context )
 	--Precache sounds
 	PrecacheResource( "soundfile", "soundevents/game_sounds_items.vsndevts", context)
 	PrecacheResource( "soundfile", "soundevents/game_sounds_custom.vsndevts", context)
-
-	print("Precaching sound file: sounds/custom/laktag.vsnd")
-    PrecacheResource("soundfile", "sounds/custom/laktag.vsnd", context)
+	PrecacheResource( "soundfile", "soundevents/chat_wheel.vsndevts", context )
 
 	PrecacheItemByNameSync( "item_bag_of_gold", context )
 	
@@ -321,8 +319,6 @@ function CHoldoutGameMode:InitGameMode()
 	ListenToGameEvent('dota_player_used_ability', Dynamic_Wrap(CHoldoutGameMode, 'OnAbilityUsed'), self)
 	ListenToGameEvent( "dota_player_gained_level", Dynamic_Wrap(CHoldoutGameMode, "OnHeroLevelUp"), self)
 
-
-	ListenToGameEvent("player_chat", OnChatSoundSay, nil)
 	ListenToGameEvent('game_start', Dynamic_Wrap(CHoldoutGameMode, 'OnGameStart'), self)
 
 	CustomGameEventManager:RegisterListener('Boss_Master', Dynamic_Wrap( CHoldoutGameMode, 'Boss_Master'))
@@ -361,73 +357,77 @@ function CHoldoutGameMode:OnGameStart (event)
  	CustomGameEventManager:Send_ServerToAllClients("UpdateLife", {life = Life._life})
 end
 
-function OnChatSoundSay(event)
-    print("OnChatSoundSay called")
-    DeepPrintTable(event)
+function CHoldoutGameMode:chat_time(event)
+    local playerID = event.player_id
+    local player = PlayerResource:GetPlayer(playerID)
+    if not player then return end
 
-    local playerID = event.playerid 
-    local text = event.text
+    local currentTime = GameRules:GetDOTATime(false, true)
+    local minutes = math.floor(currentTime / 60)
+    local seconds = math.floor(currentTime % 60)
+    local message = "> " .. minutes .. ":" .. (seconds < 10 and "0" or "") .. seconds
 
-    if string.match(text, "^chatsound_say%s+(%d+)$") then
-        local soundID = tonumber(string.match(text, "^chatsound_say%s+(%d+)$"))
-        print("Sound ID extracted: " .. tostring(soundID))
-        if soundID == 154 then
-            print("Sound ID matches 154")
-            if playerID ~= nil then
-                local player = PlayerResource:GetPlayer(playerID)
-                if player then
-                    local team = player:GetTeam()
-                    local playerEntity = player:GetAssignedHero()
-                    local location = playerEntity:GetAbsOrigin()
-                    print("Player ID: " .. playerID)
-                    print("Player object: " .. tostring(player))
-                    print("Player team: " .. team)
-                    print("Player location: " .. tostring(location))
-                    
-                    print("Playing global sound: custom.Lakad_Matataaag")
-                    EmitGlobalSound("custom.Lakad_Matataaag")
-                    
-                    print("Playing announcer sound for all players: custom.Lakad_Matataaag")
-                    EmitAnnouncerSound("custom.Lakad_Matataaag")
-                    
-                    print("Playing announcer sound for player: custom.Lakad_Matataaag")
-                    EmitAnnouncerSoundForPlayer("custom.Lakad_Matataaag", playerID)
-                    
-                    print("Playing announcer sound for team: custom.Lakad_Matataaag")
-                    EmitAnnouncerSoundForTeam("custom.Lakad_Matataaag", team)
-                    
-                    print("Playing announcer sound for team at location: custom.Lakad_Matataaag")
-                    EmitAnnouncerSoundForTeamOnLocation("custom.Lakad_Matataaag", team, location)
-                    
-                    print("Playing sound on entity: custom.Lakad_Matataaag")
-                    EmitSoundOn("custom.Lakad_Matataaag", playerEntity)
-                    
-                    print("Playing sound on client: custom.Lakad_Matataaag")
-                    EmitSoundOnClient("custom.Lakad_Matataaag", player)
-                    
-                    print("Playing sound on location for allies: custom.Lakad_Matataaag")
-                    EmitSoundOnLocationForAllies(location, "custom.Lakad_Matataaag", playerEntity)
-                    
-                    print("Playing sound on location with caster: custom.Lakad_Matataaag")
-                    EmitSoundOnLocationWithCaster(location, "custom.Lakad_Matataaag", playerEntity)
-                    
-                    -- Send a simplified chat message
-                    GameRules:SendCustomMessage("→ Lakad Matataaag! Normalin, Normalin.", team, 0)
-                else
-                    print("Error: Player object is nil")
-                end
-            else
-                print("Error: PlayerID is nil")
-            end
-        else
-            print("Sound ID does not match 154")
-        end
-    else
-        print("Text does not match pattern")
-    end
+    Say(player, message, true)
 end
 
+local soundMapping = {
+    ["1"] = "Laktag",
+    ["2"] = "Next",
+    ["3"] = "a_nu_ka_idi_suda",
+    ["4"] = "absolutely_perfect",
+    ["5"] = "all_dead",
+    ["6"] = "ay_ay_ay_cn",
+    ["7"] = "brutal",
+    ["8"] = "ceeeb_start",
+    ["9"] = "chto_eto_kakaya_zhest",
+    ["10"] = "crash_burn",
+    ["11"] = "crowd",
+    ["12"] = "crybaby",
+    ["13"] = "ding_ding_ding",
+    ["14"] = "disastah",
+    ["15"] = "duiyou_ne",
+    ["16"] = "easiest_money",
+    ["17"] = "echo_slama_jama",
+    ["18"] = "ehto_g_g",
+    ["19"] = "eto_ge_popayx_feeda",
+    ["20"] = "eto_prosto_netchto",
+    ["21"] = "holy_moly",
+    ["22"] = "kor_million_dollar_house",
+    ["23"] = "kreasa_kreasa",
+    ["24"] = "ni_xing_ni",
+    ["25"] = "no_chill",
+    ["26"] = "ow",
+    ["27"] = "oy_oy_bezhat",
+    ["28"] = "patience",
+    ["29"] = "see_you_later_nerds",
+    ["30"] = "ti9_monkey_biz",
+    ["31"] = "what_the_f_just_happened",
+    ["32"] = "wow",
+	["33"] = "ay_ay_ay"
+}
 
+function CHoldoutGameMode:EmitSoundForAllPlayers(soundId)
+    print("Attempting to emit sound for all players with soundId: " .. soundId)
+    
+    local soundName = soundMapping[soundId]
+    if not soundName then
+        print("Invalid soundId: " .. soundId)
+        return
+    end
+
+    local allPlayers = PlayerResource:GetPlayerCount()
+    for playerID = 0, allPlayers - 1 do
+        if PlayerResource:IsValidPlayer(playerID) then
+            local hero = PlayerResource:GetSelectedHeroEntity(playerID)
+            if hero then
+                EmitSoundOnEntityForPlayer(soundName, hero, playerID)
+                print(soundName .. " sound emitted for player " .. playerID)
+            else
+                print("No hero found for player " .. playerID)
+            end
+        end
+    end
+end
 
 function CHoldoutGameMode:Health_Bar_Command (event)
  	local ID = event.pID

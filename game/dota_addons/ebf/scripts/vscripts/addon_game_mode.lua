@@ -67,6 +67,9 @@ function Precache( context )
 	PrecacheResource( "soundfile", "soundevents/game_sounds_items.vsndevts", context)
 	PrecacheResource( "soundfile", "soundevents/game_sounds_custom.vsndevts", context)
 
+	print("Precaching sound file: sounds/custom/laktag.vsnd")
+    PrecacheResource("soundfile", "sounds/custom/laktag.vsnd", context)
+
 	PrecacheItemByNameSync( "item_bag_of_gold", context )
 	
 	--Precache models
@@ -318,6 +321,8 @@ function CHoldoutGameMode:InitGameMode()
 	ListenToGameEvent('dota_player_used_ability', Dynamic_Wrap(CHoldoutGameMode, 'OnAbilityUsed'), self)
 	ListenToGameEvent( "dota_player_gained_level", Dynamic_Wrap(CHoldoutGameMode, "OnHeroLevelUp"), self)
 
+
+	ListenToGameEvent("player_chat", OnChatSoundSay, nil)
 	ListenToGameEvent('game_start', Dynamic_Wrap(CHoldoutGameMode, 'OnGameStart'), self)
 
 	CustomGameEventManager:RegisterListener('Boss_Master', Dynamic_Wrap( CHoldoutGameMode, 'Boss_Master'))
@@ -325,7 +330,6 @@ function CHoldoutGameMode:InitGameMode()
 	CustomGameEventManager:RegisterListener('mute_sound', Dynamic_Wrap( CHoldoutGameMode, 'mute_sound'))
 	CustomGameEventManager:RegisterListener('unmute_sound', Dynamic_Wrap( CHoldoutGameMode, 'unmute_sound'))
 	CustomGameEventManager:RegisterListener('Health_Bar_Command', Dynamic_Wrap( CHoldoutGameMode, 'Health_Bar_Command'))
-	CustomGameEventManager:RegisterListener("chat_time", CHoldoutGameMode.chat_time)
 	
 	CustomGameEventManager:RegisterListener('epic_boss_fight_ng_voted', function(id, event) return self:NewGamePlus_ProcessVotes( event ) end )
 	CustomGameEventManager:RegisterListener('Vote_Round', Dynamic_Wrap( CHoldoutGameMode, 'vote_Round'))
@@ -357,17 +361,70 @@ function CHoldoutGameMode:OnGameStart (event)
  	CustomGameEventManager:Send_ServerToAllClients("UpdateLife", {life = Life._life})
 end
 
-function CHoldoutGameMode:chat_time(event)
-    local playerID = event.player_id
-    local player = PlayerResource:GetPlayer(playerID)
-    if not player then return end
+function OnChatSoundSay(event)
+    print("OnChatSoundSay called")
+    DeepPrintTable(event)
 
-    local currentTime = GameRules:GetDOTATime(false, true)
-    local minutes = math.floor(currentTime / 60)
-    local seconds = math.floor(currentTime % 60)
-    local message = "> " .. minutes .. ":" .. (seconds < 10 and "0" or "") .. seconds
+    local playerID = event.playerid 
+    local text = event.text
 
-    Say(player, message, true)
+    if string.match(text, "^chatsound_say%s+(%d+)$") then
+        local soundID = tonumber(string.match(text, "^chatsound_say%s+(%d+)$"))
+        print("Sound ID extracted: " .. tostring(soundID))
+        if soundID == 154 then
+            print("Sound ID matches 154")
+            if playerID ~= nil then
+                local player = PlayerResource:GetPlayer(playerID)
+                if player then
+                    local team = player:GetTeam()
+                    local playerEntity = player:GetAssignedHero()
+                    local location = playerEntity:GetAbsOrigin()
+                    print("Player ID: " .. playerID)
+                    print("Player object: " .. tostring(player))
+                    print("Player team: " .. team)
+                    print("Player location: " .. tostring(location))
+                    
+                    print("Playing global sound: custom.Lakad_Matataaag")
+                    EmitGlobalSound("custom.Lakad_Matataaag")
+                    
+                    print("Playing announcer sound for all players: custom.Lakad_Matataaag")
+                    EmitAnnouncerSound("custom.Lakad_Matataaag")
+                    
+                    print("Playing announcer sound for player: custom.Lakad_Matataaag")
+                    EmitAnnouncerSoundForPlayer("custom.Lakad_Matataaag", playerID)
+                    
+                    print("Playing announcer sound for team: custom.Lakad_Matataaag")
+                    EmitAnnouncerSoundForTeam("custom.Lakad_Matataaag", team)
+                    
+                    print("Playing announcer sound for team at location: custom.Lakad_Matataaag")
+                    EmitAnnouncerSoundForTeamOnLocation("custom.Lakad_Matataaag", team, location)
+                    
+                    print("Playing sound on entity: custom.Lakad_Matataaag")
+                    EmitSoundOn("custom.Lakad_Matataaag", playerEntity)
+                    
+                    print("Playing sound on client: custom.Lakad_Matataaag")
+                    EmitSoundOnClient("custom.Lakad_Matataaag", player)
+                    
+                    print("Playing sound on location for allies: custom.Lakad_Matataaag")
+                    EmitSoundOnLocationForAllies(location, "custom.Lakad_Matataaag", playerEntity)
+                    
+                    print("Playing sound on location with caster: custom.Lakad_Matataaag")
+                    EmitSoundOnLocationWithCaster(location, "custom.Lakad_Matataaag", playerEntity)
+                    
+                    -- Send a simplified chat message
+                    GameRules:SendCustomMessage("→ Lakad Matataaag! Normalin, Normalin.", team, 0)
+                else
+                    print("Error: Player object is nil")
+                end
+            else
+                print("Error: PlayerID is nil")
+            end
+        else
+            print("Sound ID does not match 154")
+        end
+    else
+        print("Text does not match pattern")
+    end
 end
 
 

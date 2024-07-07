@@ -330,6 +330,7 @@ function CHoldoutGameMode:InitGameMode()
 	CustomGameEventManager:RegisterListener('epic_boss_fight_ng_voted', function(id, event) return self:NewGamePlus_ProcessVotes( event ) end )
 	CustomGameEventManager:RegisterListener('Vote_Round', Dynamic_Wrap( CHoldoutGameMode, 'vote_Round'))
 	CustomGameEventManager:RegisterListener( "request_hero_inventory", function( id, event ) self:SendUpdatedInventoryContents( event ) end )
+    CustomGameEventManager:RegisterListener("emit_sound_for_all_players", function(_, event) GameRules.holdOut:EmitSoundForAllPlayers( event.PlayerID, event ) end )
 
 	GameRules:GetGameModeEntity():SetDamageFilter( Dynamic_Wrap( CHoldoutGameMode, "FilterDamage" ), self )
 	GameRules:GetGameModeEntity():SetAbilityTuningValueFilter( Dynamic_Wrap( CHoldoutGameMode, "FilterAbilityValues" ), self )
@@ -370,6 +371,7 @@ function CHoldoutGameMode:chat_time(event)
     Say(player, message, true)
 end
 
+
 local soundMapping = {
     ["1"] = "Laktag",
     ["2"] = "Next",
@@ -403,31 +405,69 @@ local soundMapping = {
     ["30"] = "ti9_monkey_biz",
     ["31"] = "what_the_f_just_happened",
     ["32"] = "wow",
-	["33"] = "ay_ay_ay"
+    ["33"] = "ay_ay_ay"
 }
 
-function CHoldoutGameMode:EmitSoundForAllPlayers(soundId)
-    print("Attempting to emit sound for all players with soundId: " .. soundId)
-    
+local lastSoundTime = {}
+local soundCooldown = 2 
+local longCooldown = 5 
+
+function CHoldoutGameMode:EmitSoundForAllPlayers(playerID, eventData)
+    local soundId
+    local playerName
+    local localizedSoundName
+    if type(eventData) == "table" then
+        soundId = tostring(eventData.phraseId)
+        playerID = eventData.PlayerID
+        playerName = eventData.playerName
+        localizedSoundName = eventData.soundName
+    else
+        soundId = tostring(eventData)
+    end
+
+    local currentTime = GameRules:GetGameTime()
+    if not lastSoundTime[playerID] then
+        lastSoundTime[playerID] = {time = 0, count = 0}
+    end
+
+    local timeSinceLastSound = currentTime - lastSoundTime[playerID].time
+
+    if timeSinceLastSound < soundCooldown then
+        return  -- Sound on cooldown
+    elseif timeSinceLastSound < longCooldown and lastSoundTime[playerID].count >= 2 then
+        return  -- Long cooldown active
+    end
+
     local soundName = soundMapping[soundId]
-    if not soundName then
-        print("Invalid soundId: " .. soundId)
+    if not soundName or not localizedSoundName then
         return
     end
 
+    -- Update last sound time and count
+    if timeSinceLastSound >= longCooldown then
+        lastSoundTime[playerID] = {time = currentTime, count = 1}
+    else
+        lastSoundTime[playerID].time = currentTime
+        lastSoundTime[playerID].count = lastSoundTime[playerID].count + 1
+    end
+
+    -- Emit sound for all players
     local allPlayers = PlayerResource:GetPlayerCount()
-    for playerID = 0, allPlayers - 1 do
-        if PlayerResource:IsValidPlayer(playerID) then
-            local hero = PlayerResource:GetSelectedHeroEntity(playerID)
+    for i = 0, allPlayers - 1 do
+        if PlayerResource:IsValidPlayer(i) then
+            local hero = PlayerResource:GetSelectedHeroEntity(i)
             if hero then
-                EmitSoundOnEntityForPlayer(soundName, hero, playerID)
-                print(soundName .. " sound emitted for player " .. playerID)
-            else
-                print("No hero found for player " .. playerID)
+                EmitSoundOnClient(soundName, PlayerResource:GetPlayer(i))
             end
         end
     end
+
+    -- Send chat message with icon
+    local iconPath = "file://{images}/hud/voice_chat.png"  -- Update this path to your icon
+    local chatMessage = string.format("<font color='#FFFFFF'>%s:</font> <img src='%s' style='width:12px;height:12px;vertical-align:middle;'/> <font color='#FFD700'>%s</font>", playerName, iconPath, localizedSoundName)
+    GameRules:SendCustomMessage(chatMessage, 0, playerID)
 end
+
 
 function CHoldoutGameMode:Health_Bar_Command (event)
  	local ID = event.pID

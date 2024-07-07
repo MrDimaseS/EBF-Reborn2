@@ -5,6 +5,7 @@
 	</styles>
 	<scripts>
 		<include src="file://{resources}/layout/custom_game/hud_top_buttons/hud_top_buttons.js" />
+		<include src="file://{resources}/scripts/custom_game/shared_scoreboard_updater.js" />
 	</scripts>
 	<Panel class="HUDTopButtons" hittest="false">
 	<Panel id="HUDTopButtons_menu">
@@ -31,9 +32,9 @@
 			</Button>
 		</Panel>
 		<Panel id="bottom_row">
-			<!-- <Button id="ProfileButton" onactivate="GameUI.Custom_ToggleProfile();" onmouseover="DOTAShowTextTooltip(#profile_button)" onmouseout="DOTAHideTextTooltip()">
-				<Panel id="ProfileIcon" />
-			</Button> -->
+			<Button id="voiceChatButton" onactivate="GameUI.Custom_ToggleVoiceChat();" onmouseover="DOTAShowTextTooltip(#voice_chat_button)" onmouseout="DOTAHideTextTooltip()">
+				<Panel id="voiceChatIcon" />
+			</Button>
 		</Panel>
 	</Panel>
 	</Panel>

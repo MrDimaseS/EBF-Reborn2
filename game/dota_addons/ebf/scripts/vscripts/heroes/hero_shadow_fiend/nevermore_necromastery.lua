@@ -27,6 +27,10 @@ function modifier_nevermore_necromastery_passive:OnRefresh()
 
 	self.spell_amp_per_soul = self:GetSpecialValueFor("spell_amplification_per_soul")
 
+	if IsClient() then
+		return
+	end
+
 	self.base_max_souls = self:GetSpecialValueFor("base_max_souls")
 	self.kills_per_max_soul = self:GetSpecialValueFor("kills_per_max_soul")
 	self.hero_kill_multiplier = self:GetSpecialValueFor("hero_kill_multiplier")
@@ -34,14 +38,17 @@ function modifier_nevermore_necromastery_passive:OnRefresh()
 	self.hero_soul_multiplier = self:GetSpecialValueFor("hero_soul_multiplier")
 	self.percent_souls_lost_on_death = self:GetSpecialValueFor("percent_souls_lost_on_death")
 
-	if self.kills == nil then
-		self.kills = 0
-	end
-	if self.bonus_max_souls == nil then
-		self.bonus_max_souls = 0
+	self.kills_modifier = self:GetParent():FindModifierByName("modifier_nevermore_necromastery_kills")
+	if not self.kills_modifier then
+		self.kills_modifier = self:GetParent():AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_nevermore_necromastery_kills", {})
 	end
 
-	self.max_souls = self.base_max_souls + self.bonus_max_souls
+	self.bonus_max_souls_modifier = self:GetParent():FindModifierByName("modifier_nevermore_necromastery_bonus_max_stacks")
+	if not self.bonus_max_souls_modifier then
+		self.bonus_max_souls_modifier = self:GetParent():AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_nevermore_necromastery_bonus_max_stacks", {})
+	end
+
+	self.max_souls = self.base_max_souls + self.bonus_max_souls_modifier:GetStackCount()
 end
 function modifier_nevermore_necromastery_passive:DeclareFunctions()
 	return {
@@ -69,7 +76,7 @@ function modifier_nevermore_necromastery_passive:GetModifierSpellAmplify_Percent
 	return self:GetStackCount() * self.spell_amp_per_soul
 end
 function modifier_nevermore_necromastery_passive:OnTakeDamage( params )
-	if self:GetCaster():PassivesDisabled() then return end
+	if self:GetCaster():PassivesDisabled() or IsClient() then return end
 	local stacksToAdd = 0
 	local kills = 0
 	if params.attacker == self:GetCaster() then
@@ -92,14 +99,11 @@ function modifier_nevermore_necromastery_passive:OnTakeDamage( params )
 	end
 
 	if kills > 0 then
-		print("killed something")
-		self.kills = self.kills + kills
-		print(self.kills)
-		print(self.kills_per_max_soul)
-		if self.kills > self.kills_per_max_soul then
-			self.kills = self.kills - self.kills_per_max_soul
-			self.bonus_max_souls = self.bonus_max_souls + 1
-			self.max_souls = self.base_max_souls + self.bonus_max_souls
+		self.kills_modifier:SetStackCount(self.kills_modifier:GetStackCount() + kills)
+		if self.kills_modifier:GetStackCount() > self.kills_per_max_soul then
+			self.kills_modifier:SetStackCount(self.kills_modifier:GetStackCount() - self.kills_per_max_soul)
+			self.bonus_max_souls_modifier:IncrementStackCount()
+			self.max_souls = self.base_max_souls + self.bonus_max_souls_modifier:GetStackCount()
 		end
 	end
 	if stacksToAdd > 0 then
@@ -114,4 +118,36 @@ function modifier_nevermore_necromastery_passive:IsPurgable()
 end
 function modifier_nevermore_necromastery_passive:IsPermanent()
 	return true
+end
+
+modifier_nevermore_necromastery_kills = class({})
+LinkLuaModifier("modifier_nevermore_necromastery_kills", "heroes/hero_shadow_fiend/nevermore_necromastery.lua", LUA_MODIFIER_MOTION_NONE)
+
+function modifier_nevermore_necromastery_kills:IsHidden()
+	return true
+end
+function modifier_nevermore_necromastery_kills:IsPurgable()
+	return false
+end
+function modifier_nevermore_necromastery_kills:IsPermanent()
+	return true
+end
+function modifier_nevermore_necromastery_kills:RemoveOnDeath()
+	return false
+end
+
+modifier_nevermore_necromastery_bonus_max_stacks = class({})
+LinkLuaModifier("modifier_nevermore_necromastery_bonus_max_stacks", "heroes/hero_shadow_fiend/nevermore_necromastery.lua", LUA_MODIFIER_MOTION_NONE)
+
+function modifier_nevermore_necromastery_bonus_max_stacks:IsHidden()
+	return true
+end
+function modifier_nevermore_necromastery_bonus_max_stacks:IsPurgable()
+	return false
+end
+function modifier_nevermore_necromastery_bonus_max_stacks:IsPermanent()
+	return true
+end
+function modifier_nevermore_necromastery_bonus_max_stacks:RemoveOnDeath()
+	return false
 end

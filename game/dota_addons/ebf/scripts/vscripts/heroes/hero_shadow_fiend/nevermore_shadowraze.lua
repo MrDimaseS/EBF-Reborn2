@@ -22,7 +22,7 @@ function nevermore_shadowraze_ebf:OnSpellStart()
         false
     )
     for _,unit in ipairs(units) do
-        if self:GetSpecialValueFor("does_attack") then
+        if self:GetSpecialValueFor("does_attack") ~= 0 then
             caster:PerformGenericAttack(unit, true, false, self:GetSpecialValueFor("damage"), 100)
             -- deal some damage so that necromastery knows we razed
             self:DealDamage(caster, unit, 10)

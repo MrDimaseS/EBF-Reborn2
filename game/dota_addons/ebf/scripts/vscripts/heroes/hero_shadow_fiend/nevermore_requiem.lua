@@ -123,7 +123,7 @@ function nevermore_requiem_ebf:OnProjectileHitHandle(target, location, projectil
 		if self.requiemProj[projectile].bounce == false then -- rebound
 			damage = damage * self:GetSpecialValueFor("return_damage_percent") / 100
 		end
-		local damage_type = TernaryOperator(DAMAGE_TYPE_PHYSICAL, self:GetSpecialValueFor("is_physical"), DAMAGE_TYPE_MAGICAL)
+		local damage_type = TernaryOperator(DAMAGE_TYPE_PHYSICAL, self:GetSpecialValueFor("is_physical") ~= 0, DAMAGE_TYPE_MAGICAL)
 		local damageDealt = self:DealDamage(caster, target, damage, { damage_type = damage_type })
 		self.requiemProj[projectile].damage = self.requiemProj[projectile].damage + damageDealt
 	elseif self.requiemProj[projectile] ~= nil then

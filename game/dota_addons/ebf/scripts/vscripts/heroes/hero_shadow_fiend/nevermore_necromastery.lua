@@ -34,8 +34,14 @@ function modifier_nevermore_necromastery_passive:OnRefresh()
 	self.hero_soul_multiplier = self:GetSpecialValueFor("hero_soul_multiplier")
 	self.percent_souls_lost_on_death = self:GetSpecialValueFor("percent_souls_lost_on_death")
 
-	self.bonus_max_souls = 0
-	self.max_souls = self.bonus_max_souls + self.base_max_souls
+	if self.kills == nil then
+		self.kills = 0
+	end
+	if self.bonus_max_souls == nil then
+		self.bonus_max_souls = 0
+	end
+
+	self.max_souls = self.base_max_souls + self.bonus_max_souls
 end
 function modifier_nevermore_necromastery_passive:DeclareFunctions()
 	return {
@@ -63,8 +69,9 @@ function modifier_nevermore_necromastery_passive:GetModifierSpellAmplify_Percent
 	return self:GetStackCount() * self.spell_amp_per_soul
 end
 function modifier_nevermore_necromastery_passive:OnTakeDamage( params )
-	if self:GetCaster():PassivesDisabled() or IsClient() then return end
+	if self:GetCaster():PassivesDisabled() then return end
 	local stacksToAdd = 0
+	local kills = 0
 	if params.attacker == self:GetCaster() then
 		if params.inflictor and ( params.inflictor:GetAbilityName() == "nevermore_shadowraze1_ebf" 
 								or params.inflictor:GetAbilityName() == "nevermore_shadowraze2_ebf" 
@@ -73,6 +80,10 @@ function modifier_nevermore_necromastery_passive:OnTakeDamage( params )
 		end
 		if params.unit:GetHealth() <= 0 then
 			stacksToAdd = stacksToAdd + 1
+			kills = 1
+			if params.unit:IsConsideredHero() then
+				kills = self.hero_kill_multiplier
+			end
 		end
 	end
 
@@ -80,6 +91,17 @@ function modifier_nevermore_necromastery_passive:OnTakeDamage( params )
 		stacksToAdd = stacksToAdd + 1
 	end
 
+	if kills > 0 then
+		print("killed something")
+		self.kills = self.kills + kills
+		print(self.kills)
+		print(self.kills_per_max_soul)
+		if self.kills > self.kills_per_max_soul then
+			self.kills = self.kills - self.kills_per_max_soul
+			self.bonus_max_souls = self.bonus_max_souls + 1
+			self.max_souls = self.base_max_souls + self.bonus_max_souls
+		end
+	end
 	if stacksToAdd > 0 then
 		if params.unit:IsConsideredHero() then
 			stacksToAdd = stacksToAdd * self.hero_soul_multiplier

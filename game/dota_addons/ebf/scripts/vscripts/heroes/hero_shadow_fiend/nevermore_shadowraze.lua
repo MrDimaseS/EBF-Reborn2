@@ -38,7 +38,7 @@ function nevermore_shadowraze_ebf:OnSpellStart()
 
             local damage = self:GetSpecialValueFor("damage")
             local bonus = self:GetSpecialValueFor("spell_damage_per_stack")
-            if bonus > 0 then
+            if bonus ~= 0 then
                 local debuff = unit:FindModifierByName("modifier_nevermore_shadowraze_stack")
                 if debuff then
                     damage = damage * (1 + debuff:OnTooltip() / 100)

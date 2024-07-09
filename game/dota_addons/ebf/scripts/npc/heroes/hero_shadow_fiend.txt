@@ -229,7 +229,7 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
 		
 		"MaxLevel"						"7"
-		"DependentOnAbility"			"nevermore_requiem"
+		"DependentOnAbility"			"nevermore_requiem_ebf"
 		"Innate"						"1"
 
 		// Special
@@ -238,7 +238,7 @@
 		{
 			"damage_per_soul"
 			{
-				"special_bonus_facet_nevermore_ego"					"5 15 20 25 30 35 40"
+				"special_bonus_facet_nevermore_ego"					"5 15 20 25 30 35 40 45"
 				"CalculateAttackDamageTooltip"						"1"
 			}
 
@@ -254,7 +254,7 @@
 
 			"spell_amplification_per_soul"
 			{
-				"special_bonus_facet_nevermore_psyche"				"0.25 0.75 1.0 1.25 1.5 1.75 2.0"
+				"special_bonus_facet_nevermore_psyche"				"0.25 0.75 1.0 1.25 1.5 1.75 2.0 2.25"
 				"CalculateAttributeTooltip"							"1"
 			}
 
@@ -397,7 +397,7 @@
 	//=================================================================================================================
 	// Ability: Nevermore Requiem of Souls
 	//=================================================================================================================
-	"nevermore_requiem"
+	"nevermore_requiem_ebf"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
@@ -409,9 +409,8 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
-		"MaxLevel"						"7"
+		"MaxLevel"						"6"
 		"LevelsBetweenUpgrades"			"6"
-		"FightRecapLevel"				"2"
 		"AbilitySound"					"Hero_Nevermore.RequiemOfSouls"
 
 		// Casting
@@ -421,11 +420,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"150 175 200 225 250 275 300"
-
-		// Stats
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityModifierSupportValue"	"0.5"	// Primarily about the damage
+		"AbilityManaCost"				"150 175 200 225 250 275"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -433,7 +428,7 @@
 		{
 			"damage"
 			{
-				"value"										"800 1200 1600 2000 2400 2800 3200"
+				"value"										"800 1200 1600 2000 2400 2800"
 				"CalculateSpellDamageTooltip"				"1"
 			}
 			"radius"
@@ -454,13 +449,13 @@
 			}
 			"AbilityCooldown"				
 			{
-				"value"										"120 110 100 90 80 70 60"
+				"value"										"120 110 100 90 80 70"
 				"special_bonus_facet_nevermore_psyche"		"-30"
 			}
 
 			"attack_speed"
 			{
-				"special_bonus_facet_nevermore_ego"			"40 50 60 70 80 90 100"
+				"special_bonus_facet_nevermore_ego"			"40 50 60 70 80 90"
 			}
 			"attack_speed_duration"
 			{

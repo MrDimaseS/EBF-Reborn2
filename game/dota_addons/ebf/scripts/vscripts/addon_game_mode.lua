@@ -920,6 +920,9 @@ end
 -- Verify spawners if random is set
 function CHoldoutGameMode:OnConnectFull()
 	local statSettings = LoadKeyValues("scripts/vscripts/statcollection/settings.kv")
+	if not statSettings then
+		return
+	end
 	local SERVER_LOCATION = statSettings.serverLocation
 	
 	local keyLoc = SERVER_LOCATION..'keycollection.json'

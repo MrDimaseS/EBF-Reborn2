@@ -82,6 +82,7 @@ function modifier_nevermore_dark_lord_passive_aura:OnDestroy()
 			end
 			
 			local buff = self:GetCaster():AddNewModifier(self:GetCaster(), self:GetAbility(), "modifier_nevermore_dark_lord_kill_buff", { duration = buff_duration })
+			if not buff then return end
 			for i = 1, stacks do
 				buff:AddIndependentStack(buff_duration)
 			end

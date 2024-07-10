@@ -56,7 +56,8 @@ function modifier_nevermore_necromastery_passive:DeclareFunctions()
 		MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
 		MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
 		MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT,
-		MODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE
+		MODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE,
+		MODIFIER_PROPERTY_REINCARNATION
 	}
 end
 function modifier_nevermore_necromastery_passive:GetModifierPreAttack_BonusDamage()
@@ -111,6 +112,12 @@ function modifier_nevermore_necromastery_passive:OnTakeDamage( params )
 			stacksToAdd = stacksToAdd * self.hero_soul_multiplier
 		end
 		self:SetStackCount( math.min( self.max_souls, self:GetStackCount() + stacksToAdd ) )
+	end
+end
+function modifier_nevermore_necromastery_passive:ReincarnateTime()
+	if self:GetCaster():PassivesDisabled() then return end
+	if self:GetSpecialValueFor("immortality") ~= 0 and self:GetStackCount() >= self.base_max_souls then
+		return 0.1
 	end
 end
 function modifier_nevermore_necromastery_passive:IsPurgable()

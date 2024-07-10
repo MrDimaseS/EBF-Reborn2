@@ -4,6 +4,8 @@ function nevermore_shadowraze_ebf:GetAOERadius()
     return self:GetSpecialValueFor("range")
 end
 function nevermore_shadowraze_ebf:OnSpellStart()
+    if IsClient() then return end
+
     local caster = self:GetCaster();
     local range = self:GetSpecialValueFor("range")
     local offset = caster:GetForwardVector() * range;
@@ -23,6 +25,12 @@ function nevermore_shadowraze_ebf:OnSpellStart()
     )
     for _,unit in ipairs(units) do
         if self:GetSpecialValueFor("does_attack") ~= 0 then
+            local armor = unit:FindModifierByName("modifier_nevermore_shadowraze_armor_reduction")
+            if not armor then
+                armor = unit:AddNewModifier(caster, self, "modifier_nevermore_shadowraze_armor_reduction", { duration = self:GetSpecialValueFor("armor_reduction_duration") })
+            end
+            armor:SetDuration(self:GetSpecialValueFor("armor_reduction_duration"), true)
+
             caster:PerformGenericAttack(unit, true, false, self:GetSpecialValueFor("damage"), 100)
             -- deal some damage so that necromastery knows we razed
             self:DealDamage(caster, unit, 10)
@@ -110,4 +118,28 @@ function modifier_nevermore_shadowraze_slow:GetModifierAttackSpeedBonus_Constant
 end
 function modifier_nevermore_shadowraze_slow:GetEffectName()
     return "particles/units/heroes/hero_nevermore/nevermore_shadowraze_debuff.vpcf"
+end
+
+modifier_nevermore_shadowraze_armor_reduction = class({})
+LinkLuaModifier("modifier_nevermore_shadowraze_armor_reduction", "heroes/hero_shadow_fiend/nevermore_shadowraze.lua", LUA_MODIFIER_MOTION_NONE)
+
+function modifier_nevermore_shadowraze_armor_reduction:IsDebuff()
+    return true
+end
+function modifier_nevermore_shadowraze_armor_reduction:IsPurgable()
+    return true
+end
+function modifier_nevermore_shadowraze_armor_reduction:OnCreated()
+    self:OnRefresh()
+end
+function modifier_nevermore_shadowraze_armor_reduction:OnRefresh()
+    self.armor_reduction = self:GetSpecialValueFor("armor_reduction")
+end
+function modifier_nevermore_shadowraze_armor_reduction:DeclareFunctions()
+    return {
+        MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS
+    }
+end
+function modifier_nevermore_shadowraze_armor_reduction:GetModifierPhysicalArmorBonus()
+    return self.armor_reduction
 end

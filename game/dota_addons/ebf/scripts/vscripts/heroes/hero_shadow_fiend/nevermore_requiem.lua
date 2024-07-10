@@ -32,7 +32,7 @@ function nevermore_requiem_ebf:OnSpellStart()
 	if self:GetSpecialValueFor("debuff_immune") ~= 0 then
 		self:GetCaster():RemoveModifierByName("modifier_nevermore_requiem_ebf_debuff_immune")
 	end
-	if self:GetSpecialValueFor("attack_speed") ~= 0 then
+	if self:GetSpecialValueFor("is_physical") ~= 0 then
 		self:GetCaster():AddNewModifier(self:GetCaster(), self, "modifier_nevermore_requiem_ebf_attack_speed", { duration = self:GetSpecialValueFor("attack_speed_duration") })
 	end
     self:ReleaseSouls(false, false)

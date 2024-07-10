@@ -69,6 +69,7 @@ function modifier_nevermore_frenzy_base:DeclareFunctions()
 	}
 end
 function modifier_nevermore_frenzy_base:GetModifierPreAttack_CriticalStrike(params)
+	if self:GetSpecialValueFor("guaranteed_crits") == 0 then return end
 	if self.guaranteed_crits > 0 then
 		self.guaranteed_crits = self.guaranteed_crits - 1
 		return self.crit_damage

@@ -35,8 +35,7 @@ function nevermore_shadowraze_ebf:OnSpellStart()
             -- deal some damage so that necromastery knows we razed
             self:DealDamage(caster, unit, 10)
         else
-            local slow = self:GetSpecialValueFor("attack_speed_reduction")
-            if slow ~= 0 then
+            if self:GetSpecialValueFor("attack_speed_reduction_duration") ~= 0 then
                 local debuff = unit:FindModifierByName("modifier_nevermore_shadowraze_slow")
                 if not debuff then
                     debuff = unit:AddNewModifier(caster, self, "modifier_nevermore_shadowraze_slow", { duration = self:GetSpecialValueFor("attack_speed_reduction_duration") })
@@ -45,8 +44,7 @@ function nevermore_shadowraze_ebf:OnSpellStart()
             end
 
             local damage = self:GetSpecialValueFor("damage")
-            local bonus = self:GetSpecialValueFor("spell_damage_per_stack")
-            if bonus ~= 0 then
+            if self:GetSpecialValueFor("spell_damage_stack_duration") ~= 0 then
                 local debuff = unit:FindModifierByName("modifier_nevermore_shadowraze_stack")
                 if debuff then
                     damage = damage * (1 + debuff:OnTooltip() / 100)

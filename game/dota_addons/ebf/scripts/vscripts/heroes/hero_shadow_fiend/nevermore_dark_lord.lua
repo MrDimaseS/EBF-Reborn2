@@ -35,8 +35,12 @@ end
 function modifier_nevermore_dark_lord_passive:GetAuraDuration()
 	return 0.5
 end
-function modifier_nevermore_dark_lord_passive:GetAuraSearchTeam()    
-	return DOTA_UNIT_TARGET_TEAM_ENEMY
+function modifier_nevermore_dark_lord_passive:GetAuraSearchTeam()
+	if self:GetSpecialValueFor("affects_allies") ~= 0 then
+		return DOTA_UNIT_TARGET_TEAM_BOTH
+	else
+		return DOTA_UNIT_TARGET_TEAM_ENEMY
+	end
 end
 function modifier_nevermore_dark_lord_passive:GetAuraSearchType()    
 	return DOTA_UNIT_TARGET_BASIC + DOTA_UNIT_TARGET_HERO
@@ -105,24 +109,36 @@ function modifier_nevermore_dark_lord_passive_aura:DeclareFunctions()
 	}
 end
 function modifier_nevermore_dark_lord_passive_aura:GetModifierPhysicalArmorBonus()
+	local negator = 1
+	if self:GetParent():GetTeamNumber() == self:GetCaster():GetTeamNumber() then
+		negator = -1
+	end
 	if self:GetParent():HasModifier("modifier_nevermore_requiem_ebf_debuff") then
-		return (self.armor_reduction + self.armor_stack * self:GetStackCount()) * self.requiem_multiplier
+		return ((self.armor_reduction + self.armor_stack * self:GetStackCount()) * self.requiem_multiplier) * negator
 	else
-		return self.armor_reduction + self.armor_stack * self:GetStackCount()
+		return (self.armor_reduction + self.armor_stack * self:GetStackCount()) * negator
 	end
 end
 function modifier_nevermore_dark_lord_passive_aura:GetModifierMagicalResistanceBonus()
+	local negator = 1
+	if self:GetParent():GetTeamNumber() == self:GetCaster():GetTeamNumber() then
+		negator = -1
+	end
 	if self:GetParent():HasModifier("modifier_nevermore_requiem_ebf_debuff") then
-		return (self.magic_resistance_reduction + self.magic_resistance_stack * self:GetStackCount()) * self.requiem_multiplier
+		return ((self.magic_resistance_reduction + self.magic_resistance_stack * self:GetStackCount()) * self.requiem_multiplier) * negator
 	else
-		return self.magic_resistance_reduction + self.magic_resistance_stack * self:GetStackCount()
+		return (self.magic_resistance_reduction + self.magic_resistance_stack * self:GetStackCount()) * negator
 	end
 end
 function modifier_nevermore_dark_lord_passive_aura:GetModifierTotalDamageOutgoing_Percentage()
+	local negator = 1
+	if self:GetParent():GetTeamNumber() == self:GetCaster():GetTeamNumber() then
+		negator = -1
+	end
 	if self:GetParent():HasModifier("modifier_nevermore_requiem_ebf_debuff") then
-		return (self.outgoing_damage_reduction + self.outgoing_damage_stack * self:GetStackCount()) * self.requiem_multiplier
+		return ((self.outgoing_damage_reduction + self.outgoing_damage_stack * self:GetStackCount()) * self.requiem_multiplier) * negator
 	else
-		return self.outgoing_damage_reduction + self.outgoing_damage_stack * self:GetStackCount()
+		return (self.outgoing_damage_reduction + self.outgoing_damage_stack * self:GetStackCount()) * negator
 	end
 end
 

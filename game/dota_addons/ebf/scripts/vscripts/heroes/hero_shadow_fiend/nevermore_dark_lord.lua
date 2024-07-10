@@ -105,21 +105,21 @@ function modifier_nevermore_dark_lord_passive_aura:DeclareFunctions()
 end
 function modifier_nevermore_dark_lord_passive_aura:GetModifierPhysicalArmorBonus()
 	if self:GetParent():HasModifier("modifier_nevermore_requiem_ebf_debuff") then
-		return (self.armor_reduction + self.armor_stack * self:GetStackCount()) * requiem_multiplier
+		return (self.armor_reduction + self.armor_stack * self:GetStackCount()) * self.requiem_multiplier
 	else
 		return self.armor_reduction + self.armor_stack * self:GetStackCount()
 	end
 end
 function modifier_nevermore_dark_lord_passive_aura:GetModifierMagicalResistanceBonus()
 	if self:GetParent():HasModifier("modifier_nevermore_requiem_ebf_debuff") then
-		return (self.magic_resistance_reduction + self.magic_resistance_stack * self:GetStackCount()) * requiem_multiplier
+		return (self.magic_resistance_reduction + self.magic_resistance_stack * self:GetStackCount()) * self.requiem_multiplier
 	else
 		return self.magic_resistance_reduction + self.magic_resistance_stack * self:GetStackCount()
 	end
 end
 function modifier_nevermore_dark_lord_passive_aura:GetModifierTotalDamageOutgoing_Percentage()
 	if self:GetParent():HasModifier("modifier_nevermore_requiem_ebf_debuff") then
-		return (self.outgoing_damage_reduction + self.outgoing_damage_stack * self:GetStackCount()) * requiem_multiplier
+		return (self.outgoing_damage_reduction + self.outgoing_damage_stack * self:GetStackCount()) * self.requiem_multiplier
 	else
 		return self.outgoing_damage_reduction + self.outgoing_damage_stack * self:GetStackCount()
 	end

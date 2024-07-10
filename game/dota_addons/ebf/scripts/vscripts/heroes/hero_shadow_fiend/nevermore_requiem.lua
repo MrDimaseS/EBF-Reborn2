@@ -144,8 +144,8 @@ end
 modifier_nevermore_requiem_ebf_debuff_immune = class({})
 LinkLuaModifier("modifier_nevermore_requiem_ebf_debuff_immune", "heroes/hero_shadow_fiend/nevermore_requiem.lua", LUA_MODIFIER_MOTION_NONE)
 
-function modifier_nevermore_requiem_ebf_debuff_immune:IsHidden()
-	return true
+function modifier_nevermore_requiem_ebf_debuff_immune:IsPurgable()
+	return false
 end
 function modifier_nevermore_requiem_ebf_debuff_immune:CheckState()
 	return {
@@ -154,6 +154,9 @@ function modifier_nevermore_requiem_ebf_debuff_immune:CheckState()
 end
 function modifier_nevermore_requiem_ebf_debuff_immune:GetEffectName()
 	return "particles/items_fx/black_king_bar_avatar.vpcf"
+end
+function modifier_nevermore_requiem_ebf_debuff_immune:GetTexture()
+	return "modifier_magicimmune"
 end
 
 modifier_nevermore_requiem_ebf_attack_speed = class({})

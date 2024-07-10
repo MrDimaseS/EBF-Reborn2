@@ -58,11 +58,12 @@ function tiny_toss:OnSpellStart()
 			z = position.z,
 			should_stun = true,
 			duration = duration,
+			ignoreStatusResist = true,
 			knockback_duration = duration,
 			knockback_distance = CalculateDistance( target, position ),
 			knockback_height = 160,
 		}
-		target:AddNewModifier(caster, self, "modifier_tiny_toss", modifierKnockback)
+		target:AddNewModifier( caster, self, "modifier_tiny_toss", modifierKnockback )
 		
 		caster:StartGesture( ACT_TINY_TOSS )
 	end

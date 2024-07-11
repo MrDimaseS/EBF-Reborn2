@@ -1,53 +1,71 @@
 <root>
-    <styles>
-        <include src="file://{resources}/styles/dotastyles.css" />
-        <include src="file://{resources}/layout/custom_game/chat_wheel/chat_wheel.css" />
-    </styles>
-    <scripts>
-        <include src="file://{resources}/scripts/custom_game/shared_scoreboard_updater.js" />
-        <include src="file://{resources}/layout/custom_game/chat_wheel/chat_wheel.js" />
-    </scripts>
-    <Panel class="PhraseMenu">
-        <Panel id="PhraseMenu" hittest="false">
-            <Panel id="PhraseMenuContainerLeft">
-                <Label id="text1" class="phrase-button" text="Lakad Matataaag! Normalin, Normalin." onactivate="OnPhraseSelected(1)" />
-                <Label id="text2" class="phrase-button" text="The next level play!" onactivate="OnPhraseSelected(2)" />
-                <Label id="text3" class="phrase-button" text="А ну-ка иди-ка сюда. А вот все. Все." onactivate="OnPhraseSelected(3)" />
-                <Label id="text4" class="phrase-button" text="Absolutely Perfect" onactivate="OnPhraseSelected(4)" />
-                <Label id="text5" class="phrase-button" text="They're all dead!" onactivate="OnPhraseSelected(5)" />
-                <Label id="text6" class="phrase-button" text="唉唉唉！唉？唉 …" onactivate="OnPhraseSelected(6)" />
-                <Label id="text7" class="phrase-button" text="Brutal. Savage. Rekt" onactivate="OnPhraseSelected(7)" />
-                <Label id="text8" class="phrase-button" text="Ceeeeeeeeeb!" onactivate="OnPhraseSelected(8)" />
-                <Label id="text9" class="phrase-button" text="Что это?! Какая жесть!" onactivate="OnPhraseSelected(9)" />
-                <Label id="text10" class="phrase-button" text="Crash and burn" onactivate="OnPhraseSelected(10)" />
-                <Label id="text11" class="phrase-button" text="Crowd Groan" onactivate="OnPhraseSelected(11)" />
-            </Panel>    
-            <Panel id="PhraseMenuContainerMid">
-                <Label id="text12" class="phrase-button" text="Сrybaby" onactivate="OnPhraseSelected(12)" />
-                <Label id="text13" class="phrase-button" text="Ding Ding Ding Mother******" onactivate="OnPhraseSelected(13)" />
-                <Label id="text14" class="phrase-button" text="It's a disastah!" onactivate="OnPhraseSelected(14)" />
-                <Label id="text15" class="phrase-button" text="啊，队友呢？队友呢？队友呢？！队友呢？！？！" onactivate="OnPhraseSelected(15)" />
-                <Label id="text16" class="phrase-button" text="Easiest money of my life!" onactivate="OnPhraseSelected(16)" />
-                <Label id="text17" class="phrase-button" text="Echo Slamma Jamma!" onactivate="OnPhraseSelected(17)" />
-                <Label id="text18" class="phrase-button" text="Это ГГ" onactivate="OnPhraseSelected(18)" />
-                <Label id="text19" class="phrase-button" text="Это уже попахивает фидом" onactivate="OnPhraseSelected(19)" />
-                <Label id="text20" class="phrase-button" text="Это. Просто. Нечто." onactivate="OnPhraseSelected(20)" />
-                <Label id="text21" class="phrase-button" text="Holy Moly!" onactivate="OnPhraseSelected(21)" />
-                <Label id="text22" class="phrase-button" text="10억짜리 꿈의 고리! 15억짜리 꿈의 고리!" onactivate="OnPhraseSelected(22)" />
-            </Panel>  
-            <Panel id="PhraseMenuContainerRight">
-                <Label id="text23" class="phrase-button" text="Резать Резать Резать Резать" onactivate="OnPhraseSelected(23)" />
-                <Label id="text24" class="phrase-button" text="你行你行，你上你上" onactivate="OnPhraseSelected(24)" />
-                <Label id="text25" class="phrase-button" text="This guy has no chill" onactivate="OnPhraseSelected(25)" />
-                <Label id="text26" class="phrase-button" text="Ouch" onactivate="OnPhraseSelected(26)" />
-                <Label id="text27" class="phrase-button" text="Ой-ой-ой-ой-ой, бежать!" onactivate="OnPhraseSelected(27)" />
-                <Label id="text28" class="phrase-button" text="Patience from Zhou" onactivate="OnPhraseSelected(28)" />
-                <Label id="text29" class="phrase-button" text="See you later nerds" onactivate="OnPhraseSelected(29)" />
-                <Label id="text30" class="phrase-button" text="Monkey Business" onactivate="OnPhraseSelected(30)" />
-                <Label id="text31" class="phrase-button" text="What the **** just happened?" onactivate="OnPhraseSelected(31)" />
-                <Label id="text32" class="phrase-button" text="Wow!" onactivate="OnPhraseSelected(32)" />
-                <Label id="text33" class="phrase-button" text="Ай-ай-ай-ай, что сейчас произошло!" onactivate="OnPhraseSelected(33)" />
-            </Panel>   
-        </Panel>
-    </Panel>
+	<styles>
+		<include src="file://{resources}/styles/dotastyles.css" />
+		<include src="file://{resources}/layout/custom_game/chat_wheel/chat_wheel.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/scripts/custom_game/shared_scoreboard_updater.js" />
+		<include src="file://{resources}/layout/custom_game/chat_wheel/chat_wheel.js" />
+	</scripts>
+	<Panel class="PhraseMenu">
+		<Panel id="Main">
+			<Panel id="PhraseExpl_MMR">
+				<Label id="MMR" text="Chat Wheel: Available for Calibrated Players with MMR above 3000. CD: 2s, Spam CD: 6s" />
+			</Panel>
+		</Panel>
+		<Panel id="PhraseMenu" hittest="false">
+			<Panel id="PhraseMenuContainerMain">
+				<Label id="MMR1" class="phrase-mmr" text="6000" />
+				<Label id="MMR2" class="phrase-mmr" text="5500" />
+				<Label id="MMR3" class="phrase-mmr" text="5200" />
+				<Label id="MMR4" class="phrase-mmr" text="5000" />
+				<Label id="MMR5" class="phrase-mmr" text="4600" />
+				<Label id="MMR6" class="phrase-mmr" text="4300" />
+				<Label id="MMR7" class="phrase-mmr" text="4000" />
+				<Label id="MMR8" class="phrase-mmr" text="3700" />
+				<Label id="MMR9" class="phrase-mmr" text="3400" />
+				<Label id="MMR10" class="phrase-mmr" text="3250" />
+				<Label id="MMR11" class="phrase-mmr" text="3050" />
+			</Panel>
+			<Panel id="PhraseMenuContainerLeft">
+				<Label id="text1" class="phrase-button" text="Lakad Matataaag! Normalin, Normalin." onactivate="OnPhraseSelected(1)" />
+				<Label id="text2" class="phrase-button" text="The next level play!" onactivate="OnPhraseSelected(2)" />
+				<Label id="text3" class="phrase-button" text="А ну-ка иди-ка сюда. А вот все. Все." onactivate="OnPhraseSelected(3)" />
+				<Label id="text4" class="phrase-button" text="Absolutely Perfect" onactivate="OnPhraseSelected(4)" />
+				<Label id="text5" class="phrase-button" text="They're all dead!" onactivate="OnPhraseSelected(5)" />
+				<Label id="text6" class="phrase-button" text="唉唉唉！唉？唉 …" onactivate="OnPhraseSelected(6)" />
+				<Label id="text7" class="phrase-button" text="Brutal. Savage. Rekt" onactivate="OnPhraseSelected(7)" />
+				<Label id="text8" class="phrase-button" text="Ceeeeeeeeeb!" onactivate="OnPhraseSelected(8)" />
+				<Label id="text9" class="phrase-button" text="Что это?! Какая жесть!" onactivate="OnPhraseSelected(9)" />
+				<Label id="text10" class="phrase-button" text="Crash and burn" onactivate="OnPhraseSelected(10)" />
+				<Label id="text11" class="phrase-button" text="Crowd Groan" onactivate="OnPhraseSelected(11)" />
+			</Panel>
+			<Panel id="PhraseMenuContainerMid">
+				<Label id="text12" class="phrase-button" text="Сrybaby" onactivate="OnPhraseSelected(12)" />
+				<Label id="text13" class="phrase-button" text="Ding Ding Ding Mother******" onactivate="OnPhraseSelected(13)" />
+				<Label id="text14" class="phrase-button" text="It's a disastah!" onactivate="OnPhraseSelected(14)" />
+				<Label id="text15" class="phrase-button" text="啊，队友呢？队友呢？队友呢？！队友呢？！？！" onactivate="OnPhraseSelected(15)" />
+				<Label id="text16" class="phrase-button" text="Easiest money of my life!" onactivate="OnPhraseSelected(16)" />
+				<Label id="text17" class="phrase-button" text="Echo Slamma Jamma!" onactivate="OnPhraseSelected(17)" />
+				<Label id="text18" class="phrase-button" text="Это ГГ" onactivate="OnPhraseSelected(18)" />
+				<Label id="text19" class="phrase-button" text="Это уже попахивает фидом" onactivate="OnPhraseSelected(19)" />
+				<Label id="text20" class="phrase-button" text="Это. Просто. Нечто." onactivate="OnPhraseSelected(20)" />
+				<Label id="text21" class="phrase-button" text="Holy Moly!" onactivate="OnPhraseSelected(21)" />
+				<Label id="text22" class="phrase-button" text="10억짜리 꿈의 고리! 15억짜리 꿈의 고리!" onactivate="OnPhraseSelected(22)" />
+			</Panel>
+			<Panel id="PhraseMenuContainerRight">
+				<Label id="text23" class="phrase-button" text="Резать Резать Резать Резать" onactivate="OnPhraseSelected(23)" />
+				<Label id="text24" class="phrase-button" text="你行你行，你上你上" onactivate="OnPhraseSelected(24)" />
+				<Label id="text25" class="phrase-button" text="This guy has no chill" onactivate="OnPhraseSelected(25)" />
+				<Label id="text26" class="phrase-button" text="Ouch" onactivate="OnPhraseSelected(26)" />
+				<Label id="text27" class="phrase-button" text="Ой-ой-ой-ой-ой, бежать!" onactivate="OnPhraseSelected(27)" />
+				<Label id="text28" class="phrase-button" text="Patience from Zhou" onactivate="OnPhraseSelected(28)" />
+				<Label id="text29" class="phrase-button" text="See you later nerds" onactivate="OnPhraseSelected(29)" />
+				<Label id="text30" class="phrase-button" text="Monkey Business" onactivate="OnPhraseSelected(30)" />
+				<Label id="text31" class="phrase-button" text="What the **** just happened?" onactivate="OnPhraseSelected(31)" />
+				<Label id="text32" class="phrase-button" text="Wow!" onactivate="OnPhraseSelected(32)" />
+				<Label id="text33" class="phrase-button" text="Ай-ай-ай-ай, что сейчас произошло!" onactivate="OnPhraseSelected(33)" />
+			</Panel>
+		</Panel>
+	</Panel>
 </root>

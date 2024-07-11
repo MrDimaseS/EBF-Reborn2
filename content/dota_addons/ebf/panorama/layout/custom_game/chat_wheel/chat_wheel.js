@@ -7,20 +7,21 @@ GameUI.ToggleSingleClassInParent = (parent, child, class_name) => {
 };
 
 let ToggleVoiceChatShow = () => {
-	$.GetContextPanel().ToggleClass("Show_VC");
-	if (!$.GetContextPanel().BHasClass("Show_VC")) $.DispatchEvent("DropInputFocus");
+    $.GetContextPanel().ToggleClass("Show_VC");
+    if (!$.GetContextPanel().BHasClass("Show_VC")) $.DispatchEvent("DropInputFocus");
 
-	if ($.GetContextPanel().BHasClass("Show_VC")) {
-		state = 1;
-		mouseCallback = function (eventName, button) {
-			if (eventName === "pressed" && button === 0) {
-				state = 0;
-				$.GetContextPanel().RemoveClass("Show_VC");
-				GameUI.SetMouseCallback(null);
-			}
-		};
-		GameUI.SetMouseCallback(mouseCallback);
-	}
+    if ($.GetContextPanel().BHasClass("Show_VC")) {
+        state = 1;
+        mouseCallback = function (eventName, button) {
+            if (eventName === "pressed" && button === 0) {
+                state = 0;
+                $.GetContextPanel().RemoveClass("Show_VC");
+                GameUI.SetMouseCallback(null);
+            }
+        };
+        GameUI.SetMouseCallback(mouseCallback);
+        updateChatWheelLines(); // Add this line
+    }
 };
 
 
@@ -31,8 +32,10 @@ GameUI.VoiceChat.Show = () => {
 
 
 function OnPhraseSelected(phraseId) {
-    const playerName = Game.GetLocalPlayerInfo().player_name;
-    const soundNames = {
+    const button = $(`#text${phraseId}`);
+    if (button && !button.BHasClass("Disabled")) {
+        const playerName = Game.GetLocalPlayerInfo().player_name;
+        const soundNames = {
         1: "Lakad Matataaag! Normalin, Normalin.",
         2: "The next level play!",
 		3: "А ну-ка иди-ка сюда. А вот все. Все.",
@@ -70,10 +73,76 @@ function OnPhraseSelected(phraseId) {
     const soundName = soundNames[phraseId];
 
     // Localize the sound name
-    const localizedSoundName = $.Localize(`${soundName}`);
+	const localizedSoundName = $.Localize(`${soundName}`);
 
-    GameEvents.SendCustomGameEventToServer("emit_sound_for_all_players", { phraseId: phraseId, playerName: playerName, soundName: localizedSoundName });
+	GameEvents.SendCustomGameEventToServer("emit_sound_for_all_players", { phraseId: phraseId, playerName: playerName, soundName: localizedSoundName });
 }
+}
+
+function disableChatWheelLinesBasedOnMMR(mmr) {
+    const chatWheelLines = [
+        { id: 1, mmr: 6000 },
+        { id: 2, mmr: 5500 },
+        { id: 3, mmr: 5200 },
+        { id: 4, mmr: 5000 },
+        { id: 5, mmr: 4600 },
+        { id: 6, mmr: 4300 },
+        { id: 7, mmr: 4000 },
+        { id: 8, mmr: 3700 },
+        { id: 9, mmr: 3400 },
+        { id: 10, mmr: 3250 },
+        { id: 11, mmr: 3050 }
+    ];
+
+    chatWheelLines.forEach(line => {
+        const mmrLabel = $(`#MMR${line.id}`);
+        const leftButton = $(`#text${line.id}`);
+        const midButton = $(`#text${line.id + 11}`);
+        const rightButton = $(`#text${line.id + 22}`);
+
+        const elements = [mmrLabel, leftButton, midButton, rightButton];
+
+        if (mmr < line.mmr) {
+            elements.forEach(el => {
+                if (el) {
+                    el.AddClass("Disabled");
+                    if (el.id.startsWith("text")) {
+                        el.ClearPanelEvent("onactivate");
+                    }
+                }
+            });
+        } else {
+            elements.forEach(el => {
+                if (el) {
+                    el.RemoveClass("Disabled");
+                    if (el.id.startsWith("text")) {
+                        const phraseId = parseInt(el.id.replace("text", ""));
+                        el.SetPanelEvent("onactivate", function() { OnPhraseSelected(phraseId); });
+                    }
+                }
+            });
+        }
+    });
+}
+
+function updateChatWheelLines() {
+    const mmrData = CustomNetTables.GetTableValue("mmr", "0");
+    if (mmrData && mmrData.mmr) {
+        disableChatWheelLinesBasedOnMMR(mmrData.mmr);
+    } else {
+        $.Msg("MMR data not found");
+    }
+}
+
+(() => {
+    GameUI.Custom_ToggleVoiceChat = ToggleVoiceChatShow;
+
+    CustomNetTables.SubscribeNetTableListener("mmr", (tableName, key, data) => {
+        if (key === "0" && data && data.mmr) {
+            updateChatWheelLines();
+        }
+    });
+})();
 
 (() => {
     GameUI.Custom_ToggleVoiceChat = ToggleVoiceChatShow;

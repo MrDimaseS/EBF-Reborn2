@@ -1,42 +1,88 @@
 .PhraseMenu {
-  flow-children: right;
+  flow-children: down;
   vertical-align: middle;
-  horizontal-align: center;
-  width: 1200px;
-  height: 450px; 
+  horizontal-align: left;
+  width: 700px;
+  height: 500px; 
   margin-left: 10px;
   transition-property: opacity, transform;
   transition-duration: 0.15s;
-  transform: translateY(850px);
+  transform: translateX(-1850px);
   box-shadow: #000000a0 0px 0px 2px 0px;
 }
 
+#Main {
+  height: 50px;
+}
+
+#PhraseExpl_MMR Label{
+  width: 700px;
+  background-color: #444;
+  text-align: center; 
+  margin: 5px;
+  height: 50px;
+  color: #fff;
+  border-radius: 5px;
+  line-height: 33px;
+  font-size: 18px;
+}
+
+#PhraseExpl Label{
+  width: 590px;
+  height: 50px;
+  background-color: #444;
+  text-align: center; 
+  margin: 5px;
+  color: #fff;
+  border-radius: 5px;
+  line-height: 30px;
+  font-size: 15px;
+}
+
 .PhraseMenu.Show_VC {
-  transform: translateY(0px);
+  transform: translateX(0px);
 }
 
 #PhraseMenu {
   flow-children: right;
-  width: 1200px;
+  width: 1000px;
+  height: 450px; 
+}
+
+#PhraseMenuContainerMain {
+  flow-children: down;
+  width: 100px;
   height: 450px; 
 }
 
 #PhraseMenuContainerLeft {
   flow-children: down;
-  width: 400px;
+  width: 200px;
   height: 450px; 
 }
 
 #PhraseMenuContainerMid {
   flow-children: down;
-  width: 400px;
+  width: 200px;
   height: 450px; 
 }
 
 #PhraseMenuContainerRight {
   flow-children: down;
-  width: 400px;
+  width: 200px;
   height: 450px; 
+}
+
+.phrase-mmr {
+  text-align: center; 
+  height: 30px;
+  width: 400px;
+  margin: 5px;
+  background-color: #2c3e50; /* Dark Blue */
+  color: #ecf0f1; /* Light Gray */
+  border-radius: 5px;
+  line-height: 25px;
+  font-size: 15px;
 }
 
 .phrase-button {
@@ -44,12 +90,27 @@
   height: 30px;
   width: 400px;
   margin: 5px;
-  background-color: #444;
-  color: #fff;
+  background-color: #34495e; /* Darker Blue */
+  color: #ecf0f1; /* Light Gray */
   border-radius: 5px;
-  line-height: 30px;
+  line-height: 24px;
+  font-size: 15px;
 }
 
 .phrase-button:hover {
-  background-color: #666;
+  background-color: #1abc9c; /* Vibrant Teal */
+}
+
+.phrase-button:active {
+  background-color: #e74c3c; /* Vibrant Red */
+}
+
+.phrase-button.Disabled {
+  background-color: #7f8c8d; /* Light Gray */
+  color: #bdc3c7; /* Lighter Gray */
+  wash-color: #bdc3c7; /* Lighter Gray */
+}
+
+.phrase-button.Disabled:hover {
+  background-color: #7f8c8d; /* Light Gray */
 }

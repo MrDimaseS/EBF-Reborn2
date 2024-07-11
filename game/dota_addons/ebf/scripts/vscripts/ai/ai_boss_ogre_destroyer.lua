@@ -1,9 +1,6 @@
---[[
-Broodking AI
-]]
+--[[ Ogre Destroyer AI ]]
 
-
-function Spawn( entityKeyValues )
+function Spawn(entityKeyValues)
 	if not IsServer() then
 		return
 	end
@@ -23,7 +20,6 @@ function Spawn( entityKeyValues )
 	end)
 end
 
-
 function AIThink(thisEntity)
 	if thisEntity:GetTeamNumber() ~= DOTA_TEAM_GOODGUYS and not thisEntity:IsChanneling() and not thisEntity:GetCurrentActiveAbility() then
 		if thisEntity.lust:IsFullyCastable() and thisEntity:GetAttackTarget() and not thisEntity:HasModifier("modifier_ogre_magi_bloodlust") then
@@ -36,19 +32,20 @@ function AIThink(thisEntity)
 			return 0.1
 		end
 		if thisEntity.smash:IsFullyCastable() then
-			local optimalPosition = AICore:FindOptimalRadiusInRangeForEntity( thisEntity, thisEntity.smash:GetTrueCastRange(), thisEntity.smash:GetSpecialValueFor("radius") )
-			if optimalPosition then
+			local target = AICore:NearestEnemyHeroInRange(thisEntity, 450, true)
+			if target then
 				ExecuteOrderFromTable({
 					UnitIndex = thisEntity:entindex(),
 					OrderType = DOTA_UNIT_ORDER_CAST_POSITION,
-					Position = optimalPosition,
+					Position = target:GetAbsOrigin(),
 					AbilityIndex = thisEntity.smash:entindex()
 				})
 				return 0.1
 			end
-		end-- no spells left to be cast and not currently attacking
+		end
+		-- No spells left to be cast and not currently attacking
 		if not thisEntity:IsAttacking() then
-			local target = AICore:NearestEnemyHeroInRange( thisEntity, -1, true)
+			local target = AICore:NearestEnemyHeroInRange(thisEntity, -1, true)
 			if target and target ~= thisEntity:GetAttackTarget() then
 				ExecuteOrderFromTable({
 					UnitIndex = thisEntity:entindex(),

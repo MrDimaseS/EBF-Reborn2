@@ -27,8 +27,23 @@ function item_blade_mail:GetDefaultFunctions()
     }
 end
 
-function item_blade_mail:ApplyReturn( damage, attacker )
-	self:DealDamage( self:GetCaster(), attacker, damage, {damage_type = self:GetAbilityDamageType(), damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL + DOTA_DAMAGE_FLAG_REFLECTION} )
+function item_blade_mail:HandleReturn( baseDamage )
+	local caster = self:GetCaster()
+	caster._superiorBladeMail = caster._superiorBladeMail or {}
+	caster._superiorBladeMail[self:GetIntrinsicModifierName()] = caster._superiorBladeMail[self:GetIntrinsicModifierName()] or self
+	
+	self._evaluatedBaseDamage = baseDamage
+	
+	if baseDamage > caster._superiorBladeMail[self:GetIntrinsicModifierName()]._evaluatedBaseDamage then
+		caster._superiorBladeMail[self:GetIntrinsicModifierName()] = self
+	end
+end
+
+function item_blade_mail:ApplyReturn( attacker )
+	local caster = self:GetCaster()
+	
+	self:DealDamage( caster, attacker, self._evaluatedBaseDamage, {damage_type = self:GetAbilityDamageType(), damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL + DOTA_DAMAGE_FLAG_REFLECTION} )
+	caster._internalBladeMailCD[self:GetIntrinsicModifierName()] = GameRules:GetGameTime()
 end
 
 function item_blade_mail:OnSpellStart()
@@ -45,10 +60,29 @@ end
 
 item_conquerors_splint = class(item_blade_mail)
 
-function item_conquerors_splint:ApplyReturn( damage, attacker )
+function item_conquerors_splint:HandleReturn( baseDamage )
 	local caster = self:GetCaster()
-	local damage_pct = self:GetSpecialValueFor("passive_reflect_pct")
-	caster:PerformGenericAttack( attacker, true, true, damage, damage_pct, true )
+	caster._superiorBladeMail = caster._superiorBladeMail or {}
+	caster._superiorBladeMail[self:GetIntrinsicModifierName()] = caster._superiorBladeMail[self:GetIntrinsicModifierName()] or self
+	
+	local attack_chance = self:GetSpecialValueFor("passive_reflect_pct")
+	self._triggeredProc = self:RollPRNG( attack_chance )
+	self._evaluatedBaseDamage = baseDamage
+	
+	if baseDamage > caster._superiorBladeMail[self:GetIntrinsicModifierName()]._evaluatedBaseDamage or ( self._triggeredProc and not caster._superiorBladeMail[self:GetIntrinsicModifierName()]._triggeredProc ) then
+		caster._superiorBladeMail[self:GetIntrinsicModifierName()] = self
+	end
+end
+
+function item_conquerors_splint:ApplyReturn( attacker )
+	local caster = self:GetCaster()
+	
+	if self._triggeredProc then
+		caster:PerformGenericAttack( attacker, true, true, self._evaluatedBaseDamage, 0, true )
+	else
+		self:DealDamage( caster, attacker, self._evaluatedBaseDamage, {damage_type = self:GetAbilityDamageType(), damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL + DOTA_DAMAGE_FLAG_REFLECTION} )
+	end
+	caster._internalBladeMailCD[self:GetIntrinsicModifierName()] = GameRules:GetGameTime()
 end
 
 function item_conquerors_splint:GetDefaultFunctions()
@@ -93,16 +127,29 @@ function item_martyrs_bulwark:GetDefaultFunctions()
     }
 end
 
-function item_martyrs_bulwark:ApplyReturn( damage, attacker )
+function item_martyrs_bulwark:HandleReturn( baseDamage )
+	local caster = self:GetCaster()
+	caster._superiorBladeMail = caster._superiorBladeMail or {}
+	caster._superiorBladeMail[self:GetIntrinsicModifierName()] = caster._superiorBladeMail[self:GetIntrinsicModifierName()] or self
+	
+	local chain_chance = self:GetSpecialValueFor("chain_chance")
+	self._triggeredProc = self:RollPRNG( chain_chance )
+	self._evaluatedBaseDamage = baseDamage
+	
+	if baseDamage > caster._superiorBladeMail[self:GetIntrinsicModifierName()]._evaluatedBaseDamage or ( self._triggeredProc and not caster._superiorBladeMail[self:GetIntrinsicModifierName()]._triggeredProc ) then
+		caster._superiorBladeMail[self:GetIntrinsicModifierName()] = self
+	end
+end
+
+function item_martyrs_bulwark:ApplyReturn( attacker )
 	local caster = self:GetCaster()
 	
-	local roll = RollPercentage( self:GetSpecialValueFor("chain_chance") )
-	if roll or caster:HasModifier("modifier_item_blade_mail_passive_taunt") then	
+	if self._triggeredProc then
 		self:ChainLightning( caster, attacker, self:GetSpecialValueFor("chain_damage") )
 	else
-		ParticleManager:FireRopeParticle("particles/items2_fx/mjollnir_shield_arc_01.vpcf", PATTACH_POINT_FOLLOW, attacker, caster)
-		self:DealDamage( self:GetCaster(), attacker, damage, {damage_type = self:GetAbilityDamageType(), damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL + DOTA_DAMAGE_FLAG_REFLECTION} )
+		self:DealDamage( caster, attacker, self._evaluatedBaseDamage, {damage_type = self:GetAbilityDamageType(), damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL + DOTA_DAMAGE_FLAG_REFLECTION} )
 	end
+	caster._internalBladeMailCD[self:GetIntrinsicModifierName()] = GameRules:GetGameTime()
 end
 
 function item_martyrs_bulwark:ChainLightning( source, target, damage )
@@ -188,7 +235,11 @@ function modifier_item_blade_mail_passive:OnRefresh()
 	self.reflect_crit_chance = self:GetSpecialValueFor("reflect_crit_chance")
 	self.crit_multiplier = self:GetSpecialValueFor("crit_multiplier")
 	
-	self._lastHitTime = 0
+	self:GetParent()._internalBladeMailCD = self:GetParent()._internalBladeMailCD or {}
+	self:GetParent()._internalBladeMailCD[self:GetName()] = GameRules:GetGameTime()
+	
+	self:GetParent()._suppressFurtherProcs = self:GetParent()._suppressFurtherProcs or {}
+	self:GetParent()._suppressFurtherProcs[self:GetName()] = false
 end
 
 function modifier_item_blade_mail_passive:DeclareFunctions(params)
@@ -198,6 +249,7 @@ end
 
 function modifier_item_blade_mail_passive:OnAttackLanded(params)
     local hero = self:GetParent()
+    local ability = self:GetAbility()
     local dmg = params.damage
 	local dmgtype = params.damage_type
 	local attacker = params.attacker
@@ -206,16 +258,25 @@ function modifier_item_blade_mail_passive:OnAttackLanded(params)
 	if not ( IsEntitySafe( attacker ) and attacker:IsAlive() ) then return end
 	if self.OnAttackLandedBehavior then self:OnAttackLandedBehavior( params ) end
 	if not blademailActive then
-		if GameRules:GetGameTime() < self._lastHitTime + self.internal_cd then return end
+		if not hero._internalBladeMailCD[self:GetName()] then hero._internalBladeMailCD[self:GetName()] = GameRules:GetGameTime() end
+		if GameRules:GetGameTime() < hero._internalBladeMailCD[self:GetName()] + self.internal_cd then return end
 		if CalculateDistance( hero, attacker ) > self.reflection_radius then return end
 	end
 	if not attacker:IsSameTeam( hero ) and params.target == hero then
 		local baseDamage = self.reflection_const * TernaryOperator( 1 + self.active_reflection_pct, blademailActive, 1 )
-		self:GetAbility():ApplyReturn(baseDamage, attacker)
+		self:GetAbility():HandleReturn(baseDamage)
 		if blademailActive then
 			EmitSoundOn("DOTA_Item.BladeMail.Damage", hero)
 		end
-		self._lastHitTime = GameRules:GetGameTime()
+		if not hero._suppressFurtherProcs[self:GetName()] then
+			hero._suppressFurtherProcs[self:GetName()] = true
+			Timers:CreateTimer( function()
+				hero._superiorBladeMail[self:GetName()]:ApplyReturn( attacker )
+				hero._suppressFurtherProcs[self:GetName()] = false
+				hero._superiorBladeMail = nil
+			end)
+		end
+		
 	end
 end
 
@@ -280,8 +341,11 @@ LinkLuaModifier( "modifier_item_martyrs_bulwark_passive", "items/item_blade_mail
 function modifier_item_martyrs_bulwark_passive:OnAttackLandedBehavior( params )
     local hero = self:GetParent()
 	local attacker = params.attacker
+	hero._internalBulwarkHitCooldown = hero._internalBulwarkHitCooldown or GameRules:GetGameTime()
+	if GameRules:GetGameTime() < hero._internalBulwarkHitCooldown + self.internal_cd then return end
 	if attacker == hero and (RollPercentage( self.chain_chance ) or hero:HasModifier("modifier_item_blade_mail_passive_taunt")) then
 		self:GetAbility():ChainLightning( hero, params.target, self.chain_damage )
+		hero._internalBulwarkHitCooldown = GameRules:GetGameTime()
 	end
 end
 

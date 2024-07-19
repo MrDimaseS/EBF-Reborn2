@@ -810,6 +810,12 @@ function CHoldoutGameMode:OnHeroPick (event)
 			end
 		end
 	end
+	for i = 0, 25 - 1 do
+        local placeHolder = hero:GetAbilityByIndex( i )
+        if placeHolder and placeHolder:GetAbilityName() == "placeholder_to_delete" then
+			hero:RemoveAbilityByHandle( placeHolder )
+        end
+    end
 	
 	if hero:GetManaType() == "Mana" then
 		hero:SetBaseManaRegen( (hero:GetBaseIntellect() / 5) * 0.04 )
@@ -1129,7 +1135,13 @@ function CHoldoutGameMode:OnGameRulesStateChange()
 	local nNewState = GameRules:State_Get()
 	if nNewState == DOTA_GAMERULES_STATE_HERO_SELECTION then
 		GameRules.HeroKV = LoadKeyValues("scripts/npc/npc_heroes.txt")
-		MergeTables( GameRules.HeroKV, LoadKeyValues("scripts/npc/npc_heroes_custom.txt") )
+		local customHeroes = LoadKeyValues("scripts/npc/npc_heroes_custom.txt")
+		for heroName, heroData in pairs( customHeroes ) do
+			local realHeroName = string.gsub(heroName, "ebf", "dota")
+			customHeroes[realHeroName] = heroData
+			customHeroes[heroName] = nil
+		end
+		MergeTables( GameRules.HeroKV, customHeroes )
 		local activeList = LoadKeyValues("scripts/npc/herolist.txt")
 		local durableHeroes = {}
 		local dpsHeroes = {}

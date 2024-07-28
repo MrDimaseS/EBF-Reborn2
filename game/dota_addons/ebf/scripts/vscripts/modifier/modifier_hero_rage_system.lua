@@ -24,7 +24,6 @@ function modifier_hero_rage_system:DeclareFunctions()
 	return { MODIFIER_PROPERTY_EXTRA_MANA_BONUS, 
 			 MODIFIER_EVENT_ON_ABILITY_EXECUTED,
 			 MODIFIER_EVENT_ON_TAKEDAMAGE,
-			 MODIFIER_EVENT_ON_TAKEDAMAGE,
 			 MODIFIER_PROPERTY_MANACOST_PERCENTAGE_STACKING }
 end
 
@@ -43,6 +42,7 @@ end
 function modifier_hero_rage_system:OnAbilityExecuted( params )
 	if params.unit == self:GetParent() then
 		params.unit:ModifyRage( -params.ability:GetEffectiveManaCost( -1 ) )
+		self.lastTimeInCombat = GameRules:GetGameTime()
 	end
 end
 
@@ -54,10 +54,12 @@ end
 
 function modifier_hero_rage_system:OnTakeDamage( params )
 	if params.attacker == self:GetParent() or params.unit == self:GetParent() then
-		local amt = (( params.damage / params.unit:GetMaxHealth() ) * 100)
+		local amt = (( params.original_damage / params.unit:GetMaxHealth() ) * 100)
 		if params.attacker == self:GetParent() then
-			amt = amt * TernaryOperator( 1, params.unit:IsConsideredHero(), 0.2 )
-			amt = amt * TernaryOperator( 0.1, params.inflictor and params.attacker == self:GetParent(), 0.5 )
+			amt = amt * TernaryOperator( 1, params.unit:IsConsideredHero(), 0.15 )
+			amt = amt * TernaryOperator( 0.2, params.inflictor, 1 )
+		else
+			amt = amt * 1.5
 		end
 		self:GetParent():ModifyRage( amt )
 		self.lastTimeInCombat = GameRules:GetGameTime()

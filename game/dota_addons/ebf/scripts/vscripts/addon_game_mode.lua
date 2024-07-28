@@ -1135,13 +1135,13 @@ function CHoldoutGameMode:OnGameRulesStateChange()
 	local nNewState = GameRules:State_Get()
 	if nNewState == DOTA_GAMERULES_STATE_HERO_SELECTION then
 		GameRules.HeroKV = LoadKeyValues("scripts/npc/npc_heroes.txt")
-		local customHeroes = LoadKeyValues("scripts/npc/npc_heroes_custom.txt")
-		for heroName, heroData in pairs( customHeroes ) do
-			local realHeroName = string.gsub(heroName, "ebf", "dota")
-			customHeroes[realHeroName] = heroData
-			customHeroes[heroName] = nil
-		end
-		MergeTables( GameRules.HeroKV, customHeroes )
+		-- local customHeroes = LoadKeyValues("scripts/npc/npc_heroes_custom.txt")
+		-- for heroName, heroData in pairs( customHeroes ) do
+			-- local realHeroName = string.gsub(heroName, "ebf", "dota")
+			-- customHeroes[realHeroName] = heroData
+			-- customHeroes[heroName] = nil
+		-- end
+		MergeTables( GameRules.HeroKV, LoadKeyValues("scripts/npc/npc_heroes_custom.txt") )
 		local activeList = LoadKeyValues("scripts/npc/herolist.txt")
 		local durableHeroes = {}
 		local dpsHeroes = {}
@@ -1748,8 +1748,7 @@ function CHoldoutGameMode:_RefreshPlayers( bWon, bRefreshCooldowns )
 			if PlayerResource:HasSelectedHero( nPlayerID ) then
 				local hero = PlayerResource:GetSelectedHeroEntity( nPlayerID )
 				if hero ~=nil then
-					hero:Dispel( hero, true )
-					if hero:IsMoving() or hero:IsChanneling() or hero:IsInvulnerable() or hero:IsOutOfGame() then
+					if hero:IsAlive() and hero:GetHealth() > 0 then
 						hero:Heal( hero:GetMaxHealth(), nil )
 						hero:GiveMana( hero:GetMaxMana() )
 						hero:Dispel( hero, true )

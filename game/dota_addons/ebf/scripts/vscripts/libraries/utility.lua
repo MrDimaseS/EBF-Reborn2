@@ -763,13 +763,13 @@ end
 
 function CDOTA_BaseNPC:RefreshAllIntrinsicModifiers()
 	for i=DOTA_ITEM_SLOT_1, DOTA_ITEM_SLOT_6 do
-		local item = self:GetItemInSlot(i)
+		local current_item = self:GetItemInSlot(i)
 		if current_item then
-			local passive = self:FindModifierByNameAndAbility( current_item:GetIntrinsicModifierName(), currentItem )
+			local passive = self:FindModifierByNameAndAbility( current_item:GetIntrinsicModifierName(), current_item )
 			if passive then
 				passive:Destroy()
 			end
-			item:RefreshIntrinsicModifier()
+			current_item:RefreshIntrinsicModifier()
 		end
 	end
 	local neutralItem =	self:GetItemInSlot(DOTA_ITEM_NEUTRAL_SLOT)  
@@ -796,6 +796,8 @@ function CDOTA_BaseNPC:RefreshAllIntrinsicModifiers()
 			end
 		end
 	end
+	self:CalculateGenericBonuses()
+	if self:IsHero() then self:CalculateStatBonus(true) end
 end
 
 function CDOTA_BaseNPC:IsFakeHero()

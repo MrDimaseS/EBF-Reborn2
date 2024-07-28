@@ -30,7 +30,7 @@ end
 
 function modifier_axe_counter_helix_passive:OnAttackLanded( params )
 	if IsServer() then
-		if not (params.target == self:GetCaster() or (params.attacker == self:GetCaster() and self:GetSpecialValueFor("attacks_increase_counter") == 1)) then return end
+		if not (params.target == self:GetCaster() or (params.attacker == self:GetCaster() and self:GetSpecialValueFor("attacks_increase_counter") > 0)) then return end
 		if self:GetCaster():PassivesDisabled() then return end
 		if not self:GetAbility():IsCooldownReady() then return end
 		if params.attacker:IsOther() or params.attacker:IsBuilding() then return end

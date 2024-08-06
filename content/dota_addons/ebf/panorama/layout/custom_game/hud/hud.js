@@ -186,7 +186,7 @@ $.RegisterForUnhandledEvent("DOTAShowAbilityInventoryItemTooltip", UpdateItemToo
 $.RegisterForUnhandledEvent("DOTAShowAbilityShopItemTooltip", ManageItemAttributes);
 $.RegisterForUnhandledEvent("DOTAShowAbilityTooltip", ManageItemAttributes);
 $.RegisterForUnhandledEvent("DOTAShowAbilityTooltipForEntityIndex", ManageItemAttributes);
-$.RegisterForUnhandledEvent("DOTAHUDShowDamageArmorTooltip", UpdateStatsTooltip);
+$.RegisterForUnhandledEvent("DOTAHUDShowDamageArmorTooltip", DelayUpdateStatsTooltip);
 $.RegisterForUnhandledEvent("DOTAHideAbilityTooltip", ClearItemTooltip);
 GameEvents.Subscribe("client_update_ability_kvs", RegisterInventoryData);
 GameEvents.Subscribe("hero_leveled_up", HandleLevelUp);
@@ -362,6 +362,11 @@ function RemoveAbilityChanges(panel, abilityName, unitID) {
 	})
 }
 
+function DelayUpdateStatsTooltip()
+{
+	$.Schedule(0, UpdateStatsTooltip)
+}
+
 function UpdateStatsTooltip() {
 	const currentUnit = Players.GetLocalPlayerPortraitUnit()
 	const tooltipManager = dotaHud.FindChildTraverse('Tooltips');
@@ -418,49 +423,70 @@ function UpdateStatsTooltip() {
 		return
 	}
 	const attributesContainer = tooltipPanel.FindChildTraverse('AttributesContainer');
+	
+	const primaryStat = stats.primaryStat
+	
+	$.Msg( primaryStat, Attributes.DOTA_ATTRIBUTE_STRENGTH )
 
 	const strContainer = attributesContainer.FindChildTraverse('StrengthContainer');
 	const strGain = strContainer.FindChildTraverse('StrengthGainLabel');
 	const strValues = strContainer.FindChildTraverse('StrengthDetails');
+	const strDamage = strContainer.FindChildTraverse('StrengthDamageLabel');
 	strGain.text = '(+' + Math.floor(stats.str_gain * 10 + 0.5) / 10 + ' next lvl)'
 	strValues.text = (Math.floor((stats.strength * 22) * 10 + 0.5) / 10) + ' HP and ' + Math.floor((stats.strength * 0.008) * 10 + 0.5) / 10 + '% Incoming Healing Amp'
-	if (strContainer.BHasClass("PrimaryAttribute")) {
-		const strDamage = strContainer.FindChildTraverse('StrengthDamageLabel');
+	if (primaryStat == Attributes.DOTA_ATTRIBUTE_STRENGTH) {
 		strDamage.text = (Math.floor((stats.strength * 1.5)*10 + 0.5)/10) + ' Damage, ' + (Math.floor((stats.strength * 0.02)*10 + 0.5)/10) + '% Spell Amp and ' + (Math.floor((stats.strength * 11)*10 + 0.5)/10) + ' HP';
-
+		strContainer.SetHasClass("PrimaryAttribute", true)
+	} else {
+		strDamage.text = ""
+		strContainer.SetHasClass("PrimaryAttribute", false)
+		strContainer.RemoveClass("PrimaryAttribute")
 	}
 
 	const agiContainer = attributesContainer.FindChildTraverse('AgilityContainer');
 	const agiGain = agiContainer.FindChildTraverse('AgilityGainLabel');
 	const agiValues = agiContainer.FindChildTraverse('AgilityDetails');
+	const agiDamage = agiContainer.FindChildTraverse('AgilityDamageLabel');
 	agiGain.text = '(+' + Math.floor(stats.agi_gain * 10 + 0.5) / 10 + ' next lvl)'
 
 	const agilityArmor = Math.min(0.065 * stats.agility, 0.9 * stats.agility ** (Math.log(2) / Math.log(5)))
 	const agilityAttackSpeed = Math.floor(Math.min(0.75 * stats.agility, 10.32 * stats.agility ** (Math.log(2) / Math.log(5))))
 	agiValues.text = (Math.floor((stats.agility * 1.5) * 10 + 0.5) / 10) + ' Damage, ' + Math.floor(agilityArmor * 10 + 0.5) / 10 + ' Armor and ' + Math.floor(agilityAttackSpeed * 10 + 0.5) / 10 + ' Attack Speed'
-	if (agiContainer.BHasClass("PrimaryAttribute")) {
-		const agiDamage = agiContainer.FindChildTraverse('AgilityDamageLabel');
+	if (primaryStat == Attributes.DOTA_ATTRIBUTE_AGILITY) {
 		agiDamage.text = (Math.floor((stats.agility * 1.5)*10 + 0.5)/10) + ' Damage, ' + (Math.floor((stats.agility * 0.02)*10 + 0.5)/10) + '% Spell Amp and ' + (Math.floor((stats.agility * 11)*10 + 0.5)/10) + ' HP';
+		agiContainer.SetHasClass("PrimaryAttribute", true)
+	} else {
+		agiDamage.text = ""
+		agiContainer.SetHasClass("PrimaryAttribute", false)
+		agiContainer.RemoveClass("PrimaryAttribute")
 	}
 
 	const intContainer = attributesContainer.FindChildTraverse('IntelligenceContainer');
 	const intGain = intContainer.FindChildTraverse('IntelligenceGainLabel');
 	const intValues = intContainer.FindChildTraverse('IntelligenceDetails');
+	const intDamage = intContainer.FindChildTraverse('IntelligenceDamageLabel');
 	intGain.text = '(+' + Math.floor(stats.int_gain * 10 + 0.5) / 10 + ' next lvl)'
 
 	const intMR = Math.min(0.04 * stats.intellect, 0.55 * stats.intellect ** (Math.log(2) / Math.log(5)))
 	intValues.text = (Math.floor((stats.intellect * 0.01) * 10 + 0.5) / 10) + '% MP Restore Amp, ' + (Math.floor((stats.intellect * 0.02) * 10 + 0.5) / 10) + '% Spell Amp and ' + Math.floor(intMR * 10 + 0.5) / 10 + '% Magic Resist'
-	if (intContainer.BHasClass("PrimaryAttribute")) {
-		const intDamage = intContainer.FindChildTraverse('IntelligenceDamageLabel');
+	if (primaryStat == Attributes.DOTA_ATTRIBUTE_INTELLECT) {
 		intDamage.text = (Math.floor((stats.intellect * 1.5)*10 + 0.5)/10) + ' Damage, ' + (Math.floor((stats.intellect * 0.02)*10 + 0.5)/10) + '% Spell Amp and ' + (Math.floor((stats.intellect * 11)*10 + 0.5)/10) + ' HP';
+		intContainer.SetHasClass("PrimaryAttribute", true)
+	} else {
+		intDamage.text = ""
+		intContainer.SetHasClass("PrimaryAttribute", false)
 	}
 
 	const allContainer = attributesContainer.FindChildTraverse('AllContainer');
 	const allGain = allContainer.FindChildTraverse('AllGainLabel');
+	const allDamage = allContainer.FindChildTraverse('AllDamageLabel');
 	allGain.text = '(+' + Math.floor((stats.str_gain + stats.agi_gain + stats.int_gain) * 10 + 0.5) / 10 + ' next lvl)'
-	if (allContainer.BHasClass("PrimaryAttribute")) {
-		const allDamage = allContainer.FindChildTraverse('AllDamageLabel');
+	if (primaryStat == Attributes.DOTA_ATTRIBUTE_ALL) {
 		allDamage.text = (Math.floor(((stats.strength+stats.agility+stats.intellect))*10+ 0.5 )/10) + ' Damage, ' + (Math.floor((stats.strength+stats.agility+stats.intellect * 0.02)*10 + 0.5)/10) + '% Spell Amp and ' + (Math.floor(((stats.strength+stats.agility+stats.intellect) * 4)*10 + 0.5)/10) + ' HP';
+		allContainer.SetHasClass("PrimaryAttribute", true)
+	} else {
+		allDamage.text = ""
+		allContainer.SetHasClass("PrimaryAttribute", false)
 	}
 }
 

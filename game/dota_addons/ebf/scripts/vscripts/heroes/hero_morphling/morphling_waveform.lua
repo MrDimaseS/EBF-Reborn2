@@ -44,7 +44,6 @@ function morphling_waveform:OnProjectileHitHandle(hTarget, vLocation, iProjectil
 	if hTarget and not hTarget:TriggerSpellAbsorb(self) then
 		local damage = self:GetSpecialValueFor("damage")
 		local pct_damage = self:GetSpecialValueFor("pct_damage")
-		local attack_slow = self:GetSpecialValueFor("attack_slow")
 		local debuff_duration = self:GetSpecialValueFor("debuff_duration")
 		
 		self:DealDamage(caster, hTarget, damage)
@@ -53,6 +52,7 @@ function morphling_waveform:OnProjectileHitHandle(hTarget, vLocation, iProjectil
 				caster:PerformGenericAttack(hTarget, true, nil, 0, 100 + pct_damage )
 			end
 			if debuff_duration > 0 then
+				hTarget:AddNewModifier( caster, self, "modifier_morphling_waveform_attack_slow", {duration = debuff_duration} )
 			end
 		end
 	else -- no more projectile
@@ -60,4 +60,27 @@ function morphling_waveform:OnProjectileHitHandle(hTarget, vLocation, iProjectil
 		caster:RemoveNoDraw()
 		FindClearSpaceForUnit( caster, vLocation, true )
 	end
+end
+
+modifier_morphling_waveform_attack_slow = class({})
+LinkLuaModifier( "modifier_morphling_waveform_attack_slow", "heroes/hero_morphling/morphling_waveform", LUA_MODIFIER_MOTION_NONE )
+
+function modifier_morphling_waveform_attack_slow:OnCreated()
+	self:OnRefresh()
+end
+
+function modifier_morphling_waveform_attack_slow:OnCreated()
+	self.attack_slow = self:GetSpecialValueFor("attack_slow")
+end
+
+function modifier_morphling_waveform_attack_slow:DeclareFunctions()
+	return {MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT}
+end
+
+function modifier_morphling_waveform_attack_slow:GetModifierAttackSpeedBonus_Constant()
+	return -self.attack_slow
+end
+
+function modifier_morphling_waveform_attack_slow:GetEffectName()
+	return "particles/econ/events/ti7/shivas_guard_slow.vpcf"
 end

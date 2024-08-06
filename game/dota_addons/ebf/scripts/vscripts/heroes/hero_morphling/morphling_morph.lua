@@ -1,1 +1,1 @@
-morphling_waveform = class({})
+morphling_morph = class({})

@@ -64,6 +64,7 @@ function special_bonus_attributes:Spawn()
 		end
 	end
 	
+	-- security check
 	hero._internalStrGain = hero:GetStrengthGain()
 	hero._internalAgiGain = hero:GetAgilityGain()
 	hero._internalIntGain = hero:GetIntellectGain()
@@ -71,6 +72,23 @@ function special_bonus_attributes:Spawn()
 	self.originalBaseStr = hero:GetBaseStrength()
 	self.originalBaseAgi = hero:GetBaseAgility()
 	self.originalBaseInt = hero:GetBaseIntellect()
+	
+	hero._originalPrimaryValue = hero:GetPrimaryAttribute()
+	print( hero._originalPrimaryValue, "prefix" )
+	
+	Timers:CreateTimer(function()
+		-- delay for KV overrides
+		hero._internalStrGain = hero:GetStrengthGain()
+		hero._internalAgiGain = hero:GetAgilityGain()
+		hero._internalIntGain = hero:GetIntellectGain()
+		
+		self.originalBaseStr = hero:GetBaseStrength()
+		self.originalBaseAgi = hero:GetBaseAgility()
+		self.originalBaseInt = hero:GetBaseIntellect()
+		
+		hero._originalPrimaryValue = hero:GetPrimaryAttribute()
+		print( hero._originalPrimaryValue, "postfix" )
+	end)
 	
 	hero._attributesAbility = self
 
@@ -198,7 +216,7 @@ function modifier_special_bonus_attributes_stat_rescaling:OnRefresh()
 end	
 
 function modifier_special_bonus_attributes_stat_rescaling:OnIntervalThink()
-	CustomNetTables:SetTableValue("hero_attributes", tostring( self:GetCaster():entindex() ), {mana_type = self:GetCaster()._heroManaType, strength = self:GetCaster():GetStrength(), agility = self:GetCaster():GetAgility(), intellect = self:GetCaster():GetIntellect(false), str_gain = self:GetCaster()._internalStrGain, agi_gain = self:GetCaster()._internalAgiGain, int_gain = self:GetCaster()._internalIntGain, spell_amp = self:GetCaster():GetSpellAmplification( false ), innate = self:GetCaster()._innateAbilityName, facetID = self:GetCaster():GetHeroFacetID()})
+	CustomNetTables:SetTableValue("hero_attributes", tostring( self:GetCaster():entindex() ), {mana_type = self:GetCaster()._heroManaType, strength = self:GetCaster():GetStrength(), agility = self:GetCaster():GetAgility(), intellect = self:GetCaster():GetIntellect(false), str_gain = self:GetCaster()._internalStrGain, agi_gain = self:GetCaster()._internalAgiGain, int_gain = self:GetCaster()._internalIntGain, spell_amp = self:GetCaster():GetSpellAmplification( false ), innate = self:GetCaster()._innateAbilityName, facetID = self:GetCaster():GetHeroFacetID(), primaryStat = self:GetCaster()._originalPrimaryValue})
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:CheckState()

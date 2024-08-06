@@ -602,6 +602,7 @@ IGNORE_SPELL_AMP_KV = {
 	["obsidian_destroyer_arcane_orb"] = {["mana_pool_damage_pct"] = true},
 	["phantom_assassin_fan_of_knives"] = {["pct_health_damage_initial"] = true,["pct_health_damage"] = true},
 	["huskar_life_break"] = {["health_cost_percent"] = true, ["health_damage"] = true, ["tooltip_health_cost_percent"] = true, ["tooltip_health_damage"] = true, },
+	["huskar_burning_spear"] = {["burn_damage_max_pct"] = true },
 	["winter_wyvern_arctic_burn"] = {["percent_damage"] = true},
 	["elder_titan_earth_splitter"] = {["damage_pct"] = true},
 	["item_orchid"] = {["silence_damage_percent"] = true},
@@ -805,6 +806,20 @@ function CHoldoutGameMode:OnHeroPick (event)
 						
 						hero:SwapAbilities( abilityData.AbilityName, abilityData.ReplaceAbility, true, false )
 						hero:RemoveAbilityByHandle( abilityToReplace )
+					end
+				end
+			end
+			if facet.KeyValueOverrides then
+				if facet.KeyValueOverrides.AttributePrimary then
+					print( facet.KeyValueOverrides.AttributePrimary, "primary override" )
+					if facet.KeyValueOverrides.AttributePrimary == "DOTA_ATTRIBUTE_STRENGTH" then
+						hero:SetPrimaryAttribute(DOTA_ATTRIBUTE_STRENGTH)
+					elseif facet.KeyValueOverrides.AttributePrimary == "DOTA_ATTRIBUTE_AGILITY" then
+						hero:SetPrimaryAttribute(DOTA_ATTRIBUTE_AGILITY)
+					elseif facet.KeyValueOverrides.AttributePrimary == "DOTA_ATTRIBUTE_INTELLECT" then
+						hero:SetPrimaryAttribute(DOTA_ATTRIBUTE_INTELLECT)
+					elseif facet.KeyValueOverrides.AttributePrimary == "DOTA_ATTRIBUTE_ALL" then
+						hero:SetPrimaryAttribute(DOTA_ATTRIBUTE_ALL)
 					end
 				end
 			end

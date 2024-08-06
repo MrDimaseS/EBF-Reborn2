@@ -79,7 +79,7 @@ const hud = dotaHud.FindChildTraverse("HUDElements");
             const isShopLarge = shop.BHasClass("ShopLarge");
             const newWidth = isShopLarge ? "250px" : "60px";
             shopItemRowContainers.forEach(container => {
-                container.style.width = newWidth;
+				if(container != undefined){container.style.width = newWidth;}
             });
         }
 

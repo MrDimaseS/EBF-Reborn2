@@ -1,0 +1,1 @@
+morphling_accumulation = class({})

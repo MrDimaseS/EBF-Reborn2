@@ -68,6 +68,12 @@
 		"MaxLevel"						"7"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Morphling.Waveform"
+		
+		"precache"
+		{
+			"particle"					"particles/econ/events/ti7/shivas_guard_slow.vpcf"
+			"particle"					"particles/units/heroes/hero_morphling/morphling_waveform.vpcf"
+		}
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -138,7 +144,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_lua"
-		"ScriptFile"					"heroes/hero_morphling/morphling_adaptive_strike_agi"
+		"ScriptFile"					"heroes/hero_morphling/morphling_adaptive_strike"
 		"AbilityTextureName"			"morphling_adaptive_strike_agi"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
@@ -198,7 +204,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_lua"
-		"ScriptFile"					"heroes/hero_morphling/morphling_adaptive_strike_str"
+		"ScriptFile"					"heroes/hero_morphling/morphling_adaptive_strike"
 		"AbilityTextureName"			"morphling_adaptive_strike_str"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
@@ -238,6 +244,7 @@
 				"value" 							"0.3 0.4 0.5 0.6 0.7 0.8 0.9"
 				"special_bonus_unique_morphling_10" "+1"
 				"special_bonus_facet_morphling_str"	"+0.1"
+				"special_bonus_facet_morphling_uni"	"=0"
 			}
 			"stun_max"						
 			{

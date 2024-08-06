@@ -122,7 +122,7 @@ function modifier_earth_spirit_magnetize_effect:OnIntervalThink()
 				ParticleManager:FireRopeParticle("particles/units/heroes/hero_earth_spirit/espirit_stone_explosion_bolt.vpcf", PATTACH_POINT_FOLLOW, target, enemy)
 				EmitSoundOn( "Hero_EarthSpirit.Magnetize.StoneBolt", enemy )
 				
-				enemy:AddNewModifier(caster, ability, "modifier_earth_spirit_magnetize_effect", {Duration = self:GetRemainingTime()})
+				enemy:AddNewModifier(caster, ability, "modifier_earth_spirit_magnetize_effect", {Duration = self:GetRemainingTime() + 0.1, ignoreStatusResist = true})
 			end
 		end
 	end

@@ -1,6 +1,6 @@
-nevermore_requiem_ebf = class({})
+nevermore_requiem = class({})
 
-function nevermore_requiem_ebf:OnAbilityPhaseStart()
+function nevermore_requiem:OnAbilityPhaseStart()
     EmitSoundOn("Hero_Nevermore.RequiemOfSoulsCast", self:GetCaster())
     self.warmupFX = ParticleManager:CreateParticle("particles/units/heroes/hero_nevermore/nevermore_wings.vpcf", PATTACH_POINT_FOLLOW, self:GetCaster())
     ParticleManager:SetParticleControlEnt(self.warmupFX, 5, self:GetCaster(), PATTACH_POINT_FOLLOW, "attach_attack1", self:GetCaster():GetAbsOrigin(), true)
@@ -8,39 +8,39 @@ function nevermore_requiem_ebf:OnAbilityPhaseStart()
     ParticleManager:SetParticleControlEnt(self.warmupFX, 7, self:GetCaster(), PATTACH_POINT_FOLLOW, "attach_hitloc", self:GetCaster():GetAbsOrigin(), true)
     self:GetCaster():AddNewModifier(self:GetCaster(), self, "modifier_phased", {})
 	if self:GetSpecialValueFor("debuff_immune") ~= 0 then
-		self:GetCaster():AddNewModifier(self:GetCaster(), self, "modifier_nevermore_requiem_ebf_debuff_immune", {})
+		self:GetCaster():AddNewModifier(self:GetCaster(), self, "modifier_nevermore_requiem_debuff_immune", {})
 	end
     return true
 end
-function nevermore_requiem_ebf:OnAbilityPhaseInterrupted()
+function nevermore_requiem:OnAbilityPhaseInterrupted()
     StopSoundOn("Hero_Nevermore.RequiemOfSoulsCast", self:GetCaster())
     ParticleManager:ClearParticle( self.warmupFX )
     self:GetCaster():RemoveModifierByName("modifier_phased")
 	if self:GetSpecialValueFor("debuff_immune") ~= 0 then
-		self:GetCaster():RemoveModifierByName("modifier_nevermore_requiem_ebf_debuff_immune")
+		self:GetCaster():RemoveModifierByName("modifier_nevermore_requiem_debuff_immune")
 	end
 end
-function nevermore_requiem_ebf:GetAOERadius()
+function nevermore_requiem:GetAOERadius()
     return self:GetSpecialValueFor("radius")
 end
-function nevermore_requiem_ebf:OnOwnerDied()
+function nevermore_requiem:OnOwnerDied()
     self:OnAbilityPhaseInterrupted()
     self:ReleaseSouls(true, false)
 end
-function nevermore_requiem_ebf:OnSpellStart()
+function nevermore_requiem:OnSpellStart()
     self:GetCaster():RemoveModifierByName("modifier_phased")
 	if self:GetSpecialValueFor("debuff_immune") ~= 0 then
-		self:GetCaster():RemoveModifierByName("modifier_nevermore_requiem_ebf_debuff_immune")
+		self:GetCaster():RemoveModifierByName("modifier_nevermore_requiem_debuff_immune")
 	end
 	if self:GetSpecialValueFor("is_physical") ~= 0 then
-		self:GetCaster():AddNewModifier(self:GetCaster(), self, "modifier_nevermore_requiem_ebf_attack_speed", { duration = self:GetSpecialValueFor("attack_speed_duration") })
+		self:GetCaster():AddNewModifier(self:GetCaster(), self, "modifier_nevermore_requiem_attack_speed", { duration = self:GetSpecialValueFor("attack_speed_duration") })
 	end
     self:ReleaseSouls(false, false)
 	if self:GetSpecialValueFor("returns") ~= 0 then
-		self:GetCaster():AddNewModifier(self:GetCaster(), self, "modifier_nevermore_requiem_ebf_return_delay", { duration = self:GetSpecialValueFor("radius") / self:GetSpecialValueFor("line_speed") })
+		self:GetCaster():AddNewModifier(self:GetCaster(), self, "modifier_nevermore_requiem_return_delay", { duration = self:GetSpecialValueFor("radius") / self:GetSpecialValueFor("line_speed") })
 	end
 end
-function nevermore_requiem_ebf:ReleaseSouls(is_death, is_return)
+function nevermore_requiem:ReleaseSouls(is_death, is_return)
 	if IsClient() then return end
 	local caster = self:GetCaster()
 
@@ -76,7 +76,7 @@ function nevermore_requiem_ebf:ReleaseSouls(is_death, is_return)
 		}
 	end
 end
-function nevermore_requiem_ebf:FireRequiemSoul(direction, origin)
+function nevermore_requiem:FireRequiemSoul(direction, origin)
 	local caster = self:GetCaster()
 	
 	local distance = self:GetSpecialValueFor("radius")
@@ -92,7 +92,7 @@ function nevermore_requiem_ebf:FireRequiemSoul(direction, origin)
 
 	return self:FireLinearProjectile("", direction*speed, distance, width_start, { width_end = width_end, origin = origin }, false, true, width_end)
 end
-function nevermore_requiem_ebf:OnProjectileHitHandle(target, location, projectile)
+function nevermore_requiem:OnProjectileHitHandle(target, location, projectile)
 	if target and not self.projectiles[projectile].damaged[target] then
 		EmitSoundOn("Hero_Nevermore.RequiemOfSouls.Damage", target)
 		local caster = self:GetCaster()
@@ -108,11 +108,11 @@ function nevermore_requiem_ebf:OnProjectileHitHandle(target, location, projectil
 			end
 		end
 
-		local debuff_modifier = target:FindModifierByName("modifier_nevermore_requiem_ebf_debuff")
+		local debuff_modifier = target:FindModifierByName("modifier_nevermore_requiem_debuff")
 		if debuff_modifier then
 			debuff_modifier:SetDuration(self:GetSpecialValueFor("debuff_duration"), true)
 		else
-			target:AddNewModifier(caster, self, "modifier_nevermore_requiem_ebf_debuff", { duration = self:GetSpecialValueFor("debuff_duration") })
+			target:AddNewModifier(caster, self, "modifier_nevermore_requiem_debuff", { duration = self:GetSpecialValueFor("debuff_duration") })
 		end
 
 		local damage = self:GetSpecialValueFor("damage")
@@ -131,65 +131,65 @@ function nevermore_requiem_ebf:OnProjectileHitHandle(target, location, projectil
 	end
 end
 
-modifier_nevermore_requiem_ebf_debuff = class({})
-LinkLuaModifier("modifier_nevermore_requiem_ebf_debuff", "heroes/hero_shadow_fiend/nevermore_requiem.lua", LUA_MODIFIER_MOTION_NONE)
+modifier_nevermore_requiem_debuff = class({})
+LinkLuaModifier("modifier_nevermore_requiem_debuff", "heroes/hero_shadow_fiend/nevermore_requiem.lua", LUA_MODIFIER_MOTION_NONE)
 
-function modifier_nevermore_requiem_ebf_debuff:IsDebuff()
+function modifier_nevermore_requiem_debuff:IsDebuff()
 	return true
 end
-function modifier_nevermore_requiem_ebf_debuff:IsPurgable()
+function modifier_nevermore_requiem_debuff:IsPurgable()
 	return true
 end
 
-modifier_nevermore_requiem_ebf_debuff_immune = class({})
-LinkLuaModifier("modifier_nevermore_requiem_ebf_debuff_immune", "heroes/hero_shadow_fiend/nevermore_requiem.lua", LUA_MODIFIER_MOTION_NONE)
+modifier_nevermore_requiem_debuff_immune = class({})
+LinkLuaModifier("modifier_nevermore_requiem_debuff_immune", "heroes/hero_shadow_fiend/nevermore_requiem.lua", LUA_MODIFIER_MOTION_NONE)
 
-function modifier_nevermore_requiem_ebf_debuff_immune:IsPurgable()
+function modifier_nevermore_requiem_debuff_immune:IsPurgable()
 	return false
 end
-function modifier_nevermore_requiem_ebf_debuff_immune:CheckState()
+function modifier_nevermore_requiem_debuff_immune:CheckState()
 	return {
 		[MODIFIER_STATE_DEBUFF_IMMUNE] = true
 	}
 end
-function modifier_nevermore_requiem_ebf_debuff_immune:GetEffectName()
+function modifier_nevermore_requiem_debuff_immune:GetEffectName()
 	return "particles/items_fx/black_king_bar_avatar.vpcf"
 end
-function modifier_nevermore_requiem_ebf_debuff_immune:GetTexture()
+function modifier_nevermore_requiem_debuff_immune:GetTexture()
 	return "modifier_magicimmune"
 end
 
-modifier_nevermore_requiem_ebf_attack_speed = class({})
-LinkLuaModifier("modifier_nevermore_requiem_ebf_attack_speed", "heroes/hero_shadow_fiend/nevermore_requiem.lua", LUA_MODIFIER_MOTION_NONE)
+modifier_nevermore_requiem_attack_speed = class({})
+LinkLuaModifier("modifier_nevermore_requiem_attack_speed", "heroes/hero_shadow_fiend/nevermore_requiem.lua", LUA_MODIFIER_MOTION_NONE)
 
-function modifier_nevermore_requiem_ebf_attack_speed:IsPurgable()
+function modifier_nevermore_requiem_attack_speed:IsPurgable()
 	return true
 end
-function modifier_nevermore_requiem_ebf_attack_speed:OnCreated()
+function modifier_nevermore_requiem_attack_speed:OnCreated()
 	self:OnRefresh()
 end
-function modifier_nevermore_requiem_ebf_attack_speed:OnRefresh()
+function modifier_nevermore_requiem_attack_speed:OnRefresh()
 	self.attack_speed = self:GetSpecialValueFor("attack_speed")
 end
-function modifier_nevermore_requiem_ebf_attack_speed:DeclareFunctions()
+function modifier_nevermore_requiem_attack_speed:DeclareFunctions()
 	return {
 		MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT
 	}
 end
-function modifier_nevermore_requiem_ebf_attack_speed:GetModifierAttackSpeedBonus_Constant()
+function modifier_nevermore_requiem_attack_speed:GetModifierAttackSpeedBonus_Constant()
 	return self.attack_speed
 end
 
-modifier_nevermore_requiem_ebf_return_delay = class({})
-LinkLuaModifier("modifier_nevermore_requiem_ebf_return_delay", "heroes/hero_shadow_fiend/nevermore_requiem.lua", LUA_MODIFIER_MOTION_NONE)
+modifier_nevermore_requiem_return_delay = class({})
+LinkLuaModifier("modifier_nevermore_requiem_return_delay", "heroes/hero_shadow_fiend/nevermore_requiem.lua", LUA_MODIFIER_MOTION_NONE)
 
-function modifier_nevermore_requiem_ebf_return_delay:IsHidden()
+function modifier_nevermore_requiem_return_delay:IsHidden()
 	return true
 end
-function modifier_nevermore_requiem_ebf_return_delay:IsPurgable()
+function modifier_nevermore_requiem_return_delay:IsPurgable()
 	return false
 end
-function modifier_nevermore_requiem_ebf_return_delay:OnRemoved(death)
+function modifier_nevermore_requiem_return_delay:OnRemoved(death)
 	if death then return end
 
 	local ability = self:GetAbility()

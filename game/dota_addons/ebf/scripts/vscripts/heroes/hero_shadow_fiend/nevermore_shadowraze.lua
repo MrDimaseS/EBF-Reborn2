@@ -1,9 +1,9 @@
-nevermore_shadowraze_ebf = class({})
+nevermore_shadowraze = class({})
 
-function nevermore_shadowraze_ebf:GetAOERadius()
+function nevermore_shadowraze:GetAOERadius()
     return self:GetSpecialValueFor("range")
 end
-function nevermore_shadowraze_ebf:OnSpellStart()
+function nevermore_shadowraze:OnSpellStart()
     if IsClient() then return end
 
     local caster = self:GetCaster();
@@ -70,12 +70,16 @@ function nevermore_shadowraze_ebf:OnSpellStart()
 	EmitSoundOnLocationWithCaster(position, "Hero_Nevermore.Shadowraze", caster)
 end
 
-nevermore_shadowraze1_ebf = class(nevermore_shadowraze_ebf)
-nevermore_shadowraze2_ebf = class(nevermore_shadowraze_ebf)
-nevermore_shadowraze3_ebf = class(nevermore_shadowraze_ebf)
+nevermore_shadowraze1 = class(nevermore_shadowraze)
+nevermore_shadowraze2 = class(nevermore_shadowraze)
+nevermore_shadowraze3 = class(nevermore_shadowraze)
 
 modifier_nevermore_shadowraze_stack = class({})
 LinkLuaModifier("modifier_nevermore_shadowraze_stack", "heroes/hero_shadow_fiend/nevermore_shadowraze.lua", LUA_MODIFIER_MOTION_NONE)
+
+function modifier_nevermore_shadowraze_stack:OnCreated()
+	
+end
 
 function modifier_nevermore_shadowraze_stack:IsDebuff()
     return true
@@ -84,10 +88,12 @@ function modifier_nevermore_shadowraze_stack:IsPurgable()
     return true
 end
 function modifier_nevermore_shadowraze_stack:DeclareFunctions()
-    return { MODIFIER_PROPERTY_TOOLTIP }
+    return { MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE }
 end
-function modifier_nevermore_shadowraze_stack:OnTooltip()
-    return self:GetSpecialValueFor("spell_damage_per_stack") * self:GetStackCount()
+function modifier_nevermore_shadowraze_stack:GetModifierIncomingDamage_Percentage(params)
+	if params.attacker == self:GetCaster() and params.inflictor and params.attacker:HasAbility( params.inflictor:GetAbilityName() ) then
+		return self:GetSpecialValueFor("stack_bonus_damage") * self:GetStackCount()
+	end
 end
 function modifier_nevermore_shadowraze_stack:GetEffectName()
     return "particles/units/heroes/hero_nevermore/nevermore_shadowraze_debuff.vpcf"

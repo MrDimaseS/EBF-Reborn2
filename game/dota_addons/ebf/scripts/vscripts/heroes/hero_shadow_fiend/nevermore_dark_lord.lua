@@ -1,9 +1,9 @@
-nevermore_dark_lord_ebf = class({})
+nevermore_dark_lord = class({})
 
-function nevermore_dark_lord_ebf:GetIntrinsicModifierName()
+function nevermore_dark_lord:GetIntrinsicModifierName()
 	return "modifier_nevermore_dark_lord_passive"
 end
-function nevermore_dark_lord_ebf:GetAOERadius()
+function nevermore_dark_lord:GetAOERadius()
 	return self:GetSpecialValueFor("radius")
 end
 
@@ -113,7 +113,7 @@ function modifier_nevermore_dark_lord_passive_aura:GetModifierPhysicalArmorBonus
 	if self:GetParent():GetTeamNumber() == self:GetCaster():GetTeamNumber() then
 		negator = -1
 	end
-	if self:GetParent():HasModifier("modifier_nevermore_requiem_ebf_debuff") then
+	if self:GetParent():HasModifier("modifier_nevermore_requiem_debuff") then
 		return ((self.armor_reduction + self.armor_stack * self:GetStackCount()) * self.requiem_multiplier) * negator
 	else
 		return (self.armor_reduction + self.armor_stack * self:GetStackCount()) * negator
@@ -124,7 +124,7 @@ function modifier_nevermore_dark_lord_passive_aura:GetModifierMagicalResistanceB
 	if self:GetParent():GetTeamNumber() == self:GetCaster():GetTeamNumber() then
 		negator = -1
 	end
-	if self:GetParent():HasModifier("modifier_nevermore_requiem_ebf_debuff") then
+	if self:GetParent():HasModifier("modifier_nevermore_requiem_debuff") then
 		return ((self.magic_resistance_reduction + self.magic_resistance_stack * self:GetStackCount()) * self.requiem_multiplier) * negator
 	else
 		return (self.magic_resistance_reduction + self.magic_resistance_stack * self:GetStackCount()) * negator
@@ -135,7 +135,7 @@ function modifier_nevermore_dark_lord_passive_aura:GetModifierTotalDamageOutgoin
 	if self:GetParent():GetTeamNumber() == self:GetCaster():GetTeamNumber() then
 		negator = -1
 	end
-	if self:GetParent():HasModifier("modifier_nevermore_requiem_ebf_debuff") then
+	if self:GetParent():HasModifier("modifier_nevermore_requiem_debuff") then
 		return ((self.outgoing_damage_reduction + self.outgoing_damage_stack * self:GetStackCount()) * self.requiem_multiplier) * negator
 	else
 		return (self.outgoing_damage_reduction + self.outgoing_damage_stack * self:GetStackCount()) * negator

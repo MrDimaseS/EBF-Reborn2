@@ -1,261 +1,9 @@
 "DOTAAbilities"
 {	
 	//=================================================================================================================
-	// Ability: Nevermore Shadowraze #1
-	//=================================================================================================================
-	"nevermore_shadowraze1_ebf"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"ability_lua"
-		"ScriptFile"					"heroes/hero_shadow_fiend/nevermore_shadowraze"
-		"AbilityTextureName"			"nevermore_shadowraze1"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
-		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
-		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
-		"MaxLevel"						"7"
-		"FightRecapLevel"				"1"
-		"AbilitySound"					"Hero_Nevermore.Shadowraze"
-		"LinkedAbility"					"nevermore_shadowraze2_ebf"
-
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastAnimation"			"ACT_DOTA_RAZE_1"
-		"AbilityCastGestureSlot"		"DEFAULT"
-		"AbilityCastPoint"				"0.55"
-
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"75 80 85 90 95 100 105"
-		"AbilityCooldown"				"9"
-
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			"damage"							
-			{
-				"value"										"900 1600 2300 3000 3700 4400 5100"
-				"special_bonus_facet_nevermore_ego"			"=450 =800 =1150 =1500 =1850 =2200 =2550"
-				"special_bonus_unique_nevermore_4"			"+75%"
-				"CalculateSpellDamageTooltip"				"1"
-			}
-			"radius"
-			{
-				"value"										"250"
-				"affected_by_aoe_increase"					"1"
-			}
-			"range"											"200"
-
-			"spell_damage_per_stack"
-			{
-				"special_bonus_facet_nevermore_psyche"		"25"
-				"special_bonus_unique_nevermore_1"			"+35%"
-			}
-			"spell_damage_stack_duration"
-			{
-				"special_bonus_facet_nevermore_psyche"		"8"
-			}
-
-			"attack_speed_reduction"
-			{
-				"special_bonus_facet_nevermore_id"			"-40 -50 -60 -70 -80 -90 -100"
-				"special_bonus_unique_nevermore_1"			"+35%"
-			}
-			"attack_speed_reduction_duration"
-			{
-				"special_bonus_facet_nevermore_id"			"8"
-			}
-
-			"does_attack"
-			{
-				"special_bonus_facet_nevermore_ego"			"1"
-			}
-			"armor_reduction"
-			{
-				"special_bonus_facet_nevermore_ego"			"-1 -2 -3 -4 -5 -6 -7"
-				"special_bonus_unique_nevermore_1"			"-3"
-			}
-			"armor_reduction_duration"
-			{
-				"special_bonus_facet_nevermore_id"			"8"
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Nevermore Shadowraze #2
-	//=================================================================================================================
-	"nevermore_shadowraze2_ebf"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"ability_lua"
-		"ScriptFile"					"heroes/hero_shadow_fiend/nevermore_shadowraze"
-		"AbilityTextureName"			"nevermore_shadowraze2"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
-		"OnLearnbar"					"0"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
-		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
-		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
-		"MaxLevel"						"7"
-		"FightRecapLevel"				"1"
-		"LinkedAbility"					"nevermore_shadowraze3_ebf"
-		
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastAnimation"			"ACT_DOTA_RAZE_2"
-		"AbilityCastGestureSlot"		"DEFAULT"
-		"AbilityCastPoint"				"0.55"
-
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"75 80 85 90 95 100 105"
-		"AbilityCooldown"				"9"
-
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			"damage"							
-			{
-				"value"										"900 1600 2300 3000 3700 4400 5100"
-				"special_bonus_facet_nevermore_ego"			"=450 =800 =1150 =1500 =1850 =2200 =2550"
-				"special_bonus_unique_nevermore_4"			"+75%"
-				"CalculateSpellDamageTooltip"				"1"
-			}
-			"radius"
-			{
-				"value"										"250"
-				"affected_by_aoe_increase"					"1"
-			}
-			"range"											"450"
-
-			"spell_damage_per_stack"
-			{
-				"special_bonus_facet_nevermore_psyche"		"25"
-				"special_bonus_unique_nevermore_1"			"+35%"
-			}
-			"spell_damage_stack_duration"
-			{
-				"special_bonus_facet_nevermore_psyche"		"8"
-			}
-
-			"attack_speed_reduction"
-			{
-				"special_bonus_facet_nevermore_id"			"-40 -50 -60 -70 -80 -90 -100"
-				"special_bonus_unique_nevermore_1"			"+35%"
-			}
-			"attack_speed_reduction_duration"
-			{
-				"special_bonus_facet_nevermore_id"			"8"
-			}
-
-			"does_attack"
-			{
-				"special_bonus_facet_nevermore_ego"			"1"
-			}
-			"armor_reduction"
-			{
-				"special_bonus_facet_nevermore_ego"			"-1 -2 -3 -4 -5 -6 -7"
-				"special_bonus_unique_nevermore_1"			"-3"
-			}
-			"armor_reduction_duration"
-			{
-				"special_bonus_facet_nevermore_id"			"8"
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Nevermore Shadowraze #3
-	//=================================================================================================================
-	"nevermore_shadowraze3_ebf"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"ability_lua"
-		"ScriptFile"					"heroes/hero_shadow_fiend/nevermore_shadowraze"
-		"AbilityTextureName"			"nevermore_shadowraze3"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
-		"OnLearnbar"					"0"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
-		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
-		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
-		"MaxLevel"						"7"
-		"FightRecapLevel"				"1"
-		"LinkedAbility"					"nevermore_shadowraze1_ebf"
-		
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastAnimation"			"ACT_DOTA_RAZE_3"
-		"AbilityCastGestureSlot"		"DEFAULT"
-		"AbilityCastPoint"				"0.55"
-
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"75 80 85 90 95 100 105"
-		"AbilityCooldown"				"9"
-
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			"damage"							
-			{
-				"value"										"900 1600 2300 3000 3700 4400 5100"
-				"special_bonus_facet_nevermore_ego"			"=450 =800 =1150 =1500 =1850 =2200 =2550"
-				"special_bonus_unique_nevermore_4"			"+75%"
-				"CalculateSpellDamageTooltip"				"1"
-			}
-			"radius"
-			{
-				"value"										"250"
-				"affected_by_aoe_increase"					"1"
-			}
-			"range"											"700"
-
-			"spell_damage_per_stack"
-			{
-				"special_bonus_facet_nevermore_psyche"		"25"
-				"special_bonus_unique_nevermore_1"			"+35%"
-			}
-			"spell_damage_stack_duration"
-			{
-				"special_bonus_facet_nevermore_psyche"		"8"
-			}
-
-			"attack_speed_reduction"
-			{
-				"special_bonus_facet_nevermore_id"			"-40 -50 -60 -70 -80 -90 -100"
-				"special_bonus_unique_nevermore_1"			"+35"
-			}
-			"attack_speed_reduction_duration"
-			{
-				"special_bonus_facet_nevermore_id"			"8"
-			}
-
-			"does_attack"
-			{
-				"special_bonus_facet_nevermore_ego"			"1"
-			}
-			"armor_reduction"
-			{
-				"special_bonus_facet_nevermore_ego"			"-1 -2 -3 -4 -5 -6 -7"
-				"special_bonus_unique_nevermore_1"			"-3"
-			}
-			"armor_reduction_duration"
-			{
-				"special_bonus_facet_nevermore_id"			"8"
-			}
-		}
-	}
-	
-	//=================================================================================================================
 	// Ability: Nevermore Necromastery
 	//=================================================================================================================
-	"nevermore_necromastery_ebf"
+	"nevermore_necromastery"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
@@ -265,7 +13,7 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
 		
 		"MaxLevel"						"7"
-		"DependentOnAbility"			"nevermore_requiem_ebf"
+		"DependentOnAbility"			"nevermore_requiem"
 		"Innate"						"1"
 
 		// Special
@@ -274,26 +22,24 @@
 		{
 			"damage_per_soul"
 			{
-				"special_bonus_facet_nevermore_ego"					"5 15 20 25 30 35 40 45"
+				"special_bonus_facet_nevermore_lasting_presence"	"5 15 20 25 30 35 40"
 				"special_bonus_unique_nevermore_5"					"+25%"
 				"CalculateAttackDamageTooltip"						"1"
 			}
-
 			"armor_per_soul"
 			{
-				"special_bonus_facet_nevermore_id"					"0.5"
+				"special_bonus_facet_nevermore_shadowmire"			"0.15 0.25 0.3 0.35 0.4 0.45 0.5"
 				"special_bonus_unique_nevermore_5"					"+25%"
 			}
 			"health_regen_per_soul"
 			{
-				"special_bonus_facet_nevermore_id"					"2"
+				"special_bonus_facet_nevermore_shadowmire"			"2 4 5 6 7 8 9"
 				"special_bonus_unique_nevermore_5"					"+25%"
 				"CalculateSpellHealTooltip"							"1"
 			}
-
 			"spell_amplification_per_soul"
 			{
-				"special_bonus_facet_nevermore_psyche"				"0.25 0.75 1.0 1.25 1.5 1.75 2.0 2.25"
+				"special_bonus_facet_nevermore_psyche"				"0.25 0.75 1.0 1.25 1.5 1.75 2.0"
 				"special_bonus_unique_nevermore_5"					"+25%"
 				"CalculateAttributeTooltip"							"1"
 			}
@@ -311,9 +57,229 @@
 		}
 	}
 	//=================================================================================================================
+	// Ability: Nevermore Shadowraze #1
+	//=================================================================================================================
+	"nevermore_shadowraze1"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_shadow_fiend/nevermore_shadowraze"
+		"AbilityTextureName"			"nevermore_shadowraze1"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"MaxLevel"						"7"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_Nevermore.Shadowraze"
+		"LinkedAbility"					"nevermore_shadowraze2"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastAnimation"			"ACT_DOTA_RAZE_1"
+		"AbilityCastGestureSlot"		"DEFAULT"
+		"AbilityCastPoint"				"0.55"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"75 80 85 90 95 100 105"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"duration"													"7"
+			"AbilityCooldown"											"9"
+
+			"shadowraze_damage"							
+			{
+				"value"													"900 1600 2300 3000 3700 4400 5100"
+				"special_bonus_facet_nevermore_lasting_presence"		"=450 =800 =1150 =1500 =1850 =2200 =2550"
+				"special_bonus_unique_nevermore_4"						"+75%"
+				"CalculateSpellDamageTooltip"							"1"
+			}
+			"shadowraze_radius"
+			{
+				"value"													"250"
+				"affected_by_aoe_increase"								"1"
+			}
+			"shadowraze_range"											"200"
+
+			"stack_bonus_damage"
+			{
+				"value"													"0"
+				"special_bonus_facet_nevermore_psyche"					"25"
+				"special_bonus_unique_nevermore_1"						"+35%"
+			}
+			"attack_speed_reduction"
+			{
+				"special_bonus_facet_nevermore_shadowmire"				"-50 -65 -80 -95 -110 -125 -140"
+				"special_bonus_unique_nevermore_1"						"+35%"
+			}
+			"does_attack"
+			{
+				"special_bonus_facet_nevermore_lasting_presence"		"1"
+			}
+			"armor_reduction"
+			{
+				"special_bonus_facet_nevermore_lasting_presence"		"-1 -2 -3 -4 -5 -6 -7"
+				"special_bonus_unique_nevermore_1"						"-3"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Nevermore Shadowraze #2
+	//=================================================================================================================
+	"nevermore_shadowraze2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_shadow_fiend/nevermore_shadowraze"
+		"AbilityTextureName"			"nevermore_shadowraze2"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"OnLearnbar"					"0"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"MaxLevel"						"7"
+		"FightRecapLevel"				"1"
+		"LinkedAbility"					"nevermore_shadowraze3"
+		
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastAnimation"			"ACT_DOTA_RAZE_2"
+		"AbilityCastGestureSlot"		"DEFAULT"
+		"AbilityCastPoint"				"0.55"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"75 80 85 90 95 100 105"
+		"AbilityCooldown"				"9"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"duration"													"7"
+			"AbilityCooldown"											"9"
+
+			"shadowraze_damage"							
+			{
+				"value"													"900 1600 2300 3000 3700 4400 5100"
+				"special_bonus_facet_nevermore_lasting_presence"		"=450 =800 =1150 =1500 =1850 =2200 =2550"
+				"special_bonus_unique_nevermore_4"						"+75%"
+				"CalculateSpellDamageTooltip"							"1"
+			}
+			"shadowraze_radius"
+			{
+				"value"													"250"
+				"affected_by_aoe_increase"								"1"
+			}
+			"shadowraze_range"											"450"
+
+			"stack_bonus_damage"
+			{
+				"value"													"0"
+				"special_bonus_facet_nevermore_psyche"					"25"
+				"special_bonus_unique_nevermore_1"						"+35%"
+			}
+			"attack_speed_reduction"
+			{
+				"special_bonus_facet_nevermore_shadowmire"				"-50 -65 -80 -95 -110 -125 -140"
+				"special_bonus_unique_nevermore_1"						"+35%"
+			}
+			"does_attack"
+			{
+				"special_bonus_facet_nevermore_lasting_presence"		"1"
+			}
+			"armor_reduction"
+			{
+				"special_bonus_facet_nevermore_lasting_presence"		"-1 -2 -3 -4 -5 -6 -7"
+				"special_bonus_unique_nevermore_1"						"-3"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Nevermore Shadowraze #3
+	//=================================================================================================================
+	"nevermore_shadowraze3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_shadow_fiend/nevermore_shadowraze"
+		"AbilityTextureName"			"nevermore_shadowraze3"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"OnLearnbar"					"0"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"MaxLevel"						"7"
+		"FightRecapLevel"				"1"
+		"LinkedAbility"					"nevermore_shadowraze1"
+		
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastAnimation"			"ACT_DOTA_RAZE_3"
+		"AbilityCastGestureSlot"		"DEFAULT"
+		"AbilityCastPoint"				"0.55"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"75 80 85 90 95 100 105"
+		"AbilityCooldown"				"9"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"duration"													"7"
+			"AbilityCooldown"											"9"
+
+			"shadowraze_damage"							
+			{
+				"value"													"900 1600 2300 3000 3700 4400 5100"
+				"special_bonus_facet_nevermore_lasting_presence"		"=450 =800 =1150 =1500 =1850 =2200 =2550"
+				"special_bonus_unique_nevermore_4"						"+75%"
+				"CalculateSpellDamageTooltip"							"1"
+			}
+			"shadowraze_radius"
+			{
+				"value"													"250"
+				"affected_by_aoe_increase"								"1"
+			}
+			"shadowraze_range"											"700"
+
+			"stack_bonus_damage"
+			{
+				"value"													"0"
+				"special_bonus_facet_nevermore_psyche"					"25"
+				"special_bonus_unique_nevermore_1"						"+10"
+			}
+			"attack_speed_reduction"
+			{
+				"special_bonus_facet_nevermore_shadowmire"				"-50 -65 -80 -95 -110 -125 -140"
+				"special_bonus_unique_nevermore_1"						"+30"
+			}
+			"does_attack"
+			{
+				"special_bonus_facet_nevermore_lasting_presence"		"1"
+			}
+			"armor_reduction"
+			{
+				"special_bonus_facet_nevermore_lasting_presence"		"-1 -2 -3 -4 -5 -6 -7"
+				"special_bonus_unique_nevermore_1"						"-3"
+			}
+		}
+	}
+	//=================================================================================================================
 	// Ability: Presence of the Dark Lord
 	//=================================================================================================================
-	"nevermore_dark_lord_ebf"
+	"nevermore_dark_lord"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
@@ -343,11 +309,11 @@
 
 			"armor_reduction"
 			{
-				"special_bonus_facet_nevermore_ego"			"-4 -4 -4 -4 -5 -6 -7"
+				"special_bonus_facet_nevermore_lasting_presence"			"-4 -4 -4 -4 -5 -6 -7"
 			}
 			"armor_stack"
 			{
-				"special_bonus_facet_nevermore_ego"			"-0.5"
+				"special_bonus_facet_nevermore_lasting_presence"			"-0.5"
 			}
 
 			"magic_resistance_reduction"
@@ -361,11 +327,11 @@
 
 			"outgoing_damage_reduction"
 			{
-				"special_bonus_facet_nevermore_id"			"-14 -14 -14 -14 -18 -22 -26"
+				"special_bonus_facet_nevermore_shadowmire"			"-14 -14 -14 -14 -18 -22 -26"
 			}
 			"outgoing_damage_stack"
 			{
-				"special_bonus_facet_nevermore_id"			"-0.5"
+				"special_bonus_facet_nevermore_shadowmire"			"-0.5"
 			}
 
 			"hero_stack_multiplier"							"4"
@@ -403,17 +369,17 @@
 			"bonus_attack_speed"										""
 			"crit_chance"
 			{
-				"special_bonus_facet_nevermore_ego"						"40"
+				"special_bonus_facet_nevermore_lasting_presence"		"40"
 				"special_bonus_unique_nevermore_7"						"x2"
 			}
 			"crit_damage"
 			{
-				"special_bonus_facet_nevermore_ego"						"160 180 200 220 240 260 280"
+				"special_bonus_facet_nevermore_lasting_presence"		"160 180 200 220 240 260 280"
 				"special_bonus_unique_nevermore_2"						"+30%"
 			}
 			"guaranteed_crits"
 			{
-				"special_bonus_facet_nevermore_ego"						"1"
+				"special_bonus_facet_nevermore_lasting_presence"		"1"
 			}
 
 			"aoe_bonus"		
@@ -429,13 +395,13 @@
 
 			"heal_amount"
 			{
-				"special_bonus_facet_nevermore_id"						"800 1400 2000 2600 3200 3800 4400"
+				"special_bonus_facet_nevermore_shadowmire"				"800 1400 2000 2600 3200 3800 4400"
 				"special_bonus_unique_nevermore_2"						"+30%"
 				"CalculateSpellHealTooltip"								"1"
 			}
 			"lifeleech"
 			{
-				"special_bonus_facet_nevermore_id"						"50"
+				"special_bonus_facet_nevermore_shadowmire"				"20 25 30 35 40 45 50"
 				"special_bonus_unique_nevermore_7"						"x2"
 			}
 			
@@ -446,7 +412,7 @@
 	//=================================================================================================================
 	// Ability: Nevermore Requiem of Souls
 	//=================================================================================================================
-	"nevermore_requiem_ebf"
+	"nevermore_requiem"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
@@ -505,34 +471,34 @@
 
 			"attack_speed"
 			{
-				"special_bonus_facet_nevermore_ego"			"40 50 60 70 80 90"
+				"special_bonus_facet_nevermore_lasting_presence"			"40 50 60 70 80 90"
 				"special_bonus_unique_nevermore_6"			"+90"
 			}
 			"attack_speed_duration"
 			{
-				"special_bonus_facet_nevermore_ego"			"8"
+				"special_bonus_facet_nevermore_lasting_presence"			"8"
 			}
 			"is_physical"
 			{
-				"special_bonus_facet_nevermore_ego"			"1"
+				"special_bonus_facet_nevermore_lasting_presence"			"1"
 			}
 
 			"debuff_immune"
 			{
-				"special_bonus_facet_nevermore_id"			"1"
+				"special_bonus_facet_nevermore_shadowmire"			"1"
 			}
 			"does_fear"
 			{
-				"special_bonus_facet_nevermore_id"			"1"
+				"special_bonus_facet_nevermore_shadowmire"			"1"
 			}
 			"fear_duration"
 			{
-				"special_bonus_facet_nevermore_id"			"0.7"
+				"special_bonus_facet_nevermore_shadowmire"			"0.7"
 				"special_bonus_unique_nevermore_6"			"+0.25"
 			}
 			"fear_duration_max"
 			{
-				"special_bonus_facet_nevermore_id"			"2.15"
+				"special_bonus_facet_nevermore_shadowmire"			"2.15"
 				"special_bonus_unique_nevermore_6"			"+1.2"
 			}
 

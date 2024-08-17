@@ -1,33 +1,38 @@
 special_bonus_attributes = class({})
 
+ABILITY_POWER_SCALING = 0.3
+
 function special_bonus_attributes:OnHeroLevelUp()
 	local hero = self:GetCaster()
 	if hero:IsIllusion() then return end
 	
-	local strGain = math.sum( 1, hero:GetLevel()-1, hero:GetStrengthGain()*0.8 )
-	local agiGain = math.sum( 1, hero:GetLevel()-1, hero:GetAgilityGain()*0.8 ) 
-	local intGain = math.sum( 1, hero:GetLevel()-1, hero:GetIntellectGain()*0.8 )
-	
-	local attribute_multiplier = self:GetSpecialValueFor("value") / 100
-	
-	strGain = strGain * (1+attribute_multiplier)
-	agiGain = agiGain * (1+attribute_multiplier)
-	intGain = intGain * (1+attribute_multiplier)
-	
-	
-	hero._internalStrGain = strGain
-	hero._internalAgiGain = agiGain
-	hero._internalIntGain = intGain
-	
-	if strGain > 0 then
-		hero:ModifyStrength( strGain ) 
+	local realStrDiff = hero._internalStrGain - hero:GetStrengthGain()
+	local realAgiDiff = hero._internalAgiGain - hero:GetAgilityGain()
+	local realIntDiff = hero._internalIntGain - hero:GetIntellectGain()
+	if realStrDiff > 0 then
+		hero:ModifyStrength( realStrDiff ) 
 	end
-	if agiGain > 0 then
-		hero:ModifyAgility( agiGain ) 
+	if realIntDiff > 0 then
+		hero:ModifyAgility( realAgiDiff ) 
 	end
-	if intGain > 0 then
-		hero:ModifyIntellect( intGain )
+	if realIntDiff > 0 then
+		hero:ModifyIntellect( realIntDiff )
 	end
+	
+	local attribute_multiplier = 1+self:GetSpecialValueFor("value") / 100
+	-- calculate current level attributes
+	local currentIntendedStr = (self.originalBaseStr + hero:GetStrengthGain() * (hero:GetLevel()-1) ) * ( 1 + ABILITY_POWER_SCALING * (hero:GetLevel() - 1) ) * attribute_multiplier
+	local currentIntendedAgi = (self.originalBaseAgi + hero:GetAgilityGain() * (hero:GetLevel()-1) ) * ( 1 + ABILITY_POWER_SCALING * (hero:GetLevel() - 1) ) * attribute_multiplier
+	local currentIntendedInt = (self.originalBaseInt + hero:GetIntellectGain() * (hero:GetLevel()-1) ) * ( 1 + ABILITY_POWER_SCALING * (hero:GetLevel() - 1) ) * attribute_multiplier
+	-- calculate next level attributes
+	local nextIntendedStr = (self.originalBaseStr + hero:GetStrengthGain() * hero:GetLevel() ) * ( 1 + ABILITY_POWER_SCALING * hero:GetLevel() ) * attribute_multiplier
+	local nextIntendedAgi = (self.originalBaseAgi + hero:GetAgilityGain() * hero:GetLevel() ) * ( 1 + ABILITY_POWER_SCALING * hero:GetLevel() ) * attribute_multiplier
+	local nextIntendedInt = (self.originalBaseInt + hero:GetIntellectGain() * hero:GetLevel() ) * ( 1 + ABILITY_POWER_SCALING * hero:GetLevel() ) * attribute_multiplier
+	
+	hero._internalStrGain = nextIntendedStr - currentIntendedStr
+	hero._internalAgiGain = nextIntendedAgi - currentIntendedAgi
+	hero._internalIntGain = nextIntendedInt - currentIntendedInt
+	
 	self:SendUpdatedInventoryContents( info )
 	CustomGameEventManager:Send_ServerToAllClients( "hero_leveled_up", {unit = self:GetCaster():entindex()} )
 end
@@ -36,9 +41,9 @@ function special_bonus_attributes:OnUpgrade()
 	local hero = self:GetCaster()
 	if hero:IsIllusion() then return end
 	
-	local totalStrValue = self.originalBaseStr + math.sumT( 1, hero:GetLevel()-1, hero:GetStrengthGain() * 0.8 ) + (hero:GetLevel()-1 * hero:GetStrengthGain() )
-	local totalAgiValue = self.originalBaseAgi + math.sumT( 1, hero:GetLevel()-1, hero:GetAgilityGain() * 0.8 ) + (hero:GetLevel()-1 * hero:GetAgilityGain() )
-	local totalIntValue = self.originalBaseInt + math.sumT( 1, hero:GetLevel()-1, hero:GetIntellectGain() * 0.8 ) + (hero:GetLevel()-1 * hero:GetIntellectGain() )
+	local totalStrValue = (self.originalBaseStr + hero:GetStrengthGain() * (hero:GetLevel()-1) )  * ( 1 + ABILITY_POWER_SCALING * hero:GetLevel() )
+	local totalAgiValue = (self.originalBaseAgi + hero:GetAgilityGain() * (hero:GetLevel()-1) )  * ( 1 + ABILITY_POWER_SCALING * hero:GetLevel() )
+	local totalIntValue = (self.originalBaseInt + hero:GetIntellectGain() * (hero:GetLevel()-1) )  * ( 1 + ABILITY_POWER_SCALING * hero:GetLevel() )
 	
 	local attribute_multiplier = (self:GetSpecialValueFor( "value" ) - self:GetLevelSpecialValueFor( "value", self:GetLevel()-2 ) ) / 100
 	if self:GetLevel() == 1 then -- no way to get 0 out of specialvalue and getlevel
@@ -65,29 +70,27 @@ function special_bonus_attributes:Spawn()
 	end
 	
 	-- security check
-	hero._internalStrGain = hero:GetStrengthGain()
-	hero._internalAgiGain = hero:GetAgilityGain()
-	hero._internalIntGain = hero:GetIntellectGain()
-	
 	self.originalBaseStr = hero:GetBaseStrength()
 	self.originalBaseAgi = hero:GetBaseAgility()
 	self.originalBaseInt = hero:GetBaseIntellect()
 	
+	hero._internalStrGain = (self.originalBaseStr + hero:GetStrengthGain()) * (1 + ABILITY_POWER_SCALING)
+	hero._internalAgiGain = (self.originalBaseAgi + hero:GetAgilityGain()) * (1 + ABILITY_POWER_SCALING)
+	hero._internalIntGain = (self.originalBaseInt + hero:GetIntellectGain()) * (1 + ABILITY_POWER_SCALING)
+	
 	hero._originalPrimaryValue = hero:GetPrimaryAttribute()
-	print( hero._originalPrimaryValue, "prefix" )
 	
 	Timers:CreateTimer(function()
 		-- delay for KV overrides
-		hero._internalStrGain = hero:GetStrengthGain()
-		hero._internalAgiGain = hero:GetAgilityGain()
-		hero._internalIntGain = hero:GetIntellectGain()
-		
 		self.originalBaseStr = hero:GetBaseStrength()
 		self.originalBaseAgi = hero:GetBaseAgility()
 		self.originalBaseInt = hero:GetBaseIntellect()
 		
+		hero._internalStrGain = (self.originalBaseStr + hero:GetStrengthGain()) * (1 + ABILITY_POWER_SCALING) - self.originalBaseStr
+		hero._internalAgiGain = (self.originalBaseAgi + hero:GetAgilityGain()) * (1 + ABILITY_POWER_SCALING) - self.originalBaseAgi
+		hero._internalIntGain = (self.originalBaseInt + hero:GetIntellectGain()) * (1 + ABILITY_POWER_SCALING) - self.originalBaseInt
+		
 		hero._originalPrimaryValue = hero:GetPrimaryAttribute()
-		print( hero._originalPrimaryValue, "postfix" )
 	end)
 	
 	hero._attributesAbility = self
@@ -165,7 +168,7 @@ function modifier_special_bonus_attributes_stat_rescaling:OnCreated()
 	self.bonusDamage = 1.5
 	self.baseMR = 15
 	
-	self.internal_ability_scaling = 0.3
+	self.internal_ability_scaling = ABILITY_POWER_SCALING
 	
 	self:GetParent().cooldownModifiers = {}
 	self:GetParent()._aoeModifiersList = {}
@@ -193,7 +196,7 @@ function modifier_special_bonus_attributes_stat_rescaling:OnCreated()
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:OnRefresh()
-	self.attackspeed = 30 + math.floor( math.min( 0.75 * self:GetParent():GetAgility(), 10.32*self:GetParent():GetAgility()^(math.log(2)/math.log(5)) ) )
+	self.attackspeed = math.floor( math.min( 0.25 * self:GetParent():GetAgility(), 3.44*self:GetParent():GetAgility()^(math.log(2)/math.log(5)) ) )
 	if IsServer() then
 		if self.baseArmor then
 			local agilityArmor = math.min( 0.065 * self:GetParent():GetAgility(), 0.9*self:GetParent():GetAgility()^(math.log(2)/math.log(5)) )

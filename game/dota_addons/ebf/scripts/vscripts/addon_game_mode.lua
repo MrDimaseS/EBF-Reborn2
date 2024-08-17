@@ -1673,11 +1673,11 @@ function CHoldoutGameMode:RegisterStatsForHero( hero, bWon )
 	local statSettings = LoadKeyValues("scripts/vscripts/statcollection/settings.kv")
 	local AUTH_KEY = GetDedicatedServerKeyV3(statSettings.modID)
 	local SERVER_LOCATION = statSettings.serverLocation
-	local heroName = string.gsub(hero:GetUnitName(), "npc_dota_hero_", "")
+	local heroName = string.gsub(hero:GetUnitName(), "npc_dota_hero_", "") .. "_" ..tostring( hero:GetHeroFacetID() )
 	
 	self.statsSentForHero = self.statsSentForHero or {}
-	if self.statsSentForHero[hero] then return end
-	self.statsSentForHero[hero] = true
+	if self.statsSentForHero[heroName] then return end
+	self.statsSentForHero[heroName] = true
 
 	
 	local packageLocation = SERVER_LOCATION..AUTH_KEY.."/heroes/"..heroName..'.json'
@@ -1696,30 +1696,6 @@ function CHoldoutGameMode:RegisterStatsForHero( hero, bWon )
 		wins = (decoded.wins or 0)
 		if bWon then
 			wins = wins + 1
-		end
-		
-		-- SCEPTER
-		putData.scepter = {}
-		decoded.scepter = decoded.scepter or {}
-		putData.scepter.plays = (decoded.scepter.plays or 0)
-		putData.scepter.wins = (decoded.scepter.wins or 0)
-		if hero:HasScepter() then
-			putData.scepter.plays = putData.scepter.plays + 1
-			if bWon then
-				putData.scepter.wins = putData.scepter.wins + 1
-			end
-		end
-		
-		-- SHARD
-		putData.shard = {}
-		decoded.shard = decoded.shard or {}
-		putData.shard.plays = (decoded.shard.plays or 0)
-		putData.shard.wins = (decoded.shard.wins or 0)
-		if hero:HasShard() then
-			putData.shard.plays = putData.shard.plays + 1
-			if bWon then
-				putData.shard.wins = putData.shard.wins + 1
-			end
 		end
 		
 		putData.plays = (decoded.plays or 0) + 1
@@ -2186,7 +2162,7 @@ function CHoldoutGameMode:_TestAbandons( cmdName, victory, abandon )
 
 	
 	self._statsSentForRound = false
-	self:RegisterStatsForRound( "won" )
+	self:RegisterStatsForHero( HeroList:GetRealHeroes()[1], true )
 end
 
 -- Custom game specific console command "holdout_test_round"

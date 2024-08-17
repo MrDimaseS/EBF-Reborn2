@@ -8,25 +8,41 @@
 		"ScriptFile"					"bosses/boss_golems/boss_golem_split"
 		"AbilityTextureName"			"mud_golem_rock_destroy"
 		"MaxLevel"						"4"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
-		"AbilitySound"					"Hero_NagaSiren.MirrorImage"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		
 		"precache"
 		{
-			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_naga_siren.vsndevts"
-			"particle"	"particles/units/heroes/hero_siren/naga_siren_mirror_image.vpcf"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_tiny.vsndevts"
+			"model"		"models/particle/tiny_rocks.vmdl"
+			"model"		"models/heroes/tiny/tiny_01/tiny_01.vmdl"
+			"model"		"models/heroes/tiny/tiny_01/tiny_01_tree.vmdl"
+			"model"		"models/heroes/tiny/tiny_02/tiny_02.vmdl"
+			"model"		"models/heroes/tiny/tiny_03/tiny_03.vmdl"
+			"model"		"models/heroes/tiny/tiny_04/tiny_04.vmdl"
+			"particle"	"particles/units/heroes/hero_tiny/tiny01_death.vpcf"
+			"particle"	"particles/units/heroes/hero_tiny/tiny02_death.vpcf"
+			"particle"	"particles/units/heroes/hero_tiny/tiny03_death.vpcf"
+			"particle"	"particles/units/heroes/hero_tiny/tiny04_death.vpcf"
+			"particle"	"particles/units/heroes/hero_tiny/tiny_death_rocks.vpcf"
+			"particle"	"particles/units/heroes/hero_tiny/tiny_transform.vpcf"
+			"particle"	"particles/units/heroes/hero_tiny/tiny_craggy_cleave.vpcf"
 		}
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"split_pct"					"55 60 65 70"
-			"count"						"2"
 			"distance"					"800"
 			"travel_time"				"1"
+			"cleave"					"0 0 50 75"
+			"attack_range"				"0 50 150 250"
+			
+			"split_threshold"			"50"
+			"split_pct"					"100 110 120 130"
+			"count"						"2"
+			"split_duration"			"1.5"
+			"split_resistance"			"90"
 		}
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
 	"boss_golem_rock_throw"
 	{
@@ -35,8 +51,8 @@
 		"BaseClass"						"ability_lua"
 		"ScriptFile"					"bosses/boss_golems/boss_golem_rock_throw"
 		"AbilityTextureName"			"mud_golem_hurl_boulder"
-		"MaxLevel"						"3"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT"
+		"MaxLevel"						"4"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
@@ -45,15 +61,14 @@
 		
 		"precache"
 		{
-			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_naga_siren.vsndevts"
-			"particle"	"particles/units/heroes/hero_siren/naga_siren_mirror_image.vpcf"
+			"particle"	"particles/units/heroes/hero_tiny/tiny_toss_impact.vpcf"
 		}
 		
 		"AbilityCastRange"				"1200"
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"7 11 15"
+		"AbilityCooldown"				"16"
 		"AbilityCastPoint"				"0.6"
 
 		// Cost
@@ -64,10 +79,96 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"damage"					"10000 20000 30000"
-			"radius"					"350 500 650"
-			"duration"					"0.6"											
-			"speed"						"800"
+			"damage"					"20000"
+			"golem_bonus_damage"		"5000 10000 15000 20000"
+			"search_radius"				"300 450 600 750"
+			"impact_radius"				"150"
+			"golem_bonus_radius"		"50 100 150 200"
+			"duration"					"2"
+			"golems_spawned"			"2 3 5 6"
+			"bonus_golems_per_player"	"0.5 1 1.5 2"
+			"speed"						"1200"
+			
+			"radius"					"250"
+			"toss_damage"				"20000"
 		}
+		"AbilityCastAnimation"			"ACT_TINY_TOSS"
+	}
+	"boss_golem_avalanche"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"tiny_avalanche"
+		"AbilityTextureName"			"tiny_avalanche"
+		"MaxLevel"						"4"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
+		
+		"AbilitySound"					"Ability.Avalanche"
+
+		
+		"precache"
+		{
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_tiny.vsndevts"
+			"particle"	"particles/units/heroes/hero_tiny/tiny_avalanche.vpcf"
+			"particle"	"particles/units/heroes/hero_tiny/tiny_avalanche_lvl1.vpcf"
+			"particle"	"particles/units/heroes/hero_tiny/tiny_avalanche_lvl2.vpcf"
+			"particle"	"particles/units/heroes/hero_tiny/tiny_avalanche_lvl3.vpcf"
+			"particle"	"particles/units/heroes/hero_tiny/tiny_avalanche_lvl4.vpcf"
+			"particle"	"particles/units/heroes/hero_tiny/tiny_avalanche_lvl5.vpcf"
+			"particle"	"particles/units/heroes/hero_tiny/tiny_avalanche_lvl6.vpcf"
+			"particle"	"particles/units/heroes/hero_tiny/tiny_avalanche_lvl7.vpcf"
+			"particle"	"particles/units/heroes/hero_tiny/tiny_avalanche_projectile.vpcf"
+			"particle"	"particles/units/heroes/hero_tiny/tiny_avalanche_projectile_lvl1.vpcf"
+			"particle"	"particles/units/heroes/hero_tiny/tiny_avalanche_projectile_lvl2.vpcf"
+			"particle"	"particles/units/heroes/hero_tiny/tiny_avalanche_projectile_lvl3.vpcf"
+			"particle"	"particles/units/heroes/hero_tiny/tiny_avalanche_projectile_lvl4.vpcf"
+			"particle"	"particles/units/heroes/hero_tiny/tiny_avalanche_projectile_lvl5.vpcf"
+			"particle"	"particles/units/heroes/hero_tiny/tiny_avalanche_projectile_lvl6.vpcf"
+			"particle"	"particles/units/heroes/hero_tiny/tiny_avalanche_projectile_lvl7.vpcf"
+		}
+		
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.0 0.0 0.0 0.0"
+		"AOERadius"						"350 500 650 800"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"14"
+		
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"95 110 125 140"
+
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"AbilityCastRange"				
+			{
+				"value"		"600"
+				"special_bonus_unique_tiny_4" "+200"
+			}
+			"radius"
+			{
+				"value"						"300 400 500 600"
+				"affected_by_aoe_increase"	"1"
+			}
+			"tick_interval"					"0.3"
+			"total_duration"				"1.4"
+			"tick_count"					"5"
+			"stun_duration"					"0.3"
+			"projectile_speed"				"1200"
+			"avalanche_damage"			
+			{
+				"value"				"8000 10000 12000 14000"
+				"special_bonus_unique_tiny"			"+70"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
 }

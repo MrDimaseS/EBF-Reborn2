@@ -11,6 +11,10 @@ end
 modifier_slark_essence_shift_handler = class({})
 LinkLuaModifier("modifier_slark_essence_shift_handler", "heroes/hero_slark/slark_essence_shift", LUA_MODIFIER_MOTION_NONE)
 
+function modifier_slark_essence_shift_handler:OnCreated()
+	self.perma_agi = self:GetSpecialValueFor("permanent_agi")
+end
+
 function modifier_slark_essence_shift_handler:DeclareFunctions()
 	return  {MODIFIER_EVENT_ON_ATTACK_LANDED, MODIFIER_PROPERTY_STATS_AGILITY_BONUS}
 end
@@ -31,7 +35,7 @@ function modifier_slark_essence_shift_handler:OnAttackLanded(params)
 end
 
 function modifier_slark_essence_shift_handler:GetModifierBonusStats_Agility()
-	return self:GetStackCount()
+	return self.perma_agi * self:GetStackCount()
 end
 
 function modifier_slark_essence_shift_handler:IsHidden()
@@ -73,7 +77,7 @@ end
 function modifier_slark_essence_shift_attr_debuff:OnDeath(params)
 	if params.unit == self:GetParent() and params.unit.Holdout_IsCore then
 		local modifier = self:GetCaster():FindModifierByName( "modifier_slark_essence_shift_handler" )
-		modifier:SetStackCount( modifier:GetStackCount() + self.perma_agi )
+		modifier:IncrementStackCount( )
 	end
 end
 

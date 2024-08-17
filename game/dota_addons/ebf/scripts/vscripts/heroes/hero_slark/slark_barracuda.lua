@@ -8,13 +8,7 @@ modifier_slark_barracuda_handler = class({})
 LinkLuaModifier("modifier_slark_barracuda_handler", "heroes/hero_slark/slark_barracuda", LUA_MODIFIER_MOTION_NONE)
 
 function modifier_slark_barracuda_handler:OnCreated()
-	self.regen = self:GetSpecialValueFor("bonus_regen")
-	self.ms = self:GetSpecialValueFor("bonus_movement_speed")
-	
-	self.neutral_disable = self:GetSpecialValueFor("neutral_disable")
-	if IsServer() then
-		self:StartIntervalThink(0.1)
-	end
+	self:OnRefresh()
 end
 
 function modifier_slark_barracuda_handler:OnRefresh()
@@ -22,6 +16,8 @@ function modifier_slark_barracuda_handler:OnRefresh()
 	self.ms = self:GetSpecialValueFor("bonus_movement_speed")
 	self.radius = self:GetSpecialValueFor("search_radius")
 	self.linger_duration = self:GetSpecialValueFor("linger_duration")
+	
+	self.neutral_disable = self:GetSpecialValueFor("neutral_disable")
 	if IsServer() then
 		self:StartIntervalThink(0.1)
 	end

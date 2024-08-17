@@ -105,9 +105,7 @@ function bossManager:ManageBossScaling(spawnedUnit)
 	if spawnedUnit:GetUnitName() == "npc_dota_healthbar_dummy" then return end
 	if spawnedUnit:GetTeam() == DOTA_TEAM_BADGUYS and not (IsInToolsMode() or GameRules:IsCheatMode()) then return end -- only way to get these is with console commands
 	if spawnedUnit:IsCreature() then
-		print("unit is spawned right?")
 		if GameRules._currentRound == nil and not (IsInToolsMode() or GameRules:IsCheatMode()) then return end
-		print("unit is spawned right2?")
 		spawnedUnit:SetHullRadius( math.min( 48, 24 * (1 + (spawnedUnit:GetModelScale()-1)/2) ) )
 		Timers:CreateTimer(function()
 			if spawnedUnit:IsConsideredHero() and spawnedUnit:GetUnitName() ~= "npc_dota_healthbar_dummy" and not spawnedUnit._healthBarDummy then
@@ -117,9 +115,7 @@ function bossManager:ManageBossScaling(spawnedUnit)
 				spawnedUnit:AddNewModifier(spawnedUnit, nil, "modifier_hide_healthbar", {})
 			end
 			if spawnedUnit.hasBeenProcessed then return end
-		print("unit is spawned right?3")
 			if GameRules._currentRound == nil and not (IsInToolsMode() or GameRules:IsCheatMode()) then return end
-		print("unit is spawned right?4")
 			self:ProcessBossScaling( spawnedUnit )
 		end);
 	end

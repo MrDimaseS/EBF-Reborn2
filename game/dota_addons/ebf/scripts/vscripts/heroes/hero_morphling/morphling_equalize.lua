@@ -4,7 +4,7 @@ function morphling_equalize:GetIntrinsicModifierName()
 	return "modifier_morphling_equalize"
 end
 
-modifier_morphling_equalize = class(persistentModifier)
+modifier_morphling_equalize = class({})
 LinkLuaModifier( "modifier_morphling_equalize", "heroes/hero_morphling/morphling_equalize.lua" ,LUA_MODIFIER_MOTION_NONE )
 
 function modifier_morphling_equalize:OnCreated()

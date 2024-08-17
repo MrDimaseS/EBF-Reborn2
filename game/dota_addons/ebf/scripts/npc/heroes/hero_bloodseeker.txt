@@ -7,23 +7,36 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_bloodseeker/bloodseeker_sanguivore"
+		"AbilityTextureName"			"bloodseeker_sanguivore"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_SKIP_FOR_KEYBINDS"
-		"AbilityCastPoint"				"0.3"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"MaxLevel"						"1"
 		"Innate"						"1"
+		"IsBreakable"					"1"
+		"DependentOnAbility"			"bloodseeker_rupture"
+		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"base_heal"							"25"
-			"heal_hp_pct_per_level"				"1"
-			"creep_lifesteal_reduction_pct"		"40"
-			"half_bonus_aoe"		
+			"base_heal"							""
+			"heal_hp_pct_per_level"				""
+			"creep_lifesteal_reduction_pct"		""
+			"deny_lifesteal_reduction_pct"		""
+
+			"half_bonus_aoe"					""
+			"max_hp_percent_heal_tooltip"
 			{
-				"value"		"300"
-				"affected_by_aoe_increase"	"1"
+				"dynamic_value"					"false"
+				"value"							"0.3 0.4 0.6 0.8 1.0 1.2 1.4"
 			}
+
+			"creep_pct"							"20"
+			"kill_pct"							"400"
+			"max_bonus_pct"						"25"
+			"heal_duration"						"2.0"
 		}
 	}
 	//=================================================================================================================
@@ -71,7 +84,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"										"8"
+			"duration"										"10"
 			"attack_speed"		
 			{
 				"value"										"60 90 120 150 180 210 240"
@@ -81,7 +94,6 @@
 			{
 				"value"										"15 20 25 30 35 40 45"
 				"special_bonus_unique_bloodseeker_6"		"+10"
-				"CalculateAttributeTooltip"					"1"
 			}
 			"allied_attack_speed"		
 			{
@@ -199,17 +211,13 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"min_bonus_pct"								"100"
+			"min_bonus_pct"								"95"
+			"max_bonus_pct"								"20"
 			"bonus_movement_speed"
 			{
-				"value"									"10 20 30 40 50 60 70"
+				"value"									"40 55 70 85 100 115 130"
 				"special_bonus_unique_bloodseeker_4"	"+18"
-			}			
-			"hero_kill_heal"							"0.5 0.75 1.00 1.25 1.5 1.75 2.0"
-			"creep_pct"									"40"
-			"kill_pct"									"400"
-			"max_bonus_pct"								"25"
-			"heal_duration"								"2.0"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}

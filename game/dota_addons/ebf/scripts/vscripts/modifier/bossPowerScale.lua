@@ -46,7 +46,6 @@ function bossPowerScale:OnRefresh(keys)
 		self.actualStatusResistance = self.baseStatusResistance
 		self.statusResistIncreasePerTick = ( (MAX_STATUS_RESIST - self.baseStatusResistance) / SECONDS_TO_COMBO_BREAK ) * 0.25
 	end
-	print( self.baseStatusResistance, "status resist" )
 	self:StartIntervalThink( 0.25 )
 	
 	if IsServer() then 

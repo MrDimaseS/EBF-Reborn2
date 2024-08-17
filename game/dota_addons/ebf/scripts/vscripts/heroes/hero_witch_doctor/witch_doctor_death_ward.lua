@@ -49,7 +49,6 @@ function witch_doctor_death_ward:CreateBounceAttack(originalTarget, extraData)
 	if originalTarget:IsSameTeam( caster ) then
 		local units = caster:FindFriendlyUnitsInRadius( originalTarget:GetAbsOrigin(), 700, {order = FIND_CLOSEST} )
 		for _, ally in pairs(units) do
-			print( ally:GetName(), extraData[tostring(ally:GetEntityIndex())], ally:IsAttackImmune(), ally:HasModifier("modifier_death_ward_handling") )
 			if not ally:HasModifier("modifier_death_ward_handling") and extraData[tostring(ally:GetEntityIndex())] ~= 1 and not ally:IsAttackImmune() and extraData.bounces_left > 0 then
 				local projectile = {
 					Target = ally,

@@ -92,7 +92,6 @@ function modifier_nyx_assassin_spiked_carapace_active:GetModifierIncomingDamage_
 	if not params.attacker:IsMagicImmune() and not self.unitsHit[params.attacker] then
 		local damageTaken = params.damage * self.damage_reflect_pct
 		
-		print("huh")
 		ability:Stun(params.attacker, self.stun_duration, "particles/units/heroes/hero_nyx_assassin/nyx_assassin_spiked_carapace_hit.vpcf", {[1]=params.target:GetAbsOrigin(), [2]=params.target:GetAbsOrigin()})
 		ability:DealDamage(params.target, params.attacker, damageTaken, {damage_type=params.damageType, damage_flags=DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_REFLECTION})
 		

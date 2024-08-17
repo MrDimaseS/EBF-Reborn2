@@ -1609,6 +1609,7 @@ function CDOTA_BaseNPC:AddNewModifier(modifierCaster, modifierAbility, modifierN
 	kv.original_duration = duration
 	kv.duration = duration
 	local modifier = self:oldAddNewModifier( modifierCaster,  modifierAbility, modifierName, kv )
+	
 	if not IsModifierSafe( modifier ) then return end
 	if duration == -1 or kv.ignoreStatusResist then return modifier end
 	if modifier.IsDebuff and not modifier:IsDebuff() then return modifier end -- force as buff

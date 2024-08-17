@@ -16,7 +16,6 @@ function Spawn( entityKeyValues )
 	
 	thisEntity.swipes = thisEntity:FindAbilityByName("boss_ursine_fury_swipes")
 	Timers:CreateTimer(0.1, function()
-		print( GameRules.gameDifficulty, thisEntity.swipes:GetLevel() )
 		thisEntity.swipes:SetLevel(GameRules.gameDifficulty)
 	end)
 end

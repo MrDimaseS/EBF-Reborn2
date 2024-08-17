@@ -84,7 +84,6 @@ function modifier_ogre_magi_smash_shield:DeclareFunctions()
 end
 
 function modifier_ogre_magi_smash_shield:GetModifierTotal_ConstantBlock( params )
-	PrintAll( params )
 	if params.damage_category == DOTA_DAMAGE_CATEGORY_ATTACK then
 		local ability = self:GetAbility()
 		

@@ -12,9 +12,14 @@ LinkLuaModifier("modifier_tidehunter_kraken_shell_passive", "heroes/hero_tidehun
 modifier_tidehunter_kraken_shell_passive = class({})
 
 function modifier_tidehunter_kraken_shell_passive:OnCreated()
+	self:OnRefresh()
 	if IsServer() then
 		self:StartIntervalThink( 0.1 )
 	end
+end
+
+function modifier_tidehunter_kraken_shell_passive:OnRefresh()
+	self.bonus_duration_per_kill = self:GetSpecialValueFor("bonus_duration_per_kill")
 end
 
 function modifier_tidehunter_kraken_shell_passive:OnIntervalThink()
@@ -33,7 +38,7 @@ function modifier_tidehunter_kraken_shell_passive:DeclareFunctions()
 end
 
 function modifier_tidehunter_kraken_shell_passive:GetModifierOverrideAbilitySpecial(params)
-	if params.ability == self:GetAbility() then
+	if params.ability == self:GetAbility() and (self.bonus_duration_per_kill or 0) > 0 then
 		local caster = params.ability:GetCaster()
 		local specialValue = params.ability_special_value
 		if specialValue == "linger_duration" then
@@ -43,18 +48,18 @@ function modifier_tidehunter_kraken_shell_passive:GetModifierOverrideAbilitySpec
 end
 
 function modifier_tidehunter_kraken_shell_passive:GetModifierOverrideAbilitySpecialValue(params)
-	if params.ability == self:GetAbility() then
+	if params.ability == self:GetAbility() and self.bonus_duration_per_kill > 0 then
 		local caster = params.ability:GetCaster()
 		local specialValue = params.ability_special_value
 		if specialValue == "linger_duration" then
 			local flBaseValue = params.ability:GetLevelSpecialValueNoOverride( specialValue, params.ability_special_level )
-			return flBaseValue + self:GetStackCount() * self:GetSpecialValueFor("bonus_duration_per_kill")
+			return flBaseValue + self:GetStackCount() * self.bonus_duration_per_kill
 		end
 	end
 end
 
 function modifier_tidehunter_kraken_shell_passive:OnDeath( params )
-	if params.unit:IsConsideredHero() and params.unit:HasModifier("modifier_tidehunter_anchor_smash") then
+	if params.unit:IsConsideredHero() and params.unit:HasModifier("modifier_tidehunter_anchor_smash") and self.bonus_duration_per_kill > 0 then
 		self:IncrementStackCount()
 	end
 end
@@ -75,7 +80,6 @@ function modifier_tidehunter_kraken_shell_effect:OnCreated()
 end
 
 function modifier_tidehunter_kraken_shell_effect:OnIntervalThink()
-	self:GetCaster():Dispel( self:GetCaster(), true )
 end
 
 function modifier_tidehunter_kraken_shell_effect:OnDestroy()
@@ -94,15 +98,14 @@ function modifier_tidehunter_kraken_shell_effect:GetModifierIncomingDamage_Perce
 	local ability = self:GetAbility()
 	local caster = self:GetCaster()
 	if not self.triggered then
-		EmitSoundOn( "Hero_Tidehunter.KrakenShell", self:GetParent() )
-		ParticleManager:FireParticle( "particles/units/heroes/hero_tidehunter/tidehunter_krakenshell_purge.vpcf", PATTACH_POINT_FOLLOW, self:GetParent() )
+		local NFX = ParticleManager:CreateParticle("particles/units/heroes/hero_tidehunter/tidehunter_kraken_shell_shieldp_buff.vpcf", PATTACH_ABSORIGIN_FOLLOW, caster )
+		ParticleManager:SetParticleControlEnt(NFX, 1, caster, PATTACH_ABSORIGIN_FOLLOW, "attach_hitloc", caster:GetAbsOrigin(), true)
+		self:AddEffect( NFX )
 		
 		self.triggered = true
 		self:SetDuration( self.linger_duration, true )
 		ability:SetCooldown()
 		ability:SetFrozenCooldown( true )
-		self:OnIntervalThink()
-		self:StartIntervalThink(0.1)
 	end
 	if self:GetSpecialValueFor("should_ravage") > 0 then
         local target = params.attacker
@@ -122,7 +125,7 @@ function modifier_tidehunter_kraken_shell_effect:GetModifierIncomingDamage_Perce
 			end)
 		end
 	end
-	return -999
+	return -80
 end
 
 function modifier_tidehunter_kraken_shell_effect:IsHidden()

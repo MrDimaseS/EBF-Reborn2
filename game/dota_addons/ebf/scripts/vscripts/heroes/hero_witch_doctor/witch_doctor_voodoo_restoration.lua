@@ -25,6 +25,8 @@ function modifier_witch_doctor_voodoo_restoration_handler:OnCreated()
 	self.interval = self:GetAbility():GetSpecialValueFor("heal_interval")
 	self.manaCost = self:GetAbility():GetSpecialValueFor("mana_per_second") / 8
 	self.radius = self:GetAbility():GetSpecialValueFor("radius")
+	self.self_only_heal_percentage = self:GetAbility():GetSpecialValueFor("self_only_heal_percentage")
+	self.enemy_damage_pct = self:GetAbility():GetSpecialValueFor("enemy_damage_pct")
 	
 	if IsServer() then
 		local mainParticle = ParticleManager:CreateParticle("particles/units/heroes/hero_witchdoctor/witchdoctor_voodoo_restoration.vpcf", PATTACH_POINT_FOLLOW, self:GetParent())
@@ -70,6 +72,18 @@ function modifier_witch_doctor_voodoo_restoration_handler:GetModifierAura()
 	return "modifier_witch_doctor_voodoo_restoration_aura"
 end
 
+function modifier_witch_doctor_voodoo_restoration_handler:GetAuraEntityReject( target )
+	local caster = self:GetCaster()
+	if self.enemy_damage_pct == 0 and not target:IsSameTeam( caster ) then
+		return true
+	end
+	if target == caster then
+		return false
+	elseif self.self_only_heal_percentage > 0 then
+		return target:IsSameTeam( caster )
+	end
+end
+
 function modifier_witch_doctor_voodoo_restoration_handler:GetAuraDuration()
 	return 0.5
 end
@@ -97,9 +111,9 @@ function modifier_witch_doctor_voodoo_restoration_aura:OnRefresh()
 	self.interval = self:GetSpecialValueFor("heal_interval")
 	self.heal = self:GetSpecialValueFor("heal") * self.interval
 	self.enemy_damage_pct = self:GetAbility():GetSpecialValueFor("enemy_damage_pct") / 100
+	self.self_only_heal_percentage = self:GetAbility():GetSpecialValueFor("self_only_heal_percentage") / 100
 	
 	self.heal_pct = (self:GetSpecialValueFor("heal_pct") * self.interval) / 100
-	self.dmg_pct = (self:GetSpecialValueFor("dmg_pct") * self.interval) / 100
 end
 
 function modifier_witch_doctor_voodoo_restoration_aura:OnIntervalThink()
@@ -107,8 +121,8 @@ function modifier_witch_doctor_voodoo_restoration_aura:OnIntervalThink()
 	local caster = self:GetCaster()
 	local ability = self:GetAbility()
 	if parent:IsSameTeam( caster ) then
-		parent:HealEvent(self.heal + parent:GetMaxHealth() * self.heal_pct, ability, caster)
-	else
-		ability:DealDamage( caster, parent, self.heal * self.enemy_damage_pct * (1+caster:GetSpellAmplification(false)) + parent:GetMaxHealth() * self.dmg_pct, {damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION} )
+		parent:HealEvent( (self.heal + parent:GetMaxHealth() * self.heal_pct) * TernaryOperator( self.self_only_heal_percentage, caster == parent, 1 ), ability, caster)
+	elseif self.enemy_damage_pct > 0 then
+		ability:DealDamage( caster, parent, self.heal * self.enemy_damage_pct * (1+caster:GetSpellAmplification(false)) + parent:GetMaxHealth() * self.heal_pct * self.enemy_damage_pct , {damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION} )
 	end
 end

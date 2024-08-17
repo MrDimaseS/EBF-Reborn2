@@ -35,7 +35,7 @@ end
 
 function modifier_bloodseeker_bloodrage_buff:OnIntervalThink()
 	local parent = self:GetParent()
-	self:GetAbility():DealDamage( self:GetCaster(), parent, 0.1 * parent:GetMaxHealth() * self.damage_pct, {damage_type = DAMAGE_TYPE_PURE, damage_flags = DOTA_DAMAGE_FLAG_HPLOSS + DOTA_DAMAGE_FLAG_BYPASSES_INVULNERABILITY + DOTA_DAMAGE_FLAG_BYPASSES_BLOCK + DOTA_DAMAGE_FLAG_NON_LETHAL + DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_NO_DAMAGE_MULTIPLIERS + DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL} )
+	self:GetAbility():DealDamage( self:GetCaster(), parent, 0.1 * parent:GetMaxHealth() * self.damage_pct, {damage_type = DAMAGE_TYPE_PURE, damage_flags = DOTA_DAMAGE_FLAG_HPLOSS + DOTA_DAMAGE_FLAG_BYPASSES_INVULNERABILITY + DOTA_DAMAGE_FLAG_BYPASSES_ALL_BLOCK + DOTA_DAMAGE_FLAG_NON_LETHAL + DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_NO_DAMAGE_MULTIPLIERS + DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL} )
 end
 
 function modifier_bloodseeker_bloodrage_buff:DeclareFunctions()

@@ -1,6 +1,37 @@
 "DOTAAbilities"
 {	
 	//=================================================================================================================
+	// Ability: Venomancer: Sepsis
+	//=================================================================================================================
+	"venomancer_sepsis"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"MaxLevel"						"1"
+		"Innate"						"1"
+		"HasScepterUpgrade"				"1"
+		"IsBreakable"					"1"
+
+		"AbilityValues"
+		{
+			"bonus_dmg_per_debuff_pct"
+			{
+				"value"						"10"
+				"special_bonus_scepter"		"+10"
+				"DamageTypeTooltip"			"DAMAGE_TYPE_MAGICAL"
+			}
+			"apply_from_ward_attacks"
+			{
+				"value"						"0"
+				"special_bonus_scepter"		"=1"
+			}
+		}
+	}
+	//=================================================================================================================
 	// Venomancer: Venomous Gale
 	//=================================================================================================================
 	"venomancer_venomous_gale"
@@ -91,10 +122,7 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
-		"MaxLevel"						"8"
-		"RequiredLevel"					"-1"
-		"Innate"						"1"
-		"HasScepterUpgrade"				"1"
+		"MaxLevel"						"7"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -103,23 +131,18 @@
 			"duration"															"15"
 			"damage"
 			{
-				"value"															"20 60 140 220 300 380 560 640"
+				"value"															"60 140 220 300 380 560 640"
 				"CalculateSpellDamageTooltip"									"1"
 			}
 			"movement_speed"
 			{
-				"value"															"-3 -6 -9 -12 -15 -18 -21 -24"
+				"value"															"-6 -9 -12 -15 -18 -21 -24"
 				"special_bonus_unique_venomancer_2"								"-8"
 			}	
 			"hp_regen_reduction"
 			{
 				"value"															"0"
 				"special_bonus_unique_venomancer_poisonsting_regen_reduction"	"+20"
-			}
-			"bonus_dmg_per_debuff_pct"
-			{
-				"special_bonus_scepter"											"15"
-				"DamageTypeTooltip"												"DAMAGE_TYPE_MAGICAL"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"

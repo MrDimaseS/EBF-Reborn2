@@ -1,6 +1,28 @@
 "DOTAAbilities"
 {	
 	//=================================================================================================================
+	// Bristleback: Innate Danger Zone
+	//=================================================================================================================
+	"bristleback_prickly"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"MaxLevel"						"1"
+		"Innate"						"1"
+		"IsBreakable"					"1"
+
+		"AbilityValues"
+		{
+			"amp_pct"				"10"
+			"angle"			"110"
+		}
+	}
+	//=================================================================================================================
 	// Bristleback: Hairball (Shard)
 	//=================================================================================================================
 	"bristleback_hairball"
@@ -133,7 +155,7 @@
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"2.0 2.0 2.0 2.0"
+		"AbilityCooldown"				"3.0"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -156,8 +178,8 @@
 			}
 			"quill_stack_damage"
 			{
-				"value"									"280 300 320 340 360 380 400"
-				"special_bonus_unique_bristleback_2"	"+25%"
+				"value"									"300"
+				"special_bonus_unique_bristleback_2"	"+66%"
 				"CalculateSpellDamageTooltip" 			"1"
 			}
 			"quill_stack_duration"						"14.0"
@@ -192,7 +214,7 @@
 		{
 			"max_damage_reduction"
 			{
-				"value"									"20 22 24 26 28 30 32"
+				"value"									"16 18 20 22 24 26 28"
 				"special_bonus_unique_bristleback_6"	"+4"
 			}
 			"min_damage_reduction"
@@ -214,7 +236,7 @@
 			"activation_cooldown"						"24"
 			"activation_manacost"						"100"
 			"activation_delay"							"0.5"
-			"activation_num_quill_sprays"				"6"
+			"activation_num_quill_sprays"				"5"
 			"activation_spray_interval"					"0.35"
 			"activation_angle"							"45"
 			"activation_movement_speed_pct"				"-40"
@@ -237,9 +259,7 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
-		"MaxLevel"						"7"
-		"Innate"						"1"
-		"RequiredLevel"					"0"
+		"MaxLevel"						"6"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -251,7 +271,7 @@
 		{
 			"damage_per_stack"
 			{
-				"value"										"50 150 200 250 300 350 400"
+				"value"										"50 100 150 200 250 300"
 				"special_bonus_facet_bristleback_berserk"	"=50"
 				"special_bonus_unique_bristleback_3"		"+180"
 				"CalculateAttackDamageTooltip"				"1"
@@ -259,11 +279,11 @@
 			"aspd_per_stack"
 			{
 				"value"					"0"
-				"special_bonus_facet_bristleback_berserk"	"=5 =10 =15 =20 =25 =30 =35"				
+				"special_bonus_facet_bristleback_berserk"	"=10 =15 =20 =25 =30 =35"				
 			}
-			"move_speed_per_stack"			"0 2 3 4 5 6 7"
-			"stack_duration"				"10.0 14.0 15.0 16.0 17.0 18.0 20.0"
-			"max_stacks"					"12"
+			"move_speed_per_stack"			"2 3 4 5 6 7"
+			"stack_duration"				"20"
+			"max_stacks"					"8 9 10 11 12 13"
 		}
 	}
 

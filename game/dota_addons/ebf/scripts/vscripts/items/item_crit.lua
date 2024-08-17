@@ -66,7 +66,6 @@ function modifier_item_crit_passive:GetModifierPreAttack_BonusDamage()
 end
 
 function modifier_item_crit_passive:GetModifierPreAttack_CriticalStrike()
-	print( self.crit_chance )
 	if self:RollPRNG( self.crit_chance ) then
 		return self:GetSpecialValueFor("crit_multiplier")
 	end

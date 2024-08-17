@@ -65,7 +65,6 @@ function modifier_tinker_rearm_debuff:OnIntervalThink()
 			self.modifiersToTrack[modifier] = nil
 		elseif modifier:GetLastAppliedTime() ~= lastTime then
 			self.modifiersToTrack[modifier] = modifier:GetLastAppliedTime()
-			print( modifier:GetName(), modifier:GetDuration(), (1 - self:OnTooltip()/100 ) )
 			modifier:SetDuration( modifier:GetDuration() * (1 - self:OnTooltip()/100 ), true )
 		end
 	end

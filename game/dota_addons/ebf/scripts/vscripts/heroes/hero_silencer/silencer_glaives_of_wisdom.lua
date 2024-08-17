@@ -102,7 +102,9 @@ function modifier_silencer_glaives_of_wisdom_autocast:GetModifierProcAttack_Bonu
 	local caster = self:GetCaster()
 	local ability = self:GetAbility()
 	if self.attacks[params.record] or ability.forceGlaivesBehavior then
-		caster:AddNewModifier( caster, ability, "modifier_silencer_glaives_of_wisdom_intellect_bonus", {duration = self:GetSpecialValueFor("int_steal_duration")} )
+		if params.target:IsConsideredHero() then
+			caster:AddNewModifier( caster, ability, "modifier_silencer_glaives_of_wisdom_intellect_bonus", {duration = self:GetSpecialValueFor("int_steal_duration")} )
+		end
 		if self:GetSpecialValueFor("stacks_for_silence") > 0 then
 			params.target:AddNewModifier( caster, ability, "modifier_silencer_glaives_of_wisdom_shard", {duration = self:GetSpecialValueFor("debuff_linger_duration")} )
 		end

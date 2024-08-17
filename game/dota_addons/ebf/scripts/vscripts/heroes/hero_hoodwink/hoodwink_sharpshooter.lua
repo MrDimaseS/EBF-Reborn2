@@ -252,7 +252,6 @@ function modifier_hoodwink_sharpshooter_ebf:OnDestroy()
 		direction = direction,
 		sound = sound:entindex(),
 	}
-	print( projectile, "projectile ID creation" )
 
 	-- knockback
 	local mod = self.caster:ApplyKnockBack( self.caster:GetAbsOrigin() + self.caster:GetForwardVector() * self.recoil_distance, 0, self.recoil_duration, self.recoil_distance, self.recoil_height, self.caster, self:GetAbility() )

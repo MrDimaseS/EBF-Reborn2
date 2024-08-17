@@ -1,6 +1,34 @@
 "DOTAAbilities"
 {	
 	//=================================================================================================================
+	// Tidehunter: Defishency
+	//=================================================================================================================
+	"tidehunter_blubber"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_tidehunter/tidehunter_blubber"
+		"AbilityTextureName"			"tidehunter_blubber"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI"
+		"Innate"						"1"
+		"MaxLevel"						"1"
+		"IsBreakable"					"1"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"damage_cleanse"
+			{
+				"value"					"15"
+			}
+			"damage_reset_interval"		"7.0"
+		
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
+	}
+	//=================================================================================================================
 	// Tidehunter: Gush
 	//=================================================================================================================
 	"tidehunter_gush"
@@ -92,6 +120,11 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilitySound"					"Hero_Tidehunter.KrakenShell"
 		"MaxLevel"						"7"
+		
+		"precache"
+		{
+			"particle"					"particles/units/heroes/hero_tidehunter/tidehunter_kraken_shell_shieldp_buff.vpcf"
+		}
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------

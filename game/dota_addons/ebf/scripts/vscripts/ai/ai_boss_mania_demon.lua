@@ -46,7 +46,7 @@ function AIThink(thisEntity)
 		if thisEntity.razeN:IsFullyCastable() then
 			local range = thisEntity.razeN:GetSpecialValueFor("shadowraze_range")
 			local radius = thisEntity.razeN:GetSpecialValueFor("shadowraze_radius")
-			print( range, radius )
+			
 			local castPosition = AICore:FindOptimalRadiusInRangeForEntityClamped( thisEntity, range - radius*2, range + radius*2, radius, exclusionFct )
 			if castPosition then
 				ExecuteOrderFromTable({

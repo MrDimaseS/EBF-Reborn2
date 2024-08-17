@@ -88,7 +88,6 @@ function modifier_void_spirit_resonant_pulse_shield:OnRefresh()
 	if not IsServer() then return end
 	self.damageBlock = self.damageBlock + self:GetSpecialValueFor("absorb_per_hero_hit")
 	self:SendBuffRefreshToClients()
-	print("refreshing")
 end
 
 function modifier_void_spirit_resonant_pulse_shield:OnDestroy()

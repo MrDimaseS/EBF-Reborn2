@@ -24,8 +24,6 @@ function boss_death_avatar_poison_nova:PoisonNova( target )
 		local power = self:GetSpecialValueFor("ward_power") / 100
 		maxRadius = maxRadius * power
 		duration = duration * power
-		
-		print( power, maxRadius )
 	end
 
 	local enemies = FindUnitsInRadius(caster:GetTeam(), origin:GetAbsOrigin(), nil, maxRadius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_BASIC + DOTA_UNIT_TARGET_HERO, 0, 0, false)

@@ -322,6 +322,7 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierOverrideAbi
 			params.ability._processValuesForScaling[special_value].affected_by_lvl_increase = true
 		end
 	end
+	print( special_value )
 	if params.ability._processValuesForScaling[special_value]
 	and (params.ability._processValuesForScaling[special_value].affected_by_aoe_increase
 	or params.ability._processValuesForScaling[special_value].affected_by_crit_increase

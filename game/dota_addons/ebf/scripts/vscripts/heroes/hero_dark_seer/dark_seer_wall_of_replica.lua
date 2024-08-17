@@ -32,7 +32,6 @@ function modifier_dark_seer_wall_of_replica_thinker:OnCreated( kv )
 	self.wall_damage = self:GetAbility():GetSpecialValueFor( "wall_damage" )
 
 	local length = self:GetAbility():GetSpecialValueFor( "width" )
-	print("created")
 	if not IsServer() then return end
 
 	-- get data

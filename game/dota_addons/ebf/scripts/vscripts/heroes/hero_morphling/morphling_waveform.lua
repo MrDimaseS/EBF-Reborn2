@@ -21,8 +21,6 @@ function morphling_waveform:OnSpellStart()
 	if actualDuration < minDuration then
 		speed = distance / minDuration
 	end
-	
-	print( distance, speed )
 
     ProjectileManager:ProjectileDodge(caster)
     self:FireLinearProjectile( "particles/units/heroes/hero_morphling/morphling_waveform.vpcf", CalculateDirection(target, caster) * speed, distance, width )

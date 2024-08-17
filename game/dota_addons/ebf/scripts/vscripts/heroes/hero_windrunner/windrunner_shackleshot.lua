@@ -37,7 +37,6 @@ function windrunner_shackleshot:DoBolasStun( target, duration, failure, FX, sour
     		bolas:AttachEffect(nfx)
 		elseif source then
 			if sourceIsTree then
-				print( "tree")
 				local nfx = ParticleManager:CreateParticle("particles/units/heroes/hero_windrunner/windrunner_shackleshot_pair_tree.vpcf", PATTACH_POINT, target)
 								ParticleManager:SetParticleControlEnt(nfx, 0, target, PATTACH_POINT, "attach_hitloc", target:GetAbsOrigin(), true)
 								ParticleManager:SetParticleControl(nfx, 1, source:GetAbsOrigin() + Vector(0,0,GetGroundHeight( target:GetAbsOrigin(), target ) - GetGroundHeight( source:GetAbsOrigin(), source ) ))

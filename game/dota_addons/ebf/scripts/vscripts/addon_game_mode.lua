@@ -337,6 +337,7 @@ function CHoldoutGameMode:InitGameMode()
 	GameRules:GetGameModeEntity():SetHealingFilter( Dynamic_Wrap( CHoldoutGameMode, "FilterHealing" ), self )
 	GameRules:GetGameModeEntity():SetExecuteOrderFilter( Dynamic_Wrap( CHoldoutGameMode, "FilterOrders" ), self )
 	GameRules:GetGameModeEntity():SetModifyGoldFilter( Dynamic_Wrap( CHoldoutGameMode, "FilterGold" ), self )
+	GameRules:GetGameModeEntity():SetModifierGainedFilter( Dynamic_Wrap( CHoldoutGameMode, "FilterModifiers" ), self )
 	
 	-- Register OnThink with the game engine so it is called every 0.25 seconds
 	GameRules:GetGameModeEntity():SetThink( "OnThink", self, 0.25 )
@@ -631,6 +632,10 @@ IGNORE_SPELL_AMP_FILTER = {
 	["drow_ranger_multishot"] = 100,
 	["phoenix_dying_light"] = 100,
 }
+
+function CHoldoutGameMode:FilterModifiers( filterTable )
+	return true
+end
 
 function CHoldoutGameMode:FilterAbilityValues( filterTable )
 	if self.preventLoopGarbage then return end

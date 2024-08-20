@@ -55,7 +55,7 @@ function FlashThink()
         thisEntity:GetTeamNumber(),
         thisEntity:GetOrigin(),
         nil,
-        3000, -- Search range
+        10000, -- Search range
         DOTA_UNIT_TARGET_TEAM_ENEMY,
         DOTA_UNIT_TARGET_HERO,
         DOTA_UNIT_TARGET_FLAG_NONE,
@@ -96,7 +96,7 @@ function ContinueAttacking()
         thisEntity:GetTeamNumber(),
         thisEntity:GetOrigin(),
         nil,
-        3000, -- Search range
+        10000, -- Search range
         DOTA_UNIT_TARGET_TEAM_ENEMY,
         DOTA_UNIT_TARGET_HERO,
         DOTA_UNIT_TARGET_FLAG_NONE,

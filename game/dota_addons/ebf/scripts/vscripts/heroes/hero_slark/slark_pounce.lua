@@ -25,6 +25,11 @@ if IsServer() then
 		self.damage = self:GetTalentSpecialValueFor("pounce_damage")
 		self.duration = self:GetTalentSpecialValueFor("leash_duration")
 		
+		self.essence_stacks = self:GetTalentSpecialValueFor("essence_stacks")
+		if self.essence_stacks > 0 then
+			self.essence_shift = parent:FindModifierByName("modifier_slark_essence_shift_handler")
+		end
+		
 		self.enemiesHit = {}
 		parent:StartGesture( ACT_DOTA_SLARK_POUNCE )
 		self:StartMotionController()
@@ -60,11 +65,12 @@ if IsServer() then
 			if not self.enemiesHit[enemy:entindex()] then
 				self:Pounce(enemy)
 				self.enemiesHit[enemy:entindex()] = true
-				if enemy:IsConsideredHero() then heroHit = true end
+				if enemy:IsConsideredHero() then heroHit = enemy end
 			end
 		end
 		if heroHit then
 			self:Destroy()
+			self.essence_shift:OnAttackLanded({attacker = parent, target = heroHit, stacks = self.essence_stacks})
 		end
 	end
 	

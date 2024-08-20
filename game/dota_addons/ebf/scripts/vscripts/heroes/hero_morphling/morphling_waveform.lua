@@ -39,7 +39,7 @@ end
 function morphling_waveform:OnProjectileHitHandle(hTarget, vLocation, iProjectile)
 	local caster = self:GetCaster()
 
-	if hTarget and not hTarget:TriggerSpellAbsorb(self) then
+	if hTarget then
 		local damage = self:GetSpecialValueFor("damage")
 		local pct_damage = self:GetSpecialValueFor("pct_damage")
 		local debuff_duration = self:GetSpecialValueFor("debuff_duration")

@@ -121,7 +121,7 @@ function modifier_witch_doctor_voodoo_restoration_aura:OnIntervalThink()
 	local caster = self:GetCaster()
 	local ability = self:GetAbility()
 	if parent:IsSameTeam( caster ) then
-		parent:HealEvent( (self.heal + parent:GetMaxHealth() * self.heal_pct) * TernaryOperator( self.self_only_heal_percentage, caster == parent, 1 ), ability, caster)
+		parent:HealEvent( (self.heal + parent:GetMaxHealth() * self.heal_pct) * TernaryOperator( self.self_only_heal_percentage, caster == parent and self.self_only_heal_percentage > 0, 1 ), ability, caster)
 	elseif self.enemy_damage_pct > 0 then
 		ability:DealDamage( caster, parent, self.heal * self.enemy_damage_pct * (1+caster:GetSpellAmplification(false)) + parent:GetMaxHealth() * self.heal_pct * self.enemy_damage_pct , {damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION} )
 	end

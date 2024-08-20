@@ -62,6 +62,8 @@ function modifier_item_eternal_shroud_passive:OnRefresh()
 	self.bonus_spell_resist = self:GetSpecialValueFor("bonus_spell_resist")
 	self.stack_resist = self:GetSpecialValueFor("stack_resist")
 	self.bonus_health = self:GetSpecialValueFor("bonus_health")
+	self.bonus_damage = self:GetSpecialValueFor("bonus_damage")
+	self.bonus_mana = self:GetSpecialValueFor("bonus_mana")
 	
 	self.mana_restore_pct = self:GetSpecialValueFor("mana_restore_pct") / 100
 	
@@ -104,6 +106,8 @@ function modifier_item_eternal_shroud_passive:DeclareFunctions()
 			MODIFIER_PROPERTY_STATS_INTELLECT_BONUS,
 			MODIFIER_PROPERTY_STATS_AGILITY_BONUS,
 			MODIFIER_PROPERTY_HEALTH_BONUS,
+			MODIFIER_PROPERTY_MANA_BONUS,
+			MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
 			MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
 			MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS,
 			MODIFIER_EVENT_ON_TAKEDAMAGE
@@ -150,6 +154,14 @@ end
 
 function modifier_item_eternal_shroud_passive:GetModifierHealthBonus()
 	return self.bonus_health
+end
+
+function modifier_item_eternal_shroud_passive:GetModifierManaBonus()
+	return self.bonus_mana
+end
+
+function modifier_item_eternal_shroud_passive:GetModifierPreAttack_BonusDamage()
+	return self.bonus_damage
 end
 
 function modifier_item_eternal_shroud_passive:IsAura()

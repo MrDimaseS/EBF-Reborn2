@@ -65,9 +65,23 @@ function boss_golem_rock_throw:ThrowGolem( golem, tossPosition )
 	golem:ApplyKnockBack(tossPosition, toss_duration, toss_duration, -distance, height, caster, self)
 	Timers:CreateTimer( 0.8, function()
 		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( golem:GetAbsOrigin(), totalRadius ) ) do
-			self:DealDamage( caster, enemy, totalDamage, {damage_type = DAMAGE_TYPE_MAGICAL} )
-			self:Stun( enemy, duration )
+			if not enemy:FindModifierByNameAndCaster( "modifier_boss_rock_throw_immunity", caster ) then
+				enemy:AddNewModifier( caster, self, "modifier_boss_rock_throw_immunity", {duration = 0.25} )
+				self:DealDamage( caster, enemy, totalDamage, {damage_type = DAMAGE_TYPE_MAGICAL} )
+				self:Stun( enemy, duration )
+			end
 		end
 		ParticleManager:FireParticle("particles/units/heroes/hero_tiny/tiny_toss_impact.vpcf", PATTACH_POINT_FOLLOW, golem )
 	end)
+end
+
+modifier_boss_rock_throw_immunity = class({})
+LinkLuaModifier( "modifier_boss_rock_throw_immunity", "bosses/boss_golems/boss_golem_rock_throw", LUA_MODIFIER_MOTION_NONE)
+
+function modifier_boss_rock_throw_immunity:IsHidden()
+	return true
+end
+
+function modifier_boss_rock_throw_immunity:GetAttributes()
+	return MODIFIER_ATTRIBUTE_MULTIPLE 
 end

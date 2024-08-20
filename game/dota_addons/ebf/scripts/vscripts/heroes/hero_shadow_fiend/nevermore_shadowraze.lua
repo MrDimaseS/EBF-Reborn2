@@ -1,59 +1,31 @@
 nevermore_shadowraze = class({})
 
 function nevermore_shadowraze:GetAOERadius()
-    return self:GetSpecialValueFor("range")
+    return self:GetSpecialValueFor("shadowraze_range")
 end
 function nevermore_shadowraze:OnSpellStart()
     if IsClient() then return end
 
     local caster = self:GetCaster();
-    local range = self:GetSpecialValueFor("range")
-    local offset = caster:GetForwardVector() * range;
+    local shadowraze_range = self:GetSpecialValueFor("shadowraze_range")
+    local shadowraze_radius = self:GetSpecialValueFor("shadowraze_radius")
+    local duration = self:GetSpecialValueFor("duration")
+    local offset = caster:GetForwardVector() * shadowraze_range;
     local position = caster:GetAbsOrigin() + offset;
 
-    -- find all of the units within the radius of the position, and do things to them.
-    local units = FindUnitsInRadius(
-        caster:GetTeam(),
-        position,
-        nil,
-        self:GetSpecialValueFor("radius"),
-        DOTA_UNIT_TARGET_TEAM_ENEMY,
-        DOTA_UNIT_TARGET_HEROES_AND_CREEPS,
-        DOTA_UNIT_TARGET_FLAG_NONE,
-        FIND_ANY_ORDER,
-        false
-    )
-    for _,unit in ipairs(units) do
+	local damage = self:GetSpecialValueFor("shadowraze_damage")
+    for _,unit in ipairs( caster:FindEnemyUnitsInRadius( position, shadowraze_radius ) ) do
         if self:GetSpecialValueFor("does_attack") ~= 0 then
-            local armor = unit:FindModifierByName("modifier_nevermore_shadowraze_armor_reduction")
-            if not armor then
-                armor = unit:AddNewModifier(caster, self, "modifier_nevermore_shadowraze_armor_reduction", { duration = self:GetSpecialValueFor("armor_reduction_duration") })
-            end
-            armor:SetDuration(self:GetSpecialValueFor("armor_reduction_duration"), true)
-
-            caster:PerformGenericAttack(unit, true, false, self:GetSpecialValueFor("damage"), 100)
+            unit:AddNewModifier(caster, self, "modifier_nevermore_shadowraze_armor_reduction", { duration = duration })
+            caster:PerformGenericAttack(unit, true, false, damage)
             -- deal some damage so that necromastery knows we razed
             self:DealDamage(caster, unit, 10)
         else
-            if self:GetSpecialValueFor("attack_speed_reduction_duration") ~= 0 then
-                local debuff = unit:FindModifierByName("modifier_nevermore_shadowraze_slow")
-                if not debuff then
-                    debuff = unit:AddNewModifier(caster, self, "modifier_nevermore_shadowraze_slow", { duration = self:GetSpecialValueFor("attack_speed_reduction_duration") })
-                end
-                debuff:SetDuration(self:GetSpecialValueFor("attack_speed_reduction_duration"), true)
+            if self:GetSpecialValueFor("attack_speed_reduction") ~= 0 then
+                unit:AddNewModifier(caster, self, "modifier_nevermore_shadowraze_slow", { duration = duration })
             end
-
-            local damage = self:GetSpecialValueFor("damage")
-            if self:GetSpecialValueFor("spell_damage_stack_duration") ~= 0 then
-                local debuff = unit:FindModifierByName("modifier_nevermore_shadowraze_stack")
-                if debuff then
-                    damage = damage * (1 + debuff:OnTooltip() / 100)
-                    debuff:IncrementStackCount()
-                    debuff:SetDuration(self:GetSpecialValueFor("spell_damage_stack_duration"), true)
-                else
-                    debuff = unit:AddNewModifier(caster, self, "modifier_nevermore_shadowraze_stack", { duration = self:GetSpecialValueFor("spell_damage_stack_duration") })
-                    debuff:IncrementStackCount()
-                end
+            if self:GetSpecialValueFor("stack_bonus_damage") ~= 0 then
+				unit:AddNewModifier(caster, self, "modifier_nevermore_shadowraze_stack", { duration = duration })
             end
             self:DealDamage(caster, unit, damage)
         end
@@ -78,7 +50,14 @@ modifier_nevermore_shadowraze_stack = class({})
 LinkLuaModifier("modifier_nevermore_shadowraze_stack", "heroes/hero_shadow_fiend/nevermore_shadowraze.lua", LUA_MODIFIER_MOTION_NONE)
 
 function modifier_nevermore_shadowraze_stack:OnCreated()
-	
+	self:OnRefresh()
+end
+
+function modifier_nevermore_shadowraze_stack:OnRefresh()
+	self.stack_bonus_damage = self:GetSpecialValueFor("stack_bonus_damage")
+	if IsServer() then
+		self:IncrementStackCount()
+	end
 end
 
 function modifier_nevermore_shadowraze_stack:IsDebuff()
@@ -91,10 +70,15 @@ function modifier_nevermore_shadowraze_stack:DeclareFunctions()
     return { MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE }
 end
 function modifier_nevermore_shadowraze_stack:GetModifierIncomingDamage_Percentage(params)
-	if params.attacker == self:GetCaster() and params.inflictor and params.attacker:HasAbility( params.inflictor:GetAbilityName() ) then
-		return self:GetSpecialValueFor("stack_bonus_damage") * self:GetStackCount()
+	if IsServer() then
+		if params.attacker == self:GetCaster() and params.inflictor and params.attacker:HasAbility( params.inflictor:GetAbilityName() ) then
+			return self.stack_bonus_damage * self:GetStackCount()
+		end
+	else
+		return self.stack_bonus_damage * self:GetStackCount()
 	end
 end
+
 function modifier_nevermore_shadowraze_stack:GetEffectName()
     return "particles/units/heroes/hero_nevermore/nevermore_shadowraze_debuff.vpcf"
 end
@@ -146,4 +130,7 @@ function modifier_nevermore_shadowraze_armor_reduction:DeclareFunctions()
 end
 function modifier_nevermore_shadowraze_armor_reduction:GetModifierPhysicalArmorBonus()
     return self.armor_reduction
+end
+function modifier_nevermore_shadowraze_armor_reduction:GetEffectName()
+    return "particles/units/heroes/hero_nevermore/nevermore_shadowraze_debuff.vpcf"
 end

@@ -827,6 +827,14 @@ function CHoldoutGameMode:OnHeroPick (event)
 						hero:SetPrimaryAttribute(DOTA_ATTRIBUTE_ALL)
 					end
 				end
+				print( facet.KeyValueOverrides.AttackCapabilities )
+				if facet.KeyValueOverrides.AttackCapabilities then
+					if facet.KeyValueOverrides.AttackCapabilities == "DOTA_UNIT_CAP_MELEE_ATTACK" then
+						hero:SetAttackCapability( DOTA_UNIT_CAP_MELEE_ATTACK )
+					elseif facet.KeyValueOverrides.AttackCapabilities == "DOTA_UNIT_CAP_RANGED_ATTACK" then
+						hero:SetAttackCapability( DOTA_UNIT_CAP_RANGED_ATTACK )
+					end
+				end
 			end
 		end
 	end

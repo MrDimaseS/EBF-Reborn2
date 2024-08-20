@@ -25,13 +25,21 @@ function boss_golem_split:CreateGolem( position )
 	local ogThrow = caster:FindAbilityByName("boss_golem_rock_throw")
 	if throw then
 		throw:SetLevel( self:GetLevel() - 1 )
-		if ogThrow then throw:StartCooldown( ogThrow:GetCooldownTimeRemaining() ) end
+		if ogThrow then 
+			throw:StartCooldown( ogThrow:GetCooldownTimeRemaining() + RandomInt( 4,8 ) )
+		else
+			throw:StartCooldown( RandomInt( 4,8 ) )
+		end
 	end
 	local avalanche = golem:FindAbilityByName("boss_golem_avalanche")
 	if avalanche then
 		avalanche:SetLevel( self:GetLevel() - 1 )
 		local ogAvalanche = caster:FindAbilityByName("boss_golem_avalanche")
-		if ogAvalanche then avalanche:StartCooldown( ogAvalanche:GetCooldownTimeRemaining() ) end
+		if ogAvalanche then 
+			avalanche:StartCooldown( ogAvalanche:GetCooldownTimeRemaining() + RandomInt( 4,8 ) )
+		else
+			avalanche:StartCooldown( RandomInt( 4,8 ) )
+		end
 	end
 	
 	golem:SetCoreHealth( math.ceil( caster:GetHealth() * splitPct ) )

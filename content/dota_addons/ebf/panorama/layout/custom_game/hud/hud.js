@@ -450,7 +450,7 @@ function UpdateStatsTooltip() {
 	agiGain.text = '(+' + Math.floor(stats.agi_gain * 10 + 0.5) / 10 + ' next lvl)'
 
 	const agilityArmor = Math.min(0.065 * stats.agility, 0.9 * stats.agility ** (Math.log(2) / Math.log(5)))
-	const agilityAttackSpeed = Math.floor(Math.min(0.75 * stats.agility, 10.32 * stats.agility ** (Math.log(2) / Math.log(5))))
+	const agilityAttackSpeed = Math.floor(Math.min(0.75 * stats.agility, 3.44 * stats.agility ** (Math.log(2) / Math.log(3.5))))
 	agiValues.text = (Math.floor((stats.agility * 1.5) * 10 + 0.5) / 10) + ' Damage, ' + Math.floor(agilityArmor * 10 + 0.5) / 10 + ' Armor and ' + Math.floor(agilityAttackSpeed * 10 + 0.5) / 10 + ' Attack Speed'
 	if (primaryStat == Attributes.DOTA_ATTRIBUTE_AGILITY) {
 		agiDamage.text = (Math.floor((stats.agility * 1.5)*10 + 0.5)/10) + ' Damage, ' + (Math.floor((stats.agility * 0.02)*10 + 0.5)/10) + '% Spell Amp and ' + (Math.floor((stats.agility * 11)*10 + 0.5)/10) + ' HP';

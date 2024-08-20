@@ -26,7 +26,7 @@ function modifier_slark_essence_shift_handler:OnAttackLanded(params)
 		local duration = self:GetSpecialValueFor("duration")
 
 		local debuff = params.target:AddNewModifier(caster, ability, "modifier_slark_essence_shift_attr_debuff", {duration = duration})
-		local buff = caster:AddNewModifier(caster, ability, "modifier_slark_essence_shift_agi_buff", {duration = duration})
+		local buff = caster:AddNewModifier(caster, ability, "modifier_slark_essence_shift_agi_buff", {duration = duration, stacks = params.stacks})
 		
 		ParticleManager:FireRopeParticle( "particles/units/heroes/hero_slark/slark_essence_shift.vpcf", PATTACH_POINT_FOLLOW, params.target, caster )
 		
@@ -92,32 +92,22 @@ end
 modifier_slark_essence_shift_agi_buff = class({})
 LinkLuaModifier("modifier_slark_essence_shift_agi_buff", "heroes/hero_slark/slark_essence_shift", LUA_MODIFIER_MOTION_NONE)
 
-function modifier_slark_essence_shift_agi_buff:OnCreated()
-	self:OnRefresh()
+function modifier_slark_essence_shift_agi_buff:OnCreated(params)
+	self:OnRefresh(params)
 end
 
-function modifier_slark_essence_shift_agi_buff:OnRefresh()
+function modifier_slark_essence_shift_agi_buff:OnRefresh(params)
 	self.agi = self:GetSpecialValueFor("agi_gain")
-	self.int = self:GetSpecialValueFor("int_gain")
-	self.str = self:GetSpecialValueFor("str_gain")
 	if IsServer() then
-		self:AddIndependentStack( self:GetRemainingTime() )
+		self:AddIndependentStack( self:GetRemainingTime(), nil, nil, {stacks = params.stacks or 1} )
 	end
 end
 
 
 function modifier_slark_essence_shift_agi_buff:DeclareFunctions()
-	return {MODIFIER_PROPERTY_STATS_AGILITY_BONUS, MODIFIER_PROPERTY_STATS_STRENGTH_BONUS, MODIFIER_PROPERTY_STATS_INTELLECT_BONUS }
+	return {MODIFIER_PROPERTY_STATS_AGILITY_BONUS}
 end
 
 function modifier_slark_essence_shift_agi_buff:GetModifierBonusStats_Agility()
 	return self.agi * self:GetStackCount()
-end
-
-function modifier_slark_essence_shift_agi_buff:GetModifierBonusStats_Strength()
-	return self.str * self:GetStackCount()
-end
-
-function modifier_slark_essence_shift_agi_buff:GetModifierBonusStats_Intellect()
-	return self.int * self:GetStackCount()
 end

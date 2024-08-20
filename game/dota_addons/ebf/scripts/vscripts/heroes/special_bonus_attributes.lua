@@ -167,6 +167,7 @@ function modifier_special_bonus_attributes_stat_rescaling:OnCreated()
 	self.bonusSpellAmp = 0.02
 	self.bonusDamage = 1.5
 	self.baseMR = 15
+	self.baseAttackSpeed = self:GetParent():GetAgility() * 0.8
 	
 	self.internal_ability_scaling = ABILITY_POWER_SCALING
 	
@@ -196,7 +197,7 @@ function modifier_special_bonus_attributes_stat_rescaling:OnCreated()
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:OnRefresh()
-	self.attackspeed = math.floor( math.min( 0.25 * self:GetParent():GetAgility(), 3.44*self:GetParent():GetAgility()^(math.log(2)/math.log(5)) ) )
+	self.attackspeed = self.baseAttackSpeed + math.floor( math.min( 0.25 * self:GetParent():GetAgility(), 3.44*self:GetParent():GetAgility()^(math.log(2)/math.log(3.5)) ) )
 	if IsServer() then
 		if self.baseArmor then
 			local agilityArmor = math.min( 0.065 * self:GetParent():GetAgility(), 0.9*self:GetParent():GetAgility()^(math.log(2)/math.log(5)) )
@@ -322,7 +323,6 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierOverrideAbi
 			params.ability._processValuesForScaling[special_value].affected_by_lvl_increase = true
 		end
 	end
-	print( special_value )
 	if params.ability._processValuesForScaling[special_value]
 	and (params.ability._processValuesForScaling[special_value].affected_by_aoe_increase
 	or params.ability._processValuesForScaling[special_value].affected_by_crit_increase

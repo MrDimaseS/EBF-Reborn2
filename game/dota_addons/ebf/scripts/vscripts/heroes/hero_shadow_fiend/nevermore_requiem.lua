@@ -25,6 +25,7 @@ function nevermore_requiem:GetAOERadius()
 end
 function nevermore_requiem:OnOwnerDied()
     self:OnAbilityPhaseInterrupted()
+	if not self:IsTrained() then return end
     self:ReleaseSouls(true, false)
 end
 function nevermore_requiem:OnSpellStart()

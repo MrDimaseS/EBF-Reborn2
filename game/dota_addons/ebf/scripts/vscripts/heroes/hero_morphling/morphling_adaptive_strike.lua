@@ -8,13 +8,25 @@ function morphling_adaptive_strike_agi:OnSpellStart()
 	local speed = self:GetSpecialValueFor("projectile_speed")
 
 	EmitSoundOn("Hero_Morphling.AdaptiveStrikeAgi.Cast", caster)
-	self:FireTrackingProjectile("particles/units/heroes/hero_morphling/morphling_adaptive_strike_agi_proj.vpcf", target, speed )
 	
 	local shared_cooldown = self:GetSpecialValueFor("shared_cooldown")
 	if shared_cooldown > 0 then
 		local strStrike = caster:FindAbilityByName("morphling_adaptive_strike_str")
-		if strStrike and strStrike:IsTrained() then
+		if strStrike and strStrike:IsTrained() and strStrike:GetCooldownTimeRemaining() < shared_cooldown then
 			strStrike:SetCooldown( shared_cooldown )
+		end
+	end
+	if not target:TriggerSpellAbsorb( self ) then
+		self:FireTrackingProjectile("particles/units/heroes/hero_morphling/morphling_adaptive_strike_agi_proj.vpcf", target, speed )
+	end
+	local bonusTargets = self:GetSpecialValueFor("bonus_targets")
+	for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), self:GetTrueCastRange() ) ) do
+		if enemy ~= target then
+			if bonusTargets <= 0 then
+				break
+			end
+			bonusTargets = bonusTargets - 1
+			self:FireTrackingProjectile("particles/units/heroes/hero_morphling/morphling_adaptive_strike_agi_proj.vpcf", enemy, speed )
 		end
 	end
 end
@@ -23,10 +35,11 @@ function morphling_adaptive_strike_agi:OnProjectileHit( target, position )
 	if IsEntitySafe( target ) then
 		local caster = self:GetCaster()
 		
+		if target:TriggerSpellAbsorb( self ) then return end
 		local agiPercentage = caster:GetBaseAgility() / ( caster:GetBaseAgility() + caster:GetBaseStrength() )
-		local maxPercentage = self:GetSpecialValueFor("max_threshold")
-		local damageMin = self:GetSpecialValueFor("damage_min") / 100
-		local damageMax = self:GetSpecialValueFor("damage_max") / 100
+		local maxPercentage = self:GetSpecialValueFor("max_threshold") / 100
+		local damageMin = self:GetSpecialValueFor("damage_min_mult") / 100
+		local damageMax = self:GetSpecialValueFor("damage_max_mult") / 100
 		local damageSlider = damageMax - damageMin
 		
 		local damageMult = damageMin + math.min( damageSlider, damageSlider * (agiPercentage / maxPercentage) )
@@ -47,13 +60,25 @@ function morphling_adaptive_strike_str:OnSpellStart()
 	local speed = self:GetSpecialValueFor("projectile_speed")
 
 	EmitSoundOn("Hero_Morphling.AdaptiveStrikeStr.Cast", caster)
-	self:FireTrackingProjectile("particles/units/heroes/hero_morphling/morphling_adaptive_strike_str_proj.vpcf", target, speed )
 	
 	local shared_cooldown = self:GetSpecialValueFor("shared_cooldown")
 	if shared_cooldown > 0 then
 		local agiStrike = caster:FindAbilityByName("morphling_adaptive_strike_agi")
-		if agiStrike and agiStrike:IsTrained() then
+		if agiStrike and agiStrike:IsTrained() and agiStrike:GetCooldownTimeRemaining() < shared_cooldown then
 			agiStrike:SetCooldown( shared_cooldown )
+		end
+	end
+	if not target:TriggerSpellAbsorb( self ) then
+		self:FireTrackingProjectile("particles/units/heroes/hero_morphling/morphling_adaptive_strike_str_proj.vpcf", target, speed )
+	end
+	local bonusTargets = self:GetSpecialValueFor("bonus_targets")
+	for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), self:GetTrueCastRange() ) ) do
+		if enemy ~= target then
+			if bonusTargets <= 0 then
+				break
+			end
+			bonusTargets = bonusTargets - 1
+			self:FireTrackingProjectile("particles/units/heroes/hero_morphling/morphling_adaptive_strike_str_proj.vpcf", enemy, speed )
 		end
 	end
 end
@@ -61,7 +86,7 @@ end
 function morphling_adaptive_strike_str:OnProjectileHit( target, position )
 	if IsEntitySafe( target ) then
 		local caster = self:GetCaster()
-		
+		if target:TriggerSpellAbsorb( self ) then return end
 		local strPercentage = caster:GetBaseStrength() / ( caster:GetBaseAgility() + caster:GetBaseStrength() )
 		local maxPercentage = self:GetSpecialValueFor("max_threshold") / 100
 		local stunMin = self:GetSpecialValueFor("stun_min")

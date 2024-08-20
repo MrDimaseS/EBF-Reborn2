@@ -10,7 +10,7 @@ function Spawn( entityKeyValues )
 	
 	Timers:CreateTimer(function()
 		if thisEntity and not thisEntity:IsNull() and thisEntity:IsAlive() then
-			-- return AIThink(thisEntity)
+			return AIThink(thisEntity)
 		end
 	end)
 	
@@ -30,8 +30,8 @@ end
 function AIThink(thisEntity)
 	if thisEntity:GetTeamNumber() ~= DOTA_TEAM_GOODGUYS and not thisEntity:IsChanneling() and not thisEntity:GetCurrentActiveAbility() then
 		if thisEntity.throw:IsFullyCastable() then
-			local castPosition = AICore:FindOptimalRadiusInRangeForEntity( thisEntity, thisEntity.throw:GetTrueCastRange(), thisEntity.throw:GetSpecialValueFor("radius") )
-			if castPosition then
+			local castPosition = AICore:FindOptimalRadiusInRangeForEntity( thisEntity, thisEntity.throw:GetTrueCastRange(), thisEntity.throw:GetSpecialValueFor("search_radius") )
+			if castPosition and RollPercentage( 15 ) then
 				ExecuteOrderFromTable({
 					UnitIndex = thisEntity:entindex(),
 					OrderType = DOTA_UNIT_ORDER_CAST_POSITION,
@@ -43,7 +43,7 @@ function AIThink(thisEntity)
 		end
 		if thisEntity.avalanche:IsFullyCastable() then
 			local castPosition = AICore:FindOptimalRadiusInRangeForEntity( thisEntity, thisEntity.avalanche:GetTrueCastRange(), thisEntity.avalanche:GetSpecialValueFor("radius") )
-			if castPosition then
+			if castPosition and RollPercentage( 25 ) then
 				ExecuteOrderFromTable({
 					UnitIndex = thisEntity:entindex(),
 					OrderType = DOTA_UNIT_ORDER_CAST_POSITION,

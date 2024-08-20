@@ -57,6 +57,7 @@ function modifier_morphling_morph_agi_shift:OnCreated(table)
 		self.points_per_tick = self:GetSpecialValueFor("points_per_tick")
 		self.morph_cooldown = self:GetSpecialValueFor("morph_cooldown") 
 		self.cooldown_rate = self:GetSpecialValueFor("cooldown_rate") * self.morph_cooldown
+		self.morph_heal_rate = self:GetSpecialValueFor("morph_heal_rate") / 100
 		self.mana_cost = self:GetSpecialValueFor("mana_cost") * self.morph_cooldown
 		
 		self:StartIntervalThink( self.morph_cooldown )
@@ -76,15 +77,17 @@ function modifier_morphling_morph_agi_shift:OnIntervalThink()
 			caster:SetBaseAgility(caster:GetBaseAgility() + statsDiff)
 			caster:CalculateStatBonus(true)
 			
-			local bonusHP = casterMaxHealth - caster:GetMaxHealth()
-			caster:SetHealth( math.max( 1, casterHealth - bonusHP ) )
-		end
-		for i = 0, caster:GetAbilityCount() - 1 do
-			local abilityToCD = caster:GetAbilityByIndex( i )
-			if abilityToCD and abilityToCD:GetCooldownTimeRemaining() > 0 then
-				abilityToCD:ModifyCooldown(-self.cooldown_rate)
+			local bonusHP = (casterMaxHealth - caster:GetMaxHealth())*(1-self.morph_heal_rate)
+			if bonusHP > 0 then
+				caster:SetHealth( math.max( 1, casterHealth - bonusHP ) )
 			end
 		end
+		-- for i = 0, caster:GetAbilityCount() - 1 do
+			-- local abilityToCD = caster:GetAbilityByIndex( i )
+			-- if abilityToCD and abilityToCD:GetCooldownTimeRemaining() > 0 then
+				-- abilityToCD:ModifyCooldown(-self.cooldown_rate)
+			-- end
+		-- end
 		caster:SpendMana(self.mana_cost, ability )
 	else
 		self:Destroy()
@@ -130,6 +133,7 @@ function modifier_morphling_morph_str_shift:OnCreated(table)
 		self.points_per_tick = self:GetSpecialValueFor("points_per_tick")
 		self.morph_cooldown = self:GetSpecialValueFor("morph_cooldown") 
 		self.mana_cost = self:GetSpecialValueFor("mana_cost") * self.morph_cooldown
+		self.morph_heal_rate = self:GetSpecialValueFor("morph_heal_rate") / 100
 		self.cooldown_rate = self:GetSpecialValueFor("cooldown_rate") * self.morph_cooldown
 		self:StartIntervalThink( self.morph_cooldown )
 	end
@@ -151,10 +155,12 @@ function modifier_morphling_morph_str_shift:OnIntervalThink()
 			local bonusHP = caster:GetMaxHealth() - casterMaxHealth
 			caster:SetHealth( math.max( 1, casterHealth + bonusHP ) )
 		end
-		for i = 0, caster:GetAbilityCount() - 1 do
-			local abilityToCD = caster:GetAbilityByIndex( i )
-			if abilityToCD and abilityToCD:GetCooldownTimeRemaining() > 0 then
-				abilityToCD:ModifyCooldown(-self.cooldown_rate)
+		if self.cooldown_rate > 0 then
+			for i = 0, caster:GetAbilityCount() - 1 do
+				local abilityToCD = caster:GetAbilityByIndex( i )
+				if abilityToCD and abilityToCD:GetCooldownTimeRemaining() > 0 then
+					abilityToCD:ModifyCooldown(-self.cooldown_rate)
+				end
 			end
 		end
 		caster:SpendMana(self.mana_cost, ability )

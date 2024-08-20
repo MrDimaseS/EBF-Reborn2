@@ -60,9 +60,9 @@ function modifier_item_radiance_2_passive:DeclareFunctions(params)
 					MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,
 					MODIFIER_PROPERTY_STATS_INTELLECT_BONUS,
 					MODIFIER_PROPERTY_STATS_AGILITY_BONUS,
-					
+					MODIFIER_PROPERTY_HEALTH_BONUS,
+					MODIFIER_PROPERTY_MANA_BONUS,
 					MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
-					MODIFIER_PROPERTY_EVASION_CONSTANT
 				}
     return funcs
 end
@@ -79,12 +79,16 @@ function modifier_item_radiance_2_passive:GetModifierBonusStats_Intellect()
 	return self.bonus_all
 end
 
-function modifier_item_radiance_2_passive:GetModifierPreAttack_BonusDamage()
-	return self.bonus_damage
+function modifier_item_radiance_2_passive:GetModifierHealthBonus()
+	return self.bonus_health
 end
 
-function modifier_item_radiance_2_passive:GetModifierEvasion_Constant()
-	return self.evasion
+function modifier_item_radiance_2_passive:GetModifierManaBonus()
+	return self.bonus_mana
+end
+
+function modifier_item_radiance_2_passive:GetModifierPreAttack_BonusDamage()
+	return self.bonus_damage
 end
 
 function modifier_item_radiance_2_passive:IsAura()
@@ -132,6 +136,8 @@ function modifier_item_zero_passive:OnCreated()
 	self.bonus_all = self:GetSpecialValueFor("bonus_all")
 	self.bonus_damage = self:GetSpecialValueFor("bonus_damage")
 	self.evasion = self:GetSpecialValueFor("evasion")
+	self.bonus_health = self:GetSpecialValueFor("bonus_health")
+	self.bonus_mana = self:GetSpecialValueFor("bonus_mana")
 	
 	self.aura_radius = self:GetSpecialValueFor("aura_radius")
 	self.aura_damage = self:GetSpecialValueFor("aura_damage")

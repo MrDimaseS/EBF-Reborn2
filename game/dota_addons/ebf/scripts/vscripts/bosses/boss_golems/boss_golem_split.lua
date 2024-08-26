@@ -43,7 +43,9 @@ function boss_golem_split:CreateGolem( position )
 	end
 	
 	golem:SetCoreHealth( math.ceil( caster:GetHealth() * splitPct ) )
-	golem:SetBaseMoveSpeed( caster:GetBaseMoveSpeed() * splitPct + 40 )
+	golem:SetBaseMoveSpeed( math.ceil( caster:GetBaseMoveSpeed() * splitPct ) + 40 )
+	golem:SetBaseDamageMax( caster:GetBaseDamageMax() )
+	golem:SetBaseDamageMin( caster:GetBaseDamageMin() )
 	
 	local yeetPosition = position + RandomVector( 50 )
 	if throw then

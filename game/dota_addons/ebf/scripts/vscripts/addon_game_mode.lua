@@ -613,6 +613,7 @@ IGNORE_SPELL_AMP_KV = {
 	["item_bloodthorn_4"] = {["silence_damage_percent"] = true},
 	["item_bloodthorn_5"] = {["silence_damage_percent"] = true},
 	["pangolier_gyroshell"] = {["damage_pct"] = true},
+	["ringmaster_impalement"] = {["bleed_health_pct"] = true},
 }
 
 -- spell_name = spell_amp_reduction (100 for no spell amp)
@@ -816,7 +817,6 @@ function CHoldoutGameMode:OnHeroPick (event)
 			end
 			if facet.KeyValueOverrides then
 				if facet.KeyValueOverrides.AttributePrimary then
-					print( facet.KeyValueOverrides.AttributePrimary, "primary override" )
 					if facet.KeyValueOverrides.AttributePrimary == "DOTA_ATTRIBUTE_STRENGTH" then
 						hero:SetPrimaryAttribute(DOTA_ATTRIBUTE_STRENGTH)
 					elseif facet.KeyValueOverrides.AttributePrimary == "DOTA_ATTRIBUTE_AGILITY" then
@@ -827,7 +827,6 @@ function CHoldoutGameMode:OnHeroPick (event)
 						hero:SetPrimaryAttribute(DOTA_ATTRIBUTE_ALL)
 					end
 				end
-				print( facet.KeyValueOverrides.AttackCapabilities )
 				if facet.KeyValueOverrides.AttackCapabilities then
 					if facet.KeyValueOverrides.AttackCapabilities == "DOTA_UNIT_CAP_MELEE_ATTACK" then
 						hero:SetAttackCapability( DOTA_UNIT_CAP_MELEE_ATTACK )

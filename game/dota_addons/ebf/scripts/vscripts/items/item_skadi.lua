@@ -75,6 +75,10 @@ function modifier_item_skadi_passive:IsHidden()
 	return true
 end
 
+function modifier_item_skadi_passive:IsPurgable()
+	return false
+end
+
 modifier_item_skadi_debuff = class({})
 LinkLuaModifier( "modifier_item_skadi_debuff", "items/item_skadi.lua" ,LUA_MODIFIER_MOTION_NONE )
 

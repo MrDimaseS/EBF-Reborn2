@@ -38,6 +38,7 @@ function modifier_boss_ursine_fury_swipes_handle:GetModifierProcAttack_BonusDama
 	local damage = self.damage_per_stack * stacks
 	if stacks > 0 and stacks % self.stun_stack_count == 0 then
 		ability:Stun( params.target, self.stun_duration )
+		self.stun_stack_count = self.stun_stack_count + 1
 	end
 	local modifier = params.target:AddNewModifier( params.attacker, self:GetAbility(), "modifier_boss_ursine_fury_swipes", {duration = self.bonus_reset_time} )
 	if caster:HasModifier("modifier_boss_ursine_fury_swipes_talent") then

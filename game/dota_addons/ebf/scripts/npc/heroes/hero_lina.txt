@@ -1,5 +1,47 @@
 "DOTAAbilities"
 {	
+	//=================================================================================================================
+	// Ability: Lina Combustion
+	//=================================================================================================================
+	"lina_combustion"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI | DOTA_ABILITY_BEHAVIOR_SKIP_FOR_KEYBINDS | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"MaxLevel"						"7"
+		"DependentOnAbility"			"lina_laguna_blade"
+		"Innate"						"1"
+		"IsBreakable"					"1"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"damage_threshold"
+			{
+				"value"							"1500"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"damage"
+			{
+				"value"							"100 300 500 700 900 1100 1300"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"damage_illusions"
+			{
+				"value"							"100 150 200 250 300 350 400 450"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"damage_aoe"
+			{
+				"value"							"400"
+				"affected_by_aoe_increase"		"1"
+			}
+			"duration"							"6"
+		}
+	}
 	"lina_slow_burn"
 	{
 		// General
@@ -187,9 +229,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
-		"MaxLevel"						"8"
-		"Innate"						"1"
-		"RequiredLevel"					"-1"
+		"MaxLevel"						"7"
 
 		"HasShardUpgrade"				"1"
 		// Special
@@ -198,20 +238,20 @@
 		{
 			"fiery_soul_attack_speed_bonus"	
 			{
-				"value"									"2 4 8 12 16 20 24 28"
-				"special_bonus_unique_lina_2"			"+5"
+				"value"												"4 8 12 16 20 24 28"
+				"special_bonus_unique_lina_2"						"+5"
 			}
 			"fiery_soul_move_speed_bonus"	
 			{
-				"value"									"0.5 1.0 1.5 2 2.5 3 3.5 4"
-				"special_bonus_unique_lina_2"			"+1"
+				"value"												"1.0 1.5 2 2.5 3 3.5 4"
+				"special_bonus_unique_lina_2"						"+1"
 			}
 			"fiery_soul_magic_resist"
 			{
-				"special_bonus_unique_lina_4"			"+2.5"
+				"special_bonus_unique_lina_4"						"+2.5"
 			}
-			"fiery_soul_max_stacks"						"15"
-			"fiery_soul_stack_duration"					"18"		
+			"fiery_soul_max_stacks"									"15"
+			"fiery_soul_stack_duration"								"18"		
 			"bonus_spell_damage"
 			{	
 				"value"												"0"

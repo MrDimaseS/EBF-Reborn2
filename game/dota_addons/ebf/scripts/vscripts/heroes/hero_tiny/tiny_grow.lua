@@ -60,17 +60,12 @@ end
 modifier_tiny_grow_passive = class({})
 function modifier_tiny_grow_passive:OnCreated(table)
 	self.bonus_damage = self:GetSpecialValueFor("bonus_damage")
+	self.bonus_damage_tree = self:GetSpecialValueFor("tree_bonus_damage_pct") / 100
+	self.spell_bonus_damage = 1 + self:GetSpecialValueFor("spell_bonus_damage") / 100
+	self.spell_bonus_range = 1 + self:GetSpecialValueFor("spell_bonus_range") / 100
 	self.bonus_armor = self:GetSpecialValueFor("bonus_armor")
-	self.attack_speed_reduction = self:GetSpecialValueFor("attack_speed_reduction")
-	if self:GetCaster():HasTalent("special_bonus_unique_tiny_grow_1") then
-		self.attack_speed_reduction = 0
-	end
-	self.bonus_attack_range = self:GetSpecialValueFor("bonus_attack_range")
-
-	self.magic_resist = 0
-	if self:GetCaster():HasTalent("special_bonus_unique_tiny_grow_2") then
-		self.magic_resist = self:GetCaster():FindTalentValue("special_bonus_unique_tiny_grow_2")
-	end
+	self.move_speed = self:GetSpecialValueFor("move_speed")
+	self.attack_speed_reduction = self:GetSpecialValueFor("attack_speed_reduction") / 100
 
 	self:StartIntervalThink(0.5)
 end
@@ -115,7 +110,7 @@ end
 function modifier_tiny_grow_passive:GetModifierAttackSpeedBonus_Constant()
 	if self.checkingForAttackSpeed then return end
 	self.checkingForAttackSpeed = true
-	local attackSpeed = (self:GetCaster():GetAttackSpeed() - 1)*100
+	local attackSpeed = (self:GetCaster():GetAttackSpeed(false) - 1)*100
 	self.checkingForAttackSpeed = false
 	return attackSpeed * self.attack_speed_reduction
 end

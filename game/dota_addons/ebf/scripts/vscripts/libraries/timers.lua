@@ -205,7 +205,7 @@ function Timers:RemainingTime(name)
   return v.endTime - now
 end
 
-function Timers:CreateTimer(name, args, context)
+function Timers:CreateTimer(name, args, context, backupContext)
   if type(name) == "function" then
     if args ~= nil then
       context = args
@@ -216,7 +216,12 @@ function Timers:CreateTimer(name, args, context)
     args = name
     name = DoUniqueString("timer")
   elseif type(name) == "number" then
-    args = {endTime = name, callback = args}
+	local callback = args
+	local endTime = name
+    args = context or {}
+	args.endTime = endTime
+	args.callback = callback
+	context = backupContext
     name = DoUniqueString("timer")
   end
   if not args.callback then

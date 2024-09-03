@@ -123,7 +123,7 @@ end
 function modifier_mars_arena_of_blood_victory_feast:OnRefresh()
 	self.arena_kill_buff_damage_pct = self:GetAbility():GetSpecialValueFor("arena_kill_buff_damage_pct")
 	if IsServer() then
-		self:AddIndependentStack( self:GetRemainingTime() )
+		self:AddIndependentStack( )
 	end
 end
 

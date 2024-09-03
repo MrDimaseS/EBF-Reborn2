@@ -424,6 +424,8 @@ function table.shuffle( tbl )
 	end
 end
 
+debug.setmetatable(true, {__len = function (value) return value and 1 or 0 end})
+
 function table.copy(t1)
 	if t1 == nil then
 		return t1
@@ -686,12 +688,21 @@ function CDOTA_BaseNPC:SetTauntTarget( entity )
 end
 
 function CDOTABaseAbility:IsInnateAbility()
-	local truefalse = tonumber( self:GetAbilityKeyValues().InnateAbility ) or 0
+	local truefalse = tonumber( self:GetAbilityKeyValues().Innate ) or 0
 	if truefalse == 1 then
 		return true
 	else
 		return false
 	end
+end
+
+function CDOTA_BaseNPC:IsTauntedBy()
+	for _, modifier in ipairs( self:FindAllModifiers() ) do
+		if modifier.GetTauntTarget and modifier:GetTauntTarget() then
+			return modifier:GetTauntTarget()
+		end
+	end
+	return nil
 end
 
 function CDOTA_BaseNPC:IsSlowed()
@@ -1197,48 +1208,40 @@ function CDOTA_Modifier_Lua:StartMotionController()
 	end
 end
 
-function CDOTA_Modifier_Lua:AddIndependentStack(duration, limit, bDontDestroy, tTimerTable)
-	local timerTable = tTimerTable or {}
-	self.stackTimers = self.stackTimers or {}
-	if limit then
-		if  self:GetStackCount() < limit then
-			if timerTable.stacks then
-				self:SetStackCount( math.min( limit, self:GetStackCount() + timerTable.stacks ) )
-			else
-				self:IncrementStackCount()
+function CDOTA_Modifier_Lua:AddIndependentStack(tStackData)
+	local stackData = tStackData or {}
+	if type(tStackData) == "number" then
+		stackData = {duration = tStackData}
+	end
+	self._stackFollowList = self._stackFollowList or {}
+	if self._stackTimerID == nil then
+		self._stackTimerID = Timers:CreateTimer( function(timer)
+			if IsModifierSafe( self ) then
+				if self._stackFollowList[1] and self._stackFollowList[1].expireTime and self._stackFollowList[1].expireTime <= GameRules:GetGameTime() then
+					local stacks = self._stackFollowList[1].stacks
+					table.remove( self._stackFollowList, 1 )
+					self:SetStackCount( self:GetStackCount() - stacks )
+				end
+				return 0
 			end
-		elseif self.stackTimers[1] and #self.stackTimers >= limit then
-			self:SetStackCount( limit )
-			Timers:RemoveTimer(self.stackTimers[1].ID)
-			table.remove(self.stackTimers, 1)
-		end
-	else
-		if timerTable.stacks then
-			self:SetStackCount( self:GetStackCount() + timerTable.stacks )
-		else
-			self:IncrementStackCount()
+		end)
+	end
+	local followData = {expireTime = GameRules:GetGameTime() + math.min( stackData.duration or self:GetRemainingTime(), self:GetRemainingTime() ), stacks = stackData.stacks or 1 }
+	table.insert( self._stackFollowList, followData )
+	
+	local stacks = self:GetStackCount() + followData.stacks
+	if stackData.limit then
+		while stackData.limit < stacks do
+			local stackDiff = stacks - stackData.limit
+			local valForStack = self._stackFollowList[1].stacks
+			self._stackFollowList[1].stacks = valForStack - stackDiff
+			stacks = stacks - math.min( valForStack, stackDiff )
+			if self._stackFollowList[1].stacks <= 0 then
+				table.remove( self._stackFollowList, 1 )
+			end
 		end
 	end
-	local dontDestroy = bDontDestroy
-	if bDontDestroy == nil then dontDestroy = true end
-	timerTable.ID = Timers:CreateTimer(duration or self:GetRemainingTime(), function(timer)
-		if not self:IsNull() then
-			if timerTable.stacks then	
-				self:SetStackCount( math.max( 0, self:GetStackCount() - timerTable.stacks ) )
-			else
-				self:DecrementStackCount()
-			end
-			for i = #self.stackTimers, 1, -1 do
-				if timer.name == self.stackTimers[i].ID then
-					table.remove(self.stackTimers, pos)
-					break
-				end
-			end
-			if self:GetStackCount() == 0 and self:GetDuration() == -1 and not dontDestroy then self:Destroy() end
-		end
-	end)
-	table.insert(self.stackTimers, timerTable or {})
-	return timerTable
+	self:SetStackCount( stacks )
 end
 
 function CDOTA_Modifier_Lua:StopMotionController(bForceDestroy)
@@ -1381,17 +1384,6 @@ end
 
 function CDOTAGameRules:GetCurrentRound()
 	return GameRules._roundnumber
-end
-
-function CDOTA_BaseNPC:AddNewModifierStacking( caster, ability, modifierName, modifierData)
-	local modifier = self:FindModifierByNameAndAbility( modifierName, ability )
-	if modifier then
-		modifierData.duration = (modifierData.duration or modifierData.Duration or 0) + modifier:GetRemainingTime()
-		modifierData.Duration = nil
-		return self:AddNewModifier( caster, ability, modifierName, modifierData )
-	else
-		return self:AddNewModifier( caster, ability, modifierName, modifierData )
-	end
 end
 
 function CDOTA_BaseNPC:AttemptKill(sourceAb, attacker)
@@ -1608,24 +1600,34 @@ function CDOTA_BaseNPC:AddNewModifier(modifierCaster, modifierAbility, modifierN
 	kv.Duration = nil
 	kv.original_duration = duration
 	kv.duration = duration
-	local modifier = self:oldAddNewModifier( modifierCaster,  modifierAbility, modifierName, kv )
 	
-	if not IsModifierSafe( modifier ) then return end
-	if duration == -1 or kv.ignoreStatusResist then return modifier end
-	if modifier.IsDebuff and not modifier:IsDebuff() then return modifier end -- force as buff
-	if not ( self.GetTeamNumber and modifierCaster.GetTeamNumber ) then return modifier end
-	if not self:IsSameTeam( modifierCaster ) then
-		if self:IsRealHero() then
-			modifier:SetDuration( duration * ( 1-self:GetStatusResistance( ) ), true )
-		else
-			local statusResistance = 1
-			for _, modifier in ipairs( self:FindAllModifiers() ) do
-				if modifier.GetModifierStatusResistanceStacking and modifier:GetModifierStatusResistanceStacking() then
-					statusResistance = statusResistance * (1-modifier:GetModifierStatusResistanceStacking() / 100)
-				end
+	if duration == -1 or kv.ignoreStatusResist then goto final end
+	if self:IsSameTeam( modifierCaster ) then goto final end
+	if self:IsRealHero() then
+		kv.duration = duration * ( 1-self:GetStatusResistance( ) )
+	else
+		local statusResistance = 1
+		for _, modifier in ipairs( self:FindAllModifiers() ) do
+			if modifier.GetModifierStatusResistanceStacking and modifier:GetModifierStatusResistanceStacking() then
+				statusResistance = statusResistance * (1-modifier:GetModifierStatusResistanceStacking() / 100)
 			end
-			modifier:SetDuration( duration * statusResistance, true )
 		end
+		kv.duration = duration * statusResistance
 	end
+	::final::
+	local modifier = self:oldAddNewModifier( modifierCaster,  modifierAbility, modifierName, kv )
+	-- post-fix, status resist was never meant to be applied
+	if modifier and modifier.IsDebuff and not modifier:IsDebuff() then modifier:SetDuration( duration, true ) end 
 	return modifier
+end
+
+function CDOTA_BaseNPC:AddNewModifierStacking( caster, ability, modifierName, modifierData)
+	local modifier = self:FindModifierByNameAndAbility( modifierName, ability )
+	if modifier then
+		modifierData.duration = (modifierData.duration or modifierData.Duration or 0) + modifier:GetRemainingTime()
+		modifierData.Duration = nil
+		return self:AddNewModifier( caster, ability, modifierName, modifierData )
+	else
+		return self:AddNewModifier( caster, ability, modifierName, modifierData )
+	end
 end

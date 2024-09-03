@@ -35,7 +35,7 @@ end
 function modifier_obsidian_destroyer_astral_imprisonment_int_gain:OnRefresh()
 	self.mana_capacity_steal = self:GetAbility():GetSpecialValueFor("mana_capacity_steal")
 	if IsServer() then
-		self:AddIndependentStack( self:GetRemainingTime() )
+		self:AddIndependentStack( )
 		self:GetParent():CalculateGenericBonuses()
 		self:GetParent():GiveMana( self.mana_capacity_steal )
 		if self:GetParent():IsRealHero() then self:GetParent():CalculateStatBonus( true ) end

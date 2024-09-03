@@ -800,18 +800,21 @@ function CHoldoutGameMode:OnHeroPick (event)
 	local facetID = hero:GetHeroFacetID()
 	local facetData
 	for _, facet in pairs(  GameRules.HeroKV[hero:GetUnitName()].Facets ) do
-		if facet.Abilities and tonumber(facet.FacetID or "1") == facetID then
-			for _, abilityData in pairs( facet.Abilities ) do
-				if abilityData.ReplaceAbility then
-					local abilityToReplace = hero:FindAbilityByName( abilityData.ReplaceAbility )
-					local abilityToAdd = hero:FindAbilityByName( abilityData.AbilityName )
-					
-					if IsEntitySafe( abilityToReplace ) and IsEntitySafe( abilityToAdd ) then
-						local abilityToReplaceIndex = abilityToReplace:GetAbilityIndex()
-						local abilityToAddIndex = abilityToAdd:GetAbilityIndex()
+		print( facetID, facet.FacetID, _ )
+		if tonumber(facet.FacetID or "1") == facetID then
+			if facet.Abilities then
+				for _, abilityData in pairs( facet.Abilities ) do
+					if abilityData.ReplaceAbility then
+						local abilityToReplace = hero:FindAbilityByName( abilityData.ReplaceAbility )
+						local abilityToAdd = hero:FindAbilityByName( abilityData.AbilityName )
 						
-						hero:SwapAbilities( abilityData.AbilityName, abilityData.ReplaceAbility, true, false )
-						hero:RemoveAbilityByHandle( abilityToReplace )
+						if IsEntitySafe( abilityToReplace ) and IsEntitySafe( abilityToAdd ) then
+							local abilityToReplaceIndex = abilityToReplace:GetAbilityIndex()
+							local abilityToAddIndex = abilityToAdd:GetAbilityIndex()
+							
+							hero:SwapAbilities( abilityData.AbilityName, abilityData.ReplaceAbility, true, false )
+							hero:RemoveAbilityByHandle( abilityToReplace )
+						end
 					end
 				end
 			end
@@ -833,6 +836,9 @@ function CHoldoutGameMode:OnHeroPick (event)
 					elseif facet.KeyValueOverrides.AttackCapabilities == "DOTA_UNIT_CAP_RANGED_ATTACK" then
 						hero:SetAttackCapability( DOTA_UNIT_CAP_RANGED_ATTACK )
 					end
+				end
+				if facet.KeyValueOverrides.ArmorPhysical then
+					hero:SetPhysicalArmorBaseValue( facet.KeyValueOverrides.ArmorPhysical )
 				end
 			end
 		end

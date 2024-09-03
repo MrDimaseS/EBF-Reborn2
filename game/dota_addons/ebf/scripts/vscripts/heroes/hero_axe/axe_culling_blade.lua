@@ -1,9 +1,4 @@
 axe_culling_blade = class({})
-
-function axe_culling_blade:GetIntrinsicModifierName()
-	return "modifier_axe_culling_blade_permanent_armor"
-end
-
 --------------------------------------------------------------------------------
 -- Ability Start
 function axe_culling_blade:OnSpellStart()
@@ -12,35 +7,32 @@ function axe_culling_blade:OnSpellStart()
 	local target = self:GetCursorTarget()
 	-- load data
 	local damage = self:GetSpecialValueFor("damage")
-	local threshold = self:GetSpecialValueFor("kill_threshold")
-	local radius = self:GetSpecialValueFor("speed_aoe")
-	local duration = self:GetSpecialValueFor("speed_duration")
-	local heroMult = self:GetSpecialValueFor("hero_cd_reduction") / 100
+	local debuff_immune = self:GetSpecialValueFor("debuff_immune") == 1
+	local critical_damage = self:GetSpecialValueFor("critical_damage")
+	local grace_period = self:GetSpecialValueFor("grace_period")
 
 	if target:TriggerSpellAbsorb( self ) then return end
-	-- Check success / not
-	self:DealDamage( caster, target, damage )
-	local success = not target:IsAlive()
-
-	-- effects
-	self:PlayEffects( target, success )
-
-	if success then
-		for _, ally in ipairs( caster:FindFriendlyUnitsInRadius( target:GetAbsOrigin(), radius ) ) do
-			ally:AddNewModifier( caster, self, "modifier_axe_culling_blade_kill", { duration = duration } )
+	if debuff_immune then
+		caster:AddNewModifier( caster, self, "modifier_black_king_bar_immune", {duration = grace_period} )
+	end
+	target:RemoveModifierByName( "modifier_axe_culling_blade_grace_period" )
+	target:AddNewModifier( caster, self, "modifier_axe_culling_blade_grace_period", {duration = grace_period} )
+	if critical_damage > 0 then
+		local trueCrit = critical_damage
+		local hunger = target:FindModifierByName("modifier_axe_battle_hunger_debuff")
+		if hunger then
+			trueCrit = trueCrit + (hunger:GetAbility():GetSpecialValueFor("crit_base")-100) + hunger:GetAbility():GetSpecialValueFor("crit_stack") * hunger:GetStackCount()
 		end
-		
-		local modifier = caster:AddNewModifier( caster, self, "modifier_axe_culling_blade_permanent_armor", {} )
-		if modifier then
-			modifier:IncrementStackCount()
-			if target:IsConsideredHero() then
-				local cooldown = self:GetCooldownTimeRemaining()
-				self:EndCooldown()
-				self:StartCooldown( cooldown * (1-heroMult) )
-			end
-		end
+		local bonusSpellDamage = damage * (1+caster:GetSpellAmplification( false ))
+		damage = caster:GetAverageTrueAttackDamage( target ) * (trueCrit / 100)
+		self:DealDamage( caster, target, damage + bonusSpellDamage, {damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION}, OVERHEAD_ALERT_CRITICAL )
+		caster:PerformAttack(target, true, true, true, true, false, true, true)
 	else
-		target:AddNewModifier( caster, self, "modifier_axe_culling_blade_grace_period", {duration = self:GetSpecialValueFor("grace_period")} )
+		self:DealDamage( caster, target, damage )
+	end
+	
+	if target:IsAlive() then
+		self:PlayEffects( target, false )
 	end
 end
 
@@ -135,77 +127,68 @@ modifier_axe_culling_blade_grace_period = class({})
 LinkLuaModifier( "modifier_axe_culling_blade_grace_period", "heroes/hero_axe/axe_culling_blade", LUA_MODIFIER_MOTION_NONE )
 
 if IsServer() then
+	function modifier_axe_culling_blade_grace_period:OnCreated()
+		self.coat_stacks = self:GetSpecialValueFor("coat_stacks")
+		self.speed_aoe = self:GetSpecialValueFor("speed_aoe")
+		self.speed_duration = self:GetSpecialValueFor("speed_duration")
+		self.grace_period = self:GetSpecialValueFor("grace_period")
+		self.always_grant_allies = self:GetSpecialValueFor("always_grant_allies") == 1
+		self.debuff_immune = self:GetSpecialValueFor("debuff_immune") == 1
+		self.coat = self:GetCaster():FindAbilityByName("axe_coat_of_blood")
+		
+		self:GetCaster():AddNewModifier( self:GetCaster(), self.coat, "modifier_axe_coat_of_blood_buff", {duration = self.grace_period, hero = #self:GetParent():IsConsideredHero(), stacks = self.coat_stacks } )
+		if self.always_grant_allies then
+			for _, ally in ipairs( self:GetCaster():FindFriendlyUnitsInRadius( self:GetParent():GetAbsOrigin(), self.speed_aoe ) ) do
+				ally:AddNewModifier( self:GetCaster(), self.coat, "modifier_axe_coat_of_blood_buff", {duration = self.grace_period, hero = #self:GetParent():IsConsideredHero(), stacks = self.coat_stacks } )
+			end
+		end
+	end
+	
 	function modifier_axe_culling_blade_grace_period:OnDestroy()
 		local caster = self:GetCaster()
 		local parent = self:GetParent()
 		local ability = self:GetAbility()
 		
-		local radius = ability:GetSpecialValueFor("speed_aoe")
-		local duration = ability:GetSpecialValueFor("speed_duration")
-		local heroMult = ability:GetSpecialValueFor("hero_cd_reduction") / 100
 		if not parent:IsAlive() then
 			ability:PlayEffects( parent, true )
-			for _, ally in ipairs( caster:FindFriendlyUnitsInRadius( parent:GetAbsOrigin(), radius ) ) do
-				ally:AddNewModifier( caster, ability, "modifier_axe_culling_blade_kill", { duration = duration } )
+			-- increase all of Axe's Coat of Blood durations
+			local coatOfBlood = caster:FindModifierByName("modifier_axe_coat_of_blood_buff")
+			if not IsModifierSafe( coatOfBlood ) then
+				coatOfBlood = caster:AddNewModifier( caster, self.coat, "modifier_axe_coat_of_blood_buff", {duration = self.grace_period, hero = #parent:IsConsideredHero(), stacks = self.coat_stacks } )
 			end
-			
-			local modifier = caster:AddNewModifier( caster, ability, "modifier_axe_culling_blade_permanent_armor", {} )
-			if modifier then
-				modifier:IncrementStackCount()
-				if parent:IsConsideredHero() then
-					local cooldown = ability:GetCooldownTimeRemaining()
-					ability:EndCooldown()
-					ability:StartCooldown( cooldown * (1-heroMult) )
+			local maxTime = 0
+			if not coatOfBlood then return end
+			for i = 1, #coatOfBlood.heroStacks do
+				coatOfBlood.heroStacks[i] = coatOfBlood.heroStacks[i] + self.speed_duration
+				maxTime = math.max( maxTime, coatOfBlood.heroStacks[i] )
+			end
+			for i = 1, #coatOfBlood.creepStacks do
+				coatOfBlood.creepStacks[i] = coatOfBlood.creepStacks[i] + self.speed_duration
+				maxTime = math.max( maxTime, coatOfBlood.creepStacks[i] )
+			end
+			local newDuration = maxTime - GameRules:GetGameTime()
+			coatOfBlood:SetDuration( newDuration, true )
+			for _, ally in ipairs( caster:FindFriendlyUnitsInRadius( parent:GetAbsOrigin(), self.speed_aoe ) ) do
+				if ally ~= caster then
+					local allyCoat = ally:AddNewModifier( caster, self.coat, "modifier_axe_coat_of_blood_buff", {duration = newDuration} )
+					allyCoat.heroStacks = {}
+					allyCoat.creepStacks = {}
+					for i, expire in ipairs( coatOfBlood.heroStacks ) do
+						table.insert( allyCoat.heroStacks, expire )
+					end
+					for i, expire in ipairs( coatOfBlood.creepStacks ) do
+						table.insert( allyCoat.creepStacks, expire )
+					end
+					allyCoat:ForceRefresh()
 				end
 			end
+			
+			if debuff_immune then
+				caster:AddNewModifierStacking( caster, self, "modifier_black_king_bar_immune", {duration = self.speed_duration} )
+			end
+			
+			ability:Refresh()
+			caster:SetRage( caster:GetMaxRage() )
 		end
 	end
-end
-
-modifier_axe_culling_blade_permanent_armor = class({})
-LinkLuaModifier( "modifier_axe_culling_blade_permanent_armor", "heroes/hero_axe/axe_culling_blade", LUA_MODIFIER_MOTION_NONE )
---------------------------------------------------------------------------------
--- Classifications
-function modifier_axe_culling_blade_permanent_armor:IsHidden()
-	return self:GetStackCount() <= 0
-end
-
-function modifier_axe_culling_blade_permanent_armor:IsDebuff()
-	return false
-end
-
-function modifier_axe_culling_blade_permanent_armor:IsPurgable()
-	return false
-end
-
-function modifier_axe_culling_blade_permanent_armor:IsPermanent()
-	return true
-end
-
-function modifier_axe_culling_blade_permanent_armor:RemoveOnDeath()
-	return false
-end
-
---------------------------------------------------------------------------------
--- Initializations
-function modifier_axe_culling_blade_permanent_armor:OnCreated( kv )
-	self:OnRefresh()
-end
-
-function modifier_axe_culling_blade_permanent_armor:OnRefresh( kv )
-	self.armor = self:GetAbility():GetSpecialValueFor( "armor_per_stack" )
-end
-
---------------------------------------------------------------------------------
--- Modifier Effects
-function modifier_axe_culling_blade_permanent_armor:DeclareFunctions()
-	local funcs = {
-		MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
-	}
-
-	return funcs
-end
-
-function modifier_axe_culling_blade_permanent_armor:GetModifierPhysicalArmorBonus()
-	return self.armor * self:GetStackCount()
 end

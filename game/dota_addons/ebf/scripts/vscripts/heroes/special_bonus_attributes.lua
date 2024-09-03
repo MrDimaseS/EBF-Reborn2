@@ -176,6 +176,7 @@ function modifier_special_bonus_attributes_stat_rescaling:OnCreated()
 	self:GetParent()._critModifiersList = {}
 	self:GetParent()._chanceModifiersList = {}
 	self.baseArmor = self:GetParent():GetPhysicalArmorBaseValue() + ( self:GetParent():GetAgility() / 6 - 0.065 * self:GetParent():GetAgility() )
+	
 	self:GetParent()._baseArmorForIllusions = self.baseArmor
 	if self:GetParent():IsIllusion() then
 		self.baseArmor = self:GetCaster()._baseArmorForIllusions or (self:GetParent():GetPhysicalArmorBaseValue() + math.min( 0.065 * self:GetParent():GetAgility(), 0.9*self:GetParent():GetAgility()^(math.log(2)/math.log(5)) ))

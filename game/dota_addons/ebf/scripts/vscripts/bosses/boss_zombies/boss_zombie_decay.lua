@@ -43,7 +43,7 @@ if IsServer() then
 	
 	function modifier_boss_zombie_decay_str:OnRefresh()
 		self.str = -self:GetSpecialValueFor("str_steal")
-		self:AddIndependentStack( self:GetRemainingTime() )
+		self:AddIndependentStack( )
 		self:GetParent():CalculateStatBonus( true )
 	end
 end

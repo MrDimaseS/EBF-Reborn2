@@ -54,7 +54,7 @@ function modifier_tinker_rearm_debuff:OnRefresh()
 	self.duration_debuff = self:GetSpecialValueFor("duration_debuff")
 	self.debuff_max = self:GetSpecialValueFor("debuff_max")
 	if IsServer() then
-		self:AddIndependentStack( self:GetRemainingTime(), self.debuff_max )
+		self:AddIndependentStack( {limit = self.debuff_max} )
 	end
 end
 

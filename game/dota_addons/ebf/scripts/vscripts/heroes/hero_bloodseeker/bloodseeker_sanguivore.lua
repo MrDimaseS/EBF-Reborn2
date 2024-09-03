@@ -34,7 +34,7 @@ function modifier_bloodseeker_sanguivore_buff:OnTakeDamage( params )
 		end
 		
 		local regeneration = caster:AddNewModifier( caster, self:GetAbility(), "modifier_bloodseeker_sanguivore_regeneration", {duration = self.heal_duration} )
-		regeneration:AddIndependentStack( self.heal_duration, nil, nil, {stacks = math.floor( stacks )} )
+		regeneration:AddIndependentStack( { duration = self.heal_duration, stacks = math.floor( stacks ) } )
 	end
 end
 

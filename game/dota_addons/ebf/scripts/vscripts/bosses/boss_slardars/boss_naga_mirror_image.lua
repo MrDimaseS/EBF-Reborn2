@@ -53,7 +53,7 @@ function modifier_boss_naga_mirror_image:OnDestroy()
 		
 		unit.hasBeenProcessed = true
 		
-		unit:AddNewModifier(self, nil, "modifier_kill", {duration = self.illusion_duration})
+		unit:AddNewModifier(caster, nil, "modifier_kill", {duration = self.illusion_duration})
 	end
 	ResolveNPCPositions( caster:GetAbsOrigin(), 350 )
 end

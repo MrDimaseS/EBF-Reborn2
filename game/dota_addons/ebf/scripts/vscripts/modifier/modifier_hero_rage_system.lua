@@ -1,7 +1,7 @@
 modifier_hero_rage_system = class({})
 
 function modifier_hero_rage_system:OnCreated()
-	self:GetParent()._baseMaxRage = 100
+	self:GetParent()._baseMaxRage = self:GetParent():GetMaxMana()
 	self:GetParent()._currentRage = 0
 	self.lastTimeInCombat = 0
 	if IsServer() then
@@ -10,6 +10,7 @@ function modifier_hero_rage_system:OnCreated()
 		self:GetParent().GetRage = function( self ) return self._currentRage end
 		self:GetParent().GetMaxRage = function( self ) return self._baseMaxRage end
 		self:GetParent().ModifyRage = function( self, val) self._currentRage = math.max(0,math.min( self:GetMaxRage(), self._currentRage + val )) end
+		self:GetParent().SetRage = function( self, val) self._currentRage = val end
 	end
 end
 

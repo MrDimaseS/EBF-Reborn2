@@ -126,7 +126,7 @@ function modifier_item_eternal_shroud_passive:OnTakeDamage(params)
 			self.damage_taken = self.damage_taken + params.damage
 		end
 		if self.damage_taken >= params.unit:GetHealth() * self.stack_threshold then
-			self:AddIndependentStack(self.stack_duration, self.max_stacks)
+			self:AddIndependentStack( {duration = self.stack_duration, limit = self.max_stacks} )
 			self.damage_taken = 0
 		end
 	end

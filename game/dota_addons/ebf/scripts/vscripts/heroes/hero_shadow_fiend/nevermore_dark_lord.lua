@@ -68,7 +68,7 @@ function modifier_nevermore_dark_lord_passive_aura:OnRefresh()
 	self.outgoing_damage_reduction = self:GetSpecialValueFor("outgoing_damage_reduction")
 	self.outgoing_damage_stack = self:GetSpecialValueFor("outgoing_damage_stack")
 
-	self.hero_stack_multiplier = self:GetSpecialValueFor("hero_stack_multiplier")
+	-- self.hero_stack_multiplier = self:GetSpecialValueFor("hero_stack_multiplier")
 	self.requiem_multiplier = self:GetSpecialValueFor("requiem_multiplier")
 	
 	if IsServer() then
@@ -81,7 +81,7 @@ function modifier_nevermore_dark_lord_passive_aura:OnDestroy()
 			local buff_duration = self:GetSpecialValueFor("buff_duration")
 			local stacks = 1
 			if self:GetParent():IsConsideredHero() then
-				stacks = stacks * self:GetSpecialValueFor("hero_stack_multiplier")
+				-- stacks = stacks * self:GetSpecialValueFor("hero_stack_multiplier")
 				buff_duration = buff_duration * self:GetSpecialValueFor("hero_buff_multiplier")
 			end
 			

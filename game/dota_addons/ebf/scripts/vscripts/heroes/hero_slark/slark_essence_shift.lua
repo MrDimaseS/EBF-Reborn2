@@ -99,7 +99,7 @@ end
 function modifier_slark_essence_shift_agi_buff:OnRefresh(params)
 	self.agi = self:GetSpecialValueFor("agi_gain")
 	if IsServer() then
-		self:AddIndependentStack( self:GetRemainingTime(), nil, nil, {stacks = params.stacks or 1} )
+		self:AddIndependentStack( {stacks = params.stacks or 1} )
 	end
 end
 

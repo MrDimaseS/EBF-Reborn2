@@ -1,5 +1,56 @@
 "DOTAAbilities"
-{	
+{
+	"axe_coat_of_blood"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_axe/axe_coat_of_blood"
+		"AbilityTextureName"			"axe_coat_of_blood"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI"
+		"MaxLevel"						"7"
+		"Innate"						"1"
+		"DependentOnAbility"			"axe_culling_blade"
+
+		"AbilityValues"
+		{
+			"armor_per_kill"						""
+			"culling_blade_multiplier"				""
+			"armor_per_hero"
+			{
+				"value"								"0.6"
+				"special_bonus_facet_axe_jofurr"	"+0.4"
+			}
+			"armor_per_creep"
+			{
+				"value"								"0.25"
+				"special_bonus_facet_axe_jofurr"	"+0.15"
+			}
+			"atk_bonus_per_hero"
+			{
+				"special_bonus_facet_axe_berserker"	"1"
+			}
+			"atk_bonus_per_creep"
+			{
+				"special_bonus_facet_axe_berserker"	"0.4"
+			}
+			"spell_amp_per_hero"
+			{
+				"special_bonus_facet_axe_skald"		"2"
+			}
+			"spell_amp_per_creep"
+			{
+				"special_bonus_facet_axe_skald"		"0.8"
+			}
+			"duration"								"2 2.2 2.4 2.6 3.0 3.2 3.4"
+			"multiplier_during_berserkers_call"
+			{
+				"value"								"1"
+				"special_bonus_facet_axe_jofurr"	"+1"
+			}
+		}
+	
+	}
 	//=================================================================================================================
 	// Ability: Axe Berserker's Call
 	//=================================================================================================================
@@ -18,7 +69,7 @@
 		
 		"MaxLevel"						"7"
 
-		"HasShardUpgrade"				"1"
+		"HasShardUpgrade"				"0"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -40,33 +91,27 @@
 		{
 			"radius"
 			{
-				"value"								"300"
-				"special_bonus_unique_axe_2"		"+100"
+				"value"								"600"
+				"special_bonus_facet_axe_berserker"	"=0"
 				"affected_by_aoe_increase"			"1"
 			}
 			"bonus_armor"	
 			{
-				"value"								"14 16 18 20 22 24 26"
-				"special_bonus_facet_axe_call_out"	"+5"
-				"special_bonus_unique_axe_7"		"+12"
+				"value"								"10"
+				"special_bonus_unique_axe_7"		"+5"
 			}
-			"duration"								"4.0"
-			"AbilityCooldown"
+			"duration"								"6.0"
+			"AbilityCooldown"						"17 16 15 14 13 12 11"
+			
+			"AbilityManaCost"	
 			{
-				"value"								"12"
-				"special_bonus_scepter" 			"-4.0"
+				"value"								"35"
+				"special_bonus_facet_axe_jofurr"	"=-35"
 			}
-			"AbilityManaCost"						"35"
-			"applies_battle_hunger"
-			{
-				"special_bonus_shard"				"+1"
-			}
-			"bonus_attack_speed"
-			{
-				"value"								"0"
-				"special_bonus_facet_axe_call_out"	"45"
-
-			}
+			"bonus_attack_speed"					{"special_bonus_facet_axe_berserker"	"40 65 90 115 140 165 190"}
+			"taunts"								{"special_bonus_facet_axe_jofurr"		"1"}
+			"allies_benefit"						{"special_bonus_facet_axe_skald"		"1"}
+			"battle_hunger_freeze_duration"			{"special_bonus_facet_axe_skald"		"1"}
 		}
 	}
 	
@@ -77,18 +122,21 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_axe/axe_battle_hunger"
+		"AbilityTextureName"			"axe_battle_hunger"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PURE"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Axe.Battle_Hunger"
 		
 		"MaxLevel"						"7"
-		"HasShardUpgrade"               "1"
-
+		"HasScepterUpgrade" 			"0"
+		"HasShardUpgrade"               "0"
 		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -96,32 +144,29 @@
 		"AbilityCastGestureSlot"		"DEFAULT"
 		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
 
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------	
-		
 		// Cast Range
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"700 735 775 815 850 885 925"
+		"AbilityCastRange"				"700 775 850 925 1000 1075 1150"
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityModifierSupportValue"	"0.1"	// Primarily about the damage
-
-		"HasScepterUpgrade" 			"1"
+		
+		"precache"
+		{
+			"particle"								"particles/units/heroes/hero_axe/axe_battle_hunger_stacks.vpcf"
+		}
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"AbilityCooldown"						"1.5"
+			"AbilityCooldown"						"4.5 4.0 3.5 3.0 2.5 2.0 1.5"
 			"AbilityManaCost"						"15"
 			"duration"								"16.0"
 			"slow"
 			{
-				"value"								"-11 -19 -27 -35 -43 -51 -59"
+				"value"								"-35"
 				"special_bonus_unique_axe_6"		"-10"
 			}
 			"damage_per_second"	
@@ -129,21 +174,18 @@
 				"value"								"150 200 250 300 350 400 450"
 				"CalculateSpellDamageTooltip"		"1"
 			}
-			"armor_multiplier"			
+			"armor_multiplier"						""
+			"lifesteal_base"						{"special_bonus_facet_axe_jofurr"		"5"}
+			"lifesteal_stack"						{"special_bonus_facet_axe_jofurr"		"1"}
+			"crit_chance"
 			{
-				"value"								"10"
-				"special_bonus_unique_axe"			"x2"
+				"special_bonus_facet_axe_berserker"	"30"
+				"affected_by_chance_increase"		"1"
 			}
-			"speed_bonus"
-			{
-				"value"								"0"
-				"special_bonus_unique_axe_8"		"+10"
-			}
-			"should_stack"
-			{
-				"special_bonus_shard"				"1"
-			}
-		}		
+			"crit_base"								{"special_bonus_facet_axe_berserker"	"140"}
+			"crit_stack"							{"special_bonus_facet_axe_berserker"	"5"}
+			"armor_stack"							{"special_bonus_facet_axe_skald"		"-1"}
+		}
 	}
 	
 	//=================================================================================================================
@@ -157,15 +199,13 @@
 		"ScriptFile"					"heroes/hero_axe/axe_counter_helix"
 		"AbilityTextureName"			"axe_counter_helix"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PURE"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"AbilitySound"					"Hero_Axe.CounterHelix"
 		
 		"MaxLevel"						"7"
 
-        "HasScepterUpgrade"               "1"
-
-		
+        "HasScepterUpgrade"				"0"
 	
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -187,28 +227,15 @@
 			
 			"AbilityCooldown"
 			{
-				"value"							"0.3"
-				"special_bonus_scepter"			"-0.3"
+				"value"								"0.3"
+				"special_bonus_facet_axe_jofurr"	"=0"
 			}
-			"debuff_duration"
-			{
-				"special_bonus_scepter"			"+6.0"
-				"RequiresScepter"				"1"
-			}
-			"damage_reduction"
-			{
-				"special_bonus_scepter"			"+9"
-				"RequiresScepter"				"1"
-			}	
-			"max_stacks"
-			{
-				"special_bonus_scepter"			"+10"	
-				"RequiresScepter"				"1"
-			}
-			"attacks_increase_counter"
-			{
-				"special_bonus_scepter"			"3"
-			}
+			"reduction_duration"					{"special_bonus_facet_axe_jofurr"		"+6.0"}
+			"atk_dmg_reduction"						{"special_bonus_facet_axe_jofurr"		"+3"}	
+			"max_red_stacks"						{"special_bonus_facet_axe_jofurr"		"+20"}
+			"attacks_increase_counter"				{"special_bonus_facet_axe_berserker"	"1"}
+			"applies_attack"						{"special_bonus_facet_axe_berserker"	"1"}
+			"seconds_per_stack"						{"special_bonus_facet_axe_skald"		"0.2"}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -245,7 +272,6 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"70"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -259,32 +285,46 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"speed_bonus"							""
+			"armor_bonus"							""
+			
+			"AbilityCooldown"					
+			{	
+				"value"								"70"
+				"special_bonus_facet_axe_skald"		"-40"
+			}
 			"damage"					
 			{	
-				"value"							"2750 3750 4750 5750 6750 7750"
-				"special_bonus_unique_axe_5"	"+30%"
-				"CalculateSpellDamageTooltip"	"1"
+				"value"								"2750 3750 4750 5750 6750 7750"
+				"special_bonus_unique_axe_5"		"+30%"
+				"CalculateSpellDamageTooltip"		"1"
 			}
-			"speed_bonus"						"100 150 200 250 300 350"
-			"armor_bonus"						"10 15 20 25 30 35"
+			"coat_stacks"					
+			{	
+				"value"								"10 15 20 25 30 35"
+				"special_bonus_facet_axe_jofurr"	"=25 =35 =45 =55 =65 =75"
+			}
+			"critical_damage"						{"special_bonus_facet_axe_berserker"	"175 200 225 250 275 300"}
+			"grace_period"			
+			{
+				"value"								"3"
+				"special_bonus_unique_axe_culling_blade_speed_duration"		"+4"
+			}
 			"speed_duration"			
 			{
-				"value"					"6"
+				"value"								"3"
 				"special_bonus_unique_axe_culling_blade_speed_duration"		"+4"
+				"special_bonus_facet_axe_skald"		"+3"
 			}
 			"speed_aoe"						
 			{
-				"value"						"900"
-				"affected_by_aoe_increase"	"1"
+				"value"								"900"
+				"affected_by_aoe_increase"			"1"
 			}
-			"charge_speed"						"1200"
-			"armor_per_stack"			
-			{
-				"value"							"1 1.2 1.4 1.6 1.8 2"
-				"special_bonus_unique_axe_3"	"+1"
-			}
-			"hero_cd_reduction"					"50"
-			"grace_period"						"4.0"
+			"debuff_immune"							{"special_bonus_facet_axe_jofurr"		"1"}
+			"magic_resistance"						{"special_bonus_facet_axe_jofurr"		"50"}
+			"always_grant_allies"					{"special_bonus_facet_axe_skald"		"1"}
+			"charge_speed"							"1200"
 		}
 	}
 }

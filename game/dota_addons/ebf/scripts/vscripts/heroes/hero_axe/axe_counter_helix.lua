@@ -15,17 +15,35 @@ function axe_counter_helix:Counterhelix()
 	local radius = self:GetSpecialValueFor("radius")
 	local applies_attack = self:GetSpecialValueFor("applies_attack") == 1
 	
-	for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), radius ) ) do
-		self:DealDamage( caster, enemy, damage )
-		if applies_attack and enemy:IsAlive() then
-			caster:PerformGenericAttack(enemy, true, true, nil, nil, true )
-		end
-	end
-	
 	ParticleManager:CreateParticle( "particles/units/heroes/hero_axe/axe_counterhelix.vpcf", PATTACH_ABSORIGIN_FOLLOW, caster )
 	EmitSoundOn( "Hero_Axe.CounterHelix", caster )
 	caster:StartGesture( ACT_DOTA_CAST_ABILITY_3 )
 	self:SetCooldown()
+	
+	caster:AddNewModifier( caster, self, "modifier_axe_counter_helix_attack_proc", {} )
+	for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), radius ) ) do
+		if applies_attack then
+			caster:PerformGenericAttack(enemy, true, true, nil, nil, true )
+		else
+			self:DealDamage( caster, enemy, damage )
+		end
+	end
+	caster:RemoveModifierByName( "modifier_axe_counter_helix_attack_proc" )
+end
+
+modifier_axe_counter_helix_attack_proc = class({})
+LinkLuaModifier( "modifier_axe_counter_helix_attack_proc", "heroes/hero_axe/axe_counter_helix", LUA_MODIFIER_MOTION_NONE )
+
+function modifier_axe_counter_helix_attack_proc:DeclareFunctions()
+	return {MODIFIER_PROPERTY_PROCATTACK_BONUS_DAMAGE_PURE}
+end
+
+function modifier_axe_counter_helix_attack_proc:GetModifierProcAttack_BonusDamage_Pure( params )
+	return self:GetSpecialValueFor("damage") * ( 1+self:GetCaster():GetSpellAmplification( false ) )
+end
+
+function modifier_axe_counter_helix_attack_proc:IsHidden()
+	return true
 end
 
 modifier_axe_counter_helix_passive = class({})
@@ -58,8 +76,8 @@ function modifier_axe_counter_helix_passive:OnIntervalThink()
 	end
 	if self:GetStackCount() >= self.trigger_attacks 
 	and self:GetParent():FindRandomEnemyInRadius(self:GetParent():GetAbsOrigin(), self.radius) then
+		self:SetStackCount(0)
 		self:GetAbility():Counterhelix()
-		self:SetStackCount(self:GetStackCount() - self.trigger_attacks)
 	end
 end
 
@@ -106,6 +124,7 @@ function modifier_axe_counter_helix_passive:OnAttackLanded( params )
 		if self:GetCaster():PassivesDisabled() then return end
 		if not self:GetAbility():IsCooldownReady() then return end
 		if params.attacker:IsOther() or params.attacker:IsBuilding() then return end
+		if not (params.attacker == self:GetCaster() or params.target == self:GetCaster()) then return end
 		local caster = self:GetCaster()
 		
 		if params.attacker ~= self:GetCaster() 
@@ -116,7 +135,7 @@ function modifier_axe_counter_helix_passive:OnAttackLanded( params )
 		end
 		
 		if self:GetStackCount() >= self.trigger_attacks then
-			self:SetStackCount(self:GetStackCount() - self.trigger_attacks)
+			self:SetStackCount(0)
 			self:GetAbility():Counterhelix()
 		end
 	end

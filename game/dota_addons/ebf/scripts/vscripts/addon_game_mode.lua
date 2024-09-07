@@ -1481,6 +1481,9 @@ function CHoldoutGameMode:OnThink()
 
 					-- end
 					if self._nRoundNumber > #self._vRounds then
+						print("All rounds completed. NG+ disabled, proceeding to end game.")
+						
+						--[[
 						if not self._NewGamePlus and not GameRules.forceEndTime then
 							self:NewGamePlus_StartVote()
 							for _, hero in ipairs( HeroList:GetRealHeroes() ) do
@@ -1497,6 +1500,28 @@ function CHoldoutGameMode:OnThink()
 							GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
 							GameRules._finish = true
 						end
+						]]
+					
+						print("Registering final stats for heroes and players.")
+						for _, hero in ipairs(HeroList:GetRealHeroes()) do
+							if hero:GetPlayerOwner() then
+								self:RegisterStatsForHero(hero, true)
+								print("Registered stats for hero: " .. hero:GetName())
+							end
+							local playerID = hero:GetPlayerID()
+							local won = true
+							self:RegisterStatsForPlayer(playerID, won)
+							print("Registered stats for player ID: " .. playerID)
+						end
+						self:RegisterStatsForRound("won")
+						print("Registered stats for final round.")
+						
+						print("Setting victory message and declaring winner.")
+						GameRules:SetCustomVictoryMessage("Congratulations!")
+						GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+						GameRules._finish = true
+						print("Game finished. Winner declared.")
+					
 					else
 						self._flPrepTimeEnd = GameRules:GetGameTime() + self._flPrepTimeBetweenRounds
 						

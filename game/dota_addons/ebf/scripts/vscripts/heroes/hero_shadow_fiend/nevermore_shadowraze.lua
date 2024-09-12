@@ -19,7 +19,7 @@ function nevermore_shadowraze:OnSpellStart()
             unit:AddNewModifier(caster, self, "modifier_nevermore_shadowraze_armor_reduction", { duration = duration })
             caster:PerformGenericAttack(unit, true, false, damage)
             -- deal some damage so that necromastery knows we razed
-            self:DealDamage(caster, unit, 10)
+            self:DealDamage(caster, unit, 1)
         else
             if self:GetSpecialValueFor("attack_speed_reduction") ~= 0 then
                 unit:AddNewModifier(caster, self, "modifier_nevermore_shadowraze_slow", { duration = duration })
@@ -56,7 +56,7 @@ end
 function modifier_nevermore_shadowraze_stack:OnRefresh()
 	self.stack_bonus_damage = self:GetSpecialValueFor("stack_bonus_damage")
 	if IsServer() then
-		self:IncrementStackCount()
+		self:AddIndependentStack()
 	end
 end
 
@@ -97,12 +97,15 @@ function modifier_nevermore_shadowraze_slow:OnCreated()
 end
 function modifier_nevermore_shadowraze_slow:OnRefresh()
     self.attack_speed_reduction = self:GetSpecialValueFor("attack_speed_reduction")
+	if IsServer() then
+		self:AddIndependentStack()
+	end
 end
 function modifier_nevermore_shadowraze_slow:DeclareFunctions()
     return { MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT }
 end
 function modifier_nevermore_shadowraze_slow:GetModifierAttackSpeedBonus_Constant()
-    return self.attack_speed_reduction
+    return self.attack_speed_reduction * self:GetStackCount()
 end
 function modifier_nevermore_shadowraze_slow:GetEffectName()
     return "particles/units/heroes/hero_nevermore/nevermore_shadowraze_debuff.vpcf"
@@ -122,6 +125,9 @@ function modifier_nevermore_shadowraze_armor_reduction:OnCreated()
 end
 function modifier_nevermore_shadowraze_armor_reduction:OnRefresh()
     self.armor_reduction = self:GetSpecialValueFor("armor_reduction")
+	if IsServer() then
+		self:AddIndependentStack()
+	end
 end
 function modifier_nevermore_shadowraze_armor_reduction:DeclareFunctions()
     return {
@@ -129,7 +135,7 @@ function modifier_nevermore_shadowraze_armor_reduction:DeclareFunctions()
     }
 end
 function modifier_nevermore_shadowraze_armor_reduction:GetModifierPhysicalArmorBonus()
-    return self.armor_reduction
+    return self.armor_reduction * self:GetStackCount()
 end
 function modifier_nevermore_shadowraze_armor_reduction:GetEffectName()
     return "particles/units/heroes/hero_nevermore/nevermore_shadowraze_debuff.vpcf"

@@ -60,7 +60,7 @@ function modifier_hero_rage_system:OnTakeDamage( params )
 			amt = amt * TernaryOperator( 1, params.unit:IsConsideredHero(), 0.15 )
 			amt = amt * TernaryOperator( 0.2, params.inflictor, 1 )
 		else
-			amt = amt * 1.5
+			amt = amt * 1
 		end
 		self:GetParent():ModifyRage( amt )
 		self.lastTimeInCombat = GameRules:GetGameTime()

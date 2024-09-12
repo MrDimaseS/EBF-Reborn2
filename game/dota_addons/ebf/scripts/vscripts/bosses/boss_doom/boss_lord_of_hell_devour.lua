@@ -21,28 +21,28 @@ function boss_lord_of_hell_devour:OnSpellStart()
 	local target = self:GetCursorTarget()
 	
 	caster:AddNewModifier( caster, self, "modifier_boss_lord_of_hell_devour_eating", {duration = self:GetSpecialValueFor("duration")} )
-	for i = 0, target:GetAbilityCount() - 1 do
-		local ability = target:GetAbilityByIndex( i )
-        if ability and ability:IsPassive() and not ability:IsAttributeBonus() and ability:GetAbilityName() ~= "neutral_upgrade" then
-			if not caster:HasAbility( ability:GetAbilityName() ) then
-				local addedAbility = caster:AddAbility( ability:GetAbilityName() )
-				if addedAbility then
-					addedAbility:SetLevel( self:GetLevel() )
-				end
-				break
-			end
-        end
-    end
+	-- for i = 0, target:GetAbilityCount() - 1 do
+		-- local ability = target:GetAbilityByIndex( i )
+        -- if ability and ability:IsPassive() and not ability:IsAttributeBonus() and ability:GetAbilityName() ~= "neutral_upgrade" then
+			-- if not caster:HasAbility( ability:GetAbilityName() ) then
+				-- local addedAbility = caster:AddAbility( ability:GetAbilityName() )
+				-- if addedAbility then
+					-- addedAbility:SetLevel( self:GetLevel() )
+				-- end
+				-- break
+			-- end
+        -- end
+    -- end
 	
 	local damage
 	if target:IsConsideredHero() then
-		damage = self:DealDamage( caster, target, self:GetSpecialValueFor("hero_damage"), {damage_type = DAMAGE_TYPE_PURE} )
+		damage = self:DealDamage( caster, target, target:GetHealth() * self:GetSpecialValueFor("hero_damage") / 100, {damage_type = DAMAGE_TYPE_PURE} )
 	else
 		damage = target:GetMaxHealth()
 		target:AttemptKill(self, caster)
 	end
 	if damage > 0 then
-		caster:HealEvent( damage * self:GetSpecialValueFor("instant_heal") / 100, self, caster )
+		caster:HealEvent( math.min( caster:GetMaxHealth() * 0.2, damage * self:GetSpecialValueFor("instant_heal") / 100 ), self, caster )
 	end
 end
 

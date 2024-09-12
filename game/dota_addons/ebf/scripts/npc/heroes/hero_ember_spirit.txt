@@ -1,5 +1,43 @@
 "DOTAAbilities"
-{	
+{
+	//=================================================================================================================
+	// Ember Spirit: Smolder
+	//=================================================================================================================
+	"ember_spirit_immolation"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"AbilitySound"					"Hero_EmberSpirit.FlameGuard.Cast"
+		"DependentOnAbility"			"ember_spirit_fire_remnant"
+
+		"MaxLevel"						"7"
+		"Innate"						"1"
+		"HasShardUpgrade"				"1"
+		"IsBreakable"					"1"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"radius"						
+			{
+				"value"							"175"
+				"special_bonus_shard"			"+175"
+				"affected_by_aoe_increase"		"1"
+			}
+			"tick_interval"						"0.2"
+			"damage"				
+			{
+				"value"							"100 180 260 340 420 500 580"
+				"special_bonus_shard"			"+100"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
 	//=================================================================================================================
 	// Ember Spirit: Searing Chains
 	//=================================================================================================================
@@ -140,9 +178,7 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"AbilitySound"					"Hero_EmberSpirit.FlameGuard.Cast"
-		"MaxLevel"						"8"
-		"RequiredLevel"					"-1"
-		"Innate"						"1"
+		"MaxLevel"						"7"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -164,33 +200,21 @@
 			"duration"									"18"
 			"linger_duration"							"0.5"
 			"tick_interval"								"0.2"
-			"passive_radius"						
-			{
-				"value"									"150"
-				"affected_by_aoe_increase"				"1"
-			}
-			"active_radius"			
+			"radius"			
 			{
 				"value"									"500"
 				"affected_by_aoe_increase"				"1"
 			}
-			"passive_damage_per_second"				
-			{
-				"value"									"100 150 200 250 300 350 400 450"	
-				"special_bonus_unique_ember_spirit_3"	"+100%"
-				"CalculateSpellDamageTooltip"			"1"
-			}
-			"active_damage_per_second"
+			"damage_per_second"
 			{
 				"value"									"150 250 350 450 550 650 750"
 				"special_bonus_unique_ember_spirit_3"	"+100%"
 				"CalculateSpellDamageTooltip"			"1"
 			}
-			"blind_pct"									"50"
 			"shield_pct_absorb"							"70"
 			"absorb_amount"					
 			{
-				"value"									"300 600 1350 2100 2850 3550 4250 4950"
+				"value"									"600 1350 2100 2850 3550 4250 4950"
 				"special_bonus_unique_ember_spirit_1"	"+100%"
 				"DamageTypeTooltip"						"DAMAGE_TYPE_MAGICAL"
 				"CalculateSpellHealTooltip"				"1"

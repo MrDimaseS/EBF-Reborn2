@@ -188,7 +188,9 @@ if IsServer() then
 			end
 			
 			ability:Refresh()
-			caster:SetRage( caster:GetMaxRage() )
+			if parent:IsConsideredHero() then
+				caster:SetRage( caster:GetMaxRage() )
+			end
 		end
 	end
 end

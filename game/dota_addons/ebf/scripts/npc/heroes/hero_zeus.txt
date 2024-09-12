@@ -1,6 +1,62 @@
 "DOTAAbilities"
 {	
 	//=================================================================================================================
+	// Zuus: Static Field
+	//=================================================================================================================
+	"zuus_static_field"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_zeus/zuus_static_field"
+		"AbilityTextureName"			"zuus_static_field"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES | DOTA_ABILITY_BEHAVIOR_INNATE_UI"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"	
+		"AbilitySound"					"Hero_Zuus.StaticField"
+		"MaxLevel"						"7"
+		"Innate"						"1"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"damage_health_pct"						""
+			"damage_health_pct_max_close"			""
+			"damage_health_pct_min_close"			""
+			"damage_threshold_max"					""
+			"damage_threshold_min"					""
+			"distance_threshold_max"				""
+			"distance_threshold_min"				""
+			
+			"bonus_damage_spell"
+			{
+				"value"												"400 800 1200 1600 2000 2400 2800"
+				"CalculateSpellDamageTooltip"						"1"
+				"DamageTypeTooltip"									"DAMAGE_TYPE_MAGICAL"
+			}
+			"bonus_damage_attack"
+			{
+				"value"												"175 350 525 700 875 1050 1225"
+				"CalculateSpellDamageTooltip"						"1"
+				"DamageTypeTooltip"									"DAMAGE_TYPE_MAGICAL"
+				"special_bonus_facet_zuus_epithet_of_brontaios"		"=400 =800 =1200 =1600 =2000 =2400 =2800"
+			}
+			"creep_multiplier"
+			{
+				"value"												"1"
+				"special_bonus_facet_zuus_divine_rampage"			"=3"
+			}
+			"damage_to_barrier"
+			{
+				"special_bonus_facet_zuus_livewire"					"=30"
+				"CalculateSpellDamageTooltip"						"0"
+			}
+			"barrier_creep_penalty"									{"special_bonus_facet_zuus_livewire"					"=20"}
+			"barrier_maximum"										{"special_bonus_facet_zuus_livewire"					"=50"}
+		}
+	}
+	//=================================================================================================================
 	// Zuus: Arc Lightning
 	//=================================================================================================================
 	"zuus_arc_lightning"
@@ -226,64 +282,6 @@
 		}
 	}
 	//=================================================================================================================
-	// Zuus: Static Field
-	//=================================================================================================================
-	"zuus_static_field"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"ability_lua"
-		"ScriptFile"					"heroes/hero_zeus/zuus_static_field"
-		"AbilityTextureName"			"zuus_static_field"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES | DOTA_ABILITY_BEHAVIOR_INNATE_UI"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
-		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"	
-		"AbilitySound"					"Hero_Zuus.StaticField"
-		"MaxLevel"						"7"
-		"Innate"						"1"
-
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			"damage_health_pct"						""
-			"damage_health_pct_max_close"			""
-			"damage_health_pct_min_close"			""
-			"damage_threshold_max"					""
-			"damage_threshold_min"					""
-			"distance_threshold_max"				""
-			"distance_threshold_min"				""
-			
-			"bonus_damage_spell"
-			{
-				"value"												"500 1000 1500 2000 2500 3000 3500"
-				"CalculateSpellDamageTooltip"						"1"
-				"DamageTypeTooltip"									"DAMAGE_TYPE_MAGICAL"
-			}
-			"bonus_damage_attack"
-			{
-				"value"												"250 500 750 1000 1250 1500 1750"
-				"CalculateSpellDamageTooltip"						"1"
-				"DamageTypeTooltip"									"DAMAGE_TYPE_MAGICAL"
-				"special_bonus_facet_zuus_epithet_of_brontaios"		"=500 =1000 =1500 =2000 =2500 =3000 =3500"
-			}
-			"creep_multiplier"
-			{
-				"value"												"1"
-				"special_bonus_facet_zuus_divine_rampage"			"=3"
-			}
-			"damage_to_barrier"
-			{
-				"special_bonus_facet_zuus_livewire"					"=25 =30 =35 =40 =45 =50 =55"
-				"CalculateSpellDamageTooltip"						"0"
-			}
-			"barrier_creep_penalty"
-			{
-				"special_bonus_facet_zuus_livewire"					"=40"
-			}
-		}
-	}
-	//=================================================================================================================
 	// Zuus: Thundergod's Wrath
 	//=================================================================================================================
 	"zuus_thundergods_wrath"
@@ -335,6 +333,7 @@
 			"grow_kill_amp"						{ "special_bonus_facet_zuus_divine_rampage"	"15" }
 			"grow_kill_amp_hero"				{ "special_bonus_facet_zuus_divine_rampage"	"50" }
 			"buff_duration"						{ "special_bonus_facet_zuus_epithet_of_brontaios"	"20" }
+			"barrier_duration"					{ "special_bonus_facet_zuus_livewire"	"12" }
 			"bonus_damage_creep"
 			{ 
 				"special_bonus_facet_zuus_epithet_of_brontaios"	"100 150 200 250 300 350" 

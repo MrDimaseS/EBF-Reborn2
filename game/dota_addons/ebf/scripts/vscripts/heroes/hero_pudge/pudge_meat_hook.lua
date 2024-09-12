@@ -403,7 +403,7 @@ function modifier_pudge_meat_hook_movement:UpdateHorizontalMotion( me, dt )
 		-- self:GetAbility():DealDamage( self:GetCaster(), me, self.speed * dt * self.distance_to_damage )
 	-- end
 	-- check caster still in cast position
-	if (self.caster:GetOrigin()-self.origin):Length2D() > self.threshold then
+	if CalculateDistance(me, self.origin) > self.threshold then
 		-- set effects
 		ParticleManager:SetParticleControlEnt(
 			self.data.effect_cast,
@@ -415,6 +415,9 @@ function modifier_pudge_meat_hook_movement:UpdateHorizontalMotion( me, dt )
 			true -- unknown, true
 		)
 		ParticleManager:SetParticleControl( self.data.effect_cast, 0, self.origin )
+	else
+		self.interrupted = true
+		self:Destroy()
 	end
 end
 

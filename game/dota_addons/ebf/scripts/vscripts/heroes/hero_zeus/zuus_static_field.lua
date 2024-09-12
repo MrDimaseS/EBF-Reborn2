@@ -22,7 +22,8 @@ function modifier_zuus_static_field_passive:OnRefresh()
 	self.bonus_damage_attack = self:GetSpecialValueFor("bonus_damage_attack")
 	self.creep_multiplier = self:GetSpecialValueFor("creep_multiplier")
 	self.damage_to_barrier = self:GetSpecialValueFor("damage_to_barrier") / 100
-	self.barrier_creep_penalty = 1 - self:GetSpecialValueFor("barrier_creep_penalty") / 100
+	self.barrier_maximum = self:GetSpecialValueFor("barrier_maximum") / 100
+	self.barrier_creep_penalty = self:GetSpecialValueFor("barrier_creep_penalty") / 100
 
 	if IsServer() then
 		self.barrier = 0
@@ -58,9 +59,9 @@ function modifier_zuus_static_field_passive:OnTakeDamage(params)
 	if self.damage_to_barrier > 0 then
 		local addedBarrier = damageDealt * self.damage_to_barrier
 		if not params.unit:IsConsideredHero() then
-			addedBarrier = addedBarrier * self.damage_to_barrier
+			addedBarrier = addedBarrier * self.barrier_creep_penalty
 		end
-		self.barrier = self.barrier + addedBarrier
+		self.barrier = math.min( self.barrier + addedBarrier, params.attacker:GetMaxHealth() * self.barrier_maximum )
 		
 		self:SendBuffRefreshToClients()
 	end

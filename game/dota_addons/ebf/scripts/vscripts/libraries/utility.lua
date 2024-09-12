@@ -1211,7 +1211,7 @@ end
 function CDOTA_Modifier_Lua:AddIndependentStack(tStackData)
 	local stackData = tStackData or {}
 	if type(tStackData) == "number" then
-		stackData = {duration = tStackData}
+		stackData = {duration = tStackData or self:GetRemainingTime() }
 	end
 	self._stackFollowList = self._stackFollowList or {}
 	if self._stackTimerID == nil then

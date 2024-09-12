@@ -117,10 +117,6 @@ function nevermore_requiem:OnProjectileHitHandle(target, location, projectile)
 		end
 
 		local damage = self:GetSpecialValueFor("damage")
-		local raze_debuff = target:FindModifierByName("modifier_nevermore_shadowraze_stack")
-		if raze_debuff then
-			damage = damage * (1 + raze_debuff:OnTooltip() / 100)
-		end
 		if self.projectiles[projectile].returning then
 			damage = damage * (self:GetSpecialValueFor("return_damage_percent") / 100)
 		end

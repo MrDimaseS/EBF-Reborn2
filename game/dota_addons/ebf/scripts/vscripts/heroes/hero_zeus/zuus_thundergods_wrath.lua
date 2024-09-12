@@ -53,13 +53,14 @@ function zuus_thundergods_wrath:OnSpellStart()
 	
 	
 	local damage_to_barrier = self:GetSpecialValueFor("damage_to_barrier")
+	local barrier_duration = self:GetSpecialValueFor("barrier_duration")
 	if damage_to_barrier > 0 then
 		local allies = caster:FindFriendlyUnitsInRadius( caster:GetAbsOrigin(), -1 )
 		for _, ally in ipairs( allies ) do
 			ParticleManager:FireRopeParticle("particles/units/heroes/hero_zuus/zuus_thundergods_wrath.vpcf", PATTACH_POINT, caster, ally:GetAbsOrigin(), {[0]=ally:GetAbsOrigin()+Vector(0,0,1000)})
 			EmitSoundOn( "Hero_Zuus.GodsWrath.Target", ally )
 			
-			ally:AddNewModifier( caster, self, "modifier_zuus_thundergods_wrath_areios", {} )
+			ally:AddNewModifier( caster, self, "modifier_zuus_thundergods_wrath_areios", {duration = barrier_duration} )
 		end
 	end
 end

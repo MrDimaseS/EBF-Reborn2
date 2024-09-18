@@ -129,20 +129,6 @@ function CDOTABaseAbility:CreateDummy(position, duration)
 	return dummy
 end
 
-function CDOTA_BaseNPC_Hero:CreateSummon(unitName, position, duration)
-	local summon = CreateUnitByName(unitName, position, true, self:GetPlayerOwner(), self:GetPlayerOwner(), self:GetTeam())
-	summon:SetControllableByPlayer(self:GetPlayerID(), false)
-	self.summonTable = self.summonTable or {}
-	table.insert(self.summonTable, summon)
-	-- summon:SetOwner(self)
-	if duration and duration > 0 then
-		summon:AddNewModifier(self, nil, "modifier_kill", {duration = duration})
-	end
-	
-	summon:StartGesture( ACT_DOTA_SPAWN )
-	return summon
-end
-
 function CDOTA_BaseNPC_Hero:CreateSummonAsync(unitName, position, duration, asyncFunc)
 	CreateUnitByNameAsync( unitName, position, true, nil, nil, self:GetTeam(),
 	function(entUnit)
@@ -158,12 +144,9 @@ function CDOTA_BaseNPC_Hero:CreateSummonAsync(unitName, position, duration, asyn
 	end)
 end
 
-function CDOTA_BaseNPC_Hero:CreateSummon(unitName, position, duration)
+function CDOTA_BaseNPC:CreateSummon(unitName, position, duration)
 	local summon = CreateUnitByName(unitName, position, true, self, nil, self:GetTeam())
-	summon:SetControllableByPlayer(self:GetPlayerID(), true)
-	self.summonTable = self.summonTable or {}
-	table.insert(self.summonTable, summon)
-	summon:SetOwner(self)
+	
 	if duration and duration > 0 then
 		summon:AddNewModifier(self, nil, "modifier_kill", {duration = duration})
 	end
@@ -172,9 +155,12 @@ function CDOTA_BaseNPC_Hero:CreateSummon(unitName, position, duration)
 	return summon
 end
 
-function CDOTA_BaseNPC:CreateSummon(unitName, position, duration)
+function CDOTA_BaseNPC_Hero:CreateSummon(unitName, position, duration)
 	local summon = CreateUnitByName(unitName, position, true, self, nil, self:GetTeam())
-	
+	summon:SetControllableByPlayer(self:GetPlayerID(), true)
+	self.summonTable = self.summonTable or {}
+	table.insert(self.summonTable, summon)
+	summon:SetOwner(self)
 	if duration and duration > 0 then
 		summon:AddNewModifier(self, nil, "modifier_kill", {duration = duration})
 	end
@@ -424,24 +410,17 @@ function table.shuffle( tbl )
 	end
 end
 
+-- # operator returns numeric on bool
 debug.setmetatable(true, {__len = function (value) return value and 1 or 0 end})
 
-function table.copy(t1)
-	if t1 == nil then
-		return t1
-	end
-	if type(t1) == 'table' then
-		local copy = {}
-		for k,v in pairs(t1) do
-			local kCopy = table.copy(k)
-			local vCopy = table.copy(v)
-			copy[kCopy] = vCopy
-		end
-		return copy
-	else
-		local copy = t1
-		return copy
-	end
+function table.copy(obj, seen)
+  if type(obj) ~= 'table' then return obj end
+  if seen and seen[obj] then return seen[obj] end
+  local s = seen or {}
+  local res = setmetatable({}, getmetatable(obj))
+  s[obj] = res
+  for k, v in pairs(obj) do res[table.copy(k, s)] = table.copy(v, s) end
+  return res
 end
 
 function CDOTA_BaseNPC:HasTalent(talentName)

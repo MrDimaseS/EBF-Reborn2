@@ -152,7 +152,7 @@ function CHoldoutGameMode:InitGameMode()
 	if IsInToolsMode() or GameRules:IsCheatMode() then
 		GameRules:SetPreGameTime( 99999 )
 		GameRules:SetHeroSelectionTime( 99999 )
-	GameRules:SetStrategyTime( 99999 )
+		GameRules:SetStrategyTime( 99999 )
 	end
 	
 	-- defining lifes
@@ -1518,7 +1518,7 @@ function CHoldoutGameMode:OnThink()
 						
 						print("Setting victory message and declaring winner.")
 						GameRules:SetCustomVictoryMessage("Congratulations!")
-						GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+						Timers:CreateTimer( 0.5, function() GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS) end )
 						GameRules._finish = true
 						print("Game finished. Winner declared.")
 					

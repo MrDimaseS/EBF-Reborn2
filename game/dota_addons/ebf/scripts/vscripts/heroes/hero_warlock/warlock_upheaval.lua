@@ -141,7 +141,7 @@ function modifier_warlock_upheaval_effect:OnIntervalThink()
 end
 
 function modifier_warlock_upheaval_effect:OnDestroy()
-	if IsServer() then
+	if IsServer() and self:GetParent():IsSameTeam(self:GetCaster()) then
 		self:GetCaster():SpawnImp( self:GetParent():GetAbsOrigin() + RandomVector( 300 ) )
 	end
 end

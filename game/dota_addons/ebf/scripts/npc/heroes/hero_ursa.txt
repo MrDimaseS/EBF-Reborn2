@@ -1,6 +1,28 @@
 "DOTAAbilities"
 {	
 	//=================================================================================================================
+	// Ability: Might of Ulfsaar (Innate)
+	//=================================================================================================================
+	"ursa_maul"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"MaxLevel"						"7"
+		"DependentOnAbility"			"ursa_enrage"				
+		"Innate"						"1"
+		"IsBreakable"					"1"
+
+		"AbilityValues"
+		{
+			"health_as_damage_pct"	
+			{
+				"value"					"5 5.5 6 6.5 7 7.5 8"
+			}
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+	//=================================================================================================================
 	// Ursa: Earthshock
 	//=================================================================================================================
 	"ursa_earthshock"
@@ -140,7 +162,7 @@
 			"bonus_reset_time_roshan"			"10"
 			"damage_per_stack"				
 			{
-				"value"							"13 21 29 37 45 53 61"
+				"value"							"65 105 145 185 225 265 305"
 				"special_bonus_unique_ursa"		"+30%"
 				"CalculateSpellDamageTooltip"	"0"
 				"CalculateAttackDamageTooltip"	"1"

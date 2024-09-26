@@ -4,6 +4,25 @@ function warlock_rain_of_chaos:ShouldUseResources()
 	return true
 end
 
+function warlock_rain_of_chaos:OnOwnerDied()
+	local golem_on_death = self:GetSpecialValueFor("golem_on_death") == 1
+	local become_golem = self:GetSpecialValueFor("become_golem") == 1
+	local golem_duration = self:GetSpecialValueFor("golem_duration")
+	if golem_on_death and not become_golem then
+		self:SpawnGolem( caster:GetAbsOrigin(), golem_duration )
+	end
+end
+
+function warlock_rain_of_chaos:OnOwnerSpawned()
+	local golem_on_death = self:GetSpecialValueFor("golem_on_death") == 1
+	local become_golem = self:GetSpecialValueFor("become_golem") == 1
+	if golem_on_death and become_golem then
+		caster:AddNewModifier( caster, self, "modifier_warlock_rain_of_chaos_golem_form", {duration = golem_duration} )
+		caster:AddNewModifier( caster, self, "modifier_warlock_rain_of_chaos_immolating_presence", {duration = golem_duration} )
+		ParticleManager:FireParticle( "particles/units/heroes/hero_warlock/warlock_rain_of_chaos_start.vpcf", PATTACH_WORLDORIGIN, nil, {[0] = caster:GetAbsOrigin()} )
+	end
+end
+
 function warlock_rain_of_chaos:OnSpellStart()
 	local caster = self:GetCaster()
 	local position = self:GetCursorPosition()

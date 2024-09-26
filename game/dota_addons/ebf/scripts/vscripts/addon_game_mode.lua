@@ -1518,9 +1518,10 @@ function CHoldoutGameMode:OnThink()
 						
 						print("Setting victory message and declaring winner.")
 						GameRules:SetCustomVictoryMessage("Congratulations!")
-						Timers:CreateTimer( 0.5, function() GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS) end )
-						GameRules._finish = true
-						print("Game finished. Winner declared.")
+						Timers:CreateTimer( 5, function() GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS) 
+							GameRules._finish = true
+							print("Game finished. Winner declared.")
+						end )
 					
 					else
 						self._flPrepTimeEnd = GameRules:GetGameTime() + self._flPrepTimeBetweenRounds
@@ -1644,7 +1645,7 @@ function CHoldoutGameMode:RegisterStatsForPlayer( playerID, bWon, bAbandon )
 	
 	local packageLocation = SERVER_LOCATION..AUTH_KEY.."/players/"..tostring(PlayerResource:GetSteamID(playerID))..'.json'
 	local getRequestPlayer = CreateHTTPRequestScriptVM( "GET", packageLocation)
-
+	print( "abandon?", bAbandon, SERVER_LOCATION )
 	if bAbandon then -- an abandon was registered
 		for nPlayerID = 0, DOTA_MAX_TEAM_PLAYERS-1 do
 			if PlayerResource:IsValidPlayerID( nPlayerID ) then
@@ -1663,6 +1664,7 @@ function CHoldoutGameMode:RegisterStatsForPlayer( playerID, bWon, bAbandon )
 	end
 	
 	local mmrTable = CustomNetTables:GetTableValue("mmr", tostring( playerID ) )
+	print("buh", getRequestPlayer)
 	getRequestPlayer:Send( function( result )
 		local putData = {}
 		local wins = 0
@@ -1670,6 +1672,8 @@ function CHoldoutGameMode:RegisterStatsForPlayer( playerID, bWon, bAbandon )
 		putData.plays = 1
 		
 		local decoded = {}
+		print("-------- send --------")
+		PrintAll( result )
 		if tostring(result.Body) ~= 'null' then
 			decoded = json.decode(result.Body)
 		end
@@ -1704,6 +1708,8 @@ function CHoldoutGameMode:RegisterStatsForPlayer( playerID, bWon, bAbandon )
 		local putRequest = CreateHTTPRequestScriptVM( "PUT", packageLocation)
 		putRequest:SetHTTPRequestRawPostBody("application/json", encoded)
 		putRequest:Send( function( result )
+			print( "----------- gottem ----------" )
+			PrintAll( result )
 			CustomNetTables:SetTableValue("mmr", tostring( playerID ), mmrTable)
 		end )
 	end )

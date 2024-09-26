@@ -16,14 +16,14 @@ function warlock_fatal_bonds:OnSpellStart()
 		if count > 0 and enemy ~= target then
 			self._currentRedirectTableForCopy[enemy] = true
 			count = count - 1
-		else
+		elseif count == 0 then
 			break
 		end
 	end
 	
 	if binds_to_imps then
 		local impsCounted = 0
-		for _, imp in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), -1 ) ) do
+		for _, imp in ipairs( caster:FindFriendlyUnitsInRadius( caster:GetAbsOrigin(), -1 ) ) do
 			if imp:GetUnitName() == "npc_dota_warlock_minor_imp" then
 				self._currentRedirectTableForCopy[imp] = true
 				impsCounted = impsCounted + 1
@@ -62,7 +62,7 @@ function modifier_warlock_fatal_bonds_handler:OnRefresh()
 end
 
 function modifier_warlock_fatal_bonds_handler:OnDestroy()
-	if IsServer() and not self:GetParent():IsSameTeam( self:GetParent() ) then
+	if IsServer() and not self:GetCaster():IsSameTeam( self:GetParent() ) then
 		self:GetCaster():SpawnImp( self:GetParent():GetAbsOrigin() + RandomVector( 300 ) )
 	end
 end

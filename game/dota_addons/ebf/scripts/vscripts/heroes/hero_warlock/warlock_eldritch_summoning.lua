@@ -49,20 +49,20 @@ function modifier_warlock_eldritch_summoning_imp:OnDestroy()
 		local damage = self:GetSpecialValueFor("explosion_dmg")
 		local slowDuration = self:GetSpecialValueFor("explosion_slow_duration")
 		
-		if self.cdr_on_death > 0 then
-			for i = 0, self:GetAbilityCount() - 1 do
-				local ability = self:GetAbilityByIndex( i )
+		if self.cdr_on_death < 0 then
+			for i = 0, self:GetCaster():GetAbilityCount() - 1 do
+				local ability = self:GetCaster():GetAbilityByIndex( i )
 				if IsEntitySafe( ability ) then
 					ability:ModifyCooldown( self.cdr_on_death )
 				end
 			end
 			for i=DOTA_ITEM_SLOT_1, DOTA_ITEM_SLOT_9 do
-				local current_item = self:GetItemInSlot(i)
+				local current_item = self:GetCaster():GetItemInSlot(i)
 				if IsEntitySafe( current_item ) then
 					current_item:ModifyCooldown( self.cdr_on_death )
 				end
 			end
-			local neutralItem =	self:GetItemInSlot(DOTA_ITEM_NEUTRAL_SLOT)  
+			local neutralItem =	self:GetCaster():GetItemInSlot(DOTA_ITEM_NEUTRAL_SLOT)  
 			if IsEntitySafe( neutralItem ) then
 				neutralItem:ModifyCooldown( self.cdr_on_death )
 			end
@@ -97,6 +97,10 @@ end
 
 function modifier_warlock_eldritch_summoning_imp:IsHidden()
 	return true
+end
+
+function modifier_warlock_eldritch_summoning_imp:IsPurgable()
+	return false
 end
 
 LinkLuaModifier("modifier_warlock_eldritch_summoning_tome_pact_slow", "heroes/hero_warlock/warlock_eldritch_summoning", LUA_MODIFIER_MOTION_NONE)

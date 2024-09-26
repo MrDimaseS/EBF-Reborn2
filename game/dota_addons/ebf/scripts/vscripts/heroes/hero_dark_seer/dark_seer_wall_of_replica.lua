@@ -69,7 +69,7 @@ function modifier_dark_seer_wall_of_replica_thinker:OnDestroy()
 	for id, illusion in ipairs( self.illusions ) do
 		illusion:SetUnitCanRespawn( false )
 		illusion:ForceKill( false )
-		illusion:RemoveSelf()
+		UTIL_Remove( illusion )
 	end
 end
 

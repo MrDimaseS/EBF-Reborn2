@@ -19,7 +19,7 @@ end
 function hoodwink_scurry:OnSpellStart()
 	local caster = self:GetCaster()
 	
-	local duration = self:GetTalentSpecialValueFor("duration")
+	local duration = self:GetSpecialValueFor("duration")
 	caster:AddNewModifier( caster, self, "modifier_hoodwink_scurry_scurrying", {duration = duration} )
 	
 	ProjectileManager:ProjectileDodge( caster )
@@ -48,9 +48,9 @@ function modifier_hoodwink_hoodwink_scurry_evasion:OnStackCountChanged( stacks )
 end
 
 function modifier_hoodwink_hoodwink_scurry_evasion:OnRefresh()
-	self.evasion = self:GetTalentSpecialValueFor("evasion")
-	self.bonus_tree_evasion = self:GetTalentSpecialValueFor("bonus_tree_evasion")
-	self.radius = self:GetTalentSpecialValueFor("radius")
+	self.evasion = self:GetSpecialValueFor("evasion")
+	self.bonus_tree_evasion = self:GetSpecialValueFor("bonus_tree_evasion")
+	self.radius = self:GetSpecialValueFor("radius")
 end
 
 function modifier_hoodwink_hoodwink_scurry_evasion:OnIntervalThink()
@@ -77,9 +77,9 @@ modifier_hoodwink_scurry_scurrying = class({})
 LinkLuaModifier("modifier_hoodwink_scurry_scurrying", "heroes/hero_hoodwink/hoodwink_scurry", LUA_MODIFIER_MOTION_NONE)
 
 function modifier_hoodwink_scurry_scurrying:OnCreated()
-	self.movespeed = self:GetTalentSpecialValueFor("movement_speed_pct")
-	self.cast_range = self:GetTalentSpecialValueFor("cast_range")
-	self.attack_range = self:GetTalentSpecialValueFor("attack_range")
+	self.movespeed = self:GetSpecialValueFor("movement_speed_pct")
+	self.cast_range = self:GetSpecialValueFor("cast_range")
+	self.attack_range = self:GetSpecialValueFor("attack_range")
 end
 
 function modifier_hoodwink_scurry_scurrying:DeclareFunctions()

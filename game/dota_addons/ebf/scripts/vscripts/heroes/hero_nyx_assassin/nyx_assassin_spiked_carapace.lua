@@ -88,7 +88,7 @@ function modifier_nyx_assassin_spiked_carapace_active:GetModifierIncomingDamage_
 	if not IsServer() or not params.attacker or not params.target or params.original_damage <= 0 then return end
 	
 	local ability = self:GetAbility()
-	local stunDuration = self:GetTalentSpecialValueFor("stun_duration")
+	local stunDuration = self:GetSpecialValueFor("stun_duration")
 	if not params.attacker:IsMagicImmune() and not self.unitsHit[params.attacker] then
 		local damageTaken = params.damage * self.damage_reflect_pct
 		

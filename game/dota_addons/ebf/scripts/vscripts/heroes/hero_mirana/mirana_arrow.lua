@@ -27,16 +27,19 @@ function mirana_arrow:OnSpellStart()
 		local position = RotatePosition(casterPos, QAngle( 0, arrow_angle * math.ceil((i-1)/2) * (-1)^i, 0 ), origin )
 		local direction = CalculateDirection(position, casterPos)
 		local projectile = self:FireLinearProjectile("particles/units/heroes/hero_mirana/mirana_spell_arrow.vpcf", direction*arrow_speed, 9999, arrow_width)
-		self.arrow_projectiles[projectile] = {origin = casterPos, radius = self:GetSpecialValueFor("scepter_radius"), units = {}}
+		self.arrow_projectiles[projectile] = {origin = casterPos, radius = self:GetSpecialValueFor("starstorm_aoe"), units = {}}
 	end
-	if caster:HasScepter() then
+	if self:GetSpecialValueFor("crit_damage") > 0 then
+		caster:AddNewModifier( caster, self, "modifier_mirana_arrow_full_moon", {} )
+	end
+	if self:GetSpecialValueFor("starstorm_aoe") > 0 then
 		self._linkedStarFall = caster:FindAbilityByName("mirana_starfall")
 	end
 end
 
 function mirana_arrow:OnProjectileThinkHandle(projectile)
 	local caster = self:GetCaster()
-	if not (caster:HasScepter() and self.arrow_projectiles[projectile] and self._linkedStarFall) then return end
+	if not (self.arrow_projectiles[projectile] and self._linkedStarFall) then return end
 	local position = ProjectileManager:GetLinearProjectileLocation( projectile )
 	for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( position, self.arrow_projectiles[projectile].radius ) ) do
 		if not self.arrow_projectiles[projectile].units[enemy:entindex()] then
@@ -62,4 +65,25 @@ function mirana_arrow:OnProjectileHitHandle(target, position, projectile)
         EmitSoundOn("Hero_Mirana.ArrowImpact", target)
 		return true
     end
+end
+modifier_mirana_arrow_full_moon = class({})
+LinkLuaModifier("modifier_mirana_arrow_full_moon", "heroes/hero_mirana/mirana_arrow", LUA_MODIFIER_MOTION_NONE)
+
+function modifier_mirana_arrow_full_moon:OnCreated()
+	self:OnRefresh()
+end
+
+function modifier_mirana_arrow_full_moon:OnRefresh()
+	self.crit_damage = self:GetAbility():GetSpecialValueFor("crit_damage")
+end
+
+function modifier_mirana_arrow_full_moon:DeclareFunctions()
+	return {MODIFIER_PROPERTY_PREATTACK_CRITICALSTRIKE }
+end
+
+function modifier_mirana_arrow_full_moon:GetModifierPreAttack_CriticalStrike( params )
+	if params.attacker then
+		self:Destroy()
+	end
+	return self.crit_damage
 end

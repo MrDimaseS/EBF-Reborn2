@@ -2,7 +2,7 @@ slark_shadow_dance = class({})
 
 function slark_shadow_dance:OnSpellStart()
 	local caster = self:GetCaster()
-	caster:AddNewModifier(caster, self, "modifier_slark_shadow_dance_activated", {duration = self:GetTalentSpecialValueFor("duration")})
+	caster:AddNewModifier(caster, self, "modifier_slark_shadow_dance_activated", {duration = self:GetSpecialValueFor("duration")})
 	EmitSoundOn("Hero_Slark.ShadowDance", caster)
 end
 

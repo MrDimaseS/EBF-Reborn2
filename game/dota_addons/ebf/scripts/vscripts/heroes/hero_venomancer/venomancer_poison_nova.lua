@@ -8,10 +8,10 @@ function venomancer_poison_nova:PoisonNova( target )
 	local caster = self:GetCaster()
 	local origin = target or self:GetCaster()
 	
-	local radius = self:GetTalentSpecialValueFor("start_radius")
-	local maxRadius = self:GetTalentSpecialValueFor("radius")
-	local radiusGrowth = self:GetTalentSpecialValueFor("speed") * 0.1
-	local duration = self:GetTalentSpecialValueFor("duration")
+	local radius = self:GetSpecialValueFor("start_radius")
+	local maxRadius = self:GetSpecialValueFor("radius")
+	local radiusGrowth = self:GetSpecialValueFor("speed") * 0.1
+	local duration = self:GetSpecialValueFor("duration")
 
 	local enemies = FindUnitsInRadius(caster:GetTeam(), origin:GetAbsOrigin(), nil, maxRadius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_BASIC + DOTA_UNIT_TARGET_HERO, 0, 0, false)
 	for _,enemy in pairs(enemies) do

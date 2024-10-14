@@ -22,8 +22,6 @@ end
 function modifier_boss_ursine_fury_swipes_handle:OnRefresh()
 	self.damage_per_stack = self:GetSpecialValueFor("damage_per_stack")
 	self.bonus_reset_time = self:GetSpecialValueFor("bonus_reset_time")
-	self.stun_stack_count = self:GetSpecialValueFor("stun_stack_count")
-	self.stun_duration = self:GetSpecialValueFor("stun_duration")
 end
 
 function modifier_boss_ursine_fury_swipes_handle:DeclareFunctions()
@@ -34,19 +32,8 @@ function modifier_boss_ursine_fury_swipes_handle:GetModifierProcAttack_BonusDama
 	local caster = self:GetCaster()
 	local ability = self:GetAbility()
 	if caster:PassivesDisabled() then return nil end
-	local stacks = params.target:GetModifierStackCount( "modifier_boss_ursine_fury_swipes", nil )
-	local damage = self.damage_per_stack * stacks
-	if stacks > 0 and stacks % self.stun_stack_count == 0 then
-		ability:Stun( params.target, self.stun_duration )
-		self.stun_stack_count = self.stun_stack_count + 1
-	end
 	local modifier = params.target:AddNewModifier( params.attacker, self:GetAbility(), "modifier_boss_ursine_fury_swipes", {duration = self.bonus_reset_time} )
-	if caster:HasModifier("modifier_boss_ursine_fury_swipes_talent") then
-		local stacks = caster:FindModifierByName("modifier_boss_ursine_fury_swipes_talent"):GetStackCount()
-		caster:RemoveModifierByName("modifier_boss_ursine_fury_swipes_talent")
-		modifier:SetStackCount( modifier:GetStackCount() + stacks )
-	end
-	return damage
+	return self.damage_per_stack * modifier:GetStackCount()
 end
 
 function modifier_boss_ursine_fury_swipes_handle:IsHidden()
@@ -56,15 +43,25 @@ end
 modifier_boss_ursine_fury_swipes = class({})
 LinkLuaModifier("modifier_boss_ursine_fury_swipes", "bosses/boss_bears/boss_ursine_fury_swipes", LUA_MODIFIER_MOTION_NONE)
 function modifier_boss_ursine_fury_swipes:OnCreated(table)
+	self.stun_counter = self:GetSpecialValueFor("stun_stack_count")
 	self:OnRefresh()
 end
 
 function modifier_boss_ursine_fury_swipes:OnRefresh(table)
 	local caster = self:GetCaster()
+	self.stun_stack_count = self:GetSpecialValueFor("stun_stack_count")
+	self.stun_duration = self:GetSpecialValueFor("stun_duration")
 	self.damage = self:GetSpecialValueFor("damage_per_stack")
 	self.stackLoss = self:GetSpecialValueFor("stack_loss_on_dispel") / 100
 	if IsServer() then
 		self:IncrementStackCount()
+		
+		local ability = self:GetAbility()
+		local stacks = self:GetStackCount()
+		if stacks > 0 and stacks >= self.stun_counter then
+			ability:Stun( self:GetParent(), self.stun_duration )
+			self.stun_counter = self.stun_counter + self.stun_stack_count + 1
+		end
 	end
 end
 

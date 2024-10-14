@@ -15,17 +15,17 @@ if IsServer() then
 		self.endPos = self:GetAbility():GetCursorPosition()
 		self.direction = parent:GetForwardVector()
 		
-		self.distance = self:GetTalentSpecialValueFor("pounce_distance")
-		self.speed = self:GetTalentSpecialValueFor("pounce_speed") * FrameTime()
+		self.distance = self:GetSpecialValueFor("pounce_distance")
+		self.speed = self:GetSpecialValueFor("pounce_speed") * FrameTime()
 		self.initHeight = GetGroundHeight(parent:GetAbsOrigin(), parent)
 		self.height = self.initHeight
 		self.maxHeight = 125
 		
-		self.radius = self:GetTalentSpecialValueFor("pounce_radius")
-		self.damage = self:GetTalentSpecialValueFor("pounce_damage")
-		self.duration = self:GetTalentSpecialValueFor("leash_duration")
+		self.radius = self:GetSpecialValueFor("pounce_radius")
+		self.damage = self:GetSpecialValueFor("pounce_damage")
+		self.duration = self:GetSpecialValueFor("leash_duration")
 		
-		self.essence_stacks = self:GetTalentSpecialValueFor("essence_stacks")
+		self.essence_stacks = self:GetSpecialValueFor("essence_stacks")
 		if self.essence_stacks > 0 then
 			self.essence_shift = parent:FindModifierByName("modifier_slark_essence_shift_handler")
 		end

@@ -8,6 +8,10 @@ function nevermore_necromastery:OnOwnerDied()
 	if modifier then
 		modifier:SetStackCount( math.max( 0, modifier:GetStackCount() * (1 - self:GetSpecialValueFor("percent_souls_lost_on_death") / 100) ) )
 	end
+	local stacks = self:GetCaster():FindModifierByName( "modifier_nevermore_necromastery_bonus_max_stacks" )
+	if stacks then
+		stacks:SetStackCount( math.max( 0, stacks:GetStackCount() * (1 - self:GetSpecialValueFor("percent_souls_lost_on_death") / 100) ) )
+	end
 end
 function nevermore_necromastery:GetIntrinsicModifierName()
 	return "modifier_nevermore_necromastery_passive"
@@ -78,6 +82,7 @@ function modifier_nevermore_necromastery_passive:GetModifierSpellAmplify_Percent
 end
 function modifier_nevermore_necromastery_passive:OnTakeDamage( params )
 	if self:GetCaster():PassivesDisabled() or IsClient() then return end
+	if HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_PROPERTY_FIRE ) then return end
 	local stacksToAdd = 0
 	local kills = 0
 	if params.attacker == self:GetCaster() then

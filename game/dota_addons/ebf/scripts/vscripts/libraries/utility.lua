@@ -1190,7 +1190,7 @@ end
 
 function CDOTA_Modifier_Lua:AddIndependentStack(tStackData)
 	local stackData = tStackData or {}
-	if type(tStackData) == "number" then
+	if not tStackData or type(tStackData) == "number" then
 		stackData = {duration = tStackData or self:GetRemainingTime() }
 	end
 	self._stackFollowList = self._stackFollowList or {}
@@ -1203,10 +1203,12 @@ function CDOTA_Modifier_Lua:AddIndependentStack(tStackData)
 					self:SetStackCount( self:GetStackCount() - stacks )
 				end
 				return 0
+			else
+				self._stackTimerID = nil
 			end
 		end)
 	end
-	local followData = {expireTime = GameRules:GetGameTime() + math.min( stackData.duration or self:GetRemainingTime(), self:GetRemainingTime() ), stacks = stackData.stacks or 1 }
+	local followData = {expireTime = GameRules:GetGameTime() + TernaryOperator( math.min( stackData.duration, self:GetRemainingTime() ), self:GetRemainingTime() > 0, stackData.duration), stacks = stackData.stacks or 1 }
 	table.insert( self._stackFollowList, followData )
 	
 	local stacks = self:GetStackCount() + followData.stacks
@@ -1290,6 +1292,15 @@ function CDOTA_BaseNPC:Blink(position, blinkData)
 	if tData.FX == true or tData.FX == nil then
 		ParticleManager:FireParticle("particles/items_fx/blink_dagger_end.vpcf", PATTACH_ABSORIGIN, self, {[0] = self:GetAbsOrigin()})
 	end
+end
+
+function CDOTA_BaseNPC:GetBaseAttackSpeed()
+	if not self._internalBaseAttackSpeed then
+		local KV = GetUnitKeyValuesByName(self:GetUnitName())
+		self._internalBaseAttackSpeed = KV.BaseAttackSpeed or 100
+	end
+	self._internalBaseAttackSpeedBonus = self._internalBaseAttackSpeedBonus or 0
+	return self._internalBaseAttackSpeedBonus + self._internalBaseAttackSpeed
 end
 
 function CDOTA_BaseNPC:GetStrength()
@@ -1610,4 +1621,8 @@ function CDOTA_BaseNPC:AddNewModifierStacking( caster, ability, modifierName, mo
 	else
 		return self:AddNewModifier( caster, ability, modifierName, modifierData )
 	end
+end
+
+function CDOTABaseAbility:GetAltCastState()
+	return self._getAltCastState or false
 end

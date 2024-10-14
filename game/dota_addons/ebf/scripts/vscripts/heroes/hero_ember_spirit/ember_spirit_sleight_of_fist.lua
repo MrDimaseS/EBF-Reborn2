@@ -9,7 +9,7 @@ function ember_spirit_sleight_of_fist:IsHiddenWhenStolen()
 end
 
 function ember_spirit_sleight_of_fist:GetAOERadius()
-	return self:GetTalentSpecialValueFor("radius")
+	return self:GetSpecialValueFor("radius")
 end
 
 function ember_spirit_sleight_of_fist:OnSpellStart()
@@ -23,10 +23,10 @@ function ember_spirit_sleight_of_fist:OnSpellStart()
 
 	local startPos = caster:GetAbsOrigin()
 
-	local radius = self:GetTalentSpecialValueFor("radius")
-	local jumpRate = self:GetTalentSpecialValueFor("attack_interval") / caster:GetAttackSpeed(false)
-	local minAttacks = self:GetTalentSpecialValueFor("min_attacks")
-	local min_enemies_for_double_sleight = self:GetTalentSpecialValueFor("min_enemies_for_double_sleight")
+	local radius = self:GetSpecialValueFor("radius")
+	local jumpRate = self:GetSpecialValueFor("attack_interval") / caster:GetAttackSpeed(false)
+	local minAttacks = self:GetSpecialValueFor("min_attacks")
+	local min_enemies_for_double_sleight = self:GetSpecialValueFor("min_enemies_for_double_sleight")
 
 	self.hitUnits = {}
 
@@ -40,7 +40,7 @@ function ember_spirit_sleight_of_fist:OnSpellStart()
 	---Remnant Only lasts 10 seconds.-----
 	local enemies = caster:FindEnemyUnitsInRadius(point, radius, {flag = self:GetAbilityTargetFlags(), order = FIND_CLOSEST})
 	if #enemies > 0 then
-		local duration = self:GetTalentSpecialValueFor("duration")
+		local duration = self:GetSpecialValueFor("duration")
 		
 		local modifier = caster:AddNewModifier(caster, self, "modifier_ember_spirit_sleight_of_fist_caster", {Duration = 10})
 		caster:AddNewModifier(caster, self, "modifier_ember_spirit_sleight_of_fist_caster_invulnerability", {Duration = 10})
@@ -164,7 +164,7 @@ function modifier_ember_spirit_sleight_of_fist_bonus_damage:OnCreated()
 end
 
 function modifier_ember_spirit_sleight_of_fist_bonus_damage:OnRefresh(table)
-	self.damage = self:GetTalentSpecialValueFor("bonus_hero_damage")
+	self.damage = self:GetSpecialValueFor("bonus_hero_damage")
 end
 
 function modifier_ember_spirit_sleight_of_fist_bonus_damage:DeclareFunctions()

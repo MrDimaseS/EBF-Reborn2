@@ -4,9 +4,9 @@ function tinker_heat_seeking_missile:OnSpellStart()
 	local caster = self:GetCaster()
 
     local particleName = "particles/units/heroes/hero_tinker/tinker_missile.vpcf"
-    local projectileSpeed = self:GetTalentSpecialValueFor( "speed")
-    local radius = self:GetTalentSpecialValueFor( "radius")
-    local rockets = self:GetTalentSpecialValueFor( "targets")
+    local projectileSpeed = self:GetSpecialValueFor( "speed")
+    local radius = self:GetSpecialValueFor( "radius")
+    local rockets = self:GetSpecialValueFor( "targets")
 	
     local heroType = {}
 	local creepType = {}

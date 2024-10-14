@@ -795,11 +795,12 @@ function CHoldoutGameMode:OnHeroPick (event)
 	hero.damage_taken_ingame = 0
 	hero.damage_healed_ingame = 0
 	
-	hero._heroManaType = GameRules.HeroKV[hero:GetUnitName()].ManaType or "Mana"
+	local heroData = GetUnitKeyValuesByName(hero:GetUnitName())
+	hero._heroManaType = heroData.ManaType or "Mana"
 	
 	local facetID = hero:GetHeroFacetID()
 	local facetData
-	for _, facet in pairs(  GameRules.HeroKV[hero:GetUnitName()].Facets ) do
+	for _, facet in pairs(  heroData.Facets ) do
 		print( facetID, facet.FacetID, _ )
 		if tonumber(facet.FacetID or "1") == facetID then
 			if facet.Abilities then
@@ -1170,21 +1171,13 @@ end
 function CHoldoutGameMode:OnGameRulesStateChange()
 	local nNewState = GameRules:State_Get()
 	if nNewState == DOTA_GAMERULES_STATE_HERO_SELECTION then
-		GameRules.HeroKV = LoadKeyValues("scripts/npc/npc_heroes.txt")
-		-- local customHeroes = LoadKeyValues("scripts/npc/npc_heroes_custom.txt")
-		-- for heroName, heroData in pairs( customHeroes ) do
-			-- local realHeroName = string.gsub(heroName, "ebf", "dota")
-			-- customHeroes[realHeroName] = heroData
-			-- customHeroes[heroName] = nil
-		-- end
-		MergeTables( GameRules.HeroKV, LoadKeyValues("scripts/npc/npc_heroes_custom.txt") )
 		local activeList = LoadKeyValues("scripts/npc/herolist.txt")
 		local durableHeroes = {}
 		local dpsHeroes = {}
 		local supportHeroes = {}
 		for heroName, available in pairs( activeList ) do
 			if tonumber(available) > 0 then
-				local heroData = GameRules.HeroKV[heroName]
+				local heroData = GetUnitKeyValuesByName(heroName)
 				local roles = splitString( heroData.Role, "," )
 				local roleLevel = splitString( heroData.Rolelevels, "," )
 				local roleData = {}

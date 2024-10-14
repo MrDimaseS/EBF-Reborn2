@@ -12,10 +12,10 @@ function modifier_antimage_mana_break_passive:OnCreated()
 end
 
 function modifier_antimage_mana_break_passive:OnRefresh()
-	self.percent_damage_per_burn = self:GetTalentSpecialValueFor("percent_damage_per_burn") / 100
-	self.mana_per_hit = self:GetTalentSpecialValueFor("mana_per_hit")
-	self.illusion_percentage = self:GetTalentSpecialValueFor("illusion_percentage") / 100
-	self.slow_duration = self:GetTalentSpecialValueFor("slow_duration")
+	self.percent_damage_per_burn = self:GetSpecialValueFor("percent_damage_per_burn") / 100
+	self.mana_per_hit = self:GetSpecialValueFor("mana_per_hit")
+	self.illusion_percentage = self:GetSpecialValueFor("illusion_percentage") / 100
+	self.slow_duration = self:GetSpecialValueFor("slow_duration")
 end
 
 function modifier_antimage_mana_break_passive:DeclareFunctions()

@@ -12,10 +12,10 @@ function modifier_spectre_desolate_passive:OnCreated()
 end
 
 function modifier_spectre_desolate_passive:OnRefresh()
-	self.damage = self:GetTalentSpecialValueFor("bonus_damage")
-	self.lonely_multiplier = self:GetTalentSpecialValueFor("lonely_multiplier") / 100
-	self.radius = self:GetTalentSpecialValueFor("radius")
-	self.count_creeps = self:GetTalentSpecialValueFor("count_creeps") == 1
+	self.damage = self:GetSpecialValueFor("bonus_damage")
+	self.lonely_multiplier = self:GetSpecialValueFor("lonely_multiplier") / 100
+	self.radius = self:GetSpecialValueFor("radius")
+	self.count_creeps = self:GetSpecialValueFor("count_creeps") == 1
 end
 
 function modifier_spectre_desolate_passive:DeclareFunctions()

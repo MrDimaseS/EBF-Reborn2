@@ -42,7 +42,7 @@ function VectorTarget:OrderFilter(event)
 	end
 
 	if not ability or not ability.GetBehaviorInt then return true end
-	local behavior = ability:GetBehaviorInt()
+	local behavior = tonumber(tostring(ability:GetBehavior()))
 
 	-- check if the ability exists and if it is Vector targeting
 	if bit.band(behavior, DOTA_ABILITY_BEHAVIOR_VECTOR_TARGETING) ~= 0 then
@@ -63,7 +63,7 @@ function VectorTarget:OrderFilter(event)
 			end
 			direction = Vector(direction.x, direction.y, 0)
 			ability.vectorTargetDirection = direction
-
+			
 			local function OverrideSpellStart(self, position, direction)
 				self:OnVectorCastStart(position, direction)
 			end

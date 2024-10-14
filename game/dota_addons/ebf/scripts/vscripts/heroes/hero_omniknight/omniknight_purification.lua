@@ -1,16 +1,16 @@
 omniknight_purification = class({})
 
 function omniknight_purification:GetAOERadius()
-	return self:GetTalentSpecialValueFor("search_radius")
+	return self:GetSpecialValueFor("search_radius")
 end
 
 function omniknight_purification:OnSpellStart()
 	local caster = self:GetCaster()
 	local target = self:GetCursorTarget()
 	
-	local damage = self:GetTalentSpecialValueFor("damage")
-	local heal = self:GetTalentSpecialValueFor("heal")
-	local radius = self:GetTalentSpecialValueFor("radius")
+	local damage = self:GetSpecialValueFor("damage")
+	local heal = self:GetSpecialValueFor("heal")
+	local radius = self:GetSpecialValueFor("radius")
 	
 	target:HealEvent( heal, self, caster )
 	target:Dispel( caster, true )

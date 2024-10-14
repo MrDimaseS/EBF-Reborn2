@@ -132,8 +132,8 @@ function primal_beast_uproar:OnSpellStart()
 	self:PlayEffects2()
 	
 	if caster:HasScepter() then
-		local waves = self:GetTalentSpecialValueFor("projectile_waves")
-		local projectiles = self:GetTalentSpecialValueFor("projectiles_per_stack") * stack
+		local waves = self:GetSpecialValueFor("projectile_waves")
+		local projectiles = self:GetSpecialValueFor("projectiles_per_stack") * stack
 		local angle = 360 / projectiles
 		local direction = caster:GetLeftVector()
 		local interval = duration / waves
@@ -157,8 +157,8 @@ function primal_beast_uproar:OnProjectileHitHandle( target, position, projectile
 		self:DealDamage( caster, target, self:GetSpecialValueFor("projectile_damage") )
 		target:AddNewModifier( caster, self, "modifier_break", {duration = self:GetSpecialValueFor("projectile_break_duration")} )
 	elseif not self.projectiles[projectile].secondProjectile then -- end of first projectile
-		local waves = self:GetTalentSpecialValueFor("max_split_amount")
-		local angle = self:GetTalentSpecialValueFor("splinter_angle")
+		local waves = self:GetSpecialValueFor("max_split_amount")
+		local angle = self:GetSpecialValueFor("splinter_angle")
 		
 		for i = 1, waves do
 			local localDir = RotateVector2D( self.projectiles[projectile].direction, ToRadians( angle ) * (-1)^i * math.ceil( i / 2 ) )
@@ -173,9 +173,9 @@ end
 function primal_beast_uproar:FireUproarProjectile( direction, position )
 	local caster = self:GetCaster() 
 	
-	local projectileSpeed = self:GetTalentSpecialValueFor("projectile_speed")
-	local projectileWidth = self:GetTalentSpecialValueFor("projectile_width")
-	local projectileDistance = self:GetTalentSpecialValueFor("projectile_distance")
+	local projectileSpeed = self:GetSpecialValueFor("projectile_speed")
+	local projectileWidth = self:GetSpecialValueFor("projectile_width")
+	local projectileDistance = self:GetSpecialValueFor("projectile_distance")
 		
 	self.projectiles = self.projectiles or {}
 	local projectile = self:FireLinearProjectile("", direction * projectileSpeed, projectileDistance, projectileWidth, {origin = position} )

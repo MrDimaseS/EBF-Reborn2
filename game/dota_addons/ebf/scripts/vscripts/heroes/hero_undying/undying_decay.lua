@@ -1,7 +1,7 @@
 undying_decay = class({})
 
 function undying_decay:GetAOERadius()
-	return self:GetTalentSpecialValueFor("radius")
+	return self:GetSpecialValueFor("radius")
 end
 
 function undying_decay:OnSpellStart()
@@ -11,11 +11,11 @@ end
 function undying_decay:Decay( position )
 	local caster = self:GetCaster()
 	
-	local radius = self:GetTalentSpecialValueFor("radius")
-	local damage = self:GetTalentSpecialValueFor("decay_damage")
-	local duration = self:GetTalentSpecialValueFor("decay_duration")
-	local creep_mult = self:GetTalentSpecialValueFor("creep_damage_multiplier")
-	local str = self:GetTalentSpecialValueFor("str_steal")
+	local radius = self:GetSpecialValueFor("radius")
+	local damage = self:GetSpecialValueFor("decay_damage")
+	local duration = self:GetSpecialValueFor("decay_duration")
+	local creep_mult = self:GetSpecialValueFor("creep_damage_multiplier")
+	local str = self:GetSpecialValueFor("str_steal")
 	
 	for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( position, radius) ) do
 		local endDamage = damage

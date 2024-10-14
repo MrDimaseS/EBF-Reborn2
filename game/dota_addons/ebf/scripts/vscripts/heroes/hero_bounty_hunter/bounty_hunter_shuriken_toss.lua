@@ -15,7 +15,7 @@ function bounty_hunter_shuriken_toss:OnSpellStart()
 	EmitSoundOn("Hero_BountyHunter.Shuriken", caster)
 
 	self.projectiles = self.projectiles or {}
-	local projectile = self:TossShuriken(target, self:GetTalentSpecialValueFor("damage"), caster, self.shadow_walk)
+	local projectile = self:TossShuriken(target, self:GetSpecialValueFor("damage"), caster, self.shadow_walk)
 	self.projectiles[projectile] = {}
 end
 
@@ -49,7 +49,7 @@ function bounty_hunter_shuriken_toss:OnProjectileHitHandle( target, position, pr
 		end
 		target:AddNewModifier( caster, self, "modifier_bounty_hunter_shuriken_toss_maim", {duration = self:GetSpecialValueFor("slow_duration")})
 		
-		local radius = self:GetTalentSpecialValueFor("bounce_aoe")
+		local radius = self:GetSpecialValueFor("bounce_aoe")
 		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( target:GetAbsOrigin(), radius, {flag = DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES} ) ) do
 			if not self.projectiles[projectile][enemy:entindex()] and enemy:HasModifier("modifier_bounty_hunter_track") then
 				local newProj = self:TossShuriken(enemy, damage, target)

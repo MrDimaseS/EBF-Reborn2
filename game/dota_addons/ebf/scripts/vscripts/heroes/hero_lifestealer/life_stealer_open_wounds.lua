@@ -6,7 +6,7 @@ function life_stealer_open_wounds:OnSpellStart()
     
     EmitSoundOn("Hero_LifeStealer.OpenWounds.Cast", target)
 	if target:TriggerSpellAbsorb( self ) then return end
-    target:AddNewModifier(caster, self, "modifier_life_stealer_open_wounds_debuff", {Duration = self:GetTalentSpecialValueFor("duration")})
+    target:AddNewModifier(caster, self, "modifier_life_stealer_open_wounds_debuff", {Duration = self:GetSpecialValueFor("duration")})
 end
 
 modifier_life_stealer_open_wounds_debuff = class({})
@@ -18,10 +18,10 @@ function modifier_life_stealer_open_wounds_debuff:OnCreated(table)
 end
 
 function modifier_life_stealer_open_wounds_debuff:OnRefresh()
-	self.slow = self:GetTalentSpecialValueFor("slow_tooltip")
-	self.spread_radius = self:GetTalentSpecialValueFor("spread_radius")
-	self.heal_percent = self:GetTalentSpecialValueFor("heal_percent") / 100
-	self.damage_threshold = self:GetTalentSpecialValueFor("damage_threshold") / 100
+	self.slow = self:GetSpecialValueFor("slow_tooltip")
+	self.spread_radius = self:GetSpecialValueFor("spread_radius")
+	self.heal_percent = self:GetSpecialValueFor("heal_percent") / 100
+	self.damage_threshold = self:GetSpecialValueFor("damage_threshold") / 100
 	self.slow_decay = ( self.slow / self:GetRemainingTime() ) * 0.5
 	
 	if IsServer() then

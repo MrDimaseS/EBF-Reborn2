@@ -14,10 +14,10 @@ function furion_wrath_of_nature:OnSpellStart()
 
 	local previousEnemy = caster
 
-	local damage = self:GetTalentSpecialValueFor("damage")
-	local bonusDamagePerHit = damage * self:GetTalentSpecialValueFor("damage_percent_add") / 100
-	local bounces = self:GetTalentSpecialValueFor("max_targets")
-	local jump_delay = self:GetTalentSpecialValueFor("jump_delay")
+	local damage = self:GetSpecialValueFor("damage")
+	local bonusDamagePerHit = damage * self:GetSpecialValueFor("damage_percent_add") / 100
+	local bounces = self:GetSpecialValueFor("max_targets")
+	local jump_delay = self:GetSpecialValueFor("jump_delay")
 	
 	local nfx = ParticleManager:CreateParticle("particles/units/heroes/hero_furion/furion_wrath_of_nature_cast.vpcf", PATTACH_POINT_FOLLOW, caster)
 	ParticleManager:SetParticleControlEnt(nfx, 0, caster, PATTACH_ABSORIGIN_FOLLOW, "attach_hitloc", caster:GetAbsOrigin(), true)
@@ -27,13 +27,25 @@ function furion_wrath_of_nature:OnSpellStart()
 	
 	local hitTable = {}
 	local trackHits = {}
-	local entangleDuration = TernaryOperator( self:GetSpecialValueFor("scepter_min_entangle_duration"), caster:HasScepter(), 0 )
-	local entangleDurationPerHit = (entangleDuration - TernaryOperator( self:GetSpecialValueFor("scepter_max_entangle_duration"), caster:HasScepter(), 0 )) / bounces
+	local entangleDuration = self:GetSpecialValueFor("entangle_duration")
+	local entangleDurationPerHit = entangleDuration * self:GetSpecialValueFor("damage_percent_add") / 100
+	local damageBonusDuration = self:GetSpecialValueFor("damage_bonus_duration")
+	local tree_destroy_radius = self:GetSpecialValueFor("tree_destroy_radius")
 	
+	if tree_destroy_radius > 0 then
+		for _, tree in ipairs( GridNav:GetAllTreesAroundPoint( caster:GetAbsOrigin(), 3000, false ) ) do
+			if not tree:IsStanding() then
+				bounces = bounces + 1
+			elseif CalculateDistance( caster, tree ) <= tree_destroy_radius then
+				bounces = bounces + 1
+				tree:CutDown( caster:GetTeamNumber() )
+			end
+		end
+	end
 	local atLeastOneEnemy = false
 	
-	-- caster:RemoveModifierByName("modifier_furion_wrath_of_nature_damage")
-	-- local buff = caster:AddNewModifier( caster, self, "modifier_furion_wrath_of_nature_damage", {duration = self:GetSpecialValueFor("kill_damage_duration")})
+	-- caster:RemoveModifierByName("modifier_furion_wrath_of_nature_arboriculturist")
+	-- local buff = caster:AddNewModifier( caster, self, "modifier_furion_wrath_of_nature_arboriculturist", {duration = self:GetSpecialValueFor("kill_damage_duration")})
 	
 	Timers:CreateTimer(0,function()
 		if bounces <= 0 then
@@ -57,10 +69,17 @@ function furion_wrath_of_nature:OnSpellStart()
 				ParticleManager:ReleaseParticleIndex(particle)
 				
 				
-				self:DealDamage(caster, enemy, damage, {}, 0)
+				self:DealDamage(caster, enemy, damage)
 				-- buff:IncrementStackCount()
 				if entangleDuration > 0 then
-					enemy:AddNewModifier(caster, self, "modifier_furion_wrath_of_nature_root", {duration = entangleDuration})
+					enemy:AddNewModifier(caster, self, "modifier_furion_wrath_of_nature_naturopath", {duration = entangleDuration})
+				end
+				if damageBonusDuration > 0 then
+					for _, treant in ipairs( caster:FindFriendlyUnitsInRadius( caster:GetAbsOrigin(), FIND_UNITS_EVERYWHERE ) ) do
+						if treant == caster or treant:GetUnitLabel() == "treants" then
+							treant:AddNewModifier(caster, self, "modifier_furion_wrath_of_nature_arboriculturist", {duration = damageBonusDuration})
+						end
+					end
 				end
 				if not trackHits[enemy:entindex()] then
 					damage = damage + bonusDamagePerHit
@@ -85,28 +104,48 @@ function furion_wrath_of_nature:OnSpellStart()
 end
 
 
-modifier_furion_wrath_of_nature_damage = class({})
-LinkLuaModifier( "modifier_furion_wrath_of_nature_damage", "heroes/hero_furion/furion_wrath_of_nature",LUA_MODIFIER_MOTION_NONE )
+modifier_furion_wrath_of_nature_arboriculturist = class({})
+LinkLuaModifier( "modifier_furion_wrath_of_nature_arboriculturist", "heroes/hero_furion/furion_wrath_of_nature",LUA_MODIFIER_MOTION_NONE )
 
-function modifier_furion_wrath_of_nature_damage:OnCreated()
-	self.damage = self:GetSpecialValueFor("kill_damage")
+function modifier_furion_wrath_of_nature_arboriculturist:OnCreated()
+	self:OnRefresh()
+	if IsServer() then self:SetHasCustomTransmitterData(true) end
 end
 
-function modifier_furion_wrath_of_nature_damage:DeclareFunctions()
-	return {MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE}
+function modifier_furion_wrath_of_nature_arboriculturist:OnRefresh()
+	self.base_damage_bonus = self:GetSpecialValueFor("base_damage_bonus") / 100
+	if IsServer() then
+		self.damage = self:GetParent():GetBaseDamageMax()
+		self:IncrementStackCount()
+		self:SendBuffRefreshToClients()
+	end
 end
 
-function modifier_furion_wrath_of_nature_damage:GetModifierPreAttack_BonusDamage()
-	return self.damage * self:GetStackCount()
+function modifier_furion_wrath_of_nature_arboriculturist:DeclareFunctions()
+	return {MODIFIER_PROPERTY_BASEATTACK_BONUSDAMAGE}
 end
 
-modifier_furion_wrath_of_nature_root = class({})
-LinkLuaModifier( "modifier_furion_wrath_of_nature_root", "heroes/hero_furion/furion_wrath_of_nature",LUA_MODIFIER_MOTION_NONE )
+function modifier_furion_wrath_of_nature_arboriculturist:GetModifierBaseAttack_BonusDamage()
+	if self.damage then
+		return self.damage * self.base_damage_bonus * self:GetStackCount()
+	end
+end
 
-function modifier_furion_wrath_of_nature_root:CheckState()
+function modifier_furion_wrath_of_nature_arboriculturist:AddCustomTransmitterData()
+	return {damage = self.damage}
+end
+
+function modifier_furion_wrath_of_nature_arboriculturist:HandleCustomTransmitterData(data)
+	self.damage = data.damage
+end
+
+modifier_furion_wrath_of_nature_naturopath = class({})
+LinkLuaModifier( "modifier_furion_wrath_of_nature_naturopath", "heroes/hero_furion/furion_wrath_of_nature",LUA_MODIFIER_MOTION_NONE )
+
+function modifier_furion_wrath_of_nature_naturopath:CheckState()
 	return {[MODIFIER_STATE_ROOTED] = true}
 end
 
-function modifier_furion_wrath_of_nature_root:GetEffectName()
+function modifier_furion_wrath_of_nature_naturopath:GetEffectName()
 	return "particles/units/heroes/hero_treant/treant_bramble_root.vpcf"
 end

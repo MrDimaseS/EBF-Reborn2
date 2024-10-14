@@ -1,15 +1,15 @@
 witch_doctor_maledict = class({})
 
 function witch_doctor_maledict:GetAOERadius()
-	return self:GetTalentSpecialValueFor("radius")
+	return self:GetSpecialValueFor("radius")
 end
 
 function witch_doctor_maledict:OnSpellStart()
 	local caster = self:GetCaster()
 	
 	local position = self:GetCursorPosition()
-	local radius = self:GetTalentSpecialValueFor("radius")
-	local duration = self:GetTalentSpecialValueFor("duration")
+	local radius = self:GetSpecialValueFor("radius")
+	local duration = self:GetSpecialValueFor("duration")
 	
 	EmitSoundOnLocationWithCaster(position, "Hero_WitchDoctor.Maledict_Cast", caster)
 
@@ -24,10 +24,10 @@ LinkLuaModifier("modifier_witch_doctor_maledict_debuff", "heroes/hero_witch_doct
 
 function modifier_witch_doctor_maledict_debuff:OnCreated()
 	self.damage_taken = 0
-	self.damage = self:GetTalentSpecialValueFor("damage")
-	self.burst = self:GetTalentSpecialValueFor("bonus_damage") / 100
+	self.damage = self:GetSpecialValueFor("damage")
+	self.burst = self:GetSpecialValueFor("bonus_damage") / 100
 	if IsServer() then
-		self.burstTimer = self:GetRemainingTime() / self:GetTalentSpecialValueFor("ticks")
+		self.burstTimer = self:GetRemainingTime() / self:GetSpecialValueFor("ticks")
 		self.currentTime = GameRules:GetGameTime()
 		self.hp = self:GetParent():GetHealth()
 		self:StartIntervalThink( 1 )

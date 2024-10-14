@@ -194,11 +194,13 @@ function modifier_special_bonus_attributes_stat_rescaling:OnCreated()
 		if not self:GetParent():IsFakeHero() then
 			self:StartIntervalThink( 0.3 )
 		end
+		self:SetHasCustomTransmitterData(true)
 	end
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:OnRefresh()
 	self.attackspeed = self.baseAttackSpeed + math.floor( math.min( 0.25 * self:GetParent():GetAgility(), 3.44*self:GetParent():GetAgility()^(math.log(2)/math.log(3.5)) ) )
+	self:GetParent()._internalBaseAttackSpeedBonus = self.attackspeed
 	if IsServer() then
 		if self.baseArmor then
 			local agilityArmor = math.min( 0.065 * self:GetParent():GetAgility(), 0.9*self:GetParent():GetAgility()^(math.log(2)/math.log(5)) )
@@ -253,9 +255,19 @@ function modifier_special_bonus_attributes_stat_rescaling:DeclareFunctions()
 		MODIFIER_PROPERTY_SPELL_LIFESTEAL_AMPLIFY_PERCENTAGE,
 		MODIFIER_PROPERTY_HP_REGEN_AMPLIFY_PERCENTAGE,
 		MODIFIER_PROPERTY_EVASION_CONSTANT,
-		MODIFIER_PROPERTY_MP_REGEN_AMPLIFY_PERCENTAGE
+		MODIFIER_PROPERTY_MP_REGEN_AMPLIFY_PERCENTAGE,
+		MODIFIER_EVENT_ON_ORDER,
   }
   return funcs
+end
+
+function modifier_special_bonus_attributes_stat_rescaling:OnOrder( params )
+	if params.order_type == DOTA_UNIT_ORDER_CAST_TOGGLE_ALT then
+		params.ability._getAltCastState = not (params.ability._getAltCastState or false)
+		self.lastUpdatedAbility = params.ability:entindex()
+		self.lastUpdatedAbilityState = #params.ability._getAltCastState
+		self:SendBuffRefreshToClients()
+	end
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierEvasion_Constant()
@@ -538,6 +550,19 @@ end
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierMoveSpeedBonus_Percentage()
 	if not self:GetParent():IsRangedAttacker() then 
 		return 12
+	end
+end
+
+function modifier_special_bonus_attributes_stat_rescaling:AddCustomTransmitterData()
+	return {lastUpdatedAbility = self.lastUpdatedAbility,
+			lastUpdatedAbilityState = self.lastUpdatedAbilityState}
+end
+
+function modifier_special_bonus_attributes_stat_rescaling:HandleCustomTransmitterData(data)
+	if not data.lastUpdatedAbility then return end
+	local ability = EntIndexToHScript(data.lastUpdatedAbility)
+	if ability then
+		ability._getAltCastState = toboolean(data.lastUpdatedAbilityState)
 	end
 end
 

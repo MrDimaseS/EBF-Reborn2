@@ -28,9 +28,8 @@ function modifier_mirana_selemenes_faithful_handler:DeclareFunctions()
 end
 
 function modifier_mirana_selemenes_faithful_handler:OnAbilityFullyCast(params)
-    if params.unit == self:GetCaster() then
+    if params.unit == self:GetCaster() and not params.ability:IsItem() then
 		self:AddIndependentStack( self.bonus_duration )
-		self:SetDuration( self.bonus_duration, true )
 	end
 end
 

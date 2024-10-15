@@ -21,6 +21,7 @@ LinkLuaModifier( "modifier_generic_suppress_cleave", "libraries/modifiers/modifi
 
 LinkLuaModifier( "bossHealthRescale", "modifier/bossHealthRescale.lua", LUA_MODIFIER_MOTION_NONE )
 LinkLuaModifier( "bossPowerScale", "modifier/bossPowerScale.lua", LUA_MODIFIER_MOTION_NONE )
+LinkLuaModifier( "healthBooster", "modifier/healthBooster.lua", LUA_MODIFIER_MOTION_NONE )
 LinkLuaModifier( "modifier_healthbar_dummy", "modifier/modifier_healthbar_dummy.lua", LUA_MODIFIER_MOTION_NONE )
 
 if IsClient() then -- Load clientside utility lib

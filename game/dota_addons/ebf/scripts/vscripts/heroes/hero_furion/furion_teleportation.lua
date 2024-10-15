@@ -57,7 +57,7 @@ function furion_teleportation:OnSpellStart()
 	
 	for _, treant in ipairs( caster:FindFriendlyUnitsInRadius( point, -1, {type = DOTA_UNIT_TARGET_CREEP} ) ) do
 		if treant:GetUnitLabel() == "treants" then
-			if self:GetAltCastState() then
+			if self:GetAutoCastState() then
 				ProjectileManager:ProjectileDodge( treant )
 				FindClearSpaceForUnit(treant, point + RandomVector( 150 ), true)
 			end

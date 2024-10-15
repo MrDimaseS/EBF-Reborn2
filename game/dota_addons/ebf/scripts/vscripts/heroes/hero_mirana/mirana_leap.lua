@@ -16,25 +16,17 @@ function mirana_leap:GetVectorTargetRange()
 	return math.max( self:GetSpecialValueFor("leap_distance"), self:GetSpecialValueFor("blast_projectile_distance") )
 end
 
-function mirana_leap:GetBehavior()
-	local baseBehavior = tonumber(tostring(self.BaseClass.GetBehavior( self )))
-	if self:GetAltCastState() then
-		return baseBehavior + DOTA_ABILITY_BEHAVIOR_POINT + DOTA_ABILITY_BEHAVIOR_VECTOR_TARGETING
-	else
-		return baseBehavior + DOTA_ABILITY_BEHAVIOR_NO_TARGET
-	end
-end
-
 function mirana_leap:OnVectorCastStart( vPos, vDir )
 	local caster = self:GetCaster()
 	local direction = self:GetForwardVector()
 	
 	local distance = self:GetSpecialValueFor("leap_distance")
-	if self:GetAltCastState() then
-		direction = CalculateDirection( self:GetCursorPosition(), caster )
-		distance = CalculateDistance( self:GetCursorPosition(), caster )
-		caster:SetForwardVector( self:GetVectorDirection() )
-	end
+
+	-- if self:GetAutoCastState() then
+	direction = CalculateDirection( self:GetCursorPosition(), caster )
+	distance = CalculateDistance( self:GetCursorPosition(), caster )
+	caster:SetForwardVector( self:GetVectorDirection() )
+	-- end
 	
 	EmitSoundOn("Ability.Leap", caster)
 	caster:AddNewModifier(caster, self, "modifier_mirana_leap_movement", {duration = distance/self:GetSpecialValueFor("leap_speed")+0.1, distance = distance, x = direction.x, y = direction.y})

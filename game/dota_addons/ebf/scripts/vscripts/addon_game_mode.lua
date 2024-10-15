@@ -195,7 +195,7 @@ function CHoldoutGameMode:InitGameMode()
 		Life._MaxLife = 1
 		GameRules._bonusLifeRoundDivider = 99
 		GameRules.gameDifficulty = 4
-		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 12)
+		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 10)
 		GameRules:GetGameModeEntity():SetFixedRespawnTime( 180 )
 	end
 
@@ -951,7 +951,7 @@ function CHoldoutGameMode:_ReadGameConfiguration()
 	elseif GetMapName() == "epic_boss_fight_nightmare" then
 		self._MaxPlayers = 5
 	elseif GetMapName() == "epic_boss_fight_event" then
-		self._MaxPlayers = 12
+		self._MaxPlayers = 10
 	else
 		self._MaxPlayers = 6
 	end
@@ -1204,30 +1204,28 @@ function CHoldoutGameMode:OnGameRulesStateChange()
 		local container = {durableHeroes, supportHeroes, dpsHeroes}
 		for nPlayerID = 0, DOTA_MAX_TEAM_PLAYERS-1 do
 			if PlayerResource:IsValidPlayerID( nPlayerID ) then
-				-- if GetMapName() ~= "epic_boss_fight_nightmare" or IsInToolsMode() or GameRules:IsCheatMode() then
+				if GetMapName() ~= "epic_boss_fight_event" then
 					for hero, available in pairs( activeList ) do
 						if tonumber(available) > 0 then
 							GameRules:AddHeroToPlayerAvailability( nPlayerID, DOTAGameManager:GetHeroIDByName( hero ) )
 						end
 					end
-				-- else
-					-- local heroesPerCategory = 5
-					-- local heroesForPlayer = {}
-					-- for _, heroCategory in ipairs( container ) do
-						-- local idsSelected = {}
-						-- while #idsSelected < heroesPerCategory do
-							-- local id = RandomInt( 1, #heroCategory )
-							-- if not HasValInTable( idsSelected, id ) then -- hero hasn't been rolled yet
-								-- table.insert( idsSelected, id )
-								-- GameRules:AddHeroToPlayerAvailability( nPlayerID, DOTAGameManager:GetHeroIDByName( heroCategory[id] ) )
-							-- end
-						-- end
-					-- end
-				-- end
+				else
+					local heroesPerCategory = 5
+					local heroesForPlayer = {}
+					for _, heroCategory in ipairs( container ) do
+						local idsSelected = {}
+						while #idsSelected < heroesPerCategory do
+							local id = RandomInt( 1, #heroCategory )
+							if not HasValInTable( idsSelected, id ) then -- hero hasn't been rolled yet
+								table.insert( idsSelected, id )
+								GameRules:AddHeroToPlayerAvailability( nPlayerID, DOTAGameManager:GetHeroIDByName( heroCategory[id] ) )
+							end
+						end
+					end
+				end
 			end
 		end
-		
-		
 	elseif nNewState == DOTA_GAMERULES_STATE_STRATEGY_TIME then
 		GameRules:SetTimeOfDay(0.26)
 		for nPlayerID = 0, DOTA_MAX_TEAM_PLAYERS-1 do
@@ -1269,10 +1267,7 @@ function CHoldoutGameMode:OnGameRulesStateChange()
 		
 		if GetMapName() == "epic_boss_fight_event" then
 			local function sendMessages()
-				Say(nil, "Epic Boss Fight spring EVENT! Buy Tomes and survive!", false)
-				Say(nil, "Round XP bonus: 0.00", false)
-				Say(nil, "Round GOLD bonus: x3", false)
-				Say(nil, "Round BOSS amount: x2", false)
+				Say(nil, "Epic Boss Fight Rogue-Like! Use what you get!", false)
 			end
 	
 			sendMessages()
@@ -1281,63 +1276,6 @@ function CHoldoutGameMode:OnGameRulesStateChange()
 				sendMessages()
 			end)
 		end
-	end
-end
-
-
-function CHoldoutGameMode:AddLife(life)
-	local messageinfo = {
-		message = life.." life has been gained",
-		duration = 5
-		}
-	FireGameEvent("show_center_message",messageinfo)
-	Life._life = Life._life + life
-	GameRules._live = Life._life
-	CustomGameEventManager:Send_ServerToAllClients("UpdateLife", {life = Life._life})
-end
-
-
-function CHoldoutGameMode:_regenlifecheck()
-	if not self._roundsRegened[self._nRoundNumber] and self._nRoundNumber % GameRules._bonusLifeRoundDivider == 0 then
-		self._roundsRegened[self._nRoundNumber] = true
-		self:AddLife(1)
-	end
-	if self._regenNG == false and self._NewGamePlus == true then
-		self._regenNG = true
-
-		local messageinfo = {
-		message = "Five life has been gained , Welcome to NewGame + .Mouahahaha !",
-		duration = 10
-		}
-		FireGameEvent("show_center_message",messageinfo)   
-		self._checkpoint = 1
-		
-		if GetMapName() == "epic_boss_fight_normal" then
-			Life._life = 4
-			Life._MaxLife = 4
-		elseif GetMapName() == "epic_boss_fight_hard" then 
-			Life._life = 2
-			Life._MaxLife = 2
-		elseif GetMapName() == "epic_boss_fight_impossible" then
-			Life._life = 2
-			Life._MaxLife = 2
-		elseif GetMapName() == "epic_boss_fight_challenger" then
-			 Life._life = 1
-			Life._MaxLife = 1
-		elseif GetMapName() == "epic_boss_fight_nightmare" then
-			Life._life = 1
-		   Life._MaxLife = 1	
-		elseif GetMapName() == "epic_boss_fight_event" then
-			Life._life = 1
-		   Life._MaxLife = 1		   
-		end
-		
-		GameRules._live = Life._life
-		--Life:SetTextReplaceValue( QUEST_TEXT_REPLACE_VALUE_CURRENT_VALUE, Life._life )
-   		--Life:SetTextReplaceValue( QUEST_TEXT_REPLACE_VALUE_TARGET_VALUE, Life._MaxLife )
-		-- value on the bar
-		--LifeBar:SetTextReplaceValue( SUBQUEST_TEXT_REPLACE_VALUE_CURRENT_VALUE, Life._life )
-		--LifeBar:SetTextReplaceValue( SUBQUEST_TEXT_REPLACE_VALUE_TARGET_VALUE, Life._MaxLife )
 	end
 end
 
@@ -1359,21 +1297,6 @@ function CHoldoutGameMode:vote_Round (event)
 			CustomGameEventManager:Send_ServerToAllClients("RoundVoteResults", event_data)
 		end
 	end
-end
-
-function CHoldoutGameMode:spawn_unit( place , unitname , radius , unit_number)
-    if radius == nil then radius = 400 end
-    if core == nil then core = false end
-    if unit_number == nil then unit_number = 1 end
-    for i = 0, unit_number-1 do
-        print   ("spawn unit : "..unitname)
-        PrecacheUnitByNameAsync( unitname, function()
-        local unit = CreateUnitByName( unitname ,place + RandomVector(RandomInt(radius,radius)), true, nil, nil, DOTA_TEAM_NEUTRALS )
-            Timers:CreateTimer(0.03,function()
-            end)
-        end,
-        nil)
-    end
 end
 
 function CHoldoutGameMode:OnThink()
@@ -1408,15 +1331,6 @@ function CHoldoutGameMode:OnThink()
 			Say(nil, "Bug Report:"..err, false)
 		end
 		
-		local ThinkLives = function()
-			self:_regenlifecheck()
-		end
-		status, err, ret = xpcall(ThinkLives, debug.traceback, self )
-		if not status  and not self.gameHasBeenBroken then
-			self.gameHasBeenBroken = true
-			Say(nil, "Bug Report:"..err, false)
-		end
-		
 		local ThinkGeneric = function()
 			ResolveNPCPositions( Vector( 0,0 ), 9999 )
 			for nPlayerID = 0, DOTA_MAX_TEAM_PLAYERS-1 do
@@ -1434,10 +1348,10 @@ function CHoldoutGameMode:OnThink()
 			elseif self._currentRound ~= nil then
 				self._currentRound:Think()
 				if self._currentRound:IsFinished() then
+					self:_RefreshPlayers(true, true)
 					self._currentRound:End(true)
 					self._currentRound = nil
 					-- Heal all players
-					self:_RefreshPlayers(true, true)
 					
 					self._nRoundNumber = self._nRoundNumber + 1
 					GameRules._roundnumber = self._nRoundNumber
@@ -1585,6 +1499,7 @@ end
 
 function CHoldoutGameMode:RegisterStatsForRound( round )
 	if not IsDedicatedServer() or IsInToolsMode() or GameRules:IsCheatMode() then return end
+	if GetMapName() == "epic_boss_fight_event" then return end
 	
 	local statSettings = LoadKeyValues("scripts/vscripts/statcollection/settings.kv")
 	local AUTH_KEY = GetDedicatedServerKeyV3(statSettings.modID)
@@ -1618,6 +1533,7 @@ end
 
 function CHoldoutGameMode:RegisterStatsForPlayer( playerID, bWon, bAbandon )
 	if not IsDedicatedServer() or IsInToolsMode() or GameRules:IsCheatMode() then return end
+	if GetMapName() == "epic_boss_fight_event" then return end
 	-- send stats only once
 	self.statsSentForPlayer = self.statsSentForPlayer or {}
 	if self.statsSentForPlayer[playerID] then return end
@@ -1638,7 +1554,6 @@ function CHoldoutGameMode:RegisterStatsForPlayer( playerID, bWon, bAbandon )
 	
 	local packageLocation = SERVER_LOCATION..AUTH_KEY.."/players/"..tostring(PlayerResource:GetSteamID(playerID))..'.json'
 	local getRequestPlayer = CreateHTTPRequestScriptVM( "GET", packageLocation)
-	print( "abandon?", bAbandon, SERVER_LOCATION )
 	if bAbandon then -- an abandon was registered
 		for nPlayerID = 0, DOTA_MAX_TEAM_PLAYERS-1 do
 			if PlayerResource:IsValidPlayerID( nPlayerID ) then
@@ -1657,7 +1572,6 @@ function CHoldoutGameMode:RegisterStatsForPlayer( playerID, bWon, bAbandon )
 	end
 	
 	local mmrTable = CustomNetTables:GetTableValue("mmr", tostring( playerID ) )
-	print("buh", getRequestPlayer)
 	getRequestPlayer:Send( function( result )
 		local putData = {}
 		local wins = 0
@@ -1710,6 +1624,7 @@ end
 
 function CHoldoutGameMode:RegisterStatsForHero( hero, bWon )
 	if not IsDedicatedServer() or IsInToolsMode() or GameRules:IsCheatMode() then return end
+	if GetMapName() == "epic_boss_fight_event" then return end
 	if GameRules.gameDifficulty < 3 then return end
 	
 	local statSettings = LoadKeyValues("scripts/vscripts/statcollection/settings.kv")

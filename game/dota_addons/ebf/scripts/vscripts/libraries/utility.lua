@@ -774,15 +774,22 @@ function CDOTA_BaseNPC:RefreshAllIntrinsicModifiers()
 		local ability = self:GetAbilityByIndex( i )
 		if ability then
 			local passive = self:FindModifierByNameAndAbility( ability:GetIntrinsicModifierName(), ability )
-			local stacks = 0
 			if passive then
-				stacks = passive:GetStackCount()
-				passive:Destroy()
-			end
-			ability:RefreshIntrinsicModifier()
-			passive = self:FindModifierByNameAndAbility( ability:GetIntrinsicModifierName(), ability )
-			if IsModifierSafe( passive ) then
-				passive:SetStackCount( stacks )
+				local stacks = 0
+				local stackData = table.copy(passive._stackFollowList)
+				if passive then
+					stacks = passive:GetStackCount()
+					passive:Destroy()
+				end
+				ability:RefreshIntrinsicModifier()
+				passive = self:FindModifierByNameAndAbility( ability:GetIntrinsicModifierName(), ability )
+				passive._stackFollowList = stackData
+				if passive._stackFollowList then
+					passive:AddIndependentStack({stacks = 0, duration = 0})
+				end
+				if IsModifierSafe( passive ) then
+					passive:SetStackCount( stacks )
+				end
 			end
 		end
 	end

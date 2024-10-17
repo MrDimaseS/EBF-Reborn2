@@ -87,13 +87,13 @@ function furion_force_of_nature:SpawnTreant(position)
 	local tree = caster:CreateSummon( "npc_dota_furion_treant", position, duration )
 	
 	FindClearSpaceForUnit(tree, position, true)
-	local maxHP = self:GetSpecialValueFor("treant_health")
+	local maxHP = self:GetSpecialValueFor("treant_health") * ( 1 + caster:GetSpellAmplification(false) )
 	
 	tree:SetBaseMaxHealth(maxHP)
 	tree:SetMaxHealth(maxHP)
 	tree:SetHealth(maxHP)
 	
-	local adMax = self:GetSpecialValueFor("treant_damage_max")
+	local adMax = self:GetSpecialValueFor("treant_damage_max") * ( 1 + caster:GetSpellAmplification(false) )
 	tree:SetAverageBaseDamage(adMax, 5)
 	
 	if self:GetSpecialValueFor("uncontrollable") == 1 then

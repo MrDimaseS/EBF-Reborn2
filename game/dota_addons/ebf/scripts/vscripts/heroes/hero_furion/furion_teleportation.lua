@@ -74,7 +74,7 @@ function furion_teleportation:OnSpellStart()
 		
 		for _, ally in ipairs( caster:FindFriendlyUnitsInRadius( point, damage_radius, {type = DOTA_UNIT_TARGET_HERO} ) ) do
 			if caster ~= ally then
-				caster:AddNewModifier( caster, self, "modifier_furion_teleportation_barrier", {duration = duration})
+				ally:AddNewModifier( caster, self, "modifier_furion_teleportation_barrier", {duration = duration})
 			end
 		end
 		

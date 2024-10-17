@@ -34,7 +34,7 @@ function furion_wrath_of_nature:OnSpellStart()
 	
 	if tree_destroy_radius > 0 then
 		for _, tree in ipairs( GridNav:GetAllTreesAroundPoint( caster:GetAbsOrigin(), 3000, false ) ) do
-			if not tree:IsStanding() then
+			if not (tree.IsStanding and tree:IsStanding()) then
 				bounces = bounces + 1
 			elseif CalculateDistance( caster, tree ) <= tree_destroy_radius then
 				bounces = bounces + 1
@@ -44,8 +44,12 @@ function furion_wrath_of_nature:OnSpellStart()
 	end
 	local atLeastOneEnemy = false
 	
-	-- caster:RemoveModifierByName("modifier_furion_wrath_of_nature_arboriculturist")
-	-- local buff = caster:AddNewModifier( caster, self, "modifier_furion_wrath_of_nature_arboriculturist", {duration = self:GetSpecialValueFor("kill_damage_duration")})
+	
+	for _, treant in ipairs( caster:FindFriendlyUnitsInRadius( caster:GetAbsOrigin(), FIND_UNITS_EVERYWHERE ) ) do
+		if treant == caster or treant:GetUnitLabel() == "treants" then
+			caster:RemoveModifierByName("modifier_furion_wrath_of_nature_arboriculturist")
+		end
+	end
 	
 	Timers:CreateTimer(0,function()
 		if bounces <= 0 then
@@ -108,6 +112,7 @@ modifier_furion_wrath_of_nature_arboriculturist = class({})
 LinkLuaModifier( "modifier_furion_wrath_of_nature_arboriculturist", "heroes/hero_furion/furion_wrath_of_nature",LUA_MODIFIER_MOTION_NONE )
 
 function modifier_furion_wrath_of_nature_arboriculturist:OnCreated()
+	self.damage = self:GetParent():GetBaseDamageMax()
 	self:OnRefresh()
 	if IsServer() then self:SetHasCustomTransmitterData(true) end
 end
@@ -115,7 +120,6 @@ end
 function modifier_furion_wrath_of_nature_arboriculturist:OnRefresh()
 	self.base_damage_bonus = self:GetSpecialValueFor("base_damage_bonus") / 100
 	if IsServer() then
-		self.damage = self:GetParent():GetBaseDamageMax()
 		self:IncrementStackCount()
 		self:SendBuffRefreshToClients()
 	end

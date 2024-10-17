@@ -1200,6 +1200,7 @@ function CDOTA_Modifier_Lua:AddIndependentStack(tStackData)
 	if not tStackData or type(tStackData) == "number" then
 		stackData = {duration = tStackData or self:GetRemainingTime() }
 	end
+	if not stackData.duration then stackData.duration = self:GetRemainingTime() end
 	self._stackFollowList = self._stackFollowList or {}
 	if self._stackTimerID == nil then
 		self._stackTimerID = Timers:CreateTimer( function(timer)
@@ -1215,6 +1216,7 @@ function CDOTA_Modifier_Lua:AddIndependentStack(tStackData)
 			end
 		end)
 	end
+	print( stackData.duration )
 	local followData = {expireTime = GameRules:GetGameTime() + TernaryOperator( math.min( stackData.duration, self:GetRemainingTime() ), self:GetRemainingTime() > 0, stackData.duration), stacks = stackData.stacks or 1 }
 	table.insert( self._stackFollowList, followData )
 	

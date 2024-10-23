@@ -36,7 +36,7 @@ function boss_lord_of_hell_devour:OnSpellStart()
 	
 	local damage
 	if target:IsConsideredHero() then
-		damage = self:DealDamage( caster, target, target:GetHealth() * self:GetSpecialValueFor("hero_damage") / 100, {damage_type = DAMAGE_TYPE_PURE} )
+		damage = self:DealDamage( caster, target, target:GetHealth() * self:GetSpecialValueFor("hero_damage") / 100, {damage_type = DAMAGE_TYPE_PURE, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION} )
 	else
 		damage = target:GetMaxHealth()
 		target:AttemptKill(self, caster)

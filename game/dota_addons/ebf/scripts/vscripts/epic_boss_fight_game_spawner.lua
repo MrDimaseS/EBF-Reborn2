@@ -234,7 +234,6 @@ function CHoldoutGameSpawner:_DoSpawn()
 	if self._szSpawnerName == "" then
 		self:_UpdateRandomSpawn()
 	end
-	
 	for iUnit = 1,nUnitsToSpawn do
 		local szNPCClassToSpawn = self._szNPCClassName
 		

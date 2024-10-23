@@ -33,6 +33,7 @@ function bossManager:ProcessBossScaling(spawnedUnit)
 	if not spawnedUnit:IsAlive() then spawnedUnit:RespawnUnit() end -- fix undead creatures
 	spawnedUnit.hasBeenProcessed = true
 	
+	local maxHP = spawnedUnit:GetMaxHealth()
 	local HP_difficulty_multiplier = currentRound._HP_difficulty_multiplier
 	if spawnedUnit._spawnerOrigin then
 		HP_difficulty_multiplier = spawnedUnit._spawnerOrigin.HealthMultiplier
@@ -47,9 +48,8 @@ function bossManager:ProcessBossScaling(spawnedUnit)
 	if not spawnedUnit.Holdout_IsCore then
 		HP_difficulty_multiplier = 1 + (HP_difficulty_multiplier-1)*0.4
 	end
-	
+	HP_difficulty_multiplier = HP_difficulty_multiplier * (1 + 0.6 * (GameRules._roundnumber-1) + math.exp(7 - 43/GameRules._roundnumber + 0.27*math.log(GameRules._roundnumber)))
 	spawnedUnit.MaxEHP = HP_difficulty_multiplier*spawnedUnit:GetMaxHealth()
-	spawnedUnit:SetHealth(spawnedUnit:GetMaxHealth())
 	
 	local currentReduction = spawnedUnit:GetPhysicalArmorMultiplier()
 	local newEHPReduction = currentReduction * EHP_multiplier
@@ -73,7 +73,10 @@ function bossManager:ProcessBossScaling(spawnedUnit)
 			-- end
 		-- end
 	-- end
+	local baseDamage = spawnedUnit:GetAverageBaseDamage()
+	local DMG_MULTIPLIER = 1 + 0.1 * GameRules._roundnumber + math.max(0, 0.97*(GameRules._roundnumber^2)-3.2*GameRules._roundnumber )
 	
+	spawnedUnit:SetAverageBaseDamage( baseDamage * DMG_MULTIPLIER )
 	local powerScale = spawnedUnit:AddNewModifier(spawnedUnit, nil, "bossPowerScale",{})
 	if powerScale then
 		powerScale:SetStackCount( GetRoundNumber() * 100 + GetGameDifficulty()*10 + (TeamCount() - 1) )
@@ -95,6 +98,7 @@ function bossManager:ProcessBossScaling(spawnedUnit)
 			spawnedUnit:SetBaseMaxHealth(spawnedUnit.MaxEHP)
 			spawnedUnit:SetMaxHealth(spawnedUnit.MaxEHP)
 			spawnedUnit:SetHealth(spawnedUnit.MaxEHP)
+			spawnedUnit:SetBaseHealthRegen( math.max( 1, spawnedUnit.MaxEHP * 0.005 ) )
 			spawnedUnit.EHP_MULT = 1
 			spawnedUnit:RespawnUnit()
 		end

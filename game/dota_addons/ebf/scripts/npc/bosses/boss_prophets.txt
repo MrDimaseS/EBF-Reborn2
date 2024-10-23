@@ -33,7 +33,7 @@
 
 		// Damage.
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"10000"
+		"AbilityDamage"					"350"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -47,6 +47,7 @@
 			"end_radius"				"300"
 			"range"						"810"
 			"speed"						"1100"
+			"AbilityDamage"				"350"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -82,7 +83,7 @@
 		
 		// Damage.
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"60000"
+		"AbilityDamage"					"450"
 		"AbilityDuration"				"1.6"
 		
 		// Special
@@ -92,6 +93,7 @@
 			"delay"				"0.65"
 			"radius"			"325"
 			"duration"			"3"
+			"AbilityDamage"		"450"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -137,11 +139,15 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"damage"						"4000"
-			"damage_pct"					"1.25"
-			"haunt_duration"				"6"
-			"siphon_buffer"					"250"
-			"AbilityChargeRestoreTime"		"38"
+			"damage"
+			{
+				"value"							"150"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"damage_pct"						"3.5"
+			"haunt_duration"					"8"
+			"siphon_buffer"						"250"
+			"AbilityChargeRestoreTime"			"38"
 		}
 	}
 	
@@ -191,8 +197,16 @@
 			"spirit_speed"				"525"
 			"max_distance"				"2000 2000 2000"
 			"give_up_distance"			"1200 1200 1200"
-			"min_damage"				"750"
-			"max_damage"				"1000"
+			"min_damage"
+			{
+				"value"							"90"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"max_damage"
+			{
+				"value"							"120"
+				"CalculateSpellDamageTooltip"	"1"
+			}
 			"heal_percent"				"6"
 			"average_damage"			"4000"
 			"ghost_spawn_rate"			"0.35"
@@ -242,7 +256,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"damage"						"15000"
+			"damage"
+			{
+				"value"							"150"
+				"CalculateSpellDamageTooltip"	"1"
+			}
 			"duration"						"5 6 7 8"
 			"hit_radius"					
 			{

@@ -127,7 +127,7 @@ function modifier_necrolyte_death_pulse_autocast:OnCreated()
 end
 
 function modifier_necrolyte_death_pulse_autocast:OnIntervalThink()
-	if self:GetAbility():IsFullyCastable() and self:GetAbility():GetAutoCastState() then
+	if self:GetAbility():IsFullyCastable() and self:GetAbility():GetAutoCastState() and not self:GetCaster():HasActiveAbility() then
 		self:GetCaster():CastAbilityNoTarget( self:GetAbility(), self:GetCaster():GetPlayerID() )
 	end
 end

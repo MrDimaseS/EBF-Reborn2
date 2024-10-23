@@ -197,6 +197,7 @@ function CHoldoutGameMode:InitGameMode()
 		GameRules.gameDifficulty = 4
 		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 10)
 		GameRules:GetGameModeEntity():SetFixedRespawnTime( 180 )
+		GameRules:SetSameHeroSelectionEnabled( true )
 	end
 
 	GameRules._live = Life._life
@@ -209,7 +210,6 @@ function CHoldoutGameMode:InitGameMode()
 	GameRules:SetRuneMinimapIconScale( 1.5 )
 	GameRules:SetGoldTickTime( 0.6 )
     GameRules:SetGoldPerTick( 1 )
-	GameRules:SetStartingGold ( 0 )
 	GameRules:SetEnableAlternateHeroGrids( false )
 	GameRules:SetSameHeroSelectionEnabled( false )
 	GameRules:GetGameModeEntity():SetPlayerHeroAvailabilityFiltered( true )
@@ -232,6 +232,7 @@ function CHoldoutGameMode:InitGameMode()
 		sumXP = sumXP + XPForLevel
 		xpTable[level] = sumXP
 	end
+	GameRules._XPToLevelTable = xpTable
 	GameRules:GetGameModeEntity():SetUseCustomHeroLevels( true )
     GameRules:GetGameModeEntity():SetCustomHeroMaxLevel( 200 )
     GameRules:GetGameModeEntity():SetCustomXPRequiredToReachNextLevel( xpTable )
@@ -337,6 +338,7 @@ function CHoldoutGameMode:InitGameMode()
 	GameRules:GetGameModeEntity():SetHealingFilter( Dynamic_Wrap( CHoldoutGameMode, "FilterHealing" ), self )
 	GameRules:GetGameModeEntity():SetExecuteOrderFilter( Dynamic_Wrap( CHoldoutGameMode, "FilterOrders" ), self )
 	GameRules:GetGameModeEntity():SetModifyGoldFilter( Dynamic_Wrap( CHoldoutGameMode, "FilterGold" ), self )
+	GameRules:SetFilterMoreGold( true )
 	GameRules:GetGameModeEntity():SetModifierGainedFilter( Dynamic_Wrap( CHoldoutGameMode, "FilterModifiers" ), self )
 	
 	-- Register OnThink with the game engine so it is called every 0.25 seconds
@@ -544,6 +546,9 @@ function CHoldoutGameMode:FilterOrders( filterTable )
 			return false
 		end
 	end
+	if orderType == DOTA_UNIT_ORDER_SELL_ITEM and ability then
+		unit._rememberItemSold = ability:GetAbilityName()
+	end
 	if ability and ability:GetName() == "rubick_spell_steal" and target == unit then
 		DisplayError(unit:GetPlayerOwnerID(), "dota_hud_error_cant_cast_on_self")
 		return false
@@ -554,7 +559,14 @@ end
 function CHoldoutGameMode:FilterGold( filterTable )
 	local hero = PlayerResource:GetSelectedHeroEntity( filterTable.player_id_const )
 	local startGold = filterTable.gold
-	if hero then	
+	if hero then
+		if filterTable.reason_const == DOTA_ModifyGold_SellItem and GetMapName() == "epic_boss_fight_event" and hero._rememberItemSold then
+			filterTable.gold = GetItemCost( hero._rememberItemSold ) / 2
+			return true
+		end
+		if filterTable.reason_const == DOTA_ModifyGold_GameTick then
+			return
+		end
 		local bonusGold = 0
 		-- local midas = hero:FindModifierByName("modifier_hand_of_midas_passive")
 		-- if midas then
@@ -747,8 +759,6 @@ function CHoldoutGameMode:OnHeroPick (event)
 	hero.Ressurect = 0
 	--stats:ModifyStatBonuses(hero)
 	local ID = hero:GetPlayerID()
-	hero:SetGold(0 , false)
-	hero:SetGold(0 , true)
 	--[[Timers:CreateTimer(2.5,function()
  			if self._NewGamePlus == true and PlayerResource:GetGold(ID)>= 80000 then
  				self._Buy_Asura_Core(ID)
@@ -874,6 +884,8 @@ function CHoldoutGameMode:OnHeroPick (event)
 	PlayerResource:SetCustomBuybackCooldown( playerID, 10 )
 	PlayerResource:SetCustomBuybackCost( playerID, 100 )
 	
+	hero:HeroLevelUp( false )
+	
 	-- local tp = hero:FindItemInInventory( "item_tpscroll" )
 	-- if tp then
 		-- hero:RemoveItem( tp )
@@ -928,7 +940,6 @@ function CHoldoutGameMode:_ReadGameConfiguration()
 	kv = kv or {} -- Handle the case where there is not keyvalues file
 	
 	GameRules.BossKV = LoadKeyValues( "scripts/npc/units/npc_boss_units.txt" )
-	print( GameRules.BossKV, "loaded bossKV" )
 
 	self._bAlwaysShowPlayerGold = kv.AlwaysShowPlayerGold or false
 	self._bRestoreHPAfterRound = kv.RestoreHPAfterRound or false
@@ -942,6 +953,7 @@ function CHoldoutGameMode:_ReadGameConfiguration()
 	self:_ReadRandomSpawnsConfiguration( kv["RandomSpawns"] )
 	self:_ReadLootItemDropsConfiguration( kv["ItemDrops"] )
 	self:_ReadRoundConfigurations( kv )
+	GameRules:SetStartingGold ( tonumber(kv.StartingGold or 1500) )
 	
 	-- local genericKV = LoadKeyValues( "addoninfo.txt" )
 	-- self._MaxPlayers = genericKV[GetMapName()].MaxPlayers
@@ -1139,14 +1151,26 @@ end
 -- If random drops are defined read in that data
 function CHoldoutGameMode:_ReadLootItemDropsConfiguration( kvLootDrops )
 	self._vLootItemDropsList = {}
+	self._vLootItemDropsList[1] = {}
+	self._vLootItemDropsList[2] = {}
+	self._vLootItemDropsList[3] = {}
+	self._vLootItemDropsList[4] = {}
 	if type( kvLootDrops ) ~= "table" then
 		return
 	end
-	for _,lootItem in pairs( kvLootDrops ) do
-		table.insert( self._vLootItemDropsList, {
-			szItemName = lootItem.Item or "",
-			nChance = tonumber( lootItem.Chance or 0 )
-		})
+	for currentTier,tierData in pairs( kvLootDrops ) do
+		local tierVal = string.gsub( currentTier, "Tier", "")
+		tierVal = tierVal + 1
+		local totalWeight = 0
+		for itemName, itemWeight in pairs( tierData ) do
+			if itemWeight > 0 then
+				totalWeight = totalWeight + tonumber( itemWeight or 0 )
+				table.insert( self._vLootItemDropsList[tierVal], {
+					szItemName = itemName or "",
+					nWeight = totalWeight
+				})
+			end
+		end
 	end
 end
 
@@ -1154,15 +1178,49 @@ end
 -- Set number of rounds without requiring index in text file
 function CHoldoutGameMode:_ReadRoundConfigurations( kv )
 	self._vRounds = {}
-	while true do
-		local szRoundName = string.format("Round%d", #self._vRounds + 1 )
-		local kvRoundData = kv[ szRoundName ]
-		if kvRoundData == nil then
-			return
+	if GetMapName() == "epic_boss_fight_event" then
+		self._vRoundTierScaling = kv.PowerScaling
+		local orderedList = {}
+		local spawnPools = {}
+		spawnPools[1] = {}
+		spawnPools[2] = {}
+		spawnPools[3] = {}
+		spawnPools[4] = {}
+		for roundTier, tierData in pairs( kv.SpawnPools ) do
+			local currentTierVal = string.gsub( roundTier, "Tier", "")
+			local currentTier = tonumber( currentTierVal ) + 1
+			for roundName, roundData in pairs( tierData ) do
+				local roundCopy = roundData
+				roundCopy.RoundName = roundName
+				table.insert( spawnPools[currentTier], roundCopy )
+			end
 		end
-		local roundObj = CHoldoutGameRound()
-		roundObj:ReadConfiguration( kvRoundData, self, #self._vRounds + 1 )
-		table.insert( self._vRounds, roundObj )
+		for tierToFill = 1, 4 do
+			for i = 1, 6 do
+				local roundToAdd = RandomInt(1, #spawnPools[tierToFill] )
+				local kvRoundData = spawnPools[tierToFill][roundToAdd]
+				
+				if kvRoundData == nil then -- pool is empty or we hit max
+					break
+				end
+				kvRoundData.Tier = tierToFill - 1
+				local roundObj = CHoldoutGameRound()
+				roundObj:ReadConfiguration( kvRoundData, self, #self._vRounds + 1 )
+				table.insert( self._vRounds, roundObj )
+				table.remove( spawnPools[tierToFill], roundToAdd )
+			end	
+		end
+	else
+		while true do
+			local szRoundName = string.format("Round%d", #self._vRounds + 1 )
+			local kvRoundData = kv[ szRoundName ]
+			if kvRoundData == nil then
+				return
+			end
+			local roundObj = CHoldoutGameRound()
+			roundObj:ReadConfiguration( kvRoundData, self, #self._vRounds + 1 )
+			table.insert( self._vRounds, roundObj )
+		end
 	end
 end
 

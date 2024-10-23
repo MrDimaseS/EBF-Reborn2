@@ -71,17 +71,3 @@ function modifier_skywrath_mage_mystic_flare_thinker:OnIntervalThink()
 		ability:DealDamage(caster, enemy, self.damage * self.damage_interval / #enemies)
     end
 end
-
-function modifier_skywrath_mage_mystic_flare_thinker:DeclareFunctions()
-	if self:GetCaster():HasTalent("special_bonus_unique_skywrath_mage_mystic_flare_2") then
-		return {MODIFIER_EVENT_ON_TAKEDAMAGE}
-	end
-end
-
-function modifier_skywrath_mage_mystic_flare_thinker:OnTakeDamage( params )
-	if params.unit == self:GetCaster() then
-		local damage = params.original_damage
-		local modifiedDuration = params.original_damage/(self.damage)
-		self:SetDuration( self:GetRemainingTime() + modifiedDuration, false )
-	end
-end

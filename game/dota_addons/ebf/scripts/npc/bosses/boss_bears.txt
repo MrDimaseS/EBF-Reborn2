@@ -23,7 +23,7 @@
 
 		// Damage.
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"6500 7500 8000 8500"
+		"AbilityDamage"					"200 250 300 350"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -52,6 +52,7 @@
 				"RequiresShard"		"1"
 			}
 			"AbilityCooldown"		"14"
+			"AbilityDamage"					"200 250 300 350"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 		"AbilityCastGestureSlot"		"DEFAULT"
@@ -108,7 +109,11 @@
 		"AbilityValues"
 		{
 			"bonus_reset_time"						"8"
-			"damage_per_stack"						"2250"
+			"damage_per_stack"
+			{
+				"value"								"25"
+				"CalculateAttackDamageTooltip"		"1"
+			}
 			"stun_stack_count"						"8"
 			"stun_duration"							"2"
 			"stack_loss_on_dispel"					"50"
@@ -259,10 +264,6 @@
 		"AbilityCastPoint"				"0.5 0.5 0.5"
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_4"
 
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		
-
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"100 125 150"		
@@ -283,12 +284,12 @@
 			"duration"					"3.75"
 			"damage"					
 			{
-				"value"							"24000 26000 28000 30000"
+				"value"							"250 280 310 340"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"side_damage"				
+			"side_damage"
 			{
-				"value"							"24000 26000 28000 30000"
+				"value"							"250 280 310 340"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"damage_radius"				
@@ -341,7 +342,7 @@
 
 			"base_damage"						
 			{
-				"value"							"5000 6000 7000 8000"
+				"value"							"100 120 140 150"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"heal_pct"							"25"

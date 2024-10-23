@@ -7,7 +7,7 @@ function boss_death_avatar_plague_ward:OnSpellStart()
 	if not caster:IsAlive() then 
 		return
 	end
-	for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), self:GetTrueCastRange() ) ) do
+	for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), -1, {type = DOTA_UNIT_TARGET_HERO} ) ) do
 		for i = 1, self:GetSpecialValueFor("wards_spawned") do
 			CreateUnitByNameAsync( "npc_dota_minion_death_bringer", enemy:GetAbsOrigin() + ActualRandomVector( 128, 32 ), true, nil, nil, caster:GetTeamNumber(),
 			function(entUnit)

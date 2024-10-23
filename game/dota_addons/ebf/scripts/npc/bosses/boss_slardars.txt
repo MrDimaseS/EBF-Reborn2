@@ -36,7 +36,11 @@
 			"bonus_speed"					"30 35 40 45"
 			"duration"						"10"
 			"river_speed"					"18"
-			"puddle_regen"					"250"
+			"puddle_regen"
+			{
+				"value"						"100"
+				"CalculateSpellHealTooltip"	"1"
+			}
 			"puddle_armor"					"15"
 			"puddle_status_resistance"		"40"
 			"river_speed_tooltip"			"18"
@@ -100,7 +104,11 @@
 			"stun_duration"						"1 1.25 1.5 1.75"
 			"puddle_duration"					"4 5 6 7"
 			"puddle_radius"						"250"
-			"crush_damage"						"2500 3500 4500 5500"
+			"crush_damage"
+			{
+				"value"							"125 150 175 200"
+				"CalculateSpellDamageTooltip"	"1"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -129,7 +137,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage"				"125 150 175 200 800 975 1150 1350"
+			"bonus_damage"
+			{
+				"value"							"40 60 80 100 125 150 175 200"
+				"CalculateSpellDamageTooltip"	"1"
+			}
 			"duration"					"0.1 0.1 0.1 0.5 0.6 0.7 0.8"
 			"attack_count"				"10 10 10 6 6 6 6"
 		}
@@ -297,7 +309,11 @@
 		{
 			"hits"						"6"
 			"armor_reduction"			"-2 -3 -4"
-			"damage"					"500 600 700 800"
+			"damage"
+			{
+				"value"							"100 120 140 160"
+				"CalculateSpellDamageTooltip"	"1"
+			}
 			"radius"					"300"
 			"duration"					"4.0"
 			"debuff_duration"			"10"
@@ -343,7 +359,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"gush_damage"			"1750 2000 2250 2500"
+			"gush_damage"
+			{
+				"value"							"200 240 280 320"
+				"CalculateSpellDamageTooltip"	"1"
+			}
 			"projectile_speed"		"2500"
 			"movement_speed"		"-40"
 			"negative_armor"		"3 5 7 8"
@@ -372,8 +392,16 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"damage_reduction"			"1000 1100 1200 1300"
-			"damage_cleanse"			"25000"
+			"damage_reduction"
+			{
+				"value"							"80 100 120 140"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"damage_cleanse"
+			{
+				"value"							"800"
+				"CalculateAttributeTooltip"		"1"
+			}
 			"damage_reset_interval"		"7.0 7.0 7.0 7.0"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -414,7 +442,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"attack_damage"									"0"
+			"attack_damage"
+			{
+				"value"							"100"
+				"CalculateAttributeTooltip"		"1"
+			}
 			"damage_reduction"								"-30"
 			"reduction_duration"							"6.0 6.0 6.0 6.0"
 			"radius"										"475"
@@ -454,7 +486,7 @@
 
 		// Damage.
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"2000 3000 3500 4000"
+		"AbilityDamage"					"250 300 350 400"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -467,6 +499,7 @@
 			"radius"					"1250"
 			"speed"						"725"
 			"duration"					"2.4 2.6 2.8 3.0"
+			"AbilityDamage"					"250 300 350 400"
 		}
 	}
 }

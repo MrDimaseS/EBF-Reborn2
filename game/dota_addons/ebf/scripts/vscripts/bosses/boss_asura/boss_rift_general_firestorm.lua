@@ -89,11 +89,6 @@ function modifier_boss_rift_general_firestorm_burn:OnCreated(kv)
     end
 end
 
-function modifier_boss_rift_general_firestorm_burn:OnRefresh(kv)
-	self.miss = self:GetCaster():FindTalentValue("special_bonus_unique_abyssal_underlord_firestorm_2", "miss") * (-1)
-	self.blind = self:GetCaster():FindTalentValue("special_bonus_unique_abyssal_underlord_firestorm_2", "blind") * (-1)
-end
-
 
 function modifier_boss_rift_general_firestorm_burn:OnIntervalThink()
     local caster = self:GetCaster()
@@ -107,18 +102,6 @@ function modifier_boss_rift_general_firestorm_burn:OnIntervalThink()
     local damage = parent:GetMaxHealth() * self.burn_damage
 	
     ability:DealDamage(caster, parent, parent:GetMaxHealth() * self.burn_damage, {}, OVERHEAD_ALERT_BONUS_POISON_DAMAGE)
-end
-
-function modifier_boss_rift_general_firestorm_burn:DeclareFunctions()
-	return {MODIFIER_PROPERTY_MISS_PERCENTAGE, MODIFIER_PROPERTY_BONUS_VISION_PERCENTAGE}
-end
-
-function modifier_boss_rift_general_firestorm_burn:GetModifierMiss_Percentage()
-	return self.miss
-end
-
-function modifier_boss_rift_general_firestorm_burn:GetBonusVisionPercentage()
-	return self.blind
 end
 
 function modifier_boss_rift_general_firestorm_burn:GetEffectName()

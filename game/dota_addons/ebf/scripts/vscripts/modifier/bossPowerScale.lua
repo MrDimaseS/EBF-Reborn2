@@ -23,6 +23,7 @@ function bossPowerScale:OnRefresh(keys)
 	self.bonusDamagePct = ( ( (1 + playerNumber * 4) * (1 + difficulty * 0.2) - 1 ) * 100 ) * logisticFunction
 	self.bonusSpellDamage = ( ( (1 + difficulty * 0.25) - 1 ) * 100 ) * logisticFunction
 	
+	self.abilityValueIncrease =1 + 0.25*roundNumber + (roundNumber*0.1) * (roundNumber-1) + (-2.85 -39.5*(1 - math.exp(0.04*roundNumber)))
 	
 	if difficulty >= 3 then
 		self.bonusCooldownReduction = 0
@@ -57,7 +58,6 @@ function bossPowerScale:OnRefresh(keys)
 end
 
 function bossPowerScale:OnIntervalThink()
-
 	if IsServer() then
 		self.treewalk = not self:GetParent():IsLeashed()
 		if self:GetParent():IsInvulnerable() or self:GetParent():IsInvulnerable() or self:GetParent():IsOutOfGame() then return end
@@ -149,9 +149,66 @@ function bossPowerScale:DeclareFunctions()
 	MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE,
 	MODIFIER_EVENT_ON_DEATH,
 	MODIFIER_EVENT_ON_TAKEDAMAGE,
-	MODIFIER_EVENT_ON_ABILITY_START
+	MODIFIER_EVENT_ON_ABILITY_START,
+	MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL,
+	MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL_VALUE,
   }
   return funcs
+end
+
+
+function bossPowerScale:GetModifierOverrideAbilitySpecial(params)
+	if self._lockForProcessing then return end
+	if GameRules._processValuesForScaling == nil then
+		GameRules._processValuesForScaling = {}
+	end
+	if GameRules._processValuesForScaling[params.ability:GetAbilityName()] == nil then
+		GameRules._processValuesForScaling[params.ability:GetAbilityName()] = {}
+	end
+	local special_value = params.ability_special_value:gsub("%#", "")
+	if special_value == "AbilityCooldown" or special_value == "AbilityCharges" or special_value == "AbilityManaCost" or special_value == "AbilityCastRange" or special_value == "AbilityDuration" then
+		return
+	end
+	if GameRules._processValuesForScaling[params.ability:GetAbilityName()][special_value] == nil then
+		local abilityValues = GetAbilityKeyValuesByName(params.ability:GetAbilityName()).AbilityValues
+		if abilityValues then
+			for specialValue, valueData in pairs( abilityValues ) do
+				GameRules._processValuesForScaling[params.ability:GetAbilityName()][specialValue] = {}
+				GameRules._processValuesForScaling[params.ability:GetAbilityName()][specialValue].affected_by_lvl_increase = false
+				if type(valueData) == "table" then -- check for adjustments
+					if toboolean(valueData.CalculateSpellDamageTooltip)
+					or toboolean(valueData.CalculateSpellHealTooltip)
+					or toboolean(valueData.CalculateAttackDamageTooltip)
+					or toboolean(valueData.CalculateAttributeTooltip) then
+						GameRules._processValuesForScaling[params.ability:GetAbilityName()][specialValue].affected_by_lvl_increase = true
+					end
+				elseif specialValue == "AbilityDamage" then
+					GameRules._processValuesForScaling[params.ability:GetAbilityName()][specialValue].affected_by_lvl_increase = true
+				end
+			end
+		end
+	end
+	if GameRules._processValuesForScaling[params.ability:GetAbilityName()][special_value] == nil then
+		GameRules._processValuesForScaling[params.ability:GetAbilityName()][special_value] = false -- not found
+	end
+	if GameRules._processValuesForScaling[params.ability:GetAbilityName()][special_value]
+	and GameRules._processValuesForScaling[params.ability:GetAbilityName()][special_value].affected_by_lvl_increase then
+		return 1
+	end
+end
+
+function bossPowerScale:GetModifierOverrideAbilitySpecialValue(params)
+	self._lockForProcessing = true
+	local special_value = params.ability_special_value:gsub("%#", "")
+	local flBaseValue = params.ability:GetLevelSpecialValueNoOverride( special_value, -1 )
+	self._lockForProcessing = false
+	if flBaseValue <= 0 then
+		return
+	end
+	if GameRules._processValuesForScaling[params.ability:GetAbilityName()][special_value].affected_by_lvl_increase then
+		local flNewValue = flBaseValue * self.abilityValueIncrease
+		return flNewValue
+	end
 end
 
 function bossPowerScale:OnAbilityStart(event)

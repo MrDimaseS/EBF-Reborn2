@@ -481,9 +481,9 @@ function CDOTA_BaseNPC:GetAverageBaseDamage()
 end
 
 function CDOTA_BaseNPC:SetAverageBaseDamage(average, variance) -- variance is in percent (50 not 0.5)
-	local var = variance or 0
+	local var = variance or (self:GetBaseDamageMax()/self:GetAverageBaseDamage()-1) * 100
 	self:SetBaseDamageMax(average*(1+(var/100)))
-	self:SetBaseDamageMin(average*(1+(var/100)))
+	self:SetBaseDamageMin(average*(1-(var/100)))
 end
 
 function CDOTA_BaseNPC:GetAverageBaseDamageVariance()

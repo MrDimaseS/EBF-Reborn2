@@ -13,21 +13,22 @@ function CHoldoutGameRound:ReadConfiguration( kv, gameMode, roundNumber )
 	self._gameMode = gameMode
 	self._nRoundNumber = roundNumber
 
+	self._szRoundQuestTitle = kv.RoundName or kv.round_quest_title or "#DOTA_Quest_Holdout_Round"
+	self._szRoundTitle = kv.RoundName or kv.round_title or string.format( "Round%d", roundNumber )
 
-	self._szRoundQuestTitle = kv.round_quest_title or "#DOTA_Quest_Holdout_Round"
-	self._szRoundTitle = kv.round_title or string.format( "Round%d", roundNumber )
-
-	self._nMaxGold = tonumber( kv.MaxGold or 0 )
+	self._nMaxGold = tonumber( kv.MaxGold or (500 + roundNumber * 500) )
 	self._nBagCount = tonumber( kv.BagCount or 0 )
 	self._nBagVariance = tonumber( kv.BagVariance or 0 )
-	self._nFixedXP = tonumber( kv.FixedXP or 0 )
+	self._nFixedXP = tonumber( kv.FixedXP or (475 + roundNumber * 25 + 500*roundNumber) )
+	self._Tier = tonumber( kv.Tier or 0 )
 
 	self._vSpawners = {}
-	for k, v in pairs( kv ) do
-		if type( v ) == "table" and v.NPCName then
+	for unitName, unitData in pairs( kv ) do
+		if type( unitData ) == "table" then
+			if not unitData.NPCName then unitData.NPCName = unitName end
 			local spawner = CHoldoutGameSpawner()
-			spawner:ReadConfiguration( k, v, self )
-			self._vSpawners[ k ] = spawner
+			spawner:ReadConfiguration( unitName.."_spawner", unitData, self )
+			self._vSpawners[ unitName.."_spawner" ] = spawner
 		end
 	end
 
@@ -43,26 +44,8 @@ function CHoldoutGameRound:Precache()
 	end
 end
 
-function CHoldoutGameRound:spawn_treasure()
-	random = math.random(0,100)
-	if (random > 80) then
-		local Item_spawn = CreateItem( "item_present_treasure", nil, nil )
-		Timers:CreateTimer(0.03,function()
-			local max_player = DOTA_MAX_TEAM_PLAYERS
-			WID = math.random(0,max_player)
-			if PlayerResource:GetConnectionState(WID) == 2 then
-				local player = PlayerResource:GetPlayer(WID)
-				local hero = player:GetAssignedHero() 
-				hero:AddItem(Item_spawn)
-			else
-				return 0.03
-			end
-		end)
-	end
-end
-
 function CHoldoutGameRound:Begin()
-	print("round has started")
+	print("round has started", self._szRoundQuestTitle )
 	self._vEnemiesRemaining = {}
 	self._vEventHandles = {
 		ListenToGameEvent( "entity_killed", Dynamic_Wrap( CHoldoutGameRound, "OnEntityKilled" ), self ),
@@ -234,46 +217,48 @@ function CHoldoutGameRound:End(bWon)
 			local player = hero:GetPlayerOwner()
 			if hero:GetTeamNumber() == DOTA_TEAM_GOODGUYS then 
 				if PlayerResource:GetConnectionState( hero:GetPlayerID() ) ~= DOTA_CONNECTION_STATE_ABANDONED then
-					local midas
-					for i = DOTA_ITEM_SLOT_1, DOTA_ITEM_SLOT_6, 1 do
-						local item = hero:GetItemInSlot(i)
-						if item and item:GetName() == "item_hand_of_midas_ebf" then
-							midas = item
-							break
+					if GetMapName() ~= "epic_boss_fight_event" then
+						Timers:CreateTimer( 0.5, function()
+							hero:AddGold( goldToProvide )
+							hero:AddExperience(expToProvide, DOTA_ModifyXP_HeroKill, false, true)
+						end)
+						if goldMuliplierTeam + goldMuliplierSolo > 0 then
+							Timers:CreateTimer( 1.5, function()
+								hero:AddGold( goldForLiving )
+							end)
 						end
-					end
-					if midas and (midas._currentGoldStorage or 0) < 99999 then
-						midas._currentGoldStorage = (midas._currentGoldStorage or 0) * (1 + midas:GetSpecialValueFor("interest_rate") / 100)
-					end
-					Timers:CreateTimer( 0.5, function()
-						if midas and midas._currentGoldStorage < 99999 then
-							local goldToBank = goldToProvide * midas:GetSpecialValueFor("bonus_gold") / 100
-							midas._currentGoldStorage = midas._currentGoldStorage + goldToBank
-							midas._roundRewardsBanked = (midas._roundRewardsBanked or 0) + goldToBank
-							goldToProvide = goldToProvide - goldToBank
+					else
+						Timers:CreateTimer( 0.5, function()
+							local totalGoldInPool = (goldToProvide + goldForLiving) + (hero._currentGoldDebt or 0)
+							hero:AddExperience(expToProvide, DOTA_ModifyXP_HeroKill, false, true)
 							
-							local tooltip = hero:FindModifierByNameAndAbility( "modifier_hand_of_midas_passive", midas )
-							if tooltip then
-								tooltip:ForceRefresh()
-							end
-						end
-						hero:AddGold( goldToProvide )
-						hero:AddExperience(expToProvide, DOTA_ModifyXP_HeroKill, false, true)
-					end)
-					if goldMuliplierTeam + goldMuliplierSolo > 0 then
-						Timers:CreateTimer( 1.5, function()
-							if midas and midas._currentGoldStorage < 99999 then
-								local goldToBank = goldForLiving * midas:GetSpecialValueFor("bonus_gold") / 100
-								midas._currentGoldStorage = midas._currentGoldStorage + goldToBank
-								midas._roundRewardsBanked = (midas._roundRewardsBanked or 0) + goldToBank
-								goldForLiving = goldForLiving - goldToBank
-								
-								local tooltip = hero:FindModifierByNameAndAbility( "modifier_hand_of_midas_passive", midas )
-								if tooltip then
-									tooltip:ForceRefresh()
+							local itemsCreated = 0
+							local attempts = 10
+							while itemsCreated < 2 and totalGoldInPool > 0 and attempts > 0 do
+								local itemToDrop
+								local itemsPossible = #self._gameMode._vLootItemDropsList[self._Tier+1]
+								local itemRange = self._gameMode._vLootItemDropsList[self._Tier+1][itemsPossible].nWeight
+								local itemDropResult = RandomFloat( 0, itemRange )
+								for i = itemsPossible, 1, -1 do
+									local itemDropData = self._gameMode._vLootItemDropsList[self._Tier+1][i]
+									local itemWeight = itemDropData.nWeight
+									if itemWeight <= itemDropResult then
+										itemToDrop = itemDropData.szItemName
+										break
+									end
+								end
+								attempts = attempts - 1
+								if itemToDrop and player then
+									itemsCreated = itemsCreated + 1
+									totalGoldInPool = totalGoldInPool - math.ceil( GetItemCost( itemToDrop ) )
+									local itemDrop = CreateItem( itemToDrop, player, hero )
+									hero:AddItem( itemDrop )
+								else
+									attempts = 0
+									break
 								end
 							end
-							hero:AddGold( goldForLiving )
+							hero._currentGoldDebt = totalGoldInPool
 						end)
 					end
 					if roundNumber == 6 then
@@ -312,6 +297,7 @@ function CHoldoutGameRound:End(bWon)
 	for _,spawner in pairs( self._vSpawners ) do
 		spawner:End()
 	end
+	GameRules._processValuesForScaling = nil
 	-- if GameRules._getDeadCoreUnitsForGarbageCollection[roundNumber-1] then
 		-- local delay = 0
 		-- for _, unit in ipairs( GameRules._getDeadCoreUnitsForGarbageCollection[roundNumber-1] ) do
@@ -338,17 +324,33 @@ function CHoldoutGameRound:Think()
 	end
 	-- clear cached units
 	local delay = 1.5
+	local numberOfUnits = 0
 	for unit, _ in pairs( GameRules._getDeadCoreUnitsForGarbageCollection ) do
+		numberOfUnits = numberOfUnits + 1
 		if IsEntitySafe( unit ) then
 			for i = 0, unit:GetAbilityCount() - 1 do
 				local ability = unit:GetAbilityByIndex( i )
 				if ability and ability:NumModifiersUsingAbility() > 0 then
+					for _, unit in ipairs( FindAllUnits() ) do
+						for _, modifier in ipairs( unit:FindAllModifiers() ) do
+							if modifier:GetAbility() == ability then
+								modifier:Destroy()
+							end
+						end
+					end
 					goto continue
 				end
 			end
 			for i=DOTA_ITEM_SLOT_1, DOTA_ITEM_SLOT_9 do
 				local item = unit:GetItemInSlot(i)
 				if item and item:NumModifiersUsingAbility() > 0 then
+					for _, unit in ipairs( FindAllUnits() ) do
+						for _, modifier in ipairs( unit:FindAllModifiers() ) do
+							if modifier:GetAbility() == item then
+								modifier:Destroy()
+							end
+						end
+					end
 					goto continue
 				end
 			end
@@ -450,9 +452,6 @@ function CHoldoutGameRound:OnEntityKilled( event )
 		self._nCoreUnitsKilled = self._nCoreUnitsKilled + 1
 		-- self:_CheckForGoldBagDrop( killedUnit )
 		local nCoreUnitsRemaining = self._nCoreUnitsTotal - self._nCoreUnitsKilled
-		if nCoreUnitsRemaining == 0 then
-			self:spawn_treasure()
-		end
 	end
 	
 	GameRules._getDeadCoreUnitsForGarbageCollection[killedUnit] = true

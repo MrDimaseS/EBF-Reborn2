@@ -44,12 +44,12 @@ modifier_boss_ursine_fury_swipes = class({})
 LinkLuaModifier("modifier_boss_ursine_fury_swipes", "bosses/boss_bears/boss_ursine_fury_swipes", LUA_MODIFIER_MOTION_NONE)
 function modifier_boss_ursine_fury_swipes:OnCreated(table)
 	self.stun_counter = self:GetSpecialValueFor("stun_stack_count")
+	self.stun_stack_count = self:GetSpecialValueFor("stun_stack_count")
 	self:OnRefresh()
 end
 
 function modifier_boss_ursine_fury_swipes:OnRefresh(table)
 	local caster = self:GetCaster()
-	self.stun_stack_count = self:GetSpecialValueFor("stun_stack_count")
 	self.stun_duration = self:GetSpecialValueFor("stun_duration")
 	self.damage = self:GetSpecialValueFor("damage_per_stack")
 	self.stackLoss = self:GetSpecialValueFor("stack_loss_on_dispel") / 100
@@ -58,9 +58,11 @@ function modifier_boss_ursine_fury_swipes:OnRefresh(table)
 		
 		local ability = self:GetAbility()
 		local stacks = self:GetStackCount()
+		
 		if stacks > 0 and stacks >= self.stun_counter then
 			ability:Stun( self:GetParent(), self.stun_duration )
-			self.stun_counter = self.stun_counter + self.stun_stack_count + 1
+			self.stun_stack_count = self.stun_stack_count + 1
+			self.stun_counter = self.stun_counter + self.stun_stack_count
 		end
 	end
 end

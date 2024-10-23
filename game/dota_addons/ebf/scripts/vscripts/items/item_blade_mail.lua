@@ -353,7 +353,7 @@ modifier_item_blade_mail_passive_taunt = class({})
 LinkLuaModifier( "modifier_item_blade_mail_passive_taunt", "items/item_blade_mail.lua" ,LUA_MODIFIER_MOTION_NONE )
 
 function modifier_item_blade_mail_passive_taunt:OnCreated(table)
-	self.reflection_radius = self:GetTalentSpecialValueFor("reflection_radius")
+	self.reflection_radius = self:GetSpecialValueFor("reflection_radius")
 	self.taunts_enemies = tonumber(self:GetSpecialValueFor("taunts_enemies")) == 1
 end
 

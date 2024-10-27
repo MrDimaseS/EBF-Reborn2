@@ -27,6 +27,7 @@ function morphling_waveform:OnSpellStart()
 	EmitSoundOn("Hero_Morphling.Waveform", caster)
 	self:SetActivated( false )
 	caster:AddNoDraw()
+	caster:AddNewModifier( caster, self, "modifier_invulnerable", {} )
 end
 
 function morphling_waveform:OnProjectileThinkHandle( iProjectile )
@@ -56,6 +57,7 @@ function morphling_waveform:OnProjectileHitHandle(hTarget, vLocation, iProjectil
 	else -- no more projectile
 		self:SetActivated( true )
 		caster:RemoveNoDraw()
+		caster:RemoveModifierByName("modifier_invulnerable")
 		FindClearSpaceForUnit( caster, vLocation, true )
 	end
 end

@@ -46,6 +46,9 @@ function bossManager:ProcessBossScaling(spawnedUnit)
 	if not spawnedUnit.Holdout_IsCore then
 		HP_difficulty_multiplier = HP_difficulty_multiplier*0.6
 		DMG_MULTIPLIER = DMG_MULTIPLIER * 0.6
+	elseif GetGameDifficulty() >= 4 then
+		HP_difficulty_multiplier = HP_difficulty_multiplier * 1.5
+		spawnedUnit:SetBaseAttackTime( spawnedUnit:GetBaseAttackTime() * 0.65 )
 	end
 	spawnedUnit.MaxEHP = HP_difficulty_multiplier*spawnedUnit:GetMaxHealth()
 	

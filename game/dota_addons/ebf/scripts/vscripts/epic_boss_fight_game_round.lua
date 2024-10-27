@@ -272,7 +272,6 @@ function CHoldoutGameRound:End(bWon)
 									rolledTier = rolledTier + 1
 								end
 							end
-							print( "post pity", rolledTier )
 							
 							local totalItems = #self._gameMode._vLootItemDropsList[rolledTier]
 							local itemDropData = self._gameMode._vLootItemDropsList[rolledTier][RandomInt(1,totalItems)]
@@ -392,11 +391,18 @@ function CHoldoutGameRound:Think()
 		if IsEntitySafe( unit ) then
 			for i = 0, unit:GetAbilityCount() - 1 do
 				local ability = unit:GetAbilityByIndex( i )
-				if ability and ability:NumModifiersUsingAbility() > 0 then
-					for _, unit in ipairs( FindAllUnits() ) do
-						for _, modifier in ipairs( unit:FindAllModifiers() ) do
-							if modifier:GetAbility() == ability then
+				local activeModifiers = ability:NumModifiersUsingAbility()
+				if ability and activeModifiers > 0 then
+					for _, findUnit in ipairs( FindAllUnits() ) do
+						for _, modifier in ipairs( findUnit:FindAllModifiers() ) do
+							if modifier:GetAbility() == ability 
+							and ( (findUnit:IsSameTeam( unit ) and not findUnit:IsAlive()) or 
+							       not findUnit:IsSameTeam( unit ) and not modifier:GetAuraOwner() ) then
 								modifier:Destroy()
+								activeModifiers = activeModifiers - 1
+								if activeModifiers <= 0 then
+									break
+								end
 							end
 						end
 					end
@@ -406,9 +412,9 @@ function CHoldoutGameRound:Think()
 			for i=DOTA_ITEM_SLOT_1, DOTA_ITEM_SLOT_9 do
 				local item = unit:GetItemInSlot(i)
 				if item and item:NumModifiersUsingAbility() > 0 then
-					for _, unit in ipairs( FindAllUnits() ) do
-						for _, modifier in ipairs( unit:FindAllModifiers() ) do
-							if modifier:GetAbility() == item then
+					for _, findUnit in ipairs( FindAllUnits() ) do
+						for _, modifier in ipairs( findUnit:FindAllModifiers() ) do
+							if modifier:GetAbility() == item and modifier:GetRemainingTime() <= 0 then
 								modifier:Destroy()
 							end
 						end

@@ -194,7 +194,7 @@ function CHoldoutGameMode:InitGameMode()
 		Life._life = 1
 		Life._MaxLife = 1
 		GameRules._bonusLifeRoundDivider = 99
-		GameRules.gameDifficulty = 4
+		GameRules.gameDifficulty = 3
 		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 10)
 		GameRules:GetGameModeEntity():SetFixedRespawnTime( 180 )
 		GameRules:SetSameHeroSelectionEnabled( true )

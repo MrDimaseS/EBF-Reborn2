@@ -28,10 +28,10 @@ LinkLuaModifier( "modifier_boss_zombie_tombstone", "bosses/boss_zombies/boss_zom
 
 if IsServer() then
 	function modifier_boss_zombie_tombstone:OnCreated( )
-		self.spawnInterval = self:GetTalentSpecialValueFor("zombie_interval")
-		self.zombieCost = self:GetTalentSpecialValueFor("zombie_cost")
+		self.spawnInterval = self:GetSpecialValueFor("zombie_interval")
+		self.zombieCost = self:GetSpecialValueFor("zombie_cost")
 		self.zombiesSpawned = 0
-		self.spawnRadius = self:GetTalentSpecialValueFor("radius")
+		self.spawnRadius = self:GetSpecialValueFor("radius")
 		
 		self:StartIntervalThink( self.spawnInterval )
 		self:OnIntervalThink( )

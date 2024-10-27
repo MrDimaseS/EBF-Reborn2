@@ -209,6 +209,13 @@ function CHoldoutGameRound:End(bWon)
 		end
 		
 		local expToProvide = self._nExpRemainingInRound
+				
+		local tier5Thr = self._gameMode._tier5DropChance + self._gameMode._tier4DropChance + self._gameMode._tier3DropChance + self._gameMode._tier2DropChance + self._gameMode._tier1DropChance
+		local tier4Thr = self._gameMode._tier4DropChance + self._gameMode._tier3DropChance + self._gameMode._tier2DropChance + self._gameMode._tier1DropChance
+		local tier3Thr = self._gameMode._tier3DropChance + self._gameMode._tier2DropChance + self._gameMode._tier1DropChance
+		local tier2Thr = self._gameMode._tier2DropChance + self._gameMode._tier1DropChance
+		local tier1Thr = self._gameMode._tier1DropChance
+		
 		for _, hero in ipairs( HeroList:GetRealHeroes() ) do
 			local goldMuliplierSolo = TernaryOperator( 0.25, (self._heroesDiedThisRound[hero] or 0 == 0), 0)
 			local goldForLiving = self._nMaxGoldForVictory * (goldMuliplierTeam + goldMuliplierSolo)
@@ -232,33 +239,70 @@ function CHoldoutGameRound:End(bWon)
 							local totalGoldInPool = (goldToProvide + goldForLiving) + (hero._currentGoldDebt or 0)
 							hero:AddExperience(expToProvide, DOTA_ModifyXP_HeroKill, false, true)
 							
-							local itemsCreated = 0
-							local attempts = 10
-							while itemsCreated < 2 and totalGoldInPool > 0 and attempts > 0 do
-								local itemToDrop
-								local itemsPossible = #self._gameMode._vLootItemDropsList[self._Tier+1]
-								local itemRange = self._gameMode._vLootItemDropsList[self._Tier+1][itemsPossible].nWeight
-								local itemDropResult = RandomFloat( 0, itemRange )
-								for i = itemsPossible, 1, -1 do
-									local itemDropData = self._gameMode._vLootItemDropsList[self._Tier+1][i]
-									local itemWeight = itemDropData.nWeight
-									if itemWeight <= itemDropResult then
-										itemToDrop = itemDropData.szItemName
-										break
+							local roll = RandomFloatWrapper( 1, 100 )
+							
+							local rolledTier
+							if roll <= tier5Thr and roll > tier4Thr then
+								rolledTier = 5
+							elseif roll <= tier4Thr and roll > tier3Thr then
+								rolledTier = 4
+							elseif roll <= tier3Thr and roll > tier2Thr then
+								rolledTier = 3
+							elseif roll <= tier2Thr and roll > tier1Thr then
+								rolledTier = 2
+							else
+								rolledTier = 1
+							end
+							print( rolledTier, roll, tier5Thr, tier4Thr, tier3Thr, tier2Thr, tier1Thr, "threshold" )
+							if rolledTier < 5 then
+								local oldItems = 0
+								-- pity system, if all 6 items are of the tier rolled or higher, give an upgraded one; random choice if multiple options
+								for i=DOTA_ITEM_SLOT_1, DOTA_ITEM_SLOT_9 do
+									local current_item = hero:GetItemInSlot(i)
+									if current_item then
+										for i= rolledTier, 5 do
+											if self._gameMode._vLootItemDropsTable["Tier"..(i-1)][current_item:GetAbilityName()] then
+												oldItems = oldItems + 1
+												break
+											end
+										end
 									end
 								end
-								attempts = attempts - 1
-								if itemToDrop and player then
-									itemsCreated = itemsCreated + 1
-									totalGoldInPool = totalGoldInPool - math.ceil( GetItemCost( itemToDrop ) )
-									local itemDrop = CreateItem( itemToDrop, player, hero )
-									hero:AddItem( itemDrop )
-								else
-									attempts = 0
-									break
+								if oldItems >= 6 then
+									rolledTier = rolledTier + 1
 								end
 							end
-							hero._currentGoldDebt = totalGoldInPool
+							print( "post pity", rolledTier )
+							
+							local totalItems = #self._gameMode._vLootItemDropsList[rolledTier]
+							local itemDropData = self._gameMode._vLootItemDropsList[rolledTier][RandomInt(1,totalItems)]
+							local itemToDrop = itemDropData.szItemName
+							local itemDrop = CreateItem( itemToDrop, player, hero )
+							hero:AddItem( itemDrop )
+							-- while itemsCreated < 2 and totalGoldInPool > 0 and attempts > 0 do
+								-- local itemsPossible = #self._gameMode._vLootItemDropsList[self._Tier+1]
+								-- local itemRange = self._gameMode._vLootItemDropsList[self._Tier+1][itemsPossible].nWeight
+								-- local itemDropResult = RandomFloat( 0, itemRange )
+								-- for i = itemsPossible, 1, -1 do
+									-- local itemDropData = self._gameMode._vLootItemDropsList[self._Tier+1][i]
+									-- local itemWeight = itemDropData.nWeight
+									-- if itemWeight <= itemDropResult then
+										-- itemToDrop = itemDropData.szItemName
+										-- break
+									-- end
+								-- end
+								-- attempts = attempts - 1
+								-- if itemToDrop and player then
+									-- itemsCreated = itemsCreated + 1
+									-- totalGoldInPool = totalGoldInPool - math.ceil( GetItemCost( itemToDrop ) )
+									-- local itemDrop = CreateItem( itemToDrop, player, hero )
+									-- hero:AddItem( itemDrop )
+								-- else
+									-- attempts = 0
+									-- break
+								-- end
+							-- end
+							-- hero._currentGoldDebt = totalGoldInPool
 						end)
 					end
 					if roundNumber == 6 then
@@ -298,6 +342,24 @@ function CHoldoutGameRound:End(bWon)
 		spawner:End()
 	end
 	GameRules._processValuesForScaling = nil
+	
+	print("me when i reduce chances", self._gameMode._tier1DropChance )
+	if self._gameMode._tier1DropChance > 0 then
+		self._gameMode._tier1DropChance = self._gameMode._tier1DropChance - 8
+		self._gameMode._tier2DropChance = self._gameMode._tier2DropChance + 4
+		self._gameMode._tier3DropChance = self._gameMode._tier3DropChance + 2
+		self._gameMode._tier4DropChance = self._gameMode._tier4DropChance + 1.25
+		self._gameMode._tier5DropChance = self._gameMode._tier5DropChance + 0.75
+	elseif self._gameMode._tier2DropChance > 0 then
+		self._gameMode._tier2DropChance = self._gameMode._tier2DropChance - 5
+		self._gameMode._tier3DropChance = self._gameMode._tier3DropChance + 2.5
+		self._gameMode._tier4DropChance = self._gameMode._tier4DropChance + 1.5
+		self._gameMode._tier5DropChance = self._gameMode._tier5DropChance + 1
+	elseif self._gameMode._tier3DropChance > 0 then
+		self._gameMode._tier3DropChance = self._gameMode._tier3DropChance - 10
+		self._gameMode._tier4DropChance = self._gameMode._tier4DropChance + 9
+		self._gameMode._tier5DropChance = self._gameMode._tier5DropChance + 1
+	end
 	-- if GameRules._getDeadCoreUnitsForGarbageCollection[roundNumber-1] then
 		-- local delay = 0
 		-- for _, unit in ipairs( GameRules._getDeadCoreUnitsForGarbageCollection[roundNumber-1] ) do

@@ -43,13 +43,13 @@ function nevermore_shadowraze:OnSpellStart()
 		end
 
 		-- create the particle and sound
-		local particle = ParticleManager:CreateParticle(
+		local particle = ParticleManager:FireParticle(
 			"particles/units/heroes/hero_nevermore/nevermore_shadowraze.vpcf",
 			PATTACH_ABSORIGIN,
-			caster
+			caster,
+			{[0] = position + Vector(0,0,1),
+			 [1] = Vector(shadowraze_radius,0,1)}
 		)
-		ParticleManager:SetParticleControl(particle, 0, position)
-		ParticleManager:ReleaseParticleIndex(particle)
 		EmitSoundOnLocationWithCaster(position, "Hero_Nevermore.Shadowraze", caster)
 		
 		triggers = triggers -1

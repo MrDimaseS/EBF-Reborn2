@@ -1744,7 +1744,7 @@ function Death_Pact(event)
     local ability = event.ability
     local duration = ability:GetLevelSpecialValueFor( "duration" , ability:GetLevel() - 1 )
     -- Health Gain
-    local health_gain_pct = ability:GetTalentSpecialValueFor( "hp_percent" ) * 0.01
+    local health_gain_pct = ability:GetSpecialValueFor( "hp_percent" ) * 0.01
     local target_health = target:GetMaxHealth()
     local health_gain = math.floor(target_health * health_gain_pct)
     -- Damage Gain

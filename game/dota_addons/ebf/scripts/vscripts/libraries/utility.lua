@@ -781,15 +781,19 @@ function CDOTA_BaseNPC:RefreshAllIntrinsicModifiers()
 					stacks = passive:GetStackCount()
 					passive:Destroy()
 				end
-				ability:RefreshIntrinsicModifier()
-				passive = self:FindModifierByNameAndAbility( ability:GetIntrinsicModifierName(), ability )
-				passive._stackFollowList = stackData
-				if passive._stackFollowList then
-					passive:AddIndependentStack({stacks = 0, duration = 0})
-				end
-				if IsModifierSafe( passive ) then
-					passive:SetStackCount( stacks )
-				end
+				Timers:CreateTimer(1, function()
+					ability:RefreshIntrinsicModifier()
+					passive = self:FindModifierByNameAndAbility( ability:GetIntrinsicModifierName(), ability )
+					if IsModifierSafe( passive ) then
+						passive._stackFollowList = stackData
+						if passive._stackFollowList then
+							passive:AddIndependentStack({stacks = 0, duration = 0})
+						end
+						passive:SetStackCount( stacks )
+					else
+						return 1
+					end
+				end)
 			end
 		end
 	end
@@ -804,40 +808,6 @@ function CDOTA_BaseNPC:IsFakeHero()
 	or self:GetUnitLabel() == "spirit_bear" then
 		return true
 	else return false end
-end
-
-function CDOTABaseAbility:GetTalentSpecialValueFor(value)
-	local base = self:GetSpecialValueFor(value)
-	local talentName
-	local valname = "value"
-	local multiply = false
-	local kv = self:GetAbilityKeyValues()
-	for k,v in pairs(kv) do -- trawl through keyvalues
-		if k == "AbilitySpecial" then
-			for l,m in pairs(v) do
-				if m[value] then
-					talentName = m["LinkedSpecialBonus"]
-					if m["LinkedSpecialBonusField"] then valname = m["LinkedSpecialBonusField"] end
-					if m["LinkedSpecialBonusOperation"] and m["LinkedSpecialBonusOperation"] == "SPECIAL_BONUS_MULTIPLY" then multiply = true end
-				end
-			end
-		end
-	end
-	if talentName then 
-		local talent = self:GetCaster():FindAbilityByName(talentName)
-		if talent and talent:GetLevel() > 0 then 
-			if multiply then
-				base = base * talent:GetSpecialValueFor(valname) 
-			else
-				base = base + talent:GetSpecialValueFor(valname) 
-			end
-		end
-	end
-	return base
-end
-
-function CDOTA_Modifier_Lua:GetTalentSpecialValueFor(value)
-	return self:GetAbility():GetTalentSpecialValueFor(value)
 end
 
 function CDOTA_Buff:HasBeenRefreshed()

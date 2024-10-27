@@ -91,10 +91,6 @@ function modifier_mars_arena_of_blood_damage_reduction:GetAuraRadius()
     return self.radius
 end
 
-function modifier_mars_arena_of_blood_damage_reduction:GetAuraSearchFlags()
-    return DOTA_UNIT_TARGET_FLAG_INVULNERABLE
-end
-
 function modifier_mars_arena_of_blood_damage_reduction:GetAuraSearchTeam()
     return DOTA_UNIT_TARGET_TEAM_FRIENDLY
 end

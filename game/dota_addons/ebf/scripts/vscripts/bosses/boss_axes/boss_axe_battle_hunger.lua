@@ -17,7 +17,7 @@ function boss_axe_battle_hunger:OnSpellStart()
 	local target = self:GetCursorTarget()
 	
 	EmitSoundOn("Hero_Axe.Battle_Hunger", target)
-	target:AddNewModifier(caster, self, "modifier_boss_axe_battle_hunger", {Duration = self:GetTalentSpecialValueFor("duration")})
+	target:AddNewModifier(caster, self, "modifier_boss_axe_battle_hunger", {Duration = self:GetSpecialValueFor("duration")})
 end
 
 modifier_boss_axe_battle_hunger_handler = class({})
@@ -32,8 +32,8 @@ function modifier_boss_axe_battle_hunger_handler:OnCreated()
 end
 
 function modifier_boss_axe_battle_hunger_handler:OnRefresh()
-	self.movespeed = self:GetTalentSpecialValueFor("speed_bonus")
-	self.armor = self:GetTalentSpecialValueFor("scepter_armor_change")
+	self.movespeed = self:GetSpecialValueFor("speed_bonus")
+	self.armor = self:GetSpecialValueFor("scepter_armor_change")
 end
 
 function modifier_boss_axe_battle_hunger_handler:DeclareFunctions()
@@ -70,10 +70,10 @@ function modifier_boss_axe_battle_hunger:OnCreated()
 end
 
 function modifier_boss_axe_battle_hunger:OnRefresh()
-	self.movespeed = -self:GetTalentSpecialValueFor("speed_bonus")
-	self.armor = -self:GetTalentSpecialValueFor("scepter_armor_change")
-	self.damage = self:GetTalentSpecialValueFor("damage_per_second")
-	self.armor_multiplier = self:GetTalentSpecialValueFor("armor_multiplier")
+	self.movespeed = -self:GetSpecialValueFor("speed_bonus")
+	self.armor = -self:GetSpecialValueFor("scepter_armor_change")
+	self.damage = self:GetSpecialValueFor("damage_per_second")
+	self.armor_multiplier = self:GetSpecialValueFor("armor_multiplier")
 end
 
 function modifier_boss_axe_battle_hunger:OnDestroy()

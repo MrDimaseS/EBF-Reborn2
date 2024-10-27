@@ -17,8 +17,8 @@ function boss_death_avatar_poison_nova:PoisonNova( target )
 	local caster = self:GetCaster()
 	local origin = target or caster
 	
-	local maxRadius = self:GetTalentSpecialValueFor("radius")
-	local duration = self:GetTalentSpecialValueFor("duration")
+	local maxRadius = self:GetSpecialValueFor("radius")
+	local duration = self:GetSpecialValueFor("duration")
 	
 	if target ~= caster then
 		local power = self:GetSpecialValueFor("ward_power") / 100

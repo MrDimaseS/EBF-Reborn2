@@ -5,7 +5,7 @@ function boss_axe_berserkers_call:OnSpellStart()
 	
 	EmitSoundOn("Hero_Axe.Berserkers_Call", caster)
 
-	local nfx = ParticleManager:FireParticle("particles/units/heroes/hero_axe/axe_beserkers_call_owner.vpcf", PATTACH_POINT_FOLLOW, caster, {[0] = caster:GetAbsOrigin(), [1] = "attach_mouth", [2] = Vector(self:GetTalentSpecialValueFor("radius"),0,0)})
+	local nfx = ParticleManager:FireParticle("particles/units/heroes/hero_axe/axe_beserkers_call_owner.vpcf", PATTACH_POINT_FOLLOW, caster, {[0] = caster:GetAbsOrigin(), [1] = "attach_mouth", [2] = Vector(self:GetSpecialValueFor("radius"),0,0)})
 	
 	local battleHunger = caster:FindAbilityByName("boss_axe_battle_hunger")
 	for _, unit in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), self:GetSpecialValueFor("radius") ) ) do

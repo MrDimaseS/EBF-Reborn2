@@ -14,7 +14,7 @@ end
 
 function boss_robot_hookshot:OnAbilityPhaseStart()
 	local casterPos = self:GetCaster():GetAbsOrigin()
-	ParticleManager:FireLinearWarningParticle( casterPos, casterPos + CalculateDirection( self:GetCursorPosition(), casterPos ) * (self:GetTrueCastRange() - 32), self:GetTalentSpecialValueFor("latch_radius") * 2 )
+	ParticleManager:FireLinearWarningParticle( casterPos, casterPos + CalculateDirection( self:GetCursorPosition(), casterPos ) * (self:GetTrueCastRange() - 32), self:GetSpecialValueFor("latch_radius") * 2 )
 	return true
 end
 
@@ -23,9 +23,9 @@ function boss_robot_hookshot:OnSpellStart()
 	
 	local direction = CalculateDirection( self:GetCursorPosition(), caster )
 	
-	local speed = self:GetTalentSpecialValueFor("speed")
+	local speed = self:GetSpecialValueFor("speed")
 	local distance = self:GetTrueCastRange() - 32
-	local width = self:GetTalentSpecialValueFor("latch_radius")
+	local width = self:GetSpecialValueFor("latch_radius")
 	local duration = (distance/speed) * 2
 	local endPos = caster:GetAbsOrigin() + direction * distance
 	
@@ -44,7 +44,7 @@ function boss_robot_hookshot:OnProjectileHit( target, position )
 	local caster = self:GetCaster()
 	if target and not target:TriggerSpellAbsorb( self ) then
 		local distance = CalculateDistance( caster, target )
-		local speed = self:GetTalentSpecialValueFor("speed")
+		local speed = self:GetSpecialValueFor("speed")
 		ParticleManager:SetParticleControlEnt( self.hookFX, 1, target, PATTACH_POINT_FOLLOW, "attach_hitloc", target:GetAbsOrigin(), true)
 		caster:AddNewModifier( caster, self, "modifier_boss_robot_hookshot_hook", { duration = distance / speed, target = target:entindex() } )
 		self:Stun( target, distance / speed )
@@ -54,7 +54,7 @@ function boss_robot_hookshot:OnProjectileHit( target, position )
 	end
 	StopSoundOn( "Hero_Rattletrap.Hookshot.Fire", caster )
 	EmitSoundOn( "Hero_Rattletrap.Hookshot.Retract", caster )
-	Timers:CreateTimer( self:GetTrueCastRange() / self:GetTalentSpecialValueFor("speed"), function()
+	Timers:CreateTimer( self:GetTrueCastRange() / self:GetSpecialValueFor("speed"), function()
 		ParticleManager:ClearParticle( self.hookFX )
 		StopSoundOn( "Hero_Rattletrap.Hookshot.Retract", caster )
 	end)
@@ -68,13 +68,13 @@ if IsServer() then
 	function modifier_boss_robot_hookshot_hook:OnCreated(kv)
 		local caster = self:GetCaster()
 		local parent = EntIndexToHScript( kv.target )
-		self.speed = self:GetTalentSpecialValueFor("speed") * FrameTime()
+		self.speed = self:GetSpecialValueFor("speed") * FrameTime()
 		self.direction = CalculateDirection( parent, caster )
 		self.distance = CalculateDistance( parent, caster )
 		
-		self.radius = self:GetTalentSpecialValueFor("stun_radius")
-		self.damage = self:GetTalentSpecialValueFor("damage")
-		self.duration = self:GetTalentSpecialValueFor("duration")
+		self.radius = self:GetSpecialValueFor("stun_radius")
+		self.damage = self:GetSpecialValueFor("damage")
+		self.duration = self:GetSpecialValueFor("duration")
 		
 		self.enemiesHit = {}
 		caster:StartGesture( ACT_DOTA_RATTLETRAP_HOOKSHOT_LOOP )

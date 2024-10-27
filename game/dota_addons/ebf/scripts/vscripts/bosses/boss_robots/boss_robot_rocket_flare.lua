@@ -41,12 +41,12 @@ if IsServer() then
 			return
 		end
 		if not target then
-			local radius = self:GetTalentSpecialValueFor("radius")
+			local radius = self:GetSpecialValueFor("radius")
 			local enemies = FindUnitsInRadius(caster:GetTeamNumber(), position, nil, radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, 0, 0, false)
 			EmitSoundOn("Hero_Rattletrap.Rocket_Flare.Explode", self:GetCaster())
 			
 			for _, enemy in pairs(enemies) do
-				ApplyDamage({victim = enemy, attacker = caster, damage = self:GetTalentSpecialValueFor("damage"), damage_type = self:GetAbilityDamageType(), ability = self})
+				ApplyDamage({victim = enemy, attacker = caster, damage = self:GetSpecialValueFor("damage"), damage_type = self:GetAbilityDamageType(), ability = self})
 			end
 			ParticleManager:ClearParticle( self.projectiles[projectile] )
 			self.projectiles[projectile] = nil

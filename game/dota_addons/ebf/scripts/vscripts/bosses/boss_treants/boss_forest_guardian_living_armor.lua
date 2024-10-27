@@ -12,7 +12,7 @@ end
 
 function boss_forest_guardian_living_armor:ApplyLivingArmor(target, duration)
 	local caster = self:GetCaster()
-	local bDur = duration or self:GetTalentSpecialValueFor("duration")
+	local bDur = duration or self:GetSpecialValueFor("duration")
 	target:AddNewModifier( caster, self, "modifier_boss_forest_guardian_living_armor", {duration = bDur})
 	target:EmitSound("Hero_Treant.LivingArmor.Target")
 end
@@ -32,8 +32,8 @@ function modifier_boss_forest_guardian_living_armor:OnCreated()
 end
 
 function modifier_boss_forest_guardian_living_armor:OnRefresh()
-	self.regen = self:GetTalentSpecialValueFor("health_regen")
-	self.armor = self:GetTalentSpecialValueFor("bonus_armor")
+	self.regen = self:GetSpecialValueFor("health_regen")
+	self.armor = self:GetSpecialValueFor("bonus_armor")
 end
 
 function modifier_boss_forest_guardian_living_armor:DeclareFunctions()

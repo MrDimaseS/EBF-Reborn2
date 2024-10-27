@@ -560,12 +560,15 @@ function CHoldoutGameMode:FilterGold( filterTable )
 	local hero = PlayerResource:GetSelectedHeroEntity( filterTable.player_id_const )
 	local startGold = filterTable.gold
 	if hero then
-		if filterTable.reason_const == DOTA_ModifyGold_SellItem and GetMapName() == "epic_boss_fight_event" and hero._rememberItemSold then
-			filterTable.gold = GetItemCost( hero._rememberItemSold ) / 2
+		if filterTable.reason_const == DOTA_ModifyGold_SellItem then
+			if GetMapName() == "epic_boss_fight_event" and hero._rememberItemSold then
+				-- filterTable.gold = GetItemCost( hero._rememberItemSold ) / 2
+				filterTable.gold = 0
+			end
 			return true
 		end
 		if filterTable.reason_const == DOTA_ModifyGold_GameTick then
-			return
+			return true
 		end
 		local bonusGold = 0
 		-- local midas = hero:FindModifierByName("modifier_hand_of_midas_passive")
@@ -892,6 +895,10 @@ function CHoldoutGameMode:OnHeroPick (event)
 	-- end
 	hero:AddItemByName("item_bottle_ebf")
 	hero:AddItemByName("item_tier1_token")
+	if GetMapName() == "epic_boss_fight_event" then
+		hero:AddItemByName("item_aghanims_shard")
+		hero:AddItemByName("item_ultimate_scepter_2")
+	end
 	-- if PlayerResource:GetPatronTier(playerID) >= 2 then
 		-- hero:AddItemByName( "item_aegis" )
 	-- end
@@ -1150,11 +1157,19 @@ end
 
 -- If random drops are defined read in that data
 function CHoldoutGameMode:_ReadLootItemDropsConfiguration( kvLootDrops )
+	self._vLootItemDropsTable = table.copy( kvLootDrops )
 	self._vLootItemDropsList = {}
 	self._vLootItemDropsList[1] = {}
 	self._vLootItemDropsList[2] = {}
 	self._vLootItemDropsList[3] = {}
 	self._vLootItemDropsList[4] = {}
+	self._vLootItemDropsList[5] = {}
+	-- setup drop rates
+	self._tier1DropChance = 80
+	self._tier2DropChance = 10
+	self._tier3DropChance = 5
+	self._tier4DropChance = 3.5
+	self._tier5DropChance = 1.5
 	if type( kvLootDrops ) ~= "table" then
 		return
 	end
@@ -1210,6 +1225,18 @@ function CHoldoutGameMode:_ReadRoundConfigurations( kv )
 				table.remove( spawnPools[tierToFill], roundToAdd )
 			end	
 		end
+		-- manually add 1 Tier 4 Round.
+		local roundToAdd = RandomInt(1, #spawnPools[4] )
+		local kvRoundData = spawnPools[4][roundToAdd]
+		
+		if kvRoundData == nil then -- pool is empty or we hit max
+			return
+		end
+		kvRoundData.Tier = 3
+		local roundObj = CHoldoutGameRound()
+		roundObj:ReadConfiguration( kvRoundData, self, #self._vRounds + 1 )
+		table.insert( self._vRounds, roundObj )
+		table.remove( spawnPools[4], roundToAdd )
 	else
 		while true do
 			local szRoundName = string.format("Round%d", #self._vRounds + 1 )
@@ -1278,6 +1305,10 @@ function CHoldoutGameMode:OnGameRulesStateChange()
 							if not HasValInTable( idsSelected, id ) then -- hero hasn't been rolled yet
 								table.insert( idsSelected, id )
 								GameRules:AddHeroToPlayerAvailability( nPlayerID, DOTAGameManager:GetHeroIDByName( heroCategory[id] ) )
+								GameRules:AddHeroToPlayerAvailability( nPlayerID, DOTAGameManager:GetHeroIDByName( heroCategory[id] ) )
+								GameRules:AddHeroToPlayerAvailability( nPlayerID, DOTAGameManager:GetHeroIDByName( heroCategory[id] ) )
+								GameRules:AddHeroToPlayerAvailability( nPlayerID, DOTAGameManager:GetHeroIDByName( heroCategory[id] ) )
+								GameRules:AddHeroToPlayerAvailability( nPlayerID, DOTAGameManager:GetHeroIDByName( heroCategory[id] ) )
 							end
 						end
 					end
@@ -1325,14 +1356,12 @@ function CHoldoutGameMode:OnGameRulesStateChange()
 		
 		if GetMapName() == "epic_boss_fight_event" then
 			local function sendMessages()
-				Say(nil, "Epic Boss Fight Rogue-Like! Use what you get!", false)
+				Say(nil, "Epic Boss Fight Rogue-Like! Get a random item every round, selling gives NO gold!", false)
 			end
 	
 			sendMessages()
 				
-			Timers:CreateTimer(120, function()
-				sendMessages()
-			end)
+			
 		end
 	end
 end

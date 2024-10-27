@@ -23,7 +23,7 @@ function bossPowerScale:OnRefresh(keys)
 	self.bonusDamagePct = ( ( (1 + playerNumber * 4) * (1 + difficulty * 0.2) - 1 ) * 100 ) * logisticFunction
 	self.bonusSpellDamage = ( ( (1 + difficulty * 0.25) - 1 ) * 100 ) * logisticFunction
 	
-	self.abilityValueIncrease =1 + 0.25*roundNumber + (roundNumber*0.1) * (roundNumber-1) + (-2.85 -39.5*(1 - math.exp(0.04*roundNumber)))
+	self.abilityValueIncrease = 1 + math.max(0, 0.20*roundNumber + (roundNumber*0.1) * (roundNumber-1) + (-2.85 -28.5*(1 - math.exp(0.04*roundNumber))) )
 	
 	if difficulty >= 3 then
 		self.bonusCooldownReduction = 0

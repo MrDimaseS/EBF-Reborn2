@@ -171,8 +171,8 @@ function CDOTA_Modifier_Lua:GetSpecialValueFor(specVal)
 	return 0
 end
 
-function CDOTA_Modifier_Lua:GetTalentSpecialValueFor(specVal)
-	return self:GetAbility():GetTalentSpecialValueFor(specVal)
+function CDOTA_Modifier_Lua:GetSpecialValueFor(specVal)
+	return self:GetAbility():GetSpecialValueFor(specVal)
 end
 
 function CDOTA_Modifier_Lua:GetTalentLevelSpecialValueFor(specVal, level)

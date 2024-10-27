@@ -40,15 +40,13 @@ function bossManager:ProcessBossScaling(spawnedUnit)
 	end
 	local EHP_multiplier = 1 / currentRound._EHP_multiplier
 	
-	if GetGameDifficulty() >= 3 and spawnedUnit.Holdout_IsCore then
-		HP_difficulty_multiplier = HP_difficulty_multiplier * 1.5
-		spawnedUnit:SetBaseAttackTime( spawnedUnit:GetBaseAttackTime() * 0.65 )
-	end
+	HP_difficulty_multiplier = HP_difficulty_multiplier * (1 + 0.6 * (GameRules._roundnumber-1) + math.exp(7 - 43/(GameRules._roundnumber-1) + 0.27*math.log(GameRules._roundnumber-1)))
+	local DMG_MULTIPLIER = 1 + 0.1 * (GameRules._roundnumber-1) + math.max(0, 0.97*((GameRules._roundnumber-1)^2)-3.2*(GameRules._roundnumber-1) )
 	
 	if not spawnedUnit.Holdout_IsCore then
-		HP_difficulty_multiplier = 1 + (HP_difficulty_multiplier-1)*0.4
+		HP_difficulty_multiplier = HP_difficulty_multiplier*0.6
+		DMG_MULTIPLIER = DMG_MULTIPLIER * 0.6
 	end
-	HP_difficulty_multiplier = HP_difficulty_multiplier * (1 + 0.6 * (GameRules._roundnumber-1) + math.exp(7 - 43/GameRules._roundnumber + 0.27*math.log(GameRules._roundnumber)))
 	spawnedUnit.MaxEHP = HP_difficulty_multiplier*spawnedUnit:GetMaxHealth()
 	
 	local currentReduction = spawnedUnit:GetPhysicalArmorMultiplier()
@@ -74,7 +72,6 @@ function bossManager:ProcessBossScaling(spawnedUnit)
 		-- end
 	-- end
 	local baseDamage = spawnedUnit:GetAverageBaseDamage()
-	local DMG_MULTIPLIER = 1 + 0.1 * GameRules._roundnumber + math.max(0, 0.97*(GameRules._roundnumber^2)-3.2*GameRules._roundnumber )
 	
 	spawnedUnit:SetAverageBaseDamage( baseDamage * DMG_MULTIPLIER )
 	local powerScale = spawnedUnit:AddNewModifier(spawnedUnit, nil, "bossPowerScale",{})
@@ -98,7 +95,7 @@ function bossManager:ProcessBossScaling(spawnedUnit)
 			spawnedUnit:SetBaseMaxHealth(spawnedUnit.MaxEHP)
 			spawnedUnit:SetMaxHealth(spawnedUnit.MaxEHP)
 			spawnedUnit:SetHealth(spawnedUnit.MaxEHP)
-			spawnedUnit:SetBaseHealthRegen( math.max( 1, spawnedUnit.MaxEHP * 0.005 ) )
+			spawnedUnit:SetBaseHealthRegen( math.max( 1, (spawnedUnit.MaxEHP/currentRound._HP_difficulty_multiplier) * 0.005 ) )
 			spawnedUnit.EHP_MULT = 1
 			spawnedUnit:RespawnUnit()
 		end

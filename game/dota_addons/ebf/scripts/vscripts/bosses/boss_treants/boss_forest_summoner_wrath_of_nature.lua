@@ -14,10 +14,10 @@ function boss_forest_summoner_wrath_of_nature:OnSpellStart()
 
 	local previousEnemy = caster
 
-	local damage = self:GetTalentSpecialValueFor("damage")
-	local bonusDamagePerHit = damage * self:GetTalentSpecialValueFor("damage_percent_add") / 100
-	local bounces = self:GetTalentSpecialValueFor("max_targets")
-	local jump_delay = self:GetTalentSpecialValueFor("jump_delay")
+	local damage = self:GetSpecialValueFor("damage")
+	local bonusDamagePerHit = damage * self:GetSpecialValueFor("damage_percent_add") / 100
+	local bounces = self:GetSpecialValueFor("max_targets")
+	local jump_delay = self:GetSpecialValueFor("jump_delay")
 	
 	local nfx = ParticleManager:CreateParticle("particles/units/heroes/hero_furion/furion_wrath_of_nature_cast.vpcf", PATTACH_POINT_FOLLOW, caster)
 	ParticleManager:SetParticleControlEnt(nfx, 0, caster, PATTACH_ABSORIGIN_FOLLOW, "attach_hitloc", caster:GetAbsOrigin(), true)

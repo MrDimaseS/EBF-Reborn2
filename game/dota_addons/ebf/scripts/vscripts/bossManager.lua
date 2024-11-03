@@ -40,7 +40,10 @@ function bossManager:ProcessBossScaling(spawnedUnit)
 	end
 	local EHP_multiplier = 1 / currentRound._EHP_multiplier
 	
-	HP_difficulty_multiplier = HP_difficulty_multiplier * (1 + 0.6 * (GameRules._roundnumber-1) + math.exp(7 - 43/(GameRules._roundnumber-1) + 0.27*math.log(GameRules._roundnumber-1)))
+	if GameRules._roundnumber > 1 then
+		HP_difficulty_multiplier = HP_difficulty_multiplier * ((1 + 0.85 * (GameRules._roundnumber-1) + (0.5 * (GameRules._roundnumber-1))*(GameRules._roundnumber-1) + math.exp(0.67 * math.log(GameRules._roundnumber-1)^2)))
+	end
+	
 	local DMG_MULTIPLIER = 1 + 0.1 * (GameRules._roundnumber-1) + math.max(0, 0.97*((GameRules._roundnumber-1)^2)-3.2*(GameRules._roundnumber-1) )
 	
 	if not spawnedUnit.Holdout_IsCore then
@@ -49,8 +52,10 @@ function bossManager:ProcessBossScaling(spawnedUnit)
 	elseif GetGameDifficulty() >= 4 then
 		HP_difficulty_multiplier = HP_difficulty_multiplier * 1.5
 		spawnedUnit:SetBaseAttackTime( spawnedUnit:GetBaseAttackTime() * 0.65 )
+		DMG_MULTIPLIER = DMG_MULTIPLIER * 1.25
 	end
 	spawnedUnit.MaxEHP = HP_difficulty_multiplier*spawnedUnit:GetMaxHealth()
+	print( spawnedUnit.MaxEHP, HP_difficulty_multiplier, spawnedUnit:GetMaxHealth(), "ehp calc" )
 	
 	local currentReduction = spawnedUnit:GetPhysicalArmorMultiplier()
 	local newEHPReduction = currentReduction * EHP_multiplier
@@ -118,7 +123,16 @@ function bossManager:ManageBossScaling(spawnedUnit)
 				spawnedUnit._healthBarDummy:AddNewModifier(spawnedUnit, nil, "modifier_healthbar_dummy", {})
 				spawnedUnit:AddNewModifier(spawnedUnit, nil, "modifier_hide_healthbar", {})
 			end
-			if spawnedUnit.hasBeenProcessed then return end
+			if spawnedUnit.hasBeenProcessed then
+				if not spawnedUnit:HasModifier("bossPowerScale") then
+					local powerScale = spawnedUnit:AddNewModifier(spawnedUnit, nil, "bossPowerScale",{})
+					if powerScale then
+						powerScale:SetStackCount( GetRoundNumber() * 100 + GetGameDifficulty()*10 + (TeamCount() - 1) )
+						powerScale:ForceRefresh()
+					end
+				end
+				return 
+			end
 			if GameRules._currentRound == nil and not (IsInToolsMode() or GameRules:IsCheatMode()) then return end
 			self:ProcessBossScaling( spawnedUnit )
 		end);

@@ -21,9 +21,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"necromastery_damage_per_soul"							""
+			"necromastery_max_souls"								""
 			"damage_per_soul"
 			{
-				"special_bonus_facet_nevermore_lasting_presence"	"15 30 45 60 75 90 105"
+				"special_bonus_facet_nevermore_lasting_presence"	"5 10 15 20 25 30 35"
 				"special_bonus_unique_nevermore_5"					"+25%"
 				"CalculateAttackDamageTooltip"						"1"
 			}
@@ -94,8 +96,9 @@
 			"AbilityCooldown"											"9"
 
 			"shadowraze_damage"							
-			{
-				"value"													"900 1600 2300 3000 3700 4400 5100"
+			{				
+				"value"													"500 1000 1500 2000 2500 3000 3500"
+				"special_bonus_facet_nevermore_shadowmire"				"=900 =1600 =2300 =3000 =3700 =4400 =5100"
 				"special_bonus_unique_nevermore_4"						"+75%"
 				"CalculateSpellDamageTooltip"							"1"
 			}
@@ -415,11 +418,13 @@
 			"crit_chance"
 			{
 				"special_bonus_facet_nevermore_lasting_presence"		"40"
+				"affected_by_chance_increase"							"1"
 				"special_bonus_unique_nevermore_7"						"x2"
 			}
 			"crit_damage"
 			{
 				"special_bonus_facet_nevermore_lasting_presence"		"160 180 200 220 240 260 280"
+				"affected_by_crit_increase"								"1"
 				"special_bonus_unique_nevermore_2"						"+30%"
 			}
 			"guaranteed_crits"

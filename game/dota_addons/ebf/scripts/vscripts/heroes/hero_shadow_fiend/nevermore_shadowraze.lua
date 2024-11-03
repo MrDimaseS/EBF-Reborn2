@@ -15,10 +15,11 @@ function nevermore_shadowraze:OnSpellStart()
 
 	local damage = self:GetSpecialValueFor("shadowraze_damage")
 	local attack_interval = self:GetSpecialValueFor("attack_interval")
-	local triggers = math.max( 1, math.floor( caster:GetAttacksPerSecond( false ) * self:GetSpecialValueFor("attack_speed_pct") / 100  ) )
+	local triggers = math.max( 1, math.floor( caster:GetAttacksPerSecond( false ) * self:GetSpecialValueFor("attack_speed_pct") / 100 ) + #self:RollPRNG( (caster:GetAttacksPerSecond( false )-math.floor( caster:GetAttacksPerSecond( false )))*100 ) )
+	
+	print( triggers, caster:GetAttacksPerSecond( false ) * self:GetSpecialValueFor("attack_speed_pct") / 100 )
 	local base_triggers = triggers
 	
-	print( shadowraze_radius )
 	Timers:CreateTimer( function()
 		for _,unit in ipairs( caster:FindEnemyUnitsInRadius( position, shadowraze_radius ) ) do
 			if base_triggers == triggers then -- only apply debuff on primary burst

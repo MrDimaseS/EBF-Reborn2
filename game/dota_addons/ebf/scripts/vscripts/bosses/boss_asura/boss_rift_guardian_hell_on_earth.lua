@@ -18,13 +18,14 @@ end
 function boss_rift_guardian_hell_on_earth:CreateTimedRaze( position )
 	local caster = self:GetCaster()
 	
-	local razeFX = ParticleManager:CreateParticle("particles/doom_ring.vpcf", PATTACH_WORLDORIGIN, nil)
-	ParticleManager:SetParticleControl(razeFX, 0, position)
-	ParticleManager:SetParticleControl(razeFX, 1, position)
 	
 	local damage = self:GetSpecialValueFor("raze_damage")
 	local break_duration = self:GetSpecialValueFor("break_duration")
 	local radius = self:GetSpecialValueFor("radius")
+	
+	local razeFX = ParticleManager:CreateParticle("particles/doom_ring.vpcf", PATTACH_WORLDORIGIN, nil)
+	ParticleManager:SetParticleControl(razeFX, 0, position)
+	ParticleManager:SetParticleControl(razeFX, 1, Vector(radius,radius,10))
 	Timers:CreateTimer(1.5, function()
 		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( position, radius ) ) do
 			self:DealDamage( caster, enemy, damage )
@@ -33,6 +34,7 @@ function boss_rift_guardian_hell_on_earth:CreateTimedRaze( position )
 		EmitSoundOnLocationWithCaster( position, "Hero_EmberSpirit.Attack.TI9", caster )
         ParticleManager:DestroyParticle(razeFX, false)
 	end)
+	
 end
 
 modifier_boss_rift_guardian_hell_on_earth = class({})

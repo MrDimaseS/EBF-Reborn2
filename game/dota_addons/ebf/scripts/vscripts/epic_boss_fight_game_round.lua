@@ -391,22 +391,24 @@ function CHoldoutGameRound:Think()
 		if IsEntitySafe( unit ) then
 			for i = 0, unit:GetAbilityCount() - 1 do
 				local ability = unit:GetAbilityByIndex( i )
-				local activeModifiers = ability:NumModifiersUsingAbility()
-				if ability and activeModifiers > 0 then
-					for _, findUnit in ipairs( FindAllUnits() ) do
-						for _, modifier in ipairs( findUnit:FindAllModifiers() ) do
-							if modifier:GetAbility() == ability 
-							and ( (findUnit:IsSameTeam( unit ) and not findUnit:IsAlive()) or 
-							       not findUnit:IsSameTeam( unit ) and not modifier:GetAuraOwner() ) then
-								modifier:Destroy()
-								activeModifiers = activeModifiers - 1
-								if activeModifiers <= 0 then
-									break
+				if ability then
+					local activeModifiers = ability:NumModifiersUsingAbility()
+					if activeModifiers > 0 then
+						for _, findUnit in ipairs( FindAllUnits() ) do
+							for _, modifier in ipairs( findUnit:FindAllModifiers() ) do
+								if modifier:GetAbility() == ability 
+								and ( (findUnit:IsSameTeam( unit ) and not findUnit:IsAlive()) or 
+									   not findUnit:IsSameTeam( unit ) and not modifier:GetAuraOwner() ) then
+									modifier:Destroy()
+									activeModifiers = activeModifiers - 1
+									if activeModifiers <= 0 then
+										break
+									end
 								end
 							end
 						end
+						goto continue
 					end
-					goto continue
 				end
 			end
 			for i=DOTA_ITEM_SLOT_1, DOTA_ITEM_SLOT_9 do

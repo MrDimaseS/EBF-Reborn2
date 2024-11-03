@@ -1309,18 +1309,20 @@ end
 function CDOTABaseAbility:Stun(target, duration, effectName, effectData)
 	if not target or target:IsNull() then return end
 	local stun = target:AddNewModifier(self:GetCaster(), self, "modifier_stunned", {duration = duration})
-	if effectName then
-		local FX = ParticleManager:CreateParticle(effectName, PATTACH_POINT_FOLLOW, target)
-		if effectData then
-			for cp, value in pairs(effectData) do
-				if type(value) == "userdata" then
-					ParticleManager:SetParticleControl(FX, tonumber(cp), value)
-				else
-					ParticleManager:SetParticleControlEnt(FX, cp, target, attach, value, target:GetAbsOrigin(), true)
+	if stun then
+		if effectName then
+			local FX = ParticleManager:CreateParticle(effectName, PATTACH_POINT_FOLLOW, target)
+			if effectData then
+				for cp, value in pairs(effectData) do
+					if type(value) == "userdata" then
+						ParticleManager:SetParticleControl(FX, tonumber(cp), value)
+					else
+						ParticleManager:SetParticleControlEnt(FX, cp, target, attach, value, target:GetAbsOrigin(), true)
+					end
 				end
 			end
+			stun:AddEffect( FX )
 		end
-		stun:AddEffect( FX )
 	end
 	return stun
 end

@@ -342,7 +342,6 @@ function CHoldoutGameRound:End(bWon)
 	end
 	GameRules._processValuesForScaling = nil
 	
-	print("me when i reduce chances", self._gameMode._tier1DropChance )
 	if self._gameMode._tier1DropChance > 0 then
 		self._gameMode._tier1DropChance = self._gameMode._tier1DropChance - 8
 		self._gameMode._tier2DropChance = self._gameMode._tier2DropChance + 4

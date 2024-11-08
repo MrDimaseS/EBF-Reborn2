@@ -14,7 +14,8 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"	
 		"AbilitySound"					"Hero_Zuus.StaticField"
-		"MaxLevel"						"7"
+		
+		"DependentOnAbility"			"zuus_thundergods_wrath"
 		"Innate"						"1"
 
 		// Special
@@ -31,16 +32,16 @@
 			
 			"bonus_damage_spell"
 			{
-				"value"												"400 800 1200 1600 2000 2400 2800"
+				"value"												"400 800 1200 1600"
 				"CalculateSpellDamageTooltip"						"1"
 				"DamageTypeTooltip"									"DAMAGE_TYPE_MAGICAL"
 			}
 			"bonus_damage_attack"
 			{
-				"value"												"175 350 525 700 875 1050 1225"
+				"value"												"175 350 525 700"
 				"CalculateSpellDamageTooltip"						"1"
 				"DamageTypeTooltip"									"DAMAGE_TYPE_MAGICAL"
-				"special_bonus_facet_zuus_epithet_of_brontaios"		"=400 =800 =1200 =1600 =2000 =2400 =2800"
+				"special_bonus_facet_zuus_epithet_of_brontaios"		"=400 =800 =1200 =1600"
 			}
 			"creep_multiplier"
 			{
@@ -72,7 +73,7 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"AbilitySound"					"Hero_Zuus.ArcLightning.Cast"
-		"MaxLevel"						"7"
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -85,7 +86,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"75 80 85 90 95 100 105"
+		"AbilityManaCost"				"75 80 85 90"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -93,7 +94,7 @@
 		{
 			"arc_damage"
 			{
-				"value"											"900 1200 1500 1800 2100 2400 2700"
+				"value"											"900 1200 1500 1800"
 				"special_bonus_unique_zeus_2"					"+35%"
 				"CalculateSpellDamageTooltip"					"1"
 			}
@@ -102,10 +103,10 @@
 				"value"											"500 500 500 500"
 				"affected_by_aoe_increase"						"1"
 			}
-			"jump_count"										"5 7 9 11 13 15 17"
+			"jump_count"										"5 7 9 11"
 			"jump_delay"										"0.25"
 			
-			"bonus_spell_damage"								{ "special_bonus_facet_zuus_divine_rampage"		"9 10 11 12 13 14 15" }
+			"bonus_spell_damage"								{ "special_bonus_facet_zuus_divine_rampage"		"9 10 11 12" }
 			"buff_duration"										{ "special_bonus_facet_zuus_divine_rampage"		"8" }
 			"apply_attack"										{ "special_bonus_facet_zuus_epithet_of_brontaios"	"1" }
 			"bonus_damage_max"									{ "special_bonus_facet_zuus_livewire"				"+175" }
@@ -133,11 +134,11 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Zuus.LightningBolt"
-		"MaxLevel"						"7"
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"700 750 800 850 900 950 1000"
+		"AbilityCastRange"				"700 750 800 850"
 		"AbilityCastPoint"				"0.3"
 
 		// Damage.
@@ -150,7 +151,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"120 135 150 165 180 195 210"
+		"AbilityManaCost"				"120 135 150 165"
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
@@ -194,12 +195,12 @@
 			}
 			"damage"
 			{
-				"value"											"1250 2000 2750 3500 4250 5000 5750"
+				"value"											"1400 2200 3000 3800"
 				"CalculateSpellDamageTooltip"					"1"
 			}
 			
 			"buff_duration"										{ "special_bonus_facet_zuus_epithet_of_brontaios"	"8" }
-			"bonus_attack_speed"								{ "special_bonus_facet_zuus_epithet_of_brontaios"	"30 45 60 75 90 105 120" }
+			"bonus_attack_speed"								{ "special_bonus_facet_zuus_epithet_of_brontaios"	"30 45 60 75" }
 			"cloud_duration"									{ "special_bonus_facet_zuus_divine_rampage"	"6" }
 			"cloud_dmg_pct"										{ "special_bonus_facet_zuus_divine_rampage"	"15" }
 			"cloud_bolt_interval"								{ "special_bonus_facet_zuus_divine_rampage"	"1" }
@@ -224,7 +225,7 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
 		"FightRecapLevel"				"1"
-		"MaxLevel"						"7"
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -233,8 +234,7 @@
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"					"50 60 70 80 90 100 110 120"
-		"AbilityCooldown"					"25 20 15 10 8 6 4"
+		"AbilityManaCost"					"50 60 70 80"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -242,7 +242,7 @@
 		{
 			"damage"
 			{
-				"value"													"250 500 750 1000 1250 1500 1750"
+				"value"													"250 500 750 1000"
 				"special_bonus_facet_zuus_livewire"						"x1.5"
 				"CalculateSpellDamageTooltip"							"1"
 			}
@@ -259,13 +259,13 @@
 			"aspd_slow"													"100"
 			"targets"			
 			{
-				"value" 												"1 1 1 1 2 3"
+				"value" 												"1"
 				"special_bonus_facet_zuus_divine_rampage"				"+3"
 				"special_bonus_unique_zeus"								"+100%"
 			}
 			"AbilityCooldown"					
 			{
-				"value"													"26 22 18 14 14 14"
+				"value"													"26 22 18 14"
 				"special_bonus_facet_zuus_epithet_of_brontaios"			"-2"
 				"special_bonus_unique_zeus_jump_cooldown"				"-4"
 			}
@@ -298,8 +298,6 @@
 		"FightRecapLevel"				"2"
 		"AbilitySound"					"Hero_Zuus.GodsWrath"
 
-		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"6"
 		"HasScepterUpgrade"				"1"
 		"AbilityDraftUltScepterAbility"		"zuus_cloud"
 	
@@ -325,7 +323,7 @@
 			"sight_duration"					"3.0 3.0 3.0 3.0"
 			"damage"
 			{
-				"value"							"3000 4250 5500 6750 8000 9250"
+				"value"							"3000 4750 6500"
 				"CalculateSpellDamageTooltip"	"1"
 				"special_bonus_unique_zeus_4"	"+33%"
 			}
@@ -336,130 +334,17 @@
 			"barrier_duration"					{ "special_bonus_facet_zuus_livewire"	"12" }
 			"bonus_damage_creep"
 			{ 
-				"special_bonus_facet_zuus_epithet_of_brontaios"	"100 150 200 250 300 350" 
+				"special_bonus_facet_zuus_epithet_of_brontaios"	"100 150 200" 
 				"CalculateAttackDamageTooltip"					"1"
 			}
 			"bonus_damage_hero"
 			{ 
-				"special_bonus_facet_zuus_epithet_of_brontaios"	"250 450 650 850 1050 1250"
+				"special_bonus_facet_zuus_epithet_of_brontaios"	"250 450 650"
 				"CalculateAttackDamageTooltip"					"1"
 			}
 			"damage_to_barrier"
 			{ 
-				"special_bonus_facet_zuus_livewire"				"75 80 85 90 95 100"
-			}
-		}
-	}
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_zeus"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"2"
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_zeus_2"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"						"28500"
-				"ad_linked_abilities"			"zuus_arc_lightning"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_zeus_3"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"0.4"
-				"ad_linked_abilities"			"zuus_lightning_bolt"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_zeus_4"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"100"
-				"ad_linked_abilities"			"zuus_thundergods_wrath"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_zeus_5"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"0"
-				"ad_linked_abilities"			"zuus_lightning_bolt"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+				"special_bonus_facet_zuus_livewire"				"75 80 85"
 			}
 		}
 	}

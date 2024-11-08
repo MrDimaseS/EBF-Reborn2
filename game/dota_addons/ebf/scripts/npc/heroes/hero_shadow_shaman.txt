@@ -17,7 +17,7 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_ShadowShaman.EtherShock"
-		"MaxLevel"						"7"
+		
 		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -26,7 +26,7 @@
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"8"
+		"AbilityCooldown"				"14 12 10 8"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -36,13 +36,21 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"start_radius"								"200"
-			"end_radius"								"300"
+			"start_radius"				
+			{
+				"value"									"200 200 200 200"
+				"affected_by_aoe_increase"				"1"
+			}
+			"end_radius"				
+			{
+				"value"									"300 300 300 300"
+				"affected_by_aoe_increase"				"1"
+			}
 			"end_distance"								"600"
-			"targets"									"10"
+			"targets"									"3 5 7 9"
 			"damage"
 			{
-				"value"									"1400 2000 2600 3200 3800 4600 5200"
+				"value"									"1400 2000 2600 3200"
 				"special_bonus_unique_shadow_shaman_3"	"+125%"
 				"CalculateSpellDamageTooltip"			"1"
 			}
@@ -65,7 +73,7 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_ShadowShaman.Hex.Target"
-		"MaxLevel"						"7"
+		
 		
 		"LinkedAbility"					"shadow_shaman_hex_ward"
 	
@@ -73,22 +81,22 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"movespeed"									"110 110 100 100 100 90"
+			"movespeed"													"110 110 100 100 100 90"
 			"duration"				
 			{
-				"value"													"1.25 2.0 2.75 3.5 3.75 4 4.25"
+				"value"													"2 2.3 2.6 2.9"
 				"special_bonus_unique_shadow_shaman_7"					"+1.25"
 			}
 			"linger_duration"							"0.75"
 			"AbilityCastRange"							"500"
 			"AbilityCooldown"
 			{
-				"value"									"13"
-				"special_bonus_unique_shadow_shaman_5"	"-3"
+				"value"													"24 20 16 12"
+				"special_bonus_unique_shadow_shaman_5"					"-3"
 			}
 			"damage_amp"				
 			{
-				"value"									"8 10 12 14 16 18 20"
+				"value"													"8 12 16 20"
 				"special_bonus_unique_shadow_shaman_hex_damage_amp"		"+10"
 			}
 			
@@ -135,19 +143,19 @@
         "AbilityCastPoint"              "0.3"
 
         // Time        
-        "AbilityCooldown"               "45 42 35 30 25 20 15"
+        "AbilityCooldown"               "30 25 20 15"
 
         // Cost
-        "AbilityManaCost"               "100 120 140 160 180 200 220"
+        "AbilityManaCost"               "100 120 140 160"
 
         // Special
         "AbilityValues"
         {
 			"ward_duration"         "30"
 			"radius"                "600"
-			"hex_chance"            "10 12 14 16 18 20 22"
-			"hex_duration_min"      "1.0 1.2 1.4 1.6 1.8 2.0 2.2"
-			"hex_duration_max"      "1.8 2.0 2.2 2.6 3.0 3.4 3.8"
+			"hex_chance"            "10 12 14 16"
+			"hex_duration_min"      "1.0 1.2 1.4 1.6"
+			"hex_duration_max"      "1.8 2.0 2.2 2.6"
         }
     }
 	//=================================================================================================================
@@ -169,7 +177,7 @@
 		"FightRecapLevel"				"1"
 		"AbilityAOERadius"              "600"
 
-		"MaxLevel"						"7"
+		
 		"HasShardUpgrade"               "0"
 
 		// Casting
@@ -179,8 +187,8 @@
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityChannelTime"			"2.75 3.5 4.25 4.75 5 5.25 5.5 5.75 6.0"
-		"AbilityCooldown"				"14"
+		"AbilityChannelTime"			"2.4 3.0 3.6 4.2"
+		"AbilityCooldown"				"13 12 11 10"
 		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -193,19 +201,19 @@
 			"tick_interval"								"0.1 0.1 0.1 0.1"
 			"total_damage"
 			{
-				"value"									"500 1000 1500 1800 2400 2800 3200"
+				"value"									"700 1400 2100 2800"
 				"special_bonus_unique_shadow_shaman_6"	"+50%"
 				"CalculateSpellDamageTooltip"			"1"
 			}
 			"total_heal"
 			{
-				"value"									"275 550 725 1000 1250 1600 1800"
+				"value"									"700 1400 2100 2800"
 				"special_bonus_unique_shadow_shaman_6"	"+50%"
 				"CalculateSpellHealTooltip"				"1"
 			}
 			"channel_time"
 			{
-				"value"									"2.75 3.5 4.25 4.75 5 5.25 5.5 5.75 6.0"
+				"value"									"2.4 3.0 3.6 4.2"
 				"special_bonus_unique_shadow_shaman_2"	"+2"
 			}
 			"AbilityCastRange"
@@ -255,7 +263,7 @@
 
 		"HasScepterUpgrade"				"1"
 		"HasShardUpgrade"               "1"
-		"MaxLevel"						"6"
+		
 		"LevelsBetweenUpgrades"			"6"
 
 		// Casting
@@ -270,7 +278,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"								"200 350 550 800 1050 1300"
+		"AbilityManaCost"								"200 350 550"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -279,7 +287,7 @@
 			"ward_count"								"10"
 			"damage_tooltip"
 			{
-				"value"									"500 850 1200 1550 1900 2250"
+				"value"									"500 1200 1900"
 				"special_bonus_unique_shadow_shaman_4"	"+20%"
 				"CalculateSpellDamageTooltip"			"0"	
 				"CalculateAttackDamageTooltip"			"1"			
@@ -335,244 +343,6 @@
 			{
 				"value"					"0"
 				"special_bonus_facet_shadow_shaman_massive_serpent_ward"		"=25"
-			}
-		}
-	}
-	//=================================================================================================================
-	// Shadow Shaman: Serpentine (scepter ability)
-	//=================================================================================================================
-	"shadow_shaman_serpentine"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT  | DOTA_ABILITY_BEHAVIOR_VECTOR_TARGETING | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
-		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
-		"AbilitySound"					"Hero_ShadowShaman.SerpentWard"
-		"FightRecapLevel"				"1"
-		"HasScepterUpgrade"				"1"
-		"MaxLevel"						"1"
-		"IsGrantedByScepter"			"1"
-		"HasScepterUpgrade"				"1"
-		"MaxLevel"						"7"
-		
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"1000"
-		"AbilityCastPoint"				"0.1"
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_4"
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"35"
-
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"100"
-
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"count"		"8"
-			}
-			"02"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"length"		"925"
-			}
-		}
-	}
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_shadow_shaman_1"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"2"
-				"ad_linked_abilities"			"shadow_shaman_mass_serpent_ward"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-			"02"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value2"				"1"
-				"ad_linked_abilities"			"shadow_shaman_mass_serpent_ward"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_shadow_shaman_2"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"1"
-				"ad_linked_abilities"			"shadow_shaman_shackles"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_shadow_shaman_3"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"75"
-				"ad_linked_abilities"			"shadow_shaman_ether_shock"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-		
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_shadow_shaman_4"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"						"7000"
-				"ad_linked_abilities"			"shadow_shaman_mass_serpent_ward"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-		
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_shadow_shaman_5"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"3"
-				"ad_linked_abilities"			"shadow_shaman_voodoo"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-		
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_shadow_shaman_6"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"						"100"
-				"ad_linked_abilities"		"shadow_shaman_shackles"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-		
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_shadow_shaman_7"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"1"
-				"ad_linked_abilities"			"shadow_shaman_voodoo"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-		
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_shadow_shaman_8"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"120"
-				"ad_linked_abilities"			"shadow_shaman_mass_serpent_ward"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
 			}
 		}
 	}

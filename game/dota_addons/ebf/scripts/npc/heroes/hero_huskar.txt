@@ -20,18 +20,12 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"   
 		"AbilitySound"					"Hero_Huskar.Inner_Vitality"
 		
-		"MaxLevel"						"7"
-
 		"HasShardUpgrade"			"1"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"800"
 		"AbilityCastPoint"				"0.2"
-		
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"10"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -47,13 +41,13 @@
 		{
 			"health_cost"				
 			{
-				"value"							"75 100 125 150 175 200 225 250"
+				"value"							"75 100 125 150"
 				"DamageTypeTooltip"				"DAMAGE_TYPE_MAGICAL"
 				"CalculateAttributeTooltip"		"1"
 			}
 			"damage"				
 			{
-				"value"							"1200 1800 2400 3000 3600 4200 4800"
+				"value"							"1200 1800 2400 3000"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"radius"				
@@ -70,7 +64,7 @@
 			"knockback_duration"	"1"
 			"AbilityCooldown"
 			{ 
-				"value"					"11"
+				"value"					"17 15 13 11"
 				"special_bonus_shard"	"-3"
 			}
 			"movement_slow_pct"
@@ -111,7 +105,7 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"AbilitySound"					"Hero_Huskar.Burning_Spear"
-		"MaxLevel"						"7"
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -143,7 +137,7 @@
 			}
 			"burn_damage"
 			{
-				"value"							"50 100 150 200 250 350 400"
+				"value"							"50 100 150 200"
 				"special_bonus_unique_huskar_2"	"+20%"
 				"CalculateSpellDamageTooltip"	"1"
 			}
@@ -180,21 +174,19 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		
-		"MaxLevel"						"7"
-				
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"maximum_attack_speed"				"170 220 270 320 370 420 470"
+			"maximum_attack_speed"				"170 220 270 320"
 			"maximum_health_regen"
 			{
-				"value"							"70"
+				"value"							"25 40 55 70"
 				"special_bonus_unique_huskar_6"	"+25"
 			}
 			"maximum_magic_resist"
 			{
-				"value"							"15 20 25 30 35 40 45 50"
+				"value"							"15 20 25 30"
 				"special_bonus_unique_huskar_6"	"+25"
 			}
 			"hp_threshold_max"				"10"
@@ -221,7 +213,7 @@
 		"FightRecapLevel"				"2"
 		"AbilitySound"					"Hero_Huskar.Life_Break"
 		
-		"MaxLevel"						"6"
+		
 		"LevelsBetweenUpgrades"			"6"
 
 		"HasScepterUpgrade"			"1"
@@ -233,7 +225,7 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"12"
+		"AbilityCooldown"				"16 14 12"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -251,27 +243,27 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"health_cost_percent"					"0.29 0.32 0.35 0.38 0.41 0.44"
+			"health_cost_percent"					"0.32 0.38 0.44"
 			"tooltip_health_cost_percent"
 			{
-				"value"								"29 32 35 38 41 44"
+				"value"								"32 38 44"
 				"CalculateSpellDamageTooltip"		"0"
 			}
 			"health_damage"
 			{
-				"value"								"0.05 0.06 0.07 0.08 0.09 0.1"
+				"value"								"0.06 0.08 0.1"
 				"special_bonus_unique_huskar"		"+0.03"
 				"CalculateSpellDamageTooltip"		"0"
 			}
 			"tooltip_health_damage"
 			{
-				"value"								"5 6 7 8 9 10"
+				"value"								"6 8 10"
 				"special_bonus_unique_huskar"		"+3"
 				"CalculateSpellDamageTooltip"		"0"
 			}
 			"charge_speed"							"1200"
 			"movespeed"								"-60 -60 -60"
-			"attack_speed"							"60 100 140 180 220 260"
+			"attack_speed"							"60 100 140"
 			"slow_durtion_tooltip"					"5"
 			"taunt_duration"
 			{
@@ -305,170 +297,4 @@
 			}
 		}
 	}
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_huskar"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"0.05"
-				"ad_linked_abilities"			"huskar_life_break"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-			"02"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value2"				"5"
-				"ad_linked_abilities"			"huskar_life_break"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_huskar_2"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_huskar_3"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_huskar_4"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"2"
-				"ad_linked_abilities"			"huskar_life_break"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_huskar_5"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"0"
-				"ad_linked_abilities"			"huskar_burning_spear"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_huskar_6"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"25"
-				"ad_linked_abilities"			"huskar_berserkers_blood"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_huskar_7"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"3"
-				"ad_linked_abilities"			"huskar_life_break"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_huskar_8"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"40"
-				"ad_linked_abilities"			"huskar_inner_fire"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
 }

@@ -11,7 +11,6 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"MaxLevel"						"1"
 	}
-
 	//=================================================================================================================
 	// Drow Ranger: Drow Ranger: High Ground
 	//=================================================================================================================
@@ -28,7 +27,6 @@
 			"bonus_miss_chance"		"0"
 		}
 	}
-
 	//=================================================================================================================
 	// Ability: Drow Ranger's Trueshot Aura
 	//=================================================================================================================
@@ -44,19 +42,18 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-				"trueshot_agi_bonus_self"	"2"
-				"trueshot_agi_bonus_allies"	"1"
-				"trueshot_aspd_bonus_creeps"	
-				{
-					"value"			"0"
-					"special_bonus_facet_1"	"+3"
-				}
-				"radius"						
-				{
-					"value"			"1200"
-					"affected_by_aoe_increase"	"1"
-				}
-
+			"trueshot_agi_bonus_self"	"2"
+			"trueshot_agi_bonus_allies"	"1"
+			"trueshot_aspd_bonus_creeps"	
+			{
+				"value"			"0"
+				"special_bonus_facet_1"	"+3"
+			}
+			"radius"						
+			{
+				"value"			"1200"
+				"affected_by_aoe_increase"	"1"
+			}
 		}
 	}
 	//=================================================================================================================
@@ -73,7 +70,7 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"AbilitySound"					"Hero_DrowRanger.FrostArrows"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
-		"MaxLevel"						"7"
+		
 		
         "HasScepterUpgrade"               "1"
 
@@ -93,16 +90,16 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"9 10 11 12 13 14 15"
+		"AbilityManaCost"				"9 10 11 12"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"frost_arrows_movement_speed"				"-40"
+			"frost_arrows_movement_speed"				"-10 -20 -30 -40"
 			"damage"		
 			{	
-				"value"									"120 240 360 480 600 720 840"
+				"value"									"100 150 200 250"
 				"CalculateSpellDamageTooltip"			"0"
 				"CalculateAttackDamageTooltip"			"1"
 				"special_bonus_unique_drow_ranger_2"	"+60%"
@@ -116,7 +113,7 @@
 			"shard_bonus_damage_per_stack"
 			{
 				"value"								"0"
-				"special_bonus_scepter"				"+360"
+				"special_bonus_scepter"				"+180"
 				"CalculateSpellDamageTooltip"		"0"
 				"CalculateAttackDamageTooltip"		"1"
 				"RequiresScepter"					"1"
@@ -176,20 +173,16 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"FightRecapLevel"				"1"
-		"MaxLevel"						"7"
+		
 	
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.0"
 		"AbilityChannelTime"			"1.75"
 
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"20"
-
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"50 70 90 110 130 150 170"
+		"AbilityManaCost"				"50 70 90 110"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -203,7 +196,7 @@
 			"arrow_count_per_wave"						"4"
 			"arrow_damage_pct"
 			{
-				"value"									"100 120 140 160 180 200 220"
+				"value"									"100 120 140 160"
 				"special_bonus_unique_drow_ranger_1"	"+25%"
 				"CalculateSpellDamageTooltip"			 "0"
 			}
@@ -214,7 +207,7 @@
 			"bypass_block"            		"1"
 			"AbilityCooldown"			
 			{
-				"value"											"15"
+				"value"											"24 21 18 15"
 				"special_bonus_unique_drow_ranger_6"			"-6"
 			}
 			"multishot_movespeed"						
@@ -237,7 +230,7 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_DrowRanger.Silence"
-		"MaxLevel"						"7"
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -255,13 +248,12 @@
 			"wave_speed"												"2000.0"
 			"wave_width"		
 			{
-				"value"													"250"
-				"LinkedSpecialBonus"									"special_bonus_unique_drow_ranger_4"
-				"affected_by_aoe_increase"								"1"
+					"value"			"250"
+					"affected_by_aoe_increase"	"1"
 			}
-			"silence_duration"											"3 3.5 4 4.5 5 5.5 6"
+			"silence_duration"											"3 4 5 6"
 			"knockback_distance_max"									"450"
-			"knockback_duration"										"0.9"
+			"knockback_duration"										"0.6 0.7 0.8 0.9"
 			"knockback_height"											"0"
 			"wave_length"												"900"	
 			"bonus_movespeed"		
@@ -271,8 +263,8 @@
 			}
 			"AbilityCooldown"
 			{
-				"value"													"13"
-				"special_bonus_unique_drow_ranger_7"					"-3"
+				"value"													"19 17 15 13"
+				"special_bonus_unique_drow_ranger_7"					"-3.5"
 			}
 			"gust_reveals_invis"
 			{
@@ -294,7 +286,7 @@
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_4"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
-		"MaxLevel"						"6"
+		
 		"LevelsBetweenUpgrades"			"6"
 
 		// Special
@@ -303,12 +295,12 @@
 		{
 			"chance"
 			{
-				"value"										"20 30 40 50 60 70"
+				"value"										"30 35 40"
 				"special_bonus_unique_drow_ranger_3"		"+12"
 			}
 			"bonus_damage"
 			{
-				"value"										"800 1200 1600 2000 2400 2800"
+				"value"										"500 700 900"
 				"CalculateAttackDamageTooltip"				"1"
 			}
 			"disable_range"									"400"
@@ -367,153 +359,5 @@
 			"z_speed_override"			"800"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
-	}
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_drow_ranger_1"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_drow_ranger_2"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"						"400"
-				"ad_linked_abilities"			"drow_ranger_frost_arrows"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_drow_ranger_3"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"						"6"
-				"ad_linked_abilities"			"drow_ranger_marksmanship"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_drow_ranger_4"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"250"
-				"ad_linked_abilities"			"drow_ranger_wave_of_silence"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_drow_ranger_5"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"50"
-				"ad_linked_abilities"			"drow_ranger_wave_of_silence"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_drow_ranger_6"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_drow_ranger_7"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"4"
-				"ad_linked_abilities"			"drow_ranger_wave_of_silence"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_drow_ranger_8"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 	}
 }

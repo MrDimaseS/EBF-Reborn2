@@ -1,5 +1,41 @@
 "DOTAAbilities"
-{	
+{
+	//=================================================================================================================
+	// Viper: Innate Corrosive Skin - Vile
+	//=================================================================================================================
+	"viper_predator"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"MaxLevel"						"1"
+		"Innate"						"1"
+		"IsBreakable"					"1"
+
+		"AbilityValues"
+		{
+			"damage_base"
+			{
+				"value"												"1.5"
+				"special_bonus_unique_viper_predator_damage"		"+2"
+				"CalculateAttributeTooltip"							"1"
+			}
+			"damage_per_level"
+			{
+				"value"												"0.5"
+				"CalculateAttributeTooltip"							"1"
+			}
+			"total_damage_per_missing_health"
+			{
+				"dynamic_value"										"true"
+				"CalculateAttributeTooltip"							"1"
+			}
+		}
+	}
 	//=================================================================================================================
 	// Viper: Poison Attack
 	//=================================================================================================================
@@ -14,13 +50,13 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"AbilitySound"					"hero_viper.poisonAttack.Cast"
-		"MaxLevel"						"7"
+		
 
         "HasShardUpgrade"               "1"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"600 620 640 660 680 700 720"
+		"AbilityCastRange"				"600"
 		"AbilityCastPoint"				"0"
 
 		// Time		
@@ -42,18 +78,18 @@
 			"duration"							"4"
 			"damage"					
 			{
-				"value"							"40 80 120 160 200 240 280"
+				"value"							"40 80 120 160"
 				"special_bonus_unique_viper_7"	"+20%"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"movement_speed"			
 			{
-				"value"							"3 6 9 12 15 18 21"
+				"value"							"3 6 9 12"
 				"special_bonus_unique_viper_7"	"+20%"
 			}
 			"magic_resistance"			
 			{
-				"value"							"4 5 6 7 8 9 10"
+				"value"							"4 6 8 10"
 				"special_bonus_unique_viper_4"	"+5"
 			}
 			"max_stacks"						"5"
@@ -96,7 +132,7 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
-		"MaxLevel"						"7"
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -118,20 +154,24 @@
 		{
 			"min_damage"
 			{
-				"value"								"150 200 250 300 350 400 450"
+				"value"								"150 200 250 300"
 				"special_bonus_unique_viper_3"		"+400"
 				"CalculateSpellDamageTooltip"		"1"
 			}
 			"max_damage"
 			{
-				"value"								"350 650 950 1250 1550 1850 2150"
+				"value"								"350 650 950 1250"
 				"special_bonus_unique_viper_3"		"+400"
 				"CalculateSpellDamageTooltip"		"1"
 			}
-			"attack_slow"							"30 40 50 60 70 80 90"
+			"attack_slow"							"50 60 70 80"
 			"max_duration"							"4"
-			"radius"								"400"
-			"duration"								"8"
+			"radius"		
+			{
+				"value"		"400"
+				"affected_by_aoe_increase"	"1"
+			}
+			"duration"								"6.5 7 7.5 8"
 			"projectile_speed"						"2000"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -150,7 +190,7 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"AbilitySound"					"hero_viper.CorrosiveSkin"
 		"HasScepterUpgrade"				"1"
-		"MaxLevel"						"8"
+		
 		"RequiredLevel"					"-1"
 		"Innate"						"1"
 		"HasScepterUpgrade"				"1"
@@ -166,35 +206,35 @@
 			"duration"								"4.0"
 			"bonus_attack_speed"
 			{
-				"value"								"10 20 30 40 50 60 70 80"
+				"value"								"8 16 24 32"
 				"special_bonus_unique_viper_6"		"+28"
 			}
-			"bonus_magic_resistance"				"5 10 15 20 25 30 35 40"
+			"bonus_magic_resistance"				"10 15 20 25"
 			"damage"
 			{
-				"value"								"30 60 140 220 300 380 460 540"
+				"value"								"80 160 240 320"
 				"special_bonus_unique_viper_1"		"+70%"
 				"CalculateSpellDamageTooltip"		"1"
 			}
 			"max_range"
 			{
-				"value"						"1200"
-				"affected_by_aoe_increase"	"1"
+				"value"								"1200"
+				"affected_by_aoe_increase"			"1"
 			}
 			"effect_multiplier_distance"
 			{
-				"value"						"500"
-				"affected_by_aoe_increase"	"1"
-				"RequiresScepter"		"1"
+				"value"								"500"
+				"affected_by_aoe_increase"			"1"
+				"RequiresScepter"					"1"
 			}
 			"effect_multiplier"
 			{
-				"value"						"4"
-				"RequiresScepter"		"1"
+				"value"								"4"
+				"RequiresScepter"					"1"
 			}
 			"nethertoxin_bonus_pct"		
 			{
-				"value"					"0"
+				"value"								"0"
 				"special_bonus_facet_viper_caustic_bath"					"=100"
 			}
 			"nethertoxin_bonus_pct_max_duration_tooltip"
@@ -223,14 +263,14 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
 		"FightRecapLevel"				"2"
 		"AbilitySound"					"hero_viper.viperStrike"
-		"MaxLevel"						"6"
+		
 		"LevelsBetweenUpgrades"			"6"
 
 		"HasScepterUpgrade"			"1"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"500"
+		"AbilityCastRange"				"700 800 900"
 		"AbilityCastPoint"				"0.3 0.3 0.3"
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
 	
@@ -242,28 +282,30 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"							"5"
+			"duration"								"5"
 			"damage"
 			{
-				"value"							"700 1100 1500 1900 2300 2700"
-				"special_bonus_unique_viper_2"	"+50%"
-				"CalculateSpellDamageTooltip"	"1"
+				"value"								"700 1100 1500"
+				"special_bonus_unique_viper_2"		"+50%"
+				"CalculateSpellDamageTooltip"		"1"
 			}
-			"bonus_movement_speed"				"-40 -60 -80 -85 -90 -95"
-			"bonus_attack_speed"				"-40 -60 -80 -85 -90 -95"
+			"bonus_movement_speed"					"-60 -70 -80"
+			"bonus_attack_speed"					"-80 -120 -160"
+			
 			"AbilityCooldown"
 			{
-				"value"							"30"
-				"special_bonus_unique_viper_8"	"-50%"
+				"value"								"50 40 30"
+				"special_bonus_unique_viper_8"		"-50%"
 			}
 			"AbilityManaCost"
 			{
-				"value"							"100 150 200 250 300 350"
-				"special_bonus_unique_viper_8"	"-50%"
+				"value"								"100 150 200"
+				"special_bonus_unique_viper_8"		"-50%"
 			}
-			"projectile_speed"	"1200"
-			"max_charges"			"2"
-			"charge_restore_time"	"30.0"
+			"projectile_speed"						"1200"
+			"max_charges"							"2"
+			"charge_restore_time"					"30.0"
+			"does_break"							"1"
 		}
 	}
 	"viper_nose_dive"

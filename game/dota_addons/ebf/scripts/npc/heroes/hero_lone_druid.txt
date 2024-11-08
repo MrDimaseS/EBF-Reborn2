@@ -1,36 +1,111 @@
 "DOTAAbilities"
 {
 	//=================================================================================================================
-	// Lone Druid: Spirit Link
+	// Lone Druid: Gift Bearer
 	//=================================================================================================================
-	"lone_druid_synergy"
+	"lone_druid_gift_bearer"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"ability_lua"
-		"ScriptFile"					"heroes/hero_lone_druid/lone_druid_synergy"
-		"AbilityTextureName"			"lone_druid_rabid"
-		
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_TOGGLE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
-		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
-		"MaxLevel"						"7"
-		"FightRecapLevel"				"1"
-		"AbilitySound"					"Hero_LoneDruid.Rabid"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI"
+		"MaxLevel"						"1"
+		"Innate"						"1"
 
+		"AbilityValues"
+		{	
+			"reroll"				"1"
+		}
+	}
+
+	//=================================================================================================================
+	// Lone Druid: Bear necessity
+	//=================================================================================================================
+	"lone_druid_bear_necessities"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SKIP_FOR_KEYBINDS | DOTA_ABILITY_BEHAVIOR_INNATE_UI"
+		"MaxLevel"						"4"
+		"DependentOnAbility"			"lone_druid_true_form"
+		"AbilityValues"
+		{	
+			"item_slots"				"3"
+			"bonus_stat_percent"		"30 45 60 75"
+		}
+	}	
+	//=================================================================================================================
+	// Lone Druid: Summon Spirit Bear
+	//=================================================================================================================
+	"lone_druid_spirit_bear"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"DisplayAdditionalHeroes"		"1"
+		"AbilitySound"					"Hero_LoneDruid.SpiritBear.Cast"
+
+		"HasScepterUpgrade"				"1"
+		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastAnimation"			"ACT_DOTA_OVERRIDE_ABILITY_2"
-		"AbilityCastGestureSlot"		"DEFAULT"
+		"AbilityCastPoint"								"0.5 0.5 0.5 0.5"
+		
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"								"75"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_attack_damage"		"70 130 300 640 1350 3000 5350"
-			"bonus_max_health"			"1500 2500 4500 8500 15000 25000 45000"
-			"stat_share_pct"			"70 75 80 85 90 95 100"
+			"bear_hp"
+			{
+				"value"									"1100 1400 1700 2000"	
+			}
+			"bear_regen_tooltip"
+			{
+				"value"									"15"
+				"CalculateAttributeTooltip"				"1"
+			}
+			"bear_bat"
+			{
+				"value"									"1.75 1.65 1.55 1.45"
+				"special_bonus_unique_lone_druid_10"	"-0.4"
+			}
+			"bear_armor"
+			{
+				"value"									"0"
+				"special_bonus_unique_lone_druid_2"		"+7"
+			}
+			"backlash_damage"							"20.0"
+			"AbilityCooldown"							"150 140 130 120"
+			"bear_movespeed"			
+			{
+				"value"									"300 330 360 390"
+				"special_bonus_unique_lone_druid_11"	"+25"
+
+			}
+			"bear_magic_resistance"
+			{
+				"value"									"0"
+				"special_bonus_unique_lone_druid_5"		"+40"
+			}
+			"damage_gain_per_druid_level"
+			{
+				"value"									"50"
+				"CalculateAttributeTooltip"				"1"
+			}
+			"hp_gain_per_druid_level"
+			{
+				"value"									"900"
+				"special_bonus_unique_lone_druid_7"		"+70%"
+				"CalculateAttributeTooltip"				"1"
+			}
 		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
+	
 	//=================================================================================================================
 	// Lone Druid: Spirit Link
 	//=================================================================================================================
@@ -40,7 +115,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
-		"MaxLevel"						"7"
+		
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_LoneDruid.Rabid"
 
@@ -55,13 +130,13 @@
 		{
 			"bonus_attack_speed"		
 			{
-				"value"											"20 35 50 65 80 95 110"		
+				"value"											"20 35 50 65"		
 				"special_bonus_unique_lone_druid_6"				"+40"
 			}
-			"lifesteal_percent"									"20 25 35 40 45 50 60"
+			"lifesteal_percent"									"15 30 45 60"
 			"armor_sharing"				
 			{
-				"value"  										"8 12 16 20 24 28 32"
+				"value"  										"8 12 16 20"
 				"special_bonus_facet_lone_druid_bear_with_me"	"+100%"
 			}
 			"lifesteal_both_ways"
@@ -95,7 +170,7 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"AbilitySound"					"Hero_LoneDruid.SavageRoar.Cast"
-		"MaxLevel"						"7"
+		
 
         "HasShardUpgrade"               "1"
 
@@ -106,7 +181,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"50 75 100 125 150 175 200"	
+		"AbilityManaCost"				"50"	
 			
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -114,31 +189,38 @@
 		{
 			"radius"				
 			{
-				"value"									"375"
-				"affected_by_aoe_increase"				"1"
+				"value"		"350"
+				"special_bonus_unique_lone_druid_savage_roar_aoe"				"+150"
+				"affected_by_aoe_increase"	"1"
 			}
-			"bonus_speed"								"20"
-			"duration"									"2.0"
-			"only_affects_player_units"					"0"
+			"bonus_speed"			"20"
+			"duration"				"0.8 1.2 1.6 2.0"
+			"only_affects_player_units"	"1"
 			"shard_radius"
 			{
-				"value"									"700"
-				"RequiresShard"							"1"
+				"value"					"700"
+				"RequiresShard"				"1"
+				"affected_by_aoe_increase"	"1"
 			}
 			"shard_movement_speed_pct"				
 			{
-				"value"									"15"
-				"RequiresShard"							"1"
+				"value"					"15"
+				"RequiresShard"				"1"
 			}
 			"shard_attack_speed"				
 			{
-				"value"									"40 50 60 70 80 90 100"
-				"RequiresShard"							"1"
+				"value"				"40"
+				"RequiresShard"				"1"
 			}
 			"shard_duration"				
 			{
-				"value"									"5.0"
-				"RequiresShard"							"1"
+				"value"				"5.0"
+				"RequiresShard"				"1"
+			}
+			"AbilityCooldown"				
+			{
+				"value"				"38 32 26 20"
+				"special_bonus_unique_lone_druid_4"			"-5"
 			}
 		}
 	}
@@ -153,7 +235,7 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_HIDDEN"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
-		"MaxLevel"						"7"
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -171,90 +253,13 @@
 			{
 				"value"		"375"
 				"affected_by_aoe_increase"	"1"
+				"special_bonus_unique_lone_druid_savage_roar_aoe"				"+150"
 			}
 			"bonus_speed"			"20"
-			"duration"				"2.0"
-			"only_affects_player_units"	"0"
-			"AbilityCooldown"				
-			{
-				"value"									"38 32 26 20 18 16 14"
-				"special_bonus_unique_lone_druid_4"		"-15%"
-			}
+			"duration"				"0.8 1.2 1.6 2.0"
+			"only_affects_player_units"	"1"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
-	}
-	//=================================================================================================================
-	// Lone Druid: Summon Spirit Bear
-	//=================================================================================================================
-	"lone_druid_spirit_bear"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
-		"DisplayAdditionalHeroes"		"1"
-		"AbilitySound"					"Hero_LoneDruid.SpiritBear.Cast"
-		"Innate"						"1"
-		"RequiredLevel"					"-1"
-		"MaxLevel"						"8"
-		"HasScepterUpgrade"				"1"
-		
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastPoint"								"0.5 0.5 0.5 0.5"
-		
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"								"75"
-
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			"bear_hp"
-			{
-				"value"									"4000 5500 7000 8500 10000 11500 13000 14500"
-			}
-			"bear_regen_tooltip"
-			{
-				"value"									"15"
-				"CalculateAttributeTooltip"				"1"
-			}
-			"bear_bat"
-			{
-				"value"									"1.75"
-				"special_bonus_unique_lone_druid_10"	"-0.4"
-			}
-			"bear_armor"
-			{
-				"value"									"0 2 4 6 8 10 12 14"
-				"special_bonus_unique_lone_druid_2"		"+15"
-			}
-			"backlash_damage"							"20.0"
-			"AbilityCooldown"							"120"
-			"bear_movespeed"			
-			{
-				"value"			"340"
-				"special_bonus_unique_lone_druid_11"	"+25"
-
-			}
-			"bear_magic_resistance"
-			{
-				"value"									"0"
-				"special_bonus_unique_lone_druid_5"		"+40"
-			}
-			"damage_gain_per_druid_level"
-			{
-				"value"									"50"
-				"CalculateAttributeTooltip"				"1"
-			}
-			"hp_gain_per_druid_level"
-			{
-				"value"									"900"
-				"special_bonus_unique_lone_druid_7"		"+70%"
-				"CalculateAttributeTooltip"				"1"
-			}
-		}
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
 	//=================================================================================================================
 	// Lone Druid: True Form
@@ -263,11 +268,10 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-									// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
-		"MaxLevel"						"6"
+		
 		"LevelsBetweenUpgrades"			"6"
 		"AbilitySound"					"Hero_LoneDruid.TrueForm.Cast"
 
@@ -279,28 +283,27 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"200 300 400 500 600 700"	
+		"AbilityManaCost"				"200"	
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_armor"							"8 10 12 14 16 18"
+			"bonus_armor"							"8 10 12"
 			"bonus_hp"
 			{
-				"value"								"5000 10000 15000 20000 25000 30000"
+				"value"								"5000 10000 15000"
 				"special_bonus_facet_lone_druid_unbearable"			"-100%"
 				"RequiresFacet"						"lone_druid_bear_with_me"
 				
 				"CalculateSpellHealTooltip"			"1"
 			}
-			"base_attack_time"			
+			"attack_speed_pct"			
 			{
 				"value"					"0"
-				"special_bonus_facet_lone_druid_unbearable"			"0.1"
+				"special_bonus_facet_lone_druid_unbearable"			"+15"
 				"RequiresFacet"							"lone_druid_unbearable"
 			}
-			
 			"duration"					
 			{
 				"value"						"40"
@@ -334,7 +337,7 @@
 									// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
-		"MaxLevel"						"6"
+		
 		"LevelsBetweenUpgrades"			"6"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 
@@ -373,7 +376,7 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
-		"MaxLevel"						"7"
+		
 		"AbilitySound"					"LoneDruid_SpiritBear.Entangle"
 
 		// Damage.
@@ -390,13 +393,13 @@
 		{
 			"AbilityDamage"
 			{
-				"value"								"300 400 500 600 700 800 900"
+				"value"								"300 400 500 600"
 				"CalculateSpellDamageTooltip"		"1"
 				"special_bonus_unique_lone_druid_7"	"+75%"
 			}
 			"damage"
 			{
-				"value"								"300 400 500 600 700 800 900"
+				"value"								"300 400 500 600"
 				"CalculateSpellDamageTooltip"		"1"
 				"special_bonus_unique_lone_druid_7"	"+75%"
 			}
@@ -411,57 +414,6 @@
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
-
-	
-	//=================================================================================================================
-	// Ability: Lone Druid Entangling Claws
-	//=================================================================================================================
-	"lone_druid_entangling_claws"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
-		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
-		"FightRecapLevel"				"1"
-		"MaxLevel"						"7"
-		"AbilitySound"					"LoneDruid_SpiritBear.Entangle"
-
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"450"
-		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
-		
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"5"
-
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"75 90 105 120"
-
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"duration"				"3.75"
-			}
-			"02"
-			{
-				"var_type"			"FIELD_INTEGER"
-				"attack_amp"		"25"
-			}
-		}
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
-	}	
-	
-
 	//=================================================================================================================
 	// Lone Druid: Spirit Bear Defender
 	//=================================================================================================================
@@ -492,279 +444,14 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
-		"MaxLevel"						"7"
+		
 
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"spell_resistance"			"15 18 21 24 27 30 33"
-		}
-	}
-	
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_lone_druid_1"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"200"
-				"ad_linked_abilities"			"lone_druid_spirit_bear"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_lone_druid_2"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"						"15"
-				"ad_linked_abilities"			"lone_druid_spirit_bear"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_lone_druid_3"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"1.5"
-				"ad_linked_abilities"			"lone_druid_true_form"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_lone_druid_4"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"						"4	"
-				"ad_linked_abilities"			"lone_druid_savage_roar"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_lone_druid_5"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"40"
-				"ad_linked_abilities"			"lone_druid_spirit_bear"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_lone_druid_6"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"40"
-				"ad_linked_abilities"			"lone_druid_spirit_link"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_lone_druid_7"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_lone_druid_8"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"50"
-				"ad_linked_abilities"			"lone_druid_true_form"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_lone_druid_9"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"0"
-				"ad_linked_abilities"			"lone_druid_spirit_bear || lone_druid_true_form"			 // one of the abilities (not all) listed needs to be present for the talent to be valid. 		
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_lone_druid_10"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"						"-0.35"
-				"ad_linked_abilities"			"lone_druid_spirit_bear"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_lone_druid_11"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"25"
-				"ad_linked_abilities"			"lone_druid_spirit_bear"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_lone_druid_12"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"0"
-				"ad_linked_abilities"			"lone_druid_spirit_bear"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
+			"spell_resistance"			"15 18 21 24"
 		}
 	}
 }

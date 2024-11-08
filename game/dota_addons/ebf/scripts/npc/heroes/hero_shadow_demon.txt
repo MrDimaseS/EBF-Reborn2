@@ -26,15 +26,15 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
-		"MaxLevel"						"8"
+		
 		"DependentOnAbility"			"shadow_demon_disruption"		
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"illusion_outgoing_damage"	"-80 -75 -70 -65 -60 -55 -50 -45"
-			"illusion_outgoing_damage_tooltip"	"20 25 30 35 40 45 50 55"
+			"illusion_outgoing_damage"	"-80 -75 -70 -65 -60"
+			"illusion_outgoing_damage_tooltip"	"20 25 30 35 40"
 			"radius"							
 			{
 				"value"		"1500"
@@ -59,48 +59,46 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_ShadowDemon.Disruption"
-		"MaxLevel"						"7"
+		
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityDuration"				"2.75"
-		"AbilityCooldown"				"26 24 22 20 18.5 16.9 15.4"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"650"
-		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
+		"AbilityCastPoint"				"0.3"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"120 120 120 120"
+		"AbilityManaCost"				"120"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"disruption_duration"
+			"disruption_duration"		
 			{
-				"value"					"2.75"
-				"LinkedSpecialBonus"	"special_bonus_unique_shadow_demon_5"
+				"value"		"2.75"
 			}
-			"illusion_duration"			"14"
-			"illusion_outgoing_damage"	"-70.0 -55.0 -40.0 -25.0 -10.0 5.0 20.0"
-			"illusion_outgoing_tooltip"	"30.0 45.0 60.0 75.0 90.0 105.0 120.0"
+			"illusion_duration"			"11 12 13 14"
+			"illusion_outgoing_damage"	"-80.0 -70.0 -60.0 -50.0"
+			"illusion_outgoing_tooltip"	"20.0 30.0 40.0 50.0"
+			"illusion_flat_damage"				"30 40 50 60"
 			"illusion_incoming_damage"	"200"
 			"tooltip_total_illusion_incoming_damage"	"300"
-			"illusion_flat_damage"
+			"AbilityCooldown"				
 			{
-				"value"							"300 400 500 600 700 800 900"
-				"CalculateAttackDamageTooltip"	"1"
+				"value"			"26 24 22 20"
+				"special_bonus_unique_shadow_demon_7"			"=0.25"
 			}
-			"AbilityCharges"
+			"AbilityCharges"	
 			{
-				"value"	""
-				"LinkedSpecialBonus"	"special_bonus_unique_shadow_demon_7"
+				"value"				""
+			"special_bonus_unique_shadow_demon_7" "+2"
 			}
-			"illusion_bounty_base"		"0"
-			"illusion_bounty_growth"	"0"
+			"AbilityChargeRestoreTime"		"26 24 22 20"
 			"can_cast"
 			{
 				"value"			"0"
@@ -121,15 +119,14 @@
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"AbilitySound"					"Hero_ShadowDemon.Soul_Catcher"
-		"MaxLevel"						"7"
-
+		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"15"
+		"AbilityCooldown"				"26 22 18 14"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"700 800 900 1000 1100 1200 1300"
+		"AbilityCastRange"				"700 800 900 1000"
 		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
 
 		// Cost
@@ -140,10 +137,16 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"														"6"
+			"duration"						"6"
+			
+			"health_lost"		
+			{
+				"value"														"0 0 0 0"
+				"special_bonus_facet_shadow_demon_promulgate"				"=0.6 =0.8 =1.0 =1.2"				
+			}
 			"damage_reflection_pct"	
 			{
-				"value"														"10 12.5 15 17.5 20 22.5 25"
+				"value"														"20 25 30 35"
 				"special_bonus_unique_shadow_demon_disseminate_damage"		"+15"
 				"CalculateSpellDamageTooltip"								"0"
 			}
@@ -151,11 +154,6 @@
 			{
 				"value"			"675"
 					"affected_by_aoe_increase"	"1"
-			}
-			"health_lost"		
-			{
-				"value"							"0"
-				"special_bonus_facet_shadow_demon_promulgate"			"=15"				
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -172,7 +170,7 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"AbilitySound"					"Hero_ShadowDemon.ShadowPoison"
-		"MaxLevel"						"7"
+		
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
@@ -201,48 +199,37 @@
 		{
 			"stack_damage"	
 			{
-				"value"									"240 360 480 600 720 840 960"
+				"value"									"240 360 480 600"
 				"special_bonus_unique_shadow_demon_4"	"+50%"
 				"CalculateSpellDamageTooltip"			"1"
 			}
+			"max_multiply_stacks"	"5"
 			"bonus_stack_damage"	
 			{
 				"value"									"500"
 				"special_bonus_unique_shadow_demon_4"	"+50%"
 				"CalculateSpellDamageTooltip"			"1"
 			}
-			"radius"									"475"
-			"speed"										"1000 1000 1000 1000"
+			"radius"				
+			{
+				"value"		"200"
+				"affected_by_aoe_increase"	"1"
+			}
+			"vision_radius"
+			{
+				"value"		"300"
+				"affected_by_aoe_increase"	"1"
+			}
+			"speed"										"1000"
 			"hit_damage"	
 			{
-				"value"									"300 400 500 600 700 800 900"
+				"value"									"300 400 500 600"
 				"special_bonus_unique_shadow_demon_4"	"+50%"
 				"CalculateSpellDamageTooltip"			"1"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
-
-	//=================================================================================================================
-	// Shadow Demon: Shadow Poison Release
-	//=================================================================================================================
-	"shadow_demon_shadow_poison_release"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
-		"MaxLevel"						"1"
-
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastPoint"				"0.3"
-		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"1.0"
-	}
-
 	//=================================================================================================================
 	// Shadow Demon: Shadow Demon Demonic Purge
 	//=================================================================================================================
@@ -258,19 +245,16 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
-		"FightRecapLevel"				"2"
-		"HasScepterUpgrade"			"1"
+		"HasScepterUpgrade"				"1"
 		"AbilitySound"					"Hero_ShadowDemon.DemonicPurge.Cast"
-		"MaxLevel"						"6"
-		"LevelsBetweenUpgrades"			"6"
+		
 
 		"LinkedAbility"	"shadow_demon_demonic_cleanse"
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDuration"				"7.0"
+		"AbilityDuration"				"6.0"
 		"AbilityCooldown"				"60"
-
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -280,7 +264,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"150 175 200 225 250 275"
+		"AbilityManaCost"				"150 175 200"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -288,7 +272,7 @@
 		{
 			"purge_damage"
 			{
-				"value"									"3000 4500 6000 7500 9000 10500"
+				"value"									"3000 4500 6000"
 				"special_bonus_unique_shadow_demon_1"	"+35%"
 				"CalculateSpellDamageTooltip"			"1"
 			}
@@ -330,7 +314,7 @@
 		"HasScepterUpgrade"			"1"
 		"IsGrantedByShard"			"1"
 		"AbilitySound"					"Hero_ShadowDemon.DemonicPurge.Cast"
-		"MaxLevel"						"6"
+		
 		"LevelsBetweenUpgrades"			"6"
 		
 		"LinkedAbility"					"shadow_demon_demonic_purge"
@@ -349,7 +333,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"150 175 200 225 250 275"
+		"AbilityManaCost"				"150 175 200"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -357,7 +341,7 @@
 		{
 			"purge_damage"		
 			{
-				"value"									"3000 4500 6000 7500 9000 10500"
+				"value"									"3000 4500 6000"
 				"special_bonus_unique_shadow_demon_1"	"+35%"
 				"CalculateSpellHealTooltip"				"1"
 			}
@@ -378,211 +362,4 @@
 			}
 		}
 	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_shadow_demon_1"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"						"100"
-				"ad_linked_abilities"			"shadow_demon_demonic_purge"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_shadow_demon_2"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"6"
-				"ad_linked_abilities"			"shadow_demon_soul_catcher"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_shadow_demon_3"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"1.55"
-				"ad_linked_abilities"			"shadow_demon_shadow_poison"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_shadow_demon_4"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_shadow_demon_5"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"5"
-				"ad_linked_abilities"			"shadow_demon_disruption"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_shadow_demon_6"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"0"
-				"ad_linked_abilities"			"shadow_demon_soul_catcher"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_shadow_demon_7"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"2"
-				"ad_linked_abilities"			"shadow_demon_disruption"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_shadow_demon_8"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"5"
-				"ad_linked_abilities"			"shadow_demon_soul_catcher"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_shadow_demon_9"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"						"30"
-				"ad_linked_abilities"			"shadow_demon_demonic_purge"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_shadow_demon_disseminate_damage"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"BaseClass"							"special_bonus_base"
-	}
-
 }

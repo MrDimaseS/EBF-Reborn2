@@ -16,6 +16,10 @@
 		"AbilityValues"
 		{
 			"movespeed_per_level_pct"				"1"
+			"movement_speed_tooltip"
+			{
+				"dynamic_value"						"true"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -34,6 +38,10 @@
 		{
 			"spell_amp_damage_divisor"	"100"
 			"spell_amp_mult"			"1"
+			"total_spell_amp"
+			{
+				"dynamic_value"			"true"
+			}
 		}
 	}
 	//=================================================================================================================
@@ -49,7 +57,7 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Ability.PlasmaField"
-		"MaxLevel"						"7"
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -60,7 +68,7 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"10"
+		"AbilityCooldown"				"13 12 11 10"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -72,20 +80,20 @@
 		{
 			"damage_min"
 			{
-				"value"							"350 400 450 500 550 600 650"
+				"value"							"350 400 450 500"
 				"special_bonus_unique_razor_4"	"+50%"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"damage_max"
 			{
-				"value"							"800 1150 1500 1850 2200 2550 2900"
+				"value"							"800 1150 1500 1850"
 				"special_bonus_unique_razor_4"	"+50%"	
 				"CalculateSpellDamageTooltip"	"1"													
 			}
+			"total_ability_time"				"2.2"
 			"radius"							"700"
-			"speed"								"636"  // 1.2 second to reach radius
 			"slow_min"							"5"
-			"slow_max"							"25 30 35 40 45 50 55"
+			"slow_max"							"25 30 35 40"
 			"slow_duration"						"1.5"
 			"second_ring_delay"
 			{
@@ -114,7 +122,7 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"AbilitySound"					"Ability.static.start"
-		"MaxLevel"						"7"
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -123,7 +131,7 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"40 35 30 25 21.9 18.8 15.7"
+		"AbilityCooldown"				"50 40 30 20"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -138,10 +146,10 @@
 				"value"											"10"
 				"special_bonus_unique_razor_3"					"+6"				
 			}
-			"drain_duration"									"18"
+			"drain_duration"									"12 14 16 18"
 			"drain_rate"
 			{
-				"value"											"50 100 150 200 250 300 350"
+				"value"											"50 100 150 200"
 				"special_bonus_unique_razor"					"+50"
 				"CalculateAttackDamageTooltip"					"1"
 			}
@@ -153,7 +161,7 @@
 			"attack_speed_factor"
 			{
 				"value"											"0"
-				"special_bonus_unique_razor_static_link_aspd"	"+0.02"
+				"special_bonus_unique_razor_static_link_aspd"	"+0.2"
 			}
 			"pull_speed"			
 			{
@@ -183,7 +191,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
-		"MaxLevel"						"7"
+		
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -197,12 +205,12 @@
 			"strike_target_count"	"3"
 			"strike_damage"			
 			{
-				"value"															"400 800 1200 1600 2000 2400 2800"
+				"value"															"500 900 1300 1700"
 				"special_bonus_unique_razor_storm_surge_damage_and_slow"		"+25%"
 			}
 			"strike_move_slow_pct"
 			{
-				"value"				"25 30 35 40"
+				"value"															"25 30 35 40"
 				"special_bonus_unique_razor_storm_surge_damage_and_slow"		"+25"
 			}
 			"strike_slow_duration"			"1.0"
@@ -247,7 +255,7 @@
 		"FightRecapLevel"				"1"
 		"HasScepterUpgrade"			"1"
 		"AbilitySound"					"Hero_Razor.Storm.Cast"
-		"MaxLevel"						"6"
+		
 		"LevelsBetweenUpgrades"			"6"
 
 		// Casting
@@ -258,11 +266,11 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"60"
+		"AbilityCooldown"				"80 70 60"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"100 150 200 250 300 350"
+		"AbilityManaCost"				"100 150 200"
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
@@ -274,20 +282,20 @@
 		{
 			"radius"			
 			{
-				"value"		"500"		
-				"affected_by_aoe_increase"	"1"
+				"value"								"500"		
+				"affected_by_aoe_increase"			"1"
 			}
-			"duration"			"30.0"		
+			"duration"								"30.0"		
 			"strike_interval"
 			{
-				"value"					"0.7 0.6 0.5 0.45 0.4 0.36"	
-				"LinkedSpecialBonus"	"special_bonus_unique_razor_2"
+				"value"								"0.7 0.6 0.5"
+				"special_bonus_unique_razor_2"		"+-0.1"
 			}
-			"armor_reduction"	"1 1 1"		
+			"armor_reduction"						"1"		
 			"damage"
 			{
-				"value"							"600 750 900 1050 1200 1350"	
-				"CalculateSpellDamageTooltip"	"1"
+				"value"								"600 750 900"
+				"CalculateSpellDamageTooltip"		"1"
 			}
 		}
 	}

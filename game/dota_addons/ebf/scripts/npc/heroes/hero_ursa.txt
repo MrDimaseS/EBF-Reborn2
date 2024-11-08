@@ -8,7 +8,6 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
-		"MaxLevel"						"7"
 		"DependentOnAbility"			"ursa_enrage"				
 		"Innate"						"1"
 		"IsBreakable"					"1"
@@ -17,7 +16,7 @@
 		{
 			"health_as_damage_pct"	
 			{
-				"value"					"5 5.5 6 6.5 7 7.5 8"
+				"value"					"5 5.5 6 6.5"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
@@ -36,7 +35,7 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
-		"MaxLevel"						"7"
+		
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Ursa.Earthshock"
 		"HasShardUpgrade"				"0"
@@ -47,7 +46,7 @@
 
 		// Damage.
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"750 1250 1750 2250 2750 3250 3750"
+		"AbilityDamage"					"750 1250 1750 2250"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -57,14 +56,14 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"AbilityDamage"					"750 1250 1750 2250 2750 3250 3750"
+			"AbilityDamage"								"750 1250 1750 2250"
 			"shock_radius"
 			{
 				"value"									"385"
 				"affected_by_aoe_increase"				"1"
 				"special_bonus_unique_ursa_2"			"+50%"
 			}
-			"movement_slow"								"-22 -28 -34 -40 -43 -46 -50"
+			"movement_slow"								"-22 -28 -34 -40"
 			"hop_distance"
 			{
 				"value"									"250"
@@ -81,7 +80,7 @@
 			}
 			"AbilityCooldown"				
 			{
-				"value"									"14 13 12 11 10 9 8"
+				"value"									"15 13 11 9"
 				"special_bonus_unique_ursa_3"			"=0.25"
 			}
 			"AbilityCharges"		
@@ -89,7 +88,7 @@
 				"value"									"1"
 				"special_bonus_unique_ursa_3"			"=2"
 			}
-			"AbilityChargeRestoreTime"					"14 13 12 11 10 9 8"
+			"AbilityChargeRestoreTime"					"15 13 11 9"
 		}
 		"AbilityCastAnimation"							"ACT_DOTA_CAST_ABILITY_1"
 		"AbilityCastGestureSlot"						"DEFAULT"
@@ -104,7 +103,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
-		"MaxLevel"						"7"
+		
 		"AbilitySound"					"Hero_Ursa.Overpower"
 
 		// Casting
@@ -116,12 +115,12 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"9"
+		"AbilityCooldown"				"12 11 10 9"
 		"AbilityDuration"				"20"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"45 50 55 60 65 70 75"
+		"AbilityManaCost"						"45 50 55 60"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -129,11 +128,11 @@
 		{
 			"max_attacks"		
 			{
-				"value"							"5 6 7 8 9 10 11"
+				"value"							"6 8 10 12"
 				"special_bonus_unique_ursa_7"	"+6"
 			}
-			"attack_speed_bonus_pct"		"400"
-			"slow_resist"					"10 20 30 40 50 60 70"
+			"attack_speed_bonus_pct"			"400"
+			"slow_resist"						"10 20 30 40"
 		}
 	}
 	
@@ -148,7 +147,7 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
-		"MaxLevel"						"7"
+		
 				
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -156,26 +155,26 @@
 		{
 			"bonus_reset_time"				
 			{
-				"value"							"8 12 16 20 24 28 32"
-				"special_bonus_unique_ursa_4"	"+20"
+				"value"											"8 12 16 20"
+				"special_bonus_unique_ursa_4"					"+15"
 			}
-			"bonus_reset_time_roshan"			"10"
+			"bonus_reset_time_roshan"							"10"
 			"damage_per_stack"				
 			{
-				"value"							"65 105 145 185 225 265 305"
-				"special_bonus_unique_ursa"		"+30%"
-				"CalculateSpellDamageTooltip"	"0"
-				"CalculateAttackDamageTooltip"	"1"
+				"value"											"65 105 145 185"
+				"special_bonus_unique_ursa"						"+30%"
+				"CalculateSpellDamageTooltip"					"0"
+				"CalculateAttackDamageTooltip"					"1"
 			}
 			"stun_stack_count"
 			{
-				"value"				"0"
-				"special_bonus_unique_ursa_furyswipes_stun"			"+5"	
+				"value"											"0"
+				"special_bonus_unique_ursa_furyswipes_stun"		"+5"	
 			}
 			"stun_duration"
 			{
-				"value"				"0"
-				"special_bonus_unique_ursa_furyswipes_stun"			"+1.5"	
+				"value"											"0"
+				"special_bonus_unique_ursa_furyswipes_stun"		"+1.5"	
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
@@ -195,7 +194,7 @@
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
-		"MaxLevel"						"6"
+		
 		"LevelsBetweenUpgrades"			"6"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Ursa.Enrage"
@@ -221,16 +220,16 @@
 			"status_resistance"
 			{
 				"value"							"50"
-				"special_bonus_unique_ursa_8"	"+10"
+				"special_bonus_unique_ursa_8"	"+20"
 			}
 			"duration"
 			{
-				"value"							"5"
+				"value"							"4 4.5 5"
 				"special_bonus_unique_ursa_3"	"+1.2"
 			}
 			"AbilityCooldown"
 			{
-				"value"							"70 60 50 40 30 20"
+				"value"							"70 50 30"
 				"special_bonus_scepter"			"-50%"
 				"RequiresScepter"				"1"
 			}
@@ -258,193 +257,4 @@
 			}
 		}
 	}
-	//=================================================================================================================
-	// Ability: Might of Ulfsaar (Innate)
-	//=================================================================================================================
-	"ursa_maul"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
-		"MaxLevel"						"1"
-		"Innate"						"1"
-
-		"AbilityValues"
-		{
-			"health_as_damage_pct"	
-			{
-				"value"	"1.5"
-			}
-		}
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
-	}
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_ursa"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-	}
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_ursa_2"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"						"2"
-				"ad_linked_abilities"			"ursa_earthshock"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_ursa_3"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"1.2"
-				"ad_linked_abilities"			"ursa_enrage"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_ursa_4"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"20"
-				"ad_linked_abilities"			"ursa_fury_swipes"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_ursa_5"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"500"
-				"ad_linked_abilities"			"ursa_earthshock"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_ursa_6"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"80"
-				"ad_linked_abilities"			"ursa_enrage"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_ursa_7"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"3"
-				"ad_linked_abilities"			"ursa_overpower"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_ursa_8"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"15"
-				"ad_linked_abilities"			"ursa_enrage"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
 }

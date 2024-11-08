@@ -11,7 +11,7 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_LegionCommander.Overwhelming.Location"
 		"HasShardUpgrade"				"1"
-		"MaxLevel"						"7"
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -20,7 +20,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"100 110 120 130 140 150 160"
+		"AbilityManaCost"				"100 110 120 130"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -28,23 +28,23 @@
 		{			
 			"damage"
 			{
-				"value"										"400 700 1000 1300 1600 1900 2200"
+				"value"										"400 700 1000 1300"
 				"CalculateSpellDamageTooltip"				"1"
 			}
 			"damage_per_unit"
 			{
-				"value"										"140 160 180 200 220 240 260"
+				"value"										"140 160 180 200"
 				"special_bonus_unique_legion_commander_4"	"+50%"
 				"CalculateSpellDamageTooltip"				"1"
 			}
 			"damage_per_hero"
 			{
-				"value"										"400 700 1000 1300 1600 1900 2200"
+				"value"										"400 700 1000 1300"
 				"special_bonus_unique_legion_commander_4"	"+50%"
 				"CalculateSpellDamageTooltip"				"1"
 			}
 			"bonus_attack_speed_creeps"						"0"
-			"bonus_attack_speed"							"50 75 100 125 150 175 200"
+			"bonus_attack_speed"							"50 75 100 125"
 			"duration"										"6.0"
 			"radius"				
 			{
@@ -104,7 +104,7 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"AbilitySound"					"Hero_LegionCommander.PressTheAttack"
-		"MaxLevel"						"7"
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -126,12 +126,12 @@
 			"duration"													"5.0"
 			"move_speed"
 			{
-				"value"													"10 14 18 22 26 30 34"
-				"special_bonus_unique_legion_commander_pta_movespeed"	"+22"
+				"value"													"10 14 18 22"
+				"special_bonus_unique_legion_commander_pta_movespeed"	"+10"
 			}
 			"hp_regen"
 			{
-				"value"													"240 360 480 600 720 840 960"
+				"value"													"240 360 480 600"
 				"special_bonus_unique_legion_commander_6"				"+50%"
 				"CalculateSpellHealTooltip"								"1"
 			}
@@ -141,7 +141,7 @@
 				"special_bonus_unique_legion_commander_5"			"+250"
 				"affected_by_aoe_increase"							"1"
 			}
-			"AbilityCooldown"											"13"
+			"AbilityCooldown"										"16.0 15.0 14.0 13.0"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -155,13 +155,10 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilitySound"					"Hero_LegionCommander.Courage"
-		"MaxLevel"						"8"
-		"Innate"						"1"
-		"RequiredLevel"					"-1"
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"2.3 1.9 1.5 1.1 0.7 0.55 0.4 0.25"
+		"AbilityCooldown"				"1.9 1.5 1.1 0.7"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -176,8 +173,8 @@
 			"buff_duration"									"1.0"
 			"hp_leech_percent"			
 			{
-				"value"										"25"
-				"special_bonus_unique_legion_commander_7"	"+25"
+				"value"										"55 65 75 85"
+				"special_bonus_unique_legion_commander_7"	"+75"
 			}
 			
 		}
@@ -203,15 +200,11 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"FightRecapLevel"				"2"
 		"AbilitySound"					"Hero_LegionCommander.Duel"
-		"MaxLevel"						"6"
 		"LevelsBetweenUpgrades"			"6"
-
 		"HasScepterUpgrade"				"1"
-
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"200 250 300 350 400 450"
 		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
 		
@@ -228,22 +221,25 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"AbilityCastRange"		
+			{
+				"value"			"200 250 300"
+			}
 			"duration"			
 			{
-				"value"										"6"
-				"special_bonus_scepter"						"+4"
+				"value"										"3.75 4.5 5.25"
+				"special_bonus_scepter"						"+2.25"
 			}
-			"duration_scepter"								""
 			"reward_damage"			
 			{
-				"value"													"10 20 30 40 50 60"
+				"value"													"50 100 150"
 				"special_bonus_shard"									"+80%"
 				"CalculateAttackDamageTooltip"							"1"
 			}
 			"assist_reward_damage"
 			{
 				"value"													"0"
-				"special_bonus_facet_legion_commander_spoils_of_war"	"4 8 12 16 20 24"
+				"special_bonus_facet_legion_commander_spoils_of_war"	"20 40 60"
 				"special_bonus_shard"									"+80%"
 				"CalculateAttackDamageTooltip"							"1"				
 			}
@@ -255,171 +251,9 @@
 			}
 			"AbilityCooldown"	
 			{
-				"value"										"50"
+				"value"										"60 55 50"
 				"special_bonus_scepter"						"-20"
 				"RequiresScepter"							"1"
-			}
-
-		}
-	}
-	"special_bonus_unique_legion_commander"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_legion_commander_2"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"100"
-				"ad_linked_abilities"			"legion_commander_overwhelming_odds"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_legion_commander_3"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"12"
-				"ad_linked_abilities"			"legion_commander_moment_of_courage"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_legion_commander_4"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"						"50"
-				"ad_linked_abilities"			"legion_commander_overwhelming_odds"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_legion_commander_5"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"250"
-				"ad_linked_abilities"			"legion_commander_press_the_attack"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_legion_commander_6"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"						"4000"
-				"ad_linked_abilities"			"legion_commander_press_the_attack"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_legion_commander_7"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"BaseClass"						"special_bonus_base"
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_legion_commander_8"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"BaseClass"						"special_bonus_base"
-		"ad_linked_abilities"			"legion_commander_press_the_attack"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"1.5"
 			}
 		}
 	}

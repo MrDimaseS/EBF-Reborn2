@@ -18,14 +18,14 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
-		"MaxLevel"						"7"
+		
 		
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"525"
 		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
-		"AbilityCooldown"				"8"
-		"AbilityManaCost"				"90 95 100 105 110 115 120"
+		"AbilityCooldown"				"11 10 9 8"
+		"AbilityManaCost"				"90 95 100 105"
 			
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
@@ -37,14 +37,14 @@
 		{
 			"damage"
 			{
-				"value"									"800 1600 2400 3200 4000 4800 5600"
+				"value"									"800 1600 2400 3200"
 				"special_bonus_unique_night_stalker_4"	"+50%"
 				"CalculateSpellDamageTooltip"			"1"
 			}
 			"duration_day"								"1.25"
-			"duration_night"							"4"
-			"movespeed_slow"							"-100"
-			"attackspeed_slow"							"-200"
+			"duration_night"							"2.5 3 3.5 4"
+			"movespeed_slow"							"-50"
+			"attackspeed_slow"							"-150"
 			"vision_penalty"		
 			{
 				"value"			"100 200 300 400"
@@ -82,7 +82,7 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Nightstalker.Trickling_Fear"
-		"MaxLevel"						"7"
+		
         "HasScepterUpgrade"				"1"
 
 		// Unit Targeting
@@ -106,12 +106,12 @@
 		{
 			"duration_day"
 			{
-				"value"									"3.0 3.1 3.2 3.3 3.4 3.5 3.6"
+				"value"									"3.0"
 				"special_bonus_scepter" 				"=-1"
 			}
 			"duration_night"
 			{
-				"value"									"4.5 5 5.5 6 6.5 7 7.5"
+				"value"									"4.5 5 5.5 6.0"
 				"special_bonus_scepter" 				"=-1"
 			}
 			"mana_pers_day"
@@ -135,7 +135,7 @@
 			}
 			"dps"
 			{
-				"value"														"250 300 350 400 450 500 550"
+				"value"														"250 300 350 400"
 				"special_bonus_unique_night_stalker_crippling_fear_damage" 	"+50%"
 				"CalculateSpellDamageTooltip"			"1"
 			}
@@ -143,14 +143,11 @@
 			
 			"AbilityCooldown"
 			{
-				"value"									"10"
+				"value"									"30 25 20 15"
 				"special_bonus_scepter"					"-5"
 			}				
-			
 		}
-		
 	}
-	
 	//=================================================================================================================
 	// Night Stalker: Hunter in the Night
 	//=================================================================================================================
@@ -164,7 +161,7 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 
         "HasShardUpgrade"               "1"
-		"MaxLevel"						"7"
+		
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -172,18 +169,18 @@
 		{
 			"bonus_movement_speed_pct_night"	
 			{
-				"value"			"22 28 34 40 46 52 58"
+				"value"									"22 28 34 40"
 				"special_bonus_unique_night_stalker_5" "+10"
 			}
 			"bonus_attack_speed_night"			
 			{
-				"value"			"75 150 225 300 375 450 525"
-				"special_bonus_unique_night_stalker_2"	"+175"
+				"value"									"20 40 60 80"
+				"special_bonus_unique_night_stalker_2"	"+100"
 			}
 			"bonus_status_resist_night"			
 			{
 				"value"														"0"
-				"special_bonus_unique_night_stalker_hunter_status_resist"	"+15"
+				"special_bonus_unique_night_stalker_hunter_status_resist"	"+35"
 			}
 			"daytime_pct"			"40"
 			"shard_hp_restore_pct"
@@ -221,7 +218,7 @@
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"AbilitySound"					"Hero_Nightstalker.Darkness"
-		"MaxLevel"						"6"
+		
 		"LevelsBetweenUpgrades"			"6"
 
 		// Stats
@@ -229,8 +226,8 @@
 		"AbilityCastPoint"				"0.3 0.3 0.3"
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
 
-		"AbilityCooldown"				"100"
-		"AbilityManaCost"				"125 175 225 275 325 375"
+		"AbilityCooldown"				"140 135 130"
+		"AbilityManaCost"				"125 175 225"
 			
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -243,111 +240,11 @@
 			}
 			"bonus_damage"			
 			{
-				"value"									"500 1000 1500 2000 2500 3000"
+				"value"									"500 1000 1500"
 				"special_bonus_unique_night_stalker_3"	"+25%"
 				"CalculateSpellDamageTooltip"			"0"
 				"CalculateAttackDamageTooltip"			"1"
 			}
 		}
-	}
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_night_stalker"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"50"
-				"ad_linked_abilities"			"night_stalker_darkness"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_night_stalker_2"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"ad_linked_abilities"			"night_stalker_hunter_in_the_night"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-		
-		
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_night_stalker_3"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"ad_linked_abilities"			"night_stalker_darkness"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-		
-		
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_night_stalker_4"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"ad_linked_abilities"			"night_stalker_void"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-		
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_night_stalker_5"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"ad_linked_abilities"			"night_stalker_hunter_in_the_night"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.		
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_night_stalker_6"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_night_stalker_7"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"ad_linked_abilities"			"night_stalker_darkness"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-		
-		
 	}
 }

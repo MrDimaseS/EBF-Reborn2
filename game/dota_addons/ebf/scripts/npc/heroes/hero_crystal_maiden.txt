@@ -76,39 +76,38 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Crystal.CrystalNova"
-		"MaxLevel"						"7"
-
+		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"AbilityCastRange"				"700"
-			"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
+			"AbilityCastRange"								"700"
+			"AbilityCastPoint"								"0.3"
 			"AbilityCooldown"
 			{
-				"value"										"8"
-				"special_bonus_unique_crystal_maiden_5"		"-3"
+				"value"										"11 10 9 8"
+				"special_bonus_unique_crystal_maiden_5"		"-4.5"
 			}
-			"AbilityManaCost"				"115 135 155 175 195 215 235"
+			"AbilityManaCost"								"115 135 155 175"
 			"radius"
 			{
 				"value"										"425"
-				"special_bonus_unique_crystal_maiden_6"		"+125"
+				"special_bonus_unique_crystal_maiden_6"		"+100"
+				"affected_by_aoe_increase"	"1"
 			}
-			"movespeed_slow"				"-20 -30 -40 -50 -60 -70 -80"
-			"attackspeed_slow"				"-30 -45 -60 -75 -90 -105 -120"
+			"movespeed_slow"				"-20 -30 -40 -50"
+			"attackspeed_slow"				"-30 -45 -60 -75"
 			"duration"						"5"
 			"vision_duration"				"6.0"
 			"nova_damage"
 			{
-				"value"										"1100 1600 2100 2600 3100 3600 4100"
+				"value"										"1100 1600 2100 2600"
 				"special_bonus_unique_crystal_maiden_2"		"+125%"
 				"CalculateSpellDamageTooltip"				"1"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}	
-
 	//=================================================================================================================
 	// Ability: Crystal Maiden's Frostbite
 	//=================================================================================================================
@@ -125,7 +124,7 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"hero_Crystal.frostbite"
-		"MaxLevel"						"7"
+		
 		
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
@@ -141,8 +140,8 @@
 				"special_bonus_unique_crystal_maiden_frostbite_castrange" 		"+100"
 			}
 			"AbilityCastPoint"								"0.3 0.3 0.3 0.3"
-			"AbilityCooldown"								"6"
-			"AbilityManaCost"								"125 135 145 155 165 175 185"
+			"AbilityCooldown"								"9 8 7 6"
+			"AbilityManaCost"								"125 135 145 155"
 			"damage_per_second"
 			{
 				"value"										"1000"
@@ -155,7 +154,7 @@
 			}
 			"duration"
 			{
-				"value"										"1.5 2 2.5 3.0 3.5 4.0 4.5"
+				"value"										"1.5 2 2.5 3"
 				"special_bonus_unique_crystal_maiden_1"		"+1.25"
 			}
 			"creep_multiplier"								"4"
@@ -175,19 +174,17 @@
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
 		
-		"MaxLevel"						"7"
-		
 		"AbilityValues"
 		{
 			"base_mana_regen"					
 			{
-				"value"										"2 3 4 5 6 7 8"
-				"special_bonus_unique_crystal_maiden_4" 	"+2.5"
+				"value"													"0.8 1.2 1.6 2.0"
+				"special_bonus_unique_crystal_maiden_4" 				"+2.5"
 			}
 			"proximity_mana_regen_tooltip"					
 			{
-				"value"										"6 9 12 15 18 21 24"
-				"special_bonus_unique_crystal_maiden_4" 	"+7.5"
+				"value"													"2.4 3.6 4.8 6.0"
+				"special_bonus_unique_crystal_maiden_4" 				"+7.5"
 			}
 			"proximity_bonus_radius"		
 			{
@@ -195,11 +192,11 @@
 				"special_bonus_facet_crystal_maiden_cold_comfort"		"=1200"
 				"affected_by_aoe_increase"	"1"
 			}
-			"proximity_bonus_factor"		"3"
+			"proximity_bonus_factor"									"3"
 			"mana_battery_mana_pct"
 			{
-				"value"						"0"
-				"special_bonus_facet_crystal_maiden_cold_comfort"		"10 15 20 25 30 35 40"
+				"value"													"0"
+				"special_bonus_facet_crystal_maiden_cold_comfort"		"10 15 20 25"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
@@ -221,7 +218,7 @@
 		"HasScepterUpgrade"				"1"
 
         "HasShardUpgrade"               "1"
-		"MaxLevel"						"6"
+		
 		"LevelsBetweenUpgrades"			"6"
 
 		// Casting
@@ -237,34 +234,34 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"AbilityChannelTime"			"10"
-			"AbilityCastPoint"				"0"
-			"AbilityCooldown"				"90"
-			"AbilityDuration"				"10.0"
-			"AbilityManaCost"				"200 400 600 800 1000 1200"
-			"radius"						
+			"AbilityChannelTime"				"10"
+			"AbilityCastPoint"					"0"
+			"AbilityCooldown"					"100 95 90"
+			"AbilityDuration"					"10.0"
+			"AbilityManaCost"					"200 400 600"
+			"radius"
 			{
-				"value"		"810"
+				"value"							"810"
 					"affected_by_aoe_increase"	"1"
 			}
 			"explosion_radius"				
 			{
-				"value"		"320"
+				"value"							"320"
 					"affected_by_aoe_increase"	"1"
 			}
-			"explosion_interval"			"0.1"
-			"movespeed_slow"				"-40"
-			"attack_slow"					"-60"
-			"slow_duration"					"1.0"
-			"explosion_min_dist"			"195"
+			"explosion_interval"				"0.1"
+			"movespeed_slow"					"-40"
+			"attack_slow"						"-60"
+			"slow_duration"						"1.0"
+			"explosion_min_dist"				"195"
 			"explosion_max_dist"			
 			{
 				"value"	"785"
-				"affected_by_aoe_increase"	"1"
+				"affected_by_aoe_increase"		"1"
 			}
 			"damage"
 			{
-				"value"										"1050 1700 2500 3450 4550 5800"
+				"value"										"1050 1700 2500"
 				"special_bonus_unique_crystal_maiden_3"		"+75%"
 				"CalculateSpellDamageTooltip"				"1"
 			}
@@ -295,278 +292,13 @@
 			"self_cast_range_bonus"
 			{
 				"value"													"0"
-				"special_bonus_facet_crystal_maiden_frozen_expanse"		"75 100 125 150 175 200"
+				"special_bonus_facet_crystal_maiden_frozen_expanse"		"75 100 125"
 			}
 			"aoe_bonus"
 			{
 				"value"													"0"
-				"special_bonus_facet_crystal_maiden_frozen_expanse"		"6 8 10 12 14 16"
+				"special_bonus_facet_crystal_maiden_frozen_expanse"		"6 8 10"
 			}
-		}
-	}
-
-	//=================================================================================================================
-	// Crystal Maiden: Freezing Field Stop
-	//=================================================================================================================
-	"crystal_maiden_freezing_field_stop"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
-		
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastPoint"				"0.0 0.0 0.0 0.0"
-		"AbilityCastAnimation"			"ACT_INVALID"
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"1"
-	}
-	
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_crystal_maiden_1"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"ad_linked_abilities"			"crystal_maiden_frostbite"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_crystal_maiden_2"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"ad_linked_abilities"			"crystal_maiden_crystal_nova"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_crystal_maiden_3"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"ad_linked_abilities"			"crystal_maiden_freezing_field"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_crystal_maiden_4"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"ad_linked_abilities"			"crystal_maiden_brilliance_aura"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-		
-		
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_crystal_maiden_5"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"ad_linked_abilities"			"crystal_maiden_crystal_nova"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_crystal_maiden_6"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"ad_linked_abilities"			"crystal_maiden_crystal_nova"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-	}
-	
-	// DEPRECATED
-	
-	"crystal_maiden_frozen_aura"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"ability_datadriven"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-		"MaxLevel"						"7"
-		"LevelsBetweenUpgrades"			"4"
-	    
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityTextureName"			"crystal_maiden_frozen_aura"
-
-		"Modifiers"
-		{	
-			"modifier_check_crystal"
-			{	
-				"passive"	"1"
-				"IsHidden"	"1"
-				"OnCreated"	
-				{
-					"RunScript"
-					{
-						"ScriptFile" "lua_abilities/abilities_simple.lua"
-						"Function" "Crystal_aura"
-					}
-				}
-				"OnDestroy"	
-				{
-					"RunScript"
-					{
-						"ScriptFile" "lua_abilities/abilities_simple.lua"
-						"Function" "Crystal_aura_death"
-					}
-				}
-			}
-		    "crystal_bonus_damage"
-		    {
-		        "IsHidden"	"1"
-		    	"Properties"
-		        {
-		        	"MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE" "1"
-		        }
-	        }
-	        "crystal_aura_indication"
-		    {
-		    	"IsBuff"	"1"
-	        }
-		}
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"mana_percent_damage"		"10 15 20 25 30 35 40"
-			}
-		}
-	}
-
-	"crystal_maiden_crystal_spear"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"ability_datadriven"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
-		"SpellImmunityType"             "SPELL_IMMUNITY_ENEMIES_YES"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
-		"AbilityTextureName"            "crystal_maiden_crystal_spear"
-		"MaxLevel"  "7"
-	    "LevelsBetweenUpgrades" "5"
-		
-		"precache"
-		{
-			"particle"				"particles/crystal_maiden_projectil_spawner_work.vpcf"
-			"particle"				"particles/ice_spear.vpcf"
-		}
-		
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"1000"
-		"AbilityCastAnimation"			"ACT_DOTA_SPAWN"	// Activity
-		"AnimationPlaybackRate"			"0.8"						// Animation speed multiplier
-		"AnimationIgnoresModelScale"	"1"
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"30 28 26 24 22 20 17.5"
-		"AbilityCastPoint"				"0.5"
-
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"100 200 500 1000 1500 3000 6000"
-
-		
-		"OnSpellStart"
-		{
-			"RunScript"
-		    {
-		        "ScriptFile" "lua_abilities/abilities_simple.lua"
-		        "Function" "projectile_crystal"
-		    }
-		}
-		"Modifiers"
-		{
-			"slow_effect_spear"
-			{
-				"duration" "5.0"
-				"Properties"
-	            {
-	                "MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"  "%slow_percent"
-	            }
-			}
-		}
-
-
-		// Modifiers
-		//-------------------------------------------------------------------------------------------------------------	
-		"OnProjectileHitUnit"
-	    {
-	        "DeleteOnHit"                   "0"
-	        
-	        "ApplyModifier"
-	        {
-	            "Target"                    "TARGET"
-	            "ModifierName"              "slow_effect_spear"
-	        }
-
-	        "Damage"
-			{
-				"Type"			"DAMAGE_TYPE_MAGICAL"
-				"Damage"		"%damage"
-				"Target" "TARGET"
-			}
-	    }
-	    "AbilitySpecial"
-		{
-			"01"
-	        {
-	            "var_type"              "FIELD_FLOAT"
-	            "damage"             "500 1000 2000 4000 8000 16000 32000"  //The meteor lands on the ground this many seconds after it was cast.
-	        }
-	        "02"
-	        {
-	            "var_type"              "FIELD_FLOAT"
-	            "delay"             "3.0 2.75 2.5 2.25 2.0 1.75 1.5"  //The meteor lands on the ground this many seconds after it was cast.
-	        }
-	        "03"
-	        {
-	            "var_type"              "FIELD_FLOAT"
-	            "source_count"             "1 1 2 2 3 3 4"  //The meteor lands on the ground this many seconds after it was cast.
-	        }
-	        "04"
-	        {
-	            "var_type"              "FIELD_FLOAT"
-	            "distance"             "500 600 700 800 900 1000 1200"  //The meteor lands on the ground this many seconds after it was cast.
-	        }
-	        "05"
-	        {
-	            "var_type"              "FIELD_FLOAT"
-	            "slow_percent"             "-10 -12 -14 -16 -18 -20 -25"  //The meteor lands on the ground this many seconds after it was cast.
-	        }
 		}
 	}
 }

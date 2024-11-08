@@ -32,7 +32,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilitySound"					"Hero_NagaSiren.MirrorImage"
-		"MaxLevel"						"7"
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -40,11 +40,11 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"25"
+		"AbilityCooldown"				"40 35 30 25"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"75 90 105 120 135 150 165"
+		"AbilityManaCost"				"75 90 105 120"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -53,12 +53,12 @@
 			"illusion_duration"						"26"
 			"outgoing_damage"
 			{
-				"value"								"-75 -70 -65 -60 -55 -50 -45 -40"
+				"value"								"-75 -70 -65 -60"
 				"special_bonus_unique_naga_siren_4" "+10"
 			}
 			"outgoing_damage_tooltip"
 			{
-				"value"								"25 30 35 40 45 50 55 60"
+				"value"								"25 30 35 40"
 				"special_bonus_unique_naga_siren_4" "+10"
 			}
 			"incoming_damage"			
@@ -96,7 +96,7 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_NagaSiren.Ensnare.Cast"
-		"MaxLevel"						"7"
+		
 		"HasScepterUpgrade"			"1"
 
 		// Casting
@@ -105,14 +105,14 @@
 		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"70 100 130 160 190 220 250"
+		"AbilityManaCost"				"70 80 90 100"
 		
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"												"5.0"
+			"duration"												"2.75 3.5 4.25 5.0"
 			"net_speed"					
 			{
 				"value"												"1500"
@@ -121,12 +121,12 @@
 			"fake_ensnare_distance"									"900 900 900 900"	
 			"AbilityCooldown"				
 			{
-				"value"												"21 18 15 12 10.25 8.5 6.75"
+				"value"												"21 18 15 12"
 				"special_bonus_unique_naga_siren_net_cooldown"		"-2"
 			}
 			"AbilityCastRange"
 			{
-				"value"												"575 600 625 650 675 700 725"
+				"value"												"500 525 550 575"
 				"special_bonus_scepter"								"+50%"
 			}
 			"can_target_magic_immune"
@@ -157,7 +157,7 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
-		"MaxLevel"						"7"
+		
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_NagaSiren.Riptide.Cast"
 
@@ -172,16 +172,16 @@
 		{
 			"hits"						
 			{
-				"value"									"12 12 12 12 10 8 6"
+				"value"									"6"
 				"special_bonus_unique_naga_siren_3" 	"-2"
 			}
 			"armor_reduction"			
 			{	
-				"value"									"-2 -4 -6 -8 -8 -8 -8"
+				"value"									"-2 -4 -6 -8"
 			}
 			"damage"	
 			{
-				"value"									"250 350 450 550 650 750 850"
+				"value"									"250 350 450 550"
 				"special_bonus_unique_naga_siren_2"		"+30%"
 				"CalculateSpellDamageTooltip"			"1"
 			}
@@ -191,7 +191,6 @@
 				"affected_by_aoe_increase"				"1"
 			}
 			"duration"									"4.0"
-			"debuff_duration"							"10"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}	
@@ -208,14 +207,12 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_NagaSiren.Riptide.Cast"
-		"MaxLevel"						"7"
-
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0 0 0 0"
-		"AbilityManaCost"				"70 80 90 100 110 120 130"
-		"AbilityCooldown"				"10"
+		"AbilityManaCost"				"50 60 70 80"
+		"AbilityCooldown"				"10 9 8 7"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -223,10 +220,9 @@
 		{
 			"damage"	
 			{
-				"value"								"800 1300 1800 2300 2800 3300 3800"
+				"value"								"800 1400 2000 2600"
 				"special_bonus_unique_naga_siren_2" "+30%"
 			}
-			
 			"radius"
 			{
 				"value"								"300"
@@ -234,15 +230,16 @@
 			}
 			"duration"					
 			{
-				"value"								"5 5 5 5 6 7 8"				
+				"value"								"4"				
 			}
-			"debuff_duration"						"10"
-
 			"status_resistance"
 			{
-				"value"						"		-11 -14 -17 -20 -20 -20 -20"
+				"value"						"		-35"
 			}
-
+			"max_movement_speed"
+			{
+				"value"						"240"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -257,7 +254,7 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
-		"MaxLevel"						"6"
+		
 		"LevelsBetweenUpgrades"			"6"
 		"FightRecapLevel"				"2"
 		"AbilitySound"					"Hero_NagaSiren.SongOfTheSiren"
@@ -272,7 +269,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"150 250 350 450 550 650"
+		"AbilityManaCost"				"150 250 350"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -280,7 +277,7 @@
 		{
 			"radius"					
 			{
-				"value"									"1000 1200 1400 1600 1800 2000"
+				"value"									"1000 1200 1400"
 				"special_bonus_unique_naga_siren_5" 	"+500"
 			}
 			"duration"					
@@ -291,7 +288,7 @@
 			"animation_rate"							"0.55 0.55 0.55"
 			"heal_pct"
 			{
-				"value"									"2 4 6"
+				"value"									"2 3 4"
 				"special_bonus_shard"					"+4"
 			}
 			"mana_pct"
@@ -300,7 +297,7 @@
 			}
 			"AbilityCooldown"
 			{
-				"value"									"180 140 100 85 70 55"
+				"value"									"180 140 100"
 				"special_bonus_unique_naga_siren_5" 	"-20"
 			}
 		}
@@ -325,141 +322,5 @@
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"1.0 1.0 1.0"
-	}
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_naga_siren"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"1"
-				"ad_linked_abilities"			"naga_siren_mirror_image"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_naga_siren_2"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_naga_siren_3"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_naga_siren_4"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"13"
-				"ad_linked_abilities"			"naga_siren_mirror_image"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_naga_siren_5"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"						"1"
-				"ad_linked_abilities"		"naga_siren_rip_tide"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}		
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_naga_siren_6"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"10"
-				"ad_linked_abilities"			"naga_siren_mirror_image"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_naga_siren_7"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"7"
-				"ad_linked_abilities"			"naga_siren_song_of_the_siren"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
 	}
 }

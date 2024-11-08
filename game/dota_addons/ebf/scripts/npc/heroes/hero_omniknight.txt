@@ -10,7 +10,7 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_AURA | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
-		"MaxLevel"						"7"
+		
 		"Innate"						"1"
 		"DependentOnAbility"			"omniknight_guardian_angel"
 		
@@ -18,7 +18,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"speed_bonus"												"40 50 60 70 80 90 100"
+			"speed_bonus"												"40 50 60 70"
 			"radius"				
 			{
 				"value"													"300"
@@ -39,7 +39,6 @@
 				"value"						"0"
 				"special_bonus_facet_omniknight_omnipresent"			"+20"				
 			}
-			
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -60,16 +59,16 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES_ENEMIES_NO"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Omniknight.Purification"
-		"MaxLevel"						"7"
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"550"
+		"AbilityCastRange"				"600"
 		"AbilityCastPoint"				"0.2"
 		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"80 95 110 125 140 155 170"
+		"AbilityManaCost"				"90 105 120 135"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -77,13 +76,13 @@
 		{
 			"heal"
 			{
-				"value"								"900 1600 2300 3000 3700 4400 5100"
+				"value"								"900 1600 2300 3000"
 				"special_bonus_unique_omniknight_1" "+50%"
 				"CalculateSpellHealTooltip"			"1"
 			}
 			"damage"
 			{
-				"value"								"900 1600 2300 3000 3700 4400 5100"
+				"value"								"900 1600 2300 3000"
 				"special_bonus_unique_omniknight_1" "+50%"
 				"DamageTypeTooltip"					"DAMAGE_TYPE_PURE"
 				"CalculateSpellDamageTooltip"		"1"
@@ -95,8 +94,18 @@
 			}
 			"AbilityCooldown"
 			{
-				"value"								"12"
-				"special_bonus_unique_omniknight_6"	"-2"
+				"value"								"18 16 14 12"
+				"special_bonus_unique_omniknight_6"	"-3"
+			}
+			"recast_delay"
+			{
+				"value"					"0"
+				"special_bonus_shard"	"+3.0"
+			}
+			"recast_effectiveness_pct"
+			{
+				"value"					"0"
+				"special_bonus_shard"	"+65"		// No tooltip value for this yet because it's set to 100%
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -126,11 +135,11 @@
 		
 		// Time        
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"               "14"
+		"AbilityCooldown"               "26 22 18 14"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"               "120 160 220 260 310 340 450"
+		"AbilityManaCost"             	"90 105 120 135"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -138,34 +147,26 @@
 		{
 			"base_strength"    
 			{
-				"value"                             "35 70 105 140 175 210 245"
+				"value"                             "35 70 105 140"
 				"CalculateAttributeTooltip"         "1"
 			}
 			"base_hpregen"
 			{
-				"value"                             "15 20 25 30 35 40 45"
+				"value"								"80 120 160 200"
 				"CalculateSpellHealTooltip"         "1"
 			}
 			"strength_bonus"
 			{
-				"value"                             "15 20 25 30 35 40 45"
+				"value"                             "15 20 25 30"
 				"CalculateAttributeTooltip"         "1"
 				"special_bonus_unique_omniknight_2" "+50%"
 			}
 			"duration"                
 			{
-				"value"                             "6"
+				"value"                             "5"
 				"special_bonus_unique_omniknight_5" "+2"
 			}
 			"magic_resist"
-			{
-				"value"                             "20 25 30 35 40 45 50"
-			}
-			"radius"
-			{
-				"value"                             "400"
-			}
-			"special_bonus_shard"
 			{
 				"value"                             "60"
 			}
@@ -186,7 +187,7 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PURE"	
 		"AbilitySound"					"Hero_Omniknight.Repel"
-		"MaxLevel"						"7"
+		
 		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -195,29 +196,24 @@
 		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"30 40 50 60 70 80 90"
+		"AbilityManaCost"				"30 35 40 45"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"AbilityCooldown"				
-			{
-				"value"									"10"
-				"special_bonus_unique_omniknight_3"		"-5"
-			}
+			"AbilityCooldown"							"16 12 8 4"
 			"base_damage"
 			{
-				"value"									"130"
+				"value"									"55 70 85 100"
 				"special_bonus_unique_omniknight_4"		"+75"
 				"CalculateSpellDamageTooltip"			"0"
 			}
 			"bonus_damage"
 			{
-				"value"									"550 800 1050 1300 1550 1800 2050"
+				"value"									"400 600 800 1000"
 				"CalculateSpellDamageTooltip"			"1"
 			}
-			
 			"attack_cooldown"							"-1"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -239,7 +235,7 @@
 		"AbilitySound"					"Hero_Omniknight.GuardianAngel.Cast"
 
 		"HasScepterUpgrade"				"1"
-		"MaxLevel"						"6"
+		
 		"LevelsBetweenUpgrades"			"6"
 
 		// Time		
@@ -252,211 +248,42 @@
 		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"100 150 200 250 300 350 400"
+		"AbilityManaCost"				"125 175 225"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"										"7"
-            "scepter_max_charges"	
+			"duration"					
 			{
-				"value"										"3"
-				"RequiresScepter"							"1"
-			}
-			"AbilityChargeRestoreTime"		
-			{
-				"value"										"100 90 80 70 60 50"
-				"special_bonus_unique_omniknight_7"			"-15"		
+				"value"				"5 6 7"
+				"special_bonus_unique_omniknight_guardian_angel_duration"			"+2"
 			}
 			"AbilityCastRange"				
 			{
-				"value"										"900"	
-				"special_bonus_scepter"						"=0"
+				"value"		"600"	
+				"special_bonus_scepter"		"=0"
 			}
-		}
-	}
-	//=================================================================================================================
-	// Omniknight: Angelic Flight (scepter ability)
-	//=================================================================================================================
-	"omniknight_angelic_flight"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
-		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
-		"FightRecapLevel"				"1"
-		"AbilitySound"					"Hero_Omniknight.Repel"
-		"MaxLevel"						"1"
-		"FightRecapLevel"				"1"
-		"IsGrantedByScepter"			"1"
-		"HasScepterUpgrade"				"1"
-
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"400"
-		"AbilityCastPoint"				"0.2"
-		
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"45"
-		
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"125"
-
-		// Stats
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityModifierSupportValue"	"3.0"	// Value much higher than cost.
-
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
+			"radius"
 			{
-				"var_type"				"FIELD_FLOAT"
-				"duration"				"5"
+				"value"						"400"
+				"affected_by_aoe_increase"	"1"
+				"special_bonus_scepter"		"+300"
 			}
-			"02"
+			"AbilityCooldown"
 			{
-				"var_type"				"FIELD_INTEGER"
-				"movement_speed"		"20"
+				"value"								"110 100 90"
+				"special_bonus_unique_omniknight_7"	"-20"
 			}
-			"03"
+			"affects_buildings"
 			{
-				"var_type"				"FIELD_INTEGER"
-				"hp_regen"		"25"
+				"value"						"0"
+				"special_bonus_scepter"		"+1"
 			}
-		}
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
-	}
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_omniknight_1"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
+			"heal_and_regen_amp"
 			{
-				"var_type"					"FIELD_INTEGER"
-				"value"						"200"
-				"ad_linked_abilities"			"omniknight_purification"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_omniknight_2"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_omniknight_3"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_omniknight_4"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"80"
-				"ad_linked_abilities"			"omniknight_purification"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_omniknight_5"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"4"
-				"ad_linked_abilities"			"omniknight_martyr"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_omniknight_6"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_omniknight_7"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"30"
-				"ad_linked_abilities"			"omniknight_guardian_angel"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+				"value"						"0"
+				"special_bonus_scepter"		"+100"
 			}
 		}
 	}

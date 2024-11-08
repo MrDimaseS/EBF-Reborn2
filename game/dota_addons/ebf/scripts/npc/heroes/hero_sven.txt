@@ -1,5 +1,42 @@
 "DOTAAbilities"
-{	
+{
+	//=================================================================================================================
+	// Ability: Subjugator (bonus damage to stunned enemies)
+	//=================================================================================================================
+	"sven_vanquisher"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI"
+		"MaxLevel"						"1"
+		"Innate"						"1"
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage_pct"				"17"
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Resolute variant
+	//=================================================================================================================
+	"sven_wrath_of_god"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		
+		"DependentOnAbility"			"sven_gods_strength"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage_per_str"				"0.4 0.5 0.6 0.7"
+			"base_damage_reduction"				"20"
+		}
+	}
 	//=================================================================================================================
 	// Ability: Storm Bolt (Storm Hammer)
 	//=================================================================================================================
@@ -16,8 +53,6 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Sven.StormBoltImpact"
 
-		"MaxLevel"						"7"
-		
 		"HasScepterUpgrade"				"1"
 
 
@@ -28,15 +63,15 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"12"
+		"AbilityCooldown"				"21 18 15 12"
 
 		// Damage.
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"800 1600 2400 3200 3800 4600 5400"
+		"AbilityDamage"					"800 1600 2400 3200"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"115 125 135 145 155 165 175"
+		"AbilityManaCost"				"110 115 120 125"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -45,8 +80,8 @@
 			"bolt_speed"						"1000"
 			"bolt_stun_duration"
 			{
-				"value"							"2.0"
-				"LinkedSpecialBonus"			"special_bonus_unique_sven_4"
+				"value"							"1.0 1.2 1.4 1.6"
+				"special_bonus_unique_sven_4"	"+1"
 			}
 			"bolt_aoe"			
 			{
@@ -63,7 +98,7 @@
 				"value"							"350"		
 				"RequiresScepter"				"1"
 			}
-			"AbilityDamage"						"800 1600 2400 3200 3800 4600 5400"
+			"AbilityDamage"						"800 1600 2400 3200"
 			"scepter_bonus_damage"
 			{
 				"value"							"1800"	
@@ -82,8 +117,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
-		
-		"MaxLevel"						"7"
+		"IsBreakable"					"1"
 				
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -91,28 +125,22 @@
 		{
 			"cleave_starting_width"
 			{
-				"value"							"150 150 150 150 200 250 300"
-				// intentionally omitted affected_by_aoe_increase here because it warps the cleave box too much
+				"value"							"150"
 			}
 			"cleave_ending_width"
 			{
-				"value"							"360 360 360 360 400 440 480"
+				"value"							"360"
 				"affected_by_aoe_increase"		"1"
 			}
 			"cleave_distance"
 			{
-				"value"							"700 700 700 700 900 1100 1300"
+				"value"							"700"
 				"affected_by_aoe_increase"		"1"
 			}
 			"great_cleave_damage"
 			{
-				"value"							"40 60 80 100 100 100 100"
+				"value"							"40 60 80 100"
 				"special_bonus_unique_sven_8"	"+25"
-			}
-			"strength_bonus"
-			{
-				"value"							"0"
-				"CalculateAttributeTooltip"		"1"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -131,7 +159,7 @@
 		"AbilitySound"					"Hero_Sven.WarCry"
         "HasShardUpgrade"               "1"
 		
-		"MaxLevel"						"7"
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -141,11 +169,11 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"32 28 24 20 17.5 15 12.5"
+		"AbilityCooldown"				"40 35 30 25"
 	
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"35 45 55 65 75 85 95"
+		"AbilityManaCost"				"30 35 40 45"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -153,18 +181,22 @@
 		{
 			"movespeed"
 			{
-				"value"										"10 14 18 22 24 26 28"
+				"value"										"10 14 18 22"
 				"special_bonus_unique_sven_6"				"+8"
 			}
 			"bonus_armor"
 			{
-				"value"										"6 9 12 15 18 21 24"
-				"special_bonus_unique_sven_7"				"+10"
+				"value"										"6 8 10 12"
+				"special_bonus_unique_sven_7"				"+8"
 			}
-			"radius"										"700"
+			"radius"		
+			{
+				"value"										"700"
+				"affected_by_aoe_increase"					"1"
+			}
 			"duration"
 			{
-				"value"										"10"
+				"value"										"8"
 					"special_bonus_unique_sven_5"			"+4"
 			}
 			"shard_passive_armor"
@@ -185,13 +217,12 @@
 			"base_barrier_amount"
 			{
 				"value"										"0"
-				"special_bonus_facet_sven_heavy_plate"		"=500 =1000 =1500 =2000 =2500 =3000 =4000"
+				"special_bonus_facet_sven_heavy_plate"		"=600 =1200 =1800 =2400"
 				"RequiresFacet"								"sven_heavy_plate"
 				"CalculateSpellHealTooltip"					"1"
 			}
 		}
 	}
-	
 	//=================================================================================================================
 	// Ability: God's Strength
 	//=================================================================================================================
@@ -205,7 +236,7 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Sven.GodsStrength"
 		
-		"MaxLevel"						"6"
+		
 		"LevelsBetweenUpgrades"			"6"
 
 		// Casting
@@ -216,12 +247,12 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"105 100 95 95 85 75"
+		"AbilityCooldown"				"110 105 100"
 		"AbilityDuration"				"35.0"
 	
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"100 150 200 250 300 350"
+		"AbilityManaCost"				"100 150 200"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -229,7 +260,7 @@
 		{
 			"gods_strength_damage"
 			{
-				"value"														"100 140 180 220 260 300"	
+				"value"														"110 150 190"
 				"special_bonus_unique_sven_2"								"+50"	
 			}
 			"bonus_slow_resistance"
@@ -238,219 +269,5 @@
 				"special_bonus_unique_sven_gods_strength_slow_resist"		"+20"	
 			}
 		}	
-	}
-	//=================================================================================================================
-	// Ability: Subjugator (bonus damage to stunned enemies)
-	//=================================================================================================================
-	"sven_vanquisher"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI"
-		"MaxLevel"						"1"
-		"Innate"						"1"
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			"bonus_damage_pct"				"15"
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Resolute variant
-	//=================================================================================================================
-	"sven_wrath_of_god"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
-		"MaxLevel"						"8"
-		"DependentOnAbility"			"sven_gods_strength"
-
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			"bonus_damage_per_str"				"0.4 0.5 0.6 0.7 0.8 0.9 1.0"
-			"base_damage_reduction"				"25"
-		}
-	}
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_sven"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"4"
-				"ad_linked_abilities"			"sven_storm_bolt"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_sven_2"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"50"
-				"ad_linked_abilities"			"sven_gods_strength"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_sven_3"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"15"
-				"ad_linked_abilities"			"sven_gods_strength"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_sven_4"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"1.25"
-				"ad_linked_abilities"			"sven_storm_bolt"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_sven_5"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"						"3"
-				"ad_linked_abilities"			"sven_warcry"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_sven_6"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_sven_7"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"						"FIELD_INTEGER"
-				"value"							"16"
-				"ad_linked_abilities"			"sven_warcry"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_sven_8"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"						"25"
-				"ad_linked_abilities"			"sven_great_cleave"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
 	}
 }

@@ -53,7 +53,7 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Muerta.DeadShot.Cast"
 		
-		"MaxLevel"						"7"
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -62,11 +62,11 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"10"
+		"AbilityCooldown"				"16 14 12 10"
 		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"100 120 140 160 180 200 220"
+		"AbilityManaCost"				"100 120 140 160"
 
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -79,7 +79,7 @@
 			}
 			"damage"
 			{
-				"value"											"1000 1750 2500 3250 4000 4750 5500"
+				"value"											"1000 1750 2500 3250"
 				"special_bonus_unique_muerta_dead_shot_damage"	"+25%"
 				"CalculateSpellDamageTooltip"					"1"
 			}
@@ -88,7 +88,7 @@
 			"ricochet_radius_start"								"115"
 			"ricochet_radius_end"								"115"
 			"ricochet_distance_multiplier"						"1.5"
-			"ricochet_fear_duration"							"1.25"
+			"ricochet_fear_duration"							"0.8 0.95 1.1 1.25"
 			"impact_slow_percent"								"-100"
 			"impact_slow_duration"								"0.5"
 		}
@@ -107,7 +107,7 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"AbilitySound"					"Hero_Muerta.Revenants.Cast"
 
-		"MaxLevel"						"7"
+		
 		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -121,7 +121,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"145 160 175 190 205 220 235"
+		"AbilityManaCost"				"140 155 170 185"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -129,7 +129,7 @@
 		{
 			"damage"
 			{
-				"value"													"450 900 1350 1800 2250 2700 3150"
+				"value"													"450 900 1350 1800"
 				"CalculateSpellDamageTooltip"							"1"
 			}
 			"duration"													"10"
@@ -145,8 +145,8 @@
 			"acceleration"												"0.75"
 			"rotation_initial"											"0"
 			"debug_draw"												"0"
-			"aura_movespeed_slow"										"-30"
-			"aura_attackspeed_slow"										"-30 -40 -50 -60 -70 -80 -90"
+			"aura_movespeed_slow"										"-15 -20 -25 -30"
+			"aura_attackspeed_slow"										"-30 -40 -50 -60"
 			"silence_duration"											"3.5"
 			"rotation_direction"										"-1"
 			"show_warning"												"1"
@@ -189,7 +189,7 @@
 
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_3"
 		
-		"MaxLevel"						"7"
+		
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -197,10 +197,14 @@
 		{
 			"double_shot_chance"
 			{
-				"value"					"20 25 30 35 40 45 50"
-				"special_bonus_unique_muerta_gunslinger_double_shot_chance"	"+10"
+				"value"					"26 34 42 50"
+				"special_bonus_unique_muerta_gunslinger_double_shot_chance"	"+20"
 			}
-			"target_search_bonus_range"	"150"
+			"target_search_bonus_range"	"175"
+			"bonus_damage"
+			{
+				"special_bonus_unique_muerta_gunslinger_bonus_damage"	"=55"
+			}
 		}
 	}
 
@@ -211,7 +215,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-									// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
@@ -221,12 +224,12 @@
 		"AbilityCastPoint"				"0"
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_2"
 		
-		"MaxLevel"						"6"
+		
 		"LevelsBetweenUpgrades"			"6"
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"45"
+		"AbilityCooldown"				"75 60 45"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -242,7 +245,7 @@
 			"modelscale"				"30"
 			"bonus_damage"
 			{
-				"value"							"700 1000 1300 1600 1900 2200"
+				"value"							"700 1000 1300"
 				"CalculateAttackDamageTooltip"	"1"
 			}
 			"spell_lifesteal"

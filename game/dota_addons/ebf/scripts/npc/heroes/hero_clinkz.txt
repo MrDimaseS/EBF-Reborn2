@@ -12,7 +12,7 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"AbilitySound"					"Hero_Clinkz.DeathPact"
 		"AbilityDraftUltScepterAbility" "clinkz_burning_army"
-		"MaxLevel"						"7"
+		
 		"Innate"						"1"
 		"DependentOnAbility"			"clinkz_wind_walk"
 
@@ -37,14 +37,12 @@
 		{						
 			"skeleton_duration"					
 			{
-				"value"						"15 20 25 30 35 40 45"
+				"value"						"15 20 25 30"
 			}
-			
 			"skeleton_health"
 			{
 				"value"					"8"
 			}
-
 			"skeleton_health_tooltip"
 			{
 				"value"					"2"
@@ -68,17 +66,17 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"AbilitySound"					"Ability.Focusfire"
-		"MaxLevel"						"7"
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"800"
 		"AbilityCastPoint"				"0"
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_4"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
 		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"150 160 170 180 190 200 210"
+		"AbilityManaCost"				"60 70 80 90"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -86,10 +84,10 @@
 		{
 			"attack_speed_bonus"			
 			{
-				"value"									"150 180 220 260 300 340 380"
-				"special_bonus_unique_clinkz_7"			"+80"
+				"value"												"100 140 180 220"
+				"special_bonus_unique_clinkz_7"						"+80"
 			}
-			"duration"									"4 4.5 5 5.5 6 6.5 7"
+			"duration"												"3.5"
 			"attack_range_bonus"			
 			{
 				"value"												"200"
@@ -97,8 +95,8 @@
 			}
 			"AbilityCooldown"				
 			{
-				"value"									"18"
-				"special_bonus_unique_clinkz_4"			"-50%"
+				"value"												"30 25 20 15"
+				"special_bonus_unique_clinkz_4"						"-50%"
 
 			}
 			"strafe_skeleton_radius"					
@@ -183,7 +181,7 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
 		"AbilitySound"					"Hero_Clinkz.SearingArrows.Impact"
-		"MaxLevel"						"7"
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -200,13 +198,12 @@
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"damage_bonus"
 			{
-				"var_type"						"FIELD_INTEGER"
-				"damage_bonus"					"240 360 480 600 720 840 960"
-				"LinkedSpecialBonus"			"special_bonus_unique_clinkz_1"
+				"value" 						"240 360 480 600"
+				"CalculateAttackDamageTooltip"	"1"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -225,7 +222,7 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Batrider.Flamebreak"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
-		"MaxLevel"						"7"
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -234,11 +231,11 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"4"
+		"AbilityCooldown"				"7 6 5 4"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"45 50 55 60 65 70 75"
+		"AbilityManaCost"				"45 50 55 60"
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
@@ -248,17 +245,21 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"radius"		"275"
+			"radius"		
+			{
+				"value"								"325"
+				"affected_by_aoe_increase"			"1"
+			}
 			"projectile_speed"						"1500"
 			"damage_bonus"					
 			{
-				"value"								"300 500 700 900 1100 1300 1500"
+				"value"								"150 250 350 450"
 				"special_bonus_unique_clinkz_1"		"+50%"
 				"CalculateSpellDamageTooltip"		"0"
 				"CalculateAttackDamageTooltip"		"1"
 			}
 			"ground_duration"						"5"				
-			"slow_movement_speed"					"-25"
+			"slow_movement_speed"					"-16 -19 -22 -25"
 			"slow_duration"							"2.5"
 			"has_multishot"	
 			{
@@ -267,7 +268,7 @@
 			}
 			"impact_damage"					
 			{
-				"value"								"400 600 800 1000 1200 1400 1600"
+				"value"								"400 600 800 1000"
 				"special_bonus_unique_clinkz_1"		"+50%"
 				"DamageTypeTooltip"					"DAMAGE_TYPE_MAGICAL"
 				"CalculateSpellDamageTooltip"		"1"
@@ -275,7 +276,6 @@
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
-
 	//=================================================================================================================
 	// Clinkz: Wind Walk
 	//=================================================================================================================
@@ -287,7 +287,7 @@
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"AbilitySound"					"Hero_Clinkz.WindWalk"
-		"MaxLevel"						"6"
+		
 		"LevelsBetweenUpgrades"			"6"
 
         "HasShardUpgrade"               "1"
@@ -296,23 +296,23 @@
 		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"75 75 75 75"
+		"AbilityManaCost"				"80 105 130"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"					"45"
+			"duration"					"35 40 45"
 			"fade_time"					"0.6"
-			"move_speed_bonus_pct"		"30 45 45 60 60 75"
+			"move_speed_bonus_pct"		"25 40 55"
 			"skeleton_count"
 			{
-				"value"					"4"
+				"value"					"2 3 4"
 				"special_bonus_shard"	"+1"
 			}
 			"AbilityCooldown"
 			{
-				"value"									"24 21 18 15 12 9"
+				"value"									"24 21 18"
 				"special_bonus_unique_clinkz_10"		"-3"
 			}
 			"skeleton_offset"				"250"
@@ -320,8 +320,6 @@
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
-
-	
 	//=================================================================================================================
 	// Ability: Clinkz Burning Army
 	//=================================================================================================================
@@ -355,38 +353,11 @@
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
-			{
-				"var_type"			"FIELD_INTEGER"
-				"range"			"1300"
-			}
-			"02"
-			{
-				"var_type"			"FIELD_FLOAT"
-				"duration"	"30"
-			}
-			"03"
-			{
-				"var_type"			"FIELD_INTEGER"
-				"count"			"5"
-			}
-			"04"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"attack_rate"			"1.6"
-			}
-			"05"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"damage_percent"	"30"
-			}
-			"07"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"spawn_interval"			"0.5"
-			}
+			"range"			"900"
+			"count"			"5"
+			"spawn_interval"			"0.15"
 		}
 	}	
 
@@ -425,7 +396,7 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"AbilitySound"					"Hero_Clinkz.DeathPact"
 		"AbilityDraftUltScepterAbility" "clinkz_burning_army"
-		"MaxLevel"						"7"
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -477,259 +448,6 @@
 			{
 				"value"								"2"
 				"special_bonus_unique_clinkz_9"		"+1"
-			}
-		}
-	}
-	
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_clinkz_1"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"						"320"
-				"ad_linked_abilities"			"clinkz_searing_arrows"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_clinkz_2"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"3.0"
-				"ad_linked_abilities"			"clinkz_wind_walk"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_clinkz_3"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"0"
-				"ad_linked_abilities"			"clinkz_searing_arrows"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_clinkz_4"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"BaseClass"						"special_bonus_base"
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_clinkz_5"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"30"
-				"ad_linked_abilities"			"clinkz_burning_army"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_clinkz_6"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"325"
-				"ad_linked_abilities"			"clinkz_death_pact"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_clinkz_7"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"50"
-				"ad_linked_abilities"			"clinkz_strafe"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_clinkz_8"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_clinkz_9"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"1"
-				"ad_linked_abilities"			"clinkz_wind_walk"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_clinkz_10"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"3"
-				"ad_linked_abilities"			"clinkz_wind_walk"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_clinkz_11"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"0"
-				"ad_linked_abilities"			"clinkz_death_pact"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_clinkz_12"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"3"
-				"ad_linked_abilities"			"clinkz_strafe"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
 			}
 		}
 	}

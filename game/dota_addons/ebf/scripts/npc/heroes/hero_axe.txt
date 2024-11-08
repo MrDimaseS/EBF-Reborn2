@@ -8,7 +8,7 @@
 		"ScriptFile"					"heroes/hero_axe/axe_coat_of_blood"
 		"AbilityTextureName"			"axe_coat_of_blood"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI"
-		"MaxLevel"						"7"
+		
 		"Innate"						"1"
 		"DependentOnAbility"			"axe_culling_blade"
 
@@ -44,7 +44,7 @@
 			{
 				"special_bonus_facet_axe_skald"		"0.4"
 			}
-			"duration"								"2 2.2 2.4 2.6 3.0 3.2 3.4"
+			"duration"								"2 2.2 2.4 2.6"
 			"multiplier_during_berserkers_call"
 			{
 				"value"								"1"
@@ -69,7 +69,7 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Axe.Berserkers_Call"
 		
-		"MaxLevel"						"7"
+		
 
 		"HasShardUpgrade"				"0"
 
@@ -99,18 +99,18 @@
 			}
 			"bonus_armor"	
 			{
-				"value"								"10"
+				"value"								"12 13 14 15"
 				"special_bonus_unique_axe_7"		"+5"
 			}
 			"duration"								"6.0"
-			"AbilityCooldown"						"17 16 15 14 13 12 11"
+			"AbilityCooldown"						"17 15 13 11"
 			
 			"AbilityManaCost"	
 			{
 				"value"								"35"
 				"special_bonus_facet_axe_jofurr"	"=-35"
 			}
-			"bonus_attack_speed"					{"special_bonus_facet_axe_berserker"	"40 65 90 115 140 165 190"}
+			"bonus_attack_speed"					{"special_bonus_facet_axe_berserker"	"40 65 90 115"}
 			"taunts"								{"special_bonus_facet_axe_jofurr"		"1"}
 			"allies_benefit"						{"special_bonus_facet_axe_skald"		"1"}
 			"battle_hunger_freeze_duration"			{"special_bonus_facet_axe_skald"		"1"}
@@ -135,8 +135,6 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Axe.Battle_Hunger"
-		
-		"MaxLevel"						"7"
 		"HasScepterUpgrade" 			"0"
 		"HasShardUpgrade"               "0"
 		
@@ -148,11 +146,7 @@
 
 		// Cast Range
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"700 775 850 925 1000 1075 1150"
-
-		// Stats
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityModifierSupportValue"	"0.1"	// Primarily about the damage
+		"AbilityCastRange"				"700 775 850 925"
 		
 		"precache"
 		{
@@ -163,17 +157,17 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"AbilityCooldown"						"4.5 4.0 3.5 3.0 2.5 2.0 1.5"
+			"AbilityCooldown"						"5.0 4.0 3.0 2.0"
 			"AbilityManaCost"						"20"
 			"duration"								"16.0"
 			"slow"
 			{
-				"value"								"-35"
+				"value"								"-11 -19 -27 -35"
 				"special_bonus_unique_axe_6"		"-10"
 			}
 			"damage_per_second"	
 			{
-				"value"								"150 200 250 300 350 400 450"
+				"value"								"100 150 200 250"
 				"special_bonus_unique_axe"			"+100%"
 				"CalculateSpellDamageTooltip"		"1"
 			}
@@ -205,9 +199,6 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PURE"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"AbilitySound"					"Hero_Axe.CounterHelix"
-		
-		"MaxLevel"						"7"
-
         "HasScepterUpgrade"				"0"
 	
 		// Special
@@ -216,7 +207,7 @@
 		{
 			"damage"
 			{
-				"value"							"950 1200 1450 1700 1950 2200 2450"
+				"value"							"950 1200 1450 1700"
 				"CalculateSpellDamageTooltip"	"1"
 				"special_bonus_unique_axe_4" 	"+20%"
 			}
@@ -225,7 +216,7 @@
 				"value"							"300"
 				"affected_by_aoe_increase"		"1"
 			}
-			"trigger_attacks"					"15"
+			"trigger_attacks"					"21 18 15 12"
 			"hero_trigger"						"3"
 			
 			"AbilityCooldown"
@@ -263,7 +254,7 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"2"
 
-		"MaxLevel"						"6"
+		
 		"LevelsBetweenUpgrades"			"6"
 
 		"AbilitySound"					"Hero_Axe.Culling_Blade_Success"
@@ -272,10 +263,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.3"
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-
+		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"80"
@@ -293,21 +281,21 @@
 			
 			"AbilityCooldown"					
 			{	
-				"value"								"70"
+				"value"								"100 85 70"
 				"special_bonus_facet_axe_skald"		"-40"
 			}
 			"damage"					
 			{	
-				"value"								"2750 3750 4750 5750 6750 7750"
+				"value"								"2750 3750 4750"
 				"special_bonus_unique_axe_5"		"+30%"
 				"CalculateSpellDamageTooltip"		"1"
 			}
 			"coat_stacks"					
 			{	
-				"value"								"10 15 20 25 30 35"
-				"special_bonus_facet_axe_jofurr"	"=25 =35 =45 =55 =65 =75"
+				"value"								"10 15 20"
+				"special_bonus_facet_axe_jofurr"	"=25 =35 =45"
 			}
-			"critical_damage"						{"special_bonus_facet_axe_berserker"	"175 200 225 250 275 300"}
+			"critical_damage"						{"special_bonus_facet_axe_berserker"	"175 225 275"}
 			"grace_period"			
 			{
 				"value"								"3"

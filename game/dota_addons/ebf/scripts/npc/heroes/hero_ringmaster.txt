@@ -62,7 +62,7 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Ringmaster.Whip.Channel"
 		
-		"MaxLevel"						"7"
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -76,8 +76,8 @@
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"										"10"
-		"AbilityManaCost"										"90 105 120 135 150 165 180"
+		"AbilityCooldown"										"16 14 12 10"
+		"AbilityManaCost"										"90 105 120 135"
 		
 		// Values
 		//-------------------------------------------------------------------------------------------------------------
@@ -97,13 +97,13 @@
 			}
 			"damage_min"
 			{
-				"value"											"450 700 950 1200 1450 1700 1950"
+				"value"											"450 700 950 1200"
 				"special_bonus_unique_ringmaster_whip_damage"	"+750"
 				"CalculateSpellDamageTooltip"					"1"
 			}
 			"damage_max"
 			{
-				"value"											"1800 2800 3800 4800 5800 6800 7800" // Real max damage is 4x damage min. Adjusting this only affects tooltips.
+				"value"											"1800 2800 3800 4800" // Real max damage is 4x damage min. Adjusting this only affects tooltips.
 				"special_bonus_unique_ringmaster_whip_damage"	"+3000"
 				"CalculateSpellDamageTooltip"					"1"
 			}
@@ -127,8 +127,8 @@
 				"value"		"0"
 				"special_bonus_unique_ringmaster_whip_debuff_immunity"	"+1"
 			}
-			"fear_duration_min"								"0.4"
-			"fear_duration_max"								"1.2"
+			"fear_duration_min"								"0.1 0.2 0.3 0.4"
+			"fear_duration_max"								"0.6 0.8 1.0 1.2"
 		}
 	}
 
@@ -175,8 +175,6 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Ringmaster.Box.Destroy"
-		
-		"MaxLevel"						"7"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -196,12 +194,12 @@
 		{
 			"AbilityCastRange"
 			{
-				"value"					"600"
+				"value"			"600"
 				"special_bonus_unique_ringmaster_box_cast_range"		"+200"
 			}
-			"invis_duration"			"2.0 2.4 2.8 3.2 3.6 4.0 4..4"
-			"move_speed"				"5 10 15 20 25 30 35"
-			"magic_resist"				"40 50 60 70 80 90 100"
+			"invis_duration"			"2.0 2.4 2.8 3.2"
+			"move_speed"				"5 10 15 20"
+			"magic_resist"				"50 60 70 80"
 			"slow_resist"				"100"
 			"transform_time"			"0.5"
 			"model_scale_time"			"0.2"
@@ -211,12 +209,12 @@
 			{
 				"value"					"0"
 			}
-			"leap_distance"				"250"
-			"leap_speed"				"1300.0"
-			"leap_acceleration"			"20000.0"
+			"leap_distance"			"250"
+			"leap_speed"			"1300.0"
+			"leap_acceleration"		"20000.0"
 			"grant_debuff_immunity"
 			{
-				"value"					"0"
+				"value"	"0"
 			}
 			"strong_dispel"
 			{
@@ -248,60 +246,58 @@
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Ringmaster.Wheel.Target"
-
-		"MaxLevel"						"6"
 		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
  		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_5"
 		"AbilityCastPoint"				"0.2"
-		"AbilityCooldown"				"90 80 70 60 50 40"
+		"AbilityCooldown"				"90 80 70"
 
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"					"375"
+		"AbilityManaCost"				"375"
 		
 		// Values
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"min_range"							"700"
+			"min_range"					"700"
 			"mesmerize_radius"		
 			{
-				"value"							"600"
-				"affected_by_aoe_increase"		"1"
+				"value"					"500"
+				"affected_by_aoe_increase"	"1"
 				"special_bonus_unique_ringmaster_wheel_radius" "+100"
 			}
-			"projectile_speed"					"1200"
+			"projectile_speed"			"1200"
 			"AbilityCastRange"
 			{
-				"value"							"1400"
+				"value"					"1400"
 				"special_bonus_unique_ringmaster_wheel_radius" "+100"
 			}
-			"trap_duration"						"8"
-			"wheel_stun"						"3.25"
-			"face_duration"						"0.5"
-			"aura_tick_interval"				"0.5"
+			"trap_duration"				"4"
+			"wheel_stun"				"2.5 2.75 3.0"
+			"face_duration"				"0.5"
+			"aura_tick_interval"		"0.5"
 			"aura_damage"
 			{
-				"value"							"500 750 1000 1250 1500 1750"
+				"value"							"500 750 1000"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"aura_slow"							"-50"
+			"aura_slow"					"-50"
 			"explosion_damage"
 			{
-				"value"							"3000 4500 6000 7500 9000 10500"
+				"value"							"3000 4500 6000"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"vision_radius"						"400"
-			"damage_per_second"					"0"
-			"tick_rate"							"0.25"
-			"vision_cone"						"0.08715"		// 85 degree cone
-			"knockback_radius"					"100"
-			"knockback_duration"				"0.35"
-			"knockback_distance"				"100"
-			"knockback_height"					"100"
+			"vision_radius"				"400"
+			"damage_per_second"			"0"
+			"tick_rate"					"0.25"
+			"vision_cone"				"0.08715"		// 85 degree cone
+			"knockback_radius"			"100"
+			"knockback_duration"		"0.35"
+			"knockback_distance"		"100"
+			"knockback_height"			"100"
 		}
 	}
 
@@ -318,15 +314,13 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Ringmaster.Impalement.Cast"
-
-		"MaxLevel"						"6"
 		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
  		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_6"
 		"AbilityCastPoint"				"0.3"
 		"AbilityCastRange"				"2400"
-		"AbilityCharges"				"4"
+		"AbilityCharges"				"1 2 3 4"
 		"AbilityChargeRestoreTime"		"17"
 				
 		// Stats
@@ -340,7 +334,7 @@
 		{
 			"damage_impact"
 			{
-				"value"							"750 1250 1750 2250 2750 3250 3750"
+				"value"							"750"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"bleed_health_pct"
@@ -350,7 +344,7 @@
 			}
 			"bleed_creep_dps"
 			{
-				"value"							"1000 1250 1500 1750 2000 2250 2500"
+				"value"							"1000 1250 1500 1750"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"bleed_duration"

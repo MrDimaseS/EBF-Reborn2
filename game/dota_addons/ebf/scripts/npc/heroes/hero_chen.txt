@@ -73,7 +73,7 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"AbilitySound"					"Hero_Chen.PenitenceCast"
-		"MaxLevel"						"7"
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -82,31 +82,31 @@
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"800"
-		"AbilityCooldown"				"11"
+		"AbilityCooldown"				"14.0 13.0 12.0 11.0"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"70 75 80 85 90 95 100"
+		"AbilityManaCost"				"70 75 80 85"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"								"8"
+			"duration"								"5 6 7 8"
 			"speed"									"1400"
 			"bonus_movement_speed"
 			{
-				"value"								"-12 -20 -28 -36 -44 -52 -60"
+				"value"								"-12 -18 -24 -30"
 				"special_bonus_unique_chen_8"		"-14"
 			}
-			"bonus_attack_speed"					"100 125 150 200 250 300 350"
+			"bonus_attack_speed"					"20 40 60 80"
 			"damage"
 			{
 				"value"								"0"
-				"special_bonus_unique_chen_11"		"+2250"
+				"special_bonus_unique_chen_11"		"+1750"
 				"CalculateSpellDamageTooltip"		"1"
 			}
-			"self_attack_range_bonus"				"50 150 250 350 450 550 650"
+			"self_attack_range_bonus"				"50 150 250 350"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -125,35 +125,37 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Chen.TestOfFaith.Target"
-		"MaxLevel"						"7"
-
-
+		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.2"
-		"AbilityCooldown"				"14"
-
+		"AbilityCooldown"				"20 18 16 14"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"heal_rate"							"15 35 75 200 450 750 1250"
+			"heal_rate"		
+			{
+				"value"							"1.5 3.0 4.5 6.0"
+				"CalculateSpellHealTooltip"		"1"
+			}
 			"aura_radius"		
 			{
 				"value"							"1200"
 				"special_bonus_scepter"			"=-1"
 				"affected_by_aoe_increase"		"1"
 			}
-			"duration"							"6"
+			"AbilityCastRange"				"1200"
+			"duration"				"6"
 			"teleport_delay"		
 			{
-				"value"							"6"
-				"special_bonus_unique_chen_3"	"-2"
+				"value"				"6"
+				"special_bonus_unique_chen_3" "-2"
 			}
-			"bonus_armor"						"5 10 15 20 25 30 35"
-			"heal_amp"							"5 10 15 20 25 30 35"
-			"creep_bonus"						"1"
+			"bonus_armor"			"5 10 15 20"
+			"heal_amp"				"5 10 15 20"
+			"creep_bonus"			"1"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -171,7 +173,7 @@
 		"AbilitySound"					"Hero_Chen.HolyPersuasionCast"
 		"HasScepterUpgrade"			"1"
 		"HasShardUpgrade"			"1"
-		"MaxLevel"						"7"
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -190,12 +192,12 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"max_units"								"4"
+			"max_units"				"1 2 3 4"
 			"level_req"								"10"
 			"health_min"
 			{
 				"value"								"4000"
-				"special_bonus_unique_chen_4"		"+1200"
+				"special_bonus_unique_chen_4"		"+12000"
 				"CalculateAttributeTooltip"			"1"
 			}
 			"bonus_health_per_level"
@@ -203,10 +205,10 @@
 				"value"								"500"
 				"CalculateAttributeTooltip"			"1"
 			}
-			"movement_speed_bonus"					"5 10 20 30 40 50 60"
+			"movement_speed_bonus"					"5 10 20 30"
 			"damage_bonus"	
 			{
-				"value"								"20 70 110 150 190 230 270"
+				"value"								"20 70 110 150"
 				"special_bonus_unique_chen_5"		"+120"
 				"CalculateAttributeTooltip"			"1"
 			}
@@ -271,7 +273,7 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"2"
 		"AbilitySound"					"Hero_Chen.HandOfGodHealHero"
-		"MaxLevel"						"6"
+		
 		"LevelsBetweenUpgrades"			"6"
 		
 		// Casting
@@ -281,11 +283,11 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"60"
+		"AbilityCooldown"				"150 130 110"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"400 500 600 800 1000 1400"
+		"AbilityManaCost"				"200 300 400"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -293,14 +295,14 @@
 		{
 			"heal_amount"
 			{
-				"value"							"1500 2500 3500 4500 5500 6500"
+				"value"							"2000 3000 4000"
 				"special_bonus_unique_chen_2"	"+2000"
 				"CalculateSpellHealTooltip"		"1"
 			}
 			"hot_duration"	"10"
 			"heal_per_second"
 			{
-				"value"							"200 300 400 500 600 700"
+				"value"							"200 300 400"
 				"special_bonus_unique_chen_2"	"+100"
 				"CalculateSpellHealTooltip"		"1"
 			}
@@ -316,213 +318,5 @@
 
 			}
 		}
-	}
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_chen_1"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"BaseClass"						"special_bonus_base"
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_chen_2"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"ad_linked_abilities"			"chen_hand_of_god"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_chen_3"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_chen_4"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"BaseClass"						"special_bonus_base"
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_chen_5"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"BaseClass"						"special_bonus_base"
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_chen_6"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"32"
-				"ad_linked_abilities"			"chen_divine_favor"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_chen_7"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"30"
-				"ad_linked_abilities"			"chen_hand_of_god"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_chen_8"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"12"
-				"ad_linked_abilities"			"chen_penitence"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_chen_9"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"1"
-				"ad_linked_abilities"			"chen_holy_persuasion"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_chen_10"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"0"
-				"ad_linked_abilities"			"chen_divine_favor"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_chen_11"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"						"FIELD_INTEGER"
-				"value"							"10000"
-				"ad_linked_abilities"			"chen_penitence"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_chen_12"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"BaseClass"						"special_bonus_base"
 	}
 }

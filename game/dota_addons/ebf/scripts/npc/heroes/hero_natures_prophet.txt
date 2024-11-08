@@ -52,7 +52,7 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_POINT"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Furion.Sprout"
-		"MaxLevel"						"7"
+		
 
 		// Unit Targeting
 		//-------------------------------------------------------------------------------------------------------------
@@ -62,10 +62,10 @@
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"625 700 775 850 925 1000 1075"
+		"AbilityCastRange"				"625 700 775 850"
 		"AbilityCastPoint"				"0.35"
-		"AbilityCooldown"				"8"
-		"AbilityManaCost"				"70 80 90 100 110 120 130"
+		"AbilityCooldown"				"14 12 10 8"
+		"AbilityManaCost"				"70 80 90 100"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -84,7 +84,7 @@
 			}
 			"sprout_damage"
 			{
-				"value"										"700 1400 2100 2800 3500 4200 4900"
+				"value"										"700 1400 2100 2800"
 				"special_bonus_unique_furion_4" 			"+1600"
 				"CalculateSpellDamageTooltip"				"1"
 			}
@@ -101,13 +101,13 @@
 			}
 			"sprout_miss_chance"
 			{
-				"special_bonus_facet_furion_phytomercenary"				"20 25 30 35 40 45 50"
+				"special_bonus_facet_furion_phytomercenary"				"20 30 40 50"
 				"special_bonus_unique_furion_facet_improvement"			"+10"
 			}
 			"sprout_heal_interval"										{"special_bonus_facet_furion_naturopath"		"=0.5"}
 			"sprout_heal_per_second"
 			{
-				"special_bonus_facet_furion_naturopath"					"=200 =300 =400 =500 =600 =700 =800"	
+				"special_bonus_facet_furion_naturopath"					"=200 =300 =400 =500"
 				"special_bonus_facet_furion_soothing_saplings"			""
 				"special_bonus_unique_furion_facet_improvement"			"+300"
 				"CalculateSpellHealTooltip"								"1"			
@@ -129,7 +129,7 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"AbilitySound"					"Hero_Furion.Teleport_Grow"
-		"MaxLevel"						"7"
+		
 		
 		"precache"
 		{
@@ -138,21 +138,21 @@
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"0"
-		"AbilityManaCost"				"50 60 70 80 90 100 110"
+		"AbilityCastPoint"				"3"
+		"AbilityManaCost"				"50 60 70 80"
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_2"
 
 		"AbilityValues"
 		{
 			"AbilityCooldown"
 			{
-				"value"													"50 40 30 20 20 20 20"
+				"value"													"65 50 35 20"
 				"special_bonus_unique_furion_3"							"-20"
 			}
-			"AbilityCastPoint"											"3 3 3 3 2.5 2.0 1.5"
 			"barrier"									
 			{
-				"value"													"1000 1500 2000 2500 3000 3500 4000"
-				"special_bonus_facet_furion_phytomercenary"				"=1500 =2500 =3500 =4500 =5500 =6500 =7500"
+				"value"													"1000 1500 2000 2500"
+				"special_bonus_facet_furion_phytomercenary"				"=1500 =2500 =3500 =4500"
 				"special_bonus_unique_furion_teleportation_barrier"		"+50%"
 				"CalculateSpellHealTooltip"								"1"
 			}
@@ -161,7 +161,7 @@
 			"damage_duration"											{"special_bonus_facet_furion_naturopath"		"=5"}
 			"damage_per_sec"
 			{
-				"special_bonus_facet_furion_naturopath"					"100 200 300 400 500 600 700"
+				"special_bonus_facet_furion_naturopath"					"100 200 300 400"
 				"CalculateSpellDamageTooltip"							"1"
 			}
 			"damage_radius"												{"special_bonus_facet_furion_naturopath"		"450"}
@@ -180,7 +180,7 @@
 		"AbilityTextureName"			"furion_force_of_nature"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilitySound"					"Hero_Furion.ForceOfNature"
-		"MaxLevel"						"7"
+		
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
@@ -199,29 +199,29 @@
 		{
 			"AbilityCooldown"				
 			{
-				"value"											"31"
+				"value"											"45 40 35 30"
 				"special_bonus_unique_furion_6"					"-10"
 			}
 			"area_of_effect"		
 			{
-				"value"											"375"
+				"value"											"150 225 300 375"
 				"affected_by_aoe_increase"						"1"
 			}
-			"max_treants"										"2 3 4 5 6 7 8"
+			"max_treants"										"2 3 4 5"
 			"treant_duration"									"50"
 			"treant_health"
 			{
 				"value"											"1100"
-				"special_bonus_facet_furion_arboriculturist"	"=1600 =2100 =2600 =3100 =3600 =4100 =4600"
+				"special_bonus_facet_furion_arboriculturist"	"=1600 =2100 =2600 =3100"
 				"special_bonus_facet_furion_ironwood_treant"	""
 				"special_bonus_unique_furion"					"x3"
 				"CalculateSpellDamageTooltip"					"1"
 			}
 			"treant_damage_max"
 			{
-				"value"											"65 105 145 185 225 265 305"
+				"value"											"65 105 145 185"
 				"special_bonus_facet_furion_ironwood_treant"	""
-				"special_bonus_facet_furion_arboriculturist"	"=100 =160 =220 =280 =340 =400 =460"
+				"special_bonus_facet_furion_arboriculturist"	"=100 =160 =220 =280"
 				"special_bonus_unique_furion"					"x3"
 				"CalculateSpellDamageTooltip"					"1"
 			}
@@ -232,7 +232,7 @@
 			}
 			"heal_per_pulse"
 			{
-				"special_bonus_facet_furion_naturopath"			"300 600 900 1200 1500 1800 2100"
+				"special_bonus_facet_furion_naturopath"			"300 600 900 1200"
 				"special_bonus_unique_furion"					"x3"
 				"CalculateSpellHealTooltip"						"1"
 			}
@@ -261,7 +261,7 @@
 		"AbilitySound"					"Hero_Furion.WrathOfNature_Cast"
 
 		"HasScepterUpgrade"				"0"
-		"MaxLevel"						"6"
+		
 		"LevelsBetweenUpgrades"			"6"
 		
 		// Unit Targeting
@@ -274,16 +274,16 @@
 		"AbilityCastRange"				"0"
 		"AbilityCastPoint"				"0.5 0.5 0.5"
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
-		"AbilityManaCost"				"130 160 190 220 250 280"
+		"AbilityManaCost"				"130 160 190"
 			
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"max_targets"										"10 12 14 16 18 20"
+			"max_targets"										"16"
 			"damage"
 			{
-				"value"											"1200 1550 1900 2250 2600 2950"
+				"value"											"1000 1400 1800"
 				"special_bonus_unique_furion_5"					"+25%"
 				"CalculateSpellDamageTooltip"					"1"
 			}

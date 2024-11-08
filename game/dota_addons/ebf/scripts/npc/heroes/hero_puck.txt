@@ -14,6 +14,12 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"mana_restore_base"				"15"
+			"hp_restore_base"					
+			{
+				"value"									"150"
+				"CalculateSpellHealTooltip"				"1"
+			}
 			"mana_restore_pct"				"2"
 			"hp_restore_pct"				"2"
 			"dodged_spell_multiplier"		"5"
@@ -31,7 +37,7 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Puck.Illusory_Orb"
-		"MaxLevel"						"7"
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -40,7 +46,7 @@
 	
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"								"100 110 120 130 140 150 160"
+		"AbilityManaCost"								"90 100 110 120"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -65,16 +71,16 @@
 			"vision_duration"							"2.5"
 			"damage"			
 			{
-				"value"									"750 1500 2250 3000 3750 4500 5250"
+				"value"									"750 1500 2250 3000"
 				"special_bonus_unique_puck_orb_damage"	"+50%"
 				"CalculateSpellDamageTooltip"			"1"
 			}
 			"AbilityCooldown"
 			{
-				"value"									"8"
+				"value"									"11 10 9 8"
 				"special_bonus_unique_puck_8"			"-2"
 			}
-			"warning_sound_time"					"0.25"
+			"warning_sound_time"						"0.25"
 			"curve_orb"
 			{
 				"value"								"0"
@@ -148,7 +154,7 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Puck.Waning_Rift"
-		"MaxLevel"						"7"
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -156,12 +162,12 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"						"13"
+		"AbilityCooldown"						"16 15 14 13"
 
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"						"100 110 120 130 140 150 160"
+		"AbilityManaCost"						"100 110 120 130"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -175,12 +181,12 @@
 			}
 			"silence_duration"		
 			{
-				"value"							"3.5"
+				"value"							"2.0 2.5 3.0 3.5"
 				"special_bonus_unique_puck_7"	"+0.75"
 			}
 			"damage"				
 			{
-				"value"							"600 1200 1800 2400 3000 3600 4200"
+				"value"							"600 1200 1800 2400"
 				"special_bonus_unique_puck_6"	"+50%"
 				"CalculateSpellDamageTooltip"				"1"
 			}
@@ -239,7 +245,7 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT | DOTA_ABILITY_BEHAVIOR_CHANNELLED | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
 		"AbilitySound"					"Hero_Puck.Phase_Shift"
 		"HasShardUpgrade"				"1"
-		"MaxLevel"						"7"
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -257,12 +263,12 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"						"3.25"
-			"linger_duration"				"0.1"
+			"duration"							"1 1.75 2.5 3.25"
+			"linger_duration"					"0.1"
 			"shard_attack_range_bonus"
 			{
-				"RequiresShard"				"1"
-				"value"						"200"
+				"RequiresShard"					"1"
+				"value"							"200"
 			}
 			"shard_bonus_damage"
 			{
@@ -270,7 +276,7 @@
 				"value"							"350"
 				"CalculateAttackDamageTooltip"	"1"
 			}
-			"AbilityCooldown"				"3.75 3.25 2.75 2.25 1.25 0.75"
+			"AbilityCooldown"					"7 5.75 4.5 3.25"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -293,7 +299,7 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"FightRecapLevel"				"2"
 		"AbilitySound"					"Hero_Puck.Dream_Coil"
-		"MaxLevel"						"6"
+		
 		"LevelsBetweenUpgrades"			"6"
 
 		// Casting
@@ -308,7 +314,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"100 150 200 250 300 350"
+		"AbilityManaCost"				"100 150 200"
 				
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
@@ -318,29 +324,29 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"coil_duration"									"6.0"
+			"coil_duration"									"5 5.5 6"
 			"coil_break_radius"								"600"
-			"stun_duration"									"1.0"
+			"stun_duration"									"0.5"
 			"coil_initial_damage"
 			{	
-				"value"										"1750 2500 3250 3750 4250 4750"
+				"value"										"1750 2500 3250"
 				"special_bonus_unique_puck_coil_damage"		"+50%"
 				"CalculateSpellDamageTooltip"				"1"
 			}
 			"coil_stun_duration"		
 			{
-				"value"										"2.5"
+				"value"										"1.5 2.0 2.5"
 				"special_bonus_unique_puck_4"				"+1"
 			}
 			"coil_break_damage"			
 			{
-				"value"										"2000 3000 4000 5000 6000 7000"
+				"value"										"2000 3000 4000"
 				"special_bonus_unique_puck_coil_damage"		"+50%"
 				"CalculateSpellDamageTooltip"				"1"
 			}
 			"coil_radius"				
 			{
-				"value"										"375 400 425 450 475 500"
+				"value"										"375"
 				"affected_by_aoe_increase"					"1"
 			}
 			"coil_rapid_fire_rate"
@@ -354,186 +360,5 @@
 				"special_bonus_scepter"						"+150"
 			}
 		}
-	}
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_puck"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"ad_linked_abilities"			"puck_dream_coil"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-		"AbilityValues"
-		{
-				"value"				"10"
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_puck_2"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"6"
-				"ad_linked_abilities"			"puck_waning_rift"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_puck_3"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"0.6"
-				"ad_linked_abilities"			"puck_dream_coil"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_puck_4"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"ad_linked_abilities"			"puck_waning_rift"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-		
-		
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_puck_5"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-										// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"1"
-				"ad_linked_abilities"			"puck_phase_shift"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_puck_6"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-												// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"100"
-				"ad_linked_abilities"			"puck_waning_rift"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_puck_7"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-												// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_puck_8"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-												// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"ad_linked_abilities"			"puck_illusory_orb"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"2"
-			}
-		}
-	}
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_puck_coil_damage"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-												// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"BaseClass"						"special_bonus_base"
-	}
-
-	
-	"special_bonus_unique_puck_orb_damage"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"				"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"ad_linked_abilities"		"puck_illusory_orb"	
 	}
 }

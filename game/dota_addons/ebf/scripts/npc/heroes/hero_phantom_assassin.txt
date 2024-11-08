@@ -85,17 +85,13 @@
 		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
-		"MaxLevel"						"7"
+		
 		"AbilitySound"					"Hero_PhantomAssassin.Dagger.Cast"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"550 650 750 850 950 1050 1150"
+		"AbilityCastRange"				"700 850 1000 1150"
 		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
-		
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"6"
 	
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -105,23 +101,30 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"AbilityCooldown"				
+			{
+				"value"				"6"
+				"special_bonus_unique_phantom_assassin_7"	"-2"
+
+			}
 			"move_slow"					"-50"
 			"dagger_speed"			"1200"
 			"duration"				"4"
 			"base_damage"
 			{
-				"value"							"650 700 750 800 850 900 950"
-				"CalculateAttackDamageTooltip"	"1"
+				"value"										"650 700 750 800"
+				"special_bonus_unique_phantom_assassin_5"	"+25%"
+				"CalculateAttackDamageTooltip"				"1"
 			}
 			"attack_factor"
 			{
-				"value"				"0 50 100 150 200 250 300"
-				"special_bonus_unique_phantom_assassin_5"	"+50"
+				"value"										"-70 -55 -40 -25"
+				"special_bonus_unique_phantom_assassin_5"	"+25"
 			}
 			"attack_factor_tooltip"	
 			{
-				"value"				"100 150 200 250 300 350 400"
-				"special_bonus_unique_phantom_assassin_5"	"+50"
+				"value"										"30 45 60 75"
+				"special_bonus_unique_phantom_assassin_5"	"+25"
 				"DamageTypeTooltip"			"DAMAGE_TYPE_PHYSICAL"
 			}
 		}
@@ -140,7 +143,7 @@
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_CUSTOM"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
-		"MaxLevel"						"7"
+		
 		"AbilitySound"					"Hero_PhantomAssassin.Strike.Start"
 
 		// Casting
@@ -149,11 +152,11 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"11 9 7 5 5 5 5"
+		"AbilityCooldown"				"11 9 7 5"
 		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"35 40 45 50 55 60 65"
+		"AbilityManaCost"				"35 40 45 50"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -161,20 +164,19 @@
 		{
 			"bonus_attack_speed"	
 			{
-				"value"													"80 120 180 240 320 380 460"
+				"value"													"100 130 160 190"
 				"special_bonus_unique_phantom_assassin_strike_aspd"		"+60"
 			}
 			"duration"				
 			{
-				"value"													"2.5 2.5 2.5 3.5 4.5 5.5 6.5"
-				"special_bonus_unique_phantom_assassin_4"				"+50%"
+				"value"													"2.5"
+				"special_bonus_unique_phantom_assassin_4"				"+0.5"
 			}
 			"AbilityCastRange"
 			{
 				"value"											"1000"
 				"special_bonus_unique_phantom_assassin_6"		"+250"				
 			}
-
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -193,7 +195,7 @@
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
-		"MaxLevel"						"7"
+		
         "HasScepterUpgrade" 		    "1"
 
 		// Casting
@@ -212,23 +214,20 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"radius"						"600"
+			"radius"						"625 550 475 400"
 			"duration"						"30"
 			"fade_duration"
 			{
-				"value"												"5 4.5 4.0 3.5 3.0 2.5 2.0"
+				"value"												"5.0 4.0 3.0 2.0"
 				"special_bonus_facet_phantom_assassin_veiled_one"	"-50%"
 			}
 			"AbilityCooldown"
 			{
-				"value"						"60"
+				"value"						"60 55 50 45"
 				"special_bonus_scepter"		"-50%"
 				"RequiresScepter"			"1"
 			}
-			"scepter_cooldown"
-			{
-				"value"						"-50%"
-			}
+			"scepter_cooldown"				""
 			"scepter_fade_duration"			""
 			
 			"manacost_reduction_during_blur_pct"
@@ -256,7 +255,7 @@
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"AbilitySound"					"Hero_PhantomAssassin.CoupDeGrace"
-		"MaxLevel"						"6"
+		
 		"LevelsBetweenUpgrades"			"6"
 
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
@@ -285,8 +284,8 @@
 			}
 			"crit_bonus"
 			{
-				"value"													"325 450 575 700 825 950"
-				"special_bonus_facet_phantom_assassin_methodical"		"+100"
+				"value"													"200 325 450"
+				"special_bonus_facet_phantom_assassin_methodical"		"+125"
 				"affected_by_crit_increase"								"1"
 			}
 			"attacks_to_proc"
@@ -301,193 +300,7 @@
 				"special_bonus_unique_phantom_assassin_2"				"-1"
 				"RequiresFacet"											"phantom_assassin_methodical"
 			}
-			"duration"													"10"
-		}
-	}
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_phantom_assassin"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"3"
-				"ad_linked_abilities"			"phantom_assassin_stifling_dagger"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_phantom_assassin_2"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"15"
-				"ad_linked_abilities"			"phantom_assassin_coup_de_grace"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_phantom_assassin_3"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"15"
-				"ad_linked_abilities"			"phantom_assassin_blur"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_phantom_assassin_4"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"ad_linked_abilities"			"phantom_assassin_phantom_strike"
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_phantom_assassin_5"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"ad_linked_abilities"			"phantom_assassin_stifling_dagger"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-		
-		
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_phantom_assassin_6"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"250"
-				"ad_linked_abilities"			"phantom_assassin_phantom_strike"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_phantom_assassin_7"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"						"2"
-				"ad_linked_abilities"			"phantom_assassin_stifling_dagger"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_phantom_assassin_8"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"						"700"
-				"ad_linked_abilities"			"phantom_assassin_stifling_dagger"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_phantom_assassin_9"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"2"
-				"ad_linked_abilities"			"phantom_assassin_phantom_strike"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
+			"duration"													"6 8 10"
 		}
 	}
 }

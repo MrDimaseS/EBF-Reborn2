@@ -12,7 +12,7 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
-		"MaxLevel"						"7"		
+				
 		"HasShardUpgrade"				"0"
 		"Innate"						"1"
 		"DependentOnAbility"			"warlock_rain_of_chaos"
@@ -62,7 +62,7 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Warlock.FatalBonds"
-		"MaxLevel"						"7"
+		
 		"HasShardUpgrade"				"0"
 
 		// Casting
@@ -74,7 +74,7 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"18"
+		"AbilityCooldown"				"42 34 26 18"
 
 		// Damage.
 		//-------------------------------------------------------------------------------------------------------------
@@ -82,7 +82,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"110 120 130 140 150 160 170"		
+		"AbilityManaCost"				"120 130 140 150"
 		
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
@@ -94,17 +94,17 @@
 		{
 			"count"
 			{
-				"value"										"3 3 3 3 4 5 6"
+				"value"										"6"
 				"special_bonus_facet_warlock_tome_pact"		"+50%"
 			}
 			"damage_share_percentage"
 			{
-				"value"										"12 16 20 24 24 24 24"
+				"value"										"15 18 21 24"
 				"special_bonus_unique_warlock_5"			"+4"
 			}
 			"duration"
 			{
-				"value"										"25"
+				"value"										"18"
 				"special_bonus_facet_warlock_tome_pact"		"+50%"
 			}
 			"search_aoe"					
@@ -113,7 +113,7 @@
 				"affected_by_aoe_increase"					"1"
 			}
 			"binds_to_imps"									{"special_bonus_facet_warlock_chain_pact"		"1"}
-			"attack_speed_bonus"							{"special_bonus_facet_warlock_wand_pact"		"50 60 70 80 90 100 110"}
+			"attack_speed_bonus"							{"special_bonus_facet_warlock_wand_pact"		"40 60 80 100"}
 		}
 	}
 	
@@ -135,7 +135,7 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Warlock.ShadowWordCastGood"
-		"MaxLevel"						"7"
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -143,11 +143,11 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"120 130 140 150 160 170 180"		
+		"AbilityManaCost"				"120 130 140 150"		
 		
 		// Cast Range
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"600 700 800 900 1000 1100 1200"
+		"AbilityCastRange"				"600 700 800 900"
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
@@ -165,13 +165,13 @@
 		{
 			"damage"					
 			{
-				"value"										"150 250 350 450 550 650 750"
+				"value"										"150 250 350 450"
 				"special_bonus_facet_warlock_wand_pact"		"+100%"
 				"CalculateSpellDamageTooltip"				"1"
 			}
 			"heal"					
 			{
-				"value"										"150 250 350 450 550 650 750"
+				"value"										"150 250 350 450"
 				"CalculateSpellHealTooltip"					"1"
 			}
 			"duration"					
@@ -190,7 +190,7 @@
 				"value"										"12"
 				"special_bonus_facet_warlock_tome_pact"		"-4"
 			}
-			"allied_armor_bonus"							{"special_bonus_facet_warlock_chain_pact"		"3 5 7 9 11 13 15"}
+			"allied_armor_bonus"							{"special_bonus_facet_warlock_chain_pact"		"5 7 9 11"}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}	
@@ -210,7 +210,7 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"AbilitySound"					"Hero_Warlock.Upheaval"
-		"MaxLevel"						"7"
+		
         "HasShardUpgrade"               "0"
 
 		// Casting
@@ -229,41 +229,40 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"AbilityChannelTime"								"10 12 14 16 18 20 22"
+			"AbilityChannelTime"								"10 12 14 16"
 			"aoe"
 			{
 				"value"											"575"
-				"special_bonus_facet_warlock_tome_pact"			"=575 =600 =625 =650 =675 =700 =725"
+				"special_bonus_facet_warlock_tome_pact"			"=575 =600 =625 =650"
 				"special_bonus_unique_warlock_upheaval_aoe"		"+50"
 				"affected_by_aoe_increase"						"1"
 			}
 			"slow_per_second"
 			{
-				"value"											"11 11 11 11 14 17 20"
-				"special_bonus_facet_warlock_tome_pact" 		"=20 =30 =40 =50 =60 =70 =80"
+				"value"											"11 14 17 20"
+				"special_bonus_facet_warlock_tome_pact" 		"=20 =30 =40 =50"
 			}
 			"duration"											"3.0"
 			"max_slow"
 			{
-				"value"											"55 70 85 100 100 100 100"
+				"value"											"55 70 85 100"
 				"special_bonus_facet_warlock_tome_pact" 		"=100"
 			}
-			
 			"base_damage"			
 			{
-				"special_bonus_facet_warlock_wand_pact" 		"=350 =600 =850 =1100 =1350 =1600 =1850"
+				"special_bonus_facet_warlock_wand_pact" 		"=350 =600 =850 =1100"
 				"special_bonus_unique_warlock_3" 				"+400"
 				"CalculateSpellDamageTooltip"					"1"
 			}
 			"damage_per_second"	
 			{
-				"value"											"100 150 200 250 300 350 400"
+				"value"											"100"
 				"special_bonus_facet_warlock_wand_pact" 		"=0"
 				"CalculateSpellDamageTooltip"					"1"
 			}
 			"max_damage"	
 			{
-				"value"											"350 600 850 1100 1350 1600 1850"
+				"value"											"350 600 850 1100"
 				"special_bonus_unique_warlock_3"				"+400"
 				"CalculateSpellDamageTooltip"					"1"
 			}
@@ -296,7 +295,7 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
 		"FightRecapLevel"				"2"
-		"MaxLevel"						"6"
+		
 		"LevelsBetweenUpgrades"			"6"
 		"HasScepterUpgrade"				"0"
 		"AbilitySound"					"Hero_Warlock.RainOfChaos"
@@ -316,7 +315,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"200 400 600 800 1000 1200"		
+		"AbilityManaCost"				"200 400 600"
 		
 		// Cast Range
 		//-------------------------------------------------------------------------------------------------------------
@@ -344,16 +343,16 @@
 			}
 			"golem_hp"
 			{
-				"value"										"7000 11500 16000 20500 25000 29500"
+				"value"										"7000 16000 25000"
 				"special_bonus_facet_warlock_wand_pact"		"=1500 =2250 =3000 =3750 =4500 =5250"
 				"CalculateAttributeTooltip"					"1"
 			}
 			"golem_dmg"
 			{
-				"value"										"1000 1500 2000 2500 3000 3500"
+				"value"										"1000 2000 3000"
 				"CalculateAttributeTooltip"					"1"
 			}
-			"golem_movement_speed"							"320 340 360 380 400 420"
+			"golem_movement_speed"							"320 340 360"
 			"golem_health_regen"							"1"
 			"number_of_golems"
 			{
@@ -367,25 +366,25 @@
 			}
 			"tooltip_golem_armor"
 			{
-				"value"										"8 12 16 20 24 28"
+				"value"										"8 12 16"
 				"special_bonus_unique_warlock_2"			"+20"
 			}
 			"bonus_slow_resistance"							"60"
 			
 			"immolation_radius"				
 			{
-				"value"									"300"
-				"affected_by_aoe_increase"				"1"
+				"value"										"300"
+				"affected_by_aoe_increase"					"1"
 			}
 			"immolation_damage"
 			{
-				"value" 								"300 500 700 900 1100 1300"
-				"CalculateSpellDamageTooltip"			"1"
+				"value" 									"300 500 700"
+				"CalculateSpellDamageTooltip"				"1"
 			}
-			"immolation_linger_duration"				"0.5"
-			"immolation_heal_reduction"					{"special_bonus_facet_warlock_tome_pact"		"-75"}
-			"become_golem"								{"special_bonus_facet_warlock_wand_pact"		"1"}
-			"golem_on_death"							{"special_bonus_unique_warlock_4"		"1"}
+			"immolation_linger_duration"					"0.5"
+			"immolation_heal_reduction"						{"special_bonus_facet_warlock_tome_pact"		"-75"}
+			"become_golem"									{"special_bonus_facet_warlock_wand_pact"		"1"}
+			"golem_on_death"								{"special_bonus_unique_warlock_4"		"1"}
 		}
 	}
 }

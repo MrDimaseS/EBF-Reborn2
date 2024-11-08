@@ -14,7 +14,7 @@
 		"MaxLevel"						"1"
 		"AbilityValues"
 		{
-			"spell_amplification"		"2.5"
+			"spell_amplification"		"0.75"
 		}
 	}
 
@@ -31,7 +31,7 @@
 		"MaxLevel"						"1"
 		"AbilityValues"
 		{
-			"heal_amplification"		"1.0"
+			"heal_amplification"		"0.75"
 		}
 	}
 	//=================================================================================================================
@@ -62,8 +62,7 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Oracle.FortunesEnd.Target"
-		"MaxLevel"						"7"
-
+		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"850"
@@ -71,7 +70,7 @@
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"6"
+		"AbilityCooldown"				"18 14 10 6"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -88,7 +87,7 @@
 			}
 			"damage"
 			{
-				"value"												"1000 1600 2200 2800 3400 4000 4600"
+				"value"												"1000 1600 2200 2800"
 				"special_bonus_unique_oracle_fortunes_end_damage"	"+50%"
 				"CalculateSpellDamageTooltip"						"1"
 			}
@@ -138,17 +137,17 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"AbilitySound"					"Hero_Oracle.FatesEdict.Cast"
-		"MaxLevel"						"7"
+		
 
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"500 600 700 800 900 1000 1100"
+		"AbilityCastRange"				"500 600 700 800"
 		"AbilityCastPoint"				"0.3"
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"20 18.5 17 15.5 14 12.5 11"
+		"AbilityCooldown"				"20 17 14 11"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -158,7 +157,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"								"5.0"
+			"duration"								"3.5 4.0 4.5 5.0"
 			"magic_damage_resistance_pct_tooltip"	"100"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -180,7 +179,7 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Oracle.PurifyingFlames.Damage"
-		"MaxLevel"						"7"
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -201,17 +200,17 @@
 		{
 			"damage"
 			{
-				"value"												"900 1800 2700 3600 4500 5300 6200"
+				"value"												"900 1800 2700 3600"
 				"CalculateSpellDamageTooltip"						"1"
 			}
 			"heal_per_second"
 			{
-				"value"												"150 250 350 450 550 650 750"
+				"value"												"150 250 350 450"
 				"CalculateSpellHealTooltip"							"1"
 			}
 			"total_heal_tooltip"
 			{
-				"value"												"1350 2250 3150 4050 4950 5850 6750"
+				"value"												"1500 2500 3500 4500"
 				"CalculateSpellHealTooltip"							"1"
 			}
 			"duration"												"10.0"
@@ -234,7 +233,7 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"AbilitySound"					"Hero_Oracle.FalsePromise.Cast"
-		"MaxLevel"						"6"
+		
 		"LevelsBetweenUpgrades"			"6"
 
         "HasScepterUpgrade"               "1"
@@ -248,12 +247,9 @@
 		"AbilityCastPoint"				"0.3"
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_6"
 		
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"100 150 200 250 300 350"
+		"AbilityManaCost"				"100 150 200"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -261,7 +257,7 @@
 		{
 			"duration"
 			{
-				"value"								"5"
+				"value"								"7 8.5 10"
 				"special_bonus_unique_oracle"		"+1.5"
 			}
 			"radius"								"400"
@@ -282,13 +278,13 @@
 			}
 			"AbilityCooldown"
 			{
-				"value"								"110.0 85.0 60.0 50.9 41.8 32.7"
-				"special_bonus_unique_oracle_6"		"-10"
+				"value"								"110 85 60"
+				"special_bonus_unique_oracle_6"		"-20"
 			}			
 			"bonus_armor"
 			{
 				"value"								"0"
-				"special_bonus_unique_oracle_9"		"+10"
+				"special_bonus_unique_oracle_9"		"+8"
 			}	
 			"heal_amp_pct"
 			{
@@ -297,7 +293,6 @@
 			}
 		}
 	}
-
 	//=================================================================================================================
 	// Alchemist: Rain of Destiny
 	//=================================================================================================================
@@ -309,7 +304,7 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"IsGrantedByShard"				"1"
-		"MaxLevel"						"6"
+		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.2"
@@ -331,186 +326,13 @@
 			"duration"							"10"
 			"damage"				
 			{
-				"value"							"400"
+				"value"							"350"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"tick_rate"							"1.0"
 			"heal_amp"							"25"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_4"
-	}
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_oracle"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"BaseClass"						"special_bonus_base"
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_oracle_2"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"0.4"
-				"ad_linked_abilities"			"oracle_fortunes_end"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_oracle_3"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"4.0"
-				"ad_linked_abilities"			"oracle_fates_edict"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_oracle_4"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"0"
-				"ad_linked_abilities"			"oracle_false_promise"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_oracle_5"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"1.25"
-				"ad_linked_abilities"			"oracle_purifying_flames"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_oracle_6"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"BaseClass"						"special_bonus_base"
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_oracle_7"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"2.5"
-				"ad_linked_abilities"			"oracle_fortunes_end"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_oracle_8"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"30"
-				"ad_linked_abilities"			"oracle_purifying_flames"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_oracle_9"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"BaseClass"						"special_bonus_base"
 	}
 	//=================================================================================================================
 	// Ability: Special Bonus

@@ -11,7 +11,7 @@
 		"ScriptFile"					"heroes/hero_pudge/pudge_innate_graft_flesh"
 		"AbilityTextureName"			"pudge_innate_graft_flesh"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
-		"MaxLevel"						"7"
+		
 		"Innate"						"1"
 		"DependentOnAbility"			"pudge_dismember"
 
@@ -19,7 +19,7 @@
 		{
 			"flesh_heap_strength_buff_amount"
 			{
-				"value"							"0.5 0.6 0.7 0.8 0.9 1.0 1.1"
+				"value"							"0.5 0.6 0.7 0.8"
 				"special_bonus_unique_pudge_1"	"x1.5"
 				"CalculateAttributeTooltip"		"1"
 			}
@@ -41,7 +41,7 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		
-		"MaxLevel"						"7"
+		
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
@@ -57,7 +57,7 @@
 		{
 			"damage_block"					
 			{
-				"value"							"80 140 200 260 320 380 440"
+				"value"							"80 140 200 260"
 				"special_bonus_unique_pudge_1"	"x1.5"
 				"CalculateSpellHealTooltip"		"1"
 			}
@@ -83,8 +83,6 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Pudge.AttackHookExtend"
 		
-		"MaxLevel"						"7"
-		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"1300"
@@ -100,7 +98,7 @@
 		{
 			"damage"
 			{
-				"value"										"1500 2200 2900 3600 4300 5000 5700"
+				"value"										"1500 2200 2900 3600"
 				"special_bonus_unique_pudge_7"				"+50%"
 				"special_bonus_facet_pudge_flayers_hook"	""	
 				"CalculateSpellDamageTooltip"				"1"
@@ -121,7 +119,7 @@
 			"vision_duration"								"4.0 4.0 4.0 4.0"
 			"AbilityCooldown"				
 			{
-				"value"										"12"
+				"value"										"18 16 14 12"
 				"special_bonus_unique_pudge_5"				"-4"
 			}
 			"vector_target_distance"
@@ -130,12 +128,16 @@
 			}
 			"distance_to_damage"
 			{
-				"special_bonus_facet_pudge_flayers_hook"	"80"			
+				"special_bonus_facet_pudge_flayers_hook" 	"120 180 240 300"
 				"CalculateSpellDamageTooltip"				"1"	
 			}
 			"min_distance_damage"
 			{
 				"special_bonus_facet_pudge_flayers_hook"	"10"
+			}
+			"self_stun_duration_percent"
+			{
+				"value"									"65"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -157,9 +159,6 @@
 		"FightRecapLevel"				"1"
 		"HasScepterUpgrade"				"1"
 		
-		"MaxLevel"						"7"
-
-
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0 0 0 0"
@@ -176,12 +175,12 @@
 			"rot_tick"							"0.2"
 			"rot_slow"
 			{
-				"value"							"-14 -20 -26 -32 -38 -44 -50"
+				"value"							"-14 -20 -26 -32"
 				"LinkedSpecialBonus"			"special_bonus_unique_pudge_4"
 			}
 			"rot_damage"
 			{
-				"value"							"300 600 900 1200 1500 1800 2100"
+				"value"							"300 600 900 1200"
 				"special_bonus_unique_pudge_2"	"+25%"
 				"CalculateSpellDamageTooltip"	"1"
 			}
@@ -238,7 +237,7 @@
 		"AbilityDraftPreAbility"		"pudge_eject"
 		"HasShardUpgrade"				"1"
 		
-		"MaxLevel"						"6"
+		
 		"LevelsBetweenUpgrades"			"6"
 		
 		// Casting
@@ -248,20 +247,16 @@
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
 		"AbilityChannelAnimation"		"ACT_DOTA_CHANNEL_ABILITY_4"
 
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		
-
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"100 130 170 220 280 350"
+		"AbilityManaCost"				"100 130 170"
 		
 		"AbilityValues"
 		{
 			"dismember_damage"		
 			{
-				"value"							"800 1000 1200 1400 1600 1800"
-				"special_bonus_unique_pudge_3"	"x1.8"	
+				"value"							"800 1000 1200"
+				"special_bonus_unique_pudge_3"	"x1.5"	
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"strength_damage"					""
@@ -285,7 +280,7 @@
 			}
 			"AbilityCooldown"				
 			{
-				"value"							"30"
+				"value"							"30 25 20"
 				"special_bonus_shard"			"-5"
 			}
 			"shard_regen_pct"			

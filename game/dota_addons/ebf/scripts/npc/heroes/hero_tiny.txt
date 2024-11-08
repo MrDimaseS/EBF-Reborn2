@@ -1,5 +1,35 @@
 "DOTAAbilities"
-{	
+{
+	//=================================================================================================================
+	// Tiny: Craggy Exterior
+	//=================================================================================================================
+	"tiny_craggy_exterior"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"AbilitySound"					"Hero_Tiny.CraggyExterior.Stun"
+
+		
+		"FightRecapLevel"				"1"
+		"Innate"						"1"
+		"DependentOnAbility"			"tiny_grow"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityModifierSupportBonus"		"35"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"debuff_duration"						"5"
+			"damage"								"0"
+			"max_stacks"							"10"
+			"damage_reduction_per_stack"			"1 2 3 4"
+		}
+	}
 	//=================================================================================================================
 	// Tiny: Avalanche
 	//=================================================================================================================
@@ -13,7 +43,7 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Ability.Avalanche"
-		"MaxLevel"						"7"
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -22,7 +52,7 @@
 		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"120 120 120 120"
+		"AbilityManaCost"				"95 110 125 140"
 		
 		"precache"
 		{
@@ -35,10 +65,10 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"AbilityCooldown"					"14"
+			"AbilityCooldown"					"23 20 17 14"
 			"radius"
 			{
-				"value"							"325 340 355 370 385 400 415"
+				"value"							"325 340 355 370"
 				"affected_by_aoe_increase"		"1"
 			}
 			"tick_interval"						"0.3"
@@ -48,7 +78,7 @@
 			"projectile_speed"					"1200"
 			"avalanche_damage"			
 			{
-				"value"							"800 1600 2400 3200 4000 4800 5600"
+				"value"							"800 1600 2400 3200"
 				"special_bonus_unique_tiny"		"+25%"
 				"CalculateSpellDamageTooltip"	"1"
 			}
@@ -73,11 +103,11 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"FightRecapLevel"				"1"
-		"MaxLevel"						"7"
+		
 		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"800 900 1000 1100 1200 1300 1400"
+		"AbilityCastRange"				"800 900 1000 1100"
 		"AbilityCastPoint"				"0.0 0.0 0.0 0.0"
 
 		// Time		
@@ -86,7 +116,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"110 120 130 140 150 160 170"
+		"AbilityManaCost"				"110 125 140 155"
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
@@ -97,8 +127,16 @@
 		"AbilityValues"
 		{
 			"duration"							"1.4"
-			"grab_radius"						"300"
-			"radius"							"275"
+			"grab_radius"			
+			{
+				"value"							"300"
+			}
+			"radius"				
+			{
+				"value"							"275"
+				"special_bonus_facet_tiny_crash_landing"				"=400"
+				"affected_by_aoe_increase"		"1"
+			}
 			"toss_damage"	
 			{
 				"value"							"800 1600 2400 3200 4000 4800 5600"
@@ -111,10 +149,10 @@
 			}
 			"AbilityCooldown"				
 			{
-				"value"							"11"
+				"value"							"20 17 14 11"
 				"special_bonus_unique_tiny_2"	"=0"
 			}
-			"AbilityChargeRestoreTime"			"11"
+			"AbilityChargeRestoreTime"			"20 17 14 11"
 			"throw_tiny"		
 			{
 				"value"							""
@@ -124,17 +162,17 @@
 			"land_movement_slow"
 			{
 				"value"										"0"
-				"special_bonus_facet_tiny_crash_landing"	"20 25 30 35 40 45 50"
+				"special_bonus_facet_tiny_crash_landing"	"15 20 25 30"
 			}
 			"land_attack_slow"
 			{
 				"value"										"0"
-				"special_bonus_facet_tiny_crash_landing"	"25 30 35 40 45 50 55"
+				"special_bonus_facet_tiny_crash_landing"	"10 20 30 40"
 			}
 			"bonus_land_damage_pct"
 			{
 				"value"										"0"
-				"special_bonus_facet_tiny_crash_landing"	"25 30 35 40"
+				"special_bonus_facet_tiny_crash_landing"	"20 25 30 35"
 			}
 			"land_debuff_duration"
 			{
@@ -144,39 +182,6 @@
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
-	
-
-	//=================================================================================================================
-	// Tiny: Craggy Exterior
-	//=================================================================================================================
-	"tiny_craggy_exterior"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
-		"AbilitySound"					"Hero_Tiny.CraggyExterior.Stun"
-
-		"MaxLevel"						"7"
-		"FightRecapLevel"				"1"
-		"Innate"						"1"
-		"DependentOnAbility"			"tiny_grow"
-
-		// Stats
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityModifierSupportBonus"		"35"
-
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			"debuff_duration"						"5"
-			"damage"								"0"
-			"max_stacks"							"10"
-			"damage_reduction_per_stack"			"1 1.5 2 2.5 3 3.5 4"
-		}
-	}
-
 	//=================================================================================================================
 	// Tiny: Tree Grab
 	//=================================================================================================================
@@ -194,7 +199,7 @@
 		"LinkedAbility"					"tiny_toss_tree"
         "HasShardUpgrade"               "1"
         "AbilityDraftScepterAbility"    "tiny_tree_channel"
-		"MaxLevel"						"7"
+		
 		
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
@@ -203,7 +208,7 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"19 16 13 10 8.4 6.8 5.2"
+		"AbilityCooldown"				"16 15 14 13"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -224,7 +229,7 @@
 			}
 			"bonus_damage"	
 			{
-				"value"							"100 200 300 400 500 600 700"			
+				"value"							"100 200 300 400"			
 				"special_bonus_unique_tiny_7"	"+700"
 				"CalculateSpellDamageTooltip"	"0"
 				"CalculateAttackDamageTooltip"	"1"
@@ -245,7 +250,7 @@
 				"value"				"400"
 				"affected_by_aoe_increase"	"1"
 			}
-			"splash_pct"						"40 50 60 70 80 90 100"
+			"splash_pct"						"55 70 85 100"
 			"bat_increase"						"0.0"
 			"speed_reduction"					"0"
 		}
@@ -265,7 +270,7 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"FightRecapLevel"				"1"
-		"MaxLevel"						"7"
+		
 		"LinkedAbility"					"tiny_tree_grab"
 
 		// Casting
@@ -365,17 +370,17 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
 		"AbilitySound"					"Tiny.Grow"
 		"AbilityCastAnimation"			"ACT_INVALID"
-		"MaxLevel"						"6"
+		
 		"LevelsBetweenUpgrades"			"6"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_armor"						"10 17 24 31 38 45"
+			"bonus_armor"						"10 17 24"
 			"bonus_damage"			
 			{
-				"value"							"500 1100 1700 2300 2900 3500"
+				"value"							"600 1200 1800"
 				"CalculateSpellDamageTooltip"	"0"
 				"CalculateAttackDamageTooltip"	"1"
 			}
@@ -389,15 +394,15 @@
 			"attack_speed_reduction"	
 			{
 				"value"		"-30"
-				"special_bonus_unique_tiny_6" "+10"
+				"special_bonus_unique_tiny_6" "+8"
 			}
 			"spell_bonus_damage"
 			{
-				"value"							"25 50 75 100 125 150"
+				"value"							"50 75 100"
 				"CalculateSpellDamageTooltip"	"0"
 			}
-			"spell_bonus_range"					"25 40 55 70 85 100"
-			"move_speed"						"10 20 30 40 50 60"
+			"spell_bonus_range"					"25 40 55"
+			"move_speed"						"10 20 30"
 		}
 	}
 	

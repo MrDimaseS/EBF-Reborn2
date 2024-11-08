@@ -1,6 +1,6 @@
 special_bonus_attributes = class({})
 
-ABILITY_POWER_SCALING = 0.3
+ABILITY_POWER_SCALING = 0.2
 
 function special_bonus_attributes:OnHeroLevelUp()
 	local hero = self:GetCaster()
@@ -19,15 +19,17 @@ function special_bonus_attributes:OnHeroLevelUp()
 		hero:ModifyIntellect( realIntDiff )
 	end
 	
-	local attribute_multiplier = 1+self:GetSpecialValueFor("value") / 100
+	local heroPowerBonus = self:GetSpecialValueFor("value") / 100
 	-- calculate current level attributes
-	local currentIntendedStr = (self.originalBaseStr + hero:GetStrengthGain() * (hero:GetLevel()-1) ) * ( 1 + ABILITY_POWER_SCALING * (hero:GetLevel() - 1) ) * attribute_multiplier
-	local currentIntendedAgi = (self.originalBaseAgi + hero:GetAgilityGain() * (hero:GetLevel()-1) ) * ( 1 + ABILITY_POWER_SCALING * (hero:GetLevel() - 1) ) * attribute_multiplier
-	local currentIntendedInt = (self.originalBaseInt + hero:GetIntellectGain() * (hero:GetLevel()-1) ) * ( 1 + ABILITY_POWER_SCALING * (hero:GetLevel() - 1) ) * attribute_multiplier
+	local totalHeroPowerBonus = 1 + (ABILITY_POWER_SCALING+heroPowerBonus) * (hero:GetLevel() - 1)
+	local currentIntendedStr = (self.originalBaseStr + hero:GetStrengthGain() * (hero:GetLevel()-1) ) * totalHeroPowerBonus
+	local currentIntendedAgi = (self.originalBaseAgi + hero:GetAgilityGain() * (hero:GetLevel()-1) ) * totalHeroPowerBonus
+	local currentIntendedInt = (self.originalBaseInt + hero:GetIntellectGain() * (hero:GetLevel()-1) ) * totalHeroPowerBonus
 	-- calculate next level attributes
-	local nextIntendedStr = (self.originalBaseStr + hero:GetStrengthGain() * hero:GetLevel() ) * ( 1 + ABILITY_POWER_SCALING * hero:GetLevel() ) * attribute_multiplier
-	local nextIntendedAgi = (self.originalBaseAgi + hero:GetAgilityGain() * hero:GetLevel() ) * ( 1 + ABILITY_POWER_SCALING * hero:GetLevel() ) * attribute_multiplier
-	local nextIntendedInt = (self.originalBaseInt + hero:GetIntellectGain() * hero:GetLevel() ) * ( 1 + ABILITY_POWER_SCALING * hero:GetLevel() ) * attribute_multiplier
+	local totalHeroPowerBonusNext = 1 + (ABILITY_POWER_SCALING+heroPowerBonus) * hero:GetLevel()
+	local nextIntendedStr = (self.originalBaseStr + hero:GetStrengthGain() * hero:GetLevel() ) * totalHeroPowerBonusNext
+	local nextIntendedAgi = (self.originalBaseAgi + hero:GetAgilityGain() * hero:GetLevel() ) * totalHeroPowerBonusNext
+	local nextIntendedInt = (self.originalBaseInt + hero:GetIntellectGain() * hero:GetLevel() ) * totalHeroPowerBonusNext
 	
 	hero._internalStrGain = nextIntendedStr - currentIntendedStr
 	hero._internalAgiGain = nextIntendedAgi - currentIntendedAgi
@@ -41,18 +43,15 @@ function special_bonus_attributes:OnUpgrade()
 	local hero = self:GetCaster()
 	if hero:IsIllusion() then return end
 	
-	local totalStrValue = (self.originalBaseStr + hero:GetStrengthGain() * (hero:GetLevel()-1) )  * ( 1 + ABILITY_POWER_SCALING * hero:GetLevel() )
-	local totalAgiValue = (self.originalBaseAgi + hero:GetAgilityGain() * (hero:GetLevel()-1) )  * ( 1 + ABILITY_POWER_SCALING * hero:GetLevel() )
-	local totalIntValue = (self.originalBaseInt + hero:GetIntellectGain() * (hero:GetLevel()-1) )  * ( 1 + ABILITY_POWER_SCALING * hero:GetLevel() )
+	local heroPowerBonus = self:GetSpecialValueFor("value") / 100
+	local totalHeroPowerBonus = 1 + (ABILITY_POWER_SCALING+heroPowerBonus) * (hero:GetLevel() - 1)
+	local totalStrValue = (self.originalBaseStr + hero:GetStrengthGain() * (hero:GetLevel()-1) )  * totalHeroPowerBonus
+	local totalAgiValue = (self.originalBaseAgi + hero:GetAgilityGain() * (hero:GetLevel()-1) )  * totalHeroPowerBonus
+	local totalIntValue = (self.originalBaseInt + hero:GetIntellectGain() * (hero:GetLevel()-1) )  * totalHeroPowerBonus
 	
-	local attribute_multiplier = (self:GetSpecialValueFor( "value" ) - self:GetLevelSpecialValueFor( "value", self:GetLevel()-2 ) ) / 100
-	if self:GetLevel() == 1 then -- no way to get 0 out of specialvalue and getlevel
-		attribute_multiplier = self:GetSpecialValueFor( "value" ) / 100
-	end
-	
-	hero:ModifyStrength( totalStrValue * attribute_multiplier ) 
-	hero:ModifyAgility( totalAgiValue * attribute_multiplier ) 
-	hero:ModifyIntellect( totalIntValue * attribute_multiplier )
+	hero:ModifyStrength( totalStrValue ) 
+	hero:ModifyAgility( totalAgiValue ) 
+	hero:ModifyIntellect( totalIntValue )
 	
 	CustomGameEventManager:Send_ServerToAllClients( "update_talent_pips", {unit = self:GetCaster():entindex()} )
 end
@@ -158,6 +157,8 @@ MP_AMP_PER_INT = 0.8
 function modifier_special_bonus_attributes_stat_rescaling:OnCreated()
 	self:GetParent()._heroManaType = (CustomNetTables:GetTableValue("hero_attributes", tostring(self:GetParent():entindex())) or {}).mana_type or "Mana"
 	
+	local UNITKV =  GetUnitKeyValuesByName(self:GetParent():GetUnitName())
+	
 	self.baseManaRegen = 10
 	if self:GetParent()._heroManaType ~= "Mana" then
 		self.baseMana = 0
@@ -166,22 +167,20 @@ function modifier_special_bonus_attributes_stat_rescaling:OnCreated()
 
 	self.bonusSpellAmp = 0.02
 	self.bonusDamage = 1.5
-	self.baseMR = 15
+	self.baseArmor = tonumber(UNITKV.ArmorPhysical) + 0.10 * tonumber(UNITKV.AttributeBaseAgility)
+	self.baseMR = tonumber(UNITKV.MagicalResistance)
 	self.baseAttackSpeed = self:GetParent():GetAgility() * 0.8
+	self.baseDamage = ( tonumber(UNITKV.AttackDamageMin) + tonumber(UNITKV.AttackDamageMax) ) / 2
+	self:GetParent()._baseArmorForIllusions = self.baseArmor
+	self:GetParent()._primaryAttribute = self:GetParent():GetPrimaryAttribute()
 	
-	self.internal_ability_scaling = ABILITY_POWER_SCALING
+	self.internal_ability_scaling = ABILITY_POWER_SCALING + self:GetSpecialValueFor("value") / 100
 	
 	self:GetParent().cooldownModifiers = {}
 	self:GetParent()._aoeModifiersList = {}
 	self:GetParent()._critModifiersList = {}
 	self:GetParent()._chanceModifiersList = {}
-	self.baseArmor = self:GetParent():GetPhysicalArmorBaseValue() + ( self:GetParent():GetAgility() / 6 - 0.065 * self:GetParent():GetAgility() )
 	
-	self:GetParent()._baseArmorForIllusions = self.baseArmor
-	if self:GetParent():IsIllusion() then
-		self.baseArmor = self:GetCaster()._baseArmorForIllusions or (self:GetParent():GetPhysicalArmorBaseValue() + math.min( 0.065 * self:GetParent():GetAgility(), 0.9*self:GetParent():GetAgility()^(math.log(2)/math.log(5)) ))
-	end
-	self:GetParent()._primaryAttribute = self:GetParent():GetPrimaryAttribute()
 	self:OnRefresh()
 	if IsServer() then
 		self:SetStackCount( self:GetParent():GetPrimaryAttribute() )
@@ -201,6 +200,7 @@ end
 function modifier_special_bonus_attributes_stat_rescaling:OnRefresh()
 	self.attackspeed = self.baseAttackSpeed + math.floor( math.min( 0.25 * self:GetParent():GetAgility(), 3.44*self:GetParent():GetAgility()^(math.log(2)/math.log(3.5)) ) )
 	self:GetParent()._internalBaseAttackSpeedBonus = self.attackspeed
+	self.total_ability_scaling = 1 + (self:GetCaster():GetLevel() - 1) * self.internal_ability_scaling
 	if IsServer() then
 		if self.baseArmor then
 			local agilityArmor = math.min( 0.065 * self:GetParent():GetAgility(), 0.9*self:GetParent():GetAgility()^(math.log(2)/math.log(5)) )
@@ -306,34 +306,37 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierOverrideAbi
 		params.ability._processValuesForScaling = {}
 	end
 	local special_value = params.ability_special_value:gsub("%#", "")
-	local abilityValues = GetAbilityKeyValuesByName(params.ability:GetAbilityName()).AbilityValues
-	if params.ability._processValuesForScaling[special_value] == nil and abilityValues then
+	if params.ability._processValuesForScaling[special_value] == nil then
+		local abilityValues = GetAbilityKeyValuesByName(params.ability:GetAbilityName()).AbilityValues
 		params.ability._processValuesForScaling[special_value] = {}
 		params.ability._processValuesForScaling[special_value].affected_by_aoe_increase = false
 		params.ability._processValuesForScaling[special_value].affected_by_crit_increase = false
 		params.ability._processValuesForScaling[special_value].affected_by_chance_increase = false
 		params.ability._processValuesForScaling[special_value].affected_by_lvl_increase = false
-		if type(GetAbilityKeyValuesByName(params.ability:GetAbilityName()).AbilityValues[special_value]) == "table" then -- check for adjustments
-			if toboolean(GetAbilityKeyValuesByName(params.ability:GetAbilityName()).AbilityValues[special_value].affected_by_aoe_increase) then
-				params.ability._processValuesForScaling[special_value].affected_by_aoe_increase = true
-			end
-			if toboolean(GetAbilityKeyValuesByName(params.ability:GetAbilityName()).AbilityValues[special_value].affected_by_chance_increase) then
-				params.ability._processValuesForScaling[special_value].affected_by_chance_increase = true
-			end
-			if toboolean(GetAbilityKeyValuesByName(params.ability:GetAbilityName()).AbilityValues[special_value].affected_by_crit_increase) then
-				params.ability._processValuesForScaling[special_value].affected_by_crit_increase = true
-			end
-			if toboolean(GetAbilityKeyValuesByName(params.ability:GetAbilityName()).AbilityValues[special_value].CalculateSpellDamageTooltip)
-			or toboolean(GetAbilityKeyValuesByName(params.ability:GetAbilityName()).AbilityValues[special_value].CalculateSpellHealTooltip)
-			or toboolean(GetAbilityKeyValuesByName(params.ability:GetAbilityName()).AbilityValues[special_value].CalculateAttackDamageTooltip)
-			or toboolean(GetAbilityKeyValuesByName(params.ability:GetAbilityName()).AbilityValues[special_value].CalculateAttributeTooltip) then
+		if abilityValues and abilityValues[special_value] then
+			if type(abilityValues[special_value]) == "table" then -- check for adjustments
+				if toboolean(abilityValues[special_value].affected_by_aoe_increase) then
+					params.ability._processValuesForScaling[special_value].affected_by_aoe_increase = true
+				end
+				if toboolean(abilityValues[special_value].affected_by_chance_increase) then
+					params.ability._processValuesForScaling[special_value].affected_by_chance_increase = true
+				end
+				if toboolean(abilityValues[special_value].affected_by_crit_increase) then
+					params.ability._processValuesForScaling[special_value].affected_by_crit_increase = true
+				end
+				if toboolean(abilityValues[special_value].CalculateSpellDamageTooltip)
+				or toboolean(abilityValues[special_value].CalculateSpellHealTooltip)
+				or toboolean(abilityValues[special_value].CalculateAttackDamageTooltip)
+				or toboolean(abilityValues[special_value].CalculateAttributeTooltip) then
+					params.ability._processValuesForScaling[special_value].affected_by_lvl_increase = true
+					params.ability._processValuesForScaling[special_value].lvl_increase_spell_damage_type = toboolean(abilityValues[special_value].CalculateSpellDamageTooltip)
+				end
+				if abilityValues[special_value].ForceCalculateLevelBonus then
+					params.ability._processValuesForScaling[special_value].affected_by_lvl_increase = toboolean(abilityValues.ForceCalculateLevelBonus)
+				end
+			elseif special_value == "AbilityDamage" then
 				params.ability._processValuesForScaling[special_value].affected_by_lvl_increase = true
 			end
-			if GetAbilityKeyValuesByName(params.ability:GetAbilityName()).AbilityValues[special_value].ForceCalculateLevelBonus then
-				params.ability._processValuesForScaling[special_value].affected_by_lvl_increase = toboolean(GetAbilityKeyValuesByName(params.ability:GetAbilityName()).AbilityValues[special_value].ForceCalculateLevelBonus)
-			end
-		elseif special_value == "AbilityDamage" then
-			params.ability._processValuesForScaling[special_value].affected_by_lvl_increase = true
 		end
 	end
 	if params.ability._processValuesForScaling[special_value]
@@ -408,36 +411,42 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierOverrideAbi
 		return flNewValue
 	end
 	if params.ability._processValuesForScaling[special_value].affected_by_chance_increase then
-		local aoe_bonus_positive = 0
-		local aoe_bonus_negative = 0
+		local chance_bonus = 0
 		for modifier, active in pairs( self:GetCaster()._chanceModifiersList ) do
 			if IsModifierSafe( modifier ) then
 				if modifier.GetModifierChanceBonusConstant and modifier:GetModifierChanceBonusConstant() then
-					if modifier:GetModifierChanceBonusConstant() > 0 then
-						aoe_bonus_positive = math.max( aoe_bonus_positive, 1+modifier:GetModifierChanceBonusConstant()/100 )
-					else
-						aoe_bonus_negative = math.max( math.min( aoe_bonus_negative, 1+modifier:GetModifierChanceBonusConstant()/100 ), -0.99 )
-					end
+					chance_bonus = chance_bonus + modifier:GetModifierChanceBonusConstant()/100
 				end
 			else
 				self:GetCaster()._chanceModifiersList[modifier] = nil
 			end
 		end
-		local trueProbability = ((flBaseValue % 100)/100)
-		
-		local bonus_end_result = 0
-		if aoe_bonus_positive > 0 then
-			bonus_end_result = (((trueProbability * aoe_bonus_positive) / (1 + (aoe_bonus_positive-1) * trueProbability)) - trueProbability)*100
+		local flNewValue = (flBaseValue/100)
+		local normalizedBonus = math.abs( chance_bonus )
+		if chance_bonus > 0 then
+			flNewValue = 1-(1-trueProbability)/(1+normalizedBonus)
+		else
+			flNewValue = trueProbability/(1+normalizedBonus)
 		end
-		local minus_end_result = 0
-		if aoe_bonus_negative < 0 then
-			minus_end_result = (((trueProbability * aoe_bonus_negative) / (1 + (aoe_bonus_negative-1) * trueProbability)) - trueProbability)*100
-		end
-		local flNewValue = flBaseValue + bonus_end_result + minus_end_result
-		return flNewValue
+		return math.floor(flNewValue * 10000)/100
 	end
 	if params.ability._processValuesForScaling[special_value].affected_by_lvl_increase then
-		local flNewValue = flBaseValue * ( 1 + (self:GetCaster():GetLevel() - 1) * self.internal_ability_scaling )
+		local flNewValue = flBaseValue * self.total_ability_scaling
+		if lvl_increase_spell_damage_type then
+			local SPELL_AMP_PRIMARY = 0.02
+			local SPELL_AMP_UNIVERSAL = 0.01
+			local bonusBaseSpellDamagePct = 0
+			if self:GetStackCount() == DOTA_ATTRIBUTE_STRENGTH then
+				bonusBaseSpellDamagePct =  self:GetParent():GetStrength() * SPELL_AMP_PRIMARY
+			elseif self:GetStackCount() == DOTA_ATTRIBUTE_AGILITY then
+				bonusBaseSpellDamagePct =  self:GetParent():GetAgility() * SPELL_AMP_PRIMARY
+			elseif self:GetStackCount() == DOTA_ATTRIBUTE_INTELLECT then
+				bonusBaseSpellDamagePct =  self:GetParent():GetIntellect(false) * SPELL_AMP_PRIMARY
+			else -- universal hero
+				bonusBaseSpellDamagePct =  ( self:GetParent():GetStrength() + self:GetParent():GetAgility() + self:GetParent():GetIntellect(false) ) * SPELL_AMP_UNIVERSAL
+			end
+			flNewValue = flNewValue * ( 1 + bonusBaseSpellDamagePct/100 )
+		end
 		return flNewValue
 	end
 end
@@ -502,11 +511,7 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierManaBonus()
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierConstantManaRegen()
-	if self:GetParent()._heroManaType ~= "Mana" then
-		return -self:GetParent():GetIntellect(false) * 0.05
-	else
-		return self.baseManaRegen - self:GetParent():GetIntellect(false) * 0.05
-	end
+	return self.baseManaRegen - self:GetParent():GetIntellect(false) * 0.05
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierBaseAttack_BonusDamage()
@@ -522,23 +527,11 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierBaseAttack_
 	else -- universal hero
 		bonusBaseDamage = ( self:GetParent():GetStrength() + self:GetParent():GetAgility() + self:GetParent():GetIntellect(false) ) * BASE_DAMAGE_UNIVERSAL
 	end
-	return self:GetParent():GetAgility() * self.bonusDamage + 30 + bonusBaseDamage
+	return self:GetParent():GetAgility() * self.bonusDamage + bonusBaseDamage + (self.baseDamage+30) * self.total_ability_scaling
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierSpellAmplify_Percentage()
-	local SPELL_AMP_PRIMARY = 0.02
-	local SPELL_AMP_UNIVERSAL = 0.015
-	local bonusSpellAmp = 0
-	if self:GetStackCount() == DOTA_ATTRIBUTE_STRENGTH then
-		bonusSpellAmp =  self:GetParent():GetStrength() * SPELL_AMP_PRIMARY
-	elseif self:GetStackCount() == DOTA_ATTRIBUTE_AGILITY then
-		bonusSpellAmp =  self:GetParent():GetAgility() * SPELL_AMP_PRIMARY
-	elseif self:GetStackCount() == DOTA_ATTRIBUTE_INTELLECT then
-		bonusSpellAmp =  self:GetParent():GetIntellect(false) * SPELL_AMP_PRIMARY
-	else -- universal hero
-		bonusSpellAmp =  ( self:GetParent():GetStrength() + self:GetParent():GetAgility() + self:GetParent():GetIntellect(false) ) * SPELL_AMP_UNIVERSAL
-	end
-	return self:GetParent():GetIntellect(false) * self.bonusSpellAmp + bonusSpellAmp
+	return self:GetParent():GetIntellect(false) * self.bonusSpellAmp
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierMagicalResistanceBonus()

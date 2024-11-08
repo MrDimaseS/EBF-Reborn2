@@ -39,7 +39,7 @@
 		"AbilitySound"					"Ability.Starfall"
 
 		"HasScepterUpgrade"			"0"
-		"MaxLevel"						"7"
+		
 		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -47,13 +47,13 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"11.0 11.0 11.0 11.0"
-		"AbilityDuration"				"10.0 10.0 10.0 10.0"
+		"AbilityCooldown"				"12"
+		"AbilityDuration"				"10.0"
 
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"80 90 100 110 120 130 140"
+		"AbilityManaCost"				"80 90 100 110"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -65,12 +65,12 @@
 				"affected_by_aoe_increase"			"1"
 			}
 			"starfall_secondary_radius"				""
-			"secondary_starfall_damage_percent"		"75"
+			"secondary_starfall_damage_percent"		"80"
 			"debuff_duration"						"5"
 			"immunity_duration"						"0.3"
 			"damage"	 
 			{
-				"value"								"750 1500 2250 3000 3750 4500 5250"
+				"value"								"750 1500 2250 3000"
 				"special_bonus_unique_mirana_7"		"+100%"
 				"CalculateSpellDamageTooltip"		"1"		
 			}
@@ -80,7 +80,8 @@
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 		"AbilityCastGestureSlot"		"DEFAULT"
-	}	//=================================================================================================================
+	}
+	//=================================================================================================================
 	// Ability: Mirana Arrow (sacred arrow)
 	//=================================================================================================================
 	"mirana_arrow"
@@ -97,7 +98,7 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Mirana.ArrowCast"
         "HasScepterUpgrade"             "0"
-		"MaxLevel"						"7"
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -123,7 +124,7 @@
 			}
 			"arrow_damage"
 			{	
-				"value"									"1500 2400 3300 4200 5100 6000 6900"
+				"value"									"1500 2400 3300 4200"
 				"special_bonus_facet_mirana_full_moon"	"x1.5"
 				"CalculateSpellDamageTooltip"			"1"
 			}
@@ -143,12 +144,12 @@
 			"arrow_angle"								"30"
 			"AbilityCooldown"
 			{	
-				"value"									"16"
+				"value"									"19 18 17 16"		
 				"special_bonus_unique_mirana_3"			"-2"
 			}
 			
 			"starstorm_aoe"								{"special_bonus_facet_mirana_new_moon"		"500"}
-			"crit_damage"								{"special_bonus_facet_mirana_full_moon"		"200 250 300 350 400 450 500"}
+			"crit_damage"								{"special_bonus_facet_mirana_full_moon"		"200 250 300 350"}
 			
 			"scepter_radius"							""
 			"scepter_starstorm_target_pct"				""
@@ -170,11 +171,12 @@
 		"AbilitySound"					"Ability.Leap"
 
         "HasShardUpgrade"               "0"
-		"MaxLevel"						"7"
+		
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"40"
+		"AbilityCharges"				""
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -183,10 +185,10 @@
 			"AbilityCooldown"							"0.25"
 			"AbilityCharges"		
 			{
-				"value"									"2 2 2 2 3 4 5"
+				"value"									"2"
 				"special_bonus_facet_mirana_full_moon"	"+1"
 			}
-			"AbilityChargeRestoreTime"					"45 35 25 15 15 15 15"
+			"AbilityChargeRestoreTime"					"45 35 25 15"
 			
 			"leap_distance"			
 			{
@@ -196,11 +198,11 @@
 			"min_jump_distance"							"200"
 			"leap_speed"								"1300.0"
 			"leap_acceleration"							"6000.0"
-			"leap_speedbonus"							"8 16 24 32 40 48 56"
+			"leap_speedbonus"							"8 16 24 32"
 			"leap_speedbonus_as"
 			{
-				"value"									"25 50 75 100 125 150 175"
-				"special_bonus_unique_mirana_1"			"+80"
+				"value"									"25 50 75 100"
+				"special_bonus_unique_mirana_1"			"+90"
 				"special_bonus_facet_mirana_full_moon"	"+25"
 			}
 			"leap_bonus_duration"
@@ -220,7 +222,7 @@
 			}
 			"blast_damage"					
 			{
-				"special_bonus_facet_mirana_new_moon"	"600 1000 1400 1800 2200 2600 3000"
+				"special_bonus_facet_mirana_new_moon"	"600 1000 1400 1800"
 				"CalculateSpellDamageTooltip"			"1"
 			}
 			"blast_slow_pct"							{"special_bonus_facet_mirana_new_moon"	"30"}
@@ -246,7 +248,7 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
 		"FightRecapLevel"				"2"
 		"AbilitySound"					"Ability.MoonlightShadow"
-		"MaxLevel"						"6"
+		
 		"LevelsBetweenUpgrades"			"6"
 		
 		// Casting
@@ -262,128 +264,34 @@
 			"AbilityManaCost"							"125"
 			"AbilityCooldown"				
 			{
-				"value"									"100.0"
+				"value"									"140.0 120.0 100.0"
 				"special_bonus_unique_mirana_4"			"-20"				
 			}
-			"fade_delay"								"1.5"
-			"duration"									"18 19 20 21 22 23"
-			"bonus_movement_speed"						"9 10 12 13 15 17 19 21"
+			"fade_delay"								"2.5 2.0 1.5"
+			"duration"									"18.0"
+			"bonus_movement_speed"						"9 12 15"
 			"evasion"
 			{
-				"special_bonus_facet_mirana_new_moon"	"15 20 25 30 35 40"
+				"special_bonus_facet_mirana_new_moon"	"15 25 35"
 				"special_bonus_unique_mirana_5" 		"+10"
 			}
 			"magic_resistance"
 			{
-				"special_bonus_facet_mirana_new_moon"	"15 20 25 30 35 40"
+				"special_bonus_facet_mirana_new_moon"	"15 25 35"
 				"special_bonus_unique_mirana_5" 		"+10"
 			}
 			"attack_speed_sec"
 			{
-				"special_bonus_facet_mirana_full_moon"	"8 12 16 20 24 28"
+				"special_bonus_facet_mirana_full_moon"	"10 15 20"
 				"special_bonus_unique_mirana_5" 		"+8"
 			}
 			"attack_dmg_sec"
 			{
-				"special_bonus_facet_mirana_full_moon"	"8 12 16 20 24 28"
+				"special_bonus_facet_mirana_full_moon"	"10 15 20"
 				"special_bonus_unique_mirana_5" 		"+8"
 			}
 			"ally_pct"									{"special_bonus_facet_mirana_full_moon"	"50"}
 			"max_damage_time"							{"special_bonus_facet_mirana_full_moon"	"8"}
 		}
-	}
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_mirana_1"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"ad_linked_abilities"			"mirana_leap"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-		
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_mirana_2"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"ad_linked_abilities"			"mirana_arrow"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_mirana_3"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_mirana_4"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"20"
-				"ad_linked_abilities"			"mirana_invis"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_mirana_5"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_mirana_6"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"ad_linked_abilities"			"mirana_leap"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-		
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_mirana_7"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"ad_linked_abilities"			"mirana_starfall"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
 	}
 }

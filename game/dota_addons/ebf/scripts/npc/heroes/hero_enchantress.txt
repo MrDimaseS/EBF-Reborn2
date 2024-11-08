@@ -14,7 +14,7 @@
 
 		"LinkedAbility"					"enchantress_bunny_hop"
 		
-		"MaxLevel"						"6"
+		
 		"LevelsBetweenUpgrades"			"6"
 
 		// Special	
@@ -23,7 +23,7 @@
 		{
 			"slow_attack_speed"
 			{
-				"value"									"-100 -140 -180 -220 -260 -300"
+				"value"									"-100 -150 -200"
 				"special_bonus_unique_enchantress_3"	"-65"
 			}
 			"slow_duration"			"4"
@@ -110,7 +110,7 @@
 		"AbilityValues"
 		{
 			"duration"						"6"
-			"bonus_attack_speed"			"250"
+			"bonus_attack_speed"			"100"
 			"bonus_move_speed"				"100"
 			"radius"					
 			{
@@ -138,7 +138,7 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"AbilitySound"					"Hero_Enchantress.EnchantCreep"
 		"HasScepterUpgrade"				"1"
-		"MaxLevel"						"7"
+		
 		"LinkedAbility"					"enchantress_little_friends"
 
 		// Casting
@@ -160,22 +160,22 @@
 		{
 			"AbilityCastRange"
 			{
-				"value"															"500 550 600 650 700 750 800"
-				"special_bonus_facet_enchantress_spellbound"					"+50 +100 +150 +200 +250 +300 +350"
+				"value"															"500 550 600 650"
+				"special_bonus_facet_enchantress_spellbound"					"+50 +100 +150 +200"
 			}
 			"slow_movement_speed"												"-30 -40 -50 -60"
 			"slow_duration"														"5"
 			"attack_range_bonus"
 			{
 				"value"															"0"
-				"special_bonus_facet_enchantress_spellbound"					"50 100 150 200 250 300 350 400"
+				"special_bonus_facet_enchantress_spellbound"					"50 100 150 200"
 				"RequiresFacet"			"enchantress_spellbound"
 			}
 			
 			"dominate_duration"													"120"
 			"enchant_health"			
 			{
-				"value" 														"1500 2500 3500 4500 5500 6500 7500"
+				"value" 														"1500 2500 3500 4500"
 				"special_bonus_unique_enchantress_enchant_health_damage"		"+1500"
 				"CalculateAttributeTooltip"										"1"
 			}
@@ -187,7 +187,7 @@
 			}
 			"enchant_damage"			
 			{
-				"value" 														"0 250 500 750 1000 1250 1500"
+				"value" 														"0 250 500 750"
 				"special_bonus_unique_enchantress_enchant_health_damage"		"+250"
 				"CalculateAttributeTooltip"										"1"
 			}
@@ -216,7 +216,7 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
 		"AbilitySound"					"Hero_Enchantress.NaturesAttendantsCast"
 
-		"MaxLevel"						"7"
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -234,11 +234,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"heal_duration"								"13"
+			"heal_duration"								"10 11 12 13"
 			"heal_interval"								"0.5"
 			"heal"					
 			{
-				"value"									"40 80 120 160 200 240 280"
+				"value"									"40 80 120 160"
 				"special_bonus_unique_enchantress_5"	"+80"
 				"CalculateSpellHealTooltip"				"1"
 			}
@@ -303,8 +303,6 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Enchantress.Impetus"
 
-		"MaxLevel"						"7"
-
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"575"
@@ -313,12 +311,12 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"6 4 2 0 0 0 0"
+		"AbilityCooldown"				"6 4 2 0"
 		"AbilityDuration"				"1.5 1.5 1.5"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"20 20 20 20 30 40 50"
+		"AbilityManaCost"				"50"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -326,141 +324,12 @@
 		{
 			"distance_damage_pct"	
 			{
-				"value"									"50 50 50 50 100 150 200"
+				"value"									"50 100 150 200"
 				"special_bonus_unique_enchantress_4"	"+50"
 				"CalculateSpellDamageTooltip"			"1"
 			}
 			"distance_cap"			"1750"
 			"creep_multiplier"		"1"
 		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_enchantress_1"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"1"
-				"ad_linked_abilities"			"enchantress_enchant"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_enchantress_2"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"5"
-				"ad_linked_abilities"			"enchantress_natures_attendants"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_enchantress_3"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"-65"
-				"ad_linked_abilities"			"enchantress_untouchable"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_enchantress_4"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"ad_linked_abilities"			"enchantress_impetus"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-		
-		
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_enchantress_5"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"4800"
-				"ad_linked_abilities"			"enchantress_natures_attendants"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_enchantress_6"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"BaseClass"						"special_bonus_base"
-	}
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_enchantress_enchant_health_damage"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"BaseClass"						"special_bonus_base"
 	}
 }

@@ -13,27 +13,8 @@ end
 
 function modifier_riki_backstab_handler:OnRefresh()
 	self.backstab_angle = self:GetSpecialValueFor("backstab_angle")
-	self.fade_delay = self:GetSpecialValueFor("fade_delay")
 	self.creep_agility_multiplier = self:GetSpecialValueFor("creep_agility_multiplier")
 	self.attacks = {}
-	if IsServer() then
-		self:StartIntervalThink( 0 )
-	end
-end
-
-function modifier_riki_backstab_handler:OnIntervalThink()
-	local parent = self:GetParent()
-	if parent:HasModifier("modifier_invisible") then
-		return
-	end
-	if not self._lastAttackTime then
-		self._lastAttackTime = GameRules:GetGameTime()
-		self:GetAbility():SetCooldown( self.fade_delay )
-	end
-	if self._lastAttackTime + self.fade_delay < GameRules:GetGameTime() then
-		parent:AddNewModifier( parent, self:GetAbility(), "modifier_invisible", {} )
-		self._lastAttackTime = nil
-	end
 end
 
 function modifier_riki_backstab_handler:DeclareFunctions()
@@ -74,18 +55,13 @@ function modifier_riki_backstab_handler:GetModifierPreAttack_BonusDamage(params)
             local damage = params.attacker:GetAgility() * agility_damage_multiplier * TernaryOperator( 1, params.target:IsConsideredHero(), self.creep_agility_multiplier )
             if not params.target:IsAtAngleWithEntity(caster, 360-self.backstab_angle ) 
 			or caster:HasModifier("modifier_riki_tricks_of_the_trade_handler") 
+			or caster:HasModifier("modifier_riki_invis_invisible")
 			or params.target:HasModifier("modifier_riki_smoke_screen_aura_debuff") then 
 				self.attacks[params.record] = true
 				return damage
             end
         end
     end
-end
-
-function modifier_riki_backstab_handler:GetModifierMoveSpeedBonus_Percentage()
-	if self:GetParent():HasModifier("modifier_invisible") then
-		return self:GetSpecialValueFor("bonus_movespeed")
-	end
 end
 
 function modifier_riki_backstab_handler:IsHidden()

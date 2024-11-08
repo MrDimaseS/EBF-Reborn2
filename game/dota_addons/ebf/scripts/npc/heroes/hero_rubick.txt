@@ -33,25 +33,18 @@
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
-		"MaxLevel"						"7"
-
         "HasShardUpgrade"               "1"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.1 0.1 0.1 0.1"
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"28 26 24 22 20.4 18.9 17.3"
-
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"110"
 		
 		// Cast Range
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"550 575 600 625 650 675 700"
+		"AbilityCastRange"				"550 575 600 625"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -59,96 +52,48 @@
 		{
 			"lift_duration"				
 			{
-				"value"								"1.7"
-				"special_bonus_unique_rubick_7" 	"+0.4"
+				"value"									"0.95 1.2 1.45 1.7"
+				"special_bonus_unique_rubick_7"			"+0.4"
 			}
 			"stun_duration"				
 			{
-				"value"								"1.5"
-				"special_bonus_unique_rubick_7" 	"+0.4"
+				"value"									"0.9 1.1 1.3 1.5"
+				"special_bonus_unique_rubick_7"			"+0.4"
 			}
 			"radius"					
 			{
-				"value"								"300 325 350 375 400 425 450"
-				"affected_by_aoe_increase"			"1"
+				"value"									"300 325 350 375"
+				"affected_by_aoe_increase"				"1"
 			}
 			"max_land_distance"			
 			{
-				"value"								"375 375 375 375"
-				"special_bonus_unique_rubick"		"+400"
+				"value"									"375 375 375 375"
+				"special_bonus_unique_rubick"			"+400"
 			}
-			"fall_duration"							"0.3 0.3 0.3 0.3"  // the portion of the lift that is falling
+			"fall_duration"								"0.3 0.3 0.3 0.3"  // the portion of the lift that is falling
 			"shard_max_land_distance_bonus_pct"			
 			{
-				"value"								"35"
-				"RequiresShard"						"1"
+				"value"									"35"
+				"RequiresShard"							"1"
 			}			
 			"shard_cooldown_reduction_pct"			
 			{
-				"value"								"0"
-				"RequiresShard"						"1"
+				"value"									"0"
+				"RequiresShard"							"1"
 			}					
 			"shard_teammate_throw_delay"			
 			{
-				"value"								"0.5"
-				"RequiresShard"						"1"
+				"value"									"0.5"
+				"RequiresShard"							"1"
 			}
 			"AbilityCooldown"				
 			{
-				"value"								"24 21 18 15 13.1 11.2 9.3"
-				"special_bonus_unique_rubick_4"		"-4"
+				"value"									"24 21 18 15"
+				"special_bonus_unique_rubick_4"			"-4"
 			}	
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
-	}	
-
-	//=================================================================================================================
-	// Rubick: Telekinesis Land
-	//=================================================================================================================
-	"rubick_telekinesis_land"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_AOE"
-		"MaxLevel"						"1"
-		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_1"
-
-		// Special	
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"radius"					"325 325 325 325"
-			}
-		}
 	}
-
-	//=================================================================================================================
-	// Rubick: Telekinesis Land
-	//=================================================================================================================
-	"rubick_telekinesis_land_self"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
-		"MaxLevel"						"1"
-		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_1"
-
-		// Special	
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"radius"					"325 325 325 325"
-			}
-		}
-	}
-
-
 	//=================================================================================================================
 	// Rubick: Fade Bolt
 	//=================================================================================================================
@@ -164,7 +109,7 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Rubick.FadeBolt.Cast"
-		"MaxLevel"						"7"
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -173,15 +118,15 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"10"
+		"AbilityCooldown"				"16 14 12 10"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"110 120 130 140 150 160 170"
+		"AbilityManaCost"				"110 125 140 155"
 		
 		// Cast Range
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"800 800 800 800"
+		"AbilityCastRange"				"800"
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
@@ -193,7 +138,7 @@
 		{
 			"damage"
 			{
-				"value"							"1000 1750 2500 3250 4000 4750 5500"
+				"value"							"1000 1750 2500 3250"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"jump_damage_reduction_pct"	
@@ -209,7 +154,7 @@
 				"CalculateSpellDamageTooltip"	"0"
 				"DamageTypeTooltip"				"DAMAGE_TYPE_NONE"
 			}
-			"duration"							"10.0 10.0 10.0 10.0"
+			"duration"							"10.0"
 			"radius"					
 			{
 				"value"							"440"
@@ -226,16 +171,25 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"MaxLevel"						"7"
+		
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"cast_range"					"60 120 180 240 300 360 420"
-			"spell_amp"	
+			"cast_range"				"60 120 180 240"
+			"spell_amp"					"11 16 21 26"
+
+			"aoe_bonus"
 			{
-				"value"							"14 18 22 26 30 34 38"
+				"value"					"0"
+				"special_bonus_facet_rubick_arcane_accumulation"	"+25"				
+			}
+
+			"aoe_bonus_duration"
+			{
+				"value"					"0"
+				"special_bonus_facet_rubick_arcane_accumulation"	"+20"				
 			}
 		}
 	}
@@ -254,7 +208,7 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"AbilitySound"					"Hero_Rubick.SpellSteal.Cast"
-		"MaxLevel"						"6"
+		
 		"LevelsBetweenUpgrades"			"6"
 
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
@@ -269,7 +223,7 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"16 10 4 3 2 1"
+		"AbilityCooldown"				"16 10 4"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -283,262 +237,21 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"					"300.0"
-			"projectile_speed"			"1200"
-			"cast_range_scepter"
+			"projectile_speed"				"1500"
+			"stolen_debuff_amp"				"10 20 30"
+			"cast_range_scepter"			
 			{
-				"value"					"1400"
-				"RequiresScepter"		"1"
+				"value"						"1400"
+				"RequiresScepter"			"1"
 			}
-			"stolen_debuff_amp"			"10 20 30 40 50 60"
-
+			"duration"
+			{
+				"value"						"180 240 300"
+			}
 			"stolen_mana_reduction"
 			{
 				"value"						"0"
-				"special_bonus_facet_rubick_frugal_filch"	"30 45 60"				
-			}
-		}
-	}	
-
-	//=================================================================================================================
-	// Rubick: Empty 1
-	//=================================================================================================================
-	"rubick_empty1"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
-		"MaxLevel"						"0"
-		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_5"
-	}
-
-	//=================================================================================================================
-	// Rubick: Empty 2
-	//=================================================================================================================
-	"rubick_empty2"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
-		"MaxLevel"						"0"
-		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_6"
-	}
-
-	//=================================================================================================================
-	// Rubick: Hidden 1 
-	//=================================================================================================================
-	"rubick_hidden1"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
-		"MaxLevel"						"0"
-		"AbilityCastAnimation"			"ACT_INVALID"
-	}
-
-	//=================================================================================================================
-	// Rubick: Hidden 2
-	//=================================================================================================================
-	"rubick_hidden2"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
-		"MaxLevel"						"0"
-		"AbilityCastAnimation"			"ACT_INVALID"
-	}
-
-	//=================================================================================================================
-	// Rubick: Hidden 3
-	//=================================================================================================================
-	"rubick_hidden3"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
-		"MaxLevel"						"0"
-		"AbilityCastAnimation"			"ACT_INVALID"
-	}
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_rubick"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"240"
-				"ad_linked_abilities"			"rubick_telekinesis"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_rubick_2"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"12"
-				"ad_linked_abilities"			"rubick_fade_bolt"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_rubick_3"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"5"
-				"ad_linked_abilities"			"rubick_fade_bolt"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_rubick_4"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"12"
-				"ad_linked_abilities"			"rubick_telekinesis"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_rubick_5"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"40"
-				"ad_linked_abilities"			"rubick_spell_steal"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_rubick_6"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"25"
-				"ad_linked_abilities"			"rubick_spell_steal"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_rubick_7"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"0.6"
-				"ad_linked_abilities"			"rubick_telekinesis"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_rubick_8"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"						"15000"
-				"ad_linked_abilities"			"rubick_telekinesis"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+				"special_bonus_facet_rubick_frugal_filch"	"40 50 60"				
 			}
 		}
 	}

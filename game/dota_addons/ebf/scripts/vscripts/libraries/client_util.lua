@@ -225,15 +225,21 @@ function C_DOTA_BaseNPC:GetPrimaryAttribute()
 	if self:GetParentUnit() then
 		unit = self:GetParentUnit()
 	end
-	local KV = GetUnitKeyValuesByName(self:GetUnitName())
-	if KV.AttributePrimary == "DOTA_ATTRIBUTE_STRENGTH" then
-		return DOTA_ATTRIBUTE_STRENGTH
-	elseif KV.AttributePrimary == "DOTA_ATTRIBUTE_INTELLECT" then
-		return DOTA_ATTRIBUTE_INTELLECT
-	elseif KV.AttributePrimary == "DOTA_ATTRIBUTE_AGILITY" then
-		return DOTA_ATTRIBUTE_AGILITY
+	if not self._getPrimaryAttribute then
+		local KV = GetUnitKeyValuesByName(self:GetUnitName())
+		if KV.AttributePrimary == "DOTA_ATTRIBUTE_STRENGTH" then
+			self._getPrimaryAttribute = DOTA_ATTRIBUTE_STRENGTH
+		elseif KV.AttributePrimary == "DOTA_ATTRIBUTE_INTELLECT" then
+			self._getPrimaryAttribute = DOTA_ATTRIBUTE_INTELLECT
+		elseif KV.AttributePrimary == "DOTA_ATTRIBUTE_AGILITY" then
+			self._getPrimaryAttribute = DOTA_ATTRIBUTE_AGILITY
+		elseif KV.AttributePrimary == "DOTA_ATTRIBUTE_ALL" then
+			self._getPrimaryAttribute = DOTA_ATTRIBUTE_ALL
+		else
+			self._getPrimaryAttribute = -1
+		end
 	end
-	return -1
+	return self._getPrimaryAttribute
 end
 
 function C_DOTA_BaseNPC:GetPrimaryStatValue()

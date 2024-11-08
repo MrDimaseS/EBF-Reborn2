@@ -1,5 +1,20 @@
 "DOTAAbilities"
-{	
+{
+	//=================================================================================================================
+	// Winter Wyvern: Innate Scholar
+	//=================================================================================================================
+	"winter_wyvern_eldwurm_scholar"
+	{
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_SKIP_FOR_KEYBINDS"
+
+		"MaxLevel"						"1"
+		"Innate"						"1"
+
+		"AbilityValues"
+		{
+			"share_percentage"			"20"
+		}
+	}
 	//=================================================================================================================
 	// Winter Wyvern: Arctic Burn
 	//=================================================================================================================
@@ -12,7 +27,7 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"AbilitySound"					"Hero_WinterWyvern.ArcticBurn.Cast"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
-		"MaxLevel"						"7"
+		
 
         "HasScepterUpgrade"             "1"
 
@@ -22,7 +37,7 @@
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"20"
+		"AbilityCooldown"				"26 24 22 20"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -32,8 +47,8 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"							"7 8 9 10 11 12"
-			"attack_range_bonus"				"300 325 350 375 400 425 450"
+			"duration"							"7 8 9 10"
+			"attack_range_bonus"				"275 300 325 350"
 			"percent_damage"
 			{
 				"value"							"1.75"
@@ -50,7 +65,7 @@
 			}
 			"move_slow"
 			{
-				"value"							"16 24 32 40 48 56 64"
+				"value"							"16 24 32 40"
 				"LinkedSpecialBonus"			"special_bonus_unique_winter_wyvern_1"
 			}
 			"projectile_speed_bonus"			"500"
@@ -84,7 +99,7 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
-		"MaxLevel"						"7"
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -97,7 +112,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"105 115 125 135 145 155 165"
+		"AbilityManaCost"				"105 115 125 135"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -105,18 +120,19 @@
 		{
 			"projectile_speed"							"1200"
 			"projectile_max_time"						"1.0"
-			"split_radius"
+			"split_radius"			
 			{
 				"value"									"500"
-				"LinkedSpecialBonus"					"special_bonus_unique_winter_wyvern_2"
+				"affected_by_aoe_increase"				"1"	
+				"special_bonus_unique_winter_wyvern_2"	"+400"
 			}
-			"bonus_movespeed"							"-28 -32 -36 -40 -44 -48 -52"
-			"movespeed_slow_tooltip"					"28 32 36 40 44 48 52"
+			"bonus_movespeed"							"-28 -32 -36 -40"
+			"movespeed_slow_tooltip"					"28 32 36 40"
 			"duration"									"4.0"
 			"secondary_projectile_speed"				"1000"
 			"damage"
 			{
-				"value"									"1000 1800 2600 3400 4200 5000 5800"
+				"value"									"800 1600 2400 3200"
 				"special_bonus_unique_winter_wyvern_7"	"+30%"
 				"CalculateSpellDamageTooltip"			"1"
 			}
@@ -143,14 +159,12 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Winter_Wyvern.ColdEmbrace"
-
-		"MaxLevel"						"7"
-
+		
         "HasShardUpgrade"				"1"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"850 900 950 1000 1050 1100 1150"
+		"AbilityCastRange"				"850 900 950 1000"
 		"AbilityCastPoint"				"0.3"
 		
 		// Time		
@@ -159,31 +173,30 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"50 60 70 80 90 100 110"
+		"AbilityManaCost"				"50 60 70 80"
 				
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"									"4"
-			"heal_additive"
+			"duration"			"4.0"
+			"heal_additive"		
 			{
-				"value"									"400 450 500 550 600 650 700 750"
-				"special_bonus_unique_winter_wyvern_5"	"+50%"
-				"CalculateSpellHealTooltip"				"1"
+				"value"								"400 450 500 550"
+			"special_bonus_unique_winter_wyvern_5" "+50%"
 			}
-			"heal_percentage"							"4.5"
+			"heal_percentage"						"2.25 3 3.75 4.5"
 			"shard_cooldown_reduction"
 			{
-				"value"									"4.0"	
-				"RequiresShard"							"1"
+				"value"		"4.0"	
+				"RequiresShard"				"1"
 			}
 			"shard_splinter_range"
 			{
-				"value"									"1200"	
-				"RequiresShard"							"1"
+				"value"		"1150"	
+				"RequiresShard"				"1"
+				"affected_by_aoe_increase"	"1"	
 			}
-			
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -203,7 +216,7 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"FightRecapLevel"				"2"
 		"AbilitySound"					"Hero_WinterWyvern.WintersCurse.Target"
-		"MaxLevel"						"6"
+		
 		"LevelsBetweenUpgrades"			"6"
 
 		// Casting
@@ -214,11 +227,11 @@
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"75"
+		"AbilityCooldown"				"85 80 75"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"250"
+		"AbilityManaCost"				"150 200 250"
 				
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -226,183 +239,20 @@
 		{
 			"radius"			
 			{
-				"value"									"525"
-				"affected_by_aoe_increase"				"1"	
+				"value"					"525"
+				"affected_by_aoe_increase"	"1"	
 			}
-			"damage_reduction"							"0"
-			"damage_amplification"						"30"
+			"damage_reduction"			"0"
+			"damage_amplification"		"30"
 			"bonus_attack_speed"	
 			{
-				"value"									"65"
+				"value"					"65"
 				"special_bonus_unique_winter_wyvern_3"	"+55"
 			}
-			"duration"									"2"
-			"max_duration"								"4 5.5 7 8.5 10 11.5"
-			"bonus_duration_per_hero"					"2"
-			"bonus_duration_per_creep"					"0.5"
+			"duration"					"2"
+			"max_duration"				"4 5.5 7"
+			"bonus_duration_per_hero"	"2"
+			"bonus_duration_per_creep"	"0.5"
 		}
-	}
-	//=================================================================================================================
-	// Winter Wyvern: Innate Scholar
-	//=================================================================================================================
-	"winter_wyvern_eldwurm_scholar"
-	{
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_SKIP_FOR_KEYBINDS"
-
-		"MaxLevel"						"1"
-		"Innate"						"1"
-
-		"AbilityValues"
-		{
-			"share_percentage"			"20"
-		}
-	}
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_winter_wyvern_1"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"12"
-				"ad_linked_abilities"			"winter_wyvern_arctic_burn"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_winter_wyvern_2"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"400"
-				"ad_linked_abilities"			"winter_wyvern_splinter_blast"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_winter_wyvern_3"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"1.5"
-				"ad_linked_abilities"			"winter_wyvern_winters_curse"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_winter_wyvern_4"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"1.5"
-				"ad_linked_abilities"			"winter_wyvern_splinter_blast"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_winter_wyvern_5"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"25"
-				"ad_linked_abilities"			"winter_wyvern_cold_embrace"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_winter_wyvern_6"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"2"
-				"ad_linked_abilities"			"winter_wyvern_arctic_burn"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_winter_wyvern_7"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 	}
 }

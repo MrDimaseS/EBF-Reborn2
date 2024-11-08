@@ -15,7 +15,7 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Disruptor.ThunderStrike.Target"
-		"MaxLevel"						"7"
+		
 
         "HasShardUpgrade"               "1"
 
@@ -27,11 +27,11 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"9"
+		"AbilityCooldown"				"18 15 12 9"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"100 125 175 225 275 325 375"
+		"AbilityManaCost"				"125 130 135 140"
 		
 		// Cast Range
 		//-------------------------------------------------------------------------------------------------------------
@@ -61,7 +61,7 @@
 			"strike_interval"						"2.0 1.8 1.6 1.2 1.0 0.8 0.5"
 			"strike_damage"	
 			{
-				"value"								"250 550 850 1150 1450 1750 2050"
+				"value"								"250 550 850 1150"
 				"CalculateSpellDamageTooltip"		"1"
 			}
 			"strike_damage_bonus"
@@ -103,54 +103,49 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Disruptor.Glimpse.Target"
 		"AbilityTextureName"            "disruptor_glimpse"
-		"MaxLevel"						"7"
-		
-		"AOERadius"						"250"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.05 0.05 0.05 0.05"
 
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------	
-
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"70 85 100 115 130 145 160"
+		"AbilityManaCost"				"70 85 100 115"
 		
 		// Cast Range
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"600 1000 1400 1800 2200 2600 3000"
+		"AbilityCastRange"				"600 1000 1400 1800"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"cast_radius"								"250"
 			"backtrack_time"							"2.0"
-			"cast_range"								"600 1000 1400 1800 2200 2600 3000"
+			"cast_range"								"600 1000 1400 1800"
 			"AbilityCooldown"
 			{
-				"value"									"10"
+				"value"									"24 22 20 18"
 				"special_bonus_unique_disruptor_4"		"-4"
-			}
-			"bonus_damage"			
-			{
-				"value"									"1000 1600 2200 2800 3400 4000 4800"
-				"special_bonus_unique_disruptor_9"		"+50%"
-				"CalculateSpellDamageTooltip"			"1"
 			}
 			"max_distance"					"1400"
 			
-			"min_damage"
+			"min_damage"				
 			{
-				"value"											"1250 1750 2250 2750 3250 3750 4250"
-				"special_bonus_unique_disruptor_9"				"+50%"
+				"value"											"250"
+				"special_bonus_unique_disruptor_9"				"+280"
+				"CalculateSpellDamageTooltip"					"1"
 			}
-			"max_damage"
+			"max_damage"				
 			{
-				"value"											"1250 1750 2250 2750 3250 3750 4250"
-				"special_bonus_unique_disruptor_9"				"+50%"
+				"value"											"100 160 220 280"
+				"special_bonus_unique_disruptor_9"				"+280"
+				"CalculateSpellDamageTooltip"					"1"
+			}
+			"damage_to_distance_pct"					
+			{
+				"value"											"200 250 300 350"
+				"special_bonus_unique_disruptor_9"				"+10"
+
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -167,7 +162,7 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Disruptor.KineticField"
-		"MaxLevel"						"7"
+		
 		"HasScepterUpgrade"				"1"
 
 		// Casting
@@ -179,7 +174,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"70 85 100 115 130 145 160"
+		"AbilityManaCost"				"70"
 		
 		// Cast Range
 		//-------------------------------------------------------------------------------------------------------------
@@ -189,23 +184,26 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"radius"								"300 350 400 450 550 650 800"
-			"AbilityCooldown"
+			"AbilityCooldown"				
 			{
-				"value"								"38"
-				"special_bonus_unique_disruptor_2"	"-3"	
-				"special_bonus_scepter"				"-50%"
+				"value"	"20 18 16 14"
+				"special_bonus_unique_disruptor_2"				"-3"			
 			}
-			"formation_time"
+			"radius"					
 			{
-				"value"								"1"
-				"special_bonus_scepter"				"=0"
+				"value"			"350"
+				"affected_by_aoe_increase"	"1"
 			}
-			"duration"
+			"formation_time"			
 			{
-				"value"								"5.2 6.4 7.6 8.8 10.0 11.2 12.4"
-				"special_bonus_unique_disruptor_5"	"+2"
+				"value"				"1"					
 			}
+			"duration"					
+			{
+				"value"				"2.6 3.2 3.8 4.4"
+			"special_bonus_unique_disruptor_5" "+2"
+			}
+			"damage_per_second"			"0"
 		}
 	}	
 
@@ -242,20 +240,19 @@
 		{
 			"AbilityChargeRestoreTime"
 			{
-				"value"								"14"
-				"special_bonus_unique_disruptor_2"	"-3"
-				"special_bonus_scepter"				"-50%"
+				"value"					"20 18 16 14"
+				"special_bonus_unique_disruptor_2" "-3"
 			}
-			"radius"								"350"
+
+			"radius"					"350"
 
 			"formation_time"			
 			{
-				"value"								"0.4"	
-				"special_bonus_scepter"				"=0"				
+				"value"				"0.4"					
 			}
 			"duration"
 			{
-				"value"								"5.2 6.4 7.6 8.8 10.0 11.2 12.4"
+				"value"					"2.6 3.2 3.8 4.4"
 				"special_bonus_unique_disruptor_5"	"+2"
 			}
 			"wall_width"				
@@ -279,7 +276,7 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"FightRecapLevel"				"2"
 		"AbilitySound"					"Hero_Disruptor.StaticStorm.Cast"
-		"MaxLevel"						"6"
+		
 		"LevelsBetweenUpgrades"			"6"
 
 
@@ -307,7 +304,7 @@
 		{
 			"radius"	
 			{
-				"value"								"550 575 600 625 650 700"
+				"value"								"550"
 				"affected_by_aoe_increase"			"1"
 				"special_bonus_unique_disruptor_8"	"+150"
 			}
@@ -318,214 +315,14 @@
 			}
 			"damage_max"
 			{
-				"value"								"4000 4750 5500 6250 7000 9000"
+				"value"								"2000 2750 3500"
 				"CalculateSpellDamageTooltip"		"1"
 			}
 			"duration"	
 			{
-				"value"								"7.0 8.0 9.0 10.0 11.0 12.0"
+				"value"								"6.0"
 				"special_bonus_unique_disruptor_7" "+2"
 			}
 		}
 	}
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_disruptor"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"3"
-				"ad_linked_abilities"			"disruptor_thunder_strike"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_disruptor_2"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"3"
-				"ad_linked_abilities"			"disruptor_kinetic_field"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_disruptor_3"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"						"3000"
-				"ad_linked_abilities"			"disruptor_thunder_strike"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_disruptor_4"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"BaseClass"						"special_bonus_base"
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_disruptor_5"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"4"
-				"ad_linked_abilities"			"disruptor_kinetic_field"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_disruptor_6"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"0"
-				"ad_linked_abilities"			"disruptor_kinetic_field"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_disruptor_7"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"2"
-				"ad_linked_abilities"			"disruptor_static_storm"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-			"02"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value2"				"8"
-				"ad_linked_abilities"			"disruptor_static_storm"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_disruptor_8"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"200"
-				"ad_linked_abilities"			"disruptor_static_storm"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_disruptor_9"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"BaseClass"						"special_bonus_base"
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"						"25000"
-				"ad_linked_abilities"			"disruptor_glimpse"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
 }

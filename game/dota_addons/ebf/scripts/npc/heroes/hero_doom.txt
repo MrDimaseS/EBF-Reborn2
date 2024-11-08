@@ -1,5 +1,24 @@
 "DOTAAbilities"
 {	
+	//=================================================================================================================
+	// Doom: Level ? Pain
+	//=================================================================================================================
+	"doom_bringer_lvl_pain"
+	{
+	// General
+		//-------------------------------------------------------------------------------------------------------------
+
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES | DOTA_ABILITY_BEHAVIOR_SKIP_FOR_KEYBINDS"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_NONE"
+
+		"MaxLevel"						"1"
+		"Innate"						"1"
+		"IsBreakable"					"1"
+		"AbilityValues"
+		{
+			"bonus_damage"	"15"
+		}
+	}
 	"doom_bringer_devour"
 	{
 		// General
@@ -13,7 +32,7 @@
 		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_NONE"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"AbilitySound"					"Hero_DoomBringer.Devour"
-		"MaxLevel"						"7"
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -25,13 +44,13 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"40 50 60 70 80 90 100"
+		"AbilityManaCost"				"40 50 60 70"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_gold"						"50 100 150 200 250 300 350"
+			"bonus_gold"						"40 80 120 160"
 			"armor"								"9"
 			"creep_level"						""
 			"hero_ability_steal_time"			"99999"
@@ -79,7 +98,7 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_DoomBringer.ScorchedEarthAura"
-		"MaxLevel"						"7"
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -88,11 +107,11 @@
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"600 600 600 600"
-		"AbilityCooldown"				"35"
+		"AbilityCooldown"				"41 39 37 35"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"60 70 80 90 100 110 120"
+		"AbilityManaCost"				"60 70 80 90"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -100,17 +119,22 @@
 		{
 			"damage_per_second"
 			{
-				"value"								"200 350 500 650 800 950 1100"
+				"value"								"200 350 500 650"
 				"special_bonus_unique_doom_4"		"+50%"
 				"CalculateSpellDamageTooltip"		"1"
 			}
 			"radius"					"600 600 600 600"
 			"bonus_movement_speed_pct"
 			{
-				"value"					"9 11 13 15 17 19 21"
-				"LinkedSpecialBonus"	"special_bonus_unique_doom_6"	
+				"value"					"7 8 9 10"
+					"special_bonus_unique_doom_6"	"+5"	
 			}
-			"duration"					"16"
+			"duration"					"10.0 12.0 14.0 16.0"
+			"heal_pct"				
+			{ 
+				"value"				"0"
+				"special_bonus_shard"		"+60"
+			}
 			"damage_per_hero"			"0"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -133,13 +157,13 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"AbilitySound"					"Hero_DoomBringer.InfernalBlade.Target"
-		"MaxLevel"						"7"
+		
         
 		"HasShardUpgrade"               "1"
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"4"
+		"AbilityCooldown"				"13 10 7 4"
 		"AbilityManaCost"				"40"
 		"AbilityCastRange"				"200"
 		"AbilityCastPoint"				"0.0 0.0 0.0 0.0"
@@ -150,7 +174,7 @@
 		{
 			"burn_damage"
 			{
-				"value"							"250 400 550 700 850 1000 1150"
+				"value"							"200 300 400 500"
 				"CalculateSpellDamageTooltip"	"1"
 				"special_bonus_unique_doom_1"	"+35%"
 			}
@@ -186,9 +210,9 @@
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PURE"
 		"FightRecapLevel"				"2"
-		"MaxLevel"						"6"
+		
 		"LevelsBetweenUpgrades"			"6"
-		"HasScepterUpgrade"			"1"
+		"HasScepterUpgrade"				"1"
 		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -198,7 +222,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"150 225 300 375 450 525"
+		"AbilityManaCost"				"150 225 300"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -206,225 +230,46 @@
 		{
 			"duration"				
 			{
-				"value"								"16.0"
-				"special_bonus_unique_doom_7"		"+3"
+				"value"												"12 14 16"
+				"special_bonus_facet_doom_bringer_impending_doom"	"+0"		// this is needed for facet tooltip to recognize that it's modifying this value
+				"dynamic_value"										"true"
 			}
-
 			"damage"
 			{
-				"value"								"300 500 700 900 1100 1300"
-				"special_bonus_unique_doom_5"		"+100%"
-				"CalculateSpellDamageTooltip"		"1"
-			}				
-			"deniable_pct"							"25 25 25"
+				"value"												"300 500 700"
+				"special_bonus_facet_doom_bringer_impending_doom"	"=300 =450 =600"
+				"CalculateSpellDamageTooltip"						"1"
+			}
+			"deniable_pct"											"25 25 25"
 			"AbilityCooldown"
 			{
-				"value"								"145"
-				"special_bonus_unique_doom_10"		"-35"
+				"value"												"140 130 120"
+				"special_bonus_unique_doom_10"						"-35"
 			}
 			"does_break"
 			{
-				"value"								"0"
-				"special_bonus_unique_doom_11"		"+1"
+				"value"												"0"
+				"special_bonus_unique_doom_11"						"+1"
 			}
 			"scepter_aura_radius"
 			{
-				"value"								"0"
-				"special_bonus_scepter"				"+325"
+				"value"												"0"
+				"special_bonus_scepter"								"+325"
 			}
-			
-		}
-	}
-	"special_bonus_unique_doom_1"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
+			"applies_dispel_to_self"
 			{
-				"var_type"					"FIELD_FLOAT"
-				"value"						"0.35"
-				"ad_linked_abilities"		"doom_bringer_infernal_blade"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+				"special_bonus_scepter"								"0"
 			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_doom_2"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
+			"upgrade_interval"
 			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"0"
-				"ad_linked_abilities"			"doom_bringer_devour"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+				"value"												"0.0"
+				"special_bonus_facet_doom_bringer_impending_doom"	"=6.66"
 			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_doom_3"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_doom_4"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
+			"upgrade_amount"
 			{
-				"var_type"					"FIELD_INTEGER"
-				"value"						"50"
-				"ad_linked_abilities"			"doom_bringer_scorched_earth"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
+				"value"												"0.0"
+				"special_bonus_facet_doom_bringer_impending_doom"	"+0.66"
 			}
 		}
 	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_doom_5"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"BaseClass"						"special_bonus_base"
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_doom_6"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"10"
-				"ad_linked_abilities"			"doom_bringer_scorched_earth"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_doom_7"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"BaseClass"						"special_bonus_base"
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_doom_8"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"0"
-				"ad_linked_abilities"			"doom_bringer_scorched_earth"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_doom_9"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"12"
-				"ad_linked_abilities"			"doom_bringer_scorched_earth"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_doom_10"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"BaseClass"						"special_bonus_base"
-	}
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_doom_11"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"BaseClass"						"special_bonus_base"
-	}	
 }

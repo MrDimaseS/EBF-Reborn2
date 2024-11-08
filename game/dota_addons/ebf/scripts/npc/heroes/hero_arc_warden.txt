@@ -15,7 +15,7 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_ArcWarden.Flux.Target"
-		"MaxLevel"						"7"
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -27,7 +27,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"75 115 150 190 225 265 300"
+		"AbilityManaCost"				"75"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -41,24 +41,37 @@
 			
 			"damage_per_second"				
 			{
-				"value"									"150 300 450 600 750 900 1050"
+				"value"									"150 300 450 600"
 				"special_bonus_unique_arc_warden_2"		"+75%"
 				"CalculateSpellDamageTooltip"			"1"
 			}
 			"tempest_damage_per_second"				
 			{
-				"value"									"200 450 700 950 1100 1250 1400"
+				"value"									"200 450 700 950"
 				"special_bonus_unique_arc_warden_2"		"+100%"
 				"CalculateSpellDamageTooltip"			"1"
 			}
 			"search_radius"								"225"
 			"think_interval"							"0.5"
-			"move_speed_slow_pct"						"14 21 28 35 42 49 56"
-			"tempest_move_speed_slow_pct"				"6 10 14 18 22 26 30"
+			"move_speed_slow_pct"				
+			{
+				"value" 					"15 22 30 39"
+				"RequiresFacet"				"arc_warden_order"
+			}
+			"tempest_move_speed_slow_pct"
+			{
+				"value"						"5 8 11 14"
+				"RequiresFacet"				"arc_warden_disorder"
+			}
 			"AbilityCastRange"			
 			{
-				"value"									"500 600 700 800 900 1000 1100"
-				"special_bonus_unique_arc_warden_5"		"+175"
+				"value"									"500 600 700 800"
+				"special_bonus_unique_arc_warden_5"		"+200"
+			}
+			"applies_silence"
+			{
+				"value"					"0"
+				"special_bonus_unique_arc_warden_flux_silences"			"1"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -75,7 +88,6 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_ArcWarden.MagneticField.Cast"
-
         "HasShardUpgrade"               "1"
 
 		// Casting
@@ -83,15 +95,10 @@
 		"AbilityCastAnimation"			"ACT_DOTA_AW_MAGNETIC_FIELD"
 		"AbilityCastGestureSlot"		"DEFAULT"
 		"AbilityCastPoint"				"0.3"
-		"MaxLevel"						"7"
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"20"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"50 110 170 230 290 350 410"
+		"AbilityManaCost"				"50 70 90 110"
 		
 		// Cast Range
 		//-------------------------------------------------------------------------------------------------------------
@@ -120,12 +127,12 @@
 			}			
 			"duration"					
 			{
-				"value"						"3.5 4.5 5.5 6.5 7.5 8.5 9.5"
+				"value"						"4 5 6 7"
 				"RequiresFacet"				"arc_warden_order"
 			}
 			"attack_speed_bonus"		
 			{
-				"value" 					"50 60 70 80 90 100 110"
+				"value" 					"30 60 90 120"
 				"special_bonus_unique_arc_warden_3" 		"+20"
 				"RequiresFacet"				"arc_warden_order"
 			}
@@ -137,7 +144,7 @@
 
 			"tempest_duration"
 			{
-				"value"					"5 6 7 8 9 10 11"
+				"value"					"4 5 6 7"
 				"RequiresFacet"			"arc_warden_disorder"
 			}
 
@@ -149,19 +156,20 @@
 
 			"attack_damage_bonus"
 			{
-				"value"										"200 400 600 800 1000 1200 1400"
+				"value"										"200 400 600 800"
+				"CalculateAttackDamageTooltip"				"1"
 				"special_bonus_unique_arc_warden_3" 		"+250"
 				"RequiresFacet"								"arc_warden_disorder"
 			}
-
 			"attack_magic_damage"				
 			{
-				"value"										"200 400 600 800 1000 1200 1400"
+				"value"										"200 400 600 800"
+				"CalculateSpellDamageTooltip"				"1"
 				"special_bonus_unique_arc_warden_3" 		"+200"
 			}			
 			"AbilityCooldown"
 			{
-				"value"										"17"
+				"value"										"20 19 18 17"
 				"special_bonus_unique_arc_warden_9"			"-7"
 			}
 			"affects_buildings"
@@ -187,7 +195,7 @@
 
 		"AbilityCastRange"				"2000"
 		"AbilityCastPoint"				"0.3"
-		"MaxLevel"						"7"
+		
 
 		"HasScepterUpgrade"               "1"
 
@@ -197,36 +205,82 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"80 120 160 200 240 280 320"
+		"AbilityManaCost"				"80"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"radius"									"375"
+			"radius"									
+			{
+				"value"			"375"
+				"affected_by_aoe_increase"	"1"	
+			}
+			"duration"									"16"
+			"move_speed_slow_pct"						"100"
+
+			"base_activation_delay"							
+			{
+				"value"									"2.0"
+				"RequiresFacet"							"arc_warden_order"
+			}
 			"spark_damage_base"
 			{
 			
-				"value"									"1000 1800 2600 3400 4200 5000 5800"
-				"special_bonus_unique_arc_warden"		"+50%"
+				"value"									"1000 1800 2600 3400"
+				"CalculateSpellDamageTooltip"			"1"
+				"special_bonus_unique_arc_warden"		"+40%"
+				"RequiresFacet"			"arc_warden_order"
 			}
-			"base_activation_delay"						"2.0"
-			"wraith_speed_base"							"400"
-			"duration"									"45"
+
+			"wraith_speed_base"
+			{			
+				"value"									"400"
+				"RequiresFacet"							"arc_warden_order"
+			}
+
+			"ministun_duration"							
+			{
+				"value"									"0.6 0.8 1.0 1.2"
+				"RequiresFacet"							"arc_warden_order"
+			}
+
+			"tempest_activation_delay"
+			{
+				"value"									"1.0"
+				"RequiresFacet"							"arc_warden_disorder"
+			}
+
 			"spark_damage_tempest"
 			{
 			
-				"value"									"750 1400 2050 2700 3350 4000 4650"
-				"special_bonus_unique_arc_warden"		"+50%"
-			}			
-			"tempest_activation_delay"					"1.0"
-			"wraith_speed_tempest"						"725"
+				"value"									"750 1400 2050 2700"
+				"CalculateSpellDamageTooltip"			"1"
+				"special_bonus_unique_arc_warden"		"+40%"
+				"RequiresFacet"							"arc_warden_disorder"
+			}
+
+			"wraith_speed_tempest"
+			{
+				"value"									"725"
+				"RequiresFacet"							"arc_warden_disorder"
+			}
+
+			"ministun_duration_tempest"
+			{
+
+				"value"									"0.4 0.5 0.6 0.7"
+				"RequiresFacet"							"arc_warden_disorder"
+			}
+					
 			"think_interval"							"0.2"
-			"wraith_vision_radius"						"300"
+			"wraith_vision_radius"						
+			{
+				"value"			"300"
+				"affected_by_aoe_increase"	"1"	
+			}
 			"wraith_vision_duration"					"3.34"
-			"ministun_duration"							"0.4 0.5 0.6 0.7 0.8 0.9 1.0"
-			"ministun_duration_tempest"					"0.6 0.8 1.0 1.2 1.4 1.6 1.8"
-			"move_speed_slow_pct"						"100"
+
 			"scepter_activation_delay"
 			{
 				"value"									"2.0"
@@ -241,6 +295,7 @@
 			{
 				"value"									"225"
 				"RequiresScepter"						"1"
+				"affected_by_aoe_increase"	"1"	
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
@@ -258,7 +313,7 @@
 		"FightRecapLevel"				"2"
 		"AbilitySound"					"Hero_ArcWarden.TempestDouble"
 		"HasScepterUpgrade"				"1"
-		"MaxLevel"						"6"
+		
 		"LevelsBetweenUpgrades"			"6"
 
 		// Casting

@@ -47,7 +47,7 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Venomancer.VenomousGale"
-		"MaxLevel"						"7"
+		
 		"HasShardUpgrade"				"1"
 
 
@@ -59,7 +59,7 @@
 		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"95 105 115 125 135 145 155"
+		"AbilityManaCost"				"95 105 115 125"
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -68,12 +68,12 @@
 			"duration"								"15.0"
 			"strike_damage"			
 			{
-				"value"								"250 500 750 1000 1250 1500 1750"
+				"value"								"250 500 750 1000"
 				"CalculateSpellDamageTooltip"		"1"
 			}
 			"tick_damage"			
 			{
-				"value"								"100 400 700 1000 1300 1600 1900"
+				"value"								"100 400 700 1000"
 				"CalculateSpellDamageTooltip"		"1"
 			}
 			"tick_interval"							"3.0"
@@ -91,7 +91,7 @@
 			}
 			"AbilityCooldown"
 			{
-				"value"								"18"
+				"value"								"21 20 19 18"
 				"special_bonus_unique_venomancer_3"	"-5"
 			}
 			"AbilityCastRange"
@@ -101,11 +101,12 @@
 			}
 			"explosion_damage"		
 			{
-				"special_bonus_shard"	"300"
+				"special_bonus_shard"				"3000"
+				"CalculateSpellDamageTooltip"		"1"
 			}
 			"explosion_stun_duration"	
 			{
-				"special_bonus_shard"	"1.6"
+				"special_bonus_shard"				"1.6"
 			}
 		}
 	}
@@ -122,21 +123,21 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
-		"MaxLevel"						"7"
+		
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"															"15"
+			"duration"															"6 9 12 15"
 			"damage"
 			{
-				"value"															"60 140 220 300 380 560 640"
+				"value"															"80 160 240 320"
 				"CalculateSpellDamageTooltip"									"1"
 			}
 			"movement_speed"
 			{
-				"value"															"-6 -9 -12 -15 -18 -21 -24"
+				"value"															"-8 -10 -12 -14"
 				"special_bonus_unique_venomancer_2"								"-8"
 			}	
 			"hp_regen_reduction"
@@ -158,39 +159,41 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"AbilitySound"					"Hero_Venomancer.Plague_Ward"
-		"MaxLevel"						"7"
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"850"
 		"AbilityCastPoint"				"0.0 0.0 0.0 0.0"
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"5.0"
 		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"21 24 27 30 33 36 39"
+		"AbilityManaCost"				"24 26 28 30"
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"AbilityCooldown"
+			{
+				"value"											"5.0"
+				"special_bonus_unique_venomancer_8"				"-1"
+			}
 			"can_target"
 			{
 				"value"											"0"
 				"special_bonus_facet_venomancer_plague_carrier"	"=1"
 			}
-			"duration"
-			{
-				"value"											"40.0"
-				"LinkedSpecialBonus"							"special_bonus_unique_venomancer_7"
-			}
+			"duration"											"40.0"
 			"ward_multiplier"
 			{
 				"value"											"1.0"
 				"special_bonus_unique_venomancer"				"x2.5"
+			}
+			"max_charges"
+			{
+				"value"			"0"
+				"special_bonus_facet_venomancer_plague_carrier"	"=3"
 			}
 			"ward_model_scale"
 			{
@@ -210,8 +213,17 @@
 			}
 			"threshold"							
 			{
-				"value"											"100 150 200 250"
+				"value"											"1000 1500 2000 2500"
+				"CalculateAttributeTooltip"						"1"
 				"special_bonus_unique_venomancer"				"x2.5"
+				"RequiresFacet"									"venomancer_plague_carrier"
+
+			}
+			"threshold_max_hp_pct"							
+			{
+				"value"											"1 1.5 2 2.5"
+				"special_bonus_unique_venomancer" 				"x2.5"
+				"RequiresFacet"									"venomancer_plague_carrier"				
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
@@ -231,13 +243,13 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"AbilitySound"					"Hero_Venomancer.PoisonNova"
 		"FightRecapLevel"				"1"
-		"MaxLevel"						"6"
+		
 		"LevelsBetweenUpgrades"			"6"
 
 		"LinkedAbility"					"venomancer_latent_poison"
 		// Time
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"80"
+		"AbilityCooldown"				"100 90 80"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -247,14 +259,14 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"200 300 400 500 600 700"
+		"AbilityManaCost"				"200 300 400"
 
 		"AbilityValues"
 		{
 			"debuff_duration"			"5"
 			"impact_damage"
 			{
-				"value"								"2000 3000 4000 5000 6000 7000"
+				"value"								"2000 3000 4000"
 				"CalculateSpellDamageTooltip"		"1"
 			}
 			"health_damage"
@@ -281,188 +293,5 @@
 			}
 			"projectile_speed"			"1200"		
 		}
-	}
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_venomancer"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"2.5"
-				"ad_linked_abilities"			"venomancer_plague_ward"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_venomancer_2"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"BaseClass"						"special_bonus_base"
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_venomancer_3"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"BaseClass"						"special_bonus_base"
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_venomancer_4"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"5.0"
-				"ad_linked_abilities"			"venomancer_poison_nova"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_venomancer_5"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"2"
-				"ad_linked_abilities"			"venomancer_poison_nova"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_venomancer_6"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"640"
-				"ad_linked_abilities"			"venomancer_poison_nova"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_venomancer_7"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"15"
-				"ad_linked_abilities"			"venomancer_plague_ward"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_venomancer_8"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"1"
-				"ad_linked_abilities"			"venomancer_plague_ward"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_venomancer_poisonsting_regen_reduction"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"BaseClass"						"special_bonus_base"
-	}
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_venomancer_gale_plagueward"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"BaseClass"						"special_bonus_base"
 	}
 }

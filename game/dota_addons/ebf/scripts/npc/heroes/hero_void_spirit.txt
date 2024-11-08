@@ -18,7 +18,7 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_VoidSpirit.AetherRemnant.Cast"
-		"MaxLevel"						"7"
+		
 		"HasShardUpgrade"				"1"
 
 		// Casting
@@ -28,7 +28,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"75 80 85 90 95 100 105"
+		"AbilityManaCost"				"75 80 85 90"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -69,17 +69,17 @@
 			"activation_delay"		"0.4"
 			"impact_damage"
 			{
-				"value"														"700 1200 1700 2200 2700 3200 3700"
+				"value"														"700 1200 1700 2200"
 				"special_bonus_unique_void_spirit_aether_remnant_damage"	"+25%"
 				"CalculateSpellDamageTooltip"								"1"
 			}
-			"pull_duration"			"2.0"
-			"pull_destination"		"44 50 56 62 68 74 80"
+			"pull_duration"			"1.0 1.2 1.4 1.6"
+			"pull_destination"		"44 50 56 62"
 			"duration"				"20.0"
 			"think_interval"		"0.1"
 			"AbilityCooldown"				
 			{
-				"value"							"7"
+				"value"							"17.0 15.0 13.0 11.0"
 				"special_bonus_shard"			"-2"
 			}
 			"shard_attack_rate_multiplier"
@@ -110,7 +110,7 @@
 		//"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_VoidSpirit.Dissimilate.Cast"
-		"MaxLevel"						"7"
+		
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -118,11 +118,11 @@
 
 		// Time
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"11"
+		"AbilityCooldown"				"20 17 14 11"
 
 		// Damage
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"1000 1800 2600 3400 4200 5000 5800"
+		"AbilityDamage"					"1200 2000 2800 3600"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -134,7 +134,7 @@
 		{
 			"AbilityDamage"
 			{
-				"value"									"1000 1800 2600 3400 4200 5000 5800"
+				"value"									"1200 2000 2800 3600"
 				"CalculateSpellDamageTooltip"			"1"
 			}
 			"phase_duration"												"1.3"
@@ -180,7 +180,7 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_VoidSpirit.Pulse.Cast"
 		"HasScepterUpgrade"				"1"
-		"MaxLevel"						"7"
+		
 	
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -195,7 +195,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"115 120 125 130 135 140 145"
+		"AbilityManaCost"				"115 120 125 130"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -205,24 +205,25 @@
 			"speed"													"1200"
 			"damage"
 			{
-				"value"												"670 960 1325 2375 4600 7535 11915"
+				"value"												"600 1050 1500 1950"
 				"special_bonus_unique_void_spirit_4"				"+150%"
 				"CalculateSpellDamageTooltip"						"1"
 			}			
 			"buff_duration"											"10.0"
 			"base_absorb_amount"
 			{
-				"value"												"400 800 1200 1600 2000 2400 2800"
+				"value"												"250 500 750 1000"
 				"CalculateSpellHealTooltip"							"1"
-				"special_bonus_facet_void_spirit_phys_barrier"		"-100%"
-				"RequiresFacet"										"void_spirit_sanctuary"
 			}
 			"absorb_per_hero_hit"
 			{
-				"value"												"400 600 800 1000 1200 1400 1600"
+				"value"												"350 500 650 800"
 				"CalculateSpellHealTooltip"							"1"
-				"special_bonus_facet_void_spirit_phys_barrier"		"-100%"
-				"RequiresFacet"										"void_spirit_sanctuary"
+			}
+			"is_all_barrier"
+			{
+				"value"												"0"
+				"special_bonus_facet_void_spirit_sanctuary"			"+1"
 			}
 			"return_projectile_speed"	"900"
 			"AbilityCharges"		
@@ -262,7 +263,7 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_VoidSpirit.AstralStep.Start"
-		"MaxLevel"						"6"
+		
 		"LevelsBetweenUpgrades"			"6"
 
 		// Casting
@@ -284,27 +285,27 @@
 			"radius"									"170"
 			"AbilityChargeRestoreTime"	
 			{
-				"value"									"18"
-				"special_bonus_unique_void_spirit_1"	"-8"
+				"value"									"25 20 15"
+				"special_bonus_unique_void_spirit_1"	"-4"
 			}
 			"AbilityCharges"				
 			{
 				"value"									"2"
 				"special_bonus_unique_void_spirit_7"	"+1"
 			}
-			"min_travel_distance"	"200"
-			"max_travel_distance"	"800 900 1000 1100 1200 1300"
+			"min_travel_distance"						"200"
+			"max_travel_distance"						"800 900 1000 1100 1200 1300"
 			"pop_damage_delay"		
 			{
-				"value"	"1.25"
-				"DamageTypeTooltip"		"DAMAGE_TYPE_NONE"
+				"value"									"1.25"
+				"DamageTypeTooltip"						"DAMAGE_TYPE_NONE"
 			}
 			"pop_damage"
 			{
-				"value"							"2400 6690 17575 34760 39000 43320"
-				"CalculateSpellDamageTooltip"	"1"
+				"value"									"1300 2300 3300"
+				"CalculateSpellDamageTooltip"			"1"
 			}
-			"movement_slow_pct"		"40 60 80 85 90 95"
+			"movement_slow_pct"							"40 60 80"
 		}
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -335,178 +336,9 @@
 
 		"AbilityValues"
 		{
-			"secondary_stat_bonus_pct"	"33"
+			"secondary_stat_bonus_pct"	"25"
 		}
 	}
-	//=================================================================================================================
-	// Ability: Special Bonus Start
-	//=================================================================================================================
-	"special_bonus_unique_void_spirit_1"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-			// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus (Astral Step Cast Range)
-	//=================================================================================================================
-	"special_bonus_unique_void_spirit_2"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-			// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"						"FIELD_INTEGER"
-				"value"							"12500"
-				"ad_linked_abilities"			"void_spirit_aether_remnant"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus (Dissimilate Stuns)
-	//=================================================================================================================
-	"special_bonus_unique_void_spirit_3"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-			// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"value"					"1.75"
-				"ad_linked_abilities"		"void_spirit_dissimilate"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus (Pulse Damage)
-	//=================================================================================================================
-	"special_bonus_unique_void_spirit_4"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-			// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus (Larger Dissimilate Portals)
-	//=================================================================================================================
-	"special_bonus_unique_void_spirit_5"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-			// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"value"					"50" // bonus percent portal radius
-				"ad_linked_abilities"			"void_spirit_dissimilate"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_void_spirit_6"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-			// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"value"					"3" // (Astral Step Invis)
-				"ad_linked_abilities"		"void_spirit_astral_step"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus (Remnant provides truesight)
-	//=================================================================================================================
-	"special_bonus_unique_void_spirit_7"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-			// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"						"1"
-				"ad_linked_abilities"		"void_spirit_astral_step"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_void_spirit_8"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-			// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			"value"
-			{
-				"value"							"650"
-				"affected_by_crit_increase"		"1"
-			}
-		}
-	}
-
 	//=================================================================================================================
 	// Ability: Special Bonus
 	//=================================================================================================================

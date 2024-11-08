@@ -1,5 +1,80 @@
 "DOTAAbilities"
 {	
+	
+	//=================================================================================================================
+	// Medusa: Mana Shield
+	//=================================================================================================================
+	"medusa_mana_shield"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"		
+		"AbilitySound"					"Hero_Medusa.ManaShield.On"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"							"0.4 0.4 0.4 0.4"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"damage_per_mana"						"12"
+			"damage_per_mana_per_level"				"2.0"
+			"illusion_percentage"					"60"
+
+			"absorption_pct"						"98"
+			"damage_per_mana_total"
+			{
+				"dynamic_value"			"true"
+			}
+			
+			"aspd_increase_smoothness"						"0.015"
+			"aspd_increase_rate_pct"					
+			{
+				"value"										"0"
+				"special_bonus_facet_medusa_mana_pact"		"=3.55"
+
+			}
+			"aspd_increase_max_tooltip"
+			{
+				"value"										"0"
+				"special_bonus_facet_medusa_mana_pact"		"=35"
+			}
+			"aspd_increase_buff_duration"			
+			{
+				"value"										"0"
+				"special_bonus_facet_medusa_mana_pact"		"=15"
+
+			}			
+			"aspd_increase_mana_cost_pct"							
+			{
+				"value"										"0"
+				"special_bonus_facet_medusa_mana_pact"		"=3"
+
+			}			
+			"aspd_increase_max_aspd_time"						
+			{
+				"value"										"0"
+				"special_bonus_facet_medusa_mana_pact"		"=10"
+
+			}			
+			"attack_buff_cooldown"					
+			{
+				"value"										"0"
+				"special_bonus_facet_medusa_mana_pact"		"=35"
+
+			}			
+			"min_duration"							
+			{
+				"value"										"0"
+				"special_bonus_facet_medusa_mana_pact"		"=3"
+
+			}			
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
 	//=================================================================================================================
 	// Medusa: Cold Blooded ( shard ability )
 	//=================================================================================================================
@@ -39,7 +114,6 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_TOGGLE | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"		
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
-		"MaxLevel"						"7"
 		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -51,15 +125,19 @@
 		{
 			"damage_modifier"		
 			{
-				"value"							"-0.6 -0.45 -0.3 -0.15 -0.15 -0.15 -0.15"
-				"special_bonus_unique_medusa_2"	"+10"
+				"value"							"-60 -45 -30 -15"
+				"special_bonus_unique_medusa_2"	"+8"
 			}
 			"damage_modifier_tooltip"		
 			{	
-				"value"							"85"
-				"special_bonus_unique_medusa_2"	"+10"
+				"value"							"40 55 70 85"
+				"special_bonus_unique_medusa_2"	"+8"
 			}
-			"arrow_count"						"4 4 4 4 6 8 10"
+			"arrow_count"						"4"	
+			"process_procs"
+			{
+				"value"			"0"
+			}
 			"split_shot_bonus_range"			"150"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -77,7 +155,7 @@
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
-		"MaxLevel"						"7"
+		
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Medusa.MysticSnake.Cast"
 		
@@ -93,10 +171,10 @@
 			"AbilityCastPoint"							"0.2"
 			"AbilityCooldown"					
 			{
-				"value"									"10"
+				"value"									"15 14 13 12"
 				"special_bonus_unique_medusa_5"			"-3"
 			}
-			"AbilityManaCost"							"80 100 120 140 160 180 200"
+			"AbilityManaCost"							"80 100 120 140"
 			"radius"							
 			{
 				"value"									"450"
@@ -104,17 +182,17 @@
 			}
 			"snake_jumps"			
 			{
-				"value"									"3 4 5 6 7 8 9"
+				"value"									"3 4 5 6"
 				"special_bonus_unique_medusa_3"			"+2"
 			}
 			"jump_delay"								"0.25 0.25 0.25 0.25"
 			"snake_damage"					
 			{
-				"value"										"900 1500 2100 2700 3300 3900 4500"
+				"value"										"900 1500 2100 2700"
 				"special_bonus_unique_medusa_snake_damage"	"+15%"
 				"CalculateSpellDamageTooltip"				"1"
 			}
-			"snake_mana_steal"							"14 15 16 17 18 19 20"
+			"snake_mana_steal"							"14 15 16 17"
 			"snake_scale"								"35"
 			"initial_speed"								"800"
 			"return_speed"								"800"
@@ -148,90 +226,66 @@
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
-	
 	//=================================================================================================================
-	// Medusa: Mana Shield
+	// Medusa: Gorgon's Grasp
 	//=================================================================================================================
-	"medusa_mana_shield"
+	"medusa_gorgon_grasp"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"		
-		"AbilitySound"					"Hero_Medusa.ManaShield.On"
-		"MaxLevel"						"8"
-		"RequiredLevel"					"-1"
-		"Innate"						"1"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Ability.Torrent"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastPoint"							"0.4 0.4 0.4 0.4"
+		"AbilityCastRange"				"625"
+		"AbilityCastPoint"				"0.4"
+		
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"40 60 80 100"
+		"AbilityCooldown"				"30 27 24 21"
 
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityModifierSupportValue"	"0.5"	// applies 2 modifiers
+		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"damage_per_mana"		
+			"radius"
 			{
-				"value"										"4 4.8 5.6 6.4 7.2 8.0 8.8 9.6"
-				"special_bonus_unique_medusa_6"				"+1.9"
-				"CalculateSpellHealTooltip"					"1"
+				"value"					"150"
+				"affected_by_aoe_increase"	"1"
 			}
 
-			"illusion_damage_per_mana"
+			"radius_grow"				"50"
+
+			"delay"						"1"
+			"volley_interval"			".25"
+			"volley_spread_pct"			"170"
+			"volley_count"				
 			{
-				"value"										"1 1.4 1.8 2.2 2.6 3.0 3.4"
-				"special_bonus_unique_medusa_6"				"+1"
-				"CalculateSpellHealTooltip"					"1"
+				"value"					"3"
+				"special_bonus_special_bonus_unique_medusa_gorgons_grasp_volleys"			"1"
 			}
-			"absorption_pct"								"95"
-			
-			"aspd_increase_smoothness"						"0.015"
-			"aspd_increase_rate_pct"					
-			{
-				"value"										"0"
-				"special_bonus_facet_medusa_mana_pact"		"=3"
 
+			"duration"							"0.8 1.2 1.6 2.0"
+			"damage"
+			{
+				"value"							"300 700 1100 1500"
+				"CalculateSpellDamageTooltip"	"1"
 			}
-			"aspd_increase_max_tooltip"
-			{
-				"value"										"0"
-				"special_bonus_facet_medusa_mana_pact"		"=30"
-			}
-			"aspd_increase_buff_duration"			
-			{
-				"value"										"0"
-				"special_bonus_facet_medusa_mana_pact"		"=15"
-
-			}			
-			"aspd_increase_mana_cost_pct"							
-			{
-				"value"										"0"
-				"special_bonus_facet_medusa_mana_pact"		"=4"
-
-			}			
-			"aspd_increase_max_aspd_time"						
-			{
-				"value"										"0"
-				"special_bonus_facet_medusa_mana_pact"		"=10"
-
-			}			
-			"attack_buff_cooldown"					
-			{
-				"value"										"0"
-				"special_bonus_facet_medusa_mana_pact"		"=35"
-
-			}			
-			"min_duration"							
-			{
-				"value"										"0"
-				"special_bonus_facet_medusa_mana_pact"		"=3"
-
-			}			
-		}
+			"damage_pers"				"100"
+			"damage_interval"			".2"
+		}		
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
-
 	//=================================================================================================================
 	// Medusa: Stone Gaze
 	//=================================================================================================================
@@ -244,7 +298,7 @@
 		//"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
-		"MaxLevel"						"6"
+		
 		"LevelsBetweenUpgrades"			"6"
 		"FightRecapLevel"				"2"
 		"AbilitySound"					"Hero_Medusa.StoneGaze.Cast"
@@ -262,117 +316,32 @@
 		"AbilityValues"
 		{
 			"AbilityCastRange"					"1200"
-			"AbilityCooldown"					"90"
-			"AbilityManaCost"					"150"
+			"AbilityCooldown"					
+			{
+				"value"							"90"
+				"special_bonus_unique_medusa_stone_gaze_cooldown"							"-50%"
+			}
+			"AbilityManaCost"				
+			{
+				"value"							"200"
+				"special_bonus_unique_medusa_stone_gaze_cooldown"							"-50%"
+			}
 			"radius"							"1200"
 			"duration"
 			{
-				"value"							"6"
+				"value"							"5 5.5 6"
 				"special_bonus_unique_medusa"	"+2"
 			}
 			"slow"								"35"
-			"stone_duration"					"3.0"
+			"stone_duration"					"2 2.2 2.4"
 			"face_duration"						"2.0"
 			"vision_cone"						"0.08715"		// 85 degree cone
 			"bonus_physical_damage"
 			{
-				"value"							"40 45 50 55 60 65"
+				"value"							"35 45 55"
 				"DamageTypeTooltip"				"DAMAGE_TYPE_PHYSICAL"
 			}
 			"speed_boost"						"50"
 		}
-	}
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_medusa"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"ad_linked_abilities"			"medusa_stone_gaze"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_medusa_2"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"ad_linked_abilities"			"medusa_split_shot"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_medusa_3"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"ad_linked_abilities"			"medusa_mystic_snake"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_medusa_4"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"1"
-				"ad_linked_abilities"			"medusa_split_shot"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_medusa_5"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"1.5"
-				"ad_linked_abilities"			"medusa_mystic_snake"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_medusa_6"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"ad_linked_abilities"			"medusa_mana_shield"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-		"BaseClass"						"special_bonus_base"
 	}
 }

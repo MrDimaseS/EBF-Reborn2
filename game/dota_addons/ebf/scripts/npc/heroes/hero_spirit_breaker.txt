@@ -13,7 +13,7 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"FightRecapLevel"				"1"
-		"MaxLevel"						"7"
+		
 
 		"AbilitySound"					"Hero_Spirit_Breaker.ChargeOfDarkness"
 		"HasShardUpgrade"				"1"
@@ -22,16 +22,10 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.1"
 		"AbilityCastRange"				"0"
-
-		// Time		
-
+		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"120"
-
-		// Stats
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityModifierSupportValue"	".30" // applies multiple modifiers
+		"AbilityManaCost"				"90 100 110 120"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -39,10 +33,10 @@
 		{
 			"movement_speed"		
 			{
-				"value"				"275 325 375 425 475 525 575"
+				"value"				"275 325 375 425"
 				"special_bonus_unique_spirit_breaker_4" "+200"
 			}
-			"stun_duration"			"2.1"
+			"stun_duration"			"1.2 1.5 1.8 2.1"
 			"bash_radius"			
 			{
 				"value"			"300 300 300 300"
@@ -56,7 +50,7 @@
 			"vision_duration"		"0.94 0.94 0.94 0.94"
 			"AbilityCooldown"				
 			{
-				"value"										"13"
+				"value"										"22 19 16 13"
 				"special_bonus_unique_spirit_breaker_4"		"-4"
 			}
 			"out_of_world_time"		"0"
@@ -99,26 +93,25 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Spirit_Breaker.EmpoweringHaste.Cast"
-		"MaxLevel"						"7"
-
+		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"30 40 50 60 70 80 90"
+		"AbilityManaCost"				"30 40 50 60"
 
 		
 		"AbilityValues"
 		{
 			"AbilityCooldown"
 			{
-				"value"						"22 20 18 16 14.6 13.2 11.8"
+				"value"						"22 20 18 16"
 				"special_bonus_unique_spirit_breaker_2"	"-4"
 			}
-			"movement_speed"				"10 15 20 25 30 35 40"
-			"status_resistance"				"35 45 55 65 75 85 95"
+			"movement_speed"				"8 12 16 20"
+			"status_resistance"				"40 50 60 70"
 			"duration"						"8"
 			"damage_barrier"
 			{
-				"value"											"1000 2000 3000 4000 5000 6000 7000"
+				"value"											"1000 2000 3000 4000"
 				"special_bonus_unique_spirit_breaker_shield"	"+100%"
 				"CalculateSpellHealTooltip"						"1"
 			}
@@ -138,7 +131,7 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
 		"AbilitySound"					"Hero_Spirit_Breaker.GreaterBash"
-		"MaxLevel"						"7"
+		
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
@@ -160,11 +153,11 @@
 			}
 			"damage"					
 			{
-				"value"									"250 300 350 400 450 500 550"
+				"value"									"250 300 350 400"
 				"special_bonus_unique_spirit_breaker_3" "+250"
 				"CalculateSpellDamageTooltip"			"1"
 			}
-			"duration"									"1.5"
+			"duration"									"0.9 1.1 1.3 1.5"
 			"knockback_duration"						"0.5"
 			"knockback_distance"						"50"
 			"knockback_height"							"50"
@@ -192,7 +185,7 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"FightRecapLevel"				"2"
 		"AbilitySound"					"Hero_Spirit_Breaker.NetherStrike.Begin"
-		"MaxLevel"						"6"
+		
 		"LevelsBetweenUpgrades"			"6"
 
 		"AbilityDraftUltShardAbility"   "spirit_breaker_planar_pocket"
@@ -207,7 +200,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"125 150 175 200 225 250"
+		"AbilityManaCost"				"125 150 175"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -215,13 +208,13 @@
 		{
 			"damage"				
 			{
-				"value"													"1500 2500 3500 4500 5500 6500"
+				"value"													"1500 2500 3500"
 				"CalculateSpellDamageTooltip"							"1"
 			}
 			"fade_time"													"1.0 1.0 1.0"
 			"AbilityCooldown"					
 			{
-				"value"													"50"
+				"value"													"75 55 35"
 				"special_bonus_unique_spirit_breaker_nether_strike_cd"	"-50%"
 			}
 			"shard_bonus_damage"	
@@ -297,96 +290,6 @@
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_5"
 		"AbilityCastGestureSlot"		"DEFAULT"
-	}
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_spirit_breaker_1"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"10"
-				"ad_linked_abilities"			"spirit_breaker_greater_bash"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_spirit_breaker_2"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"4"
-				"ad_linked_abilities"			"spirit_breaker_bulldoze"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_spirit_breaker_3"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"						"2500"
-				"ad_linked_abilities"			"spirit_breaker_greater_bash"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-		//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_spirit_breaker_4"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"175"
-				"ad_linked_abilities"			"spirit_breaker_charge_of_darkness"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
 	}
 	//=================================================================================================================
 	// Ability: Special Bonus

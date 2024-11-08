@@ -47,7 +47,7 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
-		"MaxLevel"						"7"
+		
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Slark.DarkPact.Cast"
 
@@ -59,7 +59,7 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"6"
+		"AbilityCooldown"				"9.0 8.0 7.0 6.0"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -78,7 +78,7 @@
 			}
 			"total_damage"
 			{
-				"value"							"750 1500 2500 3000 3750 4500 5250"
+				"value"							"750 1500 2500 3000"
 				"special_bonus_unique_slark_2"	"+25%"
 				"CalculateSpellDamageTooltip"	"1"
 			}
@@ -102,7 +102,7 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
-		"MaxLevel"						"7"
+		
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Slark.Pounce.Cast"
 		"HasScepterUpgrade"				"1"
@@ -134,7 +134,7 @@
 			}
 			"leash_duration"		
 			{
-				"value"							"3.25"
+				"value"							"2.5 2.75 3 3.25"
 				"LinkedSpecialBonus"			"special_bonus_unique_slark"
 			}
 			"leash_slow"						"-80"
@@ -145,19 +145,19 @@
 			}
 			"AbilityCooldown"				
 			{
-				"value"							"22 18 14 10 8.2 6.4 4.6"
+				"value"							"24 20 16 12"
 				"special_bonus_scepter"			"=0"
 			}
 			"AbilityChargeRestoreTime"				
 			{
-				"value"							"22 18 14 10 8.2 6.4 4.6"
+				"value"							"24 20 16 12"
 				"special_bonus_scepter"			"-50%"
 			}
 			"leash_radius"						""
 			"essence_stacks"
 			{
 				"value"										"0"
-				"special_bonus_facet_slark_leeching_leash"	"+4"				
+				"special_bonus_facet_slark_leeching_leash"	"1 2 3 4"		
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -176,7 +176,7 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
-		"MaxLevel"						"7"
+		
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -194,13 +194,13 @@
 				"value"							"1"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"debuff_armor"						"-1 -2 -3 -4 -5 -6 -7"
-			"debuff_slow"						"-12 -15 -18 -21 -24 -27 -30"
+			"debuff_armor"						"-1 -2 -3 -4"
+			"debuff_slow"						"-12 -15 -18 -21"
 			
 			"duration"
 			{
-				"value"							"20 25 30 35 40 45 50"
-				"special_bonus_unique_slark_4"	"+10"
+				"value"							"20 40 60 80"
+				"special_bonus_unique_slark_4"	"+40"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
@@ -218,7 +218,7 @@
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
-		"MaxLevel"						"6"
+		
 		"LevelsBetweenUpgrades"			"6"
 		"FightRecapLevel"				"2"
 		"AbilitySound"					"Hero_Slark.ShadowDance"
@@ -228,7 +228,7 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"75 60 45 40 35 30"
+		"AbilityCooldown"				"50 40 30"
 		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -240,8 +240,8 @@
 		{
 			"duration"					
 			{	
-				"value"							"4.5"
-				"LinkedSpecialBonus"			"special_bonus_unique_slark_3"
+				"value"							"4 4.25 4.5"
+				"special_bonus_unique_slark_3"	"+1.25"
 			}
 			"fade_time"							"0.0 0.0 0.0"
 			"bonus_attackspeed"			
@@ -258,22 +258,22 @@
 		"BaseClass"						"ability_lua"
 		"ScriptFile"					"heroes/hero_slark/slark_barracuda"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
-		"MaxLevel"						"7"
+		
 		"Innate"						"1"
 		"DependentOnAbility"			"slark_shadow_dance"
 
 		"AbilityValues"
 		{
-			"bonus_movement_speed"				"24 36 48 60 72 84"
+			"bonus_movement_speed"				"6 24 36 48"
 			"bonus_regen"			
 			{
-				"value"							"100 600 900 1200 1500 1800 2100"
+				"value"							"100 700 1000 1300"
 				"special_bonus_unique_slark_8"	"+500"
 				"CalculateSpellHealTooltip"		"1"
 			}
 			"linger_duration"
 			{
-				"special_bonus_facet_slark_dark_reef_renegade" "0.5 1 1.5 2 2.5 3.0 3.5"
+				"special_bonus_facet_slark_dark_reef_renegade" "1.5 2 2.5 3"
 			}
 			"activation_delay"			"0.5"
 			"neutral_disable"			"2.0"

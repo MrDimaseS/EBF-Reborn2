@@ -1,5 +1,33 @@
 "DOTAAbilities"
-{	
+{
+	//=================================================================================================================
+	// Gyrocopter: Innate Disassemble anything
+	//=================================================================================================================
+	"gyrocopter_sidegunner"
+	{
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_gyrocopter/gyrocopter_sidegunner"
+		"AbilityTextureName"			"gyrocopter_sidegunner"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"IsBreakable"					"1"
+
+		"MaxLevel"						"4"
+		"Innate"						"1"
+		"DependentOnAbility"			"gyrocopter_call_down"
+		
+		"precache"
+		{
+			"particle"						"particles/econ/items/wraith_king/wraith_king_ti6_bracer/wraith_king_ti6_hellfireblast_explosion.vpcf"
+		}
+		
+		"AbilityValues"
+		{
+			"fire_rate"						"1.8 1.6 1.4 1.2"
+			"explosion_damage"				{"special_bonus_facet_gyrocopter_secondary_strikes"	"150 450 750 1050"}
+			"explosion_radius"				{"special_bonus_facet_gyrocopter_secondary_strikes"	"450"}
+			"fire_rate_reduction_on_attack"	{"special_bonus_facet_gyrocopter_afterburner"	"0.1"}
+		}
+	}
 	//=================================================================================================================
 	// Gyrocopter: Rocket Barrage
 	//=================================================================================================================
@@ -7,50 +35,43 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_gyrocopter/gyrocopter_rocket_barrage"
+		"AbilityTextureName"			"gyrocopter_rocket_barrage"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		
 		"FightRecapLevel"				"1"
-
-
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"0"
-		"AbilityCastPoint"				"0"
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"5.5"
-		"AbilityDuration"				"3"
-
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"75 80 85 90 95 100 105"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{	
-			"radius"											"400"
-			"rockets_per_second"								"10"
+			"AbilityCastRange"										"0"
+			"AbilityCastPoint"										"0"
+			"AbilityCooldown"										"7.0 6.5 6 5.5"
+			"AbilityManaCost"										"75 80 85 90"
+			"AbilityDuration"										"3"
+			"radius"
+			{
+				"value"												"400"
+				"special_bonus_facet_gyrocopter_secondary_strikes"	"+200"
+				"CalculateSpellDamageTooltip"						"1"
+			}
+			"rockets_per_second"									"10"
 			"rocket_damage"
 			{
-				"value"											"80 140 200 260 320 380 440"
-				"special_bonus_unique_gyrocopter_3"				"+50%"
-				"CalculateSpellDamageTooltip"					"1"
+				"value"												"80 140 200 260"
+				"special_bonus_facet_gyrocopter_secondary_strikes"	"+40"
+				"special_bonus_unique_gyrocopter_3"					"+50%"
+				"CalculateSpellDamageTooltip"						"1"
 			}
-			"bonus_movement_speed"
-			{
-				"value"											"0"
-				"special_bonus_unique_gyrocopter_4"				"+30"
-			}
-			"bonus_movement_speed_per_hit"
-			{
-				"value"											"0 0 0 0"
-				"special_bonus_facet_gyrocopter_afterburner"	"=1 =2 =3 =4 =5 =6 =7"					
-			}
+			"bonus_movement_speed"									{"special_bonus_unique_gyrocopter_4"	"+30"}
+			"bonus_movespeed_duration"								{"special_bonus_facet_gyrocopter_afterburner"	"=4.0"}
+			"bonus_movement_speed_per_hit"							{"special_bonus_facet_gyrocopter_afterburner"	"1 2 3 4"}
+			"attack_damage_penalty"									{"special_bonus_facet_gyrocopter_afterburner"	"25"}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}	
@@ -62,78 +83,73 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_gyrocopter/gyrocopter_homing_missile"
+		"AbilityTextureName"			"gyrocopter_homing_missile"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
-		
 		"FightRecapLevel"				"1"
-		"HasShardUpgrade"               "1"
+		"HasShardUpgrade"               "0"
 
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"1050"
-		"AbilityCastPoint"				"0"
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"12"
-		
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"120 130 140 150 160 170 180"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"AbilityCastRange"				"1050"
+			"AbilityCastPoint"				"0"
+			"AbilityCooldown"				"30 24 18 12"
+			"AbilityManaCost"				"120 130 140 150"
 			"hits_to_kill_tooltip"			"3"
 			"tower_hits_to_kill_tooltip"	"6"
 			"stun_duration"
 			{
-				"value"					"3.0"
-				"LinkedSpecialBonus"	"special_bonus_unique_gyrocopter_6"
+				"value"					"1.3 1.7 2.1 2.5"
+				"special_bonus_unique_gyrocopter_6" "+0.3"
 			}
 			"attack_speed_bonus_pct"	"400 400 400 400"
 			"hit_damage"
 			{
-				"value"					"900 1800 2700 3600 4500 5400 6300"
+				"value"					"900 1800 2700 3600"
 				"special_bonus_unique_gyrocopter_homing_missile_damage"		"+25%"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"pre_flight_time"			"2.5"
+			"max_distance"				"1500"
+			"pre_flight_time"
+			{
+				"value"								"2.5"
+				"special_bonus_facet_gyrocopter_afterburner"	"=0"
+			}
 			"hero_damage"				"2"
 			"speed"						"500"
 			"acceleration"				"15"
 			"enemy_vision_time"			"4"
 			"AbilityCharges"
 			{
-				"value"					""
-				"LinkedSpecialBonus"	"special_bonus_unique_gyrocopter_1"
+				"value"								""
+				"special_bonus_unique_gyrocopter_1"	"=2"
 			}
-			"shard_delay"
-			{
-				"value"									"1.0"
-				"RequiresShard"				"1"
-			}
-			"shard_radius"
-			{
-				"value"							"725"
-				"RequiresShard"				"1"
-			}				
+			
+			"barrage_delay"							{"special_bonus_facet_gyrocopter_secondary_strikes"	"1.0"}
+			"armor_reduction"						{"special_bonus_facet_gyrocopter_afterburner"	"-6"}
+			"reduction_duration"					{"special_bonus_facet_gyrocopter_afterburner"	"1.5 3 4.5 6"}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
-	
 	//=================================================================================================================
 	// Gyrocopter: Flak Cannon
 	//=================================================================================================================
-	"gyrocopter_flak_cannon"
+	"gyrocopter_flight_of_the_valkyrie"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_gyrocopter/gyrocopter_flight_of_the_valkyrie"
+		"AbilityTextureName"			"gyrocopter_flight_of_the_valkyrie"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
@@ -141,61 +157,79 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Gyrocopter.FlackCannon"
 		
-		"HasScepterUpgrade"				"1"
-
-		"AbilityCastPoint"				"0 0 0 0"
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"20"
-		
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"40 50 60 70 80 90 100"
-
-		//Duration
-		//-------------------------------------------------------------------------------------------------------------
-						
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"AbilityManaCost"												"40 50 60 70"
+			"AbilityCooldown"
+			{
+				"value"														"26 24 22 20"
+				"special_bonus_unique_gyrocopter_1"							"-5"
+			}
 			"AbilityDuration"
 			{
-				"value"								"12"
-				"special_bonus_unique_gyrocopter_2"	"x2"
+				"value"														"8"
+				"special_bonus_unique_gyrocopter_2"							"+3"
+			}
+			"spell_amp"
+			{
+				"value"														"10 20 30 40"
+				"special_bonus_unique_gyrocopter_flak_cannon_bonus_damage"	"+10"
+				"special_bonus_unique_gyrocopter_2"							"x2"
+			}
+			"bonus_movespeed"												"180"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
+	//=================================================================================================================
+	// Gyrocopter: Flak Cannon
+	//=================================================================================================================
+	"gyrocopter_flak_cannon"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_gyrocopter/gyrocopter_flak_cannon"
+		"AbilityTextureName"			"gyrocopter_flak_cannon"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_Gyrocopter.FlackCannon"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"AbilityManaCost"						"40 50 60 70"
+			"AbilityCooldown"
+			{
+				"value"								"26 24 22 20"
+				"special_bonus_unique_gyrocopter_1"	"-5"
+			}
+			"AbilityDuration"
+			{
+				"value"								"8"
+				"special_bonus_unique_gyrocopter_2"	"+3"
 			}
 			"radius"
 			{
-				"value"									"1000"
-				"LinkedSpecialBonus"			"special_bonus_unique_gyrocopter_4"
+				"value"								"1250"
+				"affected_by_aoe_increase"			"1"
 			}
-			"max_attacks"
-			{
-				"value"								"6 8 10 12 14 16 18"
-				"special_bonus_unique_gyrocopter_2"	"x2"
-			}
-			"projectile_speed"				"800"
+			"max_attacks"							""
+			"projectile_speed"						"800"
 			"bonus_damage"
 			{
 				"value"															"0"
 				"special_bonus_unique_gyrocopter_flak_cannon_bonus_damage"		"+1000"
 				"CalculateAttackDamageTooltip"									"1"
 			}
-			"fire_rate"	
-			{
-				"value"								"0.9 0.8 0.7 0.6 0.5 0.4 0.3"
-				"RequiresScepter"				"1"
-			}
-			"scepter_radius"
-			{
-				"value"							"700"
-				"RequiresScepter"				"1"
-			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
-	}	
-
+	}
 	//=================================================================================================================
 	// Gyrocopter: Call Down
 	//=================================================================================================================
@@ -203,31 +237,27 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_gyrocopter/gyrocopter_call_down"
+		"AbilityTextureName"			"gyrocopter_call_down"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_VECTOR_TARGETING"
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		
-		"LevelsBetweenUpgrades"			"6"
-		"FightRecapLevel"				"2"
 		"AbilitySound"					"Hero_Gyrocopter.CallDown.Fire"
-
-		
 		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.3 0.3 0.3"
 		"AbilityCastAnimation"			"ACT_INVALID"
-
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"150 200 250 300 350 400"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"AbilityManaCost"				"150 200 250"
 			"AbilityCastRange"				
 			{
 				"value"												"1000"
@@ -235,168 +265,39 @@
 			}
 			"AbilityCooldown"				
 			{
-				"value"												"60"
+				"value"												"90 75 60"
 				"special_bonus_unique_gyrocopter_5"					"-30"
 			}
 			"slow_duration"											"4"
 			"slow"													"50"
 			"damage"
 			{
-				"value"												"2500 4000 5500 7000 8500 10000"
+				"value"												"2500 4250 6000"
 				"special_bonus_unique_gyrocopter_call_down_damage"	"+25%"
 				"CalculateSpellDamageTooltip"						"1"
 			}					
 			"radius"
 			{
-				"value"			"400"
-				"affected_by_aoe_increase"	"1"
+				"value"												"400"
+				"affected_by_aoe_increase"							"1"
 			}
-			"missile_delay_tooltip"		"2"
-			"strike_delay"				"1.0"
-			"total_strikes"				"3"
-			"strike_separation"			"500"
+			"missile_delay_tooltip"									"2"
+			"strike_delay"				
+			{
+				"value"												"1.0"
+				"special_bonus_facet_gyrocopter_secondary_strikes"	"-0.2"
+			}
+			"total_strikes"											"3"
+			"strike_separation"										"500"
 			
 			"tracking_strike_radius"				
 			{
-				"value"							"0"
-				"special_bonus_facet_gyrocopter_secondary_strikes"			"+200"
-				"affected_by_aoe_increase"	"1"
+				"special_bonus_facet_gyrocopter_secondary_strikes"	"200"
+				"affected_by_aoe_increase"							"1"
 			}
-			"tracking_strike_delay"	
-			{
-				"value"				"0"
-				"special_bonus_facet_gyrocopter_secondary_strikes"			"+0.0"
-			}
-			"tracking_missile_damage"	
-			{
-				"value"				"0"
-				"special_bonus_facet_gyrocopter_secondary_strikes"			"=50"
-			}
-		}
-	}
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_gyrocopter_1"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"6"
-				"ad_linked_abilities"			"gyrocopter_flak_cannon"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_gyrocopter_2"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"4"
-				"ad_linked_abilities"			"gyrocopter_flak_cannon"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_gyrocopter_3"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_gyrocopter_4"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"300"
-				"ad_linked_abilities"			"gyrocopter_flak_cannon"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_gyrocopter_5"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"0"
-				"ad_linked_abilities"			"gyrocopter_call_down"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_gyrocopter_6"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"				"0.4"
-				"ad_linked_abilities"			"gyrocopter_homing_missile"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
+			"tracking_strike_delay"									{"special_bonus_facet_gyrocopter_secondary_strikes"	"+0.0"}
+			"tracking_missile_damage"								{"special_bonus_facet_gyrocopter_secondary_strikes"	"=50"}
+			"attack_damage_bonus"									{"special_bonus_facet_gyrocopter_afterburner"	"=100"}
 		}
 	}
 	//=================================================================================================================

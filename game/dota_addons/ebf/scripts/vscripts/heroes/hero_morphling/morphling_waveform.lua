@@ -48,7 +48,7 @@ function morphling_waveform:OnProjectileHitHandle(hTarget, vLocation, iProjectil
 		self:DealDamage(caster, hTarget, damage)
 		if IsEntitySafe( hTarget ) and hTarget:IsAlive() then
 			if pct_damage > 0 then
-				caster:PerformGenericAttack(hTarget, true, nil, 0, 100 + pct_damage )
+				caster:PerformGenericAttack(hTarget, true, {bonusDamagePct = 100 + pct_damage})
 			end
 			if debuff_duration > 0 then
 				hTarget:AddNewModifier( caster, self, "modifier_morphling_waveform_attack_slow", {duration = debuff_duration} )

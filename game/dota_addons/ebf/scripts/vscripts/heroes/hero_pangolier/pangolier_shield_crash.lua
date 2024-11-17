@@ -47,7 +47,7 @@ function pangolier_shield_crash:OnProjectileHit(hTarget, vLocation)
 		if swashbuckle and not hTarget:IsAttackImmune() and not hTarget:IsMagicImmune() then
 			EmitSoundOn("Hero_Pangolier.Swashbuckle.Damage", hTarget)
 			caster:AddNewModifier( caster, swashbuckle, "modifier_pangolier_swashbuckle_attack", {} )
-			caster:PerformAbilityAttack(hTarget, true, swashbuckle)
+			caster:PerformGenericAttack(hTarget, true, {ability = swashbuckle})
 			caster:RemoveModifierByName("modifier_pangolier_swashbuckle_attack")
 		end
 	end

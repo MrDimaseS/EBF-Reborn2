@@ -82,6 +82,7 @@
 #base "heroes/hero_nyx_assassin.txt"
 #base "heroes/hero_meepo.txt"
 #base "heroes/hero_monkey_king.txt"
+#base "heroes/hero_kez.txt"
 
 // INT
 #base "heroes/hero_bane.txt"
@@ -207,7 +208,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		
 		"BaseClass"						"ability_lua"
 		"ScriptFile"					"heroes/special_bonus_attributes"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
@@ -218,6 +218,41 @@
 		"AbilityValues"
 		{
 			"value"							"1 2 3 4 5 6 7 8 9 10"
+		}
+	}
+	"enemy_champion"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"bosses/enemy_champion"
+		"AbilityTextureName"			"creep_siege"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"MaxLevel"						"1"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"dmg_taken_per_player"		"100"
+		}
+	}
+	"enemy_minion"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"bosses/enemy_minion"
+		"AbilityTextureName"			"creep_irresolute"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"MaxLevel"						"1"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"dmg_taken_from_aoe"		"50"
+			"reduction_duration"		"1"
 		}
 	}
 	//=================================================================================================================

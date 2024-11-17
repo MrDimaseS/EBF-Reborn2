@@ -40,7 +40,7 @@ function void_spirit_astral_step:OnSpellStart()
 	for _, enemy in ipairs( caster:FindEnemyUnitsInLine( origin, position, self:GetSpecialValueFor("radius") * 2 ) ) do
 		enemy:AddNewModifier( caster, self, "modifier_void_spirit_astral_step_debuff", {duration = delay} )
 		local hp = enemy:GetHealth()
-		caster:PerformAbilityAttack(enemy, true, self)
+		caster:PerformGenericAttack(enemy, true, {ability = self})
 		if talent1 then
 			caster:HealEvent( hp * talent1Value, self, caster )
 		end

@@ -78,7 +78,7 @@ function item_conquerors_splint:ApplyReturn( attacker )
 	local caster = self:GetCaster()
 	
 	if self._triggeredProc then
-		caster:PerformGenericAttack( attacker, true, true, self._evaluatedBaseDamage, 0, true )
+		caster:PerformGenericAttack( attacker, true, {bonusDamage = self._evaluatedBaseDamage, suppressCleave = true})
 	else
 		self:DealDamage( caster, attacker, self._evaluatedBaseDamage, {damage_type = self:GetAbilityDamageType(), damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL + DOTA_DAMAGE_FLAG_REFLECTION} )
 	end

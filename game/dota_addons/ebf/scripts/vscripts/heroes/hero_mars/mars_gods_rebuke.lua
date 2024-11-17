@@ -52,7 +52,7 @@ function mars_gods_rebuke:Rebuke(source, position)
 		if not enemy:TriggerSpellAbsorb( self ) then
 			enemy:ApplyKnockBack(origin:GetAbsOrigin(), knockback_duration, knockback_duration, knockback_distance, 0, caster, self, false)
 			enemy:AddNewModifier( caster, self, "modifier_mars_gods_rebuke_slow", {duration = slow_duration} )
-			caster:PerformAbilityAttack(enemy, true, self, 0, false, true)
+			caster:PerformGenericAttack(enemy, true, {ability = self})
 		end
 	end
 

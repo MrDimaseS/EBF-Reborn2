@@ -34,7 +34,7 @@ function nevermore_shadowraze:OnSpellStart()
 				end
 			end
 			if self:GetSpecialValueFor("does_attack") ~= 0 then
-				caster:PerformGenericAttack(unit, true, false, damage)
+				caster:PerformGenericAttack(unit, true, {neverMiss = false, bonusDamage = damage})
 				-- deal some damage so that necromastery knows we razed
 				if base_triggers == triggers then self:DealDamage(caster, unit, 1) end
 			else

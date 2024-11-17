@@ -24,9 +24,6 @@ modifier_ogre_magi_dumb_luck_passive = class({})
 LinkLuaModifier("modifier_ogre_magi_dumb_luck_passive", "heroes/hero_ogre_magi/ogre_magi_dumb_luck", LUA_MODIFIER_MOTION_NONE)
 
 function modifier_ogre_magi_dumb_luck_passive:OnCreated()
-	self.multicast_chance_bonus_2 = {}
-	self.multicast_chance_bonus_3 = {}
-	self.multicast_chance_bonus_4 = {}
 	self:OnRefresh()
 end
 
@@ -37,8 +34,6 @@ function modifier_ogre_magi_dumb_luck_passive:OnRefresh()
 	self.str_for_benefit = self:GetSpecialValueFor("str_for_benefit")
 	self.mp_restore_per_str = self:GetSpecialValueFor("mp_restore_per_str") * (strength / self.str_for_benefit)
 	self.spell_amp_per_str = self:GetSpecialValueFor("spell_amp_per_str") * (strength / self.str_for_benefit)
-	
-	self.multicast = caster:FindAbilityByName("ogre_magi_multicast")
 	
 	if IsServer() then 
 		caster:CalculateGenericBonuses() 

@@ -61,7 +61,7 @@ function modifier_ogre_magi_multicast_passive:GetModifierOverrideAbilitySpecialV
 		or specialValue == "multicast_4_times" then
 			local flBaseValue = params.ability:GetLevelSpecialValueNoOverride( specialValue, params.ability_special_level )
 			if flBaseValue > 0 then
-				return math.min( 100, (1-flBaseValue/100) + (self.multicast_per_str * (self:GetCaster():GetStrength() / self.str_for_benefit) ) )
+				return math.min( 100, flBaseValue+(1-flBaseValue/100) + (self.multicast_per_str * (self:GetCaster():GetStrength() / self.str_for_benefit) ) )
 			end
 		end
 	end

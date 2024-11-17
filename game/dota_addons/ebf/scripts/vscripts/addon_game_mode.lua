@@ -604,8 +604,8 @@ end
 
 IGNORE_SPELL_AMP_KV = {
 	["jakiro_liquid_ice"] = {["pct_health_damage"] = true},
+	["jakiro_liquid_fire"] = {["pct_health_damage"] = true},
 	["sandking_caustic_finale"] = {["caustic_finale_damage_pct"] = true},
-	["morphling_adaptive_strike_agi"] = {["damage_min"] = true,["damage_max"] = true},
 	["bloodseeker_bloodrage"] = {["shard_max_health_dmg_pct"] = true},
 	["bloodseeker_rupture"] = {["hp_pct"] = true},
 	["abyssal_underlord_firestorm"] = {["burn_damage"] = true},
@@ -629,6 +629,26 @@ IGNORE_SPELL_AMP_KV = {
 	["item_bloodthorn_5"] = {["silence_damage_percent"] = true},
 	["pangolier_gyroshell"] = {["damage_pct"] = true},
 	["ringmaster_impalement"] = {["bleed_health_pct"] = true},
+	["kez_raptor_dance"] = {["max_health_damage_pct"] = true},
+}
+
+MAX_HP_DAMAGE = {
+	["jakiro_liquid_ice"] = {["pct_health_damage"] = 100},
+	["jakiro_liquid_fire"] = {["pct_health_damage"] = 100},
+	["bloodseeker_rupture"] = {["hp_pct"] = 100},
+	["abyssal_underlord_firestorm"] = {["burn_damage"] = 100},
+	["phoenix_sun_ray"] = {["hp_perc_damage"] = 100},
+	["venomancer_noxious_plague"] = {["health_damage"] = 100},
+	["enigma_midnight_pulse"] = {["damage_percent"] = 100},
+	["enigma_black_hole"] = {["scepter_pct_damage"] = 100},
+	["phantom_assassin_fan_of_knives"] = {["pct_health_damage_initial"] = 100},
+	["huskar_life_break"] = {["health_damage"] = -1},
+	["huskar_burning_spear"] = {["burn_damage_max_pct"] = 100 },
+	["winter_wyvern_arctic_burn"] = {["percent_damage"] = -100},
+	["elder_titan_earth_splitter"] = {["damage_pct"] = 100},
+	["ringmaster_impalement"] = {["bleed_health_pct"] = 100},
+	["kez_raptor_dance"] = {["max_health_damage_pct"] = 100},
+	["necrolyte_heartstopper_aura"] = {["aura_damage"] = 100},
 }
 
 -- spell_name = spell_amp_reduction (100 for no spell amp)
@@ -654,7 +674,7 @@ function CHoldoutGameMode:FilterModifiers( filterTable )
 end
 
 function CHoldoutGameMode:FilterAbilityValues( filterTable )
-	if self.preventLoopGarbage then return end
+	if self._abilityFilterPreventLoop then return end
     local caster_index = filterTable["entindex_caster_const"]
     local ability_index = filterTable["entindex_ability_const"]
 	if not caster_index or not ability_index then
@@ -663,13 +683,26 @@ function CHoldoutGameMode:FilterAbilityValues( filterTable )
 	local ability = EntIndexToHScript( ability_index )
     local caster = EntIndexToHScript( caster_index )
 	
-	if ability and IGNORE_SPELL_AMP_KV[ability:GetName()] and IGNORE_SPELL_AMP_KV[ability:GetName()][filterTable.value_name_const] then
+	if ability then
 		local value = filterTable.value
-		self.preventLoopGarbage = true
-		-- get the real ability value because valve hates me
-		local realValue = ability:GetSpecialValueFor(filterTable.value_name_const)
-		self.preventLoopGarbage = false
-		filterTable.value = realValue / ( 1+caster:GetSpellAmplification( false ) ) - (realValue-value)
+		local originalValue
+		local realValue
+		self._abilityFilterPreventLoop = true
+		if MAX_HP_DAMAGE[ability:GetAbilityName()] and MAX_HP_DAMAGE[ability:GetAbilityName()][filterTable.value_name_const] then
+			originalValue = originalValue or ability:GetSpecialValueFor(filterTable.value_name_const)
+			realValue = realValue or originalValue / HeroList:GetActiveHeroCount()
+			filterTable.value = realValue
+			-- ability._abilityNeedsToProcessMaxHP = filterTable.value_name_const
+		end
+		if IGNORE_SPELL_AMP_KV[ability:GetAbilityName()] and IGNORE_SPELL_AMP_KV[ability:GetAbilityName()][filterTable.value_name_const] then
+			originalValue = originalValue or ability:GetSpecialValueFor(filterTable.value_name_const)
+			realValue = realValue or originalValue
+			local talentBonuses = originalValue-value
+			-- get the real ability value because valve hates me
+			filterTable.value = -talentBonuses + realValue / ( 1+caster:GetSpellAmplification( false ) ) 
+			print( filterTable.value, filterTable.value_name_const, realValue, value, talentBonuses )
+		end
+		self._abilityFilterPreventLoop = false
 	end
 	return true
 end
@@ -909,15 +942,15 @@ function CHoldoutGameMode:OnHeroLevelUp(event)
 	local unit = EntIndexToHScript(event.hero_entindex)
 	local hero = PlayerResource:GetSelectedHeroEntity(playerID)
 	if hero == unit then
-		if hero:GetLevel() == 17 
-		or hero:GetLevel() == 19 
-		or hero:GetLevel() == 21
-		or hero:GetLevel() == 22
-		or hero:GetLevel() == 23
-		or hero:GetLevel() == 24
-		then
-			hero:SetAbilityPoints( hero:GetAbilityPoints() + 1)
-		end
+		-- if hero:GetLevel() == 17 
+		-- or hero:GetLevel() == 19 
+		-- or hero:GetLevel() == 21
+		-- or hero:GetLevel() == 22
+		-- or hero:GetLevel() == 23
+		-- or hero:GetLevel() == 24
+		-- then
+			-- hero:SetAbilityPoints( hero:GetAbilityPoints() + 1)
+		-- end
 		hero:RefreshAllIntrinsicModifiers()
 	end
 end

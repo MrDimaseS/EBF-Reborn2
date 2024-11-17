@@ -41,7 +41,7 @@ function bossManager:ProcessBossScaling(spawnedUnit)
 	local EHP_multiplier = 1 / currentRound._EHP_multiplier
 	
 	if GameRules._roundnumber > 1 then
-		HP_difficulty_multiplier = HP_difficulty_multiplier * ((1 + 0.85 * (GameRules._roundnumber-1) + (0.5 * (GameRules._roundnumber-1))*(GameRules._roundnumber-1) + math.exp(0.67 * math.log(GameRules._roundnumber-1)^2)))
+		HP_difficulty_multiplier = HP_difficulty_multiplier * ((1 + 0.65 * (GameRules._roundnumber-1) + (0.15 * (GameRules._roundnumber-1))*(GameRules._roundnumber-1) + math.exp(0.67 * math.log(GameRules._roundnumber-1)^2)))
 	end
 	
 	local DMG_MULTIPLIER = 1 + 0.1 * (GameRules._roundnumber-1) + math.max(0, 0.97*((GameRules._roundnumber-1)^2)-3.2*(GameRules._roundnumber-1) )
@@ -55,18 +55,7 @@ function bossManager:ProcessBossScaling(spawnedUnit)
 		DMG_MULTIPLIER = DMG_MULTIPLIER * 1.25
 	end
 	spawnedUnit.MaxEHP = HP_difficulty_multiplier*spawnedUnit:GetMaxHealth()
-	print( spawnedUnit.MaxEHP, HP_difficulty_multiplier, spawnedUnit:GetMaxHealth(), "ehp calc" )
 	
-	local currentReduction = spawnedUnit:GetPhysicalArmorMultiplier()
-	local newEHPReduction = currentReduction * EHP_multiplier
-	
-	local newArmor = spawnedUnit:GetPhysicalArmorBaseValue()
-	while currentReduction > newEHPReduction  do
-		newArmor = newArmor + 0.1
-		currentReduction = CalculatePhysicalArmorMultiplier( newArmor )
-	end
-	spawnedUnit:SetPhysicalArmorBaseValue( newArmor )
-	spawnedUnit:SetBaseMagicalResistanceValue( 100-(100-spawnedUnit:GetBaseMagicalResistanceValue())*EHP_multiplier )
 	self:NewGamePlusBoss(spawnedUnit)
 	-- if GetMapName() == "epic_boss_fight_boss_master" then 
 		-- if spawnedUnit:GetTeamNumber() == DOTA_TEAM_NEUTRALS then
@@ -122,6 +111,12 @@ function bossManager:ManageBossScaling(spawnedUnit)
 				spawnedUnit._healthBarDummy:SetHealthBarOffsetOverride( spawnedUnit:GetBaseHealthBarOffset() )
 				spawnedUnit._healthBarDummy:AddNewModifier(spawnedUnit, nil, "modifier_healthbar_dummy", {})
 				spawnedUnit:AddNewModifier(spawnedUnit, nil, "modifier_hide_healthbar", {})
+			end
+			if spawnedUnit.Holdout_IsCore and not spawnedUnit:HasAbility("enemy_champion") then
+				spawnedUnit:AddAbility("enemy_champion"):UpgradeAbility(true)
+			end
+			if not spawnedUnit.Holdout_IsCore and not spawnedUnit:HasAbility("enemy_minion") then
+				spawnedUnit:AddAbility("enemy_minion"):UpgradeAbility(true)
 			end
 			if spawnedUnit.hasBeenProcessed then
 				if not spawnedUnit:HasModifier("bossPowerScale") then

@@ -18,6 +18,7 @@ LinkLuaModifier("modifier_special_effect_donator", "/modifiers/modifier_special_
 LinkLuaModifier( "modifier_generic_attack_bonus", "libraries/modifiers/modifier_generic_attack_bonus.lua", LUA_MODIFIER_MOTION_NONE )
 LinkLuaModifier( "modifier_generic_attack_bonus_pct", "libraries/modifiers/modifier_generic_attack_bonus_pct.lua", LUA_MODIFIER_MOTION_NONE )
 LinkLuaModifier( "modifier_generic_suppress_cleave", "libraries/modifiers/modifier_generic_suppress_cleave.lua", LUA_MODIFIER_MOTION_NONE )
+LinkLuaModifier( "modifier_attack_tracker", "libraries/modifiers/modifier_attack_tracker.lua", LUA_MODIFIER_MOTION_NONE )
 
 LinkLuaModifier( "bossHealthRescale", "modifier/bossHealthRescale.lua", LUA_MODIFIER_MOTION_NONE )
 LinkLuaModifier( "bossPowerScale", "modifier/bossPowerScale.lua", LUA_MODIFIER_MOTION_NONE )

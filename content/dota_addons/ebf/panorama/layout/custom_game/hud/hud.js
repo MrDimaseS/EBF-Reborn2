@@ -134,7 +134,7 @@ function close() {
 (function () {
 	const talents = hud.FindChildTraverse("UpgradeStatName");
 	if (talents !== null && talents !== undefined) {
-		talents.text = "+35% to Base Attributes";
+		talents.text = "+1% Hero Power/Level";
 	}
 	const pips = hud.FindChildTraverse("UpgradeStatLevelContainer");
 	if (pips !== null && pips !== undefined) {
@@ -401,21 +401,20 @@ function UpdateStatsTooltip() {
 	if (!abilityPowerLabel) {
 		abilityPowerLabel = $.CreatePanel("Label", abilityPowerRow, `AbilityPowerLabel`);
 		abilityPowerLabel.SetHasClass("StatName", true);
-		abilityPowerLabel.text = "Ability Power:"
-		abilityPowerLabel.style.width = 'fill-parent-flow( 1.0 )';
+		abilityPowerLabel.text = "Hero Power:"
 	}
 	let abilityPowerLeft = abilityPowerRow.FindChildTraverse("AbilityPowerLeftRight");
 	if (!abilityPowerLeft) {
-		abilityPowerLeft = $.CreatePanel("Panel", abilityPowerLabel, `AbilityPowerLeftRight`);
+		abilityPowerLeft = $.CreatePanel("Panel", abilityPowerRow, `AbilityPowerLeftRight`);
 		abilityPowerLeft.SetHasClass("LeftRightFlow", true);
 	}
 	let abilityPower = attackContainer.FindChildTraverse("AbilityPower");
 	if (!abilityPower) {
 		abilityPower = $.CreatePanel("Label", abilityPowerLeft, `AbilityPower`);
 		abilityPower.SetHasClass("BaseValue", true);
-		abilityPower.style.marginLeft = '110px';
 	}
-	abilityPower.text = ((Entities.GetLevel(currentUnit) - 1) * 30) + '%'
+	let heroPower = 20 + Abilities.GetSpecialValueFor( Entities.GetAbilityByName( currentUnit, "special_bonus_attributes" ), "value" )
+	abilityPower.text = ((Entities.GetLevel(currentUnit) - 1) * heroPower) + '%'
 
 	// stat layer
 	let stats = CustomNetTables.GetTableValue("hero_attributes", currentUnit)
@@ -435,7 +434,7 @@ function UpdateStatsTooltip() {
 	strGain.text = '(+' + Math.floor(stats.str_gain * 10 + 0.5) / 10 + ' next lvl)'
 	strValues.text = (Math.floor((stats.strength * 22) * 10 + 0.5) / 10) + ' HP and ' + Math.floor((stats.strength * 0.008) * 10 + 0.5) / 10 + '% Incoming Healing Amp'
 	if (primaryStat == Attributes.DOTA_ATTRIBUTE_STRENGTH) {
-		strDamage.text = (Math.floor((stats.strength * 1.5)*10 + 0.5)/10) + ' Damage, ' + (Math.floor((stats.strength * 0.02)*10 + 0.5)/10) + '% Spell Amp and ' + (Math.floor((stats.strength * 11)*10 + 0.5)/10) + ' HP';
+		strDamage.text = (Math.floor((stats.strength * 1.5)*10 + 0.5)/10) + ' Damage, ' + (Math.floor((stats.strength * 0.02)*10 + 0.5)/10) + '% Base Spell Damage and ' + (Math.floor((stats.strength * 11)*10 + 0.5)/10) + ' HP';
 		strContainer.SetHasClass("PrimaryAttribute", true)
 	} else {
 		strDamage.text = ""
@@ -453,7 +452,7 @@ function UpdateStatsTooltip() {
 	const agilityAttackSpeed = Math.floor(Math.min(0.75 * stats.agility, 3.44 * stats.agility ** (Math.log(2) / Math.log(3.5))))
 	agiValues.text = (Math.floor((stats.agility * 1.5) * 10 + 0.5) / 10) + ' Damage, ' + Math.floor(agilityArmor * 10 + 0.5) / 10 + ' Armor and ' + Math.floor(agilityAttackSpeed * 10 + 0.5) / 10 + ' Attack Speed'
 	if (primaryStat == Attributes.DOTA_ATTRIBUTE_AGILITY) {
-		agiDamage.text = (Math.floor((stats.agility * 1.5)*10 + 0.5)/10) + ' Damage, ' + (Math.floor((stats.agility * 0.02)*10 + 0.5)/10) + '% Spell Amp and ' + (Math.floor((stats.agility * 11)*10 + 0.5)/10) + ' HP';
+		agiDamage.text = (Math.floor((stats.agility * 1.5)*10 + 0.5)/10) + ' Damage, ' + (Math.floor((stats.agility * 0.02)*10 + 0.5)/10) + '% Base Spell Damage and ' + (Math.floor((stats.agility * 11)*10 + 0.5)/10) + ' HP';
 		agiContainer.SetHasClass("PrimaryAttribute", true)
 	} else {
 		agiDamage.text = ""
@@ -470,7 +469,7 @@ function UpdateStatsTooltip() {
 	const intMR = Math.min(0.04 * stats.intellect, 0.55 * stats.intellect ** (Math.log(2) / Math.log(5)))
 	intValues.text = (Math.floor((stats.intellect * 0.01) * 10 + 0.5) / 10) + '% MP Restore Amp, ' + (Math.floor((stats.intellect * 0.02) * 10 + 0.5) / 10) + '% Spell Amp and ' + Math.floor(intMR * 10 + 0.5) / 10 + '% Magic Resist'
 	if (primaryStat == Attributes.DOTA_ATTRIBUTE_INTELLECT) {
-		intDamage.text = (Math.floor((stats.intellect * 1.5)*10 + 0.5)/10) + ' Damage, ' + (Math.floor((stats.intellect * 0.02)*10 + 0.5)/10) + '% Spell Amp and ' + (Math.floor((stats.intellect * 11)*10 + 0.5)/10) + ' HP';
+		intDamage.text = (Math.floor((stats.intellect * 1.5)*10 + 0.5)/10) + ' Damage, ' + (Math.floor((stats.intellect * 0.02)*10 + 0.5)/10) + '% Base Spell Damage and ' + (Math.floor((stats.intellect * 11)*10 + 0.5)/10) + ' HP';
 		intContainer.SetHasClass("PrimaryAttribute", true)
 	} else {
 		intDamage.text = ""
@@ -482,7 +481,7 @@ function UpdateStatsTooltip() {
 	const allDamage = allContainer.FindChildTraverse('AllDamageLabel');
 	allGain.text = '(+' + Math.floor((stats.str_gain + stats.agi_gain + stats.int_gain) * 10 + 0.5) / 10 + ' next lvl)'
 	if (primaryStat == Attributes.DOTA_ATTRIBUTE_ALL) {
-		allDamage.text = (Math.floor(((stats.strength+stats.agility+stats.intellect))*10+ 0.5 )/10) + ' Damage, ' + (Math.floor((stats.strength+stats.agility+stats.intellect * 0.02)*10 + 0.5)/10) + '% Spell Amp and ' + (Math.floor(((stats.strength+stats.agility+stats.intellect) * 4)*10 + 0.5)/10) + ' HP';
+		allDamage.text = (Math.floor(((stats.strength+stats.agility+stats.intellect))*10+ 0.5 )/10) + ' Damage, ' + (Math.floor((stats.strength+stats.agility+stats.intellect * 0.01)*10 + 0.5)/10) + '% Base Spell Damage and ' + (Math.floor(((stats.strength+stats.agility+stats.intellect) * 4)*10 + 0.5)/10) + ' HP';
 		allContainer.SetHasClass("PrimaryAttribute", true)
 	} else {
 		allDamage.text = ""

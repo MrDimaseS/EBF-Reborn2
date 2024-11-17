@@ -103,7 +103,7 @@ function modifier_void_spirit_aether_remnant_watch:OnIntervalThink()
 			if self.hasShard then
 				self.shardTick = self.shardTick - FrameTime()
 				if self.shardTick <= 0 then
-					self:GetCaster():PerformAbilityAttack( parent.currentPullTarget, true, self:GetAbility() )
+					self:GetCaster():PerformGenericAttack( parent.currentPullTarget, true, {ability = self:GetAbility()} )
 					self.shardTick = self.shard
 				end
 			end

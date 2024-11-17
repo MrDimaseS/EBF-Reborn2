@@ -5,35 +5,27 @@ ABILITY_POWER_SCALING = 0.2
 function special_bonus_attributes:OnHeroLevelUp()
 	local hero = self:GetCaster()
 	if hero:IsIllusion() then return end
+	local heroLvl = hero:GetLevel()
 	
-	local realStrDiff = hero._internalStrGain - hero:GetStrengthGain()
-	local realAgiDiff = hero._internalAgiGain - hero:GetAgilityGain()
-	local realIntDiff = hero._internalIntGain - hero:GetIntellectGain()
-	if realStrDiff > 0 then
-		hero:ModifyStrength( realStrDiff ) 
-	end
-	if realIntDiff > 0 then
-		hero:ModifyAgility( realAgiDiff ) 
-	end
-	if realIntDiff > 0 then
-		hero:ModifyIntellect( realIntDiff )
-	end
+	hero:ModifyStrength( hero._internalStrGain - hero:GetStrengthGain() ) 
+	hero:ModifyAgility( hero._internalAgiGain - hero:GetAgilityGain() ) 
+	hero:ModifyIntellect( hero._internalIntGain - hero:GetIntellectGain() )
 	
-	local heroPowerBonus = self:GetSpecialValueFor("value") / 100
+	local heroPowerBonus = ABILITY_POWER_SCALING+self:GetSpecialValueFor("value") / 100
 	-- calculate current level attributes
-	local totalHeroPowerBonus = 1 + (ABILITY_POWER_SCALING+heroPowerBonus) * (hero:GetLevel() - 1)
-	local currentIntendedStr = (self.originalBaseStr + hero:GetStrengthGain() * (hero:GetLevel()-1) ) * totalHeroPowerBonus
-	local currentIntendedAgi = (self.originalBaseAgi + hero:GetAgilityGain() * (hero:GetLevel()-1) ) * totalHeroPowerBonus
-	local currentIntendedInt = (self.originalBaseInt + hero:GetIntellectGain() * (hero:GetLevel()-1) ) * totalHeroPowerBonus
+	local totalHeroPowerBonus = 1 + heroPowerBonus * (heroLvl - 1)
+	local currentIntendedStr = (self.originalBaseStr + hero:GetStrengthGain() * (heroLvl-1) ) * totalHeroPowerBonus
+	local currentIntendedAgi = (self.originalBaseAgi + hero:GetAgilityGain() * (heroLvl-1) ) * totalHeroPowerBonus
+	local currentIntendedInt = (self.originalBaseInt + hero:GetIntellectGain() * (heroLvl-1) ) * totalHeroPowerBonus
 	-- calculate next level attributes
-	local totalHeroPowerBonusNext = 1 + (ABILITY_POWER_SCALING+heroPowerBonus) * hero:GetLevel()
-	local nextIntendedStr = (self.originalBaseStr + hero:GetStrengthGain() * hero:GetLevel() ) * totalHeroPowerBonusNext
-	local nextIntendedAgi = (self.originalBaseAgi + hero:GetAgilityGain() * hero:GetLevel() ) * totalHeroPowerBonusNext
-	local nextIntendedInt = (self.originalBaseInt + hero:GetIntellectGain() * hero:GetLevel() ) * totalHeroPowerBonusNext
+	local totalHeroPowerBonusNext = 1 + heroPowerBonus * heroLvl
+	local nextIntendedStr = (self.originalBaseStr + hero:GetStrengthGain() * heroLvl ) * totalHeroPowerBonusNext
+	local nextIntendedAgi = (self.originalBaseAgi + hero:GetAgilityGain() * heroLvl ) * totalHeroPowerBonusNext
+	local nextIntendedInt = (self.originalBaseInt + hero:GetIntellectGain() * heroLvl ) * totalHeroPowerBonusNext
 	
-	hero._internalStrGain = nextIntendedStr - currentIntendedStr
-	hero._internalAgiGain = nextIntendedAgi - currentIntendedAgi
-	hero._internalIntGain = nextIntendedInt - currentIntendedInt
+	hero._internalStrGain = self.originalBaseStr * heroPowerBonus + 2 * hero:GetStrengthGain() * heroPowerBonus * heroLvl + hero:GetStrengthGain()
+	hero._internalAgiGain = self.originalBaseAgi * heroPowerBonus + 2 * hero:GetAgilityGain() * heroPowerBonus * heroLvl + hero:GetAgilityGain()
+	hero._internalIntGain = self.originalBaseInt * heroPowerBonus + 2 * hero:GetIntellectGain() * heroPowerBonus * heroLvl + hero:GetIntellectGain()
 	
 	self:SendUpdatedInventoryContents( info )
 	CustomGameEventManager:Send_ServerToAllClients( "hero_leveled_up", {unit = self:GetCaster():entindex()} )
@@ -42,16 +34,28 @@ end
 function special_bonus_attributes:OnUpgrade()
 	local hero = self:GetCaster()
 	if hero:IsIllusion() then return end
+	local heroLvl = hero:GetLevel() - 1
+		
+	local heroPowerBonus = ABILITY_POWER_SCALING+self:GetSpecialValueFor("value") / 100
+	local prevHeroPowerBonus = ABILITY_POWER_SCALING
+	if self:GetLevel() > 1 then
+		prevHeroPowerBonus = prevHeroPowerBonus + self:GetLevelSpecialValueFor( "value", self:GetLevel()-2 ) / 100
+	end
 	
-	local heroPowerBonus = self:GetSpecialValueFor("value") / 100
-	local totalHeroPowerBonus = 1 + (ABILITY_POWER_SCALING+heroPowerBonus) * (hero:GetLevel() - 1)
-	local totalStrValue = (self.originalBaseStr + hero:GetStrengthGain() * (hero:GetLevel()-1) )  * totalHeroPowerBonus
-	local totalAgiValue = (self.originalBaseAgi + hero:GetAgilityGain() * (hero:GetLevel()-1) )  * totalHeroPowerBonus
-	local totalIntValue = (self.originalBaseInt + hero:GetIntellectGain() * (hero:GetLevel()-1) )  * totalHeroPowerBonus
+	-- calculate current level attributes
+	local totalHeroPowerBonus = 1 + prevHeroPowerBonus * heroLvl
+	local currentIntendedStr = (self.originalBaseStr + hero:GetStrengthGain() * heroLvl ) * totalHeroPowerBonus
+	local currentIntendedAgi = (self.originalBaseAgi + hero:GetAgilityGain() * heroLvl ) * totalHeroPowerBonus
+	local currentIntendedInt = (self.originalBaseInt + hero:GetIntellectGain() * heroLvl ) * totalHeroPowerBonus
+	-- calculate next level attributes
+	local totalHeroPowerBonusNext = 1 + heroPowerBonus * heroLvl
+	local nextIntendedStr = (self.originalBaseStr + hero:GetStrengthGain() * heroLvl ) * totalHeroPowerBonusNext
+	local nextIntendedAgi = (self.originalBaseAgi + hero:GetAgilityGain() * heroLvl ) * totalHeroPowerBonusNext
+	local nextIntendedInt = (self.originalBaseInt + hero:GetIntellectGain() * heroLvl ) * totalHeroPowerBonusNext
 	
-	hero:ModifyStrength( totalStrValue ) 
-	hero:ModifyAgility( totalAgiValue ) 
-	hero:ModifyIntellect( totalIntValue )
+	hero:ModifyStrength( nextIntendedStr - currentIntendedStr ) 
+	hero:ModifyAgility( nextIntendedAgi - currentIntendedAgi ) 
+	hero:ModifyIntellect( nextIntendedInt - currentIntendedInt )
 	
 	CustomGameEventManager:Send_ServerToAllClients( "update_talent_pips", {unit = self:GetCaster():entindex()} )
 end
@@ -73,9 +77,9 @@ function special_bonus_attributes:Spawn()
 	self.originalBaseAgi = hero:GetBaseAgility()
 	self.originalBaseInt = hero:GetBaseIntellect()
 	
-	hero._internalStrGain = (self.originalBaseStr + hero:GetStrengthGain()) * (1 + ABILITY_POWER_SCALING)
-	hero._internalAgiGain = (self.originalBaseAgi + hero:GetAgilityGain()) * (1 + ABILITY_POWER_SCALING)
-	hero._internalIntGain = (self.originalBaseInt + hero:GetIntellectGain()) * (1 + ABILITY_POWER_SCALING)
+	hero._internalStrGain = hero:GetStrengthGain() + (self.originalBaseStr + hero:GetStrengthGain()) * ABILITY_POWER_SCALING
+	hero._internalAgiGain = hero:GetAgilityGain() + (self.originalBaseAgi + hero:GetAgilityGain()) * ABILITY_POWER_SCALING
+	hero._internalIntGain = hero:GetIntellectGain() + (self.originalBaseInt + hero:GetIntellectGain()) * ABILITY_POWER_SCALING
 	
 	hero._originalPrimaryValue = hero:GetPrimaryAttribute()
 	
@@ -85,9 +89,9 @@ function special_bonus_attributes:Spawn()
 		self.originalBaseAgi = hero:GetBaseAgility()
 		self.originalBaseInt = hero:GetBaseIntellect()
 		
-		hero._internalStrGain = (self.originalBaseStr + hero:GetStrengthGain()) * (1 + ABILITY_POWER_SCALING) - self.originalBaseStr
-		hero._internalAgiGain = (self.originalBaseAgi + hero:GetAgilityGain()) * (1 + ABILITY_POWER_SCALING) - self.originalBaseAgi
-		hero._internalIntGain = (self.originalBaseInt + hero:GetIntellectGain()) * (1 + ABILITY_POWER_SCALING) - self.originalBaseInt
+		hero._internalStrGain = hero:GetStrengthGain() + (self.originalBaseStr + hero:GetStrengthGain()) * ABILITY_POWER_SCALING
+		hero._internalAgiGain = hero:GetAgilityGain() + (self.originalBaseAgi + hero:GetAgilityGain()) * ABILITY_POWER_SCALING
+		hero._internalIntGain = hero:GetIntellectGain() + (self.originalBaseInt + hero:GetIntellectGain()) * ABILITY_POWER_SCALING
 		
 		hero._originalPrimaryValue = hero:GetPrimaryAttribute()
 	end)
@@ -389,7 +393,7 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierOverrideAbi
 			end
 		end
 		local flNewValue = flBaseValue * (1+(aoe_bonus_positive_pct/100 + aoe_bonus_negative_pct/100)) + aoe_bonus_positive + aoe_bonus_negative
-		return flNewValue
+		return math.floor(flNewValue+0.5)
 	end
 	if params.ability._processValuesForScaling[special_value].affected_by_crit_increase then
 		local aoe_bonus_positive = 0
@@ -408,7 +412,7 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierOverrideAbi
 			end
 		end
 		local flNewValue = flBaseValue + aoe_bonus_positive + aoe_bonus_negative
-		return flNewValue
+		return math.floor(flNewValue+0.5)
 	end
 	if params.ability._processValuesForScaling[special_value].affected_by_chance_increase then
 		local chance_bonus = 0
@@ -421,18 +425,21 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierOverrideAbi
 				self:GetCaster()._chanceModifiersList[modifier] = nil
 			end
 		end
-		local flNewValue = (flBaseValue/100)
-		local normalizedBonus = math.abs( chance_bonus )
-		if chance_bonus > 0 then
-			flNewValue = 1-(1-trueProbability)/(1+normalizedBonus)
-		else
-			flNewValue = trueProbability/(1+normalizedBonus)
+		if chance_bonus == 0 then
+			return flBaseValue
 		end
+		local flNewValue = flBaseValue/100
+		if chance_bonus > 0 then
+			flNewValue = math.min( 1-(1-flNewValue)/(1+chance_bonus), flNewValue * (1+chance_bonus) )
+		else
+			flNewValue = flNewValue/(1+chance_bonus)
+		end
+		print( flNewValue, flBaseValue )
 		return math.floor(flNewValue * 10000)/100
 	end
 	if params.ability._processValuesForScaling[special_value].affected_by_lvl_increase then
 		local flNewValue = flBaseValue * self.total_ability_scaling
-		if lvl_increase_spell_damage_type then
+		if params.ability._processValuesForScaling[special_value].lvl_increase_spell_damage_type then
 			local SPELL_AMP_PRIMARY = 0.02
 			local SPELL_AMP_UNIVERSAL = 0.01
 			local bonusBaseSpellDamagePct = 0
@@ -447,7 +454,7 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierOverrideAbi
 			end
 			flNewValue = flNewValue * ( 1 + bonusBaseSpellDamagePct/100 )
 		end
-		return flNewValue
+		return math.floor(flNewValue)
 	end
 end
 
@@ -499,7 +506,7 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierHealthBonus
 	else -- universal hero
 		bonusBaseHP = ( self:GetParent():GetStrength() + self:GetParent():GetAgility() + self:GetParent():GetIntellect(false) ) * BASE_HP_UNIVERSAL
 	end
-	return bonusBaseHP
+	return 300 + bonusBaseHP
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierManaBonus()

@@ -19,33 +19,19 @@ function bossPowerScale:OnRefresh(keys)
 	-- remove some base armor and add it to bonus armor
 	self.baseArmor = self.baseArmor or self:GetParent():GetPhysicalArmorBaseValue()
 	self.bonusArmor = ( ( (1 + difficulty * 0.03) - 1 ) * 100 ) * logisticFunction + (self.baseArmor * 0.6) 
-	
 	self.bonusDamagePct = ( ( (1 + playerNumber * 4) * (1 + difficulty * 0.2) - 1 ) * 100 ) * logisticFunction
-	self.bonusSpellDamage = ( ( (1 + difficulty * 0.25) - 1 ) * 100 ) * logisticFunction
 	
-	self.abilityValueIncrease = 1 + math.max(0, 0.20*roundNumber + (roundNumber*0.1) * (roundNumber-1) + (-2.85 -28.5*(1 - math.exp(0.04*roundNumber))) )
-	
-	if difficulty >= 3 then
-		self.bonusCooldownReduction = 0
-		self.bonusArmor = self.bonusArmor + 5.55
-		self.bonusMR = 33
-		self.bonusMS = 15
-	end
+	self.abilityValueIncrease = 1 + math.max(0, 0.15*roundNumber + (roundNumber*0.08) * (roundNumber-1) + (-2.85 -28.5*(1 - math.exp(0.04*roundNumber))) )
 	
 	self.treewalk = false
 	self.dmgTakenSinceCheck = 0
 	self.lastHPPctSinceCheck = self:GetParent():GetHealthPercent()
 	self.HPRageThreshold = 2.4
 	self.enrageTimer = 90
-	if self:GetParent():IsConsideredHero() then 
-		self.baseStatusResistance = 10
-		if self:GetParent():IsConsideredHero() then
-			self.baseStatusResistance = self.baseStatusResistance + 5 * difficulty
-		else
-			self.baseStatusResistance = self.baseStatusResistance + 1.2 * difficulty
-		end
-		self.actualStatusResistance = self.baseStatusResistance
+	if self:GetParent():IsConsideredHero() then
+		self.baseStatusResistance = 10 + 5 * difficulty
 		self.statusResistIncreasePerTick = ( (MAX_STATUS_RESIST - self.baseStatusResistance) / SECONDS_TO_COMBO_BREAK ) * 0.25
+		self.actualStatusResistance = self.baseStatusResistance
 	end
 	self:StartIntervalThink( 0.25 )
 	
@@ -121,10 +107,6 @@ function bossPowerScale:AddCustomTransmitterData()
 	return {
 		bonusDamage = self.bonusDamage,
 		bonusArmor = self.bonusArmor,
-		bonusSpellDamage = self.bonusSpellDamage,
-		bonusMR = self.bonusMR,
-		bonusCooldownReduction = self.bonusCooldownReduction,
-		bonusMS = self.bonusMS,
 		bossOriginalModel = self.bossOriginalModel,
 	}
 end
@@ -132,9 +114,6 @@ end
 function bossPowerScale:HandleCustomTransmitterData( data )
 	self.bonusDamage = data.bonusDamage
 	self.bonusArmor = data.bonusArmor
-	self.bonusSpellDamage = data.bonusSpellDamage
-	self.bonusMR = data.bonusMR
-	self.bonusMS = data.bonusMS
 	self.bossOriginalModel = data.bossOriginalModel
 end
 
@@ -142,11 +121,7 @@ function bossPowerScale:DeclareFunctions()
   local funcs = {
 	MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
 	MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
-	MODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE,
 	MODIFIER_PROPERTY_STATUS_RESISTANCE_STACKING,
-	MODIFIER_PROPERTY_COOLDOWN_PERCENTAGE,
-	MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS,
-	MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE,
 	MODIFIER_EVENT_ON_DEATH,
 	MODIFIER_EVENT_ON_TAKEDAMAGE,
 	MODIFIER_EVENT_ON_ABILITY_START,
@@ -267,28 +242,12 @@ function bossPowerScale:GetModifierPhysicalArmorBonus(event)
 	return self.bonusArmor
 end
 
-function bossPowerScale:GetModifierMoveSpeedBonus_Percentage(event)
-	return self.bonusMS
-end
-
-function bossPowerScale:GetModifierMagicalResistanceBonus(event)
-	return self.bonusMR
-end
-
 function bossPowerScale:GetModifierPreAttack_BonusDamage(event)
 	return self.bonusDamage
 end
 
-function bossPowerScale:GetModifierSpellAmplify_Percentage(event)
-	return self.bonusSpellDamage
-end
-
 function bossPowerScale:GetModifierStatusResistanceStacking(event)
-	return self.actualStatusResistance
-end
-
-function bossPowerScale:GetModifierPercentageCooldown(event)
-	return self.bonusCooldownReduction
+	return self.baseStatusResistance
 end
 
 function bossPowerScale:IsHidden()

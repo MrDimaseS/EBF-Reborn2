@@ -171,14 +171,6 @@ function CDOTA_Modifier_Lua:GetSpecialValueFor(specVal)
 	return 0
 end
 
-function CDOTA_Modifier_Lua:GetSpecialValueFor(specVal)
-	return self:GetAbility():GetSpecialValueFor(specVal)
-end
-
-function CDOTA_Modifier_Lua:GetTalentLevelSpecialValueFor(specVal, level)
-	return self:GetAbility():GetTalentLevelSpecialValueFor(specVal, level)
-end
-
 function CDOTA_Modifier_Lua:AddIndependentStack()
 	if self:GetStackCount() == 0 then self:GetStackCount(1)
 	else self:IncrementStackCount() end

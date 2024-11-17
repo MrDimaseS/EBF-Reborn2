@@ -44,7 +44,7 @@ function silencer_glaives_of_wisdom:OnProjectileHitHandle( target, position, pro
 		self.projectiles[projectile].targets[target:entindex()] = true
 		
 		self.forceGlaivesBehavior = true
-		caster:PerformAbilityAttack( target, true, self )
+		caster:PerformGenericAttack( target, true, {ability = self} )
 		
 		if self.projectiles[projectile] and self.projectiles[projectile].bounces > 0 then
 			local radius = self:GetSpecialValueFor("bounce_range")

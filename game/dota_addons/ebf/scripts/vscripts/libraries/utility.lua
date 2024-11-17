@@ -185,35 +185,47 @@ function CDOTA_BaseNPC:IsBeingAttacked()
 	return false
 end
 
-function CDOTA_BaseNPC:PerformAbilityAttack(target, bProcs, ability)
-	self.autoAttackFromAbilityState = {} -- basically the same as setting it to true
-	self.autoAttackFromAbilityState.ability = ability
-	self:PerformAttack(target,bProcs,bProcs,true,false,false,false,true)
-	Timers:CreateTimer(function() self.autoAttackFromAbilityState = nil end)
-end
-
-function CDOTA_BaseNPC:PerformGenericAttack(target, immediate, bNeverMiss, flBonusDamage, flDamagePct, bSuppressCleave )
+function CDOTA_BaseNPC:PerformGenericAttack(target, immediate, tAttackData )
 	local neverMiss = false
 	
+	local attackData = tAttackData or {}
+	local neverMiss = tAttackData.neverMiss
+	local bonusDamage = tAttackData.bonusDamage
+	local bonusDamagePct = tAttackData.bonusDamagePct
+	local suppressCleave = tAttackData.suppressCleave or false
+	local procAttackEffects = tAttackData.procAttackEffects
+	if procAttackEffects == nil then procAttackEffects = true end
+	if neverMiss == nil then neverMiss = true end
+	local abilityIndex = TernaryOperator( tAttackData.ability:entindex(), IsEntitySafe( tAttackData.ability ), nil )
+	
+	self.autoAttackFromAbilityState = {} -- basically the same as setting it to true
+	self.autoAttackFromAbilityState.abilityIndex = abilityIndex
+	
+	self:AddNewModifier(caster, nil, "modifier_attack_tracker", {})
 	self._suppressCleave = false
-	if bSuppressCleave then
-		self._suppressCleave = bSuppressCleave
+	if suppressCleave then
+		self._suppressCleave = suppressCleave
 		self:AddNewModifier(caster, nil, "modifier_generic_suppress_cleave", {})
 	end
 	if bNeverMiss == true then neverMiss = true end
-	if flDamagePct and flDamagePct ~= 0 then
-		self:AddNewModifier(caster, nil, "modifier_generic_attack_bonus_pct", {damage = flDamagePct})
+	if bonusDamagePct and bonusDamagePct ~= 0 then
+		self:AddNewModifier(caster, nil, "modifier_generic_attack_bonus_pct", {damage = bonusDamagePct})
 		-- adjust flat bonus damage to account for reduced pct
-		flBonusDamage = math.floor( (flBonusDamage or 0) / (1+(flDamagePct-100)/100) )
+		bonusDamage = math.floor( (bonusDamage or 0) / (1+(bonusDamagePct-100)/100) )
 	end
-	if flBonusDamage and flBonusDamage ~= 0 then
-		self:AddNewModifier(caster, nil, "modifier_generic_attack_bonus", {damage = flBonusDamage})
+	if bonusDamage and bonusDamage ~= 0 then
+		self:AddNewModifier(caster, nil, "modifier_generic_attack_bonus", {damage = bonusDamage})
 	end
-	self:PerformAttack(target, true, true, true, false, not immediate, false, neverMiss)
+	self:PerformAttack(target, procAttackEffects, procAttackEffects, true, false, not immediate, false, neverMiss)
 	self:RemoveModifierByName("modifier_generic_attack_bonus")
 	self:RemoveModifierByName("modifier_generic_attack_bonus_pct")
 	self:RemoveModifierByName("modifier_generic_suppress_cleave")
 	self._suppressCleave = false
+	self.autoAttackFromAbilityState.abilityIndex = nil
+end
+
+function CDOTA_BaseNPC:GetAttackData( record )
+	return self._instantAttackRecordHistory[record] or {}
 end
 
 function CDOTA_BaseNPC:IsCleaveSuppressed()
@@ -1143,9 +1155,9 @@ function ParticleManager:CreateRopeParticle(effect, attach, owner, target, tCP)
 	return FX
 end
 
-function ParticleManager:ClearParticle(cFX)
+function ParticleManager:ClearParticle(cFX, bImmediate)
 	if cFX then
-		self:DestroyParticle(cFX, false)
+		self:DestroyParticle(cFX, bImmediate or false)
 		self:ReleaseParticleIndex(cFX)
 	end
 end
@@ -1186,7 +1198,6 @@ function CDOTA_Modifier_Lua:AddIndependentStack(tStackData)
 			end
 		end)
 	end
-	print( stackData.duration )
 	local followData = {expireTime = GameRules:GetGameTime() + TernaryOperator( math.min( stackData.duration, self:GetRemainingTime() ), self:GetRemainingTime() > 0, stackData.duration), stacks = stackData.stacks or 1 }
 	table.insert( self._stackFollowList, followData )
 	

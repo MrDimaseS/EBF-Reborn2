@@ -17,7 +17,7 @@ function puck_phase_shift:OnSpellStart()
 	ProjectileManager:ProjectileDodge( caster )
 	if caster:HasShard() then
 		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), caster:GetAttackRange() + self:GetSpecialValueFor("shard_attack_range_bonus") ) ) do
-			caster:PerformGenericAttack(enemy, false, false)
+			caster:PerformGenericAttack(enemy, false, {neverMiss = false})
 		end
 	end
 end

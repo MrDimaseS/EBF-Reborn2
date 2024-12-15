@@ -21,7 +21,7 @@ function gyrocopter_flak_cannon:OnProjectileHit(target, position)
 	if target then
 		local bonusDamage = self:GetSpecialValueFor("bonus_damage")
 		self.disableLoop = true
-		caster:PerformGenericAttack( target, true, {procAttackEffects = false, bonusDamage = bonusDamage, ability = self} )
+		caster:PerformGenericAttack( target, true, {procAttackEffects = false, ability = self} )
 		self.disableLoop = false
 		
 	end
@@ -37,14 +37,21 @@ end
 function modifier_gyrocopter_flak_cannon_active:OnRefresh()
 	self.radius = self:GetSpecialValueFor("radius")
 	self.projectile_speed = self:GetSpecialValueFor("projectile_speed")
+	self.bonus_damage = self:GetSpecialValueFor("bonus_damage")
 end
 function modifier_gyrocopter_flak_cannon_active:DeclareFunctions()
-	funcs = {MODIFIER_EVENT_ON_ATTACK}
+	funcs = {MODIFIER_EVENT_ON_ATTACK, MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE }
 	return funcs
 end
 
 function modifier_gyrocopter_flak_cannon_active:OnAttack(params)
 	if params.attacker ~= self:GetParent() then return end
+	if params.attacker:GetAttackData( params.record ).abilityIndex then
+		local attackAbility = EntIndexToHScript( params.attacker:GetAttackData( params.record ).abilityIndex )
+		if IsEntitySafe( attackAbility ) and attackAbility:GetAbilityName() ~= "gyrocopter_sidegunner" then
+			return
+		end
+	end
 	if self:GetAbility().disableLoop then return end
 	EmitSoundOn("Hero_Gyrocopter.FlackCannon", params.attacker)
 	local ability = self:GetAbility()
@@ -56,22 +63,6 @@ function modifier_gyrocopter_flak_cannon_active:OnAttack(params)
 	end
 end
 
-
-modifier_gyrocopter_flak_cannon_shred = class({})
-LinkLuaModifier("modifier_gyrocopter_flak_cannon_shred", "heroes/hero_gyro/gyrocopter_flak_cannon", LUA_MODIFIER_MOTION_NONE)
-
-function modifier_gyrocopter_flak_cannon_shred:OnCreated(kv)
-	self.armor_shred = self:GetSpecialValueFor("armor_shred")
-end
-
-function modifier_gyrocopter_flak_cannon_shred:OnRefresh(kv)
-	self.armor_shred = self:GetSpecialValueFor("armor_shred")
-end
-
-function modifier_gyrocopter_flak_cannon_shred:DeclareFunctions()	
-	return {MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS}
-end
-
-function modifier_gyrocopter_flak_cannon_shred:GetModifierPhysicalArmorBonus()
-	return self.armor_shred
+function modifier_gyrocopter_flak_cannon_active:GetModifierPreAttack_BonusDamage()
+	return self.bonus_damage
 end

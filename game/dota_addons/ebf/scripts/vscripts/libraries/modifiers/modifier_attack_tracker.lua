@@ -26,3 +26,7 @@ end
 function modifier_attack_tracker:IsHidden()
     return true
 end
+
+function modifier_attack_tracker:GetPriority()
+	return MODIFIER_PRIORITY_SUPER_ULTRA
+end

@@ -28,11 +28,12 @@ end
 function shadow_shaman_mass_serpent_ward:CreateWard( position, duration, bMegaWard )
 	local caster = self:GetCaster()
 	local ward = caster:CreateSummon( "npc_dota_shadow_shaman_ward_1", position, duration )
-	if bMegaWard then
+	local megaWard = bMegaWard or false
+	if megaWard then
 		ward:SetCoreHealth( ward:GetMaxHealth() * self:GetSpecialValueFor("mega_ward_health_tooltip") )
 		ward:SetModelScale( 3.5 )
 	end
-	ward:AddNewModifier( caster, self, "modifier_shadow_shaman_mass_serpent_ward_handler", {duration = duration} )
+	ward:AddNewModifier( caster, self, "modifier_shadow_shaman_mass_serpent_ward_handler", {duration = duration} ):SetStackCount( #megaWard )
 end
 
 LinkLuaModifier("modifier_shadow_shaman_mass_serpent_ward_shard", "heroes/hero_shadow_shaman/shadow_shaman_mass_serpent_ward", LUA_MODIFIER_MOTION_NONE)
@@ -69,8 +70,10 @@ modifier_shadow_shaman_mass_serpent_ward_handler = class({})
 
 function modifier_shadow_shaman_mass_serpent_ward_handler:OnCreated()
 	self.damage_tooltip = self:GetSpecialValueFor("damage_tooltip") * self:GetSpecialValueFor("mega_ward_multiplier_tooltip")
-	self.hits_to_destroy_tooltip = self:GetParent():GetMaxHealth() / self:GetSpecialValueFor("hits_to_destroy_tooltip")
+	self.mega_ward_multiplier_tooltip = self:GetSpecialValueFor("mega_ward_multiplier_tooltip")
 	self.hits_to_destroy_tooltip_creeps = self:GetParent():GetMaxHealth() / self:GetSpecialValueFor("hits_to_destroy_tooltip_creeps")
+	self.hits_to_destroy_tooltip = self:GetParent():GetMaxHealth() / self:GetSpecialValueFor("hits_to_destroy_tooltip")
+	self.hero_damage = self:GetSpecialValueFor("hits_to_destroy_tooltip_creeps") / self:GetSpecialValueFor("hits_to_destroy_tooltip")
 	self.scepter_attack_speed = TernaryOperator( self:GetSpecialValueFor("scepter_attack_speed"), self:GetCaster():HasScepter(), 0 )
 	self.scepter_range = self:GetSpecialValueFor("scepter_range")
 	self.ether_shock_on_death = self:GetSpecialValueFor("ether_shock_on_death") == 1
@@ -114,7 +117,11 @@ function modifier_shadow_shaman_mass_serpent_ward_handler:DeclareFunctions()
 end
 
 function modifier_shadow_shaman_mass_serpent_ward_handler:GetModifierPreAttack_BonusDamage()
-	return self.damage_tooltip
+	if self:GetStackCount() == 1 then
+		return self.damage_tooltip * self.mega_ward_multiplier_tooltip
+	else
+		return self.damage_tooltip
+	end
 end
 
 function modifier_shadow_shaman_mass_serpent_ward_handler:GetModifierAttackSpeedBonus_Constant()
@@ -126,10 +133,11 @@ function modifier_shadow_shaman_mass_serpent_ward_handler:GetModifierHealthBarPi
 end
 
 function modifier_shadow_shaman_mass_serpent_ward_handler:GetModifierIncomingDamage_Percentage(params)
+	if params.damage <= 0 then return end
 	local parent = self:GetParent()
 	if params.damage_category == DOTA_DAMAGE_CATEGORY_ATTACK then
 		local hp = parent:GetHealth()
-		local damage = TernaryOperator( self.hits_to_destroy_tooltip, params.attacker:IsConsideredHero(), self.hits_to_destroy_tooltip_creeps )
+		local damage = TernaryOperator( self.hero_damage, params.attacker:IsConsideredHero(), 1 )
 		if hp > damage then
 			parent:SetHealth( hp - damage )
 		else

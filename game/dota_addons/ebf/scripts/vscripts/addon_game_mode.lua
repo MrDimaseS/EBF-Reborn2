@@ -649,6 +649,7 @@ MAX_HP_DAMAGE = {
 	["ringmaster_impalement"] = {["bleed_health_pct"] = 100},
 	["kez_raptor_dance"] = {["max_health_damage_pct"] = 100},
 	["necrolyte_heartstopper_aura"] = {["aura_damage"] = 100},
+	["doom_bringer_infernal_blade"] = {["burn_damage_pct"] = 100},
 }
 
 -- spell_name = spell_amp_reduction (100 for no spell amp)
@@ -723,32 +724,38 @@ function CHoldoutGameMode:FilterDamage( filterTable )
 	local original_attacker = attacker -- make a copy for threat
     local damagetype = filterTable["damagetype_const"]
 	if damage <= 0 then return true end
+	
 	--- DAMAGE MANIPULATION ---
 	if ability and IGNORE_SPELL_AMP_FILTER[ability:GetName()] then
-		filterTable.damage = damage / ( 1+ ( attacker:GetSpellAmplification( false ) * (IGNORE_SPELL_AMP_FILTER[ability:GetName()]/100)) )
+		damage = damage / ( 1+ ( attacker:GetSpellAmplification( false ) * (IGNORE_SPELL_AMP_FILTER[ability:GetName()]/100)) )
 	end
 	-- MUERTA SPECIFIC FIX
 	if ability and ability:GetName() == "muerta_gunslinger" and attacker:HasModifier("modifier_muerta_pierce_the_veil_buff") then
-		filterTable.damage = damage / ( 1+ ( attacker:GetSpellAmplification( false ) * (IGNORE_SPELL_AMP_FILTER["muerta_pierce_the_veil"]/100)) )
+		damage = damage / ( 1+ ( attacker:GetSpellAmplification( false ) * (IGNORE_SPELL_AMP_FILTER["muerta_pierce_the_veil"]/100)) )
 	end
 	-- ORACLE SPECIFIC FIX: Purifying Flames Ignore Spell Amp
 	if ability and ability:GetName() == "oracle_purifying_flames" and attacker:IsSameTeam( victim ) then
-		filterTable.damage = damage / ( 1+ attacker:GetSpellAmplification( false ) )
+		damage = damage / ( 1+ attacker:GetSpellAmplification( false ) )
 	end
 	if attacker and attacker:IsRealHero() and ability and ability:GetAbilityDamage() > 0 then
-		filterTable.damage = filterTable.damage * ( 1 + attacker:GetLevel() * 0.2 )
+		damage = filterTable.damage * ( 1 + attacker:GetLevel() * 0.2 )
+	end
+	if damage > victim:GetMaxHealth() then
+		damage = victim:GetMaxHealth() + 1
 	end
 	
+	if damage ~= filterTable.damage then
+		filterTable.damage = damage
+	end
 	if attacker.GetPlayerOwner and attacker:GetPlayerOwner() and attacker ~= victim then
 		local heroToAssign = PlayerResource:GetSelectedHeroEntity( attacker:GetPlayerOwner():GetPlayerID() )
-		heroToAssign.damage_dealt_ingame = (heroToAssign.damage_dealt_ingame or 0) + filterTable["damage"]
-		heroToAssign.last_damage_dealt = filterTable["damage"]
+		heroToAssign.damage_dealt_ingame = (heroToAssign.damage_dealt_ingame or 0) + damage
+		heroToAssign.last_damage_dealt = damage
 	end
 	if victim.GetPlayerOwner and victim:GetPlayerOwner() and attacker ~= victim  then
 		local heroToAssign = PlayerResource:GetSelectedHeroEntity( victim:GetPlayerOwner():GetPlayerID() )
-		heroToAssign.damage_taken_ingame = (heroToAssign.damage_taken_ingame or 0) + filterTable["damage"]
+		heroToAssign.damage_taken_ingame = (heroToAssign.damage_taken_ingame or 0) + damage
 	end
-
     return true
 end
 
@@ -788,7 +795,6 @@ function CHoldoutGameMode:OnHeroPick (event)
 	local playerID = hero:GetPlayerOwnerID()
 	
 	-- set hero base stats to their intended values
-	
 	if playerID == -1 then return end
 	if PlayerResource:GetSelectedHeroEntity( playerID ) and hero ~= PlayerResource:GetSelectedHeroEntity( playerID ) then return end -- ignore non-main units like meepo, spirit bear etc
 	hero.damageDone = 0

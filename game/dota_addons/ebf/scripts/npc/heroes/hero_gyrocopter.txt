@@ -24,7 +24,11 @@
 		{
 			"fire_rate"						"1.8 1.6 1.4 1.2"
 			"explosion_damage"				{"special_bonus_facet_gyrocopter_secondary_strikes"	"150 450 750 1050"}
-			"explosion_radius"				{"special_bonus_facet_gyrocopter_secondary_strikes"	"450"}
+			"explosion_radius"
+			{
+				"special_bonus_facet_gyrocopter_secondary_strikes"	"450"
+				"affected_by_aoe_increase"			"1"
+			}	
 			"fire_rate_reduction_on_attack"	{"special_bonus_facet_gyrocopter_afterburner"	"0.1"}
 		}
 	}
@@ -58,7 +62,7 @@
 			{
 				"value"												"400"
 				"special_bonus_facet_gyrocopter_secondary_strikes"	"+200"
-				"CalculateSpellDamageTooltip"						"1"
+				"affected_by_aoe_increase"			"1"
 			}
 			"rockets_per_second"									"10"
 			"rocket_damage"
@@ -128,11 +132,6 @@
 			"speed"						"500"
 			"acceleration"				"15"
 			"enemy_vision_time"			"4"
-			"AbilityCharges"
-			{
-				"value"								""
-				"special_bonus_unique_gyrocopter_1"	"=2"
-			}
 			
 			"barrage_delay"							{"special_bonus_facet_gyrocopter_secondary_strikes"	"1.0"}
 			"armor_reduction"						{"special_bonus_facet_gyrocopter_afterburner"	"-6"}
@@ -179,6 +178,11 @@
 				"special_bonus_unique_gyrocopter_2"							"x2"
 			}
 			"bonus_movespeed"												"180"
+			"bonus_call_down_missiles"
+			{
+				"value"														"5"
+				"special_bonus_unique_gyrocopter_2"							"+3"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}

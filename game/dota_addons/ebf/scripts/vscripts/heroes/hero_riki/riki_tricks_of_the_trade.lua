@@ -75,10 +75,11 @@ end
 
 function modifier_riki_tricks_of_the_trade_handler:OnIntervalThink(bNoFX)
 	local caster = self:GetCaster()
+	local ability = self:GetAbility()
 	
     local enemies = caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), self.radius )
     for _,enemy in pairs(enemies) do
-        caster:PerformGenericAttack(enemy, true, true)
+        caster:PerformGenericAttack(enemy, true, {ability = ability})
 		if IsEntitySafe( self.blink_strike ) then
 			caster:SetCursorCastTarget( enemy )
 			self.blink_strike:OnSpellStart(true)

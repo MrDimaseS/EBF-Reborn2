@@ -7,6 +7,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_nyx_assassin/nyx_assassin_nyxth_sense"
+		"AbilityTextureName"			"nyx_assassin_nyxth_sense"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"MaxLevel"						"1"
@@ -15,28 +18,14 @@
 		{
 			"radius"	
 			{	
-				"value"		"400"
+				"value"						"350"
 				"affected_by_aoe_increase"	"1"
 			}
-		}
-	}
-
-	//=================================================================================================================
-	// Nyx Assassin: Innate Mana Burn
-	//=================================================================================================================
-	"nyx_assassin_innate_mana_burn"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
-		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
-		"MaxLevel"						"1"
-		"DependentOnAbility"			""
-
-		"AbilityValues"
-		{
-			"mana_pct"					"5"
-			"damage_threshold"			"100"
+			"linger_duration"				"2"
+			"damage_amp"					{"special_bonus_facet_nyx_assassin_myrmeleomorph"	"=10"}
+			"bonus_evasion"					{"special_bonus_facet_nyx_assassin_libellumorph"	"=25"}
+			"bonus_magic_resist"			{"special_bonus_facet_nyx_assassin_libellumorph"	"=25"}
+			"current_mana_drain"			{"special_bonus_facet_nyx_assassin_aulacimorph"		"=3"}
 		}
 	}
 	//=================================================================================================================
@@ -46,6 +35,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_nyx_assassin/nyx_assassin_impale"
+		"AbilityTextureName"			"nyx_assassin_impale"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
@@ -67,92 +59,49 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"100 110 120 130 140 150 160"
+		"AbilityManaCost"				"100 110 120 130"
 		
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"width"								"140"
+			"width"				
+			{
+				"value"							"140"
+				"affected_by_aoe_increase"		"1"
+			}
 			"duration"		
 			{
-				"value"							"2"
-				"LinkedSpecialBonus"			"special_bonus_unique_nyx_4"
+				"value"							"1.1 1.4 1.7 2.0"
+				"special_bonus_unique_nyx_4" 	"+0.20"
 			}
 			"length"							"750"
 			"speed"								"1600"
 			"impale_damage"		
 			{
-				"value"							"1000 1600 2200 2800 3400 4000 4600"
+				"value"							"1000 1600 2200 2800"
 				"special_bonus_unique_nyx_2"	"+50%"
 				"CalculateSpellDamageTooltip"	"1"
+			}
+			"reduction_duration"				{"special_bonus_facet_nyx_assassin_myrmeleomorph"	"=6"}
+			"damage_reduction"					{"special_bonus_facet_nyx_assassin_myrmeleomorph"	"-25"}
+			"damage_duration"					{"special_bonus_facet_nyx_assassin_libellumorph"	"6"}
+			"damage_bonus"
+			{
+				"special_bonus_facet_nyx_assassin_libellumorph"		"200 300 400 500"
+				"CalculateSpellDamageTooltip"						"1"
+			}
+			"infest_duration"					{"special_bonus_facet_nyx_assassin_aulacimorph"		"12"}
+			"infest_search_radius"				{"special_bonus_facet_nyx_assassin_aulacimorph"		"900"}
+			"infest_dps"
+			{
+				"special_bonus_facet_nyx_assassin_aulacimorph"		"40 80 120 160"
+				"CalculateSpellDamageTooltip"						"1"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
-	
-	//=================================================================================================================
-	// Nyx Assassin: Mana Burn
-	//=================================================================================================================
-	"nyx_assassin_mana_burn"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"ability_lua"
-		"ScriptFile"					"heroes/hero_nyx_assassin/nyx_assassin_mana_burn"
-		"AbilityTextureName"			"nyx_assassin_mana_burn"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
-		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
-		"FightRecapLevel"				"1"
-		"AbilitySound"					"Hero_NyxAssassin.ManaBurn.Target"
-		
-
-		// Unit Targeting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"	
-		
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"600 600 600 600"
-		"AbilityCastPoint"				"0.4 0.4 0.4 0.4"
-		
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"8"
-
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"70 80 90 100 110 120 130"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			"AbilityCooldown"
-			{
-				"value"										"8"
-				"special_bonus_unique_nyx_jolt_cooldown"	"-3"
-			}
-			"max_mana_burn"								"20"
-			"float_multiplier"		
-			{
-				"value"									"2.3 3.2 4.1 5 5.9 6.8 7.7"
-				"special_bonus_unique_nyx_5"			"+100%"
-			}
-			"aoe"
-			{
-				"value"									"0"
-				"special_bonus_unique_nyx"				"+300"
-			}
-			"full_drain_slow"							"40"
-			"full_drain_slow_duration"					"4.5"
-		}
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
-	}
-	
 	//=================================================================================================================
 	// Nyx Assassin: Jolt
 	//=================================================================================================================
@@ -160,6 +109,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_nyx_assassin/nyx_assassin_jolt"
+		"AbilityTextureName"			"nyx_assassin_jolt"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
@@ -176,29 +128,22 @@
 		"AbilityCastRange"				"800"
 		"AbilityCastPoint"				"0.4 0.4 0.4 0.4"
 		
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-
-
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"100 105 110 115"
-		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
 			"AbilityCooldown"
 			{
-				"value"			"13 11 9 7"
-				"special_bonus_unique_nyx_jolt_cooldown"			"-3"
-			}			
+				"value"											"13 11 9 7"
+				"special_bonus_unique_nyx_jolt_cooldown"		"-3"
+			}		
+			"AbilityManaCost"									"100 105 110 115"	
 			
-
-			"max_mana_as_damage_pct"		
+			"base_damage"
 			{
-				"value"		"20 25 30 35"
-
+				"value"											"750 1000 1250 1500 1750 2000 2250"
+				"special_bonus_facet_nyx_assassin_aulacimorph"	"+100%"
+				"CalculateSpellDamageTooltip"					"1"
 			}
 			"aoe"
 			{
@@ -206,8 +151,13 @@
 				"special_bonus_unique_nyx"		"+600"
 				"affected_by_aoe_increase"	"1"
 			}
-			"damage_echo_duration"		"15"
-			"damage_echo_pct"			"25"
+			"damage_taken_echo_pct"								{"special_bonus_facet_nyx_assassin_myrmeleomorph"	"25"}
+			"damage_dealt_echo_pct"								{"special_bonus_facet_nyx_assassin_libellumorph"	"25"}
+			"refresh_debuffs"									{"special_bonus_facet_nyx_assassin_aulacimorph"		"1"}
+			
+			"max_mana_as_damage_pct"							""
+			"damage_echo_duration"								""
+			"damage_echo_pct"									""
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 		"AbilityCastGestureSlot"		"DEFAULT"
@@ -228,33 +178,43 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_NyxAssassin.SpikedCarapace"
 		
-
-		// Stats		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"25 20 15 10 8 6 4"
-		"AbilityCastPoint"				"0 0 0 0"
-
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"40 40 40 40"
+		"precache"
+		{
+			"particle"					"particles/units/heroes/hero_nyx_assassin/nyx_assassin_spiked_carapace_spine.vpcf"
+		}
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"AbilityCooldown"											"23 18 13 8"
+			"AbilityManaCost"											"40 40 40 40"
 			"reflect_duration"			
 			{
 				"value"													"2.0"
 				"special_bonus_unique_nyx_carapace_reflect_duration"	"+0.5"
+				"special_bonus_facet_nyx_assassin_libellumorph"			"+0.5"
 			}
 			"stun_duration"
 			{
-				"value"													"1.6"
+				"value"													"0.4 0.8 1.2 1.6"
 				"special_bonus_unique_nyx_6"							"+0.5"
 			}
 			"damage_reflect_pct"										"125"
-			"bonus_armor"												"7 10 13 16 19 22 25"
-			"burrow_radius"												"300"
+			"linger_percentage"											{"special_bonus_facet_nyx_assassin_myrmeleomorph"	"20"}
+			"linger_duration"											{"special_bonus_facet_nyx_assassin_myrmeleomorph"	"0.5"}
+			"linger_radius"
+			{
+				"special_bonus_facet_nyx_assassin_myrmeleomorph"		"250"
+				"affected_by_aoe_increase"								"1"
+			}
+			"linger_burrow_bonus"										{"special_bonus_facet_nyx_assassin_myrmeleomorph"	"100"}
+			"can_hit_multiple"											{"special_bonus_facet_nyx_assassin_libellumorph"	"1"}
+			"mana_to_barrier"
+			{
+				"special_bonus_facet_nyx_assassin_aulacimorph"			"2"
+				"CalculateSpellHealTooltip"								"1"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -266,6 +226,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_nyx_assassin/nyx_assassin_vendetta"
+		"AbilityTextureName"			"nyx_assassin_vendetta"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PURE"
@@ -274,66 +237,28 @@
 		"FightRecapLevel"				"2"
 		"AbilitySound"					"Hero_NyxAssassin.Vendetta"
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_6"
-		
-		"LevelsBetweenUpgrades"			"6"
-
-        "HasShardUpgrade"               "1"
-
-		"AbilityDraftUltScepterAbility"		"nyx_assassin_burrow"
-
-		// Stats		
-		//-------------------------------------------------------------------------------------------------------------
-
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		
+        "HasShardUpgrade"               "0"
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"AbilityCooldown"					"60"
-			"AbilityManaCost"					"180 240 300 360 420 480"
+			"AbilityCooldown"									"80 70 60"
+			"AbilityManaCost"									"180 240 300"
 			
-			"duration"							"60"
-			"fade_time"							"0.0"
-			"movement_speed"					"16 18 20 22 24 26"
+			"duration"											"60"
+			"fade_time"											"0.0"
+			"movement_speed"									"16 18 20"
 			"bonus_damage"					
 			{
-				"value"											"3000 4000 5000 6000 7000 8000" 
+				"value"											"3000 4000 5000" 
 				"special_bonus_unique_nyx_vendetta_damage"		"+50%"
 				"CalculateSpellDamageTooltip"					"1"
 			}
-			"health_regen_rate_scepter"							"3"
-			"mana_regen_rate_scepter"							"3"
-			"break_duration"		
-			{
-				"special_bonus_unique_nyx_vendetta_cd_manacost"	"5"
-			}
-			"shard_debuff_duration"	
-			{
-				"value" 										"4.0"
-				"RequiresShard"									"1"
-			}
-			"shard_magic_resist_reduction"	
-			{
-				"value" 										"17"
-				"RequiresShard"									"1"
-			}
-			"free_pathing_duration"
-			{
-				"value" 										"0"
-				"special_bonus_facet_nyx_assassin_scuttle"		"=10"
-			}
-			"free_pathing_movement_speed_bonus"
-			{
-				"value" 										"0"
-				"special_bonus_facet_nyx_assassin_scuttle"		"=200"
-			}			
+			"break_duration"									{"special_bonus_unique_nyx_ultimate_boon"	"5"}
 			"attack_animation_bonus"							"70"
 			"attack_range_bonus"								"75"
 		}
 	}
-
 	//=================================================================================================================
 	// Nyx Assassin: Burrow ( scepter ability )
 	//=================================================================================================================
@@ -344,194 +269,102 @@
 		"BaseClass"						"ability_lua"
 		"ScriptFile"					"heroes/hero_nyx_assassin/nyx_assassin_burrow"
 		"AbilityTextureName"			"nyx_assassin_burrow"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
-		"MaxLevel"						"1"
+		"MaxLevel"						"3"
 		"FightRecapLevel"				"1"
-		"IsGrantedByScepter"			"1"
+		"IsGrantedByScepter"			"0"
 		"AbilitySound"					"Hero_NyxAssassin.Burrow.In"
-		"LinkedAbility"					"nyx_assassin_unburrow"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
+		"HasScepterUpgrade"				"0"
+		
+		"precache"
+		{
+			"particle"					"particles/units/heroes/hero_nyx_assassin/nyx_assassin_spiked_carapace_burrow.vpcf"
+		}
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"AbilityCastPoint"
+			{
+				"value"										"1.5"
+				"special_bonus_unique_nyx_vendetta_damage"	"-0.75"
+			}
+			"health_regen_rate"								"1 1.5 2"
+			"mana_regen_rate"								"1 1.5 2"
+			"magic_resist"									"30 40 50"
+			"bonus_armor"									"7 11 15"
+			"bonus_attack_range"							"200 250 300"
+			"cast_range"									"300 400 500"
+			"impale_cooldown_reduction"						"20 35 50"
+			"carapace_radius"			
+			{
+				"value"										"400 500 600"
+				"affected_by_aoe_increase"					"1"
+			}
+			"invis_delay"			
+			{
+				"value"										"0"
+				"special_bonus_unique_nyx_ultimate_boon"	"+2"
+			}
+			
+			"damage_reduction"								""
+			"cooldown_reduction"							""
+		}
+	}//=================================================================================================================
+	// Nyx Assassin: Burrow ( scepter ability )
+	//=================================================================================================================
+	"nyx_assassin_parasitize"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_nyx_assassin/nyx_assassin_parasitize"
+		"AbilityTextureName"			"nyx_assassin_mana_burn"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"MaxLevel"						"3"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_NyxAssassin.Burrow.In"
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
 
-		"HasScepterUpgrade"			"1"
-
+		// Unit Targeting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"	
+		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastPoint"				"1.5"
+		"AbilityCastPoint"									"1.5"
+		"AbilityCastRange"									"350"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"health_regen_rate"					"1"
-			"mana_regen_rate"					"1"
-			"damage_reduction"					""
-			"magic_resist"						"40"
-			"bonus_attack_range"				"250"
-			"impale_bonus_cast_range"			"525"
-			"mana_burn_bonus_cast_range"		"450"
-			"impale_cooldown_reduction"			"50"
-			"carapace_radius"			
+			"duration"
 			{
-				"value"			"300"
-				"affected_by_aoe_increase"	"1"
+				"value"										"8 10 12"
+				"special_bonus_unique_nyx_vendetta_damage"	"+2"
 			}
-			"carapace_armor_multiplier"			"2"
+			"AbilityCooldown"								"80 70 60"
+			"gain_control"
+			{
+				"value"										"0"
+				"special_bonus_unique_nyx_ultimate_boon"	"1"
+			}
 		}
 	}
-
-	//=================================================================================================================
-	// Nyx Assassin: Unburrow
-	//=================================================================================================================
-	"nyx_assassin_unburrow"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"ability_lua"
-		"ScriptFile"					"heroes/hero_nyx_assassin/nyx_assassin_burrow"
-		"AbilityTextureName"			"nyx_assassin_unburrow"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
-		"MaxLevel"						"1"
-		"FightRecapLevel"				"1"
-		"LinkedAbility"					"nyx_assassin_burrow"
- 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_5"
-		
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastPoint"				"0.0"
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"0.0"
 	
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"0"
-	}
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_nyx"
+	"special_bonus_unique_nyx_ultimate_boon"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"						"75"
-				"ad_linked_abilities"			"nyx_assassin_spiked_carapace"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_nyx_2"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"						"75"
-				"ad_linked_abilities"			"nyx_assassin_impale"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_nyx_3"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"						"1"
-				"ad_linked_abilities"			"nyx_assassin_vendetta"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_nyx_4"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"						"0.25"
-				"ad_linked_abilities"			"nyx_assassin_impale"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_nyx_5"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"ad_linked_abilities"			"nyx_assassin_mana_burn"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_nyx_6"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"						"0.6"
-				"ad_linked_abilities"			"nyx_assassin_spiked_carapace"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
+		"BaseClass"						"special_bonus_base"
 	}
 }

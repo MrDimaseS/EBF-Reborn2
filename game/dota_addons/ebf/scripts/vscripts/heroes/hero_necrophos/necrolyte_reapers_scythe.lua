@@ -29,7 +29,7 @@ function necrolyte_reapers_scythe:OnSpellStart()
 	
 	Timers:CreateTimer(duration, function()
 		if target:IsAlive() then
-			self:DealDamage( caster, target, target:GetHealthDeficit() * damage_per_health )
+			self:DealDamage( caster, target, target:GetHealthDeficit() * damage_per_health, {damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION } )
 		end
 	end)
 end

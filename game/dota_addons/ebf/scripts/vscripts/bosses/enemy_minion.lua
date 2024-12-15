@@ -30,7 +30,7 @@ end
 
 function modifier_enemy_minion_passive:GetModifierIncomingDamage_Percentage( params )
 	if IsClient() then return end
-	if params.inflictor and self.abilities_tracked[params.inflictor] and self.abilities_tracked[params.inflictor] <= GameRules:GetGameTime() + self.reduction_duration then
+	if params.inflictor and self.abilities_tracked[params.inflictor] and GameRules:GetGameTime() < self.abilities_tracked[params.inflictor] + self.reduction_duration then
 		return self.dmg_taken_from_aoe
 	end
 end

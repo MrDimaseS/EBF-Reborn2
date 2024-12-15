@@ -43,7 +43,7 @@ function modifier_gyrocopter_flight_of_the_valkyrie_active:CheckState()
 end
 
 function modifier_gyrocopter_flight_of_the_valkyrie_active:DeclareFunctions()
-	funcs = {MODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE, MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT, MODIFIER_PROPERTY_TURN_RATE_OVERRIDE }
+	funcs = {MODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE, MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT, MODIFIER_PROPERTY_TURN_RATE_OVERRIDE, MODIFIER_PROPERTY_IGNORE_CAST_ANGLE }
 	return funcs
 end
 
@@ -53,6 +53,10 @@ end
 
 function modifier_gyrocopter_flight_of_the_valkyrie_active:GetModifierMoveSpeedBonus_Constant(params)
 	return self.bonus_movespeed
+end
+
+function modifier_gyrocopter_flight_of_the_valkyrie_active:GetModifierIgnoreCastAngle(params)
+	return 1
 end
 
 function modifier_gyrocopter_flight_of_the_valkyrie_active:GetModifierTurnRate_Override(params)

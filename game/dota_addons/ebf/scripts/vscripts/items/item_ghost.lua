@@ -59,7 +59,8 @@ function item_ethereal_blade:OnProjectileHit( target, position )
 		EmitSoundOn( self:GetTargetSoundName(), target )
 		
 		if not caster:IsSameTeam( target ) then
-			self:DealDamage( caster, target, caster:GetPrimaryStatValue() * self:GetSpecialValueFor("blast_agility_multiplier") + self:GetSpecialValueFor("blast_damage_base") )
+			print( caster:GetPrimaryStatValue() * self:GetSpecialValueFor("blast_agility_multiplier") + self:GetSpecialValueFor("blast_damage_base"), self:GetAbilityName() )
+			print( self:DealDamage( caster, target, caster:GetPrimaryStatValue() * self:GetSpecialValueFor("blast_agility_multiplier") + self:GetSpecialValueFor("blast_damage_base") ), "end result" )
 		elseif tonumber(self:GetSpecialValueFor("allies_benefit")) == 1 then
 			target:HealEvent( caster:GetPrimaryStatValue() * self:GetSpecialValueFor("blast_agility_multiplier") + self:GetSpecialValueFor("blast_damage_base"), self, caster )
 		end

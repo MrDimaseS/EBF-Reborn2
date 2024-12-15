@@ -189,14 +189,17 @@ function CDOTA_BaseNPC:PerformGenericAttack(target, immediate, tAttackData )
 	local neverMiss = false
 	
 	local attackData = tAttackData or {}
-	local neverMiss = tAttackData.neverMiss
-	local bonusDamage = tAttackData.bonusDamage
-	local bonusDamagePct = tAttackData.bonusDamagePct
-	local suppressCleave = tAttackData.suppressCleave or false
-	local procAttackEffects = tAttackData.procAttackEffects
+	local neverMiss = attackData.neverMiss
+	local bonusDamage = attackData.bonusDamage
+	local bonusDamagePct = attackData.bonusDamagePct
+	local suppressCleave = attackData.suppressCleave or false
+	local procAttackEffects = attackData.procAttackEffects
 	if procAttackEffects == nil then procAttackEffects = true end
 	if neverMiss == nil then neverMiss = true end
-	local abilityIndex = TernaryOperator( tAttackData.ability:entindex(), IsEntitySafe( tAttackData.ability ), nil )
+	local abilityIndex
+	if attackData.ability then
+		abilityIndex = attackData.ability:entindex()
+	end
 	
 	self.autoAttackFromAbilityState = {} -- basically the same as setting it to true
 	self.autoAttackFromAbilityState.abilityIndex = abilityIndex
@@ -216,6 +219,7 @@ function CDOTA_BaseNPC:PerformGenericAttack(target, immediate, tAttackData )
 	if bonusDamage and bonusDamage ~= 0 then
 		self:AddNewModifier(caster, nil, "modifier_generic_attack_bonus", {damage = bonusDamage})
 	end
+	local preHP = target:GetHealth()
 	self:PerformAttack(target, procAttackEffects, procAttackEffects, true, false, not immediate, false, neverMiss)
 	self:RemoveModifierByName("modifier_generic_attack_bonus")
 	self:RemoveModifierByName("modifier_generic_attack_bonus_pct")
@@ -1198,7 +1202,8 @@ function CDOTA_Modifier_Lua:AddIndependentStack(tStackData)
 			end
 		end)
 	end
-	local followData = {expireTime = GameRules:GetGameTime() + TernaryOperator( math.min( stackData.duration, self:GetRemainingTime() ), self:GetRemainingTime() > 0, stackData.duration), stacks = stackData.stacks or 1 }
+	local realDuration = TernaryOperator( math.min( stackData.duration, self:GetRemainingTime() ), self:GetRemainingTime() > 0, stackData.duration)
+	local followData = {expireTime = GameRules:GetGameTime() + realDuration, stacks = stackData.stacks or 1, duration = realDuration}
 	table.insert( self._stackFollowList, followData )
 	
 	local stacks = self:GetStackCount() + followData.stacks
@@ -1214,6 +1219,20 @@ function CDOTA_Modifier_Lua:AddIndependentStack(tStackData)
 		end
 	end
 	self:SetStackCount( stacks )
+end
+
+function CDOTA_Buff :RefreshIndependentStack( stackID )
+	if not self._stackFollowList then return end
+	if not self._stackFollowList[stackID] then return end
+	self._stackFollowList[stackID].expireTime = GameRules:GetGameTime() + self._stackFollowList[stackID].duration
+end
+
+function CDOTA_Buff :RefreshAllIndependentStacks( )
+	if not self._stackFollowList then return end
+	for stackID,_ in ipairs( self._stackFollowList ) do
+		self:RefreshIndependentStack( stackID )
+	end
+	self:AddIndependentStack({stacks = 0, duration = 0})
 end
 
 function CDOTA_Modifier_Lua:StopMotionController(bForceDestroy)
@@ -1382,13 +1401,14 @@ function CDOTA_BaseNPC:ApplyKnockBack(position, stunDuration, knockbackDuration,
 		center_x = position.x,
 		center_y = position.y,
 		center_z = position.z,
-		should_stun = TernaryOperator( 1, stunDuration and stunDuration > 0, 0 ),
-		duration = math.max( knockbackDuration, stunDuration ),
+		duration = knockbackDuration,
 		knockback_duration = knockbackDuration,
 		knockback_distance = distance,
 		knockback_height = height,
 	}
-	return self:AddNewModifier(caster, ability, "modifier_knockback", modifierKnockback )
+	local stunModifier = self:AddNewModifier( caster, ability, "modifier_stunned", {duration = stunDuration})
+	local knockbackModifier = self:AddNewModifier( caster, ability, "modifier_knockback", modifierKnockback )
+	return {stun = stunModifier, knockback = knockbackModifier}
 end
 
 function CDOTA_BaseNPC:IsKnockedBack()

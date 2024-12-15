@@ -23,7 +23,7 @@ function axe_counter_helix:Counterhelix()
 	caster:AddNewModifier( caster, self, "modifier_axe_counter_helix_attack_proc", {} )
 	for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), radius ) ) do
 		if applies_attack then
-			caster:PerformGenericAttack(enemy, true, {neverMiss = true, suppressCleave = true})
+			caster:PerformGenericAttack(enemy, true, {neverMiss = true, suppressCleave = true, ability = self})
 		else
 			self:DealDamage( caster, enemy, damage )
 		end

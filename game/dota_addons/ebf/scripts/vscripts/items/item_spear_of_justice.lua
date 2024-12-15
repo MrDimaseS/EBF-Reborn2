@@ -9,13 +9,13 @@ function item_spear_of_justice:OnSpellStart()
 	local target = self:GetCursorTarget()
 	
 	if caster:IsSameTeam( target ) then
-		local push = target:ApplyKnockBack( target:GetAbsOrigin() - target:GetForwardVector() * 150, 0, 0.5, self:GetSpecialValueFor("push_length"), 0, caster, self )
+		local push = target:ApplyKnockBack( target:GetAbsOrigin() - target:GetForwardVector() * 150, 0, 0.5, self:GetSpecialValueFor("push_length"), 0, caster, self ).knockback
 		
 		push:AddEffect( ParticleManager:CreateParticle( "particles/items_fx/force_staff.vpcf", PATTACH_POINT_FOLLOW, target ) )
 	else
 		local push_length = self:GetSpecialValueFor("enemy_length")
-		local push = caster:ApplyKnockBack( caster:GetAbsOrigin() - CalculateDirection( target, caster ) * CalculateDistance( caster, target ) / 2, 0, 0.5, math.min( push_length, CalculateDistance( caster, target ) / 2 - caster:GetAttackRange( ) / 2 ), 0, caster, self )
-		local push2 = target:ApplyKnockBack( target:GetAbsOrigin() + CalculateDirection( target, caster ) * CalculateDistance( caster, target ) / 2, 0.5, 0.5, math.min( push_length, CalculateDistance( caster, target ) / 2 - caster:GetAttackRange( ) / 2 ), 0, caster, self )
+		local push = caster:ApplyKnockBack( caster:GetAbsOrigin() - CalculateDirection( target, caster ) * CalculateDistance( caster, target ) / 2, 0, 0.5, math.min( push_length, CalculateDistance( caster, target ) / 2 - caster:GetAttackRange( ) / 2 ), 0, caster, self ).knockback
+		local push2 = target:ApplyKnockBack( target:GetAbsOrigin() + CalculateDirection( target, caster ) * CalculateDistance( caster, target ) / 2, 0.5, 0.5, math.min( push_length, CalculateDistance( caster, target ) / 2 - caster:GetAttackRange( ) / 2 ), 0, caster, self ).knockback
 		
 		push:AddEffect( ParticleManager:CreateParticle( "particles/items_fx/force_staff.vpcf", PATTACH_POINT_FOLLOW, target ) )
 		push2:AddEffect( ParticleManager:CreateParticle( "particles/items_fx/force_staff.vpcf", PATTACH_POINT_FOLLOW, caster ) )

@@ -145,16 +145,16 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"12"
+		"AbilityCooldown"				"16 14 12 10"
 		"AbilityCastRange"				"575"
 		"AbilityCastPoint"				"0.2"
-		"AbilityManaCost"				"75 85 95 105 115 125 135"
+		"AbilityManaCost"				"85 90 95 100"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{		
-			"bonus_range"						"350"
+			"bonus_range"						"75 150 225 300"
 			"acorn_shot_damage"
 			{
 				"value"							"400 800 1200 1600"
@@ -168,8 +168,8 @@
 			}
 			"bounce_count"
 			{
-				"value"							"6"
-				"LinkedSpecialBonus"			"special_bonus_unique_hoodwink_acorn_shot_bounces"
+				"value"							"2 3 4 5"
+				"special_bonus_unique_hoodwink_acorn_shot_bounces" "+1"
 			}
 			"bounce_range"						""
 			"debuff_duration"					"0.35"
@@ -378,6 +378,25 @@
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CHANNEL_ABILITY_6"
 	}
+	"hoodwink_sharpshooter_release"	
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_hoodwink/hoodwink_sharpshooter_release"
+		"AbilityTextureName"			"hoodwink_sharpshooter_release"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.0"
+		"AbilityCastRange"				"999999"
+ 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_7"
+ 		"MaxLevel"						"3"
+ 		"DependentOnAbility"			"hoodwink_sharpshooter"
+	}
+
 	//=================================================================================================================
 	// Talent: Hoodwink Scurry Duration
 	//=================================================================================================================

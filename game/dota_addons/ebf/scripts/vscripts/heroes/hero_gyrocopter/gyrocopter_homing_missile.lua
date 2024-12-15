@@ -1,15 +1,23 @@
 gyrocopter_homing_missile = class({})
 
+function gyrocopter_homing_missile:GetBehavior()
+	if self:GetCaster():HasModifier("modifier_gyrocopter_flight_of_the_valkyrie_active") then
+		return DOTA_ABILITY_BEHAVIOR_NO_TARGET
+	else
+		return self.BaseClass.GetBehavior( self )
+	end
+end
+
 function gyrocopter_homing_missile:OnSpellStart()
 	local caster = self:GetCaster()
-	local target = self:GetCursorTarget() 
 	
-	self:LaunchHomingMissile( target )
-	if caster:HasModifier("modifier_gyrocopter_flight_of_the_valkyrie_active") then
+	
+	if not caster:HasModifier("modifier_gyrocopter_flight_of_the_valkyrie_active") then
+		local target = self:GetCursorTarget() 
+		self:LaunchHomingMissile( target )
+	else
 		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), self:GetTrueCastRange() ) ) do
-			if enemy ~= target then
-				self:LaunchHomingMissile( enemy )
-			end
+			self:LaunchHomingMissile( enemy )
 		end
 	end
 end
@@ -18,10 +26,10 @@ end
 function gyrocopter_homing_missile:LaunchHomingMissile( target )
 	local caster = self:GetCaster()
 	local homingMissile = CreateUnitByName("npc_dota_gyrocopter_homing_missile",caster:GetAbsOrigin() + caster:GetForwardVector() * 150 + RandomVector(32),true,caster,caster:GetOwnerEntity(),caster:GetTeam())
-	homingMissile:AddNewModifier(caster, self, "modifier_gyrocopter_homing_missile_behavior", {})
-	homingMissile:SetCoreHealth( self:GetSpecialValueFor("tower_hits_to_kill_tooltip") )
 	homingMissile.target = target
+	homingMissile:SetCoreHealth( self:GetSpecialValueFor("tower_hits_to_kill_tooltip") )
 	EmitSoundOn("hero_gyrocopter.HomingMissile",homingMissile)
+	homingMissile:AddNewModifier(caster, self, "modifier_gyrocopter_homing_missile_behavior", {})
 end
 
 modifier_gyrocopter_homing_missile_behavior = class({})
@@ -88,8 +96,6 @@ function modifier_gyrocopter_homing_missile_behavior:OnIntervalThink()
 				local explosion = ParticleManager:CreateParticle("particles/units/heroes/hero_gyrocopter/gyro_guided_missile_explosion.vpcf", PATTACH_POINT_FOLLOW, self.target ) 
 				ParticleManager:SetParticleControlEnt(explosion, 1, self.target , PATTACH_POINT_FOLLOW, "attach_hitloc", self.target :GetAbsOrigin(), true)
 				
-				homingMissile:AddNoDraw()
-				
 				EmitSoundOn( "Hero_Gyrocopter.HomingMissile.Target", self.target )
 				homingMissile:EmitSound( "Hero_Gyrocopter.HomingMissile.Destroy" )
 				if self.reduction_duration > 0 then
@@ -112,6 +118,7 @@ function modifier_gyrocopter_homing_missile_behavior:OnRemoved()
 		local parent = self:GetParent()
 		parent:StopSound("hero_gyrocopter.HomingMissile")
 		parent:ForceKill(false)
+		parent:AddNoDraw()
 	end
 end
 

@@ -18,7 +18,9 @@ function nyx_assassin_jolt:OnSpellStart()
 			end
 		end
 	end
-	self:Jolt( target )
+	if not target:TriggerSpellAbsorb( self ) then
+		self:Jolt( target )
+	end
 end
 
 function nyx_assassin_jolt:Jolt( target )

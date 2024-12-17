@@ -69,7 +69,7 @@ LinkLuaModifier("modifier_shadow_shaman_mass_serpent_ward_handler", "heroes/hero
 modifier_shadow_shaman_mass_serpent_ward_handler = class({})
 
 function modifier_shadow_shaman_mass_serpent_ward_handler:OnCreated()
-	self.damage_tooltip = self:GetSpecialValueFor("damage_tooltip") * self:GetSpecialValueFor("mega_ward_multiplier_tooltip")
+	self.damage_tooltip = self:GetSpecialValueFor("damage_tooltip")
 	self.mega_ward_multiplier_tooltip = self:GetSpecialValueFor("mega_ward_multiplier_tooltip")
 	self.hits_to_destroy_tooltip_creeps = self:GetParent():GetMaxHealth() / self:GetSpecialValueFor("hits_to_destroy_tooltip_creeps")
 	self.hits_to_destroy_tooltip = self:GetParent():GetMaxHealth() / self:GetSpecialValueFor("hits_to_destroy_tooltip")

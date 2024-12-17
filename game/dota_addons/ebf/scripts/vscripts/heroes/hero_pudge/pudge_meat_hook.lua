@@ -15,6 +15,7 @@ end
 -- Ability Start
 function pudge_meat_hook:OnAbilityPhaseStart()
 	self:GetCaster():StartGesture( ACT_DOTA_OVERRIDE_ABILITY_1 )
+	print("what")
 end
 
 function pudge_meat_hook:OnAbilityPhaseInterrupted()
@@ -77,6 +78,7 @@ function pudge_meat_hook:OnSpellStart()
 
 	-- play effects
 	self:PlayEffects( target, data )
+	print("??")
 end
 
 --------------------------------------------------------------------------------
@@ -85,8 +87,10 @@ pudge_meat_hook.projectiles = {}
 function pudge_meat_hook:OnProjectileHitHandle( target, location, handle )
 	local data = self.projectiles[handle]
 	local caster = self:GetCaster()
+	print("hit")
 	if not data then return true end
 
+	PrintAll(data)
 	if not target then
 		-- remove ref
 		self.projectiles[handle] = nil
@@ -101,7 +105,6 @@ function pudge_meat_hook:OnProjectileHitHandle( target, location, handle )
 		-- pass
 		return false
 	end
-
 	-- add drag modifier
 	target:AddNewModifier(
 		caster, -- player source
@@ -115,6 +118,7 @@ function pudge_meat_hook:OnProjectileHitHandle( target, location, handle )
 	local hook_distance = self:GetSpecialValueFor( "hook_distance" )
 	local damage_mult = (1 + math.min( 1, CalculateDistance( target, data.cast_location ) / hook_distance ) * self:GetSpecialValueFor( "distance_to_damage" ) / 100)
 	
+	print( damage_mult, "hit target" )
 	local damage = self:GetSpecialValueFor( "damage" ) * damage_mult
 	
 	if target:GetTeamNumber() ~= caster:GetTeamNumber() then

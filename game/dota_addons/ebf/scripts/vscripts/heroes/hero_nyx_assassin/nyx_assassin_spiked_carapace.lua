@@ -138,7 +138,7 @@ function modifier_nyx_assassin_spiked_carapace_active:GetModifierIncomingDamage_
 	if not params.attacker:IsMagicImmune() and not self.unitsHit[params.attacker] then
 		local damageTaken = params.damage * self.damage_reflect_pct
 		
-		self:SpikedCarapaceStun( params.target )
+		ability:SpikedCarapaceStun( params.attacker )
 		ability:DealDamage(params.target, params.attacker, damageTaken, {damage_type=params.damageType, damage_flags=DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_REFLECTION})
 		
 		EmitSoundOn("Hero_NyxAssassin.SpikedCarapace.Stun", params.target)

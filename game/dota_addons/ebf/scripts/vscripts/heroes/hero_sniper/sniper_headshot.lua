@@ -13,7 +13,12 @@ end
 function modifier_sniper_headshot_handler:OnRefresh()
 	self.duration = self:GetSpecialValueFor("slow_duration")
 	self.damage = self:GetSpecialValueFor("damage")
+	self.proc_chance_min_range = self:GetSpecialValueFor("proc_chance_min_range")
+	self.proc_chance_max_range = self:GetSpecialValueFor("proc_chance_max_range")
+	self.proc_chance_max_chance = self:GetSpecialValueFor("proc_chance_max_chance")
+	self.assassinate_damage = self:GetSpecialValueFor("assassinate_damage")
 	
+	self.assassinate = self:GetCaster():FindAbilityByName("sniper_assassinate")
 	self.recordsProc = {}
 end
 
@@ -34,6 +39,9 @@ function modifier_sniper_headshot_handler:OnAttackLanded( params )
 		for i = 1, self.recordsProc[params.record] do
 			Timers:CreateTimer( 0.1*(i-1), function() EmitSoundOn( "Hero_Sniper.MKG_impact", target ) end )
 		end
+		if self.assassinate_damage > 0 and not params.attacker:GetAttackData( params.record ).abilityIndex and ( self.recordsProc[params.record] > 1 or target:HasModifier("modifier_sniper_headshot_root") ) then
+			self.assassinate:LaunchAssassinate( params.target, self.assassinate_damage / 100 )
+		end
 		target:AddNewModifier(caster, self:GetAbility(), "modifier_sniper_headshot_root", {Duration = self.duration * self.recordsProc[params.record]})
 		self.recordsProc[params.record] = nil
 	end
@@ -47,6 +55,13 @@ function modifier_sniper_headshot_handler:GetModifierPreAttack_BonusDamage(param
 		local damage = self.damage
 		local duration = self.duration
 		local chance = self:GetSpecialValueFor("proc_chance")
+		local maxChance = self:GetSpecialValueFor("proc_chance_max_chance")
+		if maxChance > 0 then
+			local chanceDiff = (maxChance - chance)
+			local rangeDiff = self.proc_chance_min_range - self.proc_chance_max_range 
+			local distance = CalculateDistance( caster, target ) - self.proc_chance_max_range
+			chance = chance + chanceDiff * math.min( math.max( 0, (rangeDiff-distance)/rangeDiff ), 1 )
+		end
 		local power = 0
 		while chance > 0 do
 			if caster:RollPRNG( chance ) then

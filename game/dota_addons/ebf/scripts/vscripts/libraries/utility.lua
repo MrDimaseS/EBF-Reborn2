@@ -229,6 +229,7 @@ function CDOTA_BaseNPC:PerformGenericAttack(target, immediate, tAttackData )
 end
 
 function CDOTA_BaseNPC:GetAttackData( record )
+	self._instantAttackRecordHistory = self._instantAttackRecordHistory or {}
 	return self._instantAttackRecordHistory[record] or {}
 end
 
@@ -1439,6 +1440,10 @@ function CDOTA_BaseNPC:InWater()
 	else
 		return false
 	end
+end
+
+function ProjectileManager:IsTrackingProjectile( projectile )
+	return ProjectileManager:GetTrackingProjectileLocation( projectile ):Length() > 0
 end
 
 function CDOTA_BaseNPC:HasShard()

@@ -701,7 +701,6 @@ function CHoldoutGameMode:FilterAbilityValues( filterTable )
 			local talentBonuses = originalValue-value
 			-- get the real ability value because valve hates me
 			filterTable.value = -talentBonuses + realValue / ( 1+caster:GetSpellAmplification( false ) ) 
-			print( filterTable.value, filterTable.value_name_const, realValue, value, talentBonuses )
 		end
 		self._abilityFilterPreventLoop = false
 	end

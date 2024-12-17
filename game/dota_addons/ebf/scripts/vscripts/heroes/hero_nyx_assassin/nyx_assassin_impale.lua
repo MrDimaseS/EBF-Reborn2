@@ -18,7 +18,7 @@ function nyx_assassin_impale:OnSpellStart()
 	self:FireLinearProjectile("particles/units/heroes/hero_nyx_assassin/nyx_assassin_impale.vpcf", direction*speed, distance, width, {}, false, true, width*2)
 end
 
-function nyx_assassin_impale:OnProjectileHit(hTarget, vLocation)
+function nyx_assassin_impale:OnProjectileHitHandle(hTarget, vLocation, projectile)
 	local caster = self:GetCaster()
 	
 	local duration = self:GetSpecialValueFor("duration")
@@ -26,15 +26,18 @@ function nyx_assassin_impale:OnProjectileHit(hTarget, vLocation)
 	local knockUpDuration = 0.5
 	local knockUpHeight = 350
 
+	
 	if hTarget then
-		EmitSoundOn("Hero_NyxAssassin.Impale.Target", hTarget)
-		ParticleManager:FireParticle("particles/units/heroes/hero_nyx_assassin/nyx_assassin_impale_hit.vpcf", PATTACH_POINT, caster, {[0]=hTarget:GetAbsOrigin()})
+		if not ProjectileManager:IsTrackingProjectile( projectile ) then
+			EmitSoundOn("Hero_NyxAssassin.Impale.Target", hTarget)
+			ParticleManager:FireParticle("particles/units/heroes/hero_nyx_assassin/nyx_assassin_impale_hit.vpcf", PATTACH_POINT, caster, {[0]=hTarget:GetAbsOrigin()})
 
-		local knockUpRealDuration = hTarget:ApplyKnockBack(vLocation, knockUpDuration, knockUpDuration, 0, knockUpHeight, caster, self).knockback:GetRemainingTime()
-		Timers:CreateTimer(knockUpRealDuration, function()
-			EmitSoundOn("Hero_NyxAssassin.Impale.TargetLand", hTarget)
-			self:DealDamage(caster, hTarget, damage)
-		end)
+			local knockUpRealDuration = hTarget:ApplyKnockBack(vLocation, knockUpDuration, knockUpDuration, 0, knockUpHeight, caster, self).knockback:GetRemainingTime()
+			Timers:CreateTimer(knockUpRealDuration, function()
+				EmitSoundOn("Hero_NyxAssassin.Impale.TargetLand", hTarget)
+				self:DealDamage(caster, hTarget, damage)
+			end)
+		end
 		local reductionDuration = self:GetSpecialValueFor("reduction_duration")
 		if reductionDuration > 0 then
 			hTarget:AddNewModifier( caster, self, "modifier_nyx_assassin_impale_myrmeleomorph", {duration = reductionDuration} )
@@ -121,6 +124,20 @@ end
 function modifier_nyx_assassin_impale_aulacimorph:OnIntervalThink()
 	self:GetAbility():DealDamage( self:GetCaster(), self:GetParent(), self.infest_dps )
 end
+
+function modifier_nyx_assassin_impale_aulacimorph:OnDestroy()
+	if not IsServer() then return end
+	local caster = self:GetCaster()
+	local parent = self:GetParent()
+	local ability = self:GetAbility()
+	for i = 1, self:GetStackCount() do
+		local newTarget = caster:FindRandomEnemyInRadius( parent:GetAbsOrigin(), self.infest_search_radius )
+		if newTarget and newTarget:IsAlive() then
+			ability:FireTrackingProjectile("particles/units/heroes/hero_weaver/weaver_base_attack.vpcf", newTarget, 1800, {source = parent} )
+		end
+	end
+end
+
 function modifier_nyx_assassin_impale_aulacimorph:DeclareFunctions()
 	return {MODIFIER_PROPERTY_TOOLTIP }
 end

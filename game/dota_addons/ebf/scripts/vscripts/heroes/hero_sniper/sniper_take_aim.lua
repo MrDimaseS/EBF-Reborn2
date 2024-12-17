@@ -1,44 +1,10 @@
 sniper_take_aim = class({})
 
-function sniper_take_aim:GetIntrinsicModifierName()
-	return "modifier_sniper_take_aim"
-end
-
 function sniper_take_aim:OnSpellStart()	
 	local caster = self:GetCaster()
 	caster:AddNewModifier( caster, self, "modifier_sniper_take_aim_active", {duration = self:GetSpecialValueFor("duration")} )
 	
 	EmitSoundOn( "Hero_Sniper.TakeAim.Cast", caster)
-end
-
-modifier_sniper_take_aim = class({})
-LinkLuaModifier( "modifier_sniper_take_aim","heroes/hero_sniper/sniper_take_aim.lua",LUA_MODIFIER_MOTION_NONE )
-function modifier_sniper_take_aim:OnCreated(table)
-	self.range = self:GetSpecialValueFor("bonus_attack_range")
-end
-
-function modifier_sniper_take_aim:OnRefresh(table)
-	self:OnCreated()
-end
-
-function modifier_sniper_take_aim:DeclareFunctions()
-	return {MODIFIER_PROPERTY_ATTACK_RANGE_BONUS}
-end
-
-function modifier_sniper_take_aim:GetModifierAttackRangeBonus()
-	return self:GetSpecialValueFor("bonus_attack_range")
-end
-
-function modifier_sniper_take_aim:IsPurgeException()
-	return false
-end
-
-function modifier_sniper_take_aim:IsPurgable()
-	return false
-end
-
-function modifier_sniper_take_aim:IsHidden()
-	return true
 end
 
 modifier_sniper_take_aim_active = class({})
@@ -48,14 +14,31 @@ function modifier_sniper_take_aim_active:OnCreated()
 	self.chance = self:GetSpecialValueFor("headshot_chance")
 	self.active_attack_range_bonus = self:GetSpecialValueFor("active_attack_range_bonus")
 	self.slow = self:GetSpecialValueFor("slow")
+	self.ms_bonus = self:GetSpecialValueFor("ms_bonus")
+	if self.ms_bonus > 0 then
+		self.speed = self.ms_bonus
+	else
+		self.speed = self.slow
+	end
+	self.no_reveal = self:GetSpecialValueFor("no_reveal") == 1
 end
 
 function modifier_sniper_take_aim_active:OnRefresh()
 	self:OnCreated()
 end
 
+function modifier_sniper_take_aim_active:CheckState()
+	if self.no_reveal then
+		return {[MODIFIER_STATE_INVISIBLE] = true}
+	end
+end
+
 function modifier_sniper_take_aim_active:DeclareFunctions()
-	return {MODIFIER_PROPERTY_ATTACK_RANGE_BONUS, MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL, MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL_VALUE, MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE }
+	return {MODIFIER_PROPERTY_ATTACK_RANGE_BONUS, 
+			MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL, MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL_VALUE, 
+			MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE,
+			MODIFIER_PROPERTY_INVISIBILITY_LEVEL 
+			}
 end
 
 function modifier_sniper_take_aim_active:GetModifierOverrideAbilitySpecial(params)
@@ -84,5 +67,11 @@ function modifier_sniper_take_aim_active:GetModifierAttackRangeBonus()
 end
 
 function modifier_sniper_take_aim_active:GetModifierMoveSpeedBonus_Percentage()
-	return self.slow
+	return self.speed
+end
+
+function modifier_sniper_take_aim_active:GetModifierInvisibilityLevel()
+	if self.no_reveal then
+		return 1
+	end
 end

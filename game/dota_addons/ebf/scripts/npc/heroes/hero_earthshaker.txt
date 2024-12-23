@@ -7,18 +7,27 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_earthshaker/earthshaker_spirit_cairn"
+		"AbilityTextureName"			"earthshaker_spirit_cairn"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
-		"MaxLevel"						"1"
+		"MaxLevel"						"5"
+		"DependentOnAbility"			"earthshaker_fissure"
 		"Innate"						"1"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-				"fissure_radius"			"75"
+			"fissure_radius"			"75"
+			"fissure_duration"			"8"
+			"bonus_radius"				"500"
+			"bonus_armor"				"2 3 4 5 6"
 		}
 	}
+	
+	when Earthshaker casts an ability or dies, he drops a 75 radius Fissure at his location that lasts for 8 seconds. Units within 500 radius of the Cairn gain 3/4/5/6 armor. Only one Cairn can exist at any given time.
 
 	//=================================================================================================================
 	// Earthshaker Slugger

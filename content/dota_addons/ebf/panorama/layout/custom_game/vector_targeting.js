@@ -44,7 +44,7 @@ const hud = dotaHud.FindChildTraverse("HUDElements");
 (function() {
     const glyphScan = hud.FindChildTraverse("GlyphScanContainer");
     if (glyphScan !== null && glyphScan !== undefined) {
-        glyphScan.style.visibility = "collapse";
+		glyphScan.FindChildTraverse("RadiantRoot").style.visibility = "collapse";
     }
 })();
 

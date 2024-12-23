@@ -13,6 +13,8 @@ LinkLuaModifier( "modifier_hero_rage_system", "modifier/modifier_hero_rage_syste
 LinkLuaModifier( "modifier_hero_stamina_system", "modifier/modifier_hero_stamina_system.lua", LUA_MODIFIER_MOTION_NONE )
 LinkLuaModifier( "modifier_thinker_hero_regeneration", "modifier/modifier_thinker_hero_regeneration.lua", LUA_MODIFIER_MOTION_NONE )
 LinkLuaModifier( "modifier_neutrals_ancestors_rage", "modifier/modifier_neutrals_ancestors_rage.lua", LUA_MODIFIER_MOTION_NONE )
+LinkLuaModifier( "modifier_glyph_buff", "modifier/modifier_glyph_buff.lua", LUA_MODIFIER_MOTION_NONE )
+LinkLuaModifier( "modifier_radar_debuff", "modifier/modifier_radar_debuff.lua", LUA_MODIFIER_MOTION_NONE )
 LinkLuaModifier("modifier_special_effect_donator", "/modifiers/modifier_special_effect_donator.lua", LUA_MODIFIER_MOTION_NONE)
 
 LinkLuaModifier( "modifier_generic_attack_bonus", "libraries/modifiers/modifier_generic_attack_bonus.lua", LUA_MODIFIER_MOTION_NONE )

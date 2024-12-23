@@ -9,7 +9,7 @@ function nyx_assassin_impale:OnSpellStart()
 	local point = self:GetCursorPosition()
 
 	local direction = CalculateDirection(point, caster:GetAbsOrigin())
-	local distance = self:GetSpecialValueFor("length")
+	local distance = self:GetSpecialValueFor("length") + caster:GetCastRangeBonus()
 	local width = self:GetSpecialValueFor("width")
 	local speed = self:GetSpecialValueFor("speed")
 
@@ -23,6 +23,7 @@ function nyx_assassin_impale:OnProjectileHitHandle(hTarget, vLocation, projectil
 	
 	local duration = self:GetSpecialValueFor("duration")
 	local damage = self:GetSpecialValueFor("impale_damage")
+	local stunDuration = self:GetSpecialValueFor("duration")
 	local knockUpDuration = 0.5
 	local knockUpHeight = 350
 
@@ -32,7 +33,7 @@ function nyx_assassin_impale:OnProjectileHitHandle(hTarget, vLocation, projectil
 			EmitSoundOn("Hero_NyxAssassin.Impale.Target", hTarget)
 			ParticleManager:FireParticle("particles/units/heroes/hero_nyx_assassin/nyx_assassin_impale_hit.vpcf", PATTACH_POINT, caster, {[0]=hTarget:GetAbsOrigin()})
 
-			local knockUpRealDuration = hTarget:ApplyKnockBack(vLocation, knockUpDuration, knockUpDuration, 0, knockUpHeight, caster, self).knockback:GetRemainingTime()
+			local knockUpRealDuration = hTarget:ApplyKnockBack(vLocation, stunDuration, knockUpDuration, 0, knockUpHeight, caster, self).knockback:GetRemainingTime()
 			Timers:CreateTimer(knockUpRealDuration, function()
 				EmitSoundOn("Hero_NyxAssassin.Impale.TargetLand", hTarget)
 				self:DealDamage(caster, hTarget, damage)

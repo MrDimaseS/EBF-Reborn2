@@ -1,6 +1,29 @@
 "DOTAAbilities"
 {	
 	//=================================================================================================================
+	// Enchantress: Woodland Uprising
+	//=================================================================================================================
+	"enchantress_rabblerouser"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_enchantress/enchantress_rabblerouser"
+		"AbilityTextureName"			"enchantress_rabblerouser"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_AURA | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SKIP_FOR_KEYBINDS"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"MaxLevel"						"1"
+		"Innate"						"1"
+		"IsBreakable"					"1"
+		
+		"AbilityValues"
+		{
+			"base_damage_amp"			"8"
+			"aura_radius"				"1200"
+		}
+	}
+	//=================================================================================================================
 	// Enchantress: Untouchable
 	//=================================================================================================================
 	"enchantress_untouchable"
@@ -13,9 +36,6 @@
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 
 		"LinkedAbility"					"enchantress_bunny_hop"
-		
-		
-		"LevelsBetweenUpgrades"			"6"
 
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------

@@ -138,7 +138,10 @@ function modifier_nyx_assassin_burrowed:GetModifierAttackRangeBonus()
 end
 
 function modifier_nyx_assassin_burrowed:GetModifierCastRangeBonus( params )
-	if not params.ability:IsItem() then
+	if IsClient() then
+		return self.cast_range
+	end
+	if not params.ability or params.ability:IsItem() then
 		return self.cast_range
 	end
 end

@@ -62,6 +62,7 @@ function sniper_assassinate:OnProjectileHitHandle(target, vLocation, projectile)
 		local impact_power = self.projectileTable[projectile].impact_power
 		EmitSoundOn("Hero_Sniper.AssassinateDamage", caster)
 		self:Stun(target, self:GetSpecialValueFor("ministun_duration") * impact_power )
+		self:DealDamage(caster, target, self:GetSpecialValueFor("impact_damage") * impact_power )
 		caster:PerformGenericAttack(target, true, {ability = self})
 		
 		if not target:IsAlive() then

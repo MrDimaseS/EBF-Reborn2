@@ -1,5 +1,31 @@
 "DOTAAbilities"
 {	
+
+	//=================================================================================================================
+	// Ability: Innate  building damage
+	//=================================================================================================================
+	"primal_beast_colossal"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_primal_beast/primal_beast_colossal"
+		"AbilityTextureName"			"primal_beast_colossal"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
+		"Innate"						"1"
+		"MaxLevel"						"4"
+		"IsBreakable"					"1"
+		"DependentAbility"				"primal_beast_pulverize"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_building_damage"		""
+			"damage_per_second"			"100 200 300 400"
+		}
+	}
 	//=================================================================================================================
 	// Primal Beast: Onslaught
 	//=================================================================================================================

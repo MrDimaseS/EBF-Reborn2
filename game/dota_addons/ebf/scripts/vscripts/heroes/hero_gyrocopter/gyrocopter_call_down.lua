@@ -28,82 +28,82 @@ function gyrocopter_call_down:GetVectorTargetRange()
 	return (self:GetSpecialValueFor("total_strikes") - 1) * self:GetSpecialValueFor("strike_separation")
 end
 
+function gyrocopter_call_down:Spawn()
+	self.rockets = self.rockets or {}
+end
+
 function gyrocopter_call_down:OnVectorCastStart( vPos, vDir )
 	local caster = self:GetCaster()
 	local position = self:GetCursorPosition()
 	local direction = self:GetVectorDirection()
+	
+	if caster:HasModifier("modifier_gyrocopter_flight_of_the_valkyrie_active") then
+		self:StartValkyrieCalldown()
+	else
+		self:StartCalldown( position, direction )
+	end
+end
+
+function gyrocopter_call_down:OnSpellStart()
+	self:StartValkyrieCalldown()
+end
+
+function gyrocopter_call_down:StartCalldown( position, direction )
+	local caster = self:GetCaster()
 	
 	local radius = self:GetSpecialValueFor("radius")
 	local strike_delay = self:GetSpecialValueFor("strike_delay")
 	local total_strikes = self:GetSpecialValueFor("total_strikes")
 	local strike_separation = self:GetSpecialValueFor("strike_separation")
 	
-	self.rockets = self.rockets or {}
-	if caster:HasModifier("modifier_gyrocopter_flight_of_the_valkyrie_active") then
-		total_strikes = total_strikes + math.floor( caster:FindModifierByName("modifier_gyrocopter_flight_of_the_valkyrie_active"):GetRemainingTime() )
-		if self.valkyrieTimer then
-			self.rockets[self.valkyrieTimer] = self.rockets[self.valkyrieTimer] + total_strikes
+	local uniqueCastID = DoUniqueString("call_down")
+	self.rockets[uniqueCastID] = total_strikes
+	Timers:CreateTimer(function()
+		-- print("rocket check", self.rockets[uniqueCastID], uniqueCastID)
+		self:CreateMissileStrike( position, radius )
+		self.rockets[uniqueCastID] = self.rockets[uniqueCastID] - 1
+		
+		if self.rockets[uniqueCastID] > 0 then
+			position = position + direction * strike_separation
+			return strike_delay
 		else
-			local uniqueCastID = DoUniqueString("call_down")
-			self.valkyrieTimer = uniqueCastID
-			self.rockets[uniqueCastID] = total_strikes
-			Timers:CreateTimer(function()
-				if caster:HasModifier("modifier_gyrocopter_flight_of_the_valkyrie_active") then
-					position = caster:GetAbsOrigin() - caster:GetForwardVector() * strike_separation
-				end
-				self:CreateMissileStrike( position, radius )
-				self.rockets[uniqueCastID] = self.rockets[uniqueCastID] - 1
-				
-				print("rocket check", self.rockets[uniqueCastID], uniqueCastID)
-				if self.rockets[uniqueCastID] > 0 then
-					if not caster:HasModifier("modifier_gyrocopter_flight_of_the_valkyrie_active") then
-						position = position + direction * strike_separation
-					end
-					return strike_delay
-				else
-					self.valkyrieTimer = nil
-				end
-			end)
+			self.valkyrieTimer = nil
 		end
+	end)
+end
+
+function gyrocopter_call_down:StartValkyrieCalldown()
+	local caster = self:GetCaster()
+	
+	local radius = self:GetSpecialValueFor("radius")
+	local strike_delay = self:GetSpecialValueFor("strike_delay")
+	local total_strikes = self:GetSpecialValueFor("total_strikes")
+	local strike_separation = self:GetSpecialValueFor("strike_separation")
+	
+	total_strikes = total_strikes + math.floor( caster:FindModifierByName("modifier_gyrocopter_flight_of_the_valkyrie_active"):GetRemainingTime() )
+	if self.valkyrieTimer then
+		self.rockets[self.valkyrieTimer] = math.min( self.rockets[self.valkyrieTimer] + total_strikes, 20 )
 	else
 		local uniqueCastID = DoUniqueString("call_down")
+		self.valkyrieTimer = uniqueCastID
 		self.rockets[uniqueCastID] = total_strikes
 		Timers:CreateTimer(function()
-			if caster:HasModifier("modifier_gyrocopter_flight_of_the_valkyrie_active") then
+			if not caster:HasModifier("modifier_gyrocopter_flight_of_the_valkyrie_active") then
+				position = position + self._forwardsFacing * strike_separation
+			else
 				position = caster:GetAbsOrigin() - caster:GetForwardVector() * strike_separation
+				self._forwardsFacing = caster:GetForwardVector()
 			end
 			self:CreateMissileStrike( position, radius )
 			self.rockets[uniqueCastID] = self.rockets[uniqueCastID] - 1
 			
 			if self.rockets[uniqueCastID] > 0 then
-				if not caster:HasModifier("modifier_gyrocopter_flight_of_the_valkyrie_active") then
-					position = position + direction * strike_separation
-				end
 				return strike_delay
 			else
 				self.valkyrieTimer = nil
 			end
 		end)
 	end
-end
-
-function gyrocopter_call_down:OnSpellStart()
-	local caster = self:GetCaster()
-	
-	local radius = self:GetSpecialValueFor("radius")
-	local strike_delay = self:GetSpecialValueFor("strike_delay")
-	local total_strikes = self:GetSpecialValueFor("total_strikes")
-	local strike_separation = self:GetSpecialValueFor("strike_separation")
-	
-	if caster:HasModifier("modifier_gyrocopter_flight_of_the_valkyrie_active") then
-		total_strikes = total_strikes + math.floor( caster:FindModifierByName("modifier_gyrocopter_flight_of_the_valkyrie_active"):GetRemainingTime() )
-	end
-	Timers:CreateTimer(function()
-		self:CreateMissileStrike( caster:GetAbsOrigin() - caster:GetForwardVector() * strike_separation, radius )
-		if total_strikes > 0 then
-			return strike_delay
-		end
-	end)
 end
 
 function gyrocopter_call_down:CreateMissileStrike( target, flRadius, flDamage )

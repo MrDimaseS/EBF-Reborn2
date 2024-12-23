@@ -53,6 +53,7 @@ function Precache( context )
 	PrecacheResource( "particle", "particles/units/heroes/hero_lone_druid/lone_druid_battle_cry_overhead.vpcf", context )
 	PrecacheResource( "particle", "particles/units/heroes/hero_bounty_hunter/bounty_hunter_track_shield.vpcf", context )
 	PrecacheResource( "particle", "particles/units/heroes/hero_bounty_hunter/bounty_hunter_track_trail.vpcf", context )
+	PrecacheResource( "particle", "particles/units/heroes/hero_phantom_assassin/phantom_assassin_mark_overhead.vpcf", context )
 		
 
 	PrecacheResource( "particle", "particles/units/heroes/hero_treant/treant_foot_step.vpcf", context )
@@ -208,6 +209,8 @@ function CHoldoutGameMode:InitGameMode()
 	GameRules:SetTreeRegrowTime( 15.0 )
 	GameRules:SetCreepMinimapIconScale( 4 )
 	GameRules:SetRuneMinimapIconScale( 1.5 )
+	GameRules:GetGameModeEntity():SetCustomGlyphCooldown( 150 )
+	GameRules:GetGameModeEntity():SetCustomScanCooldown( 120 )
 	GameRules:SetGoldTickTime( 0.6 )
     GameRules:SetGoldPerTick( 1 )
 	GameRules:SetEnableAlternateHeroGrids( false )
@@ -540,6 +543,22 @@ function CHoldoutGameMode:FilterOrders( filterTable )
 	local unit = EntIndexToHScript(filterTable.units["0"] or 0)
 	local ability = EntIndexToHScript(filterTable.entindex_ability)
 	local target = EntIndexToHScript(filterTable.entindex_target)
+	local position = Vector( filterTable.position_x, filterTable.position_y,  filterTable.position_z )
+	
+	if orderType == DOTA_UNIT_ORDER_GLYPH then
+		for _, hero in ipairs( HeroList:GetAllHeroes() ) do
+			hero:Dispel( hero, true )
+			hero:AddNewModifier( hero, nil, "modifier_fountain_glyph", {duration = 20})
+			hero:AddNewModifier( hero, nil, "modifier_debuff_immune", {duration = 20})
+		end
+	end
+	if orderType == DOTA_UNIT_ORDER_RADAR then
+		for _, enemy in ipairs( unit:FindEnemyUnitsInRadius(position, 900) ) do
+			enemy:Dispel( unit, true )
+			enemy:AddNewModifier( enemy, nil, "modifier_truesight", {duration = 30})
+			enemy:AddNewModifier( unit, nil, "modifier_radar_debuff", {duration = 30})
+		end
+	end
 	if orderType == DOTA_UNIT_ORDER_MOVE_TO_TARGET or orderType == DOTA_UNIT_ORDER_CAST_TARGET then
 		if (target and target:GetTeam() == unit:GetTeam() and PlayerResource:IsDisableHelpSetForPlayerID(target:GetPlayerOwnerID(), unit:GetPlayerOwnerID())) then
 			DisplayError(unit:GetPlayerOwnerID(), "dota_hud_error_target_has_disable_help")

@@ -15,12 +15,18 @@ function modifier_sniper_take_aim_active:OnCreated()
 	self.active_attack_range_bonus = self:GetSpecialValueFor("active_attack_range_bonus")
 	self.slow = self:GetSpecialValueFor("slow")
 	self.ms_bonus = self:GetSpecialValueFor("ms_bonus")
+	self.headshot_range_chance = self:GetSpecialValueFor("headshot_range_chance")
 	if self.ms_bonus > 0 then
 		self.speed = self.ms_bonus
 	else
 		self.speed = self.slow
 	end
 	self.no_reveal = self:GetSpecialValueFor("no_reveal") == 1
+	self.true_strike = self:GetSpecialValueFor("true_strike") == 1
+	if IsServer() then
+		local headshot = self:GetCaster():FindModifierByName("modifier_sniper_headshot_handler")
+		if headshot then headshot:ForceRefresh() end
+	end
 end
 
 function modifier_sniper_take_aim_active:OnRefresh()
@@ -30,6 +36,9 @@ end
 function modifier_sniper_take_aim_active:CheckState()
 	if self.no_reveal then
 		return {[MODIFIER_STATE_INVISIBLE] = true}
+	end
+	if self.true_strike then
+		return {[MODIFIER_STATE_CANNOT_MISS] = true}
 	end
 end
 
@@ -45,7 +54,7 @@ function modifier_sniper_take_aim_active:GetModifierOverrideAbilitySpecial(param
 	if params.ability:GetName() == "sniper_headshot" then
 		local caster = params.ability:GetCaster()
 		local specialValue = params.ability_special_value
-		if specialValue == "proc_chance" then
+		if specialValue == "proc_chance" or (specialValue == "proc_chance_max_chance" and self.headshot_range_chance > 0) then
 			return 1
 		end
 	end
@@ -58,6 +67,11 @@ function modifier_sniper_take_aim_active:GetModifierOverrideAbilitySpecialValue(
 		if specialValue == "proc_chance" then
 			local flBaseValue = params.ability:GetLevelSpecialValueNoOverride( specialValue, params.ability_special_level )
 			return flBaseValue + self.chance
+		elseif specialValue == "proc_chance_max_chance" then
+			local flBaseValue = params.ability:GetLevelSpecialValueNoOverride( specialValue, params.ability_special_level )
+			if flBaseValue > 0 then
+				return flBaseValue + self.chance + self.headshot_range_chance
+			end
 		end
 	end
 end

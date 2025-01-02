@@ -65,6 +65,7 @@
 			"damage"
 			{
 				"value"											"1000 2000 3000 4000"
+				"special_bonus_unique_sniper_1"					"+35%"
 				"CalculateSpellDamageTooltip"					"1"
 			}
 			"AbilityCastRange"		
@@ -72,14 +73,18 @@
 				"value"											"600"
 				"special_bonus_unique_sniper_grenade_range"		"+250"
 			}
-			"radius"		
+			"radius"
 			{
 				"value"											"350 375 400 425"
 				"affected_by_aoe_increase"						"1"
 			}
 			"projectile_speed"									"2500"
 			"slow"												"30 45 60 75"
-			"debuff_duration"									"3"
+			"debuff_duration"
+			{
+				"value"											"3"
+				"special_bonus_unique_sniper_5"					"+1"
+			}
 			"knockback_height"									"100"
 			"knockback_distance"		
 			{
@@ -204,14 +209,13 @@
 				"value"											"40"
 				"affected_by_chance_increase"					"1"
 			}
-			"proc_chance_min_range"								{"special_bonus_facet_sniper_gunslinger"			"800"}
-			"proc_chance_max_range"								{"special_bonus_facet_sniper_gunslinger"			"250"}
+			"proc_chance_min_range"								{"special_bonus_facet_sniper_gunslinger"	"800"}
+			"proc_chance_max_range"								{"special_bonus_facet_sniper_gunslinger"	"250"}
 			"proc_chance_max_chance"
 			{
 				"special_bonus_facet_sniper_gunslinger"			"80"
 				"affected_by_chance_increase"					"1"
 			}
-			"assassinate_damage"								{"special_bonus_facet_sniper_deadeye"				"10 15 20 25"}
 			"knockback_distance"								""
 			"slow"												""
 			"slow_duration"
@@ -219,6 +223,7 @@
 				"value"											"0.2 0.3 0.4 0.5"
 				"special_bonus_unique_sniper_3"					"+0.25"
 			}
+			"miss_chance"										{"special_bonus_facet_sniper_deadeye"	"20"}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -253,7 +258,7 @@
 			}
 			"slow"
 			{
-				"special_bonus_facet_sniper_ghillie_suit"			"-65"
+				"value"												"-65"
 				"special_bonus_facet_sniper_gunslinger"				"=0"
 			}
 			"ms_bonus"
@@ -262,23 +267,23 @@
 			}
 			"headshot_chance"
 			{
-				"special_bonus_facet_sniper_deadeye"				"110 115 120 125"
+				"value"												"30 45 60 75"
+				"special_bonus_unique_sniper_take_aim_armor"		"+15"
 			}
 			"active_attack_range_bonus"
 			{
 				"value"												"200"
+				"special_bonus_facet_sniper_deadeye"				"=200 =250 =300 =350"
 				"special_bonus_unique_sniper_6"						"+50%"
 			}
-			"bonus_armor"		
-			{
-				"value"												"5 10 15 20"
-				"special_bonus_unique_sniper_take_aim_armor"		"+15"
-			}
+			"bonus_armor"											""
 			"no_reveal"
 			{
 				"special_bonus_facet_sniper_ghillie_suit"			""
 				"special_bonus_facet_sniper_gunslinger"				"1"
 			}
+			"headshot_range_chance"									{"special_bonus_facet_sniper_gunslinger"	"30 45 60 75"}
+			"true_strike"											{"special_bonus_facet_sniper_deadeye"		"1"}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -316,7 +321,7 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-
+		"AbilityCooldown"				""
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"175"
@@ -334,8 +339,8 @@
 			"AbilityCooldown"
 			{
 				"value" 								"20 15 10"
-				"special_bonus_facet_sniper_deadeye"	"=13 =10 =7"
-				"RequiresFacet"							"special_bonus_facet_sniper_deadeye"
+				"special_bonus_facet_sniper_gunslinger"	"=18 =12 =6"
+				"RequiresFacet"							"special_bonus_facet_sniper_gunslinger"
 			}
 			"AbilityCastPoint"
 			{
@@ -361,13 +366,14 @@
 			"ministun_duration"
 			{
 				"value" 								"0.5"
-				"special_bonus_facet_sniper_deadeye"	"+1.5"
+				"special_bonus_facet_sniper_gunslinger"	"=1.5"
 			}
 			"bounce_power"				"50"
 			
 			"scepter_stun_duration"		""
 			"scepter_cast_point"		""
 			"aoe_radius"								{"special_bonus_facet_sniper_gunslinger"	"=325"}
+			"headshot_damage"							{"special_bonus_facet_sniper_deadeye"		"15 20 25"}
 		}		
 	}
 }

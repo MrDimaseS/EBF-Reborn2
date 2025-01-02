@@ -856,7 +856,7 @@ function CDOTABaseAbility:ModifyCooldown(amt)
 	local currCD = self:GetCooldownTimeRemaining()
 	if amt < 0 and currCD == 0 then return end
 	self:EndCooldown()
-	-- self:StartCooldown(currCD + amt)
+	self:StartCooldown(currCD + amt)
 end
 
 function CScriptHeroList:GetRealHeroes()

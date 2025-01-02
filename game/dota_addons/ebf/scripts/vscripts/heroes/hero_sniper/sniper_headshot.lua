@@ -13,12 +13,19 @@ end
 function modifier_sniper_headshot_handler:OnRefresh()
 	self.duration = self:GetSpecialValueFor("slow_duration")
 	self.damage = self:GetSpecialValueFor("damage")
+	self.proc_chance = self:GetSpecialValueFor("proc_chance")
 	self.proc_chance_min_range = self:GetSpecialValueFor("proc_chance_min_range")
 	self.proc_chance_max_range = self:GetSpecialValueFor("proc_chance_max_range")
 	self.proc_chance_max_chance = self:GetSpecialValueFor("proc_chance_max_chance")
-	self.assassinate_damage = self:GetSpecialValueFor("assassinate_damage")
 	
-	self.assassinate = self:GetCaster():FindAbilityByName("sniper_assassinate")
+	if not IsEntitySafe( self.assassinate ) then
+		self.assassinate = self:GetCaster():FindAbilityByName("sniper_assassinate")
+	end
+	if IsEntitySafe(self.assassinate) then
+		self.assassinate_damage = self.assassinate:GetSpecialValueFor("headshot_damage")
+	else
+		self.assassinate_damage = 0
+	end
 	self.recordsProc = {}
 end
 
@@ -93,8 +100,20 @@ end
 modifier_sniper_headshot_root = class({})
 LinkLuaModifier( "modifier_sniper_headshot_root","heroes/hero_sniper/sniper_headshot.lua",LUA_MODIFIER_MOTION_NONE )
 
+function modifier_sniper_headshot_root:OnRefresh()
+	self.miss_chance = self:GetSpecialValueFor("miss_chance")
+end
+
+function modifier_sniper_headshot_root:DeclareFunctions()
+	return {MODIFIER_PROPERTY_MISS_PERCENTAGE}
+end
+
 function modifier_sniper_headshot_root:CheckState()
 	return {[MODIFIER_STATE_ROOTED] = true}
+end
+
+function modifier_sniper_headshot_handler:GetModifierMiss_Percentage()
+	return self.miss_chance
 end
 
 function modifier_sniper_headshot_root:GetEffectName()

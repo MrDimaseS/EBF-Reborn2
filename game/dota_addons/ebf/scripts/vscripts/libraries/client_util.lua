@@ -1,3 +1,6 @@
+-- # operator returns numeric on bool
+debug.setmetatable(true, {__len = function (value) return value and 1 or 0 end})
+
 function MergeTables( t1, t2 )
     for name,info in pairs(t2) do
 		if type(info) == "table"  and type(t1[name]) == "table" then

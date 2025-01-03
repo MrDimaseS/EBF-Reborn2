@@ -24,7 +24,9 @@
 			"evasion_per_level"								""
 			"evasion_per_second"							"10"
 			"loss_delay"									"1.5"
+			"no_casting_loss"								{"special_bonus_facet_phantom_assassin_lanceuse"		"1"}
 			"stifling_multiplier"							{"special_bonus_facet_phantom_assassin_lanceuse"		"2"}
+			"kills_refresh"									{"special_bonus_facet_phantom_assassin_dame_noire"		"1"}
 			"invisibility_threshold"						{"special_bonus_facet_phantom_assassin_dame_noire"		"100"}
 			"evasion_to_lifesteal"							{"special_bonus_facet_phantom_assassin_femme_fatale"	"25"}
 		}
@@ -40,7 +42,7 @@
 		"BaseClass"						"ability_lua"
 		"ScriptFile"					"heroes/hero_phantom_assassin/phantom_assassin_stifling_dagger"
 		"AbilityTextureName"			"phantom_assassin_stifling_dagger"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
@@ -99,6 +101,7 @@
 			"bonus_attack_factor"									{"special_bonus_facet_phantom_assassin_dame_noire"		"20"}
 			"stun_duration"											{"special_bonus_facet_phantom_assassin_femme_fatale"	"1.0"}
 			"root_duration"											{"special_bonus_facet_phantom_assassin_femme_fatale"	"2.0"}
+			"triple_strike"											{"special_bonus_unique_phantom_assassin"				"1"}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -114,8 +117,8 @@
 		"ScriptFile"					"heroes/hero_phantom_assassin/phantom_assassin_phantom_strike"
 		"AbilityTextureName"			"phantom_assassin_phantom_strike"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_CUSTOM"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_CUSTOM"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_ALL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		
@@ -204,10 +207,13 @@
 			"duration"												"30"
 			"fade_duration"
 			{
-				"value"												"5.0 4.0 3.0 2.0"
+				"value"												""
 				"special_bonus_facet_phantom_assassin_veiled_one"	""
+			}
+			"restore_delay"
+			{
+				"value"												"5.0 4.0 3.0 2.0"
 				"special_bonus_facet_phantom_assassin_dame_noire"	"-50%"
-				"special_bonus_facet_phantom_assassin_femme_fatale"	"=0 =0 =0 =0"
 			}
 			"AbilityCooldown"
 			{
@@ -216,23 +222,16 @@
 				"special_bonus_facet_phantom_assassin_dame_noire"	"-50%"
 				"RequiresFacet"										"special_bonus_facet_phantom_assassin_dame_noire"
 			}
-			"scepter_cooldown"				""
-			"scepter_fade_duration"			""
+			"active_movespeed_bonus"								"3 6 9 12"
 			
-			"manacost_reduction_during_blur_pct"
-			{
-				"value"												"0"
-				"special_bonus_facet_phantom_assassin_veiled_one"	"30"
-			}
-			"manacost_reduction_after_blur_pct"
-			{
-				"value"												"0"
-				"special_bonus_facet_phantom_assassin_veiled_one"	"100"
-			}
 			"aoe_bonus"												{"special_bonus_facet_phantom_assassin_lanceuse"		"150 175 200 225"}
 			"range_bonus"											{"special_bonus_facet_phantom_assassin_lanceuse"		"250 300 350 400"}
 			"creeps_noreveal"										{"special_bonus_facet_phantom_assassin_dame_noire"		"1"}
 			"bonus_evasion"											{"special_bonus_facet_phantom_assassin_femme_fatale"	"60 65 70 75"}
+			"no_invis"												{"special_bonus_facet_phantom_assassin_femme_fatale"	"1"}
+			
+			
+			"scepter_cooldown"				""
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -260,13 +259,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"crit_chance"
+			"base_crit_chance"
 			{
 				"value"													"17"
-				"special_bonus_unique_phantom_assassin_2"				"+10"
-				"special_bonus_facet_phantom_assassin_methodical"		""
 				"special_bonus_facet_phantom_assassin_dame_noire"		"=20"
-				"RequiresFacet"											""
+				"special_bonus_unique_phantom_assassin_2"				"+10"
 				"affected_by_chance_increase"							"1"
 			}
 			"dagger_crit_chance"
@@ -280,10 +277,9 @@
 			}
 			"stifling_crit_chance"
 			{
-				"special_bonus_unique_phantom_assassin_2"				"+20"
 				"special_bonus_facet_phantom_assassin_lanceuse"			"=34"
+				"special_bonus_unique_phantom_assassin_2"				"+20"
 				"affected_by_chance_increase"							"1"
-				"RequiresFacet"											"special_bonus_facet_phantom_assassin_lanceuse"
 			}
 			"crit_bonus"
 			{

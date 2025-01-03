@@ -1,79 +1,91 @@
 phantom_assassin_blur = class({})
 
-function phantom_assassin_blur:GetBehavior()
-	return DOTA_ABILITY_BEHAVIOR_NO_TARGET
-end
-
-function phantom_assassin_blur:GetCastPoint( )
-	if self:GetCaster():HasScepter() then
-		return 0
-	else
-		return self.BaseClass.GetCastPoint( self )
-	end
-end
-
-function phantom_assassin_blur:GetIntrinsicModifierName()
-    return "modifier_phantom_assassin_blur_handler"
-end
-
 function phantom_assassin_blur:OnSpellStart()
 	local caster = self:GetCaster()
-	caster:AddNewModifier( caster, self, "modifier_phantom_assassin_blur_fade", {duration = self:GetSpecialValueFor("duration")})
+	caster:AddNewModifier( caster, self, "modifier_phantom_assassin_blur_handler", {duration = self:GetSpecialValueFor("duration")})
 	caster:EmitSound("Hero_PhantomAssassin.Blur")
-	
-	if caster:HasScepter() then
-		caster:Dispel( caster, true )
-	end
 end
 
-LinkLuaModifier( "modifier_phantom_assassin_blur_handler", "heroes/hero_phantom_assassin/phantom_assassin_blur", LUA_MODIFIER_MOTION_NONE )
 modifier_phantom_assassin_blur_handler = class({})
+LinkLuaModifier( "modifier_phantom_assassin_blur_handler", "heroes/hero_phantom_assassin/phantom_assassin_blur", LUA_MODIFIER_MOTION_NONE )
 
 function modifier_phantom_assassin_blur_handler:OnCreated()
-    self:OnRefresh()
+	self:OnRefresh()
 end
 
 function modifier_phantom_assassin_blur_handler:OnRefresh()
-    self.evasion = self:GetSpecialValueFor("bonus_evasion")
-	
-	if IsServer() then
-		self.coupdegrace = self:GetCaster():FindAbilityByName("phantom_assassin_coup_de_grace")
+	self.restore_delay = self:GetSpecialValueFor("restore_delay")
+	self.radius = self:GetSpecialValueFor("radius")
+	self.creeps_noreveal = self:GetSpecialValueFor("creeps_noreveal") == 1
+	self.no_invis = self:GetSpecialValueFor("no_invis") == 1
+	self.bonus_evasion = self:GetSpecialValueFor("bonus_evasion")
+	self.active_movespeed_bonus = self:GetSpecialValueFor("active_movespeed_bonus")
+	self.tick_rate = 0.5
+	self.fade_timer = 0
+	if IsServer() and not self.no_invis then
+		local caster = self:GetCaster()
+		local parent = self:GetParent()
+		local ability = self:GetAbility()
+		self.fade = parent:AddNewModifier( caster, ability, "modifier_phantom_assassin_blur_fade", {duration = self:GetRemainingTime()} )
+		self:StartIntervalThink( self.tick_rate )
 	end
 end
 
 function modifier_phantom_assassin_blur_handler:OnIntervalThink()
 	local caster = self:GetCaster()
-	if not self.talent1 then
-		self:StartIntervalThink(-1)
-		return
-	end
-	if caster:HasModifier("modifier_phantom_assassin_blur_fade") then return end
-	for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), self.t1Radius ) ) do
-		return
-	end
-	if not caster:HasModifier("modifier_phantom_assassin_blur_fade_lesser") then 
-		caster:AddNewModifier( caster, self:GetAbility(), "modifier_phantom_assassin_blur_fade_lesser", {} )
+	local parent = self:GetParent()
+	local ability = self:GetAbility()
+	
+	local enemies = parent:FindEnemyUnitsInRadius( parent:GetAbsOrigin(), self.radius, {type = DOTA_UNIT_TARGET_HERO} )
+	if self.fade then
+		if #enemies > 0 then
+			parent:RemoveModifierByName("modifier_phantom_assassin_blur_fade")
+			self.fade = nil
+			self.fade_timer = self.restore_delay
+			parent:AddNewModifier( caster, ability, "modifier_phantom_assassin_blur_cd", {duration = self.fade_timer} )
+		end
+	elseif #enemies == 0 then
+		self.fade_timer = self.fade_timer - self.tick_rate
+		if self.fade_timer <= 0 then
+			self.fade = parent:AddNewModifier( caster, ability, "modifier_phantom_assassin_blur_fade", {duration = self:GetRemainingTime()} )
+		end
+	else
+		parent:AddNewModifier( caster, ability, "modifier_phantom_assassin_blur_cd", {duration = self.fade_timer} )
 	end
 end
 
 function modifier_phantom_assassin_blur_handler:DeclareFunctions()
-    funcs = {MODIFIER_EVENT_ON_DEATH}
-    return funcs
+	return {MODIFIER_EVENT_ON_ATTACK, MODIFIER_PROPERTY_EVASION_CONSTANT, MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE }
 end
 
-function modifier_phantom_assassin_blur_handler:OnDeath(params)
-	if self:GetParent():PassivesDisabled() then return end
-	if not self:GetParent():HasScepter() then return end
+function modifier_phantom_assassin_blur_handler:OnAttack( params )
+	if self.no_invis then return end
 	if params.attacker ~= self:GetParent() then return end
-	if params.unit:IsConsideredHero() and params.unit.Holdout_IsCore then
-		params.attacker:RefreshAllCooldowns()
-	elseif self.coupdegrace and self.coupdegrace:IsTrained() then
-		params.attacker:AddNewModifier( params.attacker, self.coupdegrace, "modifier_phantom_assassin_mark_of_death", {duration = self.coupdegrace:GetSpecialValueFor("duration")} )
-	end
+	if not params.target:IsConsideredHero() and self.creeps_noreveal then return end
+	if params.attacker:GetAttackData( params.record ).ability and params.attacker:GetAttackData( params.record ).ability:GetAbilityName() == "phantom_assassin_stifling_dagger" then return end
+	
+	local caster = self:GetCaster()
+	local ability = self:GetAbility()
+	params.attacker:RemoveModifierByName("modifier_phantom_assassin_blur_fade")
+	self.fade = nil
+	self.fade_timer = self.restore_delay
+	params.attacker:AddNewModifier( caster, ability, "modifier_phantom_assassin_blur_cd", {duration = self.fade_timer} )
+end
+
+function modifier_phantom_assassin_blur_handler:GetModifierEvasion_Constant()
+	return self.bonus_evasion
+end
+
+function modifier_phantom_assassin_blur_handler:GetModifierMoveSpeedBonus_Percentage()
+	return self.active_movespeed_bonus
+end
+
+function modifier_phantom_assassin_blur_handler:OnDestroy()
+	if self.fade then self.fade:Destroy() end
 end
 
 function modifier_phantom_assassin_blur_handler:IsHidden()
-	return true
+	return not self.no_invis
 end
 
 modifier_phantom_assassin_blur_fade = class({})
@@ -83,13 +95,21 @@ function modifier_phantom_assassin_blur_fade:OnCreated()
 end
 
 function modifier_phantom_assassin_blur_fade:OnRefresh()
-	self.fade_duration = self:GetSpecialValueFor("fade_duration")
-	self.manacost_reduction_during_blur_pct = self:GetSpecialValueFor("manacost_reduction_during_blur_pct")
-	self.manacost_reduction_after_blur_pct = self:GetSpecialValueFor("manacost_reduction_after_blur_pct")
+	self.aoe_bonus = self:GetSpecialValueFor("aoe_bonus")
+	self.range_bonus = self:GetSpecialValueFor("range_bonus")
+	
+	self:GetCaster()._aoeModifiersList = self:GetCaster()._aoeModifiersList or {}
+	self:GetCaster()._aoeModifiersList[self] = true
+end
+
+function modifier_phantom_assassin_blur_fade:OnDestroy()
+	self:GetCaster()._aoeModifiersList[self] = nil
 end
 
 function modifier_phantom_assassin_blur_fade:DeclareFunctions()
-	return { MODIFIER_EVENT_ON_TAKEDAMAGE, MODIFIER_PROPERTY_MANACOST_PERCENTAGE_STACKING }
+	return {MODIFIER_PROPERTY_CAST_RANGE_BONUS_STACKING, 
+			MODIFIER_PROPERTY_EVASION_CONSTANT, 
+	}
 end
 
 function modifier_phantom_assassin_blur_fade:CheckState()
@@ -98,20 +118,12 @@ function modifier_phantom_assassin_blur_fade:CheckState()
 	end
 end
 
-function modifier_phantom_assassin_blur_fade:GetModifierPercentageManacostStacking()
-	if self:GetCaster():HasModifier("modifier_phantom_assassin_blur_cd") then
-		return self.manacost_reduction_after_blur_pct
-	else
-		return self.manacost_reduction_during_blur_pct
-	end
+function modifier_phantom_assassin_blur_fade:GetModifierCastRangeBonusStacking()
+	return self.range_bonus
 end
 
-function modifier_phantom_assassin_blur_fade:OnTakeDamage(params)
-	if params.attacker == self:GetParent() and params.unit:IsConsideredHero() then
-		self.currentlyBlurred = false
-		self:StartIntervalThink( self.fade_duration )
-		self:GetParent():AddNewModifier( self:GetParent(), self:GetAbility(), "modifier_phantom_assassin_blur_cd", {duration = self.fade_duration} )
-	end
+function modifier_phantom_assassin_blur_fade:GetModifierAoEBonusConstant()
+	return self.aoe_bonus
 end
 
 function modifier_phantom_assassin_blur_fade:GetStatusEffectName()

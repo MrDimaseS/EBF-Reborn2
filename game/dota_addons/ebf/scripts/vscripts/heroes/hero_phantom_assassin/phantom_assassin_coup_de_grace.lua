@@ -1,142 +1,107 @@
 phantom_assassin_coup_de_grace = class({})
 
-function phantom_assassin_coup_de_grace:GetBehavior()
-	return DOTA_ABILITY_BEHAVIOR_NO_TARGET
-end
-
-function phantom_assassin_coup_de_grace:GetCastPoint( )
-	if self:GetCaster():HasScepter() then
-		return 0
-	else
-		return self.BaseClass.GetCastPoint( self )
-	end
-end
-
 function phantom_assassin_coup_de_grace:GetIntrinsicModifierName()
     return "modifier_phantom_assassin_coup_de_grace_handler"
 end
 
-function phantom_assassin_coup_de_grace:OnSpellStart()
-	local caster = self:GetCaster()
-	caster:AddNewModifier( caster, self, "modifier_phantom_assassin_coup_de_grace_fade", {duration = self:GetSpecialValueFor("duration")})
-	caster:EmitSound("Hero_PhantomAssassin.Blur")
-	
-	if caster:HasScepter() then
-		caster:Dispel( caster, true )
-	end
+modifier_phantom_assassin_coup_de_grace_deadly_mark = class({})
+LinkLuaModifier( "modifier_phantom_assassin_coup_de_grace_deadly_mark", "heroes/hero_phantom_assassin/phantom_assassin_coup_de_grace", LUA_MODIFIER_MOTION_NONE )
+
+function modifier_phantom_assassin_coup_de_grace_deadly_mark:OnCreated()
+	self:OnRefresh()
 end
 
-LinkLuaModifier( "modifier_phantom_assassin_coup_de_grace_handler", "heroes/hero_phantom_assassin/phantom_assassin_coup_de_grace", LUA_MODIFIER_MOTION_NONE )
+function modifier_phantom_assassin_coup_de_grace_deadly_mark:OnRefresh()
+	self.crit_bonus = self:GetSpecialValueFor("crit_bonus")
+	self.current_health_damage = self:GetSpecialValueFor("current_health_damage") / 100
+	self.break_duration = self:GetSpecialValueFor("break_duration")
+end
+
+
+function modifier_phantom_assassin_coup_de_grace_deadly_mark:DeclareFunctions()
+    return {MODIFIER_PROPERTY_PROCATTACK_BONUS_DAMAGE_PURE, MODIFIER_PROPERTY_PREATTACK_CRITICALSTRIKE, MODIFIER_EVENT_ON_ATTACK_LANDED }
+end
+
+function modifier_phantom_assassin_coup_de_grace_deadly_mark:GetModifierPreAttack_CriticalStrike( params )
+   self.on_crit = params.record
+   return self.crit_bonus
+end
+
+function modifier_phantom_assassin_coup_de_grace_deadly_mark:GetModifierProcAttack_BonusDamage_Pure( params )
+	if self.current_health_damage <= 0 then return end
+	return params.target:GetHealth() * self.current_health_damage
+end
+
+function modifier_phantom_assassin_coup_de_grace_deadly_mark:OnAttackLanded( params )
+    if params.record == self.on_crit and params.attacker == self:GetParent() then
+        local enemy = params.target
+        -- If that attack was marked as a critical strike, apply the particles
+		EmitSoundOn( "Hero_PhantomAssassin.CoupDeGrace", enemy )
+        local nFXIndex = ParticleManager:CreateParticle( "particles/units/heroes/hero_phantom_assassin/phantom_assassin_crit_impact.vpcf", PATTACH_CUSTOMORIGIN, self:GetParent() )
+                    ParticleManager:SetParticleControlEnt( nFXIndex, 0, enemy, PATTACH_POINT_FOLLOW, "attach_hitloc", enemy:GetOrigin(), true )
+                    ParticleManager:SetParticleControl( nFXIndex, 1, enemy:GetOrigin() )
+                    ParticleManager:SetParticleControlForward( nFXIndex, 1, CalculateDirection( params.attacker, enemy ) )
+                    ParticleManager:SetParticleControlEnt( nFXIndex, 10, enemy, PATTACH_ABSORIGIN_FOLLOW, nil, enemy:GetOrigin(), true )
+                    ParticleManager:ReleaseParticleIndex( nFXIndex )
+		if self.break_duration > 0 then
+			enemy:AddNewModifier( self:GetCaster(), self:GetAbility(), "modifier_break", {duration = self.break_duration} )
+		end
+		self:Destroy()
+    end
+end
+
+function modifier_phantom_assassin_coup_de_grace_deadly_mark:GetEffectName()
+	return "particles/units/heroes/hero_phantom_assassin/phantom_assassin_mark_overhead.vpcf"
+end
+
+function modifier_phantom_assassin_coup_de_grace_deadly_mark:GetEffectAttachType()
+	return PATTACH_OVERHEAD_FOLLOW
+end
+
+function modifier_phantom_assassin_coup_de_grace_deadly_mark:GetPriority() -- make sure this attack event always triggers first
+	return MODIFIER_PRIORITY_SUPER_ULTRA
+end
+
 modifier_phantom_assassin_coup_de_grace_handler = class({})
+LinkLuaModifier( "modifier_phantom_assassin_coup_de_grace_handler", "heroes/hero_phantom_assassin/phantom_assassin_coup_de_grace", LUA_MODIFIER_MOTION_NONE )
 
 function modifier_phantom_assassin_coup_de_grace_handler:OnCreated()
-    self:OnRefresh()
+	self:OnRefresh()
 end
 
 function modifier_phantom_assassin_coup_de_grace_handler:OnRefresh()
-    self.evasion = self:GetSpecialValueFor("bonus_evasion")
-	
-	if IsServer() then
-		self.coupdegrace = self:GetCaster():FindAbilityByName("phantom_assassin_coup_de_grace")
-	end
+	self.crit_chance = self:GetSpecialValueFor("base_crit_chance")
+	self.stifling_crit_chance = self:GetSpecialValueFor("stifling_crit_chance")
+	self.bonus_crit_chance = self:GetSpecialValueFor("bonus_crit_chance")
+	self.invis_crit_chance_bonus = self:GetSpecialValueFor("invis_crit_chance_bonus")
+	self.duration = self:GetSpecialValueFor("duration")
 end
 
-function modifier_phantom_assassin_coup_de_grace_handler:OnIntervalThink()
-	local caster = self:GetCaster()
-	if not self.talent1 then
-		self:StartIntervalThink(-1)
-		return
-	end
-	if caster:HasModifier("modifier_phantom_assassin_coup_de_grace_fade") then return end
-	for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), self.t1Radius ) ) do
-		return
-	end
-	if not caster:HasModifier("modifier_phantom_assassin_coup_de_grace_fade_lesser") then 
-		caster:AddNewModifier( caster, self:GetAbility(), "modifier_phantom_assassin_coup_de_grace_fade_lesser", {} )
-	end
-end
 
 function modifier_phantom_assassin_coup_de_grace_handler:DeclareFunctions()
-    funcs = {MODIFIER_EVENT_ON_DEATH}
-    return funcs
+    return {MODIFIER_EVENT_ON_ATTACK_LANDED}
 end
 
-function modifier_phantom_assassin_coup_de_grace_handler:OnDeath(params)
-	if self:GetParent():PassivesDisabled() then return end
-	if not self:GetParent():HasScepter() then return end
-	if params.attacker ~= self:GetParent() then return end
-	if params.unit:IsConsideredHero() and params.unit.Holdout_IsCore then
-		params.attacker:RefreshAllCooldowns()
-	elseif self.coupdegrace and self.coupdegrace:IsTrained() then
-		params.attacker:AddNewModifier( params.attacker, self.coupdegrace, "modifier_phantom_assassin_mark_of_death", {duration = self.coupdegrace:GetSpecialValueFor("duration")} )
+function modifier_phantom_assassin_coup_de_grace_handler:OnAttackLanded( params )
+    if params.attacker ~= self:GetParent() then return end
+	local total_crit_chance = self.crit_chance
+	if self.stifling_crit_chance > 0 and params.attacker:GetAttackData( params.record ).ability then
+		if params.attacker:GetAttackData( params.record ).ability:GetAbilityName() == "phantom_assassin_stifling_dagger" then
+			total_crit_chance = self.stifling_crit_chance
+		end
+	end
+	if self.bonus_crit_chance > 0 then
+		local immaterial = params.attacker:FindModifierByName("modifier_phantom_assassin_immaterial_handler")
+		total_crit_chance = total_crit_chance + self.bonus_crit_chance * immaterial:GetStackCount()
+	end
+	if self.invis_crit_chance_bonus > 0 and params.attacker:IsInvisible() then
+		total_crit_chance = total_crit_chance * self.invis_crit_chance_bonus
+	end
+	if self:RollPRNG( total_crit_chance ) then
+		params.attacker:AddNewModifier( self:GetCaster(), self:GetAbility(), "modifier_phantom_assassin_coup_de_grace_deadly_mark", {duration = self.duration} )
 	end
 end
 
 function modifier_phantom_assassin_coup_de_grace_handler:IsHidden()
-	return true
-end
-
-modifier_phantom_assassin_coup_de_grace_fade = class({})
-LinkLuaModifier( "modifier_phantom_assassin_coup_de_grace_fade", "heroes/hero_phantom_assassin/phantom_assassin_coup_de_grace", LUA_MODIFIER_MOTION_NONE )
-function modifier_phantom_assassin_coup_de_grace_fade:OnCreated()
-	self:OnRefresh()
-end
-
-function modifier_phantom_assassin_coup_de_grace_fade:OnRefresh()
-	self.fade_duration = self:GetSpecialValueFor("fade_duration")
-	self.manacost_reduction_during_blur_pct = self:GetSpecialValueFor("manacost_reduction_during_blur_pct")
-	self.manacost_reduction_after_blur_pct = self:GetSpecialValueFor("manacost_reduction_after_blur_pct")
-end
-
-function modifier_phantom_assassin_coup_de_grace_fade:DeclareFunctions()
-	return { MODIFIER_EVENT_ON_TAKEDAMAGE, MODIFIER_PROPERTY_MANACOST_PERCENTAGE_STACKING }
-end
-
-function modifier_phantom_assassin_coup_de_grace_fade:CheckState()
-	if not self:GetParent():HasModifier("modifier_phantom_assassin_coup_de_grace_cd") then
-		return { [MODIFIER_STATE_UNTARGETABLE] = true }
-	end
-end
-
-function modifier_phantom_assassin_coup_de_grace_fade:GetModifierPercentageManacostStacking()
-	if self:GetCaster():HasModifier("modifier_phantom_assassin_coup_de_grace_cd") then
-		return self.manacost_reduction_after_blur_pct
-	else
-		return self.manacost_reduction_during_blur_pct
-	end
-end
-
-function modifier_phantom_assassin_coup_de_grace_fade:OnTakeDamage(params)
-	if params.attacker == self:GetParent() and params.unit:IsConsideredHero() then
-		self.currentlyBlurred = false
-		self:StartIntervalThink( self.fade_duration )
-		self:GetParent():AddNewModifier( self:GetParent(), self:GetAbility(), "modifier_phantom_assassin_coup_de_grace_cd", {duration = self.fade_duration} )
-	end
-end
-
-function modifier_phantom_assassin_coup_de_grace_fade:GetStatusEffectName()
-	return "particles/status_fx/status_effect_phantom_assassin_active_blur.vpcf"
-end
-
-function modifier_phantom_assassin_coup_de_grace_fade:StatusEffectPriority()
-	return 10
-end
-
-function modifier_phantom_assassin_coup_de_grace_fade:GetEffectName()
-	return "particles/units/heroes/hero_phantom_assassin/phantom_assassin_active_blur.vpcf"
-end
-
-function modifier_phantom_assassin_coup_de_grace_fade:IsHidden()
-	return self:GetParent():HasModifier("modifier_phantom_assassin_coup_de_grace_cd")
-end
-
-modifier_phantom_assassin_coup_de_grace_cd = class({})
-LinkLuaModifier( "modifier_phantom_assassin_coup_de_grace_cd", "heroes/hero_phantom_assassin/phantom_assassin_coup_de_grace", LUA_MODIFIER_MOTION_NONE )
-
-function modifier_phantom_assassin_coup_de_grace_cd:IsDebuff()
-	return true
-end
-
-function modifier_phantom_assassin_coup_de_grace_cd:IsPurgable()
-	return false
+    return true
 end

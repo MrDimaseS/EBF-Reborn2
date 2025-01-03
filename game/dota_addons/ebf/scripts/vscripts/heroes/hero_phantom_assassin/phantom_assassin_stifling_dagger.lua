@@ -1,133 +1,94 @@
 phantom_assassin_stifling_dagger = class({})
 
-function phantom_assassin_stifling_dagger:GetBehavior()
-	return DOTA_ABILITY_BEHAVIOR_NO_TARGET
+function phantom_assassin_stifling_dagger:GetAOERadius()
+	return self:GetSpecialValueFor("aoe_radius")
 end
 
-function phantom_assassin_stifling_dagger:GetCastPoint( )
-	if self:GetCaster():HasScepter() then
-		return 0
-	else
-		return self.BaseClass.GetCastPoint( self )
-	end
-end
-
-function phantom_assassin_stifling_dagger:GetIntrinsicModifierName()
-    return "modifier_phantom_assassin_stifling_dagger_handler"
-end
-
-function phantom_assassin_stifling_dagger:OnSpellStart()
+function phantom_assassin_stifling_dagger:OnSpellStart( bActivated )
 	local caster = self:GetCaster()
-	caster:AddNewModifier( caster, self, "modifier_phantom_assassin_stifling_dagger_fade", {duration = self:GetSpecialValueFor("duration")})
-	caster:EmitSound("Hero_PhantomAssassin.Blur")
+	local target = self:GetCursorTarget()
 	
-	if caster:HasScepter() then
-		caster:Dispel( caster, true )
-	end
-end
-
-LinkLuaModifier( "modifier_phantom_assassin_stifling_dagger_handler", "heroes/hero_phantom_assassin/phantom_assassin_stifling_dagger", LUA_MODIFIER_MOTION_NONE )
-modifier_phantom_assassin_stifling_dagger_handler = class({})
-
-function modifier_phantom_assassin_stifling_dagger_handler:OnCreated()
-    self:OnRefresh()
-end
-
-function modifier_phantom_assassin_stifling_dagger_handler:OnRefresh()
-    self.evasion = self:GetSpecialValueFor("bonus_evasion")
+	self.projectiles = self.projectiles or {}
 	
-	if IsServer() then
-		self.coupdegrace = self:GetCaster():FindAbilityByName("phantom_assassin_coup_de_grace")
+	local speed = self:GetSpecialValueFor("dagger_speed")
+	self:FireTrackingProjectile( "particles/units/heroes/hero_phantom_assassin/phantom_assassin_stifling_dagger.vpcf", target, speed )
+	local radius = self:GetSpecialValueFor("aoe_radius")
+	if radius > 0 then
+		local bonusUnitFound = false
+		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( target:GetAbsOrigin(), radius ) ) do
+			if target ~= enemy then
+				self:FireTrackingProjectile( "particles/units/heroes/hero_phantom_assassin/phantom_assassin_stifling_dagger.vpcf", enemy, speed )
+				bonusUnitFound = true
+			end
+		end
+		if not bonusUnitFound then
+			local delay = self:GetSpecialValueFor("double_strike_delay")
+			local damageFactor = self:GetSpecialValueFor("double_strike_damage") / 100
+			Timers:CreateTimer( delay, function()
+				local projectile = self:FireTrackingProjectile( "particles/units/heroes/hero_phantom_assassin/phantom_assassin_stifling_dagger.vpcf", target, speed )
+				self.projectiles[projectile] = {damageFactor = damageFactor}
+			end)
+		end
+	end
+	local tripleStrike = self:GetSpecialValueFor("triple_strike") == 1
+	if tripleStrike and not bActivated then
+		local strikes = 2
+		local enemyTargets = caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), self:GetTrueCastRange() )
+		if #enemyTargets > 0 then
+			Timers:CreateTimer( 0.1, function()
+				strikes = strikes - 1
+				enemy = enemyTargets[RandomInt(1, #enemyTargets)]
+				if enemy then
+					table.remove( enemyTargets, 1 )
+					caster:SetCursorCastTarget( enemy )
+					self:OnSpellStart( true )
+					if strikes > 0 then
+						return 0.1
+					else
+						return
+					end
+				end
+			end)
+		end
 	end
 end
 
-function modifier_phantom_assassin_stifling_dagger_handler:OnIntervalThink()
-	local caster = self:GetCaster()
-	if not self.talent1 then
-		self:StartIntervalThink(-1)
-		return
+function phantom_assassin_stifling_dagger:OnProjectileHitHandle( target, position, projectile )
+	if target then
+		local caster = self:GetCaster()
+		
+		local attackFactor = self:GetSpecialValueFor("attack_factor")
+		local bonusAttackFactor = self:GetSpecialValueFor("bonus_attack_factor")
+		local damage = self:GetSpecialValueFor("base_damage")
+		local duration = self:GetSpecialValueFor("duration")
+		local stunDuration = self:GetSpecialValueFor("stun_duration")
+		local rootDuration = self:GetSpecialValueFor("root_duration")
+		
+		if bonusAttackFactor > 0 then
+			local buff = caster:FindModifierByName("modifier_phantom_assassin_immaterial_handler")
+			if buff then
+				attackFactor = attackFactor + bonusAttackFactor * buff:GetStackCount()
+			end
+		end
+		
+		projectileData = self.projectiles[projectile]
+		if projectileData then
+			if projectileData.damageFactor then
+				attackFactor = (100 - attackFactor)*projectileData.damageFactor - 100
+				damage = damage * projectileData.damageFactor
+			end
+		end
+		
+		caster:PerformGenericAttack(target, true, {bonusDamagePct = attackFactor, bonusDamage = damage, ability = self} )
+		target:AddNewModifier( caster, self, "modifier_phantom_assassin_stiflingdagger", {duration = duration} )
+		
+		if stunDuration > 0 then
+			self:Stun(target, stunDuration)
+		end
+		if rootDuration > 0 then
+			target:AddNewModifier( caster, self, "modifier_rooted", {duration = rootDuration} )
+		end
 	end
-	if caster:HasModifier("modifier_phantom_assassin_stifling_dagger_fade") then return end
-	for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), self.t1Radius ) ) do
-		return
-	end
-	if not caster:HasModifier("modifier_phantom_assassin_stifling_dagger_fade_lesser") then 
-		caster:AddNewModifier( caster, self:GetAbility(), "modifier_phantom_assassin_stifling_dagger_fade_lesser", {} )
-	end
-end
-
-function modifier_phantom_assassin_stifling_dagger_handler:DeclareFunctions()
-    funcs = {MODIFIER_EVENT_ON_DEATH}
-    return funcs
-end
-
-function modifier_phantom_assassin_stifling_dagger_handler:OnDeath(params)
-	if self:GetParent():PassivesDisabled() then return end
-	if not self:GetParent():HasScepter() then return end
-	if params.attacker ~= self:GetParent() then return end
-	if params.unit:IsConsideredHero() and params.unit.Holdout_IsCore then
-		params.attacker:RefreshAllCooldowns()
-	elseif self.coupdegrace and self.coupdegrace:IsTrained() then
-		params.attacker:AddNewModifier( params.attacker, self.coupdegrace, "modifier_phantom_assassin_mark_of_death", {duration = self.coupdegrace:GetSpecialValueFor("duration")} )
-	end
-end
-
-function modifier_phantom_assassin_stifling_dagger_handler:IsHidden()
-	return true
-end
-
-modifier_phantom_assassin_stifling_dagger_fade = class({})
-LinkLuaModifier( "modifier_phantom_assassin_stifling_dagger_fade", "heroes/hero_phantom_assassin/phantom_assassin_stifling_dagger", LUA_MODIFIER_MOTION_NONE )
-function modifier_phantom_assassin_stifling_dagger_fade:OnCreated()
-	self:OnRefresh()
-end
-
-function modifier_phantom_assassin_stifling_dagger_fade:OnRefresh()
-	self.fade_duration = self:GetSpecialValueFor("fade_duration")
-	self.manacost_reduction_during_blur_pct = self:GetSpecialValueFor("manacost_reduction_during_blur_pct")
-	self.manacost_reduction_after_blur_pct = self:GetSpecialValueFor("manacost_reduction_after_blur_pct")
-end
-
-function modifier_phantom_assassin_stifling_dagger_fade:DeclareFunctions()
-	return { MODIFIER_EVENT_ON_TAKEDAMAGE, MODIFIER_PROPERTY_MANACOST_PERCENTAGE_STACKING }
-end
-
-function modifier_phantom_assassin_stifling_dagger_fade:CheckState()
-	if not self:GetParent():HasModifier("modifier_phantom_assassin_stifling_dagger_cd") then
-		return { [MODIFIER_STATE_UNTARGETABLE] = true }
-	end
-end
-
-function modifier_phantom_assassin_stifling_dagger_fade:GetModifierPercentageManacostStacking()
-	if self:GetCaster():HasModifier("modifier_phantom_assassin_stifling_dagger_cd") then
-		return self.manacost_reduction_after_blur_pct
-	else
-		return self.manacost_reduction_during_blur_pct
-	end
-end
-
-function modifier_phantom_assassin_stifling_dagger_fade:OnTakeDamage(params)
-	if params.attacker == self:GetParent() and params.unit:IsConsideredHero() then
-		self.currentlyBlurred = false
-		self:StartIntervalThink( self.fade_duration )
-		self:GetParent():AddNewModifier( self:GetParent(), self:GetAbility(), "modifier_phantom_assassin_stifling_dagger_cd", {duration = self.fade_duration} )
-	end
-end
-
-function modifier_phantom_assassin_stifling_dagger_fade:GetStatusEffectName()
-	return "particles/status_fx/status_effect_phantom_assassin_active_blur.vpcf"
-end
-
-function modifier_phantom_assassin_stifling_dagger_fade:StatusEffectPriority()
-	return 10
-end
-
-function modifier_phantom_assassin_stifling_dagger_fade:GetEffectName()
-	return "particles/units/heroes/hero_phantom_assassin/phantom_assassin_active_blur.vpcf"
-end
-
-function modifier_phantom_assassin_stifling_dagger_fade:IsHidden()
-	return self:GetParent():HasModifier("modifier_phantom_assassin_stifling_dagger_cd")
 end
 
 modifier_phantom_assassin_stifling_dagger_cd = class({})

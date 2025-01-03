@@ -230,7 +230,11 @@ end
 
 function CDOTA_BaseNPC:GetAttackData( record )
 	self._instantAttackRecordHistory = self._instantAttackRecordHistory or {}
-	return self._instantAttackRecordHistory[record] or {}
+	if not self._instantAttackRecordHistory[record] then self._instantAttackRecordHistory[record] = {} end
+	if self._instantAttackRecordHistory[record].abilityIndex then
+		self._instantAttackRecordHistory[record].ability = EntIndexToHScript( self._instantAttackRecordHistory[record].abilityIndex )
+	end
+	return self._instantAttackRecordHistory[record]
 end
 
 function CDOTA_BaseNPC:IsCleaveSuppressed()
@@ -1282,8 +1286,11 @@ function CDOTA_BaseNPC:Blink(position, blinkData)
 	local vPos = position
 	local tData = blinkData or {}
 	EmitSoundOn("DOTA_Item.BlinkDagger.Activate", self)
-	if tData.FX == true or tData.FX == nil then
-		ParticleManager:FireParticle("particles/items_fx/blink_dagger_start.vpcf", PATTACH_ABSORIGIN, self, {[0] = self:GetAbsOrigin()})
+	if (tData.FX or true) == true then
+		tData.FX = "particles/items_fx/blink_dagger_start.vpcf"
+	end
+	if tData.FX ~= false then
+		ParticleManager:FireParticle(tData.FX, PATTACH_ABSORIGIN, self, {[0] = self:GetAbsOrigin()})
 	end
 	local distance = CalculateDistance( self, position )
 	
@@ -1299,8 +1306,8 @@ function CDOTA_BaseNPC:Blink(position, blinkData)
 	
 	FindClearSpaceForUnit(self, vPos, true)
 	ProjectileManager:ProjectileDodge( self )
-	if tData.FX == true or tData.FX == nil then
-		ParticleManager:FireParticle("particles/items_fx/blink_dagger_end.vpcf", PATTACH_ABSORIGIN, self, {[0] = self:GetAbsOrigin()})
+	if tData.FX ~= false then
+		ParticleManager:FireParticle(string.gsub(tData.FX, "start", "end"), PATTACH_ABSORIGIN, self, {[0] = self:GetAbsOrigin()})
 	end
 end
 

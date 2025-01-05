@@ -16,8 +16,9 @@ function phantom_assassin_phantom_strike:OnSpellStart()
 	local position = self:GetCursorPosition()
 	
 	if target then -- unit target
-		position = target:GetAbsOrigin() + CalculateDirection( target, caster ) * caster:GetAttackRange()
+		position = target:GetAbsOrigin() + CalculateDirection( target, caster ) * caster:GetAttackRange() * 0.75
 		Timers:CreateTimer( function()
+			caster:FaceTowards( target:GetAbsOrigin() )
 			caster:MoveToTargetToAttack( target )
 		end)
 	elseif CalculateDistance( position, Vector(0,0,0) ) <= 0.5 then -- no target

@@ -534,7 +534,7 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierBaseAttack_
 	else -- universal hero
 		bonusBaseDamage = ( self:GetParent():GetStrength() + self:GetParent():GetAgility() + self:GetParent():GetIntellect(false) ) * BASE_DAMAGE_UNIVERSAL
 	end
-	return self:GetParent():GetAgility() * self.bonusDamage + bonusBaseDamage + (self.baseDamage+30) * self.total_ability_scaling
+	return self:GetParent():GetAgility() * self.bonusDamage + bonusBaseDamage + (2*self.baseDamage+60) * self.total_ability_scaling
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierSpellAmplify_Percentage()

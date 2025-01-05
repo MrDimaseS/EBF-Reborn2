@@ -13,13 +13,15 @@ end
 function zuus_thundergods_wrath:OnSpellStart()
 	local caster = self:GetCaster()
 	
-	local damage = self:GetSpecialValueFor("damage")
+	local baseDamage = self:GetSpecialValueFor("damage")
+	local damage = baseDamage
 	local growing_delay = self:GetSpecialValueFor("growing_delay")
 	local grow_kill_amp = self:GetSpecialValueFor("grow_kill_amp")/100
 	local buffDuration = self:GetSpecialValueFor("buff_duration")
 	local totalDamage = 0
 	local creepDamage = self:GetSpecialValueFor("bonus_damage_creep")
 	local heroDamage = self:GetSpecialValueFor("bonus_damage_hero")
+	local enemiesKilled = 0
 	
 	EmitSoundOn( "Hero_Zuus.GodsWrath", caster )
 	local enemies = caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), -1 )
@@ -45,7 +47,8 @@ function zuus_thundergods_wrath:OnSpellStart()
 			end
 			self:DealDamage( caster, enemyToStrike, damage )
 			if not enemyToStrike:IsAlive() then
-				damage = damage * (1+grow_kill_amp)
+				enemiesKilled = enemiesKilled + 1
+				damage = baseDamage * (1+grow_kill_amp * enemiesKilled)
 			end
 			return growing_delay
 		end

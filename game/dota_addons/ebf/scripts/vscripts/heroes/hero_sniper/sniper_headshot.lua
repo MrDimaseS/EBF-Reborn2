@@ -38,7 +38,7 @@ function modifier_sniper_headshot_handler:DeclareFunctions()
 end
 
 function modifier_sniper_headshot_handler:OnAttackLanded( params )
-	if IsServer() and params.attacker == self:GetParent() and self.recordsProc[params.record] then
+	if IsServer() and params.attacker == self:GetParent() and self.recordsProc[params.record] and params.target:IsAlive() then
 		local caster = params.attacker
 		local target = params.target
 		local ability = self:GetAbility()
@@ -46,8 +46,10 @@ function modifier_sniper_headshot_handler:OnAttackLanded( params )
 		for i = 1, self.recordsProc[params.record] do
 			Timers:CreateTimer( 0.1*(i-1), function() EmitSoundOn( "Hero_Sniper.MKG_impact", target ) end )
 		end
-		if self.assassinate_damage > 0 and not params.attacker:GetAttackData( params.record ).abilityIndex and ( self.recordsProc[params.record] > 1 or target:HasModifier("modifier_sniper_headshot_root") ) then
-			self.assassinate:LaunchAssassinate( params.target, self.assassinate_damage / 100 )
+		if self:GetParent():IsRealHero() then
+			if self.assassinate_damage > 0 and not params.attacker:GetAttackData( params.record ).abilityIndex and ( self.recordsProc[params.record] > 1 or target:HasModifier("modifier_sniper_headshot_root") ) then
+				self.assassinate:LaunchAssassinate( params.target, self.assassinate_damage / 100 )
+			end
 		end
 		target:AddNewModifier(caster, self:GetAbility(), "modifier_sniper_headshot_root", {Duration = self.duration * self.recordsProc[params.record]})
 		self.recordsProc[params.record] = nil

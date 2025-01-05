@@ -54,7 +54,7 @@ function phantom_assassin_stifling_dagger:OnSpellStart( bActivated )
 end
 
 function phantom_assassin_stifling_dagger:OnProjectileHitHandle( target, position, projectile )
-	if target then
+	if target and not target:TriggerSpellAbsorb( self ) then
 		local caster = self:GetCaster()
 		
 		local attackFactor = self:GetSpecialValueFor("attack_factor")

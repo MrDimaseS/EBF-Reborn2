@@ -127,8 +127,24 @@ function bossPowerScale:DeclareFunctions()
 	MODIFIER_EVENT_ON_ABILITY_START,
 	MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL,
 	MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL_VALUE,
+	MODIFIER_EVENT_ON_ABILITY_FULLY_CAST,
   }
   return funcs
+end
+
+function bossPowerScale:OnAbilityFullyCast(event)
+	if event.ability and event.ability:GetAbilityKeyValues().AbilityGlobalSharedCooldown then
+		local cooldown = tonumber(event.ability:GetAbilityKeyValues().AbilityGlobalSharedCooldown) or -1
+		local abilityName = event.ability:GetAbilityName()
+		if cooldown > 0 then
+			for _, unit in ipairs( FindAllUnits() ) do
+				local ability = unit:FindAbilityByName( abilityName )
+				if ability and ability:GetCooldownTimeRemaining() < cooldown then
+					ability:SetCooldown( cooldown )
+				end
+			end
+		end
+	end
 end
 
 

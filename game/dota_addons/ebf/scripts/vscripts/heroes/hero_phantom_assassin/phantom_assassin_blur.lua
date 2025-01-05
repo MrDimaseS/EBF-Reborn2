@@ -36,21 +36,27 @@ function modifier_phantom_assassin_blur_handler:OnIntervalThink()
 	local parent = self:GetParent()
 	local ability = self:GetAbility()
 	
-	local enemies = parent:FindEnemyUnitsInRadius( parent:GetAbsOrigin(), self.radius, {type = DOTA_UNIT_TARGET_HERO} )
-	if self.fade then
-		if #enemies > 0 then
-			parent:RemoveModifierByName("modifier_phantom_assassin_blur_fade")
-			self.fade = nil
-			self.fade_timer = self.restore_delay
-			parent:AddNewModifier( caster, ability, "modifier_phantom_assassin_blur_cd", {duration = self.fade_timer} )
-		end
-	elseif #enemies == 0 then
+	if self.radius <= 0 then
 		self.fade_timer = self.fade_timer - self.tick_rate
-		if self.fade_timer <= 0 then
-			self.fade = parent:AddNewModifier( caster, ability, "modifier_phantom_assassin_blur_fade", {duration = self:GetRemainingTime()} )
-		end
 	else
-		parent:AddNewModifier( caster, ability, "modifier_phantom_assassin_blur_cd", {duration = self.fade_timer} )
+		local enemies = parent:FindEnemyUnitsInRadius( parent:GetAbsOrigin(), self.radius, {type = DOTA_UNIT_TARGET_HERO} )
+		if self.fade then
+			if #enemies > 0 then
+				parent:RemoveModifierByName("modifier_phantom_assassin_blur_fade")
+				self.fade = nil
+				self.fade_timer = self.restore_delay
+				parent:AddNewModifier( caster, ability, "modifier_phantom_assassin_blur_cd", {duration = self.fade_timer} )
+			end
+		else
+			if #enemies == 0 then
+				self.fade_timer = self.fade_timer - self.tick_rate
+			else
+				parent:AddNewModifier( caster, ability, "modifier_phantom_assassin_blur_cd", {duration = self.fade_timer} )
+			end
+		end
+	end
+	if not self.fade and self.fade_timer <= 0 then
+		self.fade = parent:AddNewModifier( caster, ability, "modifier_phantom_assassin_blur_fade", {duration = self:GetRemainingTime()} )
 	end
 end
 

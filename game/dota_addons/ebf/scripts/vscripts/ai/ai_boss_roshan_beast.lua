@@ -27,9 +27,9 @@ end
 function AIThink(thisEntity)
 	if thisEntity:GetTeamNumber() ~= DOTA_TEAM_GOODGUYS and not thisEntity:IsChanneling() and not thisEntity:GetCurrentActiveAbility() then
 		-- Use Roar if there are multiple enemies around
-		if thisEntity.roar:IsFullyCastable() then
+		if thisEntity.roar:IsFullyCastable() and RollPercentage( 16 ) then
 			local enemies = FindUnitsInRadius(thisEntity:GetTeamNumber(), thisEntity:GetAbsOrigin(), nil, thisEntity.roar:GetSpecialValueFor("radius"), DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES, FIND_ANY_ORDER, false)
-			if #enemies >= 3 then
+			if #enemies >= 1 then
 				ExecuteOrderFromTable({
 					UnitIndex = thisEntity:entindex(),
 					OrderType = DOTA_UNIT_ORDER_CAST_NO_TARGET,

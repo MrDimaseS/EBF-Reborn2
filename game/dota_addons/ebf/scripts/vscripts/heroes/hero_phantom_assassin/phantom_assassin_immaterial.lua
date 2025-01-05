@@ -53,6 +53,8 @@ function modifier_phantom_assassin_immaterial_handler:OnIntervalThink()
 		end
 		if self:GetStackCount() < self.max_stacks then
 			self:IncrementStackCount()
+		elseif self:GetStackCount() > self.max_stacks then
+			self:DecrementStackCount()
 		end
 	elseif self._currentMode == IMMATERIAL_STATE_REDUCE then
 		if self._blurFX then

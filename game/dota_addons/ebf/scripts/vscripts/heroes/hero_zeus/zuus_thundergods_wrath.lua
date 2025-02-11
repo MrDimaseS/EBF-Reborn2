@@ -26,6 +26,8 @@ function zuus_thundergods_wrath:OnSpellStart()
 	EmitSoundOn( "Hero_Zuus.GodsWrath", caster )
 	local enemies = caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), -1 )
 	
+	ParticleManager:FireParticle( "particles/units/heroes/hero_zuus/zuus_thundergods_wrath_start.vpcf", PATTACH_POINT_FOLLOW, caster )
+	
 	caster:RemoveModifierByName("modifier_zuus_thundergods_wrath_brontaios")
 	Timers:CreateTimer( growing_delay, function()
 		local enemyToStrike
@@ -47,8 +49,9 @@ function zuus_thundergods_wrath:OnSpellStart()
 			end
 			self:DealDamage( caster, enemyToStrike, damage )
 			if not enemyToStrike:IsAlive() then
-				enemiesKilled = enemiesKilled + 1
-				damage = baseDamage * (1+grow_kill_amp * enemiesKilled)
+				enemiesKilled = enemiesKilled + 1
+				damage = math.ceil( baseDamage * (1+grow_kill_amp * enemiesKilled) )
+				print( damage )
 			end
 			return growing_delay
 		end

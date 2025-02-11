@@ -5,12 +5,147 @@ const pickScreenHud = $.GetContextPanel().GetParent().GetParent().GetParent();
 const mainHud = pickScreenHud.FindChildTraverse("PreGame");
 
 (function() {
-	const rightContainer = mainHud.FindChildTraverse("RightContainer");
-    if (rightContainer !== null && rightContainer !== undefined) {
-		rightContainer.style.visibility = "collapse";
+	// setup map system
+	const dotaMap = mainHud.FindChildTraverse("HeroPickMinimap")
+	if (dotaMap !== null && dotaMap !== undefined) {
+		const mapData = CustomNetTables.GetTableValue("game_state", "map_properties");
+		if(mapData.map == "peaks_of_screeauk"){
+			dotaMap.style.backgroundImage = 'url("s2r://materials/overviews/peaks_of_screeauk_tga_fee32dc3.vtex")';
+		} else if(mapData.map == "narrow_mazes"){
+			dotaMap.style.backgroundImage = 'url("s2r://materials/overviews/narrow_mazes_tga_1c8cdefd.vtex")';
+		} else if(mapData.map == "fields_of_carnage"){
+			dotaMap.style.backgroundImage = 'url("s2r://materials/overviews/fields_of_carnage_tga_98ff0b56.vtex")';
+		}
+		dotaMap.style.border = '2px solid silver';
+		dotaMap.style.saturation = "0.8";
+		dotaMap.style.brightness = "0.4";
+		const dotaMapClutter = dotaMap.Children();
+		// hide clutter
+		for (let clutter of dotaMapClutter) {
+			clutter.style.opacity = "0";
+		}
+		
+		const mapParent = dotaMap.GetParent()
+		let dotaTitle = mapParent.FindChildTraverse("HeroPickMinimapTitle");
+		if (dotaTitle === null) {
+			dotaTitle = $.CreatePanel("Label", $.GetContextPanel(), "HeroPickMinimapTitle");
+			dotaTitle.SetParent(dotaMap) 
+		} 
+		if (dotaTitle !== null)
+		{
+			dotaTitle.text = $.Localize("#ebf_"+mapData.map);
+			dotaTitle.style.fontSize = "24px"
+			dotaTitle.style.color = "white"
+			dotaTitle.style.horizontalAlign = "center"
+			dotaTitle.style.verticalAlign = "top"
+			dotaTitle.style.textShadow = "3px 3px 0 #000, -3px 3px 0 #000, -3px -3px 0 #000, 3px -3px 0 #000";
+			dotaTitle.style.opacity = "1.0"
+		}
+		
+		// setup diff vote system
+		
+		OnUpdateDifficultyVotes();
+		GameEvents.Subscribe("dota_player_difficulty_voted", OnUpdateDifficultyVotes);
     }
 })();
 
+function OnUpdateDifficultyVotes()
+{
+	const mapData = CustomNetTables.GetTableValue("game_state", "map_properties");
+	const rightContainer = mainHud.FindChildTraverse("RightContainer");
+	if (rightContainer !== null && rightContainer !== undefined) {
+		rightContainer.style.visibility = "visible";
+		const navBar = rightContainer.FindChildTraverse("HeroLockedNav");
+		const tabsToHide = navBar.FindChildTraverse("GuidesTabButton");
+		tabsToHide.style.visibility = "collapse";
+		const tabsSeperator = navBar.GetChild( navBar.GetChildIndex(tabsToHide)-1 );
+		tabsSeperator.style.visibility = "collapse";
+		
+		const strategyTab = rightContainer.FindChildTraverse("StrategyTab");
+		const strategyMap = strategyTab.FindChildTraverse("StrategyMinimap");
+		if(mapData.map == "peaks_of_screeauk"){
+			strategyMap.style.backgroundImage = 'url("s2r://materials/overviews/peaks_of_screeauk_tga_fee32dc3.vtex")';
+		} else if(mapData.map == "narrow_mazes"){
+			strategyMap.style.backgroundImage = 'url("s2r://materials/overviews/narrow_mazes_tga_1c8cdefd.vtex")';
+		} else if(mapData.map == "fields_of_carnage"){
+			strategyMap.style.backgroundImage = 'url("s2r://materials/overviews/fields_of_carnage_tga_98ff0b56.vtex")';
+		}
+		const startingItems = strategyTab.FindChildTraverse("StartingItems");
+		startingItems.style.visibility = "collapse";
+		
+		// implement voting row
+		let main = strategyTab.FindChildTraverse("StrategyMapControls");
+		let container = main.FindChildTraverse("DifficultySelectionControl");
+		
+		if(container == undefined){
+			container = $.CreatePanel("Panel", main, "DifficultySelectionControl");
+			container.SetParent(main)
+			container.AddClass( "StrategyControl" )
+			let header = $.CreatePanel("Panel", container, "DifficultySelectionHeader");
+			header.AddClass( "StrategyControlHeader" )
+			let title = $.CreatePanel("Label", header, "DifficultySelectionTitle");
+			title.AddClass( "StrategyControlTitle" )
+			title.text = "VOTE FOR DIFFICULTY"
+			let filler = $.CreatePanel("Label", header, "DifficultySelectionFiller");
+			filler.AddClass( "FillWidth" )
+			let tally = $.CreatePanel("Label", header, "DifficultySelectionStatusText");
+			tally.AddClass( "StrategyControlStatusText" )
+			mapData.difficulty
+			tally.text = "0/" + Object.keys(mapData.difficulty).length
+			let body = $.CreatePanel("Panel", container, "DifficultySelectionList");
+			body.style.flowChildren = "right";
+			for(let i = 1;i<=4;i++){
+				let difficultyIcon = $.CreatePanel("Image", body, "DifficultyButton" + i);
+				$.Msg( difficultyIcon )
+				difficultyIcon.style.width = "40px";
+				difficultyIcon.style.height = "40px";
+				difficultyIcon.SetImage('file://{images}/rank_tier_icons/mini/rank'+(i*2)+'_psd.vtex');
+				
+				difficultyIcon._saturation = 1;
+				difficultyIcon._brightness = 1;
+				let descriptionText = $.Localize("#ebf_difficulty_" + i + "_Description") + $.Localize("#ebf_" + mapData.gamemode + "_difficulty_" + i + "_Description")
+				difficultyIcon.SetPanelEvent("onmouseover", () => {
+				$.DispatchEvent("DOTAShowTextTooltip", difficultyIcon, );
+					$.DispatchEvent( "DOTAShowTitleTextTooltip", difficultyIcon, $.Localize("#ebf_difficulty_" + i), descriptionText )
+					difficultyIcon.style.saturation = difficultyIcon._saturation * 0.7;
+					difficultyIcon.style.brightness = difficultyIcon._brightness * 2;
+				});
+				difficultyIcon.SetPanelEvent("onmouseout", () => {
+					$.DispatchEvent("DOTAHideTitleTextTooltip");
+					difficultyIcon.style.saturation = difficultyIcon._saturation;
+					difficultyIcon.style.brightness = difficultyIcon._brightness;
+				});
+				difficultyIcon.SetPanelEvent("onactivate", function(){
+					GameEvents.SendCustomGameEventToServer( "player_voted_difficulty", {pID : Players.GetLocalPlayer(), vote : i} )
+				})
+			}
+		} else {
+			const tally = container.FindChildTraverse("DifficultySelectionStatusText");
+			let votes = 0
+			for (const [key, value] of Object.entries(mapData.difficulty)) {
+				if(value > 0 ){
+					votes++;
+					if(key == Players.GetLocalPlayer()){
+						for(let i = 1;i<=4;i++){
+							const difficultyIcon = container.FindChildTraverse("DifficultyButton" + i );
+
+							if (value == i){
+								difficultyIcon._saturation = 1;
+								difficultyIcon._brightness = 1;
+							} else {
+								difficultyIcon._saturation = 0.2;
+								difficultyIcon._brightness = 0.2;
+							}
+							difficultyIcon.style.saturation = difficultyIcon._saturation;
+							difficultyIcon.style.brightness = difficultyIcon._brightness;
+						}
+					}
+				}
+			}
+			tally.text = votes + "/" + Object.keys(mapData.difficulty).length
+		}
+	}
+}
 
 function OnUpdateHeroSelection() {
 	for (var teamId of Game.GetAllTeamIDs()) {

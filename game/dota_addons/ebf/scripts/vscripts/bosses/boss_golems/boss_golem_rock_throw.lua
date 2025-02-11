@@ -63,7 +63,8 @@ function boss_golem_rock_throw:ThrowGolem( golem, tossPosition )
 	
 	EmitSoundOn("Hero_Tiny.Toss.Target", golem)
 	golem:ApplyKnockBack(tossPosition, toss_duration, toss_duration, -distance, height, caster, self)
-	Timers:CreateTimer( 0.8, function()
+	golem._stillProcessingCreation = true
+	Timers:CreateTimer( toss_duration, function()
 		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( golem:GetAbsOrigin(), totalRadius ) ) do
 			if not enemy:FindModifierByNameAndCaster( "modifier_boss_rock_throw_immunity", caster ) then
 				enemy:AddNewModifier( caster, self, "modifier_boss_rock_throw_immunity", {duration = 0.25} )
@@ -72,6 +73,19 @@ function boss_golem_rock_throw:ThrowGolem( golem, tossPosition )
 			end
 		end
 		ParticleManager:FireParticle("particles/units/heroes/hero_tiny/tiny_toss_impact.vpcf", PATTACH_POINT_FOLLOW, golem )
+		
+		for _, unit in ipairs( caster:FindFriendlyUnitsInRadius( golem:GetAbsOrigin(), 64 + golem:GetPaddedCollisionRadius() * 2 ) ) do
+			if unit ~= golem and unit:GetUnitName() == golem:GetUnitName() and not unit._stillProcessingCreation then
+				local newHP = unit:GetHealth() + golem:GetHealth()
+				unit:SetCoreHealth( unit:GetMaxHealth() + golem:GetMaxHealth() )
+				unit:SetHealth( newHP )
+				unit:SetAverageBaseDamage( unit:GetAverageBaseDamage() + golem:GetAverageBaseDamage(), 10 )
+				
+				golem:ForceKill( false )
+				return
+			end
+		end
+		golem._stillProcessingCreation = false
 	end)
 end
 

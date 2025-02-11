@@ -35,8 +35,13 @@ function modifier_neutral_upgrade_ebfr_passive:OnRefresh()
 		self.baseMaxGold = self.baseMaxGold or parent:GetMaximumGoldBounty()
 		
 		local preGold =  self:GetParent():GetMinimumGoldBounty()
-		parent:SetMinimumGoldBounty( (self.baseMinGold + self.increase_gold * self:GetStackCount() ) * ( 1 + self:GetStackCount() * self.increase_reward_pct / 100 ) )
-		parent:SetMaximumGoldBounty( (self.baseMaxGold + self.increase_gold * self:GetStackCount() ) * ( 1 + self:GetStackCount() * self.increase_reward_pct / 100 ) )
+		if GetMapName() == "mayhem_gamemode" then
+			parent:SetMinimumGoldBounty( 0 )
+			parent:SetMaximumGoldBounty( 0 )
+		else
+			parent:SetMinimumGoldBounty( (self.baseMinGold + self.increase_gold * self:GetStackCount() ) * ( 1 + self:GetStackCount() * self.increase_reward_pct / 100 ) )
+			parent:SetMaximumGoldBounty( (self.baseMaxGold + self.increase_gold * self:GetStackCount() ) * ( 1 + self:GetStackCount() * self.increase_reward_pct / 100 ) )
+		end
 		
 		parent:SetDeathXP( 0 )
 		

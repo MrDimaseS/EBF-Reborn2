@@ -36,6 +36,17 @@ function CHoldoutGameSpawner:ReadConfiguration( name, kv, gameRound )
 	self._bDontGiveGoal = ( tonumber( kv.DontGiveGoal or 0 ) ~= 0 )
 	self._bDontOffsetSpawn = ( tonumber( kv.DontOffsetSpawn or 0 ) ~= 0 )
 	self._NoCountScaling = tonumber(kv.NoCountScaling or "0") == 1
+	
+	-- modifiers
+	if GameRules.BossKV[self._szNPCClassName] and GameRules.BossKV[self._szNPCClassName].ConsideredHero and tonumber( GameRules.BossKV[self._szNPCClassName].ConsideredHero ) == 1 then
+		self._nTotalCoreUnitsToSpawn = self._nTotalUnitsToSpawn
+	end
+	if GetMapName() == "mayhem_gamemode" then
+		if self._nTotalCoreUnitsToSpawn > 0 then
+			self._flInitialWait = 0
+			self._flSpawnInterval = 0
+		end
+	end
 end
 
 
@@ -84,7 +95,16 @@ function CHoldoutGameSpawner:Begin()
 			print( string.format( "Failed to find waypoint named %s for %s", self._szWaypointName, self._szName ) )
 		end
 	end
-
+	-- difficulty scaling for strategy
+	if self._nTotalCoreUnitsToSpawn == 0 then
+		self._nMaxUnitsToSpawn = self._nInitialUnitsSpawned + self._nUnitsPerSpawn * 2
+	else
+		if GetMapName() == "strategy_gamemode" then
+			self._flInitialWait = self._flInitialWait * (1-GameRules.gameDifficulty*0.1666)
+			self._flSpawnInterval = self._flSpawnInterval * (1-GameRules.gameDifficulty*0.1666)
+		end
+	end
+	
 	if self._waitForUnit ~= nil or self._groupWithUnit ~= nil then
 		self._flNextSpawnTime = GameRules:GetGameTime()
 	else
@@ -135,7 +155,7 @@ function CHoldoutGameSpawner:Think()
 				end
 			end
 			 -- wait with spawning if cap reached OR no heroes currently alive OR max units reached (initial + 2 spawns max)
-			if heroesAlive == 0 or unitsSpawned >= self._nUnitsPerSpawn * 2 + self._nInitialUnitsSpawned then
+			if heroesAlive == 0 then
 				self._flNextSpawnTime = self._flNextSpawnTime + 1
 				return
 			end
@@ -150,6 +170,7 @@ function CHoldoutGameSpawner:Think()
 			return
 		else
 			self._flNextSpawnTime = self._flNextSpawnTime + self._flSpawnInterval
+			print( self._flNextSpawnTime, self._flSpawnInterval )
 		end
 	end
 end
@@ -245,7 +266,29 @@ function CHoldoutGameSpawner:_DoSpawn()
 		if not self._bDontOffsetSpawn then
 			vSpawnLocation = vSpawnLocation + RandomVector( RandomFloat( 0, 200 ) )
 		end
+		if self._nMaxUnitsToSpawn then
+			local minions = {}
+			for _, enemy in ipairs( FindAllUnits({team = DOTA_UNIT_TARGET_TEAM_ENEMY}) ) do
+				if enemy:GetUnitName() == szNPCClassToSpawn then
+					table.insert( minions, enemy )
+				end
+			end
+			if #minions >= self._nMaxUnitsToSpawn then -- upgrade an existing unit
+				local unitToUpgrade = minions[RandomInt(1,#minions)]
+				local bonusHP = unitToUpgrade.MaxEHP * RandomFloat( 0.8, 1.2 )
+				local prevHP = unitToUpgrade:GetHealth()
+				unitToUpgrade:SetCoreHealth( unitToUpgrade:GetMaxHealth() + bonusHP )
+				unitToUpgrade:SetHealth( prevHP + bonusHP )
+				unitToUpgrade:SetAverageBaseDamage( unitToUpgrade:GetAverageBaseDamage() + unitToUpgrade.AttackDamageValue, 10 )
+				unitToUpgrade:SetModelScale( unitToUpgrade:GetModelScale() + 0.1 )
+				ParticleManager:FireParticle("particles/econ/events/spring_2021/hero_levelup_spring_2021.vpcf", PATTACH_POINT_FOLLOW, unitToUpgrade )
+				ParticleManager:ReleaseParticleIndex(  ParticleManager:CreateParticle( "particles/boss/minion_powerup_overhead.vpcf", PATTACH_OVERHEAD_FOLLOW, unitToUpgrade ) )
+				return
+			end
+		end
 		self._currentlyAttemptingToSpawnUnit = true
+		
+		AddFOWViewer(DOTA_TEAM_GOODGUYS, vSpawnLocation, 400, 3, false)
 		CreateUnitByNameAsync( szNPCClassToSpawn, vSpawnLocation, true, nil, nil, DOTA_TEAM_NEUTRALS,
 		function(entUnit)
 			if entUnit:IsCreature() then
@@ -277,6 +320,7 @@ function CHoldoutGameSpawner:_DoSpawn()
 			entUnit:SetDeathXP( 0 )
 			bossManager:ProcessBossScaling(entUnit)
 			entUnit:AddNewModifier( entUnit, nil, "modifier_rune_haste", {duration = 3} )
+			AddFOWViewer(DOTA_TEAM_GOODGUYS, vSpawnLocation, 400, 3, false)
 		end)
 	end
 end

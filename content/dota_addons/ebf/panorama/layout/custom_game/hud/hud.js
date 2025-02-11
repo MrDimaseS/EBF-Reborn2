@@ -9,7 +9,12 @@ const bottomhud = microHud.FindChildTraverse("CustomUIRoot");
 
 	let currentRound = 0; // Variable to store the current round number
 	let currentLife = 0; // Variable to store the current life value
-
+	
+	const skipper = bottomhud.FindChildTraverse("skipper")
+	if(Game.GetMapInfo().map_display_name == "mayhem_gamemode"){
+		skipper.checked = true;
+		skipper.style.visibility = "collapse"
+	}
 	GameEvents.Subscribe("UpdateRound", function (msg) {
 		if (bossRoundElement) {
 			bossRoundElement.visible = true; // Show the "BossRound" element
@@ -47,7 +52,7 @@ const bottomhud = microHud.FindChildTraverse("CustomUIRoot");
 
 	GameEvents.Subscribe("UpdateLife", function (msg) {
 		currentLife = msg.life; // Update the current life value
-		$("#Life").text = String(currentLife); // Update the "Life" text
+		$("#Life").text = 0; // Update the "Life" text
 	});
 })();
 
@@ -62,7 +67,7 @@ function Yes() {
 
 function Skip() {
 	const checkbox = bottomhud.FindChildTraverse("skipper");
-	if (checkbox.checked) {
+	if (checkbox.checked ) {
 		// Disable checkbox for 5 seconds to prevent multiple clicks
 		checkbox.enabled = false;
 		$.Schedule(60, function () {

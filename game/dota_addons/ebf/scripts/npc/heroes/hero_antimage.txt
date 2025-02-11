@@ -7,6 +7,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_antimage/antimage_persectur"
+		"AbilityTextureName"			"antimage_persectur"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		
@@ -16,19 +19,30 @@
 
 		"AbilityValues"
 		{
+			"damage_stored"
+			{
+				"dynamic_value"		"true"
+			}
+			"mana_to_damage"
+			{
+				"value"								"150 200 250 300"
+				"special_bonus_unique_antimage_5"	"+50"
+			}
+			"mana_threshold"						"15"
+			"search_radius"							"900"
+			"mana_to_barrier"						{"special_bonus_facet_antimage_ascetic"		"=100"}
+			"barrier_max	"						{"special_bonus_facet_antimage_ascetic"		"=50"}
+			"base_damage"							{"special_bonus_facet_antimage_pragmatic"	"=100 =200 =300 =400"}
 			"move_slow_min"
 			{
-				"value"								"12.5 15.0 17.5 20"
-				"special_bonus_unique_antimage_5"	"+5"
+				"value"										""
+				"special_bonus_facet_antimage_pragmatic"	"=10"
 			}
 			"move_slow_max"
 			{
-				"value"								"25 30 35 40"
-				"special_bonus_unique_antimage_5"	"+10"
+				"value"										""
+				"special_bonus_facet_antimage_pragmatic"	"=100"
 			}
-			"mana_threshold"						"50"
-			"slow_duration"		"0.75"
-			"zero_tooltip"		"0"
 		}
 	}
 	//=================================================================================================================
@@ -46,7 +60,7 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"AbilitySound"					"Hero_Antimage.ManaBreak"
 		
-		"HasScepterUpgrade"				"1"
+		"HasScepterUpgrade"				"0"
 
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -60,20 +74,14 @@
 			"mana_per_hit"							"25 30 35 40"
 			"mana_per_hit_pct"		
 			{
-				"value"								"1.6 2.4 3.2 4"
+				"value"								"8"
 				"special_bonus_unique_antimage_7"	"+0.4"
 			}
+			"duration"								"8"
 			"illusion_percentage"					"10"
-			"empowered_max_burn_pct"
-			{
-				"value"								"0.0"
-				"special_bonus_scepter"				"+20.0"		// NOTE: Update blink empowered_max_burn_pct_tooltip values
-			}
-			"empowered_mana_break_debuff_duration"
-			{
-				"value"								"0"
-				"special_bonus_scepter"				"+6.0"				// NOTE: Update blink empowered_mana_break_debuff_duration_tooltip values
-			}
+			
+			"spell_damage_dealt"					{"special_bonus_facet_antimage_ascetic"		"=20"}
+			"spell_damage_taken"					{"special_bonus_facet_antimage_pragmatic"	"=10"}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -85,6 +93,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_antimage/antimage_blink"
+		"AbilityTextureName"			"antimage_blink"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES | DOTA_ABILITY_BEHAVIOR_OVERSHOOT"
         "HasScepterUpgrade"             "0"
 
@@ -112,7 +123,12 @@
 				"value"								"750 900 1050 1200"
 				"special_bonus_unique_antimage_3"	"+250"
 			}
-			"min_blink_range"		"200"
+			"min_blink_range"						"200"
+			
+			"max_hp_heal"							{"special_bonus_facet_antimage_ascetic"		"=6 =9 =12 =15"}
+			"illusion_damage_dealt"					{"special_bonus_facet_antimage_pragmatic"	"0 20 40 60"}
+			"illusion_damage_taken"					{"special_bonus_facet_antimage_pragmatic"	"300 250 200 150"}
+			"illusion_duration"						{"special_bonus_facet_antimage_pragmatic"	"=6"}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -129,7 +145,7 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
-		"HasShardUpgrade"				"1"
+		"HasShardUpgrade"				"0"
 		
 
 		// Casting
@@ -139,7 +155,7 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"11 10 9 8"
+		"AbilityCooldown"				"15 11 7 3"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -154,83 +170,24 @@
 				"value"											"15 25 35 45"
 				"special_bonus_unique_antimage_4"				"+20"
 			}
-			"duration"											"1.6"
+			"duration"											"1.2"
 			"max_duration"										"4"
 			"barrier"
 			{
 				"value"											"850 1550 2250 2950"
-				"special_bonus_facet_antimage_magebanes_mirror"	"x1.5"
+				"special_bonus_facet_antimage_magebanes_mirror"	""
 				"CalculateSpellHealTooltip"						"1"
 			}
-			"shard_radius"										""
-			"shard_spell_damage_reduction_pct"					""
-			"shard_bonus_aura_range"							""
-			"shard_bonus_spell_damage_reduction_pct"			""	
+			
+			"damage_taken_returned"								{"special_bonus_facet_antimage_ascetic"		"=100"}
+			"attack_speed_bonus"								{"special_bonus_facet_antimage_pragmatic"	"60 80 100 120"}
+			"attack_speed_duration"								{"special_bonus_facet_antimage_pragmatic"	"4"}
+			"barrier_to_innate"									{"special_bonus_facet_antimage_pragmatic"	"10"}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 		"AbilityCastGestureSlot"		"DEFAULT"
 		
 	}
-
-	//=================================================================================================================
-	// Ability: Antimage Counterspell
-	//=================================================================================================================
-	"antimage_counterspell_ally"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"ability_lua"
-		"ScriptFile"					"heroes/hero_antimage/antimage_counterspell"
-		"AbilityTextureName"			"antimage_counterspell_ally"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
-
-		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
-		"FightRecapLevel"				"1"
-		"IsGrantedByShard"              "1"
-		"MaxLevel"						"1"
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"600"
-		"AbilityCastPoint"				"0 0 0 0"
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"50"		
-
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			"AbilityCooldown"
-			{
-				"value"						"11 10 9 8"
-			}
-			"duration"											"1.6"
-			"max_duration"										"4"
-			"barrier"
-			{
-				"value"											"850 1550 2250 2950"
-				"special_bonus_facet_antimage_magebanes_mirror"	"x1.5"
-				"CalculateSpellHealTooltip"						"1"
-			}
-			"outgoing_damage"			"-25"
-			"incoming_damage"			"100"
-			"castable_while_disabled"
-			{
-				"value"						"0"
-			}
-		}
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
-		"AbilityCastGestureSlot"		"DEFAULT"
-		
-	}
-
-	
 	//=================================================================================================================
 	// Ability: Antimage Mana Void
 	//=================================================================================================================
@@ -238,6 +195,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_antimage/antimage_mana_void"
+		"AbilityTextureName"			"antimage_mana_void"
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
@@ -246,7 +206,7 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"		
 		"FightRecapLevel"				"2"
 		"AbilitySound"					"Hero_Antimage.ManaVoid"
-		"HasScepterUpgrade"			"1"
+		"HasScepterUpgrade"				"0"
 		"AbilityDraftUltScepterAbility"		"antimage_mana_overload"
 		
 		"LevelsBetweenUpgrades"			"6"
@@ -290,48 +250,9 @@
 				"value"					"500"
 				"special_bonus_unique_antimage_manavoid_aoe"			"+150"
 			}
-		}
-	}
-	
-	//=================================================================================================================
-	// Anti-Mage: Blink Fragment (scepter ability)
-	//=================================================================================================================
-	"antimage_mana_overload"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
-		"FightRecapLevel"				"1"
-		"MaxLevel"						"1"
-		"IsGrantedByScepter"			"1"
-		"HasScepterUpgrade"				"1"
-		
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"0"
-		"AbilityCastPoint"				"0.2"
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"0"
-		"AbilityCharges"				"3"
-		"AbilityChargeRestoreTime"		"25"
-
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"50"
-
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			"duration"					"7"
-			"outgoing_damage"			"-25"
-			"incoming_damage"			"100"
+			
+			"mana_drain			"								{"special_bonus_facet_antimage_ascetic"		"=30"}
+			"caster_curr_mana_for_calc"							{"special_bonus_facet_antimage_pragmatic"	"=100"}
 		}
 	}
 }

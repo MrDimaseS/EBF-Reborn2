@@ -21,6 +21,11 @@ function CHoldoutGameRound:ReadConfiguration( kv, gameMode, roundNumber )
 	self._nBagVariance = tonumber( kv.BagVariance or 0 )
 	self._nFixedXP = tonumber( kv.FixedXP or (475 + roundNumber * 25 + 500*roundNumber) )
 	self._Tier = tonumber( kv.Tier or 0 )
+	
+	self._RoundEndDeadline = kv.RoundEndDeadline or -1
+	self._RoundEndDeadlineDifficultyMultiplier = kv.RoundEndDeadlineDifficultyMultiplier or -1
+	self._RoundEndDeadlineDifficultyMultiplier = kv.RoundEndDeadlineDifficultyMultiplier or 0
+	self._PrepTimeBetweenRoundDifficultyMultipliers = kv.PrepTimeBetweenRoundDifficultyMultipliers or -1
 
 	self._vSpawners = {}
 	for unitName, unitData in pairs( kv ) do
@@ -46,6 +51,7 @@ end
 
 function CHoldoutGameRound:Begin()
 	print("round has started", self._szRoundQuestTitle )
+	self._RoundStartTime = GameRules:GetGameTime()
 	self._vEnemiesRemaining = {}
 	self._vEventHandles = {
 		ListenToGameEvent( "entity_killed", Dynamic_Wrap( CHoldoutGameRound, "OnEntityKilled" ), self ),
@@ -59,7 +65,11 @@ function CHoldoutGameRound:Begin()
 	
 	ListenToGameEvent( "player_reconnected", Dynamic_Wrap( CHoldoutGameRound, 'OnPlayerReconnected' ), self )
 	ListenToGameEvent( "player_disconnect", Dynamic_Wrap( CHoldoutGameRound, 'OnPlayerDisconnected' ), self )
-
+	
+	self._MaxPlayTime = -1
+	if GetMapName() == "mayhem_gamemode" then
+		self._MaxPlayTime = 180 - 30 * GameRules.gameDifficulty
+	end
 
 	local roundNumber = self._nRoundNumber
 	self._nMaxGoldForUnits = self._nMaxGold / 2
@@ -105,7 +115,7 @@ function CHoldoutGameRound:Begin()
 			MAX_TIME_TO_RESOLVE_SPAWNS = math.max( MAX_TIME_TO_RESOLVE_SPAWNS, spawnTable._flInitialWait + math.ceil(spawnTable._nTotalUnitsToSpawn / spawnTable._nUnitsPerSpawn) * spawnTable._flSpawnInterval )
 		end
 	end
-	local unitMultiplier =  math.min( 3, math.floor( self._HP_difficulty_multiplier / 2 + 0.5 ) )
+	local unitMultiplier =  math.min( 4, math.floor( self._HP_difficulty_multiplier / 2 + 0.5 ) )
 	self._HP_difficulty_multiplier = self._HP_difficulty_multiplier / unitMultiplier
 	for spawnGroup, spawnTable in pairs( self._vSpawners ) do
 		if not spawnTable._NoCountScaling then
@@ -189,14 +199,15 @@ function CHoldoutGameRound:End(bWon)
 	
 	self.currentlyActive = false
 	local roundNumber = self._nRoundNumber
-	Timers:CreateTimer( function()
-		for _,unit in pairs( Entities:FindAllByClassname("npc_dota_creature") ) do
-			if unit:IsAlive() then
-				unit:ForceKill( true )
+	if GetMapName() ~= "mayhem_gamemode" then
+		Timers:CreateTimer( function()
+			for _,unit in pairs( Entities:FindAllByClassname("npc_dota_creature") ) do
+				if unit:IsAlive() then
+					unit:ForceKill( true )
+				end
 			end
-		end
-	end)
-	
+		end)
+	end
 	if bWon and self._nGoldRemainingInRound > 0 then
 		self._heroesDiedThisRound = self._heroesDiedThisRound or {}
 		local goldMuliplierTeam = 0.5
@@ -253,7 +264,6 @@ function CHoldoutGameRound:End(bWon)
 							else
 								rolledTier = 1
 							end
-							print( rolledTier, roll, tier5Thr, tier4Thr, tier3Thr, tier2Thr, tier1Thr, "threshold" )
 							if rolledTier < 5 then
 								local oldItems = 0
 								-- pity system, if all 6 items are of the tier rolled or higher, give an upgraded one; random choice if multiple options
@@ -447,6 +457,9 @@ function CHoldoutGameRound:IsFinished()
 	end
 	local nEnemiesRemaining = #self._vEnemiesRemaining
 	if nEnemiesRemaining == 0 then
+		return true
+	end
+	if self._MaxPlayTime > 0 and self._RoundStartTime + self._MaxPlayTime < GameRules:GetGameTime() then
 		return true
 	end
 	

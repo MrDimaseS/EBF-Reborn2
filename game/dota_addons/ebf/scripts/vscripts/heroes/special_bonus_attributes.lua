@@ -434,7 +434,6 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierOverrideAbi
 		else
 			flNewValue = flNewValue/(1+chance_bonus)
 		end
-		print( flNewValue, flBaseValue )
 		return math.floor(flNewValue * 10000)/100
 	end
 	if params.ability._processValuesForScaling[special_value].affected_by_lvl_increase then
@@ -534,7 +533,7 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierBaseAttack_
 	else -- universal hero
 		bonusBaseDamage = ( self:GetParent():GetStrength() + self:GetParent():GetAgility() + self:GetParent():GetIntellect(false) ) * BASE_DAMAGE_UNIVERSAL
 	end
-	return self:GetParent():GetAgility() * self.bonusDamage + bonusBaseDamage + (2*self.baseDamage+60) * self.total_ability_scaling
+	return self:GetParent():GetAgility() * self.bonusDamage + bonusBaseDamage + (4*self.baseDamage + 120) * self.total_ability_scaling
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierSpellAmplify_Percentage()

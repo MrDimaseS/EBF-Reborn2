@@ -20,6 +20,13 @@ DAMAGE_TYPES = {
 	    [8] = "DAMAGE_TYPE_HP_REMOVAL",
 }
 
+CONVERTED_DIFFICULTY = {
+	[1] = "Normal",
+	[2] = "Hard",
+	[3] = "Impossible",
+	[4] = "Nightmare",
+}
+
 require( "epic_boss_fight_game_round" )
 require( "epic_boss_fight_game_spawner" )
 require( "libraries/Timers" )
@@ -47,6 +54,7 @@ function Precache( context )
 	PrecacheResource( "particle", "particles/items2_fx/veil_of_discord.vpcf", context )
 	PrecacheResource( "particle", "particles/units/heroes/hero_ursa/ursa_claw_left.vpcf", context )
 	PrecacheResource( "particle", "particles/units/heroes/hero_ursa/ursa_claw_right.vpcf", context )
+	PrecacheResource( "particle", "particles/econ/events/spring_2021/hero_levelup_spring_2021.vpcf", context )
 	
 	PrecacheResource( "particle", "particles/ui_mouseactions/range_finder_cone.vpcf", context )
 	PrecacheResource( "particle", "particles/boss/ancestral_rage_overhead_overhead.vpcf", context )
@@ -101,6 +109,13 @@ end
 -- Actually make the game mode when we activate
 function Activate()
 	GameRules.holdOut = CHoldoutGameMode()
+	
+	if GetMapName() == "strategy_gamemode" or GetMapName() == "mayhem_gamemode" then
+		local mapRNG = {"peaks_of_screeauk", "fields_of_carnage", "narrow_mazes"}
+		GameRules._activeMap = mapRNG[RandomInt(1, #mapRNG)]
+		GameRules._activeMode = string.gsub(GetMapName(), "_gamemode", "")
+		DOTA_SpawnMapAtPosition(GameRules._activeMap, Vector(0,0,0), false, nil, nil, nil)
+	end
 	GameRules.holdOut:InitGameMode()
 end
 
@@ -150,115 +165,7 @@ function CHoldoutGameMode:InitGameMode()
 	GameRules:SetCustomGameSetupAutoLaunchDelay( 0 )
 	GameRules:SetHeroRespawnEnabled( true )
 	
-	if IsInToolsMode() or GameRules:IsCheatMode() then
-		GameRules:SetPreGameTime( 99999 )
-		GameRules:SetHeroSelectionTime( 99999 )
-		GameRules:SetStrategyTime( 99999 )
-	end
-	
-	-- defining lifes
-	if GetMapName() == "epic_boss_fight_normal" then
-		Life._life = 4
-		Life._MaxLife = 4
-		GameRules._bonusLifeRoundDivider = 5
-		GameRules.gameDifficulty = 1
-		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 10)
-		GameRules:GetGameModeEntity():SetFixedRespawnTime( 30 )
-	elseif GetMapName() == "epic_boss_fight_hard" then 
-		Life._life = 2
-		Life._MaxLife = 2
-		GameRules._bonusLifeRoundDivider = 10
-		GameRules.gameDifficulty = 2
-		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 8)
-		GameRules:GetGameModeEntity():SetFixedRespawnTime( 60 )
-	elseif GetMapName() == "epic_boss_fight_impossible" then
-		Life._life = 2
-		Life._MaxLife = 2
-		GameRules._bonusLifeRoundDivider = 15
-		GameRules.gameDifficulty = 3
-		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 6)
-	elseif GetMapName() == "epic_boss_fight_challenger" then
-		Life._life = 1
-		Life._MaxLife = 1
-		GameRules._bonusLifeRoundDivider = 99
-		GameRules.gameDifficulty = 3
-		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 6)
-		GameRules:GetGameModeEntity():SetFixedRespawnTime( 120 )
-	elseif GetMapName() == "epic_boss_fight_nightmare" then
-		Life._life = 1
-		Life._MaxLife = 1
-		GameRules._bonusLifeRoundDivider = 99
-		GameRules.gameDifficulty = 4
-		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 5)
-		GameRules:GetGameModeEntity():SetFixedRespawnTime( 180 )
-	elseif GetMapName() == "epic_boss_fight_event" then
-		Life._life = 1
-		Life._MaxLife = 1
-		GameRules._bonusLifeRoundDivider = 99
-		GameRules.gameDifficulty = 3
-		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 10)
-		GameRules:GetGameModeEntity():SetFixedRespawnTime( 180 )
-		GameRules:SetSameHeroSelectionEnabled( true )
-	end
-
-	GameRules._live = Life._life
-	GameRules._used_live = 0
-
-	self:_ReadGameConfiguration()
-	GameRules:SetUseUniversalShopMode( true )
-	GameRules:SetTreeRegrowTime( 15.0 )
-	GameRules:SetCreepMinimapIconScale( 4 )
-	GameRules:SetRuneMinimapIconScale( 1.5 )
-	GameRules:GetGameModeEntity():SetCustomGlyphCooldown( 150 )
-	GameRules:GetGameModeEntity():SetCustomScanCooldown( 120 )
-	GameRules:SetGoldTickTime( 0.6 )
-    GameRules:SetGoldPerTick( 1 )
-	GameRules:SetEnableAlternateHeroGrids( false )
-	GameRules:SetSameHeroSelectionEnabled( false )
-	GameRules:GetGameModeEntity():SetPlayerHeroAvailabilityFiltered( true )
-	GameRules:GetGameModeEntity():SetCameraDistanceOverride(1400)
-	GameRules:GetGameModeEntity():SetTopBarTeamValuesOverride( true )
-	GameRules:GetGameModeEntity():SetTopBarTeamValuesVisible( false )
-	
-	GameRules:GetGameModeEntity():SetCustomBuybackCooldownEnabled( true )
-	GameRules:GetGameModeEntity():SetCustomBuybackCostEnabled( true )
-	GameRules:GetGameModeEntity():SetFreeCourierModeEnabled( true )
-	GameRules:GetGameModeEntity():SetSelectionGoldPenaltyEnabled( false )
-	GameRules:GetGameModeEntity():DisableClumpingBehaviorByDefault( true )
-	GameRules:GetGameModeEntity():SetCanSellAnywhere( true )
-	
-	xpTable = {[1] = 0}
-	local baseXPNeeded = 500
-	local sumXP = 0
-	for level = 1, 200, 1 do
-		local XPForLevel = baseXPNeeded * (level - 1)
-		sumXP = sumXP + XPForLevel
-		xpTable[level] = sumXP
-	end
-	GameRules._XPToLevelTable = xpTable
-	GameRules:GetGameModeEntity():SetUseCustomHeroLevels( true )
-    GameRules:GetGameModeEntity():SetCustomHeroMaxLevel( 200 )
-    GameRules:GetGameModeEntity():SetCustomXPRequiredToReachNextLevel( xpTable )
-	GameRules:GetGameModeEntity():SetLoseGoldOnDeath( false )
-	GameRules:GetGameModeEntity():SetGiveFreeTPOnDeath( false )
-	GameRules:GetGameModeEntity():SetStickyItemDisabled( true )
-	GameRules:GetGameModeEntity():SetDefaultStickyItem( "item_bottle_ebf" )
-	GameRules:GetGameModeEntity():SetTPScrollSlotItemOverride( "item_bottle_ebf" )
-	
-	GameRules:GetGameModeEntity():SetMaximumAttackSpeed( 2000 )
-	GameRules:GetGameModeEntity():SetMinimumAttackSpeed( 50 )
-	
-	GameRules:GetGameModeEntity():SetInnateMeleeDamageBlockAmount( 0 )
-	GameRules:GetGameModeEntity():SetInnateMeleeDamageBlockPerLevelAmount( 0 )
-	GameRules:GetGameModeEntity():SetInnateMeleeDamageBlockPercent( 0 )
-	
-	GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_STRENGTH_HP, 22) 
-	GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_STRENGTH_HP_REGEN, 0)
-	GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR, 0.00) 
-	GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED, 0.0)
-	GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_INTELLIGENCE_MANA, 0) 
-	GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_INTELLIGENCE_MANA_REGEN, 0)
-	GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_INTELLIGENCE_MAGIC_RESIST, 0.0)
+	self:_SetupGameConfiguration()
 	
 	-- Custom console commands
 	Convars:RegisterCommand( "holdout_test_round", function(...) return self:_TestRoundConsoleCommand( ... ) end, "Test a round of holdout.", FCVAR_CHEAT )
@@ -332,8 +239,9 @@ function CHoldoutGameMode:InitGameMode()
 	CustomGameEventManager:RegisterListener('Health_Bar_Command', Dynamic_Wrap( CHoldoutGameMode, 'Health_Bar_Command'))
 	
 	CustomGameEventManager:RegisterListener('epic_boss_fight_ng_voted', function(id, event) return self:NewGamePlus_ProcessVotes( event ) end )
-	CustomGameEventManager:RegisterListener('Vote_Round', Dynamic_Wrap( CHoldoutGameMode, 'vote_Round'))
+	CustomGameEventManager:RegisterListener('Vote_Round', Context_Wrap( CHoldoutGameMode, 'vote_Round'))
 	CustomGameEventManager:RegisterListener( "request_hero_inventory", function( id, event ) self:SendUpdatedInventoryContents( event ) end )
+	CustomGameEventManager:RegisterListener( "player_voted_difficulty", function( id, event ) self:ProcessDifficultyVote( event ) end )
     CustomGameEventManager:RegisterListener("emit_sound_for_all_players", function(_, event) GameRules.holdOut:EmitSoundForAllPlayers( event.PlayerID, event ) end )
 
 	GameRules:GetGameModeEntity():SetDamageFilter( Dynamic_Wrap( CHoldoutGameMode, "FilterDamage" ), self )
@@ -495,6 +403,17 @@ function CHoldoutGameMode:NewGamePlus_StartVote()
 	CustomGameEventManager:Send_ServerToAllClients("epic_boss_fight_ng_vote_update", { active = true, endTime = GameRules.forceEndTime, votes = GameRules._NGPlusVotes })
 end
 
+function CHoldoutGameMode:ProcessDifficultyVote( event )
+	local ID = event.pID
+ 	local vote = event.vote
+ 	local hero = PlayerResource:GetSelectedHeroName(ID)
+	
+	GameRules._DifficultyVotes[ID] = tonumber(vote);
+	
+	CustomNetTables:SetTableValue("game_state", "map_properties", {map = GameRules._activeMap, gamemode = GameRules._activeMode, difficulty = GameRules._DifficultyVotes})
+	CustomGameEventManager:Send_ServerToAllClients( "dota_player_difficulty_voted", {} )
+end
+
 function CHoldoutGameMode:NewGamePlus_ProcessVotes( event )
 	local ID = event.pID
  	local vote = event.vote
@@ -518,7 +437,7 @@ function CHoldoutGameMode:NewGamePlus_ProcessVotes( event )
 	if yes >= no + idk then
 		self:_EnterNG()
 		self._nRoundNumber = 1
-		self._flPrepTimeEnd = GameRules:GetGameTime() + 30
+		GameRules._flPrepTimeEnd = GameRules:GetGameTime() + 30
 			GameRules.forceEndTime = nil
 		CustomGameEventManager:Send_ServerToAllClients("epic_boss_fight_ng_vote_update", { active = false })
 	elseif idk > 0 then
@@ -527,7 +446,7 @@ function CHoldoutGameMode:NewGamePlus_ProcessVotes( event )
 		if yes > 0 then -- at least one person wants NG+
 			self:_EnterNG()
 			self._nRoundNumber = 1
-			self._flPrepTimeEnd = GameRules:GetGameTime() + 30
+			GameRules._flPrepTimeEnd = GameRules:GetGameTime() + 30
 			GameRules.forceEndTime = nil
 			CustomGameEventManager:Send_ServerToAllClients("epic_boss_fight_ng_vote_update", { active = false })
 		else
@@ -952,10 +871,9 @@ function CHoldoutGameMode:OnHeroPick (event)
 	-- end
 	hero:AddItemByName("item_bottle_ebf")
 	hero:AddItemByName("item_tier1_token")
-	if GetMapName() == "epic_boss_fight_event" then
-		hero:AddItemByName("item_aghanims_shard")
-		hero:AddItemByName("item_ultimate_scepter_2")
-	end
+	
+	hero:AddItemByName("item_aghanims_shard")
+	hero:AddItemByName("item_ultimate_scepter_2")
 	-- if PlayerResource:GetPatronTier(playerID) >= 2 then
 		-- hero:AddItemByName( "item_aegis" )
 	-- end
@@ -999,37 +917,92 @@ end
 
 
 -- Read and assign configurable keyvalues if applicable
-function CHoldoutGameMode:_ReadGameConfiguration()
-	local kv = LoadKeyValues( "scripts/maps/" .. GetMapName() .. ".txt" )
-	kv = kv or {} -- Handle the case where there is not keyvalues file
+function CHoldoutGameMode:_SetupGameConfiguration()
+	-- game rules
+	if IsInToolsMode() or GameRules:IsCheatMode() then
+		GameRules:SetPreGameTime( 99999 )
+		GameRules:SetHeroSelectionTime( 99999 )
+		GameRules:SetStrategyTime( 99999 )
+	end
+	GameRules:SetUseUniversalShopMode( true )
+	GameRules:SetTreeRegrowTime( 15.0 )
+	GameRules:SetCreepMinimapIconScale( 2)
+	GameRules:SetRuneMinimapIconScale( 1.5 )
+	GameRules:SetGoldTickTime( 0.5 )
+    GameRules:SetGoldPerTick( 1 )
+	GameRules:SetEnableAlternateHeroGrids( false )
+	GameRules:SetSameHeroSelectionEnabled( false )
+	GameRules:GetGameModeEntity():SetPlayerHeroAvailabilityFiltered( true )
+	GameRules:GetGameModeEntity():SetTopBarTeamValuesOverride( true )
+	GameRules:GetGameModeEntity():SetTopBarTeamValuesVisible( false )
+	
+	GameRules:GetGameModeEntity():SetCustomBuybackCooldownEnabled( true )
+	GameRules:GetGameModeEntity():SetCustomBuybackCostEnabled( true )
+	GameRules:GetGameModeEntity():SetFreeCourierModeEnabled( false )
+	GameRules:GetGameModeEntity():SetSelectionGoldPenaltyEnabled( false )
+	GameRules:GetGameModeEntity():DisableClumpingBehaviorByDefault( true )
+	GameRules:GetGameModeEntity():SetCanSellAnywhere( true )
+	
+	xpTable = {[1] = 0}
+	local baseXPNeeded = 500
+	local sumXP = 0
+	for level = 1, 200, 1 do
+		local XPForLevel = baseXPNeeded * (level - 1)
+		sumXP = sumXP + XPForLevel
+		xpTable[level] = sumXP
+	end
+	GameRules._XPToLevelTable = xpTable
+	GameRules:GetGameModeEntity():SetUseCustomHeroLevels( true )
+    GameRules:GetGameModeEntity():SetCustomHeroMaxLevel( 200 )
+    GameRules:GetGameModeEntity():SetCustomXPRequiredToReachNextLevel( xpTable )
+	GameRules:GetGameModeEntity():SetLoseGoldOnDeath( false )
+	GameRules:GetGameModeEntity():SetGiveFreeTPOnDeath( false )
+	GameRules:GetGameModeEntity():SetStickyItemDisabled( true )
+	GameRules:GetGameModeEntity():SetDefaultStickyItem( "item_bottle_ebf" )
+	GameRules:GetGameModeEntity():SetTPScrollSlotItemOverride( "item_bottle_ebf" )
+	
+	GameRules:GetGameModeEntity():SetMaximumAttackSpeed( 2000 )
+	GameRules:GetGameModeEntity():SetMinimumAttackSpeed( 50 )
+	
+	GameRules:GetGameModeEntity():SetInnateMeleeDamageBlockAmount( 0 )
+	GameRules:GetGameModeEntity():SetInnateMeleeDamageBlockPerLevelAmount( 0 )
+	GameRules:GetGameModeEntity():SetInnateMeleeDamageBlockPercent( 0 )
+	
+	GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_STRENGTH_HP, 22) 
+	GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_STRENGTH_HP_REGEN, 0)
+	GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR, 0.00) 
+	GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED, 0.0)
+	GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_INTELLIGENCE_MANA, 0) 
+	GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_INTELLIGENCE_MANA_REGEN, 0)
+	GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_INTELLIGENCE_MAGIC_RESIST, 0.0)
+	
+	-- round setup
+	local mainKV = LoadKeyValues( "scripts/maps/default_gamemode.txt" ) or {}
+	local modeKV = LoadKeyValues( "scripts/maps/"..GetMapName()..".txt" ) or {}
+	local endKV = MergeTables( mainKV, modeKV ) or {} -- Handle the case where there is not keyvalues file
 	
 	GameRules.BossKV = LoadKeyValues( "scripts/npc/units/npc_boss_units.txt" )
 
-	self._bAlwaysShowPlayerGold = kv.AlwaysShowPlayerGold or false
-	self._bRestoreHPAfterRound = kv.RestoreHPAfterRound or false
-	self._bRestoreMPAfterRound = kv.RestoreMPAfterRound or false
-	self._bRewardForTowersStanding = kv.RewardForTowersStanding or false
-	self._bUseReactiveDifficulty = kv.UseReactiveDifficulty or false
+	self._bAlwaysShowPlayerGold = endKV.AlwaysShowPlayerGold or false
+	self._bRestoreHPAfterRound = endKV.RestoreHPAfterRound or false
+	self._bRestoreMPAfterRound = endKV.RestoreMPAfterRound or false
+	self._bRewardForTowersStanding = endKV.RewardForTowersStanding or false
+	self._bUseReactiveDifficulty = endKV.UseReactiveDifficulty or false
 
-	self._flPrepTimeBetweenRounds = tonumber( kv.PrepTimeBetweenRounds or 0 )
-	self._flItemExpireTime = tonumber( kv.ItemExpireTime or 10.0 )
+	self._flPrepTimeBetweenRounds = tonumber( endKV.PrepTimeBetweenRounds or 0 )
+	GameRules._flPrepTimeBetweenRounds = self._flPrepTimeBetweenRounds
+	self._flItemExpireTime = tonumber( endKV.ItemExpireTime or 10.0 )
 
-	self:_ReadRandomSpawnsConfiguration( kv["RandomSpawns"] )
-	self:_ReadLootItemDropsConfiguration( kv["ItemDrops"] )
-	self:_ReadRoundConfigurations( kv )
-	GameRules:SetStartingGold ( tonumber(kv.StartingGold or 1500) )
+	self:_ReadRandomSpawnsConfiguration( endKV["RandomSpawns"] )
+	self:_ReadLootItemDropsConfiguration( endKV["ItemDrops"] )
+	self:_ReadRoundConfigurations( endKV )
+	GameRules:SetStartingGold ( tonumber(endKV.StartingGold or 1500) )
 	
-	-- local genericKV = LoadKeyValues( "addoninfo.txt" )
-	-- self._MaxPlayers = genericKV[GetMapName()].MaxPlayers
-	
-	if GetMapName() == "epic_boss_fight_normal" then
-		self._MaxPlayers = 10
-	elseif GetMapName() == "epic_boss_fight_nightmare" then
+	-- the fuck valve why did you break this
+	if GetMapName() == "strategy_gamemode" then
 		self._MaxPlayers = 5
-	elseif GetMapName() == "epic_boss_fight_event" then
-		self._MaxPlayers = 10
 	else
-		self._MaxPlayers = 6
+		self._MaxPlayers = 10
 	end
 end
 
@@ -1050,11 +1023,15 @@ function CHoldoutGameMode:OnConnectFull()
 	keyRequest:Send( function( result ) end )
  
 	local players = 0
+	GameRules._DifficultyVotes = {}
 	for nPlayerID = 0, DOTA_MAX_TEAM_PLAYERS-1 do
 	   if PlayerResource:IsValidPlayerID( nPlayerID ) then
 		  players = players + 1
+		  GameRules._DifficultyVotes[nPlayerID] = -1
 	   end
 	end
+	
+	CustomNetTables:SetTableValue("game_state", "map_properties", {map = GameRules._activeMap, gamemode = GameRules._activeMode, difficulty = GameRules._DifficultyVotes})
 	local averageMMR = 0
 	local mmrTable = {}
 	for nPlayerID = 0, DOTA_MAX_TEAM_PLAYERS-1 do
@@ -1085,106 +1062,81 @@ function CHoldoutGameMode:OnConnectFull()
 			CustomNetTables:SetTableValue("steamid", tostring(nPlayerID), {steamid = PlayerResource:GetSteamID(nPlayerID)})
 		end
 	end
-	Timers:CreateTimer( function()
-		for playerID, mmr in pairs( mmrTable ) do
-			if not mmr then -- mmr not gotten yet
-				return 0.1
-			end
-		end
-		-- all mmrs gotten
-		averageMMR = averageMMR / players
-		GameRules._averageMMRForMatch = averageMMR
-		for nPlayerID = 0, DOTA_MAX_TEAM_PLAYERS-1 do
-			if PlayerResource:IsValidPlayerID( nPlayerID ) then
-				local playerMultiplier = 1 + ( self._MaxPlayers - players ) * ( 50 / (self._MaxPlayers-1) ) / 100
-				local mmrPlayer = {mmr = mmrTable[nPlayerID]}
-				local winMMR = math.floor( (10 + GameRules.gameDifficulty * 5) + 0.5 )
-				local lossMMR = (-2*winMMR) * ((#self._vRounds - self._nRoundNumber) / #self._vRounds)
-				
-				if not IsDedicatedServer() or GameRules:IsCheatMode() or IsInToolsMode() then
-					winMMR = 0
-					lossMMR = 0
+	
+	averageMMR = averageMMR / players
+	GameRules._averageMMRForMatch = averageMMR
+		
+	-- Function to decode base64
+	local function base64decode(data)
+		local b = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+		data = string.gsub(data, "[^" .. b .. "=]", "")
+		return (data:gsub(".", function(x)
+			if x == "=" then return "" end
+			local r, f = "", (b:find(x) - 1)
+			for i = 6, 1, -1 do r = r .. (f % 2 ^ i - f % 2 ^ (i - 1) > 0 and "1" or "0") end
+			return r
+		end):gsub("%d%d%d?%d?%d?%d?%d?%d?", function(x)
+			if #x ~= 8 then return "" end
+			local c = 0
+			for i = 1, 8 do c = c + (x:sub(i, i) == "1" and 2 ^ (8 - i) or 0) end
+			return string.char(c)
+		end))
+	end
+
+	-- Fetching data from URL
+	local url_mmr = "https://raw.githubusercontent.com/john-mayhem/ebf_lb/main/leaderboard/lb_1.txt"
+	local req_mmr = CreateHTTPRequestScriptVM("GET", url_mmr)
+	req_mmr:Send(function(result)
+		if result["StatusCode"] == 200 then
+			-- Decoding base64 data
+			local decodedData = base64decode(result["Body"])
+
+			-- Parsing the decoded data into blocks
+			local leaderboard_mmr = {}
+			for line in decodedData:gmatch("[^\r\n]+") do
+				local lb_mmr_steamID, lb_mmr_mmr, lb_mmr_plays, lb_mmr_wins = line:match("(%d+),%s*(%d+),%s*(%d+),%s*(%d+)")
+				if lb_mmr_steamID and lb_mmr_mmr and lb_mmr_plays and lb_mmr_wins then
+					table.insert(leaderboard_mmr, {steamID = lb_mmr_steamID, mmr = lb_mmr_mmr, plays = lb_mmr_plays, wins = lb_mmr_wins})
 				end
-				
-				mmrPlayer.win = math.floor(winMMR*playerMultiplier + 0.5 )
-				mmrPlayer.loss = math.floor(lossMMR/playerMultiplier + 0.5 )
-				
-				CustomNetTables:SetTableValue("mmr", tostring( nPlayerID ), mmrPlayer)
-		   end
+			end
+
+			-- Storing the leaderboard data in netTable
+			CustomNetTables:SetTableValue("game_state", "leaderboard_mmr", leaderboard_mmr)
 		end
 	end)
-	
--- Function to decode base64
-local function base64decode(data)
-    local b = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
-    data = string.gsub(data, "[^" .. b .. "=]", "")
-    return (data:gsub(".", function(x)
-        if x == "=" then return "" end
-        local r, f = "", (b:find(x) - 1)
-        for i = 6, 1, -1 do r = r .. (f % 2 ^ i - f % 2 ^ (i - 1) > 0 and "1" or "0") end
-        return r
-    end):gsub("%d%d%d?%d?%d?%d?%d?%d?", function(x)
-        if #x ~= 8 then return "" end
-        local c = 0
-        for i = 1, 8 do c = c + (x:sub(i, i) == "1" and 2 ^ (8 - i) or 0) end
-        return string.char(c)
-    end))
-end
 
--- Fetching data from URL
-local url_mmr = "https://raw.githubusercontent.com/john-mayhem/ebf_lb/main/leaderboard/lb_1.txt"
-local req_mmr = CreateHTTPRequestScriptVM("GET", url_mmr)
-req_mmr:Send(function(result)
-    if result["StatusCode"] == 200 then
-        -- Decoding base64 data
-        local decodedData = base64decode(result["Body"])
+	-- Fetching data from URL
+	local url_wr = "https://raw.githubusercontent.com/john-mayhem/ebf_lb/main/leaderboard/lb_2.txt"
+	local req_wr = CreateHTTPRequestScriptVM("GET", url_wr)
+	req_wr:Send(function(result)
+		if result["StatusCode"] == 200 then
+			-- Decoding base64 data
+			local decodedData = base64decode(result["Body"])
 
-        -- Parsing the decoded data into blocks
-        local leaderboard_mmr = {}
-        for line in decodedData:gmatch("[^\r\n]+") do
-            local lb_mmr_steamID, lb_mmr_mmr, lb_mmr_plays, lb_mmr_wins = line:match("(%d+),%s*(%d+),%s*(%d+),%s*(%d+)")
-            if lb_mmr_steamID and lb_mmr_mmr and lb_mmr_plays and lb_mmr_wins then
-                table.insert(leaderboard_mmr, {steamID = lb_mmr_steamID, mmr = lb_mmr_mmr, plays = lb_mmr_plays, wins = lb_mmr_wins})
-            end
-        end
+			-- Parsing the decoded data into blocks
+			local leaderboard_wr = {}
+			for line in decodedData:gmatch("[^\r\n]+") do
+				local lb_wr_steamID, lb_wr_mmr, lb_wr_plays, lb_wr_wins = line:match("(%d+),%s*(%d+),%s*(%d+),%s*(%d+)")
+				if lb_wr_steamID and lb_wr_mmr and lb_wr_plays and lb_wr_wins then
+					table.insert(leaderboard_wr, {steamID = lb_wr_steamID, mmr = lb_wr_mmr, plays = lb_wr_plays, wins = lb_wr_wins})
+				end
+			end
 
-        -- Storing the leaderboard data in netTable
-        CustomNetTables:SetTableValue("game_state", "leaderboard_mmr", leaderboard_mmr)
-    end
-end)
-
--- Fetching data from URL
-local url_wr = "https://raw.githubusercontent.com/john-mayhem/ebf_lb/main/leaderboard/lb_2.txt"
-local req_wr = CreateHTTPRequestScriptVM("GET", url_wr)
-req_wr:Send(function(result)
-    if result["StatusCode"] == 200 then
-        -- Decoding base64 data
-        local decodedData = base64decode(result["Body"])
-
-        -- Parsing the decoded data into blocks
-        local leaderboard_wr = {}
-        for line in decodedData:gmatch("[^\r\n]+") do
-            local lb_wr_steamID, lb_wr_mmr, lb_wr_plays, lb_wr_wins = line:match("(%d+),%s*(%d+),%s*(%d+),%s*(%d+)")
-            if lb_wr_steamID and lb_wr_mmr and lb_wr_plays and lb_wr_wins then
-                table.insert(leaderboard_wr, {steamID = lb_wr_steamID, mmr = lb_wr_mmr, plays = lb_wr_plays, wins = lb_wr_wins})
-            end
-        end
-
-        -- Storing the leaderboard data in netTable
-        CustomNetTables:SetTableValue("game_state", "leaderboard_wr", leaderboard_wr)
-    end
-end)
+			-- Storing the leaderboard data in netTable
+			CustomNetTables:SetTableValue("game_state", "leaderboard_wr", leaderboard_wr)
+		end
+	end)
 
 
--- Fetching data from URL
-local urlMarkdown = "https://raw.githubusercontent.com/Yahnich/yahnich.github.io/main/README.md"
-local reqMarkdown = CreateHTTPRequestScriptVM("GET", urlMarkdown)
-reqMarkdown:Send(function(result)
-    if result["StatusCode"] == 200 then
-        -- Storing the Markdown content in netTable
-        CustomNetTables:SetTableValue("game_state", "patchnotes_content", { content = result["Body"] })
-    end
-end)
+	-- Fetching data from URL
+	local urlMarkdown = "https://raw.githubusercontent.com/Yahnich/yahnich.github.io/main/README.md"
+	local reqMarkdown = CreateHTTPRequestScriptVM("GET", urlMarkdown)
+	reqMarkdown:Send(function(result)
+		if result["StatusCode"] == 200 then
+			-- Storing the Markdown content in netTable
+			CustomNetTables:SetTableValue("game_state", "patchnotes_content", { content = result["Body"] })
+		end
+	end)
 
 
 end
@@ -1382,12 +1334,74 @@ function CHoldoutGameMode:OnGameRulesStateChange()
 		end
 	elseif nNewState == DOTA_GAMERULES_STATE_PRE_GAME then
 		if not self._preGameSetupDone then
+			GameRules:GetGameModeEntity():SetCameraDistanceOverride(1500)
 			GameRules:SetTimeOfDay(0.26)
 			if GameRules:IsCheatMode() then
 				Say( nil, "type -startgame to start the game", false)
 			end
 			GameRules.neutralCamps = {easy = {}, medium = {}, hard = {}, ancient = {}}
 			
+			local medianTable = {}
+			local totalTable = {}
+			for pID, difficulty in pairs( GameRules._DifficultyVotes ) do
+				totalTable[difficulty] = (totalTable[difficulty] or 0)+1
+				table.insert( medianTable, difficulty )
+			end
+			local maxVotes = 0
+			for difficulty, votes in pairs( totalTable ) do
+				if not GameRules.gameDifficulty or maxVotes < votes then
+					GameRules.gameDifficulty = difficulty
+				end
+			end
+			local compromise = false
+			-- check for duplicate votes
+			for difficulty, votes in pairs( totalTable ) do
+				if GameRules.gameDifficulty ~= difficulty and votes == maxVotes then
+					compromise = true
+					break
+				end
+			end
+			if compromise then
+				table.sort( medianTable );
+				if #medianTable % 2 == 1 then -- calc avg of mean
+					GameRules.gameDifficulty = (medianTable[#medianTable/2] + medianTable[#medianTable/2 + 1])/2
+				else
+					GameRules.gameDifficulty = medianTable[math.ceil(#medianTable/2)]
+				end
+			end
+			GameRules.gameDifficulty = math.max( 1, math.floor( GameRules.gameDifficulty or 1 ) )-- ensure at least one
+			
+			if compromise then
+				Say( nil, "DIFFICULTY (COMPROMISE): "..CONVERTED_DIFFICULTY[GameRules.gameDifficulty], false)
+			else
+				Say( nil, "DIFFICULTY: "..CONVERTED_DIFFICULTY[GameRules.gameDifficulty], false)
+			end
+			
+			GameRules:GetGameModeEntity():SetFixedRespawnTime( 90 + 40*(GameRules.gameDifficulty-1)  )
+			GameRules:GetGameModeEntity():SetCustomGlyphCooldown( 150 + 0*(GameRules.gameDifficulty-1) )
+			GameRules:GetGameModeEntity():SetCustomScanCooldown( 120 + 0*(GameRules.gameDifficulty-1) )
+			
+			-- all mmrs gotten
+			for nPlayerID = 0, DOTA_MAX_TEAM_PLAYERS-1 do
+				if PlayerResource:IsValidPlayerID( nPlayerID ) then
+					local playerMultiplier = 1 + ( self._MaxPlayers - HeroList:GetActiveHeroCount() ) * ( 50 / (self._MaxPlayers-1) ) / 100
+					local mmrTable = CustomNetTables:GetTableValue("mmr", tostring( nPlayerID ) ) or {}
+					local mmrPlayer = {mmr = mmrTable[nPlayerID]}
+					local winMMR = math.floor( (15 + GameRules.gameDifficulty * 5) + 0.5 )
+					local lossMMR = (-2*winMMR) * ((#self._vRounds - self._nRoundNumber) / #self._vRounds)
+					
+					if not IsDedicatedServer() or GameRules:IsCheatMode() or IsInToolsMode() then
+						winMMR = 0
+						lossMMR = 0
+					end
+					
+					mmrPlayer.win = math.floor(winMMR*playerMultiplier + 0.5 )
+					mmrPlayer.loss = math.floor(lossMMR/playerMultiplier + 0.5 )
+					
+					CustomNetTables:SetTableValue("mmr", tostring( nPlayerID ), mmrPlayer)
+			   end
+			end
+	
 			for _, entity in ipairs( Entities:FindAllByClassname( "trigger_multiple" ) ) do
 				if string.find( entity:GetName(), "easy_camp" )  then
 					table.insert( GameRules.neutralCamps.easy, entity )
@@ -1406,27 +1420,22 @@ function CHoldoutGameMode:OnGameRulesStateChange()
 		for nPlayerID = 0, DOTA_MAX_TEAM_PLAYERS-1 do
 			local player = PlayerResource:GetPlayer(nPlayerID)
 			if player ~= nil then
-				self._flPrepTimeEnd = GameRules:GetGameTime() + self._flPrepTimeBetweenRounds
+				GameRules._flPrepTimeEnd = GameRules:GetGameTime() + 5
 			end
 		end
 		GameRules:SetTimeOfDay(0.76)
-		
-		if GetMapName() == "epic_boss_fight_event" then
-			local function sendMessages()
-				Say(nil, "Epic Boss Fight Rogue-Like! Get a random item every round, selling gives NO gold!", false)
-			end
-	
-			sendMessages()
-				
-			
-		end
 	end
 end
 
-function CHoldoutGameMode:vote_Round (event)
+function CHoldoutGameMode:vote_Round(id, event)
  	local ID = event.pID
  	local vote = event.vote
  	local player = PlayerResource:GetPlayer(ID)
+	local gamemode = GameRules:GetGameModeEntity()
+	
+	if GetMapName() == "mayhem_gamemode" and self._currentRound and #self._currentRound._vEnemiesRemaining > 0 then
+		return
+	end
 	
  	if player~= nil then
 	 	if vote == 1 then
@@ -1439,6 +1448,7 @@ function CHoldoutGameMode:vote_Round (event)
 				Yes = GameRules.voteRound_Yes,
 			}
 			CustomGameEventManager:Send_ServerToAllClients("RoundVoteResults", event_data)
+			GameRules._flPrepTimeEnd = GameRules._flPrepTimeStart + GameRules._flPrepTimeBetweenRounds / GameRules.voteRound_Yes
 		end
 	end
 end
@@ -1487,7 +1497,7 @@ function CHoldoutGameMode:OnThink()
 				end
 			end
 			
-			if self._flPrepTimeEnd ~= nil then
+			if GameRules._flPrepTimeEnd ~= nil then
 				self:_ThinkPrepTime()
 			elseif self._currentRound ~= nil then
 				self._currentRound:Think()
@@ -1504,7 +1514,7 @@ function CHoldoutGameMode:OnThink()
 							if PlayerResource:HasSelectedHero( nPlayerID ) then
 								PlayerResource:SetCustomBuybackCost(nPlayerID, GameRules._roundnumber * 100)
 								local playerMultiplier = 1 + ( self._MaxPlayers - HeroList:GetActiveHeroCount() ) * ( 50 / (self._MaxPlayers-1) ) / 100
-								local winMMR = 10+GameRules.gameDifficulty*5
+								local winMMR = 15+GameRules.gameDifficulty*5
 								local lossMMR = winMMR * (-2) * ((#self._vRounds - self._nRoundNumber) / #self._vRounds)
 								local mmrTable = CustomNetTables:GetTableValue("mmr", tostring( nPlayerID ) ) or {}
 								if not IsDedicatedServer() or IsInToolsMode() or GameRules:IsCheatMode() then
@@ -1528,7 +1538,7 @@ function CHoldoutGameMode:OnThink()
 								-- unit:ForceKill(true)
 							-- end)
 						-- end
-						-- self._flPrepTimeEnd = GameRules:GetGameTime() + self._flPrepTimeBetweenRounds + 15
+						-- GameRules._flPrepTimeEnd = GameRules:GetGameTime() + self._flPrepTimeBetweenRounds + 15
 
 					-- end
 					if self._nRoundNumber > #self._vRounds then
@@ -1575,8 +1585,18 @@ function CHoldoutGameMode:OnThink()
 						end )
 					
 					else
-						self._flPrepTimeEnd = GameRules:GetGameTime() + self._flPrepTimeBetweenRounds
-						
+						GameRules._flPrepTimeStart = GameRules:GetGameTime()
+						if GetMapName() == "mayhem_gamemode" then
+							GameRules._flPrepTimeEnd = 0
+							for _, enemy in ipairs( FindAllUnits({team = DOTA_UNIT_TARGET_TEAM_ENEMY}) ) do
+								if not enemy:IsNeutralUnitType() then
+									GameRules._flPrepTimeEnd = GameRules._flPrepTimeStart + self._flPrepTimeBetweenRounds
+									break
+								end
+							end
+						else
+							GameRules._flPrepTimeEnd = GameRules._flPrepTimeStart + self._flPrepTimeBetweenRounds
+						end
 						--GameRules.voteRound_No = PlayerResource:GetTeamPlayerCount()  --tester
 						GameRules.voteRound_No = self:TeamCount()
 						GameRules.voteRound_Yes = 0
@@ -1591,12 +1611,27 @@ function CHoldoutGameMode:OnThink()
 					
 						Timers:CreateTimer(1,function()
 							--if GameRules.voteRound_Yes == PlayerResource:GetTeamPlayerCount() then --tester
-							if GameRules.voteRound_Yes == self:TeamCount() then 
-								CustomGameEventManager:Send_ServerToAllClients("Close_RoundVote", {})
-								if self._flPrepTimeEnd~= nil then
-									self._flPrepTimeEnd = 0
+							if GetMapName() == "mayhem_gamemode" then
+								local enemyFound = false
+								for _, enemy in ipairs( FindAllUnits({team = DOTA_UNIT_TARGET_TEAM_ENEMY}) ) do
+									if not enemy:IsNeutralUnitType() then
+										enemyFound = true
+										break
+									end
 								end
-							else
+								if not enemyFound then
+									GameRules._flPrepTimeEnd = 0
+								end
+							end
+							if GameRules.voteRound_Yes == self:TeamCount() then 
+								if GameRules._flPrepTimeEnd~= nil then
+									GameRules._flPrepTimeEnd = 0
+								end
+							end
+							if GameRules._flPrepTimeEnd == 0 then
+								CustomGameEventManager:Send_ServerToAllClients("Close_RoundVote", {})
+							end
+							if GameRules._flPrepTimeEnd and GameRules._flPrepTimeEnd > 0 then
 								return 1
 							end
 						end)
@@ -1619,7 +1654,7 @@ function CHoldoutGameMode:OnThink()
 				if yes > 0 then
 					self:_EnterNG()
 					self._nRoundNumber = 1
-					self._flPrepTimeEnd = GameRules:GetGameTime() + 30
+					GameRules._flPrepTimeEnd = GameRules:GetGameTime() + 30
 					GameRules.forceEndTime = nil
 					CustomGameEventManager:Send_ServerToAllClients("epic_boss_fight_ng_vote_update", { active = false })
 				else
@@ -1937,61 +1972,20 @@ function CHoldoutGameMode:_CheckForDefeat()
 			end
 		end
 	end
-
 	if AllRPlayersDead then -- 3s timer before proceeding
 		if not self.waitingToEnd then
 			self.waitingToEnd = GameRules:GetGameTime() + 3
 			return
 		elseif GameRules:GetGameTime() < self.waitingToEnd then
 			return
+		else
+			self:_OnLose()
+			return
 		end
 	else
 		self.waitingToEnd = nil
 	end
-	
-	if PlayerNumberRadiant == 0 or Life._life == 0 then
-		self:_OnLose()
-	end
-
-	if AllRPlayersDead and PlayerNumberRadiant>0 then
-		if self._check_dead == false then
-			self._check_check_dead = false
-			Timers:CreateTimer(2.0,function()
-				if self._check_check_dead == false then
-					self._check_dead = true
-				else
-					self._check_check_dead = false
-				end
-			end)
-		end
-		if self._check_dead == true and Life._life > 0 then
-			if self._currentRound ~= nil then
-				self._currentRound:End(false)
-				self._currentRound = nil
-			end
-			self._flPrepTimeEnd = GameRules:GetGameTime() + 20
-			Life._life = Life._life - 1
-			GameRules._live = Life._life
-			GameRules._used_live = GameRules._used_live + 1
-			CustomGameEventManager:Send_ServerToAllClients("UpdateLife", {life = Life._life})
-
-			self._check_dead = false
-			for _,unit in pairs ( Entities:FindAllByName( "npc_dota_creature")) do
-				if unit:GetTeamNumber() == DOTA_TEAM_NEUTRALS then
-					unit:ForceKill(true)
-				end
-			end
-			
-			if delay ~= nil then
-				self._flPrepTimeEnd = GameRules:GetGameTime() + tonumber( delay )
-			end
-			self:_RefreshPlayers(false)
-		else
-			self._check_dead = false
-		end
-	end
 end
-
 
 function CHoldoutGameMode:RemovePassiveGPM()
 	-- if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
@@ -2043,10 +2037,10 @@ end
 
 
 function CHoldoutGameMode:_ThinkPrepTime()
-	if GameRules:GetGameTime() >= self._flPrepTimeEnd then
-	--new
+	if GameRules:GetGameTime() >= GameRules._flPrepTimeEnd then
+		--new
 	    CustomGameEventManager:Send_ServerToAllClients("Close_RoundVote", {})
-		self._flPrepTimeEnd = nil
+		GameRules._flPrepTimeEnd = nil
 
 		if self._nRoundNumber > #self._vRounds then
 			GameRules:SetGameWinner( DOTA_TEAM_GOODGUYS )
@@ -2075,9 +2069,9 @@ function CHoldoutGameMode:_ThinkPrepTime()
 		self:_RefreshPlayers()
 		self._vRounds[ self._nRoundNumber ]:Precache()
 	end
-	CustomGameEventManager:Send_ServerToAllClients("UpdateTimeLeft", {nextRound = self._nRoundNumber,Time = self._flPrepTimeEnd - GameRules:GetGameTime()})
+	CustomGameEventManager:Send_ServerToAllClients("UpdateTimeLeft", {nextRound = self._nRoundNumber,Time = GameRules._flPrepTimeEnd - GameRules:GetGameTime()})
 	CustomGameEventManager:Send_ServerToAllClients("CurrentRound", {roundCurrent = self._nRoundNumber})
-	self._entPrepTimeQuest:SetTextReplaceValue( QUEST_TEXT_REPLACE_VALUE_CURRENT_VALUE, self._flPrepTimeEnd - GameRules:GetGameTime() )
+	self._entPrepTimeQuest:SetTextReplaceValue( QUEST_TEXT_REPLACE_VALUE_CURRENT_VALUE, GameRules._flPrepTimeEnd - GameRules:GetGameTime() )
 end
 
 function CHoldoutGameMode:GetDifficultyString()
@@ -2294,10 +2288,10 @@ function CHoldoutGameMode:_TestRoundConsoleCommand( cmdName, roundNumber, delay,
 		self._currentRound = nil
 	end
 
-	self._flPrepTimeEnd = GameRules:GetGameTime() + 15
+	GameRules._flPrepTimeEnd = GameRules:GetGameTime() + 15
 	self._nRoundNumber = nRoundToTest
 	if delay ~= nil then
-		self._flPrepTimeEnd = GameRules:GetGameTime() + tonumber( delay )
+		GameRules._flPrepTimeEnd = GameRules:GetGameTime() + tonumber( delay )
 	end
 end
 

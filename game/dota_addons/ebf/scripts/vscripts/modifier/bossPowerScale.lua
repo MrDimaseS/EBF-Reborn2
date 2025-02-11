@@ -13,15 +13,27 @@ function bossPowerScale:OnRefresh(keys)
 	local difficulty = math.floor( ( self:GetStackCount() % 100 ) / 10 )
 	local playerNumber = ( self:GetStackCount() % 10 ) / 100
 	
+	self.roundNumber = roundNumber
+	self.difficulty = difficulty
+	self.playerNumber = playerNumber
+	
 	-- function to scale scaling down early on, ramping it up starting from round 17
 	local logisticFunction = 0.1 + 1/ ( 1 + math.exp(-0.25*(roundNumber-13)) )
 	
 	-- remove some base armor and add it to bonus armor
 	self.baseArmor = self.baseArmor or self:GetParent():GetPhysicalArmorBaseValue()
 	self.bonusArmor = ( ( (1 + difficulty * 0.03) - 1 ) * 100 ) * logisticFunction + (self.baseArmor * 0.6) 
-	self.bonusDamagePct = ( ( (1 + playerNumber * 4) * (1 + difficulty * 0.2) - 1 ) * 100 ) * logisticFunction
+	self.bonusDamagePct = ( ( (1 + playerNumber * 4) - 1 ) * 100 ) * logisticFunction
 	
 	self.abilityValueIncrease = 1 + math.max(0, 0.15*roundNumber + (roundNumber*0.08) * (roundNumber-1) + (-2.85 -28.5*(1 - math.exp(0.04*roundNumber))) )
+	if GetMapName() == "strategy_gamemode" then
+		self.abilityValueIncrease = self.abilityValueIncrease * 1.25
+	end
+	
+	self.gameDamagePct = (self.difficulty-1) * 10
+	if GetMapName() == "strategy_gamemode" then
+		self.gameDamagePct = self.gameDamagePct * 1.1
+	end
 	
 	self.treewalk = false
 	self.dmgTakenSinceCheck = 0
@@ -121,6 +133,7 @@ function bossPowerScale:DeclareFunctions()
   local funcs = {
 	MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
 	MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
+	MODIFIER_PROPERTY_BASEDAMAGEOUTGOING_PERCENTAGE,
 	MODIFIER_PROPERTY_STATUS_RESISTANCE_STACKING,
 	MODIFIER_EVENT_ON_DEATH,
 	MODIFIER_EVENT_ON_TAKEDAMAGE,
@@ -252,6 +265,10 @@ function bossPowerScale:OnTakeDamage(event)
 		end
 		
 	end
+end
+
+function bossPowerScale:GetModifierBaseDamageOutgoing_Percentage(event)
+	return self.gameDamagePct
 end
 
 function bossPowerScale:GetModifierPhysicalArmorBonus(event)

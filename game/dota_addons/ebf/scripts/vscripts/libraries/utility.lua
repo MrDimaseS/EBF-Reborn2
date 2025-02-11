@@ -217,6 +217,7 @@ function CDOTA_BaseNPC:PerformGenericAttack(target, immediate, tAttackData )
 		bonusDamage = math.floor( (bonusDamage or 0) / (1+(bonusDamagePct-100)/100) )
 	end
 	if bonusDamage and bonusDamage ~= 0 then
+		print( bonusDamage, bonusDamagePct )
 		self:AddNewModifier(caster, nil, "modifier_generic_attack_bonus", {damage = bonusDamage})
 	end
 	local preHP = target:GetHealth()
@@ -391,13 +392,15 @@ function CDOTA_PlayerResource:GetPatronTier(playerID)
 end
 
 function MergeTables( t1, t2 )
+	local t1Copy = table.copy(t1)
     for name,info in pairs(t2) do
 		if type(info) == "table" and type(t1[name]) == "table" then
-			MergeTables(t1[name], info)
+			MergeTables(t1Copy[name], info)
 		else
-			t1[name] = info
+			t1Copy[name] = info
 		end
 	end
+	return t1Copy
 end
 
 function PrintAll(t)

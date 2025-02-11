@@ -20,7 +20,8 @@ function modifier_nyx_assassin_nyxth_sense_handler:OnCreated()
 end
 
 function modifier_nyx_assassin_nyxth_sense_handler:OnIntervalThink()
-	AddFOWViewer( self:GetParent():GetTeamNumber(), self:GetParent():GetAbsOrigin(), self:GetParent():GetCurrentVisionRange(), self.linger_duration, false )
+	AddFOWViewer( self:GetParent():GetTeamNumber(), self:GetParent():GetAbsOrigin(), self.radius, self.linger_duration, false )
+	AddFOWViewer( self:GetParent():GetTeamNumber(), self:GetParent():GetAbsOrigin(), self:GetParent():GetCurrentVisionRange(), self.linger_duration, true )
 end
 
 function modifier_nyx_assassin_nyxth_sense_handler:DeclareFunctions()

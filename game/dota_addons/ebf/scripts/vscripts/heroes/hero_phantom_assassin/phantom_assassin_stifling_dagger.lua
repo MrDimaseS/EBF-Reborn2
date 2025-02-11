@@ -57,7 +57,7 @@ function phantom_assassin_stifling_dagger:OnProjectileHitHandle( target, positio
 	if target and not target:TriggerSpellAbsorb( self ) then
 		local caster = self:GetCaster()
 		
-		local attackFactor = self:GetSpecialValueFor("attack_factor")
+		local attackFactor = self:GetSpecialValueFor("attack_factor_tooltip")
 		local bonusAttackFactor = self:GetSpecialValueFor("bonus_attack_factor")
 		local damage = self:GetSpecialValueFor("base_damage")
 		local duration = self:GetSpecialValueFor("duration")
@@ -78,7 +78,6 @@ function phantom_assassin_stifling_dagger:OnProjectileHitHandle( target, positio
 				damage = damage * projectileData.damageFactor
 			end
 		end
-		
 		caster:PerformGenericAttack(target, true, {bonusDamagePct = attackFactor, bonusDamage = damage, ability = self} )
 		target:AddNewModifier( caster, self, "modifier_phantom_assassin_stiflingdagger", {duration = duration} )
 		

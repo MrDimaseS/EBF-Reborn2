@@ -15,12 +15,13 @@ modifier_nyx_assassin_parasitize_host = class({})
 LinkLuaModifier( "modifier_nyx_assassin_parasitize_host", "heroes/hero_nyx_assassin/nyx_assassin_parasitize.lua" ,LUA_MODIFIER_MOTION_NONE )
 function modifier_nyx_assassin_parasitize_host:OnCreated(table)
     self.gain_control = self:GetSpecialValueFor("gain_control") == 1
+    self.dmg_reduction = self:GetSpecialValueFor("dmg_reduction")
 	
 	if not IsServer() then return end
 	local parent = self:GetParent()
 	local caster = self:GetCaster()
 	self._previousTeam = parent:GetTeamNumber()
-	parent:SetTeam( caster:GetTeamNumber() )
+	parent:SetTeam( DOTA_TEAM_BADGUYS )
 	parent:SetOwner( caster )
 	if self.gain_control then
 		parent:SetControllableByPlayer(caster:GetPlayerID(), true)
@@ -55,8 +56,8 @@ end
 function modifier_nyx_assassin_parasitize_host:DeclareFunctions()
 	local funcs = {
 		MODIFIER_EVENT_ON_SPENT_MANA,
-		MODIFIER_PROPERTY_INCOMING_DAMAGE_CONSTANT,
-		MODIFIER_EVENT_ON_ABILITY_EXECUTED 
+		MODIFIER_EVENT_ON_ABILITY_EXECUTED,
+		MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE
 	}
 	return funcs
 end
@@ -79,6 +80,10 @@ function modifier_nyx_assassin_parasitize_host:OnAbilityExecuted(params)
 			params.ability:SpikedCarapaceStun( self:GetParent() )
 		end
 	end
+end
+
+function modifier_nyx_assassin_parasitize_host:GetModifierIncomingDamage_Percentage()
+    return self.dmg_reduction
 end
 
 function modifier_nyx_assassin_parasitize_host:IsPurgable()

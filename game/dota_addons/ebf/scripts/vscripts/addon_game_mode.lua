@@ -62,6 +62,7 @@ function Precache( context )
 	PrecacheResource( "particle", "particles/units/heroes/hero_bounty_hunter/bounty_hunter_track_shield.vpcf", context )
 	PrecacheResource( "particle", "particles/units/heroes/hero_bounty_hunter/bounty_hunter_track_trail.vpcf", context )
 	PrecacheResource( "particle", "particles/units/heroes/hero_phantom_assassin/phantom_assassin_mark_overhead.vpcf", context )
+	PrecacheResource( "particle", "particles/units/heroes/hero_death_prophet/death_prophet_spirit_model.vpcf", context )
 		
 
 	PrecacheResource( "particle", "particles/units/heroes/hero_treant/treant_foot_step.vpcf", context )
@@ -104,18 +105,20 @@ function Precache( context )
 	PrecacheUnitByNameSync("npc_dota_boss_ogre_magi", context)
 	PrecacheUnitByNameSync("npc_dota_visage_familiar1", context)
 	PrecacheUnitByNameSync("npc_dota_lone_druid_bear1", context)
+	
+	PrecacheUnitByNameSync("npc_dota_unit_tombstone4", context)
+	PrecacheUnitByNameSync("npc_dota_rattletrap_cog", context)
 end
 
 -- Actually make the game mode when we activate
 function Activate()
 	GameRules.holdOut = CHoldoutGameMode()
 	
-	if GetMapName() == "strategy_gamemode" or GetMapName() == "mayhem_gamemode" then
-		local mapRNG = {"peaks_of_screeauk", "fields_of_carnage", "narrow_mazes"}
-		GameRules._activeMap = mapRNG[RandomInt(1, #mapRNG)]
-		GameRules._activeMode = string.gsub(GetMapName(), "_gamemode", "")
-		DOTA_SpawnMapAtPosition(GameRules._activeMap, Vector(0,0,0), false, nil, nil, nil)
-	end
+	local mapRNG = {"peaks_of_screeauk", "fields_of_carnage", "narrow_mazes"}
+	GameRules._activeMap = mapRNG[RandomInt(1, #mapRNG)]
+	GameRules._activeMode = string.gsub(GetMapName(), "_gamemode", "")
+	DOTA_SpawnMapAtPosition(GameRules._activeMap, Vector(0,0,0), false, nil, nil, nil)
+	
 	GameRules.holdOut:InitGameMode()
 end
 
@@ -674,7 +677,7 @@ function CHoldoutGameMode:FilterDamage( filterTable )
 	if ability and ability:GetName() == "oracle_purifying_flames" and attacker:IsSameTeam( victim ) then
 		damage = damage / ( 1+ attacker:GetSpellAmplification( false ) )
 	end
-	if attacker and attacker:IsRealHero() and ability and ability:GetAbilityDamage() > 0 then
+	if attacker and attacker.IsRealHero and attacker:IsRealHero() and ability and ability:GetAbilityDamage() > 0 then
 		damage = filterTable.damage * ( 1 + attacker:GetLevel() * 0.2 )
 	end
 	if damage > victim:GetMaxHealth() then
@@ -1004,6 +1007,7 @@ function CHoldoutGameMode:_SetupGameConfiguration()
 	else
 		self._MaxPlayers = 10
 	end
+	GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, self._MaxPlayers )
 end
 
 -- Verify spawners if random is set
@@ -1344,8 +1348,10 @@ function CHoldoutGameMode:OnGameRulesStateChange()
 			local medianTable = {}
 			local totalTable = {}
 			for pID, difficulty in pairs( GameRules._DifficultyVotes ) do
-				totalTable[difficulty] = (totalTable[difficulty] or 0)+1
-				table.insert( medianTable, difficulty )
+				if difficulty > 0 then
+					totalTable[difficulty] = (totalTable[difficulty] or 0)+1
+					table.insert( medianTable, difficulty )
+				end
 			end
 			local maxVotes = 0
 			for difficulty, votes in pairs( totalTable ) do

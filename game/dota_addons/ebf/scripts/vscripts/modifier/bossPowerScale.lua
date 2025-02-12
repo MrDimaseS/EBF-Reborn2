@@ -39,7 +39,7 @@ function bossPowerScale:OnRefresh(keys)
 	self.dmgTakenSinceCheck = 0
 	self.lastHPPctSinceCheck = self:GetParent():GetHealthPercent()
 	self.HPRageThreshold = 2.4
-	self.enrageTimer = 90
+	self.enrageTimer = (90 - (20*(self.difficulty-1)) )*3
 	if self:GetParent():IsConsideredHero() then
 		self.baseStatusResistance = 10 + 5 * difficulty
 		self.statusResistIncreasePerTick = ( (MAX_STATUS_RESIST - self.baseStatusResistance) / SECONDS_TO_COMBO_BREAK ) * 0.25
@@ -66,7 +66,7 @@ function bossPowerScale:OnIntervalThink()
 			
 			end
 			self.lastHPPctSinceCheck = self:GetParent():GetHealthPercent()
-			self.enrageTimer = 30
+			self.enrageTimer = (90 - (20*(self.difficulty-1)) )*3
 			self.dmgTakenSinceCheck = 0
 		end
 	end
@@ -230,6 +230,7 @@ function bossPowerScale:OnAbilityStart(event)
 		radius = event.ability:GetAOERadius( )
 	end
 	ParticleManager:FireWarningParticle(position, radius)
+	AddFOWViewer(DOTA_TEAM_GOODGUYS, event.unit:GetAbsOrigin(), 400, 0.5, false)
 end
 
 function bossPowerScale:OnDeath(event)
@@ -238,7 +239,7 @@ function bossPowerScale:OnDeath(event)
 		local enrage = parent:FindModifierByName("modifier_boss_enraged")
 		if not event.unit:IsReincarnating() or enrage:GetStackCount() == 1 then
 			enrage:Destroy()
-			self.enrageTimer = 90
+			self.enrageTimer = (90 - (20*(self.difficulty-1)) )*3
 			self.lastHPPctSinceCheck = self:GetParent():GetHealthPercent()
 		else
 			enrage:DecrementStackCount()
@@ -260,10 +261,11 @@ function bossPowerScale:OnTakeDamage(event)
 				enrage:Destroy()
 			end
 			self.dmgTakenSinceCheck = 0
-			self.enrageTimer = 30
+			self.enrageTimer = 90 - (20*(self.difficulty-1))
 			self.lastHPPctSinceCheck = self:GetParent():GetHealthPercent()
 		end
-		
+	elseif event.attacker == parent then
+		AddFOWViewer(DOTA_TEAM_GOODGUYS, event.unit:GetAbsOrigin(), 400, 1.5, false)
 	end
 end
 

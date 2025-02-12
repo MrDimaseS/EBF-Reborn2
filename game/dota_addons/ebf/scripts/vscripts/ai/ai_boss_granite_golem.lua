@@ -28,7 +28,7 @@ end
 
 
 function AIThink(thisEntity)
-	if thisEntity:GetTeamNumber() ~= DOTA_TEAM_GOODGUYS and not thisEntity:IsChanneling() and not thisEntity:GetCurrentActiveAbility() then
+	if thisEntity:GetTeamNumber() == DOTA_TEAM_NEUTRALS and not thisEntity:IsChanneling() and not thisEntity:GetCurrentActiveAbility() then
 		if thisEntity.throw:IsFullyCastable() then
 			local castPosition = AICore:FindOptimalRadiusInRangeForEntity( thisEntity, thisEntity.throw:GetTrueCastRange(), thisEntity.throw:GetSpecialValueFor("search_radius") )
 			if castPosition and RollPercentage( 15 ) then

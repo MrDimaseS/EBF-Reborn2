@@ -75,7 +75,7 @@ function boss_golem_rock_throw:ThrowGolem( golem, tossPosition )
 		ParticleManager:FireParticle("particles/units/heroes/hero_tiny/tiny_toss_impact.vpcf", PATTACH_POINT_FOLLOW, golem )
 		
 		for _, unit in ipairs( caster:FindFriendlyUnitsInRadius( golem:GetAbsOrigin(), 64 + golem:GetPaddedCollisionRadius() * 2 ) ) do
-			if unit ~= golem and unit:GetUnitName() == golem:GetUnitName() and not unit._stillProcessingCreation then
+			if unit ~= golem and unit:GetUnitName() == "npc_dota_boss_mud_golem" and not unit._stillProcessingCreation then
 				local newHP = unit:GetHealth() + golem:GetHealth()
 				unit:SetCoreHealth( unit:GetMaxHealth() + golem:GetMaxHealth() )
 				unit:SetHealth( newHP )

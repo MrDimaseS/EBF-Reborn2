@@ -56,7 +56,7 @@ function bossManager:ProcessBossScaling(spawnedUnit)
 		HP_difficulty_multiplier = HP_difficulty_multiplier * 1.25
 	end
 	
-	HP_difficulty_multiplier = HP_difficulty_multiplier * (1 + (GameRules.gameDifficulty-1)*0.25)
+	HP_difficulty_multiplier = HP_difficulty_multiplier * (1 + (GameRules.gameDifficulty-1)*0.4)
 	spawnedUnit:SetBaseAttackTime( spawnedUnit:GetBaseAttackTime() * 1/((1 + (GameRules.gameDifficulty-1)*0.25) ) )
 	spawnedUnit.MaxEHP = HP_difficulty_multiplier*spawnedUnit:GetMaxHealth()
 	spawnedUnit.AttackDamageValue = baseDamage * DMG_MULTIPLIER
@@ -65,7 +65,7 @@ function bossManager:ProcessBossScaling(spawnedUnit)
 		HEALTH_REGEN = 0
 	end
 	
-	self:NewGamePlusBoss(spawnedUnit)
+	-- self:NewGamePlusBoss(spawnedUnit)
 	-- if GetMapName() == "epic_boss_fight_boss_master" then 
 		-- if spawnedUnit:GetTeamNumber() == DOTA_TEAM_NEUTRALS then
 			-- if spawnedUnit:IsCreature() then

@@ -115,7 +115,8 @@ function CHoldoutGameRound:Begin()
 			MAX_TIME_TO_RESOLVE_SPAWNS = math.max( MAX_TIME_TO_RESOLVE_SPAWNS, spawnTable._flInitialWait + math.ceil(spawnTable._nTotalUnitsToSpawn / spawnTable._nUnitsPerSpawn) * spawnTable._flSpawnInterval )
 		end
 	end
-	local unitMultiplier =  math.min( 4, math.floor( self._HP_difficulty_multiplier / 2 + 0.5 ) )
+	MAX_BONUS_UNITS = TernaryOperator( 5, GetMapName() == "mayhem_gamemode", 3 )
+	local unitMultiplier =  math.min( MAX_BONUS_UNITS, math.floor( self._HP_difficulty_multiplier / 2 + 0.5 ) )
 	self._HP_difficulty_multiplier = self._HP_difficulty_multiplier / unitMultiplier
 	for spawnGroup, spawnTable in pairs( self._vSpawners ) do
 		if not spawnTable._NoCountScaling then
@@ -460,7 +461,9 @@ function CHoldoutGameRound:IsFinished()
 		return true
 	end
 	if self._MaxPlayTime > 0 and self._RoundStartTime + self._MaxPlayTime < GameRules:GetGameTime() then
-		return true
+		if self._nRoundNumber < #self._vRounds then -- dont auto end final round
+			return true
+		end
 	end
 	
 	for _, unit in ipairs( FindAllUnits() ) do

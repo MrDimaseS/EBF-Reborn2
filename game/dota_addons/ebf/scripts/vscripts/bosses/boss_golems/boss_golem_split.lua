@@ -22,9 +22,9 @@ function boss_golem_split:CreateGolem( position )
 	golem:SetModel( "models/heroes/tiny/tiny_0"..split:GetLevel().."/tiny_0"..split:GetLevel()..".vmdl" )
 	
 	local throw = golem:FindAbilityByName("boss_golem_rock_throw")
-	local ogThrow = caster:FindAbilityByName("boss_golem_rock_throw")
 	if throw then
 		throw:SetLevel( self:GetLevel() - 1 )
+		local ogThrow = caster:FindAbilityByName("boss_golem_rock_throw")
 		if ogThrow then 
 			throw:StartCooldown( ogThrow:GetCooldownTimeRemaining() + RandomInt( 4,8 ) )
 		else

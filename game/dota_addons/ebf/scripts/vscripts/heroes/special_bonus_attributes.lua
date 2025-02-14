@@ -261,6 +261,8 @@ function modifier_special_bonus_attributes_stat_rescaling:DeclareFunctions()
 		MODIFIER_PROPERTY_EVASION_CONSTANT,
 		MODIFIER_PROPERTY_MP_REGEN_AMPLIFY_PERCENTAGE,
 		MODIFIER_EVENT_ON_ORDER,
+		MODIFIER_EVENT_ON_TAKEDAMAGE,
+		MODIFIER_EVENT_ON_ABILITY_START,
   }
   return funcs
 end
@@ -272,6 +274,17 @@ function modifier_special_bonus_attributes_stat_rescaling:OnOrder( params )
 		self.lastUpdatedAbilityState = #params.ability._getAltCastState
 		self:SendBuffRefreshToClients()
 	end
+end
+
+
+function modifier_special_bonus_attributes_stat_rescaling:OnAbilityStart(event)
+	if event.unit ~= self:GetParent() then return end
+	event.unit:MakeVisibleToTeam(DOTA_TEAM_BADGUYS, 1.5)
+end
+
+function modifier_special_bonus_attributes_stat_rescaling:OnTakeDamage(event)
+	if event.attacker ~= self:GetParent() then return end
+	event.attacker:MakeVisibleToTeam(DOTA_TEAM_BADGUYS, 1.5)
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierEvasion_Constant()

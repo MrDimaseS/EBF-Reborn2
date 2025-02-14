@@ -282,7 +282,10 @@ function CHoldoutGameSpawner:_DoSpawn()
 				unitToUpgrade:SetAverageBaseDamage( unitToUpgrade:GetAverageBaseDamage() + unitToUpgrade.AttackDamageValue, 10 )
 				unitToUpgrade:SetModelScale( unitToUpgrade:GetModelScale() + 0.1 )
 				ParticleManager:FireParticle("particles/econ/events/spring_2021/hero_levelup_spring_2021.vpcf", PATTACH_POINT_FOLLOW, unitToUpgrade )
-				ParticleManager:ReleaseParticleIndex(  ParticleManager:CreateParticle( "particles/boss/minion_powerup_overhead.vpcf", PATTACH_OVERHEAD_FOLLOW, unitToUpgrade ) )
+				if not unitToUpgrade._wearingACrown then
+					ParticleManager:ReleaseParticleIndex(  ParticleManager:CreateParticle( "particles/boss/minion_powerup_overhead.vpcf", PATTACH_OVERHEAD_FOLLOW, unitToUpgrade ) )
+					unitToUpgrade._wearingACrown = true
+				end
 				return
 			end
 		end
@@ -320,7 +323,7 @@ function CHoldoutGameSpawner:_DoSpawn()
 			entUnit:SetDeathXP( 0 )
 			bossManager:ProcessBossScaling(entUnit)
 			entUnit:AddNewModifier( entUnit, nil, "modifier_rune_haste", {duration = 3} )
-			AddFOWViewer(DOTA_TEAM_GOODGUYS, vSpawnLocation, 400, 3, false)
+			entUnit:MakeVisibleToTeam(DOTA_TEAM_GOODGUYS, 2)
 		end)
 	end
 end

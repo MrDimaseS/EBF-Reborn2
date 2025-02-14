@@ -69,6 +69,7 @@ function bossPowerScale:OnIntervalThink()
 			self.enrageTimer = (90 - (20*(self.difficulty-1)) )*3
 			self.dmgTakenSinceCheck = 0
 		end
+		AddFOWViewer( DOTA_TEAM_BADGUYS, self:GetParent():GetAbsOrigin(), self:GetParent():GetCurrentVisionRange() + 128, 0.3, not self:GetParent():HasFlyingVision() )
 	end
 	
 	if self.baseStatusResistance then
@@ -230,7 +231,7 @@ function bossPowerScale:OnAbilityStart(event)
 		radius = event.ability:GetAOERadius( )
 	end
 	ParticleManager:FireWarningParticle(position, radius)
-	AddFOWViewer(DOTA_TEAM_GOODGUYS, event.unit:GetAbsOrigin(), 400, 0.5, false)
+	event.unit:MakeVisibleToTeam(DOTA_TEAM_GOODGUYS, 1.5)
 end
 
 function bossPowerScale:OnDeath(event)
@@ -250,22 +251,27 @@ end
 
 function bossPowerScale:OnTakeDamage(event)
 	local parent = self:GetParent()
-	if event.unit == parent and parent:HasModifier("modifier_boss_enraged") then -- taking damage
-		self.dmgTakenSinceCheck = (self.dmgTakenSinceCheck or 0) + event.damage
-		if self.dmgTakenSinceCheck >= (self:GetParent():GetMaxHealth() * self.HPRageThreshold * 2) / 100 then
-			local enrage = parent:FindModifierByName("modifier_boss_enraged")
-			local stacksToRemove = math.floor( self.dmgTakenSinceCheck / ((self:GetParent():GetMaxHealth() * self.HPRageThreshold * 2) / 100) )
-			if enrage:GetStackCount() > stacksToRemove then
-				enrage:SetStackCount( enrage:GetStackCount() - stacksToRemove )
-			else
-				enrage:Destroy()
+	if event.unit == parent then
+		if parent:HasModifier("modifier_boss_enraged") then -- taking damage
+			self.dmgTakenSinceCheck = (self.dmgTakenSinceCheck or 0) + event.damage
+			if self.dmgTakenSinceCheck >= (self:GetParent():GetMaxHealth() * self.HPRageThreshold * 2) / 100 then
+				local enrage = parent:FindModifierByName("modifier_boss_enraged")
+				local stacksToRemove = math.floor( self.dmgTakenSinceCheck / ((self:GetParent():GetMaxHealth() * self.HPRageThreshold * 2) / 100) )
+				if enrage:GetStackCount() > stacksToRemove then
+					enrage:SetStackCount( enrage:GetStackCount() - stacksToRemove )
+				else
+					enrage:Destroy()
+				end
+				self.dmgTakenSinceCheck = 0
+				self.enrageTimer = 90 - (20*(self.difficulty-1))
+				self.lastHPPctSinceCheck = self:GetParent():GetHealthPercent()
 			end
-			self.dmgTakenSinceCheck = 0
-			self.enrageTimer = 90 - (20*(self.difficulty-1))
-			self.lastHPPctSinceCheck = self:GetParent():GetHealthPercent()
 		end
-	elseif event.attacker == parent then
-		AddFOWViewer(DOTA_TEAM_GOODGUYS, event.unit:GetAbsOrigin(), 400, 1.5, false)
+		if not event.attacker:CanBeSeenByAnyOpposingTeam() then
+			parent:MakeVisibleToTeam(DOTA_TEAM_BADGUYS, 1.5)
+		end
+	elseif event.attacker == parent and not parent:CanBeSeenByAnyOpposingTeam() then
+		parent:MakeVisibleToTeam(DOTA_TEAM_GOODGUYS, 1.5)
 	end
 end
 

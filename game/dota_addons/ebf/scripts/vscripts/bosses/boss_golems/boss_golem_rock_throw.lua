@@ -74,15 +74,18 @@ function boss_golem_rock_throw:ThrowGolem( golem, tossPosition )
 		end
 		ParticleManager:FireParticle("particles/units/heroes/hero_tiny/tiny_toss_impact.vpcf", PATTACH_POINT_FOLLOW, golem )
 		
-		for _, unit in ipairs( caster:FindFriendlyUnitsInRadius( golem:GetAbsOrigin(), 64 + golem:GetPaddedCollisionRadius() * 2 ) ) do
-			if unit ~= golem and unit:GetUnitName() == "npc_dota_boss_mud_golem" and not unit._stillProcessingCreation then
-				local newHP = unit:GetHealth() + golem:GetHealth()
-				unit:SetCoreHealth( unit:GetMaxHealth() + golem:GetMaxHealth() )
-				unit:SetHealth( newHP )
-				unit:SetAverageBaseDamage( unit:GetAverageBaseDamage() + golem:GetAverageBaseDamage(), 10 )
-				
-				golem:ForceKill( false )
-				return
+		if golem:GetUnitName() == "npc_dota_boss_mud_golem" then
+			for _, unit in ipairs( caster:FindFriendlyUnitsInRadius( golem:GetAbsOrigin(), 64 + golem:GetPaddedCollisionRadius() * 2 ) ) do
+				if unit ~= golem and unit:GetUnitName() == "npc_dota_boss_mud_golem" and not unit._stillProcessingCreation then
+					local newHP = unit:GetHealth() + golem:GetHealth()
+					unit:SetCoreHealth( unit:GetMaxHealth() + golem:GetMaxHealth() )
+					unit:SetHealth( newHP )
+					unit:SetAverageBaseDamage( unit:GetAverageBaseDamage() + golem:GetAverageBaseDamage(), 10 )
+					unit:SetModelScale( unit:GetModelScale() + 0.1 )
+					
+					golem:ForceKill( false )
+					return
+				end
 			end
 		end
 		golem._stillProcessingCreation = false

@@ -6,6 +6,38 @@ const bottomhud = microHud.FindChildTraverse("CustomUIRoot");
 	const timeElement = $("#RoundsTime"); // Reference to the "RoundsTime" element
 	const bossRoundElement = $("#BossRound"); // Reference to the "BossRound" element
 
+	// dotaHud.FindChildTraverse("minimap").style.backgroundImage = 'url("s2r://materials/overviews/peaks_of_screeauk_tga_fee32dc3.vtex")';
+	
+	const mapData = CustomNetTables.GetTableValue("game_state", "map_properties");
+	
+	if( mapData != undefined && mapData.result != undefined ){
+		const difficultyLabel = $("#Retries")
+		const difficultyIcon = $("#Life")
+		difficultyLabel.text = $.Localize( '#ebf_' + mapData.map )
+		difficultyLabel.style.fontSize = '18px';
+		difficultyLabel.style.letterSpacing = '1px';
+		difficultyLabel.style.textOverflow = 'shrink';
+		difficultyLabel.style.padding = '3px';
+		difficultyIcon.SetImage('file://{images}/rank_tier_icons/mini/rank'+(mapData.result*2)+'_psd.vtex');
+		if(mapData.result == 1){
+			difficultyIcon.style.padding = '4px';
+			difficultyIcon.style.paddingLeft = '6px';
+			difficultyIcon.style.paddingRight = '6px';
+		} else {
+			difficultyIcon.style.padding = '6px';
+			difficultyIcon.style.paddingLeft = '8px';
+			difficultyIcon.style.paddingRight = '8px';
+		}
+		let descriptionText = $.Localize("#ebf_difficulty_" + mapData.result + "_Description") + $.Localize("#ebf_" + mapData.gamemode + "_difficulty_" + mapData.result + "_Description")
+		difficultyIcon.SetPanelEvent("onmouseover", () => { 
+		$.DispatchEvent("DOTAShowTextTooltip", difficultyIcon, );
+			$.DispatchEvent( "DOTAShowTitleTextTooltip", difficultyIcon, $.Localize("#ebf_difficulty_" + mapData.result), descriptionText )
+		});
+		difficultyIcon.SetPanelEvent("onmouseout", () => {
+			$.DispatchEvent("DOTAHideTitleTextTooltip");
+		}); 
+	}
+	
 
 	let currentRound = 0; // Variable to store the current round number
 	let currentLife = 0; // Variable to store the current life value
@@ -48,11 +80,6 @@ const bottomhud = microHud.FindChildTraverse("CustomUIRoot");
 			roundsElement.text = String(currentRound); // Display the stored round number
 		}
 		timeElement.text = String(time); // Update the time text
-	});
-
-	GameEvents.Subscribe("UpdateLife", function (msg) {
-		currentLife = msg.life; // Update the current life value
-		$("#Life").text = 0; // Update the "Life" text
 	});
 })();
 

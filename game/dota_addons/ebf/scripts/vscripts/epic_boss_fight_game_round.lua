@@ -461,7 +461,8 @@ function CHoldoutGameRound:IsFinished()
 		return true
 	end
 	if self._MaxPlayTime > 0 and self._RoundStartTime + self._MaxPlayTime < GameRules:GetGameTime() then
-		if self._nRoundNumber < #self._vRounds then -- dont auto end final round
+		print( self._nRoundNumber, GameRules._nMaxRoundNumber )
+		if self._nRoundNumber < GameRules._nMaxRoundNumber then -- dont auto end final round
 			return true
 		end
 	end

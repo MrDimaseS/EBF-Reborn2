@@ -34,18 +34,7 @@ function AIThink(thisEntity)
 			})
 			return AI_THINK_RATE
 		end
-		if not thisEntity:IsAttacking() then
-			local target = AICore:NearestEnemyHeroInRange( thisEntity, -1, true)
-			if target and target ~= thisEntity:GetAttackTarget() then
-				ExecuteOrderFromTable({
-					UnitIndex = thisEntity:entindex(),
-					OrderType = DOTA_UNIT_ORDER_ATTACK_MOVE,
-					Position = target:GetAbsOrigin()
-				})
-				return AI_THINK_RATE
-			end
-		end
-		return AI_THINK_RATE
+		return AICore:HandleBasicAI( thisEntity )
 	else 
 		return AI_THINK_RATE 
 	end

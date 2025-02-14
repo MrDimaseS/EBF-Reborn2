@@ -24,6 +24,7 @@ function Spawn( entityKeyValues )
 		thisEntity.split:SetLevel(GameRules.gameDifficulty)
 		thisEntity.lightning:SetLevel(GameRules.gameDifficulty)
 		thisEntity.nova:SetLevel(GameRules.gameDifficulty)
+		thisEntity.nihilism:SetLevel(GameRules.gameDifficulty)
 		
 		thisEntity.nova:ToggleAbility()
 	end)

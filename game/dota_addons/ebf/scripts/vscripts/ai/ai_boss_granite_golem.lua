@@ -22,7 +22,7 @@ function Spawn( entityKeyValues )
 	Timers:CreateTimer(0.1, function()
 		if thisEntity.hasBeenProcessed then return end
 		thisEntity.split:SetLevel(4)
-		thisEntity.throw:SetLevel(GameRules.gameDifficulty)
+		thisEntity.throw:SetLevel(4)
 	end)
 end
 

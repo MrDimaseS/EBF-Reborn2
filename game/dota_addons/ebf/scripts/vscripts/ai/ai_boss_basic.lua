@@ -33,7 +33,7 @@ function AIThink(thisEntity)
 	if not thisEntity:IsAlive() then
 		return
 	end
-	if thisEntity:GetTeamNumber() == DOTA_TEAM_NEUTRALS and not thisEntity:IsChanneling() then
+	if not thisEntity:IsChanneling() then
 		return AICore:HandleBasicAI( thisEntity )
 	else 
 		return AI_THINK_RATE 

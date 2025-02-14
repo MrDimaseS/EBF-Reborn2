@@ -55,6 +55,7 @@ function Precache( context )
 	PrecacheResource( "particle", "particles/units/heroes/hero_ursa/ursa_claw_left.vpcf", context )
 	PrecacheResource( "particle", "particles/units/heroes/hero_ursa/ursa_claw_right.vpcf", context )
 	PrecacheResource( "particle", "particles/econ/events/spring_2021/hero_levelup_spring_2021.vpcf", context )
+	PrecacheResource( "particle", "particles/boss/minion_powerup_overhead.vpcf", context )
 	
 	PrecacheResource( "particle", "particles/ui_mouseactions/range_finder_cone.vpcf", context )
 	PrecacheResource( "particle", "particles/boss/ancestral_rage_overhead_overhead.vpcf", context )
@@ -177,7 +178,6 @@ function CHoldoutGameMode:InitGameMode()
 	Convars:RegisterCommand( "ebf_cheat_drop_gold_bonus", function(...) return self._GoldDropCheatCommand( ... ) end, "Cheat gold had being detected !",0)
 	Convars:RegisterCommand( "ebf_gold", function(...) return self._Goldgive( ... ) end, "hello !",0)
 	Convars:RegisterCommand( "ebf_max_level", function(...) return self._LevelGive( ... ) end, "hello !",0)
-	Convars:RegisterCommand( "ebf_drop", function(...) return self._ItemDrop( ... ) end, "hello",0)
 	Convars:RegisterCommand( "ebf_drop", function(...) return self._ItemDrop( ... ) end, "hello",0)
 	Convars:RegisterCommand( "holdout_status_report", function(...) return self:_StatusReportConsoleCommand( ... ) end, "Report the status of the current holdout game.", FCVAR_CHEAT )
 	Convars:RegisterCommand( "reload_modifiers", function()
@@ -1243,7 +1243,7 @@ function CHoldoutGameMode:_ReadRoundConfigurations( kv )
 		local kvRoundData = spawnPools[4][roundToAdd]
 		
 		if kvRoundData == nil then -- pool is empty or we hit max
-			return
+			goto final
 		end
 		kvRoundData.Tier = 3
 		local roundObj = CHoldoutGameRound()
@@ -1255,13 +1255,15 @@ function CHoldoutGameMode:_ReadRoundConfigurations( kv )
 			local szRoundName = string.format("Round%d", #self._vRounds + 1 )
 			local kvRoundData = kv[ szRoundName ]
 			if kvRoundData == nil then
-				return
+				goto final
 			end
 			local roundObj = CHoldoutGameRound()
 			roundObj:ReadConfiguration( kvRoundData, self, #self._vRounds + 1 )
 			table.insert( self._vRounds, roundObj )
 		end
 	end
+	::final::
+	GameRules._nMaxRoundNumber = #self._vRounds
 end
 
 
@@ -1338,7 +1340,9 @@ function CHoldoutGameMode:OnGameRulesStateChange()
 		end
 	elseif nNewState == DOTA_GAMERULES_STATE_PRE_GAME then
 		if not self._preGameSetupDone then
-			GameRules:GetGameModeEntity():SetCameraDistanceOverride(1500)
+			GameRules._dumbAssFuckingVisionDummy = CreateUnitByName("npc_dummy_unit", Vector(0,0,0), false, nil, nil, DOTA_TEAM_BADGUYS)
+			GameRules._dumbAssFuckingVisionDummy:AddNewModifier(GameRules._dumbAssFuckingVisionDummy, nil, "modifier_hidden_generic", {})
+			GameRules:GetGameModeEntity():SetCameraDistanceOverride(1800)
 			GameRules:SetTimeOfDay(0.26)
 			if GameRules:IsCheatMode() then
 				Say( nil, "type -startgame to start the game", false)
@@ -1357,6 +1361,7 @@ function CHoldoutGameMode:OnGameRulesStateChange()
 			for difficulty, votes in pairs( totalTable ) do
 				if not GameRules.gameDifficulty or maxVotes < votes then
 					GameRules.gameDifficulty = difficulty
+					maxVotes = votes
 				end
 			end
 			local compromise = false
@@ -1376,7 +1381,7 @@ function CHoldoutGameMode:OnGameRulesStateChange()
 				end
 			end
 			GameRules.gameDifficulty = math.max( 1, math.floor( GameRules.gameDifficulty or 1 ) )-- ensure at least one
-			
+			CustomNetTables:SetTableValue("game_state", "map_properties", {map = GameRules._activeMap, gamemode = GameRules._activeMode, difficulty = GameRules._DifficultyVotes, result = GameRules.gameDifficulty})
 			if compromise then
 				Say( nil, "DIFFICULTY (COMPROMISE): "..CONVERTED_DIFFICULTY[GameRules.gameDifficulty], false)
 			else
@@ -2135,6 +2140,12 @@ function CHoldoutGameMode:OnNPCSpawned( event )
 	end
 	if spawnedUnit:IsCreature() then
 		bossManager:ManageBossScaling(spawnedUnit)
+		for i = 0, spawnedUnit:GetAbilityCount() - 1 do
+			local ability = spawnedUnit:GetAbilityByIndex( i )
+			if ability then
+				ability:SetCooldown( RandomInt( 7, 10 ) - GameRules.gameDifficulty * 1 )
+			end
+		end
 	end
 	if GameRules._currentRound ~= nil then
 		GameRules._currentRound:OnNPCSpawned( event )

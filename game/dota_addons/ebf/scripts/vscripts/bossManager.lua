@@ -56,8 +56,8 @@ function bossManager:ProcessBossScaling(spawnedUnit)
 		HP_difficulty_multiplier = HP_difficulty_multiplier * 1.25
 	end
 	
-	HP_difficulty_multiplier = HP_difficulty_multiplier * (1 + (GameRules.gameDifficulty-1)*0.4)
-	spawnedUnit:SetBaseAttackTime( spawnedUnit:GetBaseAttackTime() * 1/((1 + (GameRules.gameDifficulty-1)*0.25) ) )
+	HP_difficulty_multiplier = HP_difficulty_multiplier * (1 + (GameRules.gameDifficulty-1)*0.5)
+	spawnedUnit:SetBaseAttackTime( spawnedUnit:GetBaseAttackTime() * 1/((1 + (GameRules.gameDifficulty-1)*0.3) ) )
 	spawnedUnit.MaxEHP = HP_difficulty_multiplier*spawnedUnit:GetMaxHealth()
 	spawnedUnit.AttackDamageValue = baseDamage * DMG_MULTIPLIER
 	local HEALTH_REGEN = math.max( 1, (spawnedUnit.MaxEHP/currentRound._HP_difficulty_multiplier) * 0.005 )

@@ -45,7 +45,7 @@ function boss_ogre_defender_cone_push:OnSpellStart()
 		if angle <= cone_angle / 2 then
 			-- Push back
 			local push_direction = direction
-			enemy:SetAbsOrigin(enemy_position + push_direction * pushback_distance)
+			enemy:ApplyKnockBack(enemy_position, 1.2, 1.2, 150, 400, caster, self)
 		end
 	end
 

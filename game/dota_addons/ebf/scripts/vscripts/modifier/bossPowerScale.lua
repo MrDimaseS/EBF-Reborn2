@@ -30,7 +30,7 @@ function bossPowerScale:OnRefresh(keys)
 		self.abilityValueIncrease = self.abilityValueIncrease * 1.25
 	end
 	
-	self.gameDamagePct = (self.difficulty-1) * 10
+	self.gameDamagePct = (self.difficulty-1) * 15
 	if GetMapName() == "strategy_gamemode" then
 		self.gameDamagePct = self.gameDamagePct * 1.1
 	end
@@ -70,6 +70,7 @@ function bossPowerScale:OnIntervalThink()
 			self.dmgTakenSinceCheck = 0
 		end
 		AddFOWViewer( DOTA_TEAM_BADGUYS, self:GetParent():GetAbsOrigin(), self:GetParent():GetCurrentVisionRange() + 128, 0.3, not self:GetParent():HasFlyingVision() )
+		AddFOWViewer( DOTA_TEAM_GOODGUYS, self:GetParent():GetAbsOrigin(), self:GetParent():GetCurrentVisionRange() + 128, 0.3, not self:GetParent():HasFlyingVision() )
 	end
 	
 	if self.baseStatusResistance then

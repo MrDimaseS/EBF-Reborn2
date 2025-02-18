@@ -23,18 +23,7 @@ end
 function AIThink(thisEntity)
 	if thisEntity:GetTeamNumber() ~= DOTA_TEAM_GOODGUYS and not thisEntity:IsChanneling() and not thisEntity:GetCurrentActiveAbility() then
 		-- no spells left to be cast and not currently attacking
-		if not thisEntity:IsAttacking() then
-			local target = AICore:NearestEnemyHeroInRange( thisEntity, -1, true)
-			if target and target ~= thisEntity:GetAttackTarget() then
-				ExecuteOrderFromTable({
-					UnitIndex = thisEntity:entindex(),
-					OrderType = DOTA_UNIT_ORDER_ATTACK_MOVE,
-					Position = target:GetAbsOrigin()
-				})
-				return AI_THINK_RATE
-			end
-		end
-		return AI_THINK_RATE
+		return AICore:HandleBasicAI( thisEntity )
 	else 
 		return AI_THINK_RATE 
 	end

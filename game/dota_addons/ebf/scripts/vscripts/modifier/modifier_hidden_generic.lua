@@ -13,7 +13,8 @@ function modifier_hidden_generic:CheckState()
 					[MODIFIER_STATE_INVULNERABLE] = true,
 					[MODIFIER_STATE_NOT_ON_MINIMAP] = true,
 					[MODIFIER_STATE_UNSELECTABLE] = true,
-					[MODIFIER_STATE_NO_HEALTH_BAR] = true
+					[MODIFIER_STATE_NO_HEALTH_BAR] = true,
+					[MODIFIER_STATE_INVISIBLE] = true
 				}
 	return state
 end

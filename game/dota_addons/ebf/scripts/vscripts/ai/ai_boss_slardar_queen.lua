@@ -23,7 +23,7 @@ function Spawn( entityKeyValues )
 	Timers:CreateTimer(0.1, function()
 		thisEntity.sprint:SetLevel(GameRules.gameDifficulty)
 		thisEntity.crush:SetLevel(GameRules.gameDifficulty)
-		thisEntity.bash:SetLevel(3+GameRules.gameDifficulty)
+		thisEntity.bash:SetLevel(4+GameRules.gameDifficulty)
 		thisEntity.amplify:SetLevel(GameRules.gameDifficulty)
 	end)
 end
@@ -85,17 +85,7 @@ function AIThink(thisEntity)
 				end
 			end
 			-- no spells left to be cast and not currently attacking
-			if not thisEntity:IsAttacking() then
-				local target = AICore:NearestEnemyHeroInRange( thisEntity, -1, true)
-				if target and target ~= thisEntity:GetAttackTarget() then
-					ExecuteOrderFromTable({
-						UnitIndex = thisEntity:entindex(),
-						OrderType = DOTA_UNIT_ORDER_ATTACK_MOVE,
-						Position = target:GetAbsOrigin()
-					})
-					return AI_THINK_RATE
-				end
-			end
+			return AICore:HandleBasicAI( thisEntity )
 		end
 		return AI_THINK_RATE
 	else 

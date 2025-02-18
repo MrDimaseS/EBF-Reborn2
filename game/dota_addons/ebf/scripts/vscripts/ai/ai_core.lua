@@ -67,8 +67,7 @@ function AICore:NearestEnemyHeroInRange( entity, range , magic_immune)
 	end
 	if entity:IsTauntedBy() then return entity:IsTauntedBy() end
 	
-	AddFOWViewer( DOTA_TEAM_BADGUYS, entity:GetAbsOrigin(), entity:GetCurrentVisionRange(), 0.5, not entity:HasFlyingVision() )
-	local enemies = FindUnitsInRadius( DOTA_TEAM_GOODGUYS, entity:GetAbsOrigin(), nil, range, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_HEROES_AND_CREEPS, flags, FIND_CLOSEST, false )
+	local enemies = FindUnitsInRadius( DOTA_TEAM_BADGUYS, entity:GetAbsOrigin(), nil, range, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HEROES_AND_CREEPS, flags, FIND_CLOSEST, false )
 	for _, enemy in ipairs( enemies ) do
 		if enemy:CanBeSeenByAnyOpposingTeam() then
 			return enemy
@@ -764,67 +763,49 @@ function AICore:HandleBasicAI( entity )
 	if not entity._currentBasicBehaviorState then
 		entity._currentBasicBehaviorState = EBF_AI_ROAMING
 	end
-	if entity_currentAttackTarget then
-		if entity_currentAttackTarget:CanBeSeenByAnyOpposingTeam( ) then
-			entity._currentAttackTargetLastPosition = entity_currentAttackTarget:GetAbsOrigin()
-			if entity_currentAttackTarget:IsMoving() then -- factor in movement to prevent cliff traps
-				entity._currentAttackTargetLastPosition = entity._currentAttackTargetLastPosition + entity_currentAttackTarget:GetForwardVector() * entity:GetIdealSpeed() * 1.5
+	entity._moveToLastPosition = entity._moveToLastPosition or entity:GetAbsOrigin()
+	if entity._currentAttackTarget then
+		if entity._currentAttackTarget:CanBeSeenByAnyOpposingTeam( ) then
+			entity._currentAttackTargetLastPosition = entity._currentAttackTarget:GetAbsOrigin()
+			if entity._currentAttackTarget:IsMoving() then -- factor in movement to prevent cliff traps
+				entity._currentAttackTargetLastPosition = entity._currentAttackTargetLastPosition + entity._currentAttackTarget:GetForwardVector() * entity:GetIdealSpeed() * 1.5
 			end
 		else
-			entity_currentAttackTarget = nil
-			entity:Hold()
-			goto move
+			entity._currentAttackTarget = nil
+			entity:Stop()
+			return 0.01
 		end
 	end
 	if not entity:IsAttacking() then -- not processing attack order, look for mfer to hit with hammers
-		if entity_currentAttackTarget and CalculateDistance( entity_currentAttackTarget, entity ) <= entity:GetIdealSpeed() then
-			ExecuteOrderFromTable({
-				UnitIndex = entity:entindex(),
-				OrderType = DOTA_UNIT_ORDER_ATTACK_TARGET,
-				TargetIndex = entity_currentAttackTarget:entindex()
-			})
+		if entity._currentAttackTarget and CalculateDistance( entity._currentAttackTarget, entity ) <= entity:GetIdealSpeed() then
+			entity:MoveToPositionAggressive( entity._currentAttackTarget:GetAbsOrigin() )
 			return AI_THINK_RATE
 		else
 			local target = AICore:NearestEnemyHeroInRange( entity, -1, true)
-			entity:SetAttacking( target )
 			if target then
-				entity_currentAttackTarget = target
+				entity._currentAttackTarget = target
 				entity._currentAttackTargetLastPosition = target:GetAbsOrigin()
-				ExecuteOrderFromTable({
-					UnitIndex = entity:entindex(),
-					OrderType = DOTA_UNIT_ORDER_ATTACK_TARGET,
-					TargetIndex = target:entindex()
-				})
+				entity._moveToLastPosition = entity._currentAttackTargetLastPosition
+				entity:MoveToPositionAggressive( entity._currentAttackTargetLastPosition )
 				return AI_THINK_RATE
 			elseif entity:GetAttackTarget() then
-				entity:Hold()
+				entity:Stop()
 			end
 		end
-	elseif RollPercentage( 12 ) then
-		local newPos = ( entity_currentAttackTarget or entity ):GetAbsOrigin() + RandomVector( math.min( entity:GetAttackRange() * RandomFloat( 0.75, 1.0 ), entity:GetIdealSpeed() * 0.5 )  )
-		ExecuteOrderFromTable({
-			UnitIndex = entity:entindex(),
-			OrderType = DOTA_UNIT_ORDER_MOVE_TO_POSITION,
-			Position = newPos
-		})
-		return CalculateDistance(newPos, entity:GetAbsOrigin()) / entity:GetIdealSpeed()
-	end
-	-- no attack targets found, roam king
-	::move::
-	entity._moveToLastPosition = entity._moveToLastPosition or entity:GetAbsOrigin()
-	if not entity:IsAttacking() and ( CalculateDistance( entity._moveToLastPosition, entity ) <= 50 or not entity:IsMoving() ) then -- not processing move order, go find mfer to hit with hammers
-		if entity._currentAttackTargetLastPosition then
-			entity._moveToLastPosition = entity._currentAttackTargetLastPosition
-			entity._currentAttackTargetLastPosition = nil
-		else
-			entity._moveToLastPosition = Vector(0,0,0) + ActualRandomVector( CalculateDistance( entity, Vector(0,0,0) ) + entity:GetIdealSpeed() * 3 )
+		if CalculateDistance( entity._moveToLastPosition, entity ) <= 50 or not entity:IsMoving() then -- not processing move order, go find mfer to hit with hammers
+			if entity._currentAttackTargetLastPosition then
+				entity._moveToLastPosition = entity._currentAttackTargetLastPosition
+				entity._currentAttackTargetLastPosition = nil
+			else
+				entity._moveToLastPosition = Vector(0,0,0) + ActualRandomVector( CalculateDistance( entity, Vector(0,0,0) ) + entity:GetIdealSpeed() * 3 )
+			end
+			entity:MoveToPositionAggressive( entity._moveToLastPosition )
+			return AI_THINK_RATE
 		end
-		ExecuteOrderFromTable({
-			UnitIndex = entity:entindex(),
-			OrderType = DOTA_UNIT_ORDER_MOVE_TO_POSITION,
-			Position = entity._moveToLastPosition
-		})
-		return AI_THINK_RATE
+	elseif RollPercentage( 12 ) then
+		local newPos = ( entity._currentAttackTarget or entity ):GetAbsOrigin() + RandomVector( math.min( entity:GetAttackRange() * RandomFloat( 0.75, 1.0 ), entity:GetIdealSpeed() * 0.5 )  )
+		entity:MoveToPosition( newPos )
+		return CalculateDistance(newPos, entity:GetAbsOrigin()) / entity:GetIdealSpeed()
 	end
 	return AI_THINK_RATE
 end

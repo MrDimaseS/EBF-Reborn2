@@ -13,11 +13,11 @@ const bottomhud = microHud.FindChildTraverse("CustomUIRoot");
 	if( mapData != undefined && mapData.result != undefined ){
 		const difficultyLabel = $("#Retries")
 		const difficultyIcon = $("#Life")
-		difficultyLabel.text = $.Localize( '#ebf_' + mapData.map )
-		difficultyLabel.style.fontSize = '18px';
+		difficultyLabel.text = $.Localize( '#ebf_gamemode_' + mapData.gamemode )
+		difficultyLabel.style.fontSize = '24px';
 		difficultyLabel.style.letterSpacing = '1px';
-		difficultyLabel.style.textOverflow = 'shrink';
-		difficultyLabel.style.padding = '3px';
+		difficultyLabel.style.textOverflow = 'noclip';
+		difficultyLabel.style.padding = '1px';
 		difficultyIcon.SetImage('file://{images}/rank_tier_icons/mini/rank'+(mapData.result*2)+'_psd.vtex');
 		if(mapData.result == 1){
 			difficultyIcon.style.padding = '4px';
@@ -126,13 +126,13 @@ $("#VoteSkip").visible = false;
 $("#RoundsTime").visible = false;
 
 function open() {
-	if (open) {
+	if (open && Game.GetMapInfo().map_display_name != "mayhem_gamemode") {
 		Skip();
 	}
-	$("#Vote_Yes").visible = true;
+	$("#Vote_Yes").visible = Game.GetMapInfo().map_display_name != "mayhem_gamemode";
 	$("#voteStatus").visible = false;
-	$("#RoundOptions").visible = true;
-	$("#VoteSkip").visible = true;
+	$("#RoundOptions").visible = Game.GetMapInfo().map_display_name != "mayhem_gamemode";
+	$("#VoteSkip").visible = Game.GetMapInfo().map_display_name != "mayhem_gamemode";
 	$("#RoundsTime").visible = true;
 }
 

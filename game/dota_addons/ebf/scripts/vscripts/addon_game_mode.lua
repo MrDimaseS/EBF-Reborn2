@@ -1340,9 +1340,13 @@ function CHoldoutGameMode:OnGameRulesStateChange()
 		end
 	elseif nNewState == DOTA_GAMERULES_STATE_PRE_GAME then
 		if not self._preGameSetupDone then
-			GameRules._dumbAssFuckingVisionDummy = CreateUnitByName("npc_dummy_unit", Vector(0,0,0), false, nil, nil, DOTA_TEAM_BADGUYS)
-			GameRules._dumbAssFuckingVisionDummy:AddNewModifier(GameRules._dumbAssFuckingVisionDummy, nil, "modifier_hidden_generic", {})
-			GameRules:GetGameModeEntity():SetCameraDistanceOverride(1800)
+			-- GameRules._dumbAssFuckingVisionDummy = CreateUnitByName("npc_dummy_unit", Vector(0,0,0), false, nil, nil, DOTA_TEAM_BADGUYS)
+			-- GameRules._dumbAssFuckingVisionDummy:AddNewModifier(GameRules._dumbAssFuckingVisionDummy, nil, "modifier_hidden_generic", {})
+			if GameRules._activeMap == "peaks_of_screeauk" then
+				GameRules:GetGameModeEntity():SetCameraDistanceOverride(1800)
+			else
+				GameRules:GetGameModeEntity():SetCameraDistanceOverride(1500)
+			end
 			GameRules:SetTimeOfDay(0.26)
 			if GameRules:IsCheatMode() then
 				Say( nil, "type -startgame to start the game", false)
@@ -1459,6 +1463,7 @@ function CHoldoutGameMode:vote_Round(id, event)
 				Yes = GameRules.voteRound_Yes,
 			}
 			CustomGameEventManager:Send_ServerToAllClients("RoundVoteResults", event_data)
+			GameRules._flPrepTimeStart = GameRules._flPrepTimeStart or GameRules:GetGameTime()
 			GameRules._flPrepTimeEnd = GameRules._flPrepTimeStart + GameRules._flPrepTimeBetweenRounds / GameRules.voteRound_Yes
 		end
 	end
@@ -1622,18 +1627,6 @@ function CHoldoutGameMode:OnThink()
 					
 						Timers:CreateTimer(1,function()
 							--if GameRules.voteRound_Yes == PlayerResource:GetTeamPlayerCount() then --tester
-							if GetMapName() == "mayhem_gamemode" then
-								local enemyFound = false
-								for _, enemy in ipairs( FindAllUnits({team = DOTA_UNIT_TARGET_TEAM_ENEMY}) ) do
-									if not enemy:IsNeutralUnitType() then
-										enemyFound = true
-										break
-									end
-								end
-								if not enemyFound then
-									GameRules._flPrepTimeEnd = 0
-								end
-							end
 							if GameRules.voteRound_Yes == self:TeamCount() then 
 								if GameRules._flPrepTimeEnd~= nil then
 									GameRules._flPrepTimeEnd = 0
@@ -2048,6 +2041,18 @@ end
 
 
 function CHoldoutGameMode:_ThinkPrepTime()
+	if GetMapName() == "mayhem_gamemode" then
+		local enemyFound = false
+		for _, enemy in ipairs( FindAllUnits({team = DOTA_UNIT_TARGET_TEAM_ENEMY}) ) do
+			if not enemy:IsNeutralUnitType() and enemy:IsAlive() then
+				enemyFound = true
+				break
+			end
+		end
+		if not enemyFound then
+			GameRules._flPrepTimeEnd = 0
+		end
+	end
 	if GameRules:GetGameTime() >= GameRules._flPrepTimeEnd then
 		--new
 	    CustomGameEventManager:Send_ServerToAllClients("Close_RoundVote", {})
@@ -2114,6 +2119,10 @@ function CHoldoutGameMode:OnNPCSpawned( event )
 	end
 	if spawnedUnit:IsIllusion() then
 		--
+	end
+	if spawnedUnit:GetUnitName() == "npc_dota_observer_wards" then
+		spawnedUnit:SetDayTimeVisionRange( spawnedUnit:GetDayTimeVisionRange() - (GameRules.gameDifficulty-1) * 200 )
+		spawnedUnit:SetNightTimeVisionRange( spawnedUnit:GetDayTimeVisionRange() - (GameRules.gameDifficulty-1) * 400 )
 	end
 	if spawnedUnit:IsRealHero() then
 		if not spawnedUnit:HasModifier("modifier_thinker_hero_regeneration") then

@@ -68,7 +68,7 @@ function CHoldoutGameRound:Begin()
 	
 	self._MaxPlayTime = -1
 	if GetMapName() == "mayhem_gamemode" then
-		self._MaxPlayTime = 180 - 30 * GameRules.gameDifficulty
+		self._MaxPlayTime = 180 - 30 * (GameRules.gameDifficulty-1)
 	end
 
 	local roundNumber = self._nRoundNumber
@@ -176,6 +176,10 @@ function CHoldoutGameRound:Begin()
 	} )
 	self._entQuest:AddSubquest( self._entKillCountSubquest )
 	self._entKillCountSubquest:SetTextReplaceValue( SUBQUEST_TEXT_REPLACE_VALUE_TARGET_VALUE, self._nCoreUnitsTotal )
+	
+	if GetMapName() == "mayhem_gamemode" then
+		CustomGameEventManager:Send_ServerToAllClients("Display_RoundVote", {})
+	end
 	
 	GameRules._currentRound = self
 	self.currentlyActive = true
@@ -393,6 +397,10 @@ function CHoldoutGameRound:Think()
 	for _, spawner in pairs( self._vSpawners ) do
 		spawner:Think()
 	end
+	-- mayhem UI
+	if GetMapName() == "mayhem_gamemode" then
+		CustomGameEventManager:Send_ServerToAllClients("UpdateTimeLeft", {nextRound = self._nRoundNumber, Time = self._RoundStartTime + self._MaxPlayTime - GameRules:GetGameTime()})
+	end
 	-- clear cached units
 	local delay = 1.5
 	local numberOfUnits = 0
@@ -449,7 +457,6 @@ function CHoldoutGameRound:ChooseRandomSpawnInfo()
 	return self._gameMode:ChooseRandomSpawnInfo()
 end
 
-
 function CHoldoutGameRound:IsFinished()
 	for _, spawner in pairs( self._vSpawners ) do
 		if not spawner:IsFinishedSpawning() and spawner:GetTotalUnitsToSpawn() > 0 then
@@ -461,7 +468,6 @@ function CHoldoutGameRound:IsFinished()
 		return true
 	end
 	if self._MaxPlayTime > 0 and self._RoundStartTime + self._MaxPlayTime < GameRules:GetGameTime() then
-		print( self._nRoundNumber, GameRules._nMaxRoundNumber )
 		if self._nRoundNumber < GameRules._nMaxRoundNumber then -- dont auto end final round
 			return true
 		end

@@ -9,9 +9,7 @@ function item_bloodstone2:OnSpellStart()
 	
 	-- self:DealDamage( caster, caster, caster:GetMaxHealth() * self:GetSpecialValueFor("hp_cost") / 100, {damage_type = DAMAGE_TYPE_PURE, damage_flags = DOTA_DAMAGE_FLAG_HPLOSS + DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL + DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_NO_DAMAGE_MULTIPLIERS + DOTA_DAMAGE_FLAG_NON_LETHAL } )
 	
-	if self:GetSpecialValueFor("magic_immune") == 1 then
-		caster:Dispel( caster, false )
-	end
+	caster:Dispel( caster, self:GetSpecialValueFor("magic_immune") == 1 )
 	caster:AddNewModifier( caster, self, "modifier_item_bloodstone_ebf_active", {duration = self:GetSpecialValueFor("buff_duration")} )
 end
 
@@ -84,7 +82,10 @@ function modifier_item_bloodstone_ebf:OnRefresh()
 	
 	self.spell_lifesteal = self:GetAbility():GetSpecialValueFor("spell_lifesteal")
 	self.active_multiplier = self:GetAbility():GetSpecialValueFor("lifesteal_multiplier")
-	self.mana_steal = self:GetAbility():GetSpecialValueFor("mana_steal") / 100
+	self.mana_steal = self:GetAbility():GetSpecialValueFor("mana_steal")
+	
+	self:GetCaster()._spellLifestealModifiersList = self:GetCaster()._spellLifestealModifiersList or {}
+	self:GetCaster()._spellLifestealModifiersList[self] = true
 end
 
 function modifier_item_bloodstone_ebf:DeclareFunctions(params)
@@ -94,7 +95,6 @@ local funcs = {
 		MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,
 		MODIFIER_PROPERTY_STATS_INTELLECT_BONUS,
 		MODIFIER_PROPERTY_STATS_AGILITY_BONUS,
-		MODIFIER_EVENT_ON_TAKEDAMAGE
     }
     return funcs
 end
@@ -119,42 +119,8 @@ function modifier_item_bloodstone_ebf:GetModifierBonusStats_Agility()
 	return self.bonus_all
 end
 
-function modifier_item_bloodstone_ebf:OnTakeDamage(params)
-	if params.attacker == self:GetParent() and params.inflictor 
-	and not ( HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL ) or HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_HPLOSS ) or HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_REFLECTION )) then
-		local bloodstoneActive = params.attacker:HasModifier("modifier_item_bloodstone_ebf_active") and not params.attacker:HasModifier("modifier_item_bloodstone_ebf_drained") 
-		local spell_lifesteal = self.spell_lifesteal
-		if bloodstoneActive then
-			spell_lifesteal =  self.spell_lifesteal * self.active_multiplier
-		end
-		
-		if not params.unit:IsConsideredHero() then
-			spell_lifesteal =  spell_lifesteal / 5
-		end
-		
-		local EHPMult = self:GetParent().EHP_MULT or 1
-		local lifesteal = params.damage * spell_lifesteal / 100 * math.max( 1, EHPMult )
-		
-		self.lifeToGive = (self.lifeToGive or 0) + lifesteal
-		if self.lifeToGive > 1 then
-			local preHP = params.attacker:GetHealth()
-			params.attacker:HealWithParams( lifesteal, params.inflictor, false, true, self, true )
-			self.lifeToGive = self.lifeToGive - math.floor(self.lifeToGive)
-			local postHP = params.attacker:GetHealth()
-		
-			if postHP - preHP ~= 0 then
-				ParticleManager:FireParticle( "particles/items3_fx/octarine_core_lifesteal.vpcf", PATTACH_POINT_FOLLOW, params.attacker )
-			end
-		end
-		
-		-- if bloodstoneActive then
-			-- self.manaToGive = (self.manaToGive or 0) + lifesteal * self.mana_steal
-			-- if self.manaToGive > 1 then
-				-- params.attacker:GiveMana( math.floor(self.manaToGive) ) 
-			-- self.manaToGive = self.manaToGive - math.floor(self.manaToGive)
-			-- end
-		-- end
-	end
+function modifier_item_bloodstone_ebf:GetModifierProperty_MagicalLifesteal(params)
+	return TernaryOperator( self.active_multiplier, params.attacker:HasModifier("modifier_item_bloodstone_ebf_active"), 1 ) * self.spell_lifesteal
 end
 
 function modifier_item_bloodstone_ebf:GetAttributes()

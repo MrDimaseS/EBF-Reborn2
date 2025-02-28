@@ -319,15 +319,15 @@ function CHoldoutGameRound:End(bWon)
 							-- hero._currentGoldDebt = totalGoldInPool
 						end)
 					end
-					if roundNumber == 6 then
-						hero:AddItemByName("item_tier2_token")
-					elseif roundNumber == 12 then
-						hero:AddItemByName("item_tier3_token")
-					elseif roundNumber == 17 then
-						hero:AddItemByName("item_tier4_token")
-					elseif roundNumber == 21 then
-						hero:AddItemByName("item_tier5_token")
-					end
+					-- if roundNumber == 6 then
+						-- hero:AddItemByName("item_tier2_token")
+					-- elseif roundNumber == 12 then
+						-- hero:AddItemByName("item_tier3_token")
+					-- elseif roundNumber == 17 then
+						-- hero:AddItemByName("item_tier4_token")
+					-- elseif roundNumber == 21 then
+						-- hero:AddItemByName("item_tier5_token")
+					-- end
 					if GameRules._NewGamePlus and player then
 						if roundNumber == 2
 						or roundNumber == 10 

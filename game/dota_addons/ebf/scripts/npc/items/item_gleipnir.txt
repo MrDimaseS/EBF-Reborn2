@@ -21,7 +21,7 @@
 		"ItemResult"					"item_gleipnir2"
 		"ItemRequirements"
 		{
-			"01"						"item_gungir;item_orb_of_vitality;item_staff_of_wizardry;item_broadsword"
+			"01"						"item_gungir;item_point_booster;item_staff_of_wizardry"
 		}
 	}
 	"item_gleipnir2"
@@ -59,44 +59,29 @@
 
 		"AbilityValues"
 		{
-			"bonus_damage"
-			{
-				"value"							"75"
-				"CalculateAttributeTooltip"		"1"
-			}
 			"bonus_intellect"
 			{
-				"value"							"60"
+				"value"							"40"
 				"CalculateAttributeTooltip"		"1"
 			}
 			"bonus_hp"
 			{
-				"value"							"950"
+				"value"							"1100"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"bonus_attack_speed"				"40"
-			
-			"chain_chance"
+			"bonus_mana"						"550"
+			"bonus_aoe"							"100"			// If changing this, change radius_tooltip
+			"radius"
 			{
-				"value"							"30"
-				"affected_by_chance_increase"	"1"
+				"value"							"275"		// NOTE: effective radius is 400 because the bonus_aoe applies to itself. If changing this, change radius_tooltip
+				"affected_by_aoe_increase"		"1"
 			}
-			"chain_strikes"						"6"
-			"chain_radius"						"650"
-			"chain_delay"						"0.25"
-			"chain_cooldown"					"0.2"
-			"duration"							"2.0"
-			"chain_damage"
+			"radius_tooltip"
 			{
-				"value"							"320"
-				"CalculateSpellDamageTooltip"	"1"
+				"value"							"375"		// NOTE: radius_tooltip = ( radius + bonus_aoe )
+				"affected_by_aoe_increase"		"1"
 			}
-			"radius"				"450"
-			"active_damage"
-			{
-				"value"							"1800"
-				"CalculateSpellDamageTooltip"	"1"
-			}
+			"duration"							"3.0"
 		}
 	}
 	"item_recipe_gleipnir3"
@@ -117,7 +102,7 @@
 		"ItemResult"					"item_gleipnir3"
 		"ItemRequirements"
 		{
-			"01"						"item_gleipnir2;item_orb_of_vitality;item_staff_of_wizardry;item_broadsword"
+			"01"						"item_gleipnir2params
 		}
 	}
 	"item_gleipnir3"
@@ -155,45 +140,29 @@
 
 		"AbilityValues"
 		{
-			"bonus_damage"
-			{
-				"value"							"135"
-				"CalculateAttributeTooltip"		"1"
-			}
 			"bonus_intellect"
 			{
-				"value"							"110"
+				"value"							"75"
 				"CalculateAttributeTooltip"		"1"
 			}
 			"bonus_hp"
 			{
-				"value"							"1725"
+				"value"							"1975"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"bonus_attack_speed"				"50"
-			
-			"chain_strikes"						"8"
-			"chain_radius"						"650"
-			"chain_delay"						"0.25"
-			"chain_cooldown"					"0.2"
-			"chain_chance"
+			"bonus_mana"						"1000"
+			"bonus_aoe"							"125"			// If changing this, change radius_tooltip
+			"radius"
 			{
-				"value"							"30"
-				"affected_by_chance_increase"	"1"
+				"value"							"275"		// NOTE: effective radius is 400 because the bonus_aoe applies to itself. If changing this, change radius_tooltip
+				"affected_by_aoe_increase"		"1"
 			}
-			"chain_damage"
+			"radius_tooltip"
 			{
-				"value"							"560"
-				"CalculateSpellDamageTooltip"	"1"
+				"value"							"400"		// NOTE: radius_tooltip = ( radius + bonus_aoe )
+				"affected_by_aoe_increase"		"1"
 			}
-			
-			"duration"				"2.0"
-			"radius"				"450"
-			"active_damage"
-			{
-				"value"							"3150"
-				"CalculateSpellDamageTooltip"	"1"
-			}
+			"duration"							"4.0"
 		}
 	}
 	"item_recipe_gleipnir4"
@@ -214,7 +183,7 @@
 		"ItemResult"					"item_gleipnir4"
 		"ItemRequirements"
 		{
-			"01"						"item_gleipnir3;item_orb_of_vitality;item_staff_of_wizardry;item_broadsword"
+			"01"						"item_gleipnir3params
 		}
 	}
 	"item_gleipnir4"
@@ -252,46 +221,29 @@
 
 		"AbilityValues"
 		{
-			"bonus_damage"
-			{
-				"value"							"210"
-				"CalculateAttributeTooltip"		"1"
-			}
 			"bonus_intellect"
 			{
-				"value"							"170"
+				"value"							"115"
 				"CalculateAttributeTooltip"		"1"
 			}
 			"bonus_hp"
 			{
-				"value"							"2675"
+				"value"							"3075"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"bonus_attack_speed"				"60"
-			
-			"chain_chance"
+			"bonus_mana"						"1550"
+			"bonus_aoe"							"150"			// If changing this, change radius_tooltip
+			"radius"
 			{
-				"value"							"30"
-				"affected_by_chance_increase"	"1"
+				"value"							"275"		// NOTE: effective radius is 400 because the bonus_aoe applies to itself. If changing this, change radius_tooltip
+				"affected_by_aoe_increase"		"1"
 			}
-			"chain_damage"
+			"radius_tooltip"
 			{
-				"value"							"880"
-				"CalculateSpellDamageTooltip"	"1"
+				"value"							"425"		// NOTE: radius_tooltip = ( radius + bonus_aoe )
+				"affected_by_aoe_increase"		"1"
 			}
-			
-			"chain_strikes"						"10"
-			"chain_radius"						"650"
-			"chain_delay"						"0.25"
-			"chain_cooldown"					"0.2"
-			
-			"duration"							"2.0"
-			"radius"							"450"
-			"active_damage"
-			{
-				"value"							"4950"
-				"CalculateSpellDamageTooltip"	"1"
-			}
+			"duration"							"5.0"
 		}
 	}
 	
@@ -313,7 +265,7 @@
 		"ItemResult"					"item_gleipnir5"
 		"ItemRequirements"
 		{
-			"01"						"item_gleipnir4;item_orb_of_vitality;item_staff_of_wizardry;item_broadsword"
+			"01"						"item_gleipnir4params
 		}
 	}
 	"item_gleipnir5"
@@ -351,45 +303,29 @@
 
 		"AbilityValues"
 		{
-			"bonus_damage"
-			{
-				"value"							"300"
-				"CalculateAttributeTooltip"		"1"
-			}
 			"bonus_intellect"
 			{
-				"value"							"240"
+				"value"							"160"
 				"CalculateAttributeTooltip"		"1"
 			}
 			"bonus_hp"
 			{
-				"value"							"3800"
+				"value"							"4400"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"bonus_attack_speed"				"70"
-			
-			"chain_strikes"						"12"
-			"chain_radius"						"650"
-			"chain_delay"						"0.25"
-			"chain_cooldown"					"0.2"
-			"chain_chance"
+			"bonus_mana"						"2200"
+			"bonus_aoe"							"175"			// If changing this, change radius_tooltip
+			"radius"
 			{
-				"value"							"30"
-				"affected_by_chance_increase"	"1"
+				"value"							"275"		// NOTE: effective radius is 400 because the bonus_aoe applies to itself. If changing this, change radius_tooltip
+				"affected_by_aoe_increase"		"1"
 			}
-			"chain_damage"
+			"radius_tooltip"
 			{
-				"value"							"1280"
-				"CalculateSpellDamageTooltip"	"1"
+				"value"							"450"		// NOTE: radius_tooltip = ( radius + bonus_aoe )
+				"affected_by_aoe_increase"		"1"
 			}
-			
-			"duration"							"2.0"
-			"radius"							"450"
-			"active_damage"			
-			{
-				"value"							"7200"
-				"CalculateSpellDamageTooltip" 	"1"
-			}
+			"duration"							"6.0"
 		}
 	}
 }

@@ -72,7 +72,46 @@
 	"item_crimson_guard"					"REMOVE"
 	"item_vanguard"							"REMOVE"
 	"item_diffusal_blade"					"REMOVE"
+	"item_heavens_halberd"					"REMOVE"
+	"item_angels_demise"					"REMOVE"
+	
+	//=================================================================================================================
+	// Bundle of Madstone
+	//=================================================================================================================
+	"item_madstone_bundle"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_CANCEL_MOVEMENT | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
+		"Model"							"models/props_gameplay/crystal_shards/crystal_shards.vmdl"
 
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"100"
+		"AbilityCastPoint"				"0.0"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemPurchasable"				"0"
+		"ItemShopTags"					"consumable"
+		"ItemQuality"					"consumable"
+		"ItemStackable"					"1"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"ItemPermanent"					"0"
+		"ItemInitialCharges"			"1"
+		"ItemCastOnPickup"				"1"
+		"ItemKillable"					"0"
+		"AutoPickup"					"1"
+
+		"AbilityValues"
+		{
+			"madstone_primary"			"3 3"
+			"madstone_secondary"		"3 3"
+			"die_time"					"20"
+		}
+	}
 	//=================================================================================================================
 	// Tome of Knowledge
 	//=================================================================================================================
@@ -212,7 +251,7 @@
 		"ItemAliases"					"phase boots"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_SPECTATORS"
 		
-		"ItemIsNeutralDrop"					"0"
+		"ItemIsNeutralActiveDrop"					"0"
 		"DisplayOverheadAlertOnReceived"	"1"
 		"ItemPurchasable"					"1"
 		"ItemSellable"						"1"
@@ -384,7 +423,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"25"	
 		"ItemShopTags"					""
-		"ItemIsNeutralDrop"				""
+		"ItemIsNeutralActiveDrop"				"0"
 		"ItemPurchasable"				"1"
 		"IsObsolete"					""
 		"ItemSellable"					"1"
@@ -421,7 +460,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"0"
+		"ItemIsNeutralActiveDrop"		"0"
 		"ItemPurchasable"				"1"
 		"ItemSellable"					"1"
 
@@ -2899,7 +2938,7 @@
 		
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"6.0"
+		"AbilityCooldown"				"12.0"
 		"AbilitySharedCooldown"			"phylactery"
 
 
@@ -2926,105 +2965,13 @@
 				"value"							"7"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"slow"								"50"
+			"slow"								"30"
 			"bonus_spell_damage"
 			{
 				"value"							"750"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"slow_duration"						"1.2"
-		}
-	}
-	//=================================================================================================================
-	// Recipe: Khanda
-	//=================================================================================================================
-	"item_recipe_angels_demise"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"Model"							"models/props_gameplay/recipe.vmdl"
-		
-		// Item Info
-		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"125"	
-		"ItemShopTags"					""
-		
-		// Recipe
-		//-------------------------------------------------------------------------------------------------------------
-		"ItemRecipe"					"1"
-		"ItemResult"					"item_angels_demise"
-		"ItemRequirements"
-		{
-			"01"						"item_phylactery;item_lesser_crit"
-		}
-	}
-	//=================================================================================================================
-	// Khanda
-	//=================================================================================================================
-	"item_angels_demise"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		
-		// Stats
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"6.0"
-		"AbilitySharedCooldown"			"khanda"
-
-
-		// Item Info
-		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"5000"
-		"ItemShopTags"					"hard_to_tag"
-		"ItemQuality"					"common"
-		"ItemAliases"					"angel;demise"
-		"ShouldBeSuggested"				"1"
-
-		// Special	
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			"bonus_damage"
-			{
-				"value"							"50"
-				"CalculateAttributeTooltip"		"1"
-			}
-			"crit_chance"
-			{
-				"value"								"30"
-				"affected_by_chance_increase"		"1"
-			}
-			"spell_crit_multiplier"				"75"
-			"spell_crit_flat"
-			{
-				"value"							"750"
-				"CalculateSpellDamageTooltip"	"1"
-			}
-			"crit_multiplier"
-			{
-				"value"								"160"
-				"affected_by_crit_increase"			"1"
-			}
-			"tooltip_crit_damage"
-			{
-				"value"								"60"
-				"affected_by_crit_increase"			"1"
-			}
-			"bonus_health"
-			{
-				"value"							"200"
-				"CalculateAttributeTooltip"		"1"
-			}
-			"bonus_mana"						"200"			
-			"bonus_all_stats"
-			{
-				"value"							"8"
-				"CalculateAttributeTooltip"		"1"
-			}
-			"slow"								"50"
-			"slow_duration"						"1.5"
+			"slow_duration"						"3"
 		}
 	}
 	"item_recipe_sheepstick"
@@ -4701,6 +4648,7 @@
 				"value"							"16"
 				"CalculateAttributeTooltip"		"1"
 			}
+			"slow_resistance"					"28"
 			"status_resistance"					"14"
 			"bonus_attack_speed"				"12"
 			"movement_speed_percent_bonus"		"12"
@@ -4922,7 +4870,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"250"	
+		"ItemCost"						"220"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -4931,7 +4879,7 @@
 		"ItemResult"					"item_gungir"
 		"ItemRequirements"
 		{
-			"01"						"item_maelstrom;item_rod_of_atos*"
+			"01"						"item_point_booster;item_rod_of_atos*"
 		}
 	}
 	
@@ -4970,50 +4918,29 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage"
-			{
-				"value"							"30"
-				"CalculateAttributeTooltip"		"1"
-			}
 			"bonus_intellect"
 			{
-				"value"							"25"
+				"value"							"15"
 				"CalculateAttributeTooltip"		"1"
 			}
 			"bonus_hp"
 			{
-				"value"							"350"
+				"value"							"450"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"bonus_attack_speed"				"20"
-			
-			"chain_chance"
+			"bonus_mana"						"200"
+			"bonus_aoe"							"75"			// If changing this, change radius_tooltip
+			"radius"
 			{
-				"value"								"30"
-				"affected_by_chance_increase"		"1"
-			}
-			"chain_damage"
-			{
-				"value"							"160"
-				"CalculateSpellDamageTooltip"	"1"
-			}
-			"chain_strikes"						"4"
-			"chain_radius"						"650"
-			"chain_delay"						"0.25"
-			"chain_cooldown"					"0.2"
-			"illusion_multiplier_pct"			"150"
-			
-			"duration"							"2.0"
-			"radius"				
-			{
-				"value"							"375"
+				"value"							"275"		// NOTE: effective radius is 400 because the bonus_aoe applies to itself. If changing this, change radius_tooltip
 				"affected_by_aoe_increase"		"1"
 			}
-			"active_damage"
+			"radius_tooltip"
 			{
-				"value"							"900"
-				"CalculateSpellDamageTooltip"	"1"
+				"value"							"350"		// NOTE: radius_tooltip = ( radius + bonus_aoe )
+				"affected_by_aoe_increase"		"1"
 			}
+			"duration"							"2.0"
 		}
 	}
 	//=================================================================================================================
@@ -5105,34 +5032,24 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_DONT_PROC_OTHER_ABILITIES"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"125"
+		"ItemCost"						"150"
 		"ItemShopTags"					"hard_to_tag"
 		"ItemQuality"					"component"
 		"ItemAliases"					"oov;orb of venom"
-		"ShouldBeInitiallySuggested"	"1"
-
+		"SuggestPregame"				"1"
+		"AbilityCooldown"				"3.0"
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"poison_damage_melee"
-			{
-				"value"							"20.0"
-				"CalculateSpellDamageTooltip"	"1"
-			}
-			"poison_damage_range"
-			{
-				"value"							"20.0"
-				"CalculateSpellDamageTooltip"	"1"
-			}
-			"poison_movement_speed_melee"		"-13"
-			"poison_movement_speed_range"		"-4"
-			"poison_duration"					"2.0"
+			"damage"				"100"
+			"tick_interval"			"1.0"
+			"poison_duration"		"3.0"
 		}
 	}
 	//=================================================================================================================
@@ -5154,7 +5071,7 @@
 		"ItemResult"					"item_skadi"
 		"ItemRequirements"
 		{
-			"01"						"item_ultimate_orb;item_point_booster;item_orb_of_venom"
+			"01"						"item_ultimate_orb;item_point_booster;item_orb_of_venom;item_orb_of_frost"
 		}
 	}
 	//=================================================================================================================
@@ -5250,8 +5167,8 @@
 				"value"							"16"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"status_resistance"					"12"
-			"hp_regen_amp"						"12"
+			"slow_resistance"					"20"
+			"hp_regen_amp"						"10"
 		}
 	}
 	
@@ -5347,7 +5264,35 @@
 		"AbilityValues"
 		{
 			"corruption_armor"		"-2"
-			"corruption_duration"	"8.0"
+			"corruption_duration"	"3.0"
+		}
+	}
+	//=================================================================================================================
+	// Orb of Frost
+	//=================================================================================================================
+	"item_orb_of_frost"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemCost"						"75"
+		"ItemShopTags"					"hard_to_tag"
+		"ItemQuality"					"rare"
+		"ItemAliases"					"oof;orb of frost;frost;healing;reduction"
+		"SuggestEarlygame"				"1"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+				//"armor"			"0"
+				"slow_melee"		"-5"
+				"slow_ranged"		"-13"
+				//"damage"			"0"
+				"duration"			"3"
+				//"attack_speed"	"0"
+				"heal_reduction"	"13"
 		}
 	}
 	"item_recipe_desolator"
@@ -6005,7 +5950,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"200"	
+		"ItemCost"						"150"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -6014,7 +5959,7 @@
 		"ItemResult"					"item_revenants_brooch"
 		"ItemRequirements"
 		{
-			"01"						"item_relic;item_voodoo_mask"
+			"01"						"item_lesser_crit;item_voodoo_mask"
 		}
 	}
 	//=================================================================================================================
@@ -6049,7 +5994,8 @@
 				"CalculateAttributeTooltip"		"1"
 			}
 			"spell_lifesteal"					"4"
-			"manacost_per_hit"					"75"
+			"crit_chance"						"30"
+			"crit_multiplier"					"80"
 		}
 	}
 	//=================================================================================================================
@@ -6564,7 +6510,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"125"
+		"ItemCost"						"255"
 		"ItemShopTags"					""
 
 		
@@ -6574,7 +6520,7 @@
 		"ItemResult"					"item_abyssal_blade"
 		"ItemRequirements"
 		{
-			"01"						"item_basher;item_vitality_booster;item_ring_of_tarrasque;item_reaver"
+			"01"						"item_basher;item_sange"
 		}
 	}
 	//=================================================================================================================
@@ -6618,22 +6564,12 @@
 		{
 			"bonus_damage"
 			{
-				"value"							"75"
-				"CalculateAttributeTooltip"		"1"
-			}
-			"bonus_health"
-			{
-				"value"							"250"
-				"CalculateAttributeTooltip"		"1"
-			}
-			"bonus_health_regen"
-			{
-				"value"							"12"
+				"value"							"35"
 				"CalculateAttributeTooltip"		"1"
 			}
 			"bonus_strength"
 			{
-				"value"							"35"
+				"value"							"26"
 				"CalculateAttributeTooltip"		"1"
 			}
 			
@@ -6663,77 +6599,7 @@
 			}
 			"active_multiplier"					"100"
 			
-			"block_damage_pct"					"60"
-			"block_chance"
-			{
-				"value"							"50"
-				"affected_by_chance_increase"	"1"
-			}
-		}
-	}
-	//=================================================================================================================
-	// Recipe: Heaven's Halberd
-	//=================================================================================================================
-	"item_recipe_heavens_halberd"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		
-		// Item Info
-		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"0"	
-		"ItemShopTags"					""
-		
-		// Recipe
-		//-------------------------------------------------------------------------------------------------------------
-		"ItemRecipe"					"1"
-		"ItemResult"					"item_heavens_halberd"
-		"ItemRequirements"
-		{
-			"01"						"item_sange;item_talisman_of_evasion"
-		}
-	}
-	//=================================================================================================================
-	// Heaven's Halberd
-	//=================================================================================================================
-	"item_heavens_halberd"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-		"FightRecapLevel"				"1"
-
-		// Stats		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"30"
-		"AbilityCastRange"				"600"
-		"AbilityCastPoint"				"0.0"
-
-
-		// Item Info
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"100"
-		"ItemCost"						"770"
-		"ItemShopTags"					"str;damage;evasion"
-		"ItemQuality"					"artifact"
-		"ItemAliases"					"heaven's halberd"
-		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
-		
-		// Special	
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			"bonus_evasion"						"12"
-			"bonus_strength"
-			{
-				"value"							"20"
-				"CalculateAttributeTooltip"		"1"
-			}
-			"disarm_range"						"5.0"
-			"disarm_melee"						"3.0"
-			"status_resistance"					"14"
+			"slow_resistance"					"28"
 			"hp_regen_amp"						"14"
 		}
 	}
@@ -6839,26 +6705,25 @@
 
 		// Stats		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"30.0"
+		"AbilityCooldown"				"45.0"
 		//"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"1650"
-		"ItemShopTags"					"str;agi;int;damage;move_speed;attack_speed;hard_to_tag"
+		"ItemCost"						"1625"
+		"ItemShopTags"					"str;int;damage;move_speed;attack_speed;hard_to_tag"
 		"ItemQuality"					"rare"
 		"ItemAliases"					"drum of endurance"
-		"ItemInitialCharges"			"8"
-		"ItemDisplayCharges"			"1"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
 		//"ItemRequiresCharges"			"1"
-		"ShouldBeSuggested"				"1"
+		"SuggestEarlygame"				"1"
 
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"aura_movement_speed"				"20"
+			"aura_movement_speed"		"15"
+			
 			"bonus_str"
 			{
 				"value"							"10"
@@ -6869,11 +6734,15 @@
 				"value"							"10"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"bonus_attack_speed_pct"			"45"
-			"bonus_movement_speed_pct"			"13"
-			"duration"							"6"
-			"radius"							"1200"
-			"charges_tooltip"					"8"
+			"bonus_attack_speed_pct"	"35"
+			"bonus_movement_speed_pct"	"13"
+			"duration"					"6"
+			"radius"				
+			{
+				"value"		"1200"
+				"affected_by_aoe_increase"	"1"
+			}
+			"charges_tooltip"				"8"
 		}
 	}
 	//=================================================================================================================
@@ -7134,7 +7003,7 @@
 		"ItemResult"					"item_ethereal_blade"
 		"ItemRequirements"
 		{
-			"01"						"item_ghost*;item_heavens_halberd;item_aether_lens"
+			"01"						"item_ghost*;item_aether_lens"
 		}
 	}	
 
@@ -7183,15 +7052,7 @@
 				"value"							"10"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"bonus_strength"
-			{
-				"value"							"30"
-				"CalculateAttributeTooltip"		"1"
-			}
-			
-			"bonus_evasion"						"12"
-			"status_resistance"					"16"
-			"regen_amp"							"25"
+
 			"bonus_mana"						"300"
 			"bonus_cast_range"					"250"
 			"bonus_aoe"							"75"
@@ -7272,7 +7133,7 @@
 				"CalculateAttributeTooltip"		"0"
 			}
 			"mana_regen_multiplier"				"16"
-			"status_resistance"					"14"
+			"slow_resistance"					"28"
 			"hp_regen_amp"						"14"
 			"spell_lifesteal_amp"				"14"
 		}
@@ -7371,7 +7232,7 @@
 		"ItemPurchasable"				"0"
 		"ShouldBeSuggested"				"0"
 		"ItemSellable"					"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"DisplayOverheadAlertOnReceived" "0"
 
 		// Sound
@@ -7384,26 +7245,10 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage"
-			{
-				"value"						"15"
-				"CalculateAttributeTooltip"	"1"
-			}
-			"bonus_strength"
-			{
-				"value"						"15"
-				"CalculateAttributeTooltip"	"1"
-			}
-			"bonus_agility"
-			{
-				"value"						"45"
-				"CalculateAttributeTooltip"	"1"
-			}
-			"bonus_intellect"
-			{
-				"value"						"15"
-				"CalculateAttributeTooltip"	"1"
-			}
+			"bonus_damage"					"0"
+			"bonus_strength"				"0"
+			"bonus_agility"					"15"
+			"bonus_intellect"				"0"
 			"aura_radius"					"1200"
 			"aura_mana_regen"				"1"
 			"aura_bonus_armor"				"2"
@@ -7419,7 +7264,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"DisplayOverheadAlertOnReceived" "0"
 		"ItemPurchasable"				"0"
 		
@@ -7455,7 +7300,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"DisplayOverheadAlertOnReceived" "0"
 		"ItemPurchasable"				"0"
 		
@@ -7463,8 +7308,8 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"attack_range_bonus"			"75"
-			"attack_speed_bonus"			"20"
+			"attack_range_bonus"			"0"
+			"attack_speed_bonus"			"0"
 			"magic_resistance_reduction"	"15"
 			"debuff_duration"				"6"
 		}
@@ -7484,7 +7329,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"DisplayOverheadAlertOnReceived" "0"
 		"ItemPurchasable"				"0"
 
@@ -7513,7 +7358,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"DisplayOverheadAlertOnReceived" "0"
 		"ItemPurchasable"				"0"
 
@@ -7541,7 +7386,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 		"ItemInitialCharges"			"1"
 		"ItemPermanent"					"0"
@@ -7584,7 +7429,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -7621,7 +7466,7 @@
 		"ItemStackable"					"0"
 		"ItemPermanent"					"0"
 		"IsTempestDoubleClonable"		"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -7651,7 +7496,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 		"ItemInitialCharges"			"3"
 		"ItemPermanent"					"0"
@@ -7695,7 +7540,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -7722,7 +7567,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
 		
@@ -7734,8 +7579,8 @@
 		{
 			"bonus_aoe_radius"			"1200"
 			"bonus_aoe_armor"			"5"
-			"self_armor"				"5"
-			"self_mres"					"20"
+			"self_armor"				"0"
+			"self_mres"					"0"
 			"bonus_aoe_mres"			"20"
 			"active_reflection_pct"		"40"
 		}
@@ -7755,7 +7600,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"AbilityCooldown"				"20"
@@ -7787,7 +7632,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
 		
@@ -7827,7 +7672,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -7865,7 +7710,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -7894,7 +7739,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -7904,11 +7749,7 @@
 		"AbilityValues"
 		{
 			"reflect_chance"			"75"
-			"all_stats"
-			{
-				"value"							"50"
-				"CalculateAttributeTooltip"		"1"
-			}
+			"all_stats"					"0"
 			"block_cooldown"			"12.0"
 		}
 	}
@@ -7929,7 +7770,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -7969,7 +7810,7 @@
 					
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemQuality"					"consumable"
 		"ItemPurchasable"				"0"
 		"ItemInitialCharges"			"1"
@@ -8011,7 +7852,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemQuality"					"consumable"
 		"ItemPurchasable"				"0"
 	
@@ -8031,11 +7872,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_health"
-			{
-				"value"						"500"
-				"CalculateAttributeTooltip"	"1"
-			}
+			"bonus_health"					"0"
 			"bonus_mana"					"50"
 			"max_charges"					"10"
 			"use_cooldown"					"12"
@@ -8060,7 +7897,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -8090,7 +7927,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 		"ItemInitialCharges"			"1"
 		"ItemPermanent"					"0"
@@ -8130,7 +7967,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemQuality"					"consumable"
 		"ItemPurchasable"				"0"
 		"ItemInitialCharges"			"3"
@@ -8185,7 +8022,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 		"AbilityCooldown"				"12.0"
 
@@ -8195,13 +8032,9 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"magic_damage"
-			{
-				"value"						"450"
-				"CalculateAttributeTooltip"	"1"
-			}
-			"attack_speed"					"30"
-			"duration"						"1.75"
+			"magic_damage"					"0"
+			"attack_speed"					"0"
+			"duration"						"2.75"
 		}
 	}
 
@@ -8219,7 +8052,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 		"ItemInitialCharges"			"3"
 		"ItemPermanent"					"0"
@@ -8263,7 +8096,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -8292,7 +8125,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -8337,7 +8170,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -8377,7 +8210,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -8388,14 +8221,10 @@
 		{
 			"crit_multiplier"
 			{
-				"value"						"130"
+				"value"						"180"
 				"CalculateAttributeTooltip"	"1"
 			}
-			"bonus_damage"
-			{
-				"value"						"130"
-				"CalculateAttributeTooltip"	"1"
-			}
+			"bonus_damage"					"0"
 		}
 	}
 
@@ -8417,7 +8246,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -8427,9 +8256,9 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"max_range"	"600"
-			"min_range"	"200"
-			"bonus_movement_speed"			"35"
+			"max_range"				"600"
+			"min_range"				"200"
+			"bonus_movement_speed"	"0"
 		}
 	}
 
@@ -8447,7 +8276,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -8482,7 +8311,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -8492,7 +8321,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_movement_speed"	"25"
+			"bonus_movement_speed"	"0"
 			"turn_rate"	"50"
 			"bonus_movement_speed_active"	"18"
 			"duration"			"3.5"
@@ -8513,7 +8342,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -8553,7 +8382,7 @@
 		"ItemShopTags"					"damage;int;agi;str"
 		"ItemQuality"					"common"
 		"ItemAliases"					"bracer"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemSellable"					"0"
 		"ItemPurchasable"				"0"
 
@@ -8565,12 +8394,12 @@
 		{
 			"bonus_primary_stat"
 			{
-				"value"						"40"
+				"value"						"12"
 				"CalculateAttributeTooltip"	"1"
 			}
 			"bonus_secondary_stat"
 			{
-				"value"						"10"
+				"value"						"3"
 				"CalculateAttributeTooltip"	"1"
 			}
 			"bonus_spell_amp"
@@ -8604,7 +8433,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -8643,7 +8472,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 		"ItemInitialCharges"			"3"
 		"ItemPermanent"					"0"
@@ -8669,48 +8498,6 @@
 			}
 		}
 	}
-	
-
-	//=================================================================================================================
-	// 
-	//=================================================================================================================
-	"item_ocean_heart"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Item Info
-		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
-		"ItemPurchasable"				"0"
-
-		"Model"							"models/props_gameplay/neutral_box.vmdl"
-		
-		// Special	
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"all_stats"			"5"
-			}
-			"02"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"water_hp_regen"		"10"
-			}
-			"03"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"water_mp_regen"		"5"
-			}
-		}
-	}
-	
-
 	//=================================================================================================================
 	// 
 	//=================================================================================================================
@@ -8723,7 +8510,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -8735,10 +8522,10 @@
 			"melee_attack_range"			"50"
 			"bonus_damage"
 			{
-				"value"						"40"
+				"value"						"0"
 				"CalculateAttributeTooltip"	"1"
 			}
-			"bonus_armor"					"4"
+			"bonus_armor"					"2"
 		}
 	}
 	//=================================================================================================================
@@ -8761,7 +8548,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -8770,11 +8557,6 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_health"
-			{
-				"value"						"750"
-				"CalculateAttributeTooltip"	"1"
-			}
 			"chance_bounty_rune"	"16"
 			"chance_other_item"		"28"
 			"kobold_duration"		"60"
@@ -8794,7 +8576,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -8826,7 +8608,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -8835,56 +8617,16 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_armor"					"5"
-			"bonus_hp_regen"
-			{
-				"value"						"50"
-				"CalculateAttributeTooltip"	"1"
-			}
+			"bonus_armor"						"0"
+			"bonus_hp_regen"					"0"
 			"damage_per_sec"
 			{
 				"value"							"220"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"duration"				"3"
+			"duration"							"3"
 		}
 	}
-	
-
-	//=================================================================================================================
-	// 
-	//=================================================================================================================
-	"item_essence_ring"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
-		
-		// Stats
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"25.0"
-		"AbilityManaCost"				"200"
-					
-		// Item Info
-		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
-		"ItemPurchasable"				"0"
-
-		"Model"							"models/props_gameplay/neutral_box.vmdl"
-		
-		// Special	
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			"bonus_int"			"6"
-			"mp_regen"		"2"
-			"health_gain"		"400"
-			"health_gain_duration"	"15"
-		}
-	}
-	
-
 	//=================================================================================================================
 	// 
 	//=================================================================================================================
@@ -8905,7 +8647,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -8949,7 +8691,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 		"ItemSellable"					"0"
 
@@ -8960,7 +8702,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_attack_range"				"75"
+			"bonus_attack_range"				"0"
 			"bonus_damage"
 			{
 				"value"							"2500"
@@ -8982,12 +8724,12 @@
 		
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"120.0"
+		"AbilityCooldown"				"60.0"
 					
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -8996,14 +8738,8 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_agility"
-			{
-				"value"						"100"
-				"CalculateAttributeTooltip"	"1"
-			}
-			"passive_movement_bonus"		"25"
 			"visibility_radius"				"1025"
-			"duration"						"35.0"
+			"duration"						"20.0"
 			"bonus_movement_speed"			"20"
 		}
 	}
@@ -9025,7 +8761,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -9077,8 +8813,6 @@
 			
 		}
 	}
-	
-
 	//=================================================================================================================
 	// 
 	//=================================================================================================================
@@ -9095,7 +8829,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -9104,22 +8838,14 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage"
-			{
-				"value"						"80"
-				"CalculateAttributeTooltip"	"1"
-			}
-			"bonus_strength"
-			{
-				"value"						"80"
-				"CalculateAttributeTooltip"	"1"
-			}
-			"range"						"400"
-			"slow"						"50"
-			"slow_duration"				"3"
-			"angle"						"360"
-			"knockback_duration"		"0.3"
-			"knockback_distance"		"250"
+			"bonus_damage"					"0"
+			"bonus_strength"				"0"
+			"range"							"400"
+			"slow"							"50"
+			"slow_duration"					"3"
+			"angle"							"360"
+			"knockback_duration"			"0.3"
+			"knockback_distance"			"250"
 			"nuke_base_dmg"
 			{
 				"value"							"3500"
@@ -9146,7 +8872,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -9186,7 +8912,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -9223,7 +8949,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -9270,7 +8996,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -9279,16 +9005,8 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_strength"
-			{
-				"value"							"125"
-				"CalculateAttributeTooltip"		"1"
-			}
-			"bonus_intellect"
-			{
-				"value"							"125"
-				"CalculateAttributeTooltip"		"1"
-			}
+			"bonus_strength"			"0"
+			"bonus_intellect"			"0"
 			"summon_duration"			"75"
 		}
 	}
@@ -9313,7 +9031,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -9344,7 +9062,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 		"ItemInitialCharges"			"3"
 		"ItemPermanent"					"0"
@@ -9364,13 +9082,13 @@
 		
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"25.0"
+		"AbilityCooldown"				"40.0"
 		"AbilityManaCost"				"350"
 					
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -9379,7 +9097,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-				"bonus_armor"			"20"
+			"bonus_armor"			"0"
 		}
 	}
 	
@@ -9396,7 +9114,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -9423,7 +9141,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -9461,7 +9179,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -9470,11 +9188,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_strength"
-			{
-				"value"							"100"
-				"CalculateAttributeTooltip"		"1"
-			}
+			"bonus_strength"			"0"
 			"duration"					"8"
 		}
 	}
@@ -9492,7 +9206,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -9521,7 +9235,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -9553,7 +9267,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -9564,10 +9278,10 @@
 		{
 			"bonus_intelligence"
 			{
-				"value"						"7"
+				"value"						"0"
 				"CalculateAttributeTooltip"	"1"
 			}
-			"bonus_armor"					"4"
+			"bonus_armor"					"0"
 			"mana_restore"
 			{
 				"value"						"150"
@@ -9594,7 +9308,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -9622,7 +9336,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -9631,11 +9345,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"hp_regen"
-			{
-				"value"						"20"
-				"CalculateAttributeTooltip"	"1"
-			}
+			"hp_regen"							"0"
 			"damage_return_hero"
 			{
 				"value"							"150"
@@ -9664,7 +9374,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -9714,7 +9424,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -9749,7 +9459,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -9777,7 +9487,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -9786,8 +9496,8 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"armor"								"4"
-			"magic_resistance"					"10"
+			"armor"								"0"
+			"magic_resistance"					"0"
 			"damage"
 			{
 				"value"							"450"
@@ -9815,7 +9525,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -9865,7 +9575,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		// Stats
@@ -9897,7 +9607,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -9942,7 +9652,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -9953,7 +9663,7 @@
 		{
 			"primary_attribute"
 			{
-				"value"						"14"
+				"value"						"0"
 				"CalculateAttributeTooltip"	"1"
 			}
 			"lifesteal"
@@ -9978,7 +9688,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -10018,7 +9728,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -10073,7 +9783,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -10115,7 +9825,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		// Stats
@@ -10163,7 +9873,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		// Stats
@@ -10207,7 +9917,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		// Stats
@@ -10220,7 +9930,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"intelligence_pct"		"15"
+			"intelligence_pct"		"0"
 			"cast_range"			"100"
 			"push_length"			"400"
 			"push_duration"			"0.3"
@@ -10240,7 +9950,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -10269,7 +9979,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -10301,7 +10011,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		// Stats
@@ -10318,11 +10028,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_all_stats"
-			{
-				"value"							"65"
-				"CalculateAttributeTooltip"		"1"
-			}
+			"bonus_all_stats"			"0"
 			"night_vision"				"400"
 			"duration"					"4"
 		}
@@ -10343,7 +10049,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 
@@ -10353,15 +10059,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_strength"
-			{
-				"value"							"150"
-				"CalculateAttributeTooltip"		"1"
-			}
-			"movement_speed"					"50"
+			"bonus_strength"					"0"
+			"movement_speed"					"0"
 			"model_scale"						"60"
-			"pct_str_damage_per_second"			"250"
-			"damage_radius"						"100"
+			"pct_str_damage_per_second"			"275"
+			"damage_radius"						"150"
 		}
 	}
 	
@@ -10378,7 +10080,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 
@@ -10430,7 +10132,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		// Stats
@@ -10454,9 +10156,9 @@
 			"slow"								"30"
 			"slow_duration"						"0.3"
 			"cyclone_duration"					"0.75"
-			"bonus_mana_regen"					"10"
+			"bonus_mana_regen"					"0"
+			"passive_movement_bonus"			"0"
 			"max_targets"						"4"
-			"passive_movement_bonus"			"30"
 		}
 	}
 	
@@ -10473,7 +10175,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		// Stats
@@ -10518,7 +10220,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		// Stats
@@ -10531,17 +10233,9 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_health"
-			{
-				"value"						"750"
-				"CalculateAttributeTooltip"	"1"
-			}
-			"spell_amp"
-			{
-				"value"						"10"
-				"CalculateAttributeTooltip"	"0"
-			}
-			"manacost_reduction"	"15"
+			"bonus_health"			"0"
+			"spell_amp"				"0"
+			"manacost_reduction"	"25"
 		}
 	}
 
@@ -10556,7 +10250,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		// Stats
@@ -10597,7 +10291,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		// Stats
@@ -10636,7 +10330,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		// Stats
@@ -10678,7 +10372,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		// Stats
@@ -10733,7 +10427,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		// Stats
@@ -10747,7 +10441,7 @@
 		{
 			"bonus_damage"
 			{
-				"value"						"50"
+				"value"						"0"
 				"CalculateAttributeTooltip"	"1"
 			}
 			"missing_hp"			"10"
@@ -10773,7 +10467,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		// Stats
@@ -10825,7 +10519,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		// Stats
@@ -10861,7 +10555,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		// Stats
@@ -10876,7 +10570,7 @@
 			"duration"						"4"
 			"all_stats"
 			{
-				"value"						"10"
+				"value"						"0"
 				"CalculateAttributeTooltip"	"1"
 			}
 		}
@@ -10899,7 +10593,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -10943,7 +10637,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		// Stats
@@ -10959,11 +10653,7 @@
 			"leap_distance"					"300"
 			"leap_speed"					"1300.0"
 			"leap_acceleration"				"20000.0"
-			"bonus_mana"
-			{
-				"value"						"300"
-				"CalculateAttributeTooltip"	"1"
-			}
+			"bonus_mana"					"300"
 		}
 	}
 	//=================================================================================================================
@@ -10982,7 +10672,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		// Stats		
@@ -11014,7 +10704,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		// Stats
@@ -11028,16 +10718,8 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_health"
-			{
-				"value"						"1500"
-				"CalculateAttributeTooltip"	"1"
-			}
-			"bonus_health_regen"
-			{
-				"value"						"20"
-				"CalculateAttributeTooltip"	"1"
-			}
+			"bonus_health"					"0"
+			"bonus_health_regen"			"0"
 			"aura_health_regen"	
 			{
 				"value"						"50"
@@ -11057,7 +10739,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		// Stats
@@ -11069,7 +10751,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_mana"					"200"
+			"bonus_mana"					"0"
 			"bonus_strength"				"0"
 
 			"slow_duration"					"1"
@@ -11093,7 +10775,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		// Stats
@@ -11105,11 +10787,6 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_all_stats"
-			{
-				"value"						"8"
-				"CalculateAttributeTooltip"	"1"
-			}
 			"mana_regen"					"1.2"
 			"stack_limit"					"5"
 			"stack_duration"				"10"
@@ -11125,7 +10802,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		// Stats
@@ -11152,7 +10829,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		// Stats
@@ -11167,11 +10844,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_strength"
-			{
-				"value"							"50"
-				"CalculateAttributeTooltip"		"1"
-			}
+			"bonus_strength"					"0"
 			"leap_distance"						"400"
 			"leap_speed"						"800.0"
 			"leap_acceleration"					"1250.0"
@@ -11209,7 +10882,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 		
 		// Special	
@@ -11242,7 +10915,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 		
 		// Special	
@@ -11269,7 +10942,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -11302,7 +10975,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -11332,7 +11005,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -11363,7 +11036,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -11389,7 +11062,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 		"AbilityCooldown"				"20.0"
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -11427,7 +11100,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
 		"ItemInitialCharges"			"6"
@@ -11461,7 +11134,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		// Stats
@@ -11500,7 +11173,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -11509,16 +11182,8 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"all_stats"
-			{
-				"value"						"30"
-				"CalculateAttributeTooltip"	"1"
-			}
-			"bonus_damage"
-			{
-				"value"						"60"
-				"CalculateAttributeTooltip"	"1"
-			}
+			"all_stats"						"0"
+			"bonus_damage"					"0"
 			"count"							"2"
 			"secondary_target_range_bonus"	"225"
 			"proc_bonus_damage"
@@ -11544,7 +11209,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -11553,7 +11218,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"aspd"							"15"
+			"aspd"							"0"
 			"bonus_damage"
 			{
 				"value"						"200"
@@ -11576,7 +11241,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 		"ItemSellable"				"0"
 
@@ -11588,120 +11253,13 @@
 		{
 			"damage"
 			{
-				"value"						"80"
+				"value"						"40"
 				"CalculateAttributeTooltip"	"1"
 			}
-			"armor"							"7"
+			"armor"							"3"
 			"health_pct"					"50"
 		}
 	}
-	"item_tier1_token"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
-		"Model"							"models/props_gameplay/neutral_box.vmdl"
-
-		// Item Info
-		//-------------------------------------------------------------------------------------------------------------
-		"ItemIsNeutralDrop"				"1"
-		"ItemPurchasable"				"0"
-		"ItemSellable"				"0"
-		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
-		"TokenTier"						"1"
-		// Special	
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			
-		}
-	}
-	"item_tier2_token"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
-		"Model"							"models/props_gameplay/neutral_box.vmdl"
-
-		// Item Info
-		//-------------------------------------------------------------------------------------------------------------
-		"ItemIsNeutralDrop"				"1"
-		"ItemPurchasable"				"0"
-		"ItemSellable"				"0"
-		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
-		"TokenTier"						"2"
-		// Special	
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			
-		}
-	}
-	"item_tier3_token"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
-		"Model"							"models/props_gameplay/neutral_box.vmdl"
-
-		// Item Info
-		//-------------------------------------------------------------------------------------------------------------
-		"ItemIsNeutralDrop"				"1"
-		"ItemPurchasable"				"0"
-		"ItemSellable"				"0"
-		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
-		"TokenTier"						"3"
-		// Special	
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			
-		}
-	}
-	"item_tier4_token"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
-		"Model"							"models/props_gameplay/neutral_box.vmdl"
-
-		// Item Info
-		//-------------------------------------------------------------------------------------------------------------
-		"ItemIsNeutralDrop"				"1"
-		"ItemPurchasable"				"0"
-		"ItemSellable"				"0"
-		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
-		"TokenTier"						"4"
-		// Special	
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			
-		}
-	}
-	"item_tier5_token"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
-		"Model"							"models/props_gameplay/neutral_box.vmdl"
-
-		// Item Info
-		//-------------------------------------------------------------------------------------------------------------
-		"ItemIsNeutralDrop"				"1"
-		"ItemPurchasable"				"0"
-		"ItemSellable"				"0"
-		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
-		"TokenTier"						"5"
-
-		// Special	
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			
-		}
-	}
-
 	"item_vindicators_axe"
 	{
 		// General
@@ -11711,7 +11269,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 		"ItemSellable"				"0"
 
@@ -11743,7 +11301,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 		"ItemSellable"				"0"
 
@@ -11775,7 +11333,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 		"ItemSellable"				"0"
 
@@ -11802,7 +11360,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 		"ItemSellable"				"0"
 
@@ -11830,7 +11388,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 		"ItemSellable"				"0"
 
@@ -11840,8 +11398,8 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"move_speed"					"40"
-			"mana"							"300"
+			"move_speed"					"0"
+			"mana"							"0"
 			"magic_block"
 			{
 				"value"						"3000"
@@ -11859,7 +11417,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 		"ItemSellable"				"0"
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -11885,7 +11443,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 		"ItemSellable"				"0"
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -11898,7 +11456,7 @@
 		"AbilityValues"
 		{
 			"duration"					"8"
-			"magic_resist"				"35"
+			"magic_resist"				"0"
 			"damage_redirection"		"20"
 			"aura_radius"				"900"
 		}
@@ -11912,7 +11470,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 		"ItemSellable"				"0"
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -11935,7 +11493,7 @@
 			
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 		"ItemCost"						"0"
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -11970,7 +11528,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 		"ItemSellable"				"0"
 
@@ -11980,17 +11538,13 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_health"
-			{
-				"value"							"5000"
-				"CalculateAttributeTooltip"		"1"
-			}
+			"bonus_health"						"0"
 			"heal"
 			{
-				"value"							"12500"
+				"value"							"20000"
 				"CalculateSpellHealTooltip"		"1"
 			}
-			"health_threshold"		"20"
+			"health_threshold"					"35"
 		}
 	}
 	"item_light_collector"
@@ -12002,7 +11556,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 		"ItemSellable"				"0"
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -12018,7 +11572,7 @@
 				"CalculateAttributeTooltip"		"1"
 			}
 			"mana_regen"						"18"
-			"penalty"							"0.5"
+			"penalty"							"50"
 			"movespeed_pct"						"10"
 			"radius"							"200"
 			"tree_destruction_radius"	
@@ -12039,7 +11593,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 		"ItemSellable"				"0"
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -12053,7 +11607,7 @@
 			"damage_reset_interval"			"7"
 			"damage_threshold"
 			{
-				"value"							"1800"
+				"value"							"1250"
 				"CalculateAttributeTooltip"		"1"
 			}
 			"slow"							"100"
@@ -12063,8 +11617,8 @@
 				"value"							"1250"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"target_count"					"4"
-			"bonus_armor"					"12"
+			"target_count"					"2"
+			"bonus_armor"					"0"
 		}
 	}
 	"item_doubloon"
@@ -12076,7 +11630,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 		"ItemSellable"				"0"
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
@@ -12103,7 +11657,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 		"ItemSellable"				"0"
 
@@ -12115,15 +11669,11 @@
 		{
 			"shield"
 			{
-				"value"						"500"
+				"value"						"350"
 				"CalculateAttributeTooltip"	"1"
 			}
-			"restore_time"			"5"
-			"bonus_hp_regen"
-			{
-				"value"						"20"
-				"CalculateAttributeTooltip"	"1"
-			}
+			"restore_time"					"5"
+			"bonus_hp_regen"				"0"
 		}
 	}
 	"item_whisper_of_the_dread"
@@ -12135,7 +11685,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 		"ItemSellable"				"0"
 
@@ -12151,7 +11701,7 @@
 				"value"							"10"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"bonus_mana"						"150"
+			"bonus_mana"						"0"
 		}
 	}
 	"item_nemesis_curse"
@@ -12163,7 +11713,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 		"ItemSellable"				"0"
 
@@ -12176,11 +11726,7 @@
 			"debuff_self"					"8"
 			"debuff_enemy"					"12"
 			"debuff_enemy_duration"			"5"
-			"bonus_damage"
-			{
-				"value"						"175"
-				"CalculateAttributeTooltip"	"1"
-			}
+			"bonus_damage"					"0"
 		}
 	}
 	"item_avianas_feather"
@@ -12192,7 +11738,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 		"ItemSellable"				"0"
 
@@ -12202,9 +11748,9 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"evasion"	"25"
-			"move_speed"	"30"
-			"flight_threshold"			"30"
+			"evasion"					"0"
+			"move_speed"				"0"
+			"flight_threshold"			"50"
 		}
 	}
 	"item_craggy_coat"
@@ -12217,7 +11763,7 @@
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"0"
-		"ItemIsNeutralDrop"				"1"
+		"ItemIsNeutralActiveDrop"				"1"
 		"ItemPurchasable"				"0"
 		"ItemSellable"				"0"
 
@@ -12227,15 +11773,1048 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"armor_bonus"					"6"
+			"armor_bonus"					"0"
 			"move_speed"					"30"
 			"active_armor"					"12"
 			"active_duration"				"8"
-			"bonus_health"
+			"bonus_health"					"0"
+		}
+	}
+	"item_iron_talon"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_TREE | DOTA_UNIT_TARGET_CUSTOM"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_CUSTOM"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_PREFER_ENEMIES"
+
+		"AbilityCastRange"				"350"
+		"AbilityCastPoint"				"0.0"
+		"AbilityCooldown"				"20.0"
+
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0"
+		"ItemCost"						"0"
+		"ItemShopTags"					"damage" 
+		"ItemQuality"					"common"
+		"ItemAliases"					"quelling blade"
+		"ItemPurchasable"				"0"
+		"ItemIsNeutralActiveDrop"				"1"
+		"DisplayOverheadAlertOnReceived" "0"
+		"ItemSellable"				"0"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_attack_speed"			"0"
+			"quelling_range_tooltip"			"350"
+			"cast_range_ward"			"450"
+			"creep_damage_pct"			"4"
+			"bonus_armor"	"0"
+			"alternative_cooldown"	"4"
+		}
+	}
+	//=================================================================================================================
+	// Serrated Shiv
+	//=================================================================================================================
+	"item_serrated_shiv"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"4.0"
+					
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemIsNeutralActiveDrop"		"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"0"
+
+
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"proc_chance"			"20"
+			"hp_dmg"				"10"
+			"hp_dmg_rosh"			"200"
+		}
+	}
+	//=================================================================================================================
+	// Enhancement: Vast
+	//=================================================================================================================
+	"item_enhancement_vast"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+			
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemIsNeutralPassiveDrop"		"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"0"
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		"MaxLevel"						"2"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"attack_range"						"60 90"
+			//"bonus_armor"						"6 8"
+			//"incoming_spell_amp_pct"			"10"
+			//"movespeed_reduction_pct_ranged"	"5"
+			//"movespeed_reduction_pct_melee"		"3"
+		}
+	}
+
+	//=================================================================================================================
+	// Enhancement: Quickened
+	//=================================================================================================================
+	"item_enhancement_quickened"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+			
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemIsNeutralPassiveDrop"		"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"0"
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		"MaxLevel"						"4"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"movement_speed"			"15 20 25 30"
+			"max_mana"					"0 100 160 220"
+		}
+	}
+
+	//=================================================================================================================
+	// Cursed Circlet
+	//=================================================================================================================
+	"item_cursed_circlet"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+			
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemIsNeutralPassiveDrop"		"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"0"
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_all_stats"
 			{
-				"value"						"1500"
+				"value"						"30"
 				"CalculateAttributeTooltip"	"1"
 			}
+			"attack_damage"
+			{
+				"value"						"120"
+				"CalculateAttributeTooltip"	"1"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ogre Heart
+	//=================================================================================================================
+	"item_ogre_heart"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+			
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemIsNeutralPassiveDrop"		"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"0"
+		"MaxLevel"						"3"
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"hp_regen"					"0"
+			"mana_regen"				"1"
+		}
+	}
+
+	//=================================================================================================================
+	// Samurai Tabi
+	//=================================================================================================================
+	"item_neutral_tabi"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+			
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemIsNeutralPassiveDrop"		"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"0"
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"attack_speed"				"0"
+			"evasion"					"35"
+			"movespeed"					"25"
+		}
+	}
+
+	//=================================================================================================================
+	// Enhancement: Audacious
+	//=================================================================================================================
+	"item_enhancement_audacious"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+			
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemIsNeutralPassiveDrop"		"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"0"
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		"MaxLevel"						"1"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"attack_speed"				"100"
+			"magic_damage"
+			{
+				"value"							"800"
+				"CalculateAttackDamageTooltip"	"1"
+			}
+			"incoming_damage"			"10"
+		}
+	}
+
+	//=================================================================================================================
+	// Hellbear Totem
+	//=================================================================================================================
+	"item_hellbear_totem"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+			
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemIsNeutralPassiveDrop"		"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"0"
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		"MaxLevel"						"3"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"heal_increase"				"10 15 20"
+			"vision_bonus"				"100 150 200"
+		}
+	}
+
+	//=================================================================================================================
+	// Enhancement: Mystical
+	//=================================================================================================================
+	"item_enhancement_mystical"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+			
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemIsNeutralPassiveDrop"		"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"0"
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		"MaxLevel"						"4"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"mana_regen"				"1 2 3 4"
+			"magic_res"					"0 10 16 22"
+		}
+	}
+
+	//=================================================================================================================
+	// Enhancement: Alert
+	//=================================================================================================================
+	"item_enhancement_alert"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+			
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemIsNeutralPassiveDrop"		"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"0"
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		"MaxLevel"						"4"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_attack_speed"	"10 15 20 25"
+			"bonus_night_vision"	"0 150 225 300"
+		}
+	}
+
+
+	//=================================================================================================================
+	// Enhancement: Brawny
+	//=================================================================================================================
+	"item_enhancement_brawny"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+			
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemIsNeutralPassiveDrop"		"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"0"
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		"MaxLevel"						"4"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"health_bonus"
+			{
+				"value"								"1250 1750 2250 2750"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"health_regen"			"0 4 8 12"
+		}
+	}
+
+	//=================================================================================================================
+	// Enhancement: Tough
+	//=================================================================================================================
+	"item_enhancement_tough"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+			
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemIsNeutralPassiveDrop"		"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"0"
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		"MaxLevel"						"4"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage"
+			{
+				"value"								"50 80 110 140"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"armor"									"4 7 10 13"
+		}
+	}
+
+	//=================================================================================================================
+	// Enhancement: Feverish
+	//=================================================================================================================
+	"item_enhancement_feverish"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+			
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemIsNeutralPassiveDrop"		"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"0"
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		"MaxLevel"						"2"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"cooldown_reduction"		"15"
+			"cost_increase"				"10"
+		}
+	}
+
+	//=================================================================================================================
+	// Enhancement: Fleetfooted
+	//=================================================================================================================
+	"item_enhancement_fleetfooted"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+			
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemIsNeutralPassiveDrop"		"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"0"
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		"MaxLevel"						"1"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"movespeed"					"115"
+		}
+	}
+
+	//=================================================================================================================
+	// Crude Enhancement
+	//=================================================================================================================
+	"item_enhancement_crude"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+			
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemIsNeutralPassiveDrop"		"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"0"
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		"MaxLevel"						"2"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"slow_resistance"			"20 30"
+			"bat_reduce"				"12 18"
+			"intelligence_pct"			"-15"
+		}
+	}
+
+	//=================================================================================================================
+	// Enhancement: Boundless
+	//=================================================================================================================
+	"item_enhancement_boundless"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+			
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemIsNeutralPassiveDrop"		"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"0"
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		"MaxLevel"						"1"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_attack_range"		"150"
+			"bonus_cast_range"			"350"
+		}		
+	}
+
+	//=================================================================================================================
+	// Enhancement: Wise
+	//=================================================================================================================
+	"item_enhancement_wise"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+			
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemIsNeutralPassiveDrop"		"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"0"
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		"MaxLevel"						"1"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_xpm"					"600"
+		}		
+	}
+
+	//=================================================================================================================
+	// Timeless Enhancement
+	//=================================================================================================================
+	"item_enhancement_timeless"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+			
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemIsNeutralPassiveDrop"		"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"0"
+		"MaxLevel"						"2"
+
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"debuff_amp"		"10 15"
+			"spell_amp"			"10 20"
+		}
+	}
+	//=================================================================================================================
+	// Vampiric Enhancement
+	//=================================================================================================================
+	"item_enhancement_vampiric"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+			
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemIsNeutralPassiveDrop"		"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"0"
+		"MaxLevel"						"3"
+
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"attack_lifesteal"				"12 16 20"
+			"spell_lifesteal"				"8 12 16"
+			"attack_damage"					"0"
+			"vision_loss"					"0"
+		}
+	}
+
+	//=================================================================================================================
+	// Enhancement: Keen-eyes
+	//=================================================================================================================
+	"item_enhancement_keen_eyed"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+			
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemIsNeutralPassiveDrop"				"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"				"0"
+		"MaxLevel"					"2"
+
+
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"cast_range_bonus"					"125 135"
+			"bonus_mana_regen"					"1 1.5"
+			"mana_reduction_pct"				"15"
+		}
+	}
+
+	//=================================================================================================================
+	// Evolved Enhancement
+	//=================================================================================================================
+	"item_enhancement_evolved"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemIsNeutralPassiveDrop"		"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"				"0"
+
+
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"primary_stat"
+			{
+				"value"								"400"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"primary_stat_universal"
+			{
+				"value"								"240"
+				"CalculateAttributeTooltip"	"1"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Titanic Enhancement
+	//=================================================================================================================
+	"item_enhancement_titanic"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemIsNeutralPassiveDrop"		"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"0"
+		"MaxLevel"						"2"
+
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"base_attack_damage"		"15 25"
+			//"magic_resistance"		"12 16"
+			"status_resistance"			"10 15"
+			//"attack_speed"			"-25"
+		}
+	}
+
+	//=================================================================================================================
+	// Unrelenting Eye
+	//=================================================================================================================
+	"item_unrelenting_eye"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemIsNeutralActiveDrop"		"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"0"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"max_slow_res"				"100"
+			"hero_reduction"			"20"
+			"hero_check_radius"			"300"
+		}
+	}
+
+	//=================================================================================================================
+	// Mana Draught
+	//=================================================================================================================
+	"item_mana_draught"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_OPTIONAL_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemIsNeutralActiveDrop"		"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"0"
+		"AbilityCooldown"				"40"
+		"AbilityCastRange"				"650"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"mana_restore"				"60"
+			"mana_restore_pct"			"2"
+			"heal_duration"				"6"
+			"water_acceleration"		"30"
+		}
+	}
+
+	//=================================================================================================================
+	// Ripper's Lash
+	//=================================================================================================================
+	"item_rippers_lash"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemIsNeutralActiveDrop"		"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"0"
+		"AbilityCooldown"				"30"
+		"AbilityManaCost"				"0"
+		"AbilityCastRange"				"700"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"thorn_area"				"200"
+			"bonus_damage_hero"
+			{
+				"value"								"120"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"bonus_damage_creep"
+			{
+				"value"								"40"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"duration"					"10"
+		}
+	}
+
+	//=================================================================================================================
+	// Crippling Crossbow
+	//=================================================================================================================
+	"item_crippling_crossbow"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemIsNeutralActiveDrop"		"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"0"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"12"
+		"AbilityManaCost"				"75"
+		"AbilityCastRange"				"600"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"slow_pct"					"80"
+			"heal_reduce"				"40"
+			"duration"					"4"
+			"damage"
+			{
+				"value"								"75"
+				"CalculateSpellDamageTooltip"		"1"
+			}
+			"projectile_speed"			"1400"
+		}
+	}
+
+	//=================================================================================================================
+	// Gale Guard
+	//=================================================================================================================
+	"item_gale_guard"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"30.0"
+					
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemIsNeutralActiveDrop"		"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"0"
+
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+
+		"AbilityValues"
+		{
+			"barrier_duration"			"10"
+			"barrier_amount"
+			{
+				"value"							"4000"
+				"CalculateSpellHealTooltip"		"1"
+			}
+			"barrier_pct"				"75"
+			"slow_resist"				"50"
+		}
+	}
+
+	//=================================================================================================================
+	// Gunpowder Gauntlets 
+	//=================================================================================================================
+	"item_gunpowder_gauntlets"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"6.0"
+					
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemIsNeutralActiveDrop"		"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"0"
+
+
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage"
+			{
+				"value"							"1200"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"splash_radius"
+			{
+				"value"				"250"
+				"affected_by_aoe_increase" "1"
+			}
+
+			"splash_pct"			"50"
+		}
+	}
+
+	//=================================================================================================================
+	// Searing Signet
+	//=================================================================================================================
+	"item_searing_signet"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_DONT_PROC_OTHER_ABILITIES"
+					
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemIsNeutralActiveDrop"		"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"0"
+
+
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"damage_threshold"					"40"
+			"burn_damage"
+			{
+				"value"							"400"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"burn_duration"						"5"
+			"burn_tickrate"						".25"
+		}
+	}
+	//=================================================================================================================
+	// Pollywog Charm
+	//=================================================================================================================
+	"item_polliwog_charm"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemIsNeutralActiveDrop"		"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"0"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"45"
+		"AbilityManaCost"				"40"
+		"AbilityCastRange"				"1000"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"regen_boost"				"8"
+			"water_movespeed"			"10"
+			"duration"					"10"
+			
+		}
+	}
+
+	//=================================================================================================================
+	// Magnifying Monocle
+	//=================================================================================================================
+	"item_magnifying_monocle"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemIsNeutralActiveDrop"		"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"0"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"0"
+		"AbilityCastRange"				"0"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_attack_range"		"100"
+			"bonus_cast_range"			"125"
+			"damage_disable"			"3"
+			"damage_threshold"			"25"
+		}
+	}
+
+	//=================================================================================================================
+	// Pyrrhic Cloak
+	//=================================================================================================================
+	"item_pyrrhic_cloak"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemIsNeutralActiveDrop"		"1"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"0"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"40"
+		"AbilityManaCost"				"0"
+		"AbilityCastRange"				"800"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"damage_pct"				"60"
+			"damage_time"				"6"
 		}
 	}
 }

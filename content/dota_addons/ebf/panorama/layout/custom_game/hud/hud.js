@@ -181,6 +181,10 @@ function close() {
 			levelPip.SetParent(pips)
 		}
 	}
+	const shopContents = dotaHud.FindChildTraverse("GridMainShopContents")
+	if ( shopContents != undefined ){
+		shopContents.style.overflow = "scroll";
+	}
 	UpdateTalentPips()
 	CheckTalentUpdates()
 })();
@@ -854,5 +858,3 @@ function CheckTalentUpdates() {
 		}
 	}
 }
-
-

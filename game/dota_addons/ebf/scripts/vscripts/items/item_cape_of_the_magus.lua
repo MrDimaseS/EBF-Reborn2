@@ -91,7 +91,10 @@ end
 function modifier_item_cape_of_the_magus_passive_aura:OnRefresh()
 	self.aura_spell_amp = self:GetAbility():GetSpecialValueFor("aura_spell_amp")
 	self.aura_bonus_magical_armor = self:GetAbility():GetSpecialValueFor("aura_bonus_magical_armor")
-	self.aura_spell_lifesteal = self:GetAbility():GetSpecialValueFor("aura_spell_lifesteal") / 100
+	self.aura_spell_lifesteal = self:GetAbility():GetSpecialValueFor("aura_spell_lifesteal")
+	
+	self:GetParent()._spellLifestealModifiersList = self:GetParent()._spellLifestealModifiersList or {}
+	self:GetParent()._spellLifestealModifiersList[self] = true
 end
 
 function modifier_item_cape_of_the_magus_passive_aura:DeclareFunctions(params)
@@ -121,33 +124,9 @@ function modifier_item_cape_of_the_magus_passive_aura:GetModifierPhysicalArmorBo
 end
 
 function modifier_item_cape_of_the_magus_passive_aura:OnTooltip()
-	return self.aura_spell_lifesteal * 100
+	return self.aura_spell_lifesteal
 end
 
-function modifier_item_cape_of_the_magus_passive_aura:OnTakeDamage(params)
-	if params.attacker == self:GetParent() and params.inflictor 
-	and not ( HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL ) 
-			  or HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_HPLOSS ) 
-			  or HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_REFLECTION ) ) 
-	then
-		local spell_lifesteal = self.aura_spell_lifesteal
-		if not params.unit:IsConsideredHero() then
-			spell_lifesteal =  spell_lifesteal / 5
-		end
-		
-		local EHPMult = self:GetParent().EHP_MULT or 1
-		local lifesteal = params.damage * spell_lifesteal * math.max( 1, EHPMult )
-		
-		self.lifeToGive = (self.lifeToGive or 0) + lifesteal
-		if self.lifeToGive > 1 then
-			local preHP = params.attacker:GetHealth()
-			params.attacker:HealWithParams( lifesteal, params.inflictor, false, true, self, true )
-			self.lifeToGive = self.lifeToGive - math.floor(self.lifeToGive)
-			local postHP = params.attacker:GetHealth()
-		
-			if postHP - preHP ~= 0 then
-				ParticleManager:FireParticle( "particles/items3_fx/octarine_core_lifesteal.vpcf", PATTACH_POINT_FOLLOW, params.attacker )
-			end
-		end
-	end
+function modifier_item_cape_of_the_magus_passive_aura:GetModifierProperty_MagicalLifesteal(params)
+	return self.aura_spell_lifesteal
 end

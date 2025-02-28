@@ -212,6 +212,9 @@ function modifier_item_armlet_passive_ebf:OnRefresh()
 	self.bonus_armor = self:GetSpecialValueFor("bonus_armor")
 	self.bonus_health_regen = self:GetSpecialValueFor("bonus_health_regen")
 	self.lifesteal_percent = self:GetSpecialValueFor("lifesteal_percent") / 100
+	
+	self:GetCaster()._attackLifestealModifiersList = self:GetCaster()._attackLifestealModifiersList or {}
+	self:GetCaster()._attackLifestealModifiersList[self] = true
 end
 
 function modifier_item_armlet_passive_ebf:DeclareFunctions()
@@ -238,27 +241,8 @@ function modifier_item_armlet_passive_ebf:GetModifierConstantHealthRegen()
 	return self.bonus_health_regen
 end
 
-function modifier_item_armlet_passive_ebf:OnTakeDamage(params)
-	if params.attacker ~= self:GetParent() then return end
-	if params.damage_category == DOTA_DAMAGE_CATEGORY_ATTACK then
-		local EHPMult = self:GetParent().EHP_MULT or 1
-		local lifesteal = params.damage * self.lifesteal_percent * math.max( 1, EHPMult )
-		
-		self.lifeToGive = (self.lifeToGive or 0) + lifesteal
-		if self.lifeToGive > 1 then
-			local lifeGained = self.lifeToGive
-			local preHP = params.attacker:GetHealth()
-			params.attacker:HealWithParams( lifeGained, params.inflictor, false, true, self, true )
-			self.lifeToGive = self.lifeToGive - math.floor(self.lifeToGive)
-			local postHP = params.attacker:GetHealth()
-			
-			
-			local actualLifeGained = postHP - preHP
-			if actualLifeGained > 0 then
-				ParticleManager:FireParticle( "particles/generic_gameplay/generic_lifesteal.vpcf", PATTACH_POINT_FOLLOW, params.attacker )
-			end
-		end
-	end
+function modifier_item_armlet_passive_ebf:GetModifierProperty_PhysicalLifesteal(params)
+	return self.lifesteal_percent
 end
 	
 function modifier_item_armlet_passive_ebf:IsHidden()

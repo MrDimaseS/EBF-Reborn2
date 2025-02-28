@@ -62,7 +62,7 @@ function modifier_warlock_eldritch_summoning_imp:OnDestroy()
 					current_item:ModifyCooldown( self.cdr_on_death )
 				end
 			end
-			local neutralItem =	self:GetCaster():GetItemInSlot(DOTA_ITEM_NEUTRAL_SLOT)  
+			local neutralItem =	self:GetCaster():GetItemInSlot(DOTA_ITEM_NEUTRAL_ACTIVE_SLOT)  
 			if IsEntitySafe( neutralItem ) then
 				neutralItem:ModifyCooldown( self.cdr_on_death )
 			end

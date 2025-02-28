@@ -36,7 +36,6 @@
 		"AbilityTextureName"			"phylactery/phylactery_2"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		
-		
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"6.0"
@@ -49,7 +48,12 @@
 		"ItemQuality"					"common"
 		"ItemAliases"					"phylactery"
 		"ShouldBeSuggested"				"1"
-
+		
+		"precache"
+		{
+			"particle"					"particles/units/heroes/hero_templar_assassin/templar_assassin_trap_slow.vpcf"
+		}
+		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
@@ -72,7 +76,8 @@
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"bonus_damage_radius"				"300"
-			"slow_duration"						"1.2"
+			"slow_duration"						"3"
+			"break"								"1"
 		}
 	}
 	//=================================================================================================================
@@ -148,6 +153,9 @@
 			}
 			"bonus_damage_radius"				"600"
 			"slow_duration"						"1.2"
+			"break"								"1"
+			"disarm"							"0.5"
+			"silence"							"0.5"
 		}
 	}
 	//=================================================================================================================
@@ -222,8 +230,11 @@
 				"value"							"4125"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"bonus_damage_radius"		"900"
-			"slow_duration"				"1.2"
+			"bonus_damage_radius"				"900"
+			"slow_duration"						"3"
+			"break"								"1"
+			"disarm"							"1"
+			"silence"							"1"
 		}
 	}
 	//=================================================================================================================
@@ -299,7 +310,11 @@
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"bonus_damage_radius"				"1200"
-			"slow_duration"						"1.2"
+			"slow_duration"						"3"
+			"break"								"1"
+			"disarm"							"1"
+			"silence"							"1"
+			"stun"								"1"
 		}
 	}
 }

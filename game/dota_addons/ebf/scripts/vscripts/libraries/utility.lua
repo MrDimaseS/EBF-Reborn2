@@ -566,7 +566,7 @@ function CDOTA_BaseNPC:RefreshAllCooldowns(bItems)
 				current_item:Refresh()
 			end
 		end
-		local neutralItem =	self:GetItemInSlot(DOTA_ITEM_NEUTRAL_SLOT)  
+		local neutralItem =	self:GetItemInSlot(DOTA_ITEM_NEUTRAL_ACTIVE_SLOT)  
 		if neutralItem and not no_refresh_skill[neutralItem:GetAbilityName()] and ( neutralItem.IsRefreshable == nil or neutralItem:IsRefreshable() ) then
 			neutralItem:Refresh()
 		end
@@ -786,7 +786,7 @@ function CDOTA_BaseNPC:RefreshAllIntrinsicModifiers()
 			current_item:RefreshIntrinsicModifier()
 		end
 	end
-	local neutralItem =	self:GetItemInSlot(DOTA_ITEM_NEUTRAL_SLOT)  
+	local neutralItem =	self:GetItemInSlot(DOTA_ITEM_NEUTRAL_ACTIVE_SLOT)  
 	if neutralItem then
 		local passive = self:FindModifierByNameAndAbility( neutralItem:GetIntrinsicModifierName(), neutralItem )
 		if passive then

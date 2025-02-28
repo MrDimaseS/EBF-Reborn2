@@ -60,6 +60,9 @@ function modifier_item_satanic_passive_effect:OnRefresh()
 	self.bonus_damage = self:GetSpecialValueFor("bonus_damage")
 	self.lifesteal_percent = self:GetSpecialValueFor("lifesteal_percent") / 100
 	self.unholy_lifesteal_total_tooltip = self:GetSpecialValueFor("unholy_lifesteal_total_tooltip") / 100
+	
+	self:GetCaster()._attackLifestealModifiersList = self:GetCaster()._attackLifestealModifiersList or {}
+	self:GetCaster()._attackLifestealModifiersList[self] = true
 end
 
 function modifier_item_satanic_passive_effect:DeclareFunctions(params)
@@ -79,27 +82,8 @@ function modifier_item_satanic_passive_effect:GetModifierPreAttack_BonusDamage( 
 	return self.bonus_damage
 end
 
-function modifier_item_satanic_passive_effect:OnTakeDamage(params)
-	if params.attacker ~= self:GetParent() then return end
-	if params.damage_category == DOTA_DAMAGE_CATEGORY_ATTACK then
-		local EHPMult = self:GetParent().EHP_MULT or 1
-		local lifesteal = params.damage * TernaryOperator( self.unholy_lifesteal_total_tooltip, params.attacker:HasModifier("modifier_item_satanic_active"), self.lifesteal_percent ) * math.max( 1, EHPMult )
-		
-		self.lifeToGive = (self.lifeToGive or 0) + lifesteal
-		if self.lifeToGive > 1 then
-			local lifeGained = self.lifeToGive
-			local preHP = params.attacker:GetHealth()
-			params.attacker:HealWithParams( lifeGained, self:GetAbility(), false, true, self, true )
-			self.lifeToGive = self.lifeToGive - math.floor(self.lifeToGive)
-			local postHP = params.attacker:GetHealth()
-			
-			
-			local actualLifeGained = postHP - preHP
-			if actualLifeGained > 0 then
-				ParticleManager:FireParticle( "particles/generic_gameplay/generic_lifesteal.vpcf", PATTACH_POINT_FOLLOW, params.attacker )
-			end
-		end
-	end
+function modifier_item_satanic_passive_effect:GetModifierProperty_PhysicalLifesteal(params)
+	return TernaryOperator( self.unholy_lifesteal_total_tooltip, params.attacker:HasModifier("modifier_item_satanic_active"), self.lifesteal_percent )
 end
 
 function modifier_item_satanic_passive_effect:IsHidden()

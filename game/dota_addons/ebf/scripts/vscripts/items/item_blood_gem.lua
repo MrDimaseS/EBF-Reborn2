@@ -37,10 +37,18 @@ function modifier_item_blood_gem_passive:OnRefresh()
 	self.bonus_health = self:GetAbility():GetSpecialValueFor("bonus_health")
 	self.bonus_mana = self:GetAbility():GetSpecialValueFor("bonus_mana")
 	
-	self.spell_lifesteal = self:GetAbility():GetSpecialValueFor("spell_lifesteal") / 100
-	self.lifesteal_percent = self:GetAbility():GetSpecialValueFor("lifesteal_percent") / 100
+	self.spell_lifesteal = self:GetAbility():GetSpecialValueFor("spell_lifesteal")
+	self.lifesteal_percent = self:GetAbility():GetSpecialValueFor("lifesteal_percent")
 	self.overheal_maximum = self:GetAbility():GetSpecialValueFor("overheal_maximum") / 100
 	
+	self:GetParent()._spellLifestealModifiersList = self:GetParent()._spellLifestealModifiersList or {}
+	self:GetParent()._spellLifestealModifiersList[self] = true
+	
+	self:GetParent()._attackLifestealModifiersList = self:GetParent()._attackLifestealModifiersList or {}
+	self:GetParent()._attackLifestealModifiersList[self] = true
+	
+	self:GetParent()._onLifestealModifiersList = self:GetParent()._onLifestealModifiersList or {}
+	self:GetParent()._onLifestealModifiersList[self] = true
 	if IsServer() then self:SendBuffRefreshToClients() end
 end
 
@@ -82,66 +90,17 @@ function modifier_item_blood_gem_passive:HandleCustomTransmitterData(data)
 	self.barrier_block = data.barrier_block
 end
 
+function modifier_item_blood_gem_passive:GetModifierProperty_MagicalLifesteal(params)
+	return self.spell_lifesteal
+end
 
-function modifier_item_blood_gem_passive:OnTakeDamage(params)
-	if not params.attacker:IsSameTeam( self:GetParent() ) then return end
-	if not( self:GetParent():HasModifier("modifier_item_blood_gem_active") or params.attacker == self:GetParent() ) then return end
-	local lifestealExcess = 0
-	if params.inflictor 
-	and not ( HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL ) 
-			  or HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_HPLOSS ) 
-			  or HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_REFLECTION ) ) 
-	then
-		local spell_lifesteal = self.spell_lifesteal
-		if not params.unit:IsConsideredHero() then
-			spell_lifesteal =  spell_lifesteal / 5
-		end
-		
-		local EHPMult = self:GetParent().EHP_MULT or 1
-		local lifesteal = params.damage * spell_lifesteal * math.max( 1, EHPMult )
-		
-		self.lifeToGive = (self.lifeToGive or 0) + lifesteal
-		if self.lifeToGive > 1 then
-			local lifeGained = self.lifeToGive
-			local preHP = self:GetParent():GetHealth()
-			self:GetParent():HealWithParams( lifeGained, params.inflictor, false, true, self, true )
-			self.lifeToGive = self.lifeToGive - math.floor(self.lifeToGive)
-			local postHP = self:GetParent():GetHealth()
-		
-			local actualLifeGained = postHP - preHP
-			if actualLifeGained > 0 then
-				ParticleManager:FireParticle( "particles/items3_fx/octarine_core_lifesteal.vpcf", PATTACH_POINT_FOLLOW, self:GetParent() )
-			end
-			if actualLifeGained < lifeGained then
-				lifestealExcess = lifestealExcess + (lifeGained - actualLifeGained)
-			end
-		end
-	end
-	if params.damage_category == DOTA_DAMAGE_CATEGORY_ATTACK then
-		local EHPMult = self:GetParent().EHP_MULT or 1
-		local lifesteal = params.damage * self.lifesteal_percent * math.max( 1, EHPMult )
-		
-		self.lifeToGive = (self.lifeToGive or 0) + lifesteal
-		if self.lifeToGive > 1 then
-			local lifeGained = self.lifeToGive
-			local preHP = self:GetParent():GetHealth()
-			self:GetParent():HealWithParams( lifeGained, params.inflictor, false, true, self, true )
-			self.lifeToGive = self.lifeToGive - math.floor(self.lifeToGive)
-			local postHP = self:GetParent():GetHealth()
-			
-			
-			local actualLifeGained = postHP - preHP
-			if actualLifeGained > 0 then
-				ParticleManager:FireParticle( "particles/generic_gameplay/generic_lifesteal.vpcf", PATTACH_POINT_FOLLOW, self:GetParent() )
-			end
-			if actualLifeGained < lifeGained then
-				lifestealExcess = lifestealExcess + (lifeGained - actualLifeGained)
-			end
-		end
-	end
-	lifestealExcess = math.min( lifestealExcess,  self:GetParent():GetMaxHealth() * self.overheal_maximum - self.barrier_block )
-	if lifestealExcess > 0 then
-		self.barrier_block = self.barrier_block + lifestealExcess
+function modifier_item_blood_gem_passive:GetModifierProperty_PhysicalLifesteal(params)
+	return self.lifesteal_percent
+end
+
+function modifier_item_blood_gem_passive:OnLifesteal(params)
+	if params.excess > 0 then
+		self.barrier_block = self.barrier_block + math.min( params.excess,  self:GetParent():GetMaxHealth() * self.overheal_maximum - self.barrier_block )
 		self:SendBuffRefreshToClients()
 	end
 end

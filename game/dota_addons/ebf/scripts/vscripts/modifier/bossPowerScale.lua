@@ -70,7 +70,6 @@ function bossPowerScale:OnIntervalThink()
 			self.dmgTakenSinceCheck = 0
 		end
 		AddFOWViewer( DOTA_TEAM_BADGUYS, self:GetParent():GetAbsOrigin(), self:GetParent():GetCurrentVisionRange() + 128, 0.3, not self:GetParent():HasFlyingVision() )
-		AddFOWViewer( DOTA_TEAM_GOODGUYS, self:GetParent():GetAbsOrigin(), self:GetParent():GetCurrentVisionRange() + 128, 0.3, not self:GetParent():HasFlyingVision() )
 	end
 	
 	if self.baseStatusResistance then

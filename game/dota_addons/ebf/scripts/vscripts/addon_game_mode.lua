@@ -591,6 +591,8 @@ MAX_HP_DAMAGE = {
 	["kez_raptor_dance"] = {["max_health_damage_pct"] = 100},
 	["necrolyte_heartstopper_aura"] = {["aura_damage"] = 100},
 	["doom_bringer_infernal_blade"] = {["burn_damage_pct"] = 100},
+	["item_iron_talon"] = {["creep_damage_pct"] = 100},
+	["item_serrated_shiv"] = {["hp_dmg"] = 100},
 }
 
 -- spell_name = spell_amp_reduction (100 for no spell amp)
@@ -873,7 +875,7 @@ function CHoldoutGameMode:OnHeroPick (event)
 		-- hero:RemoveItem( tp )
 	-- end
 	hero:AddItemByName("item_bottle_ebf")
-	hero:AddItemByName("item_tier1_token")
+	-- hero:AddItemByName("item_tier1_token")
 	
 	hero:AddItemByName("item_aghanims_shard")
 	hero:AddItemByName("item_ultimate_scepter_2")
@@ -963,6 +965,7 @@ function CHoldoutGameMode:_SetupGameConfiguration()
 	GameRules:GetGameModeEntity():SetStickyItemDisabled( true )
 	GameRules:GetGameModeEntity():SetDefaultStickyItem( "item_bottle_ebf" )
 	GameRules:GetGameModeEntity():SetTPScrollSlotItemOverride( "item_bottle_ebf" )
+	GameRules:GetGameModeEntity():SetFogOfWarDisabled( true )
 	
 	GameRules:GetGameModeEntity():SetMaximumAttackSpeed( 2000 )
 	GameRules:GetGameModeEntity():SetMinimumAttackSpeed( 50 )
@@ -1342,11 +1345,7 @@ function CHoldoutGameMode:OnGameRulesStateChange()
 		if not self._preGameSetupDone then
 			-- GameRules._dumbAssFuckingVisionDummy = CreateUnitByName("npc_dummy_unit", Vector(0,0,0), false, nil, nil, DOTA_TEAM_BADGUYS)
 			-- GameRules._dumbAssFuckingVisionDummy:AddNewModifier(GameRules._dumbAssFuckingVisionDummy, nil, "modifier_hidden_generic", {})
-			if GameRules._activeMap == "peaks_of_screeauk" then
-				GameRules:GetGameModeEntity():SetCameraDistanceOverride(1800)
-			else
-				GameRules:GetGameModeEntity():SetCameraDistanceOverride(1500)
-			end
+			GameRules:GetGameModeEntity():SetCameraDistanceOverride(1500)
 			GameRules:SetTimeOfDay(0.26)
 			if GameRules:IsCheatMode() then
 				Say( nil, "type -startgame to start the game", false)

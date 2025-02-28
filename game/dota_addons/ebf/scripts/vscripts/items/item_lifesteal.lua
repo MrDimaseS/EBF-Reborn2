@@ -105,6 +105,9 @@ function modifier_item_lifesteal_ebf_aura:OnRefresh()
 	self.hp_regen_aura = self:GetAbility():GetSpecialValueFor("hp_regen_aura")
 	self.lifesteal_aura = self:GetAbility():GetSpecialValueFor("lifesteal_aura")
 	self.damage_aura = self:GetAbility():GetSpecialValueFor("damage_aura")
+	
+	self:GetCaster()._attackLifestealModifiersList = self:GetCaster()._attackLifestealModifiersList or {}
+	self:GetCaster()._attackLifestealModifiersList[self] = true
 end
 
 function modifier_item_lifesteal_ebf_aura:DeclareFunctions(params)
@@ -139,17 +142,6 @@ function modifier_item_lifesteal_ebf_aura:OnTooltip()
 	return self.lifesteal_aura
 end
 
-function modifier_item_lifesteal_ebf_aura:OnTakeDamage(params)
-	if params.attacker == self:GetParent() and params.damage_category == DOTA_DAMAGE_CATEGORY_ATTACK then
-		local EHPMult = self:GetParent().EHP_MULT or 1
-		local lifesteal = params.damage * self.lifesteal_aura / 100 * math.max( 1, EHPMult )
-		
-		local preHP = params.attacker:GetHealth()
-		params.attacker:HealWithParams( lifesteal, self:GetAbility(), true, true, self:GetCaster(), false )
-		local postHP = params.attacker:GetHealth()
-		
-		if (postHP - preHP) > 0 then
-			SendOverheadEventMessage( params.attacker:GetPlayerOwner(), OVERHEAD_ALERT_HEAL, params.attacker, postHP - preHP, params.attacker:GetPlayerOwner() )
-		end
-	end
+function modifier_item_bloodstone_ebf:GetModifierProperty_PhysicalLifesteal(params)
+	return self.lifesteal_aura
 end

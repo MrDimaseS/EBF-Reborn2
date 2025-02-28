@@ -132,6 +132,8 @@ function modifier_item_butterfly_passive:OnCreated()
 	self.stack_duration = self:GetSpecialValueFor("stack_duration")
 	self.max_stacks = self:GetSpecialValueFor("max_stacks")
 	
+	self:GetCaster()._attackLifestealModifiersList = self:GetCaster()._attackLifestealModifiersList or {}
+	self:GetCaster()._attackLifestealModifiersList[self] = true
 	if self.bonus_agility_pr > 0 and IsServer() then
 		self:StartIntervalThink(0.25)
 	end
@@ -179,28 +181,10 @@ function modifier_item_butterfly_passive:GetModifierPreAttack_BonusDamage()
 	return self.bonus_damage + self:GetStackCount() * self.bonus_damage_pr
 end
 
-function modifier_item_butterfly_passive:OnTakeDamage(params)
-	if self.lifesteal_percent > 0 and params.attacker == self:GetParent() and params.damage_category == DOTA_DAMAGE_CATEGORY_ATTACK then
-		local EHPMult = self:GetParent().EHP_MULT or 1
-		local lifesteal = self.lifesteal_percent 
-		local stacks = params.attacker:FindModifierByNameAndAbility( "modifier_item_butterfly_zephyr", self:GetAbility() )
-		if stacks then
-			lifesteal = lifesteal + self.ls_bonus_stack * stacks:GetStackCount()
-		end
-		
-		lifesteal = params.damage * lifesteal / 100 * math.max( 1, EHPMult )
-		
-		local preHP = params.attacker:GetHealth()
-		params.attacker:HealWithParams( lifesteal, self:GetAbility(), true, true, self:GetCaster(), false )
-		local postHP = params.attacker:GetHealth()
-		
-		if (postHP - preHP) > 0 then
-			SendOverheadEventMessage( params.attacker:GetPlayerOwner(), OVERHEAD_ALERT_HEAL, params.attacker, postHP - preHP, params.attacker:GetPlayerOwner() )
-			
-			ParticleManager:FireParticle("particles/generic_gameplay/generic_lifesteal.vpcf", PATTACH_POINT_FOLLOW, params.attacker )
-		end
-	end
+function modifier_item_butterfly_passive:GetModifierProperty_PhysicalLifesteal(params)
+	return self.lifesteal_percent
 end
+
 function modifier_item_butterfly_passive:OnAttackLanded( params )
 	if params.attacker == self:GetParent() and not params.attacker:IsIllusion() and self.max_stacks > 0 and not params.no_attack_cooldown then
 		if params.target == self.lastUnitAttacked then

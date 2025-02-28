@@ -95,6 +95,9 @@ function modifier_item_yasha_and_kaya_2_passive:OnRefresh()
 	
 	self:GetParent().cooldownModifiers = self:GetParent().cooldownModifiers or {}
 	self:GetParent().cooldownModifiers[self] = true
+	
+	self:GetCaster()._attackLifestealModifiersList = self:GetCaster()._attackLifestealModifiersList or {}
+	self:GetCaster()._attackLifestealModifiersList[self] = true
 end
 
 function modifier_item_yasha_and_kaya_2_passive:OnDestroy()
@@ -216,28 +219,11 @@ function modifier_item_yasha_and_kaya_2_passive:OnTakeDamage(params)
 			end
 			self.bash = false
 		end
-		if self.lifesteal_percent > 0 then
-			local EHPMult = self:GetParent().EHP_MULT or 1
-			local lifesteal = params.damage * self.lifesteal_percent * math.max( 1, EHPMult )
-			
-			local preHP = params.attacker:GetHealth()
-			params.attacker:HealWithParams( lifesteal, self:GetAbility(), true, true, self:GetCaster(), false )
-			local postHP = params.attacker:GetHealth()
-			
-			-- if params.attacker:HasModifier("modifier_item_yasha_and_kaya_2_wild_magic") then
-				-- self.manaToGive = (self.manaToGive or 0) + lifesteal * self.berserk_mana_steal
-				-- if self.manaToGive > 1 then
-					-- params.attacker:GiveMana( math.floor(self.manaToGive) ) 
-					-- SendOverheadEventMessage( params.attacker:GetPlayerOwner(), OVERHEAD_ALERT_MANA_ADD, params.attacker, math.floor(self.manaToGive), params.attacker:GetPlayerOwner() )
-					-- self.manaToGive = self.manaToGive - math.floor(self.manaToGive)
-				-- end
-			-- end
-			
-			if (postHP - preHP) > 0 then
-				SendOverheadEventMessage( params.attacker:GetPlayerOwner(), OVERHEAD_ALERT_HEAL, params.attacker, postHP - preHP, params.attacker:GetPlayerOwner() )
-			end
-		end
 	end
+end
+
+function modifier_item_yasha_and_kaya_2_passive:GetModifierProperty_PhysicalLifesteal(params)
+	return self.lifesteal_percent
 end
 
 function modifier_item_yasha_and_kaya_2_passive:GetModifierBonusStats_Intellect()

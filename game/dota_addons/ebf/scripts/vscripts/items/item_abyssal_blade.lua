@@ -70,8 +70,8 @@ function modifier_item_abyssal_blade_passive:OnRefresh()
 	self.bash_chance_melee = self:GetSpecialValueFor("bash_chance_melee")
 	self.bash_chance_ranged = self:GetSpecialValueFor("bash_chance_ranged")
 	
-	self.block_damage_pct = self:GetSpecialValueFor("block_damage_pct") / 100
-	self.block_chance = self:GetSpecialValueFor("block_chance")
+	self.slow_resistance = self:GetSpecialValueFor("slow_resistance")
+	self.hp_regen_amp = self:GetSpecialValueFor("hp_regen_amp")
 	
 	if IsServer() then
 		self:GetAbility().primedForBash = {}
@@ -80,12 +80,11 @@ end
 
 function modifier_item_abyssal_blade_passive:DeclareFunctions()
 	return {MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
-			MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
-			MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT,
-			MODIFIER_PROPERTY_HEALTH_BONUS,
 			MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,
-			MODIFIER_PROPERTY_TOTAL_CONSTANT_BLOCK_UNAVOIDABLE_PRE_ARMOR,
 			MODIFIER_EVENT_ON_ATTACK_LANDED,
+			MODIFIER_PROPERTY_LIFESTEAL_AMPLIFY_PERCENTAGE,
+			MODIFIER_PROPERTY_HP_REGEN_AMPLIFY_PERCENTAGE,
+			MODIFIER_PROPERTY_SLOW_RESISTANCE_STACKING 
 			}
 end
 
@@ -93,16 +92,20 @@ function modifier_item_abyssal_blade_passive:GetModifierBonusStats_Strength()
 	return self.bonus_strength
 end
 
-function modifier_item_abyssal_blade_passive:GetModifierConstantHealthRegen()
-	return self.bonus_health_regen
-end
-
-function modifier_item_abyssal_blade_passive:GetModifierHealthBonus()
-	return self.bonus_health
-end
-
 function modifier_item_abyssal_blade_passive:GetModifierPreAttack_BonusDamage()
 	return self.bonus_damage
+end
+
+function modifier_item_abyssal_blade_passive:GetModifierLifestealRegenAmplify_Percentage()
+	return self.hp_regen_amp
+end
+
+function modifier_item_abyssal_blade_passive:GetModifierHPRegenAmplify_Percentage()
+	return self.hp_regen_amp
+end
+
+function modifier_item_abyssal_blade_passive:GetModifierSlowResistance_Stacking()
+	return self.slow_resistance
 end
 
 function modifier_item_abyssal_blade_passive:GetModifierPhysical_ConstantBlockUnavoidablePreArmor( params )

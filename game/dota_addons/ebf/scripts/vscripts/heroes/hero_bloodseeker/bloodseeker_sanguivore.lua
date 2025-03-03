@@ -18,23 +18,61 @@ function modifier_bloodseeker_sanguivore_buff:OnRefresh()
 	self.heal_duration = self:GetSpecialValueFor("heal_duration")
 	self.pure_damage_lifesteal_pct = self:GetSpecialValueFor("pure_damage_lifesteal_pct")
 	
-	self.max_shield_pct = self:GetSpecialValueFor("max_shield_pct")
-	self.barrier_decay_pct = self:GetSpecialValueFor("barrier_decay_pct")
-	self.barrier_block = 0
-	if IsServer() then self:SendBuffRefreshToClients() end
+	self.blood_mist_aoe = self:GetSpecialValueFor("blood_mist_aoe")
+	self.blood_mist_missing_hp_dmg = self:GetSpecialValueFor("blood_mist_missing_hp_dmg") / 100
+	
+	if IsServer() and self.blood_mist_aoe > 0 then 
+		self:StartIntervalThink(0.5)
+	end
+end
+
+function modifier_bloodseeker_sanguivore_buff:OnIntervalThink()
+	local caster = self:GetCaster()
+	local ability = self:GetAbility()
+	local missingHPDmg = self:GetCaster():GetHealthDeficit() * self.blood_mist_missing_hp_dmg
+	if missingHPDmg > 1 then
+		if not self.nFX then
+			self.nFX = ParticleManager:CreateParticle( "particles/units/heroes/hero_bloodseeker/bloodseeker_scepter_blood_mist_aoe.vpcf", PATTACH_POINT_FOLLOW, self:GetCaster() )
+			ParticleManager:SetParticleControl(self.nFX, 1, Vector( self.blood_mist_aoe, 1, 1 ) )
+		end
+		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), self.blood_mist_aoe ) ) do
+			ability:DealDamage( caster, enemy, missingHPDmg, { damage_type = DAMAGE_TYPE_PURE, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION } )
+		end
+	else
+		if self.nFX then
+			ParticleManager:ClearParticle( self.nFX )
+			self.nFX = nil
+		end
+	end
+end
+
+function modifier_bloodseeker_sanguivore_buff:OnDestroy()
+	if self.nFX then
+		ParticleManager:ClearParticle( self.nFX )
+		self.nFX = nil
+	end
 end
 
 function modifier_bloodseeker_sanguivore_buff:DeclareFunctions()
-	return {MODIFIER_EVENT_ON_TAKEDAMAGE, MODIFIER_PROPERTY_INCOMING_DAMAGE_CONSTANT, MODIFIER_EVENT_ON_HEAL_RECEIVED }
+	return {MODIFIER_EVENT_ON_TAKEDAMAGE }
 end
 
 function modifier_bloodseeker_sanguivore_buff:OnTakeDamage( params )
 	local caster = self:GetCaster()
 	if params.attacker ~= caster or params.attacker == params.unit then return end
 	local ability = self:GetAbility()
-	if params.damage_type == DAMAGE_TYPE_PURE then
+	if params.damage_type == DAMAGE_TYPE_PURE and not HasBit(params.damage_flags, DOTA_DAMAGE_FLAG_REFLECTION ) and not HasBit(params.damage_flags, DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL )  then
 		local lifesteal = params.damage * self.pure_damage_lifesteal_pct / 100
-		parent:HealEvent( lifesteal, ability, caster )
+		if params.damage_category == DOTA_DAMAGE_CATEGORY_SPELL then
+			if not params.unit:IsConsideredHero() then
+				lifesteal = lifesteal * 0.2
+			end
+		elseif params.damage_category == DOTA_DAMAGE_CATEGORY_ATTACK then
+			if not params.unit:IsConsideredHero() then
+				lifesteal = lifesteal * 0.6
+			end
+		end
+		caster:HealEvent( lifesteal, ability, caster )
 	end
 	if ( params.inflictor and caster:HasAbility( params.inflictor:GetAbilityName() ) ) or not params.unit:IsAlive() then
 		local stacks = 1
@@ -48,22 +86,6 @@ function modifier_bloodseeker_sanguivore_buff:OnTakeDamage( params )
 		local regeneration = caster:AddNewModifier( caster, ability, "modifier_bloodseeker_sanguivore_regeneration", {duration = self.heal_duration} )
 		regeneration:AddIndependentStack( { duration = self.heal_duration, stacks = math.floor( stacks ) } )
 	end
-end
-
-function modifier_item_blood_gem_passive:GetModifierIncomingDamageConstant( params )
-	if (self.barrier_block or 0) <= 0 then return end
-	if IsServer() then
-		local barrier_block = math.min( self.barrier_block, params.damage )
-		self.barrier_block = math.max( 0, self.barrier_block - barrier_block )
-		self:SendBuffRefreshToClients()
-		return -barrier_block
-	else
-		return self.barrier_block
-	end
-end
-
-function modifier_bloodseeker_sanguivore_buff:OnHealReceived( params )
-	PrintAll( params )
 end
 
 function modifier_bloodseeker_sanguivore_buff:AddCustomTransmitterData()
@@ -95,11 +117,6 @@ function modifier_bloodseeker_sanguivore_regeneration:OnRefresh()
 	
 	self.heal_factor = 1
 	self.heal_duration = self:GetSpecialValueFor("heal_duration")
-	
-	self.mist = self:GetCaster():FindAbilityByName("bloodseeker_blood_mist")
-	if self.mist then
-		self.heal_factor = self.heal_factor + self.mist:GetSpecialValueFor("thirst_bonus_pct") / 100
-	end
 end
 
 function modifier_bloodseeker_sanguivore_regeneration:OnIntervalThink()

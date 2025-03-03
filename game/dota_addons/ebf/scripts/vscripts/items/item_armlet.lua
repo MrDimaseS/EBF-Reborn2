@@ -124,8 +124,13 @@ function modifier_item_armlet_active:OnIntervalThink()
 	if not IsEntitySafe( ability ) then
 		ability = caster:GetAbilityByIndex(0)
 	end
-	if not IsEntitySafe( ability ) then return end 
-	ability:DealDamage( caster, caster, self.current_strength * self.unholy_health_drain_per_second * self.tick_rate, {damage_type = DAMAGE_TYPE_PURE, damage_flags = DOTA_DAMAGE_FLAG_HPLOSS + DOTA_DAMAGE_FLAG_BYPASSES_INVULNERABILITY + DOTA_DAMAGE_FLAG_BYPASSES_ALL_BLOCK + DOTA_DAMAGE_FLAG_NON_LETHAL + DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_NO_DAMAGE_MULTIPLIERS + DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL} )
+	if not IsEntitySafe( ability ) then
+		self:Destroy()
+		return
+	end 
+	if caster:GetHealth() > 1 then
+		caster:ModifyHealth( caster:GetHealth() - (self.current_strength * self.unholy_health_drain_per_second * self.tick_rate), ability, false, DOTA_DAMAGE_FLAG_HPLOSS + DOTA_DAMAGE_FLAG_BYPASSES_INVULNERABILITY + DOTA_DAMAGE_FLAG_BYPASSES_ALL_BLOCK + DOTA_DAMAGE_FLAG_NON_LETHAL + DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_NO_DAMAGE_MULTIPLIERS + DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL )
+	end
 	
 	
 end
@@ -141,7 +146,7 @@ function modifier_item_armlet_active:OnRemoved()
 		ability:ToggleAbility()
 	end
 	if not IsEntitySafe( ability ) then return end
-	ability:DealDamage( caster, caster, self.current_strength * 22, {damage_type = DAMAGE_TYPE_PURE, damage_flags = DOTA_DAMAGE_FLAG_HPLOSS + DOTA_DAMAGE_FLAG_BYPASSES_INVULNERABILITY + DOTA_DAMAGE_FLAG_BYPASSES_ALL_BLOCK + DOTA_DAMAGE_FLAG_NON_LETHAL + DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_NO_DAMAGE_MULTIPLIERS + DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL} )
+	caster:ModifyHealth( caster:GetHealth() - (self.current_strength * 22), ability, false, DOTA_DAMAGE_FLAG_HPLOSS + DOTA_DAMAGE_FLAG_BYPASSES_INVULNERABILITY + DOTA_DAMAGE_FLAG_BYPASSES_ALL_BLOCK + DOTA_DAMAGE_FLAG_NON_LETHAL + DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_NO_DAMAGE_MULTIPLIERS + DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL )
 end
 
 function modifier_item_armlet_active:DeclareFunctions()

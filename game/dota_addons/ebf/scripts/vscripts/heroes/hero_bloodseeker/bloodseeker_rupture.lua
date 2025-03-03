@@ -1,12 +1,33 @@
 bloodseeker_rupture = class({})
 
+function bloodseeker_rupture:GetBehavior()
+	local behavior = tonumber(tostring(self.BaseClass.GetBehavior( self )))
+	if self:GetSpecialValueFor("burst_aoe") > 0 then
+		behavior = behavior + DOTA_ABILITY_BEHAVIOR_AOE
+	end
+	return behavior
+end
+
+function bloodseeker_rupture:GetAOERadius()
+	return self:GetSpecialValueFor("burst_aoe")
+end
+
 function bloodseeker_rupture:OnSpellStart()
 	local caster = self:GetCaster()
 	local target = self:GetCursorTarget()
 	
 	local duration = self:GetSpecialValueFor("duration")
-	target:AddNewModifier( caster, self, "modifier_bloodseeker_rupture_debuff", { duration = duration} )
-	self:DealDamage( caster, target, target:GetMaxHealth() * self:GetSpecialValueFor("hp_pct") / 100 )
+	local maxHPDamage = target:GetMaxHealth() * self:GetSpecialValueFor("hp_pct")
+	if self:GetSpecialValueFor("burst_aoe") > 0 then
+		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( target:GetAbsOrigin(), self:GetSpecialValueFor("burst_aoe") ) ) do
+			self:DealDamage( caster, enemy, target:GetMaxHealth() * self:GetSpecialValueFor("hp_pct") / 100 )
+			enemy:AddNewModifier( caster, self, "modifier_bloodseeker_rupture_debuff", { duration = duration} )
+		end
+		ParticleManager:FireParticle("particles/econ/items/bloodseeker/bloodseeker_crownfall_immortal/bloodseeker_crownfall_immortal_explosiondriver.vpcf", PATTACH_POINT, target, {[0] = target:GetAbsOrigin()} )
+	else
+		self:DealDamage( caster, target, target:GetMaxHealth() * self:GetSpecialValueFor("hp_pct") / 100 )
+		target:AddNewModifier( caster, self, "modifier_bloodseeker_rupture_debuff", { duration = duration} )
+	end
 	EmitSoundOn( "hero_bloodseeker.rupture.cast", caster )
 	EmitSoundOn( "hero_bloodseeker.rupture", target )
 end

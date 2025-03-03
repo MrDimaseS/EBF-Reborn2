@@ -14,7 +14,7 @@ end
 function modifier_enemy_minion_passive:OnRefresh()
 	self.dmg_taken_from_aoe = -self:GetSpecialValueFor("dmg_taken_from_aoe")
 	self.reduction_duration = self:GetSpecialValueFor("reduction_duration")
-	self.abilities_tracked = {}
+	self:GetParent()._minionAbilitiesTracked = {}
 end
 
 function modifier_enemy_minion_passive:DeclareFunctions()
@@ -23,15 +23,18 @@ end
 
 function modifier_enemy_minion_passive:OnTakeDamage( params )
 	if IsClient() then return end
-	if params.inflictor and params.unit ~= self:GetParent() and params.unit:IsSameTeam( self:GetParent() ) then
-		self.abilities_tracked[params.inflictor] = GameRules:GetGameTime()
+	if params.inflictor and params.unit ~= self:GetParent() and params.unit:IsSameTeam( self:GetParent() ) and GameRules:GetGameTime() < params.unit._minionAbilitiesTracked[params.inflictor] + self.reduction_duration then
+		self:GetParent()._minionAbilitiesTracked[params.inflictor] = GameRules:GetGameTime()
 	end
 end
 
 function modifier_enemy_minion_passive:GetModifierIncomingDamage_Percentage( params )
 	if IsClient() then return end
-	if params.inflictor and self.abilities_tracked[params.inflictor] and GameRules:GetGameTime() < self.abilities_tracked[params.inflictor] + self.reduction_duration then
-		return self.dmg_taken_from_aoe
+	if params.inflictor and self:GetParent()._minionAbilitiesTracked[params.inflictor] then
+		if GameRules:GetGameTime() < self:GetParent()._minionAbilitiesTracked[params.inflictor] + self.reduction_duration then
+			return self.dmg_taken_from_aoe 
+		else
+		end
 	end
 end
 

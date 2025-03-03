@@ -16,6 +16,8 @@
 		"Innate"						"1"
 		"IsBreakable"					"1"
 		"DependentOnAbility"			"bloodseeker_rupture"
+		"HasScepterUpgrade"				"0"
+		"HasShardUpgrade"				"0"
 		
 		"AbilityCastPoint"				""
 		// Special
@@ -34,22 +36,18 @@
 				"value"							"0.1 0.2 0.3 0.4"
 			}
 
-			"creep_pct"							"20"
+			"creep_pct"
+			{
+				"value"							"20"
+				"special_bonus_facet_bloodseeker_cuauhtli"	"=50"
+			}
 			"kill_pct"							"300"
 			"max_bonus_pct"						"25"
 			"heal_duration"						"2.0"
-			"pure_damage_lifesteal_pct"
-			{
-				"special_bonus_scepter"			"+30"
-			}
-			"max_shield_pct"
-			{
-				"special_bonus_shard"			"+15"
-			}
-			"barrier_decay_pct"
-			{
-				"special_bonus_shard"			"+1.5"
-			}
+			"pure_damage_lifesteal_pct"			"30"
+			
+			"blood_mist_aoe"					{"special_bonus_facet_bloodseeker_ocelotl" "=400"}
+			"blood_mist_missing_hp_dmg"			{"special_bonus_facet_bloodseeker_ocelotl" "=25"}
 		}
 	}
 	//=================================================================================================================
@@ -69,9 +67,8 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"hero_bloodseeker.bloodRage"
-		
-
-		"HasShardUpgrade"				"1"
+		"HasScepterUpgrade"				"0"
+		"HasShardUpgrade"				"0"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -105,12 +102,12 @@
 			}
 			"spell_amp"		
 			{
-				"value"										"15 20 25 30"
+				"value"										"30 35 40 45"
 				"special_bonus_unique_bloodseeker_6"		"+15"
 			}
 			"allied_attack_speed"		
 			{
-				"value"										"60 90 120 150"
+				"value"										"30 45 60 75"
 				"special_bonus_unique_bloodseeker_5"		"+25"
 			}
 			"allied_spell_amp"		
@@ -125,12 +122,16 @@
 				"DamageTypeTooltip"							"DAMAGE_TYPE_PURE"
 				"CalculateSpellDamageTooltip"				"0"
 			}
-			"shard_max_health_dmg"		
+			
+			"bonus_pure_dmg"
 			{
-				"value"										"350"
-				"RequiresShard"								"1"
-				"CalculateSpellDamageTooltip"				"1"
+				"special_bonus_facet_bloodseeker_cuauhtli" "200 250 300 350"
+				"CalculateAttackDamageTooltip"				"1"
+				"CalculateSpellDamageTooltip"				"0"
 			}
+			"solo_bonus"									{"special_bonus_facet_bloodseeker_cuauhtli" "=50"}
+			"solo_range"									{"special_bonus_facet_bloodseeker_cuauhtli" "=500"}
+			"max_missing_hp_barrier"						{"special_bonus_facet_bloodseeker_ocelotl" "100 133 166 200"}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 		"AbilityCastGestureSlot"		"DEFAULT"
@@ -174,10 +175,12 @@
 			"AbilityCastRange"				
 			{
 				"value"													"1500"
+				"special_bonus_facet_bloodseeker_ocelotl" 				"=1200"
 			}
 			"radius"
 			{
 				"value"													"600"
+				"special_bonus_facet_bloodseeker_ocelotl" 				"=1200"
 				"special_bonus_unique_bloodseeker_instant_bloodrite"	"+50%"
 			}
 			"silence_duration"											"3 4 5 6"
@@ -207,6 +210,9 @@
 				"value"													"2.9"
 				"special_bonus_unique_bloodseeker_instant_bloodrite"	"-2.6"
 			}
+			
+			"silence_bonus_dmg"											{"special_bonus_facet_bloodseeker_cuauhtli" "20 25 30 35"}
+			"no_target"													{"special_bonus_facet_bloodseeker_ocelotl" "1"}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -237,6 +243,9 @@
 				"value"									"40 70 100 130"
 				"special_bonus_unique_bloodseeker_4"	"+18"
 			}
+			
+			"linger_duration"							{"special_bonus_facet_bloodseeker_cuauhtli" "1.5"}
+			"bonus_armor"								{"special_bonus_facet_bloodseeker_ocelotl" "5 10 15 20"}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -279,6 +288,11 @@
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityModifierSupportValue"	"0.0"	// Only does damage
+		
+		"precache"
+		{
+			"particle"					"particles/econ/items/bloodseeker/bloodseeker_crownfall_immortal/bloodseeker_crownfall_immortal_explosiondriver.vpcf"
+		}
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -313,6 +327,9 @@
 				"special_bonus_unique_bloodseeker_rupture_charges"	"=0.25"
 			}
 			"AbilityChargeRestoreTime"								"75 70 65"
+			
+			"attack_damage_pct"										{"special_bonus_facet_bloodseeker_cuauhtli" "100"}
+			"burst_aoe"												{"special_bonus_facet_bloodseeker_ocelotl" "400"}
 		}
 	}
 	//=================================================================================================================

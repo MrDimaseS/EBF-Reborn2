@@ -89,7 +89,7 @@ function modifier_bristleback_bristleback_passive:GetModifierIncomingDamage_Perc
 				end
 			else
 				if not self.quills:IsTrained() then return end
-				self.quills:Spray( )
+				self.quills:Spray( true )
 			end
 		end)
 	end

@@ -115,7 +115,7 @@ end
 function Activate()
 	GameRules.holdOut = CHoldoutGameMode()
 	
-	local mapRNG = {"peaks_of_screeauk", "fields_of_carnage", "narrow_mazes"}
+	local mapRNG = {"immortal_halls", "peaks_of_screeauk", "fields_of_carnage", "narrow_mazes"}
 	GameRules._activeMap = mapRNG[RandomInt(1, #mapRNG)]
 	GameRules._activeMode = string.gsub(GetMapName(), "_gamemode", "")
 	DOTA_SpawnMapAtPosition(GameRules._activeMap, Vector(0,0,0), false, nil, nil, nil)
@@ -965,7 +965,6 @@ function CHoldoutGameMode:_SetupGameConfiguration()
 	GameRules:GetGameModeEntity():SetStickyItemDisabled( true )
 	GameRules:GetGameModeEntity():SetDefaultStickyItem( "item_bottle_ebf" )
 	GameRules:GetGameModeEntity():SetTPScrollSlotItemOverride( "item_bottle_ebf" )
-	GameRules:GetGameModeEntity():SetFogOfWarDisabled( true )
 	
 	GameRules:GetGameModeEntity():SetMaximumAttackSpeed( 2000 )
 	GameRules:GetGameModeEntity():SetMinimumAttackSpeed( 50 )
@@ -1391,6 +1390,7 @@ function CHoldoutGameMode:OnGameRulesStateChange()
 				Say( nil, "DIFFICULTY: "..CONVERTED_DIFFICULTY[GameRules.gameDifficulty], false)
 			end
 			
+			GameRules:GetGameModeEntity():SetFogOfWarDisabled( GameRules.gameDifficulty < 4 )
 			GameRules:GetGameModeEntity():SetFixedRespawnTime( 90 + 40*(GameRules.gameDifficulty-1)  )
 			GameRules:GetGameModeEntity():SetCustomGlyphCooldown( 150 + 0*(GameRules.gameDifficulty-1) )
 			GameRules:GetGameModeEntity():SetCustomScanCooldown( 120 + 0*(GameRules.gameDifficulty-1) )
@@ -1482,6 +1482,10 @@ function CHoldoutGameMode:OnThink()
 		end
 	end
 	if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+		if not GameRules:GetGameModeEntity():GetFogOfWarDisabled() then
+		else
+			AddFOWViewer( DOTA_TEAM_GOODGUYS, Vector(0,0,0), 9999, 0.6, false )
+		end
 		local ThinkDefeat = function()
 			self:_CheckForDefeat()
 		end

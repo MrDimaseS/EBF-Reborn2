@@ -34,45 +34,33 @@
 		"AbilityValues"
 		{
 			"duration"						
-			{
-				"value"			"6.0"
-				"special_bonus_unique_arc_warden_4"	"+1.5"
-			}
-			
-			"damage_per_second"				
-			{
-				"value"									"150 300 450 600"
-				"special_bonus_unique_arc_warden_2"		"+75%"
-				"CalculateSpellDamageTooltip"			"1"
-			}
-			"tempest_damage_per_second"				
-			{
-				"value"									"200 450 700 950"
-				"special_bonus_unique_arc_warden_2"		"+100%"
-				"CalculateSpellDamageTooltip"			"1"
-			}
-			"search_radius"								"225"
-			"think_interval"							"0.5"
-			"move_speed_slow_pct"				
-			{
-				"value" 					"15 22 30 39"
-				"RequiresFacet"				"arc_warden_order"
-			}
-			"tempest_move_speed_slow_pct"
-			{
-				"value"						"5 8 11 14"
-				"RequiresFacet"				"arc_warden_disorder"
-			}
-			"AbilityCastRange"			
-			{
-				"value"									"500 600 700 800"
-				"special_bonus_unique_arc_warden_5"		"+200"
-			}
-			"applies_silence"
-			{
-				"value"					"0"
-				"special_bonus_unique_arc_warden_flux_silences"			"1"
-			}
+				{
+					"value"			"6.0"
+					"special_bonus_scepter"			"+2.0"
+				}
+				"search_radius"					"225"
+				"think_interval"				"0.5"
+				"damage_per_second"				
+				{
+					"value"							"150 300 450 600"
+					"CalculateSpellDamageTooltip"	"1"
+					"special_bonus_scepter"			"+50%"
+				}
+				"move_speed_slow_pct"				
+				{
+					"value" 							"14 21 28 35"
+					"special_bonus_unique_arc_warden_4"	"+20"
+				}
+				"AbilityCastRange"			
+				{
+					"value"				"500 600 700 800"
+					"special_bonus_unique_arc_warden_5"	"+200"
+				}
+				"applies_silence"
+				{
+					"value"							"0"
+					"special_bonus_scepter"			"1"
+				}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -110,72 +98,60 @@
 		{
 			"radius"					
 			{
-				"value"						"300"
+				"value"		"300"
 				"affected_by_aoe_increase"	"1"	
-				"special_bonus_shard"		"+75"
 			}
-			"projectile_slow"
+			"knockback_enemies"
 			{
-				"value"						"0"
-				"RequiresShard"				"1"
-				"special_bonus_shard"		"+75"
-			}
-			"shard_slow_pct"
-			{
-				"value"						"30"
-				"RequiresShard"				"1"
-			}			
+				"value"					"0"
+			}		
 			"duration"					
 			{
 				"value"						"4 5 6 7"
-				"RequiresFacet"				"arc_warden_order"
 			}
 			"attack_speed_bonus"		
 			{
-				"value" 					"30 60 90 120"
-				"special_bonus_unique_arc_warden_3" 		"+20"
-				"RequiresFacet"				"arc_warden_order"
+				"value" 				"30 60 90 120"
+				"special_bonus_unique_arc_warden_3" 		"+25"
 			}
 			"evasion_chance"			
 			{
 				"value"					"100"
-				"RequiresFacet"			"arc_warden_order"
-			}
-
-			"tempest_duration"
-			{
-				"value"					"4 5 6 7"
-				"RequiresFacet"			"arc_warden_disorder"
-			}
-
-			"attack_range_bonus"				
-			{
-				"value"					"150"			
-				"RequiresFacet"			"arc_warden_disorder"
-			}
-
-			"attack_damage_bonus"
-			{
-				"value"										"200 400 600 800"
-				"CalculateAttackDamageTooltip"				"1"
-				"special_bonus_unique_arc_warden_3" 		"+250"
-				"RequiresFacet"								"arc_warden_disorder"
-			}
-			"attack_magic_damage"				
-			{
-				"value"										"200 400 600 800"
-				"CalculateSpellDamageTooltip"				"1"
-				"special_bonus_unique_arc_warden_3" 		"+200"
-			}			
+			}		
 			"AbilityCooldown"
 			{
-				"value"										"20 19 18 17"
-				"special_bonus_unique_arc_warden_9"			"-7"
+				"value"						"20 19 18 17"
+				"special_bonus_unique_arc_warden_9"		"-7"
 			}
 			"affects_buildings"
 			{
-				"value"										"0"
-				"special_bonus_unique_arc_warden_7"			"=1"
+				"value"			"0"
+			}
+
+			"rune_pull_strength"
+			{
+				"value"											"0"
+				"special_bonus_facet_arc_warden_power_capture"	"+150"	// If changing this, also update rune_pull_radius
+			}
+			"rune_pull_max_speed_as_multiplier_of_pull_strength"
+			{
+				"value"											"0"
+				"special_bonus_facet_arc_warden_power_capture"	"+4.0"	// 0 is uncapped. If changing this, also update rune_pull_radius
+			}
+			"rune_pull_falloff_multiplier"
+			{
+				"value"											"0.0"
+				"special_bonus_facet_arc_warden_power_capture"	"+3.0"
+			}
+			"rune_pull_radius"
+			{
+				"value"											"0"
+				"special_bonus_facet_arc_warden_power_capture"	"=1200 =1800 =2400 =3000"	// 0 is global. If changing this, calc the max distance that runes can get pulled
+			}
+			"rune_activate_radius_buffer"
+			{
+				"value"											"0"
+				"special_bonus_facet_arc_warden_power_capture"	"+30"
 			}
 		}
 	}
@@ -214,6 +190,7 @@
 			"radius"									
 			{
 				"value"			"375"
+				"special_bonus_shard"	"+100"
 				"affected_by_aoe_increase"	"1"	
 			}
 			"duration"									"16"
@@ -221,56 +198,26 @@
 
 			"base_activation_delay"							
 			{
-				"value"									"2.0"
-				"RequiresFacet"							"arc_warden_order"
+				"value"									"1.5"
+				"special_bonus_unique_arc_warden_7"		"-1.0"
 			}
+
 			"spark_damage_base"
 			{
 			
-				"value"									"1000 1800 2600 3400"
+				"value"									"1000 1700 2400 3100"
 				"CalculateSpellDamageTooltip"			"1"
 				"special_bonus_unique_arc_warden"		"+40%"
-				"RequiresFacet"			"arc_warden_order"
 			}
 
 			"wraith_speed_base"
 			{			
-				"value"									"400"
-				"RequiresFacet"							"arc_warden_order"
+				"value"									"550"
 			}
 
 			"ministun_duration"							
 			{
-				"value"									"0.6 0.8 1.0 1.2"
-				"RequiresFacet"							"arc_warden_order"
-			}
-
-			"tempest_activation_delay"
-			{
-				"value"									"1.0"
-				"RequiresFacet"							"arc_warden_disorder"
-			}
-
-			"spark_damage_tempest"
-			{
-			
-				"value"									"750 1400 2050 2700"
-				"CalculateSpellDamageTooltip"			"1"
-				"special_bonus_unique_arc_warden"		"+40%"
-				"RequiresFacet"							"arc_warden_disorder"
-			}
-
-			"wraith_speed_tempest"
-			{
-				"value"									"725"
-				"RequiresFacet"							"arc_warden_disorder"
-			}
-
-			"ministun_duration_tempest"
-			{
-
-				"value"									"0.4 0.5 0.6 0.7"
-				"RequiresFacet"							"arc_warden_disorder"
+				"value"									"0.5 0.6 0.7 0.8"
 			}
 					
 			"think_interval"							"0.2"
@@ -281,21 +228,20 @@
 			}
 			"wraith_vision_duration"					"3.34"
 
-			"scepter_activation_delay"
+			"maximum_targets"
 			{
-				"value"									"2.0"
-				"RequiresScepter"						"1"
+				"value"					"1"
+				"special_bonus_shard"	"+1"
 			}
-			"scepter_duration"
+			"second_wraith_damage_pct"
 			{
-				"value"									"15"
-				"RequiresScepter"						"1"
-			}				
-			"scepter_radius"
+				"value"					"0"
+				"special_bonus_shard"	"=80.0"
+			}
+			"second_wraith_speed_pct"
 			{
-				"value"									"225"
-				"RequiresScepter"						"1"
-				"affected_by_aoe_increase"	"1"	
+				"value"					"0"
+				"special_bonus_shard"	"=100.0"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
@@ -313,8 +259,6 @@
 		"FightRecapLevel"				"2"
 		"AbilitySound"					"Hero_ArcWarden.TempestDouble"
 		"HasScepterUpgrade"				"1"
-		
-		"LevelsBetweenUpgrades"			"6"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -334,109 +278,41 @@
 		{
 			"AbilityCooldown"				
 			{	
-				"value"									"100 90 80 70 60 50"
-				
+				"value"				"60 55 50"
 			}
-			"duration"
+			"bounty"				"180 240 300"
+			"duration"				"18 21 24"
+			"max_blind_chance"		"35.0"
+			"max_slow"				"35.0"
+			"has_debuff"
 			{
-				"value"									"60"
-				"special_bonus_unique_arc_warden_6"		"+12"
+				"value"								"1"
+				"special_bonus_unique_arc_warden_8"	"=0"
 			}
-			"bounty"									"0"
-			"penalty_distance"			
+
+			"rune_duration"
 			{
-				"value"									"2000"
-				"affected_by_aoe_increase"				"1"	
+				"value"											"0"
+				"special_bonus_facet_arc_warden_runed_replica"	"=10"
 			}
-			"ignore_penalty_distance"		
+
+			"invis_rune"
 			{
-				"value"									"0"
-				"special_bonus_unique_arc_warden_8"		"+1"				
+				"value"											"0 0 0"
+				"special_bonus_facet_arc_warden_runed_replica"	"=1 =1 =1"
 			}
-			"incoming_damage_penalty"					"60"		
+
+			"arcane_rune"
+			{
+				"value"											"0 0 0"
+				"special_bonus_facet_arc_warden_runed_replica"	"=0 =1 =1"
+			}
+
+			"haste_rune"
+			{
+				"value"											"0 0 0"
+				"special_bonus_facet_arc_warden_runed_replica"	"=0 =0 =1"
+			}
 		}
-	}
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_arc_warden"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"BaseClass"						"special_bonus_base"
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_arc_warden_2"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"BaseClass"						"special_bonus_base"
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_arc_warden_3"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"BaseClass"						"special_bonus_base"
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_arc_warden_4"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"BaseClass"						"special_bonus_base"
-		
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_arc_warden_5"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"BaseClass"						"special_bonus_base"
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_arc_warden_6"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"BaseClass"						"special_bonus_base"		
-	}
-		//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_arc_warden_7"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"BaseClass"						"special_bonus_base"
 	}
 }

@@ -294,7 +294,10 @@ function modifier_special_bonus_attributes_stat_rescaling:OnTakeDamage(params)
 	if params.attacker ~= self:GetParent() then return end
 	params.attacker:MakeVisibleToTeam(DOTA_TEAM_BADGUYS, 1.5)
 	
-	if params.damage_type == DAMAGE_TYPE_PURE then return end
+	
+	if params.damage_type == DAMAGE_TYPE_PURE then
+		return
+	end
 	local lifestealParams = {unit = params.attacker, heal = 0, excess = 0, damage_category = params.damage_category}
 	if params.damage_category == DOTA_DAMAGE_CATEGORY_SPELL then
 		if HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL ) or HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_HPLOSS ) or HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_REFLECTION ) then return end

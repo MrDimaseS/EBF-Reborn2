@@ -10,13 +10,14 @@
 		"BaseClass"						"ability_lua"
 		"ScriptFile"					"heroes/hero_bloodseeker/bloodseeker_sanguivore"
 		"AbilityTextureName"			"bloodseeker_sanguivore"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_SKIP_FOR_KEYBINDS"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_SKIP_FOR_KEYBINDS | DOTA_ABILITY_BEHAVIOR_INNATE_UI"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
-		"MaxLevel"						"1"
+		"MaxLevel"						"4"
 		"Innate"						"1"
 		"IsBreakable"					"1"
 		"DependentOnAbility"			"bloodseeker_rupture"
 		
+		"AbilityCastPoint"				""
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
@@ -30,13 +31,25 @@
 			"max_hp_percent_heal_tooltip"
 			{
 				"dynamic_value"					"false"
-				"value"							"0.3 0.4 0.6 0.8 1.0 1.2 1.4"
+				"value"							"0.1 0.2 0.3 0.4"
 			}
 
 			"creep_pct"							"20"
-			"kill_pct"							"400"
+			"kill_pct"							"300"
 			"max_bonus_pct"						"25"
 			"heal_duration"						"2.0"
+			"pure_damage_lifesteal_pct"
+			{
+				"special_bonus_scepter"			"+30"
+			}
+			"max_shield_pct"
+			{
+				"special_bonus_shard"			"+15"
+			}
+			"barrier_decay_pct"
+			{
+				"special_bonus_shard"			"+1.5"
+			}
 		}
 	}
 	//=================================================================================================================
@@ -130,8 +143,11 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_bloodseeker/bloodseeker_blood_bath"
+		"AbilityTextureName"			"bloodseeker_blood_bath"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PURE"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"AbilitySound"					"hero_bloodseeker.bloodRite"
@@ -139,7 +155,6 @@
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"1500"
 		"AbilityCastPoint"				"0.3"
 		
 	
@@ -156,6 +171,10 @@
 			{
 				"value"													"15 14 13 12"
 			}
+			"AbilityCastRange"				
+			{
+				"value"													"1500"
+			}
 			"radius"
 			{
 				"value"													"600"
@@ -164,7 +183,7 @@
 			"silence_duration"											"3 4 5 6"
 			"damage"
 			{
-				"value"													"1150 1900 2650 3400"
+				"value"													"900 1450 2000 2550"
 				"CalculateSpellDamageTooltip"							"1"
 				"special_bonus_unique_bloodseeker_2"					"+100%"
 			}

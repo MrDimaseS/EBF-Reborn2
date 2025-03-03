@@ -16,7 +16,7 @@ function bristleback_quill_spray:OnSpellStart()
 	self:Spray()
 end
 
-function bristleback_quill_spray:Spray(bCone, direction)
+function bristleback_quill_spray:Spray(bProc)
 	local caster = self:GetCaster()
 	local target = target or caster
 	
@@ -29,16 +29,16 @@ function bristleback_quill_spray:Spray(bCone, direction)
 	EmitSoundOn("Hero_Bristleback.QuillSpray.Cast", caster)
 	
 	local enemies
-	if bCone then
-		enemies = caster:FindEnemyUnitsInCone( direction, caster:GetAbsOrigin(), radius/2, radius)
-		local quillFX = ParticleManager:CreateParticle( "particles/units/heroes/hero_bristleback/bristleback_quill_spray_conical.vpcf", PATTACH_WORLDORIGIN, nil )
-		ParticleManager:SetParticleControl( quillFX, 0, caster:GetAbsOrigin() ) 
-		ParticleManager:SetParticleControlTransformForward( quillFX, 0, caster:GetAbsOrigin(), -direction )
-		ParticleManager:ReleaseParticleIndex( quillFX )
-	else
+	-- if bCone then
+		-- enemies = caster:FindEnemyUnitsInCone( direction, caster:GetAbsOrigin(), radius/2, radius)
+		-- local quillFX = ParticleManager:CreateParticle( "particles/units/heroes/hero_bristleback/bristleback_quill_spray_conical.vpcf", PATTACH_WORLDORIGIN, nil )
+		-- ParticleManager:SetParticleControl( quillFX, 0, caster:GetAbsOrigin() ) 
+		-- ParticleManager:SetParticleControlTransformForward( quillFX, 0, caster:GetAbsOrigin(), -direction )
+		-- ParticleManager:ReleaseParticleIndex( quillFX )
+	-- else
 		enemies = caster:FindEnemyUnitsInRadius(caster:GetAbsOrigin(), radius)
 		ParticleManager:FireParticle("particles/units/heroes/hero_bristleback/bristleback_quill_spray.vpcf", PATTACH_POINT, caster)
-	end
+	-- end
 	
 	for _, enemy in ipairs( enemies ) do
 		local quillsDebuff = enemy:FindModifierByName("modifier_bristleback_quill_spray")
@@ -46,7 +46,7 @@ function bristleback_quill_spray:Spray(bCone, direction)
 		if quillsDebuff then
 			dmgTaken = math.min( maxDamage, dmgTaken + quillsDebuff:GetStackCount() * stackDamage )
 		end
-		self:DealDamage( caster, enemy, dmgTaken, {damage_type = DAMAGE_TYPE_PHYSICAL} )
+		self:DealDamage( caster, enemy, dmgTaken, {damage_type = DAMAGE_TYPE_PHYSICAL damage_flags = TernaryOperator( DOTA_DAMAGE_FLAG_REFLECTION, bProc, DOTA_DAMAGE_FLAG_NONE ) } )
 		
 		local spray = enemy:AddNewModifier( caster, self.quills, "modifier_bristleback_quill_spray", {duration = duration})
 		if spray then

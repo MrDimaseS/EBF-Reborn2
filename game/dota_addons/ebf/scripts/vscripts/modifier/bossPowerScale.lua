@@ -69,7 +69,7 @@ function bossPowerScale:OnIntervalThink()
 			self.enrageTimer = (90 - (20*(self.difficulty-1)) )*3
 			self.dmgTakenSinceCheck = 0
 		end
-		AddFOWViewer( DOTA_TEAM_BADGUYS, self:GetParent():GetAbsOrigin(), self:GetParent():GetCurrentVisionRange() + 128, 0.3, not self:GetParent():HasFlyingVision() )
+		AddFOWViewer( DOTA_TEAM_BADGUYS, self:GetParent():GetAbsOrigin(), 128, 0.3, false )
 	end
 	
 	if self.baseStatusResistance then

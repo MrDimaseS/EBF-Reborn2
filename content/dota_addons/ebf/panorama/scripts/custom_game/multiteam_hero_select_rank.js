@@ -15,6 +15,8 @@ const mainHud = pickScreenHud.FindChildTraverse("PreGame");
 			dotaMap.style.backgroundImage = 'url("s2r://materials/overviews/narrow_mazes_tga_1c8cdefd.vtex")';
 		} else if(mapData.map == "fields_of_carnage"){
 			dotaMap.style.backgroundImage = 'url("s2r://materials/overviews/fields_of_carnage_tga_98ff0b56.vtex")';
+		} else if(mapData.map == "immortal_halls"){
+			dotaMap.style.backgroundImage = 'url("s2r://materials/overviews/immortal_halls_tga_ef9f79b2.vtex")';
 		}
 		dotaMap.style.border = '2px solid silver';
 		dotaMap.style.saturation = "0.8";
@@ -69,6 +71,8 @@ function OnUpdateDifficultyVotes()
 			strategyMap.style.backgroundImage = 'url("s2r://materials/overviews/narrow_mazes_tga_1c8cdefd.vtex")';
 		} else if(mapData.map == "fields_of_carnage"){
 			strategyMap.style.backgroundImage = 'url("s2r://materials/overviews/fields_of_carnage_tga_98ff0b56.vtex")';
+		} else if(mapData.map == "immortal_halls"){
+			strategyMap.style.backgroundImage = 'url("s2r://materials/overviews/immortal_halls_tga_ef9f79b2.vtex")';
 		}
 		const startingItems = strategyTab.FindChildTraverse("StartingItems");
 		startingItems.style.visibility = "collapse";

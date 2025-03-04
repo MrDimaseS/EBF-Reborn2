@@ -8,7 +8,7 @@ function centaur_return:ProcReturn(target, damage)
 	local caster = self:GetCaster()
 	local fDmg = damage or self:GetSpecialValueFor("return_damage")
 	ParticleManager:FireRopeParticle("particles/units/heroes/hero_centaur/centaur_return.vpcf", PATTACH_POINT_FOLLOW, caster, target)
-	return self:DealDamage( caster, target, fDmg )
+	return self:DealDamage( caster, target, fDmg, {damage_flags = DOTA_DAMAGE_FLAG_REFLECTION} )
 end
 
 modifier_centaur_return_passive = class({})

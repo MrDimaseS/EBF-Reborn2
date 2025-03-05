@@ -13,14 +13,18 @@ end
 
 function modifier_pudge_innate_graft_flesh_kills:OnRefresh()
 	self.strength_per_stack = self:GetSpecialValueFor("flesh_heap_strength_buff_amount")
-	self.creep_stacks = self:GetAbility():GetSpecialValueFor("creep_stacks")
-	self.hero_stacks = self:GetAbility():GetSpecialValueFor("hero_stacks")
-	self.flesh_heap_range = self:GetAbility():GetSpecialValueFor("flesh_heap_range")
-	self.temporary_duration = self:GetAbility():GetSpecialValueFor("temporary_duration")
+	self.creep_stacks = self:GetSpecialValueFor("creep_stacks")
+	self.hero_stacks = self:GetSpecialValueFor("hero_stacks")
+	self.flesh_heap_range = self:GetSpecialValueFor("flesh_heap_range")
+	self.temporary_duration = self:GetSpecialValueFor("temporary_duration")
+	self.bonus_maximum_health = self:GetSpecialValueFor("bonus_maximum_health")
+	self.bonus_base_damage = self:GetSpecialValueFor("bonus_base_damage")
 end
 
 function modifier_pudge_innate_graft_flesh_kills:DeclareFunctions()
 	return { MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,
+			 MODIFIER_PROPERTY_EXTRA_HEALTH_BONUS,
+			 MODIFIER_PROPERTY_BASEATTACK_BONUSDAMAGE,
 			 MODIFIER_EVENT_ON_DEATH }
 end
 
@@ -38,6 +42,14 @@ end
 
 function modifier_pudge_innate_graft_flesh_kills:GetModifierBonusStats_Strength()
 	return self:GetStackCount() * self.strength_per_stack
+end
+
+function modifier_pudge_innate_graft_flesh_kills:GetModifierExtraHealthBonus()
+	return self:GetStackCount() * self.bonus_maximum_health
+end
+
+function modifier_pudge_innate_graft_flesh_kills:GetModifierBaseAttack_BonusDamage()
+	return self:GetStackCount() * self.bonus_base_damage
 end
 
 function modifier_pudge_innate_graft_flesh_kills:RemoveOnDeath()
@@ -65,15 +77,25 @@ end
 
 function modifier_pudge_innate_graft_flesh_temporary:OnRefresh()
 	self.strength_per_stack = self:GetSpecialValueFor("flesh_heap_strength_buff_amount")
+	self.bonus_maximum_health = self:GetSpecialValueFor("bonus_maximum_health")
+	self.bonus_base_damage = self:GetSpecialValueFor("bonus_base_damage")
 	if IsServer() then
 		self:AddIndependentStack( self.temporary_duration )
 	end
 end
 
 function modifier_pudge_innate_graft_flesh_temporary:DeclareFunctions()
-	return { MODIFIER_PROPERTY_STATS_STRENGTH_BONUS }
+	return { MODIFIER_PROPERTY_STATS_STRENGTH_BONUS, MODIFIER_PROPERTY_EXTRA_HEALTH_BONUS, MODIFIER_PROPERTY_BASEATTACK_BONUSDAMAGE }
 end
 
 function modifier_pudge_innate_graft_flesh_temporary:GetModifierBonusStats_Strength()
 	return self:GetStackCount() * self.strength_per_stack
+end
+
+function modifier_pudge_innate_graft_flesh_temporary:GetModifierExtraHealthBonus()
+	return self:GetStackCount() * self.bonus_maximum_health
+end
+
+function modifier_pudge_innate_graft_flesh_temporary:GetModifierBaseAttack_BonusDamage()
+	return self:GetStackCount() * self.bonus_base_damage
 end

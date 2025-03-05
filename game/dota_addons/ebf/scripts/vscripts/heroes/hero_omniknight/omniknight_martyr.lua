@@ -1,5 +1,9 @@
 omniknight_martyr = class({})
 
+function omniknight_martyr:GetAOERadius()
+	return self:GetSpecialValueFor("radius")
+end
+
 function omniknight_martyr:OnSpellStart()
     local caster = self:GetCaster()
     local target_point = self:GetCursorPosition()

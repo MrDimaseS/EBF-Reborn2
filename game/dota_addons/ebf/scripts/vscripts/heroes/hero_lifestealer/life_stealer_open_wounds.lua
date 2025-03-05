@@ -18,6 +18,7 @@ function modifier_life_stealer_open_wounds_debuff:OnCreated(table)
 end
 
 function modifier_life_stealer_open_wounds_debuff:OnRefresh()
+	self.reset_cooldown_on_kill = self:GetSpecialValueFor("reset_cooldown_on_kill") == 1
 	self.slow = self:GetSpecialValueFor("slow_tooltip")
 	self.spread_radius = self:GetSpecialValueFor("spread_radius")
 	self.heal_percent = self:GetSpecialValueFor("heal_percent") / 100
@@ -31,6 +32,13 @@ end
 
 function modifier_life_stealer_open_wounds_debuff:OnIntervalThink()
 	self.slow = math.max( self.slow - self.slow_decay, 0 )
+end
+
+function modifier_life_stealer_open_wounds_debuff:OnDestroy()
+	if not IsServer() then return end
+	if self.reset_cooldown_on_kill and not self:GetParent():IsAlive() then
+		self:GetAbility():EndCooldown()
+	end
 end
 
 function modifier_life_stealer_open_wounds_debuff:DeclareFunctions()

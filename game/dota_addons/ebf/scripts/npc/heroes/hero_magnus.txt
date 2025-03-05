@@ -36,6 +36,10 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"AbilityCastRange"
+			{
+				"value"					"1200"
+			}
 			"shock_speed"				
 			{
 				"value"							"1200"
@@ -62,15 +66,29 @@
 				"value"							"0.7 0.8 0.9 1.0"
 				"special_bonus_unique_magnus_6"	"+0.5"
 			}
+			
+			"max_level"
+			{
+				"value"												"4"
+				"special_bonus_facet_magnataur_diminishing_return" "+1"
+			}
+			"max_level_tooltip"
+			{
+				"special_bonus_facet_magnataur_diminishing_return" "=5"
+			}
 			"return_damage_pct"			
 			{
-				"value"							"0"
-				"special_bonus_shard"			"+75"
+				"value"			"0"
+				"special_bonus_facet_magnataur_diminishing_return"		"=0 =0 =0 =0 =50"
 			}
-			"AbilityCastRange"
+			"return_damage_pct_tooltip"
 			{
-				"value"							"1200"
-				"special_bonus_shard"			"+400"
+				"value"			"0"
+				"special_bonus_facet_magnataur_diminishing_return"		"=50"
+			}
+			"return_shockwave_bonus_distance"
+			{
+				"special_bonus_facet_magnataur_diminishing_return"		"+200"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -148,6 +166,27 @@
 				//"special_bonus_shard"	"+400"
 			}
 			"self_multiplier"		"50"
+			
+			"always_on"			
+			{
+				"value"															"0"
+				"special_bonus_facet_magnataur_eternal_empowerment"				"=1"
+			}
+			"self_multiplier_bonus_stack_duration"
+			{
+				"value"															"0"
+				"special_bonus_facet_magnataur_eternal_empowerment"				"10"
+			}
+			"self_multiplier_bonus_max_stacks"		
+			{
+				"value"															"0"
+				"special_bonus_facet_magnataur_eternal_empowerment"				"10 15 20 25"
+			}
+			"self_multiplier_bonus_per_stack"		
+			{
+				"value"															"0"
+				"special_bonus_facet_magnataur_eternal_empowerment"				"2 3 4 5"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -189,7 +228,7 @@
 			"range"		
 			{
 				"value" 									"900 975 1050 1125"
-				"special_bonus_unique_magnus_3"				"+275"
+				"special_bonus_shard" 						"+275"
 			}
 			"slow_pct"										"20 30 40 50"
 			"skewer_radius"				
@@ -197,10 +236,20 @@
 				"value"										"145"
 				"affected_by_aoe_increase"					"1"
 			}
-			"slow_duration"									"3.25"
+			"slow_duration"			
+			{
+				"value"										"3.25"
+				"special_bonus_unique_magnus_6"				"+1.25"
+			}
 			"skewer_damage"
 			{
 				"value" 									"800 1600 2400 3200"
+				"CalculateSpellDamageTooltip"				"1"
+			}
+			"damage_distance_pct"			
+			{		
+				"value"										"60 90 120 150" 
+				"special_bonus_unique_magnus_skewer_damage_distance"		"+150"
 				"CalculateSpellDamageTooltip"				"1"
 			}
 			"tree_radius"				
@@ -210,13 +259,13 @@
 			}
 			"tree_hit_damage"
 			{
-				"value"										"150 200 250 300"
+				"special_bonus_shard"						"150 200 250 300"
 				"CalculateSpellDamageTooltip"				"1"
 					
 			}
 			"cliff_hit_damage"
 			{
-				"value"										"500 750 1000 1250"
+				"special_bonus_shard"						"500 750 1000 1250"
 				"CalculateSpellDamageTooltip"				"1"
 			}				
 			"terrain_hit_cooldown"

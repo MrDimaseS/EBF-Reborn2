@@ -58,6 +58,7 @@ function modifier_mars_arena_of_blood_damage_reduction:OnCreated(keys)
 	self.radius = self:GetAbility():GetSpecialValueFor("radius")
 	self.arena_kill_buff_duration = self:GetAbility():GetSpecialValueFor("arena_kill_buff_duration")
 	self.arena_kill_buff_heal_pct = self:GetAbility():GetSpecialValueFor("arena_kill_buff_heal_pct") / 100
+	self.allied_reduction_pct = self:GetAbility():GetSpecialValueFor("allied_reduction_pct") / 100
 end
 
 function modifier_mars_arena_of_blood_damage_reduction:DeclareFunctions()
@@ -73,7 +74,11 @@ function modifier_mars_arena_of_blood_damage_reduction:OnDeath( params )
 		local caster = self:GetCaster()
 		local ability = self:GetAbility()
 		for _, ally in ipairs( self:GetCaster():FindFriendlyUnitsInRadius( self:GetParent():GetAbsOrigin(), self.radius ) ) do
-			ally:HealEvent( ally:GetMaxHealth() * healing, ability, caster )
+			local unitHeal = healing
+			if ally ~= self:GetCaster() then
+				unitHeal = unitHeal * self.allied_reduction_pct
+			end
+			ally:HealEvent( ally:GetMaxHealth() * unitHeal, ability, caster )
 			ally:AddNewModifier( caster, ability, "modifier_mars_arena_of_blood_victory_feast", {duration = self.arena_kill_buff_duration} )
 		end
 	end
@@ -118,6 +123,10 @@ end
 
 function modifier_mars_arena_of_blood_victory_feast:OnRefresh()
 	self.arena_kill_buff_damage_pct = self:GetAbility():GetSpecialValueFor("arena_kill_buff_damage_pct")
+	self.allied_reduction_pct = self:GetAbility():GetSpecialValueFor("allied_reduction_pct") / 100
+	if self:GetParent() ~= self:GetCaster() then
+		self.arena_kill_buff_damage_pct = self.arena_kill_buff_damage_pct * self.allied_reduction_pct
+	end
 	if IsServer() then
 		self:AddIndependentStack( )
 	end

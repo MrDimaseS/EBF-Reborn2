@@ -37,7 +37,7 @@
 		{
 			"damage"
 			{
-				"value"									"800 1600 2400 3200"
+				"value"									"800 1600 2400 3200 4000"
 				"special_bonus_unique_night_stalker_4"	"+50%"
 				"CalculateSpellDamageTooltip"			"1"
 			}
@@ -60,10 +60,32 @@
 
 			"invisible_damage_tickrate"	".1"
 			
+			"invisible_damage_tickrate"	".1"
+			"max_level"
+			{
+				"value"					"4"
+				"special_bonus_facet_night_stalker_voidbringer" "+1"
+			}
+			"max_level_tooltip"
+			{
+				"special_bonus_facet_night_stalker_voidbringer" "=5"
+			}
 			"disable_vision"
 			{
 				"value"			"0"
 				"special_bonus_facet_night_stalker_blinding_void" "1"				
+			}
+			"cast_radius"
+			{
+				"value"					"0"
+				"special_bonus_facet_night_stalker_voidbringer" "=0 =0 =0 =0 =300"
+				"affected_by_aoe_increase"			"1"
+			}
+			"cast_radius_tooltip"
+			{
+				"value"	"0"
+				"special_bonus_facet_night_stalker_voidbringer" "=300"
+				"affected_by_aoe_increase"			"1"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -169,12 +191,13 @@
 		{
 			"bonus_movement_speed_pct_night"	
 			{
-				"value"									"22 28 34 40"
-				"special_bonus_unique_night_stalker_5" "+10"
+				"value"													"22 28 34 40 40"
+				"special_bonus_facet_night_stalker_dayswap"				"=16 =22 =28 =34 =40"
 			}
 			"bonus_attack_speed_night"			
 			{
-				"value"									"20 40 60 80"
+				"value"													"20 40 60 80 80"
+				"special_bonus_facet_night_stalker_dayswap"				"=15 =35 =55 =75 =95"
 				"special_bonus_unique_night_stalker_2"	"+100"
 			}
 			"bonus_status_resist_night"			
@@ -202,6 +225,20 @@
 			{
 				"value"				"125"
 				"RequiresShard"		"1"
+			}
+			"max_level"
+			{
+				"value"				"4"
+				"special_bonus_facet_night_stalker_dayswap"				"+1"
+			}
+			"max_level_tooltip"
+			{
+				"special_bonus_facet_night_stalker_dayswap"				"=5"
+			}
+			"gives_free_level"
+			{
+				"value"				"0"
+				"special_bonus_facet_night_stalker_dayswap"				"+1"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_5"

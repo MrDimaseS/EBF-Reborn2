@@ -1,6 +1,5 @@
 "DOTAAbilities"
-{	
-	
+{
 	//=================================================================================================================
 	// Medusa: Mana Shield
 	//=================================================================================================================
@@ -100,7 +99,8 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"damage"		"0"
+			"damage"								"0"
+			"stone_form_scepter_base_tooltip"		"1"		//taken from stone_form_scepter_base
 		}
 	}
 
@@ -114,6 +114,7 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_TOGGLE | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"		
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"HasScepterUpgrade"				"1"
 		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -125,20 +126,25 @@
 		{
 			"damage_modifier"		
 			{
-				"value"							"-60 -45 -30 -15"
+				"value"		"-50 -40 -30 -20"
 				"special_bonus_unique_medusa_2"	"+8"
 			}
 			"damage_modifier_tooltip"		
 			{	
-				"value"							"40 55 70 85"
+				"value"			"50 60 70 80"
 				"special_bonus_unique_medusa_2"	"+8"
-			}
-			"arrow_count"						"4"	
+			}		
+			"arrow_count"
+			{
+				"value"						"4"
+				"special_bonus_scepter"		"+1"
+			}	
 			"process_procs"
 			{
-				"value"			"0"
+				"value"						"0"
+				"special_bonus_scepter"		"+1"
 			}
-			"split_shot_bonus_range"			"150"
+			"split_shot_bonus_range"		"150"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -161,7 +167,6 @@
 		
 		"AbilityDraftShardAbility"		"medusa_cold_blooded"
 		"HasShardUpgrade"				"1"
-		"HasScepterUpgrade"				"1"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -196,16 +201,7 @@
 			"snake_scale"								"35"
 			"initial_speed"								"800"
 			"return_speed"								"800"
-			"stone_form_scepter_base"		
-			{
-				"value"									"1.0"
-				"RequiresScepter"						"1"
-			}
-			"stone_form_scepter_increment"		
-			{
-				"value"									"0.2"
-				"RequiresScepter"						"1"
-			}
+			
 			"movement_slow"								"30"
 			"slow_duration"								"3"
 			"max_attacks"					
@@ -261,10 +257,15 @@
 			"radius"
 			{
 				"value"					"150"
+				"special_bonus_unique_medusa_gorgons_grasp_radius"		"+20%"
 				"affected_by_aoe_increase"	"1"
 			}
 
-			"radius_grow"				"50"
+			"radius_grow"
+			{
+				"value"					"50"
+				"special_bonus_unique_medusa_gorgons_grasp_radius"		"+20%"
+			}
 
 			"delay"						"1"
 			"volley_interval"			".25"

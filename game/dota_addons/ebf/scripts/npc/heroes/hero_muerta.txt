@@ -81,16 +81,29 @@
 			{
 				"value"											"1000 1750 2500 3250"
 				"special_bonus_unique_muerta_dead_shot_damage"	"+25%"
+				"special_bonus_scepter"							"+1250"
 				"CalculateSpellDamageTooltip"					"1"
 			}
-			"speed"												"2000"
-			"radius"											"100"
-			"ricochet_radius_start"								"115"
-			"ricochet_radius_end"								"115"
-			"ricochet_distance_multiplier"						"1.5"
-			"ricochet_fear_duration"							"0.8 0.95 1.1 1.25"
-			"impact_slow_percent"								"-100"
-			"impact_slow_duration"								"0.5"
+			"speed"							"2000"
+			"radius"						
+			{
+				"value"			"150"
+				"affected_by_aoe_increase"	"1"	
+			}
+			"ricochet_radius_start"			"115"
+			"ricochet_radius_end"			"115"
+			"ricochet_radius_expansion_per_second"
+			{
+				"special_bonus_scepter"		"+300"
+			}
+			"ricochet_distance_multiplier"	"1.5"
+			"ricochet_fear_duration"		"0.8 0.95 1.1 1.25"
+			"impact_slow_percent"			"-100"
+			"impact_slow_duration"			"1"
+			"scepter_pierces"
+			{
+				"special_bonus_scepter"	"+1"
+			}
 		}
 	}
 
@@ -197,7 +210,7 @@
 		{
 			"double_shot_chance"
 			{
-				"value"					"26 34 42 50"
+				"value"					"18 27 36 45"
 				"special_bonus_unique_muerta_gunslinger_double_shot_chance"	"+20"
 			}
 			"target_search_bonus_range"	"175"

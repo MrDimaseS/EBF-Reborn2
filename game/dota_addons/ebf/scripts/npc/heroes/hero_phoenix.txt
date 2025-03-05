@@ -25,9 +25,6 @@
 			}
 		}
 	}
-	//=================================================================================================================
-	// Phoenix Innate Blinding Sun
-	//=================================================================================================================
 	"phoenix_blinding_sun"
 	{
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI | DOTA_ABILITY_BEHAVIOR_SKIP_FOR_KEYBINDS"
@@ -35,11 +32,16 @@
 
 		"MaxLevel"						"1"
 		"Innate"						"1"
+		"IsBreakable"					"1"
 
 		"AbilityValues"
 		{
-			"blind_per_second"	"2"
-			"blind_duration"	"5"	
+			"blind_per_second"	
+			{
+				"value"				"2"
+				"special_bonus_unique_phoenix_blinding_sun_misschance"		"+0.5"
+			}
+			"blind_duration"	"4"	
 		}
 	}
 	//=================================================================================================================

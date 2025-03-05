@@ -77,7 +77,11 @@
 				"special_bonus_unique_marci_dispose_range"	"+175"
 			}
 			"pull_angle"		"230"
-			"debuff_duration"	"3"			
+			"debuff_duration"
+			{
+				"value"				"3"
+				"special_bonus_unique_marci_dispose_slow"		"+1.5"
+			}
 			"impact_damage"		
 			{
 				"value"										"750 1500 2250 3000"
@@ -139,7 +143,12 @@
 				"value"										"450 550 650 750"
 				"special_bonus_unique_marci_lunge_range"	"+100"
 			}
-			"landing_radius"								"275"
+			"landing_radius"		
+			{
+				"value"	"275"
+				"special_bonus_unique_marci_rebound_radius"		"+75"
+				"affected_by_aoe_increase"	"1"	
+			}
 			"impact_damage"			
 			{
 				"value"										"800 1600 2400 3200"
@@ -176,66 +185,43 @@
 				"value"												"15"
 				"RequiresScepter"									"1"
 			}
+			
+			"ally_arc_offset"
+			{
+				"value"					"0"
+				"RequiresFacet"		"marci_pickmeup"
+				"special_bonus_facet_marci_pickmeup"	"=150"
+			}
+			"ally_impact_damage_pct"
+			{
+				"value"					"0"
+				"RequiresFacet"		"marci_pickmeup"
+				"special_bonus_facet_marci_pickmeup"	"=25"
+			}				
+			"max_level"
+			{
+				"value"				"4"
+				//"special_bonus_facet_marci_pickmeup"				"+1"
+			}
+			"max_level_tooltip"
+			{
+				"special_bonus_facet_marci_pickmeup" "=5"
+			}
+			"postjump_unleash_duration"
+			{
+				"value"											"0"
+				"RequiresFacet"									"marci_fleeting_fury"
+				"special_bonus_facet_marci_fleeting_fury"		"=3"
+			}
+			"postjump_flurry_charges"
+			{
+				"value"											"0"
+				"RequiresFacet"									"marci_fleeting_fury"
+				"special_bonus_facet_marci_fleeting_fury"		"=3"
+			}	
 		}
 		
 	}
-	//=================================================================================================================
-	// Marci: Sidekick
-	//=================================================================================================================
-	"marci_guardian"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-			// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
-		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
-		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
-		"FightRecapLevel"				"1"
-		"AbilitySound"					"Hero_Marci.Guardian.Applied"
-		
-
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"700"
-		"AbilityCastPoint"				"0.0"
-		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_3"
-		"AbilityCastGestureSlot"		"DEFAULT"
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"20"
-
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"45 40 35 30"
-
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			"lifesteal_pct"
-			{
-				"value"											"6 9 12 15"
-				"special_bonus_unique_marci_guardian_lifesteal"	"+10"
-			}
-			"bonus_damage"		
-			{
-				"value"											"10 15 20 25"
-				"special_bonus_unique_marci_guardian_damage"	"+20"
-			}
-			"max_partner_distance"				
-			{
-				"value"											"2500"
-				"affected_by_aoe_increase"						"1"
-			}
-			"max_partner_penalty"								"50"
-			"creep_lifesteal_reduction_pct"						"40"
-		}
-	}
-
 	//=================================================================================================================
 	// Marci: Bodyguard
 	//=================================================================================================================

@@ -15,7 +15,6 @@ end
 -- Ability Start
 function pudge_meat_hook:OnAbilityPhaseStart()
 	self:GetCaster():StartGesture( ACT_DOTA_OVERRIDE_ABILITY_1 )
-	print("what")
 end
 
 function pudge_meat_hook:OnAbilityPhaseInterrupted()
@@ -78,7 +77,11 @@ function pudge_meat_hook:OnSpellStart()
 
 	-- play effects
 	self:PlayEffects( target, data )
-	print("??")
+	
+	local buffDuration = self:GetSpecialValueFor("buff_linger_duration")
+	if buffDuration > 0 then
+		caster:AddNewModifier( caster, self, "modifier_pudge_meat_hook_rotten_giant", {duration = buffDuration} )
+	end
 end
 
 --------------------------------------------------------------------------------
@@ -87,17 +90,15 @@ pudge_meat_hook.projectiles = {}
 function pudge_meat_hook:OnProjectileHitHandle( target, location, handle )
 	local data = self.projectiles[handle]
 	local caster = self:GetCaster()
-	print("hit")
 	if not data then return true end
 
-	PrintAll(data)
 	if not target then
 		-- remove ref
 		self.projectiles[handle] = nil
 
 		-- set effects
 		self:SetEffects1( data )
-
+		self:SetCooldown( self:GetCooldownTimeRemaining() * self:GetSpecialValueFor("cooldown_reduction_pct_allied_hook") / 100 )
 		return true
 	end
 
@@ -106,7 +107,7 @@ function pudge_meat_hook:OnProjectileHitHandle( target, location, handle )
 		return false
 	end
 	-- add drag modifier
-	target:AddNewModifier(
+	local movement = target:AddNewModifier(
 		caster, -- player source
 		self, -- ability source
 		"modifier_pudge_meat_hook_movement", -- modifier name
@@ -116,12 +117,9 @@ function pudge_meat_hook:OnProjectileHitHandle( target, location, handle )
 	caster:RemoveModifierByName("modifier_pudge_meat_hook_self")
 	-- damage
 	local hook_distance = self:GetSpecialValueFor( "hook_distance" )
-	local damage_mult = (1 + math.min( 1, CalculateDistance( target, data.cast_location ) / hook_distance ) * self:GetSpecialValueFor( "distance_to_damage" ) / 100)
+	local damage = self:GetSpecialValueFor( "damage" )
 	
-	print( damage_mult, "hit target" )
-	local damage = self:GetSpecialValueFor( "damage" ) * damage_mult
-	
-	if target:GetTeamNumber() ~= caster:GetTeamNumber() then
+	if not target:IsSameTeam( caster ) then
 		local damageTable = {
 			victim = target,
 			attacker = caster,
@@ -133,7 +131,20 @@ function pudge_meat_hook:OnProjectileHitHandle( target, location, handle )
 
 		if not ( target:IsConsideredHero() or target:IsAncient() ) then
 			self:DealDamage( caster, target, damage + target:GetMaxHealth(), {damage_type = DAMAGE_TYPE_PURE, damage_flags = DOTA_DAMAGE_FLAG_NO_DAMAGE_MULTIPLIERS} )
+		else
+			self:DealDamage( caster, target, damage, {damage_type = DAMAGE_TYPE_PURE} )
 		end
+		if IsEntitySafe( target ) and target:IsAlive() then
+			local debuffDuration = self:GetSpecialValueFor("debuff_linger_duration")
+			if debuffDuration > 0 then
+				local debuff = target:AddNewModifier( caster, self, "modifier_pudge_meat_hook_flesh_carver", {duration = debuffDuration} )
+				if IsModifierSafe( movement ) then
+					movement._debuffModifier = debuff
+				end
+			end
+		end
+	else
+		self:SetCooldown( self:GetCooldownTimeRemainig() * self:GetSpecialValueFor("cooldown_reduction_pct_allied_hook") / 100 )
 	end
 
 	-- add FOW
@@ -303,7 +314,8 @@ function modifier_pudge_meat_hook_movement:OnCreated( kv )
 	self.offset = 80
 	self.threshold = 80
 	self.speed = self:GetSpecialValueFor( "hook_speed" )
-	-- self.distance_to_damage = self:GetSpecialValueFor( "distance_to_damage" ) / 100
+	self.distance_to_damage = self:GetSpecialValueFor( "distance_to_damage" ) / 100
+	self.distance_to_damage = self:GetSpecialValueFor( "distance_to_damage" ) / 100
 
 	if not IsServer() then return end
 
@@ -403,9 +415,13 @@ function modifier_pudge_meat_hook_movement:UpdateHorizontalMotion( me, dt )
 	nextpos = GetGroundPosition( nextpos, me )
 	me:SetOrigin( nextpos )
 	
-	-- if self.distance_to_damage > 0 then
-		-- self:GetAbility():DealDamage( self:GetCaster(), me, self.speed * dt * self.distance_to_damage )
-	-- end
+	if IsModifierSafe( self._debuffModifier ) then
+		self._debuffModifier:SetDuration( self._debuffModifier:GetRemainingTime() + dt * 2, true ) 
+	end
+	
+	if self.distance_to_damage > 0 then
+		self:GetAbility():DealDamage( self:GetCaster(), me, self.speed * dt * self.distance_to_damage )
+	end
 	-- check caster still in cast position
 	if CalculateDistance(me, self.origin) > self.threshold then
 		-- set effects
@@ -450,4 +466,63 @@ function modifier_pudge_meat_hook_movement:OnHorizontalMotionInterrupted()
 
 	self:GetParent():RemoveHorizontalMotionController( self )
 	self.interrupted = true
+end
+
+
+LinkLuaModifier( "modifier_pudge_meat_hook_rotten_giant", "heroes/hero_pudge/pudge_meat_hook", LUA_MODIFIER_MOTION_NONE )
+modifier_pudge_meat_hook_rotten_giant = class({})
+
+function modifier_pudge_meat_hook_rotten_giant:OnCreated()
+	self:OnRefresh()
+end
+
+function modifier_pudge_meat_hook_rotten_giant:OnRefresh()
+	self.bonus_armor = self:GetSpecialValueFor("bonus_armor")
+	self.bonus_mr = self:GetSpecialValueFor("bonus_mr")
+end
+
+function modifier_pudge_meat_hook_rotten_giant:DeclareFunctions()
+	local funcs = {
+		MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
+		MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS,
+	}
+
+	return funcs
+end
+
+function modifier_pudge_meat_hook_rotten_giant:GetModifierPhysicalArmorBonus()
+	return self.bonus_armor
+end
+
+function modifier_pudge_meat_hook_rotten_giant:GetModifierMagicalResistanceBonus()
+	return self.bonus_mr
+end
+
+LinkLuaModifier( "modifier_pudge_meat_hook_flesh_carver", "heroes/hero_pudge/pudge_meat_hook", LUA_MODIFIER_MOTION_NONE )
+modifier_pudge_meat_hook_flesh_carver = class({})
+
+function modifier_pudge_meat_hook_flesh_carver:OnCreated()
+	self:OnRefresh()
+end
+
+function modifier_pudge_meat_hook_flesh_carver:OnRefresh()
+	self.armor_loss = -self:GetSpecialValueFor("armor_loss")
+	self.mr_loss = -self:GetSpecialValueFor("mr_loss")
+end
+
+function modifier_pudge_meat_hook_flesh_carver:DeclareFunctions()
+	local funcs = {
+		MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
+		MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS,
+	}
+
+	return funcs
+end
+
+function modifier_pudge_meat_hook_flesh_carver:GetModifierPhysicalArmorBonus()
+	return self.armor_loss
+end
+
+function modifier_pudge_meat_hook_flesh_carver:GetModifierMagicalResistanceBonus()
+	return self.mr_loss
 end

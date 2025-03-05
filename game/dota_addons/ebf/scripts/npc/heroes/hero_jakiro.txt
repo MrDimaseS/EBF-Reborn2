@@ -15,7 +15,11 @@
 		"AbilityValues"
 		{
 			"second_attack_delay"			"0.2"
-			"attack_damage_reduction"		"45"
+			"attack_damage_reduction"		
+			{
+				"value"										"50"
+				"special_bonus_facet_jakiro_twin_terror"	"=40 =35 =30 =25"
+			}
 		}
 	}
 	//=================================================================================================================
@@ -134,7 +138,23 @@
 			{
 				"value"								"18 15 12 9"
 				"special_bonus_unique_jakiro_6"		"-1.5"
-			}	
+			}
+			"detonate_damage"
+			{
+				"value"													"=0 =0 =0 =0"
+				"special_bonus_facet_jakiro_ice_breaker"				"=750 =1250 =1750 =2250"
+				"CalculateSpellDamageTooltip" 		"1"
+			}
+			"detonate_stun_duration"
+			{
+				"value"													"=0"
+				"special_bonus_facet_jakiro_ice_breaker"				"=0.5"
+			}
+			"detonate_projectile_speed"
+			{
+				"value"													"=0"
+				"special_bonus_facet_jakiro_ice_breaker"				"=2400"
+			}
 		}	
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -191,13 +211,14 @@
 			"pct_health_damage" 		
 			{
 				"value"									"0"
-				"special_bonus_shard"					"+2.5"
+				"special_bonus_unique_jakiro_3"			"+2.5"
 			}
 			"tick_rate"									"0.5"
 			"building_dmg_pct"							"75"
-			"double_head"
+			"shares_cooldown"					
 			{
-				"special_bonus_unique_jakiro_3"			"+1"
+				"value"						"1"
+				"special_bonus_shard"		"=0"
 			}
 		}		
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
@@ -253,9 +274,9 @@
 			}
 			"pct_health_damage" 		
 			{
-				"value"								"0"
-				"special_bonus_shard"				"+2.5"
-			}
+				"value"						"0"
+				"special_bonus_unique_jakiro_3"		"+2.5"
+			}	
 			"duration"								"4.0"
 			"radius"				
 			{
@@ -266,6 +287,11 @@
 			"double_head"
 			{
 				"special_bonus_unique_jakiro_3"		"+1"
+			}
+			"shares_cooldown"					
+			{
+				"value"						"1"
+				"special_bonus_shard"		"=0"
 			}
 		}		
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"

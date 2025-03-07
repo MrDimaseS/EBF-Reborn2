@@ -51,6 +51,12 @@ function windrunner_shackleshot:DoBolasStun( target, duration, failure, FX, sour
 			end
 		end
 	end
+	local damageDur = self:GetSpecialValueFor("damage_buff_duration")
+	if damageDur <= 0 then return end
+	local damageBuff = caster:AddNewModifier( caster, self, "modifier_windrunner_shackleshot_self_damage_buff", {duration = damageDur})
+	local damageBonus = self:GetSpecialValueFor("bonus_damage_per_hero") * TernaryOperator( 1, target:IsConsideredHero(), self:GetSpecialValueFor("bonus_damage_per_other_pct") / 100 )
+	local damageBuffAmt = damageBuff:GetStackCount() + damageBonus
+	damageBuff:SetStackCount( damageBuffAmt )
 end
 
 function windrunner_shackleshot:OnProjectileHitHandle(target, position, projectile)

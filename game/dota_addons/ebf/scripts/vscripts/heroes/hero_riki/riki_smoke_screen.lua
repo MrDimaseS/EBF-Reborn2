@@ -8,6 +8,10 @@ function riki_smoke_screen:IsHiddenWhenStolen()
     return false
 end
 
+function riki_smoke_screen:GetAOERadius()
+	return self:GetSpecialValueFor("radius")
+end
+
 function riki_smoke_screen:GetBehavior()
 	if self:GetCaster():HasModifier("modifier_riki_tricks_of_the_trade_handler") then
 		return DOTA_ABILITY_BEHAVIOR_AOE + DOTA_ABILITY_BEHAVIOR_POINT + DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING + DOTA_ABILITY_BEHAVIOR_IMMEDIATE + DOTA_ABILITY_BEHAVIOR_UNRESTRICTED + DOTA_ABILITY_BEHAVIOR_DONT_CANCEL_CHANNEL
@@ -27,8 +31,61 @@ end
 function riki_smoke_screen:OnSpellStart()
     local caster = self:GetCaster()
     local point = self:GetCursorPosition()
+	
+	local duration = self:GetSpecialValueFor("AbilityDuration")
 
-    CreateModifierThinker(caster, self, "modifier_riki_smoke_screen_aura_thinker", {Duration = self:GetSpecialValueFor("AbilityDuration")}, point, caster:GetTeam(), false)
+    CreateModifierThinker(caster, self, "modifier_riki_smoke_screen_aura_thinker", {Duration = duration}, point, caster:GetTeam(), false)
+	if self:GetSpecialValueFor("activates_invis") == 1 then
+		CreateModifierThinker(caster, self, "modifier_riki_smoke_screen_infiltrator_thinker", {Duration = duration}, point, caster:GetTeam(), false)
+	end
+end
+
+modifier_riki_smoke_screen_infiltrator = class({})
+LinkLuaModifier( "modifier_riki_smoke_screen_infiltrator", "heroes/hero_riki/riki_smoke_screen.lua" ,LUA_MODIFIER_MOTION_NONE )
+
+function modifier_riki_smoke_screen_infiltrator:IsHidden()
+	return true
+end
+
+modifier_riki_smoke_screen_infiltrator_thinker = class({})
+LinkLuaModifier( "modifier_riki_smoke_screen_infiltrator_thinker", "heroes/hero_riki/riki_smoke_screen.lua" ,LUA_MODIFIER_MOTION_NONE )
+
+function modifier_riki_smoke_screen_infiltrator_thinker:OnCreated(kv)
+   self.radius = self:GetSpecialValueFor("radius")
+end
+
+function modifier_riki_smoke_screen_infiltrator_thinker:IsAura()
+	return true
+end
+
+function modifier_riki_smoke_screen_infiltrator_thinker:GetModifierAura()
+	return "modifier_riki_smoke_screen_infiltrator"
+end
+
+function modifier_riki_smoke_screen_infiltrator_thinker:GetAuraRadius()
+	return self.radius
+end
+
+function modifier_riki_smoke_screen_infiltrator_thinker:GetAuraDuration()
+	return 0.5
+end
+
+function modifier_riki_smoke_screen_infiltrator_thinker:GetAuraEntityReject( entity )
+	if entity ~= self:GetCaster() then
+		return true
+	end
+end
+
+function modifier_riki_smoke_screen_infiltrator_thinker:GetAuraSearchTeam()    
+	return DOTA_UNIT_TARGET_TEAM_FRIENDLY
+end
+
+function modifier_riki_smoke_screen_infiltrator_thinker:GetAuraSearchType()    
+	return DOTA_UNIT_TARGET_HERO
+end
+
+function modifier_riki_smoke_screen_infiltrator_thinker:GetAuraSearchFlags()    
+	return DOTA_UNIT_TARGET_FLAG_INVULNERABLE + DOTA_UNIT_TARGET_FLAG_OUT_OF_WORLD
 end
 
 modifier_riki_smoke_screen_aura_thinker = class({})

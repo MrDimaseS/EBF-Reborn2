@@ -37,9 +37,19 @@ end
 function windrunner_powershot:OnProjectileHitHandle(target, position, projectile)
 	if target and not target:TriggerSpellAbsorb( self ) then
 		local caster = self:GetCaster()
+		local power = self.projectiles[projectile].power / 100
 		EmitSoundOn("Ability.PowershotDamage", target)
 		target:AddNewModifier( caster, self, "modifier_windrunner_powershot_on_hit_effect", {duration = self:GetSpecialValueFor("slow_duration")} ):SetStackCount( self.projectiles[projectile].power )
-		self:DealDamage( caster, target, self:GetSpecialValueFor("powershot_damage") * self.projectiles[projectile].power / 100, {}, OVERHEAD_ALERT_BONUS_SPELL_DAMAGE )
+		self:DealDamage( caster, target, self:GetSpecialValueFor("powershot_damage") * power, {}, OVERHEAD_ALERT_BONUS_SPELL_DAMAGE )
+		
+		local maxHPThreshold = self:GetSpecialValueFor("max_execute_threshold")
+		if maxHPThreshold > 0 then
+			local minHPThreshold = self:GetSpecialValueFor("min_execute_threshold")
+			local hpThreshold = minHPThreshold + ( maxHPThreshold - minHPThreshold ) * power * target:GetMaxHealthDamageResistance()
+			if target:GetHealthPercent() <= hpThreshold then
+				target:AttemptKill(self, caster)
+			end
+		end
 		if target:IsConsideredHero() then
 			local reduction = 1 - self:GetSpecialValueFor("damage_reduction") / 100
 			self.projectiles[projectile].power = math.floor( self.projectiles[projectile].power * reduction )

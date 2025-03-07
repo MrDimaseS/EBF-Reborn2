@@ -1,0 +1,177 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:vpcf61:version{39d3ce1d-9442-4407-9b78-8317145b1732} -->
+{
+	_class = "CParticleSystemDefinition"
+	m_bShouldHitboxesFallbackToRenderBounds = false
+	m_nMaxParticles = 40
+	m_flConstantRadius = 6.0
+	m_ConstantColor = [ 81, 67, 188, 155 ]
+	m_nGroupID = 3
+	m_flMaxDrawDistance = 2000.0
+	m_bShouldSort = false
+	m_nBehaviorVersion = 5
+	m_nFirstMultipleOverride_BackwardCompat = 3
+	m_controlPointConfigurations = 
+	[
+		{
+			m_name = "preview"
+			m_drivers = 
+			[
+				{
+					m_iAttachType = "PATTACH_WORLDORIGIN"
+					m_entityName = "self"
+				},
+				{
+					m_iControlPoint = 1
+					m_iAttachType = "PATTACH_WORLDORIGIN"
+					m_entityName = "self"
+				},
+			]
+		},
+	]
+	m_Emitters = 
+	[
+		{
+			_class = "C_OP_InstantaneousEmitter"
+			m_nParticlesToEmit = 
+			{
+				m_nType = "PF_TYPE_LITERAL"
+				m_flLiteralValue = 32.0
+			}
+		},
+	]
+	m_Initializers = 
+	[
+		{
+			m_flOpTimeOffsetMax = 1.0
+			_class = "C_INIT_InitFloat"
+			m_InputValue = 
+			{
+				m_nType = "PF_TYPE_LITERAL"
+				m_flLiteralValue = 0.25
+			}
+			m_nOutputField = 1
+		},
+		{
+			m_flOpTimeOffsetMax = 1.0
+			_class = "C_INIT_InitFloat"
+			m_InputValue = 
+			{
+				m_nType = "PF_TYPE_RANDOM_UNIFORM"
+				m_flRandomMin = 0.0
+				m_flRandomMax = 360.0
+				m_nRandomMode = "PF_RANDOM_MODE_CONSTANT"
+				m_bHasRandomSignFlip = true
+			}
+			m_nOutputField = 4
+		},
+		{
+			_class = "C_INIT_CreateSequentialPath"
+			m_flNumToAssign = 32.0
+			m_bSaveOffset = true
+			m_PathParams = 
+			{
+				m_nEndControlPointNumber = 1
+			}
+		},
+		{
+			_class = "C_INIT_RandomYawFlip"
+			m_flOpTimeOffsetMax = 1.0
+		},
+		{
+			_class = "C_INIT_CreateInEpitrochoid"
+			m_flOffset = 8.0
+			m_nComponent1 = 2
+			m_nComponent2 = -1
+			m_flRadius1 = 6.0
+			m_flRadius2 = 4.0
+			m_flParticleDensity = 0.2
+			m_bUseCount = true
+			m_bUseLocalCoords = true
+			m_bOffsetExistingPos = true
+		},
+	]
+	m_Operators = 
+	[
+		{
+			_class = "C_OP_BasicMovement"
+			m_flOpTimeOffsetMax = 1.0
+			m_fDrag = 0.05
+		},
+		{
+			_class = "C_OP_Decay"
+			m_flOpTimeOffsetMax = 1.0
+		},
+		{
+			_class = "C_OP_FadeInSimple"
+			m_flFadeInTime = 0.5
+		},
+		{
+			_class = "C_OP_InterpolateRadius"
+			m_flBias = 0.35
+			m_flEndScale = 8.0
+			m_flStartScale = 0.0
+			m_nOpEndCapState = "PARTICLE_ENDCAP_ENDCAP_OFF"
+		},
+		{
+			_class = "C_OP_LockToSavedSequentialPath"
+			m_PathParams = 
+			{
+				m_nEndControlPointNumber = 1
+			}
+		},
+		{
+			_class = "C_OP_ColorInterpolate"
+			m_flFadeStartTime = 0.3
+			m_ColorFade = [ 0, 0, 0, 255 ]
+		},
+		{
+			_class = "C_OP_FadeOutSimple"
+		},
+		{
+			_class = "C_OP_VectorNoise"
+			m_nFieldOutput = 0
+			m_vecOutputMin = [ -5.0, -5.0, -5.0 ]
+			m_vecOutputMax = [ 5.0, 5.0, 5.0 ]
+			m_bAdditive = true
+		},
+		{
+			_class = "C_OP_DampenToCP"
+			m_flRange = 15.0
+			m_flScale = 2.0
+		},
+		{
+			_class = "C_OP_DampenToCP"
+			m_flScale = 2.0
+			m_flRange = 15.0
+			m_nControlPointNumber = 1
+		},
+	]
+	m_Renderers = 
+	[
+		{
+			_class = "C_OP_RenderRopes"
+			m_flRadiusScale = 0.5
+			m_nMaxTesselation = 1
+			m_vecTexturesInput = 
+			[
+				{
+					m_hTexture = resource:"materials/particle/beam_jagged_01_straight.vtex"
+					m_TextureControls = 
+					{
+						m_flFinalTextureScaleU = 
+						{
+							m_nType = "PF_TYPE_LITERAL"
+							m_flLiteralValue = -1.0
+						}
+					}
+				},
+			]
+		},
+	]
+	m_Children = 
+	[
+		{
+			m_ChildRef = resource:"particles/units/heroes/hero_riki/riki_backstab_heal_b.vpcf"
+		},
+	]
+}

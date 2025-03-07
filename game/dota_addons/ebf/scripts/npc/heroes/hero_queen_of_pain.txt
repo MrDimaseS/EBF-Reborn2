@@ -24,7 +24,6 @@
 			"damage_reflected_to_self"		"2.0"
 		}
 	}
-
 	//=================================================================================================================
 	// Queen of Pain: Innate Seduction
 	//=================================================================================================================
@@ -36,7 +35,7 @@
 		"MaxLevel"						"1"
 		"AbilityValues"
 		{
-			"spell_lifesteal"				"12.0"
+			"spell_lifesteal"			"2.0"
 			"close_radius"				
 			{
 				"value"		"300"
@@ -47,29 +46,11 @@
 				"value"	"800"
 				"affected_by_aoe_increase"	"1"
 			}
-			"spell_lifesteal_close"			"18.0"
-		}
-	}
+			"spell_lifesteal_close"		"14.0"
 
-	//=================================================================================================================
-	// Queen of Pain: Innate Spell Reflect
-	//=================================================================================================================
-	"queenofpain_bondage"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI"
-		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
-		"MaxLevel"						"1"
-		"Innate"						"1"
-
-		"AbilityValues"
-		{
-			"spell_reflect_pct"			"10.0"
-			"radius"					
+			"lifesteal_reflected"
 			{
-				"value"			"1200"
-				"affected_by_aoe_increase"	"1"
+				"special_bonus_facet_queenofpain_facet_bondage"	"1"
 			}
 		}
 	}
@@ -110,8 +91,7 @@
 		{
 			"strike_damage"
 			{
-				"value"									"300 600 900 1200"
-				"special_bonus_scepter"					"+100%"
+				"value"									"500 800 1100 1400"
 				"CalculateSpellDamageTooltip"			"1"
 			}
 			"duration_damage"

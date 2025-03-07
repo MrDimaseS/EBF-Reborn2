@@ -22,7 +22,7 @@ function riki_blink_strike:OnSpellStart(bDisableBlink)
 		caster:Blink( position, blinkData )
 		if not caster:IsSameTeam( target ) then
 			caster:SetForwardVector( target:GetForwardVector() )
-			caster:PerformGenericAttack( target, true, true )
+			caster:PerformGenericAttack( target, true )
 			caster:MoveToTargetToAttack( target )
 		end
 		
@@ -38,6 +38,12 @@ function riki_blink_strike:OnSpellStart(bDisableBlink)
 			self:Stun(target, self:GetSpecialValueFor("slow"), "particles/units/heroes/hero_riki/riki_blink_strike_slow.vpcf")
 		else
 			target:AddNewModifier( caster, self, "modifier_riki_blinkstrike_slow", {duration = self:GetSpecialValueFor("slow")} )
+		end
+	end
+	if self:GetSpecialValueFor("activate_invis") == 1 then
+		local invis = caster:FindAbilityByName("riki_invis")
+		if IsEntitySafe( invis ) then
+			caster:AddNewModifier( caster, self, "modifier_riki_invis_invisible", {} )
 		end
 	end
 end

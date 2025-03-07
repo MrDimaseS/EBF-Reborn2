@@ -14,6 +14,8 @@ end
 function modifier_riki_invis_handler:OnRefresh()
 	self.fade_delay = self:GetSpecialValueFor("fade_delay")
 	self.bonus_damage = self:GetSpecialValueFor("bonus_damage")
+	self.kill_creeps = self:GetSpecialValueFor("kill_creeps")
+	self.disarm_duration = self:GetSpecialValueFor("disarm_duration")
 	self.attacks = {}
 	if IsServer() then
 		self:StartIntervalThink( 0 )
@@ -29,7 +31,7 @@ function modifier_riki_invis_handler:OnIntervalThink()
 		self._lastAttackTime = GameRules:GetGameTime()
 		self:GetAbility():SetCooldown( self.fade_delay )
 	end
-	if self._lastAttackTime + self.fade_delay < GameRules:GetGameTime() then
+	if self._lastAttackTime + self.fade_delay < GameRules:GetGameTime() or parent:HasModifier("modifier_riki_smoke_screen_infiltrator") then
 		parent:AddNewModifier( parent, self:GetAbility(), "modifier_riki_invis_invisible", {} )
 		self._lastAttackTime = nil
 	end
@@ -42,11 +44,29 @@ end
 
 function modifier_riki_invis_handler:OnAttackLanded(params)
 	if params.attacker == self:GetCaster() then
+		local ability = self:GetAbility()
 		self._lastAttackTime = GameRules:GetGameTime()
-		self:GetAbility():SetCooldown( self.fade_delay )
+		ability:SetCooldown( self.fade_delay )
 		if params.attacker:HasModifier("modifier_riki_invis_invisible") then
 			self.attacks[params.record] = true
-			params.attacker:RemoveModifierByName("modifier_riki_invis_invisible")
+			if not params.attacker:HasModifier("modifier_riki_smoke_screen_infiltrator") then
+				params.attacker:RemoveModifierByName("modifier_riki_invis_invisible")
+			end
+			if self.kill_creeps > 0 and not params.target:IsConsideredHero() then
+				params.target:AttemptKill( ability, params.attacker )
+			end
+			if self.disarm_duration > 0 then
+				local disarm = ability:Disarm(params.target, self.disarm_duration)
+				Timers:CreateTimer(function()
+					if IsModifierSafe(disarm) and IsEntitySafe( disarm:GetParent() ) then
+						local dt = GetGameFrameTime()
+						if disarm:GetParent():IsStunned() then
+							disarm:SetDuration( disarm:GetRemainingTime() + dt	, true )
+						end
+						return dt
+					end
+				end)
+			end
 		end
 	end
 end

@@ -3,6 +3,10 @@ DOTA_LIFESTEAL_SOURCE_NONE = 0
 DOTA_LIFESTEAL_SOURCE_ATTACK = 1
 DOTA_LIFESTEAL_SOURCE_ABILITY = 2
 
+DOTA_HEAL_TYPE_HEAL = 0
+DOTA_HEAL_TYPE_LIFESTEAL = 1
+DOTA_HEAL_TYPE_REGENERATION = 2
+
 DOTA_RUNES = {DOTA_RUNE_DOUBLEDAMAGE,DOTA_RUNE_HASTE,DOTA_RUNE_ILLUSION,DOTA_RUNE_INVISIBILITY,DOTA_RUNE_REGENERATION,DOTA_RUNE_BOUNTY,DOTA_RUNE_ARCANE}
 
 function Context_Wrap(o, funcname)
@@ -183,6 +187,10 @@ function CDOTA_BaseNPC:IsBeingAttacked()
 		if enemy:IsAttackingEntity(self) then return true end
 	end
 	return false
+end
+
+function CDOTA_BaseNPC:GetMaxHealthDamageResistance()
+	return 1 / TernaryOperator( HeroList:GetActiveHeroCount(), self:HasAbility("enemy_champion"), 1 )
 end
 
 function CDOTA_BaseNPC:PerformGenericAttack(target, immediate, tAttackData )
@@ -914,7 +922,7 @@ function CDOTA_BaseNPC:IsSameTeam(unit)
 	return (self:GetTeamNumber() == unit:GetTeamNumber())
 end
 
-function CDOTA_BaseNPC:HealEvent(amount, sourceAb, healer)
+function CDOTA_BaseNPC:HealEvent(amount, sourceAb, healer, tParams)
 	local healBonus = 1
 	local flAmount = amount
 	if healer then
@@ -924,6 +932,10 @@ function CDOTA_BaseNPC:HealEvent(amount, sourceAb, healer)
 			end
 		end
 	end
+	
+	local healParams = tParams or {}
+	healParams.heal_type = healParams.heal_type or DOTA_HEAL_TYPE_HEAL
+	healParams.heal_category = healParams.heal_category or TernaryOperator( DOTA_LIFESTEAL_SOURCE_ATTACK, healParams.heal_type == DOTA_HEAL_TYPE_LIFESTEAL, DOTA_LIFESTEAL_SOURCE_NONE )
 	
 	flAmount = flAmount * healBonus
 	local params = {amount = flAmount, source = sourceAb, unit = healer, target = self}
@@ -946,7 +958,7 @@ function CDOTA_BaseNPC:HealEvent(amount, sourceAb, healer)
 		-- end
 	-- end
 	local preHP = self:GetHealth()
-	self:HealWithParams(flAmount, sourceAb, false, true, healer, false)
+	self:HealWithParams( flAmount, sourceAb, healParams.heal_type == DOTA_HEAL_TYPE_LIFESTEAL, true, healer, healParams.heal_category == DOTA_LIFESTEAL_SOURCE_ABILITY )
 	local postHP = self:GetHealth()
 	SendOverheadEventMessage(self, OVERHEAD_ALERT_HEAL, self, postHP - preHP, healer)
 	return postHP - preHP
@@ -1345,6 +1357,11 @@ end
 function CDOTA_BaseNPC:SmoothFindClearSpace(position)
 	self:SetAbsOrigin(position)
 	ResolveNPCPositions(position, self:GetHullRadius() + self:GetCollisionPadding())
+end
+
+function CDOTABaseAbility:Disarm(target, duration)
+	if not IsEntitySafe( target ) then return end
+	target:AddNewModifier(self:GetCaster(), self, "modifier_disarmed", {duration = duration})
 end
 
 function CDOTABaseAbility:Stun(target, duration, effectName, effectData)

@@ -36,6 +36,9 @@ function modifier_uber_dagon_passive:OnRefresh()
 	
 	self:GetParent().cooldownModifiers = self:GetParent().cooldownModifiers or {}
 	self:GetParent().cooldownModifiers[self] = true
+	
+	self:GetCaster()._spellLifestealModifiersList = self:GetCaster()._spellLifestealModifiersList or {}
+	self:GetCaster()._spellLifestealModifiersList[self] = true
 end
 
 function modifier_uber_dagon_passive:OnDestroy()
@@ -51,29 +54,8 @@ function modifier_uber_dagon_passive:DeclareFunctions()
 			}
 end
 
-function modifier_uber_dagon_passive:OnTakeDamage( params )
-	if self.spell_lifesteal > 0 and params.attacker == self:GetParent() and params.damage_category == DOTA_DAMAGE_CATEGORY_SPELL and params.inflictor and not ( HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL ) or HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_HPLOSS ) or HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_REFLECTION )) then
-		local spell_lifesteal = self.spell_lifesteal
-		
-		if not params.unit:IsConsideredHero() then
-			spell_lifesteal =  spell_lifesteal / 5
-		end
-		
-		local EHPMult = self:GetParent().EHP_MULT or 1
-		local lifesteal = params.damage * spell_lifesteal / 100 * math.max( 1, EHPMult )
-		
-		self.lifeToGive = (self.lifeToGive or 0) + lifesteal
-		if self.lifeToGive > 1 then
-			local preHP = params.attacker:GetHealth()
-			params.attacker:HealWithParams( lifesteal, params.inflictor, false, true, self, true )
-			self.lifeToGive = self.lifeToGive - math.floor(self.lifeToGive)
-			local postHP = params.attacker:GetHealth()
-		
-			if postHP - preHP ~= 0 then
-				ParticleManager:FireParticle( "particles/items3_fx/octarine_core_lifesteal.vpcf", PATTACH_POINT_FOLLOW, params.attacker )
-			end
-		end
-	end
+function modifier_uber_dagon_passive:GetModifierProperty_MagicalLifesteal( params )
+	return self.spell_lifesteal
 end
 
 function modifier_uber_dagon_passive:GetModifierBonusStats_Strength()

@@ -46,7 +46,7 @@ function bristleback_quill_spray:Spray(bProc)
 		if quillsDebuff then
 			dmgTaken = math.min( maxDamage, dmgTaken + quillsDebuff:GetStackCount() * stackDamage )
 		end
-		self:DealDamage( caster, enemy, dmgTaken, {damage_type = DAMAGE_TYPE_PHYSICAL damage_flags = TernaryOperator( DOTA_DAMAGE_FLAG_REFLECTION, bProc, DOTA_DAMAGE_FLAG_NONE ) } )
+		self:DealDamage( caster, enemy, dmgTaken, {damage_type = DAMAGE_TYPE_PHYSICAL, damage_flags = TernaryOperator( DOTA_DAMAGE_FLAG_REFLECTION, bProc, DOTA_DAMAGE_FLAG_NONE ) } )
 		
 		local spray = enemy:AddNewModifier( caster, self.quills, "modifier_bristleback_quill_spray", {duration = duration})
 		if spray then

@@ -74,11 +74,17 @@ function modifier_bloodseeker_bloodrage_buff:GetModifierMoveSpeedBonus_Percentag
 end
 
 function modifier_bloodseeker_bloodrage_buff:GetModifierAttackSpeedBonus_Constant()
-	return self.attack_speed * TernaryOperator( self.solo_bonus, self:GetStackCount(), 1 )
+	return self.attack_speed * TernaryOperator( self.solo_bonus, self:GetStackCount() < 2, 1 )
+end
+
+function modifier_bloodseeker_bloodrage_buff:OnAttackLanded( params )
+	if params.attacker ~= self:GetParent() then return end
+	if params.target:IsSameTeam( params.attacker ) then return end
+	self:GetAbility():DealDamage( params.attacker, params.target, self.bonus_pure_dmg * TernaryOperator( self.solo_bonus, self:GetStackCount() < 2, 1 ), {damage_type = DAMAGE_TYPE_PURE, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION} )
 end
 
 function modifier_bloodseeker_bloodrage_buff:GetModifierSpellAmplify_Percentage()
-	return self.spell_amp * TernaryOperator( self.solo_bonus, self:GetStackCount(), 1 )
+	return self.spell_amp * TernaryOperator( self.solo_bonus, self:GetStackCount() < 2, 1 )
 end
 
 function modifier_bloodseeker_bloodrage_buff:GetDisableHealing( params )

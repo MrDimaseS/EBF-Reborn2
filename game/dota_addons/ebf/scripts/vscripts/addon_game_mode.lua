@@ -1044,17 +1044,17 @@ function CHoldoutGameMode:OnConnectFull()
 		if PlayerResource:IsValidPlayerID( nPlayerID ) then
 			mmrTable[nPlayerID] = false
 			CustomNetTables:SetTableValue("patrons", tostring( nPlayerID ), {tier = PlayerResource:GetPatronTier(nPlayerID)})
-			local AUTH_KEY = GetDedicatedServerKeyV3(statSettings.modID)
+			local AUTH_KEY = "51E21B1C8D951AA17873B2C5FD0E1B8D70DB32EF" or GetDedicatedServerKeyV3(statSettings.modID)
  
 			local packageLocation = SERVER_LOCATION..AUTH_KEY.."/players/"..tostring(PlayerResource:GetSteamID(nPlayerID))..'.json'
 			local getRequest = CreateHTTPRequestScriptVM( "GET", packageLocation)
-				
+			print( packageLocation, "mmr get" )
 			local decoded = {}
 			getRequest:Send( function( result )
 				if tostring(result.Body) ~= 'null' then
 					decoded = json.decode(result.Body)
 				end
-				print( decoded, "error?")
+				
 				mmrTable[nPlayerID] = decoded.mmr or 3000
 				averageMMR = averageMMR + mmrTable[nPlayerID]
 				
@@ -1064,6 +1064,7 @@ function CHoldoutGameMode:OnConnectFull()
 				if decoded.wins then
 					CustomNetTables:SetTableValue("wins", tostring( nPlayerID ), {wins = decoded.wins})
 				end
+				CustomNetTables:SetTableValue("mmr", tostring( nPlayerID ), {mmr = mmrTable[nPlayerID]})
 			end )
 			CustomNetTables:SetTableValue("steamid", tostring(nPlayerID), {steamid = PlayerResource:GetSteamID(nPlayerID)})
 		end
@@ -1399,8 +1400,7 @@ function CHoldoutGameMode:OnGameRulesStateChange()
 			for nPlayerID = 0, DOTA_MAX_TEAM_PLAYERS-1 do
 				if PlayerResource:IsValidPlayerID( nPlayerID ) then
 					local playerMultiplier = 1 + ( self._MaxPlayers - HeroList:GetActiveHeroCount() ) * ( 50 / (self._MaxPlayers-1) ) / 100
-					local mmrTable = CustomNetTables:GetTableValue("mmr", tostring( nPlayerID ) ) or {}
-					local mmrPlayer = {mmr = mmrTable[nPlayerID]}
+					local mmrPlayer = CustomNetTables:GetTableValue("mmr", tostring( nPlayerID ) ) or {}
 					local winMMR = math.floor( (15 + GameRules.gameDifficulty * 5) + 0.5 )
 					local lossMMR = (-2*winMMR) * ((#self._vRounds - self._nRoundNumber) / #self._vRounds)
 					

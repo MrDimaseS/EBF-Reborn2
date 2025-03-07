@@ -38,6 +38,7 @@ function modifier_pudge_rot_debuff:OnCreated( kv )
 	
 	if IsServer() then
 		if self:GetParent() == self:GetCaster() then
+			self.damage_flags = DOTA_DAMAGE_FLAG_HPLOSS + DOTA_DAMAGE_FLAG_NON_LETHAL
 			EmitSoundOn( "Hero_Pudge.Rot", self:GetCaster() )
 			local nFXIndex = ParticleManager:CreateParticle( "particles/units/heroes/hero_pudge/pudge_rot.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent() )
 			ParticleManager:SetParticleControl( nFXIndex, 1, Vector( self.rot_radius, 1, self.rot_radius ) )
@@ -64,9 +65,10 @@ function modifier_pudge_rot_debuff:OnIntervalThink()
 			self:Destroy()
 			return
 		end
-		local flDamagePerTick = self.rot_tick * (self.rot_damage  + self:GetElapsedTime() * self.bonus_damage_per_sec)
+		local flDamagePerTick = self.rot_tick * (self.rot_damage + self:GetElapsedTime() * self.bonus_damage_per_sec)
+		self.rot_damage = self.rot_damage + self.bonus_damage_per_sec * self.rot_tick
 		if self:GetCaster():IsAlive() then
-			self:GetAbility():DealDamage( self:GetCaster(), self:GetParent(), flDamagePerTick )
+			self:GetAbility():DealDamage( self:GetCaster(), self:GetParent(), flDamagePerTick, {damage_flags = self.damage_flags } )
 		else
 			self:Destroy()
 		end
@@ -93,21 +95,6 @@ end
 LinkLuaModifier( "modifier_pudge_rot_aura", "heroes/hero_pudge/pudge_rot", LUA_MODIFIER_MOTION_NONE )
 modifier_pudge_rot_aura = class(modifier_pudge_rot_debuff)
 
-function modifier_pudge_rot_aura:OnIntervalThink()
-	if IsServer() then
-		if not self:GetAbility():GetToggleState() then
-			self:Destroy()
-			return
-		end
-		local flDamagePerTick = self.rot_tick * (self.rot_damage + self:GetElapsedTime() * self.bonus_damage_per_sec)
-		if self:GetCaster():IsAlive() then
-			self:GetAbility():DealDamage( self:GetCaster(), self:GetParent(), flDamagePerTick * self.self_damage, {damage_flags = DOTA_DAMAGE_FLAG_HPLOSS + DOTA_DAMAGE_FLAG_NON_LETHAL } )
-		else
-			self:Destroy()
-		end
-	end
-end
-
 function modifier_pudge_rot_aura:GetModifierMoveSpeedBonus_Percentage( params )
 	return 0
 end
@@ -133,7 +120,7 @@ function modifier_pudge_rot_aura:GetAuraRadius()
 end
 
 function modifier_pudge_rot_aura:GetAuraDuration()
-	return self.rot_radius
+	return 0.1
 end
 
 LinkLuaModifier( "modifier_pudge_rot_flesh_carver", "heroes/hero_pudge/pudge_rot", LUA_MODIFIER_MOTION_NONE )

@@ -58,8 +58,8 @@ end
 function modifier_item_satanic_passive_effect:OnRefresh()
 	self.bonus_strength = self:GetSpecialValueFor("bonus_strength")
 	self.bonus_damage = self:GetSpecialValueFor("bonus_damage")
-	self.lifesteal_percent = self:GetSpecialValueFor("lifesteal_percent") / 100
-	self.unholy_lifesteal_total_tooltip = self:GetSpecialValueFor("unholy_lifesteal_total_tooltip") / 100
+	self.lifesteal_percent = self:GetSpecialValueFor("lifesteal_percent")
+	self.unholy_lifesteal_total_tooltip = self:GetSpecialValueFor("unholy_lifesteal_total_tooltip")
 	
 	self:GetCaster()._attackLifestealModifiersList = self:GetCaster()._attackLifestealModifiersList or {}
 	self:GetCaster()._attackLifestealModifiersList[self] = true

@@ -38,6 +38,7 @@ function _ScoreboardUpdater_UpdatePlayerPanel(scoreboardConfig, playersContainer
 		var rankMedal = playerPanel.FindChildInLayoutFile("RankMedal");
 		let rankMedalClass = "";
 		
+		$.Msg( netTable )
 		if (netTable != undefined && netTable.mmr != undefined && netTable?.mmr !== null && playsTable?.plays !== undefined && playsTable.plays > 10) {
 			rankMedalClass = "RankMedal" + MMRToRankMedal(netTable.mmr);
 		

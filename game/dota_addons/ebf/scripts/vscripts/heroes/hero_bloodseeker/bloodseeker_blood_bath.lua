@@ -20,6 +20,10 @@ function bloodseeker_blood_bath:GetBehavior()
 	end
 end
 
+function bloodseeker_blood_bath:GetAOERadius()
+	return self:GetSpecialValueFor("radius")
+end
+
 function bloodseeker_blood_bath:OnSpellStart()
 	local caster = self:GetCaster()
 	
@@ -50,9 +54,9 @@ function modifier_bloodseeker_blood_bath_passive:DeclareFunctions()
 	return {MODIFIER_PROPERTY_TOTALDAMAGEOUTGOING_PERCENTAGE}
 end
 
-function modifier_bloodseeker_blood_bath_passive:GetModifierTotalDamageOutgoing_Percentage()
+function modifier_bloodseeker_blood_bath_passive:GetModifierTotalDamageOutgoing_Percentage( params )
 	if self.silence_bonus_dmg <= 0 then return end
-	if params.unit:IsSilenced() then
+	if params.target:IsSilenced() then
 		return self.silence_bonus_dmg
 	end
 end

@@ -16,13 +16,15 @@ function Spawn( entityKeyValues )
 	
 	thisEntity.split = thisEntity:FindAbilityByName("boss_golem_split")
 	thisEntity.throw = thisEntity:FindAbilityByName("boss_golem_rock_throw")
-	thisEntity.avalanche = thisEntity:FindAbilityByName("boss_golem_avalanche")
+	thisEntity.difficulty = thisEntity:FindAbilityByName("boss_golem_difficulty")
 	
 	thisEntity:AddNewModifier( thisEntity, nil, "modifier_item_aghanims_shard", {} )
 	Timers:CreateTimer(0.1, function()
 		if thisEntity.hasBeenProcessed then return end
 		thisEntity.split:SetLevel(4)
 		thisEntity.throw:SetLevel(4)
+		thisEntity.avalanche:SetLevel(4)
+		thisEntity.difficulty:SetLevel(4)
 	end)
 end
 

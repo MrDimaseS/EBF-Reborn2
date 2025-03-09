@@ -30,7 +30,7 @@ function bossPowerScale:OnRefresh(keys)
 		self.abilityValueIncrease = self.abilityValueIncrease * 1.25
 	end
 	
-	self.gameDamagePct = (self.difficulty-1) * 15
+	self.gameDamagePct = (self.difficulty-1) * 20
 	if GetMapName() == "strategy_gamemode" then
 		self.gameDamagePct = self.gameDamagePct * 1.1
 	end

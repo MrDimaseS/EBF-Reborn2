@@ -31,6 +31,7 @@ function bossManager:ProcessBossScaling(spawnedUnit)
 	local currentRound = GameRules._currentRound or {_HP_difficulty_multiplier = 1, _EHP_multiplier = 1}
 			
 	if not spawnedUnit:IsAlive() then spawnedUnit:RespawnUnit() end -- fix undead creatures
+	if spawnedUnit.hasBeenProcessed then return end
 	spawnedUnit.hasBeenProcessed = true
 	
 	local maxHP = spawnedUnit:GetMaxHealth()
@@ -56,7 +57,7 @@ function bossManager:ProcessBossScaling(spawnedUnit)
 		HP_difficulty_multiplier = HP_difficulty_multiplier * 1.25
 	end
 	
-	HP_difficulty_multiplier = HP_difficulty_multiplier * (1 + (GameRules.gameDifficulty-1)*0.5)
+	HP_difficulty_multiplier = HP_difficulty_multiplier * (1 + (GameRules.gameDifficulty-1)*0.2)
 	spawnedUnit:SetBaseAttackTime( spawnedUnit:GetBaseAttackTime() * 1/((1 + (GameRules.gameDifficulty-1)*0.3) ) )
 	spawnedUnit.MaxEHP = HP_difficulty_multiplier*spawnedUnit:GetMaxHealth()
 	spawnedUnit.AttackDamageValue = baseDamage * DMG_MULTIPLIER

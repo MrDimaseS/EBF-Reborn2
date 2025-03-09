@@ -39,6 +39,7 @@ function modifier_pudge_rot_debuff:OnCreated( kv )
 	if IsServer() then
 		if self:GetParent() == self:GetCaster() then
 			self.damage_flags = DOTA_DAMAGE_FLAG_HPLOSS + DOTA_DAMAGE_FLAG_NON_LETHAL
+			self.self_rot = true
 			EmitSoundOn( "Hero_Pudge.Rot", self:GetCaster() )
 			local nFXIndex = ParticleManager:CreateParticle( "particles/units/heroes/hero_pudge/pudge_rot.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent() )
 			ParticleManager:SetParticleControl( nFXIndex, 1, Vector( self.rot_radius, 1, self.rot_radius ) )
@@ -68,7 +69,7 @@ function modifier_pudge_rot_debuff:OnIntervalThink()
 		local flDamagePerTick = self.rot_tick * (self.rot_damage + self:GetElapsedTime() * self.bonus_damage_per_sec)
 		self.rot_damage = self.rot_damage + self.bonus_damage_per_sec * self.rot_tick
 		if self:GetCaster():IsAlive() then
-			self:GetAbility():DealDamage( self:GetCaster(), self:GetParent(), flDamagePerTick, {damage_flags = self.damage_flags } )
+			self:GetAbility():DealDamage( self:GetCaster(), self:GetParent(), flDamagePerTick  TernaryOperator( self.self_damage, self.self_rot, 1 ) {damage_flags = self.damage_flags } )
 		else
 			self:Destroy()
 		end

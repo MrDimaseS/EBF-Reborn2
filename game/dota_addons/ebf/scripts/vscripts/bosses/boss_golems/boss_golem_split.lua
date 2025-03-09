@@ -47,6 +47,9 @@ function boss_golem_split:CreateGolem( position )
 	golem:SetBaseDamageMax( caster:GetBaseDamageMax() )
 	golem:SetBaseDamageMin( caster:GetBaseDamageMin() )
 	
+	print( caster:GetHealth() * splitPct )
+	print( caster:GetBaseDamageMax() )
+	
 	local yeetPosition = position + RandomVector( 50 )
 	if throw then
 		throw:ThrowGolem( golem, yeetPosition )

@@ -13,89 +13,36 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_DeathProphet.CarrionSwarm"
-		
 		"MaxLevel"						"4"
-		
-		"particle"
-		{
-			"particle"					"particles/units/heroes/hero_death_prophet/death_prophet_carrion_swarm.vpcf"
-			"particle"					"particles/units/heroes/hero_death_prophet/death_prophet_carrion_swarm_impact.vpcf"
-		}
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"1110"
+		"AbilityCastRange"				"900"
 		"AbilityCastPoint"				"0.2"
 
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"8 7 6 2"
-
-		// Damage.
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"350"
-
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"0"		
+		"AbilityManaCost"				"80"		
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"start_radius"				"110"
-			"end_radius"				"300"
-			"range"						"810"
-			"speed"						"1100"
-			"AbilityDamage"				"350"
+			"damage"									"200 250 300 350"
+			"AbilityCooldown"							"4 3.5 3 2.5"
+			"start_radius"				
+			{
+				"value"									"110"
+				"affected_by_aoe_increase"				"1"
+			}
+			"end_radius"				
+			{
+				"value"									"300"
+				"affected_by_aoe_increase"				"1"
+			}
+			"range"										"900"
+			"speed"										"1100 1100 1100 1100"
 		}
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
-	}
-	"boss_death_prophet_split_earth"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"leshrac_split_earth"
-		"AbilityTextureName"			"leshrac_split_earth"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
-		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
-		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
-		"FightRecapLevel"				"1"
-		"AbilitySound"					"Hero_Leshrac.Split_Earth"
-
-		"MaxLevel"						"4"
-
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"650"
-		"AbilityCastPoint"				"0.7 0.7 0.7 0.7"
-		
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"18 16 14 12"
-
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"65"
-		
-		// Damage.
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"450"
-		"AbilityDuration"				"1.6"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			"delay"				"0.65"
-			"radius"			"325"
-			"duration"			"3"
-			"AbilityDamage"		"450"
-		}
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
 	"boss_death_prophet_spirit_siphon"
 	{
@@ -113,11 +60,6 @@
 		"AbilitySound"					"Hero_DeathProphet.SpiritSiphon.Cast"
 
         "HasShardUpgrade"               "1"
-		
-		"particle"
-		{
-			"particle"					"particles/units/heroes/hero_death_prophet/death_prophet_spiritsiphon.vpcf"
-		}
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -133,21 +75,22 @@
 		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"25"
+		"AbilityManaCost"				"80"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"damage"
+			"damage"					
 			{
-				"value"							"150"
+				"value"							"75 100 125 150"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"damage_pct"						"3.5"
-			"haunt_duration"					"8"
+
+			"damage_pct"						"0"
+			"haunt_duration"					"6"
 			"siphon_buffer"						"250"
-			"AbilityChargeRestoreTime"			"38"
+			"AbilityChargeRestoreTime"			"22"
 		}
 	}
 	
@@ -167,7 +110,8 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"FightRecapLevel"				"2"
 		"AbilitySound"					"Hero_DeathProphet.Exorcism.Cast"
-        "HasScepterUpgrade"			"1"
+        "HasScepterUpgrade"				"1"
+		"MaxLevel"						"4"
 		
 		"precache"
 		{
@@ -177,12 +121,12 @@
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.5 0.5 0.5"
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_4"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"150.0"
-		"AbilityDuration"				"40"
+		"AbilityCooldown"				"75 70 65 60"
+		"AbilityDuration"				"20"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -193,7 +137,7 @@
 		"AbilityValues"
 		{
 			"radius"					"700 700 700"
-			"spirits"					"12 18 24"
+			"spirits"					"12 16 20 24"
 			"spirit_speed"				"525"
 			"max_distance"				"2000 2000 2000"
 			"give_up_distance"			"1200 1200 1200"
@@ -211,8 +155,8 @@
 			"average_damage"			"4000"
 			"ghost_spawn_rate"			"0.35"
 			
-			"movement_base"				"12 16 20"
-			"movement_bonus"			"8 12 16"
+			"movement_base"				"12 16 20 24"
+			"movement_bonus"			"8 12 16 20"
 		}
 	}
 	//=================================================================================================================
@@ -258,14 +202,14 @@
 		{
 			"damage"
 			{
-				"value"							"150"
+				"value"							"125 150 175 200"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"duration"						"5 6 7 8"
+			"duration"							"5 6 7 8"
 			"hit_radius"					
 			{
-				"value"						"120"
-				"affected_by_aoe_increase"	"1"	
+				"value"							"120"
+				"affected_by_aoe_increase"		"1"	
 			}
 			"dead_zone_distance"			
 			{

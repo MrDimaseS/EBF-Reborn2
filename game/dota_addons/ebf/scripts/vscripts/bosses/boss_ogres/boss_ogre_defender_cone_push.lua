@@ -20,11 +20,6 @@ function boss_ogre_defender_cone_push:OnSpellStart()
 	EmitSoundOn("Hero_Tiny.Tree.Grab", caster)
 
 	-- Create particle effect
-	local particle = ParticleManager:CreateParticle("particles/units/heroes/hero_tiny/tiny_tree_attack.vpcf", PATTACH_ABSORIGIN_FOLLOW, caster)
-	ParticleManager:SetParticleControl(particle, 0, caster_position)
-	ParticleManager:SetParticleControlForward(particle, 0, caster_forward)
-	ParticleManager:ReleaseParticleIndex(particle)
-
 	local enemies = FindUnitsInRadius(
 		caster:GetTeamNumber(),
 		caster_position,
@@ -36,22 +31,21 @@ function boss_ogre_defender_cone_push:OnSpellStart()
 		FIND_ANY_ORDER,
 		false
 	)
+	
+	local sideLength = cone_distance / math.tan( ToRadians( cone_angle/2 ) )
 
-	for _, enemy in pairs(enemies) do
-		local enemy_position = enemy:GetAbsOrigin()
-		local direction = (enemy_position - caster_position):Normalized()
-		local angle = math.deg(math.acos(caster_forward:Dot(direction)))
-
-		if angle <= cone_angle / 2 then
-			-- Push back
-			local push_direction = direction
-			enemy:ApplyKnockBack(enemy_position, 1.2, 1.2, 150, 400, caster, self)
-		end
+	for _, enemy in pairs( caster:FindEnemyUnitsInCone(caster_forward, caster_position, sideLength, cone_distance) ) do
+		self:FireTrackingProjectile("particles/units/heroes/hero_tiny/tiny_tree_proj.vpcf", enemy, 900)
 	end
 
 	-- Spend mana and trigger cooldown
 	caster:SpendMana(self:GetManaCost(self:GetLevel()), self)
 	self:StartCooldown(self:GetCooldown(self:GetLevel()))
+end
+
+function boss_ogre_defender_cone_push:OnProjectileHit( target, position )
+	local push_direction = direction
+	target:ApplyKnockBack( self:GetCaster():GetAbsOrigin(), 1.2, 1.2, 150, 400, self:GetCaster(), self)
 end
 
 function boss_ogre_defender_cone_push:OnUpgrade()

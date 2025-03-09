@@ -16,7 +16,7 @@ function Spawn( entityKeyValues )
 	
 	thisEntity.explode = thisEntity:FindAbilityByName("minion_demonic_imp_explode")
 	Timers:CreateTimer(0.1, function()
-		thisEntity.explode:SetLevel(1)
+		thisEntity.explode:SetLevel(GameRules.gameDifficulty)
 	end)
 end
 

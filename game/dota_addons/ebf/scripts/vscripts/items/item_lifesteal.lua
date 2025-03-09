@@ -106,6 +106,8 @@ function modifier_item_lifesteal_ebf_aura:OnRefresh()
 	self.lifesteal_aura = self:GetAbility():GetSpecialValueFor("lifesteal_aura")
 	self.damage_aura = self:GetAbility():GetSpecialValueFor("damage_aura")
 	
+	print( self.lifesteal_aura )
+	
 	self:GetCaster()._attackLifestealModifiersList = self:GetCaster()._attackLifestealModifiersList or {}
 	self:GetCaster()._attackLifestealModifiersList[self] = true
 end
@@ -142,6 +144,6 @@ function modifier_item_lifesteal_ebf_aura:OnTooltip()
 	return self.lifesteal_aura
 end
 
-function modifier_item_bloodstone_ebf:GetModifierProperty_PhysicalLifesteal(params)
+function modifier_item_lifesteal_ebf_aura:GetModifierProperty_PhysicalLifesteal(params)
 	return self.lifesteal_aura
 end

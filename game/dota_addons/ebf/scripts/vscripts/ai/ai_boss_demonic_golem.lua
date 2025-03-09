@@ -20,7 +20,7 @@ function Spawn( entityKeyValues )
 	Timers:CreateTimer(0.1, function()
 		thisEntity.fists:SetLevel(GameRules.gameDifficulty)
 		thisEntity.immolation:SetLevel(GameRules.gameDifficulty)
-		thisEntity.explode:SetLevel(2)
+		thisEntity.explode:SetLevel(4+GameRules.gameDifficulty)
 	end)
 end
 

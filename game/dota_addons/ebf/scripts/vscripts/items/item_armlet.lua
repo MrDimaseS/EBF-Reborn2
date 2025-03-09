@@ -216,7 +216,7 @@ function modifier_item_armlet_passive_ebf:OnRefresh()
 	self.bonus_attack_speed = self:GetSpecialValueFor("bonus_attack_speed")
 	self.bonus_armor = self:GetSpecialValueFor("bonus_armor")
 	self.bonus_health_regen = self:GetSpecialValueFor("bonus_health_regen")
-	self.lifesteal_percent = self:GetSpecialValueFor("lifesteal_percent") / 100
+	self.lifesteal_percent = self:GetSpecialValueFor("lifesteal_percent")
 	
 	self:GetCaster()._attackLifestealModifiersList = self:GetCaster()._attackLifestealModifiersList or {}
 	self:GetCaster()._attackLifestealModifiersList[self] = true

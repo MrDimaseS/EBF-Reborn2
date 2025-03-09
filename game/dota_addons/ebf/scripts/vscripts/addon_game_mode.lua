@@ -1044,7 +1044,7 @@ function CHoldoutGameMode:OnConnectFull()
 		if PlayerResource:IsValidPlayerID( nPlayerID ) then
 			mmrTable[nPlayerID] = false
 			CustomNetTables:SetTableValue("patrons", tostring( nPlayerID ), {tier = PlayerResource:GetPatronTier(nPlayerID)})
-			local AUTH_KEY = "51E21B1C8D951AA17873B2C5FD0E1B8D70DB32EF" or GetDedicatedServerKeyV3(statSettings.modID)
+			local AUTH_KEY = GetDedicatedServerKeyV3(statSettings.modID)
  
 			local packageLocation = SERVER_LOCATION..AUTH_KEY.."/players/"..tostring(PlayerResource:GetSteamID(nPlayerID))..'.json'
 			local getRequest = CreateHTTPRequestScriptVM( "GET", packageLocation)
@@ -1811,7 +1811,6 @@ end
 function CHoldoutGameMode:RegisterStatsForHero( hero, bWon )
 	if not IsDedicatedServer() or IsInToolsMode() or GameRules:IsCheatMode() then return end
 	if GetMapName() == "epic_boss_fight_event" then return end
-	if GameRules.gameDifficulty < 3 then return end
 	
 	local statSettings = LoadKeyValues("scripts/vscripts/statcollection/settings.kv")
 	local AUTH_KEY = GetDedicatedServerKeyV3(statSettings.modID)

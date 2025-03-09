@@ -30,19 +30,19 @@
 			}
 			"atk_bonus_per_hero"
 			{
-				"special_bonus_facet_axe_berserker"	"1"
+				"special_bonus_facet_axe_berserker"	"0.2"
 			}
 			"atk_bonus_per_creep"
 			{
-				"special_bonus_facet_axe_berserker"	"0.2"
+				"special_bonus_facet_axe_berserker"	"0.05"
 			}
 			"spell_amp_per_hero"
 			{
-				"special_bonus_facet_axe_skald"		"1.2"
+				"special_bonus_facet_axe_skald"		"0.6"
 			}
 			"spell_amp_per_creep"
 			{
-				"special_bonus_facet_axe_skald"		"0.2"
+				"special_bonus_facet_axe_skald"		"0.1"
 			}
 			"duration"								"2 2.2 2.4 2.6"
 			"multiplier_during_berserkers_call"
@@ -153,9 +153,9 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"AbilityCooldown"						"5.0 4.0 3.0 2.0"
+			"AbilityCooldown"						"5.0"
 			"AbilityManaCost"						"20"
-			"duration"								"16.0"
+			"duration"								"10.0 15.0 20.0 25.0"
 			"slow"
 			{
 				"value"								"-11 -19 -27 -35"
@@ -177,7 +177,8 @@
 			}
 			"crit_base"								{"special_bonus_facet_axe_berserker"	"140"}
 			"crit_stack"							{"special_bonus_facet_axe_berserker"	"5"}
-			"armor_stack"							{"special_bonus_facet_axe_skald"		"-1"}
+			"armor_base"							{"special_bonus_facet_axe_skald"		"-2"}
+			"armor_stack"							{"special_bonus_facet_axe_skald"		"-0.5"}
 		}
 	}
 	
@@ -225,7 +226,7 @@
 			"max_red_stacks"						{"special_bonus_facet_axe_jofurr"		"+20"}
 			"attacks_increase_counter"				{"special_bonus_facet_axe_berserker"	"1"}
 			"applies_attack"						{"special_bonus_facet_axe_berserker"	"1"}
-			"seconds_per_stack"						{"special_bonus_facet_axe_skald"		"0.2"}
+			"seconds_per_stack"						{"special_bonus_facet_axe_skald"		"0.25"}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -278,7 +279,7 @@
 			"AbilityCooldown"					
 			{	
 				"value"								"100 85 70"
-				"special_bonus_facet_axe_skald"		"-40"
+				"special_bonus_facet_axe_skald"		"-40%"
 			}
 			"damage"					
 			{	
@@ -288,8 +289,8 @@
 			}
 			"coat_stacks"					
 			{	
-				"value"								"10 15 20"
-				"special_bonus_facet_axe_jofurr"	"=25 =35 =45"
+				"value"								"5 10 15"
+				"special_bonus_facet_axe_jofurr"	"=15 =25 =35"
 			}
 			"critical_damage"						{"special_bonus_facet_axe_berserker"	"175 225 275"}
 			"grace_period"			

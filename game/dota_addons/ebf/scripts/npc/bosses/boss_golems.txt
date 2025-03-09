@@ -44,6 +44,41 @@
 			"split_resistance"			"90"
 		}
 	}
+	"boss_golem_difficulty"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"bosses/boss_golems/boss_golem_difficulty"
+		"AbilityTextureName"			"mud_golem_rock_destroy"
+		"MaxLevel"						"4"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		
+		"precache"
+		{
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_tiny.vsndevts"
+			"model"		"models/particle/tiny_rocks.vmdl"
+			"model"		"models/heroes/tiny/tiny_01/tiny_01.vmdl"
+			"model"		"models/heroes/tiny/tiny_01/tiny_01_tree.vmdl"
+			"model"		"models/heroes/tiny/tiny_02/tiny_02.vmdl"
+			"model"		"models/heroes/tiny/tiny_03/tiny_03.vmdl"
+			"model"		"models/heroes/tiny/tiny_04/tiny_04.vmdl"
+			"particle"	"particles/units/heroes/hero_tiny/tiny01_death.vpcf"
+			"particle"	"particles/units/heroes/hero_tiny/tiny02_death.vpcf"
+			"particle"	"particles/units/heroes/hero_tiny/tiny03_death.vpcf"
+			"particle"	"particles/units/heroes/hero_tiny/tiny04_death.vpcf"
+			"particle"	"particles/units/heroes/hero_tiny/tiny_death_rocks.vpcf"
+			"particle"	"particles/units/heroes/hero_tiny/tiny_transform.vpcf"
+			"particle"	"particles/units/heroes/hero_tiny/tiny_craggy_cleave.vpcf"
+		}
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"cdr"						"0 15 30 45"
+		}
+	}
 	"boss_golem_rock_throw"
 	{
 		// General
@@ -68,7 +103,7 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"21"
+		"AbilityCooldown"				"30"
 		"AbilityCastPoint"				"0.8"
 
 		// Cost
@@ -81,12 +116,12 @@
 		{
 			"damage"
 			{
-				"value"							"275 300 325 350"
+				"value"							"275 325 375 425"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"golem_bonus_damage"
 			{
-				"value"							"75 100 125 150"
+				"value"							"120 160 200 240"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"search_radius"				"300 450 600 750"
@@ -142,7 +177,7 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"38"
+		"AbilityCooldown"				"40"
 		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -170,7 +205,7 @@
 			"projectile_speed"				"1200"
 			"avalanche_damage"
 			{
-				"value"							"120 140 160 180"
+				"value"							"100 200 300 400"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 		}

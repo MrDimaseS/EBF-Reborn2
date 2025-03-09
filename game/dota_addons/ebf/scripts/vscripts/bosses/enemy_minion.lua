@@ -23,7 +23,7 @@ end
 
 function modifier_enemy_minion_passive:OnTakeDamage( params )
 	if IsClient() then return end
-	if params.inflictor and params.unit ~= self:GetParent() and params.unit:IsSameTeam( self:GetParent() ) and (not params.unit._minionAbilitiesTracked[params.inflictor] or GameRules:GetGameTime() < params.unit._minionAbilitiesTracked[params.inflictor] + self.reduction_duration) then
+	if params.inflictor and params.unit ~= self:GetParent() and params.unit:IsSameTeam( self:GetParent() ) and (not (params.unit._minionAbilitiesTracked and params.unit._minionAbilitiesTracked[params.inflictor]) or GameRules:GetGameTime() < params.unit._minionAbilitiesTracked[params.inflictor] + self.reduction_duration) then
 		self:GetParent()._minionAbilitiesTracked[params.inflictor] = GameRules:GetGameTime()
 	end
 end

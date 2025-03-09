@@ -10,7 +10,9 @@ end
 function pudge_rot:OnToggle()
 	if self:GetToggleState() then
 		self:GetCaster():AddNewModifier( self:GetCaster(), self, "modifier_pudge_rot_aura", nil )
-		self:GetCaster():AddNewModifier( self:GetCaster(), self, "modifier_pudge_rot_flesh_carver", nil )
+		if self:GetSpecialValueFor("time_for_max_stacks") > 0 then
+			self:GetCaster():AddNewModifier( self:GetCaster(), self, "modifier_pudge_rot_flesh_carver", nil )
+		end
 
 
 		if not self:GetCaster():IsChanneling() then
@@ -23,7 +25,6 @@ function pudge_rot:OnToggle()
 		end
 	end
 end
-
 
 LinkLuaModifier( "modifier_pudge_rot_debuff", "heroes/hero_pudge/pudge_rot", LUA_MODIFIER_MOTION_NONE )
 modifier_pudge_rot_debuff = class({})
@@ -69,7 +70,7 @@ function modifier_pudge_rot_debuff:OnIntervalThink()
 		local flDamagePerTick = self.rot_tick * (self.rot_damage + self:GetElapsedTime() * self.bonus_damage_per_sec)
 		self.rot_damage = self.rot_damage + self.bonus_damage_per_sec * self.rot_tick
 		if self:GetCaster():IsAlive() then
-			self:GetAbility():DealDamage( self:GetCaster(), self:GetParent(), flDamagePerTick  TernaryOperator( self.self_damage, self.self_rot, 1 ) {damage_flags = self.damage_flags } )
+			self:GetAbility():DealDamage( self:GetCaster(), self:GetParent(), flDamagePerTick * TernaryOperator( self.self_damage, self.self_rot, 1 ), {damage_flags = self.damage_flags } )
 		else
 			self:Destroy()
 		end

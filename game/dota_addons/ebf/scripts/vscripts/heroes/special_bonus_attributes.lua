@@ -537,9 +537,9 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierOverrideAbi
 			else -- universal hero
 				bonusBaseSpellDamagePct =  ( self:GetParent():GetStrength() + self:GetParent():GetAgility() + self:GetParent():GetIntellect(false) ) * SPELL_AMP_UNIVERSAL
 			end
-			flNewValue = flNewValue * ( 1 + bonusBaseSpellDamagePct/100 )
+			flNewValue = math.floor( flNewValue * ( 1 + bonusBaseSpellDamagePct/100 ) )
 		end
-		return math.floor(flNewValue)
+		return flNewValue
 	end
 end
 

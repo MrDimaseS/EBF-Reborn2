@@ -765,7 +765,11 @@ function AICore:HandleBasicAI( entity )
 	end
 	entity._moveToLastPosition = entity._moveToLastPosition or entity:GetAbsOrigin()
 	if entity._currentAttackTarget then
-		if entity._currentAttackTarget:CanBeSeenByAnyOpposingTeam( ) then
+		if not entity._currentAttackTarget:IsAlive() then
+			entity._currentAttackTarget = nil
+			entity:Stop()
+			return 0.01
+		elseif entity._currentAttackTarget:CanBeSeenByAnyOpposingTeam( ) then
 			entity._currentAttackTargetLastPosition = entity._currentAttackTarget:GetAbsOrigin()
 			if entity._currentAttackTarget:IsMoving() then -- factor in movement to prevent cliff traps
 				entity._currentAttackTargetLastPosition = entity._currentAttackTargetLastPosition + entity._currentAttackTarget:GetForwardVector() * entity:GetIdealSpeed() * 1.5

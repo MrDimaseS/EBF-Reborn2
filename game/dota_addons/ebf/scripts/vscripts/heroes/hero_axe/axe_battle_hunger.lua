@@ -40,6 +40,7 @@ function modifier_axe_battle_hunger_debuff:OnRefresh()
 	self.crit_base = self:GetSpecialValueFor("crit_base")
 	self.crit_stack = self:GetSpecialValueFor("crit_stack")
 	
+	self.armor_base = self:GetSpecialValueFor("armor_base")
 	self.armor_stack = self:GetSpecialValueFor("armor_stack")
 	if IsServer() then
 		self:AddIndependentStack( )
@@ -105,7 +106,7 @@ function modifier_axe_battle_hunger_debuff:GetModifierPreAttack_Target_CriticalS
 end
 
 function modifier_axe_battle_hunger_debuff:GetModifierPhysicalArmorBonus()
-	return self.armor_stack * self:GetStackCount() 
+	return self.armor_base + self.armor_stack * self:GetStackCount() 
 end
 
 function modifier_axe_battle_hunger_debuff:GetModifierMoveSpeedBonus_Percentage()

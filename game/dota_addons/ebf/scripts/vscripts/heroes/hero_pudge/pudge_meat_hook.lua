@@ -11,6 +11,17 @@ function pudge_meat_hook:Spawn()
 	if not IsServer() then return end
 end
 
+function pudge_meat_hook:GetBehavior()
+	local behavior = DOTA_ABILITY_BEHAVIOR_POINT + DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING
+	if self:GetSpecialValueFor("autocast") == 1 then
+		behavior = behavior + DOTA_ABILITY_BEHAVIOR_AUTOCAST
+	end
+	if self:GetSpecialValueFor("instant_Hook") == 1 then
+		behavior = behavior + DOTA_ABILITY_BEHAVIOR_IMMEDIATE 
+	end
+	return behavior
+end
+
 --------------------------------------------------------------------------------
 -- Ability Start
 function pudge_meat_hook:OnAbilityPhaseStart()
@@ -19,6 +30,10 @@ end
 
 function pudge_meat_hook:OnAbilityPhaseInterrupted()
 	self:GetCaster():FadeGesture( ACT_DOTA_OVERRIDE_ABILITY_1 )
+end
+
+function pudge_meat_hook:GetIntrinsicModifierName()
+	return "modifier_pudge_meat_hook_autocast"
 end
 
 function pudge_meat_hook:OnSpellStart()
@@ -31,6 +46,8 @@ function pudge_meat_hook:OnSpellStart()
 	local projectile_distance = self:GetSpecialValueFor( "hook_distance" ) + caster:GetCastRangeBonus()
 	local projectile_speed = self:GetSpecialValueFor( "hook_speed" )
 	local projectile_radius = self:GetSpecialValueFor( "hook_width" )
+	local self_stun_duration_percent = self:GetSpecialValueFor( "self_stun_duration_percent" ) / 100
+	local pierces_enemies = self:GetSpecialValueFor("pierces_enemies") == 1
 
 	-- calculate direction
 	local origin = caster:GetOrigin()
@@ -41,13 +58,14 @@ function pudge_meat_hook:OnSpellStart()
 	-- calculate target
 	local target = origin + projectile_direction * projectile_distance
 
+	local hookDummy = caster:CreateDummy( caster:GetAbsOrigin() )
 	-- create projectiles
 	local info = {
 		Source = caster,
 		Ability = self,
 		vSpawnOrigin = caster:GetAbsOrigin(),
 	
-		bDeleteOnHit = true,
+		bDeleteOnHit = not pierces_enemies,
 	
 		iUnitTargetTeam = DOTA_UNIT_TARGET_TEAM_BOTH,
 		iUnitTargetFlags = DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES,
@@ -61,13 +79,15 @@ function pudge_meat_hook:OnSpellStart()
 	}
 	local id = ProjectileManager:CreateLinearProjectile(info)
 
+	self.projectiles = self.projectiles or {}
 	-- create projectile data
 	local data = {}
 	data.cast_location = origin
+	data.hook_dummy = hookDummy
 	self.projectiles[id] = data
 
 	-- add self stun modifier
-	local duration = projectile_distance/projectile_speed
+	local duration = (projectile_distance/projectile_speed) * self_stun_duration_percent
 	caster:AddNewModifier(
 		caster, -- player source
 		self, -- ability source
@@ -78,6 +98,8 @@ function pudge_meat_hook:OnSpellStart()
 	-- play effects
 	self:PlayEffects( target, data )
 	
+	self:SetEffects2( data, hookDummy )
+	
 	local buffDuration = self:GetSpecialValueFor("buff_linger_duration")
 	if buffDuration > 0 then
 		caster:AddNewModifier( caster, self, "modifier_pudge_meat_hook_rotten_giant", {duration = buffDuration} )
@@ -86,16 +108,31 @@ end
 
 --------------------------------------------------------------------------------
 -- Projectile
-pudge_meat_hook.projectiles = {}
+
+function pudge_meat_hook:OnProjectileThinkHandle( handle )
+	local data = self.projectiles[handle]
+	local caster = self:GetCaster()
+
+	if not data then return true end
+	if data.is_tracking then
+		data.hook_dummy:SetAbsOrigin( ProjectileManager:GetTrackingProjectileLocation( handle ) )
+	else
+		data.hook_dummy:SetAbsOrigin( ProjectileManager:GetLinearProjectileLocation( handle ) )
+	end
+	DebugDrawCircle(data.hook_dummy:GetAbsOrigin(), Vector(255,0,0), 1, 80, true, 0.5)
+end
 function pudge_meat_hook:OnProjectileHitHandle( target, location, handle )
 	local data = self.projectiles[handle]
 	local caster = self:GetCaster()
+
 	if not data then return true end
 
 	if not target then
 		-- remove ref
-		self.projectiles[handle] = nil
-
+		data.is_tracking = true
+		self.projectiles[self:FireTrackingProjectile("", caster, self:GetSpecialValueFor( "hook_speed" ), {source = data.hook_dummy})] = data
+		data.hook_dummy.retracting = true
+		self.projectiles[handle] = nil	
 		-- set effects
 		self:SetEffects1( data )
 		self:SetCooldown( self:GetCooldownTimeRemaining() * self:GetSpecialValueFor("cooldown_reduction_pct_allied_hook") / 100 )
@@ -103,15 +140,21 @@ function pudge_meat_hook:OnProjectileHitHandle( target, location, handle )
 	end
 
 	if target==caster then
-		-- pass
-		return false
+		if data.is_tracking then
+			UTIL_Remove( data.hook_dummy )
+			self.projectiles[handle] = nil
+			return false
+		else
+			return false
+		end
 	end
 	-- add drag modifier
+	target:RemoveModifierByName("modifier_pudge_meat_hook_movement")
 	local movement = target:AddNewModifier(
 		caster, -- player source
 		self, -- ability source
 		"modifier_pudge_meat_hook_movement", -- modifier name
-		{ handle = handle } -- kv
+		{ handle = data.hook_dummy:entindex() } -- kv
 	)
 	
 	caster:RemoveModifierByName("modifier_pudge_meat_hook_self")
@@ -120,15 +163,6 @@ function pudge_meat_hook:OnProjectileHitHandle( target, location, handle )
 	local damage = self:GetSpecialValueFor( "damage" )
 	
 	if not target:IsSameTeam( caster ) then
-		local damageTable = {
-			victim = target,
-			attacker = caster,
-			damage = damage,
-			damage_type = DAMAGE_TYPE_PURE,
-			ability = self, --Optional.
-		}
-		ApplyDamage(damageTable)
-
 		if not ( target:IsConsideredHero() or target:IsAncient() ) then
 			self:DealDamage( caster, target, damage + target:GetMaxHealth(), {damage_type = DAMAGE_TYPE_PURE, damage_flags = DOTA_DAMAGE_FLAG_NO_DAMAGE_MULTIPLIERS} )
 		else
@@ -144,7 +178,7 @@ function pudge_meat_hook:OnProjectileHitHandle( target, location, handle )
 			end
 		end
 	else
-		self:SetCooldown( self:GetCooldownTimeRemainig() * self:GetSpecialValueFor("cooldown_reduction_pct_allied_hook") / 100 )
+		self:SetCooldown( self:GetCooldownTimeRemaining() * self:GetSpecialValueFor("cooldown_reduction_pct_allied_hook") / 100 )
 	end
 
 	-- add FOW
@@ -153,9 +187,23 @@ function pudge_meat_hook:OnProjectileHitHandle( target, location, handle )
 	AddFOWViewer( caster:GetTeamNumber(), target:GetOrigin(), radius, duration, false )
 
 	-- set effects
-	self:SetEffects2( data, target )
-
-	return true
+	
+	local allies_end = self:GetSpecialValueFor("allies_end") == 1
+	local pierces_enemies = self:GetSpecialValueFor("pierces_enemies") == 1
+	
+	-- destroy hook
+	if (not (not caster:IsSameTeam( target ) and pierces_enemies)) or (caster:IsSameTeam( target ) and allies_end) then
+		-- remove ref
+		data.is_tracking = true
+		self.projectiles[self:FireTrackingProjectile("", caster, self:GetSpecialValueFor( "hook_speed" ), {source = data.hook_dummy})] = data
+		data.hook_dummy.retracting = true
+		self.projectiles[handle] = nil	
+		-- set effects
+		self:SetEffects1( data )
+		self:SetCooldown( self:GetCooldownTimeRemaining() * self:GetSpecialValueFor("cooldown_reduction_pct_allied_hook") / 100 )
+		return true
+	end
+	return false
 end
 
 --------------------------------------------------------------------------------
@@ -274,12 +322,12 @@ function modifier_pudge_meat_hook_self:CheckState()
 	return state
 end
 
-LinkLuaModifier( "modifier_pudge_meat_hook_movement", "heroes/hero_pudge/pudge_meat_hook", LUA_MODIFIER_MOTION_HORIZONTAL )
+LinkLuaModifier( "modifier_pudge_meat_hook_movement", "heroes/hero_pudge/pudge_meat_hook", LUA_MODIFIER_MOTION_NONE )
 modifier_pudge_meat_hook_movement = class({})
 --------------------------------------------------------------------------------
 -- Classifications
 function modifier_pudge_meat_hook_movement:IsHidden()
-	return true
+	return false
 end
 
 function modifier_pudge_meat_hook_movement:IsDebuff()
@@ -312,49 +360,27 @@ function modifier_pudge_meat_hook_movement:OnCreated( kv )
 
 	-- references
 	self.offset = 80
-	self.threshold = 80
+	self.threshold = 200
 	self.speed = self:GetSpecialValueFor( "hook_speed" )
-	self.distance_to_damage = self:GetSpecialValueFor( "distance_to_damage" ) / 100
+	self.distance_to_travel = math.min( self:GetSpecialValueFor("hook_distance"), CalculateDistance( self.caster, self.parent ) + 64 )
 	self.distance_to_damage = self:GetSpecialValueFor( "distance_to_damage" ) / 100
 
 	if not IsServer() then return end
-
-	-- get position data
-	self.data = self.ability.projectiles[kv.handle]
-	if not self.data then
-		self.failed = true
-		self:Destroy()
-		return
-	end
-	self.origin = self.data.cast_location
-
-	-- remove ref
-	self.ability.projectiles[kv.handle] = nil
-
+	
+	self.dummy = EntIndexToHScript( kv.handle )
+	
 	-- get additional data
 	self.enemy = self.parent:GetTeamNumber()~=self.caster:GetTeamNumber()
 	self.stunned = self.enemy and (not self.parent:IsMagicImmune())
 	self.interrupted = false
 
-	-- calculate direction
-	self.direction = self.origin - self.parent:GetOrigin()
-	self.direction.z = 0
-
-	self.distance = self.direction:Length2D() - self.offset
-	self.direction = self.direction:Normalized()
-
-	-- calculate duration
-	self.duration = self.distance/self.speed
-	self:SetDuration(self.duration,true)
-
 	-- set facing direction
-	self.parent:SetForwardVector( self.direction )
+	self.parent:SetForwardVector( CalculateDirection( self.caster, self.parent ) )
 
 	-- apply motion
-	if not self:ApplyHorizontalMotionController() then
-		self:GetParent():RemoveHorizontalMotionController( self )
+	if CalculateDistance( self.caster, self.parent ) > self.threshold then
+		self:StartMotionController()
 	end
-
 end
 
 function modifier_pudge_meat_hook_movement:OnRefresh( kv )
@@ -365,18 +391,14 @@ end
 
 function modifier_pudge_meat_hook_movement:OnDestroy()
 	if not IsServer() then return end
+	if not ( IsEntitySafe( self.parent ) and self.parent:IsAlive() ) then return end
 	if self.failed then return end
 
 	-- remove particle ref
-	ParticleManager:DestroyParticle( self.data.effect_cast, true )
-	ParticleManager:ReleaseParticleIndex( self.data.effect_cast )
+	self:StopMotionController( )
 
-	if not self.interrupted then
-		self:GetParent():RemoveHorizontalMotionController( self )
-	end
-
-	-- force parent to the cast location
-	FindClearSpaceForUnit( self.parent, self.origin - self.direction * self.offset, true )
+	-- cleanup
+	ResolveNPCPositions( self.parent:GetAbsOrigin(), 128 )
 
 	-- play effects
 	EmitSoundOn( "Hero_Pudge.AttackHookRetractStop", self.caster )
@@ -408,66 +430,41 @@ end
 
 --------------------------------------------------------------------------------
 -- Motion Effects
-function modifier_pudge_meat_hook_movement:UpdateHorizontalMotion( me, dt )
+function modifier_pudge_meat_hook_movement:DoControlledMotion( me, dt )
 	if self.interrupted then return end
-
-	local nextpos = me:GetOrigin() + self.direction * self.speed * dt
-	nextpos = GetGroundPosition( nextpos, me )
-	me:SetOrigin( nextpos )
+	if not IsEntitySafe( self.dummy ) then 
+		self:Destroy()
+		return 
+	end
 	
 	if IsModifierSafe( self._debuffModifier ) then
 		self._debuffModifier:SetDuration( self._debuffModifier:GetRemainingTime() + dt * 2, true ) 
 	end
 	
-	if self.distance_to_damage > 0 then
-		self:GetAbility():DealDamage( self:GetCaster(), me, self.speed * dt * self.distance_to_damage )
+	local hookPosition = self.dummy:GetAbsOrigin()
+	local distanceLeft = CalculateDistance( me, self.caster )
+	local distanceTraveled = math.min(self.speed * dt, distanceLeft)
+	
+	local direction = CalculateDirection( self.caster, self.parent )
+	if (not self.dummy.retracting) or CalculateDistance( hookPosition, self.caster ) - distanceTraveled > distanceLeft then return end
+	
+	local nextpos = GetGroundPosition( hookPosition - direction * distanceTraveled, me )
+	me:SetAbsOrigin( nextpos )
+	self.parent:SetForwardVector( direction )
+	
+	if self.distance_to_damage > 0 and self.enemy then
+		self:GetAbility():DealDamage( self:GetCaster(), me, distanceTraveled * self.distance_to_damage )
 	end
+	self.distance_to_travel = self.distance_to_travel - distanceTraveled
 	-- check caster still in cast position
-	if CalculateDistance(me, self.origin) > self.threshold then
-		-- set effects
-		ParticleManager:SetParticleControlEnt(
-			self.data.effect_cast,
-			0,
-			self:GetCaster(),
-			PATTACH_WORLDORIGIN,
-			"attach_hitloc",
-			self.origin, -- unknown
-			true -- unknown, true
-		)
-		ParticleManager:SetParticleControl( self.data.effect_cast, 0, self.origin )
-	else
+	if CalculateDistance(me, self.caster) > self.threshold then
+	elseif self.distance_to_travel > 0 then
 		self.interrupted = true
 		self:Destroy()
+	else
+		self.interrupted = true
 	end
 end
-
-function modifier_pudge_meat_hook_movement:OnHorizontalMotionInterrupted()
-	-- set effects
-	ParticleManager:SetParticleControlEnt(
-		self.data.effect_cast,
-		0,
-		self:GetCaster(),
-		PATTACH_WORLDORIGIN,
-		"attach_hitloc",
-		self.origin, -- unknown
-		true -- unknown, true
-	)
-	ParticleManager:SetParticleControlEnt(
-		self.data.effect_cast,
-		1,
-		self:GetCaster(),
-		PATTACH_WORLDORIGIN,
-		"attach_hitloc",
-		self.origin, -- unknown
-		true -- unknown, true
-	)
-	ParticleManager:SetParticleControl( self.data.effect_cast, 0, self.origin )
-	ParticleManager:SetParticleControl( self.data.effect_cast, 1, self.origin )
-
-	self:GetParent():RemoveHorizontalMotionController( self )
-	self.interrupted = true
-end
-
 
 LinkLuaModifier( "modifier_pudge_meat_hook_rotten_giant", "heroes/hero_pudge/pudge_meat_hook", LUA_MODIFIER_MOTION_NONE )
 modifier_pudge_meat_hook_rotten_giant = class({})
@@ -525,4 +522,18 @@ end
 
 function modifier_pudge_meat_hook_flesh_carver:GetModifierMagicalResistanceBonus()
 	return self.mr_loss
+end
+
+LinkLuaModifier( "modifier_pudge_meat_hook_autocast", "heroes/hero_pudge/pudge_meat_hook", LUA_MODIFIER_MOTION_NONE )
+modifier_pudge_meat_hook_autocast = class({})
+
+function modifier_pudge_meat_hook_autocast:DeclareFunctions()
+	return {MODIFIER_EVENT_ON_ATTACK_FINISHED}
+end
+
+function modifier_pudge_meat_hook_autocast:OnAttackFinished( params )
+	if params.attacker ~= self:GetCaster() then return end
+	if not self:GetAbility():GetAutoCastState() then return end
+	if not self:GetAbility():IsFullyCastable() then return end
+	params.attacker:CastAbilityOnPosition( params.target:GetAbsOrigin(), self:GetAbility(), params.attacker:GetPlayerOwnerID() )
 end

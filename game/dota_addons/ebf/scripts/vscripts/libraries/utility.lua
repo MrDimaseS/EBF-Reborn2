@@ -1187,11 +1187,12 @@ function ParticleManager:ClearParticle(cFX, bImmediate)
 end
 
 function CDOTA_Modifier_Lua:StartMotionController()
-	if not self:GetParent():IsNull() and not self:IsNull() and self.DoControlledMotion and self:GetParent():HasMovementCapability() then
-		self:GetParent():StopMotionControllers()
-		self:GetParent():InterruptMotionControllers(true)
+	if IsModifierSafe( self ) and IsEntitySafe( self:GetParent() ) and self.DoControlledMotion and self:GetParent():HasMovementCapability() then
+		local parent = self:GetParent()
+		parent:StopMotionControllers()
+		parent:InterruptMotionControllers(true)
 		self.controlledMotionTimer = Timers:CreateTimer(function()
-			if pcall( function() self:DoControlledMotion() end ) then
+			if pcall( self.DoControlledMotion, self, parent, FrameTime() ) then
 				return 0.03
 			elseif not self:IsNull() then
 				self:Destroy()

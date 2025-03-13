@@ -334,7 +334,7 @@ function modifier_special_bonus_attributes_stat_rescaling:OnTakeDamage(params)
 		local heal = params.damage * attackLifestealPct / 100
 		self.lifeToGive = (self.lifeToGive or 0) + heal
 	end
-	if self.lifeToGive > 1 then
+	if (self.lifeToGive or 0) > 1 then
 		local preHP = params.attacker:GetHealth()
 		params.attacker:HealWithParams( self.lifeToGive, params.inflictor, false, true, self, true )
 		local postHP = params.attacker:GetHealth()

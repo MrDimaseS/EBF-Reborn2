@@ -9,6 +9,7 @@ end
 
 function pudge_rot:OnToggle()
 	if self:GetToggleState() then
+		self:GetCaster()._rotAuraStrength = 0
 		self:GetCaster():AddNewModifier( self:GetCaster(), self, "modifier_pudge_rot_aura", nil )
 		if self:GetSpecialValueFor("time_for_max_stacks") > 0 then
 			self:GetCaster():AddNewModifier( self:GetCaster(), self, "modifier_pudge_rot_flesh_carver", nil )
@@ -31,6 +32,7 @@ modifier_pudge_rot_debuff = class({})
 
 function modifier_pudge_rot_debuff:OnCreated( kv )
 	self.rot_radius = self:GetSpecialValueFor( "rot_radius" )
+	self.bonus_radius_per_sec = self:GetSpecialValueFor( "bonus_radius_per_sec" )
 	self.rot_slow = self:GetSpecialValueFor( "rot_slow" )
 	self.rot_damage = self:GetSpecialValueFor( "rot_damage" )
 	self.bonus_damage_per_sec = self:GetSpecialValueFor( "bonus_damage_per_sec" )
@@ -42,9 +44,9 @@ function modifier_pudge_rot_debuff:OnCreated( kv )
 			self.damage_flags = DOTA_DAMAGE_FLAG_HPLOSS + DOTA_DAMAGE_FLAG_NON_LETHAL
 			self.self_rot = true
 			EmitSoundOn( "Hero_Pudge.Rot", self:GetCaster() )
-			local nFXIndex = ParticleManager:CreateParticle( "particles/units/heroes/hero_pudge/pudge_rot.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent() )
-			ParticleManager:SetParticleControl( nFXIndex, 1, Vector( self.rot_radius, 1, self.rot_radius ) )
-			self:AddParticle( nFXIndex, false, false, -1, false, false )
+			self.nFXIndex = ParticleManager:CreateParticle( "particles/units/heroes/hero_pudge/pudge_rot.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent() )
+			ParticleManager:SetParticleControl( self.nFXIndex, 1, Vector( self.rot_radius, 1, self.rot_radius ) )
+			self:AddParticle( self.nFXIndex, false, false, -1, false, false )
 		else
 			local nFXIndex = ParticleManager:CreateParticle( "particles/units/heroes/hero_pudge/pudge_rot_recipient.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent() )
 			self:AddParticle( nFXIndex, false, false, -1, false, false )
@@ -67,10 +69,15 @@ function modifier_pudge_rot_debuff:OnIntervalThink()
 			self:Destroy()
 			return
 		end
-		local flDamagePerTick = self.rot_tick * (self.rot_damage + self:GetElapsedTime() * self.bonus_damage_per_sec)
-		self.rot_damage = self.rot_damage + self.bonus_damage_per_sec * self.rot_tick
+		local flDamagePerTick = self.rot_tick * ( self.rot_damage + self:GetCaster()._rotAuraStrength )
+		if self.self_rot then
+			self:GetCaster()._rotAuraStrength = self:GetCaster()._rotAuraStrength + self.bonus_damage_per_sec * self.rot_tick
+			flDamagePerTick = flDamagePerTick * self.self_damage
+			self.rot_radius = self.rot_radius + self.bonus_radius_per_sec * self.rot_tick
+			ParticleManager:SetParticleControl( self.nFXIndex, 1, Vector( self.rot_radius, 1, self.rot_radius ) )
+		end
 		if self:GetCaster():IsAlive() then
-			self:GetAbility():DealDamage( self:GetCaster(), self:GetParent(), flDamagePerTick * TernaryOperator( self.self_damage, self.self_rot, 1 ), {damage_flags = self.damage_flags } )
+			self:GetAbility():DealDamage( self:GetCaster(), self:GetParent(), flDamagePerTick, {damage_flags = self.damage_flags } )
 		else
 			self:Destroy()
 		end

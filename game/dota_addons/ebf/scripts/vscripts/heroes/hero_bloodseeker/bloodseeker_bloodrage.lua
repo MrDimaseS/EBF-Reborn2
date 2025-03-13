@@ -29,10 +29,14 @@ function modifier_bloodseeker_bloodrage_buff:OnRefresh()
 	
 	self.damage_pct = self:GetSpecialValueFor("damage_pct") / 100
 	
+	self.tick_interval = 0.33
+	self.ticks_per_second = 1/self.tick_interval
+	
 	self.bonus_pure_dmg = self:GetSpecialValueFor("bonus_pure_dmg")
 	self.solo_bonus = 1 + self:GetSpecialValueFor("solo_bonus") / 100
 	self.solo_range = self:GetSpecialValueFor("solo_range")
 	self.max_missing_hp_barrier = self:GetSpecialValueFor("max_missing_hp_barrier") / 100
+	self.hp_barrier_decay = ( self:GetSpecialValueFor("hp_barrier_decay") / 100 ) / self.ticks_per_second
 	if IsServer() then
 		self:StartIntervalThink( 0.33 )
 		self:SendBuffRefreshToClients()
@@ -45,6 +49,10 @@ function modifier_bloodseeker_bloodrage_buff:OnIntervalThink()
 	
 	if parent:GetHealth() > 1 then
 		parent:ModifyHealth( parent:GetHealth() - (0.33 * parent:GetMaxHealth() * self.damage_pct), self:GetAbility(), false, DOTA_DAMAGE_FLAG_HPLOSS + DOTA_DAMAGE_FLAG_BYPASSES_INVULNERABILITY + DOTA_DAMAGE_FLAG_BYPASSES_ALL_BLOCK + DOTA_DAMAGE_FLAG_NON_LETHAL + DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_NO_DAMAGE_MULTIPLIERS + DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL )
+	end
+	if self.barrier_block > 0 then
+		self.barrier_block = self.barrier_block - self.barrier_block * self.hp_barrier_decay
+		self:SendBuffRefreshToClients()
 	end
 	if self.solo_bonus > 1 and parent == caster then
 		self.enemies = #parent:FindEnemyUnitsInRadius( parent:GetAbsOrigin(), self.solo_range )

@@ -26,6 +26,9 @@ function CHoldoutGameRound:ReadConfiguration( kv, gameMode, roundNumber )
 	self._RoundEndDeadlineDifficultyMultiplier = kv.RoundEndDeadlineDifficultyMultiplier or -1
 	self._RoundEndDeadlineDifficultyMultiplier = kv.RoundEndDeadlineDifficultyMultiplier or 0
 	self._PrepTimeBetweenRoundDifficultyMultipliers = kv.PrepTimeBetweenRoundDifficultyMultipliers or -1
+	
+	self._GoldPerSecond = roundNumber/2
+	self._GoldToGive = 0
 
 	self._vSpawners = {}
 	for unitName, unitData in pairs( kv ) do
@@ -400,6 +403,10 @@ function CHoldoutGameRound:Think()
 	-- mayhem UI
 	if GetMapName() == "mayhem_gamemode" then
 		CustomGameEventManager:Send_ServerToAllClients("UpdateTimeLeft", {nextRound = self._nRoundNumber, Time = self._RoundStartTime + self._MaxPlayTime - GameRules:GetGameTime()})
+	end
+	-- hero gold per tick
+	for _, hero in ipairs( HeroList:GetActiveHeroes() ) do
+		hero:AddGold( self._GoldPerSecond, false, DOTA_ModifyGold_GameTick )
 	end
 	-- clear cached units
 	local delay = 1.5

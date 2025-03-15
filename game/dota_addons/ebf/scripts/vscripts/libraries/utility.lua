@@ -1516,14 +1516,14 @@ function GameRules:GetPlayerGoldMultiplier()
 	return math.max( 1, 1 + (6 - HeroList:GetActiveHeroCount())/20 )
 end
 
-function CDOTA_BaseNPC:AddGold( val, bIgnoreBonus )
+function CDOTA_BaseNPC:AddGold( val, bIgnoreBonus, cReason )
 	if self:GetPlayerID() >= 0 then
 		local hero = PlayerResource:GetSelectedHeroEntity( self:GetPlayerID() )
 		if hero then
 			local baseGold = val or 0
 			local bonusGold = 0
 			local gold = baseGold
-			
+			local reason = cReason or DOTA_ModifyGold_HeroKill
 			-- gold handling
 			if not bIgnoreBonus then
 				-- local midas = hero:FindModifierByName("modifier_hand_of_midas_passive")
@@ -1536,17 +1536,16 @@ function CDOTA_BaseNPC:AddGold( val, bIgnoreBonus )
 				end
 				bonusGold = bonusGold + baseGold * (GameRules:GetPlayerGoldMultiplier()-1)
 			end
-			local newGold = hero:GetGold() + gold + bonusGold
-			hero:SetGold(0, false)
+			local newGold = gold + bonusGold
 			newGold = newGold + (hero.bonusGoldExcessValue or 0)
 			hero.bonusGoldExcessValue = newGold % 1
-			
-			hero:SetGold(math.floor(newGold), true)
+			hero:ModifyGold( math.floor(newGold), true, reason )
 			
 			-- notification handling
-			local showGold = math.floor( gold )
-			SendOverheadEventMessage(self:GetPlayerOwner(), OVERHEAD_ALERT_GOLD, self, showGold, self:GetPlayerOwner())
-			
+			if reason ~= DOTA_ModifyGold_GameTick then
+				local showGold = math.floor( gold )
+				SendOverheadEventMessage(self:GetPlayerOwner(), OVERHEAD_ALERT_GOLD, self, showGold, self:GetPlayerOwner())
+			end
 			if bonusGold > 0 then
 				Timers:CreateTimer( 0.25, function()
 					SendOverheadEventMessage(self:GetPlayerOwner(), OVERHEAD_ALERT_GOLD, self, math.floor( bonusGold ), self:GetPlayerOwner())

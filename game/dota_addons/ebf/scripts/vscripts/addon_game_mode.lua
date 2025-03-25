@@ -537,6 +537,7 @@ function CHoldoutGameMode:FilterHealing( filterTable )
 	local target = EntIndexToHScript( target_index )
 	filterTable["heal"] = math.min( filterTable["heal"], target:GetMaxHealth() )
     if not healer_index then return true end
+	print("anything?")
 	local healer = EntIndexToHScript( healer_index )
 	healer.damage_healed_ingame = (healer.damage_healed_ingame or 0) + filterTable["heal"]
 	
@@ -547,8 +548,6 @@ IGNORE_SPELL_AMP_KV = {
 	["jakiro_liquid_ice"] = {["pct_health_damage"] = true},
 	["jakiro_liquid_fire"] = {["pct_health_damage"] = true},
 	["sandking_caustic_finale"] = {["caustic_finale_damage_pct"] = true},
-	["bloodseeker_bloodrage"] = {["shard_max_health_dmg_pct"] = true},
-	["bloodseeker_rupture"] = {["hp_pct"] = true},
 	["abyssal_underlord_firestorm"] = {["burn_damage"] = true},
 	["phoenix_sun_ray"] = {["hp_perc_damage"] = true},
 	["venomancer_noxious_plague"] = {["health_damage"] = true},
@@ -557,7 +556,6 @@ IGNORE_SPELL_AMP_KV = {
 	["enigma_midnight_pulse"] = {["damage_percent"] = true},
 	["enigma_black_hole"] = {["scepter_pct_damage"] = true},
 	["obsidian_destroyer_arcane_orb"] = {["mana_pool_damage_pct"] = true},
-	["phantom_assassin_fan_of_knives"] = {["pct_health_damage_initial"] = true,["pct_health_damage"] = true},
 	["huskar_life_break"] = {["health_cost_percent"] = true, ["health_damage"] = true, ["tooltip_health_cost_percent"] = true, ["tooltip_health_damage"] = true, },
 	["huskar_burning_spear"] = {["burn_damage_max_pct"] = true },
 	["winter_wyvern_arctic_burn"] = {["percent_damage"] = true},
@@ -576,13 +574,11 @@ IGNORE_SPELL_AMP_KV = {
 MAX_HP_DAMAGE = {
 	["jakiro_liquid_ice"] = {["pct_health_damage"] = 100},
 	["jakiro_liquid_fire"] = {["pct_health_damage"] = 100},
-	["bloodseeker_rupture"] = {["hp_pct"] = 100},
 	["abyssal_underlord_firestorm"] = {["burn_damage"] = 100},
 	["phoenix_sun_ray"] = {["hp_perc_damage"] = 100},
 	["venomancer_noxious_plague"] = {["health_damage"] = 100},
 	["enigma_midnight_pulse"] = {["damage_percent"] = 100},
 	["enigma_black_hole"] = {["scepter_pct_damage"] = 100},
-	["phantom_assassin_fan_of_knives"] = {["pct_health_damage_initial"] = 100},
 	["huskar_life_break"] = {["health_damage"] = -1},
 	["huskar_burning_spear"] = {["burn_damage_max_pct"] = 100 },
 	["winter_wyvern_arctic_burn"] = {["percent_damage"] = -100},
@@ -599,11 +595,6 @@ MAX_HP_DAMAGE = {
 IGNORE_SPELL_AMP_FILTER = {
 	["muerta_pierce_the_veil"] = 75,
 	["shadow_demon_disseminate"] = 100,
-	["item_revenants_brooch"] = 100,
-	["item_revenants_brooch_2"] = 100,
-	["item_revenants_brooch_3"] = 100,
-	["item_revenants_brooch_4"] = 100,
-	["item_revenants_brooch_5"] = 100,
 	["item_devastator"] = 100,
 	["item_devastator_2"] = 100,
 	["item_devastator_3"] = 100,
@@ -667,7 +658,7 @@ function CHoldoutGameMode:FilterDamage( filterTable )
     local damagetype = filterTable["damagetype_const"]
 	if damage <= 0 then return true end
 	
-	--- DAMAGE MANIPULATION ---
+	-- - DAMAGE MANIPULATION ---
 	if ability and IGNORE_SPELL_AMP_FILTER[ability:GetName()] then
 		damage = damage / ( 1+ ( attacker:GetSpellAmplification( false ) * (IGNORE_SPELL_AMP_FILTER[ability:GetName()]/100)) )
 	end

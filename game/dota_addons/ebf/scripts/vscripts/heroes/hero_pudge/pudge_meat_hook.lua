@@ -125,6 +125,7 @@ function pudge_meat_hook:OnProjectileHitHandle( target, location, handle )
 	local data = self.projectiles[handle]
 	local caster = self:GetCaster()
 
+	local hook_distance = self:GetSpecialValueFor( "hook_distance" )
 	if not data then return true end
 
 	if not target then
@@ -154,12 +155,11 @@ function pudge_meat_hook:OnProjectileHitHandle( target, location, handle )
 		caster, -- player source
 		self, -- ability source
 		"modifier_pudge_meat_hook_movement", -- modifier name
-		{ handle = data.hook_dummy:entindex() } -- kv
+		{ handle = data.hook_dummy:entindex(), duration = (hook_distance * 2)/self:GetSpecialValueFor("hook_speed")} -- kv
 	)
 	
 	caster:RemoveModifierByName("modifier_pudge_meat_hook_self")
 	-- damage
-	local hook_distance = self:GetSpecialValueFor( "hook_distance" )
 	local damage = self:GetSpecialValueFor( "damage" )
 	
 	if not target:IsSameTeam( caster ) then

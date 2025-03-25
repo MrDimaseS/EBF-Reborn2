@@ -106,7 +106,8 @@ function modifier_doom_bringer_infernal_blade_debuff:OnRefresh()
 end
 
 function modifier_doom_bringer_infernal_blade_debuff:OnIntervalThink()
-	self:GetAbility():DealDamage(self:GetCaster(), self:GetParent(), self:GetParent():GetMaxHealth() * self.damage + self.baseDamage * (1 + self:GetCaster():GetSpellAmplification( false )), {damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION}, OVERHEAD_ALERT_BONUS_SPELL_DAMAGE)
+	local parent = self:GetParent()
+	self:GetAbility():DealDamage(self:GetCaster(), parent, parent:GetMaxHealth() * self.damage * parent:GetMaxHealthDamageResistance() + self.baseDamage * (1 + self:GetCaster():GetSpellAmplification( false )), {damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION}, OVERHEAD_ALERT_BONUS_SPELL_DAMAGE)
 end
 
 function modifier_doom_bringer_infernal_blade_debuff:GetEffectName()

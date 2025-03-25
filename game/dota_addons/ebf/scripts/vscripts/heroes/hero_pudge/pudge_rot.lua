@@ -80,7 +80,7 @@ function modifier_pudge_rot_debuff:OnIntervalThink()
 		if self.max_rot_power > 0 and IsModifierSafe( self:GetCaster()._rotPowerModifier ) then
 			local rotPower = 1 + self.max_rot_power * self:GetCaster()._rotPowerModifier:GetStackCount() / 100
 			flDamagePerTick = flDamagePerTick * rotPower
-			if self.rot_radius ~= self.base_rot_radius * rotPower then
+			if self.self_rot and self.rot_radius ~= self.base_rot_radius * rotPower then
 				self.rot_radius = self.base_rot_radius * rotPower
 				ParticleManager:SetParticleControl( self.nFXIndex, 1, Vector( self.rot_radius, 1, self.rot_radius ) )
 			end

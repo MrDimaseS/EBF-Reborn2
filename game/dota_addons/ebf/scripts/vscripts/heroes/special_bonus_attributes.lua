@@ -591,7 +591,7 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierHealthBonus
 	else -- universal hero
 		bonusBaseHP = ( self:GetParent():GetStrength() + self:GetParent():GetAgility() + self:GetParent():GetIntellect(false) ) * BASE_HP_UNIVERSAL
 	end
-	return 300 + bonusBaseHP
+	return 600*(self.total_ability_scaling-1) + bonusBaseHP
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierManaBonus()

@@ -67,7 +67,7 @@ function boss_golem_split:Spawn()
 	if not IsServer() then return end
 	Timers:CreateTimer( function()
 		if self:GetSpecialValueFor("cleave") > 0 then
-			local tree = SpawnEntityFromTableSynchronous("prop_dynamic", {model = "models/heroes/tiny_01/tiny_01_tree.vmdl"})
+			local tree = SpawnEntityFromTableSynchronous("prop_dynamic", {model = "models/heroes/tiny/tiny_01/tiny_01_tree.vmdl"})
 			tree:FollowEntity(self:GetCaster(), true)
 		end
 	end)

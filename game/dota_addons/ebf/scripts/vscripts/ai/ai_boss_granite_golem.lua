@@ -17,6 +17,7 @@ function Spawn( entityKeyValues )
 	thisEntity.split = thisEntity:FindAbilityByName("boss_golem_split")
 	thisEntity.throw = thisEntity:FindAbilityByName("boss_golem_rock_throw")
 	thisEntity.difficulty = thisEntity:FindAbilityByName("boss_golem_difficulty")
+	thisEntity.avalanche = thisEntity:FindAbilityByName("boss_golem_avalanche")
 	
 	thisEntity:AddNewModifier( thisEntity, nil, "modifier_item_aghanims_shard", {} )
 	Timers:CreateTimer(0.1, function()
@@ -30,7 +31,7 @@ end
 
 
 function AIThink(thisEntity)
-	if thisEntity:GetTeamNumber() == DOTA_TEAM_NEUTRALS and not thisEntity:IsChanneling() and not thisEntity:GetCurrentActiveAbility() then
+	if thisEntity:GetTeamNumber() ~= DOTA_TEAM_GOODGUYS and not thisEntity:IsChanneling() and not thisEntity:GetCurrentActiveAbility() then
 		if thisEntity.throw:IsFullyCastable() then
 			local castPosition = AICore:FindOptimalRadiusInRangeForEntity( thisEntity, thisEntity.throw:GetTrueCastRange(), thisEntity.throw:GetSpecialValueFor("search_radius") )
 			if castPosition and RollPercentage( 15 ) then

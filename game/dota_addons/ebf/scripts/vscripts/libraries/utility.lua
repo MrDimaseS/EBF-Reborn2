@@ -1539,12 +1539,18 @@ function CDOTA_BaseNPC:AddGold( val, bIgnoreBonus, cReason )
 			local newGold = gold + bonusGold
 			newGold = newGold + (hero.bonusGoldExcessValue or 0)
 			hero.bonusGoldExcessValue = newGold % 1
-			hero:ModifyGold( math.floor(newGold), true, reason )
-			
+			if newGold < 1 then
+				return 0
+			end
 			-- notification handling
 			if reason ~= DOTA_ModifyGold_GameTick then
+				hero:ModifyGold( math.floor(newGold), true, reason )
 				local showGold = math.floor( gold )
 				SendOverheadEventMessage(self:GetPlayerOwner(), OVERHEAD_ALERT_GOLD, self, showGold, self:GetPlayerOwner())
+			else
+				local GPM = hero:GetGold() + math.floor(newGold)
+				hero:SetGold( 0, false )
+				hero:SetGold( GPM, true )
 			end
 			if bonusGold > 0 then
 				Timers:CreateTimer( 0.25, function()

@@ -63,7 +63,7 @@ function modifier_necrophos_heart_stopper_passive_degen:OnIntervalThink()
 	if not IsEntitySafe( ability ) then return end
 	if not IsEntitySafe( parent ) then return end
 	if caster:IsOutOfGame() or caster:NoHealthBar() then return end
-	local damage = parent:GetMaxHealth() * ( TernaryOperator( self.aura_damage, parent:IsConsideredHero(), self.creep_damage ) ) / 100 + caster:GetHealthRegen() * self.heal_regen_to_damage
+	local damage = parent:GetMaxHealth() * ( TernaryOperator( self.aura_damage, parent:IsConsideredHero(), self.creep_damage ) ) * parent:GetMaxHealthDamageResistance() / 100 + caster:GetHealthRegen() * self.heal_regen_to_damage
 	if ability and not ability:IsNull() then
 		ability:DealDamage( caster, parent, math.ceil(damage) * 0.33, {damage_type = DAMAGE_TYPE_MAGICAL, damage_flags = DOTA_DAMAGE_FLAG_HPLOSS + DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL} )
 	else

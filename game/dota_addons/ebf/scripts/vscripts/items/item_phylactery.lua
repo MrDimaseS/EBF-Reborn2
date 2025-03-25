@@ -43,10 +43,11 @@ local funcs = {
 end
 
 function modifier_item_phylactery_passive:OnSpellAppliedSuccessfully( params )
-	if params.ability:GetCaster() ~= self:GetCaster() then return end
+	local caster = self:GetCaster()
+	if params.ability:GetCaster() ~= caster then return end
 	if not self:GetAbility():IsCooldownReady() then return end
 	if not params.target then return end
-	local caster = self:GetCaster()
+	if params.target:IsSameTeam( caster ) then return end
 	local ability = self:GetAbility()
 	local target = params.target
 	
@@ -107,28 +108,28 @@ function modifier_item_phylactery_debuff:OnRefresh()
 	
 	self.weighting = 0
 	
-	if self.breaks < 0 then
+	if self.breaks < 1 then
 		self.breakWeight = self.breaks * 100
 		self.weighting = self.weighting + self.breaks * 100
 		self.breaks = false
 	else
 		self.breaks = true
 	end
-	if self.disarms < 0 then
+	if self.disarms < 1 then
 		self.disarmWeight = self.weighting + self.disarms * 100
 		self.weighting = self.weighting + self.disarms * 100
 		self.disarms = false
 	else
 		self.disarms = true
 	end
-	if self.silences < 0 then
-		self.silenceWeight = self.weighting + self.disarms * 100
-		self.weighting = self.weighting + self.disarms * 100
+	if self.silences < 1 then
+		self.silenceWeight = self.weighting + self.silences * 100
+		self.weighting = self.weighting + self.silences * 100
 		self.silences = false
 	else
 		self.silences = true
 	end
-	if self.stuns < 0 then
+	if self.stuns < 1 then
 		self.stunWeight = self.weighting + self.stuns * 100
 		self.weighting = self.weighting + self.stuns * 100
 		self.stuns = false

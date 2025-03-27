@@ -42,7 +42,6 @@ function modifier_luna_lunar_orbit:OnRefresh()
 	for i = 1, self.count do
 		local direction = Vector(math.cos(angle * i), math.sin(angle * i), 0)
 		local point = direction * self.distance
-		print("making thinker ", i)
 		self.thinkers[i] = CreateModifierThinker(
 			self:GetParent(),
 			self:GetAbility(),
@@ -73,16 +72,14 @@ function modifier_luna_lunar_orbit_glaive:OnRefresh(params)
 	self.parent = self:GetParent()
 	self.speed = self:GetSpecialValueFor("rotating_glaives_speed")
 	self.angle = params.angle
-	self.thinks_per_second = 20
-	self.rotation_per_think = self.speed * math.pi / 180 / self.thinks_per_second / 2
+	self.rotation_per_think = self.speed * math.pi / 180 / 33 / 2
 	self.distance = self:GetSpecialValueFor("rotating_glaives_movement_radius")
 	self.hit_radius = self:GetSpecialValueFor("rotating_glaives_hit_radius")
 	self.damage_reduction_duration = self:GetSpecialValueFor("damage_reduction_duration")
 	self.damage = self:GetSpecialValueFor("rotating_glaives_collision_damage")
-	self.grace_period = 1.0
-	if self:GetSpecialValueFor("does_procs") ~= 0 then
-		self.grace_period = 0.66
-	end
+	self.does_procs = self:GetSpecialValueFor("does_procs") == 1
+	self.grace_period = (self.distance / self.speed) - 0.1
+	
 	self.hits = {}
 
 	local particle = "particles/units/heroes/hero_luna/luna_moon_glaive_shield.vpcf"
@@ -108,47 +105,34 @@ function modifier_luna_lunar_orbit_glaive:OnRefresh(params)
 	)
 	ParticleManager:ReleaseParticleIndex(effect)
 	
-	self:StartIntervalThink(1.0 / self.thinks_per_second)
+	self:StartIntervalThink(0)
 end
 function modifier_luna_lunar_orbit_glaive:OnIntervalThink()
 	self.angle = self.angle + self.rotation_per_think
 	local direction = Vector(math.cos(self.angle), math.sin(self.angle), 0)
-	local point = direction * self.distance
-	self.parent:SetOrigin(self.caster:GetOrigin() + point)
-
-	-- find enemies in range
-	local enemies = FindUnitsInRadius(
-		self.caster:GetTeamNumber(),
-		self.parent:GetOrigin(),
-		nil,
-		self.hit_radius,
-		DOTA_UNIT_TARGET_TEAM_ENEMY,
-		DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC,
-		DOTA_UNIT_TARGET_FLAG_FOW_VISIBLE + DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES,
-		FIND_CLOSEST,
-		false
-	)
-
-	-- enemies that have been hit by this glaive within
-	-- the grace period are immune from it.
-	for i = 1, #enemies do
-		if self.hits[enemies[i]] == nil then
-			self.hits[enemies[i]] = self.hits[enemies[i]] - 1 / self.thinks_per_second
-			if self.hits[enemies[i]] < 1 / self.thinks_per_second then
-				self.hits[enemies[i]] = nil
-			end
-		else
-			self.hits[enemies[i]] = self.grace_period
-			self.caster:PerformGenericAttack(enemies[i], true, 
+	local point = self.caster:GetAbsOrigin() + direction * self.distance
+	self.parent:SetAbsOrigin( point)
+	
+	for enemy, grace_period in pairs( self.hits ) do
+		if grace_period > 0 then
+			self.hits[enemy] = grace_period - FrameTime()
+		end
+	end
+	
+	for _, enemy in ipairs( self.caster:FindEnemyUnitsInRadius( point, self.hit_radius ) ) do
+		self.hits[enemy] = self.hits[enemy] or 0
+		if self.hits[enemy] < FrameTime() then
+			self.hits[enemy] = self.grace_period
+			self.caster:PerformGenericAttack(enemy, true, 
 			{ 
 				neverMiss = true, 
 				suppressCleave = true,
 				bonusDamagePct = self.damage,
-				procAttackEffects = self:GetSpecialValueFor("does_procs") ~= 0, 
+				procAttackEffects = self.does_procs,
 				ability = self:GetAbility() 
 			})
 			if self.damage_reduction_duration ~= 0 then
-				enemies[i]:AddNewModifier(self.caster, self:GetAbility(), "modifier_luna_lunar_orbit_spiteshield", { duration = self.damage_reduction_duration })
+				enemy:AddNewModifier(self.caster, self:GetAbility(), "modifier_luna_lunar_orbit_spiteshield", { duration = self.damage_reduction_duration })
 			end
 		end
 	end
@@ -165,9 +149,9 @@ function modifier_luna_lunar_orbit_spiteshield:OnRefresh()
 end
 function modifier_luna_lunar_orbit_spiteshield:DeclareFunctions()
 	return {
-		MODIFIER_PROPERTY_BASEDAMAGEOUTGOING_PERCENTAGE
+		MODIFIER_PROPERTY_TOTALDAMAGEOUTGOING_PERCENTAGE
 	}
 end
-function modifier_luna_lunar_orbit_spiteshield:GetModifierBaseDamageOutgoing_Percentage()
+function modifier_luna_lunar_orbit_spiteshield:GetModifierTotalDamageOutgoing_Percentage()
 	return -self.damage_reduction_percent
 end

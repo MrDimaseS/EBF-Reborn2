@@ -106,8 +106,6 @@ function modifier_item_lifesteal_ebf_aura:OnRefresh()
 	self.lifesteal_aura = self:GetAbility():GetSpecialValueFor("lifesteal_aura")
 	self.damage_aura = self:GetAbility():GetSpecialValueFor("damage_aura")
 	
-	print( self.lifesteal_aura )
-	
 	self:GetCaster()._attackLifestealModifiersList = self:GetCaster()._attackLifestealModifiersList or {}
 	self:GetCaster()._attackLifestealModifiersList[self] = true
 end

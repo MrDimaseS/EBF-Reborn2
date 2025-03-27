@@ -51,7 +51,6 @@ function zuus_thundergods_wrath:OnSpellStart()
 			if not enemyToStrike:IsAlive() then
 				enemiesKilled = enemiesKilled + 1
 				damage = math.ceil( baseDamage * (1+grow_kill_amp * enemiesKilled) )
-				print( damage )
 			end
 			return growing_delay
 		end

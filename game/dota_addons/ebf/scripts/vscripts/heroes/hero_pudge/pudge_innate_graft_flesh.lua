@@ -19,8 +19,6 @@ function modifier_pudge_innate_graft_flesh_kills:OnRefresh()
 	self.temporary_duration = self:GetSpecialValueFor("temporary_duration")
 	self.bonus_maximum_health = self:GetSpecialValueFor("bonus_maximum_health")
 	self.bonus_base_damage = self:GetSpecialValueFor("bonus_base_damage")
-	
-	print( self:GetSpecialValueFor("bonus_maximum_health"), self:GetSpecialValueFor("bonus_strength"), self:GetSpecialValueFor("flesh_heap_strength_buff_amount"), "perma" )
 end
 
 function modifier_pudge_innate_graft_flesh_kills:DeclareFunctions()
@@ -82,10 +80,6 @@ function modifier_pudge_innate_graft_flesh_temporary:OnRefresh()
 	self.bonus_maximum_health = self:GetSpecialValueFor("bonus_maximum_health")
 	self.bonus_base_damage = self:GetSpecialValueFor("bonus_base_damage")
 	
-	print( self.strength_per_stack, self.bonus_maximum_health, self.bonus_base_damage )
-	for key, value in ipairs( GetAbilityKeyValuesByName( self:GetAbility():GetAbilityName() ) ) do
-		print( value, self:GetSpecialValueFor(key) )
-	end
 	if IsServer() then
 		self:AddIndependentStack( self.temporary_duration )
 	end

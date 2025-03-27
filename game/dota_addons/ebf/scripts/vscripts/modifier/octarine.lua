@@ -9,7 +9,7 @@ end
 
 function octarine:DeclareFunctions()
   local funcs = {
-   MODIFIER_PROPERTY_HEALTH_BONUS
+   MODIFIER_PROPERTY_HEALTH_BONUS,
    MODIFIER_PROPERTY_HEALTH_BONUS,
    MODIFIER_PROPERTY_HEALTH_BONUS,
    MODIFIER_PROPERTY_HEALTH_BONUS,
@@ -41,7 +41,7 @@ function octarine:GetMana()
   return self:GetAbility():GetLevelSpecialValueFor("bonus_mana",0)
 end
 
-function octarine:GetIntellect(false)
+function octarine:GetIntellect()
   return self:GetAbility():GetLevelSpecialValueFor("bonus_intelligence",0)
 end
 

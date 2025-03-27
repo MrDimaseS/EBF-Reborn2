@@ -169,6 +169,7 @@ function modifier_luna_moon_glaives_thinker:GetModifierProcAttack_Feedback(param
 		else
 			debuff = params.target:AddNewModifier(self.caster, self:GetAbility(), "modifier_luna_moon_glaives_spiteshield")
 			debuff:AddIndependentStack({ duration = self.stacking_damage_duration })
+		end
 	end
 
 	if self.bounce >= self.bounces then

@@ -1794,16 +1794,80 @@
 	{
 		"override_hero"				"npc_dota_hero_alchemist"
 		
-		"Ability13"					"special_bonus_attack_damage_750"
+		"Ability1"					"alchemist_acid_spray"
+		"Ability2"					"alchemist_unstable_concoction"
+		"Ability3"					"generic_hidden"
+		"Ability4"					"alchemist_greevils_greed"
+		"Ability5"					"generic_hidden"
+		"Ability6"					"alchemist_chemical_rage"
+		"Ability10"					"special_bonus_unique_alchemist_1"
+		"Ability11"					"special_bonus_unique_alchemist_2"
+		"Ability12"					"special_bonus_unique_alchemist_3"
+		"Ability13"					"special_bonus_unique_alchemist_4"
+		"Ability14"					"special_bonus_unique_alchemist_5"
+		"Ability15"					"special_bonus_unique_alchemist_6"
+		"Ability16"					"special_bonus_unique_alchemist_7"
+		"Ability17"					"special_bonus_unique_alchemist_8"
 		
 		"Facets"
 		{
-			"alchemist_seed_money"		{}
-			"alchemist_mixologist"		{}
+			"alchemist_seed_money"		{"Deprecated"		"1"}
+			"alchemist_mixologist"		{"Deprecated"		"1"}
 			"alchemist_dividends"		{"Deprecated"		"1"}
+			"alchemist_chrysopoeia"
+			{
+				"Icon"				"damage"
+				"Color"				"Yellow"
+				"GradientID"		"0"
+				"Abilities"
+				{
+					"Ability1"
+					{
+						"AbilityName"		"alchemist_corrosive_weaponry"
+						"AbilityIndex"		"2"
+						"AutoLevelAbility"	"false"
+					}
+					"Ability2"
+					{
+						"AbilityName"		"special_bonus_unique_alchemist_3_chrysopoeia"
+						"ReplaceAbility"	"special_bonus_unique_alchemist_3"
+						"AutoLevelAbility"	"false"
+					}
+				}
+			}
+			"alchemist_panacea"
+			{
+				"Icon"				"damage"
+				"Color"				"Green"
+				"GradientID"		"1"
+				"Abilities"
+				{
+					"Ability1"
+					{
+						"AbilityName"		"alchemist_berserk_potion"
+						"AbilityIndex"		"2"
+						"AutoLevelAbility"	"false"
+					}
+				}
+			}
+			"alchemist_azoth"
+			{
+				"Icon"				"damage"
+				"Color"				"Red"
+				"GradientID"		"3"
+				"Abilities"
+				{
+					"Ability1"
+					{
+						"AbilityName"		"alchemist_midas_touch"
+						"AbilityIndex"		"2"
+						"AutoLevelAbility"	"false"
+					}
+				}
+			}
 		}
 		
-		"BaseTraits"				"assassin,brawler,vanguard,martial"
+		"BaseTraits"					"assassin,brawler,vanguard,martial"
 		
 		"AttributeBaseStrength"			"112"
 		"AttributeStrengthGain"			"7.4"
@@ -2399,7 +2463,7 @@
 		
 		"BaseTraits"					"speedster,burn,evoker,enforcer,support,arcane"
 		
-		AttributeBaseStrength"			"112"
+		"AttributeBaseStrength"			"112"
 		"AttributeStrengthGain"			"8.6"
 		"AttributeBaseAgility"			"58"
 		"AttributeAgilityGain"			"5.0"

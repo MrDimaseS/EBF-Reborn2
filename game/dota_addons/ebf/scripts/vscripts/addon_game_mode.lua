@@ -539,7 +539,7 @@ function CHoldoutGameMode:FilterHealing( filterTable )
 	local target = EntIndexToHScript( target_index )
 	filterTable["heal"] = math.min( filterTable["heal"], target:GetMaxHealth() )
     if not healer_index then return true end
-	print("anything?")
+	
 	local healer = EntIndexToHScript( healer_index )
 	healer.damage_healed_ingame = (healer.damage_healed_ingame or 0) + filterTable["heal"]
 	
@@ -788,7 +788,6 @@ function CHoldoutGameMode:OnHeroPick (event)
 	local facetID = hero:GetHeroFacetID()
 	local facetData
 	for _, facet in pairs(  heroData.Facets ) do
-		print( facetID, facet.FacetID, _ )
 		if tonumber(facet.FacetID or "1") == facetID then
 			if facet.Abilities then
 				for _, abilityData in pairs( facet.Abilities ) do
@@ -861,7 +860,7 @@ function CHoldoutGameMode:OnHeroPick (event)
 	PlayerResource:SetCustomBuybackCooldown( playerID, 10 )
 	PlayerResource:SetCustomBuybackCost( playerID, 100 )
 	
-	hero:HeroLevelUp( false )
+	hero:SetAbilityPoints( 2 )
 	
 	-- local tp = hero:FindItemInInventory( "item_tpscroll" )
 	-- if tp then
@@ -1041,7 +1040,7 @@ function CHoldoutGameMode:OnConnectFull()
  
 			local packageLocation = SERVER_LOCATION..AUTH_KEY.."/players/"..tostring(PlayerResource:GetSteamID(nPlayerID))..'.json'
 			local getRequest = CreateHTTPRequestScriptVM( "GET", packageLocation)
-			print( packageLocation, "mmr get" )
+			
 			local decoded = {}
 			getRequest:Send( function( result )
 				if tostring(result.Body) ~= 'null' then
@@ -1710,7 +1709,6 @@ function CHoldoutGameMode:RegisterStatsForRound( round )
 		
 		local putRequest = CreateHTTPRequestScriptVM( "PUT", packageLocation)
 		putRequest:SetHTTPRequestRawPostBody("application/json", encoded)
-		putRequest:Send( function( result ) PrintAll( result ) end )
 	end )
 end
 
@@ -1798,8 +1796,6 @@ function CHoldoutGameMode:RegisterStatsForPlayer( playerID, bWon, bAbandon )
 		local putRequest = CreateHTTPRequestScriptVM( "PUT", packageLocation)
 		putRequest:SetHTTPRequestRawPostBody("application/json", encoded)
 		putRequest:Send( function( result )
-			print( "----------- gottem ----------" )
-			PrintAll( result )
 			CustomNetTables:SetTableValue("mmr", tostring( playerID ), mmrTable)
 		end )
 	end )

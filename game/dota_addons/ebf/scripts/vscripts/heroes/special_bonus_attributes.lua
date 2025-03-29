@@ -322,7 +322,6 @@ function modifier_special_bonus_attributes_stat_rescaling:OnTakeDamage(params)
 			if IsModifierSafe( modifier ) then
 				if modifier.GetModifierProperty_PhysicalLifesteal and (modifier:GetModifierProperty_PhysicalLifesteal( params ) or 0) > 0 then
 					attackLifestealPct = attackLifestealPct + modifier:GetModifierProperty_PhysicalLifesteal( params )
-					print( attackLifestealPct, modifier:GetSerialNumber() )
 				end
 			else
 				self:GetCaster()._attackLifestealModifiersList[modifier] = nil

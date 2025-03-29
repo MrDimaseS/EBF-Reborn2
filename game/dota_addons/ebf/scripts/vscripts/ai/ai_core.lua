@@ -43,7 +43,7 @@ TARGET_NEAREST = 0
 TARGET_WEAKEST = 1
 
 function AICore:RandomEnemyHeroInRange( entity, range , magic_immune)
-	local flags = DOTA_UNIT_TARGET_FLAG_CAN_BE_SEEN
+	local flags = DOTA_UNIT_TARGET_FLAG_NO_INVIS 
 	if magic_immune then
 		flags = flags + DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES
 	end
@@ -61,22 +61,22 @@ function AICore:RandomEnemyHeroInRange( entity, range , magic_immune)
 end
 
 function AICore:NearestEnemyHeroInRange( entity, range , magic_immune)
-	local flags = DOTA_UNIT_TARGET_FLAG_CAN_BE_SEEN
+	local flags = DOTA_UNIT_TARGET_FLAG_NO_INVIS 
 	if magic_immune then
 		flags = flags + DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES
 	end
 	if entity:IsTauntedBy() then return entity:IsTauntedBy() end
 	
-	local enemies = FindUnitsInRadius( DOTA_TEAM_BADGUYS, entity:GetAbsOrigin(), nil, range, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HEROES_AND_CREEPS, flags, FIND_CLOSEST, false )
+	local enemies = FindUnitsInRadius( entity:GetTeamNumber(), entity:GetAbsOrigin(), nil, range, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HEROES_AND_CREEPS, flags, FIND_CLOSEST, false )
 	for _, enemy in ipairs( enemies ) do
-		if enemy:CanBeSeenByAnyOpposingTeam() then
+		if not enemy:IsInvisible() then
 			return enemy
 		end
 	end
 end
 
 function AICore:FurthestEnemyHeroInRange( entity, range, magic_immune )
-	local flags = DOTA_UNIT_TARGET_FLAG_CAN_BE_SEEN
+	local flags = DOTA_UNIT_TARGET_FLAG_NO_INVIS 
 	if magic_immune then
 		flags = flags + DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES
 	end
@@ -131,7 +131,7 @@ end
 
 function AICore:AttackHighestPriority( entity )
 	if not entity and not entity:IsAlive() then return end
-	local flag = DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE + DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES + DOTA_UNIT_TARGET_FLAG_CAN_BE_SEEN
+	local flag = DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE + DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES + DOTA_UNIT_TARGET_FLAG_NO_INVIS 
 	local range = entity:GetBaseAttackRange() + entity:GetIdealSpeed() * 1.5
 	if range < 900 then range = 900 end
 	if not entity:IsDominated() then
@@ -232,7 +232,7 @@ end
 
 
 function AICore:IsNearEnemyUnit(entity, radius)
-	local iFlag = DOTA_UNIT_TARGET_FLAG_CAN_BE_SEEN + DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES
+	local iFlag = DOTA_UNIT_TARGET_FLAG_NO_INVIS  + DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES
 	local units = FindUnitsInRadius(entity:GetTeamNumber(), entity:GetAbsOrigin(), nil, radius, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, iFlag, 0, false)
 	return (#units > 0)
 end
@@ -295,7 +295,7 @@ function AICore:RunToTarget( entity, target )
 end
 
 function AICore:FarthestEnemyHeroInRange( entity, range , magic_immune)
-	local flags = DOTA_UNIT_TARGET_FLAG_CAN_BE_SEEN
+	local flags = DOTA_UNIT_TARGET_FLAG_NO_INVIS 
 	if magic_immune then
 		flags = flags + DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES
 	end
@@ -319,7 +319,7 @@ function AICore:FarthestEnemyHeroInRange( entity, range , magic_immune)
 end
 
 function AICore:NearestDisabledEnemyHeroInRange( entity, range , magic_immune)
-	local flags = DOTA_UNIT_TARGET_FLAG_CAN_BE_SEEN
+	local flags = DOTA_UNIT_TARGET_FLAG_NO_INVIS 
 	if magic_immune then
 		flags = flags + DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES
 	end
@@ -342,14 +342,14 @@ function AICore:NearestDisabledEnemyHeroInRange( entity, range , magic_immune)
 end
 
 function AICore:TotalEnemyHeroesInRange( entity, range)
-	local flags = DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES + DOTA_UNIT_TARGET_FLAG_CAN_BE_SEEN
+	local flags = DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES + DOTA_UNIT_TARGET_FLAG_NO_INVIS 
 	local enemies = FindUnitsInRadius( entity:GetTeamNumber(), entity:GetAbsOrigin(), nil, range, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, flags, 0, false )
 	
 	return #enemies
 end
 
 function AICore:OptimalHitPosition(entity, range, radius, magic_immune)
-	local flags = DOTA_UNIT_TARGET_FLAG_CAN_BE_SEEN
+	local flags = DOTA_UNIT_TARGET_FLAG_NO_INVIS 
 	if magic_immune then
 		flags = flags + DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES
 	end
@@ -375,7 +375,7 @@ function AICore:OptimalHitPosition(entity, range, radius, magic_immune)
 end
 
 function AICore:FindFarthestEnemyInLine(entity, range, width, magic_immune)
-	local flags = DOTA_UNIT_TARGET_FLAG_CAN_BE_SEEN
+	local flags = DOTA_UNIT_TARGET_FLAG_NO_INVIS 
 	if magic_immune then
 		flags = flags + DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES
 	end
@@ -395,7 +395,7 @@ function AICore:FindFarthestEnemyInLine(entity, range, width, magic_immune)
 end
 
 function AICore:FindNearestEnemyInLine(entity, range, width, magic_immune)
-	local flags = DOTA_UNIT_TARGET_FLAG_CAN_BE_SEEN
+	local flags = DOTA_UNIT_TARGET_FLAG_NO_INVIS 
 	if magic_immune then
 		flags = flags + DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES
 	end
@@ -415,7 +415,7 @@ function AICore:FindNearestEnemyInLine(entity, range, width, magic_immune)
 end
 
 function AICore:TotalNotDisabledEnemyHeroesInRange( entity, range , magic_immune)
-	local flags = DOTA_UNIT_TARGET_FLAG_CAN_BE_SEEN
+	local flags = DOTA_UNIT_TARGET_FLAG_NO_INVIS 
 	if magic_immune then
 		flags = flags + DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES
 	end
@@ -477,7 +477,7 @@ function AICore:AlliedUnitsAlive( entity )
 end
 
 function AICore:WeakestAlliedUnitInRange( entity, range , magic_immune)
-	local flags = DOTA_UNIT_TARGET_FLAG_CAN_BE_SEEN
+	local flags = DOTA_UNIT_TARGET_FLAG_NO_INVIS 
 	if magic_immune then
 		flags = flags + DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES
 	end
@@ -522,7 +522,7 @@ function AICore:SpecificAlliedUnitsAlive( entity, name )
 end
 
 function AICore:EnemiesInLine(entity, range, width, magic_immune)
-	local flags = DOTA_UNIT_TARGET_FLAG_CAN_BE_SEEN
+	local flags = DOTA_UNIT_TARGET_FLAG_NO_INVIS 
 	if magic_immune then
 		flags = flags + DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES
 	end
@@ -538,7 +538,7 @@ function AICore:EnemiesInLine(entity, range, width, magic_immune)
 end
 
 function AICore:NumEnemiesInLine(entity, range, width, magic_immune)
-	local flags = DOTA_UNIT_TARGET_FLAG_CAN_BE_SEEN
+	local flags = DOTA_UNIT_TARGET_FLAG_NO_INVIS 
 	if magic_immune then
 		flags = flags + DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES
 	end
@@ -547,7 +547,7 @@ function AICore:NumEnemiesInLine(entity, range, width, magic_immune)
 end
 
 function AICore:WeakestEnemyHeroInRange( entity, range , magic_immune)
-	local flags = DOTA_UNIT_TARGET_FLAG_CAN_BE_SEEN
+	local flags = DOTA_UNIT_TARGET_FLAG_NO_INVIS 
 	if magic_immune then
 		flags = flags + DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES
 	end
@@ -572,7 +572,7 @@ function AICore:WeakestEnemyHeroInRange( entity, range , magic_immune)
 end
 
 function AICore:StrongestEnemyHeroInRange( entity, range , magic_immune)
-	local flags = DOTA_UNIT_TARGET_FLAG_CAN_BE_SEEN
+	local flags = DOTA_UNIT_TARGET_FLAG_NO_INVIS 
 	if magic_immune then
 		flags = flags + DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES
 	end
@@ -597,7 +597,7 @@ function AICore:StrongestEnemyHeroInRange( entity, range , magic_immune)
 end
 
 function AICore:HighestThreatHeroInRange(entity, range, basethreat, magic_immune)
-	local flags = DOTA_UNIT_TARGET_FLAG_CAN_BE_SEEN
+	local flags = DOTA_UNIT_TARGET_FLAG_NO_INVIS 
 	if magic_immune then
 		flags = flags + DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES
 	end
@@ -623,9 +623,9 @@ end
 
 function AICore:FindOptimalRadiusInRangeForEntity(entity, range, radius, exclusionFct, bIncludeTeamMates)
 	local totalRange = TernaryOperator( -1, range == -1, range + radius )
-	local allEnemies = entity:FindEnemyUnitsInRadius( entity:GetAbsOrigin(), totalRange, {type = DOTA_UNIT_TARGET_HERO, flag = DOTA_UNIT_TARGET_FLAG_CAN_BE_SEEN } )
+	local allEnemies = entity:FindEnemyUnitsInRadius( entity:GetAbsOrigin(), totalRange, {type = DOTA_UNIT_TARGET_HERO, flag = DOTA_UNIT_TARGET_FLAG_NO_INVIS  } )
 	if bIncludeTeamMates then
-		allEnemies = entity:FindAllUnitsInRadius( entity:GetAbsOrigin(), totalRange, {type = DOTA_UNIT_TARGET_HERO, flag = DOTA_UNIT_TARGET_FLAG_CAN_BE_SEEN } )
+		allEnemies = entity:FindAllUnitsInRadius( entity:GetAbsOrigin(), totalRange, {type = DOTA_UNIT_TARGET_HERO, flag = DOTA_UNIT_TARGET_FLAG_NO_INVIS  } )
 	end
 	local castPosition
 	local maxTargets = 0
@@ -659,7 +659,7 @@ function AICore:FindOptimalRadiusInRangeForEntity(entity, range, radius, exclusi
 end
 
 function AICore:FindOptimalRadiusInRangeForEntityClamped( entity, range, maxRange, radius, exclusionFct )
-	local allEnemies = entity:FindEnemyUnitsInRing( entity:GetAbsOrigin(), maxRange, range, {type = DOTA_UNIT_TARGET_HERO, flag = DOTA_UNIT_TARGET_FLAG_CAN_BE_SEEN } )
+	local allEnemies = entity:FindEnemyUnitsInRing( entity:GetAbsOrigin(), maxRange, range, {type = DOTA_UNIT_TARGET_HERO, flag = DOTA_UNIT_TARGET_FLAG_NO_INVIS  } )
 	local castPosition
 	local maxTargets = 0
 	if entity:IsTauntedBy() then
@@ -692,9 +692,9 @@ function AICore:FindOptimalRadiusInRangeForEntityClamped( entity, range, maxRang
 end
 
 function AICore:FindOptimalLineInRangeForEntity(entity, range, width, distance, exclusionFct, bIncludeTeamMates)
-	local allEnemies = entity:FindEnemyUnitsInRadius( entity:GetAbsOrigin(), range, {type = DOTA_UNIT_TARGET_HERO, flag = DOTA_UNIT_TARGET_FLAG_CAN_BE_SEEN } )
+	local allEnemies = entity:FindEnemyUnitsInRadius( entity:GetAbsOrigin(), range, {type = DOTA_UNIT_TARGET_HERO, flag = DOTA_UNIT_TARGET_FLAG_NO_INVIS  } )
 	if bIncludeTeamMates then
-		allEnemies = entity:FindAllUnitsInRadius( entity:GetAbsOrigin(), range, {type = DOTA_UNIT_TARGET_HERO, flag = DOTA_UNIT_TARGET_FLAG_CAN_BE_SEEN } )
+		allEnemies = entity:FindAllUnitsInRadius( entity:GetAbsOrigin(), range, {type = DOTA_UNIT_TARGET_HERO, flag = DOTA_UNIT_TARGET_FLAG_NO_INVIS  } )
 	end
 	if entity:IsTauntedBy() then
 		allEnemies = {[1] = entity:IsTauntedBy()}
@@ -715,9 +715,9 @@ function AICore:FindOptimalLineInRangeForEntity(entity, range, width, distance, 
 end
 
 function AICore:FindOptimalTargetInRangeForEntity(entity, range, radius, exclusionFct, bIncludeTeamMates, flMinimumValue)
-	local allEnemies = entity:FindEnemyUnitsInRadius( entity:GetAbsOrigin(), range + radius, {type = DOTA_UNIT_TARGET_HERO, flag = DOTA_UNIT_TARGET_FLAG_CAN_BE_SEEN } )
+	local allEnemies = entity:FindEnemyUnitsInRadius( entity:GetAbsOrigin(), range + radius, {type = DOTA_UNIT_TARGET_HERO, flag = DOTA_UNIT_TARGET_FLAG_NO_INVIS  } )
 	if bIncludeTeamMates then
-		allEnemies = entity:FindAllUnitsInRadius( entity:GetAbsOrigin(), range + radius, {type = DOTA_UNIT_TARGET_HERO, flag = DOTA_UNIT_TARGET_FLAG_CAN_BE_SEEN } )
+		allEnemies = entity:FindAllUnitsInRadius( entity:GetAbsOrigin(), range + radius, {type = DOTA_UNIT_TARGET_HERO, flag = DOTA_UNIT_TARGET_FLAG_NO_INVIS  } )
 	end
 	if entity:IsTauntedBy() then
 		allEnemies = {[1] = entity:IsTauntedBy()}
@@ -738,7 +738,7 @@ function AICore:FindOptimalTargetInRangeForEntity(entity, range, radius, exclusi
 end
 
 function AICore:FindOptimalAllyInRangeForEntity(entity, range, radius, exclusionFct)
-	local allEnemies = entity:FindFriendlyUnitsInRadius( entity:GetAbsOrigin(), range + radius, {type = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_CREEP, flag = DOTA_UNIT_TARGET_FLAG_CAN_BE_SEEN } )
+	local allEnemies = entity:FindFriendlyUnitsInRadius( entity:GetAbsOrigin(), range + radius, {type = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_CREEP, flag = DOTA_UNIT_TARGET_FLAG_NO_INVIS  } )
 	
 	local castTarget
 	local maxTargets = 0
@@ -769,7 +769,7 @@ function AICore:HandleBasicAI( entity )
 			entity._currentAttackTarget = nil
 			entity:Stop()
 			return 0.01
-		elseif entity._currentAttackTarget:CanBeSeenByAnyOpposingTeam( ) then
+		elseif not entity._currentAttackTarget:IsInvisible( ) then
 			entity._currentAttackTargetLastPosition = entity._currentAttackTarget:GetAbsOrigin()
 			if entity._currentAttackTarget:IsMoving() then -- factor in movement to prevent cliff traps
 				entity._currentAttackTargetLastPosition = entity._currentAttackTargetLastPosition + entity._currentAttackTarget:GetForwardVector() * entity:GetIdealSpeed() * 1.5
@@ -815,7 +815,7 @@ function AICore:HandleBasicAI( entity )
 end
 
 function AICore:FindOptimalFriendlyRadiusInRangeForEntity(entity, range, radius, bSelfish, exclusionFct)
-	local allEnemies = entity:FindFriendlyUnitsInRadius( entity:GetAbsOrigin(), range + radius, {type = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, flag = DOTA_UNIT_TARGET_FLAG_CAN_BE_SEEN } )
+	local allEnemies = entity:FindFriendlyUnitsInRadius( entity:GetAbsOrigin(), range + radius, {type = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, flag = DOTA_UNIT_TARGET_FLAG_NO_INVIS  } )
 	local castPosition
 	local maxTargets = 0
 	if bSelfish then

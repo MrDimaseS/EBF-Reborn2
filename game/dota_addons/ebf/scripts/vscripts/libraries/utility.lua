@@ -1292,9 +1292,7 @@ function CDOTA_Buff:AddHeroEffect(id)
 end
 
 function CDOTA_BaseNPC:FindRandomEnemyInRadius(position, radius, data)
-	for _, unit in ipairs(self:FindEnemyUnitsInRadius(position, radius, data)) do
-		return unit
-	end
+	return self:FindEnemyUnitsInRadius(position, radius, data)[1]
 end
 
 function CDOTA_BaseNPC:Blink(position, blinkData)
@@ -1547,15 +1545,16 @@ function CDOTA_BaseNPC:AddGold( val, bIgnoreBonus, cReason )
 				hero:ModifyGold( math.floor(newGold), true, reason )
 				local showGold = math.floor( gold )
 				SendOverheadEventMessage(self:GetPlayerOwner(), OVERHEAD_ALERT_GOLD, self, showGold, self:GetPlayerOwner())
+				
+				if bonusGold > 0 then
+					Timers:CreateTimer( 0.25, function()
+						SendOverheadEventMessage(self:GetPlayerOwner(), OVERHEAD_ALERT_GOLD, self, math.floor( bonusGold ), self:GetPlayerOwner())
+					end)
+				end
 			else
 				local GPM = hero:GetGold() + math.floor(newGold)
 				hero:SetGold( 0, false )
 				hero:SetGold( GPM, true )
-			end
-			if bonusGold > 0 then
-				Timers:CreateTimer( 0.25, function()
-					SendOverheadEventMessage(self:GetPlayerOwner(), OVERHEAD_ALERT_GOLD, self, math.floor( bonusGold ), self:GetPlayerOwner())
-				end)
 			end
 			
 			return gold

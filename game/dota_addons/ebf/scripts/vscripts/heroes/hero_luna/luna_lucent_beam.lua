@@ -2,8 +2,22 @@ luna_lucent_beam = class({})
 
 function luna_lucent_beam:OnSpellStart()
 	if IsClient() then return end
-
-	self:CastOn(self:GetCursorTarget(), 1.0)
+	local caster = self:GetCaster()
+	local target = self:GetCursorTarget()
+	self:CastOn(target, 1.0)
+	
+	local additional_beam = self:GetSpecialValueFor("additional_beam")
+	if additional_beam > 0 then
+		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( target:GetAbsOrigin(), self:GetTrueCastRange() / 2 ) ) do
+			if enemy ~= target then
+				self:CastOn(target, 1.0)
+				additional_beam = additional_beam - 1
+			end
+			if additional_beam <= 0 then
+				return
+			end
+		end
+	end
 end
 function luna_lucent_beam:OnAbilityPhaseStart()
 	if IsClient() then return end
@@ -27,114 +41,78 @@ function luna_lucent_beam:CastOn(target, duration_multiplier)
 
 	local caster = self:GetCaster()
 	local damage = self:GetSpecialValueFor("damage")
+	
 	local stun_duration = self:GetSpecialValueFor("stun_duration") * duration_multiplier
-	local additional_beam = self:GetSpecialValueFor("additional_beam") ~= 0
-	local targets = { target }
-	if additional_beam then
-		local enemies = FindUnitsInRadius(
-			caster:GetTeamNumber(),
-			target:GetOrigin(),
-			nil,
-			500,
-			DOTA_UNIT_TARGET_TEAM_ENEMY,
-			DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC,
-			DOTA_UNIT_TARGET_FLAG_FOW_VISIBLE + DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES,
-			FIND_CLOSEST,
-			false
-		)
-		if #enemies > 1 then
-			table.remove(enemies, 1)
-			table.insert(targets, enemies[RandomInt(1, #enemies)])
-		end
-	end
-
-	local buff_duration = 0.0
-	if target:IsConsideredHero() then
-		buff_duration = self:GetSpecialValueFor("buff_duration_hero")
-	else
-		buff_duration = self:GetSpecialValueFor("buff_duration_creep")
-	end
+	local buff_duration = TernaryOperator( self:GetSpecialValueFor("buff_duration_hero"), target:IsConsideredHero(), self:GetSpecialValueFor("buff_duration_creep") )
 	buff_duration = buff_duration * duration_multiplier
 
 	local heal = self:GetSpecialValueFor("heal")
 
-	for _, tgt in ipairs(targets) do
+	if not target:TriggerSpellAbsorb( self ) then
+		self:DealDamage(caster, target, damage)
 
-		if not tgt:TriggerSpellAbsorb( self ) then
-			self:DealDamage(caster, tgt, damage)
-			self:Stun(tgt, stun_duration)
+		if stun_duration > 0 then
+			self:Stun(target, stun_duration)
+		end
+		-- wrathbearer
+		if buff_duration > 0 then
+			local buff = caster:AddNewModifier(caster, self, "modifier_luna_lucent_beam_wrathbearer")
+			buff:AddIndependentStack({ duration = buff_duration })
+		end
 
-			-- wrathbearer
-			if buff_duration ~= 0 then
-				local buff = caster:AddNewModifier(caster, self, "modifier_luna_lucent_beam_wrathbearer")
-				buff:AddIndependentStack({ duration = buff_duration })
-			end
-
-			-- spiteshield
-			if heal ~= 0 then
-				if caster:GetHealthPercent() ~= 100 then
-					caster:HealEvent(heal, self, caster)
-				else
-					local allies = FindUnitsInRadius(
-						caster:GetTeamNumber(),
-						caster:GetOrigin(),
-						nil,
-						self:GetCastRange(caster:GetOrigin(), tgt),
-						DOTA_UNIT_TARGET_TEAM_FRIENDLY,
-						DOTA_UNIT_TARGET_HERO,
-						DOTA_UNIT_TARGET_FLAG_NONE,
-						FIND_CLOSEST,
-						false
-					)
-					for _, ally in ipairs(allies) do
-						if ally:GetHealthPercent() ~= 100 then
-							ally:HealEvent(heal, self, caster)
-							break
-						end
+		-- spiteshield
+		if heal ~= 0 then
+			if caster:GetHealthPercent() ~= 100 then
+				caster:HealEvent(heal, self, caster)
+			else
+				for _, ally in ipairs( caster:FindFriendlyUnitsInRadius( caster:GetAbsOrigin(), self:GetTrueCastRange(), {order = FIND_CLOSEST} ) ) do
+					if ally:GetHealthPercent() ~= 100 then
+						ally:HealEvent(heal, self, caster)
+						break
 					end
 				end
 			end
 		end
-
-		-- particles
-		local particle = "particles/units/heroes/hero_luna/luna_lucent_beam.vpcf"
-		local effect = ParticleManager:CreateParticle(particle, PATTACH_ABSORIGIN_FOLLOW, tgt)
-		ParticleManager:SetParticleControl(effect, 0, tgt:GetOrigin())
-		ParticleManager:SetParticleControlEnt(
-			effect,
-			1,
-			tgt,
-			PATTACH_ABSORIGIN_FOLLOW,
-			"attach_hitloc",
-			Vector(0, 0, 0),
-			true
-		)
-		ParticleManager:SetParticleControlEnt(
-			effect,
-			5,
-			tgt,
-			PATTACH_POINT_FOLLOW,
-			"attach_hitloc",
-			Vector(0, 0, 0),
-			true
-		)
-		ParticleManager:SetParticleControlEnt(
-			effect,
-			6,
-			caster,
-			PATTACH_POINT_FOLLOW,
-			"attach_attack1",
-			Vector(0, 0, 0),
-			true
-		)
-		ParticleManager:ReleaseParticleIndex(effect)
-
-		-- sounds
-		local sound_caster = "Hero_Luna.LucentBeam.Cast"
-		local sound_target = "Hero_Luna.LucentBeam.Target"
-		EmitSoundOn(sound_caster, caster)
-		EmitSoundOn(sound_target, tgt)
 	end
+
+	-- particles
+	local particle = "particles/units/heroes/hero_luna/luna_lucent_beam.vpcf"
+	local effect = ParticleManager:CreateParticle(particle, PATTACH_ABSORIGIN_FOLLOW, target)
+	ParticleManager:SetParticleControl(effect, 0, target:GetOrigin())
+	ParticleManager:SetParticleControlEnt(
+		effect,
+		1,
+		target,
+		PATTACH_ABSORIGIN_FOLLOW,
+		"attach_hitloc",
+		Vector(0, 0, 0),
+		true
+	)
+	ParticleManager:SetParticleControlEnt(
+		effect,
+		5,
+		target,
+		PATTACH_POINT_FOLLOW,
+		"attach_hitloc",
+		Vector(0, 0, 0),
+		true
+	)
+	ParticleManager:SetParticleControlEnt(
+		effect,
+		6,
+		caster,
+		PATTACH_POINT_FOLLOW,
+		"attach_attack1",
+		Vector(0, 0, 0),
+		true
+	)
+	ParticleManager:ReleaseParticleIndex(effect)
+
+	-- sounds
+	local sound_caster = "Hero_Luna.LucentBeam.Cast"
+	local sound_target = "Hero_Luna.LucentBeam.Target"
+	EmitSoundOn(sound_caster, caster)
+	EmitSoundOn(sound_target, target)
 end
 
 modifier_luna_lucent_beam_wrathbearer = class({})

@@ -21,16 +21,8 @@ end
 function modifier_luna_moon_glaives_passive:GetModifierProcAttack_Feedback(params)
 	if not IsServer() then return end
 	if self:GetParent():PassivesDisabled() then return end
-
-	CreateModifierThinker(
-		self:GetParent(),
-		self:GetAbility(),
-		"modifier_luna_moon_glaives_thinker",
-		{ target=params.target },
-		params.target:GetOrigin(),
-		self:GetParent():GetTeamNumber(),
-		false
-	)
+	local caster = self:GetCaster()
+	caster:FindRandomEnemyInRadius(caster:GetAbsOrigin(), radius, data)
 end
 
 modifier_luna_moon_glaives_thinker = class({})

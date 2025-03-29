@@ -3352,6 +3352,8 @@
 		"DOTA_Tooltip_ability_vengefulspirit_retribution"													"Retribution"
 		"DOTA_Tooltip_ability_vengefulspirit_retribution_Description"										"Whenever an enemy hero damages Vengeful Spirit, they get a debuff for %bonus_duration% seconds, causing Vengeful Spirit to deal %bonus_damage%%% bonus damage to them."
 		"DOTA_Tooltip_ability_vengefulspirit_retribution_ebf_changes"										"Triggers on damage taken, instead of death and has a duration."
+		"DOTA_Tooltip_modifier_vengefulspirit_retribution_tracker"											"Retribution"
+		"DOTA_Tooltip_modifier_vengefulspirit_retribution_tracker_Description"								"Taking %dMODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE% more damage from Vengeful Spirit."
 		
 		"DOTA_Tooltip_ability_vengefulspirit_nether_swap_Description"                                       "Instantaneously swaps positions with a target Hero, friend or enemy. Nether Swap interrupts channeling abilities on the target. Enemy Swapped units take damage. Allied swapped units receive less damage for a short duration. Vengeful Spirit always benefits from the damage reduction."
 		"DOTA_Tooltip_ability_vengefulspirit_nether_swap_ebf_changes"										"Gives damage reduction instead of Barrier."
@@ -3486,9 +3488,9 @@
 		
 		// Luna
 		"DOTA_Tooltip_Facet_luna_wrathbearer"																"Wrathbearer"
-		"DOTA_Tooltip_Facet_luna_wrathbearer_Description"													"Luna becomes a wrathful damage dealer, striking down her enemies with lunar might."
+		"DOTA_Tooltip_Facet_luna_wrathbearer_Description"													"Luna becomes a wrathful avenger, striking down her enemies with lunar might."
 		"DOTA_Tooltip_Facet_luna_spiteshield"																"Spiteshield"
-		"DOTA_Tooltip_Facet_luna_spiteshield_Description"													"Luna becomes a stalwart defender, protecting herself and her allies with lunar light."
+		"DOTA_Tooltip_Facet_luna_spiteshield_Description"													"Luna becomes a spiteful defender, protecting herself and her allies with lunar light."
 
 		"DOTA_Tooltip_ability_luna_lunar_blessing"															"Lunar Blessing"
 		"DOTA_Tooltip_ability_luna_lunar_blessing_Description"												"Grants bonus damage to all allied heroes, with Luna receiving double the attack damage bonus. At night, Lunar Blessing's effect is doubled, and Luna is blessed with %night_vision_bonus% bonus night vision + %night_vision_bonus_per_level% per level."
@@ -3524,7 +3526,7 @@
 
 		"DOTA_Tooltip_ability_luna_moon_glaive"																"Moon Glaives"
 		"DOTA_Tooltip_ability_luna_moon_glaive_Description"													"Empowers Luna's glaives, causing her attacks to bounce between enemy units. Deals less damage with each bounce."
-		"DOTA_Tooltip_ability_luna_moon_glaive_Facet_luna_wrathbearer"										"Casts Lucent Beam on the final bounce target."
+		"DOTA_Tooltip_ability_luna_moon_glaive_Facet_luna_wrathbearer"										"Casts Lucent Beam on the final bounce target. Can only affect a unit once every %do_lucent_beam_on_last% seconds."
 		"DOTA_Tooltip_ability_luna_moon_glaive_Facet_luna_spiteshield"										"Glaives now increase all damage taken by the target for %damage_taken_increase_duration%s, stacking up to %damage_taken_increase_max_stacks% times."
 		"DOTA_Tooltip_ability_luna_moon_glaive_radius"														"RADIUS:"
 		"DOTA_Tooltip_ability_luna_moon_glaive_damage_reduction_percent"									"%DAMAGE REDUCTION PER BOUNCE:"
@@ -3533,16 +3535,18 @@
 		"DOTA_Tooltip_ability_luna_moon_glaive_damage_taken_increase_max_stacks"							"MAX STACKS:"
 		"DOTA_Tooltip_modifier_luna_moon_glaive_spiteshield"												"Moon Glaives - Spiteshield"
 		"DOTA_Tooltip_modifier_luna_moon_glaive_spiteshield_Description"									"Taking %dMODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE%%% more damage."
+		"DOTA_Tooltip_modifier_luna_moon_glaive_wrathbearer"												"Moon Glaives - Wrathbearer"
+		"DOTA_Tooltip_modifier_luna_moon_glaive_wrathbearer_Description"									"Cannot be affected by Moon Glaives' Lucent Beam."
 
 		"DOTA_Tooltip_ability_luna_lunar_orbit"																"Lunar Orbit"
 		"DOTA_Tooltip_ability_luna_lunar_orbit_Description"													"Creates %% glaives that rotate around Luna. Any enemy unit that collides with a glaive will take a percentage of Luna's attack damage."
 		"DOTA_Tooltip_ability_luna_lunar_orbit_Facet_luna_wrathbearer"										"Rotating glaives now apply attack modifiers, deal more damage, and rotate 50% faster."
-		"DOTA_Tooltip_ability_luna_lunar_orbit_Facet_luna_spiteshield"										"Units hit by the glaives deal less damage."
+		"DOTA_Tooltip_ability_luna_lunar_orbit_Facet_luna_spiteshield"										"Units hit by the glaives deal less damage from all sources."
 		"DOTA_Tooltip_ability_luna_lunar_orbit_damage_reduction_percent"									"%DAMAGE REDUCTION:"
 		"DOTA_Tooltip_modifier_luna_lunar_orbit"															"Lunar Orbit"
 		"DOTA_Tooltip_modifier_luna_lunar_orbit_Description"												"Surrounded by rotating glaives dealing reduced attack damage."
 		"DOTA_Tooltip_modifier_luna_lunar_orbit_spiteshield"												"Lunar Orbit - Spiteshield"
-		"DOTA_Tooltip_modifier_luna_lunar_orbit_spiteshield_Description"									"Attack damage reduced by %dMODIFIER_PROPERTY_BASEDAMAGEOUTGOING_PERCENTAGE%%%."
+		"DOTA_Tooltip_modifier_luna_lunar_orbit_spiteshield_Description"									"All damage reduced by %dMODIFIER_PROPERTY_TOTALDAMAGEOUTGOING_PERCENTAGE%%%."
 
 		"DOTA_Tooltip_ability_luna_eclipse"																	"Eclipse"
 		"DOTA_Tooltip_ability_luna_eclipse_Description"														"Showers random nearby enemies with strikes of Luna's current level of Lucent Beam. These beams apply shorter duration buffs and debuffs. Strikes %hero_targets% hero and all creeps in range every %interval%s. Also turns day into night for a short time."

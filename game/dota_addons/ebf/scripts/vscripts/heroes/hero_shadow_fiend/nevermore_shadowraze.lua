@@ -17,7 +17,6 @@ function nevermore_shadowraze:OnSpellStart()
 	local attack_interval = self:GetSpecialValueFor("attack_interval")
 	local triggers = math.max( 1, math.floor( caster:GetAttacksPerSecond( false ) * self:GetSpecialValueFor("attack_speed_pct") / 100 ) + #self:RollPRNG( (caster:GetAttacksPerSecond( false )-math.floor( caster:GetAttacksPerSecond( false )))*100 ) )
 	
-	print( triggers, caster:GetAttacksPerSecond( false ) * self:GetSpecialValueFor("attack_speed_pct") / 100 )
 	local base_triggers = triggers
 	
 	Timers:CreateTimer( function()

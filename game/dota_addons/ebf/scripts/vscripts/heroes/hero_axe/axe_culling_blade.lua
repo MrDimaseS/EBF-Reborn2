@@ -183,7 +183,7 @@ if IsServer() then
 				end
 			end
 			
-			if debuff_immune then
+			if self.debuff_immune then
 				caster:AddNewModifierStacking( caster, self, "modifier_black_king_bar_immune", {duration = self.speed_duration} )
 			end
 			

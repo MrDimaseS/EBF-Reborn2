@@ -917,7 +917,6 @@ function CHoldoutGameMode:_SetupGameConfiguration()
 	if IsInToolsMode() or GameRules:IsCheatMode() then
 		GameRules:SetPreGameTime( 99999 )
 		GameRules:SetHeroSelectionTime( 99999 )
-		GameRules:SetStrategyTime( 99999 )
 	end
 	GameRules:SetUseUniversalShopMode( true )
 	GameRules:SetTreeRegrowTime( 15.0 )

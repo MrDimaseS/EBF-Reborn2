@@ -63,7 +63,7 @@ function modifier_item_yasha_and_kaya_2_passive:OnRefresh()
 	self.spell_lifesteal_amp = self:GetSpecialValueFor("spell_lifesteal_amp")
 	self.mana_regen_multiplier = self:GetSpecialValueFor("mana_regen_multiplier")
 	
-	self.lifesteal_percent = self:GetSpecialValueFor("lifesteal_percent") / 100
+	self.lifesteal_percent = self:GetSpecialValueFor("lifesteal_percent")
 	self.berserk_mana_steal = self:GetSpecialValueFor("berserk_mana_steal") / 100
 	
 	self.bonus_cooldown = self:GetSpecialValueFor("bonus_cooldown")

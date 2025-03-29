@@ -516,8 +516,10 @@ function CHoldoutGameMode:FilterGold( filterTable )
 		-- if midas then
 			-- bonusGold = math.floor( startGold * (midas.bonus_gold or 0) )
 		-- end
-		if hero:HasAbility("alchemist_goblins_greed") then
-			bonusGold = math.floor( startGold * hero:FindAbilityByName("alchemist_goblins_greed"):GetSpecialValueFor("bonus_gold")  / 100 )
+		if hero:HasAbility("alchemist_greevils_greed") then
+			bonusGold = math.floor( startGold * hero:FindAbilityByName("alchemist_greevils_greed"):GetSpecialValueFor("bonus_gold")  / 100 )
+		elseif hero:HasModifier("modifier_alchemist_greevils_greed_chrysopoeia") then
+			bonusGold = math.floor( startGold * hero:FindAbilityByName("alchemist_greevils_greed"):GetSpecialValueFor("allied_bonus_gold")  / 100 )
 		end
 		bonusGold = bonusGold + math.floor( startGold * (GameRules:GetPlayerGoldMultiplier()-1) )
 		if bonusGold > 0 then
@@ -1343,10 +1345,14 @@ function CHoldoutGameMode:OnGameRulesStateChange()
 			
 			local medianTable = {}
 			local totalTable = {}
-			for pID, difficulty in pairs( GameRules._DifficultyVotes ) do
-				if difficulty > 0 then
-					totalTable[difficulty] = (totalTable[difficulty] or 0)+1
-					table.insert( medianTable, difficulty )
+			if GameRules._DifficultyVotes == nil then
+				
+			else
+				for pID, difficulty in pairs( GameRules._DifficultyVotes ) do
+					if difficulty > 0 then
+						totalTable[difficulty] = (totalTable[difficulty] or 0)+1
+						table.insert( medianTable, difficulty )
+					end
 				end
 			end
 			local maxVotes = 0

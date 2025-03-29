@@ -125,7 +125,7 @@ function modifier_alchemist_chemical_rage_ebf:OnIntervalThink()
     self.elapsed_time = self.elapsed_time + 1
     self:SendBuffRefreshToClients()
 
-    if cooldown_reduction ~= 0 then
+    if self.cooldown_reduction ~= 0 then
         local unstable_concoction = self.parent:FindAbilityByName("alchemist_unstable_concoction")
         if unstable_concoction ~= nil and unstable_concoction:GetCooldownTimeRemaining() > 0 then
             unstable_concoction:ModifyCooldown(-self.cooldown_reduction)

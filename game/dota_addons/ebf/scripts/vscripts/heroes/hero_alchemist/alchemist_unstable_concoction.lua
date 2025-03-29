@@ -126,11 +126,11 @@ function modifier_alchemist_unstable_concoction_charge:OnIntervalThink()
 			unit:AddNewModifier( caster, self:GetAbility(), "modifier_alchemist_unstable_concoction_panacea", { duration = self.barrier_duration } )
 		else
 			if self.does_hex then
-				enemy:AddNewModifier( caster, self:GetAbility(), "modifier_sheepstick_debuff", { duration = self.max_stun } )
+				unit:AddNewModifier( caster, self:GetAbility(), "modifier_sheepstick_debuff", { duration = self.max_stun } )
 			else
-				ability:Stun( enemy, self.max_stun )
+				ability:Stun( unit, self.max_stun )
 			end
-			ability:DealDamage( caster, enemy, damage )
+			ability:DealDamage( caster, unit, damage )
 		end
 	end
 

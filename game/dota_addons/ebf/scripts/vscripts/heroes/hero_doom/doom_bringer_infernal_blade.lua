@@ -28,8 +28,14 @@ end
 function doom_bringer_infernal_blade:InfernalBlade(target)
 	local caster = self:GetCaster()
 	
-	target:AddNewModifier(caster, self, "modifier_doom_bringer_infernal_blade_debuff", {duration = self:GetSpecialValueFor("burn_duration")})
-	self:Stun(target, self:GetSpecialValueFor("ministun_duration"))
+	if not target:IsConsideredHero() then
+		-- instakill, as per Lvl? Pain.
+		self:DealDamage(caster, target, target:GetMaxHealth() + 1, { damage_type = DAMAGE_TYPE_PURE, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL + DOTA_DAMAGE_FLAG_NO_DAMAGE_MULTIPLIERS })
+	else
+		target:AddNewModifier(caster, self, "modifier_doom_bringer_infernal_blade_debuff", {duration = self:GetSpecialValueFor("burn_duration")})
+		self:Stun(target, self:GetSpecialValueFor("ministun_duration"))
+	end
+
 	ParticleManager:FireParticle("particles/units/heroes/hero_doom_bringer/doom_infernal_blade_impact.vpcf", PATTACH_POINT_FOLLOW, enemy)
 	if caster:HasShard() then
 		local startPos = target:GetAbsOrigin()
@@ -90,26 +96,37 @@ end
 modifier_doom_bringer_infernal_blade_debuff = class({})
 LinkLuaModifier("modifier_doom_bringer_infernal_blade_debuff", "heroes/hero_doom/doom_bringer_infernal_blade", LUA_MODIFIER_MOTION_NONE)
 
+function modifier_doom_bringer_infernal_blade_debuff:GetEffectName()
+	return "particles/units/heroes/hero_doom_bringer/doom_infernal_blade_debuff.vpcf"
+end
 function modifier_doom_bringer_infernal_blade_debuff:OnCreated()
 	self:OnRefresh()
 	if IsServer() then
 		self:StartIntervalThink(1)
 	end
 end
-
 function modifier_doom_bringer_infernal_blade_debuff:OnRefresh()
 	self.damage = self:GetSpecialValueFor("burn_damage_pct") / 100
 	self.baseDamage = self:GetSpecialValueFor("burn_damage")
+	self.life_leech = self:GetSpecialValueFor("life_leech") / 100
 	if IsServer() then
 		self:OnIntervalThink()
 	end
 end
-
 function modifier_doom_bringer_infernal_blade_debuff:OnIntervalThink()
 	local parent = self:GetParent()
 	self:GetAbility():DealDamage(self:GetCaster(), parent, parent:GetMaxHealth() * self.damage * parent:GetMaxHealthDamageResistance() + self.baseDamage * (1 + self:GetCaster():GetSpellAmplification( false )), {damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION}, OVERHEAD_ALERT_BONUS_SPELL_DAMAGE)
 end
-
-function modifier_doom_bringer_infernal_blade_debuff:GetEffectName()
-	return "particles/units/heroes/hero_doom_bringer/doom_infernal_blade_debuff.vpcf"
+function modifier_doom_bringer_infernal_blade_debuff:DeclareFunctions()
+	return {
+		MODIFIER_EVENT_ON_TAKEDAMAGE
+	}
+end
+function modifier_doom_bringer_infernal_blade_debuff:OnTakeDamage(params)
+	local caster = self:GetCaster()
+	local ability = self:GetAbility()
+	if params.attacker:IsSameTeam(caster) and params.unit == self:GetParent() then
+		local heal = params.damage * self.life_leech
+		params.attacker:HealEvent(heal, ability, caster, false)
+	end
 end

@@ -37,7 +37,7 @@ function modifier_life_stealer_feast_ebf:OnAttackLanded( params )
 	local ability = self:GetAbility()
 	
 	local preHP = parent:GetHealth()
-	parent:HealWithParams( self.leech, ability, true, true, healer, false)
+	parent:HealWithParams( self.leech, ability, true, true, self:GetCaster(), false)
 	local healing = parent:GetHealth() - preHP
 	if healing > 0 then
 		SendOverheadEventMessage(parent, OVERHEAD_ALERT_HEAL, parent, healing, parent)

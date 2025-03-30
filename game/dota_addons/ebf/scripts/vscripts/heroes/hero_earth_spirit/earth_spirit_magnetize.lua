@@ -105,7 +105,7 @@ function modifier_earth_spirit_magnetize_effect:OnIntervalThink()
 	local caster = self:GetCaster()
 	local ability = self:GetAbility()
 	ParticleManager:SetParticleControl(self.counterFX, 1, Vector( math.floor( math.ceil( self:GetRemainingTime()*10 )/100 ), math.ceil( self:GetRemainingTime() )%10, 1 ) )
-	ParticleManager:FireParticle("particles/units/heroes/hero_earth_spirit/espirit_magnetize_target.vpcf", PATTACH_POINT_FOLLOW, target, {[2] = Vector(enemyRadius, enemyRadius, enemyRadius)})
+	ParticleManager:FireParticle("particles/units/heroes/hero_earth_spirit/espirit_magnetize_target.vpcf", PATTACH_POINT_FOLLOW, target, {[2] = Vector(self.enemyRadius, self.enemyRadius, self.enemyRadius)})
 	
 	self.currInterval = self.currInterval - 0.25
 	if self.currInterval <= 0 then

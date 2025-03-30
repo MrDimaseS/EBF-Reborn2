@@ -27,9 +27,10 @@ end
 function doom_bringer_devour:OnSpellStart()
 	local caster = self:GetCaster()
 	local target = self:GetCursorTarget()
+	local damage = self:GetSpecialValueFor("damage")
 	
 	caster:RemoveModifierByName( "modifier_doom_bringer_devour_eating" )
-	caster:AddNewModifier( caster, self, "modifier_doom_bringer_devour_eating", {duration = self:GetSpecialValueFor("duration")} )
+	caster:AddNewModifier( caster, self, "modifier_doom_bringer_devour_eating", {duration = self:GetCooldown(self:GetLevel())} )
 	if target:IsNeutralUnitType() and self:GetAutoCastState() then
 		self.currentlyDevouredAbilities = {}
 		local abilitiesToAdd = {}
@@ -63,12 +64,12 @@ function doom_bringer_devour:OnSpellStart()
 			end
 		end
 	end
-	
 	if target:IsConsideredHero() then
-		self:DealDamage( caster, target, caster:GetStrength() * self:GetSpecialValueFor("hero_damage") / 100, {damage_type = DAMAGE_TYPE_PURE} )
+		self:DealDamage(caster, target, damage, { damage_type = DAMAGE_TYPE_PURE })
 	else
-		self:DealDamage( caster, target, target:GetMaxHealth() + 1, {damage_type = DAMAGE_TYPE_PURE, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL + DOTA_DAMAGE_FLAG_NO_DAMAGE_MULTIPLIERS} )
+		self:DealDamage(caster, target, target:GetMaxHealth() + 1, { damage_type = DAMAGE_TYPE_PURE, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL + DOTA_DAMAGE_FLAG_NO_DAMAGE_MULTIPLIERS })
 	end
+	
 end
 
 modifier_doom_bringer_devour_eating = class({})
@@ -77,30 +78,72 @@ LinkLuaModifier( "modifier_doom_bringer_devour_eating", "heroes/hero_doom/doom_b
 function modifier_doom_bringer_devour_eating:OnCreated()
 	self:OnRefresh()
 end
-
 function modifier_doom_bringer_devour_eating:OnRefresh()
 	self.bonus_gold = self:GetSpecialValueFor("bonus_gold")
 	self.armor = self:GetSpecialValueFor("armor")
 	self.magic_resist = self:GetSpecialValueFor("magic_resist")
-end
+	self.attack_damage = self:GetSpecialValueFor("attack_damage")
+	self.cleave = self:GetSpecialValueFor("cleave") / 100
+	self.cleave_ending_width = self:GetSpecialValueFor("cleave_ending_width")
+	self.cleave_distance = self:GetSpecialValueFor("cleave_distance")
+	self.mana_regen = self:GetSpecialValueFor("mana_regen")
+	self.cast_speed = self:GetSpecialValueFor("cast_speed")
 
+	if self.cast_speed ~= 0 then
+		self:GetParent().cooldownModifiers = self:GetParent().cooldownModifiers or {}
+		self:GetParent().cooldownModifiers[self] = true
+	end
+end
 function modifier_doom_bringer_devour_eating:OnDestroy()
+	if self.cast_speed ~= 0 then
+		self:GetParent().cooldownModifiers[self] = nil
+	end
 	if IsServer() and self:GetParent():IsAlive() then
 		self:GetCaster():AddGold( self.bonus_gold )
 	end
 end
-
 function modifier_doom_bringer_devour_eating:DeclareFunctions()
 	return {
 		MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
-		MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS 
+		MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS,
+		MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
+		MODIFIER_EVENT_ON_ATTACK_LANDED,
+		MODIFIER_PROPERTY_MANA_REGEN_CONSTANT
 	}
 end
-
 function modifier_doom_bringer_devour_eating:GetModifierPhysicalArmorBonus()
 	return self.armor
 end
-
 function modifier_doom_bringer_devour_eating:GetModifierMagicalResistanceBonus()
 	return self.magic_resist
+end
+function modifier_doom_bringer_devour_eating:GetModifierPreAttack_BonusDamage()
+	return self.attack_damage
+end
+function modifier_doom_bringer_devour_eating:OnAttackLanded(params)
+	if params.attacker == self:GetParent() and not params.attacker:IsIllusion() and not params.attacker:IsCleaveSuppressed() then
+		local ability = self:GetAbility()
+		local units = 0
+		local direction = CalculateDirection( params.target, params.attacker)
+		local splash = params.attacker:FindEnemyUnitsInCone( direction, params.target:GetAbsOrigin(), self.cleave_ending_width, self.cleave_distance)
+		local splashFX = ParticleManager:CreateParticle( "particles/items_fx/battlefury_cleave.vpcf", PATTACH_POINT, params.attacker )
+		ParticleManager:SetParticleControl( splashFX, units, params.attacker:GetAbsOrigin() ) 
+		ParticleManager:SetParticleControlTransformForward( splashFX, units, params.attacker:GetAbsOrigin(), direction ) 
+		
+		local splashDamage = params.original_damage * self.cleave
+		for _, unit in ipairs( splash ) do
+			if unit ~= params.target then
+				units = units + 1
+				ParticleManager:SetParticleControl( splashFX, units, unit:GetAbsOrigin() )
+				ability:DealDamage( params.attacker, unit, splashDamage, { damage_type = DAMAGE_TYPE_PHYSICAL, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL } )
+			end
+		end
+		ParticleManager:ReleaseParticleIndex( splashFX )
+	end
+end
+function modifier_doom_bringer_devour_eating:GetModifierConstantManaRegen()
+	return self.mana_regen
+end
+function modifier_doom_bringer_devour_eating:GetModifierCastSpeed( params )
+	if params.ability and not params.ability:IsItem() then return self.cast_speed end 
 end

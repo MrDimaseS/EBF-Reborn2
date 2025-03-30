@@ -131,7 +131,6 @@ function mars_spear:LaunchSpear( origin, direction, secondary, maxDistance )
 
 	self._marsSpearProjectiles = self._marsSpearProjectiles or {}
 	self._marsSpearProjectiles[projectile] = { secondary = secondary,
-											   damage = damage,
 											   knockback_duration = knockback_duration,
 											   knockback_distance = knockback_distance,
 											   damage = damage,

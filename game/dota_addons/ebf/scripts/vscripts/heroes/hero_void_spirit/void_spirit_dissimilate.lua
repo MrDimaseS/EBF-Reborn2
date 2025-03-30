@@ -98,7 +98,7 @@ function modifier_void_spirit_dissimilate_oow:OnOrder( params )
 			local nearestPortal
 			local nearestDistance = 99999
 			for fx, portalData in pairs( portals ) do
-				ParticleManager:SetParticleControl( fx, 2, Vector( (active and 1) or 0, 0, 0 ) )
+				ParticleManager:SetParticleControl( fx, 2, Vector( (portalData.active and 1) or 0, 0, 0 ) )
 				portalData.active = false
 				if CalculateDistance( portalData.position, position ) < nearestDistance then
 					nearestPortal = fx

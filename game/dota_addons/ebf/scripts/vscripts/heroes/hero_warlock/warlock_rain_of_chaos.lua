@@ -16,6 +16,7 @@ end
 function warlock_rain_of_chaos:OnOwnerSpawned()
 	local golem_on_death = self:GetSpecialValueFor("golem_on_death") == 1
 	local become_golem = self:GetSpecialValueFor("become_golem") == 1
+	local golem_duration = self:GetSpecialValueFor("golem_duration")
 	if golem_on_death and become_golem then
 		caster:AddNewModifier( caster, self, "modifier_warlock_rain_of_chaos_golem_form", {duration = golem_duration} )
 		caster:AddNewModifier( caster, self, "modifier_warlock_rain_of_chaos_immolating_presence", {duration = golem_duration} )

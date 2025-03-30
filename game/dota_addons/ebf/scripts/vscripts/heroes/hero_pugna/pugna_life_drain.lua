@@ -120,7 +120,7 @@ end
 
 function modifier_pugna_life_drain_tether:OnDestroy()
 	if IsServer() then
-		StopSoundOn("Hero_Pugna.LifeDrain.Target", parent)
+		StopSoundOn("Hero_Pugna.LifeDrain.Target", self:GetParent())
 		ParticleManager:ClearParticle( self.drainFX )
 		if self.alliedBuffs then
 			for ally, buff in pairs( self.alliedBuffs ) do

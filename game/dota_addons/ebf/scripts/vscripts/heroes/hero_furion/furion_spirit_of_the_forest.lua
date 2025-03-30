@@ -115,7 +115,7 @@ function modifier_furion_spirit_of_the_forest_debuff:OnIntervalThink()
 		end
 	end
 	if treants + trees > 0 then
-		self:GetAbility():DealDamage( caster, parent, self.damage_per_tree * (treants+trees), {damage_type = DAMAGE_FLAG_MAGICAL} )
+		self:GetAbility():DealDamage( caster, parent, self.damage_per_tree * (treants+trees), {damage_type = DAMAGE_TYPE_MAGICAL} )
 	end
 end
 

@@ -106,7 +106,7 @@ function modifier_gyrocopter_homing_missile_behavior:OnIntervalThink()
 				self:Destroy()
 			end
 		else
-			self.target = caster:FindRandomEnemyInRadius(homingMissile:GetAbsOrigin(), -1, {order = FIND_NEAREST})
+			self.target = caster:FindRandomEnemyInRadius(homingMissile:GetAbsOrigin(), -1, {order = FIND_CLOSEST})
 			local marker = ParticleManager:CreateParticle("particles/units/heroes/hero_gyrocopter/gyro_guided_missile_target.vpcf", PATTACH_OVERHEAD_FOLLOW, self.target)
 			self:AddEffect( marker )
 		end

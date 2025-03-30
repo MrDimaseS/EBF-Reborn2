@@ -44,7 +44,7 @@ function modifier_gyrocopter_sidegunner_timer:OnIntervalThink()
 	end
 	local ability = self:GetAbility()
 	if ability:IsCooldownReady() then
-		local target = parent:FindRandomEnemyInRadius( parent:GetAbsOrigin(), parent:GetAttackRange() + parent:GetPaddedCollisionRadius() + 25, data)
+		local target = parent:FindRandomEnemyInRadius( parent:GetAbsOrigin(), parent:GetAttackRange() + parent:GetPaddedCollisionRadius() + 25)
 		if target then
 			parent:PerformGenericAttack( target, false, {ability = ability, neverMiss = false} )
 			ability:SetCooldown( self.fire_rate )

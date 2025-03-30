@@ -35,6 +35,7 @@ function batrider_flamebreak:TossCocktail(vLocation)
 	local damage_duration = self:GetSpecialValueFor("damage_duration")
 	local knockback_duration = self:GetSpecialValueFor("knockback_duration")
 	local knockback_distance = self:GetSpecialValueFor("knockback_distance")
+	local knockback_height = self:GetSpecialValueFor("knockback_height")
 	local napalm_stacks = self:GetSpecialValueFor("napalm_stacks")
 	local stun_duration = self:GetSpecialValueFor("stun_duration")
 

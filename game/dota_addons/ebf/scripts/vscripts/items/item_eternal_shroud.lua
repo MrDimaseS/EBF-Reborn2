@@ -31,7 +31,7 @@ function item_eternal_shroud:OnSpellStart()
 				enemy:AddNewModifier( caster, self, "modifier_item_shivas_guard_blast", {duration = duration} )
 				enemy:AddNewModifier( caster, self, "modifier_item_veil_of_discord_debuff", {duration = amp_duration} )
 				unitsToHit[enemy:entindex()] = true
-				ParticleManager:FireParticle( "particles/items2_fx/shivas_guard_impact.vpcf", PATTACH_POINT_FOLLOW, unit )
+				ParticleManager:FireParticle( "particles/items2_fx/shivas_guard_impact.vpcf", PATTACH_POINT_FOLLOW, enemy )
 			end
 		end
 		if currentRadius < endRadius then

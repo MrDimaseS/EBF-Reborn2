@@ -13,7 +13,7 @@ function lone_druid_synergy:GetIntrinsicModifierName()
 end
 
 function lone_druid_synergy:OnHeroCalculateStatBonus()
-	if not IsSafeEntity( self.linkedSpiritBear ) then return end
+	if not IsEntitySafe( self.linkedSpiritBear ) then return end
 	local modifier = self.linkedSpiritBear:FindModifierByName("modifier_lone_druid_synergy_aura")
 	if modifier then
 		local bear = self.linkedSpiritBear

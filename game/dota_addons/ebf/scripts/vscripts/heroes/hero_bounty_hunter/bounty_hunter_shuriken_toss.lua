@@ -15,11 +15,11 @@ function bounty_hunter_shuriken_toss:OnSpellStart()
 	EmitSoundOn("Hero_BountyHunter.Shuriken", caster)
 
 	self.projectiles = self.projectiles or {}
-	local projectile = self:TossShuriken(target, self:GetSpecialValueFor("damage"), caster, self.shadow_walk)
+	local projectile = self:TossShuriken(target, caster)
 	self.projectiles[projectile] = {}
 end
 
-function bounty_hunter_shuriken_toss:TossShuriken(target, damage, source)
+function bounty_hunter_shuriken_toss:TossShuriken(target, source)
 	local caster = self:GetCaster()
 	local hSource = source or caster
 	local projectile = self:FireTrackingProjectile( "particles/units/heroes/hero_bounty_hunter/bounty_hunter_suriken_toss.vpcf", target, self:GetSpecialValueFor("speed"), {source = hSource, origin = hSource:GetAbsOrigin()}, TernaryOperator( DOTA_PROJECTILE_ATTACHMENT_ATTACK_1, caster == source, DOTA_PROJECTILE_ATTACHMENT_HITLOCATION) )
@@ -52,7 +52,7 @@ function bounty_hunter_shuriken_toss:OnProjectileHitHandle( target, position, pr
 		local radius = self:GetSpecialValueFor("bounce_aoe")
 		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( target:GetAbsOrigin(), radius, {flag = DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES} ) ) do
 			if not self.projectiles[projectile][enemy:entindex()] and enemy:HasModifier("modifier_bounty_hunter_track") then
-				local newProj = self:TossShuriken(enemy, damage, target)
+				local newProj = self:TossShuriken(enemy, damage)
 				self.projectiles[newProj] = table.copy( self.projectiles[projectile] )
 				break
 			end

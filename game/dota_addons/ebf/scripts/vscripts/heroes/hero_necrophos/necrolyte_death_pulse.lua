@@ -32,7 +32,7 @@ function necrolyte_death_pulse:DeathPulse( origin, bDisableSound )
 				fxName = "particles/units/heroes/hero_necrolyte/necrolyte_pulse_friend.vpcf"
 			end
 			local projID = self:FireTrackingProjectile(fxName, unit, speed, {source = origin})
-			self.deathPulses[projID] = {damage = damage, damage_type = damage_type}
+			self.deathPulses[projID] = {damage = self:GetSpecialValueFor("damage")}
 		else
 			self:OnProjectileHitHandle( origin, origin:GetAbsOrigin(), 0 )
 		end

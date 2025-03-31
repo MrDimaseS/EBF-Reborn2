@@ -26,7 +26,7 @@ function enigma_demonic_conversion:OnSpellStart()
 	end
 	for i = 1, eidolons do
 		local eidolon = self:CreateEidolon( target:GetAbsOrigin() + RandomVector( 128 ) )
-		eidolon:AddNewModifier( caster, self, "modifier_enigma_demonic_conversion_eidolon", {duration = duration or self:GetDuration()} )
+		eidolon:AddNewModifier( caster, self, "modifier_enigma_demonic_conversion_eidolon", {duration = self:GetDuration()} )
 	end
 	ResolveNPCPositions( target:GetAbsOrigin(), 150 )
 	

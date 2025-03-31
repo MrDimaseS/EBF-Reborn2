@@ -96,7 +96,7 @@ function modifier_bloodseeker_bloodrage_buff:GetModifierSpellAmplify_Percentage(
 end
 
 function modifier_bloodseeker_bloodrage_buff:GetDisableHealing( params )
-	return TernaryOperator( 1, (self.max_missing_hp_barrier > 0) and parent == caster, 0 )
+	return TernaryOperator( 1, (self.max_missing_hp_barrier > 0) and self:GetParent() == self:GetCaster(), 0 )
 end
 
 function modifier_bloodseeker_bloodrage_buff:OnHealReceived( params )

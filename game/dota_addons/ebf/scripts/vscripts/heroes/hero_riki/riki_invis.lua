@@ -59,7 +59,7 @@ function modifier_riki_invis_handler:OnAttackLanded(params)
 				local disarm = ability:Disarm(params.target, self.disarm_duration)
 				Timers:CreateTimer(function()
 					if IsModifierSafe(disarm) and IsEntitySafe( disarm:GetParent() ) then
-						local dt = GetGameFrameTime()
+						local dt = GameRules:GetGameFrameTime()
 						if disarm:GetParent():IsStunned() then
 							disarm:SetDuration( disarm:GetRemainingTime() + dt	, true )
 						end

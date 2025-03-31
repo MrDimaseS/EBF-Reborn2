@@ -29,7 +29,8 @@ end
 function modifier_doom_bringer_lvl_pain_handler:DeclareFunctions()
     local funcs = {
 		MODIFIER_PROPERTY_TOTALDAMAGEOUTGOING_PERCENTAGE,
-		MODIFIER_EVENT_ON_TAKEDAMAGE
+		MODIFIER_EVENT_ON_TAKEDAMAGE,
+		MODIFIER_EVENT_SPELL_APPLIED_SUCCESSFULLY
     }
     return funcs
 end
@@ -37,6 +38,15 @@ function modifier_doom_bringer_lvl_pain_handler:GetModifierTotalDamageOutgoing_P
     if not params.target:IsConsideredHero() then
 		return self.bonus_creep_damage
 	end
+end
+function modifier_doom_bringer_lvl_pain_handler:OnSpellAppliedSuccessfully(params)
+	local caster = self:GetCaster()
+	if params.ability:GetCaster() ~= caster then return end
+	if not params.target then return end
+	local ability = self:GetAbility()
+	local target = params.target
+	
+	target:AttemptKill( ability, caster )
 end
 function modifier_doom_bringer_lvl_pain_handler:OnTakeDamage(event)
 	if self:GetCaster():PassivesDisabled() or IsClient() then return end

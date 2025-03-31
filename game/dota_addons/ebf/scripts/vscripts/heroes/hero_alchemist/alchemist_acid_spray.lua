@@ -1,5 +1,9 @@
 alchemist_acid_spray = class({})
 
+function alchemist_acid_spray:GetAOERadius()
+	return self:GetSpecialValueFor("radius")
+end
+
 function alchemist_acid_spray:OnSpellStart()
     local caster = self:GetCaster()
     local duration = self:GetSpecialValueFor("duration")

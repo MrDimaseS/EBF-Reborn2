@@ -10,12 +10,7 @@ function doom_bringer_doom:OnSpellStart()
     else
         local target = self:GetCursorTarget()
         if target:TriggerSpellAbsorb(self) then return end
-        if not target:IsConsideredHero() then
-            -- instakill, as per Lvl? Pain.
-            self:DealDamage(caster, target, target:GetMaxHealth() + 1, { damage_type = DAMAGE_TYPE_PURE, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL + DOTA_DAMAGE_FLAG_NO_DAMAGE_MULTIPLIERS })
-        else
-            target:AddNewModifier(caster, self, "modifier_doom_bringer_doom_ebf", { duration = duration })
-        end
+        target:AddNewModifier(caster, self, "modifier_doom_bringer_doom_ebf", { duration = duration })
     end
 end
 

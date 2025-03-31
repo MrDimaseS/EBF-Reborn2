@@ -315,6 +315,7 @@ function alchemist_unstable_concoction_throw:OnProjectileHit_ExtraData( target, 
 	-- unique reflect interaction
 	-- store brew time to static class variable
 	alchemist_unstable_concoction_throw.reflected_brew_time = brew_time
+	self._lastBrewTime = brew_time
 
 	-- check if the ability GOT TRIGGERED BY SOMETHING TRIVIAL
 	local TRIGGERED = target:TriggerSpellAbsorb( self )
@@ -339,7 +340,8 @@ function alchemist_unstable_concoction_throw:OnProjectileHit_ExtraData( target, 
 	local stun = (brew_time/max_brew)*(max_stun-min_stun) + min_stun
 	local damage = (brew_time/max_brew)*(max_damage-min_damage) + min_damage
 	local barrier_duration = self:GetSpecialValueFor("barrier_duration")
-
+	
+	print( brew_time, max_brew, max_stun, min_stun )
 	-- find units in radius
 	local units = nil
 	if does_fizzle then
@@ -352,8 +354,9 @@ function alchemist_unstable_concoction_throw:OnProjectileHit_ExtraData( target, 
 			unit:AddNewModifier( caster, self, "modifier_alchemist_unstable_concoction_panacea", { duration = barrier_duration } )
 		else
 			self:DealDamage( caster, unit, damage, {damage_type = DAMAGE_TYPE_PHYSICAL} )
+			print( stun, "concoction thrown" )
 			if does_hex > 0 then
-				unit:AddNewModifier( caster, self, "modifier_sheepstick_debuff", { duration = stun * self.does_hex } )
+				unit:AddNewModifier( caster, self, "modifier_sheepstick_debuff", { duration = stun * does_hex } )
 			end
 			self:Stun(unit, stun)
 		end

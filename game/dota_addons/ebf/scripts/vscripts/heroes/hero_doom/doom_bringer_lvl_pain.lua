@@ -45,8 +45,10 @@ function modifier_doom_bringer_lvl_pain_handler:OnSpellAppliedSuccessfully(param
 	if not params.target then return end
 	local ability = self:GetAbility()
 	local target = params.target
-	
-	target:AttemptKill( ability, caster )
+
+	if not target:IsConsideredHero() then
+		target:AttemptKill( ability, caster )
+	end
 end
 function modifier_doom_bringer_lvl_pain_handler:OnTakeDamage(event)
 	if self:GetCaster():PassivesDisabled() or IsClient() then return end

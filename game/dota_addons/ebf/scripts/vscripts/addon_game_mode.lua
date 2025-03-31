@@ -519,7 +519,8 @@ function CHoldoutGameMode:FilterGold( filterTable )
 		if hero:HasAbility("alchemist_greevils_greed") then
 			bonusGold = math.floor( startGold * hero:FindAbilityByName("alchemist_greevils_greed"):GetSpecialValueFor("bonus_gold")  / 100 )
 		elseif hero:HasModifier("modifier_alchemist_greevils_greed_chrysopoeia") then
-			bonusGold = math.floor( startGold * hero:FindAbilityByName("alchemist_greevils_greed"):GetSpecialValueFor("allied_bonus_gold")  / 100 )
+			local caster = hero:FindModifierByName("modifier_alchemist_greevils_greed_chrysopoeia"):GetCaster()
+			bonusGold = math.floor( startGold * caster:FindAbilityByName("alchemist_greevils_greed"):GetSpecialValueFor("allied_bonus_gold")  / 100 )
 		end
 		bonusGold = bonusGold + math.floor( startGold * (GameRules:GetPlayerGoldMultiplier()-1) )
 		if bonusGold > 0 then

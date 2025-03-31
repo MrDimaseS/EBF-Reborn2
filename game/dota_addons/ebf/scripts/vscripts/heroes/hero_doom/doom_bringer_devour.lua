@@ -29,6 +29,8 @@ function doom_bringer_devour:OnSpellStart()
 	local target = self:GetCursorTarget()
 	local damage = self:GetSpecialValueFor("damage")
 	
+	if target:TriggerSpellAbsorb( self ) then return end
+	
 	caster:RemoveModifierByName( "modifier_doom_bringer_devour_eating" )
 	caster:AddNewModifier( caster, self, "modifier_doom_bringer_devour_eating", {duration = self:GetCooldown(self:GetLevel())} )
 	if target:IsNeutralUnitType() and self:GetAutoCastState() then
@@ -64,12 +66,7 @@ function doom_bringer_devour:OnSpellStart()
 			end
 		end
 	end
-	if target:IsConsideredHero() then
-		self:DealDamage(caster, target, damage, { damage_type = DAMAGE_TYPE_PURE })
-	else
-		self:DealDamage(caster, target, target:GetMaxHealth() + 1, { damage_type = DAMAGE_TYPE_PURE, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL + DOTA_DAMAGE_FLAG_NO_DAMAGE_MULTIPLIERS })
-	end
-	
+	self:DealDamage(caster, target, damage, { damage_type = DAMAGE_TYPE_PURE })
 end
 
 modifier_doom_bringer_devour_eating = class({})

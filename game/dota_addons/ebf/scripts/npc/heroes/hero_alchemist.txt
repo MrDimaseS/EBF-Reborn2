@@ -1,92 +1,53 @@
 "DOTAAbilities"
 {	
 	//=================================================================================================================
-	// Alchemist: Midas Touch
+	// Alchemist: Greevil's Greed
 	//=================================================================================================================
-	"alchemist_midas_touch"
+	"alchemist_greevils_greed"
 	{
 		"BaseClass"						"ability_lua"
-		"ScriptFile"					"heroes/hero_alchemist/alchemist_midas_touch"
+		"ScriptFile"					"heroes/hero_alchemist/alchemist_greevils_greed"
 		"AbilityTextureName"			"alchemist_goblins_greed"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
-		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		
-		"MaxLevel"						"4"
-		"LevelsBetweenUpgrades"			"2"
-		
+		"MaxLevel"						"1"
+		"Innate"						"1"
+
 		"AbilityValues"
 		{
-			"chance"					"15"
-			"duration"					"0.8"
-			"damage_increase"			"6 10 14 18"
-		}
-	}
-
-	//=================================================================================================================
-	// Alchemist: Berserk Potion
-	//=================================================================================================================
-	"alchemist_berserk_potion"
-	{
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
-		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
-		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
-		
-		"MaxLevel"						"4"
-		"LevelsBetweenUpgrades"			"2"
-		"FightRecapLevel"				"1"
-
-		"AbilityCastRange"				"800"
-		"AbilityCastPoint"				"0.2"
-		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
-		
-		"AbilityCooldown"				"35"
-		"AbilityManaCost"				"100"
-		
-		"AbilityValues"
-		{
-			"duration"										"8 10 12 14"
-			"attack_speed"									"30 40 50 60"
-			"hp_regen"
+			"bonus_gold"
 			{
-				"value"										"200 300 400 500"
-				"CalculateSpellHealTooltip"					"1"
+				"value"										"25"
+				"special_bonus_facet_alchemist_chrysopoeia"	"+10"
+				"special_bonus_unique_alchemist_4"			"+5"
 			}
-			"projectile_speed"								"900"
-			"move_speed"									"30 40 50 60"
-			"chemical_rage_cooldown_reduction_pct"
+			"allied_bonus_gold"
 			{
-				"special_bonus_facet_alchemist_panacea"		"=30"
+				"special_bonus_facet_alchemist_chrysopoeia"	"10"
+				"special_bonus_unique_alchemist_4"			"+5"
+			}
+			"spell_amplification"
+			{
+				"special_bonus_facet_alchemist_panacea"		"1"
+			}
+			"healing_provided"
+			{
+				"special_bonus_facet_alchemist_panacea"		"1"
+			}
+			"bonus_damage"
+			{
+				"special_bonus_facet_alchemist_azoth"		"1"
+			}
+			"attack_speed"
+			{
+				"special_bonus_facet_alchemist_azoth"		"1"
+			}
+			"gold_threshold"
+			{
+				"value"										"1000"
 			}
 		}
 	}
-	
-
-	//=================================================================================================================
-	// Alchemist: Corrosive Weaponry
-	//=================================================================================================================
-	"alchemist_corrosive_weaponry"
-	{
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
-		"AbilitySound"					"Hero_Meepo.Geostrike"
-
-		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_3"
-
-		"AbilityValues"
-		{
-			"max_stacks"					"10 12 14 16"
-			"debuff_duration"				"4.0"
-			"slow_per_stack"				"1.5 2 2.5 3"
-			"attack_damage_per_stack"		"2"
-			"stacks_per_attack"				"2"
-			"one_tooltip"					"1"
-		}
-	}
-
 	//=================================================================================================================
 	// Alchemist: Acid Spray
 	//=================================================================================================================
@@ -111,11 +72,17 @@
 			"radius"
 			{
 				"value"											"400 475 550 625"
-				"special_bonus_unique_alchemist_3_chrysopoeia"	"+125"
+				"affected_by_aoe_increase"						"1"
 			}
 			"duration"										
 			{
 				"value"											"15"
+				"special_bonus_facet_alchemist_chrysopoeia"		"=0"
+				"special_bonus_unique_alchemist_3"				"+5"
+			}
+			"linger_duration"										
+			{
+				"special_bonus_facet_alchemist_chrysopoeia"		"=5"
 				"special_bonus_unique_alchemist_3"				"+5"
 			}
 			"damage"
@@ -210,11 +177,12 @@
 			{
 				"value"										"250"
 				"special_bonus_unique_alchemist_2"			"+125"
+				"affected_by_aoe_increase"					"1"
 			}
 
 			"does_hex"
 			{
-				"special_bonus_facet_alchemist_chrysopoeia"	"1"
+				"special_bonus_facet_alchemist_chrysopoeia"	"150"
 			}
 			"does_fizzle"
 			{
@@ -228,10 +196,6 @@
 			"barrier_duration"
 			{
 				"special_bonus_facet_alchemist_panacea"		"10"
-			}
-			"chemical_rage_bonus_damage"
-			{
-				"special_bonus_facet_alchemist_panacea"		"30"
 			}
 		}
 	}
@@ -294,11 +258,12 @@
 			{
 				"value"										"250"
 				"special_bonus_unique_alchemist_2"			"+125"
+				"affected_by_aoe_increase"					"1"
 			}
 
 			"does_hex"
 			{
-				"special_bonus_facet_alchemist_chrysopoeia"	"1"
+				"special_bonus_facet_alchemist_chrysopoeia"	"150"
 			}
 			"does_fizzle"
 			{
@@ -313,58 +278,94 @@
 			{
 				"special_bonus_facet_alchemist_panacea"		"10"
 			}
-			"chemical_rage_bonus_damage"
-			{
-				"special_bonus_facet_alchemist_panacea"		"30"
-			}
+		}
+	}
+	//=================================================================================================================
+	// Alchemist: Midas Touch
+	//=================================================================================================================
+	"alchemist_midas_touch"
+	{
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_alchemist/alchemist_midas_touch"
+		"AbilityTextureName"			"alchemist_goblins_greed"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		
+		"AbilityCooldown"				"2"
+		
+		"AbilityValues"
+		{
+			"chance"					"15 20 25 30"
+			"duration"					"1.2 1.4 1.6 1.8"
+			"damage_increase"			"6 10 14 18"
 		}
 	}
 
 	//=================================================================================================================
-	// Alchemist: Greevil's Greed
+	// Alchemist: Berserk Potion
 	//=================================================================================================================
-	"alchemist_greevils_greed"
+	"alchemist_berserk_potion"
+	{
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		
+		"MaxLevel"						"4"
+		"LevelsBetweenUpgrades"			"2"
+		"FightRecapLevel"				"1"
+
+		"AbilityCastRange"				"800"
+		"AbilityCastPoint"				"0.2"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
+		
+		"IsGrantedByShard"  			"0"
+		"HasShardUpgrade"				"0"
+
+		
+		"AbilityCooldown"				"35"
+		"AbilityManaCost"				"100"
+		
+		"AbilityValues"
+		{
+			"duration"										"8 10 12 14"
+			"attack_speed"									"30 40 50 60"
+			"hp_regen"
+			{
+				"value"										"200 300 400 500"
+				"CalculateSpellHealTooltip"					"1"
+			}
+			"projectile_speed"								"900"
+			"move_speed"									"30 40 50 60"
+		}
+	}
+	
+
+	//=================================================================================================================
+	// Alchemist: Corrosive Weaponry
+	//=================================================================================================================
+	"alchemist_corrosive_weaponry"
 	{
 		"BaseClass"						"ability_lua"
-		"ScriptFile"					"heroes/hero_alchemist/alchemist_greevils_greed"
-		"AbilityTextureName"			"alchemist_goblins_greed"
+		"ScriptFile"					"heroes/hero_alchemist/alchemist_corrosive_weaponry"
+		"AbilityTextureName"			"alchemist_corrosive_weaponry"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		"MaxLevel"						"1"
-		"Innate"						"1"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"AbilitySound"					"Hero_Meepo.Geostrike"
+
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_3"
 
 		"AbilityValues"
 		{
-			"bonus_gold"
-			{
-				"value"										"25"
-				"special_bonus_unique_alchemist_4"			"+5"
-			}
-			
-			"allied_bonus_gold"
-			{
-				"special_bonus_facet_alchemist_chrysopoeia"	"10"
-			}
-			"spell_amplification"
-			{
-				"special_bonus_facet_alchemist_panacea"		"1"
-			}
-			"healing_provided"
-			{
-				"special_bonus_facet_alchemist_panacea"		"1"
-			}
-			"bonus_damage"
-			{
-				"special_bonus_facet_alchemist_azoth"		"1"
-			}
-			"attack_speed"
-			{
-				"special_bonus_facet_alchemist_azoth"		"1"
-			}
-			"gold_threshold"
-			{
-				"value"										"1000"
-			}
+			"max_stacks"					"10 12 14 16"
+			"debuff_duration"				"4.0"
+			"slow_per_stack"				"1.5 2 2.5 3"
+			"attack_damage_per_stack"		"2"
+			"stacks_per_attack"				"2"
+			"stacks_per_second"				"1"
 		}
 	}
 	
@@ -411,10 +412,9 @@
 				"special_bonus_unique_alchemist_7"			"+50"
 			}
 
-			"bonus_armor"
-			{
-				"special_bonus_facet_alchemist_chrysopoeia"	"9 12 15"
-			}
+			"bonus_armor"									{"special_bonus_facet_alchemist_chrysopoeia"	"9 12 15"}
+			"bonus_debuff_amp"								{"special_bonus_facet_alchemist_chrysopoeia"	"20 35 50"}
+			"bonus_aoe"										{"special_bonus_facet_alchemist_chrysopoeia"	"25 75 125"}
 			"bonus_health"
 			{
 				"special_bonus_facet_alchemist_chrysopoeia"	"2000 3500 5000"
@@ -426,16 +426,14 @@
 			}
 			"cooldown_reduction"
 			{
-				"special_bonus_facet_alchemist_panacea"		"30"
+				"special_bonus_facet_alchemist_panacea"		"30 40 50"
 			}
 			"bonus_unstable_damage_tooltip"
 			{
-				"special_bonus_facet_alchemist_panacea"		"30"
+				"special_bonus_facet_alchemist_panacea"		"30 40 50"
 			}
-			"bonus_damage_per_second"
-			{
-				"special_bonus_facet_alchemist_azoth"		"2.5"
-			}
+			"bonus_damage_per_second"						{"special_bonus_facet_alchemist_azoth"		"2.5"}
+			"silence_immune"								{"special_bonus_facet_alchemist_azoth"		"1"}
 		}
 	}
 

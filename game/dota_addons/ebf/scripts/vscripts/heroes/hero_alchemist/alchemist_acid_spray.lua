@@ -1,21 +1,25 @@
 alchemist_acid_spray = class({})
 
+function alchemist_acid_spray:GetAOERadius()
+	return self:GetSpecialValueFor("radius")
+end
+
 function alchemist_acid_spray:OnSpellStart()
     local caster = self:GetCaster()
     local duration = self:GetSpecialValueFor("duration")
-    local chrysopoeia = self:GetSpecialValueFor("infinite") ~= 0
+    local linger_duration = self:GetSpecialValueFor("linger_duration")
     local panacea = self:GetSpecialValueFor("affect_allies") ~= 0
     local point = self:GetCursorPosition()
 
     if IsClient() then return end
 
-    if chrysopoeia then
+    if linger_duration > 0 then
         duration = -1
-        if self.thinker ~= nil then
-            UTIL_Remove(self.thinker)
+        if self.spray ~= nil then
+            self.spray:SetDuration( linger_duration, false )
         end
     end
-    self.thinker = CreateModifierThinker(caster, self, "modifier_alchemist_acid_spray_ebf", { duration = duration }, point, caster:GetTeamNumber(), false)
+    CreateModifierThinker(caster, self, "modifier_alchemist_acid_spray_ebf", { duration = duration }, point, caster:GetTeamNumber(), false)
     if panacea then
         CreateModifierThinker(caster, self, "modifier_alchemist_acid_spray_panacea", { duration = duration }, point, caster:GetTeamNumber(), false)
     end
@@ -60,6 +64,7 @@ function modifier_alchemist_acid_spray_ebf:GetAuraSearchFlags()
 end
 function modifier_alchemist_acid_spray_ebf:OnCreated()
     self:OnRefresh()
+	self:GetAbility().spray = self
 end
 function modifier_alchemist_acid_spray_ebf:OnRefresh()
     self.radius = self:GetSpecialValueFor("radius")

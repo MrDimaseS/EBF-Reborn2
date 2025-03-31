@@ -101,8 +101,11 @@ function modifier_alchemist_chemical_rage_ebf:OnRefresh()
 
     self.bonus_armor = self:GetSpecialValueFor("bonus_armor")
     self.bonus_health = self:GetSpecialValueFor("bonus_health")
+    self.bonus_debuff_amp = self:GetSpecialValueFor("bonus_debuff_amp")
+    self.bonus_aoe = self:GetSpecialValueFor("bonus_aoe")
     self.bonus_damage_per_second = self:GetSpecialValueFor("bonus_damage_per_second")
     self.cooldown_reduction = self:GetSpecialValueFor("cooldown_reduction") / 100
+    self.bonus_unstable_damage_tooltip = 1+self:GetSpecialValueFor("bonus_unstable_damage_tooltip") / 100
 
     if IsClient() then return end
     self.elapsed_time = 0
@@ -111,6 +114,11 @@ function modifier_alchemist_chemical_rage_ebf:OnRefresh()
     -- sounds
     self.sound = "Hero_Alchemist.ChemicalRage"
     EmitSoundOn(self.sound, self.parent)
+	
+	if self.bonus_aoe > 0 then
+		self:GetCaster()._aoeModifiersList = self:GetCaster()._aoeModifiersList or {}
+		self:GetCaster()._aoeModifiersList[self] = true
+	end
 end
 function modifier_alchemist_chemical_rage_ebf:OnDestroy()
     if IsClient() then return end
@@ -146,8 +154,54 @@ function modifier_alchemist_chemical_rage_ebf:DeclareFunctions()
         MODIFIER_PROPERTY_TRANSLATE_ATTACK_SOUND,
         MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
         MODIFIER_PROPERTY_HEALTH_BONUS,
+		MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL, 
+		MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL_VALUE, 
         MODIFIER_PROPERTY_BASEDAMAGEOUTGOING_PERCENTAGE
     }
+end
+
+
+function modifier_alchemist_chemical_rage_ebf:GetModifierOverrideAbilitySpecial(params)
+	if self.bonus_unstable_damage_tooltip == 0 then return end
+	if params.ability:GetAbilityName() == "alchemist_unstable_concoction" or params.ability:GetAbilityName() == "alchemist_unstable_concoction_throw"  then
+		local caster = params.ability:GetCaster()
+		local specialValue = params.ability_special_value
+		if specialValue == "min_stun" or specialValue == "max_stun" or specialValue == "min_damage" or specialValue == "max_damage" or specialValue == "barrier" then
+			return 1
+		end
+	elseif params.ability:GetAbilityName() == "alchemist_berserk_potion" then
+		local caster = params.ability:GetCaster()
+		local specialValue = params.ability_special_value
+		if specialValue == "hp_regen" or specialValue == "attack_speed" or specialValue == "move_speed" then
+			return 1
+		end
+	end
+end
+
+function modifier_alchemist_chemical_rage_ebf:GetModifierOverrideAbilitySpecialValue(params)
+	if self.bonus_unstable_damage_tooltip == 0 then return end
+	if self.evaluatingPostMods then return end
+	self.evaluatingPostMods = true -- prevent loops
+	if params.ability:GetAbilityName() == "alchemist_unstable_concoction" or params.ability:GetAbilityName() == "alchemist_unstable_concoction_throw"  then
+		local caster = params.ability:GetCaster()
+		local specialValue = params.ability_special_value
+		if specialValue == "min_stun" or specialValue == "max_stun" or specialValue == "min_damage" or specialValue == "max_damage" or specialValue == "barrier" then
+			local flBaseValue = params.ability:GetLevelSpecialValue( specialValue, params.ability_special_level )
+			return flBaseValue * self.bonus_unstable_damage_tooltip
+		end
+	elseif params.ability:GetAbilityName() == "alchemist_berserk_potion" then
+		local caster = params.ability:GetCaster()
+		local specialValue = params.ability_special_value
+		if specialValue == "hp_regen" or specialValue == "attack_speed" or specialValue == "move_speed" then
+			local flBaseValue = params.ability:GetLevelSpecialValue( specialValue, params.ability_special_level )
+			return flBaseValue * self.bonus_unstable_damage_tooltip
+		end
+	end
+	self.evaluatingPostMods = false
+end
+
+function modifier_alchemist_chemical_rage_ebf:GetModifierMaxDebuffDuration()
+    return self.bonus_debuff_amp
 end
 function modifier_alchemist_chemical_rage_ebf:GetModifierConstantHealthRegen()
     return self.bonus_health_regen

@@ -1641,6 +1641,7 @@ function CDOTA_BaseNPC:AddNewModifier(modifierCaster, modifierAbility, modifierN
 	kv.original_duration = duration
 	kv.duration = duration
 	
+	if not IsEntitySafe(modifierCaster) then goto final end
 	if duration == -1 or kv.ignoreStatusResist then goto final end
 	if self:IsSameTeam( modifierCaster ) then goto final end
 	if self:IsRealHero() then
@@ -1654,6 +1655,13 @@ function CDOTA_BaseNPC:AddNewModifier(modifierCaster, modifierAbility, modifierN
 		end
 		kv.duration = duration * statusResistance
 	end
+	local statusAmp = 0
+	for _, modifier in ipairs( modifierCaster:FindAllModifiers() ) do
+		if modifier.GetModifierMaxDebuffDuration then
+			statusAmp = statusAmp + (modifier:GetModifierMaxDebuffDuration() or 0) / 100
+		end
+	end
+	kv.duration = kv.duration * (1+statusAmp)
 	::final::
 	local modifier = self:oldAddNewModifier( modifierCaster,  modifierAbility, modifierName, kv )
 	-- post-fix, status resist was never meant to be applied

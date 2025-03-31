@@ -24,10 +24,12 @@ function modifier_alchemist_midas_touch_passive:DeclareFunctions()
 end
 function modifier_alchemist_midas_touch_passive:OnAttackLanded(params)
     if params.attacker ~= self:GetParent() then return end
+	if params.attackers:PassivesDisabled() then return end
+	if not self:GetAbility():IsFullyCastable() then return end
     
     if self:RollPRNG(self.chance) then
         params.target:AddNewModifier(self:GetParent(), self:GetAbility(), "modifier_alchemist_midas_touch", { duration = self.duration })
-
+		self:GetAbility():SetCooldown()
         if IsClient() then return end
         -- sounds
         local sound = "General.Coins"

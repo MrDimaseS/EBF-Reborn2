@@ -34,6 +34,9 @@ end
 function modifier_alchemist_greevils_greed_passive:GetAuraDuration()
 	return 0.5
 end
+function modifier_alchemist_greevils_greed_passive:GetAuraEntityReject(target)
+	return target == self:GetCaster()
+end
 function modifier_alchemist_greevils_greed_passive:GetAuraSearchTeam()
     return DOTA_UNIT_TARGET_TEAM_FRIENDLY 
 end

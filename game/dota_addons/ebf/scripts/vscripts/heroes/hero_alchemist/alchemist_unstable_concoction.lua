@@ -63,10 +63,9 @@ function modifier_alchemist_unstable_concoction_charge:OnCreated( kv )
 	self.min_damage = self:GetAbility():GetSpecialValueFor( "min_damage" )
 	self.max_damage = self:GetAbility():GetSpecialValueFor( "max_damage" )
 	self.radius = self:GetAbility():GetSpecialValueFor( "radius" )
-	self.does_hex = self:GetAbility():GetSpecialValueFor("does_hex") ~= 0
+	self.does_hex = self:GetAbility():GetSpecialValueFor("does_hex") / 100
 	self.does_fizzle = self:GetAbility():GetSpecialValueFor("does_fizzle") ~= 0
 	self.barrier_duration = self:GetAbility():GetSpecialValueFor("barrier_duration")
-	self.chemical_rage_multiplier = self:GetAbility():GetSpecialValueFor("chemical_rage_bonus_damage") / 100 + 1
 
 	if not IsServer() then return end
 	self.tick_interval = 0.5
@@ -110,9 +109,6 @@ function modifier_alchemist_unstable_concoction_charge:OnIntervalThink()
 	local parent = self:GetParent()
 	local ability = self:GetAbility()
 	local damage = self.max_damage
-	if parent:HasModifier("modifier_alchemist_chemical_rage") then
-		damage = damage * self.chemical_rage_multiplier
-	end
 
 	-- find units in radius
 	local units = nil
@@ -125,21 +121,19 @@ function modifier_alchemist_unstable_concoction_charge:OnIntervalThink()
 		if self.does_fizzle and unit:GetTeamNumber() == caster:GetTeamNumber() then
 			unit:AddNewModifier( caster, self:GetAbility(), "modifier_alchemist_unstable_concoction_panacea", { duration = self.barrier_duration } )
 		else
-			if self.does_hex then
-				unit:AddNewModifier( caster, self:GetAbility(), "modifier_sheepstick_debuff", { duration = self.max_stun } )
-			else
-				ability:Stun( unit, self.max_stun )
+			if self.does_hex > 0 then
+				unit:AddNewModifier( caster, self:GetAbility(), "modifier_sheepstick_debuff", { duration = self.max_stun * self.does_hex } )
 			end
+			ability:Stun( unit, self.max_stun )
 			ability:DealDamage( caster, unit, damage )
 		end
 	end
 
 	if not self.does_fizzle and not self:GetParent():IsInvulnerable() then
-		if self.does_hex then
-			parent:AddNewModifier( caster, self:GetAbility(), "modifier_sheepstick_debuff", { duration = self.max_stun } )
-		else
-			ability:Stun( parent, self.max_stun )
+		if self.does_hex > 0 then
+			parent:AddNewModifier( caster, self:GetAbility(), "modifier_sheepstick_debuff", { duration = self.max_stun * self.does_hex } )
 		end
+		ability:Stun( parent, self.max_stun )
 		ability:DealDamage( caster, parent, damage )
 	end
 
@@ -338,16 +332,12 @@ function alchemist_unstable_concoction_throw:OnProjectileHit_ExtraData( target, 
 	local min_damage = self:GetSpecialValueFor( "min_damage" )
 	local max_damage = self:GetSpecialValueFor( "max_damage" )
 	local radius = self:GetSpecialValueFor( "radius" )
-	local does_hex = self:GetSpecialValueFor( "does_hex" ) ~= 0
+	local does_hex = self:GetSpecialValueFor( "does_hex" ) / 100
 	local does_fizzle = self:GetSpecialValueFor( "does_fizzle" ) ~= 0
-	local chemical_rage_multiplier = self:GetSpecialValueFor("chemical_rage_bonus_damage")
 
 	-- calculate stun and damage
 	local stun = (brew_time/max_brew)*(max_stun-min_stun) + min_stun
 	local damage = (brew_time/max_brew)*(max_damage-min_damage) + min_damage
-	if caster:HasModifier("modifier_alchemist_chemical_rage") then
-		damage = damage * chemical_rage_multiplier
-	end
 	local barrier_duration = self:GetSpecialValueFor("barrier_duration")
 
 	-- find units in radius
@@ -362,11 +352,10 @@ function alchemist_unstable_concoction_throw:OnProjectileHit_ExtraData( target, 
 			unit:AddNewModifier( caster, self, "modifier_alchemist_unstable_concoction_panacea", { duration = barrier_duration } )
 		else
 			self:DealDamage( caster, unit, damage, {damage_type = DAMAGE_TYPE_PHYSICAL} )
-			if does_hex then
-				unit:AddNewModifier( caster, self, "modifier_sheepstick_debuff", { duration = stun } )
-			else
-				self:Stun(unit, stun)
+			if does_hex > 0 then
+				unit:AddNewModifier( caster, self, "modifier_sheepstick_debuff", { duration = stun * self.does_hex } )
 			end
+			self:Stun(unit, stun)
 		end
 	end
 

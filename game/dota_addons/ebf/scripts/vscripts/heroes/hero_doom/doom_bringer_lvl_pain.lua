@@ -46,6 +46,7 @@ function modifier_doom_bringer_lvl_pain_handler:OnSpellAppliedSuccessfully(param
 	local ability = self:GetAbility()
 	local target = params.target
 	
+	if target:IsConsideredHero() then return end
 	target:AttemptKill( ability, caster )
 end
 function modifier_doom_bringer_lvl_pain_handler:OnTakeDamage(event)

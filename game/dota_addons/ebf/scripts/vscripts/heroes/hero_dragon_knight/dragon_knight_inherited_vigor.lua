@@ -14,24 +14,16 @@ function modifier_dragon_knight_inherited_vigor_passive:IsPurgable()
     return false
 end
 function modifier_dragon_knight_inherited_vigor_passive:OnCreated()
-    self:SetHasCustomTransmitterData(true)
     self:OnRefresh()
-    if IsClient() then return end
-
-    self:StartIntervalThink(1.0)
 end
 function modifier_dragon_knight_inherited_vigor_passive:OnRefresh()
     self.base_health_regen = self:GetSpecialValueFor("base_health_regen")
     self.base_armor = self:GetSpecialValueFor("base_armor")
     self.dragon_form_multiplier = self:GetSpecialValueFor("regen_and_armor_multiplier_during_dragon_form")
-    self.multiplier = 1.0
 
     self.spell_amp = self:GetSpecialValueFor("spell_amp")
     self.debuff_amp = self:GetSpecialValueFor("debuff_amp")
     self.healing_amp = self:GetSpecialValueFor("healing_amp")
-end
-function modifier_dragon_knight_inherited_vigor_passive:OnIntervalThink()
-    self:SendBuffRefreshToClients()
 end
 function modifier_dragon_knight_inherited_vigor_passive:DeclareFunctions()
     return {
@@ -46,35 +38,26 @@ function modifier_dragon_knight_inherited_vigor_passive:DeclareFunctions()
     }
 end
 function modifier_dragon_knight_inherited_vigor_passive:GetModifierConstantHealthRegen()
-    return self.base_health_regen * self.multiplier
+    return self.base_health_regen * TernaryOperator(self.dragon_form_multiplier, self:GetParent():HasModifier("modifier_dragon_knight_elder_dragon_form_buff"), 1.0)
 end
 function modifier_dragon_knight_inherited_vigor_passive:GetModifierPhysicalArmorBonus()
-    return self.base_armor * self.multiplier
+    return self.base_armor * TernaryOperator(self.dragon_form_multiplier, self:GetParent():HasModifier("modifier_dragon_knight_elder_dragon_form_buff"), 1.0)
 end
 function modifier_dragon_knight_inherited_vigor_passive:GetModifierSpellAmplify_Percentage()
-    return self.spell_amp * self.multiplier
+    return self.spell_amp * TernaryOperator(self.dragon_form_multiplier, self:GetParent():HasModifier("modifier_dragon_knight_elder_dragon_form_buff"), 1.0)
 end
 function modifier_dragon_knight_inherited_vigor_passive:GetModifierMaxDebuffDuration()
-    return self.debuff_amp * self.multiplier
+    return self.debuff_amp * TernaryOperator(self.dragon_form_multiplier, self:GetParent():HasModifier("modifier_dragon_knight_elder_dragon_form_buff"), 1.0)
 end
 function modifier_dragon_knight_inherited_vigor_passive:GetModifierHealAmplify_PercentageTarget()
-    return self.healing_amp * self.multiplier
+    return self.healing_amp * TernaryOperator(self.dragon_form_multiplier, self:GetParent():HasModifier("modifier_dragon_knight_elder_dragon_form_buff"), 1.0)
 end
 function modifier_dragon_knight_inherited_vigor_passive:GetModifierHPRegenAmplify_Percentage()
-    return self.healing_amp * self.multiplier
+    return self.healing_amp * TernaryOperator(self.dragon_form_multiplier, self:GetParent():HasModifier("modifier_dragon_knight_elder_dragon_form_buff"), 1.0)
 end
 function modifier_dragon_knight_inherited_vigor_passive:GetModifierLifestealRegenAmplify_Percentage()
-    return self.healing_amp * self.multiplier
+    return self.healing_amp * TernaryOperator(self.dragon_form_multiplier, self:GetParent():HasModifier("modifier_dragon_knight_elder_dragon_form_buff"), 1.0)
 end
 function modifier_dragon_knight_inherited_vigor_passive:GetModifierSpellLifestealRegenAmplify_Percentage()
-    return self.healing_amp * self.multiplier
-end
-function modifier_dragon_knight_inherited_vigor_passive:AddCustomTransmitterData()
-    self.multiplier = TernaryOperator(self.dragon_form_multiplier, self:GetParent():HasModifier("modifier_dragon_knight_elder_dragon_form_buff"), 1.0)
-    return {
-        multiplier = tonumber(self.multiplier)
-    }
-end
-function modifier_dragon_knight_inherited_vigor_passive:HandleCustomTransmitterData(data)
-    self.multiplier = tonumber(data.multiplier)
+    return self.healing_amp * TernaryOperator(self.dragon_form_multiplier, self:GetParent():HasModifier("modifier_dragon_knight_elder_dragon_form_buff"), 1.0)
 end

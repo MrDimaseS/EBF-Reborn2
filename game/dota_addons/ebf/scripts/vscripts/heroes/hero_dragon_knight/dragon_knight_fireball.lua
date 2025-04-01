@@ -1,16 +1,16 @@
-dragon_knight_fireball_ebf = class({})
+dragon_knight_fireball = class({})
 
-function dragon_knight_fireball_ebf:GetCastRange(location, target)
+function dragon_knight_fireball:GetCastRange(location, target)
     if self:GetCaster():HasModifier("modifier_dragon_knight_elder_dragon_form_buff") then
         return self:GetSpecialValueFor("dragon_form_cast_range")
     else
         return self:GetSpecialValueFor("melee_cast_range")
     end
 end
-function dragon_knight_fireball_ebf:GetAOERadius()
+function dragon_knight_fireball:GetAOERadius()
     return self:GetSpecialValueFor("radius")
 end
-function dragon_knight_fireball_ebf:OnSpellStart()
+function dragon_knight_fireball:OnSpellStart()
     local caster = self:GetCaster()
     local point = self:GetCursorPosition()
     local duration = self:GetSpecialValueFor("duration")

@@ -51,13 +51,13 @@
 	//=================================================================================================================
 	// Dragon Knight: Fireball
 	//=================================================================================================================
-	"dragon_knight_fireball_ebf"
+	"dragon_knight_fireball"
 	{
 		"BaseClass"						"ability_lua"
 		"ScriptFile"					"heroes/hero_dragon_knight/dragon_knight_fireball"
 		"AbilityTextureName"			"dragon_knight_fireball"
 		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_HIDDEN  | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_HIDDEN  | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"FightRecapLevel"				"1"
@@ -67,9 +67,15 @@
 
 		"AbilityCastPoint"				"0.2"
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_5"
+		"LinkedAbility"					"dragon_knight_breathe_fire"
 		
-		"AbilityCooldown"				"20"
+		"AbilityCooldown"				"14 13 12 11"
 		"AbilityManaCost"				"100"
+		
+		"precache"
+		{
+			"soundfile"					"soundevents/game_sounds_heroes/game_sounds_crystal_maiden.vsndevts"
+		}
 		
 		"AbilityValues"
 		{
@@ -101,7 +107,8 @@
 			}
 			"damage_percent_tooltip"
 			{
-				"special_bonus_facet_dragon_knight_crimson_blood"	"75"
+				"value"												"50"
+				"special_bonus_facet_dragon_knight_crimson_blood"	"+25"
 			}
 			"duration"												"8"
 			"physical_damage_type"
@@ -161,6 +168,9 @@
 		"AbilityCastRange"				"600"
 		"AbilityCastPoint"				"0.2"
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_1"
+		
+		
+		"LinkedAbility"					"dragon_knight_fireball"
 
 		"AbilityCooldown"				"14 13 12 11"
 		"AbilityManaCost"				"90 95 100 105"

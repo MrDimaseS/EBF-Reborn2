@@ -9,18 +9,14 @@ function dragon_knight_elder_dragon_form:OnSpellStart()
     local breathe_fire = caster:FindAbilityByName("dragon_knight_breathe_fire")
     if not breathe_fire then return end
     
-	local fireball = caster:FindAbilityByName("dragon_knight_fireball_ebf")
-	if not fireball then
-		fireball = caster:AddAbility("dragon_knight_fireball_ebf")
-	end
-    fireball:SetLevel(breathe_fire:GetLevel())
-
+	local fireball = caster:FindAbilityByName("dragon_knight_fireball")
     caster:SwapAbilities(
         breathe_fire:GetAbilityName(),
         fireball:GetAbilityName(),
         false,
         true
     )
+	fireball:SetAbilityIndex( 0 )
 end
 
 modifier_dragon_knight_elder_dragon_form_buff = class({})
@@ -37,7 +33,7 @@ function modifier_dragon_knight_elder_dragon_form_buff:IsPurgable()
 end
 function modifier_dragon_knight_elder_dragon_form_buff:OnCreated()
     self.parent = self:GetParent()
-    self.form = TernaryOperator("red", self:GetSpecialValueFor("is_red_dragon"), TernaryOperator("green", self:GetSpecialValueFor("is_green_dragon"), "blue"))
+    self.form = TernaryOperator("red", self:GetSpecialValueFor("is_red_dragon") == 1, TernaryOperator("green", self:GetSpecialValueFor("is_green_dragon") == 1, "blue"))
     self.bonus_movement_speed = self:GetSpecialValueFor("bonus_movement_speed")
     self.bonus_attack_range = self:GetSpecialValueFor("bonus_attack_range")
     self.bonus_attack_damage = self:GetSpecialValueFor("bonus_attack_damage")
@@ -83,7 +79,7 @@ function modifier_dragon_knight_elder_dragon_form_buff:OnDestroy()
     local caster = self:GetCaster()
     local breathe_fire = caster:FindAbilityByName("dragon_knight_breathe_fire")
     if not breathe_fire then return end
-	local fireball = caster:FindAbilityByName("dragon_knight_fireball_ebf")
+	local fireball = caster:FindAbilityByName("dragon_knight_fireball")
 	if not fireball then return end
 
     caster:SwapAbilities(

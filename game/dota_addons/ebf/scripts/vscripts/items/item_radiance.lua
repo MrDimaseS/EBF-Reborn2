@@ -7,12 +7,8 @@ end
 item_skeleton_king_radiance = class(item_radiance_2)
 item_radiance = class(item_radiance_2)
 item_radiance_3 = class(item_radiance_2)
-
-item_zero = class({})
-
-function item_zero:GetIntrinsicModifierName()
-	return "modifier_item_zero_passive"
-end
+item_radiance_4 = class(item_radiance_2)
+item_radiance_5 = class(item_radiance_2)
 
 modifier_item_radiance_2_passive = class({})
 LinkLuaModifier( "modifier_item_radiance_2_passive", "items/item_radiance.lua" ,LUA_MODIFIER_MOTION_NONE )
@@ -129,33 +125,6 @@ function modifier_item_radiance_2_passive:GetAttributes()
 	return MODIFIER_ATTRIBUTE_MULTIPLE
 end
 
-modifier_item_zero_passive = class(modifier_item_radiance_2_passive)
-LinkLuaModifier( "modifier_item_zero_passive", "items/item_radiance.lua" ,LUA_MODIFIER_MOTION_NONE )
-
-function modifier_item_zero_passive:OnCreated()
-	self.bonus_all = self:GetSpecialValueFor("bonus_all")
-	self.bonus_damage = self:GetSpecialValueFor("bonus_damage")
-	self.evasion = self:GetSpecialValueFor("evasion")
-	self.bonus_health = self:GetSpecialValueFor("bonus_health")
-	self.bonus_mana = self:GetSpecialValueFor("bonus_mana")
-	
-	self.aura_radius = self:GetSpecialValueFor("aura_radius")
-	self.aura_damage = self:GetSpecialValueFor("aura_damage")
-	self.aura_damage_illusions = self:GetSpecialValueFor("aura_damage_illusions")
-	
-	if IsServer() then
-		if not self:GetCaster():IsFakeHero() then
-			local itemFX = ParticleManager:CreateParticle("particles/econ/events/fall_2021/radiance_owner_fall_2021.vpcf", PATTACH_POINT_FOLLOW, self:GetCaster() )
-			self:AddEffect( itemFX )
-		end
-		self:StartIntervalThink(1)
-	end
-end
-
-function modifier_item_zero_passive:GetModifierAura()
-	return "modifier_item_zero_burn"
-end
-
 modifier_item_radiance_2_burn = class({})
 LinkLuaModifier( "modifier_item_radiance_2_burn", "items/item_radiance.lua", LUA_MODIFIER_MOTION_NONE )
 
@@ -178,56 +147,4 @@ end
 
 function modifier_item_radiance_2_burn:GetModifierMiss_Percentage()
 	return self.blind_pct
-end
-
-modifier_item_zero_burn = class({})
-LinkLuaModifier( "modifier_item_zero_burn", "items/item_radiance.lua", LUA_MODIFIER_MOTION_NONE )
-
-function modifier_item_zero_burn:OnCreated()
-	self.aura_miss_pct = self:GetAbility():GetSpecialValueFor("aura_miss_pct")
-	self.aura_movespeed = self:GetAbility():GetSpecialValueFor("aura_movespeed")
-	self.aura_attackspeed = self:GetAbility():GetSpecialValueFor("aura_attackspeed")
-	self.aura_heal_reduction = self:GetAbility():GetSpecialValueFor("aura_heal_reduction")
-	self.aura_damage = self:GetAbility():GetSpecialValueFor("aura_damage")
-	
-	if IsServer() then
-		self:StartIntervalThink(1)
-		
-		local FX = ParticleManager:CreateRopeParticle( "particles/econ/events/fall_2021/radiance_fall_2021.vpcf", PATTACH_POINT_FOLLOW, self:GetParent(), self:GetCaster() )
-		self:AddEffect( FX )
-	end
-end
-
-function modifier_item_zero_burn:DeclareFunctions(params)
-	local funcs = {	MODIFIER_PROPERTY_MISS_PERCENTAGE, 
-					MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE, 
-					MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
-					MODIFIER_PROPERTY_HEAL_AMPLIFY_PERCENTAGE,
-					MODIFIER_PROPERTY_LIFESTEAL_AMPLIFY_PERCENTAGE,
-					MODIFIER_PROPERTY_HP_REGEN_AMPLIFY_PERCENTAGE}
-    return funcs
-end
-
-function modifier_item_zero_burn:GetModifierMiss_Percentage()
-	return self.aura_miss_pct
-end
-
-function modifier_item_zero_burn:GetModifierMoveSpeedBonus_Percentage()
-	return self.aura_movespeed
-end
-
-function modifier_item_zero_burn:GetModifierAttackSpeedBonus_Constant()
-	return self.aura_attackspeed
-end
-
-function modifier_item_zero_burn:GetModifierHealAmplify_PercentageSource()
-	return self.aura_heal_reduction
-end
-
-function modifier_item_zero_burn:GetModifierHPRegenAmplify_Percentage()
-	return self.aura_heal_reduction
-end
-
-function modifier_item_zero_burn:GetModifierLifestealRegenAmplify_Percentage()
-	return self.aura_heal_reduction
 end

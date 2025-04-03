@@ -1,30 +1,6 @@
 "DOTAAbilities"
 {
 	//=================================================================================================================
-	// Recipe: blood_gem
-	//=================================================================================================================
-	"item_recipe_blood_gem"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"item_recipe_bloodstone"
-		"Model"							"models/props_gameplay/recipe.vmdl"
-		
-		// Item Info
-		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"25"	
-		"ItemShopTags"					""
-		
-		// Recipe
-		//-------------------------------------------------------------------------------------------------------------
-		"ItemRecipe"					"1"
-		"ItemResult"					"item_blood_gem"
-		"ItemRequirements"
-		{
-			"01"						"item_lifesteal;item_voodoo_mask;item_soul_booster"
-		}
-	}
-	//=================================================================================================================
 	// blood_gem
 	//=================================================================================================================
 	"item_blood_gem"
@@ -41,6 +17,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemShopTags"					"int;damage"
 		"ItemQuality"					"rare"
+		"ItemCost"						"1000"
 		"ItemAliases"					"glimmer cape"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
 		
@@ -49,7 +26,7 @@
 		"AbilityValues"
 		{
 			"spell_lifesteal"					"3"
-			"lifesteal_percent"					"9"
+			"lifesteal_percent"					"5"
 			
 			"bonus_health"
 			{
@@ -76,7 +53,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"2375"	
+		"ItemCost"						"0"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -85,7 +62,7 @@
 		"ItemResult"					"item_blood_gem_2"
 		"ItemRequirements"
 		{
-			"01"						"item_blood_gem;item_soul_booster"
+			"01"						"item_blood_gem;item_blood_gem"
 		}
 	}
 	//=================================================================================================================
@@ -112,19 +89,20 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"spell_lifesteal"			"4"
-			"lifesteal_percent"			"10"
-			"overheal_maximum"			"15"
+			"spell_lifesteal"					"5.25"
+			"lifesteal_percent"					"8.75"
 			
 			"bonus_health"
 			{
-				"value"							"1275"
+				"value"							"750"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"bonus_mana"						"1275"
+			"bonus_mana"						"750"
 			
-			"duration"					"8"
-			"AbilityCooldown"			"60"
+			"overheal_maximum"					"20"
+			
+			"duration"							"8"
+			"AbilityCooldown"					"50"
 		}
 	}
 	
@@ -140,7 +118,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"5275"	
+		"ItemCost"						"0"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -149,7 +127,7 @@
 		"ItemResult"					"item_blood_gem_3"
 		"ItemRequirements"
 		{
-			"01"						"item_blood_gem_2;item_soul_booster"
+			"01"						"item_blood_gem_2;item_blood_gem_2"
 		}
 	}
 	//=================================================================================================================
@@ -176,19 +154,20 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"spell_lifesteal"			"5"
-			"lifesteal_percent"			"11"
-			"overheal_maximum"			"30"
+			"spell_lifesteal"					"9.0"
+			"lifesteal_percent"					"15.25"
 			
 			"bonus_health"
 			{
-				"value"							"2340"
+				"value"							"1315"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"bonus_mana"						"2340"
+			"bonus_mana"						"1315"
 			
-			"duration"					"8"
-			"AbilityCooldown"			"60"
+			"overheal_maximum"					"30"
+			
+			"duration"							"8"
+			"AbilityCooldown"					"40"
 		}
 	}
 	//=================================================================================================================
@@ -203,7 +182,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"13605"	
+		"ItemCost"						"0"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -212,7 +191,7 @@
 		"ItemResult"					"item_blood_gem_4"
 		"ItemRequirements"
 		{
-			"01"						"item_blood_gem_3;item_soul_booster"
+			"01"						"item_blood_gem_3;item_blood_gem_3"
 		}
 	}
 	//=================================================================================================================
@@ -239,19 +218,20 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"spell_lifesteal"					"6"
-			"lifesteal_percent"					"12"
-			"overheal_maximum"					"60"
+			"spell_lifesteal"					"15.75"
+			"lifesteal_percent"					"26.5"
 			
 			"bonus_health"
 			{
-				"value"							"3615"
+				"value"							"2300"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"bonus_mana"						"3615"
+			"bonus_mana"						"2300"
+			
+			"overheal_maximum"					"40"
 			
 			"duration"							"8"
-			"AbilityCooldown"					"60"
+			"AbilityCooldown"					"30"
 		}
 	}
 	//=================================================================================================================
@@ -266,7 +246,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"36820"	
+		"ItemCost"						"0"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -275,7 +255,7 @@
 		"ItemResult"					"item_blood_gem_5"
 		"ItemRequirements"
 		{
-			"01"						"item_blood_gem_4;item_soul_booster"
+			"01"						"item_blood_gem_4;item_blood_gem_4"
 		}
 	}
 	//=================================================================================================================
@@ -302,19 +282,20 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"spell_lifesteal"					"7"
-			"lifesteal_percent"					"13"
-			"overheal_maximum"					"100"
+			"spell_lifesteal"					"27.5"
+			"lifesteal_percent"					"46.25"
 			
 			"bonus_health"
 			{
-				"value"							"5100"
+				"value"							"4025"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"bonus_mana"						"5100"
+			"bonus_mana"						"1025"
+			
+			"overheal_maximum"					"40"
 			
 			"duration"							"8"
-			"AbilityCooldown"					"60"
+			"AbilityCooldown"					"20"
 		}
 	}
 }

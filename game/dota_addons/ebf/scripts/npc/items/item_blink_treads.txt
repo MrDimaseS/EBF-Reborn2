@@ -1,32 +1,6 @@
 "DOTAAbilities"
 {
 	//=================================================================================================================
-	// Recipe: blink_treads2
-	//=================================================================================================================
-	"item_recipe_blink_treads"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"item_recipe_travel_boots"
-		
-		// Item Info
-		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						""
-		"ItemShopTags"					""
-		
-		// Recipe
-		//-------------------------------------------------------------------------------------------------------------
-		"ItemRecipe"					"1"
-		"ItemResult"					"item_blink_treads"
-		"ItemRequirements"
-		{
-			"01"						"item_power_treads;item_overwhelming_blink"
-			"02"						"item_power_treads;item_swift_blink"
-			"03"						"item_power_treads;item_arcane_blink"
-		}
-	}
-	
-	//=================================================================================================================
 	// blink_treads
 	//=================================================================================================================
 	"item_blink_treads"
@@ -52,7 +26,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"2250"
+		"ItemCost"						"1000"
 		"ItemShopTags"					"teleport"
 		"ItemQuality"					"component"
 		"ItemAliases"					"blink dagger"
@@ -70,7 +44,7 @@
 			"bonus_movement_speed_melee"		"55"
 			"bonus_stat"
 			{
-				"value"							"35"
+				"value"							"25"
 				"CalculateAttributeTooltip"		"1"
 			}
 			"bonus_other"
@@ -97,7 +71,7 @@
 				"CalculateAttributeTooltip"		"1"
 			}
 			
-			"arcane_blink_cd"					"7"
+			"arcane_blink_cd"					"12"
 			"arcane_blink_dmg_cd"				"3.0"
 			"arcane_blink_range"				"1400"
 			"heal_amount"
@@ -107,7 +81,7 @@
 			}
 			"mana_amount"						"100"
 			
-			"duration"						"6"
+			"duration"							"6"
 		}
 	}
 	//=================================================================================================================
@@ -121,7 +95,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"3125"
+		"ItemCost"						"0"
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -130,9 +104,7 @@
 		"ItemResult"					"item_blink_treads2"
 		"ItemRequirements"
 		{
-			"01"						"item_blink_treads;item_diadem;item_reaver;item_blitz_knuckles"
-			"02"						"item_blink_treads;item_diadem;item_eagle;item_blitz_knuckles"
-			"03"						"item_blink_treads;item_diadem;item_mystic_staff;item_blitz_knuckles"
+			"01"						"item_blink_treads;item_blink_treads"
 		}
 	}
 	
@@ -172,44 +144,44 @@
 
 		"AbilityValues"
 		{
-			"blink_damage_cooldown"			"3.0"
-			"blink_range"					"1200"
-			"blink_range_clamp"				"960"
+			"blink_damage_cooldown"				"3.0"
+			"blink_range"						"1200"
+			"blink_range_clamp"					"960"
 			
-			"bonus_movement_speed_ranged"	"45"
-			"bonus_movement_speed_melee"	"55"
+			"bonus_movement_speed_ranged"		"45"
+			"bonus_movement_speed_melee"		"55"
 			"bonus_stat"
 			{
-				"value"							"100"
+				"value"							"45"
 				"CalculateAttributeTooltip"		"1"
 			}
 			"bonus_other"
 			{
-				"value"							"30"
+				"value"							"18"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"bonus_attack_speed"			"50"
+			"bonus_attack_speed"				"40"
 			
-			"radius"						"800"
-			"movement_slow"					"50"
-			"attack_slow"					"50"
-			"damage_pct"					"250"
+			"radius"							"800"
+			"movement_slow"						"50"
+			"attack_slow"						"50"
+			"damage_pct"						"150"
 			"base_damage"
 			{
 				"value"							"2000"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			
-			"bonus_movement"				"40"
+			"bonus_movement"					"40"
 			"bonus_agi_active"
 			{
-				"value"							"100"
+				"value"							"85"
 				"CalculateAttributeTooltip"		"1"
 			}
 			
-			"arcane_blink_cd"				"6"
-			"arcane_blink_dmg_cd"			"2.5"
-			"arcane_blink_range"			"1500"
+			"arcane_blink_cd"					"10"
+			"arcane_blink_dmg_cd"				"2.5"
+			"arcane_blink_range"				"1400"
 			"heal_amount"
 			{
 				"value"							"2000"
@@ -217,7 +189,7 @@
 			}
 			"mana_amount"						"200"
 			
-			"duration"						"6"
+			"duration"							"6"
 		}
 	}
 	//=================================================================================================================
@@ -232,7 +204,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"6625"
+		"ItemCost"						"0"
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -241,9 +213,7 @@
 		"ItemResult"					"item_blink_treads3"
 		"ItemRequirements"
 		{
-			"01"						"item_blink_treads2;item_diadem;item_reaver;item_blitz_knuckles"
-			"02"						"item_blink_treads2;item_diadem;item_eagle;item_blitz_knuckles"
-			"03"						"item_blink_treads2;item_diadem;item_mystic_staff;item_blitz_knuckles"
+			"01"						"item_blink_treads2;item_blink_treads2"
 		}
 	}
 	//=================================================================================================================
@@ -282,51 +252,50 @@
 
 		"AbilityValues"
 		{
-			"blink_damage_cooldown"			"3.0"
-			"blink_range"					"1200"
-			"blink_range_clamp"				"960"
+			"blink_damage_cooldown"				"3.0"
+			"blink_range"						"1200"
+			"blink_range_clamp"					"960"
 			
-			"bonus_movement_speed_ranged"	"45"
-			"bonus_movement_speed_melee"	"55"
-			
+			"bonus_movement_speed_ranged"		"45"
+			"bonus_movement_speed_melee"		"55"
 			"bonus_stat"
 			{
-				"value"							"185"
+				"value"							"75"
 				"CalculateAttributeTooltip"		"1"
 			}
 			"bonus_other"
 			{
-				"value"							"40"
+				"value"							"30"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"bonus_attack_speed"			"75"
+			"bonus_attack_speed"				"70"
 			
-			"radius"						"800"
-			"movement_slow"					"50"
-			"attack_slow"					"50"
-			"damage_pct"					"350"
+			"radius"							"800"
+			"movement_slow"						"50"
+			"attack_slow"						"50"
+			"damage_pct"						"150"
 			"base_damage"
 			{
-				"value"							"3500"
+				"value"							"3000"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			
-			"bonus_movement"				"40"
+			"bonus_movement"					"40"
 			"bonus_agi_active"
 			{
-				"value"							"200"
+				"value"							"150"
 				"CalculateAttributeTooltip"		"1"
 			}
 			
-			"arcane_blink_cd"				"5"
-			"arcane_blink_dmg_cd"			"2.0"
-			"arcane_blink_range"			"1600"
+			"arcane_blink_cd"					"8"
+			"arcane_blink_dmg_cd"				"2.0"
+			"arcane_blink_range"				"1400"
 			"heal_amount"
 			{
-				"value"							"3500"
+				"value"							"3000"
 				"CalculateSpellHealTooltip"		"1"
 			}
-			"mana_amount"						"350"
+			"mana_amount"						"300"
 			
 			"duration"							"6"
 		}
@@ -343,7 +312,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"16575"
+		"ItemCost"						"0"
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -352,9 +321,7 @@
 		"ItemResult"					"item_blink_treads4"
 		"ItemRequirements"
 		{
-			"01"						"item_blink_treads3;item_diadem;item_reaver;item_blitz_knuckles"
-			"02"						"item_blink_treads3;item_diadem;item_eagle;item_blitz_knuckles"
-			"03"						"item_blink_treads3;item_diadem;item_mystic_staff;item_blitz_knuckles"
+			"01"						"item_blink_treads3;item_blink_treads3"
 		}
 	}
 
@@ -394,15 +361,15 @@
 
 		"AbilityValues"
 		{
-			"blink_damage_cooldown"			"3.0"
-			"blink_range"					"1200"
-			"blink_range_clamp"				"960"
+			"blink_damage_cooldown"				"3.0"
+			"blink_range"						"1200"
+			"blink_range_clamp"					"960"
 			
-			"bonus_movement_speed_ranged"	"45"
-			"bonus_movement_speed_melee"	"55"
+			"bonus_movement_speed_ranged"		"45"
+			"bonus_movement_speed_melee"		"55"
 			"bonus_stat"
 			{
-				"value"							"285"
+				"value"							"130"
 				"CalculateAttributeTooltip"		"1"
 			}
 			"bonus_other"
@@ -410,36 +377,36 @@
 				"value"							"75"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"bonus_attack_speed"			"100"
+			"bonus_attack_speed"				"120"
 			
-			"radius"						"800"
-			"movement_slow"					"50"
-			"attack_slow"					"50"
-			"damage_pct"					"450"
+			"radius"							"800"
+			"movement_slow"						"50"
+			"attack_slow"						"50"
+			"damage_pct"						"150"
 			"base_damage"
 			{
-				"value"							"5500"
+				"value"							"4000"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			
-			"bonus_movement"				"40"
+			"bonus_movement"					"40"
 			"bonus_agi_active"
 			{
-				"value"							"400"
+				"value"							"265"
 				"CalculateAttributeTooltip"		"1"
 			}
 			
-			"arcane_blink_cd"				"4"
-			"arcane_blink_dmg_cd"			"1.5"
-			"arcane_blink_range"			"1700"
+			"arcane_blink_cd"					"6"
+			"arcane_blink_dmg_cd"				"1.5"
+			"arcane_blink_range"				"1400"
 			"heal_amount"
 			{
-				"value"							"5500"
+				"value"							"4000"
 				"CalculateSpellHealTooltip"		"1"
 			}
-			"mana_amount"						"550"
+			"mana_amount"						"400"
 			
-			"duration"						"6"
+			"duration"							"6"
 		}
 	}
 	//=================================================================================================================
@@ -454,7 +421,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"43995"
+		"ItemCost"						"0"
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -463,9 +430,7 @@
 		"ItemResult"					"item_blink_treads5"
 		"ItemRequirements"
 		{
-			"01"						"item_blink_treads4;item_diadem;item_reaver;item_blitz_knuckles"
-			"02"						"item_blink_treads4;item_diadem;item_eagle;item_blitz_knuckles"
-			"03"						"item_blink_treads4;item_diadem;item_mystic_staff;item_blitz_knuckles"
+			"01"						"item_blink_treads4;item_blink_treads4"
 		}
 	}
 
@@ -505,52 +470,52 @@
 
 		"AbilityValues"
 		{
-			"blink_damage_cooldown"			"3.0"
-			"blink_range"					"1200"
-			"blink_range_clamp"				"960"
+			"blink_damage_cooldown"				"3.0"
+			"blink_range"						"1200"
+			"blink_range_clamp"					"960"
 			
-			"bonus_movement_speed_ranged"	"45"
-			"bonus_movement_speed_melee"	"55"
+			"bonus_movement_speed_ranged"		"45"
+			"bonus_movement_speed_melee"		"55"
 			"bonus_stat"
 			{
-				"value"							"405"
+				"value"							"225"
 				"CalculateAttributeTooltip"		"1"
 			}
 			"bonus_other"
 			{
-				"value"							"105"
+				"value"							"130"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"bonus_attack_speed"			"125"
+			"bonus_attack_speed"				"210"
 			
-			"radius"						"800"
-			"movement_slow"					"50"
-			"attack_slow"					"50"
-			"damage_pct"					"550"
+			"radius"							"800"
+			"movement_slow"						"50"
+			"attack_slow"						"50"
+			"damage_pct"						"150"
 			"base_damage"
 			{
-				"value"							"8000"
+				"value"							"5000"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			
 			"bonus_movement"					"40"
 			"bonus_agi_active"
 			{
-				"value"							"800"
+				"value"							"265"
 				"CalculateAttributeTooltip"		"1"
 			}
 			
-			"arcane_blink_cd"					"3"
-			"arcane_blink_dmg_cd"				"1"
-			"arcane_blink_range"				"1800"
+			"arcane_blink_cd"					"4"
+			"arcane_blink_dmg_cd"				"1.0"
+			"arcane_blink_range"				"1400"
 			"heal_amount"
 			{
-				"value"							"8000"
+				"value"							"5000"
 				"CalculateSpellHealTooltip"		"1"
 			}
-			"mana_amount"						"800"
+			"mana_amount"						"500"
 			
-			"duration"						"6"
+			"duration"							"6"
 		}
 	}
 }

@@ -168,7 +168,7 @@ function modifier_special_bonus_attributes_stat_rescaling:OnCreated()
 	
 	local UNITKV =  GetUnitKeyValuesByName(self:GetParent():GetUnitName())
 	
-	self.baseManaRegen = 10
+	self.baseManaRegen = 5
 	if self:GetParent()._heroManaType ~= "Mana" then
 		self.baseMana = 0
 		self.baseManaRegen = 0

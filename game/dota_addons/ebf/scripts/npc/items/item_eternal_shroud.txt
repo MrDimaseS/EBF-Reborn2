@@ -9,7 +9,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"2140"	
+		"ItemCost"						"0"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -18,7 +18,7 @@
 		"ItemResult"					"item_eternal_shroud_2"
 		"ItemRequirements"
 		{
-			"01"						"item_eternal_shroud;item_shivas_guard;item_diadem;item_ogre_axe"
+			"01"						"item_eternal_shroud;item_eternal_shroud"
 		}
 	}
 	"item_eternal_shroud_2"
@@ -28,12 +28,7 @@
 		"BaseClass"						"item_lua"
 		"ScriptFile"					"items/item_eternal_shroud"
 		"AbilityTextureName"			"eternal_shroud/eternal_shroud_2"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
-
-		// Stats		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"30"
-
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
@@ -48,47 +43,23 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"bonus_spell_resist"					"20"
 			"bonus_strength"
 			{
-				"value"								"100"
-				"CalculateAttributeTooltip"			"1"
-			}
-			"bonus_other"
-			{
-				"value"								"15"
+				"value"								"44"
 				"CalculateAttributeTooltip"			"1"
 			}
 			"bonus_health"
 			{
-				"value"								"600"
+				"value"								"875"
 				"CalculateAttributeTooltip"			"1"
 			}
-			"bonus_spell_resist"					"16"
-			"bonus_armor"							"6"
+			"mana_restore_pct"						"2.5"
 			
-			"stack_threshold"		"10"
-			"stack_duration"		"8"
-			"stack_resist"			"2"
-			"stack_armor"			"1"
-			"max_stacks"			"7"
-			
-			"mana_restore_pct"		"2.5"
-			
-			"aura_radius"			"1200"
-			"aura_attack_speed"		"-50"
-			"hp_regen_degen_aura"	"25"
-			
-			"blast_damage"
-			{
-				"value"							"2000"
-				"CalculateSpellDamageTooltip"	"1"
-			}
-			"blast_movement_speed"	"-40"
-			"blast_debuff_duration"	"4.0"
-			"blast_radius"			"900"
-			"blast_speed"			"350"
-			"spell_amp"					"18"				
-			"resist_debuff_duration"	"16.0"
+			"stack_threshold"						"10"
+			"stack_duration"						"8"
+			"stack_resist"							"4"
+			"max_stacks"							"6"
 		}
 	}
 	"item_recipe_eternal_shroud_3"
@@ -100,7 +71,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"4850"	
+		"ItemCost"						"0"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -109,7 +80,7 @@
 		"ItemResult"					"item_eternal_shroud_3"
 		"ItemRequirements"
 		{
-			"01"						"item_eternal_shroud_2;item_diadem;item_ogre_axe"
+			"01"						"item_eternal_shroud_2;item_eternal_shroud_2"
 		}
 	}
 	"item_eternal_shroud_3"
@@ -119,13 +90,8 @@
 		"BaseClass"						"item_lua"
 		"ScriptFile"					"items/item_eternal_shroud"
 		"AbilityTextureName"			"eternal_shroud/eternal_shroud_3"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"FightRecapLevel"				"1"
-
-		// Stats		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"30"
-
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
@@ -140,49 +106,23 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_spell_resist"	"18"
-			"bonus_armor"			"7"
-			
+			"bonus_spell_resist"					"32"
 			"bonus_strength"
 			{
-				"value"								"180"
-				"CalculateAttributeTooltip"			"1"
-			}
-			"bonus_other"
-			{
-				"value"								"35"
+				"value"								"77"
 				"CalculateAttributeTooltip"			"1"
 			}
 			"bonus_health"
 			{
-				"value"								"1050"
+				"value"								"1530"
 				"CalculateAttributeTooltip"			"1"
 			}
+			"mana_restore_pct"						"2.5"
 			
-			"stack_threshold"		"10"
-			"stack_duration"		"8"
-			"stack_resist"			"2"
-			"stack_armor"			"1"
-			"max_stacks"			"8"
-			
-			"mana_restore_pct"		"2.5"
-			
-			"aura_radius"			"1200"
-			"aura_attack_speed"		"-60"
-			"hp_regen_degen_aura"	"25"
-			
-			"blast_damage"
-			{
-				"value"							"3500"
-				"CalculateSpellDamageTooltip"	"1"
-			}
-			"blast_movement_speed"	"-40"
-			"blast_debuff_duration"	"4.0"
-			"blast_radius"			"900"
-			"blast_speed"			"350"
-			"dmg_to_mana"			"1.0"
-			"spell_amp"					"21"				
-			"resist_debuff_duration"	"16.0"
+			"stack_threshold"						"10"
+			"stack_duration"						"8"
+			"stack_resist"							"6"
+			"max_stacks"							"6"
 		}
 	}
 	
@@ -195,7 +135,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"12665"	
+		"ItemCost"						"0"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -204,7 +144,7 @@
 		"ItemResult"					"item_eternal_shroud_4"
 		"ItemRequirements"
 		{
-			"01"						"item_eternal_shroud_3;item_diadem;item_ogre_axe"
+			"01"						"item_eternal_shroud_3;item_eternal_shroud_3"
 		}
 	}
 	"item_eternal_shroud_4"
@@ -214,14 +154,9 @@
 		"BaseClass"						"item_lua"
 		"ScriptFile"					"items/item_eternal_shroud"
 		"AbilityTextureName"			"eternal_shroud/eternal_shroud_4"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"FightRecapLevel"				"1"
-
-		// Stats		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"30"
-
-
+		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
 		"ItemCost"						"950"
@@ -235,50 +170,23 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_spell_resist"	"20"
-			"bonus_armor"			"8"
-			
+			"bonus_spell_resist"					"48"
 			"bonus_strength"
 			{
-				"value"								"275"
-				"CalculateAttributeTooltip"			"1"
-			}
-			"bonus_other"
-			{
-				"value"								"60"
+				"value"								"135"
 				"CalculateAttributeTooltip"			"1"
 			}
 			"bonus_health"
 			{
-				"value"								"1650"
+				"value"								"2675"
 				"CalculateAttributeTooltip"			"1"
 			}
+			"mana_restore_pct"						"2.5"
 			
-			"stack_threshold"		"10"
-			"stack_duration"		"8"
-			"stack_resist"			"2"
-			"stack_armor"			"1"
-			"max_stacks"			"9"
-			
-			"mana_restore_pct"		"2.5"
-			
-			"aura_radius"			"1200"
-			"aura_attack_speed"		"-70"
-			"hp_regen_degen_aura"	"25"
-			"blast_aura_bonus"		"50"
-			
-			"blast_damage"
-			{
-				"value"							"5500"
-				"CalculateSpellDamageTooltip"	"1"
-			}
-			"blast_movement_speed"	"-40"
-			"blast_debuff_duration"	"4.0"
-			"blast_radius"			"900"
-			"blast_speed"			"350"
-			"dmg_to_mana"			"1.0"
-			"spell_amp"					"24"				
-			"resist_debuff_duration"	"16.0"
+			"stack_threshold"						"10"
+			"stack_duration"						"8"
+			"stack_resist"							"8"
+			"max_stacks"							"6"
 		}
 	}
 	"item_recipe_eternal_shroud_5"
@@ -290,7 +198,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"35500"	
+		"ItemCost"						"0"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -299,7 +207,7 @@
 		"ItemResult"					"item_eternal_shroud_5"
 		"ItemRequirements"
 		{
-			"01"						"item_eternal_shroud_4;item_zero;item_diadem;item_ogre_axe"
+			"01"						"item_eternal_shroud_4;item_eternal_shroud_4"
 		}
 	}
 	"item_eternal_shroud_5"
@@ -309,7 +217,7 @@
 		"BaseClass"						"item_lua"
 		"ScriptFile"					"items/item_eternal_shroud"
 		"AbilityTextureName"			"eternal_shroud/eternal_shroud_5"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"FightRecapLevel"				"1"
 
 		// Stats		
@@ -330,68 +238,23 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_spell_resist"					"22"
-			"bonus_armor"							"9"
-			"bonus_mana"							"440"
-			"bonus_damage"
-			{
-				"value"								"500"
-				"CalculateAttributeTooltip"			"1"
-			}
-			
-			"stack_threshold"						"10"
-			"stack_duration"						"8"
-			"stack_resist"							"2"
-			"stack_armor"							"1"
-			"max_stacks"							"10"
-			
+			"bonus_spell_resist"					"66"
 			"bonus_strength"
 			{
-				"value"								"525"
-				"CalculateAttributeTooltip"			"1"
-			}
-			"bonus_other"
-			{
-				"value"								"225"
+				"value"								"235"
 				"CalculateAttributeTooltip"			"1"
 			}
 			"bonus_health"
 			{
-				"value"								"2400"
+				"value"								"4680"
 				"CalculateAttributeTooltip"			"1"
 			}
-			
 			"mana_restore_pct"						"2.5"
 			
-			"aura_radius"							"700"
-			"aura_attack_speed"						"-100"
-			"aura_movespeed"						"-15"
-			"hp_regen_degen_aura"					"40"
-			"aura_miss_pct"							"20"
-			"aura_damage"
-			{
-				"value"								"1600"
-				"CalculateSpellDamageTooltip"		"1"
-			}
-			"aura_damage_illusions"
-			{
-				"value"								"720"
-				"CalculateSpellDamageTooltip"		"1"
-			}
-			"blast_aura_bonus"						"50"
-			
-			"blast_damage"
-			{
-				"value"								"8000"
-				"CalculateSpellDamageTooltip"		"1"
-			}
-			"blast_movement_speed"					"-50"
-			"blast_debuff_duration"					"4.0"
-			"blast_radius"							"900"
-			"blast_speed"							"350"
-			"dmg_to_mana"							"1.0"
-			"spell_amp"								"27"				
-			"resist_debuff_duration"				"16.0"
+			"stack_threshold"						"10"
+			"stack_duration"						"8"
+			"stack_resist"							"10"
+			"max_stacks"							"6"
 		}
 	}
 }

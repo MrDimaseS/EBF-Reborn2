@@ -12,7 +12,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"2985"	
+		"ItemCost"						"0"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -21,7 +21,7 @@
 		"ItemResult"					"item_devastator_2"
 		"ItemRequirements"
 		{
-			"01"						"item_devastator;item_blitz_knuckles;item_eagle"
+			"01"						"item_devastator;item_devastator"
 		}
 	}
 	
@@ -34,6 +34,76 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"item_devastator"
 		"AbilityTextureName"			"devastator/devastator_2"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"8"
+
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"5575"
+		"ItemShopTags"					"int;hard_to_tag"
+		"ItemQuality"					"rare"
+		"ItemAliases"					"staff;misery;sm"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ShouldBeSuggested"				"1"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_intellect"
+			{
+				"value"							"70"
+				"CalculateAttributeTooltip"		"1"
+			}			
+			"bonus_attack_speed"				"70"	
+			"bonus_armor"						"7"
+			"projectile_speed"					"300"
+			"int_damage_multiplier"				"1.5"
+			"slow"								"25"
+			"slow_duration"						"4"
+			"active_mres_reduction"				"15"
+			"passive_cooldown"					"4"
+		}
+	}
+	//=================================================================================================================
+	// Recipe: TITAN
+	//=================================================================================================================
+	"item_recipe_devastator_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_devastator"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_devastator_3"
+		"ItemRequirements"
+		{
+			"01"						"item_devastator_2;item_devastator_2"
+		}
+	}
+	
+	//=================================================================================================================
+	// devastatorh Of Titan
+	//=================================================================================================================
+	"item_devastator_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_devastator"
+		"AbilityTextureName"			"devastator/devastator_3"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 
@@ -54,96 +124,20 @@
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
-		{				
-			"bonus_intellect"
-			{
-				"value"							"105"
-				"CalculateAttributeTooltip"		"1"
-			}			
-			"bonus_attack_speed"				"45"
-			"bonus_armor"						"5"
-			"projectile_speed"					"300"
-			
-			"int_damage_multiplier"				"12"
-			
-			"slow"								"25"
-			"slow_duration"						"4"
-			"active_mres_reduction"				"12"
-			
-			"passive_cooldown"					"7"
-		}
-	}
-	//=================================================================================================================
-	// Recipe: TITAN
-	//=================================================================================================================
-	"item_recipe_devastator_3"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"item_recipe_devastator"
-		"Model"							"models/props_gameplay/recipe.vmdl"
-		
-		// Item Info
-		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"6375"	
-		"ItemShopTags"					""
-		
-		// Recipe
-		//-------------------------------------------------------------------------------------------------------------
-		"ItemRecipe"					"1"
-		"ItemResult"					"item_devastator_3"
-		"ItemRequirements"
-		{
-			"01"						"item_devastator_2;item_blitz_knuckles;item_eagle"
-		}
-	}
-	
-	//=================================================================================================================
-	// devastatorh Of Titan
-	//=================================================================================================================
-	"item_devastator_3"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"item_devastator"
-		"AbilityTextureName"			"devastator/devastator_3"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
-
-		// Stats		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"6"
-
-
-		// Item Info
-		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"5575"
-		"ItemShopTags"					"int;hard_to_tag"
-		"ItemQuality"					"rare"
-		"ItemAliases"					"staff;misery;sm"
-		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
-		"ShouldBeSuggested"				"1"
-		
-		// Special	
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
 		{
 			"bonus_intellect"
 			{
-				"value"							"190"
+				"value"							"125"
 				"CalculateAttributeTooltip"		"1"
 			}			
-			"bonus_attack_speed"				"60"
-			"bonus_armor"						"6"
+			"bonus_attack_speed"				"120"	
+			"bonus_armor"						"12"
 			"projectile_speed"					"300"
-			
-			"int_damage_multiplier"				"15"
-			
+			"int_damage_multiplier"				"2.25"
 			"slow"								"25"
 			"slow_duration"						"4"
-			"active_mres_reduction"				"14"
-			
-			"passive_cooldown"					"6"
+			"active_mres_reduction"				"15"
+			"passive_cooldown"					"4"
 		}
 	}
 	//=================================================================================================================
@@ -158,7 +152,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"14500"	
+		"ItemCost"						"0"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -167,7 +161,7 @@
 		"ItemResult"					"item_devastator_4"
 		"ItemRequirements"
 		{
-			"01"						"item_devastator_3;item_blitz_knuckles;item_eagle"
+			"01"						"item_devastator_3;item_devastator_3"
 		}
 	}
 
@@ -203,20 +197,17 @@
 		{
 			"bonus_intellect"
 			{
-				"value"							"295"
+				"value"							"220"
 				"CalculateAttributeTooltip"		"1"
 			}			
-			"bonus_attack_speed"				"75"
-			"bonus_armor"						"7"
+			"bonus_attack_speed"				"210"	
+			"bonus_armor"						"21"
 			"projectile_speed"					"300"
-			
-			"int_damage_multiplier"				"19"
-			
+			"int_damage_multiplier"				"3.0"
 			"slow"								"25"
 			"slow_duration"						"4"
-			"active_mres_reduction"				"16"
-			
-			"passive_cooldown"					"5"
+			"active_mres_reduction"				"20"
+			"passive_cooldown"					"4"
 		}
 	}
 	//=================================================================================================================
@@ -231,7 +222,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"44500"
+		"ItemCost"						"0"
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -240,7 +231,7 @@
 		"ItemResult"					"item_devastator_5"
 		"ItemRequirements"
 		{
-			"01"						"item_devastator_4;item_blitz_knuckles;item_eagle"
+			"01"						"item_devastator_4;item_devastator_4"
 		}
 	}
 	//=================================================================================================================
@@ -275,19 +266,16 @@
 		{
 			"bonus_intellect"
 			{
-				"value"							"420"
+				"value"							"385"
 				"CalculateAttributeTooltip"		"1"
 			}			
-			"bonus_attack_speed"				"90"
-			"bonus_armor"						"8"
+			"bonus_attack_speed"				"365"	
+			"bonus_armor"						"36"
 			"projectile_speed"					"300"
-			
-			"int_damage_multiplier"				"24"
-			
+			"int_damage_multiplier"				"3.75"
 			"slow"								"25"
 			"slow_duration"						"4"
-			"active_mres_reduction"				"20"
-			
+			"active_mres_reduction"				"25"
 			"passive_cooldown"					"4"
 		}
 	}

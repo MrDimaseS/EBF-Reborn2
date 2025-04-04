@@ -142,15 +142,19 @@ end
 function modifier_dragon_knight_fireball_aura:DeclareFunctions()
     return {
         MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS,
-        MODIFIER_PROPERTY_BASE_ATTACK_TIME_PERCENTAGE,
-        MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS
+        MODIFIER_PROPERTY_BASE_ATTACK_TIME_CONSTANT,
+        MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
     }
 end
 function modifier_dragon_knight_fireball_aura:GetModifierMagicalResistanceBonus()
     return -self.magic_resist_reduction
 end
-function modifier_dragon_knight_fireball_aura:GetModifierBaseAttackTimePercentage()
-    return -self.base_attack_time_increase
+function modifier_dragon_knight_fireball_aura:GetModifierBaseAttackTimeConstant()
+	if self._preventLoops then return end
+	self._preventLoops = true
+	self.previous_base_attack_time = self:GetParent():GetBaseAttackTime()
+	self._preventLoops = false
+    return self.previous_base_attack_time*(1+self.base_attack_time_increase/100)
 end
 function modifier_dragon_knight_fireball_aura:GetModifierPhysicalArmorBonus()
     return -self.armor_per_second * self.duration

@@ -55,10 +55,6 @@ end
 function modifier_dragon_knight_breathe_fire_debuff:OnCreated()
     self:OnRefresh()
     if IsClient() then return end
-
-    if self.base_attack_time_increase ~= 0 then
-        self:GetParent():SetBaseAttackTime(self.previous_base_attack_time * (self.base_attack_time_increase / 100 + 1))
-    end
     if self.damage_per_second ~= 0 then
         self:StartIntervalThink(1.0)
     end
@@ -71,8 +67,6 @@ function modifier_dragon_knight_breathe_fire_debuff:OnRefresh()
 end
 function modifier_dragon_knight_breathe_fire_debuff:OnDestroy()
     if IsClient() then return end
-
-    self:GetParent():SetBaseAttackTime(self.previous_base_attack_time)
 end
 function modifier_dragon_knight_breathe_fire_debuff:OnIntervalThink()
     local caster = self:GetCaster()
@@ -82,9 +76,17 @@ function modifier_dragon_knight_breathe_fire_debuff:OnIntervalThink()
 end
 function modifier_dragon_knight_breathe_fire_debuff:DeclareFunctions()
     return {
-        MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS
+        MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS,
+        MODIFIER_PROPERTY_BASE_ATTACK_TIME_CONSTANT,
     }
 end
 function modifier_dragon_knight_breathe_fire_debuff:GetModifierMagicalResistanceBonus()
     return -self.magic_resist_reduction
+end
+function modifier_dragon_knight_breathe_fire_debuff:GetModifierBaseAttackTimeConstant()
+	if self._preventLoops then return end
+	self._preventLoops = true
+	self.previous_base_attack_time = self:GetParent():GetBaseAttackTime()
+	self._preventLoops = false
+    return self.previous_base_attack_time*(1+self.base_attack_time_increase/100)
 end

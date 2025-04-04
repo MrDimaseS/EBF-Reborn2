@@ -62,6 +62,7 @@ function modifier_luna_lunar_blessing_passive:GetBonusNightVision()
 	return total_bonus
 end
 function modifier_luna_lunar_blessing_passive:OnAttackLanded(event)
+	if not event.attacker:IsRealHero() then return end
 	if event.attacker == self:GetParent() and self.stacking_damage_duration ~= 0 then
 		self:AddIndependentStack({ duration = self.stacking_damage_duration })
 	end

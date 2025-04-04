@@ -56,10 +56,10 @@ const hud = dotaHud.FindChildTraverse("HUDElements");
 })();
 
 (function() {
-    const shopItemRowContainers = hud.FindChildrenWithClassTraverse("ShopItemRowContainer");
 
     function findShopPanel() {
         const shop = hud.FindChildTraverse("shop");
+		const shopItemRowContainers = hud.FindChildrenWithClassTraverse("ShopItemRowContainer");
         if (!shop) {
             $.Schedule(0.1, findShopPanel); 
             return;
@@ -76,6 +76,7 @@ const hud = dotaHud.FindChildTraverse("HUDElements");
         }
 
         function updateShopItemRowContainerWidth() {
+			const shopItemRowContainers = hud.FindChildrenWithClassTraverse("ShopItemRowContainer");
             const isShopLarge = shop.BHasClass("ShopLarge");
             const newWidth = isShopLarge ? "250px" : "60px";
             shopItemRowContainers.forEach(container => {

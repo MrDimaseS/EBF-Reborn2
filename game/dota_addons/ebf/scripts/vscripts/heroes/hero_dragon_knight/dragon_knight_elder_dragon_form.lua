@@ -8,6 +8,7 @@ function dragon_knight_elder_dragon_form:OnSpellStart()
     
     local breathe_fire = caster:FindAbilityByName("dragon_knight_breathe_fire")
     if not breathe_fire then return end
+    if breathe_fire:IsHidden() then return end -- already swapped em
     
 	local fireball = caster:FindAbilityByName("dragon_knight_fireball")
     caster:SwapAbilities(
@@ -16,7 +17,6 @@ function dragon_knight_elder_dragon_form:OnSpellStart()
         false,
         true
     )
-	fireball:SetAbilityIndex( 0 )
 end
 
 modifier_dragon_knight_elder_dragon_form_buff = class({})

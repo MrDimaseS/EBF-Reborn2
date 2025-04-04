@@ -19,6 +19,7 @@ end
 function luna_moon_glaive:OnProjectileHitHandle( target, position, projectileID )
 	if target then
 		local caster = self:GetCaster()
+		if not caster:IsRealHero() then return end
 		local projectileData = self.glaives[projectileID]
 		
 		if not projectileData then return end

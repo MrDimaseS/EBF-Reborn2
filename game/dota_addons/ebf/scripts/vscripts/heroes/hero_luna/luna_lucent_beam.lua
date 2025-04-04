@@ -10,7 +10,7 @@ function luna_lucent_beam:OnSpellStart()
 	if additional_beam > 0 then
 		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( target:GetAbsOrigin(), self:GetTrueCastRange() / 2 ) ) do
 			if enemy ~= target then
-				self:CastOn(target, 1.0)
+				self:CastOn(enemy, 1.0)
 				additional_beam = additional_beam - 1
 			end
 			if additional_beam <= 0 then

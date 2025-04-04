@@ -1,12 +1,20 @@
 doom_bringer_doom = class({})
 
 function doom_bringer_doom:OnSpellStart()
+	if self:GetSpecialValueFor("radius") > 0 then
+		return DOTA_ABILITY_BEHAVIOR_NO_TARGET
+	else
+		return DOTA_ABILITY_BEHAVIOR_UNIT_TARGET
+	end
+end
+
+function doom_bringer_doom:OnSpellStart()
     local caster = self:GetCaster()
     local duration = self:GetSpecialValueFor("duration")
     local self_cast = self:GetSpecialValueFor("radius") ~= 0
 
-    if self_cast then
-        caster:AddNewModifier(caster, self, "modifier_doom_bringer_doom_aura", { duration = duration })
+    if  then
+        caself_castster:AddNewModifier(caster, self, "modifier_doom_bringer_doom_aura", { duration = duration })
     else
         local target = self:GetCursorTarget()
         if target:TriggerSpellAbsorb(self) then return end

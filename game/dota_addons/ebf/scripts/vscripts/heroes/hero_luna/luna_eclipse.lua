@@ -24,9 +24,10 @@ function luna_eclipse:OnSpellStart()
 	local spiteshield = self:GetSpecialValueFor("miss_chance") ~= 0
 	local wrathbearer = self:GetSpecialValueFor("cast_range") ~= 0
 
+	local duration = self:GetSpecialValueFor("beams") * self:GetSpecialValueFor("interval") + 0.1
 	local unit = nil
 	if wrathbearer and target then
-		target:AddNewModifier(caster, self, "modifier_luna_eclipse_ebf", { duration = self:GetDuration() + 0.1 })
+		target:AddNewModifier(caster, self, "modifier_luna_eclipse_ebf", { duration = duration })
 		unit = target
 	elseif wrathbearer and point then
 		unit = CreateModifierThinker(
@@ -38,14 +39,14 @@ function luna_eclipse:OnSpellStart()
 			caster:GetTeamNumber(),
 			false
 		)
-		AddFOWViewer(caster:GetTeamNumber(), point, self:GetSpecialValueFor("radius") + 75, self:GetDuration() + 0.1, true)
+		AddFOWViewer(caster:GetTeamNumber(), point, self:GetSpecialValueFor("radius") + 75, duration, true)
 	else
-		caster:AddNewModifier(caster, self, "modifier_luna_eclipse_ebf", { duration = self:GetDuration() + 0.1 })
+		caster:AddNewModifier(caster, self, "modifier_luna_eclipse_ebf", { duration = duration })
 		unit = caster
 	end
 
 	if spiteshield then
-		unit:AddNewModifier(caster, self, "modifier_luna_eclipse_ebf_spiteshield", { duration = self:GetDuration() + 0.1 })
+		unit:AddNewModifier(caster, self, "modifier_luna_eclipse_ebf_spiteshield", { duration = duration + 0.1 })
 	end
 
 	GameRules:BeginTemporaryNight(self:GetSpecialValueFor("night_duration"))

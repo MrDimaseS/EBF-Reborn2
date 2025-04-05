@@ -12,7 +12,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"2230"	
+		"ItemCost"						"0"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -21,7 +21,7 @@
 		"ItemResult"					"item_heart_2"
 		"ItemRequirements"
 		{
-			"01"						"item_heart;item_reaver"
+			"01"						"item_heart;item_heart"
 		}
 	}
 	
@@ -56,15 +56,15 @@
 		{
 			"bonus_strength"
 			{
-				"value"							"105"
+				"value"							"70"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"bonus_hp_per_str"			"3"
-			"bonus_hp_regen_per_str"	"0.14"
+			"bonus_hp_per_str"					"3"
+			"bonus_hp_regen_per_str"			"0.17"
 			
-			"duration"					"12"
-			"power_multiplier"			"30"
-			"AbilityCooldown"			"60"
+			"duration"							"12"
+			"power_multiplier"					"25"
+			"AbilityCooldown"					"60"
 		}
 	}
 	//=================================================================================================================
@@ -79,7 +79,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"5010"	
+		"ItemCost"						"0"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -88,7 +88,7 @@
 		"ItemResult"					"item_heart_3"
 		"ItemRequirements"
 		{
-			"01"						"item_heart_2;item_reaver"
+			"01"						"item_heart_2;item_heart_2"
 		}
 	}
 	
@@ -122,15 +122,15 @@
 		{
 			"bonus_strength"
 			{
-				"value"							"190"
+				"value"							"122"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"bonus_hp_per_str"			"4.5"
-			"bonus_hp_regen_per_str"	"0.22"
+			"bonus_hp_per_str"					"5"
+			"bonus_hp_regen_per_str"			"0.3"
 			
-			"duration"					"12"
-			"power_multiplier"			"40"
-			"AbilityCooldown"			"60"
+			"duration"							"12"
+			"power_multiplier"					"40"
+			"AbilityCooldown"					"60"
 		}
 	}
 	//=================================================================================================================
@@ -145,7 +145,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"10225"	
+		"ItemCost"						"0"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -154,7 +154,7 @@
 		"ItemResult"					"item_heart_4"
 		"ItemRequirements"
 		{
-			"01"						"item_heart_3;item_black_king_bar;item_reaver"
+			"01"						"item_heart_3;item_heart_3"
 		}
 	}
 
@@ -188,17 +188,17 @@
 		{
 			"bonus_strength"
 			{
-				"value"							"305"
+				"value"							"214"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"bonus_hp_per_str"			"6.5"
-			"bonus_hp_regen_per_str"	"0.34"
+			"bonus_hp_per_str"					"8"
+			"bonus_hp_regen_per_str"			"0.52"
 			
-			"duration"					"12"
-			"power_multiplier"			"55"
-			"AbilityCooldown"			"60"
-			"magic_immune"				"1"
-			"magic_resist"				"50"
+			"duration"							"12"
+			"power_multiplier"					"55"
+			"AbilityCooldown"					"60"
+			"magic_immune"						"1"
+			"magic_resist"						"50"
 		}
 	}
 	//=================================================================================================================
@@ -213,7 +213,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"37165"
+		"ItemCost"						"0"
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -222,7 +222,7 @@
 		"ItemResult"					"item_heart_5"
 		"ItemRequirements"
 		{
-			"01"						"item_heart_4;item_reaver"
+			"01"						"item_heart_4;item_heart_4"
 		}
 	}
 	//=================================================================================================================
@@ -255,88 +255,17 @@
 		{
 			"bonus_strength"
 			{
-				"value"							"440"
+				"value"							"375"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"bonus_hp_per_str"					"9"
-			"bonus_hp_regen_per_str"			"0.5"
+			"bonus_hp_per_str"					"14"
+			"bonus_hp_regen_per_str"			"0.91"
 			
 			"duration"							"12"
 			"power_multiplier"					"75"
 			"AbilityCooldown"					"60"
 			"magic_immune"						"1"
 			"magic_resist"						"50"
-		}
-	}
-	//=================================================================================================================
-	// Recipe: TITAN
-	//=================================================================================================================
-	"item_recipe_asura_heart"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"item_recipe_heart"
-		"Model"							"models/props_gameplay/recipe.vmdl"
-		
-		// Item Info
-		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"25"	
-		"ItemPurchasable"				"0"
-		"ItemShopTags"					""
-		
-		// Recipe
-		//-------------------------------------------------------------------------------------------------------------
-		"ItemRecipe"					"1"
-		"ItemResult"					"item_asura_heart"
-		"ItemRequirements"
-		{
-			"01"						"item_heart_5;item_orb_5"
-		}
-	}
-	"item_asura_heart"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
-		"BaseClass"						"item_lua"
-		"ScriptFile"					"items/item_heart"
-		"AbilityTextureName"			"heart/asura_heart"
-		
-		"AbilitySharedCooldown"			"heart"
-		
-		"ItemKillable"					"1"
-		"ItemSellable"					"1"
-		"ItemDroppable"					"1"
-		"ItemPurchasable"				"0"
-		"ItemCost"						"60000"
-		"ItemShopTags"					"damage;unique"
-		"ItemQuality"					"artifact"
-		"ItemAliases"					"heart"
-		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
-		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
-
-		// Special	
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			"bonus_strength"
-			{
-				"value"							"1360"
-				"CalculateAttributeTooltip"		"1"
-			}
-			"bonus_strength_PR"
-			{
-				"value"							"136"
-				"CalculateAttributeTooltip"		"1"
-			}
-			"bonus_hp_per_str"			"13"
-			"bonus_hp_regen_per_str"	"0.7"
-			
-			"duration"					"12"
-			"power_multiplier"			"2"
-			"AbilityCooldown"			"60"
-			"magic_immune"				"1"
-			"magic_resist"				"50"
 		}
 	}
 }

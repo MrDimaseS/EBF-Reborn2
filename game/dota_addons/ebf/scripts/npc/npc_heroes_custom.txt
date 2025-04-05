@@ -2360,17 +2360,87 @@
 	}
 	"npc_dota_hero_magnataur"
 	{
-		"override_hero"					"npc_dota_hero_magnataur"	
-		"Ability12"						"special_bonus_all_stats_100"
+		"override_hero"					"npc_dota_hero_magnataur"
+
+		"Ability1"						"magnataur_shockwave"
+		"Ability2"						"magnataur_empower"
+		"Ability3"						"generic_hidden"
+		"Ability4"						"generic_hidden"
+		"Ability5"						"magnataur_solid_core"
+		"Ability6"						"magnataur_reverse_polarity"
+
+		"Ability10"						"special_bonus_mp_regen_150"
+		"Ability11"						"special_bonus_unique_magnataur_2"
+		"Ability12"						"special_bonus_unique_magnataur_3"
+		"Ability13"						"special_bonus_unique_magnataur_4"
+		"Ability14"						"special_bonus_unique_magnataur_5"
+		"Ability15"						"special_bonus_unique_magnataur_6"
+		"Ability16"						"special_bonus_unique_magnataur_7"
+		"Ability17"						"special_bonus_unique_magnataur_8"
+		
+		"Facets"
+		{
+			"magnataur_run_through"					{ "Deprecated"	"true" }
+			"magnataur_reverse_polarity"			{ "Deprecated"	"true" }
+			"magnataur_eternal_empowerment"			{ "Deprecated"	"true" }
+			"magnataur_diminishing_return"			{ "Deprecated"	"true" }
+			"magnataur_reverse_reverse_polarity"	{ "Deprecated"	"true" }
+
+			"magnataur_avenger"
+			{
+				"Icon"					"damage"
+				"Color"					"Red"
+				"GradientID"			"2"
+				
+				"KeyValueOverrides"
+				{
+					"AttributePrimary"				"DOTA_ATTRIBUTE_ALL"
+					"AttributeBaseStrength"			"90"
+					"AttributeStrengthGain"			"6.7"
+					"AttributeBaseAgility"			"90"
+					"AttributeAgilityGain"			"6.7"
+				}
+				
+				"Abilities"
+				{
+					"Ability1"
+					{
+						"AbilityName"		"magnataur_skewer"
+						"AbilityIndex"		"2"
+						"AutoLevelAbility"	"false"
+					}
+				}
+			}
+			"magnataur_guardian"	
+			{
+				"Icon"					"armor"
+				"Color"					"Gray"
+				"GradientID"			"0"
+
+				"KeyValueOverrides"
+				{
+					"AttributePrimary"				"DOTA_ATTRIBUTE_STRENGTH"
+					"AttributeBaseStrength"			"115"
+					"AttributeStrengthGain"			"7.7"
+					"AttributeBaseAgility"			"65"
+					"AttributeAgilityGain"			"5.7"
+				}
+				
+				"Abilities"
+				{
+					"Ability1"
+					{
+						"AbilityName"		"magnataur_horn_toss"
+						"AbilityIndex"		"2"
+						"AutoLevelAbility"	"false"
+					}
+				}
+			}
+		}
 		
 		"BaseTraits"					"brawler,battlecry,enforcer,speedster,arcane"
-		
-		"AttributeBaseStrength"			"115"
-		"AttributeStrengthGain"			"7.7"
-		"AttributeBaseAgility"			"63"
-		"AttributeAgilityGain"			"5.5"
-		"AttributeBaseIntelligence"		"95"
-		"AttributeIntelligenceGain"		"5.7"
+		"AttributeBaseIntelligence"		"90"
+		"AttributeIntelligenceGain"		"6.7"
 	}
 	"npc_dota_hero_shredder"
 	{

@@ -14,15 +14,6 @@ LinkLuaModifier( "modifier_item_sange_and_yasha_2_passive", "items/item_sange_an
 
 function modifier_item_sange_and_yasha_2_passive:OnCreated()
 	self:OnRefresh()
-	
-	if IsServer() then
-		if not self:GetCaster():IsIllusion() and self.aura_radius > 0 then
-			local itemFX = ParticleManager:CreateParticle("particles/econ/events/fall_2021/radiance_owner_fall_2021.vpcf", PATTACH_POINT_FOLLOW, self:GetCaster() )
-			self:AddEffect( itemFX )
-		end
-		
-		self:StartIntervalThink(1)
-	end
 end
 
 function modifier_item_sange_and_yasha_2_passive:OnRefresh()
@@ -31,42 +22,9 @@ function modifier_item_sange_and_yasha_2_passive:OnRefresh()
 	
 	self.movement_speed_percent_bonus = self:GetSpecialValueFor("movement_speed_percent_bonus")
 	self.bonus_attack_speed = self:GetSpecialValueFor("bonus_attack_speed")
-	self.bonus_evasion = self:GetSpecialValueFor("bonus_evasion")
-	self.bonus_damage = self:GetSpecialValueFor("bonus_damage")
 	self.status_resistance = self:GetSpecialValueFor("status_resistance")
-	self.bonus_mana_regen = self:GetSpecialValueFor("bonus_mana_regen")
+	self.slow_resistance = self:GetSpecialValueFor("slow_resistance")
 	self.hp_regen_amp = self:GetSpecialValueFor("hp_regen_amp")
-	
-	self.bonus_mana = self:GetSpecialValueFor("bonus_mana")
-	self.bonus_health = self:GetSpecialValueFor("bonus_health")
-	self.health_per_str = self:GetSpecialValueFor("health_per_str")
-	
-	self.splash_damage = self:GetSpecialValueFor("splash_damage") / 100
-	self.splash_damage_ranged = self:GetSpecialValueFor("splash_damage_ranged") / 100
-	self.cleave_starting_width = self:GetSpecialValueFor("cleave_starting_width")
-	self.cleave_ending_width = self:GetSpecialValueFor("cleave_ending_width")
-	self.cleave_distance = self:GetSpecialValueFor("cleave_distance")
-	
-	self.aura_radius = self:GetSpecialValueFor("aura_radius")
-	self.aura_damage = self:GetAbility():GetSpecialValueFor("aura_damage")
-	self.aura_damage_illusions = self:GetAbility():GetSpecialValueFor("aura_damage_illusions")
-	
-	self.max_stacks = self:GetSpecialValueFor("max_stacks")
-	self.total_duration = self:GetSpecialValueFor("buffer_duration") + self:GetSpecialValueFor("loss_timer")
-end
-
-function modifier_item_sange_and_yasha_2_passive:OnIntervalThink()
-	if not self:GetAbility() or self:GetAbility():IsNull() 
-	or not self:GetCaster() or self:GetCaster():IsNull() 
-	or not self:GetParent() or self:GetParent():IsNull() then 
-		self:Destroy()
-		return
-	end
-	local caster = self:GetCaster()
-	local ability = self:GetAbility()
-	for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), self.aura_radius ) ) do
-		ability:DealDamage( caster, enemy, TernaryOperator( self.aura_damage_illusions, caster:IsIllusion(), self.aura_damage ) )
-	end
 end
 
 function modifier_item_sange_and_yasha_2_passive:DeclareFunctions()
@@ -75,18 +33,12 @@ function modifier_item_sange_and_yasha_2_passive:DeclareFunctions()
 			MODIFIER_PROPERTY_STATS_AGILITY_BONUS,
 			MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE_UNIQUE,
 			MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
-			MODIFIER_PROPERTY_EVASION_CONSTANT,
+			MODIFIER_PROPERTY_STATUS_RESISTANCE_STACKING,
 			MODIFIER_PROPERTY_STATUS_RESISTANCE_STACKING,
 			MODIFIER_PROPERTY_HEAL_AMPLIFY_PERCENTAGE_SOURCE,
 			MODIFIER_PROPERTY_LIFESTEAL_AMPLIFY_PERCENTAGE,
 			MODIFIER_PROPERTY_HP_REGEN_AMPLIFY_PERCENTAGE,
-			MODIFIER_PROPERTY_HEALTH_BONUS,
-			MODIFIER_PROPERTY_MANA_BONUS,
-			MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
-			MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
-			MODIFIER_PROPERTY_MANA_REGEN_CONSTANT,
-			MODIFIER_EVENT_ON_ATTACK,
-			MODIFIER_EVENT_ON_ATTACK_LANDED,
+			MODIFIER_PROPERTY_SLOW_RESISTANCE_STACKING
 	}
 end
 
@@ -151,6 +103,10 @@ function modifier_item_sange_and_yasha_2_passive:GetModifierStatusResistanceStac
 	return self.status_resistance
 end
 
+function modifier_item_sange_and_yasha_2_passive:GetModifierSlowResistance_Stacking()
+	return self.slow_resistance
+end
+
 function modifier_item_sange_and_yasha_2_passive:GetModifierHealAmplify_PercentageSource()
 	return self.hp_regen_amp
 end
@@ -161,22 +117,6 @@ end
 
 function modifier_item_sange_and_yasha_2_passive:GetModifierLifestealRegenAmplify_Percentage()
 	return self.hp_regen_amp
-end
-
-function modifier_item_sange_and_yasha_2_passive:GetModifierHealthBonus()
-	return self.bonus_health + self.health_per_str * self:GetParent():GetStrength()
-end
-
-function modifier_item_sange_and_yasha_2_passive:GetModifierManaBonus()
-	return self.bonus_mana
-end
-
-function modifier_item_sange_and_yasha_2_passive:GetModifierPreAttack_BonusDamage()
-	return self.bonus_damage
-end
-
-function modifier_item_sange_and_yasha_2_passive:GetModifierConstantManaRegen()
-	return self.bonus_mana_regen
 end
 
 function modifier_item_sange_and_yasha_2_passive:IsHidden()

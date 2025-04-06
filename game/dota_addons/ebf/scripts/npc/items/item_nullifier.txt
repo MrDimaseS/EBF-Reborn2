@@ -12,7 +12,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"1990"	
+		"ItemCost"						"0"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -21,7 +21,7 @@
 		"ItemResult"					"item_nullifier_2"
 		"ItemRequirements"
 		{
-			"01"						"item_nullifier;item_helm_of_iron_will;item_relic"
+			"01"						"item_nullifier;item_nullifier"
 		}
 	}
 	
@@ -60,18 +60,18 @@
 		{
 			"bonus_damage"
 			{
-				"value"							"205"
+				"value"							"262"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"bonus_armor"						"6"
+			"bonus_armor"						"10"
 			"bonus_regen"
 			{
-				"value"							"24"
+				"value"							"70"
 				"CalculateAttributeTooltip"		"1"
 			}
 			
-			"duration"					"5.0"
-			"projectile_speed"			"1100"
+			"duration"							"5.0"
+			"projectile_speed"					"1100"
 		}
 	}
 	//=================================================================================================================
@@ -86,7 +86,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"4585"	
+		"ItemCost"						"0"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -95,7 +95,7 @@
 		"ItemResult"					"item_nullifier_3"
 		"ItemRequirements"
 		{
-			"01"						"item_nullifier_2;item_helm_of_iron_will;item_relic"
+			"01"						"item_nullifier_2;item_nullifier_2"
 		}
 	}
 	
@@ -136,16 +136,15 @@
 		{
 			"bonus_damage"
 			{
-				"value"							"375"
+				"value"							"458"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"bonus_armor"						"9"
+			"bonus_armor"						"17"
 			"bonus_regen"
 			{
-				"value"							"44"
+				"value"							"122"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"hard_dispel"						"1"
 			
 			"duration"							"5.0"
 			"projectile_speed"					"1100"
@@ -163,7 +162,7 @@
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"11250"	
+		"ItemCost"						"0"	
 		"ItemShopTags"					""
 		
 		// Recipe
@@ -172,10 +171,9 @@
 		"ItemResult"					"item_nullifier_4"
 		"ItemRequirements"
 		{
-			"01"						"item_nullifier_3;item_black_king_bar;item_helm_of_iron_will;item_relic"
+			"01"						"item_nullifier_3;item_nullifier_3"
 		}
 	}
-
 	//=================================================================================================================
 	// nullifier Of Deity
 	//=================================================================================================================
@@ -213,26 +211,99 @@
 		{
 			"bonus_damage"
 			{
-				"value"							"630"
+				"value"							"801"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"bonus_armor"						"12"
+			"bonus_armor"						"29"
 			"bonus_regen"
 			{
-				"value"							"70"
-				"CalculateAttributeTooltip"		"1"
-			}
-			"bonus_strength"
-			{
-				"value"							"20"
+				"value"							"213"
 				"CalculateAttributeTooltip"		"1"
 			}
 			
-			"duration"					"5.0"
-			"projectile_speed"			"1100"
-			"hard_dispel"				"1"
-			"magic_immune"				"1"
-			"magic_resist"				"50"
+			"duration"							"5.0"
+			"projectile_speed"					"1100"
+			"hard_dispel"						"1"
+			"magic_immune"						"1"
+			"magic_resist"						"50"
+		}
+	}
+	//=================================================================================================================
+	// Recipe: TITAN
+	//=================================================================================================================
+	"item_recipe_nullifier_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_recipe_nullifier"
+		"Model"							"models/props_gameplay/recipe.vmdl"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"	
+		"ItemShopTags"					""
+		
+		// Recipe
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemRecipe"					"1"
+		"ItemResult"					"item_nullifier_5"
+		"ItemRequirements"
+		{
+			"01"						"item_nullifier_4;item_nullifier_4"
+		}
+	}
+	//=================================================================================================================
+	// nullifier Of Deity
+	//=================================================================================================================
+	"item_nullifier_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_nullifier"
+		"AbilityTextureName"			"nullifier/nullifier_5"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_INVULNERABLE | DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+		"FightRecapLevel"				"1"
+		
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"22.0"
+		"AbilityCastRange"				"900"
+		"AbilityManaCost"				"0"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"6200"
+		"ItemShopTags"					"int;hard_to_tag"
+		"ItemQuality"					"rare"
+		"ItemAliases"					"staff;misery;sm"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ShouldBeSuggested"				"1"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage"
+			{
+				"value"							"1401"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_armor"						"51"
+			"bonus_regen"
+			{
+				"value"							"372"
+				"CalculateAttributeTooltip"		"1"
+			}
+			
+			"duration"							"5.0"
+			"projectile_speed"					"1100"
+			"hard_dispel"						"1"
+			"magic_immune"						"1"
+			"magic_resist"						"50"
 		}
 	}
 }

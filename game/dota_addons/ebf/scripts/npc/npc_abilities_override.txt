@@ -195,6 +195,9 @@
 	"item_recipe_gungir"					"REMOVE"
 	"item_recipe_mjollnir"					"REMOVE"
 	"item_recipe_skadi"						"REMOVE"
+	"item_recipe_desolator"					"REMOVE"
+	"item_recipe_solar_crest"				"REMOVE"
+	"item_ghost"							"REMOVE"
 	//=================================================================================================================
 	// Bundle of Madstone
 	//=================================================================================================================
@@ -887,10 +890,10 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_armor"					"7"
+			"bonus_armor"					"4"
 			"bonus_health_regen"
 			{
-				"value"						"6.5"
+				"value"						"20.5"
 				"CalculateAttributeTooltip"	"1"
 			}
 			"bonus_mana_regen"				"2.5"
@@ -2253,8 +2256,8 @@
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"850"
-		"ItemDisassembleRule"				"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		"ItemCost"						"1000"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
 		"ItemShopTags"					"armor;regen_mana;hard_to_tag"
 		"ItemQuality"					"rare"
 		"ItemAliases"					"solar crest"
@@ -2691,82 +2694,93 @@
 			"projectile_speed"					"1100"
 		}
 	}
-	
-	// NEUTRAL ITEMS
 	"item_ring_of_aquila"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_TOGGLE"
-		"AbilityCastRange" 				"1200"
+		"AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_TOGGLE"
+		"AbilityCastRange" 					"1200"
 
-		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		"Model"								"models/props_gameplay/neutral_box.vmdl"
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"0"
-		"ItemShopTags"					""
-		"ItemAliases"					"roa;ring of aquila"
-		"ItemShareability"				""		
-		"ActiveDescriptionLine"			"2"
-		"ItemPurchasable"				"0"
-		"ShouldBeSuggested"				"0"
-		"ItemSellable"					"0"
-		"ItemIsNeutralActiveDrop"				"1"
-		"DisplayOverheadAlertOnReceived" "0"
+		"ItemCost"							"1000"
+		"ItemShopTags"						""
+		"ItemAliases"						"roa;ring of aquila"
+		"ItemShareability"					""		
+		"ActiveDescriptionLine"				"0"
+		"ItemPurchasable"					"1"
+		"ShouldBeSuggested"					"0"
+		"ItemSellable"						"1"
+		"ItemIsNeutralActiveDrop"			"0"
+		"DisplayOverheadAlertOnReceived"	"0"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
 
 		// Sound
 		//-------------------------------------------------------------------------------------------------------------			
-		"UIPickupSound"					"Item.PickUpRingShop"
-		"UIDropSound"					"Item.DropRingShop"
-		"WorldDropSound"				"Item.DropRingWorld"
+		"UIPickupSound"						"Item.PickUpRingShop"
+		"UIDropSound"						"Item.DropRingShop"
+		"WorldDropSound"					"Item.DropRingWorld"
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage"					"0"
-			"bonus_strength"				"0"
-			"bonus_agility"					"15"
-			"bonus_intellect"				"0"
+			"bonus_damage"					"50 87 152 266 465"
+			"bonus_strength"				"10 18 31 54 94"
+			"bonus_agility"					"25 44 77 134 235"
+			"bonus_intellect"				"10 18 31 54 94"
 			"aura_radius"					"1200"
-			"aura_mana_regen"				"4"
-			"aura_bonus_armor"				"4"
+			"aura_mana_regen"				"4 6 8 10 12"
+			"aura_bonus_armor"				"4 6 8 10 12"
 		}		
 	}
-	"item_keen_optic"
+	
+	"item_dagger_of_ristul"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"Model"							"models/props_gameplay/neutral_box.vmdl"
-			
+		"AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"					"30.0"
+
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"0"
-		"ItemIsNeutralActiveDrop"				"1"
-		"DisplayOverheadAlertOnReceived" "0"
-		"ItemPurchasable"				"0"
+		"ItemCost"							"1000"
+		"ActiveDescriptionLine"				"0"
+		"ItemPurchasable"					"1"
+		"ShouldBeSuggested"					"0"
+		"ItemSellable"						"1"
+		"ItemIsNeutralActiveDrop"			"0"
+		"DisplayOverheadAlertOnReceived"	"0"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"aspd"							"15 26 46 80 141"
+			"bonus_damage"
 			{
-				"var_type"				"FIELD_INTEGER"
-				"cast_range_bonus"			"75"
+				"value"						"200 400 600 800 1000"
+				"CalculateAttributeTooltip"	"1"
 			}
-			"02"
+			"duration"						"8"
+			"health_sacrifice"
 			{
-				"var_type"				"FIELD_FLOAT"
-				"bonus_mana_regen"		"1.25"
+				"value"						"1000"
+				"CalculateAttributeTooltip"	"1"
 			}
 		}
 	}
-
-	
-	
+	// NEUTRAL ITEMS
 	//=================================================================================================================
 	// Grove Bow
 	//=================================================================================================================
@@ -2794,9 +2808,6 @@
 			"debuff_duration"				"6"
 		}
 	}
-
-	
-	
 	//=================================================================================================================
 	// Quickening Charm
 	//=================================================================================================================
@@ -4008,42 +4019,6 @@
 			"bonus_armor"					"2"
 		}
 	}
-	//=================================================================================================================
-	// 
-	//=================================================================================================================
-	"item_trusty_shovel"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_CHANNELLED | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
-		"AbilityCastAnimation"			"ACT_DOTA_GENERIC_CHANNEL_1"
-		
-		// Stats
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"250"
-		"AbilityCooldown"				"40.0"
-		"AbilityCastPoint"				"0.1"
-		"AbilityChannelTime"			"1"
-					
-		// Item Info
-		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"0"
-		"ItemIsNeutralActiveDrop"				"1"
-		"ItemPurchasable"				"0"
-
-		"Model"							"models/props_gameplay/neutral_box.vmdl"
-		
-		// Special	
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			"chance_bounty_rune"	"55"
-			"chance_other_item"		"15"
-			"kobold_duration"		"60"
-		}
-	}
-	
-
 	//=================================================================================================================
 	// 
 	//=================================================================================================================
@@ -6669,45 +6644,6 @@
 			"proc_bonus_damage"
 			{
 				"value"						"200"
-				"CalculateAttributeTooltip"	"1"
-			}
-		}
-	}
-	//=================================================================================================================
-	// Mechanical Release
-	//=================================================================================================================
-	"item_dagger_of_ristul"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
-		
-		// Stats
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"30.0"
-
-		// Item Info
-		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"0"
-		"ItemIsNeutralActiveDrop"				"1"
-		"ItemPurchasable"				"0"
-
-		"Model"							"models/props_gameplay/neutral_box.vmdl"
-		
-		// Special	
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			"aspd"							"0"
-			"bonus_damage"
-			{
-				"value"						"200"
-				"CalculateAttributeTooltip"	"1"
-			}
-			"duration"						"8"
-			"health_sacrifice"
-			{
-				"value"						"1000"
 				"CalculateAttributeTooltip"	"1"
 			}
 		}

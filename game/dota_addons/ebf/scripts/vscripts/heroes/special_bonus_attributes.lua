@@ -123,27 +123,58 @@ function special_bonus_attributes:OnInventoryContentsChanged()
 	if not IsEntitySafe( self ) then return end
 	if not IsEntitySafe( self:GetCaster() ) then return end
 	if self:GetCaster():IsFakeHero( ) then return end
+	local parent = self:GetCaster()
+	for i=0, DOTA_STASH_SLOT_6 do
+		local item = parent:GetItemInSlot( i )
+		if IsEntitySafe( item )
+		and item:GetLevel() < item:GetMaxLevel()
+		and not item:IsCombineLocked() 
+		and item:GetPurchaser() == parent then -- item can be upgraded at all
+			local itemType = (item:GetAbilityName():gsub('%W','')):gsub('_','')
+			for i=0, DOTA_STASH_SLOT_6 do
+				local itemToCheck = parent:GetItemInSlot( i )
+				if IsEntitySafe( itemToCheck )
+				and item ~= itemToCheck
+				and not itemToCheck:IsCombineLocked() then
+					local itemToCheckType = (item:GetAbilityName():gsub('%W','')):gsub('_','')
+					if itemToCheckType == itemType
+					and item:GetLevel() == itemToCheck:GetLevel()
+					and itemToCheck:GetPurchaser() == parent then
+						item:UpgradeAbility( false )
+						itemToCheck:Destroy()
+					end
+				end
+			end
+		end
+	end
 	Timers:CreateTimer( function() self:SendUpdatedInventoryContents({unit = self:GetCaster():entindex()}) end )
 end
+
+ITEM_LEVELS = {"COMMON", "SHADOW", "DEMONIC", "DIVINE", "OTHERWORLDLY"}
 
 function special_bonus_attributes:SendUpdatedInventoryContents( info )
 	if IsEntitySafe( self ) and not self.stopUnnecessaryUpdates and IsEntitySafe( self:GetCaster() ) then
 		self.stopUnnecessaryUpdates = true
 		local inventory = {}
 		for i = 0, 8 do
-			if self:GetCaster():GetItemInSlot(i) then
-				inventory[i] = self:GetCaster():GetItemInSlot(i):GetAbilityKeyValues()
+			local item = self:GetCaster():GetItemInSlot(i)
+			if IsEntitySafe(item) then
+				inventory[i] = item:GetAbilityKeyValues()
+				inventory[i].AbilityTier = (#ITEM_LEVELS - item:GetMaxLevel()) + item:GetLevel()
+				inventory[i].AbilityTierDescription = ITEM_LEVELS[inventory[i].AbilityTier]
 			else
 				inventory[i] = -1
 			end
 		end
-		if self:GetCaster():GetItemInSlot(DOTA_ITEM_NEUTRAL_ACTIVE_SLOT) then
-			inventory[9] = self:GetCaster():GetItemInSlot(DOTA_ITEM_NEUTRAL_ACTIVE_SLOT):GetAbilityKeyValues()
+		local artifact = self:GetCaster():GetItemInSlot(DOTA_ITEM_NEUTRAL_ACTIVE_SLOT)
+		if IsEntitySafe(artifact) then
+			inventory[9] = artifact:GetAbilityKeyValues()
 		else
 			inventory[9] = -1
 		end
-		if self:GetCaster():GetItemInSlot(DOTA_ITEM_NEUTRAL_PASSIVE_SLOT) then
-			inventory[10] = self:GetCaster():GetItemInSlot(DOTA_ITEM_NEUTRAL_PASSIVE_SLOT):GetAbilityKeyValues()
+		local enchantment = self:GetCaster():GetItemInSlot(DOTA_ITEM_NEUTRAL_PASSIVE_SLOT)
+		if IsEntitySafe(enchantment) then
+			inventory[10] = enchantment:GetAbilityKeyValues()
 		else
 			inventory[10] = -1
 		end

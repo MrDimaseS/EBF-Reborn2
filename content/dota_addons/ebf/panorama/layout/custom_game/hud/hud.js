@@ -550,14 +550,49 @@ function UpdateItemTooltip(panel, unit, itemSlot) {
 	const tooltipManager = dotaHud.FindChildTraverse('Tooltips');
 	const tooltipPanel = tooltipManager.FindChildTraverse('DOTAAbilityTooltip');
 	const abilityDetails = tooltipPanel.FindChildTraverse('AbilityCoreDetails');
+	const abilityHeader = tooltipPanel.FindChildTraverse('Header');
 	const abilityAttributes = tooltipPanel.FindChildTraverse('AbilityAttributes');
 
 	unitWeAreChecking = unit
 	abilityIndexWeAreChecking = itemSlot
 	abilityAttributes.style.visibility = 'collapse'
-
+	
 	let finalTextToken = ""
 	if (panel.inventoryData == undefined && panel.inventoryData.AbilityValues == undefined) { return }
+	
+	if( abilityHeader != undefined ){
+		let abilityImage = abilityHeader.FindChildTraverse('ItemImage');
+		let abilityTier = abilityHeader.FindChildTraverse('ItemSubtitle');
+		let abilitySellPrice = abilityDetails.FindChildTraverse('SellPriceLabel');
+		if(abilityImage != undefined && abilityTier != undefined){
+			let boxShadow = "inset 0px -10px 20px 1px";
+			if(panel.inventoryData.AbilityTier==1){
+				boxShadow = boxShadow + " #A9A9A911";
+				abilityTier.text = "Common";
+				abilitySellPrice.text = "Sell Price: 500"
+			} else if (panel.inventoryData.AbilityTier==2){
+				boxShadow = boxShadow + " #00008B55";
+				abilityTier.text = "Shadow";
+				abilitySellPrice.text = "Sell Price: 1000"
+			} else if (panel.inventoryData.AbilityTier==3){
+				boxShadow = boxShadow + " #77000066";
+				abilityTier.text = "Demonic";
+				abilitySellPrice.text = "Sell Price: 2000"
+			} else if (panel.inventoryData.AbilityTier==4){
+				boxShadow = boxShadow + " #B5941033";
+				abilityTier.text = "Divine";
+				abilitySellPrice.text = "Sell Price: 4000"
+			} else if (panel.inventoryData.AbilityTier==5){
+				boxShadow = boxShadow + " #7c2f6688";
+				abilityTier.text = "Otherworldly";
+				abilitySellPrice.text = "Sell Price: 8000"
+			} else {
+				boxShadow = null;
+			}
+			abilityImage.style.boxShadow = boxShadow 
+		}
+	}
+	
 	for (const key in panel.inventoryData.AbilityValues) {
 		let localeToken = "#DOTA_Tooltip_Ability_" + item_name + "_" + key
 		let localizedToken = $.Localize(localeToken)
@@ -580,24 +615,41 @@ function UpdateItemTooltip(panel, unit, itemSlot) {
 			if (!specialValue) {
 				specialValue = panel.inventoryData.AbilityValues[key]
 			}
-			if (specialValue != "0") {
-				if (attributeType) {
-					attributeType = true
-					finalTextToken = finalTextToken + '+ '
-				}
-				specialValue = Math.floor(specialValue * 100 + 0.5) / 100
-				let realValue = Math.floor(Abilities.GetSpecialValueFor(item, key) * 100 + 0.5) / 100
-				let font_colour = "#EEEEEE"
-				if (realValue != specialValue) { font_colour = "#3ed038" };
-				finalTextToken = finalTextToken + "<b><font color='" + font_colour + "'>" + realValue
-				if (percentageType) {
-					finalTextToken = finalTextToken + '%' + "</font></b>";
-				} else {
-					finalTextToken = finalTextToken + "</font></b>";
-				}
-				finalTextToken = finalTextToken + " " + localizedToken;
-				finalTextToken = finalTextToken + '<br>'
+			let specialValues = specialValue.split(" ");
+			
+			let tmpTextToken = ""
+			if (attributeType) {
+				attributeType = true
+				tmpTextToken = tmpTextToken + '+ '
 			}
+			for(i=0;i<specialValues.length;i++){
+				let tmpSpecialValue = specialValues[i]
+				let activeValue = i == Abilities.GetLevel(item)-1
+				if (tmpSpecialValue != "0") {
+					tmpSpecialValue = Math.floor(tmpSpecialValue * 100 + 0.5) / 100
+					let realValue = Math.floor(Abilities.GetLevelSpecialValueFor(item, key, i) * 100 + 0.5) / 100
+					let font_colour = "#454552"
+					if (realValue != tmpSpecialValue) { font_colour = "#3ed038" };
+					if(activeValue){
+						font_colour = "#EEEEEE"
+						tmpTextToken = tmpTextToken + '<b>'
+					}
+					tmpTextToken = tmpTextToken + "<font color='" + font_colour + "'>" + realValue
+					
+					if (percentageType) {tmpTextToken = tmpTextToken + '%';}
+					
+					tmpTextToken = tmpTextToken + "</font>";
+					if(activeValue){tmpTextToken = tmpTextToken + '</b>'}
+					if(i+1<specialValues.length){
+						tmpTextToken = tmpTextToken + " / "
+					}
+				} else {
+					
+				}
+			}
+			finalTextToken = finalTextToken + tmpTextToken + " " + localizedToken;
+			finalTextToken = finalTextToken + '<br>';
+			$.Msg( finalTextToken )
 		}
 	}
 	if (finalTextToken != "") {
@@ -782,10 +834,26 @@ function RegisterInventoryData(data) {
 				let inventorySlotPanel = dotaHud.FindChildTraverse("inventory_slot_" + i);
 				let inventorySlotButton = inventorySlotPanel.FindChildTraverse("AbilityButton");
 				inventorySlotButton.inventoryData = null;
+				let boxShadow = "inset 0px -10px 20px 1px";
+				if(data.inventory[i].AbilityTier==1){
+					boxShadow = boxShadow + " #A9A9A911";
+				} else if (data.inventory[i].AbilityTier==2){
+					boxShadow = boxShadow + " #00008B55";
+				} else if (data.inventory[i].AbilityTier==3){
+					boxShadow = boxShadow + " #77000066";
+				} else if (data.inventory[i].AbilityTier==4){
+					boxShadow = boxShadow + " #B5941033";
+				} else if (data.inventory[i].AbilityTier==5){
+					boxShadow = boxShadow + " #7c2f6688";
+				} else {
+					boxShadow = null;
+				}
+				inventorySlotButton.style.boxShadow = boxShadow 
 				inventorySlotButton.inventoryData = data.inventory[i]
 			} else {
 				let inventoryNeutralPanel = dotaHud.FindChildTraverse("inventory_neutral_slot");
 				let inventorySlotButton = inventoryNeutralPanel.FindChildTraverse("AbilityButton");
+				inventorySlotButton.style.boxShadow = null;
 				inventorySlotButton.inventoryData = null;
 				inventorySlotButton.inventoryData = data.inventory[i]
 			}

@@ -47,6 +47,7 @@ end
 item_nullifier_2 = class(item_nullifier)
 item_nullifier_3 = class(item_nullifier)
 item_nullifier_4 = class(item_nullifier)
+item_nullifier_5 = class(item_nullifier)
 
 modifier_item_nullifier_dispel = class({})
 LinkLuaModifier( "modifier_item_nullifier_dispel", "items/item_nullifier.lua" ,LUA_MODIFIER_MOTION_NONE )

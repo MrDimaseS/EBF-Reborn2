@@ -8,7 +8,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"		
+		"MaxLevel"						"4"		
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_CHANNELLED |DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
@@ -19,7 +19,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"500"
 		"AbilityCastPoint"				"0.4"
-		"AbilityCooldown"				"40.0 36.0 32.0 26.0 23.0 19.9 16.9"
+		"AbilityCooldown"				"40 30 20 10"
 		"AbilityChannelTime"			"10.0"
 		"AbilityManaCost"				"100"
 
@@ -29,7 +29,7 @@
 		{
 				"duration"						"15.0" 
 				"linger_duration"				"5.0"
-				"tornado_base_movespeed"		"125 140 155 170 185 200 215"
+				"tornado_base_movespeed"		"125 150 175 200"
 	
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -43,7 +43,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_VECTOR_TARGETING | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
@@ -53,9 +53,9 @@
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"400 500 600 750"
+		"AbilityCastRange"				"400 500 600 700"
 		"AbilityCastPoint"				"0"
-		"AbilityCooldown"				"30.0 28.0 26.0 22.0 20.0 18.1 16.1"
+		"AbilityCooldown"				"30 25 20 15"
 		"AbilityManaCost"				"100"
 
 		// Special
@@ -65,7 +65,7 @@
 			"01" 
 			{
 				"var_type"				"FIELD_INTEGER"
-				"distance"				"400"
+				"distance"				"400 500 600 700"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -79,7 +79,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 
 		// Stats
@@ -93,7 +93,7 @@
 			"01" 
 			{
 				"var_type"				"FIELD_INTEGER"
-				"duration"				"3.0 3.5 4.0 4.5 5.0 5.5 6.0"
+				"duration"				"2.5 3.0 3.5 4.0"
 			}
 		}
 	}
@@ -106,7 +106,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 
 		// Special
@@ -116,12 +116,12 @@
 			"01"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"bonus_armor"		"3 5 7 9 11 13 15"
+				"bonus_armor"		"3 6 9 12"
 			}
 			"02"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"radius"			"1200"
+				"radius"			"600 800 1000 1200"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -134,7 +134,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 
 		// Special
@@ -144,12 +144,12 @@
 			"01"
 			{
 				"var_type"			"FIELD_FLOAT"
-				"bonus_hp"			"15 16 17 18 19 20 21"
+				"bonus_hp"			"15 17 19 21"
 			}
 			"02"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"radius"			"1200"
+				"radius"			"600 800 1000 1200"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -163,29 +163,21 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"bash_chance"						"5 10 15 20"
+			"bonus_damage"
 			{
-				"var_type"			"FIELD_INTEGER"
-				"bash_chance"		"7"
+				"value"							"500 1000 1500 2000"
+				"CalculateSpellDamageTooltip"	"1"
 			}
-			"02"
-			{
-				"var_type"			"FIELD_INTEGER"
-				"bonus_damage"		"500 625 795 980 1180 1515 2085"
-			}
-			"03"
-			{
-				"var_type"			"FIELD_FLOAT"
-				"stun_duration"		"1.0"
-			}
+			"stun_duration"						"1.0"
 		}
 	}
 
@@ -197,7 +189,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 
@@ -210,29 +202,21 @@
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"350 400 450 500 550 600 650"
+		"AbilityCastRange"				"300 400 500 600"
 		"AbilityCastPoint"				"0.2"
 		"AbilityCooldown"				"3.0"
-		"AbilityManaCost"				"120 115 110 100 95 90 85"
+		"AbilityManaCost"				"100"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"purge_rate"						"5"
+			"duration"							"4.0 5.0 6.0 7.0"
+			"summon_damage"
 			{
-				"var_type"				"FIELD_INTEGER"
-				"purge_rate"			"5"
-			}
-			"02"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"duration"				"5.0"
-			}
-			"03"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"summon_damage"			"400"
+				"value"							"4000 8000 12000 16000"
+				"CalculateSpellDamageTooltip"	"1"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -246,7 +230,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"Modelscale" 					".85"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
@@ -258,16 +242,16 @@
 		
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"600"
+		"AbilityCastRange"				"400 500 600 700"
 		"AbilityCastPoint"				"0.3"
-		"AbilityCooldown"				"18.0"
+		"AbilityCooldown"				"15 12 9 6"
 		"AbilityManaCost"				"50"
 				
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"burn_amount"			"100 150 200 250 300 350 400"
+			"burn_amount"			"100 200 300 400"
 			"int_multiplier"		"0"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -281,7 +265,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_POINT"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 
@@ -295,7 +279,7 @@
 		"AbilityCastRange"				"700"
 		"AbilityCastPoint"				"0.5"
 		"AbilityCooldown"				"8.0"
-		"AbilityDamage"					"2260 3035 3690 4675 6650 9950 13500"
+		"AbilityDamage"					"1500 3000 4500 6000"
 		"AbilityManaCost"				"100"
 
 		// Special
@@ -318,23 +302,19 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"health_regen"
 			{
-				"var_type"			"FIELD_FLOAT"
-				"health_regen"		"35 50 65 115 215 420 680"
+				"value"							"30 60 90 120"
+				"CalculateSpellHealTooltip"		"1"
 			}
-			"02"
-			{
-				"var_type"			"FIELD_INTEGER"
-				"radius"			"1200"
-			}
+			"radius"							"600 800 1000 1200"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -347,7 +327,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK | DOTA_ABILITY_BEHAVIOR_AUTOCAST"
 
 		// Unit Targeting
@@ -357,19 +337,19 @@
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"350 375 400 450 500 550 600"
+		"AbilityCastRange"				"300 400 500 600"
 		"AbilityCastPoint"				"0.5"
-		"AbilityCooldown"				"10 9 8 7 6 5 4"
+		"AbilityCooldown"				"8 6 4 2"
 		"AbilityManaCost"				"60"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"health"
 			{
-				"var_type"			"FIELD_INTEGER"
-				"health"			"1780 2530 3100 3545 4730 5870 7780"
+				"value"							"800 1200 1600 2000"
+				"CalculateSpellHealTooltip"		"1"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -383,7 +363,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_TOGGLE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
 		
 
@@ -400,7 +380,7 @@
 			"01"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"move_speed_penalty"	"50 40 30 20 10 0 -10"
+				"move_speed_penalty"	"30 0 -30 -60"
 			}
 			"02"
 			{
@@ -419,7 +399,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		
 
@@ -430,17 +410,17 @@
 			"01"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"bonus_aspd"		"100 150 200 250 300 350 400"
+				"bonus_aspd"		"100 150 200 250"
 			}
 			"02"
 			{
 				"var_type"			"FIELD_FLOAT"
-				"duration"	"5"
+				"duration"	"4.5 5.0 5.5 6.0"
 			}
 			"03"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"radius"	"700"
+				"radius"	"600 800 1000 1200"
 			}
 		}
 	}
@@ -453,7 +433,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		
 
@@ -464,17 +444,17 @@
 			"01"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"bonus_dmg_pct"		"50 75 100 125 150 175 200"
+				"bonus_dmg_pct"		"50 75 100 125"
 			}
 			"02"
 			{
 				"var_type"			"FIELD_FLOAT"
-				"duration"			"5"
+				"duration"			"4.5 5.0 5.5 6.0"
 			}
 			"03"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"radius"			"700"
+				"radius"			"600 800 1000 1200"
 			}
 		}
 	}
@@ -487,7 +467,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		
 
@@ -498,12 +478,12 @@
 			"01"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"gpm_aura"	"20 25 30 35 40 45 50"
+				"gpm_aura"			"50 100 150 200"
 			}
 			"02"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"radius"	"1200"
+				"radius"			"600 800 1000 1200"
 			}
 		}
 	}
@@ -515,7 +495,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 
@@ -526,40 +506,24 @@
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"900"
+		"AbilityCastRange"				"600 700 800 900"
 		"AbilityCastPoint"				"0.3"
-		"AbilityCooldown"				"4.0"
+		"AbilityCooldown"				"5.0 4.5 4.0 3.5"
 		"AbilityManaCost"				"50"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
+		"AbilityValues"
+		{	
+			"initial_damage"
 			{
-				"var_type"				"FIELD_INTEGER"
-				"initial_damage"		"1565 2055 2595 4000 6775 12050 18750"
+				"value"							"1500 2000 2500 3000"
+				"CalculateSpellDamageTooltip"	"1"
 			}
-			"02"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"jump_range"			"500"
-			}
-			"03"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"jump_delay"			"0.25"
-			}
-			"04"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"damage_percent_loss"	"25.0 20.0 15.0 10.0 5 0 -5"
-			}
-			"05"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"max_targets"			"4"
-			}
+			"jump_range"						"400 500 600 700"
+			"jump_delay"						"0.3 0.25 0.2 0.15"
+			"damage_percent_loss"				"20.0"
+			"max_targets"						"4 5 6 7"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -574,7 +538,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		
@@ -585,17 +549,17 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"speed_bonus"			"25"
+				"speed_bonus"			"25 35 45 55"
 			}
 			"02"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"accuracy"				"40 43 46 49 52 55 58"
+				"accuracy"				"40 50 60 70"
 			}
 			"03"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"radius"				"1200"
+				"radius"				"600 800 1000 1200"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -609,7 +573,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 
 		// Special
@@ -619,12 +583,12 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"bonus_armor"			"3 6 9 12 15 18 21"
+				"bonus_armor"			"3 6 9 12"
 			}
 			"02"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"radius"					"1200"
+				"radius"				"600 800 1000 1200"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
@@ -640,7 +604,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
@@ -649,12 +613,12 @@
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"1000"
-		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
+		"AbilityCastRange"				"600 800 1000 1200"
+		"AbilityCastPoint"				"0.3"
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"15"
+		"AbilityCooldown"				"19 16 13 10"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -662,28 +626,21 @@
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"radius"
 			{
-				"var_type"			"FIELD_INTEGER"
-				"radius"			"300"
+				"value"							"250 300 350 400"
+				"affected_by_aoe_increase"		"1"
 			}
-			"02"
+			"radius"							"250 300 350 400"
+			"damage"
 			{
-				"var_type"			"FIELD_INTEGER"
-				"damage"			"950 1185 1390 1850 2635 3950 5455"
+				"value"							"1000 1500 2000 2500"
+				"CalculateSpellDamageTooltip"	"1"
 			}
-			"03"
-			{
-				"var_type"			"FIELD_FLOAT"
-				"duration"			"8.0 9 10 11 12 13"
-			}
-			"04"
-			{
-				"var_type"			"FIELD_FLOAT"
-				"burn_interval"			"0.5"
-			}
+			"duration"							"7.0 8.0 9.0 10.0"
+			"burn_interval"						"0.5"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}	
@@ -696,7 +653,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 
 		// Special
@@ -706,17 +663,17 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"bonus_magical_armor"	"10 12 14 16 18 20 22"
+				"bonus_magical_armor"	"10 15 20 25"
 			}	
 			"02"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"bonus_magical_armor_creeps"	"20 24 28 32 36 40 44"
+				"bonus_magical_armor_creeps"	"20 30 40 50"
 			}
 			"03"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"radius"					"1200"
+				"radius"					"600 800 1000 1200"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -729,28 +686,20 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"lifesteal"							"8 10 12 14"
+			"hp_regen"
 			{
-				"var_type"				"FIELD_INTEGER"
-				"lifesteal"				"10 11 12 13 14 15 16"
+				"value"							"100 150 200 250"
+				"CalculateSpellHealTooltip"		"1"
 			}
-			"02"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"hp_regen"				"105 125 140 175 235 325 420"
-			}
-			"03"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"radius"	"1200"
-			}
+			"radius"							"600 800 1000 1200"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -762,7 +711,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
@@ -770,8 +719,8 @@
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.3"
-		"AbilityCooldown"				"6.0"
-		"AbilityDamage"					"2800 3475 4100 5450 7750 11615 16050"
+		"AbilityCooldown"				"6.0 5.5 5.0 4.5"
+		"AbilityDamage"					"1500 2000 2500 3000"
 		"AbilityManaCost"				"150"
 		
 		// Special
@@ -781,27 +730,27 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"radius"				"350"
+				"radius"				"300 350 400 450"
 			}
 			"02"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"movespeed_slow"		"-60"
+				"movespeed_slow"		"-40 -50 -60 -70"
 			}
 			"03"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"attack_slow_tooltip"	"-60"
+				"attack_slow_tooltip"	"-40 -50 -60 -70"
 			}
 			"04"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"non_hero_duration"		"4.0"
+				"non_hero_duration"		"4.0 5.0 6.0 7.0"
 			}
 			"05"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"hero_duration"			"2.0 2.25 2.5 2.75 3.0 3.25 3.5"
+				"hero_duration"			"2.0 2.5 3.0 3.5"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
@@ -815,7 +764,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
@@ -823,7 +772,7 @@
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"900"
+		"AbilityCastRange"				"1200"
 		"AbilityCastPoint"				"0.0"
 		"AbilityCooldown"				"8.0"
 		"AbilityManaCost"				"75"
@@ -835,12 +784,12 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"attackspeed_bonus"		"75 100 125 150 175 200 225"
+				"attackspeed_bonus"		"50 100 150 200"
 			}
 			"02"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"duration"				"8.0"
+				"duration"				"6.0"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -854,7 +803,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"				"7"
+		"MaxLevel"				"4"
 		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"		
 
 		// Special
@@ -864,12 +813,12 @@
 			"01"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"mana_regen"			"1.75 2.0 2.25 2.5 2.75 3.25 5.0"
+				"mana_regen"			"2.0 4.0 6.0 8.0"
 			}
 			"02"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"radius"				"1200"
+				"radius"				"600 800 1000 1200"
 			}
 			"03"
 			{
@@ -888,7 +837,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"				"1"
+		"MaxLevel"				"4"
 		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"		
 
 		// Special
@@ -898,12 +847,12 @@
 			"01"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"heal_amp"				"15"
+				"heal_amp"				"15 20 25 30"
 			}
 			"02"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"radius"				"1200"
+				"radius"				"600 800 1000 1200"
 			}
 		}
 	}
@@ -912,7 +861,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"				"7"
+		"MaxLevel"				"4"
 		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"		
 
 		// Special
@@ -922,12 +871,12 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"bonus_movement_speed"	"12 13 14 15 16 17 18"
+				"bonus_movement_speed"	"10 15 20 25"
 			}
 			"02"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"radius"				"1200"
+				"radius"				"600 800 1000 1200"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -941,7 +890,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"				"7"
+		"MaxLevel"				"4"
 		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"		
 
 		// Special
@@ -951,12 +900,12 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"bonus_attack_speed"	"15 25 35 45 55 65 75"
+				"bonus_attack_speed"	"15 30 45 60"
 			}
 			"02"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"radius"				"1200"
+				"radius"				"600 800 1000 1200"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -970,7 +919,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
@@ -978,8 +927,8 @@
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.4"
-		"AbilityCooldown"				"12.0"
-		"AbilityDamage"					"355 595 900 1825 4605 10790 19090"
+		"AbilityCooldown"				"12.0 10.0 8.0 6.0"
+		"AbilityDamage"					"500 1000 1500 2000"
 		"AbilityManaCost"				"50"
 		
 		// Special
@@ -989,17 +938,17 @@
 			"01"
 			{
 				"var_type"						"FIELD_INTEGER"
-				"radius"						"250"
+				"radius"						"200 250 300 350"
 			}
 			"02"
 			{
 				"var_type"						"FIELD_FLOAT"
-				"non_hero_stun_duration"		"3.0"
+				"non_hero_stun_duration"		"3.0 3.5 4.0 4.5"
 			}
 			"03"
 			{
 				"var_type"						"FIELD_FLOAT"
-				"hero_stun_duration"			"1.6"
+				"hero_stun_duration"			"1.5 1.8 2.1 2.4"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -1013,7 +962,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_CAN_SELF_CAST | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
@@ -1022,18 +971,22 @@
 		
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastPoint"				"2.8"
-		"AbilityCooldown"				"12.0"
+		"AbilityCastPoint"				"2.8 2.6 2.4 2.2"
+		"AbilityCooldown"				"12.0 11.0 10.0 9.0"
 		"AbilityManaCost"				"0"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"radius"						"200 210 220 230 240 250 260"
-			"damage"						"2235 2920 3650 5810 10435 19725 32100"
-			"damage_pct"					"8"
-			"hero_stun_duration"			"2.4"
+			"radius"							"200 225 250 275"
+			"damage"
+			{
+				"value"							"1500 2000 2500 3000"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"damage_pct"						"6 7 8 9"
+			"hero_stun_duration"				"2.0 2.25 2.5 2.75"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -1044,7 +997,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
@@ -1052,7 +1005,7 @@
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.2"
-		"AbilityCooldown"				"16.0"
+		"AbilityCooldown"				"16.0 14.0 12.0 10.0"
 		"AbilityManaCost"				"50"
 		
 		// Special
@@ -1062,17 +1015,17 @@
 			"01"
 			{
 				"var_type"						"FIELD_INTEGER"
-				"radius"						"300 350 400 450 500 550 600"
+				"radius"						"300 400 500 600"
 			}
 			"02"
 			{
 				"var_type"						"FIELD_INTEGER"
-				"damage_reduction"				"50"
+				"damage_reduction"				"30 40 50 60"
 			}
 			"03"
 			{
 				"var_type"						"FIELD_FLOAT"
-				"duration"			"4.0"
+				"duration"						"3.0 3.5 4.0 4.5"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -1086,7 +1039,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"				"7"		
+		"MaxLevel"				"4"		
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
@@ -1094,14 +1047,14 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 
 		"AbilityCastRange"		"600"
-		"AbilityCooldown"		"15 13 11 9 7.8 6.6 5.4"
+		"AbilityCooldown"		"15 13 11 9"
 		"AbilityManaCost"		"75"
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"projectile_speed"	"500 600 700 800 900 1000 1100"
-			"duration"				"3"
+			"projectile_speed"		"400 550 700 850"
+			"duration"				"3 4 5 6"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -1114,24 +1067,19 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"				"7"
+		"MaxLevel"				"4"
 		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"		
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"damage_bonus"
 			{
-				"var_type"				"FIELD_INTEGER"
-				"radius"				"1200"
+				"value"							"50 100 150 200"
+				"CalculateAttackDamageTooltip"	"1"
 			}
-			"02"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"damage_bonus"			"55 65 80 95 105 125 165"
-			}
-			
+			"radius"							"600 800 1000 1200"
 		}
 	}
 
@@ -1143,9 +1091,9 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"				"1"
+		"MaxLevel"				"4"
 		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"		
-		"AbilityCooldown"		"10 9 8 7 6.3 5.6 4.9"
+		"AbilityCooldown"		"10 9 8 7"
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -1153,7 +1101,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"duration"				"3.0"
+				"duration"				"2.5 3.0 3.5 4.0"
 			}						
 		}
 	}
@@ -1166,7 +1114,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
@@ -1174,33 +1122,21 @@
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.4"
-		"AbilityCooldown"				"12.0"
+		"AbilityCooldown"				"12.0 11.0 10.0 9.0"
 		"AbilityManaCost"				"100"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"radius"							"300 400 500 600"
+			"damage"
 			{
-				"var_type"						"FIELD_INTEGER"
-				"radius"						"300"
+				"value"							"1500 2000 2500 3000"
+				"CalculateSpellDamageTooltip"	"1"
 			}
-			"02"
-			{
-				"var_type"						"FIELD_INTEGER"
-				"damage"						"2825 3795 4610 5840 8310 12450 16900"
-			}
-			"03"
-			{
-				"var_type"						"FIELD_FLOAT"
-				"duration"						"6.0"
-			}
-			"04"
-			{
-				"var_type"						"FIELD_INTEGER"
-				"armor_reduction_pct"			"50"
-			}
+			"duration"							"4.0 4.5 5.0 5.5"
+			"armor_reduction_pct"				"30 40 50 60"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -1215,7 +1151,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.		
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AUTOCAST | DOTA_ABILITY_BEHAVIOR_ATTACK"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
@@ -1225,23 +1161,19 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"15"
+		"AbilityCooldown"				"15 14 13 12"
 		"AbilityCastRange"				"150"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{		
-			"01"
+			"damage"
 			{
-				"var_type"			"FIELD_FLOAT"
-				"duration"			"2.0"
-			}			
-			"02"
-			{
-				"var_type"			"FIELD_INTEGER"
-				"damage"			"1405 2110 2750 3320 4730 6290 8970"
-			}			
+				"value"							"1200 1800 2400 3000"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"duration"							"2.0 2.5 3.0 3.5"	
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -1254,35 +1186,23 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"damage_per_second"
 			{
-				"var_type"						"FIELD_INTEGER"
-				"damage_per_second"				"95 280 615 1240 3490 6825 13970"
+				"value"							"200 400 600 800"
+				"CalculateSpellDamageTooltip"	"1"
 			}
-			"02"
-			{
-				"var_type"						"FIELD_FLOAT"
-				"non_hero_duration"				"20.0"
-			}
-			"03"
-			{
-				"var_type"						"FIELD_FLOAT"
-				"hero_duration"					"2.0"
-			}
-			"04"
-			{
-				"var_type"						"FIELD_INTEGER"
-				"regen_reduction"				"70 75 80 85 90 95 100"
-			}
+			"non_hero_duration"					"20.0 30.0 40.0 50.0"
+			"hero_duration"						"2.0 2.5 3.0 3.5"
+			"regen_reduction"					"70 80 90 100"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -1295,7 +1215,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
@@ -1307,17 +1227,17 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"movespeed_slow"		"-22 -25 -28 -31 -34 -37 -40"
+				"movespeed_slow"		"-20 -25 -30 -35"
 			}
 			"02"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"attackspeed_slow"		"-22 -25 -28 -31 -34 -37 -40"
+				"attackspeed_slow"		"-40 -50 -60 -70"
 			}			
 			"03"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"duration"				"1.5"
+				"duration"				"1.5 2.0 2.5 3.0"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -1331,7 +1251,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
@@ -1339,8 +1259,8 @@
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.4"
-		"AbilityCooldown"				"12.0 11.0 10.0 9.0 8.3 7.5 6.8"
-		"AbilityDamage"					"2120 3090 4110 6265 11820 23160 37550"
+		"AbilityCooldown"				"12.0 11.0 10.0 9.0"
+		"AbilityDamage"					"1500 2000 2500 3000"
 		"AbilityManaCost"				"50"
 		
 		// Special
@@ -1350,22 +1270,22 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"radius"				"300"
+				"radius"				"300 350 400 450"
 			}
 			"02"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"movespeed_slow"		"-25"
+				"movespeed_slow"		"-25 -30 -35 -40"
 			}
 			"03"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"attackspeed_slow"		"-25"
+				"attackspeed_slow"		"-25 -35 -45 -55"
 			}
 			"04"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"duration"				"3.0"
+				"duration"				"2.5 3.0 3.5 4.0"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -1378,7 +1298,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 
@@ -1389,8 +1309,8 @@
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"800"
-		"AbilityCastPoint"				"0.56"
+		"AbilityCastRange"				"600 800 1000 1200"
+		"AbilityCastPoint"				"0.5"
 		"AbilityCooldown"				"5.0"
 		"AbilityManaCost"				"40"
 
@@ -1401,22 +1321,22 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"armor_bonus"			"4 5 6 7 8 9 10"
+				"armor_bonus"			"4 6 8 10"
 			}
 			"02"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"duration"				"45.0"
+				"duration"				"45.0 60.0 75.0 90.0"
 			}
 			"03"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"movespeed_slow"		"-22 -24 -26 -30 -34 -38 -42"
+				"movespeed_slow"		"-20 -25 -30 -35"
 			}
 			"04"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"attackspeed_slow"		"-22 -24 -26 -30 -34 -38 -42"
+				"attackspeed_slow"		"-20 -25 -30 -35"
 			}
 			"05"
 			{
@@ -1435,7 +1355,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 
@@ -1447,9 +1367,9 @@
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"550 625 700 775 850 925 1000"
+		"AbilityCastRange"				"500 600 700 800"
 		"AbilityCastPoint"				"0.3"
-		"AbilityCooldown"				"15.0"
+		"AbilityCooldown"				"15.0 14.0 13.0 12.0"
 		"AbilityManaCost"				"75"
 
 		// Special
@@ -1459,7 +1379,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"duration"				"1.75"
+				"duration"				"1.75 2.0 2.25 2.5"
 			}
 			"02"
 			{
@@ -1478,23 +1398,23 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0.3"
-		"AbilityCooldown"				"20.0"
+		"AbilityCooldown"				"25.0"
 		"AbilityManaCost"				"50"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"				"35.0"
-			"skeletons_created"		"3"
-			"skeletons_health"		"250 275 300 325 350 375 400"
-			"skeletons_damage"		"12 15 18 21 24 27 30"
+			"duration"				"25.0"
+			"skeletons_created"		"2 3 4 5"
+			"skeletons_health"		"250 350 450 550"
+			"skeletons_damage"		"15 30 45 60"
 
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -1508,20 +1428,20 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 	
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"radius"				"250"
+			"radius"				"250 300 350 400"
 			"duration"					"2"
-			"movespeed"				"-25"
-			"shard_health"				"250 280 310 340 370 400 430"
-			"shard_damage"				"12 16 20 24 28 32 36"
+			"movespeed"				"-25 -50 -75 -100"
+			"shard_health"				"250 350 450 550"
+			"shard_damage"				"15 30 45 60"
 			"shard_duration"				"60"
-			"shard_amount"						"2 2 3 3 4 4 5"
+			"shard_amount"						"2 3 4 5"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -1538,13 +1458,13 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"15"
-		"AbilityCastRange"				"575"
+		"AbilityCooldown"				"15 14 13 12"
+		"AbilityCastRange"				"500 600 700 800"
 		"AbilityCastPoint"				"0.2"
 		"AbilityManaCost"				"100"
 
@@ -1552,12 +1472,16 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{		
-			"damage"			"1120 1390 1635 2175 3100 4650 6425"
-			"bounces"			"4 6 8 10 12 14 16"
-			"bounce_range"			"500"
+			"damage"
+			{
+				"value"							"900 1200 1500 1800"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"bounces"				"4 6 8 10"
+			"bounce_range"			"500 600 700 800"
 			"duration"				"1"
 			"slow"					"100"
-			"bounce_delay"			"0.3"
+			"bounce_delay"			"0.3 0.25 0.2 0.15"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -1577,13 +1501,13 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 
-		"AbilityCastRange"				"800"
+		"AbilityCastRange"				"700 800 900 1000"
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"30"
+		"AbilityCooldown"				"30 25 20 15"
 		"AbilityCastPoint"				"0.3"
 
 		// Cost
@@ -1594,9 +1518,13 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"damage"					"1405 2110 2735 3320 4725 6290 8970"
-			"damage_creeps"				"150"
-			"duration"					"0.5"
+			"damage"
+			{
+				"value"							"1000 2000 3000 4000"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"damage_creeps"				"200"
+			"duration"					"1.0 1.5 2.0 2.5"
 			"speed"						"800"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -1610,22 +1538,22 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 	
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"crit_chance"
 			{
-				"var_type"					"FIELD_INTEGER"
-				"crit_chance"				"20 21 22 23 24 25 26"
+				"value"							"20 25 30 35"
+				"affected_by_chance_increase"	"1"
 			}
-			"02"
+			"crit_mult"
 			{
-				"var_type"					"FIELD_INTEGER"
-				"crit_mult"					"200 210 220 230 240 250 260"
+				"value"							"200 225 250 275"
+				"affected_by_crit_increase"		"1"
 			}
 		}
 	}
@@ -1638,22 +1566,22 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 	
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"crit_chance"
 			{
-				"var_type"					"FIELD_INTEGER"
-				"crit_chance"				"20"
+				"value"							"30"
+				"affected_by_chance_increase"	"1"
 			}
-			"02"
+			"crit_mult"
 			{
-				"var_type"					"FIELD_INTEGER"
-				"crit_mult"					"200 225 250 275 300 325 350"
+				"value"							"175 200 225 250"
+				"affected_by_crit_increase"		"1"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -1668,15 +1596,15 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 	
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_damage_pct"	"21 24 27 30 33 36 39"
-			"radius"			"1200"
+			"bonus_damage_pct"	"15 20 25 30"
+			"radius"			"600 800 1000 1200"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -1688,15 +1616,15 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 	
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_cdr"			"10 11 12 13 14 15 16"
-			"radius"			"1200"
+			"bonus_cdr"			"8 12 16 20"
+			"radius"			"600 800 1000 1200"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -1712,29 +1640,33 @@
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
-		"FightRecapLevel"				"7"
+		"FightRecapLevel"				"4"
 		"AbilitySound"					"Hero_OgreMagi.Ignite.Cast"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"700 725 750 800"
+		"AbilityCastRange"				"600 700 800 900"
 		"AbilityCastPoint"				"0.35"
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"30"
+		"AbilityCooldown"				"30 25 20 15"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"100 95 90 85 80 75 70"
+		"AbilityManaCost"				"100"
 				
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"				"8"
-			"burn_damage"			"940 1410 1825 2220 3150 4200 5980"
-			"building_damage_pct"	"25"
+			"duration"							"6 7 8 9"
+			"burn_damage"
+			{
+				"value"							"500 1000 1500 2000"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"building_damage_pct"				"25"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -1747,15 +1679,15 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 	
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"armor_reduction"	"2 3 4 5 6 7 8"
-			"radius"			"1200"
+			"armor_reduction"	"3 5 7 9"
+			"radius"			"600 800 1000 1200"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -1768,15 +1700,15 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 	
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"spell_amp"			"5 6 7 8 9 10 11"
-			"radius"			"1200"
+			"spell_amp"			"5 10 15 20"
+			"radius"			"600 800 1000 1200"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -1789,49 +1721,37 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 																// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"MaxLevel"						"7"
+		"MaxLevel"						"4"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 	
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"far_radius"
 			{
-				"var_type"				"FIELD_INTEGER"
-				"far_radius"			"600"
+				"value"							"600"
+				"affected_by_aoe_increase"		"1"
 			}
-			"02"
+			"movespeed_slow"					"-15 -20 -25 -30"
+			"attackspeed_slow"					"-15 -20 -25 -30"
+			"near_radius"
 			{
-				"var_type"				"FIELD_INTEGER"
-				"movespeed_slow"		"-15"
+				"value"							"150"
+				"affected_by_aoe_increase"		"1"
 			}
-			"03"
+			"near_damage"
 			{
-				"var_type"				"FIELD_INTEGER"
-				"attackspeed_slow"		"-15"
+				"value"							"1000 1500 2000 2500"
+				"CalculateSpellDamageTooltip"	"1"
 			}
-			"04"
+			"far_damage"
 			{
-				"var_type"				"FIELD_INTEGER"
-				"near_radius"			"150"
+				"value"							"300 500 700 900"
+				"CalculateSpellDamageTooltip"	"1"
 			}
-			"05"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"near_damage"			"845 1265 1640 1995 2840 3775 5385"
-			}
-			"06"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"far_damage"			"280 425 550 665 945 1260 1795"
-			}
-			"07"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"tick_rate"				"0.25"
-			}
+			"tick_rate"							"0.25"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}

@@ -60,7 +60,7 @@ function mirana_arrow:OnProjectileHitHandle(target, position, projectile)
 			self:DealDamage(caster, target, damage, nil, OVERHEAD_ALERT_BONUS_SPELL_DAMAGE)
 			self:Stun(target, stun_duration, false)
 		else
-			self:DealDamage(caster, target, target:GetMaxHealth() + 1, {damage_type = DAMAGE_TYPE_PURE, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_NO_DAMAGE_MULTIPLIERS})
+			target:AttemptKill( self, caster )
 		end
         EmitSoundOn("Hero_Mirana.ArrowImpact", target)
 		return true
@@ -74,7 +74,8 @@ function modifier_mirana_arrow_full_moon:OnCreated()
 end
 
 function modifier_mirana_arrow_full_moon:OnRefresh()
-	self.crit_damage = self:GetAbility():GetSpecialValueFor("crit_damage")
+	self.crit_damage = self:GetSpecialValueFor("crit_damage")
+	self.hasBeenTriggered = false
 end
 
 function modifier_mirana_arrow_full_moon:DeclareFunctions()
@@ -82,8 +83,10 @@ function modifier_mirana_arrow_full_moon:DeclareFunctions()
 end
 
 function modifier_mirana_arrow_full_moon:GetModifierPreAttack_CriticalStrike( params )
-	if params.attacker then
-		self:Destroy()
+	if self.hasBeenTriggered then return end
+	self.hasBeenTriggered = true
+	if IsServer() then
+		self:SetDuration( 0.1, false )
 	end
 	return self.crit_damage
 end

@@ -137,7 +137,11 @@ function modifier_mirana_selemenes_faithful_buff:GetModifierBonusStats_Intellect
 end
 
 function modifier_mirana_selemenes_faithful_buff:GetModifierAttackSpeedBonus_Constant(params)
-    return math.ceil(self.bonus_attackspeed * self:GetCaster():GetBaseAttackSpeed() * self:GetStackCount())
+	if self._lockedInt then return end
+	self._lockedInt = true
+	local as = self:GetCaster():GetBaseAttackSpeed()
+	self._lockedInt = false
+    return math.ceil(self.bonus_attackspeed * as * self:GetStackCount())
 end
 
 function modifier_mirana_selemenes_faithful_buff:IsHidden()

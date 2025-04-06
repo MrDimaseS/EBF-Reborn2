@@ -46,11 +46,12 @@ function modifier_mars_bulwark_toggle:OnIntervalThink()
 	if not caster:HasScepter() then return end
 	
 	self:GetAbility().lastTimeScepterAttacked = GameRules:GetGameTime()
-	local soldiers = caster:FindFriendlyUnitsInRadius(caster:GetAbsOrigin(), self.soldier_offset * self.soldier_count / 2, {type = DOTA_UNIT_TARGET_ALL, flag = DOTA_UNIT_TARGET_FLAG_INVULNERABLE, order = FIND_CLOSEST})
+	local attackSpeed = caster:GetAttackSpeed(true)
+	local soldiers = caster:FindFriendlyUnitsInRadius(caster:GetAbsOrigin(), self.soldier_offset * self.soldier_count, {type = DOTA_UNIT_TARGET_ALL, flag = DOTA_UNIT_TARGET_FLAG_INVULNERABLE, order = FIND_CLOSEST})
 	local unitsHit = {}
 	for _, soldier in ipairs( soldiers ) do
 		if soldier:GetUnitName() == "aghsfort_mars_bulwark_soldier" then
-			local attackAnimationRate = BASE_PLAYBACKRATE * caster:GetAttackSpeed()
+			local attackAnimationRate = BASE_PLAYBACKRATE * attackSpeed
 			soldier:StartGestureWithPlaybackRate( ACT_DOTA_ATTACK, attackAnimationRate )
 			EmitSoundOn( "Hero_Mars.PreAttack", soldier )
 			for _, enemy in ipairs( caster:FindEnemyUnitsInLine( soldier:GetAbsOrigin()+soldier:GetPaddedCollisionRadius(), soldier:GetAbsOrigin() + caster:GetForwardVector() * caster:GetAttackRange(), self.soldier_offset/2 ) )  do
@@ -64,8 +65,9 @@ function modifier_mars_bulwark_toggle:OnIntervalThink()
     	end
 	end
 	-- caster
-	local attackAnimationRate = BASE_PLAYBACKRATE * caster:GetAttackSpeed()
-	caster:StartGestureWithFadeAndPlaybackRate( ACT_DOTA_ATTACK, caster:GetAttackSpeed()/2, caster:GetAttackSpeed()/2, caster:GetAttackSpeed() )
+
+	local attackAnimationRate = BASE_PLAYBACKRATE * attackSpeed
+	caster:StartGestureWithFadeAndPlaybackRate( ACT_DOTA_ATTACK, attackSpeed/2, attackSpeed/2, attackSpeed )
 	for _, enemy in ipairs( caster:FindEnemyUnitsInLine( caster:GetAbsOrigin()+caster:GetPaddedCollisionRadius(), caster:GetAbsOrigin() + caster:GetForwardVector() * caster:GetAttackRange(), self.soldier_offset/2 ) )  do
 		if not unitsHit[enemy] then
 			unitsHit[enemy] = true

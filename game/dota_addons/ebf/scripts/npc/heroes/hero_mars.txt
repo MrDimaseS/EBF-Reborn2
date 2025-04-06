@@ -221,6 +221,11 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_TOGGLE"
         "HasScepterUpgrade"				"1"
 		
+		"precache"
+		{
+			"model"						"models/heroes/mars/mars_soldier.vmdl"
+			"precache"					"particles/units/heroes/hero_mars/mars_aghanim_shield_of_mars.vpcf"
+		}
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -252,48 +257,18 @@
 			"redirect_close_range"										"350"
 
 			// Scepter here
-            "soldier_count"
-            {
-                "value"            				  "5"
-                "RequiresScepter"           	 "1"
-            }
-            "soldier_offset"
-            {
-                "value"            				  "200"
-                "RequiresScepter"           	 "1"
-            }
-            "scepter_movement_slow_pct"
-            {
-                "value"            				  "30"
-                "RequiresScepter"           	 "1"
-            }
-            "scepter_movement_slow_duration"
-            {		
-                "value"            				  "1.0"
-                "RequiresScepter"           	 "1"
-            }
+            "soldier_count"												{"special_bonus_scepter"	"4"}
+            "soldier_offset"											{"special_bonus_scepter"	"150"}
+            "scepter_movement_slow_pct"									{"special_bonus_scepter"	"30"}
+            "scepter_movement_slow_duration"							{"special_bonus_scepter"	"1.0"}
             "scepter_bonus_damage"
-            {
-                "value"								"750"
-                "RequiresScepter"					"1"
-				"CalculateAttackDamageTooltip"		"1"
-
+			{
+                "special_bonus_scepter"									"750"
+				"CalculateAttackDamageTooltip"							"1"
             }
-			"stationary_attack_delay"
-			{
-				"value"											"0.0"
-				"RequiresScepter"								"1"
-			}
-			"knockback_distance"
-			{
-				"value"											"325"
-				"RequiresScepter"								"1"
-			}
-			"soldier_attack_range"
-			{
-				"value"											"275"
-				"RequiresScepter"								"1"
-			}
+			"stationary_attack_delay"									{"special_bonus_scepter"	"0.0"}
+			"knockback_distance"										{"special_bonus_scepter"	"325"}
+			"soldier_attack_range"										{"special_bonus_scepter"	"275"}
 			"rebuke_chance"
 			{
 				"value"											"0"

@@ -39,8 +39,8 @@ const bottomhud = microHud.FindChildTraverse("CustomUIRoot");
 	}
 	
 
-	let currentRound = 0; // Variable to store the current round number
-	let currentLife = 0; // Variable to store the current life value
+	let currentRound = 0; // variable to store the current round number
+	let currentLife = 0; // variable to store the current life value
 	
 	const skipper = bottomhud.FindChildTraverse("skipper")
 	if(Game.GetMapInfo().map_display_name == "mayhem_gamemode"){
@@ -103,7 +103,7 @@ function Skip() {
 		$("#Vote_Yes").visible = false;
 		$("#voteStatus").visible = true;
 		// Skip waiting time automatically
-		var ID = Players.GetLocalPlayer();
+		let ID = Players.GetLocalPlayer();
 		GameEvents.SendCustomGameEventToServer("Vote_Round", {
 			pID: ID,
 			vote: true
@@ -145,18 +145,18 @@ function close() {
 
 (function () {
 	GameEvents.Subscribe("RoundVoteResults", function (data) {
-		var playerIDs = Game.GetAllPlayerIDs();
-		var connectedPlayerCount = 0;
+		let playerIDs = Game.GetAllPlayerIDs();
+		let connectedPlayerCount = 0;
 
-		for (var i = 0; i < playerIDs.length; i++) {
-			var playerID = playerIDs[i];
-			var playerInfo = Game.GetPlayerInfo(playerID);
+		for (let i = 0; i < playerIDs.length; i++) {
+			let playerID = playerIDs[i];
+			let playerInfo = Game.GetPlayerInfo(playerID);
 
 			if (playerInfo && playerInfo.player_connection_state === DOTAConnectionState_t.DOTA_CONNECTION_STATE_CONNECTED) {
 				connectedPlayerCount++;
 			}
 		}
-		var votesLeft = connectedPlayerCount - data.Yes;
+		let votesLeft = connectedPlayerCount - data.Yes;
 
 		const voteStatus = $("#voteStatus");
 		voteStatus.text = votesLeft.toString() + " " + $.Localize("#vote_status_label");
@@ -219,7 +219,7 @@ GameEvents.Subscribe("dota_player_update_query_unit", UpdateManaBar);
 GameEvents.Subscribe("dota_player_update_selected_unit", UpdateManaBar);
 $.RegisterForUnhandledEvent("DOTAShowAbilityTooltipForEntityIndex", RemoveAbilityChanges);
 $.RegisterForUnhandledEvent("DOTAShowAbilityInventoryItemTooltip", UpdateItemTooltip);
-$.RegisterForUnhandledEvent("DOTAShowAbilityShopItemTooltip", ManageItemAttributes);
+$.RegisterForUnhandledEvent("DOTAShowAbilityShopItemTooltip", ManageShopItem);
 $.RegisterForUnhandledEvent("DOTAShowAbilityTooltip", ManageItemAttributes);
 $.RegisterForUnhandledEvent("DOTAShowAbilityTooltipForEntityIndex", ManageItemAttributes);
 $.RegisterForUnhandledEvent("DOTAHUDShowDamageArmorTooltip", DelayUpdateStatsTooltip);
@@ -277,7 +277,201 @@ function UpdateManaBar() {
 	UpdateManaBar()
 })();
 
+let shop_item
 // ITEM TOOLTIPS
+function ManageShopItem( abilityPanel, abilityName, empty, entindex, empty2 ){
+	ManageItemAttributes( abilityPanel, abilityName );
+	shop_item = abilityName
+	unitWeAreChecking = entindex;
+	lastRememberedState = null
+	
+	const tooltipManager = dotaHud.FindChildTraverse('Tooltips');
+	const tooltipPanel = tooltipManager.FindChildTraverse('DOTAAbilityTooltip');
+	const abilityDetails = tooltipPanel.FindChildTraverse('AbilityCoreDetails');
+	const abilityHeader = tooltipPanel.FindChildTraverse('Header');
+	const abilityAttributes = tooltipPanel.FindChildTraverse('AbilityAttributes');
+	
+	let finalTextToken = ""
+	
+	if( abilityHeader != undefined ){
+		let abilityImage = abilityHeader.FindChildTraverse('ItemImage');
+		let abilityTier = abilityHeader.FindChildTraverse('AbilityLevel');
+		let abilityUpgradeCostMain = abilityHeader.FindChildTraverse('ItemCost');
+		let abilityTierTitle = abilityHeader.FindChildTraverse('ItemSubtitle');
+		let abilityUpgradeCost = abilityHeader.FindChildTraverse('BuyCostLabel');
+		let abilitySellPrice = abilityDetails.FindChildTraverse('SellPriceLabel');
+		abilityTierTitle.style.visibility = "collapse"
+		abilitySellPrice.style.visibility = "visible"
+		abilityTier.text = "Common";
+		abilityTierTitle.text = "Common";
+		abilitySellPrice.text = "Sell Price: 500"
+		abilityUpgradeCost.text = "1000"
+		abilityImage.style.boxShadow = null 
+	}
+	
+	$.Schedule(0, AlterShopDescriptions, abilityName)
+}
+
+function AlterShopDescriptions(abilityName) {
+	lastState = GameUI.IsAltDown();
+	if(shop_item == null){return}
+	if(lastState == lastRememberedState){return}
+	lastRememberedState = lastState
+	const tooltipManager = dotaHud.FindChildTraverse('Tooltips');
+	const tooltipPanel = tooltipManager.FindChildTraverse('DOTAAbilityTooltip');
+	const abilityDescription = tooltipPanel.FindChildTraverse('AbilityDescriptionContainer');
+
+	let description = $.Localize("#DOTA_Tooltip_Ability_" + shop_item + "_Description");
+	const itemEffectsArray = description.split("\n\n");
+	let itemEffects = []
+	for(i=0;i<itemEffectsArray.length;i++){
+		let itemEffectInArray = itemEffectsArray[i]
+		let itemEffect = {}
+		itemEffect.header = itemEffectInArray.substring( itemEffectInArray.indexOf("<h1>"), itemEffectInArray.indexOf("</h1>")+5 )
+		itemEffect.description = itemEffectInArray.substring( itemEffectInArray.indexOf("</h1>")+5 )
+		for(i=1;i<=5;i++){
+			let token = "#DOTA_Tooltip_Ability_" + shop_item + "_" + i + "_Upgrade"
+			let upgradeDescription = $.Localize(token);
+			if(upgradeDescription != token){
+				let lastHeader = 0
+				let nextHeader = 0
+				nextHeader = upgradeDescription.indexOf("<h1>", lastHeader)
+				while(nextHeader != -1){
+					lastHeader = upgradeDescription.indexOf("</h1>", nextHeader)
+					let effectToUpdate = upgradeDescription.substring( nextHeader, lastHeader+5)
+					nextHeader = upgradeDescription.indexOf("<h1>", lastHeader)
+					if(effectToUpdate == itemEffect.header){
+						let updateDescription
+						if( nextHeader != -1){
+						  updateDescription = upgradeDescription.substring( lastHeader+5, nextHeader)
+						} else {
+						  updateDescription = upgradeDescription.substring( lastHeader+5)
+						}
+						itemEffect.description = itemEffect.description + '<br>' + '<b>At Tier ' + i + ':</b> ' + updateDescription
+					}
+				}
+			}
+		}
+		itemEffects.push(itemEffect)
+	}
+	let reconstructedDescription = "";
+	
+	for(i=0;i<itemEffects.length;i++){
+		reconstructedDescription = reconstructedDescription + itemEffects[i].header +itemEffects[i].description
+		if( i+1<itemEffects.length){
+			reconstructedDescription = reconstructedDescription + '\n\n'
+		}
+	}
+	let split_specials = reconstructedDescription.split(/[%%]/);
+	abilityDescription.RemoveAndDeleteChildren();
+	RemoveAbilityChanges(abilityDescription, shop_item, unitWeAreChecking);
+	reconstructedDescription = GameUI.ReplaceDOTAAbilitySpecialValues(shop_item, reconstructedDescription, abilityDescription);
+	let split_text = "";
+
+	if (reconstructedDescription != null) {
+		split_text = reconstructedDescription.split(/[<]h1[>]|[<][/]h1[>] |[<][/]h1[>]/);
+	}
+
+	for (let h = 0; h < split_text.length; h++) { // Separate Label contents
+		if (split_text[h].match("Active")) {
+			activeHeader_text = split_text[h];
+			activeContents_text = split_text[h + 1];
+			split_text[h] = "";
+			split_text[h + 1] = "";
+
+			let activeHeader = $.CreatePanel("Label", abilityDescription, `ActiveHeader`);
+			let activeContents = $.CreatePanel("Label", abilityDescription, `ActiveContents`);
+
+			activeHeader.html = true;
+			activeContents.html = true;
+
+			activeContents.SetHasClass("Active", true);
+			activeHeader.SetHasClass("Active", true);
+			activeHeader.SetHasClass("Header", true);
+			activeHeader.style["font-weight"] = "bold";
+			activeHeader.style["color"] = "#FFFFFF66"; 
+
+			activeHeader.text = activeHeader_text;
+			activeContents.text = activeContents_text;
+
+		} else if (split_text[h].match("Passive")) {
+			passiveHeader_text = split_text[h];
+			passiveContents_text = split_text[h + 1];
+			split_text[h] = "";
+			split_text[h + 1] = "";
+
+			let passiveHeader = $.CreatePanel("Label", abilityDescription, `PassiveHeader`);
+			let passiveContents = $.CreatePanel("Label", abilityDescription, `PassiveContents`);
+
+			passiveHeader.html = true;
+			passiveContents.html = true;
+
+			passiveHeader.SetHasClass("Header", true);
+			passiveHeader.style["font-weight"] = "bold";
+			passiveHeader.style["color"] = "#FFFFFF66";
+
+			passiveHeader.text = passiveHeader_text;
+			passiveContents.text = passiveContents_text;
+		} else if (split_text[h].match("Toggle")) {
+			toggleHeader_text = split_text[h];
+			toggleContents_text = split_text[h + 1];
+			split_text[h] = "";
+			split_text[h + 1] = "";
+
+			let toggleHeader = $.CreatePanel("Label", abilityDescription, `ToggleHeader`);
+			let toggleContents = $.CreatePanel("Label", abilityDescription, `ToggleContents`);
+
+			toggleHeader.html = true;
+			toggleContents.html = true;
+
+			toggleHeader.SetHasClass("Header", true);
+			toggleHeader.SetHasClass("Active", true);
+			toggleContents.SetHasClass("Active", true);
+			toggleHeader.style["font-weight"] = "bold";
+			toggleHeader.style["color"] = "#FFFFFF66";
+
+			toggleHeader.text = toggleHeader_text;
+			toggleContents.text = toggleContents_text;
+
+		} else if (split_text[h].match("Use")) {
+			consumeHeader_text = split_text[h];
+			consumeContents_text = split_text[h + 1];
+			split_text[h] = "";
+			split_text[h + 1] = "";
+
+			let consumeHeader = $.CreatePanel("Label", abilityDescription, `ConsumeHeader`);
+			let consumeContents = $.CreatePanel("Label", abilityDescription, `ConsumeContents`);
+
+			consumeHeader.html = true;
+			consumeContents.html = true;
+
+			consumeHeader.SetHasClass("Header", true);
+			consumeHeader.SetHasClass("Active", true);
+			consumeContents.SetHasClass("Active", true);
+			consumeHeader.style["font-weight"] = "bold";
+			consumeHeader.style["color"] = "#FFFFFF66";
+
+			consumeHeader.text = consumeHeader_text;
+			consumeContents.text = consumeContents_text;
+		} else if (split_text[h] != "") {
+			genericText = split_text[h];
+			let eachLine = genericText.split('\n');
+			for (let z = 0, y = eachLine.length; z < y; z++) {
+				let newLine = eachLine[z]
+				let newLineContents = $.CreatePanel("Label", abilityDescription, `GenericContents`);
+				newLineContents.html = true;
+				if (h == 0 && z == 0) { newLineContents.SetHasClass("Active", true) };
+				newLineContents.text = newLine;
+			}
+
+		}
+	}
+	if (shop_item != null) {
+		scheduleHandle = $.Schedule(0, AlterShopDescriptions)
+	}
+}
+
+
 function ManageItemAttributes(abilityPanel, abilityName) {
 	const tooltipManager = dotaHud.FindChildTraverse('Tooltips');
 	const tooltipPanel = tooltipManager.FindChildTraverse('DOTAAbilityTooltip');
@@ -310,10 +504,10 @@ let abilityValues
 
 function ReplaceSpecialValuesInDescription(description, ability) {
 	let split_specials = description.split(/[%%]/);
-	for (var i in split_specials) { // REPLACE SPECIAL VALUES
+	for (let i in split_specials) { // REPLACE SPECIAL VALUES
 		if (split_specials[i].match(" ")) {
 		} else if (split_specials[i].length > 0) {
-			var value = Abilities.GetSpecialValueFor(ability, split_specials[i])
+			let value = Abilities.GetSpecialValueFor(ability, split_specials[i])
 			if (value == 0) {
 				value = Abilities.GetSpecialValueFor(ability, split_specials[i].replace("shard_", ""))
 			}
@@ -341,7 +535,6 @@ function RemoveAbilityChanges(panel, abilityName, unitID) {
 	abilityNameWeAreChecking = abilityName
 
 	let ability = Entities.GetAbilityByName(unitID, abilityName)
-
 	$.Schedule(0, function () {
 		const tooltipManager = dotaHud.FindChildTraverse('Tooltips');
 		const tooltipPanel = tooltipManager.FindChildTraverse('DOTAAbilityTooltip');
@@ -461,8 +654,6 @@ function UpdateStatsTooltip() {
 	
 	const primaryStat = stats.primaryStat
 	
-	$.Msg( primaryStat, Attributes.DOTA_ATTRIBUTE_STRENGTH )
-
 	const strContainer = attributesContainer.FindChildTraverse('StrengthContainer');
 	const strGain = strContainer.FindChildTraverse('StrengthGainLabel');
 	const strValues = strContainer.FindChildTraverse('StrengthDetails');
@@ -539,6 +730,7 @@ function ClearItemTooltip(panel) {
 
 	unitWeAreChecking = -1
 	abilityIndexWeAreChecking = -1
+	shop_item = null
 	scheduleHandle = null
 }
 
@@ -558,34 +750,49 @@ function UpdateItemTooltip(panel, unit, itemSlot) {
 	abilityAttributes.style.visibility = 'collapse'
 	
 	let finalTextToken = ""
-	if (panel.inventoryData == undefined && panel.inventoryData.AbilityValues == undefined) { return }
+	if (panel.inventoryData == undefined || panel.inventoryData.AbilityValues == undefined) { return }
 	
 	if( abilityHeader != undefined ){
 		let abilityImage = abilityHeader.FindChildTraverse('ItemImage');
-		let abilityTier = abilityHeader.FindChildTraverse('ItemSubtitle');
+		let abilityTier = abilityHeader.FindChildTraverse('AbilityLevel');
+		let abilityUpgradeCostMain = abilityHeader.FindChildTraverse('ItemCost');
+		let abilityTierTitle = abilityHeader.FindChildTraverse('ItemSubtitle');
+		let abilityUpgradeCost = abilityHeader.FindChildTraverse('BuyCostLabel');
 		let abilitySellPrice = abilityDetails.FindChildTraverse('SellPriceLabel');
+		abilityTierTitle.style.visibility = "collapse"
+		abilitySellPrice.style.visibility = "visible"
 		if(abilityImage != undefined && abilityTier != undefined){
 			let boxShadow = "inset 0px -10px 20px 1px";
 			if(panel.inventoryData.AbilityTier==1){
 				boxShadow = boxShadow + " #A9A9A911";
 				abilityTier.text = "Common";
+				abilityTierTitle.text = "Common";
 				abilitySellPrice.text = "Sell Price: 500"
+				abilityUpgradeCost.text = "1000"
 			} else if (panel.inventoryData.AbilityTier==2){
 				boxShadow = boxShadow + " #00008B55";
 				abilityTier.text = "Shadow";
+				abilityTierTitle.text = "Shadow";
 				abilitySellPrice.text = "Sell Price: 1000"
+				abilityUpgradeCost.text = "2000"
 			} else if (panel.inventoryData.AbilityTier==3){
 				boxShadow = boxShadow + " #77000066";
 				abilityTier.text = "Demonic";
+				abilityTierTitle.text = "Demonic";
 				abilitySellPrice.text = "Sell Price: 2000"
+				abilityUpgradeCost.text = "4000"
 			} else if (panel.inventoryData.AbilityTier==4){
 				boxShadow = boxShadow + " #B5941033";
 				abilityTier.text = "Divine";
+				abilityTierTitle.text = "Divine";
 				abilitySellPrice.text = "Sell Price: 4000"
+				abilityUpgradeCost.text = "8000"
 			} else if (panel.inventoryData.AbilityTier==5){
 				boxShadow = boxShadow + " #7c2f6688";
 				abilityTier.text = "Otherworldly";
+				abilityTierTitle.text = "Otherworldly";
 				abilitySellPrice.text = "Sell Price: 8000"
+				abilityUpgradeCost.text = "MAX"
 			} else {
 				boxShadow = null;
 			}
@@ -629,10 +836,17 @@ function UpdateItemTooltip(panel, unit, itemSlot) {
 					tmpSpecialValue = Math.floor(tmpSpecialValue * 100 + 0.5) / 100
 					let realValue = Math.floor(Abilities.GetLevelSpecialValueFor(item, key, i) * 100 + 0.5) / 100
 					let font_colour = "#454552"
-					if (realValue != tmpSpecialValue) { font_colour = "#3ed038" };
 					if(activeValue){
-						font_colour = "#EEEEEE"
+						if (realValue != tmpSpecialValue) { 
+							font_colour = "#3ed038" 
+						} else {
+							font_colour = "#EEEEEE"
+						};
 						tmpTextToken = tmpTextToken + '<b>'
+					} else {
+						if (realValue != tmpSpecialValue) { 
+							font_colour = "#185316" 
+						};
 					}
 					tmpTextToken = tmpTextToken + "<font color='" + font_colour + "'>" + realValue
 					
@@ -649,11 +863,10 @@ function UpdateItemTooltip(panel, unit, itemSlot) {
 			}
 			finalTextToken = finalTextToken + tmpTextToken + " " + localizedToken;
 			finalTextToken = finalTextToken + '<br>';
-			$.Msg( finalTextToken )
 		}
 	}
 	if (finalTextToken != "") {
-		var lIndex = finalTextToken.lastIndexOf("<br>")
+		let lIndex = finalTextToken.lastIndexOf("<br>")
 		finalTextToken = finalTextToken.substring(0, lIndex);
 		abilityAttributes.text = finalTextToken
 		abilityAttributes.style.visibility = 'visible'
@@ -671,51 +884,87 @@ function UpdateItemTooltip(panel, unit, itemSlot) {
 			}
 		}
 	}
+	lastRememberedState = null
 	scheduleHandle = $.Schedule(0, AlterAbilityDescriptions)
 	lastRememberedState = null
 }
 
 let lastState = false
 let lastRememberedState
-function AlterAbilityDescriptions() {
+function AlterAbilityDescriptions(bImmediate) {
+	const tooltipManager = dotaHud.FindChildTraverse('Tooltips');
+	const tooltipPanel = tooltipManager.FindChildTraverse('DOTAAbilityTooltip');
+	const abilityDescription = tooltipPanel.FindChildTraverse('AbilityDescriptionContainer');
 	lastState = GameUI.IsAltDown();
-	if (lastState != lastRememberedState) { // only update if button is toggled
-		const tooltipManager = dotaHud.FindChildTraverse('Tooltips');
-		const tooltipPanel = tooltipManager.FindChildTraverse('DOTAAbilityTooltip');
-		const abilityDescription = tooltipPanel.FindChildTraverse('AbilityDescriptionContainer');
+	if (lastState != lastRememberedState || (abilityDescription.GetChild( 0 ) != undefined && abilityDescription.GetChild( 0 ).customMade == undefined) ) { // only update if button is toggled or dota updated after me
 
 		let item = Entities.GetItemInSlot(unitWeAreChecking, abilityIndexWeAreChecking);
 		let item_name = Abilities.GetAbilityName(item);
-
-		var description = $.Localize("#DOTA_Tooltip_Ability_" + item_name + "_Description");
+		let itemDescriptionToken = "#DOTA_Tooltip_Ability_" + item_name + "_Description"
+		if(Abilities.GetLevel( item ) > 1){
+			itemDescriptionToken = "#DOTA_Tooltip_Ability_" + item_name + "_" + Abilities.GetLevel( item ) + "_Description"
+		}
+		let description = $.Localize(itemDescriptionToken);
 		let split_specials = description.split(/[%%]/);
 		abilityDescription.RemoveAndDeleteChildren();
 		RemoveAbilityChanges(abilityDescription, item_name, unitWeAreChecking);
 		lastRememberedState = lastState;
-		for (var i in split_specials) { // REPLACE SPECIAL VALUES
-			if (split_specials[i].match(" ")) {
-			} else if (split_specials[i].length > 0) {
-				var value = Abilities.GetSpecialValueFor(item, split_specials[i])
-				let specialValue = abilityValues[split_specials[i]]
-				if (specialValue && specialValue.value != undefined) {
-					specialValue = specialValue.value
+		for (let i in split_specials) { // REPLACE SPECIAL VALUES
+			let key = split_specials[i]
+			if (key.match(" ")) {
+			} else if (abilityValues[key] != undefined) {
+				let value = Abilities.GetSpecialValueFor(item, key)
+				let specialValues = abilityValues[key]
+				if (specialValues && specialValues.value != undefined) {
+					specialValues = (specialValues.value).split(" ");
 				}
-				let font_colour = "#EEEEEE"
-				if (specialValue && Math.floor(specialValue * 100 + 0.5) / 100 != Math.floor(value * 100 + 0.5) / 100) { font_colour = "#3ed038" };
-				if (lastState && abilityValues[split_specials[i]] && abilityValues[split_specials[i]].CalculateSpellDamageTooltip) {
-					let spell_amp = CustomNetTables.GetTableValue("hero_attributes", unitWeAreChecking)
-					if (spell_amp != undefined) {
-						value = value * (1 + spell_amp.spell_amp)
+				let tmpTextToken = ""
+				for(i=0;i<specialValues.length;i++){
+					let tmpSpecialValue = specialValues[i]
+					let activeValue = i == Abilities.GetLevel(item)-1 || Abilities.GetLevel(item) > specialValues.length
+					if (tmpSpecialValue != "0") {
+						tmpSpecialValue = Math.floor(tmpSpecialValue * 100 + 0.5) / 100
+						let realValue = Math.floor(Abilities.GetLevelSpecialValueFor(item, key, i) * 100 + 0.5) / 100
+						let font_colour = "#454552"
+						if(activeValue){
+							if (realValue != tmpSpecialValue) { 
+								font_colour = "#3ed038" 
+							} else {
+								font_colour = "#EEEEEE"
+							};
+							tmpTextToken = tmpTextToken + '<b>'
+						} else {
+							if (realValue != tmpSpecialValue) { 
+								font_colour = "#185316" 
+							};
+						}
+						if (lastState && abilityValues[key] && abilityValues[key].CalculateSpellDamageTooltip) {
+							let spell_amp = CustomNetTables.GetTableValue("hero_attributes", unitWeAreChecking)
+							if (spell_amp != undefined) {
+								realValue = realValue * (1 + spell_amp.spell_amp)
+							}
+						}
+						if (Number(realValue) === realValue && realValue % 1 !== 0) {
+							realValue = Math.round((realValue * 100)) / 100;
+						}
+						realValue = Math.abs( realValue )
+						tmpTextToken = tmpTextToken + "<font color='" + font_colour + "'>" + realValue
+						
+						tmpTextToken = tmpTextToken + "</font>";
+						if(activeValue){tmpTextToken = tmpTextToken + '</b>'}
+						if(i+1<specialValues.length){
+							tmpTextToken = tmpTextToken + " / "
+						}
+					} else {
+						
 					}
 				}
-				if (Number(value) === value && value % 1 !== 0) {
-					value = Math.round((value * 100)) / 100;
-				}
-
-				if (description.match("%" + split_specials[i] + "%%%") && value != 0) {
-					description = description.replace("%" + split_specials[i] + "%%%", "<b><font color='" + font_colour + "'>" + Math.abs(value) + "%</font></b>");
+				
+				if (description.match("%" + key + "%%%") && value != 0) {
+					tmpTextToken = tmpTextToken.replace("</font>", "%</font>" );
+					description = description.replace("%" + key + "%%%", tmpTextToken );
 				} else if (value != 0) {
-					description = description.replace("%" + split_specials[i] + "%", "<b><font color='" + font_colour + "'>" + Math.abs(value) + "</font></b>");
+					description = description.replace("%" + key + "%", tmpTextToken);
 				} else {
 				}
 			}
@@ -726,7 +975,6 @@ function AlterAbilityDescriptions() {
 		if (description != null) {
 			split_text = description.split(/[<]h1[>]|[<][/]h1[>] |[<][/]h1[>]/);
 		}
-
 		for (let h = 0; h < split_text.length; h++) { // Separate Label contents
 			if (split_text[h].match("Active")) {
 				activeHeader_text = split_text[h];
@@ -749,6 +997,7 @@ function AlterAbilityDescriptions() {
 				activeHeader.text = activeHeader_text;
 				activeContents.text = activeContents_text;
 
+				activeHeader.customMade = true
 			} else if (split_text[h].match("Passive")) {
 				passiveHeader_text = split_text[h];
 				passiveContents_text = split_text[h + 1];
@@ -767,6 +1016,8 @@ function AlterAbilityDescriptions() {
 
 				passiveHeader.text = passiveHeader_text;
 				passiveContents.text = passiveContents_text;
+				
+				passiveHeader.customMade = true
 			} else if (split_text[h].match("Toggle")) {
 				toggleHeader_text = split_text[h];
 				toggleContents_text = split_text[h + 1];
@@ -788,6 +1039,7 @@ function AlterAbilityDescriptions() {
 				toggleHeader.text = toggleHeader_text;
 				toggleContents.text = toggleContents_text;
 
+				toggleHeader.customMade = true
 			} else if (split_text[h].match("Use")) {
 				consumeHeader_text = split_text[h];
 				consumeContents_text = split_text[h + 1];
@@ -808,20 +1060,25 @@ function AlterAbilityDescriptions() {
 
 				consumeHeader.text = consumeHeader_text;
 				consumeContents.text = consumeContents_text;
+				
+				consumeHeader.customMade = true
 			} else if (split_text[h] != "") {
 				genericText = split_text[h];
 				let eachLine = genericText.split('\n');
-				for (var z = 0, y = eachLine.length; z < y; z++) {
+				for (let z = 0, y = eachLine.length; z < y; z++) {
 					let newLine = eachLine[z]
 					let newLineContents = $.CreatePanel("Label", abilityDescription, `GenericContents`);
 					newLineContents.html = true;
+					newLineContents.customMade = true;
 					if (h == 0 && z == 0) { newLineContents.SetHasClass("Active", true) };
 					newLineContents.text = newLine;
 				}
 
+			} else {
 			}
 		}
 	}
+	if( bImmediate == true ){return}
 	if (unitWeAreChecking != -1 && abilityIndexWeAreChecking != -1) {
 		scheduleHandle = $.Schedule(0, AlterAbilityDescriptions)
 	}
@@ -835,25 +1092,33 @@ function RegisterInventoryData(data) {
 				let inventorySlotButton = inventorySlotPanel.FindChildTraverse("AbilityButton");
 				inventorySlotButton.inventoryData = null;
 				let boxShadow = "inset 0px -10px 20px 1px";
+				let border = "1px solid"
 				if(data.inventory[i].AbilityTier==1){
-					boxShadow = boxShadow + " #A9A9A911";
+					boxShadow = boxShadow + " #A9A9A944";
+					border = border + " #A9A9A944";
 				} else if (data.inventory[i].AbilityTier==2){
-					boxShadow = boxShadow + " #00008B55";
+					boxShadow = boxShadow + " #00008B77";
+					border = border + " #00008B77";
 				} else if (data.inventory[i].AbilityTier==3){
 					boxShadow = boxShadow + " #77000066";
+					border = border + " #77000066";
 				} else if (data.inventory[i].AbilityTier==4){
 					boxShadow = boxShadow + " #B5941033";
+					border = border + " #B5941033";
 				} else if (data.inventory[i].AbilityTier==5){
 					boxShadow = boxShadow + " #7c2f6688";
+					border = border + " #7c2f6688";
 				} else {
-					boxShadow = null;
+					border = null;
 				}
 				inventorySlotButton.style.boxShadow = boxShadow 
+				inventorySlotButton.style.border = border 
 				inventorySlotButton.inventoryData = data.inventory[i]
 			} else {
 				let inventoryNeutralPanel = dotaHud.FindChildTraverse("inventory_neutral_slot");
 				let inventorySlotButton = inventoryNeutralPanel.FindChildTraverse("AbilityButton");
 				inventorySlotButton.style.boxShadow = null;
+				inventorySlotButton.style.border = null;
 				inventorySlotButton.inventoryData = null;
 				inventorySlotButton.inventoryData = data.inventory[i]
 			}

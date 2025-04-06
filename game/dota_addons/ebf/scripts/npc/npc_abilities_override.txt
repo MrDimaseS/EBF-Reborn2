@@ -245,8 +245,6 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
 		"FightRecapLevel"				"1"
 		"Model"							"models/gameplay/attrib_tome_xp.vmdl"
-																																																																												 
-													
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
@@ -671,6 +669,9 @@
 		"ItemPurchasable"					"1"
 		"ItemSellable"						"1"
 		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
+		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
@@ -731,6 +732,9 @@
 		"ItemSellable"					"1"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -833,6 +837,9 @@
 		"ItemAliases"					"cyclone;wind waker;ww"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
 		"ShouldBeSuggested"				"1"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
 
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -886,6 +893,9 @@
 		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
 		"ShouldBeSuggested"				"1"
 		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
+		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
@@ -934,6 +944,9 @@
 		"ItemQuality"					"rare"
 		"ItemAliases"					"orchid malevolence"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -1002,6 +1015,9 @@
 		"ItemAliases"					"vladmir's offering;vlads"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
 		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
+		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
@@ -1026,7 +1042,6 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		
-		
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"12.0"
@@ -1040,6 +1055,9 @@
 		"ItemQuality"					"common"
 		"ItemAliases"					"phylactery"
 		"ShouldBeSuggested"				"1"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
 
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -1047,22 +1065,28 @@
 		{
 			"bonus_health"
 			{
-				"value"							"450"
+				"value"							"450 785 1375 2405 4210"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"bonus_mana"						"450"			
+			"bonus_mana"						"450 785 1375 2405 4210"			
 			"bonus_all_stats"
 			{
-				"value"							"20"
+				"value"							"20 35 61 107 187"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"slow"								"50"
 			"bonus_spell_damage"
 			{
-				"value"							"750"
+				"value"							"750 1500 2250 3000 3750"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"slow_duration"						"3"
+			"slow"								"50"
+			"break"								"0 1"
+			"disarm"							"0 0 0.5 1"
+			"silence"							"0 0 0.5 1"
+			"stun"								"0 0 0 0 1"
+			
+			"bonus_damage_radius"				"0 150 300 450 600"
 		}
 	}
 	//=================================================================================================================
@@ -1080,6 +1104,9 @@
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"FightRecapLevel"				"2"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
@@ -1144,6 +1171,9 @@
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
 		"ShouldBeSuggested"				"1"
 		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
+		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
@@ -1201,6 +1231,9 @@
 		"MaxUpgradeLevel"				"1"
 		"ItemBaseLevel"					"1"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
@@ -1259,6 +1292,9 @@
 		"ItemAliases"					"ac;assault cuirass"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
 		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
+		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
@@ -1297,6 +1333,9 @@
 		"ItemQuality"					"epic"
 		"ItemAliases"					"hot;heart of tarrasque"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -1337,6 +1376,9 @@
 		"ItemAliases"					"mkb;monkey king bar"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
 		"ShouldBeSuggested"				"1"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -1383,6 +1425,9 @@
 		"ItemQuality"					"epic"
 		"ItemAliases"					"radiance"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -1438,6 +1483,9 @@
 		"ItemAliases"					"bfly;butterfly"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
 		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
+		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
@@ -1479,6 +1527,9 @@
 		"ItemQuality"					"epic"
 		"ItemAliases"					"daedalus"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -1526,6 +1577,9 @@
 		"ItemAliases"					"manta style"
 		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -1583,6 +1637,9 @@
 		"ItemQuality"					"epic"
 		"ItemAliases"					"armlet of mordiggian"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -1646,6 +1703,9 @@
 		"ItemQuality"					"epic"
 		"ItemAliases"					"sb;invis;shadow blade"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -1711,6 +1771,9 @@
 		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
 		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
+		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
@@ -1750,6 +1813,9 @@
 		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
 		"ShouldBeSuggested"				"1"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -1799,6 +1865,9 @@
 		"ItemQuality"					"artifact"
 		"ItemAliases"					"satanic"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -1851,6 +1920,9 @@
 		"ItemAliases"					"gleipnir;gliepnir;glaypnir"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
 		"ShouldBeSuggested"				"1"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -1911,6 +1983,9 @@
 		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
 		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
+		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
@@ -1962,6 +2037,9 @@
 		"ItemAliases"					"eos;eye of skadi"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
 		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
+		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
@@ -2010,6 +2088,9 @@
 		"ItemAliases"							"desolator"
 		"ItemDeclarations"						"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
 		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
+		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
@@ -2043,6 +2124,9 @@
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
 		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
 		"ShouldBeSuggested"				"1"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -2082,6 +2166,9 @@
 		"ItemAliases"					"eternal shroud;es"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
 		"ShouldBeSuggested"				"1"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -2134,6 +2221,9 @@
 		"AllowedInBackpack"				"1"
 		"ShouldBeSuggested"				"1"
 		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
+		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
@@ -2174,6 +2264,9 @@
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
 		"ShouldBeSuggested"				"1"
 		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
+		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
@@ -2212,6 +2305,9 @@
 		"ItemAliases"					"staff;misery;sm"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
 		"SuggestLategame"				"1"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -2262,6 +2358,9 @@
 		"ItemQuality"					"rare"
 		"ItemAliases"					"solar crest"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
 
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -2318,6 +2417,9 @@
 		"ItemAliases"					"guardian greaves"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
 		"ItemAlertable"					"1"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
 
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -2389,6 +2491,9 @@
 		"ItemAliases"					"abyssal blade"
 		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -2462,6 +2567,9 @@
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
 		//"ItemRequiresCharges"			"1"
 		"ShouldBeSuggested"				"1"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
 
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -2513,6 +2621,9 @@
 		"ItemAliases"					"ad;aeon disk"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS | DECLARE_PURCHASES_IN_SPEECH"
 		"ShouldBeSuggested"				"1"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -2572,6 +2683,9 @@
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
 		"ShouldBeSuggested"				"1"
 		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
+		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
@@ -2607,7 +2721,6 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
@@ -2618,6 +2731,9 @@
 		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
 		"ShouldBeSuggested"				"1"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -2673,6 +2789,9 @@
 		"ItemAliases"					"nlf;nullifier"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
 		"ShouldBeSuggested"				"1"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------

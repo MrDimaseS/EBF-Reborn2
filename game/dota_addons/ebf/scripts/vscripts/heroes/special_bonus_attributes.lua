@@ -598,7 +598,7 @@ end
 
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierStatusResistanceStacking()
 	if not self:GetParent():IsRangedAttacker() then
-		return 25
+		return 15
 	end
 end
 

@@ -281,5 +281,481 @@
 			"max_charges"			"3"
 		}
 	}
+	"item_cloak_of_the_protector"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_cloak_of_the_protector.lua"
+		"AbilityTextureName"			"cloak/cloak_of_the_protector"
+		"FightRecapLevel"				"2"
+
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"60.0"
+		"AbilitySharedCooldown"			"cloak_of_the_protector"
+		"AbilityManaCost"				"100"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemShopTags"						"regen_health;boost_magic_resist;damage_block;armor"
+		"ItemQuality"						"rare"
+		"ItemAliases"						"pipe of insight;crimson guard"
+		"ItemDeclarations"					"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemAlertable"						"1"
+		
+		"ItemKillable"						"1"
+		"ItemSellable"						"1"
+		"ItemDroppable"						"1"
+		"ItemCost"							"1000"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
+
+		"AbilityValues"
+		{
+			"bonus_all_stats"
+			{
+				"value"							"15 26 45 79 138"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_health"
+			{
+				"value"							"325 570 1000 1750 3060"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_health_regen"
+			{
+				"value"							"25 45 78 135 235"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_mana"						"250 435 760 1330 2325"
+			
+			"bonus_armor"						"3 5 8 14 24"
+			"magic_resistance"					"12 20 32 48 67"
+
+			"aura_health_regen"
+			{
+				"value"							"15 26 45 78 136" 
+				"CalculateAttributeTooltip"		"1"
+			}
+			"magic_resistance_aura"				"10 12 14 16 18"
+			"aura_radius"						"900"
+			
+			"barrier_block"
+			{
+				"value"							"1500 3000 4500 6000 75000"
+				"CalculateSpellHealTooltip"		"1"
+			}
+			"barrier_radius"					"900"
+			"duration"							"12"
+		}
+	}
+	"item_conquerors_splint"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_blade_mail.lua"
+		"AbilityTextureName"			"blademail/conquerors_splint"
+		
+		"precache"
+		{
+			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_axe.vsndevts"
+			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_items.vsndevts"
+			"particle"			"particles/units/heroes/hero_axe/axe_beserkers_call_owner.vpcf"
+			"particle"			"particles/status_fx/status_effect_beserkers_call.vpcf"
+			"particle"			"particles/status_fx/status_effect_blademail.vpcf"
+			"particle"			"particles/items_fx/blademail.vpcf"
+		}
+	
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"25"
+		"AbilitySharedCooldown"			"blademail"
+	
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"					"50"
+		"ItemCost"							"1000"
+		"ItemShopTags"						"reflect"
+		"ItemQuality"						"epic"
+		"ItemAliases"						"blade mail"
+		"ItemDeclarations"					"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage"
+			{
+				"value"							"55 95 165 285 500"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_armor"						"5 9 15 26 45"
+			"bonus_hp_regen"
+			{
+				"value"							"25 45 80 140 245"
+				"CalculateAttributeTooltip"		"1"
+			}
+			
+			"duration"							"4.5"
+			"taunts_enemies"					"1"
+			"passive_reflection_constant"
+			{
+				"value"							"95 190 285 380 475"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"reflection_radius"					"600"
+			"passive_reflect_pct"				"20 30 40 50 60"
+			"active_reflection_pct"				"125 150 175 200 250"
+			"internal_cd"						"0.2"
+			
+			"crit_chance"
+			{
+				"value"								"30 32 34 36 38"
+				"affected_by_chance_increase"		"1"
+			}
+			"reflect_crit_chance"
+			{
+				"value"								"40 50 60 70 80"
+				"affected_by_chance_increase"		"1"
+			}
+			"crit_multiplier"
+			{
+				"value"								"170 180 190 215 240"
+				"affected_by_crit_increase"			"1"
+			}
+		}
+	}
+	"item_blink_treads"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_blink_treads.lua"
+		"AbilityTextureName"			"blink/blink_treads"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_DIRECTIONAL | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES | DOTA_ABILITY_BEHAVIOR_OVERSHOOT | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_INVULNERABLE"
+		
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"1200"
+		"AbilityOvershootCastRange"     "960"
+		"AbilityCastPoint"				"0.0"
+		"AbilityCooldown"				"15.0 14.0 13.0 12.0 11.0"
+		"AbilityManaCost"				"0"
+		"AbilitySharedCooldown"			"blink"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"1000"
+		"ItemShopTags"					"teleport"
+		"ItemQuality"					"component"
+		"ItemAliases"					"blink dagger"
+		//"SideShop"						"1"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
+
+		"AbilityValues"
+		{
+			"blink_damage_cooldown"				"3.0"
+			"blink_range"						"1200"
+			"blink_range_clamp"					"960"
+			
+			"bonus_movement_speed_ranged"		"45"
+			"bonus_movement_speed_melee"		"55"
+			"bonus_stat"
+			{
+				"value"							"25 45 75 130 225"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_other"
+			{
+				"value"							"10 18 30 75 130"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_attack_speed"				"25 40 70 120 210"
+			
+			"radius"							"800"
+			"movement_slow"						"50"
+			"attack_slow"						"50"
+			"damage_pct"						"150"
+			"base_damage"
+			{
+				"value"							"1000 2000 3000 4000 5000"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			
+			"bonus_movement"					"40"
+			"bonus_agi_active"
+			{
+				"value"							"50 85"
+				"CalculateAttributeTooltip"		"1"
+			}
+			
+			"arcane_blink_cd"					"12 10 8 6 4"
+			"arcane_blink_dmg_cd"				"3.0 2.5 2.0 1.5 1.0"
+			"arcane_blink_range"				"1400"
+			"heal_amount"
+			{
+				"value"							"1000 2000 3000 400 5000"
+				"CalculateSpellHealTooltip"		"1"
+			}
+			"mana_amount"						"100 200 300 400 500"
+			
+			"duration"							"6"
+		}
+	}
+	"item_void_reach"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"                     "item_lua"
+		"ScriptFile"					"items/item_void_reach.lua"
+		"AbilityTextureName"			"void_reach/void_reach"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"1000"
+		"ItemShopTags"					"damage;int;regen_mana;move_speed;hard_to_tag"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"dragon lance;aether lens"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_all"
+			{
+				"value"							"15 26 45 79 138"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_mana"						"300 525 920 1610 2820"
+			"bonus_mana_regen"					"2.5 4.25 7.5 13.0 22.75"
+			"base_attack_range"					"150 175 200 225 250"
+			"melee_pct"							"50"
+			"cast_range_bonus"					"150 175 200 225 250"
+		}
+	}
+	"item_lucky_dice"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_lucky_dice"
+		"AbilityTextureName"			"lucky_dice/lucky_dice"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"1000"
+		"ItemShopTags"					"damage;unique"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"lucky_dice_"
+		"ItemDeclarations"				"DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_health"
+			{
+				"value"							"500 875 1530 2675 4680"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_health_regen"
+			{
+				"value"							"20.5 35.5 62.0 108.5 190"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_mana_regen"					"2.25 4.0 7.0 12.25 21.5"
+			"bonus_chance"						"15 26.25 46 80.5 140"
+		}
+	}
+	"item_signet_of_destiny"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------|
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_signet_of_destiny.lua"
+		"AbilityTextureName"			"signet_of_destiny/signet_of_destiny"
+		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_BASIC | DOTA_UNIT_TARGET_BASIC"
+		
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"800"
+		"AbilityCastPoint"				"0.0"
+		"AbilityCooldown"				"13"
+		"AbilitySharedCooldown"			"signet"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"1000"
+		"ItemShopTags"					"damage;unique"
+		"ItemQuality"					"artifact"
+		"ItemAliases"					"dagon;holy locket;spirit vessel"
+		"ItemDeclarations"				"DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
+
+		"AbilityValues"
+		{
+			"bonus_intellect"
+			{
+				"value"							"35 61 107 187 327"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_other"
+			{
+				"value"							"18 31 54 94 164"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_health"
+			{
+				"value"							"325 570 1000 1750 3065"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_armor"						"2 3 5 9 16"
+			"bonus_mana_regen"					"1.75 3.1 5.25 9.0 15.75"
+			"heal_increase"						"15 26.25 46 80.5 140.75"
+			"spell_amp"
+			{
+				"value"							"10 17.5 30.5 53.25 93"
+				"CalculateAttributeTooltip"		"0"
+			}
+			
+			"soul_heal_amount"
+			{
+				"value"							"100 200 300 400 500"
+				"CalculateSpellHealTooltip"		"1"
+			}
+			"soul_damage_amount"
+			{
+				"value"							"175 350 525 700 875"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"hp_regen_reduction_enemy"			"45"
+			"enemy_hp_drain"					"0.75 1.0 1.25 1.5 1.75"
+			"duration"							"8.0"
+			
+			"max_charges"						"20"
+			"charge_radius"						"1200"
+			"restore_per_charge"				""
+			"hp_per_charge"
+			{
+				"value"							"50 100 150 200 250"
+				"CalculateSpellHealTooltip"		"1"
+			}
+			"mp_per_charge"						"10 20 30 40 50"
+			"charge_gain_timer"					"9 8 7 6 5"
+			"charge_gain_kill"					"3"
+			"charge_gain_hero"					"6"
+		}
+	}
+	"item_spear_of_justice"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_spear_of_justice"
+		"AbilityTextureName"			"spear_of_justice/spear_of_justice"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH | DOTA_UNIT_TARGET_TEAM_CUSTOM"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_CUSTOM"
+		"FightRecapLevel"				"1"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"650"
+		"AbilityCastPoint"				"0.0"
+		"AbilityCooldown"				"20.0"
+		"AbilitySharedCooldown"			"force"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"100"
+		"ItemCost"						"1000"
+		"ItemShopTags"					"int;damage;attack_speed;hard_to_tag"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"fs;force staff"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ShouldBeSuggested"				"1"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_strength"
+			{
+				"value"							"25 44 77 134 235"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_intellect"
+			{
+				"value"							"20 35 61 107 188"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_agility"
+			{
+				"value"							"10 18 31 54 95"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_health"
+			{
+				"value"							"275 481 841 1470 2575"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_damage"
+			{
+				"value"							"100 175 306 535 935"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_mana_regen"					"1.75 3.0 5.25 9.0 15.75"
+			"bonus_attack_speed"				"20 35 61 105 185"
+			"base_attack_range"					"75 100 125 150 175"
+			
+			"movement_slow"						"100"
+			"attack_speed_slow"					"0"
+			"slow_duration"						"0.8"
+			"passive_cooldown"					"6 5 4 3 2"
+			"ranged_cooldown"					"9 8 7 6 5"
+			
+			"push_length"						"600"
+			"enemy_length"						"450"
+			"range_duration"					"6"
+			"cast_range_enemy"					"450"
+			"active_attack_speed"				"30 60 90 120 150"
+			
+			"splash_damage"						"20 40 60 80 100"
+			"splash_damage_ranged"				"15 30 45 60 75"
+			"cleave_starting_width"				"150"
+			"cleave_ending_width"				"360"
+			"cleave_distance"					"650"
+		}
 }
 

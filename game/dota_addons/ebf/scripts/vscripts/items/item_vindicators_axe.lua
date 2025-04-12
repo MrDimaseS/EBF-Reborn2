@@ -1,0 +1,1 @@
+item_vindicators_axe = class({})

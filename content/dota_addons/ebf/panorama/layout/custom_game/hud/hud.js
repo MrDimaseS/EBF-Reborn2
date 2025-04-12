@@ -357,23 +357,28 @@ function AlterShopDescriptions(abilityName) {
 	let reconstructedDescription = "";
 	
 	for(i=0;i<itemEffects.length;i++){
-		reconstructedDescription = reconstructedDescription + itemEffects[i].header +itemEffects[i].description
+		reconstructedDescription = reconstructedDescription + itemEffects[i].header
+		let lines =  itemEffects[i].description.split("<br><br>");
+		for(i=0;i<lines.length;i++){
+			const line = lines[i]
+			const replacedLine = GameUI.ReplaceDOTAAbilitySpecialValues(shop_item, line, abilityDescription)
+			reconstructedDescription = reconstructedDescription + replacedLine
+			if( i+1<lines.length){
+				reconstructedDescription = reconstructedDescription + '<br><br>'
+			}
+		}
 		if( i+1<itemEffects.length){
 			reconstructedDescription = reconstructedDescription + '\n\n'
 		}
 	}
-	let split_specials = reconstructedDescription.split(/[%%]/);
 	abilityDescription.RemoveAndDeleteChildren();
 	RemoveAbilityChanges(abilityDescription, shop_item, unitWeAreChecking);
-	reconstructedDescription = GameUI.ReplaceDOTAAbilitySpecialValues(shop_item, reconstructedDescription, abilityDescription);
 	let split_text = "";
-
 	if (reconstructedDescription != null) {
 		split_text = reconstructedDescription.split(/[<]h1[>]|[<][/]h1[>] |[<][/]h1[>]/);
 	}
-
 	for (let h = 0; h < split_text.length; h++) { // Separate Label contents
-		if (split_text[h].match("Active")) {
+		if (split_text[h].match("Active") || split_text[h].match("Aura")) {
 			activeHeader_text = split_text[h];
 			activeContents_text = split_text[h + 1];
 			split_text[h] = "";
@@ -390,7 +395,10 @@ function AlterShopDescriptions(abilityName) {
 			activeHeader.SetHasClass("Header", true);
 			activeHeader.style["font-weight"] = "bold";
 			activeHeader.style["color"] = "#FFFFFF66"; 
-
+			activeHeader.style["width"] = "100%"; 
+			activeHeader.style["backgroundSize"] = "100% 100%"; 
+			activeContents.style["width"] = "100%"; 
+			
 			activeHeader.text = activeHeader_text;
 			activeContents.text = activeContents_text;
 
@@ -409,6 +417,9 @@ function AlterShopDescriptions(abilityName) {
 			passiveHeader.SetHasClass("Header", true);
 			passiveHeader.style["font-weight"] = "bold";
 			passiveHeader.style["color"] = "#FFFFFF66";
+			passiveHeader.style["width"] = "100%"; 
+			passiveHeader.style["backgroundSize"] = "100% 100%"; 
+			passiveContents.style["width"] = "100%"; 
 
 			passiveHeader.text = passiveHeader_text;
 			passiveContents.text = passiveContents_text;
@@ -429,6 +440,9 @@ function AlterShopDescriptions(abilityName) {
 			toggleContents.SetHasClass("Active", true);
 			toggleHeader.style["font-weight"] = "bold";
 			toggleHeader.style["color"] = "#FFFFFF66";
+			toggleHeader.style["width"] = "100%"; 
+			toggleHeader.style["backgroundSize"] = "100% 100%"; 
+			toggleContents.style["width"] = "100%"; 
 
 			toggleHeader.text = toggleHeader_text;
 			toggleContents.text = toggleContents_text;
@@ -450,6 +464,9 @@ function AlterShopDescriptions(abilityName) {
 			consumeContents.SetHasClass("Active", true);
 			consumeHeader.style["font-weight"] = "bold";
 			consumeHeader.style["color"] = "#FFFFFF66";
+			consumeHeader.style["width"] = "100%"; 
+			consumeHeader.style["backgroundSize"] = "100% 100%"; 
+			consumeContents.style["width"] = "100%"; 
 
 			consumeHeader.text = consumeHeader_text;
 			consumeContents.text = consumeContents_text;
@@ -483,6 +500,17 @@ function ManageItemAttributes(abilityPanel, abilityName) {
 	} else {
 		abilityAttributes.style.visibility = 'collapse'
 	}
+	
+	// fix size
+	const abilityContents = tooltipPanel.FindChildTraverse('Contents');
+	const abilityDescriptionContainer = tooltipPanel.FindChildTraverse('AbilityDescriptionContainer');
+	const abilityGameplayChanges = tooltipPanel.FindChildTraverse('AbilityGameplayChanges');
+	const abilityLore = tooltipPanel.FindChildTraverse('AbilityLore');
+	abilityContents.style.width = '450px';
+	abilityAttributes.style.width = '450px';
+	abilityDescriptionContainer.style.width = '450px';
+	abilityGameplayChanges.style.width = '100%';
+	abilityLore.style.width = '100%';
 }
 
 function GetDotaHud() {
@@ -976,7 +1004,7 @@ function AlterAbilityDescriptions(bImmediate) {
 			split_text = description.split(/[<]h1[>]|[<][/]h1[>] |[<][/]h1[>]/);
 		}
 		for (let h = 0; h < split_text.length; h++) { // Separate Label contents
-			if (split_text[h].match("Active")) {
+			if (split_text[h].match("Active") || split_text[h].match("Aura")) {
 				activeHeader_text = split_text[h];
 				activeContents_text = split_text[h + 1];
 				split_text[h] = "";
@@ -993,6 +1021,9 @@ function AlterAbilityDescriptions(bImmediate) {
 				activeHeader.SetHasClass("Header", true);
 				activeHeader.style["font-weight"] = "bold";
 				activeHeader.style["color"] = "#FFFFFF66"; 
+				activeHeader.style["width"] = "100%"; 
+				activeHeader.style["backgroundSize"] = "100% 100%"; 
+				activeContents.style["width"] = "100%"; 
 
 				activeHeader.text = activeHeader_text;
 				activeContents.text = activeContents_text;
@@ -1013,6 +1044,9 @@ function AlterAbilityDescriptions(bImmediate) {
 				passiveHeader.SetHasClass("Header", true);
 				passiveHeader.style["font-weight"] = "bold";
 				passiveHeader.style["color"] = "#FFFFFF66";
+				passiveHeader.style["width"] = "100%"; 
+				passiveHeader.style["backgroundSize"] = "100% 100%"; 
+				passiveContents.style["width"] = "100%"; 
 
 				passiveHeader.text = passiveHeader_text;
 				passiveContents.text = passiveContents_text;
@@ -1035,6 +1069,10 @@ function AlterAbilityDescriptions(bImmediate) {
 				toggleContents.SetHasClass("Active", true);
 				toggleHeader.style["font-weight"] = "bold";
 				toggleHeader.style["color"] = "#FFFFFF66";
+				toggleHeader.style["width"] = "100%"; 
+				toggleHeader.style["backgroundSize"] = "100% 100%"; 
+				toggleContents.style["width"] = "100%"; 
+
 
 				toggleHeader.text = toggleHeader_text;
 				toggleContents.text = toggleContents_text;
@@ -1057,6 +1095,9 @@ function AlterAbilityDescriptions(bImmediate) {
 				consumeContents.SetHasClass("Active", true);
 				consumeHeader.style["font-weight"] = "bold";
 				consumeHeader.style["color"] = "#FFFFFF66";
+				consumeHeader.style["width"] = "100%"; 
+				consumeHeader.style["backgroundSize"] = "100% 100%"; 
+				consumeContents.style["width"] = "100%"; 
 
 				consumeHeader.text = consumeHeader_text;
 				consumeContents.text = consumeContents_text;

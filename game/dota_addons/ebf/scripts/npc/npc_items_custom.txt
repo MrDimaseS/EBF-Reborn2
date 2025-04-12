@@ -757,5 +757,637 @@
 			"cleave_ending_width"				"360"
 			"cleave_distance"					"650"
 		}
+	}
+	
+	"item_martyrs_bulwark"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_blade_mail.lua"
+		"AbilityTextureName"			"blademail/martyrs_bulwark"
+		
+		"precache"
+		{
+			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_axe.vsndevts"
+			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_items.vsndevts"
+			"particle"			"particles/units/heroes/hero_axe/axe_beserkers_call_owner.vpcf"
+			"particle"			"particles/status_fx/status_effect_beserkers_call.vpcf"
+			"particle"			"particles/status_fx/status_effect_blademail.vpcf"
+			"particle"			"particles/items_fx/blademail.vpcf"
+		}
+	
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"25"
+		"AbilitySharedCooldown"			"martyrs_bulwark"
+	
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"50"
+		"ItemCost"						"1000"
+		"ItemShopTags"					"damage;armor;int;hard_to_tag"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"blade mail"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_all"
+			{
+				"value"							"10 18 31 54 95"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_damage"
+			{
+				"value"							"40 70 122 213 373"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_attack_speed"				"25 40 70 122 212"
+			"bonus_armor"						"5 8 14 24 42"
+			
+			"duration"							"4.5"
+			"passive_reflection_constant"
+			{
+				"value"							"60 120 180 240 300"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"reflection_radius"					"600"
+			"internal_cd"						"0.2"
+			
+			"chain_chance"
+			{
+				"value"							"30"
+				"affected_by_chance_increase"	"1"
+			}
+			"chain_strikes"						"4"
+			"chain_radius"						"650"
+			"chain_delay"						"0.25"
+			"chain_damage"
+			{
+				"value"							"120 240 360 480 600"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+		}
+	}
+	"item_blood_gem"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_blood_gem.lua"
+		"AbilityTextureName"			"blood_gem/blood_gem"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"FightRecapLevel"				"1"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemShopTags"					"int;damage"
+		"ItemQuality"					"rare"
+		"ItemCost"						"1000"
+		"ItemAliases"					"glimmer cape"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"spell_lifesteal"					"3 5.25 9.0 15.75 27.5"
+			"lifesteal_percent"					"5 8.75 15.25 26.5 46.25"
+			
+			"bonus_health"
+			{
+				"value"							"425 750 1315 2300 4025"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_mana"						"425 750 1315 2300 4025"
+			
+			"overheal_maximum"					"10 20 30 40 50"
+			
+			"duration"							"8"
+			"AbilityCooldown"					"60 50 40 30 20"
+		}
+	}
+	"item_cape_of_the_magus"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_cape_of_the_magus.lua"
+		"AbilityTextureName"			"cape_of_the_magus/cape_of_the_magus"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"FightRecapLevel"				"1"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemShopTags"					"int;damage"
+		"ItemQuality"					"rare"
+		"ItemCost"						"1000"
+		"ItemAliases"					"glimmer cape"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_intellect"
+			{
+				"value"							"20 35 60 105 185"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"mana_regen_multiplier"				"15 25 45 75 130"
+			"spell_lifesteal_amp"				"10 17.5 30 50 85"
+			
+			"aura_spell_amp"
+			{
+				"value"							"12 21 35 60 105"
+				"CalculateAttributeTooltip"		"0"
+			}
+			"aura_bonus_magical_armor"			"10 15 20 25 30"
+			"aura_spell_lifesteal"				"3 5 7 9 11"
+			"aura_radius"						"1200"
+		}
+	}
+	"item_nexus_of_vigor"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_nexus_of_vigor.lua"
+		"AbilityTextureName"			"nexus_of_vigor/nexus_of_vigor"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"FightRecapLevel"				"1"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemShopTags"					"int;damage"
+		"ItemQuality"					"rare"
+		"ItemCost"						"1000"
+		"ItemAliases"					"glimmer cape"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_strength"
+			{
+				"value"							"20 35 60 105 185"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"incoming_heal_amp"					"5 8.75 15.25 26.5 47"	
+			"overheal_damage"					"25 40 65 80 95"	
+			"damage_radius"						"325"	
+		}
+	}
+	"item_drum_of_chorus"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_drum_of_chorus.lua"
+		"AbilityTextureName"			"drum_of_chorus/drum_of_chorus"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"FightRecapLevel"				"1"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemShopTags"					"int;damage"
+		"ItemQuality"					"rare"
+		"ItemCost"						"1000"
+		"ItemAliases"					"glimmer cape"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_primary"
+			{
+				"value"							"10 18 31 54 94"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"trigger_radius"					"900"	
+			"bonus_movespeed"					"10 15 20 25 30"
+			"bonus_cdr"							"10 15 20 25 30"
+			"buff_duration"						"5"
+		}
+	}
+	"item_assassins_dagger"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_assassins_dagger.lua"
+		"AbilityTextureName"			"assassins_dagger/assassins_dagger"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"FightRecapLevel"				"1"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemShopTags"						"crit;blink"
+		"ItemCost"							"1000"
+		"ActiveDescriptionLine"				"0"
+		"ItemPurchasable"					"1"
+		"ShouldBeSuggested"					"0"
+		"ItemSellable"						"1"
+		"ItemIsNeutralActiveDrop"			"0"
+		"DisplayOverheadAlertOnReceived"	"0"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_attackspeed"					"20 35 61 107 188"
+			
+			"AbilityCooldown"					"15 14 13 12 11"
+			"blink_distance"					"1200"	
+			
+			"buff_duration"						"3"
+			"critical_damage"					"200 250 300 350 400"
+			
+			"crit_attackspeed"					"20 50 75 100 125"
+			"crit_lifesteal"					"5 10 15 20 25"
+		}
+	}
+	"item_archmages_naginata"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_archmages_naginata.lua"
+		"AbilityTextureName"			"archmages_naginata/archmages_naginata"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"FightRecapLevel"				"1"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemShopTags"					"int;damage"
+		"ItemQuality"					"rare"
+		"ItemCost"						"1000"
+		"ItemAliases"					"glimmer cape"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage"
+			{
+				"value"								"70 122 214 375 657"
+				"CalculateAttributeTooltip"			"1"
+			}
+			"bonus_int"
+			{
+				"value"								"35 61 107 188 328"
+				"CalculateAttributeTooltip"			"1"
+			}
+			"bonus_mana_regen"						"1.75 3.0 5.4 9.4 16.4"	
+			
+			"cdr_chance"
+			{
+				"value"								"18"
+				"affected_by_chance_increase"		"1"
+			}
+			"cdr_on_proc"							"1 2 3 4 5"
+		}
+	}
+	"item_lunar_sigil"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_lunar_sigil.lua"
+		"AbilityTextureName"			"lunar_sigil/lunar_sigil"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"FightRecapLevel"				"1"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemShopTags"					"damage"
+		"ItemQuality"					"rare"
+		"ItemCost"						"1000"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_spell_amp"
+			{
+				"value"							"15 26.25 45.9 80.4 140.7"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_mana"						"450 785 1375 2405 4210"
+			"bonus_mana_regen"					"1.75 3.0 5.4 9.4 16.4"	
+			
+			"AbilityCooldown"					"24"
+			"AbilityManaCost"					"100 150 200 250 300"
+			"bonus_damage"
+			{
+				"value"							"1500 3000 4500 6000 7500"
+				"CalculateSpellDamageTooltip"	"1"
+			}
+			"debuff_duration"					"6"
+		}
+	}
+	"item_angelic_crown"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_angelic_crown.lua"
+		"AbilityTextureName"			"angelic_crown/angelic_crown"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"FightRecapLevel"				"1"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemShopTags"					"int;damage"
+		"ItemQuality"					"rare"
+		"ItemCost"						"1000"
+		"ItemAliases"					"glimmer cape"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"spell_amp"					"5 8.75 15.25 26.75 46.75"
+			"heal_amp"					"5 8.75 15.25 26.75 46.75"
+			"trigger_radius"					"900"	
+			"bonus_movespeed"					"10 15 20 25 30"
+			"bonus_cdr"							"10 15 20 25 30"
+			"buff_duration"						"5"
+		}
+	}
+	"item_samaritans_cloak"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_samaritans_cloak.lua"
+		"AbilityTextureName"			"samaritans_cloak/samaritans_cloak"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"FightRecapLevel"				"1"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemShopTags"					"int;damage"
+		"ItemQuality"					"rare"
+		"ItemCost"						"1000"
+		"ItemAliases"					"glimmer cape"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_strength"
+			{
+				"value"							"14 24 43 75 131"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_intellect"
+			{
+				"value"							"14 24 43 75 131"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_armor"						"2 4 6 11 18"
+			
+			"share_radius"						"1200"
+			"share_percent"						"40 50 60 70 80"
+		}
+	}
+	"item_unhallowed_icon"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_unhallowed_icon.lua"
+		"AbilityTextureName"			"unhallowed_icon/unhallowed_icon"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"FightRecapLevel"				"1"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemShopTags"					"int;damage"
+		"ItemQuality"					"rare"
+		"ItemCost"						"1000"
+		"ItemAliases"					"glimmer cape"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_health"
+			{
+				"value"							"450 785 1375 2405 4210"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_health_regen"
+			{
+				"value"							"40 70 125 220 385"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bloodbound_lifesteal"				"15 20 25 30 35"
+			"bloodbound_radius"					"1200"
+		}
+	}
+	"item_watchers_gaze"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_watchers_gaze.lua"
+		"AbilityTextureName"			"watchers_gaze/watchers_gaze"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"FightRecapLevel"				"1"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"								"1000"
+		"ActiveDescriptionLine"					"0"
+		"ItemPurchasable"						"1"
+		"ShouldBeSuggested"						"0"
+		"ItemSellable"							"1"
+		"ItemIsNeutralActiveDrop"				"0"
+		"DisplayOverheadAlertOnReceived"		"0"
+		
+		"MaxUpgradeLevel"						"5"
+		"ItemBaseLevel"							"1"
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_all"
+			{
+				"value"							"20 35 61 107 187"
+				"CalculateAttributeTooltip"		"1"
+			}
+			
+			"AbilityCooldown"					"45"
+			"AbilityManaCost"					"75 100 125 150 175"
+			"petrify_duration"					"4"
+			"petrify_amp"						"12 18 24 30 36"
+		}
+	}
+	"item_lucky_femur"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_lucky_femur.lua"
+		"AbilityTextureName"			"lucky_femur/lucky_femur"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"FightRecapLevel"				"1"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemShopTags"					"int;damage"
+		"ItemQuality"					"rare"
+		"ItemCost"						"1000"
+		"ItemAliases"					"glimmer cape"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_int"
+			{
+				"value"							"35 61 107 188 328"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_mana"						"450 785 1375 2405 4210"
+			
+			"instant_refresh_chance"
+			{
+				"value"							"15 20 25 30 35"
+				"affected_by_chance_increase"	"1"
+			}
+			"mana_cost_penalty"					"100"
+		}
+	}
+	"item_seacursed_trident"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_seacursed_trident.lua"
+		"AbilityTextureName"			"seacursed_trident/seacursed_trident"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"FightRecapLevel"				"1"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemShopTags"					"int;damage"
+		"ItemQuality"					"rare"
+		"ItemCost"						"1000"
+		"ItemAliases"					"glimmer cape"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage"
+			{
+				"value"							"70 122 213 373 653"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_agility"
+			{
+				"value"							"16 28 49 86 150"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"spell_amp"							"12 21 37 65 114"
+			"debuff_damage_amp"					"4 6 8 10 12"
+		}
+	}
+	"item_wand_of_brine"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_wand_of_brine.lua"
+		"AbilityTextureName"			"wand_of_brine/wand_of_brine"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"FightRecapLevel"				"1"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemShopTags"					"int;damage"
+		"ItemQuality"					"rare"
+		"ItemCost"						"1000"
+		"ItemAliases"					"glimmer cape"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		"MaxUpgradeLevel"					"5"
+		"ItemBaseLevel"						"1"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_primary"
+			{
+				"value"							"15 26 46 80 141"
+				"CalculateAttributeTooltip"		"1"
+			}
+			
+			"buff_duration"						"3"
+			"heal_per_second"
+			{
+				"value"							"500 1000 1500 2000 2500"
+				"CalculateSpellHealTooltip"		"1"
+			}
+		}
+	}
 }
 

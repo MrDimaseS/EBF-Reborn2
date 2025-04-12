@@ -1,0 +1,1 @@
+item_angelic_crown = class({})

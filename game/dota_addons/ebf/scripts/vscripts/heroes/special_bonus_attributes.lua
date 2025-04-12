@@ -136,7 +136,7 @@ function special_bonus_attributes:OnInventoryContentsChanged()
 				if IsEntitySafe( itemToCheck )
 				and item ~= itemToCheck
 				and not itemToCheck:IsCombineLocked() then
-					local itemToCheckType = (item:GetAbilityName():gsub('%W','')):gsub('_','')
+					local itemToCheckType = (itemToCheck:GetAbilityName():gsub('%W','')):gsub('_','')
 					if itemToCheckType == itemType
 					and item:GetLevel() == itemToCheck:GetLevel()
 					and itemToCheck:GetPurchaser() == parent then

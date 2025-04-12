@@ -1,0 +1,1 @@
+item_iron_talon = class({})

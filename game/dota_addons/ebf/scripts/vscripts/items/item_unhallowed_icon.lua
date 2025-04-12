@@ -1,0 +1,1 @@
+item_unhallowed_icon = class({})

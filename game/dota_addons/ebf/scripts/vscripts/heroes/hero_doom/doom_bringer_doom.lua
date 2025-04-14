@@ -13,8 +13,8 @@ function doom_bringer_doom:OnSpellStart()
     local duration = self:GetSpecialValueFor("duration")
     local self_cast = self:GetSpecialValueFor("radius") ~= 0
 
-    if  then
-        caself_castster:AddNewModifier(caster, self, "modifier_doom_bringer_doom_aura", { duration = duration })
+    if self_cast then
+        caster:AddNewModifier(caster, self, "modifier_doom_bringer_doom_aura", { duration = duration })
     else
         local target = self:GetCursorTarget()
         if target:TriggerSpellAbsorb(self) then return end

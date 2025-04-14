@@ -1,5 +1,151 @@
 centaur_double_edge = class({})
 
+function centaur_double_edge:GetAOERadius()
+	return self:GetSpecialValueFor("radius")
+end
+function centaur_double_edge:GetIntrinsicModifierName()
+	return "modifier_centaur_double_edge_stepperazer"
+end
+function centaur_double_edge:OnSpellStart()
+	if IsClient() then return end
+
+	local caster = self:GetCaster()
+	local target = self:GetCursorTarget()
+	local radius = self:GetSpecialValueFor("radius")
+	local damage = self:GetSpecialValueFor("edge_damage")
+	local self_damage_multiplier = self:GetSpecialValueFor("self_damage") / 100
+	local max_self_damage_multiplier = self:GetSpecialValueFor("max_self_damage") / 100
+	local self_damage = damage * self_damage_multiplier
+	local max_self_damage = damage * max_self_damage_multiplier
+	local enemies_hit = 0
+
+	local str_pct_duration = self:GetSpecialValueFor("strength_duration")
+	local add_strength = str_pct_duration ~= 0
+	local str_modifier = nil
+	if add_strength then
+		str_modifier = caster:AddNewModifier(caster, self, "modifier_centaur_double_edge_chieftain", { duration = str_pct_duration })
+	end
+
+	local allied_lifesteal_radius = self:GetSpecialValueFor("allied_lifesteal_radius")
+	local allied_lifesteal_self_damage = self:GetSpecialValueFor("allied_lifesteal_self_damage") / 100
+	local allied_lifesteal_enemy_damage = self:GetSpecialValueFor("allied_lifesteal_enemy_damage") / 100
+
+	local stepperazer = caster:FindModifierByName("modifier_centaur_double_edge_stepperazer")
+	local final_enemy_damage = damage + stepperazer:GetStackCount()
+	stepperazer:SetStackCount(0)
+
+	local heal_allies = allied_lifesteal_radius ~= 0
+
+	local enemies = caster:FindEnemyUnitsInRadius(target:GetAbsOrigin(), radius)
+	for _, enemy in ipairs(enemies) do
+		if not enemy:TriggerSpellAbsorb(self) then
+			if add_strength and str_modifier then
+				str_modifier:AddIndependentStack()
+			end
+
+			self:DealDamage(caster, enemy, final_enemy_damage)
+			enemies_hit = enemies_hit + 1
+		end
+	end
+
+	local final_self_damage = math.min(self_damage * enemies_hit, max_self_damage)
+	self:DealDamage(caster, caster, final_self_damage, { damage_flags = DOTA_DAMAGE_FLAG_NON_LETHAL + DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION })
+
+	if heal_allies then
+		local allies = caster:FindFriendlyUnitsInRadius(caster:GetAbsOrigin(), allied_lifesteal_radius)
+		for _, ally in ipairs(allies) do
+			ally:HealEvent(final_enemy_damage * enemies_hit * allied_lifesteal_enemy_damage, self, caster, false)
+			ally:HealEvent(final_self_damage * allied_lifesteal_self_damage, self, caster, false)
+		end
+	end
+
+	-- particles
+	local particle = "particles/units/heroes/hero_centaur/centaur_double_edge.vpcf"
+	local effect = ParticleManager:CreateParticle(particle, PATTACH_ABSORIGIN_FOLLOW, target)
+	ParticleManager:SetParticleControl(effect, 0, caster:GetAbsOrigin())
+	ParticleManager:SetParticleControl(effect, 1, target:GetAbsOrigin())
+	ParticleManager:SetParticleControl(effect, 5, target:GetAbsOrigin())
+
+	-- sounds
+	local sound = "Hero_Centaur.DoubleEdge"
+	EmitSoundOn(sound, caster)
+end
+
+modifier_centaur_double_edge_chieftain = class({})
+LinkLuaModifier( "modifier_centaur_double_edge_chieftain", "heroes/hero_centaur/centaur_double_edge", LUA_MODIFIER_MOTION_NONE )
+
+function modifier_centaur_double_edge_chieftain:IsHidden()
+	return self:GetStackCount() == 0
+end
+function modifier_centaur_double_edge_chieftain:IsDebuff()
+	return false
+end
+function modifier_centaur_double_edge_chieftain:IsPurgable()
+	return false
+end
+function modifier_centaur_double_edge_chieftain:OnCreated()
+	self:OnRefresh()
+	if IsClient() then return end
+
+	self:StartIntervalThink(0)
+end
+function modifier_centaur_double_edge_chieftain:OnRefresh()
+	self.str_pct_per_stack = self:GetSpecialValueFor("strength_pct_per_hit") / 100
+end
+function modifier_centaur_double_edge_chieftain:OnIntervalThink()
+	self.strength = self:GetParent():GetStrength() * self.str_pct_per_stack * self:GetStackCount()
+	self:GetParent():CalculateStatBonus(true)
+end
+function modifier_centaur_double_edge_chieftain:DeclareFunctions()
+	return {
+		MODIFIER_PROPERTY_STATS_STRENGTH_BONUS
+	}
+end
+function modifier_centaur_double_edge_chieftain:GetModifierBonusStats_Strength()
+	return self.strength
+end
+
+modifier_centaur_double_edge_stepperazer = class({})
+LinkLuaModifier( "modifier_centaur_double_edge_stepperazer", "heroes/hero_centaur/centaur_double_edge", LUA_MODIFIER_MOTION_NONE )
+
+function modifier_centaur_double_edge_stepperazer:IsHidden()
+	return false
+end
+function modifier_centaur_double_edge_stepperazer:IsDebuff()
+	return false
+end
+function modifier_centaur_double_edge_stepperazer:IsPurgable()
+	return false
+end
+function modifier_centaur_double_edge_stepperazer:OnCreated()
+	self:OnRefresh()
+end
+function modifier_centaur_double_edge_stepperazer:OnRefresh()
+	self.damage_taken_multiplier = self:GetSpecialValueFor("damage_taken_multiplier")
+	self.damage_taken_multiplier_maximum = self:GetSpecialValueFor("damage_taken_multiplier_maximum") / 100
+	self.maximum_bonus_damage = self:GetSpecialValueFor("edge_damage") * self.damage_taken_multiplier_maximum
+end
+function modifier_centaur_double_edge_stepperazer:DeclareFunctions()
+	return {
+		MODIFIER_PROPERTY_TOOLTIP,
+		MODIFIER_EVENT_ON_TAKEDAMAGE
+	}
+end
+function modifier_centaur_double_edge_stepperazer:OnTooltip()
+	return self:GetStackCount()
+end
+function modifier_centaur_double_edge_stepperazer:OnTakeDamage(params)
+	if self.damage_taken_multiplier ~= 0 and params.unit and params.unit == self:GetParent() then
+		local damage_added = params.damage * self.damage_taken_multiplier
+		local stacks = self:GetStackCount()
+		local new_stacks = math.min(stacks + damage_added, self.maximum_bonus_damage)
+		self:SetStackCount(new_stacks)
+	end
+end
+
+--[[
+centaur_double_edge = class({})
+
 function centaur_double_edge:GetIntrinsicModifierName()
 	return "modifier_centaur_double_edge_counter_strike"
 end
@@ -100,3 +246,4 @@ end
 function modifier_centaur_double_edge_counter_strike:IsHidden()
 	return self:GetStackCount() == 0
 end
+]]

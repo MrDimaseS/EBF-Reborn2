@@ -1,0 +1,1 @@
+item_wand_of_brine = class({})

@@ -1,0 +1,1 @@
+item_lunar_sigil = class({})

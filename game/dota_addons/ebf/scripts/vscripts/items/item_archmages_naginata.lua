@@ -1,0 +1,1 @@
+item_archmages_naginata = class({})

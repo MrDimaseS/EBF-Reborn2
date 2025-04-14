@@ -1,0 +1,1 @@
+item_seacursed_trident = class({})

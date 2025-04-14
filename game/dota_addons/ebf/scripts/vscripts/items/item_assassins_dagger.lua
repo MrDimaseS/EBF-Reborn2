@@ -1,0 +1,1 @@
+item_assassins_dagger = class({})

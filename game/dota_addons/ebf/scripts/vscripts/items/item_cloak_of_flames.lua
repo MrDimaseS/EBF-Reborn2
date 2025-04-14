@@ -1,0 +1,1 @@
+item_cloak_of_flames = class({})

@@ -1,0 +1,1 @@
+item_nexus_of_power = class({})

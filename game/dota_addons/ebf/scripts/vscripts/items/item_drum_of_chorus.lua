@@ -1,0 +1,1 @@
+item_drum_of_chorus = class({})

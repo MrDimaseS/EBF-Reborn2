@@ -1,0 +1,1 @@
+item_lucky_femur = class({})

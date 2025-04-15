@@ -1292,7 +1292,8 @@ function CDOTA_Buff:AddHeroEffect(id)
 end
 
 function CDOTA_BaseNPC:FindRandomEnemyInRadius(position, radius, data)
-	return self:FindEnemyUnitsInRadius(position, radius, data)[1]
+	local enemies = self:FindEnemyUnitsInRadius(position, radius, data)
+	return enemies[math.random(#enemies)]
 end
 
 function CDOTA_BaseNPC:Blink(position, blinkData)

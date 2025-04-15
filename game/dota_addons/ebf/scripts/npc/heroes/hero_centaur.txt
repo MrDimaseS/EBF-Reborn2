@@ -1,12 +1,10 @@
 "DOTAAbilities"
 {	
 	//=================================================================================================================
-	// Centaur Warchief: Double Edge
+	// Centaur Warchief: Centaur Heart
 	//=================================================================================================================
 	"centaur_centaur_heart"
 	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_lua"
 		"ScriptFile"					"heroes/hero_centaur/centaur_centaur_heart"
 		"AbilityTextureName"			"centaur_centaur_heart"
@@ -14,21 +12,40 @@
 		"MaxLevel"						"1"
         "Innate"						"1"
 
-		// Special	
-		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"hp_per_str"				"5"
+			"hp_per_str"
+			{
+				"value"										"5"
+				"special_bonus_facet_centaur_chieftain"		"+5"
+			}
+			"base_damage_per_str"
+			{
+				"special_bonus_facet_centaur_stepperazer"	"1.5"
+			}
+			"movement_speed_per_str"
+			{
+				"special_bonus_facet_centaur_thunderhoof"	"0.02"
+			}
+			"no_movespeed_cap"
+			{
+				"special_bonus_facet_centaur_thunderhoof"	"1"
+			}
+			"is_unslowable"
+			{
+				"special_bonus_facet_centaur_thunderhoof"	"1"
+			}
 		}
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
+
 	//=================================================================================================================
 	// Centaur Warchief: Hoof Stomp
 	//=================================================================================================================
 	"centaur_hoof_stomp"
 	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_centaur/centaur_hoof_stomp"
+		"AbilityTextureName"			"centaur_hoof_stomp"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
@@ -36,125 +53,157 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Centaur.HoofStomp"
 		
-
-		// Stats
-		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"				"0"
 		"AbilityCooldown"				"18 16 14 12"
 		"AbilityManaCost"				"100 110 120 130"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_1"
 		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
 			"radius"						
 			{
-				"value"		"325"
-				"affected_by_aoe_increase"	"1"
+				"value"										"325"
+				"affected_by_aoe_increase"					"1"
 			}
 			"stomp_damage"	
 			{
-				"value"								"700 1400 2100 2800"
-				"CalculateSpellDamageTooltip" 		"1"
+				"value"										"700 1400 2100 2800"
+				"CalculateSpellDamageTooltip" 				"1"
 			}			
 			"stun_duration"					
 			{
-				"value"								"1.6 1.8 2.0 2.2"
-				"special_bonus_unique_centaur_2" 	"+1.0"
+				"value"										"1.6 1.8 2.0 2.2"
+				"special_bonus_unique_centaur_8" 			"+0.8"
 			}
-			"windup_time"	"0.5"
+			"windup_time"									"0.5"
+
+			"allied_attack_speed"
+			{
+				"special_bonus_facet_centaur_chieftain"		"30 50 70 90"
+			}
+			"allied_attack_speed_radius"
+			{
+				"special_bonus_facet_centaur_chieftain"		"900"
+			}
+			"allied_attack_speed_duration"
+			{
+				"special_bonus_facet_centaur_chieftain"		"5"
+			}
+
+			"enemy_attack_speed"
+			{
+				"special_bonus_facet_centaur_thunderhoof"	"-60 -100 -140 -180"
+			}
+			"enemy_attack_speed_duration"
+			{
+				"special_bonus_facet_centaur_thunderhoof"	"5"
+			}
+
+			"does_windup_disarm"
+			{
+				"value"										"1"
+				"special_bonus_facet_centaur_stepperazer"	"=0"
+			}
+			"damage_resistance"
+			{
+				"special_bonus_facet_centaur_stepperazer"	"50"
+			}
+			"damage_resistance_duration"
+			{
+				"special_bonus_facet_centaur_stepperazer"	"5"
+			}
 		}
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
+
 	//=================================================================================================================
 	// Centaur Warchief: Double Edge
 	//=================================================================================================================
 	"centaur_double_edge"
 	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_lua"
 		"ScriptFile"					"heroes/hero_centaur/centaur_double_edge"
 		"AbilityTextureName"			"centaur_double_edge"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Centaur.DoubleEdge"
-        "HasShardUpgrade"       	      "1"
+        "HasShardUpgrade"       	    "0"
 
-		// Stats		
-		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"3.5"
 		"AbilityCastRange"				"150"
 		"AbilityCastPoint"				"0.3"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_2"
 
-		//------------------------------------------------------------------------------
-		"AbilityManaCost"				"0 0 0 0"
+		"AbilityManaCost"				"0"
 
-		// Special	
-		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
 			"edge_damage"	
 			{
-				"value"								"1200 1800 2400 3000"
-				"special_bonus_unique_centaur_4" 	"+75%"
-				"CalculateSpellDamageTooltip" 		"1"
+				"value"										"1200 1800 2400 3000"
+				"special_bonus_unique_centaur_4" 			"+75%"
+				"CalculateSpellDamageTooltip" 				"1"
 			}
-			"strength_damage"						""
-			"radius"								"220"
-			"self_damage"							"20"
-			"max_self_damage"						"100"
+			"radius"
+			{
+				"value"										"220"
+				"affected_by_aoe_increase"					"1"
+			}
+			"self_damage"									"20"
+			"max_self_damage"								"100"
+
+			"strength_pct_per_hit"
+			{
+				"special_bonus_facet_centaur_chieftain"		"2 4 6 8"
+			}
+			"strength_duration"
+			{
+				"special_bonus_facet_centaur_chieftain"		"12"
+			}
+			"max_strength_stacks"
+			{
+				"special_bonus_facet_centaur_chieftain"		"5"
+			}
+
+			"allied_lifesteal_radius"
+			{
+				"special_bonus_facet_centaur_thunderhoof"	"900"
+				"affected_by_aoe_increase"					"1"
+			}
+			"allied_lifesteal_self_damage"
+			{
+				"special_bonus_facet_centaur_thunderhoof"	"70 80 90 100"
+			}
+			"allied_lifesteal_enemy_damage"
+			{
+				"special_bonus_facet_centaur_thunderhoof"	"20 40 60 80"
+			}
+			"self_lifesteal"
+			{
+				"special_bonus_facet_centaur_thunderhoof"	"20"
+			}
+
+			"damage_taken_multiplier"
+			{
+				"special_bonus_facet_centaur_stepperazer"	"1 2 3 4"
+			}
+			"damage_taken_multiplier_maximum"
+			{
+				"special_bonus_facet_centaur_stepperazer"	"80"
+			}
 			
-			"stack_duration"		
-			{
-				"value"				"0"
-				"special_bonus_facet_centaur_counter_strike"		"=6"
-			}
-			"pct_of_incoming_damage_as_bonus"  
-			{
-				"value"				"0"
-				"special_bonus_facet_centaur_counter_strike"		"=35"
-			}
-			"max_damage_increase_pct"
-			{
-				"value"				"0"
-				"special_bonus_facet_centaur_counter_strike"		"=75"
-			}
-			
-			"shard_str_pct"
-			{
-				"special_bonus_shard"		"+8"
-			}
-			"shard_str_duration"
-			{
-				"special_bonus_shard"		"+15"
-			}
-			"shard_max_stacks"
-			{
-				"special_bonus_shard"		"+5"
-			}
-			"shard_movement_slow"
-			{
-				"special_bonus_shard"		"+25"
-			}
-			"shard_movement_slow_duration"
-			{
-				"special_bonus_shard"		"+2"
-			}
+			"strength_damage"								""
 		}
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
+
 	//=================================================================================================================
 	// Centaur Warchief: Return (Retaliate)
 	//=================================================================================================================
 	"centaur_return"
 	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_lua"
 		"ScriptFile"					"heroes/hero_centaur/centaur_return"
 		"AbilityTextureName"			"centaur_return"
@@ -166,30 +215,66 @@
 		"AbilityCastGestureSlot"		"DEFAULT"
 		"IsBreakable"					"1"
 		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
 			"return_damage"				
 			{
-				"value"								"150 250 350 450"
-				"special_bonus_unique_centaur_3"	"+50%"
-				"CalculateSpellDamageTooltip" 		"1"
+				"value"										"150 250 350 450"
+				"special_bonus_unique_centaur_5"			"+50%"
+				"CalculateSpellDamageTooltip" 				"1"
 			}
-			"aura_radius"
+
+			"radius"
 			{
-				"value"								"0"
-				"special_bonus_unique_centaur_1"	"+1200"
-			}							
+				"special_bonus_facet_centaur_chieftain"		"300 600 900 1200"
+				"RequiresFacet"								"centaur_chieftain"
+				"affected_by_aoe_increase"					"1"
+			}
+
+			"auto_retaliate_bonus_range"
+			{
+				"special_bonus_facet_centaur_thunderhoof"	"150"
+				"RequiresFacet"								"centaur_thunderhoof"
+				"affected_by_aoe_increase"					"1"
+			}
+			"auto_retaliate_interval"
+			{
+				"special_bonus_facet_centaur_thunderhoof"	"3.0 2.5 2.0 1.5"
+			}
+			"attack_damage_reduction"
+			{
+				"special_bonus_facet_centaur_thunderhoof"	"20"
+			}
+			"attack_damage_reduction_duration"
+			{
+				"special_bonus_facet_centaur_thunderhoof"	"3"
+			}
+
+			"attack_retaliate_bonus_range"
+			{
+				"special_bonus_facet_centaur_stepperazer"	"150"
+				"RequiresFacet"								"centaur_stepperazer"
+				"affected_by_aoe_increase"					"1"
+			}
+			"attack_retaliate_pct"
+			{
+				"special_bonus_facet_centaur_stepperazer"	"50"
+			}
+			"attack_retaliate_history"
+			{
+				"special_bonus_facet_centaur_stepperazer"	"2 3 4 5"
+			}
 		}
 	}
+
 	//=================================================================================================================
 	// Centaur: Stampede
 	//=================================================================================================================
 	"centaur_stampede"
 	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_centaur/centaur_stampede"
+		"AbilityTextureName"			"centaur_stampede"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES_ENEMIES_NO"
@@ -198,95 +283,225 @@
 		"FightRecapLevel"				"2"
 		"AbilitySound"					"Hero_Centaur.Stampede"
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
-		
-		
+		"AbilityModifierSupportValue"	"0.2"
 		"LevelsBetweenUpgrades"			"6"
-		
-        "HasScepterUpgrade"             "1"
+        "HasScepterUpgrade"             "0"
+		"LinkedAbility"					"centaur_work_horse"
 
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"150 200 250"
 
-		// Stats
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityModifierSupportValue"	"0.2"	// hits everything on the map
-
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
 			"duration"			
 			{
-				"value"								"3.5 4 4.5"
-				"special_bonus_unique_centaur_7"	"+1"
+				"value"										"3.5 4 4.5"
 			}
-			"scepter_bonus_duration"     
+			"base_damage"
 			{
-				"special_bonus_scepter"		"+1"
+				"value"										"2000 3000 4000"
+				"special_bonus_unique_centaur_7"			"+100%"
+				"special_bonus_facet_centaur_stepperazer"	"+50%"
+				"CalculateSpellDamageTooltip"				"1"
 			}
-			"base_damage"	
+			"slow_duration"
 			{
-				"value"							"2000 3000 4000"
-				"CalculateSpellDamageTooltip"	"1"
+				"value"										"2.5"
+				"special_bonus_facet_centaur_thunderhoof"	"+1.5"
 			}
-			"strength_damage"					""
-			"slow_duration"		"2.5"
-			"radius"			"105"
-			"slow_movement_speed"					"100"
-			"damage_reduction"	
-			{
-				"special_bonus_scepter"				"25 35 45"
-			}
+			"radius"										"105"
+			"slow_movement_speed"							"100"
 			"AbilityCooldown"
 			{
-				"value"								"80 70 60"
-				"special_bonus_unique_centaur_5"	"-25"
+				"value"										"80 70 60"
+				"special_bonus_unique_centaur_6"			"-30"
 			}
-			"has_flying_movement"	
+
+			"damage_reduction"
 			{
-				"special_bonus_scepter"	"+1"
+				"special_bonus_facet_centaur_chieftain"		"25"
 			}
+
+			"has_flying_movement"
+			{
+				"special_bonus_facet_centaur_thunderhoof"	"1"
+			}
+			"does_disarm_and_silence"
+			{
+				"special_bonus_facet_centaur_thunderhoof"	"1"
+			}
+			
+			"scepter_bonus_duration"			""
+			"strength_damage"					""
 		}
 	}
+
 	//=================================================================================================================
-	// Centaur: Overrun
+	// Centaur: Work Horse
 	//=================================================================================================================
-	"centaur_overrun"
+	"centaur_work_horse"
+	{
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_centaur/centaur_work_horse"
+		"AbilityTextureName"			"centaur_work_horse"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"FightRecapLevel"				"1"
+		"MaxLevel"						"3"
+		"IsGrantedByScepter"			"0"
+		"AbilitySound"					"Hero_Centaur.Stampede"
+		"LinkedAbility"					"centaur_stampede"
+
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
+		"AbilityCastGestureSlot"		"DEFAULT"
+		
+		"AbilityCooldown"				"40 35 30"
+		"AbilityManaCost"				"75"
+		
+		"AbilityValues"
+		{
+			"duration"			
+			{
+				"value"										"3.5 4 4.5"
+			}
+			"base_damage"
+			{
+				"value"										"2000 3000 4000"
+				"special_bonus_unique_centaur_7"			"+100%"
+				"special_bonus_facet_centaur_stepperazer"	"+50%"
+				"CalculateSpellDamageTooltip"				"1"
+			}
+			"slow_duration"
+			{
+				"value"										"2.5"
+				"special_bonus_facet_centaur_thunderhoof"	"+1.5"
+			}
+			"radius"										"105"
+			"slow_movement_speed"							"100"
+			"AbilityCooldown"
+			{
+				"value"										"80 70 60"
+				"special_bonus_unique_centaur_6"			"-30"
+			}
+
+			"damage_reduction"
+			{
+				"special_bonus_facet_centaur_chieftain"		"25"
+			}
+
+			"has_flying_movement"
+			{
+				"special_bonus_facet_centaur_thunderhoof"	"1"
+			}
+			"does_disarm_and_silence"
+			{
+				"special_bonus_facet_centaur_thunderhoof"	"1"
+			}
+			
+			"melee_attack_range"							""
+			"air_duration"									""
+			"air_height"									""
+			"break_distance"								""
+		}
+	}
+
+	
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_centaur_1"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
-		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES_ENEMIES_NO"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
-		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
-		"FightRecapLevel"				"2"
-		"AbilitySound"					"Hero_Centaur.Stampede"
-		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
+	}
 
-		"MaxLevel"						"1"
-		"FightRecapLevel"				"1"
-
-		// Time		
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_centaur_2"
+	{
+		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"16"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
+	}
 
-		// Cost
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_centaur_3"
+	{
+		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"50"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
+	}
 
-		// Stats
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_centaur_4"
+	{
+		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityModifierSupportValue"	"0.2"	// hits everything on the map
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
+	}
 
-		// Special
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_centaur_5"
+	{
+		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			"duration"
-			{
-				"value" "2"
-			}
-		}
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
+		
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_centaur_6"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_centaur_7"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_centaur_8"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
 	}
 }

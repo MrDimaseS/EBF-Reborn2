@@ -937,14 +937,16 @@ function AlterAbilityDescriptions(bImmediate) {
 		abilityDescription.RemoveAndDeleteChildren();
 		RemoveAbilityChanges(abilityDescription, item_name, unitWeAreChecking);
 		lastRememberedState = lastState;
-		for (let i in split_specials) { // REPLACE SPECIAL VALUES
-			let key = split_specials[i]
+		for (let id in split_specials) { // REPLACE SPECIAL VALUES
+			let key = split_specials[id]
 			if (key.match(" ")) {
 			} else if (abilityValues[key] != undefined) {
 				let value = Abilities.GetSpecialValueFor(item, key)
 				let specialValues = abilityValues[key]
 				if (specialValues && specialValues.value != undefined) {
 					specialValues = (specialValues.value).split(" ");
+				} else {
+					specialValues = specialValues.split(" ")
 				}
 				let tmpTextToken = ""
 				for(i=0;i<specialValues.length;i++){
@@ -987,9 +989,8 @@ function AlterAbilityDescriptions(bImmediate) {
 						
 					}
 				}
-				
 				if (description.match("%" + key + "%%%") && value != 0) {
-					tmpTextToken = tmpTextToken.replace("</font>", "%</font>" );
+					tmpTextToken = tmpTextToken.replaceAll("</font>", "%</font>" );
 					description = description.replace("%" + key + "%%%", tmpTextToken );
 				} else if (value != 0) {
 					description = description.replace("%" + key + "%", tmpTextToken);
@@ -997,7 +998,7 @@ function AlterAbilityDescriptions(bImmediate) {
 				}
 			}
 		}
-		description = GameUI.ReplaceDOTAAbilitySpecialValues(item_name, description, abilityDescription);
+		// description = GameUI.ReplaceDOTAAbilitySpecialValues(item_name, description, abilityDescription);
 		let split_text = "";
 
 		if (description != null) {

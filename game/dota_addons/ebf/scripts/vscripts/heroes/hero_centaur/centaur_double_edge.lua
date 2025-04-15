@@ -20,6 +20,7 @@ function centaur_double_edge:OnSpellStart()
 	local enemies_hit = 0
 
 	local str_pct_duration = self:GetSpecialValueFor("strength_duration")
+	local max_str_stacks = self:GetSpecialValueFor("max_strength_stacks")
 	local add_strength = str_pct_duration ~= 0
 	local str_modifier = nil
 	if add_strength then
@@ -29,6 +30,7 @@ function centaur_double_edge:OnSpellStart()
 	local allied_lifesteal_radius = self:GetSpecialValueFor("allied_lifesteal_radius")
 	local allied_lifesteal_self_damage = self:GetSpecialValueFor("allied_lifesteal_self_damage") / 100
 	local allied_lifesteal_enemy_damage = self:GetSpecialValueFor("allied_lifesteal_enemy_damage") / 100
+	local self_lifesteal = self:GetSpecialValueFor("self_lifesteal") / 100
 
 	local stepperazer = caster:FindModifierByName("modifier_centaur_double_edge_stepperazer")
 	local final_enemy_damage = damage + stepperazer:GetStackCount()
@@ -40,7 +42,7 @@ function centaur_double_edge:OnSpellStart()
 	for _, enemy in ipairs(enemies) do
 		if not enemy:TriggerSpellAbsorb(self) then
 			if add_strength and str_modifier then
-				str_modifier:AddIndependentStack()
+				str_modifier:AddIndependentStack({ limit = max_str_stacks })
 			end
 
 			self:DealDamage(caster, enemy, final_enemy_damage)
@@ -54,8 +56,12 @@ function centaur_double_edge:OnSpellStart()
 	if heal_allies then
 		local allies = caster:FindFriendlyUnitsInRadius(caster:GetAbsOrigin(), allied_lifesteal_radius)
 		for _, ally in ipairs(allies) do
-			ally:HealEvent(final_enemy_damage * enemies_hit * allied_lifesteal_enemy_damage, self, caster, false)
-			ally:HealEvent(final_self_damage * allied_lifesteal_self_damage, self, caster, false)
+			if ally == caster then
+				caster:HealEvent(final_enemy_damage * enemies_hit * self_lifesteal, self, caster, false)
+			else
+				ally:HealEvent(final_enemy_damage * enemies_hit * allied_lifesteal_enemy_damage, self, caster, false)
+				ally:HealEvent(final_self_damage * allied_lifesteal_self_damage, self, caster, false)
+			end
 		end
 	end
 

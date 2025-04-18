@@ -14,7 +14,7 @@
 
 		"AbilityValues"
 		{
-			"int_to_atkspd"				"0.05"
+			"int_to_atkspd"				"0.07"
 		}
 	}
 	//=================================================================================================================
@@ -35,7 +35,7 @@
 				"value"			"900"
 				"affected_by_aoe_increase"	"1"
 			}
-			"movement_speed_pct"	"8"
+			"movement_speed_pct"	"12"
 		}
 	}
 	//=================================================================================================================
@@ -70,7 +70,7 @@
 		"LevelsBetweenUpgrades"			"1"
 		
 		"IsGrantedByScepter"			"1"
-		"LinkedAbility"					"dark_seer_wall_of_replica"
+		//"LinkedAbility"				"dark_seer_wall_of_replica"
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
@@ -117,7 +117,7 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"60 50 40 30"
+		"AbilityCooldown"				"30 27 24 21"
 		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -130,7 +130,7 @@
 			"radius"
 			{
 				"value"								"325 400 475 550"
-				"special_bonus_unique_dark_seer_2"	"+100"
+				"special_bonus_unique_dark_seer_2"	"+200"
 			}
 			"duration"					"0.6"
 			"damage"
@@ -208,7 +208,7 @@
 			"bonus_health"	
 			{
 				"value"										"0"
-				"special_bonus_unique_dark_seer_6"			"+2500"
+				"special_bonus_unique_dark_seer_6"			"+4000"
 				"CalculateAttributeTooltip"					"1"
 			}	
 		}
@@ -238,7 +238,7 @@
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"24 19 14 9"
+		"AbilityCooldown"				"15 13 11 9"
 		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -252,8 +252,8 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"						"3 4 5 6"
-			"speed_boost"					"550"
+			"duration"						"6"
+			"speed_boost"					"550 750 900 1050"
 			"trail_radius"				
 			{
 				"value" 					"0"
@@ -318,15 +318,16 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"						"30.0"
+			"duration"						"6 8 10"
 			"tooltip_outgoing"
 			{
-				"value"								"70 80 90"
+				"value"								"40 60 80"				//Replica act as unkillable unit to tank, cause Boss illu only have base hp and atk, idk how well dmg out gonna be with scaling.
 				"special_bonus_unique_dark_seer_7"	"+20"
+				"CalculateSpellDamageTooltip"		"1"
 			}
 			"tooltip_replica_total_damage_incoming"
 			{
-				"value"								"500"
+				"value"								"0"
 				"CalculateSpellDamageTooltip"		"0"
 				"DamageTypeTooltip"					"DAMAGE_TYPE_NONE"
 			}				
@@ -339,8 +340,8 @@
 			}
 			"AbilityCooldown"
 			{
-				"value"								"100.0"
-				"special_bonus_unique_dark_seer_13" "-40"
+				"value"								"60.0"
+				"special_bonus_unique_dark_seer_13" "-15"
 			}
 			"wall_damage"
 			{

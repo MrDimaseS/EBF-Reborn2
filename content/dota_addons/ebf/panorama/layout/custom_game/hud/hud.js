@@ -81,7 +81,71 @@ const bottomhud = microHud.FindChildTraverse("CustomUIRoot");
 		}
 		timeElement.text = String(time); // Update the time text
 	});
+	
+	GameEvents.SendCustomGameEventToServer( "player_loaded_into_game_server", {shop: "yippie"} )
+	$.Msg("yippie")
 })();
+
+GameEvents.Subscribe( "player_loaded_into_game_client", LoadShopItemData );
+
+let savedShopData
+function LoadShopItemData( shopData ){
+	savedShopData = shopData
+	
+	let mainShop = dotaHud.FindChildTraverse("GridMainShopContents")
+	let basics = mainShop.FindChildTraverse("GridBasicItems")
+	let upgrades = mainShop.FindChildTraverse("GridUpgradeItems")
+	
+	let updateFunction = function( panel ) {
+		for (const category of panel.Children() ) {
+			const items = category.FindChildTraverse("ShopItemsContainer")
+			for (const item of items.Children() ) {
+				let itemImage = item.FindChildTraverse("ItemImage")
+				let purchaseOverlay = item.FindChildTraverse("CanPurchaseOverlay")
+				let itemName = itemImage.itemname
+				
+				let boxShadow = "inset 0px -10px 20px 1px";
+				let border = "1px solid"
+				purchaseOverlay.hittestchildren = false;
+				if(savedShopData[itemName].AbilityTier==1){
+					boxShadow = boxShadow + " #A9A9A908";
+					border = border + " #A9A9A944";
+					if (purchaseOverlay != undefined){
+						purchaseOverlay.style.saturation = "0";
+					}
+				} else if (savedShopData[itemName].AbilityTier==2){
+					boxShadow = boxShadow + " #00008B55";
+					border = border + " #00008B77";
+					if (purchaseOverlay != undefined){
+						purchaseOverlay.style.hueRotation = "180deg";
+					}
+				} else if (savedShopData[itemName].AbilityTier==3){
+					boxShadow = boxShadow + " #77000066";
+					border = border + " #77000066";
+					if (purchaseOverlay != undefined){
+						purchaseOverlay.style.hueRotation = "330deg";
+					}
+				} else if (savedShopData[itemName].AbilityTier==4){
+					boxShadow = boxShadow + " #B5941033";
+					border = border + " #B5941033";
+				} else if (savedShopData[itemName].AbilityTier==5){
+					boxShadow = boxShadow + " #7c2f6688";
+					border = border + " #7c2f6688";
+					if (purchaseOverlay != undefined){
+						purchaseOverlay.style.hueRotation = "230deg";
+					}
+				} else {
+					boxShadow = null;
+					border = null;
+				}
+				itemImage.style.boxShadow = boxShadow;
+				itemImage.style.border = border;
+			}
+		}
+	}
+	updateFunction( basics )
+	updateFunction( upgrades )
+}
 
 function Yes() {
 	HideButtons();
@@ -287,6 +351,9 @@ function ManageShopItem( abilityPanel, abilityName, empty, entindex, empty2 ){
 	
 	const tooltipManager = dotaHud.FindChildTraverse('Tooltips');
 	const tooltipPanel = tooltipManager.FindChildTraverse('DOTAAbilityTooltip');
+	if(tooltipPanel == undefined){
+		return;
+	}
 	const abilityDetails = tooltipPanel.FindChildTraverse('AbilityCoreDetails');
 	const abilityHeader = tooltipPanel.FindChildTraverse('Header');
 	const abilityAttributes = tooltipPanel.FindChildTraverse('AbilityAttributes');
@@ -302,11 +369,41 @@ function ManageShopItem( abilityPanel, abilityName, empty, entindex, empty2 ){
 		let abilitySellPrice = abilityDetails.FindChildTraverse('SellPriceLabel');
 		abilityTierTitle.style.visibility = "collapse"
 		abilitySellPrice.style.visibility = "visible"
-		abilityTier.text = "Common";
-		abilityTierTitle.text = "Common";
-		abilitySellPrice.text = "Sell Price: 500"
-		abilityUpgradeCost.text = "1000"
-		abilityImage.style.boxShadow = null 
+		
+		if(savedShopData[shop_item] != undefined ){
+			let boxShadow = "inset 0px -10px 20px 1px";
+			if(savedShopData[shop_item].AbilityTier==1){
+				boxShadow = boxShadow + " #A9A9A908";
+				abilityTier.text = "Common";
+				abilityTierTitle.text = "Common";
+			} else if (savedShopData[shop_item].AbilityTier==2){
+				boxShadow = boxShadow + " #00008B55";
+				abilityTier.text = "Shadow";
+				abilityTierTitle.text = "Shadow";
+			} else if (savedShopData[shop_item].AbilityTier==3){
+				boxShadow = boxShadow + " #77000066";
+				abilityTier.text = "Demonic";
+				abilityTierTitle.text = "Demonic";
+			} else if (savedShopData[shop_item].AbilityTier==4){
+				boxShadow = boxShadow + " #B5941033";
+				abilityTier.text = "Divine";
+				abilityTierTitle.text = "Divine";
+			} else if (savedShopData[shop_item].AbilityTier==5){
+				boxShadow = boxShadow + " #7c2f6688";
+				abilityTier.text = "Otherworldly";
+				abilityTierTitle.text = "Otherworldly";
+			}
+			abilityImage.style.boxShadow = boxShadow 
+			
+			abilityUpgradeCost.text = savedShopData[shop_item].ItemCost
+			abilitySellPrice.text = "Sell Price: " + savedShopData[shop_item].ItemCost / 2
+		} else {
+			abilityTier.text = "Common";
+			abilityTierTitle.text = "Common";
+			abilitySellPrice.text = "Sell Price: 500"
+			abilityUpgradeCost.text = "1000"
+			abilityImage.style.boxShadow = null 
+		}
 	}
 	
 	$.Schedule(0, AlterShopDescriptions, abilityName)
@@ -792,7 +889,7 @@ function UpdateItemTooltip(panel, unit, itemSlot) {
 		if(abilityImage != undefined && abilityTier != undefined){
 			let boxShadow = "inset 0px -10px 20px 1px";
 			if(panel.inventoryData.AbilityTier==1){
-				boxShadow = boxShadow + " #A9A9A911";
+				boxShadow = boxShadow + " #A9A9A908";
 				abilityTier.text = "Common";
 				abilityTierTitle.text = "Common";
 				abilitySellPrice.text = "Sell Price: 500"
@@ -930,7 +1027,11 @@ function AlterAbilityDescriptions(bImmediate) {
 		let item_name = Abilities.GetAbilityName(item);
 		let itemDescriptionToken = "#DOTA_Tooltip_Ability_" + item_name + "_Description"
 		if(Abilities.GetLevel( item ) > 1){
-			itemDescriptionToken = "#DOTA_Tooltip_Ability_" + item_name + "_" + Abilities.GetLevel( item ) + "_Description"
+			itemDescriptionTokenTest = "#DOTA_Tooltip_Ability_" + item_name + "_" + Abilities.GetLevel( item ) + "_Description"
+			let descriptionTest = $.Localize(itemDescriptionTokenTest);
+			if(itemDescriptionTokenTest != descriptionTest){
+				itemDescriptionToken = itemDescriptionToken
+			}
 		}
 		let description = $.Localize(itemDescriptionToken);
 		let split_specials = description.split(/[%%]/);
@@ -941,7 +1042,6 @@ function AlterAbilityDescriptions(bImmediate) {
 			let key = split_specials[id]
 			if (key.match(" ")) {
 			} else if (abilityValues[key] != undefined) {
-				let value = Abilities.GetSpecialValueFor(item, key)
 				let specialValues = abilityValues[key]
 				if (specialValues && specialValues.value != undefined) {
 					specialValues = (specialValues.value).split(" ");
@@ -952,49 +1052,45 @@ function AlterAbilityDescriptions(bImmediate) {
 				for(i=0;i<specialValues.length;i++){
 					let tmpSpecialValue = specialValues[i]
 					let activeValue = i == Abilities.GetLevel(item)-1 || Abilities.GetLevel(item) > specialValues.length
-					if (tmpSpecialValue != "0") {
-						tmpSpecialValue = Math.floor(tmpSpecialValue * 100 + 0.5) / 100
-						let realValue = Math.floor(Abilities.GetLevelSpecialValueFor(item, key, i) * 100 + 0.5) / 100
-						let font_colour = "#454552"
-						if(activeValue){
-							if (realValue != tmpSpecialValue) { 
-								font_colour = "#3ed038" 
-							} else {
-								font_colour = "#EEEEEE"
-							};
-							tmpTextToken = tmpTextToken + '<b>'
+					
+					tmpSpecialValue = Math.floor(tmpSpecialValue * 100 + 0.5) / 100
+					let realValue = Math.floor(Abilities.GetLevelSpecialValueFor(item, key, i) * 100 + 0.5) / 100
+					let font_colour = "#454552"
+					if(activeValue){
+						if (realValue != tmpSpecialValue) { 
+							font_colour = "#3ed038" 
 						} else {
-							if (realValue != tmpSpecialValue) { 
-								font_colour = "#185316" 
-							};
-						}
-						if (lastState && abilityValues[key] && abilityValues[key].CalculateSpellDamageTooltip) {
-							let spell_amp = CustomNetTables.GetTableValue("hero_attributes", unitWeAreChecking)
-							if (spell_amp != undefined) {
-								realValue = realValue * (1 + spell_amp.spell_amp)
-							}
-						}
-						if (Number(realValue) === realValue && realValue % 1 !== 0) {
-							realValue = Math.round((realValue * 100)) / 100;
-						}
-						realValue = Math.abs( realValue )
-						tmpTextToken = tmpTextToken + "<font color='" + font_colour + "'>" + realValue
-						
-						tmpTextToken = tmpTextToken + "</font>";
-						if(activeValue){tmpTextToken = tmpTextToken + '</b>'}
-						if(i+1<specialValues.length){
-							tmpTextToken = tmpTextToken + " / "
-						}
+							font_colour = "#EEEEEE"
+						};
+						tmpTextToken = tmpTextToken + '<b>'
 					} else {
-						
+						if (realValue != tmpSpecialValue) { 
+							font_colour = "#185316" 
+						};
+					}
+					if (lastState && abilityValues[key] && abilityValues[key].CalculateSpellDamageTooltip) {
+						let spell_amp = CustomNetTables.GetTableValue("hero_attributes", unitWeAreChecking)
+						if (spell_amp != undefined) {
+							realValue = realValue * (1 + spell_amp.spell_amp)
+						}
+					}
+					if (Number(realValue) === realValue && realValue % 1 !== 0) {
+						realValue = Math.round((realValue * 100)) / 100;
+					}
+					realValue = Math.abs( realValue )
+					tmpTextToken = tmpTextToken + "<font color='" + font_colour + "'>" + realValue
+					
+					tmpTextToken = tmpTextToken + "</font>";
+					if(activeValue){tmpTextToken = tmpTextToken + '</b>'}
+					if(i+1<specialValues.length){
+						tmpTextToken = tmpTextToken + " / "
 					}
 				}
-				if (description.match("%" + key + "%%%") && value != 0) {
+				if (description.match("%" + key + "%%%")) {
 					tmpTextToken = tmpTextToken.replaceAll("</font>", "%</font>" );
 					description = description.replace("%" + key + "%%%", tmpTextToken );
-				} else if (value != 0) {
-					description = description.replace("%" + key + "%", tmpTextToken);
 				} else {
+					description = description.replace("%" + key + "%", tmpTextToken);
 				}
 			}
 		}

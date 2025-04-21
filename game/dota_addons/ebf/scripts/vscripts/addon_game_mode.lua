@@ -241,6 +241,8 @@ function CHoldoutGameMode:InitGameMode()
 	CustomGameEventManager:RegisterListener('unmute_sound', Dynamic_Wrap( CHoldoutGameMode, 'unmute_sound'))
 	CustomGameEventManager:RegisterListener('Health_Bar_Command', Dynamic_Wrap( CHoldoutGameMode, 'Health_Bar_Command'))
 	
+	CustomGameEventManager:RegisterListener('player_loaded_into_game_server', Context_Wrap( CHoldoutGameMode, 'OnPlayerLoaded'))
+	
 	CustomGameEventManager:RegisterListener('epic_boss_fight_ng_voted', function(id, event) return self:NewGamePlus_ProcessVotes( event ) end )
 	CustomGameEventManager:RegisterListener('Vote_Round', Context_Wrap( CHoldoutGameMode, 'vote_Round'))
 	CustomGameEventManager:RegisterListener( "request_hero_inventory", function( id, event ) self:SendUpdatedInventoryContents( event ) end )
@@ -979,6 +981,19 @@ function CHoldoutGameMode:_SetupGameConfiguration()
 	local endKV = MergeTables( mainKV, modeKV ) or {} -- Handle the case where there is not keyvalues file
 	
 	GameRules.BossKV = LoadKeyValues( "scripts/npc/units/npc_boss_units.txt" )
+	
+	local availableItems = LoadKeyValues( "scripts/shops.txt" )
+	GameRules.ShopKV = {}
+	for itemName, available in pairs( availableItems ) do
+		if toboolean(available) then
+			local abilityKV =  GetAbilityKeyValuesByName(itemName)
+			print( itemName )
+			local shopData = {}
+			shopData.ItemCost = abilityKV.ItemCost or 1000
+			shopData.AbilityTier = 6 - ( tonumber(abilityKV.MaxUpgradeLevel) or 5)
+			GameRules.ShopKV[itemName] = shopData
+		end
+	end
 
 	self._bAlwaysShowPlayerGold = endKV.AlwaysShowPlayerGold or false
 	self._bRestoreHPAfterRound = endKV.RestoreHPAfterRound or false
@@ -2160,6 +2175,15 @@ function CHoldoutGameMode:OnNPCSpawned( event )
 		-- dummy:AddNewModifier(spawnedUnit, nil, "modifier_healthbar_dummy", {})
 		-- spawnedUnit:AddNewModifier(spawnedUnit, nil, "modifier_hide_healthbar", {})
 	-- end
+end
+
+function CHoldoutGameMode:OnPlayerLoaded(userid, event)
+	local player = PlayerResource:GetPlayer( event.PlayerID )
+	if not player then
+		return
+	end
+	print("this might be too fuckin big to send tbh")
+	CustomGameEventManager:Send_ServerToPlayer(player, "player_loaded_into_game_client", GameRules.ShopKV)
 end
 
 function CHoldoutGameMode:OnPlayerReconnected( event )

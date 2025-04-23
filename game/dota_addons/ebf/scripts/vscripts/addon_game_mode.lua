@@ -470,8 +470,8 @@ function CHoldoutGameMode:FilterOrders( filterTable )
 	if orderType == DOTA_UNIT_ORDER_GLYPH then
 		for _, hero in ipairs( HeroList:GetAllHeroes() ) do
 			hero:Dispel( hero, true )
-			hero:AddNewModifier( hero, nil, "modifier_fountain_glyph", {duration = 20})
-			hero:AddNewModifier( hero, nil, "modifier_debuff_immune", {duration = 20})
+			hero:AddNewModifier( hero, nil, "modifier_fountain_glyph", {duration = 7})
+			hero:AddNewModifier( hero, nil, "modifier_debuff_immune", {duration = 7})
 		end
 	end
 	if orderType == DOTA_UNIT_ORDER_RADAR then
@@ -1389,7 +1389,7 @@ function CHoldoutGameMode:OnGameRulesStateChange()
 			
 			GameRules:GetGameModeEntity():SetFogOfWarDisabled( GameRules.gameDifficulty < 4 )
 			GameRules:GetGameModeEntity():SetFixedRespawnTime( 90 + 40*(GameRules.gameDifficulty-1)  )
-			GameRules:GetGameModeEntity():SetCustomGlyphCooldown( 150 + 0*(GameRules.gameDifficulty-1) )
+			GameRules:GetGameModeEntity():SetCustomGlyphCooldown( 100 + 0*(GameRules.gameDifficulty-1) )
 			GameRules:GetGameModeEntity():SetCustomScanCooldown( 120 + 0*(GameRules.gameDifficulty-1) )
 			
 			-- all mmrs gotten
@@ -2117,7 +2117,7 @@ function CHoldoutGameMode:OnNPCSpawned( event )
 	end
 	if spawnedUnit:GetUnitName() == "npc_dota_observer_wards" then
 		spawnedUnit:SetDayTimeVisionRange( spawnedUnit:GetDayTimeVisionRange() - (GameRules.gameDifficulty-1) * 200 )
-		spawnedUnit:SetNightTimeVisionRange( spawnedUnit:GetDayTimeVisionRange() - (GameRules.gameDifficulty-1) * 400 )
+		spawnedUnit:SetNightTimeVisionRange( spawnedUnit:GetDayTimeVisionRange() - (GameRules.gameDifficulty-1) * 200 )
 	end
 	if spawnedUnit:IsRealHero() then
 		if not spawnedUnit:HasModifier("modifier_thinker_hero_regeneration") then

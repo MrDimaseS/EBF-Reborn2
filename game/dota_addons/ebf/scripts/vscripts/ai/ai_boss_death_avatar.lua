@@ -47,7 +47,7 @@ function AIThink(thisEntity)
 			return thisEntity.pulse:GetCastPoint() + AI_THINK_RATE
 		end
 		if thisEntity.seeker:IsFullyCastable() then
-			local target = AICore:FurthestEnemyHeroInRange( thisEntity, -1, true)
+			local target = AICore:NearestEnemyHeroInRange( thisEntity, -1, true)
 			if target then
 				ExecuteOrderFromTable({
 					UnitIndex = thisEntity:entindex(),

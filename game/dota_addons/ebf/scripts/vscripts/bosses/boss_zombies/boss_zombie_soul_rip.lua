@@ -17,7 +17,7 @@ function boss_zombie_soul_rip:OnSpellStart()
 	max_units = math.max( 0, max_units - #enemies )
 	if max_units > 0 then
 		local allies = caster:FindFriendlyUnitsInRadius( caster:GetAbsOrigin(), radius )
-		for _, ally in ipairs( enemies ) do
+		for _, ally in ipairs( allies ) do
 			if max_units > 0 then
 				self:DealDamage( caster, ally, damage_per_unit )
 				ParticleManager:FireRopeParticle("particles/units/heroes/hero_undying/undying_soul_rip_damage.vpcf", PATTACH_ABSORIGIN_FOLLOW, target, ally)

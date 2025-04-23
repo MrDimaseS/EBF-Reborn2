@@ -987,7 +987,6 @@ function CHoldoutGameMode:_SetupGameConfiguration()
 	for itemName, available in pairs( availableItems ) do
 		if toboolean(available) then
 			local abilityKV =  GetAbilityKeyValuesByName(itemName)
-			print( itemName )
 			local shopData = {}
 			shopData.ItemCost = abilityKV.ItemCost or 1000
 			shopData.AbilityTier = 6 - ( tonumber(abilityKV.MaxUpgradeLevel) or 5)

@@ -932,7 +932,6 @@ function CDOTA_BaseNPC:HealEvent(amount, sourceAb, healer, tParams)
 			end
 		end
 	end
-	
 	local healParams = tParams or {}
 	healParams.heal_type = healParams.heal_type or DOTA_HEAL_TYPE_HEAL
 	healParams.heal_category = healParams.heal_category or TernaryOperator( DOTA_LIFESTEAL_SOURCE_ATTACK, healParams.heal_type == DOTA_HEAL_TYPE_LIFESTEAL, DOTA_LIFESTEAL_SOURCE_NONE )

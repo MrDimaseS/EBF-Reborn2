@@ -11,14 +11,15 @@ function item_signet_of_destiny:OnSpellStart()
 	local burst = self:GetSpecialValueFor("hp_per_charge") * self:GetCurrentCharges()
 	local mana = self:GetSpecialValueFor("mp_per_charge") * self:GetCurrentCharges()
 	local duration = self:GetSpecialValueFor("duration")
+	
 	if caster:IsSameTeam( target ) then
-		target:AddNewModifier( caster, self, "modifier_signet_of_destiny_buff", {duration = duration} )
 		local heal = target:HealEvent( burst, self, caster )
 		target:GiveMana( mana )
+		target:AddNewModifier( caster, self, "modifier_signet_of_destiny_buff", {duration = duration} )
 	else
-		target:AddNewModifier( caster, self, "modifier_signet_of_destiny_debuff", {duration = duration} )
 		local damage = self:DealDamage( caster, target, burst )
 		target:ReduceMana( mana )
+		target:AddNewModifier( caster, self, "modifier_signet_of_destiny_debuff", {duration = duration} )
 	end
 	
 	ParticleManager:FireRopeParticle("particles/items2_fx/holy_locket_cast.vpcf", PATTACH_POINT_FOLLOW, caster, target )
@@ -74,13 +75,13 @@ function modifier_signet_of_destiny_buff:OnIntervalThink()
 end
 
 function modifier_signet_of_destiny_buff:DeclareFunctions()
-	return {MODIFIER_PROPERTY_HEAL_AMPLIFY_PERCENTAGE_TARGET,
+	return {MODIFIER_PROPERTY_HEAL_AMPLIFY_PERCENTAGE_SOURCE,
 			MODIFIER_PROPERTY_SPELL_LIFESTEAL_AMPLIFY_PERCENTAGE,
 			MODIFIER_PROPERTY_LIFESTEAL_AMPLIFY_PERCENTAGE,
 			MODIFIER_PROPERTY_HP_REGEN_AMPLIFY_PERCENTAGE}
 end
 
-function modifier_signet_of_destiny_buff:GetModifierHealAmplify_PercentageTarget( )
+function modifier_signet_of_destiny_buff:GetModifierHealAmplify_PercentageSource( )
 	return self.hp_regen_reduction_enemy
 end
 
@@ -112,7 +113,7 @@ function modifier_signet_of_destiny_debuff:OnIntervalThink()
 	ability:DealDamage( caster, parent, self.enemy_hp_drain * parent:GetHealth(), {damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL + DOTA_DAMAGE_FLAG_HPLOSS + DOTA_DAMAGE_FLAG_NO_DAMAGE_MULTIPLIERS } )
 end
 
-function modifier_signet_of_destiny_debuff:GetModifierHealAmplify_PercentageTarget( )
+function modifier_signet_of_destiny_debuff:GetModifierHealAmplify_PercentageSource( )
 	return -self.hp_regen_reduction_enemy
 end
 

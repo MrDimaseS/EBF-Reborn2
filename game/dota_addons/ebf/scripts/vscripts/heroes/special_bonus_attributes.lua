@@ -142,6 +142,12 @@ function special_bonus_attributes:OnInventoryContentsChanged()
 					and itemToCheck:GetPurchaser() == parent then
 						item:UpgradeAbility( false )
 						itemToCheck:Destroy()
+						-- update innate
+						local passive = self:FindModifierByNameAndAbility( item:GetIntrinsicModifierName(), item )
+						if passive then
+							passive:Destroy()
+						end
+						item:RefreshIntrinsicModifier()
 					end
 				end
 			end

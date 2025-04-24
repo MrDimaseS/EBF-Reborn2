@@ -33,12 +33,12 @@ end
 function AIThink(thisEntity)
 	if thisEntity:GetTeamNumber() ~= DOTA_TEAM_GOODGUYS and not thisEntity:IsChanneling() and not thisEntity:GetCurrentActiveAbility() then
 		if thisEntity.word:IsFullyCastable() and RollPercentage( 35 ) then
-			local castPosition = AICore:FindOptimalRadiusInRangeForEntity( thisEntity, thisEntity.word:GetTrueCastRange(), thisEntity.word:GetAOERadius(), nil, true )
-			if castPosition then
+			local target = AICore:FindOptimalTargetInRangeForEntity( thisEntity, thisEntity.word:GetTrueCastRange(), thisEntity.word:GetAOERadius(), nil, true )
+			if target then
 				ExecuteOrderFromTable({
 					UnitIndex = thisEntity:entindex(),
-					OrderType = DOTA_UNIT_ORDER_CAST_POSITION,
-					Position = castPosition,
+					OrderType = DOTA_UNIT_ORDER_CAST_TARGET,
+					TargetIndex = target:entindex(),
 					AbilityIndex = thisEntity.word:entindex()
 				})
 				return 0.1

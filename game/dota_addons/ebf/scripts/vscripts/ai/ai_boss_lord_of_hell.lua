@@ -47,29 +47,23 @@ function AIThink(thisEntity)
 			end
 		end
 		
-		if thisEntity.scorch:IsFullyCastable() and AICore:TotalEnemyHeroesInRange(thisEntity, thisEntity.scorch:GetSpecialValueFor("radius")) >= 1 then
-			local target = AICore:FurthestEnemyHeroInRange(thisEntity, -1, true)
-			if target then
-				ExecuteOrderFromTable({
-					UnitIndex = thisEntity:entindex(),
-					OrderType = DOTA_UNIT_ORDER_CAST_NO_TARGET,
-					AbilityIndex = thisEntity.scorch:entindex()
-				})
-				return thisEntity.scorch:GetCastPoint() + AI_THINK_RATE
-			end
+		if thisEntity.scorch:IsFullyCastable() then
+			ExecuteOrderFromTable({
+				UnitIndex = thisEntity:entindex(),
+				OrderType = DOTA_UNIT_ORDER_CAST_NO_TARGET,
+				AbilityIndex = thisEntity.scorch:entindex()
+			})
+			return thisEntity.scorch:GetCastPoint() + AI_THINK_RATE
 		end
 		
 		if thisEntity.doom:IsFullyCastable() then
-			local target = AICore:FindOptimalTargetInRangeForEntity(thisEntity, thisEntity.doom:GetTrueCastRange(), thisEntity.doom:GetSpecialValueFor("scepter_aura_radius"), nil, true)
-			if target then
-				ExecuteOrderFromTable({
-					UnitIndex = thisEntity:entindex(),
-					OrderType = DOTA_UNIT_ORDER_CAST_TARGET,
-					AbilityIndex = thisEntity.doom:entindex(),
-					TargetIndex = target:entindex()
-				})
-				return thisEntity.doom:GetCastPoint() + AI_THINK_RATE
-			end
+			ExecuteOrderFromTable({
+				UnitIndex = thisEntity:entindex(),
+				OrderType = DOTA_UNIT_ORDER_CAST_TARGET,
+				AbilityIndex = thisEntity.doom:entindex(),
+				TargetIndex = thisEntity:entindex()
+			})
+			return thisEntity.doom:GetCastPoint() + AI_THINK_RATE
 		end
 		
 		if thisEntity.blink and thisEntity.blink:IsFullyCastable() then

@@ -39,6 +39,10 @@ function modifier_item_samaritans_cloak_passive:GetModifierPhysicalArmorBonus()
 	return self.bonus_armor
 end
 
+DONT_COPY_THESE_MODIFIERS = {
+	["modifier_kill"] = true
+}
+
 function modifier_item_samaritans_cloak_passive:OnModifierAdded( params )
 	if self:GetParent()._cannotReceiveSamaritanBuffs then return end
 	if params.unit ~= self:GetParent() then return end
@@ -47,6 +51,7 @@ function modifier_item_samaritans_cloak_passive:OnModifierAdded( params )
 	if params.added_buff:IsDebuff() then return end
 	if params.added_buff:IsHidden() then return end
 	if params.added_buff:GetDuration() <= 0 then return end
+	if DONT_COPY_THESE_MODIFIERS[params.added_buff:GetName()] then return end
 	for _, ally in ipairs( params.attacker:FindFriendlyUnitsInRadius( params.unit:GetAbsOrigin(), self.share_radius ) ) do
 		if ally ~= params.unit and not ally:IsFakeHero() then
 			ally._cannotReceiveSamaritanBuffs = true

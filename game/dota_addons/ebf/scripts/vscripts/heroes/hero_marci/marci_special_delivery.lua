@@ -28,7 +28,8 @@ end
 
 function modifier_marci_special_delivery_innate:OnAbilityExecuted( params )
 	if not (params.unit == self:GetCaster()) then return end
-	if not ( params.target or params.target:IsSameTeam( self:GetCaster() )) then return end
+	if not params.target then return end
+	if not params.target:IsSameTeam( self:GetCaster() ) then return end
 	self:SetStackCount(0)
 	self:StartIntervalThink( self.bonus_duration )
 	self:SetDuration( self.bonus_duration, true )

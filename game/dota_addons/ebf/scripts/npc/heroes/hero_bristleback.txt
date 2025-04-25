@@ -1,13 +1,13 @@
 "DOTAAbilities"
 {	
 	//=================================================================================================================
-	// Bristleback: Innate Danger Zone
+	// Bristleback: Prickly
 	//=================================================================================================================
 	"bristleback_prickly"
 	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_bristleback/bristleback_prickly"
+		"AbilityTextureName"			"bristleback_prickly"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
@@ -20,61 +20,31 @@
 		{
 			"amp_pct"					"10"
 			"angle"						"110"
-		}
-	}
-	//=================================================================================================================
-	// Bristleback: Hairball (Shard)
-	//=================================================================================================================
-	"bristleback_hairball"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
-		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
-		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
-		"MaxLevel"						"1"
-		"FightRecapLevel"				"1"
-		"IsGrantedByShard"			    "1"
+			"release_threshold"			"35"
 
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"1500"
-		"AbilityCastPoint"				"0.1"
-		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
-		
-		
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"13"
-
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"60"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			"projectile_speed"		"1000"
-			"radius"			
+			"does_goo"
 			{
-				"value"		"700"
-				"affected_by_aoe_increase"	"1"
+				"special_bonus_facet_bristleback_boogerman"		"1"
 			}
-			"quill_stacks"		"1"
-			"goo_stacks"		"2"
+			"does_quills"
+			{
+				"special_bonus_facet_bristleback_prick"			"1"
+			}
+			"does_warpath"
+			{
+				"special_bonus_facet_bristleback_mettlehead"	"1"
+			}
 		}
 	}
+
 	//=================================================================================================================
 	// Bristleback: Viscous Nasal Goo
 	//=================================================================================================================
 	"bristleback_viscous_nasal_goo"
 	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_bristleback/bristleback_viscous_nasal_goo"
+		"AbilityTextureName"			"bristleback_viscous_nasal_goo"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
@@ -83,48 +53,53 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Bristleback.ViscousGoo.Cast"
 
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_1"
 		
-
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"650"
-		"AbilityCastPoint"				"0.3"
-		
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"1.75"
-
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"12 16 20 24"
 
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
 			"goo_speed"											"1000"
-			"goo_duration"										"15.0"
-			"base_armor"										"2 2 3 3"
-			"armor_per_stack"
-			{
-				"value"											"1.5 2.0 2.5 3.0"
-				"special_bonus_facet_bristleback_snot_rocket"	"+1"
-			}
+			"goo_duration"										"6.0"
+			"base_armor"										"2 3 4 5"
+			"armor_per_stack"									"1"
 			"base_move_slow"									"15"
 			"move_slow_per_stack"								"3 6 9 12"
-			"stack_limit"
+			"max_stacks"
 			{
 				"value"											"4"
-				"special_bonus_facet_bristleback_snot_rocket"	"+2"
+				"special_bonus_facet_bristleback_boogerman"		"+4"
 			}
-			"goo_duration_creep"								"10.0"
 			"AbilityCastRange"
 			{
 				"value"											"650"
-				"special_bonus_unique_bristleback_5"			"+150"
+				"special_bonus_unique_bristleback_3"			"+150"
 			}
+
+			"AbilityCastPoint"
+			{
+				"value"											"0.3"
+				"special_bonus_facet_bristleback_boogerman"		"=0.0"
+			}
+			"radius"
+			{
+				"special_bonus_facet_bristleback_boogerman"		"650"
+				"RequiresFacet"									"bristleback_boogerman"
+				"special_bonus_unique_bristleback_3"			"+150"
+				"affected_by_aoe_increase"						"1"
+			}
+			"incoming_attacks_required"
+			{
+				"special_bonus_facet_bristleback_prick"			"5"
+			}
+			"outgoing_attacks_required"
+			{
+				"special_bonus_facet_bristleback_mettlehead"	"5"
+			}
+
+			"stack_limit"										""
 		}
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
 
 	//=================================================================================================================
@@ -132,8 +107,6 @@
 	//=================================================================================================================
 	"bristleback_quill_spray"
 	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_lua"
 		"ScriptFile"					"heroes/hero_bristleback/bristleback_quill_spray"
 		"AbilityTextureName"			"bristleback_quill_spray"
@@ -143,53 +116,57 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Bristleback.QuillSpray"
-		"AbilityDraftShardAbility"	    "bristleback_hairball"
 
-		
-
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastAnimation"			"ACT_INVALID"
 		"AbilityCastRange"				"650"
-		"AbilityCastPoint"				"0.0 0.0 0.0 0.0"
+		"AbilityCastPoint"				"0.0"
 		
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"3.0"
-
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"35"
 
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
 			"radius"				
 			{
-				"value"									"700"
-				"affected_by_aoe_increase"				"1"
+				"value"											"700"
+				"affected_by_aoe_increase"						"1"
 			}
 			"quill_base_damage"
 			{
-				"value"									"250 450 650 850"
-				"special_bonus_unique_bristleback_2"	"+25%"
-				"CalculateSpellDamageTooltip" 			"1"
+				"value"											"250 500 750 1000"
+				"special_bonus_facet_bristleback_prick"			"+200%"
+				"special_bonus_unique_bristleback_6"			"+50%"
+				"CalculateSpellDamageTooltip" 					"1"
 			}
-			"quill_stack_damage"
+			"projectile_speed"									"2400"
+
+			"bonus_physical_damage_per_stack"
 			{
-				"value"									"300"
-				"special_bonus_unique_bristleback_2"	"+66%"
-				"CalculateSpellDamageTooltip" 			"1"
+				"special_bonus_facet_bristleback_boogerman"		"20 40 60 80"
+				"CalculateSpellDamageTooltip"					"1"
 			}
-			"quill_stack_duration"						"14.0"
-			"max_damage"								
+			"bonus_physical_damage_duration"
 			{
-				"value"									"5000"
-				"special_bonus_unique_bristleback_2"	"+25%"
-				"CalculateSpellDamageTooltip" 			"1"
+				"special_bonus_facet_bristleback_boogerman"		"14"
 			}
-			"projectile_speed"							"2400"
+			"bonus_physical_damage_self_multiplier"
+			{
+				"special_bonus_facet_bristleback_boogerman"		"2"
+			}
+
+			"bonus_attack_damage_per_stack"
+			{
+				"special_bonus_facet_bristleback_mettlehead"	"100 200 300 400"
+				"CalculateAttackDamageTooltip"					"1"
+			}
+			"bonus_attack_damage_duration"
+			{
+				"special_bonus_facet_bristleback_mettlehead"	"14"
+			}
+
+			"quill_stack_damage"								""
+			"quill_stack_duration"								""
+			"max_damage"										""
 		}
 	}
 
@@ -198,54 +175,106 @@
 	//=================================================================================================================
 	"bristleback_bristleback"
 	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_lua"
 		"ScriptFile"					"heroes/hero_bristleback/bristleback_bristleback"
 		"AbilityTextureName"			"bristleback_bristleback"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT"
 		"AbilitySound"					"Hero_Bristleback.Bristleback"
-		
-		"HasScepterUpgrade"				"1"
+		"HasScepterUpgrade"				"0"
 
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_3"
+
+		"AbilityCooldown"				"24"
+		"AbilityManaCost"				"125"
+
 		"AbilityValues"
 		{
 			"max_damage_reduction"
 			{
-				"value"									"16 20 24 28"
-				"special_bonus_unique_bristleback_6"	"+4"
+				"value"											"16 20 24 28"
+				"special_bonus_unique_bristleback_4"			"+4"
 			}
 			"min_damage_reduction"
 			{
-				"value"									"10 12 14 16"
-				"special_bonus_unique_bristleback_6"	"+2"
+				"value"											"10 12 14 16"
+				"special_bonus_unique_bristleback_4"			"+2"
 			}
-			"quill_release_threshold"					"35"
-			"goo_radius"
+
+			"hairball_speed"
 			{
-				"value"								"0"
-				"special_bonus_facet_bristleback_snot_rocket"		"+900"				
-				"affected_by_aoe_increase"	"1"
+				"special_bonus_facet_bristleback_boogerman"		"1200"
 			}
-			
-			"side_damage_reduction"						""
-			"back_damage_reduction"						""
-			
-			"activation_cooldown"						"24"
-			"activation_manacost"						"125"
-			"activation_delay"							"0.5"
-			"activation_num_quill_sprays"				"5"
-			"activation_spray_interval"					"0.35"
-			"activation_angle"							"45"
-			"activation_movement_speed_pct"				"-40"
-			"activation_turn_rate_pct"					"-100"
-			"activation_disable_turning"				"1"
-			"activation_ignore_cast_angle"				"1"
-			"activation_turn_rate"						"500"
+			"hairball_radius"
+			{
+				"special_bonus_facet_bristleback_boogerman"		"700"
+				"RequiresFacet"									"bristleback_boogerman"
+				"affected_by_aoe_increase"						"1"
+			}
+			"hairball_quills"
+			{
+				"special_bonus_facet_bristleback_boogerman"		"0 1 2 3"
+			}
+			"hairball_goos"
+			{
+				"special_bonus_facet_bristleback_boogerman"		"2 3 4 5"
+			}
+			"AbilityCastPoint"
+			{
+				"value"											"0.0"
+				"special_bonus_facet_bristleback_boogerman"		"=0.1"
+			}
+
+			"activation_delay"
+			{
+				"special_bonus_facet_bristleback_prick"			"0.5"
+			}
+			"activation_num_quill_sprays"
+			{
+				"special_bonus_facet_bristleback_prick"			"3 4 5 6"
+			}
+			"activation_spray_interval"
+			{
+				"special_bonus_facet_bristleback_prick"			"0.35"
+			}
+			"activation_angle"
+			{
+				"special_bonus_facet_bristleback_prick"			"45"
+			}
+			"activation_movement_speed_pct"
+			{
+				"special_bonus_facet_bristleback_prick"			"-40 -20 0 20"
+			}
+			"activation_turn_rate_pct"
+			{
+				"special_bonus_facet_bristleback_prick"			"-100"
+			}
+			"activation_disable_turning"
+			{
+				"special_bonus_facet_bristleback_prick"			"1"
+			}
+			"activation_ignore_cast_angle"
+			{
+				"special_bonus_facet_bristleback_prick"			"1"
+			}
+			"activation_turn_rate"
+			{
+				"special_bonus_facet_bristleback_prick"			"500"
+			}
+
+			"mettlehead_increase"
+			{
+				"special_bonus_facet_bristleback_mettlehead"	"6 8 10 12"
+			}
+			"mettlehead_increase_duration"
+			{
+				"special_bonus_facet_bristleback_mettlehead"	"5 6 7 8"
+			}
+
+			"side_damage_reduction"								""
+			"back_damage_reduction"								""
+			"quill_release_threshold"							""
+			"goo_radius"										""
 		}
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
 
 	//=================================================================================================================
@@ -253,41 +282,170 @@
 	//=================================================================================================================
 	"bristleback_warpath"
 	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_bristleback/bristleback_warpath"
+		"AbilityTextureName"			"bristleback_warpath"
 		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
 		
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"45.0"
+		"AbilityCooldown"				"60 50 40"
+		"AbilityManaCost"				"75"
 
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"55 65 75"
-		"AbilityDuration"				"10.0 10.0 10.0"
-				
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
 			"damage_per_stack"
 			{
-				"value"										"150 200 250"
-				"special_bonus_facet_bristleback_berserk"	"=50"
-				"special_bonus_unique_bristleback_3"		"+180"
-				"CalculateAttackDamageTooltip"				"1"
+				"value"											"150"
+				"special_bonus_unique_bristleback_8"			"+150"
+				"CalculateAttackDamageTooltip"					"1"
 			}
-			"aspd_per_stack"
+			"movespeed_per_stack"
 			{
-				"value"					"0"
-				"special_bonus_facet_bristleback_berserk"	"=10 =15 =20"				
+				"value"											"2 2.5 3"
 			}
-			"move_speed_per_stack"			"2 2.5 3" 
-			"stack_duration"				"16.0 18.0 20.0"
-			"max_stacks"					"8 10 12"
+			"active_multiplier"
+			{
+				"value"											"1.5"
+			}
+			"stack_duration"
+			{
+				"value"											"16.0 18.0 20.0"
+			}
+			"max_stacks"
+			{
+				"value"											"8 10 12"
+			}
+			"duration"
+			{
+				"value"											"10"
+			}
+
+			"goo_damage_per_stack"
+			{
+				"special_bonus_facet_bristleback_boogerman"		"40 80 120"
+				"CalculateSpellDamageTooltip"					"1"
+			}
+			"active_cast_speed"
+			{
+				"special_bonus_facet_bristleback_boogerman"		"25 50 75"
+			}
+
+			"spell_amp_per_stack"
+			{
+				"special_bonus_facet_bristleback_prick"			"4 8 12"
+			}
+			"active_spell_lifesteal"
+			{
+				"special_bonus_facet_bristleback_prick"			"8 16 24"
+			}
+
+			"attack_speed_per_stack"
+			{
+				"special_bonus_facet_bristleback_mettlehead"	"10 15 20"
+			}
+			"active_lifesteal"
+			{
+				"special_bonus_facet_bristleback_mettlehead"	"20 30 40"
+			}
 		}
+	}
+	
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_bristleback_1"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_bristleback_2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_bristleback_3"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_bristleback_4"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_bristleback_5"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
+		
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_bristleback_6"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_bristleback_7"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
+	}
+
+	//=================================================================================================================
+	// Ability: Special Bonus
+	//=================================================================================================================
+	"special_bonus_unique_bristleback_8"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"special_bonus_base"
 	}
 }

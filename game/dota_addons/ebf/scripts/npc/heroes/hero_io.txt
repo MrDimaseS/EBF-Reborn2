@@ -22,7 +22,7 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"12"
+		"AbilityCooldown"				"6"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -43,13 +43,21 @@
 			}
 			"movespeed"					
 			{
-				"value"							"6 8 10 12"
-				"special_bonus_unique_wisp_3"	"+5"
+				"value"							"12 16 20 24"
+				"special_bonus_unique_wisp_3"	"+12"
 			}
 			"latch_distance"					"700 700 700 700"
 			"latch_speed"						"1000 1000 1000 1000"
-			"tether_heal_amp"					"60"
-			"tether_mana_amp"					"60"
+			"tether_heal_amp"					
+			{
+				"value"							"40 50 60 70"
+				"special_bonus_unique_wisp_2"	"+35"
+			}
+			"tether_mana_amp"					
+			{
+				"value"							"40 50 60 70"
+				"special_bonus_unique_wisp_2"	"+35"
+			}
 			"self_bonus"						"0"
 			"slow"				
 			{
@@ -118,7 +126,11 @@
 			"min_range"					"200"
 			"max_range"					"650"
 			"hero_hit_radius"			"110"
-			"explode_radius"			"360"
+			"explode_radius"
+			{
+				"value"						"360"
+				"affected_by_aoe_increase"	"1"
+			}
 			"hit_radius"				"150 150 150 150"
 			"spirit_movement_rate"		"250 250 250 250"
 			"spirit_duration"			"19.0 19.0 19.0 19.0"
@@ -180,12 +192,12 @@
 			"bonus_spell_amp"		
 			{
 				"value"									"0"
-				"special_bonus_facet_wisp_kritzkrieg"	"8 10 12 14"
+				"special_bonus_facet_wisp_kritzkrieg"	"15 25 35 45"
 			}
 			"bonus_armor"
 			{
 				"value"									"0"
-				"special_bonus_facet_wisp_medigun"		"4 7 10 13"
+				"special_bonus_facet_wisp_medigun"		"8 14 20 26"
 			}
 			"bonus_mres"
 			{
@@ -194,13 +206,13 @@
 			}
 			"hp_regen"			
 			{
-				"value"									"0.5 0.6 0.7 0.8"
-				"special_bonus_unique_wisp_10"			"+0.2"
+				"value"									"1.6 2.0 2.4 2.8"
+				"special_bonus_unique_wisp_10"			"+0.8"
 			}
 			"duration"
 			{
 				"value"									"8"
-				"special_bonus_unique_wisp_overcharge_duration"			"+1.5"
+				"special_bonus_unique_wisp_overcharge_duration"			"+2"
 			}
 			"shard_bonus_slow_resistance"
 			{
@@ -239,11 +251,11 @@
 
 		"AbilityValues"
 		{
-			"invul_duration"					"6"
-			"sacrifice_hp"						"35"
+			"invul_duration"					"6 7 8"
+			"sacrifice_hp"						"30 35 40"
 			"AbilityCooldown"
 			{
-				"value"							"100 90 80"
+				"value"							"80 70 60"
 				"special_bonus_unique_wisp_6"	"-25"
 			}
 		}

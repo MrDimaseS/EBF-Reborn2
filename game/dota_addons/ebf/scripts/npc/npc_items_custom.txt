@@ -941,6 +941,11 @@
 		"MaxUpgradeLevel"					"5"
 		"ItemBaseLevel"						"1"
 		
+		"precache"
+		{
+			"particle"						"particles/items/nexus_of_vigor_overheal.vpcf"
+		}
+		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
@@ -975,6 +980,12 @@
 		
 		"MaxUpgradeLevel"					"5"
 		"ItemBaseLevel"						"1"
+		
+		"precache"
+		{
+			"particle"						"particles/items_fx/drum_of_chorus_buff.vpcf"
+			"soundfile"						"soundevents/game_sounds_greevils.vsndevts"
+		}
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -1023,6 +1034,7 @@
 			
 			"AbilityCooldown"					"15 14 13 12 11"
 			"blink_distance"					"1200"	
+			"blink_disable"						"3"	
 			
 			"buff_duration"						"3"
 			"critical_damage"					"200 250 300 350 400"
@@ -1052,7 +1064,11 @@
 		"MaxUpgradeLevel"					"5"
 		"ItemBaseLevel"						"1"
 		
-		// Special	
+		"precache"
+		{
+			"soundfile"						"soundevents/game_sounds_ambient.vsndevts"
+			"particle"						"particles/units/heroes/heroes_underlord/underlord_pit_cast_beam.vpcf"
+		}
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
@@ -1102,11 +1118,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_spell_amp"
-			{
-				"value"							"15 26.25 45.9 80.4 140.7"
-				"CalculateAttributeTooltip"		"1"
-			}
+			"bonus_spell_amp"					"15 26.25 45.9 80.4 140.7"
 			"bonus_mana"						"450 785 1375 2405 4210"
 			"bonus_mana_regen"					"1.75 3.0 5.4 9.4 16.4"	
 			
@@ -1147,10 +1159,8 @@
 		{
 			"spell_amp"					"5 8.75 15.25 26.75 46.75"
 			"heal_amp"					"5 8.75 15.25 26.75 46.75"
-			"trigger_radius"					"900"	
-			"bonus_movespeed"					"10 15 20 25 30"
-			"bonus_cdr"							"10 15 20 25 30"
-			"buff_duration"						"5"
+			
+			"bonus_buff_durations"		"10 15 20 25 30"
 		}
 	}
 	"item_samaritans_cloak"
@@ -1229,7 +1239,7 @@
 				"value"							"40 70 125 220 385"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"bloodbound_lifesteal"				"15 20 25 30 35"
+			"bloodbound_lifesteal"				"5 10 15 20 25"
 			"bloodbound_radius"					"1200"
 		}
 	}

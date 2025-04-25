@@ -71,7 +71,7 @@ function AIThink()
 
     -- Use Dismember
     if thisEntity.dismember and thisEntity.dismember:IsFullyCastable() then
-        local closeEnemies = FindUnitsInRadius(thisEntity:GetTeamNumber(), thisEntity:GetOrigin(), nil, 400, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_NONE, FIND_CLOSEST, false)
+        local closeEnemies = FindUnitsInRadius(thisEntity:GetTeamNumber(), thisEntity:GetOrigin(), nil, 800, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_NONE, FIND_CLOSEST, false)
         if #closeEnemies > 0 then
             ExecuteOrderFromTable({
                 UnitIndex = thisEntity:entindex(),

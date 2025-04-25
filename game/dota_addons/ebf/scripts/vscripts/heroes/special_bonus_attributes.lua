@@ -143,7 +143,7 @@ function special_bonus_attributes:OnInventoryContentsChanged()
 						item:UpgradeAbility( false )
 						itemToCheck:Destroy()
 						-- update innate
-						local passive = self:FindModifierByNameAndAbility( item:GetIntrinsicModifierName(), item )
+						local passive = parent:FindModifierByNameAndAbility( item:GetIntrinsicModifierName(), item )
 						if passive then
 							passive:Destroy()
 						end
@@ -335,7 +335,7 @@ function modifier_special_bonus_attributes_stat_rescaling:OnTakeDamage(params)
 	if params.damage_type == DAMAGE_TYPE_PURE then
 		return
 	end
-	local lifestealParams = {unit = params.attacker, heal = 0, excess = 0, damage_category = params.damage_category}
+	local lifestealParams = {unit = params.attacker, heal = 0, excess = 0, damage_category = params.damage_category, damage = params.damage}
 	if params.damage_category == DOTA_DAMAGE_CATEGORY_SPELL then
 		if HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL ) or HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_HPLOSS ) or HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_REFLECTION ) then return end
 		local spellLifestealPct = 0

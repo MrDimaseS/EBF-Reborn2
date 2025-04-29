@@ -1376,7 +1376,9 @@
 		"BaseClass"						"item_lua"
 		"ScriptFile"					"items/item_wand_of_brine.lua"
 		"AbilityTextureName"			"wand_of_brine/wand_of_brine"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_BASIC | DOTA_UNIT_TARGET_BASIC"
 		"FightRecapLevel"				"1"
 
 		// Item Info
@@ -1391,6 +1393,14 @@
 		"ItemBaseLevel"						"1"
 		
 		// Special	
+		"precache"
+		{
+			"particle"						"particles/items_fx/wand_of_the_brine_buff.vpcf"
+			"particle"						"particles/status_fx/status_effect_charge_of_darkness.vpcf"
+			"particle"						"particles/units/heroes/hero_morphling/morphling_adaptive_strike.vpcf"
+			"soundfile"						"soundevents/game_sounds_heroes/game_sounds_ancient_apparition.vsndevts"
+			"soundfile"						"soundevents/game_sounds_heroes/game_sounds_tidehunter.vsndevts"
+		}
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{

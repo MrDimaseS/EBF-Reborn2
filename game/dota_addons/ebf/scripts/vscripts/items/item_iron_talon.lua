@@ -10,7 +10,7 @@ function item_iron_talon:OnSpellStart()
 	
 	if target.IsStanding and target:IsStanding() then
 		local cd = self:GetSpecialValueFor("alternative_cooldown")
-		tree:CutDown()
+		target:CutDown( caster:GetTeamNumber() )
 		self:EndCooldown()
 		self:SetCooldown( cd )
 	else

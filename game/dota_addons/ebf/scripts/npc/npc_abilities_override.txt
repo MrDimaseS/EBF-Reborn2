@@ -3433,7 +3433,10 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"							"item_lua"
+		"ScriptFile"						"items/item_black_powder_bag.lua"
+		"AbilityTextureName"				"item_black_powder_bag"
+		"AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 			
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
@@ -3454,21 +3457,27 @@
 
 		"Model"								"models/props_gameplay/neutral_box.vmdl"
 		
-		"AbilityCooldown"					"15 10 5"
+		
+		"precache"
+		{
+			"particle"						"particles/items3_fx/black_powder_bag.vpcf"
+			"particle"						"particles/items3_fx/black_powder_blind_debuff.vpcf"
+		}
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_armor"					"15 26 46"
-			"radius"						"400"
-			"bonus_damage"
+			"bonus_armor"						"20 35 61"
+			"radius"							"400"
+			"damage"
 			{
-				"value"						"2500 5000 7500"
-				"CalculateAttributeTooltip"	"1"
+				"value"							"3000 6000 9000"
+				"CalculateSpellDamageTooltip"	"1"
 			}
-			"blind_duration"				"2"
-			"blind_pct"						"100"
+			"blind_duration"					"2 3 4"
+			"blind_pct"							"100"
+			"AbilityCooldown"					"10 9 8"
 		}
 	}
 	"item_cloak_of_flames"
@@ -3495,6 +3504,12 @@
 		
 		"MaxUpgradeLevel"					"5"
 		"ItemBaseLevel"						"1"
+		
+		"precache"
+		{
+			"particle"						"particles/fire_ball_explosion.vpcf"
+			"particle"						"particles/units/heroes/hero_batrider/batrider_slow_burn.vpcf"
+		}
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -4240,7 +4255,7 @@
 		
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"						"1.0"
+		"AbilityCooldown"						"2.5 2.0 1.5 1.0 0.5"
 					
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
@@ -4268,7 +4283,7 @@
 			
 			"proc_chance"
 			{
-				"value"							"20"
+				"value"							"15"
 				"affected_by_chance_increase"	"1"
 			}
 			"hp_dmg"							"8"

@@ -4818,7 +4818,7 @@
 
 		// Martyr's Bulwark
 		"DOTA_Tooltip_ability_item_martyrs_bulwark"															"Martyr's Bulwark"
-		"DOTA_Tooltip_ability_item_martyrs_bulwark_Description"												"<h1>Active: Wreath of Lightning</h1>You become Storm-charged for %duration% seconds<br><br>While Storm-charged, <b>Chain Lightning</b> triggers on every attack made by or dealt to you and the internal cooldown is removed.\n<h1>Passive: Static Damage Return</h1>Every time you are attacked by a unit within %reflection_radius%, you return %passive_reflection_constant% magical damage; this has a %internal_cd% second internal cooldown and has a %chain_chance%%% chance of releasing a <b>Chain Lightning</b> instead.\n<h1>Passive: Chain Lightning</h1>Your attacks have a %chain_chance%%% chance to ignore evasion and deal %chain_damage% magical damage which bounces to up %chain_strikes% additional targets within %chain_radius% range."
+		"DOTA_Tooltip_ability_item_martyrs_bulwark_Description"												"<h1>Active: Wreath of Lightning</h1>You become Storm-charged for %duration% seconds<br><br>While Storm-charged, <b>Chain Lightning</b> triggers on every attack made by or dealt to you and the internal cooldown is removed.\n\n<h1>Passive: Static Damage Return</h1>Every time you are attacked by a unit within %reflection_radius%, you return %passive_reflection_constant% magical damage; this has a %internal_cd% second internal cooldown and has a %chain_chance%%% chance of releasing a <b>Chain Lightning</b> instead.\n\n<h1>Passive: Chain Lightning</h1>Your attacks have a %chain_chance%%% chance to ignore evasion and deal %chain_damage% magical damage which bounces to up %chain_strikes% additional targets within %chain_radius% range."
 		"DOTA_Tooltip_ability_item_martyrs_bulwark_bonus_damage"                                            "+$damage"
 		"DOTA_Tooltip_ability_item_martyrs_bulwark_bonus_armor"												"+$armor"
 		"DOTA_Tooltip_ability_item_martyrs_bulwark_bonus_all"												"+$all"
@@ -6705,7 +6705,7 @@
 		"DOTA_Tooltip_modifier_item_drum_of_chorus_buff_Description"										"Movement speed increased by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%% and spells cool down %dMODIFIER_PROPERTY_TOOLTIP%%% faster."
 		
 		"DOTA_Tooltip_ability_item_assassins_dagger"														"Assassin's Dagger"
-		"DOTA_Tooltip_ability_item_assassins_dagger_Description"											"<h1>Active: Assassin's Gambit</h1>You Blink towards the targeted location up to %blink_distance% units away, the first attack made within %buff_duration% seconds is a guaranteed critical hit that deals %critical_damage%%% critical damage.<br><br>Does not teleport you for %blink_disable% seconds after getting damaged or when Leashed.<h1>Passive: Blood Revelry</h1>When you critically hit, you gain %crit_attackspeed% bonus attack speed and %crit_lifesteal%%% attack lifesteal for %buff_duration% seconds."
+		"DOTA_Tooltip_ability_item_assassins_dagger_Description"											"<h1>Active: Assassin's Gambit</h1>You Blink towards the targeted location up to %blink_distance% units away, the first attack made within %buff_duration% seconds is a guaranteed critical hit that deals %critical_damage%%% critical damage.<br><br>Does not teleport you for %blink_disable% seconds after getting damaged or when Leashed.\n\n<h1>Passive: Blood Revelry</h1>When you critically hit, you gain %crit_attackspeed% bonus attack speed and %crit_lifesteal%%% attack lifesteal for %buff_duration% seconds."
 		"DOTA_Tooltip_ability_item_assassins_dagger_bonus_attackspeed"										"+$attack"
 		"DOTA_Tooltip_modifier_item_assassins_dagger_buff"													"Assassin's Dagger - Blood Revelry"
 		"DOTA_Tooltip_modifier_item_assassins_dagger_buff_Description"										"Gained %dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT% attack speed and %dMODIFIER_PROPERTY_TOOLTIP%%% attack lifesteal."
@@ -6773,11 +6773,19 @@
 		"DOTA_Tooltip_ability_item_dragon_scale_bonus_hp_regen"												"+$hp_regen"
 		"DOTA_Tooltip_ability_item_dragon_scale_bonus_armor"												"+$armor"
 		
+		"DOTA_Tooltip_Ability_item_black_powder_bag_Description"											"<h1>Passive: Hair Trigger</h1>While off-cooldown, the next time an enemy unit within %radius% range attacks, this item explodes dealing %damage% damage to all enemies within the radius and causing them to miss %blind_pct%%% of their attacks for %blind_duration% seconds."
 		"DOTA_Tooltip_ability_item_black_powder_bag_bonus_armor"											"+$armor"
+		"DOTA_Tooltip_modifier_item_black_powder_bag_debuff"												"Blast Rig - Hair Trigger"
+		"DOTA_Tooltip_modifier_item_black_powder_bag_debuff_Description"									"Missing %dMODIFIER_PROPERTY_MISS_PERCENTAGE%%% of your attacks."
+		
+		"DOTA_Tooltip_Ability_item_serrated_shiv_Description"												"<h1>Passive: Gut 'Em</h1> Attacks have a %proc_chance%%% chance to have True Strike and cause the target to lose %hp_dmg%%% health as physical damage. Counts as a critical hit."
+		"DOTA_Tooltip_Ability_item_serrated_shiv_AbilityCooldown"											"COOLDOWN:"
 		
 		"DOTA_Tooltip_ability_item_cloak_of_flames_Description"												"<h1>Passive: Immolate</h1>When you are attacked, all enemies with %radius% radius of you take %damage% damage every second for %duration% seconds. Does not stack."
 		"DOTA_Tooltip_ability_item_cloak_of_flames_armor"													"+$armor"
 		"DOTA_Tooltip_ability_item_cloak_of_flames_magic_resistance"										"%+$spell_resist"
+		"DOTA_Tooltip_modifier_item_cloak_of_flames_burn"													"Cloak of Flames - Immolate"
+		"DOTA_Tooltip_modifier_item_cloak_of_flames_burn_Description"										"Burning."
 		
 		"DOTA_Tooltip_ability_item_item_dagger_of_ristul_aspd"												"+$attack"
 		
@@ -6794,7 +6802,7 @@
 		"DOTA_Tooltip_ability_item_serrated_shiv_bonus_damage"												"+$damage"
 		"DOTA_Tooltip_ability_item_serrated_shiv_bonus_attack_speed"										"+$attack"
 		
-		"DOTA_Tooltip_ability_item_iron_talon_Description"													"<h1>Active: Chop</h1>Targets a non-player enemy Creep to remove %creep_damage_pct%%% of its current HP.<br><br>If cast on a tree, instantly destroys it.\n\n<h1>Passive: Ruthless</h1>When you kill a unit, a random ability has its cooldown reduced by %ruthless_cdr_creep% seconds (%ruthless_cdr% seconds for Heroes). "
+		"DOTA_Tooltip_ability_item_iron_talon_Description"													"<h1>Active: Chop</h1>Targets a non-player enemy Creep to remove %creep_damage_pct%%% of its current HP.<br><br>If cast on a tree, instantly destroys it and reduces this item's cooldown to %alternative_cooldown% seconds.\n\n<h1>Passive: Ruthless</h1>When you kill a unit, a random ability has its cooldown reduced by %ruthless_cdr_creep% seconds (%ruthless_cdr% seconds for Heroes). "
 		"DOTA_Tooltip_ability_item_iron_talon_bonus_attack_speed"											"+$attack"
 		"DOTA_Tooltip_ability_item_iron_talon_bonus_armor"													"+$armor"
 		

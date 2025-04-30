@@ -83,7 +83,6 @@ const bottomhud = microHud.FindChildTraverse("CustomUIRoot");
 	});
 	
 	GameEvents.SendCustomGameEventToServer( "player_loaded_into_game_server", {shop: "yippie"} )
-	$.Msg("yippie")
 })();
 
 GameEvents.Subscribe( "player_loaded_into_game_client", LoadShopItemData );
@@ -426,8 +425,8 @@ function AlterShopDescriptions(abilityName) {
 		let itemEffect = {}
 		itemEffect.header = itemEffectInArray.substring( itemEffectInArray.indexOf("<h1>"), itemEffectInArray.indexOf("</h1>")+5 )
 		itemEffect.description = itemEffectInArray.substring( itemEffectInArray.indexOf("</h1>")+5 )
-		for(i=1;i<=5;i++){
-			let token = "#DOTA_Tooltip_Ability_" + shop_item + "_" + i + "_Upgrade"
+		for(j=1;j<=5;j++){
+			let token = "#DOTA_Tooltip_Ability_" + shop_item + "_" + j + "_Upgrade"
 			let upgradeDescription = $.Localize(token);
 			if(upgradeDescription != token){
 				let lastHeader = 0
@@ -444,7 +443,7 @@ function AlterShopDescriptions(abilityName) {
 						} else {
 						  updateDescription = upgradeDescription.substring( lastHeader+5)
 						}
-						itemEffect.description = itemEffect.description + '<br>' + '<b>At Tier ' + i + ':</b> ' + updateDescription
+						itemEffect.description = itemEffect.description + '<br>' + '<b>At Tier ' + j + ':</b> ' + updateDescription
 					}
 				}
 			}
@@ -452,15 +451,14 @@ function AlterShopDescriptions(abilityName) {
 		itemEffects.push(itemEffect)
 	}
 	let reconstructedDescription = "";
-	
 	for(i=0;i<itemEffects.length;i++){
 		reconstructedDescription = reconstructedDescription + itemEffects[i].header
 		let lines =  itemEffects[i].description.split("<br><br>");
-		for(i=0;i<lines.length;i++){
-			const line = lines[i]
+		for(j=0;j<lines.length;j++){
+			const line = lines[j]
 			const replacedLine = GameUI.ReplaceDOTAAbilitySpecialValues(shop_item, line, abilityDescription)
 			reconstructedDescription = reconstructedDescription + replacedLine
-			if( i+1<lines.length){
+			if( j+1<lines.length){
 				reconstructedDescription = reconstructedDescription + '<br><br>'
 			}
 		}

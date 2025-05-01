@@ -1037,7 +1037,8 @@ function AlterAbilityDescriptions(bImmediate) {
 		RemoveAbilityChanges(abilityDescription, item_name, unitWeAreChecking);
 		lastRememberedState = lastState;
 		for (let id in split_specials) { // REPLACE SPECIAL VALUES
-			let key = split_specials[id]
+			let specialValueKey = split_specials[id]
+			let key = split_specials[id].toLowerCase()
 			if (key.match(" ")) {
 			} else if (abilityValues[key] != undefined) {
 				let specialValues = abilityValues[key]
@@ -1050,9 +1051,8 @@ function AlterAbilityDescriptions(bImmediate) {
 				for(i=0;i<specialValues.length;i++){
 					let tmpSpecialValue = specialValues[i]
 					let activeValue = i == Abilities.GetLevel(item)-1 || Abilities.GetLevel(item) > specialValues.length
-					
 					tmpSpecialValue = Math.floor(tmpSpecialValue * 100 + 0.5) / 100
-					let realValue = Math.floor(Abilities.GetLevelSpecialValueFor(item, key, i) * 100 + 0.5) / 100
+					let realValue = Math.floor(Abilities.GetLevelSpecialValueFor(item, specialValueKey, i) * 100 + 0.5) / 100
 					let font_colour = "#454552"
 					if(activeValue){
 						if (realValue != tmpSpecialValue) { 
@@ -1084,11 +1084,11 @@ function AlterAbilityDescriptions(bImmediate) {
 						tmpTextToken = tmpTextToken + " / "
 					}
 				}
-				if (description.match("%" + key + "%%%")) {
+				if (description.match("%" + specialValueKey + "%%%")) {
 					tmpTextToken = tmpTextToken.replaceAll("</font>", "%</font>" );
-					description = description.replace("%" + key + "%%%", tmpTextToken );
+					description = description.replace("%" + specialValueKey + "%%%", tmpTextToken );
 				} else {
-					description = description.replace("%" + key + "%", tmpTextToken);
+					description = description.replace("%" + specialValueKey + "%", tmpTextToken);
 				}
 			}
 		}

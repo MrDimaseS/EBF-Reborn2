@@ -225,7 +225,6 @@ function CDOTA_BaseNPC:PerformGenericAttack(target, immediate, tAttackData )
 		bonusDamage = math.floor( (bonusDamage or 0) / (1+(bonusDamagePct-100)/100) )
 	end
 	if bonusDamage and bonusDamage ~= 0 then
-		print( bonusDamage, bonusDamagePct )
 		self:AddNewModifier(caster, nil, "modifier_generic_attack_bonus", {damage = bonusDamage})
 	end
 	local preHP = target:GetHealth()
@@ -1241,13 +1240,13 @@ function CDOTA_Modifier_Lua:AddIndependentStack(tStackData)
 	self:SetStackCount( stacks )
 end
 
-function CDOTA_Buff :RefreshIndependentStack( stackID )
+function CDOTA_Buff:RefreshIndependentStack( stackID )
 	if not self._stackFollowList then return end
 	if not self._stackFollowList[stackID] then return end
 	self._stackFollowList[stackID].expireTime = GameRules:GetGameTime() + self._stackFollowList[stackID].duration
 end
 
-function CDOTA_Buff :RefreshAllIndependentStacks( )
+function CDOTA_Buff:RefreshAllIndependentStacks( )
 	if not self._stackFollowList then return end
 	for stackID,_ in ipairs( self._stackFollowList ) do
 		self:RefreshIndependentStack( stackID )

@@ -6,17 +6,10 @@ end
 
 function item_refresher:OnSpellStart()
 	local caster = self:GetCaster()
-	local target = self:GetCursorTarget()
 	
-	if target.IsStanding and target:IsStanding() then
-		local cd = self:GetSpecialValueFor("alternative_cooldown")
-		tree:CutDown()
-		self:EndCooldown()
-		self:SetCooldown( cd )
-	else
-		local damage = target:GetMaxHealth() * self:GetSpecialValueFor("creep_damage_pct") / 100
-		self:DealDamage( caster, target, damage, {damage_type = DAMAGE_TYPE_PURE, damage_flags = DOTA_DAMAGE_FLAG_HPLOSS} )
-	end
+	caster:RefreshAllCooldowns(true)
+	ParticleManager:FireParticle("particles/items2_fx/refresher.vpcf", PATTACH_POINT_FOLLOW, caster )
+	EmitSoundOn( "DOTA_Item.Refresher.Activate", caster )
 end
 
 modifier_item_refresher_passive = class(persistentModifier)
@@ -27,38 +20,36 @@ function modifier_item_refresher_passive:OnCreated()
 end
 
 function modifier_item_refresher_passive:OnRefresh()
-	self.bonus_attack_speed = self:GetSpecialValueFor("bonus_attack_speed")
-	self.bonus_armor = self:GetSpecialValueFor("bonus_armor")
+	self.bonus_health_regen = self:GetSpecialValueFor("bonus_health_regen")
+	self.bonus_mana_regen = self:GetSpecialValueFor("bonus_mana_regen")
+	self.bonus_damage = self:GetSpecialValueFor("bonus_damage")
 	
-	self.ruthless_cdr = self:GetSpecialValueFor("ruthless_cdr")
-	self.ruthless_cdr_creep = self:GetSpecialValueFor("ruthless_cdr_creep")
+	self.health_restore = self:GetSpecialValueFor("health_restore")
+	self.mana_restore = self:GetSpecialValueFor("mana_restore")
 end
 
 function modifier_item_refresher_passive:DeclareFunctions()
-	return {MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
-			MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
-			MODIFIER_EVENT_ON_DEATH }
+	return {MODIFIER_PROPERTY_MANA_REGEN_CONSTANT ,
+			MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT,
+			MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
+			MODIFIER_EVENT_ON_ABILITY_FULLY_CAST }
 end
 
-function modifier_item_refresher_passive:GetModifierAttackSpeedBonus_Constant()
-	return self.bonus_attack_speed
+function modifier_item_refresher_passive:GetModifierConstantManaRegen()
+	return self.bonus_mana_regen
 end
 
-function modifier_item_refresher_passive:GetModifierPhysicalArmorBonus()
-	return self.bonus_armor
+function modifier_item_refresher_passive:GetModifierConstantHealthRegen()
+	return self.bonus_health_regen
 end
 
-function modifier_item_refresher_passive:OnDeath( params )
-	if params.attacker ~= self:GetParent() then return end
-	local activeAbilities = {}
-	for i = 0, params.attacker:GetAbilityCount() do
-		local ability = params.attacker:GetAbilityByIndex( i )
-		if ability and ability:GetCooldownTimeRemaining() > 0 then
-			table.insert( activeAbilities, ability )
-		end
-	end
-	local randomAbility = activeAbilities[RandomInt(1, #activeAbilities)]
-	if randomAbility then
-		randomAbility:ModifyCooldown( -TernaryOperator( self.ruthless_cdr, params.unit:IsConsideredHero(), self.ruthless_cdr_creep ) )
-	end
+function modifier_item_refresher_passive:GetModifierPreAttack_BonusDamage()
+	return self.bonus_damage
+end
+
+function modifier_item_refresher_passive:OnAbilityFullyCast( params )
+	if params.unit ~= self:GetParent() then return end
+	if params.ability:IsItem() then return end
+	params.unit:HealEvent( self.health_restore, self:GetAbility(), params.unit )
+	params.unit:GiveMana( self.mana_restore )
 end

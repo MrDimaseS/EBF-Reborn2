@@ -41,6 +41,10 @@ function HasBit(checker, value)
 	return bit.band(checker, value) == value
 end
 
+function SetBit(checker, value)
+	return bit.bor(checker, value)
+end
+
 function math.sum( lowLimit, upLimit, summation )
 	if upLimit == 0 then return 0 end
 	local sum = 0

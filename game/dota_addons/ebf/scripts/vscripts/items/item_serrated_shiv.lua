@@ -79,7 +79,7 @@ function modifier_item_serrated_shiv_passive:OnAttackRecordDestroy( params )
 		if self._criticalHits[params.record] then
 			self._criticalHits[params.record] = nil
 			local procDamage = math.ceil(params.target:GetHealth() * self.hp_dmg) * params.target:GetMaxHealthDamageResistance()
-			self:GetAbility():DealDamage( params.attacker, params.target, procDamage, {damage_type = DAMAGE_TYPE_PHYSICAL, damage_flags = DOTA_DAMAGE_FLAG_HPLOSS + DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL }, OVERHEAD_ALERT_BONUS_SPELL_DAMAGE )
+			self:GetAbility():DealDamage( params.attacker, params.target, procDamage, {damage_type = DAMAGE_TYPE_PHYSICAL, damage_flags = DOTA_DAMAGE_FLAG_HPLOSS + DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL + DOTA_DAMAGE_FLAG_ATTACK_MODIFIER }, OVERHEAD_ALERT_BONUS_SPELL_DAMAGE )
 			self:GetAbility():SetFrozenCooldown( false )
 		end
 	end

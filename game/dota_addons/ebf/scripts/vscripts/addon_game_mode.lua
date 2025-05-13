@@ -490,9 +490,45 @@ function CHoldoutGameMode:FilterOrders( filterTable )
 		end
 	end
 	if orderType == DOTA_UNIT_ORDER_SELL_ITEM and ability then
-		unit._rememberItemSold = ability:GetAbilityName()
+		unit._soldItemData = {name=ability:GetAbilityName(), level=ability:GetLevel()}
 	end
-	if ability and ability:GetName() == "rubick_spell_steal" and target == unit then
+	if orderType == DOTA_UNIT_ORDER_PURCHASE_ITEM then
+		-- i guess we remake shopping
+		if unit:GetGold() < GetItemCost(filterTable.shop_item_name) then -- can't buy base form
+			DisplayError(unit:GetPlayerOwnerID(), "dota_hud_error_not_enough_gold")
+			return false
+		end
+		local item = CreateItem( filterTable.shop_item_name, unit:GetPlayerOwner(), unit )
+		local cost = item:GetCost()
+		for i=0, DOTA_STASH_SLOT_6 do
+			local itemToCheck = unit:GetItemInSlot( i )
+			if IsEntitySafe( itemToCheck )
+			and item:GetAbilityName() == itemToCheck:GetAbilityName()
+			and not itemToCheck:IsCombineLocked() 
+			and itemToCheck:GetPurchaser():GetPlayerOwnerID() == unit:GetPlayerOwnerID()
+			and itemToCheck:GetLevel() < itemToCheck:GetMaxLevel() then
+				local levelDifference = itemToCheck:GetLevel() - item:GetLevel()
+				cost = item:GetCost() * 2^levelDifference
+				if cost <= unit:GetGold() then
+					item:SetLevel( itemToCheck:GetLevel() )
+					break
+				else
+					cost = item:GetCost()
+				end
+			end
+		end
+		EmitSoundOnClient( "General.Buy", unit:GetPlayerOwner() )
+		unit:SpendGold( cost, DOTA_ModifyGold_PurchaseItem )
+		unit:AddItem( item )
+		return false
+	end
+	if orderType == DOTA_UNIT_ORDER_SET_ITEM_COMBINE_LOCK then
+		local attributes = unit:FindAbilityByName("special_bonus_attributes")
+		if attributes then
+			Timers:CreateTimer( function() attributes:OnInventoryContentsChanged() end )
+		end
+	end
+	if IsEntitySafe( ability ) and ability:GetName() == "rubick_spell_steal" and target == unit then
 		DisplayError(unit:GetPlayerOwnerID(), "dota_hud_error_cant_cast_on_self")
 		return false
 	end
@@ -504,9 +540,8 @@ function CHoldoutGameMode:FilterGold( filterTable )
 	local startGold = filterTable.gold
 	if hero then
 		if filterTable.reason_const == DOTA_ModifyGold_SellItem then
-			if GetMapName() == "epic_boss_fight_event" and hero._rememberItemSold then
-				-- filterTable.gold = GetItemCost( hero._rememberItemSold ) / 2
-				filterTable.gold = 0
+			if hero._soldItemData then
+				filterTable.gold = startGold * 2 ^ (hero._soldItemData.level-1)
 			end
 			return true
 		end
@@ -987,10 +1022,14 @@ function CHoldoutGameMode:_SetupGameConfiguration()
 	for itemName, available in pairs( availableItems ) do
 		if toboolean(available) then
 			local abilityKV =  GetAbilityKeyValuesByName(itemName)
-			local shopData = {}
-			shopData.ItemCost = abilityKV.ItemCost or 1000
-			shopData.AbilityTier = 6 - ( tonumber(abilityKV.MaxUpgradeLevel) or 5)
-			GameRules.ShopKV[itemName] = shopData
+			if abilityKV then
+				local shopData = {}
+				shopData.ItemCost = abilityKV.ItemCost or 1000
+				shopData.AbilityTier = 6 - ( tonumber(abilityKV.MaxUpgradeLevel) or 5)
+				GameRules.ShopKV[itemName] = shopData
+			else
+				print( "no KV found", itemName )
+			end
 		end
 	end
 
@@ -2133,6 +2172,15 @@ function CHoldoutGameMode:OnNPCSpawned( event )
 		spawnedUnit:SetDayTimeVisionRange( spawnedUnit:GetDayTimeVisionRange() - (GameRules.gameDifficulty-1) * 200 )
 		spawnedUnit:SetNightTimeVisionRange( spawnedUnit:GetDayTimeVisionRange() - (GameRules.gameDifficulty-1) * 200 )
 	end
+	if spawnedUnit:GetUnitLabel() == "spirit_bear" then
+		local attributes = spawnedUnit:FindAbilityByName("special_bonus_attributes")
+		if not spawnedUnit:HasAbility("special_bonus_attributes") then
+			attributes = spawnedUnit:AddAbility("special_bonus_attributes")
+		end
+		local owner = spawnedUnit:GetPlayerOwnerID()
+		local hero = PlayerResource:GetSelectedHeroEntity( owner )
+		attributes:SetLevel( hero:FindAbilityByName("special_bonus_attributes"):GetLevel() )
+	end
 	if spawnedUnit:IsRealHero() then
 		if not spawnedUnit:HasModifier("modifier_thinker_hero_regeneration") then
 			spawnedUnit:AddNewModifier( spawnedUnit, nil, "modifier_thinker_hero_regeneration", {} )
@@ -2181,7 +2229,6 @@ function CHoldoutGameMode:OnPlayerLoaded(userid, event)
 	if not player then
 		return
 	end
-	print("this might be too fuckin big to send tbh")
 	CustomGameEventManager:Send_ServerToPlayer(player, "player_loaded_into_game_client", GameRules.ShopKV)
 end
 

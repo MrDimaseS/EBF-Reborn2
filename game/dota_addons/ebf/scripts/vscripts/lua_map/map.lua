@@ -31,9 +31,7 @@ end
 
 function OnWaterEnter(trigger)
    local ent = trigger.activator
-   print (ent:GetName())
    ent.InWater = true
-   print (ent.InWater)
 end
 
 function OnWaterExit(trigger)

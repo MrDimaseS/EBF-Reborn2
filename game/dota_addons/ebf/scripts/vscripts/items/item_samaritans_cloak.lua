@@ -49,7 +49,7 @@ function modifier_item_samaritans_cloak_passive:OnModifierAdded( params )
 	if params.unit:IsFakeHero() then return end
 	if not params.attacker:IsSameTeam( params.unit ) then return end
 	if params.added_buff:IsDebuff() then return end
-	if params.added_buff:IsHidden() then return end
+	if params.added_buff.IsHidden and params.added_buff:IsHidden() then return end
 	if params.added_buff:GetDuration() <= 0 then return end
 	if DONT_COPY_THESE_MODIFIERS[params.added_buff:GetName()] then return end
 	for _, ally in ipairs( params.attacker:FindFriendlyUnitsInRadius( params.unit:GetAbsOrigin(), self.share_radius ) ) do

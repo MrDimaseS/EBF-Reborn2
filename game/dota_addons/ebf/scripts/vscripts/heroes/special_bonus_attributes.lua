@@ -120,26 +120,27 @@ function special_bonus_attributes:OnHeroCalculateStatBonus()
 end
 
 function special_bonus_attributes:OnInventoryContentsChanged()
+	local itemsMerged = false
 	if not IsEntitySafe( self ) then return end
 	if not IsEntitySafe( self:GetCaster() ) then return end
-	if self:GetCaster():IsFakeHero( ) then return end
+	if self:GetCaster():IsIllusion( ) then return end
 	local parent = self:GetCaster()
 	for i=0, DOTA_STASH_SLOT_6 do
 		local item = parent:GetItemInSlot( i )
 		if IsEntitySafe( item )
 		and item:GetLevel() < item:GetMaxLevel()
 		and not item:IsCombineLocked() 
-		and item:GetPurchaser() == parent then -- item can be upgraded at all
+		and item:GetPurchaser():GetPlayerOwnerID() == parent:GetPlayerOwnerID() then -- item can be upgraded at all
 			local itemType = (item:GetAbilityName():gsub('%W','')):gsub('_','')
-			for i=0, DOTA_STASH_SLOT_6 do
-				local itemToCheck = parent:GetItemInSlot( i )
+			for j=0, DOTA_STASH_SLOT_6 do
+				local itemToCheck = parent:GetItemInSlot( j )
 				if IsEntitySafe( itemToCheck )
 				and item ~= itemToCheck
 				and not itemToCheck:IsCombineLocked() then
 					local itemToCheckType = (itemToCheck:GetAbilityName():gsub('%W','')):gsub('_','')
 					if itemToCheckType == itemType
 					and item:GetLevel() == itemToCheck:GetLevel()
-					and itemToCheck:GetPurchaser() == parent then
+					and itemToCheck:GetPurchaser():GetPlayerOwnerID() == parent:GetPlayerOwnerID() then
 						itemToCheck:Destroy()
 						-- update innate
 						local passive = parent:FindModifierByNameAndAbility( item:GetIntrinsicModifierName(), item )
@@ -147,13 +148,20 @@ function special_bonus_attributes:OnInventoryContentsChanged()
 							passive:Destroy()
 						end
 						item:UpgradeAbility( false )
+						itemsMerged = true
+						EmitSoundOnClient("General.Combine", parent:GetPlayerOwner() )
 						-- item:RefreshIntrinsicModifier()
 					end
 				end
 			end
 		end
 	end
-	Timers:CreateTimer( function() self:SendUpdatedInventoryContents({unit = self:GetCaster():entindex()}) end )
+	if itemsMerged then
+		-- see if combined item needs to be merged again
+		self:OnInventoryContentsChanged()
+	else
+		Timers:CreateTimer( function() self:SendUpdatedInventoryContents({unit = self:GetCaster():entindex()}) end )
+	end
 end
 
 ITEM_LEVELS = {"COMMON", "SHADOW", "DEMONIC", "DIVINE", "OTHERWORLDLY"}
@@ -168,6 +176,8 @@ function special_bonus_attributes:SendUpdatedInventoryContents( info )
 				inventory[i] = item:GetAbilityKeyValues()
 				inventory[i].AbilityTier = (#ITEM_LEVELS - item:GetMaxLevel()) + item:GetLevel()
 				inventory[i].AbilityTierDescription = ITEM_LEVELS[inventory[i].AbilityTier]
+				inventory[i].AbilityName = item:GetAbilityName()
+				inventory[i].IsCombineLocked = item:IsCombineLocked()
 			else
 				inventory[i] = -1
 			end
@@ -214,7 +224,7 @@ function modifier_special_bonus_attributes_stat_rescaling:OnCreated()
 	self.bonusSpellAmp = 0.02
 	self.bonusDamage = 1.5
 	self.baseArmor = tonumber(UNITKV.ArmorPhysical) + 0.10 * tonumber(UNITKV.AttributeBaseAgility)
-	self.baseMR = tonumber(UNITKV.MagicalResistance)
+	self.baseMR = 0
 	self.baseAttackSpeed = self:GetParent():GetAgility() * 0.8
 	self.baseDamage = ( tonumber(UNITKV.AttackDamageMin) + tonumber(UNITKV.AttackDamageMax) ) / 2
 	self:GetParent()._baseArmorForIllusions = self.baseArmor
@@ -247,12 +257,12 @@ function modifier_special_bonus_attributes_stat_rescaling:OnCreated()
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:OnRefresh()
-	self.attackspeed = self.baseAttackSpeed + math.floor( math.min( 0.25 * self:GetParent():GetAgility(), 3.44*self:GetParent():GetAgility()^(math.log(2)/math.log(3.5)) ) )
+	self.attackspeed = self.baseAttackSpeed + math.floor( 0.1 * self:GetParent():GetAgility() )
 	self:GetParent()._internalBaseAttackSpeedBonus = self.attackspeed
 	self.total_ability_scaling = 1 + (self:GetCaster():GetLevel() - 1) * self.internal_ability_scaling
 	if IsServer() then
 		if self.baseArmor then
-			local agilityArmor = math.min( 0.065 * self:GetParent():GetAgility(), 0.9*self:GetParent():GetAgility()^(math.log(2)/math.log(5)) )
+			local agilityArmor = 0.015 * self:GetParent():GetAgility()
 			self:GetParent():SetPhysicalArmorBaseValue( self.baseArmor + agilityArmor )
 			Timers:CreateTimer( function() -- illusion fix, idk why the fuck it needs a frame delay for them
 				if not IsEntitySafe( self:GetParent() ) then return end
@@ -260,7 +270,7 @@ function modifier_special_bonus_attributes_stat_rescaling:OnRefresh()
 			end)
 		end
 		if self.baseMR then
-			local intArmor =  math.min( 0.04 * self:GetParent():GetIntellect(false), 0.55*self:GetParent():GetIntellect(false)^(math.log(2)/math.log(5)) )
+			local intArmor =  1-(1-0.003)^(math.floor(self:GetParent():GetIntellect(false)/10)) + 0.003 * (self:GetParent():GetIntellect(false)%10)
 			local totalVal = -self:GetParent():GetIntellect(false) * 0.1 + self.baseMR + intArmor
 			self:GetParent():SetBaseMagicalResistanceValue( totalVal )
 			Timers:CreateTimer( function() -- illusion fix, idk why the fuck it needs a frame delay for them
@@ -286,7 +296,6 @@ function modifier_special_bonus_attributes_stat_rescaling:DeclareFunctions()
 		MODIFIER_PROPERTY_STATS_INTELLECT_BONUS,
 		MODIFIER_PROPERTY_BASEATTACK_BONUSDAMAGE,
 		MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
-		MODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE,
 		MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS,
 		MODIFIER_PROPERTY_MANA_REGEN_CONSTANT,
 		MODIFIER_PROPERTY_MANA_BONUS,
@@ -305,22 +314,11 @@ function modifier_special_bonus_attributes_stat_rescaling:DeclareFunctions()
 		MODIFIER_PROPERTY_HP_REGEN_AMPLIFY_PERCENTAGE,
 		MODIFIER_PROPERTY_EVASION_CONSTANT,
 		MODIFIER_PROPERTY_MP_REGEN_AMPLIFY_PERCENTAGE,
-		MODIFIER_EVENT_ON_ORDER,
 		MODIFIER_EVENT_ON_TAKEDAMAGE,
 		MODIFIER_EVENT_ON_ABILITY_START,
   }
   return funcs
 end
-
-function modifier_special_bonus_attributes_stat_rescaling:OnOrder( params )
-	if params.order_type == DOTA_UNIT_ORDER_CAST_TOGGLE_ALT then
-		params.ability._getAltCastState = not (params.ability._getAltCastState or false)
-		self.lastUpdatedAbility = params.ability:entindex()
-		self.lastUpdatedAbilityState = #params.ability._getAltCastState
-		self:SendBuffRefreshToClients()
-	end
-end
-
 
 function modifier_special_bonus_attributes_stat_rescaling:OnAbilityStart(params)
 	if params.unit ~= self:GetParent() then return end
@@ -561,8 +559,8 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierOverrideAbi
 	if params.ability._processValuesForScaling[special_value].affected_by_lvl_increase then
 		local flNewValue = flBaseValue * self.total_ability_scaling
 		if params.ability._processValuesForScaling[special_value].lvl_increase_spell_damage_type then
-			local SPELL_AMP_PRIMARY = 0.02
-			local SPELL_AMP_UNIVERSAL = 0.01
+			local SPELL_AMP_PRIMARY = 0.025
+			local SPELL_AMP_UNIVERSAL = 0.0133
 			local bonusBaseSpellDamagePct = 0
 			if self:GetStackCount() == DOTA_ATTRIBUTE_STRENGTH then
 				bonusBaseSpellDamagePct =  self:GetParent():GetStrength() * SPELL_AMP_PRIMARY
@@ -656,10 +654,6 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierBaseAttack_
 		bonusBaseDamage = ( self:GetParent():GetStrength() + self:GetParent():GetAgility() + self:GetParent():GetIntellect(false) ) * BASE_DAMAGE_UNIVERSAL
 	end
 	return self:GetParent():GetAgility() * self.bonusDamage + bonusBaseDamage + (4*self.baseDamage + 120) * self.total_ability_scaling
-end
-
-function modifier_special_bonus_attributes_stat_rescaling:GetModifierSpellAmplify_Percentage()
-	return self:GetParent():GetIntellect(false) * self.bonusSpellAmp
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierMagicalResistanceBonus()

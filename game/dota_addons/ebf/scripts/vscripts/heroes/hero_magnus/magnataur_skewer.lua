@@ -29,7 +29,6 @@ end
 function modifier_magnataur_skewer_ebf:OnCreated(params)
     if IsClient() then return end
 
-    print("modifier added")
     self.caster = self:GetCaster()
     self.ability = self:GetAbility()
     self.radius = self:GetSpecialValueFor("skewer_radius")
@@ -43,7 +42,6 @@ function modifier_magnataur_skewer_ebf:OnCreated(params)
     self.slow_duration = self:GetSpecialValueFor("slow_duration")
 
     self:StartMotionController()
-    print("started motion controller")
 
     -- particles
     local particle = "particles/units/heroes/hero_magnataur/magnataur_skewer.vpcf"

@@ -47,7 +47,7 @@ end
 function modifier_item_revenants_brooch_passive_effect:GetModifierPreAttack_CriticalStrike( params )
 	if self:RollPRNG( self.crit_chance ) then
 		self.crits[params.record] = true
-		return 100
+		return 101
 	end
 end
 
@@ -61,10 +61,6 @@ end
 
 function modifier_item_revenants_brooch_passive_effect:GetCritDamage()
 	return 1+self.crit_multiplier / 100
-end
-
-function modifier_item_revenants_brooch_passive_effect:GetModifierCriticalStrike_BonusDamage()
-	return self.bonus_crit
 end
 
 function modifier_item_revenants_brooch_passive_effect:IsHidden()

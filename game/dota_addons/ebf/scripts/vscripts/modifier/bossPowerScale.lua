@@ -37,13 +37,18 @@ function bossPowerScale:OnRefresh(keys)
 	
 	self.treewalk = false
 	self.dmgTakenSinceCheck = 0
-	self.lastHPPctSinceCheck = self:GetParent():GetHealthPercent()
-	self.HPRageThreshold = 2.4
-	self.enrageTimer = (90 - (20*(self.difficulty-1)) )*3
+	
+	self.crit_chance = 5
+	self.evasion = 5
+	self.crit_damage = 200
 	if self:GetParent():IsConsideredHero() then
+		self.crit_chance = 20
+		self.evasion = 20
 		self.baseStatusResistance = 10 + 5 * difficulty
 		self.statusResistIncreasePerTick = ( (MAX_STATUS_RESIST - self.baseStatusResistance) / SECONDS_TO_COMBO_BREAK ) * 0.25
 		self.actualStatusResistance = self.baseStatusResistance
+		self.baseEnrageTimer = (120 - (10*(self.difficulty-1)) )
+		self.enrageTimer = self.baseEnrageTimer
 	end
 	self:StartIntervalThink( 0.25 )
 	
@@ -59,15 +64,12 @@ function bossPowerScale:OnIntervalThink()
 	if IsServer() then
 		self.treewalk = not self:GetParent():IsLeashed()
 		if self:GetParent():IsInvulnerable() or self:GetParent():IsInvulnerable() or self:GetParent():IsOutOfGame() then return end
-		self.enrageTimer = self.enrageTimer - 0.25
-		if self.enrageTimer <= 0 then
-			if self.lastHPPctSinceCheck - self:GetParent():GetHealthPercent() < self.HPRageThreshold then -- time to get pissed off
+		if self.enrageTimer then
+			self.enrageTimer = self.enrageTimer - 0.25
+			if self.enrageTimer <= 0 then
 				self:GetParent():AddNewModifier( self:GetParent(), nil, "modifier_boss_enraged", {} )
-			
+				self.enrageTimer = self.baseEnrageTimer
 			end
-			self.lastHPPctSinceCheck = self:GetParent():GetHealthPercent()
-			self.enrageTimer = (90 - (20*(self.difficulty-1)) )*3
-			self.dmgTakenSinceCheck = 0
 		end
 		AddFOWViewer( DOTA_TEAM_BADGUYS, self:GetParent():GetAbsOrigin(), 128, 0.3, false )
 	end
@@ -136,12 +138,13 @@ function bossPowerScale:DeclareFunctions()
 	MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
 	MODIFIER_PROPERTY_BASEDAMAGEOUTGOING_PERCENTAGE,
 	MODIFIER_PROPERTY_STATUS_RESISTANCE_STACKING,
-	MODIFIER_EVENT_ON_DEATH,
 	MODIFIER_EVENT_ON_TAKEDAMAGE,
 	MODIFIER_EVENT_ON_ABILITY_START,
 	MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL,
 	MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL_VALUE,
 	MODIFIER_EVENT_ON_ABILITY_FULLY_CAST,
+	MODIFIER_PROPERTY_EVASION_CONSTANT,
+	MODIFIER_PROPERTY_PREATTACK_CRITICALSTRIKE
   }
   return funcs
 end
@@ -234,39 +237,9 @@ function bossPowerScale:OnAbilityStart(event)
 	event.unit:MakeVisibleToTeam(DOTA_TEAM_GOODGUYS, 1.5)
 end
 
-function bossPowerScale:OnDeath(event)
-	local parent = self:GetParent()
-	if event.unit:IsRealHero() and parent:HasModifier("modifier_boss_enraged") then
-		local enrage = parent:FindModifierByName("modifier_boss_enraged")
-		if not event.unit:IsReincarnating() or enrage:GetStackCount() == 1 then
-			enrage:Destroy()
-			self.enrageTimer = (90 - (20*(self.difficulty-1)) )*3
-			self.lastHPPctSinceCheck = self:GetParent():GetHealthPercent()
-		else
-			enrage:DecrementStackCount()
-		end
-		self.dmgTakenSinceCheck = 0
-	end
-end
-
 function bossPowerScale:OnTakeDamage(event)
 	local parent = self:GetParent()
 	if event.unit == parent then
-		if parent:HasModifier("modifier_boss_enraged") then -- taking damage
-			self.dmgTakenSinceCheck = (self.dmgTakenSinceCheck or 0) + event.damage
-			if self.dmgTakenSinceCheck >= (self:GetParent():GetMaxHealth() * self.HPRageThreshold * 2) / 100 then
-				local enrage = parent:FindModifierByName("modifier_boss_enraged")
-				local stacksToRemove = math.floor( self.dmgTakenSinceCheck / ((self:GetParent():GetMaxHealth() * self.HPRageThreshold * 2) / 100) )
-				if enrage:GetStackCount() > stacksToRemove then
-					enrage:SetStackCount( enrage:GetStackCount() - stacksToRemove )
-				else
-					enrage:Destroy()
-				end
-				self.dmgTakenSinceCheck = 0
-				self.enrageTimer = 90 - (20*(self.difficulty-1))
-				self.lastHPPctSinceCheck = self:GetParent():GetHealthPercent()
-			end
-		end
 		if not event.attacker:CanBeSeenByAnyOpposingTeam() then
 			parent:MakeVisibleToTeam(DOTA_TEAM_BADGUYS, 1.5)
 		end
@@ -291,8 +264,24 @@ function bossPowerScale:GetModifierStatusResistanceStacking(event)
 	return self.baseStatusResistance
 end
 
+
+function bossPowerScale:GetModifierEvasion_Constant(event)
+	return self.evasion
+end
+
+function bossPowerScale:GetModifierPreAttack_CriticalStrike()
+	if not IsServer() then return end
+	if self:RollPRNG( self.crit_chance ) then
+		return self.crit_damage
+	end
+end
+
+function bossPowerScale:GetCritDamage()
+	return self.crit_damage / 100
+end
+
 function bossPowerScale:IsHidden()
-  return true --change that to true when finished debuging
+  return true
 end
 
 function bossPowerScale:IsDebuff()

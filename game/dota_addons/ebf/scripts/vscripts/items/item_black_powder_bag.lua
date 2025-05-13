@@ -58,11 +58,11 @@ function modifier_item_black_powder_bag_debuff:OnRefresh()
 	self.blind_pct = self:GetSpecialValueFor("blind_pct")
 end
 
-function modifier_item_black_powder_bag_passive:DeclareFunctions()
+function modifier_item_black_powder_bag_debuff:DeclareFunctions()
 	return {MODIFIER_PROPERTY_MISS_PERCENTAGE}
 end
 
-function modifier_item_black_powder_bag_passive:GetModifierMiss_Percentage()
+function modifier_item_black_powder_bag_debuff:GetModifierMiss_Percentage()
 	return self.blind_pct
 end
 

@@ -1,7 +1,6 @@
 doom_bringer_scorched_earth = class({})
 
 function doom_bringer_scorched_earth:OnSpellStart()
-    print("silly")
     local caster = self:GetCaster()
     local duration = self:GetSpecialValueFor("duration")
 

@@ -85,12 +85,21 @@ const bottomhud = microHud.FindChildTraverse("CustomUIRoot");
 	GameEvents.SendCustomGameEventToServer( "player_loaded_into_game_server", {shop: "yippie"} )
 })();
 
-GameEvents.Subscribe( "player_loaded_into_game_client", LoadShopItemData );
+GameEvents.Subscribe( "player_loaded_into_game_client", InitaliseShopData );
 
-let savedShopData
+let savedShopData = {}
+let ogShopData = {}
+
+function InitaliseShopData( shopData )
+{
+	ogShopData = JSON.parse(JSON.stringify(shopData))
+	savedShopData = JSON.parse(JSON.stringify(ogShopData))
+	LoadShopItemData( savedShopData );
+}
+
+let shopItems = {}
+
 function LoadShopItemData( shopData ){
-	savedShopData = shopData
-	
 	let mainShop = dotaHud.FindChildTraverse("GridMainShopContents")
 	let basics = mainShop.FindChildTraverse("GridBasicItems")
 	let upgrades = mainShop.FindChildTraverse("GridUpgradeItems")
@@ -99,51 +108,69 @@ function LoadShopItemData( shopData ){
 		for (const category of panel.Children() ) {
 			const items = category.FindChildTraverse("ShopItemsContainer")
 			for (const item of items.Children() ) {
-				let itemImage = item.FindChildTraverse("ItemImage")
-				let purchaseOverlay = item.FindChildTraverse("CanPurchaseOverlay")
-				let itemName = itemImage.itemname
-				
-				let boxShadow = "inset 0px -10px 20px 1px";
-				let border = "1px solid"
-				purchaseOverlay.hittestchildren = false;
-				if(savedShopData[itemName].AbilityTier==1){
-					boxShadow = boxShadow + " #A9A9A908";
-					border = border + " #A9A9A944";
-					if (purchaseOverlay != undefined){
-						purchaseOverlay.style.saturation = "0";
-					}
-				} else if (savedShopData[itemName].AbilityTier==2){
-					boxShadow = boxShadow + " #00008B55";
-					border = border + " #00008B77";
-					if (purchaseOverlay != undefined){
-						purchaseOverlay.style.hueRotation = "180deg";
-					}
-				} else if (savedShopData[itemName].AbilityTier==3){
-					boxShadow = boxShadow + " #77000066";
-					border = border + " #77000066";
-					if (purchaseOverlay != undefined){
-						purchaseOverlay.style.hueRotation = "330deg";
-					}
-				} else if (savedShopData[itemName].AbilityTier==4){
-					boxShadow = boxShadow + " #B5941033";
-					border = border + " #B5941033";
-				} else if (savedShopData[itemName].AbilityTier==5){
-					boxShadow = boxShadow + " #7c2f6688";
-					border = border + " #7c2f6688";
-					if (purchaseOverlay != undefined){
-						purchaseOverlay.style.hueRotation = "230deg";
-					}
-				} else {
-					boxShadow = null;
-					border = null;
-				}
-				itemImage.style.boxShadow = boxShadow;
-				itemImage.style.border = border;
+				UpdateShopItem( item )
 			}
 		}
 	}
 	updateFunction( basics )
 	updateFunction( upgrades )
+}
+
+function UpdateShopItem( item )
+{
+	let itemImage = item.FindChildTraverse("ItemImage")
+	let purchaseOverlay = item.FindChildTraverse("CanPurchaseOverlay")
+	
+	let itemName = itemImage.itemname
+	// load item into lookup table if not done before
+	if( shopItems[itemName] == undefined ){
+		shopItems[itemName] = item
+	}
+	
+	let boxShadow = "inset 0px -10px 20px 1px";
+	let border = "1px solid"
+	purchaseOverlay.style.saturation = null;
+	purchaseOverlay.style.hueRotation = null;
+	purchaseOverlay.hittestchildren = false;
+	let shopItemTier = savedShopData[itemName].AbilityTier || 1
+	if(shopItemTier==1){
+		boxShadow = boxShadow + " #A9A9A908";
+		border = border + " #A9A9A944";
+		if (purchaseOverlay != undefined){
+			purchaseOverlay.style.saturation = "0";
+		}
+	} else if (shopItemTier==2){
+		boxShadow = boxShadow + " #00008B55";
+		border = border + " #00008B77";
+		if (purchaseOverlay != undefined){
+			purchaseOverlay.style.hueRotation = "180deg";
+		}
+	} else if (shopItemTier==3){
+		boxShadow = boxShadow + " #77000066";
+		border = border + " #77000066";
+		if (purchaseOverlay != undefined){
+			purchaseOverlay.style.hueRotation = "330deg";
+		}
+	} else if (shopItemTier==4){
+		boxShadow = boxShadow + " #B5941033";
+		border = border + " #B5941033";
+	} else if (shopItemTier==5){
+		boxShadow = boxShadow + " #7c2f6688";
+		border = border + " #7c2f6688";
+		if (purchaseOverlay != undefined){
+			purchaseOverlay.style.hueRotation = "230deg";
+		}
+	} else {
+		boxShadow = null;
+		border = null;
+	}
+	if (Players.GetGold( Players.GetLocalPlayer() ) <= savedShopData[itemName].ItemCost){
+		purchaseOverlay.style.visibility = "collapse";		
+	} else {
+		purchaseOverlay.style.visibility = "visible";
+	}
+	itemImage.style.boxShadow = boxShadow;
+	itemImage.style.border = border;
 }
 
 function Yes() {
@@ -394,7 +421,7 @@ function ManageShopItem( abilityPanel, abilityName, empty, entindex, empty2 ){
 			}
 			abilityImage.style.boxShadow = boxShadow 
 			
-			abilityUpgradeCost.text = savedShopData[shop_item].ItemCost
+			abilityUpgradeCost.text = savedShopData[shop_item].ItemCost || 1000
 			abilitySellPrice.text = "Sell Price: " + savedShopData[shop_item].ItemCost / 2
 		} else {
 			abilityTier.text = "Common";
@@ -784,7 +811,7 @@ function UpdateStatsTooltip() {
 	strGain.text = '(+' + Math.floor(stats.str_gain * 10 + 0.5) / 10 + ' next lvl)'
 	strValues.text = (Math.floor((stats.strength * 22) * 10 + 0.5) / 10) + ' HP and ' + Math.floor((stats.strength * 0.008) * 10 + 0.5) / 10 + '% Incoming Healing Amp'
 	if (primaryStat == Attributes.DOTA_ATTRIBUTE_STRENGTH) {
-		strDamage.text = (Math.floor((stats.strength * 1.5)*10 + 0.5)/10) + ' Damage, ' + (Math.floor((stats.strength * 0.02)*10 + 0.5)/10) + '% Base Spell Damage and ' + (Math.floor((stats.strength * 11)*10 + 0.5)/10) + ' HP';
+		strDamage.text = (Math.floor((stats.strength * 1.5)*10 + 0.5)/10) + ' Damage, ' + (Math.floor((stats.strength * 0.025)*10 + 0.5)/10) + '% Base Spell Damage and ' + (Math.floor((stats.strength * 11)*10 + 0.5)/10) + ' HP';
 		strContainer.SetHasClass("PrimaryAttribute", true)
 	} else {
 		strDamage.text = ""
@@ -798,11 +825,11 @@ function UpdateStatsTooltip() {
 	const agiDamage = agiContainer.FindChildTraverse('AgilityDamageLabel');
 	agiGain.text = '(+' + Math.floor(stats.agi_gain * 10 + 0.5) / 10 + ' next lvl)'
 
-	const agilityArmor = Math.min(0.065 * stats.agility, 0.9 * stats.agility ** (Math.log(2) / Math.log(5)))
-	const agilityAttackSpeed = Math.floor(Math.min(0.75 * stats.agility, 3.44 * stats.agility ** (Math.log(2) / Math.log(3.5))))
+	const agilityArmor = 0.015 * stats.agility
+	const agilityAttackSpeed = Math.floor( 0.1 * stats.agility )
 	agiValues.text = (Math.floor((stats.agility * 1.5) * 10 + 0.5) / 10) + ' Damage, ' + Math.floor(agilityArmor * 10 + 0.5) / 10 + ' Armor and ' + Math.floor(agilityAttackSpeed * 10 + 0.5) / 10 + ' Attack Speed'
 	if (primaryStat == Attributes.DOTA_ATTRIBUTE_AGILITY) {
-		agiDamage.text = (Math.floor((stats.agility * 1.5)*10 + 0.5)/10) + ' Damage, ' + (Math.floor((stats.agility * 0.02)*10 + 0.5)/10) + '% Base Spell Damage and ' + (Math.floor((stats.agility * 11)*10 + 0.5)/10) + ' HP';
+		agiDamage.text = (Math.floor((stats.agility * 1.5)*10 + 0.5)/10) + ' Damage, ' + (Math.floor((stats.agility * 0.025)*10 + 0.5)/10) + '% Base Spell Damage and ' + (Math.floor((stats.agility * 11)*10 + 0.5)/10) + ' HP';
 		agiContainer.SetHasClass("PrimaryAttribute", true)
 	} else {
 		agiDamage.text = ""
@@ -816,10 +843,10 @@ function UpdateStatsTooltip() {
 	const intDamage = intContainer.FindChildTraverse('IntelligenceDamageLabel');
 	intGain.text = '(+' + Math.floor(stats.int_gain * 10 + 0.5) / 10 + ' next lvl)'
 
-	const intMR = Math.min(0.04 * stats.intellect, 0.55 * stats.intellect ** (Math.log(2) / Math.log(5)))
-	intValues.text = (Math.floor((stats.intellect * 0.01) * 10 + 0.5) / 10) + '% MP Restore Amp, ' + (Math.floor((stats.intellect * 0.02) * 10 + 0.5) / 10) + '% Spell Amp and ' + Math.floor(intMR * 10 + 0.5) / 10 + '% Magic Resist'
+	const intMR = 1-(1-0.003)^(Math.floor(stats.intellect/10)) + 0.003 * (stats.intellect%10)
+	intValues.text = (Math.floor((stats.intellect * 0.01) * 10 + 0.5) / 10) + '% MP Restore Amp, ' + (Math.floor((stats.intellect * 0.02) * 10 + 0.5) / 10) + '% Base Spell Damage and ' + Math.floor(intMR * 10 + 0.5) / 10 + '% Magic Resist'
 	if (primaryStat == Attributes.DOTA_ATTRIBUTE_INTELLECT) {
-		intDamage.text = (Math.floor((stats.intellect * 1.5)*10 + 0.5)/10) + ' Damage, ' + (Math.floor((stats.intellect * 0.02)*10 + 0.5)/10) + '% Base Spell Damage and ' + (Math.floor((stats.intellect * 11)*10 + 0.5)/10) + ' HP';
+		intDamage.text = (Math.floor((stats.intellect * 1.5)*10 + 0.5)/10) + ' Damage, ' + (Math.floor((stats.intellect * 0.025)*10 + 0.5)/10) + '% Base Spell Damage and ' + (Math.floor((stats.intellect * 11)*10 + 0.5)/10) + ' HP';
 		intContainer.SetHasClass("PrimaryAttribute", true)
 	} else {
 		intDamage.text = ""
@@ -831,7 +858,7 @@ function UpdateStatsTooltip() {
 	const allDamage = allContainer.FindChildTraverse('AllDamageLabel');
 	allGain.text = '(+' + Math.floor((stats.str_gain + stats.agi_gain + stats.int_gain) * 10 + 0.5) / 10 + ' next lvl)'
 	if (primaryStat == Attributes.DOTA_ATTRIBUTE_ALL) {
-		allDamage.text = (Math.floor(((stats.strength+stats.agility+stats.intellect))*10+ 0.5 )/10) + ' Damage, ' + (Math.floor((stats.strength+stats.agility+stats.intellect * 0.01)*10 + 0.5)/10) + '% Base Spell Damage and ' + (Math.floor(((stats.strength+stats.agility+stats.intellect) * 4)*10 + 0.5)/10) + ' HP';
+		allDamage.text = (Math.floor(((stats.strength+stats.agility+stats.intellect))*10+ 0.5 )/10) + ' Damage, ' + (Math.floor((stats.strength+stats.agility+stats.intellect * 0.0133)*10 + 0.5)/10) + '% Base Spell Damage and ' + (Math.floor(((stats.strength+stats.agility+stats.intellect) * 4)*10 + 0.5)/10) + ' HP';
 		allContainer.SetHasClass("PrimaryAttribute", true)
 	} else {
 		allDamage.text = ""
@@ -915,7 +942,6 @@ function UpdateItemTooltip(panel, unit, itemSlot) {
 				abilityTier.text = "Otherworldly";
 				abilityTierTitle.text = "Otherworldly";
 				abilitySellPrice.text = "Sell Price: 8000"
-				abilityUpgradeCost.text = "MAX"
 			} else {
 				boxShadow = null;
 			}
@@ -1220,15 +1246,26 @@ function AlterAbilityDescriptions(bImmediate) {
 	}
 }
 
+let previousInventoryState = {}
+
 function RegisterInventoryData(data) {
 	if (data.unit == Players.GetLocalPlayerPortraitUnit()) {
+		let updateShop = false
+		let currentInventoryState = {}
 		for (let i = 0; i <= 9; i++) {
 			if (i < 9) {
 				let inventorySlotPanel = dotaHud.FindChildTraverse("inventory_slot_" + i);
 				let inventorySlotButton = inventorySlotPanel.FindChildTraverse("AbilityButton");
+				let inventorySlotImage = inventorySlotPanel.FindChildTraverse("ItemImage");
 				inventorySlotButton.inventoryData = null;
 				let boxShadow = "inset 0px -10px 20px 1px";
 				let border = "1px solid"
+				if(data.inventory[i] != -1 && data.inventory[i].IsCombineLocked == false){
+					currentInventoryState[data.inventory[i].AbilityName] = Math.max( data.inventory[i].AbilityTier, currentInventoryState[data.inventory[i].AbilityName] || 0 )
+					if (currentInventoryState[data.inventory[i].AbilityName] == 5){
+						currentInventoryState[data.inventory[i].AbilityName] = ogShopData[data.inventory[i].AbilityName].AbilityTier
+					}
+				}
 				if(data.inventory[i].AbilityTier==1){
 					boxShadow = boxShadow + " #A9A9A944";
 					border = border + " #A9A9A944";
@@ -1258,6 +1295,35 @@ function RegisterInventoryData(data) {
 				inventorySlotButton.inventoryData = null;
 				inventorySlotButton.inventoryData = data.inventory[i]
 			}
+		}
+		if (data.unit == Players.GetPlayerHeroEntityIndex( Players.GetLocalPlayer() ) ){
+			let itemsToUpdate = []
+			for (const item in currentInventoryState ) {
+				let itemTier = currentInventoryState[item]
+				let equivalentTier = previousInventoryState[item] || 0
+				if(equivalentTier != itemTier){
+					itemsToUpdate.push(item)
+				}
+			}
+			for (const item in previousInventoryState ) {
+				let itemTier = previousInventoryState[item]
+				let equivalentTier = currentInventoryState[item] || 0
+				if(equivalentTier != itemTier){
+					itemsToUpdate.push(item)
+				}
+			}
+			if(itemsToUpdate.length > 0){
+				savedShopData = JSON.parse(JSON.stringify(ogShopData))
+			}
+			for (const item of itemsToUpdate){
+				savedShopData[item].AbilityTier = currentInventoryState[item] || previousInventoryState[item] || 1
+				
+				let originalCost = ogShopData[item].ItemCost
+				let tierDifference = savedShopData[item].AbilityTier - ogShopData[item].AbilityTier
+				savedShopData[item].ItemCost = originalCost * 2 ** tierDifference
+				UpdateShopItem( shopItems[item] )
+			}
+			previousInventoryState = currentInventoryState
 		}
 	}
 }

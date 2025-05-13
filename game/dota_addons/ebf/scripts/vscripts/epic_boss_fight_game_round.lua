@@ -27,7 +27,7 @@ function CHoldoutGameRound:ReadConfiguration( kv, gameMode, roundNumber )
 	self._RoundEndDeadlineDifficultyMultiplier = kv.RoundEndDeadlineDifficultyMultiplier or 0
 	self._PrepTimeBetweenRoundDifficultyMultipliers = kv.PrepTimeBetweenRoundDifficultyMultipliers or -1
 	
-	self._GoldPerSecond = roundNumber/2
+	self._GoldPerSecond = 0.5 + roundNumber*0.1
 	self._GoldToGive = 0
 
 	self._vSpawners = {}

@@ -59,7 +59,6 @@ function gyrocopter_call_down:StartCalldown( position, direction )
 	local uniqueCastID = DoUniqueString("call_down")
 	self.rockets[uniqueCastID] = total_strikes
 	Timers:CreateTimer(function()
-		-- print("rocket check", self.rockets[uniqueCastID], uniqueCastID)
 		self:CreateMissileStrike( position, radius )
 		self.rockets[uniqueCastID] = self.rockets[uniqueCastID] - 1
 		

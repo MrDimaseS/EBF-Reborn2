@@ -534,6 +534,12 @@ function CDOTABaseAbility:Refresh()
 	if self:GetMaxAbilityCharges( self:GetLevel() ) > 0 then
 		self:SetCurrentAbilityCharges( self:GetMaxAbilityCharges( self:GetLevel() ) )
 	end
+	for _, modifier in ipairs( self:GetCaster():FindAllModifiersByName("modifier_item_lucky_femur_debuff") ) do
+		if modifier:GetAbility() == self then
+			modifier:Destroy()
+		end
+	end
+	
 end
 
 function CDOTABaseAbility:GetTrueCastRange()
@@ -982,7 +988,12 @@ function CDOTA_Item_Lua:RollPRNG( percentage )
 end
 
 function CDOTA_Modifier_Lua:RollPRNG( percentage )
-	return RollPseudoRandomPercentage( percentage, self:GetAbility():entindex() * 1000 + self:GetSerialNumber(), self:GetParent() )
+	local ability = self:GetAbility()
+	local index = self:GetSerialNumber()
+	if ability then
+		index = index + ability:entindex() * 1000
+	end
+	return RollPseudoRandomPercentage( percentage, index, self:GetParent() )
 end
 
 function CDOTA_BaseNPC:SwapAbilityIndexes(index, swapname)
@@ -1514,7 +1525,7 @@ function CDOTABaseAbility:FireTrackingProjectile(FX, target, speed, data, iAttac
 end
 
 function GameRules:GetPlayerGoldMultiplier()
-	return math.max( 1, 1 + (6 - HeroList:GetActiveHeroCount())/20 )
+	return math.max( 1, 1 + (5 - HeroList:GetActiveHeroCount())/20 )
 end
 
 function CDOTA_BaseNPC:AddGold( val, bIgnoreBonus, cReason )

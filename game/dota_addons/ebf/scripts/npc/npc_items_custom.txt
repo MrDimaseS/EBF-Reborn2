@@ -50,7 +50,7 @@
 // #base "items/item_windwaker.txt"
 // #base "items/item_crit.txt"
 // #base "items/item_lucky_dice.txt"
-#base "items/item_tome_of_xp.txt"
+// #base "items/item_tome_of_xp.txt"
 
 // BOSS ITEMS
 #base "items/boss_items/item_skeletons.txt"
@@ -715,41 +715,24 @@
 				"value"							"25 44 77 134 235"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"bonus_intellect"
-			{
-				"value"							"20 35 61 107 188"
-				"CalculateAttributeTooltip"		"1"
-			}
-			"bonus_agility"
-			{
-				"value"							"10 18 31 54 95"
-				"CalculateAttributeTooltip"		"1"
-			}
-			"bonus_health"
-			{
-				"value"							"275 481 841 1470 2575"
-				"CalculateAttributeTooltip"		"1"
-			}
 			"bonus_damage"
 			{
 				"value"							"100 175 306 535 935"
 				"CalculateAttributeTooltip"		"1"
 			}
 			"bonus_mana_regen"					"1.75 3.0 5.25 9.0 15.75"
+			"bonus_health_regen"
+			{
+				"value"							"37.5 65.5 114.75 201 351.75"
+				"CalculateAttributeTooltip"		"1"
+			}
 			"bonus_attack_speed"				"20 35 61 105 185"
-			"base_attack_range"					"75 100 125 150 175"
 			
 			"movement_slow"						"100"
 			"attack_speed_slow"					"0"
 			"slow_duration"						"0.8"
 			"passive_cooldown"					"6 5 4 3 2"
 			"ranged_cooldown"					"9 8 7 6 5"
-			
-			"push_length"						"600"
-			"enemy_length"						"450"
-			"range_duration"					"6"
-			"cast_range_enemy"					"450"
-			"active_attack_speed"				"30 60 90 120 150"
 			
 			"splash_damage"						"20 40 60 80 100"
 			"splash_damage_ranged"				"15 30 45 60 75"
@@ -1324,7 +1307,7 @@
 			
 			"instant_refresh_chance"
 			{
-				"value"							"15 20 25 30 35"
+				"value"							"20 25 30 35 40"
 				"affected_by_chance_increase"	"1"
 			}
 			"mana_cost_penalty"					"10"
@@ -1416,6 +1399,106 @@
 				"value"							"500 1000 1500 2000 2500"
 				"CalculateSpellHealTooltip"		"1"
 			}
+		}
+	}
+	"item_orb_of_shadows"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_upgraders.lua"
+		"AbilityTextureName"			"boosters/booster_1"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemShopTags"					"upgrade"
+		"ItemQuality"					"rare"
+		"ItemCost"						"2000"
+		
+		"precache"
+		{
+			"particle"						"particles/items_fx/wand_of_the_brine_buff.vpcf"
+		}
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"level"						"2"
+		}
+	}
+	"item_orb_of_demons"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_upgraders.lua"
+		"AbilityTextureName"			"boosters/booster_2"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemShopTags"					"upgrade"
+		"ItemQuality"					"rare"
+		"ItemCost"						"4000"
+		
+		"precache"
+		{
+			"particle"						"particles/items_fx/wand_of_the_brine_buff.vpcf"
+		}
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"level"						"3"
+		}
+	}
+	"item_orb_of_angels"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_upgraders.lua"
+		"AbilityTextureName"			"boosters/booster_3"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemShopTags"					"upgrade"
+		"ItemQuality"					"rare"
+		"ItemCost"						"8000"
+		
+		"precache"
+		{
+			"particle"						"particles/items_fx/wand_of_the_brine_buff.vpcf"
+		}
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"level"						"4"
+		}
+	}
+	"item_orb_of_horrors"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_upgraders.lua"
+		"AbilityTextureName"			"boosters/booster_4"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemShopTags"					"upgrade"
+		"ItemQuality"					"rare"
+		"ItemCost"						"16000"
+		
+		"precache"
+		{
+			"particle"						"particles/items_fx/wand_of_the_brine_buff.vpcf"
+		}
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"level"						"5"
 		}
 	}
 }

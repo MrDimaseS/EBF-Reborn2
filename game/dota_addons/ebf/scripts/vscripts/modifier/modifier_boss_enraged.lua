@@ -1,7 +1,6 @@
 modifier_boss_enraged = class({})
 
 function modifier_boss_enraged:OnCreated()
-	self.attackSpeed = self:GetParent():GetAttackSpeed(true) * 100
 	self:OnRefresh()
 end
 
@@ -12,32 +11,57 @@ function modifier_boss_enraged:OnRefresh()
 end
 
 function modifier_boss_enraged:CheckState()
-	if self:GetStackCount() > 5 then
+	if self:GetStackCount() >= 3 then
 		return {[MODIFIER_STATE_FLYING_FOR_PATHING_PURPOSES_ONLY] = true}
 	end
 end
 
 function modifier_boss_enraged:DeclareFunctions()
-	return {MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT, 
-			MODIFIER_PROPERTY_TOTALDAMAGEOUTGOING_PERCENTAGE, 
-			MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE, 
+	return {MODIFIER_PROPERTY_TOTALDAMAGEOUTGOING_PERCENTAGE, 
+			MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE,
+			MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
+			MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS,
+			MODIFIER_PROPERTY_HP_REGEN_AMPLIFY_PERCENTAGE,
+			MODIFIER_PROPERTY_LIFESTEAL_AMPLIFY_PERCENTAGE,
+			MODIFIER_PROPERTY_SPELL_LIFESTEAL_AMPLIFY_PERCENTAGE,
+			MODIFIER_PROPERTY_HEAL_AMPLIFY_PERCENTAGE_SOURCE,
 			MODIFIER_PROPERTY_TOOLTIP }
 end
 
-function modifier_boss_enraged:GetModifierAttackSpeedBonus_Constant()
-	return (self.attackSpeed or 100) * 0.30 * self:GetStackCount()
-end
-
 function modifier_boss_enraged:GetModifierMoveSpeedBonus_Percentage()
-	return 30 * self:GetStackCount()
+	return 50 * self:GetStackCount()
 end
 
 function modifier_boss_enraged:GetModifierTotalDamageOutgoing_Percentage()
-	return 30 * self:GetStackCount()
+	return 50 * self:GetStackCount()
+end
+
+function modifier_boss_enraged:GetModifierMagicalResistanceBonus()
+	return -10 * self:GetStackCount()
+end
+
+function modifier_boss_enraged:GetModifierPhysicalArmorBonus(event)
+	return -3 * self:GetStackCount()
+end
+
+function modifier_boss_enraged:GetModifierHPRegenAmplify_Percentage()
+	return -25 * self:GetStackCount()
+end
+
+function modifier_boss_enraged:GetModifierLifestealRegenAmplify_Percentage()
+	return -25 * self:GetStackCount()
+end
+
+function modifier_boss_enraged:GetModifierSpellLifestealRegenAmplify_Percentage()
+	return -25 * self:GetStackCount()
+end
+
+function modifier_boss_enraged:GetModifierHealAmplify_PercentageSource()
+	return -25 * self:GetStackCount()
 end
 
 function modifier_boss_enraged:OnTooltip()
-	return 30 * self:GetStackCount()
+	return 50 * self:GetStackCount()
 end
 
 function modifier_boss_enraged:GetEffectName()

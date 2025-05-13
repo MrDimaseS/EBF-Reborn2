@@ -149,7 +149,6 @@ function modifier_item_unhallowed_icon_aura:OnHealReceived( params )
 	if params.unit ~= parent then return end
 	local overheal = (params.gain - parent:GetHealthDeficit())
 	if overheal > 0 then
-		print(overheal)
 		local ability = self:GetAbility()
 		local allies = 0
 		local orderedByHP = {}
@@ -174,7 +173,6 @@ function modifier_item_unhallowed_icon_aura:OnHealReceived( params )
 				local realHeal = math.min( overheal / allies, ally:GetHealthDeficit() )
 				overheal = overheal - realHeal
 				allies = allies - 1
-				print("real heal:", realHeal )
 				ally:HealEvent( realHeal, ability, caster )
 			end
 		end

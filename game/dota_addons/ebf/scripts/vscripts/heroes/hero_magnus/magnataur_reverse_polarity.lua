@@ -62,7 +62,6 @@ function magnataur_reverse_polarity:OnSpellStart()
     end
     local push_duration = self:GetSpecialValueFor("push_duration")
     local max_knockback = self:GetSpecialValueFor("max_knockback")
-    print(push_duration)
 
     if stat_buff_duration ~= 0 then
         stat_modifier = caster:AddNewModifier(caster, self, "modifier_magnataur_reverse_polarity_stats", { duration = stat_buff_duration })

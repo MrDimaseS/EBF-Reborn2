@@ -4,57 +4,6 @@ function item_spear_of_justice:GetIntrinsicModifierName()
 	return "modifier_item_spear_of_justice"
 end
 
-function item_spear_of_justice:OnSpellStart()
-	local caster = self:GetCaster()
-	local target = self:GetCursorTarget()
-	
-	if caster:IsSameTeam( target ) then
-		local push = target:ApplyKnockBack( target:GetAbsOrigin() - target:GetForwardVector() * 150, 0, 0.5, self:GetSpecialValueFor("push_length"), 0, caster, self ).knockback
-		
-		push:AddEffect( ParticleManager:CreateParticle( "particles/items_fx/force_staff.vpcf", PATTACH_POINT_FOLLOW, target ) )
-	else
-		local push_length = self:GetSpecialValueFor("enemy_length")
-		local push = caster:ApplyKnockBack( caster:GetAbsOrigin() - CalculateDirection( target, caster ) * CalculateDistance( caster, target ) / 2, 0, 0.5, math.min( push_length, CalculateDistance( caster, target ) / 2 - caster:GetAttackRange( ) / 2 ), 0, caster, self ).knockback
-		local push2 = target:ApplyKnockBack( target:GetAbsOrigin() + CalculateDirection( target, caster ) * CalculateDistance( caster, target ) / 2, 0.5, 0.5, math.min( push_length, CalculateDistance( caster, target ) / 2 - caster:GetAttackRange( ) / 2 ), 0, caster, self ).knockback
-		
-		push:AddEffect( ParticleManager:CreateParticle( "particles/items_fx/force_staff.vpcf", PATTACH_POINT_FOLLOW, target ) )
-		push2:AddEffect( ParticleManager:CreateParticle( "particles/items_fx/force_staff.vpcf", PATTACH_POINT_FOLLOW, caster ) )
-
-		caster:MoveToTargetToAttack( target )
-	end
-	
-	caster:AddNewModifier( caster, self, "modifier_spear_of_justice_active", {duration = self:GetSpecialValueFor("range_duration")} )
-	EmitSoundOn( "DOTA_Item.HurricanePike.Activate", caster )
-end
-
-item_spear_of_justice_2 = class(item_spear_of_justice)
-item_spear_of_justice_3 = class(item_spear_of_justice)
-item_spear_of_justice_4 = class(item_spear_of_justice)
-item_spear_of_justice_5 = class(item_spear_of_justice)
-
-
-modifier_spear_of_justice_active = class({})
-LinkLuaModifier( "modifier_spear_of_justice_active", "items/item_spear_of_justice.lua" ,LUA_MODIFIER_MOTION_NONE )
-
-function modifier_spear_of_justice_active:OnCreated()
-	self.bonus_attack_speed = self:GetAbility():GetSpecialValueFor("active_attack_speed")
-end
-
-function modifier_spear_of_justice_active:DeclareFunctions(params)
-	local funcs = {
-		MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT
-    }
-    return funcs
-end
-
-function modifier_spear_of_justice_active:CheckState()
-	return {[MODIFIER_STATE_CANNOT_MISS ] = true}
-end
-
-function modifier_spear_of_justice_active:GetModifierAttackSpeedBonus_Constant()
-	return self.bonus_attack_speed
-end
-
 modifier_item_spear_of_justice_cooldown = class({})
 LinkLuaModifier( "modifier_item_spear_of_justice_cooldown", "items/item_spear_of_justice.lua", LUA_MODIFIER_MOTION_NONE )
 
@@ -71,14 +20,10 @@ LinkLuaModifier( "modifier_item_spear_of_justice", "items/item_spear_of_justice.
 
 function modifier_item_spear_of_justice:OnCreated()
 	self.bonus_strength = self:GetAbility():GetSpecialValueFor("bonus_strength")
-	self.bonus_agility = self:GetAbility():GetSpecialValueFor("bonus_agility")
-	self.bonus_intellect = self:GetAbility():GetSpecialValueFor("bonus_intellect")
-	
-	self.bonus_health = self:GetAbility():GetSpecialValueFor("bonus_health")
 	self.bonus_damage = self:GetAbility():GetSpecialValueFor("bonus_damage")
-	self.base_attack_range = self:GetAbility():GetSpecialValueFor("base_attack_range")
 	self.bonus_attack_speed = self:GetAbility():GetSpecialValueFor("bonus_attack_speed")
 	self.bonus_mana_regen = self:GetAbility():GetSpecialValueFor("bonus_mana_regen")
+	self.bonus_health_regen = self:GetAbility():GetSpecialValueFor("bonus_health_regen")
 	
 	self.passive_cooldown = self:GetAbility():GetSpecialValueFor("passive_cooldown")
 	self.ranged_cooldown = self:GetAbility():GetSpecialValueFor("ranged_cooldown")
@@ -94,14 +39,12 @@ end
 function modifier_item_spear_of_justice:DeclareFunctions()
 	return { MODIFIER_EVENT_ON_ATTACK_LANDED, 
 			 MODIFIER_EVENT_ON_ATTACK, 
-			 MODIFIER_PROPERTY_STATS_STRENGTH_BONUS, 
-			 MODIFIER_PROPERTY_STATS_AGILITY_BONUS, 
-			 MODIFIER_PROPERTY_STATS_INTELLECT_BONUS, 
-			 MODIFIER_PROPERTY_HEALTH_BONUS, 
+			 MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,
 			 MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE, 
 			 MODIFIER_PROPERTY_ATTACK_RANGE_BONUS, 
 			 MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT, 
 			 MODIFIER_PROPERTY_MANA_REGEN_CONSTANT, 
+			 MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT, 
 	}
 end
 
@@ -147,24 +90,8 @@ function modifier_item_spear_of_justice:GetModifierBonusStats_Strength(params)
 	return self.bonus_strength
 end
 
-function modifier_item_spear_of_justice:GetModifierBonusStats_Agility(params)
-	return self.bonus_agility
-end
-
-function modifier_item_spear_of_justice:GetModifierBonusStats_Intellect(params)
-	return self.bonus_intellect
-end
-
-function modifier_item_spear_of_justice:GetModifierHealthBonus(params)
-	return self.bonus_health
-end
-
 function modifier_item_spear_of_justice:GetModifierPreAttack_BonusDamage(params)
 	return self.bonus_damage
-end
-
-function modifier_item_spear_of_justice:GetModifierAttackRangeBonus(params)
-	if not self:GetParent():IsRangedAttacker() then return self.base_attack_range end
 end
 
 function modifier_item_spear_of_justice:GetModifierAttackSpeedBonus_Constant(params)
@@ -173,6 +100,10 @@ end
 
 function modifier_item_spear_of_justice:GetModifierConstantManaRegen(params)
 	return self.bonus_mana_regen
+end
+
+function modifier_item_spear_of_justice:GetModifierConstantHealthRegen(params)
+	return self.bonus_health_regen
 end
 
 function modifier_item_spear_of_justice:IsHidden()

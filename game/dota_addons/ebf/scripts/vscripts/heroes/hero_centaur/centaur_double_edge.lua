@@ -149,6 +149,10 @@ function modifier_centaur_double_edge_stepperazer:OnTakeDamage(params)
 	end
 end
 
+function modifier_centaur_double_edge_stepperazer:IsHidden()
+	return self:GetStackCount() <= 0
+end
+
 --[[
 centaur_double_edge = class({})
 

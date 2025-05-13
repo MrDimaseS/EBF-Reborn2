@@ -74,7 +74,6 @@ function modifier_centaur_return_buff:OnCreated()
 	self:OnRefresh()
 	if IsClient() then return end
 
-	print(self.auto_retaliate_interval)
 	if self.auto_retaliate_interval ~= 0 then
 		self:StartIntervalThink(self.auto_retaliate_interval)
 	elseif self.attack_retaliate_history ~= 0 then

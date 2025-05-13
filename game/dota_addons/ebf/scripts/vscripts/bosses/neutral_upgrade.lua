@@ -31,8 +31,8 @@ function modifier_neutral_upgrade_ebfr_passive:OnRefresh()
 		end
 		self:SetStackCount( roundNumber )
 		
-		self.baseMinGold = self.baseMinGold or parent:GetMinimumGoldBounty()
-		self.baseMaxGold = self.baseMaxGold or parent:GetMaximumGoldBounty()
+		self.baseMinGold = math.ceil(self.baseMinGold or parent:GetMinimumGoldBounty() * 0.5)
+		self.baseMaxGold = math.ceil(self.baseMaxGold or parent:GetMaximumGoldBounty() * 0.5)
 		
 		local preGold =  self:GetParent():GetMinimumGoldBounty()
 		if GetMapName() == "mayhem_gamemode" then

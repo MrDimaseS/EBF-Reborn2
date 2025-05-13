@@ -58,7 +58,6 @@ function modifier_dragon_knight_elder_dragon_form_buff:OnCreated()
         self.attack_sound = "Hero_DragonKnight.ElderDragonShoot3.Attack"
         self.transform = "particles/units/heroes/hero_dragon_knight/dragon_knight_transform_blue.vpcf"
     else
-        print("ruh roh raggy")
         return
     end
 

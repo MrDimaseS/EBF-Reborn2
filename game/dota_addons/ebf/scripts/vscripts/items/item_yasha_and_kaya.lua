@@ -1,21 +1,17 @@
-item_yasha_and_kaya_2 = class({})
+item_yasha_and_kaya = class({})
 
-function item_yasha_and_kaya_2:GetIntrinsicModifierName()
-	return "modifier_item_yasha_and_kaya_2_passive"
+function item_yasha_and_kaya:GetIntrinsicModifierName()
+	return "modifier_item_yasha_and_kaya_passive"
 end
 
-item_yasha_and_kaya_3 = class(item_yasha_and_kaya_2)
-item_yasha_and_kaya_4 = class(item_yasha_and_kaya_2)
-item_yasha_and_kaya_5 = class(item_yasha_and_kaya_2)
+modifier_item_yasha_and_kaya_passive = class({})
+LinkLuaModifier( "modifier_item_yasha_and_kaya_passive", "items/item_yasha_and_kaya.lua" ,LUA_MODIFIER_MOTION_NONE )
 
-modifier_item_yasha_and_kaya_2_passive = class({})
-LinkLuaModifier( "modifier_item_yasha_and_kaya_2_passive", "items/item_yasha_and_kaya.lua" ,LUA_MODIFIER_MOTION_NONE )
-
-function modifier_item_yasha_and_kaya_2_passive:OnCreated()
+function modifier_item_yasha_and_kaya_passive:OnCreated()
 	self:OnRefresh()
 end
 
-function modifier_item_yasha_and_kaya_2_passive:OnRefresh()
+function modifier_item_yasha_and_kaya_passive:OnRefresh()
 	self.bonus_agility = self:GetSpecialValueFor("bonus_agility")
 	self.bonus_intellect = self:GetSpecialValueFor("bonus_intellect")
 	
@@ -31,12 +27,12 @@ function modifier_item_yasha_and_kaya_2_passive:OnRefresh()
 	self:GetParent().cooldownModifiers[self] = true
 end
 
-function modifier_item_yasha_and_kaya_2_passive:OnDestroy()
+function modifier_item_yasha_and_kaya_passive:OnDestroy()
 	self:GetParent().cooldownModifiers[self] = nil
 end
 
 
-function modifier_item_yasha_and_kaya_2_passive:DeclareFunctions()
+function modifier_item_yasha_and_kaya_passive:DeclareFunctions()
 	return {
 			MODIFIER_PROPERTY_STATS_INTELLECT_BONUS,
 			MODIFIER_PROPERTY_STATS_AGILITY_BONUS,
@@ -48,47 +44,47 @@ function modifier_item_yasha_and_kaya_2_passive:DeclareFunctions()
 	}
 end
 
-function modifier_item_yasha_and_kaya_2_passive:GetModifierBonusStats_Intellect()
+function modifier_item_yasha_and_kaya_passive:GetModifierBonusStats_Intellect()
 	return self.bonus_intellect
 end
 
-function modifier_item_yasha_and_kaya_2_passive:GetModifierBonusStats_Agility()
+function modifier_item_yasha_and_kaya_passive:GetModifierBonusStats_Agility()
 	return self.bonus_agility
 end
 
-function modifier_item_yasha_and_kaya_2_passive:GetModifierMoveSpeedBonus_Percentage_Unique()
+function modifier_item_yasha_and_kaya_passive:GetModifierMoveSpeedBonus_Percentage_Unique()
 	return self.movement_speed_percent_bonus
 end
 
-function modifier_item_yasha_and_kaya_2_passive:GetModifierAttackSpeedBonus_Constant()
+function modifier_item_yasha_and_kaya_passive:GetModifierAttackSpeedBonus_Constant()
 	return self.bonus_attack_speed
 end
 
-function modifier_item_yasha_and_kaya_2_passive:GetModifierSpellAmplify_Percentage()
+function modifier_item_yasha_and_kaya_passive:GetModifierSpellAmplify_Percentage()
 	return self.spell_amp
 end
 
-function modifier_item_yasha_and_kaya_2_passive:GetModifierSpellLifestealRegenAmplify_Percentage()
+function modifier_item_yasha_and_kaya_passive:GetModifierSpellLifestealRegenAmplify_Percentage()
 	return self.spell_lifesteal_amp
 end
 
-function modifier_item_yasha_and_kaya_2_passive:GetModifierCastSpeed( params )
+function modifier_item_yasha_and_kaya_passive:GetModifierCastSpeed( params )
 	return self.bonus_cooldown
 end
 
-function modifier_item_yasha_and_kaya_2_passive:GetModifierMPRegenAmplify_Percentage()
+function modifier_item_yasha_and_kaya_passive:GetModifierMPRegenAmplify_Percentage()
 	return self.mana_regen_multiplier
 end
 
 
-function modifier_item_yasha_and_kaya_2_passive:IsHidden()
+function modifier_item_yasha_and_kaya_passive:IsHidden()
 	return true
 end
 
-function modifier_item_yasha_and_kaya_2_passive:IsPurgable()
+function modifier_item_yasha_and_kaya_passive:IsPurgable()
 	return false
 end
 
-function modifier_item_yasha_and_kaya_2_passive:GetAttributes()
+function modifier_item_yasha_and_kaya_passive:GetAttributes()
 	return MODIFIER_ATTRIBUTE_MULTIPLE
 end

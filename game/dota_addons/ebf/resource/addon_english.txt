@@ -4828,12 +4828,7 @@
 		
 		"DOTA_Tooltip_Ability_item_fallen_sky_Description"													"<h1>Active: Fallen Sky</h1> Transform into a meteor that strikes down at the target area after %land_time% seconds. Enemies within %damage_radius% radius take %damage_base% + %damage_pct_instant%%% of your Strength as damage instantly. Enemies within a %impact_radius% AoE are stunned for %stun_duration% seconds and start burning, taking %burn_dps% + %damage_pct_over_time%%% of your Strength as damage every %burn_interval% second for %burn_duration% seconds.<br><br>After taking damage from an enemy hero, Fallen Sky does not teleport you when used for %blink_damage_cooldown% seconds.<BR><BR> Range: %abilitycastrange%"
 		"DOTA_Tooltip_Ability_item_fallen_sky_Lore"															"One of the few surviving creations of the acolytes of the Wyrmforge."
-		"DOTA_Tooltip_Ability_item_fallen_sky_bonus_strength"												"+$str"
-		"DOTA_Tooltip_ability_item_fallen_sky_bonus_agility"												"+$agi"	
-		"DOTA_Tooltip_Ability_item_fallen_sky_bonus_intellect"												"+$int"
-
-		"DOTA_Tooltip_Ability_item_fallen_sky_bonus_health_regen"											""
-		"DOTA_Tooltip_Ability_item_fallen_sky_bonus_mana_regen"												""
+		"DOTA_Tooltip_Ability_item_fallen_sky_bonus_strength"												"+$all"
 		
 		"DOTA_Tooltip_ability_item_nexus_of_vigor"															"Nexus of Vigor"
 		"DOTA_Tooltip_ability_item_nexus_of_vigor_Description"												"<h1>Passive: Vital Surge</h1>When you are Overhealed, you deal %overheal_damage%%% of the excess healing as damage to all enemies within %damage_radius% radius."
@@ -4849,6 +4844,7 @@
 		"DOTA_Tooltip_ability_item_assassins_dagger"														"Assassin's Dagger"
 		"DOTA_Tooltip_ability_item_assassins_dagger_Description"											"<h1>Active: Assassin's Gambit</h1>You Blink towards the targeted location up to %blink_distance% units away, the first attack made within %buff_duration% seconds is a guaranteed critical hit that deals %critical_damage%%% critical damage.<br><br>Does not teleport you for %blink_disable% seconds after getting damaged or when Leashed.\n\n<h1>Passive: Blood Revelry</h1>When you critically hit, you gain %crit_attackspeed% bonus attack speed and %crit_lifesteal%%% attack lifesteal for %buff_duration% seconds."
 		"DOTA_Tooltip_ability_item_assassins_dagger_bonus_attackspeed"										"+$attack"
+		"DOTA_Tooltip_ability_item_assassins_dagger_bonus_agility"											"+$agi"
 		"DOTA_Tooltip_modifier_item_assassins_dagger_buff"													"Assassin's Dagger - Blood Revelry"
 		"DOTA_Tooltip_modifier_item_assassins_dagger_buff_Description"										"Gained %dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT% attack speed and %dMODIFIER_PROPERTY_TOOLTIP%%% attack lifesteal."
 		"DOTA_Tooltip_modifier_item_assassins_dagger_active"												"Assassin's Dagger - Assassin's Gambit"
@@ -4871,7 +4867,7 @@
 		"DOTA_Tooltip_modifier_item_lunar_sigil_active_Description"											"Spell damage you take is doubled."
 		
 		"DOTA_Tooltip_ability_item_angelic_crown"															"Angelic Crown"
-		"DOTA_Tooltip_ability_item_angelic_crown_Description"												"<h1>Passive: Blessed</h1>Increases the duration of buffs you place on allied units by %bonus_buff_durations%%%.<br><br>Does not work when refreshing the buff."
+		"DOTA_Tooltip_ability_item_angelic_crown_Description"												"<h1>Passive: Blessed</h1>Increases the duration of buffs you place by %bonus_buff_durations%%%.<br><br>Does not work when refreshing the buff."
 		"DOTA_Tooltip_ability_item_angelic_crown_spell_amp"													"%+$spell_amp"
 		"DOTA_Tooltip_ability_item_angelic_crown_heal_amp"													"%+$heal_amp"
 		
@@ -4898,7 +4894,7 @@
 		"DOTA_Tooltip_modifier_item_lucky_femur_debuff_Description"											"The refreshed spell costs %dMODIFIER_PROPERTY_MANACOST_PERCENTAGE_STACKING%%% additional mana."
 		
 		"DOTA_Tooltip_ability_item_seacursed_trident"														"Sea-Cursed Trident"
-		"DOTA_Tooltip_ability_item_seacursed_trident_Description"											"<h1>Passive: Wrath of the Sea</h1>You deal %debuff_damage_amp%%% additional damage from all sources against units Debuffed by you."
+		"DOTA_Tooltip_ability_item_seacursed_trident_Description"											"<h1>Passive: Wrath of the Sea</h1>You deal %debuff_damage_amp%%% additional damage from all sources against units for each Debuff applied to them by you."
 		"DOTA_Tooltip_ability_item_seacursed_trident_bonus_agility"											"+$agi"
 		"DOTA_Tooltip_ability_item_seacursed_trident_bonus_damage"											"+$damage"
 		"DOTA_Tooltip_ability_item_seacursed_trident_spell_amp"												"%+$spell_amp"
@@ -4920,14 +4916,17 @@
 		"DOTA_Tooltip_modifier_item_black_powder_bag_debuff"												"Blast Rig - Hair Trigger"
 		"DOTA_Tooltip_modifier_item_black_powder_bag_debuff_Description"									"Missing %dMODIFIER_PROPERTY_MISS_PERCENTAGE%%% of your attacks."
 		
-		"DOTA_Tooltip_Ability_item_serrated_shiv_Description"												"<h1>Passive: Gut 'Em</h1> Attacks have a %proc_chance%%% chance to have True Strike and cause the target to lose %hp_dmg%%% health as physical damage. Counts as a critical hit."
-		"DOTA_Tooltip_Ability_item_serrated_shiv_AbilityCooldown"											"COOLDOWN:"
+		"DOTA_Tooltip_Ability_item_serrated_shiv_Description"												"<h1>Passive: Gut 'Em</h1>Attacks have a %proc_chance%%% chance to have True Strike and cause the target to lose %hp_dmg%%% health as physical damage. Counts as a critical hit.<br><br>Cooldown: %AbilityCooldown%s"
 		
 		"DOTA_Tooltip_ability_item_cloak_of_flames_Description"												"<h1>Passive: Immolate</h1>When you are attacked, all enemies with %radius% radius of you take %damage% damage every second for %duration% seconds. Does not stack."
 		"DOTA_Tooltip_ability_item_cloak_of_flames_armor"													"+$armor"
 		"DOTA_Tooltip_ability_item_cloak_of_flames_magic_resistance"										"%+$spell_resist"
 		"DOTA_Tooltip_modifier_item_cloak_of_flames_burn"													"Cloak of Flames - Immolate"
 		"DOTA_Tooltip_modifier_item_cloak_of_flames_burn_Description"										"Burning."
+		
+		
+		"DOTA_Tooltip_ability_item_dandelion_amulet_Description"											"<h1>Passive: Magical Damage Block</h1> Every %AbilityCooldown%s, blocks up to %magic_block% magic damage from damage instances over %min_damage%%% of your maximum health. Lingers for %linger_duration% second(s)."	
+		"DOTA_Tooltip_ability_item_dandelion_amulet_bonus_int"												"+$int"
 		
 		"DOTA_Tooltip_ability_item_item_dagger_of_ristul_aspd"												"+$attack"
 		
@@ -4951,8 +4950,12 @@
 		"DOTA_Tooltip_ability_item_dandelion_amulet_move_speed"												"+$move_speed"
 		"DOTA_Tooltip_ability_item_dandelion_amulet_mana"													"+$mana"
 		
+		"DOTA_Tooltip_ability_item_avianas_feather_Description"												"<h1>Passive: Free Bird</h1> When equipped hero is below %flight_threshold%%% HP, they gain flying movement and up to %flight_evasion%%% evasion. Lingers for %linger_duration% seconds."
 		"DOTA_Tooltip_ability_item_avianas_feather_move_speed"												"+$move_speed"
-		"DOTA_Tooltip_ability_item_avianas_feather_evasion"													"%+$evasion"
+		"DOTA_Tooltip_ability_item_avianas_feather_bonus_spell_amp"											"%+$evasion"
+		"DOTA_Tooltip_ability_item_avianas_feather_bonus_heal_amp"											"%+$heal_amp_in"
+		"DOTA_Tooltip_modifier_item_avianas_feather_free_bird"												"Aviana's Feather - Free Bird"
+		"DOTA_Tooltip_modifier_item_avianas_feather_free_bird_Description"									"Gaining flying movement and %fMODIFIER_PROPERTY_EVASION_CONSTANT%%% evasion."
 		
 		"DOTA_Tooltip_Ability_item_stormcrafter_Description"												"<h1>Passive: Bottled Lightning</h1> Zaps %max_targets% enemy targets within %range% range, dealing %damage% damage and a %slow%%% slow for %slow_duration% seconds. Strikes every %interval% seconds."
 		"DOTA_Tooltip_ability_item_stormcrafter_bonus_mana_regen"											"+$mana_regen"
@@ -4966,34 +4969,46 @@
 		
 		"DOTA_Tooltip_ability_item_gossamer_cape_Description"												"<h1>Passive: Sixth Sense</h1> Automatically dodge an attack from an enemy hero or up to %creep_attacks% attacks from creeps every %AbilityCooldown% seconds."
 		"DOTA_Tooltip_ability_item_gossamer_cape_movement_speed"											"+$move_speed"
+		"DOTA_Tooltip_ability_item_gossamer_cape_bonus_agility"												"+$agi"
+		"DOTA_Tooltip_ability_item_gossamer_cape_bonus_intellect"											"+$int"
 		"DOTA_Tooltip_modifier_item_gossamer_cape_passive"													"Gossamer Cape - Sixth Sense"
 		"DOTA_Tooltip_modifier_item_gossamer_cape_passive_Description"										"The next attack made against you will miss"
 		
-		"DOTA_Tooltip_Ability_item_ninja_gear_Description"													"<h1>Active: Solitary Disguise</h1> Casts Smoke of Deceit on yourself only that lasts for up to %duration% seconds.<br><br>Cooldown: %AbilityCooldown%"
+		"DOTA_Tooltip_Ability_item_ninja_gear_Description"													"<h1>Active: Solitary Disguise</h1> You are hidden in smoke for up to %duration% seconds. While hidden in this way, you are Invisible and gain %bonus_movement_speed%%% bonus movement speed.<br>The disguise disappear when an enemy Hero is within %visibility_radius% radius for at least %visibility_duration% seconds, or if you deal damage to an enemy Hero.<br><br>Cooldown: %AbilityCooldown%"
 		"DOTA_Tooltip_ability_item_ninja_gear_bonus_agility"												"+$agi"
+		"DOTA_Tooltip_ability_item_ninja_gear_bonus_damage"													"+$damage"
+		"DOTA_Tooltip_ability_item_ninja_gear_bonus_spell_amp"												"%+$spell_amp"
 		"DOTA_Tooltip_ability_item_ninja_gear_passive_movement_bonus"										"+$move_speed"
+		"DOTA_Tooltip_modifier_item_ninja_gear_solitary_disguise"											"Ninja Gear - Solitary Disguise"
+		"DOTA_Tooltip_modifier_item_ninja_gear_solitary_disguise_Description"								"Shrouded in smoke."
 		
 		"DOTA_Tooltip_ability_item_gale_guard_armor"														"+$armor"
 		"DOTA_Tooltip_ability_item_gale_guard_spell_amp"													"%+$spell_amp"
 		
-		"DOTA_Tooltip_ability_item_duelist_gloves_Description"												"<h1>Passive: Boldness</h1> Grants %bonus_attack_speed% attack speed as long as there are enemy heroes within %radius% units. Bonus increases by %proximity_bonus%%% for each additional hero in range."
+		"DOTA_Tooltip_ability_item_duelist_gloves_Description"												"<h1>Passive: Boldness</h1> This item's attribute bonus are increased by %proximity_bonus%%% for each hero in %radius% range."
 		"DOTA_Tooltip_ability_item_duelist_gloves_bonus_damage"												"+$damage"
+		"DOTA_Tooltip_ability_item_duelist_gloves_bonus_health"												"+$health"
 		"DOTA_Tooltip_modifier_item_duelist_gloves_passive"													"Duelist Gloves - Boldness"
 		"DOTA_Tooltip_modifier_item_duelist_gloves_passive_Description"										"Attack speed increased by %dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT%."
 		
-		"DOTA_Tooltip_Ability_item_specialists_array_Description"											"<h1>Passive: Crackshot</h1> The next attack fires projectiles that deal %proc_bonus_damage% bonus damage at %count% additional targets within attack range plus a %secondary_target_range_bonus% (%melee_range_bonus% for melee heroes) range bonus. Does not trigger attack modifiers.<br><br>Cooldown: %AbilityCooldown%"
+		"DOTA_Tooltip_Ability_item_specialists_array_Description"											"<h1>Passive: Crackshot</h1> The next attack fires projectiles that deal %proc_bonus_damage% bonus damage at %count% additional targets within attack range plus a %secondary_target_range_bonus% (%melee_range_bonus% for melee heroes) range bonus. Does not trigger attack modifiers. For each missing bonus target, the bonus damage increases by +%proc_missing_damage%%% divided over the remaining targets.<br><br>Cooldown: %AbilityCooldown%"
 
 		"DOTA_Tooltip_ability_item_specialists_array_all_stats"												"+$all"
 		"DOTA_Tooltip_ability_item_specialists_array_bonus_damage"											"+$damage"
 		
-		"DOTA_Tooltip_ability_item_vindicators_axe_Description"												"<h1>Passive: Vengeance</h1> Provides %bonus_damage% damage if equipped hero is Debuffed and %bonus_armor% armor if equipped hero cannot attack."
+		"DOTA_Tooltip_ability_item_vindicators_axe_Description"												"<h1>Passive: Vengeance</h1> Provides %bonus_damage% damage for each Debuff on equipped hero and %bonus_armor% armor if equipped hero cannot attack."
 		
-		"DOTA_Tooltip_ability_item_havoc_hammer"															"Havoc Hammer"
+		"DOTA_Tooltip_Ability_item_mysterious_hat_Description"												"<h1>Passive: Fae Escalation</h1>When you Cast a Spell, you gain %escalating_amp%%% bonus spell amplification that stacks independently. Each stack lasts %escalating_duration% seconds."
+		"DOTA_Tooltip_modifier_item_mysterious_hat_fae_escalation"											"Fairy's Trinket - Fae Escalation"
+		"DOTA_Tooltip_modifier_item_mysterious_hat_fae_escalation_Description"								"Spell amplification increased by %dMODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE%%%."
 		
 		"DOTA_Tooltip_ability_item_spark_of_courage_Description"											"<h1>Passive: Courage</h1>This item's damage bonus is increased by %threshold_bonus%%% when the hero is above %health_pct%%% Health, and the armor bonus is increased when they are below that threshold."
 		"DOTA_Tooltip_ability_item_spark_of_courage_damage"													"+$damage"
 		"DOTA_Tooltip_ability_item_spark_of_courage_armor"													"+$armor"
+		"DOTA_Tooltip_ability_item_spark_of_courage_strength"												"+$str"
+		"DOTA_Tooltip_ability_item_spark_of_courage_agility"												"+$agi"
 		
+		"DOTA_Tooltip_Ability_item_gunpowder_gauntlets_Description"											"<h1>Passive: Beat the Crowd</h1> Your next attack deals an additional %bonus_damage% magic damage and splashes to units within %splash_radius% units for %splash_pct%%% of the original attack's damage.<br><br>Cooldown: %AbilityCooldown%s, reduced by %% when attacked (%% for Creeps)."
 		"DOTA_Tooltip_ability_item_gunpowder_gauntlets_bonus_attack_damage"									"+$damage"
 		
 		"DOTA_Tooltip_ability_item_occult_bracelet_Description"												"<h1>Passive: Rites of Eloshar</h1>Each time the wearer is attacked, they gain a stack of %mana_regen% mana regen and %damage_amp%%% bonus outgoing damage from all sources, up to %stack_limit% stacks. Stacks last for %stack_duration% seconds."
@@ -5010,6 +5025,7 @@
 		"DOTA_Tooltip_modifier_item_unrelenting_eye_status_resist"											"Unrelenting Eye - Relentless"
 		"DOTA_Tooltip_modifier_item_unrelenting_eye_status_resist_Description"								"Gaining %dMODIFIER_PROPERTY_STATUS_RESISTANCE_STACKING%%% status resistance."
 		
+		"DOTA_Tooltip_ability_item_grove_bow_Description"                   								"<h1>Passive: Grove's Fury</h1>Deals magical damage equal to %distance_damage%x the distance between equipped hero and the attack target. This magical damage then rduces magic resistance of the attacked enemy by %magic_resistance_reduction%%% for %debuff_duration% seconds."
 		"DOTA_Tooltip_ability_item_grove_bow_attack_range_bonus"											"+$attack_range"
 		"DOTA_Tooltip_ability_item_grove_bow_attack_speed_bonus"											"+$attack"
 		
@@ -5023,10 +5039,11 @@
 		"DOTA_Tooltip_ability_item_force_field_self_armor"													"+$armor"
 		"DOTA_Tooltip_ability_item_force_field_self_mres"													"%+$spell_resist"
 		
-		"DOTA_Tooltip_Ability_item_paintball_Description"													"<h1>Active: Shadow Brand</h1>Throws a Mark towards the target applying a debuff that deals %dps% damage every second and provides vision of the unit for %duration% seconds.<br><br>Cooldown: %AbilityCooldown%s"
+		"DOTA_Tooltip_Ability_item_paintball_Description"													"<h1>Active: Shadow Brand</h1>Throws a Mark towards the targeted location applying a debuff that deals %dps% damage every second and provides vision of all units in a %aoe% radius for %duration% seconds.<br><br>Cooldown: %AbilityCooldown%s<br>Cast range: %AbilityCastRange%"
 		"DOTA_Tooltip_ability_item_paintball_movespeed"														"+$move_speed"
 		"DOTA_Tooltip_ability_item_paintball_bonus_all"			
 		"+$all"
+		
 		"DOTA_Tooltip_ability_item_rippers_lash_Description"												"<h1>Active: Flay</h1>Embeds thorns into all enemies in a %thorn_area% unit radius. Affected units take an additional %bonus_damage_hero% damage when attacked for %duration% seconds."
 		"DOTA_Tooltip_ability_item_rippers_lash_bonus_agility"												"+$agi"
 		"DOTA_Tooltip_ability_item_rippers_lash_bonus_attackspeed"											"+$attack"
@@ -5040,6 +5057,8 @@
 		"DOTA_Tooltip_Ability_item_orb_of_destruction_duration"												""
 		"DOTA_Tooltip_ability_item_orb_of_destruction_bonus_all"											"+$all"
 		
+		"DOTA_Tooltip_ability_item_nemesis_curse_Description"												"<h1>Passive: Glass Cannon</h1> Hero takes %debuff_self%%% more damage from all sources.\n<h1>Passive: Glassify</h1> When attacking a hero, apply a debuff increasing the damage received by that hero by %debuff_enemy%%% for %debuff_enemy_duration% seconds."
+		"DOTA_Tooltip_ability_item_nemesis_curse_bonus_health_regen"										"+$hp_regen"
 		"DOTA_Tooltip_ability_item_nemesis_curse_bonus_damage"												"+$damage"
 		"DOTA_Tooltip_ability_item_nemesis_curse_spell_amp"													"%+$spell_amp"
 		
@@ -5047,9 +5066,11 @@
 
 		"DOTA_Tooltip_ability_item_crippling_crossbow_bonus_all"											"+$all"
 		
-		"DOTA_Tooltip_ability_item_mind_breaker_Description"												"<h1>Passive: Silence Strike</h1> The next attack silences the hit enemy for %duration% seconds.<br><br>Cooldown: %AbilityCooldown%s"		
+		"DOTA_Tooltip_ability_item_mind_breaker_Description"												"<h1>Passive: Silence Strike</h1> The next attack silences the hit enemy for %duration% seconds<br><br>This item's magical attack damage is increased by %silence_bonus%%% against Silenced units.<br><br>Cooldown: %AbilityCooldown%s"		
 		"DOTA_Tooltip_ability_item_mind_breaker_magic_damage"												"+$magic_damage"
 		"DOTA_Tooltip_ability_item_mind_breaker_attack_speed"												"+$attack"
+		"DOTA_Tooltip_ability_item_mind_breaker_bonus_primary"												"+$primary_attribute"
+		"DOTA_Tooltip_ability_item_mind_breaker_bonus_int"													"+$int"
 		
 		"DOTA_Tooltip_ability_item_ceremonial_robe_bonus_mana"												"+$mana"
 		
@@ -5057,7 +5078,9 @@
 		
 		"DOTA_Tooltip_ability_item_soul_ring_Description"													"<h1>Active: Consumption</h1>You lose %max_hp_loss%%% of your maximum health every second. For every %loss_to_gain% health lost this way, you and all allies within %mana_gain_radius% units regain %mana_gain% mana."
 		
-		"DOTA_Tooltip_ability_item_glimmer_cape_Description"												"<h1>Active: Glimmer</h1> After a %initial_fade_delay% second delay, grants invisibility, %active_movement_speed% movement speed and a magic damage barrier that absorbs up to %barrier_block% damage. When the barrier is damaged, the target gains mana equal to %barrier_to_mana%%% of the barrier lost.<br><br>Can be cast while channeling."
+		"DOTA_Tooltip_ability_item_glimmer_cape_Description"												"<h1>Active: Glimmer</h1> After a %initial_fade_delay% second delay, grants invisibility, %active_movement_speed% movement speed and a magic damage barrier that absorbs up to %barrier_block% damage, lasting %duration% seconds. When the barrier is damaged, the target gains mana equal to %barrier_to_mana%%% of the barrier lost.<br><br>Can be cast while channeling."
+		
+		"DOTA_Tooltip_Ability_item_illusionsts_cape_Description"											"<h1>Active: Create Illusion</h1> Creates an image under your control.<br><br>Cooldown: %AbilityCooldown%s\n<h1>Passive: Illusion Mastery</h1>Increases outgoing damage of all units and illusions controlled by the hero by %attack_damage_aura%%%."
 		
 		// Lotus Orb
 		"DOTA_Tooltip_ability_item_lotus_orb_Description"													"<h1>Active: Echo Shell</h1>Applies an Echo to the target unit for %active_duration% seconds which causes most targeted spells cast by Echo Shell's owner to be casted one additional time on another unit of the same team within %echo_radius% units. The Echo Shell is then removed.<br><br>Units can be affected by multiple Echoes.<br><br>Cooldown: %AbilityCooldown%s"
@@ -5117,6 +5140,8 @@
 		"DOTA_Tooltip_modifier_item_spear_of_justice_debuff_Description"                                    "Slowed."
 		
 		"DOTA_Tooltip_ability_item_dagon_5_bonus_all"														"+$all"
+		
+		"DOTA_Tooltip_ability_item_boots_of_bearing_bonus_health_regen"										"%+Max Health Regen"
 		
 		"DOTA_Tooltip_ability_item_void_reach"                                                              "Void's Reach"
 		"DOTA_Tooltip_ability_item_void_reach_base_attack_range"                                            "+$attack_range"

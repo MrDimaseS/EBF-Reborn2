@@ -34,7 +34,6 @@ end
 
 function modifier_item_angelic_crown_passive:OnModifierAdded( params )
 	if params.unit == self:GetParent() then return end
-	if params.attacker ~= self:GetParent() then return end
 	if not params.attacker:IsSameTeam( params.unit ) then return end
 	if params.added_buff:IsDebuff() then return end
 	if params.added_buff:GetDuration() <= 0 then return end

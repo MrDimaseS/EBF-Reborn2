@@ -125,12 +125,16 @@ end
 function modifier_item_cloak_of_the_protector_ebf_aura:OnRefresh()
 	self.aura_health_regen = self:GetAbility():GetSpecialValueFor("aura_health_regen")
 	self.magic_resistance_aura = self:GetAbility():GetSpecialValueFor("magic_resistance_aura")
+	
+	self.trigger_cd_reduction = self:GetAbility():GetSpecialValueFor("trigger_cd_reduction")
+	self.trigger_hp_threshold = self:GetAbility():GetSpecialValueFor("trigger_hp_threshold") / 100
 end
 
 function modifier_item_cloak_of_the_protector_ebf_aura:DeclareFunctions(params)
 	local funcs = {
 		MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS,
-		MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT
+		MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT,
+		MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE
     }
     return funcs
 end
@@ -141,6 +145,14 @@ end
 
 function modifier_item_cloak_of_the_protector_ebf_aura:GetModifierMagicalResistanceBonus()
 	return self.magic_resistance_aura
+end
+
+function modifier_item_cloak_of_the_protector_ebf_aura:GetModifierIncomingDamage_Percentage( params )
+	self._unitDamageTaken = (self._unitDamageTaken or 0) + params.damage
+	if self._unitDamageTaken > self:GetParent():GetMaxHealth() * self.trigger_hp_threshold then
+		self:GetAbility():ModifyCooldown( -self.trigger_cd_reduction )
+		self._unitDamageTaken = 0
+	end
 end
 
 LinkLuaModifier( "modifier_item_cloak_of_the_protector_ebf_active", "items/item_cloak_of_the_protector.lua" ,LUA_MODIFIER_MOTION_NONE )

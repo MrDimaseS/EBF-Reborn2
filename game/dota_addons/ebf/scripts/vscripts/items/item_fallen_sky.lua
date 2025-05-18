@@ -125,9 +125,8 @@ function modifier_ebfr_fallen_sky_passive:OnCreated()
 	self.bonus_strength = self:GetAbility():GetSpecialValueFor("bonus_strength")
 	self.bonus_agility = self:GetAbility():GetSpecialValueFor("bonus_agility")
 	self.bonus_intellect = self:GetAbility():GetSpecialValueFor("bonus_intellect")
-	self.spell_amp = self:GetAbility():GetSpecialValueFor("spell_amp")
-	self.mana_regen_multiplier = self:GetAbility():GetSpecialValueFor("mana_regen_multiplier")
-	self.spell_lifesteal_amp = self:GetAbility():GetSpecialValueFor("spell_lifesteal_amp")
+	self.bonus_health_regen = self:GetAbility():GetSpecialValueFor("bonus_health_regen")
+	self.bonus_mana_regen = self:GetAbility():GetSpecialValueFor("bonus_mana_regen")
 	
 	self.damage_cd = self:GetSpecialValueFor("blink_damage_cooldown")
 end
@@ -137,9 +136,8 @@ local funcs = {
 		MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,
 		MODIFIER_PROPERTY_STATS_INTELLECT_BONUS,
 		MODIFIER_PROPERTY_STATS_AGILITY_BONUS,
-		MODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE,
-		MODIFIER_PROPERTY_SPELL_LIFESTEAL_AMPLIFY_PERCENTAGE,
-		MODIFIER_PROPERTY_MP_REGEN_AMPLIFY_PERCENTAGE,
+		MODIFIER_PROPERTY_MANA_REGEN_CONSTANT,
+		MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT,
 		MODIFIER_EVENT_ON_TAKEDAMAGE,
     }
     return funcs
@@ -149,6 +147,14 @@ function modifier_ebfr_fallen_sky_passive:OnTakeDamage(params)
 	if params.unit == self:GetParent() and params.attacker:IsConsideredHero() and self:GetAbility():GetCooldownTimeRemaining() < self.damage_cd then
 		self:GetParent():AddNewModifier( self:GetCaster(), self:GetAbility(), "modifier_item_fallen_sky_broken", {duration = self.damage_cd } )
 	end
+end
+
+function modifier_ebfr_fallen_sky_passive:GetModifierConstantHealthRegen()
+	return self.bonus_health_regen
+end
+
+function modifier_ebfr_fallen_sky_passive:GetModifierConstantManaRegen()
+	return self.bonus_mana_regen
 end
 
 function modifier_ebfr_fallen_sky_passive:GetModifierBonusStats_Strength()
@@ -161,18 +167,6 @@ end
 
 function modifier_ebfr_fallen_sky_passive:GetModifierBonusStats_Agility()
 	return self.bonus_agility
-end
-
-function modifier_ebfr_fallen_sky_passive:GetModifierSpellAmplify_Percentage()
-	return self.spell_amp
-end
-
-function modifier_ebfr_fallen_sky_passive:GetModifierMPRegenAmplify_Percentage()
-	return self.mana_regen_multiplier
-end
-
-function modifier_ebfr_fallen_sky_passive:GetModifierSpellLifestealRegenAmplify_Percentage()
-	return self.spell_lifesteal_amp
 end
 
 function modifier_ebfr_fallen_sky_passive:IsHidden()

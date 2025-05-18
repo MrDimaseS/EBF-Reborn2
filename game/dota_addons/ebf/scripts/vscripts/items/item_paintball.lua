@@ -4,19 +4,30 @@ function item_paintball:GetIntrinsicModifierName()
 	return "modifier_item_paintball_passive"
 end
 
+function item_paintball:GetAOERadius()
+	return self:GetSpecialValueFor("aoe")
+end
+
 function item_paintball:OnSpellStart()
 	local caster = self:GetCaster()
-	local target = self:GetCursorTarget()
+	local target = self:GetCursorPosition()
 	
-	self:FireTrackingProjectile("particles/items2_fx/paintball.vpcf", target, 900)
+	local dummy = caster:CreateDummy(target)
+	self:FireTrackingProjectile("particles/items2_fx/paintball.vpcf", dummy, 900)
 	EmitSoundOn( "Item.Paintball.Cast", caster )
 end
 
 function item_paintball:OnProjectileHit( target, position )
 	local caster = self:GetCaster()
 	if not target then return end
-	target:AddNewModifier( caster, self, "modifier_item_paintball_debuff", {duration = self:GetSpecialValueFor("duration") })
+	
+	local duration = self:GetSpecialValueFor("duration")
+	for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( target:GetAbsOrigin(), self:GetAOERadius() ) ) do
+		enemy:AddNewModifier( caster, self, "modifier_item_paintball_debuff", {duration = duration })
+	end
 	EmitSoundOn( "Item.Paintball.Target", target )
+	
+	UTIL_Remove( target )
 end
 
 modifier_item_paintball_passive = class(persistentModifier)

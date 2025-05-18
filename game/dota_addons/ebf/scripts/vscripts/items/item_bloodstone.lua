@@ -79,6 +79,7 @@ function modifier_item_bloodstone_ebf:OnRefresh()
 	self.bonus_mana = self:GetAbility():GetSpecialValueFor("bonus_mana")
 	self.bonus_health = self:GetAbility():GetSpecialValueFor("bonus_health")
 	self.bonus_all = self:GetAbility():GetSpecialValueFor("bonus_all")
+	self.bonus_mana_regen = self:GetAbility():GetSpecialValueFor("bonus_mana_regen")
 	
 	self.spell_lifesteal = self:GetAbility():GetSpecialValueFor("spell_lifesteal")
 	self.active_multiplier = self:GetAbility():GetSpecialValueFor("lifesteal_multiplier")
@@ -92,6 +93,7 @@ function modifier_item_bloodstone_ebf:DeclareFunctions(params)
 local funcs = {
 		MODIFIER_PROPERTY_HEALTH_BONUS,
 		MODIFIER_PROPERTY_MANA_BONUS,
+		MODIFIER_PROPERTY_MANA_REGEN_CONSTANT 
 		MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,
 		MODIFIER_PROPERTY_STATS_INTELLECT_BONUS,
 		MODIFIER_PROPERTY_STATS_AGILITY_BONUS,
@@ -117,6 +119,10 @@ end
 
 function modifier_item_bloodstone_ebf:GetModifierBonusStats_Agility()
 	return self.bonus_all
+end
+
+function modifier_item_bloodstone_ebf:GetModifierConstantManaRegen()
+	return self.bonus_mana_regen
 end
 
 function modifier_item_bloodstone_ebf:GetModifierProperty_MagicalLifesteal(params)

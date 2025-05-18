@@ -42,9 +42,11 @@ end
 function modifier_item_seacursed_trident_passive:GetModifierTotalDamageOutgoing_Percentage( params )
 	local parent = self:GetParent()
 	if params.target:IsSameTeam( parent ) then return end
+	local debuffs = 0
 	for _, modifier in ipairs( params.target:FindAllModifiers() ) do
 		if modifier:GetCaster() == parent and not (modifier:IsDebuff() == false) then
-			return self.debuff_damage_amp
+			debuffs = debuffs + 1
 		end
 	end
+	return self.debuff_damage_amp * debuffs
 end

@@ -28,9 +28,11 @@ end
 function modifier_item_vindicators_axe_passive:OnIntervalThink()
 	local bits = 0
 	local parent = self:GetParent()
+	local debuffs = 0
 	for _, modifier in ipairs( parent:FindAllModifiers() ) do
 		if modifier:IsDebuff() then
 			bits = SetBit( bits, PARENT_IS_DEBUFFED )
+			debuffs = debuffs + 1
 		end
 		local tState = {}
 		modifier:CheckStateToTable(tState)
@@ -47,7 +49,7 @@ function modifier_item_vindicators_axe_passive:OnIntervalThink()
 			bits = SetBit( bits, PARENT_CANNOT_ATTACK )
 		end
 	end
-	self:SetStackCount( bits )
+	self:SetStackCount( debuffs * 100 + bits )
 end
 
 function modifier_item_vindicators_axe_passive:DeclareFunctions()
@@ -67,7 +69,7 @@ end
 
 function modifier_item_vindicators_axe_passive:GetModifierPreAttack_BonusDamage()
 	if HasBit(self:GetStackCount(), PARENT_IS_DEBUFFED) then
-		return self.bonus_damage
+		return self.bonus_damage * math.floor( self:GetStackCount() / 100 )
 	end
 end
 

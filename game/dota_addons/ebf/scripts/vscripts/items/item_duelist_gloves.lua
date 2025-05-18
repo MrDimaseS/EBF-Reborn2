@@ -14,6 +14,7 @@ end
 function modifier_item_duelist_gloves_passive:OnRefresh()
 	self.bonus_attack_speed = self:GetSpecialValueFor("bonus_attack_speed")
 	self.bonus_damage = self:GetSpecialValueFor("bonus_damage")
+	self.bonus_health = self:GetSpecialValueFor("bonus_health")
 	self.radius = self:GetSpecialValueFor("radius")
 	self.proximity_bonus = self:GetSpecialValueFor("proximity_bonus") / 100
 	
@@ -29,17 +30,21 @@ end
 
 function modifier_item_duelist_gloves_passive:DeclareFunctions()
 	return {MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
-			MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE }
+			MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
+			MODIFIER_PROPERTY_HEALTH_BONUS 
+			}
 end
 
 function modifier_item_duelist_gloves_passive:GetModifierAttackSpeedBonus_Constant()
-	if self:GetStackCount() > 0 then
-		return self.bonus_attack_speed * (1 + (self:GetStackCount()-1) * self.proximity_bonus )
-	end
+	return self.bonus_attack_speed * (1 + (self:GetStackCount()) * self.proximity_bonus )
 end
 
 function modifier_item_duelist_gloves_passive:GetModifierPreAttack_BonusDamage()
-	return self.bonus_damage
+	return self.bonus_damage * (1 + (self:GetStackCount()) * self.proximity_bonus )
+end
+
+function modifier_item_duelist_gloves_passive:GetModifierHealthBonus()
+	return self.bonus_health * (1 + (self:GetStackCount()) * self.proximity_bonus )
 end
 
 function modifier_item_duelist_gloves_passive:IsHidden()

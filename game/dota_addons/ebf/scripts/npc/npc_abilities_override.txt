@@ -704,7 +704,7 @@
 			"phase_movement_speed_range"		"10"
 			"phase_duration"					"3.0"
 			
-			"hp_regen"							""
+			"hp_regen"							"0"
 		}
 	}
 	//=================================================================================================================
@@ -747,7 +747,7 @@
 			}
 			"bonus_agility"
 			{
-				"value"							"5 9 16 28 49"
+				"value"							"20 35 61 107 187"
 				"CalculateAttributeTooltip"		"1"
 			}
 			"bonus_intellect"
@@ -755,15 +755,13 @@
 				"value"							"20 35 61 107 187"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"spell_amp"
+			
+			"bonus_health_regen"
 			{
-				"value"							"10 17.5 30.5 53 92.75"
-				"CalculateAttributeTooltip"		"0"
+				"value"							"15 26 46 80 141"
+				"CalculateAttributeTooltip"		"1"
 			}
-			"mana_regen_multiplier"				"10 17.5 30.5 53 92.75"
-			"spell_lifesteal_amp"				"8 14 24.5 43 75.25"
-			"bonus_health_regen"				""
-			"bonus_mana_regen"					""
+			"bonus_mana_regen"					"1.5 2.6 4.6 8.0 14.1"
 
 			"damage_base"
 			{
@@ -1395,6 +1393,7 @@
 				"value"							"25 44 77 135 236"
 				"CalculateAttributeTooltip"		"1"
 			}
+			"bonus_attack_speed"				"16 28 49 86 150"
 			"bonus_chance"
 			{
 				"value"							"80"
@@ -1406,7 +1405,6 @@
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"bonus_attack_damage"				"0 5 10 15 20"
-			"bonus_attack_speed"				""
 		}
 	}
 	//=================================================================================================================
@@ -1457,7 +1455,7 @@
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"blind_pct"							"12 18 24 30 36"
-			"bonus_evasion"						""
+			"evasion"							"0"
 			"aura_radius"						"400 600 800 1000 1200"
 		}
 	}
@@ -2111,7 +2109,7 @@
 			}
 			"corruption_armor"					"-3 -5 -7 -9 -11"
 			"corruption_duration"				"7.0"
-			"kill_bonus_damage"					"75 100 140 190 250 "
+			"kill_bonus_damage"					"75 100 140 190 250"
 			"kill_duration"						"10"
 		}
 	}
@@ -2296,6 +2294,7 @@
 				"CalculateAttributeTooltip"		"1"
 			}
 			"bonus_mana"						"550 965 1690 2950 5165"
+			"bonus_mp_regen"					"1.5 2.6 4.6 8.0 14.1"
 			"spell_lifesteal"					"5 8.75 15.25 26.5 46.25"
 			"buff_duration"						"6"
 			"lifesteal_multiplier"				"2"
@@ -2342,7 +2341,8 @@
 				"value"							"40 70 125 220 385"
 				"CalculateAttributeTooltip"		"1"
 			}			
-			"bonus_attack_speed"				"40 70 120 210 365"	
+			"bonus_mana_regen"					"1.5 2.6 4.6 8.0 14.1"
+			"bonus_attack_speed"				"20 35 60 105 185"	
 			"bonus_armor"						"4 7 12 21 36"
 			"projectile_speed"					"300"
 			"int_damage_multiplier"				"0.75 1.5 2.25 3.0 3.75"
@@ -2797,7 +2797,11 @@
 			{
 				"value"							"0 0 0 0 325"
 				"affected_by_aoe_increase"		"1"
-			}		
+			}
+			
+			"bonus_agility"						"0"
+			"bonus_strength"					"0"
+			"bonus_intellect"					"0"
 		}
 	}
 	//=================================================================================================================
@@ -2948,8 +2952,8 @@
 			
 			"max_hp_loss"						"10"
 			"max_hp_loss_tick"					"1.0"
-			"loss_to_gain"						"1000"
-			"mana_gain"							"1 2 3 4 5"
+			"loss_to_gain"						"1000 900 800 700 600"
+			"mana_gain"							"5"
 			"mana_gain_radius"					"1200"
 			"duration"							""
 		}
@@ -3122,7 +3126,11 @@
 		"AbilityValues"
 		{
 			"bonus_health"					"600 1050 1835 3215 5625"
-			"bonus_health_regen"			"20 35 61 107 188"
+			"bonus_health_regen"
+			{
+				"value"						"20 35 61 107 188"
+				"CalculateAttributeTooltip"	"1"
+			}
 			"aura_health_regen"	
 			{
 				"value"						"50 100 150 200 250"
@@ -3163,13 +3171,13 @@
 		{
 			"shield"
 			{
-				"value"						"500 875 1530 2680 4690"
+				"value"						"1000 2000 3000 4000 5000"
 				"CalculateAttributeTooltip"	"1"
 			}
 			"restore_time"					"5 4 3 2 1"
 			"bonus_hp_regen"
 			{
-				"value"						"20 35 61 107 188"
+				"value"						"40 70 123 214 375"
 				"CalculateSpellHealTooltip"	"1"
 			}
 		}
@@ -3205,7 +3213,7 @@
 		{
 			"bonus_attack_speed"
 			{
-				"value"						"20 40 60 80 100"
+				"value"						"15 26 46 80 141"
 				"CalculateAttributeTooltip"	"1"
 			}
 			"bonus_damage"
@@ -3213,7 +3221,12 @@
 				"value"						"60 105 184 322 563"
 				"CalculateAttributeTooltip"	"1"
 			}
-			"proximity_bonus"				"10 20 30 40 50"
+			"bonus_health"
+			{
+				"value"						"600 1050 1835 3215 5625"
+				"CalculateAttributeTooltip"	"1"
+			}
+			"proximity_bonus"				"10 15 20 25 30"
 			"radius"						"900"
 		}
 	}
@@ -3250,12 +3263,12 @@
 		"AbilityValues"
 		{
 			"bonus_mana"					"200 350 613 1072 1876"
-			"bonus_strength"				"10 18 31 54 94"
+			"bonus_strength"				"45 79 138 241 422"
 
 			"slow_duration"					"1"
 			"backstab_damage"
 			{
-				"value"						"300 600 900 1000 1200"
+				"value"						"500 1000 1500 2000 2500"
 				"CalculateAttributeTooltip"	"1"
 			}
 			"backstab_angle"				"90"
@@ -3270,7 +3283,10 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"							"item_lua"
+		"ScriptFile"						"items/item_mysterious_hat.lua"
+		"AbilityTextureName"				"item_mysterious_hat"
+		"AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
@@ -3290,7 +3306,7 @@
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"8.0"
+		"AbilityCooldown"					"0.0"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
 		
@@ -3300,11 +3316,14 @@
 		{
 			"bonus_health"
 			{
-				"value"							"250 435 765 1335 2345"
+				"value"							"400 700 1125 2145 3750"
 				"CalculateAttributeTooltip"		"1"
 			}
 			"spell_amp"							"5 8.75 15.25 26.75 46.75"
 			"manacost_reduction"				"10 16.75 27.2 42 60.25"
+			
+			"escalating_amp"					"5 10 15 20 25"
+			"escalating_duration"				"3"
 		}
 	}
 	//=================================================================================================================
@@ -3317,11 +3336,11 @@
 		"BaseClass"								"item_lua"
 		"ScriptFile"							"items/item_paintball.lua"
 		"AbilityTextureName"					"item_paintball"
-		"Model"							"models/props_gameplay/neutral_box.vmdl"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		"Model"									"models/props_gameplay/neutral_box.vmdl"
+		"AbilityBehavior"						"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitTargetTeam"					"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"					"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"SpellDispellableType"					"SPELL_DISPELLABLE_YES"
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
@@ -3341,7 +3360,8 @@
 
 		// Stats		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"900"
+		"AbilityCastRange"					"900 1000 1100 1200 1300"
+		"AbilityCooldown"					"20.0 18.0 16.0 14.0 10.0"
 		"AbilityManaCost"				"25"
 		"AbilityCastPoint"				"0.2"
 
@@ -3357,10 +3377,12 @@
 			}
 			"dps"
 			{
-				"value"							"400 800 1200 1600 2000"
+				"value"							"300 600 900 1200 1500"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"duration"							"7"
+			"aoe"								"375"
+			"AbilityCastRange"					"900 1000 1100 1200 1300"
 			"AbilityCooldown"					"20.0 18.0 16.0 14.0 10.0"
 		}
 	}
@@ -3398,7 +3420,7 @@
 			"bonus_armor"						"5 9 15 27 47"
 			"bonus_hp_regen"
 			{
-				"value"							"25 43.75 76.5 134 234.5"
+				"value"							"25 44 77 134 235"
 				"CalculateAttributeTooltip"		"1"
 			}
 			"damage_per_sec"
@@ -3406,7 +3428,7 @@
 				"value"							"300 600 900 1200 1500"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"duration"							"3"
+			"duration"							"10 15 20 25 30"
 		}
 	}
 	"item_imp_claw"
@@ -3446,7 +3468,7 @@
 			}
 			"bonus_damage"
 			{
-				"value"						"130 228 398 697 1219"
+				"value"						"180 315 551 964 1688"
 				"CalculateAttributeTooltip"	"1"
 			}
 		}
@@ -3557,6 +3579,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_dandelion_amulet.lua"
+		"AbilityTextureName"			"item_dandelion_amulet"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		
 		"AbilityCooldown"				"12"
@@ -3586,6 +3611,11 @@
 		{
 			"move_speed"					"25 44 77 134 235"
 			"mana"							"200 350 613 1072 1876"
+			"bonus_int"
+			{
+				"value"						"25 44 77 134 235"
+				"CalculateAttributeTooltip"	"1"
+			}
 			"magic_block"
 			{
 				"value"						"1500 3000 4500 6000 7500"
@@ -3593,9 +3623,10 @@
 			}
 			"min_damage"
 			{
-				"value"						"750"
+				"value"						"8"
 				"CalculateAttributeTooltip"	"1"
 			}
+			"linger_duration"				"1 1.5 2.0 2.5 3.0"
 		}
 	}
 	"item_enchanted_quiver"
@@ -3606,7 +3637,7 @@
 		
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"					"4.0 3.0 2.0"
+		"AbilityCooldown"					"3.0 2.0 1.0"
 					
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
@@ -3671,11 +3702,7 @@
 		"AbilityValues"
 		{
 			"bonus_slow_resist"				"20"
-			"bonus_attack_speed"
-			{
-				"value"						"35 61 107"
-				"CalculateAttributeTooltip"	"1"
-			}
+			"bonus_attack_speed"			"100 175 305"
 			"bonus_damage"
 			{
 				"value"						"300 525 920"
@@ -3688,6 +3715,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_avianas_feather.lua"
+		"AbilityTextureName"			"item_avianas_feather"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		
 		// Item Info
@@ -3710,9 +3740,14 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"evasion"					"15 24.5 38.4 56.1"
-			"move_speed"				"30 53 92 161"
-			"flight_threshold"			"20 40 60 80"
+			"bonus_spell_amp"				"12 21 36.75 64.5"
+			"bonus_heal_amp"				"12 21 36.75 64.5"
+			"move_speed"					"30 53 92 161"
+			"evasion"						"0"
+			
+			"flight_threshold"				"50 60 70 80"
+			"flight_evasion"				"25 50 75 100"
+			"linger_duration"				"2"
 		}
 	}
 	"item_havoc_hammer"
@@ -3752,7 +3787,7 @@
 			}
 			"bonus_strength"
 			{
-				"value"							"14 24 43 75 131"
+				"value"							"35 61 107 187 328"
 				"CalculateAttributeTooltip"		"1"
 			}
 			"range"								"400"
@@ -3777,7 +3812,7 @@
 		
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"					"30.0"
+		"AbilityCooldown"					"30.0 26 22 18 14"
 					
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
@@ -3821,6 +3856,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_stormcrafter.lua"
+		"AbilityTextureName"			"item_stormcrafter"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		
 		// Item Info
@@ -3839,26 +3877,33 @@
 		"MaxUpgradeLevel"					"5"
 		"ItemBaseLevel"						"1"
 
-		// Stats
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"					"50"
+		"precache"
+		{
+			"particle"						"particles/neutral_fx/harpy_chain_lightning.vpcf"
+			"soundfile"						"soundevents/game_sounds_items.vsndevts"
+		}
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"bonus_all"
+			{
+				"value"							"15 26 46 80 141"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_mana_regen"					"4 7 12.25 21.4 37.5"
+			"passive_movement_bonus"			"35 61 107 188 328"
+			
 			"range"								"700"
 			"damage"
 			{
 				"value"							"1000 2000 3000 4000 5000"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"interval"							"2"
+			"AbilityCooldown"					"2"
 			"slow"								"30"
 			"slow_duration"						"0.3"
-			"cyclone_duration"					"0.75"
-			"bonus_mana_regen"					"4 7 12.25 21.4 37.5"
-			"passive_movement_bonus"			"35 61 107 188 328"
 			"max_targets"						"1 2 3 4 5"
 		}
 	}
@@ -3919,7 +3964,7 @@
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"					"25.0"
+		"AbilityCooldown"					"12 11 10 9 8"
 
 		"Model"							"models/props_gameplay/neutral_box.vmdl"
 		
@@ -3929,7 +3974,7 @@
 		{
 			"evasion"						"17 27.6 42.6 60.9"
 			"magic_resistance"				"17 27.6 42.6 60.9"
-			"duration"						"4 5 6 7"
+			"duration"						"3"
 		}
 	}
 	"item_giants_ring"
@@ -4075,7 +4120,7 @@
 		
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"					"30.0"
+		"AbilityCooldown"					"8.0"
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
@@ -4097,7 +4142,7 @@
 			"aspd"							"15 26 46 80 141"
 			"bonus_damage"
 			{
-				"value"						"200 400 600 800 1000"
+				"value"						"400 800 1200 1600 2000"
 				"CalculateAttributeTooltip"	"1"
 			}
 			"duration"						"8"
@@ -4112,30 +4157,39 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"Model"							"models/props_gameplay/neutral_box.vmdl"
+		"BaseClass"								"item_lua"
+		"ScriptFile"							"items/item_grove_bow.lua"
+		"AbilityTextureName"					"item_grove_bow"
+		"AbilityBehavior"						"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"Model"									"models/props_gameplay/neutral_box.vmdl"
 			
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"							"1000"
-		"ActiveDescriptionLine"				"0"
-		"ItemPurchasable"					"1"
-		"ShouldBeSuggested"					"0"
-		"ItemSellable"						"1"
-		"ItemIsNeutralActiveDrop"			"0"
-		"DisplayOverheadAlertOnReceived"	"0"
+		"ItemCost"								"1000"
+		"ActiveDescriptionLine"					"0"
+		"ItemPurchasable"						"1"
+		"ShouldBeSuggested"						"0"
+		"ItemSellable"							"1"
+		"ItemIsNeutralActiveDrop"				"0"
+		"DisplayOverheadAlertOnReceived"		"0"
 		
-		"MaxUpgradeLevel"					"5"
-		"ItemBaseLevel"						"1"
+		"MaxUpgradeLevel"						"5"
+		"ItemBaseLevel"							"1"
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"attack_range_bonus"			"75 150 225 300 375"
-			"attack_speed_bonus"			"20 35 61 107 188"
-			"magic_resistance_reduction"	"8 12 16 20 24"
-			"debuff_duration"				"6"
+			"attack_range_bonus"				"75 150 225 300 375"
+			"attack_speed_bonus"				"20 35 61 107 188"
+			
+			"distance_damage"
+			{
+				"value"							"1 2 3 4 5"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"magic_resistance_reduction"		"8 12 16 20 24"
+			"debuff_duration"					"6"
 		}
 	}
 	"item_specialists_array"
@@ -4149,7 +4203,7 @@
 		
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"						"12.0 11.0 10.0 9.0 8.0"
+		"AbilityCooldown"						"6 5.5 5.0 4.5 4.0"
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
@@ -4178,7 +4232,7 @@
 				"value"							"60 105 184 322 563"
 				"CalculateAttackDamageTooltip"	"1"
 			}
-			"count"								"2"
+			"count"								"2 3 4 5 6"
 			"secondary_target_range_bonus"		"225"
 			"melee_range_bonus"					"110"
 			"proc_bonus_damage"
@@ -4186,6 +4240,7 @@
 				"value"							"200"
 				"CalculateAttackDamageTooltip"	"1"
 			}
+			"proc_missing_damage"				"100"
 		}
 	}
 	"item_iron_talon"
@@ -4224,7 +4279,7 @@
 		"AbilityValues"
 		{
 			"bonus_attack_speed"			"40 70 123 214"
-			"bonus_armor"					"2 4 6 11 18"
+			"bonus_armor"					"4 6 11 18"
 			
 			"quelling_range_tooltip"		"350"
 			"cast_range_ward"				"450"
@@ -4312,7 +4367,7 @@
 			
 			"proc_chance"
 			{
-				"value"							"15"
+				"value"							"8 11 14 17 20"
 				"affected_by_chance_increase"	"1"
 			}
 			"hp_dmg"							"8"
@@ -4348,13 +4403,13 @@
 		{
 			"bonus_damage"
 			{
-				"value"							"50 88 153 268 469"
+				"value"							"70 123 214 375 657"
 				"CalculateAttributeTooltip"		"1"
 			}
 			"missing_hp"						"10"
 			"damage"
 			{
-				"value"							"50 88 153 268 469"
+				"value"							"70 123 214 375 657"
 				"CalculateAttributeTooltip"		"1"
 			}
 			"aspd"								"10 18 31 54 94"
@@ -4391,8 +4446,19 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"AbilityCooldown"						"6 5 4 3 2"
 			"movement_speed"					"20 40 60 80 100"
+			"bonus_agility"
+			{
+				"value"							"15 26 46 80 141"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_intellect"
+			{
+				"value"							"15 26 46 80 141"
+				"CalculateAttributeTooltip"		"1"
+			}
+			
+			"AbilityCooldown"					"6 5 4 3 2"
 			"creep_attacks"						"4"
 		}
 	}
@@ -4400,7 +4466,10 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"BaseClass"								"item_lua"
+		"ScriptFile"							"items/item_ninja_gear.lua"
+		"AbilityTextureName"					"item_ninja_gear"
+		"AbilityBehavior"						"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
@@ -4429,8 +4498,19 @@
 				"value"							"20 35 61 107 187"
 				"CalculateAttributeTooltip"		"1"
 			}
+			"bonus_damage"
+			{
+				"value"							"80 140 245 429 750"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_spell_amp"
+			{
+				"value"							"6 10.5 18.4 32.2 56.3"
+				"CalculateAttributeTooltip"		"1"
+			}
 			"passive_movement_bonus"			"10 20 30 40 50"
-			"visibility_radius"					"1025"
+			"visibility_radius"					"1025 950 875 800 725"
+			"visibility_duration"				"3"
 			"duration"							"15.0"
 			"bonus_movement_speed"				"15"
 			"secondary_application_radius"		"0"
@@ -4503,6 +4583,16 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"bonus_strength"
+			{
+				"value"							"15 26 46 80 141"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_agility"
+			{
+				"value"							"15 26 46 80 141"
+				"CalculateAttributeTooltip"		"1"
+			}
 			"damage"
 			{
 				"value"							"42 74 129 225 394"
@@ -4524,7 +4614,6 @@
 		
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"						"6.0"
 					
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
@@ -4553,6 +4642,11 @@
 				"value"							"100 175 306 536 938"
 				"CalculateAttributeTooltip"		"1"
 			}
+			"bonus_health"
+			{
+				"value"							"400 700 1125 2145 3750"
+				"CalculateAttributeTooltip"		"1"
+			}
 			"bonus_damage"
 			{
 				"value"							"900 1800 2700 3600 4500"
@@ -4560,10 +4654,13 @@
 			}
 			"splash_radius"
 			{
-				"value"							"250"
+				"value"							"250 300 350 400 450"
 				"affected_by_aoe_increase" 		"1"
 			}
 			"splash_pct"						"50"
+			"AbilityCooldown"					"12.0 10.0 8.0 6.0 4.0"
+			"hero_attack_cdr"					"1.0"
+			"creep_attack_cdr"					"0.25"
 		}
 	}
 	"item_minotaur_horn"
@@ -4596,13 +4693,13 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"			"2 3 4 8 12"
-			"magic_resist"		"50"
-			"model_scale"		"40"
+			"duration"							"4 5 6 8 12"
+			"magic_resist"						"50"
+			"model_scale"						"40"
 			
 			"bonus_str"
 			{
-				"value"							"10 18 31 54 94"
+				"value"							"40 70 122 214 375"
 				"CalculateAttributeTooltip"		"1"
 			}
 			"bonus_hp_regen"
@@ -4641,7 +4738,7 @@
 			"max_slow_res"						"60 80 100"
 			"hero_reduction"					"20"
 			"creep_reduction"					"10 5 0"
-			"status_res_pct_increase_per_hero"	"5 10 15"
+			"status_res_pct_increase_per_hero"	"10 20 30"
 			"hero_check_radius"					"600"
 			"bonus_all_stats"
 			{
@@ -4742,7 +4839,7 @@
 			}
 			"bonus_agility"
 			{
-				"value"							"10 18 31 54 94"
+				"value"							"15 26 46 80 141"
 				"CalculateAttributeTooltip"		"1"
 			}
 		}
@@ -4782,7 +4879,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"slow_pct"							"80"
+			"slow_pct"							"80 90 100 120 150"
 			"heal_reduce"						"40"
 			"duration"							"4"
 			"damage"
@@ -4827,9 +4924,9 @@
 		"AbilityValues"
 		{
 			"armor_reduction"		"1 2 3 4 5"
-			"slow_melee"			"4 8 12 16 20"
-			"slow_range"			"2 4 6 8 10"
-			"duration"				"3"
+			"slow_melee"			"8 12 16 20 24"
+			"slow_range"			"4 6 8 10 12"
+			"duration"				"3 4 5 6"
 			
 			"bonus_all"
 			{
@@ -4867,17 +4964,18 @@
 			"debuff_enemy"						"12 14 16 18 20"
 			"debuff_enemy_duration"				"5"
 			
+			"bonus_hp_regen"
+			{
+				"value"							"20 35 61 107 188"
+				"CalculateAttributeTooltip"		"1"
+			}
 			"bonus_damage"
 			{
 				"value"							"50 88 153 268 469"
 				"CalculateAttributeTooltip"		"1"
 			}
 			
-			"spell_amp"
-			{
-				"value"							"10 14 25 43 75"
-				"CalculateAttributeTooltip"		"1"
-			}
+			"spell_amp"							"10 14 25 43 75"
 		}
 	}
 	"item_mind_breaker"
@@ -4915,10 +5013,21 @@
 				"value"							"50 88 153 268 469"
 				"CalculateAttributeTooltip"		"1"
 			}
+			"bonus_primary"
+			{
+				"value"							"10 18 31 54 94"
+				"CalculateAttributeTooltip"		"1"
+			}
+			"bonus_int"
+			{
+				"value"							"10 18 31 54 94"
+				"CalculateAttributeTooltip"		"1"
+			}
 			"attack_speed"						"15 26 46 80 141"
 			
 			"AbilityCooldown"					"16.0 14.0 12.0 10.0 8.0"
 			"duration"							"3"
+			"silence_bonus"						"100"
 		}
 	}
 	"item_ceremonial_robe"
@@ -4950,8 +5059,8 @@
 				"value"							"1200"
 				"affected_by_aoe_increase"		"1"
 			}
-			"status_resistance"					"10"
-			"magic_resistance"					"10"
+			"status_resistance"					"6 10 14 18 22"
+			"magic_resistance"					"6 10 14 18 22"
 		}
 	}
 	"item_quicksilver_amulet"
@@ -4978,9 +5087,9 @@
 		"AbilityValues"
 		{
 			"base_movement"						"4 6 8 10 12"
-			"base_attack"						"18 32 55 96 169"
-			"bonus_movement"					"5 7.5 10 12.5 15"
-			"bonus_attack"						"20 40 60 80 100"
+			"base_attack"						"25 44 77 134 234"
+			"bonus_movement"					"5 10 15 20 25"
+			"bonus_attack"						"40 80 120 160 200"
 			"anim_increase"						"40"
 			"projectile_increase"				"40"
 		}

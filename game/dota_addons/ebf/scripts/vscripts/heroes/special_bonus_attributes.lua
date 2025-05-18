@@ -560,6 +560,7 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierOverrideAbi
 		local flNewValue = flBaseValue * self.total_ability_scaling
 		if params.ability._processValuesForScaling[special_value].lvl_increase_spell_damage_type then
 			local SPELL_AMP_PRIMARY = 0.025
+			local SPELL_AMP_INT = 0.025
 			local SPELL_AMP_UNIVERSAL = 0.0133
 			local bonusBaseSpellDamagePct = 0
 			if self:GetStackCount() == DOTA_ATTRIBUTE_STRENGTH then
@@ -571,7 +572,7 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierOverrideAbi
 			else -- universal hero
 				bonusBaseSpellDamagePct =  ( self:GetParent():GetStrength() + self:GetParent():GetAgility() + self:GetParent():GetIntellect(false) ) * SPELL_AMP_UNIVERSAL
 			end
-			flNewValue = math.floor( flNewValue * ( 1 + bonusBaseSpellDamagePct/100 ) )
+			flNewValue = math.floor( flNewValue * ( 1 + bonusBaseSpellDamagePct/100 ) ) + SPELL_AMP_INT * self:GetParent():GetIntellect(false)
 		end
 		return flNewValue
 	end

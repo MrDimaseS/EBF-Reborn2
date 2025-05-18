@@ -12,6 +12,7 @@ function modifier_item_nemesis_curse_passive:OnCreated()
 end
 
 function modifier_item_nemesis_curse_passive:OnRefresh()
+	self.bonus_hp_regen = self:GetSpecialValueFor("bonus_hp_regen")
 	self.bonus_damage = self:GetSpecialValueFor("bonus_damage")
 	self.spell_amp = self:GetSpecialValueFor("spell_amp")
 	
@@ -21,9 +22,9 @@ end
 function modifier_item_nemesis_curse_passive:DeclareFunctions()
 	return {MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
 			MODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE,
+			MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT,
 			MODIFIER_EVENT_ON_ATTACK }
 end
-
 
 function modifier_item_nemesis_curse_passive:GetModifierPreAttack_BonusDamage()
 	return self.bonus_damage
@@ -31,6 +32,10 @@ end
 
 function modifier_item_nemesis_curse_passive:GetModifierSpellAmplify_Percentage()
 	return self.spell_amp
+end
+
+function modifier_item_nemesis_curse_passive:GetModifierConstantHealthRegen()
+	return self.bonus_hp_regen
 end
 
 function modifier_item_nemesis_curse_passive:OnAttack( params )

@@ -12,6 +12,8 @@ function modifier_item_spark_of_courage_passive:OnCreated()
 end
 
 function modifier_item_spark_of_courage_passive:OnRefresh()
+	self.bonus_strength = self:GetSpecialValueFor("bonus_strength")
+	self.bonus_agility = self:GetSpecialValueFor("bonus_agility")
 	self.damage = self:GetSpecialValueFor("damage")
 	self.armor = self:GetSpecialValueFor("armor")
 	
@@ -20,8 +22,18 @@ function modifier_item_spark_of_courage_passive:OnRefresh()
 end
 
 function modifier_item_spark_of_courage_passive:DeclareFunctions()
-	return {MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE ,
+	return {MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
+			MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,
+			MODIFIER_PROPERTY_STATS_AGILITY_BONUS,
 			MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS }
+end
+
+function modifier_item_spark_of_courage_passive:GetModifierBonusStats_Agility()
+	return self.bonus_agility
+end
+
+function modifier_item_spark_of_courage_passive:GetModifierBonusStats_Strength()
+	return self.bonus_strength
 end
 
 function modifier_item_spark_of_courage_passive:GetModifierPreAttack_BonusDamage()

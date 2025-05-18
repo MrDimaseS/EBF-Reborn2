@@ -23,6 +23,7 @@ end
 
 function modifier_item_assassins_dagger_passive:OnRefresh()
 	self.bonus_attackspeed = self:GetSpecialValueFor("bonus_attackspeed")
+	self.bonus_agility = self:GetSpecialValueFor("bonus_agility")
 	self.buff_duration = self:GetSpecialValueFor("buff_duration")
 	self.blink_disable = self:GetSpecialValueFor("blink_disable")
 	
@@ -31,6 +32,7 @@ end
 
 function modifier_item_assassins_dagger_passive:DeclareFunctions()
 	return {MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
+			MODIFIER_PROPERTY_STATS_AGILITY_BONUS,				
 			MODIFIER_PROPERTY_PREATTACK_CRITICALSTRIKE,				
 			MODIFIER_EVENT_ON_TAKEDAMAGE,
 			MODIFIER_EVENT_ON_ATTACK_LANDED }
@@ -38,6 +40,10 @@ end
 
 function modifier_item_assassins_dagger_passive:GetModifierAttackSpeedBonus_Constant()
 	return self.bonus_attackspeed
+end
+
+function modifier_item_assassins_dagger_passive:GetModifierBonusStats_Agility()
+	return self.bonus_agility
 end
 
 function modifier_item_assassins_dagger_passive:GetCritDamage()

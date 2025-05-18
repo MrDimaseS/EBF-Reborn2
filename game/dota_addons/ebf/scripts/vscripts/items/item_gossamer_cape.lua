@@ -14,6 +14,8 @@ end
 function modifier_item_gossamer_cape_passive:OnRefresh()
 	self.movement_speed = self:GetSpecialValueFor("movement_speed")
 	self.creep_attacks = self:GetSpecialValueFor("creep_attacks")
+	self.bonus_agility = self:GetSpecialValueFor("bonus_agility")
+	self.bonus_intellect = self:GetSpecialValueFor("bonus_intellect")
 	if IsServer() then
 		self:StartIntervalThink(0.1)
 	end
@@ -37,8 +39,19 @@ end
 
 function modifier_item_gossamer_cape_passive:DeclareFunctions()
 	return {MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT,
+			MODIFIER_PROPERTY_STATS_AGILITY_BONUS,
+			MODIFIER_PROPERTY_STATS_INTELLECT_BONUS,
 			MODIFIER_PROPERTY_EVASION_CONSTANT,
 			}
+end
+
+
+function modifier_item_gossamer_cape_passive:GetModifierBonusStats_Strength()
+	return self.bonus_agility
+end
+
+function modifier_item_gossamer_cape_passive:GetModifierBonusStats_Agility()
+	return self.bonus_intellect
 end
 
 function modifier_item_gossamer_cape_passive:GetModifierEvasion_Constant( params )

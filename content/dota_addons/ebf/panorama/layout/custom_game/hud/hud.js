@@ -843,7 +843,7 @@ function UpdateStatsTooltip() {
 	const intDamage = intContainer.FindChildTraverse('IntelligenceDamageLabel');
 	intGain.text = '(+' + Math.floor(stats.int_gain * 10 + 0.5) / 10 + ' next lvl)'
 
-	const intMR = 1-(1-0.003)^(Math.floor(stats.intellect/10)) + 0.003 * (stats.intellect%10)
+	const intMR = (1-(1-0.002)**(Math.floor(stats.intellect/10)) + 0.002 * (stats.intellect%10))*100
 	intValues.text = (Math.floor((stats.intellect * 0.01) * 10 + 0.5) / 10) + '% MP Restore Amp, ' + (Math.floor((stats.intellect * 0.02) * 10 + 0.5) / 10) + '% Base Spell Damage and ' + Math.floor(intMR * 10 + 0.5) / 10 + '% Magic Resist'
 	if (primaryStat == Attributes.DOTA_ATTRIBUTE_INTELLECT) {
 		intDamage.text = (Math.floor((stats.intellect * 1.5)*10 + 0.5)/10) + ' Damage, ' + (Math.floor((stats.intellect * 0.025)*10 + 0.5)/10) + '% Base Spell Damage and ' + (Math.floor((stats.intellect * 11)*10 + 0.5)/10) + ' HP';

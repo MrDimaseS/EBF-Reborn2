@@ -257,27 +257,28 @@ function modifier_special_bonus_attributes_stat_rescaling:OnCreated()
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:OnRefresh()
-	self.attackspeed = self.baseAttackSpeed + math.floor( 0.1 * self:GetParent():GetAgility() )
-	self:GetParent()._internalBaseAttackSpeedBonus = self.attackspeed
+	if not IsEntitySafe( self:GetParent() ) then return end
+	-- self.attackspeed = self.baseAttackSpeed + math.floor( 0.1 * self:GetParent():GetAgility() )
+	-- self:GetParent()._internalBaseAttackSpeedBonus = self.attackspeed
 	self.total_ability_scaling = 1 + (self:GetCaster():GetLevel() - 1) * self.internal_ability_scaling
 	if IsServer() then
-		if self.baseArmor then
-			local agilityArmor = 0.015 * self:GetParent():GetAgility()
-			self:GetParent():SetPhysicalArmorBaseValue( self.baseArmor + agilityArmor )
-			Timers:CreateTimer( function() -- illusion fix, idk why the fuck it needs a frame delay for them
-				if not IsEntitySafe( self:GetParent() ) then return end
-				self:GetParent():SetPhysicalArmorBaseValue( self.baseArmor + agilityArmor )
-			end)
-		end
-		if self.baseMR then
-			local intArmor =  1-(1-0.003)^(math.floor(self:GetParent():GetIntellect(false)/10)) + 0.003 * (self:GetParent():GetIntellect(false)%10)
-			local totalVal = -self:GetParent():GetIntellect(false) * 0.1 + self.baseMR + intArmor
-			self:GetParent():SetBaseMagicalResistanceValue( totalVal )
-			Timers:CreateTimer( function() -- illusion fix, idk why the fuck it needs a frame delay for them
-				if not IsEntitySafe( self:GetParent() ) then return end
-				self:GetParent():SetBaseMagicalResistanceValue( totalVal )
-			end)
-		end
+		-- if self.baseArmor then
+			-- local agilityArmor = 0.015 * self:GetParent():GetAgility()
+			-- self:GetParent():SetPhysicalArmorBaseValue( self.baseArmor + agilityArmor )
+			-- Timers:CreateTimer( function() -- illusion fix, idk why the fuck it needs a frame delay for them
+				-- if not IsEntitySafe( self:GetParent() ) then return end
+				-- self:GetParent():SetPhysicalArmorBaseValue( self.baseArmor + agilityArmor )
+			-- end)
+		-- end
+		-- if self.baseMR then
+			-- local intArmor =  1-(1-0.003)^(math.floor(self:GetParent():GetIntellect(false)/10)) + 0.003 * (self:GetParent():GetIntellect(false)%10)
+			-- local totalVal = -self:GetParent():GetIntellect(false) * 0.1 + self.baseMR + intArmor*100
+			-- self:GetParent():SetBaseMagicalResistanceValue( totalVal )
+			-- Timers:CreateTimer( function() -- illusion fix, idk why the fuck it needs a frame delay for them
+				-- if not IsEntitySafe( self:GetParent() ) then return end
+				-- self:GetParent():SetBaseMagicalResistanceValue( totalVal )
+			-- end)
+		-- end
 	end
 end	
 
@@ -316,8 +317,14 @@ function modifier_special_bonus_attributes_stat_rescaling:DeclareFunctions()
 		MODIFIER_PROPERTY_MP_REGEN_AMPLIFY_PERCENTAGE,
 		MODIFIER_EVENT_ON_TAKEDAMAGE,
 		MODIFIER_EVENT_ON_ABILITY_START,
+		MODIFIER_PROPERTY_MAGICAL_RESISTANCE_DIRECT_MODIFICATION 
   }
   return funcs
+end
+
+function modifier_special_bonus_attributes_stat_rescaling:GetModifierMagicalResistanceDirectModification(params)
+	local intArmor =  1-(1-0.002)^(math.floor(self:GetParent():GetIntellect(false)/10)) + 0.002 * (self:GetParent():GetIntellect(false)%10)
+	return -self:GetParent():GetIntellect(false) * 0.1 + intArmor * 100 - 25
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:OnAbilityStart(params)
@@ -401,7 +408,7 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierEvasion_Con
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierAttackSpeedBonus_Constant()
-  return self.attackspeed
+  -- return self.attackspeed
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierHealAmplify_PercentageSource()

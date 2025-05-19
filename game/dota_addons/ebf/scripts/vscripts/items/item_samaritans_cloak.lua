@@ -42,6 +42,9 @@ end
 DONT_COPY_THESE_MODIFIERS = {
 	["modifier_kill"] = true
 }
+DO_COPY_THESE_MODIFIERS = {
+	["modifier_marci_unleash_flurry"] = "modifier_marci_unleash"
+}
 
 function modifier_item_samaritans_cloak_passive:OnModifierAdded( params )
 	if self:GetParent()._cannotReceiveSamaritanBuffs then return end
@@ -50,14 +53,16 @@ function modifier_item_samaritans_cloak_passive:OnModifierAdded( params )
 	if not params.attacker:IsSameTeam( params.unit ) then return end
 	if params.added_buff:IsDebuff() then return end
 	if params.added_buff.IsHidden and params.added_buff:IsHidden() then return end
-	if params.added_buff:GetDuration() <= 0 then return end
+	if params.added_buff:GetDuration() <= 0 and not DO_COPY_THESE_MODIFIERS[params.added_buff:GetName()] then return end
 	if DONT_COPY_THESE_MODIFIERS[params.added_buff:GetName()] then return end
 	for _, ally in ipairs( params.attacker:FindFriendlyUnitsInRadius( params.unit:GetAbsOrigin(), self.share_radius ) ) do
 		if ally ~= params.unit and not ally:IsFakeHero() then
-			ally._cannotReceiveSamaritanBuffs = true
-			ally:AddNewModifier( params.attacker, params.added_buff:GetAbility(), params.added_buff:GetName(), {duration = params.added_buff:GetDuration() * self.share_percent} )
-			ally._cannotReceiveSamaritanBuffs = false
-			return
+			if not DO_COPY_THESE_MODIFIERS[params.added_buff:GetName()] or ally:HasModifier( DO_COPY_THESE_MODIFIERS[params.added_buff:GetName()] ) then
+				ally._cannotReceiveSamaritanBuffs = true
+				ally:AddNewModifier( params.attacker, params.added_buff:GetAbility(), params.added_buff:GetName(), {duration = TernaryOperator( params.added_buff:GetDuration() * self.share_percent, params.added_buff:GetDuration() > 0, -1 ) } ):SetStackCount( params.added_buff:GetStackCount() )
+				ally._cannotReceiveSamaritanBuffs = false
+				return
+			end
 		end
 	end
 end

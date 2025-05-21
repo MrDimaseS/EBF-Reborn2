@@ -31,7 +31,7 @@ function modifier_item_revenants_brooch_passive_effect:DeclareFunctions(params)
 	local funcs = {
 		MODIFIER_PROPERTY_PREATTACK_CRITICALSTRIKE,
 		MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
-		MODIFIER_EVENT_ON_ATTACK_LANDED 
+		MODIFIER_PROPERTY_TOTALDAMAGEOUTGOING_PERCENTAGE 
     }
     return funcs
 end
@@ -51,11 +51,11 @@ function modifier_item_revenants_brooch_passive_effect:GetModifierPreAttack_Crit
 	end
 end
 
-function modifier_item_revenants_brooch_passive_effect:OnAttackLanded( params )
-	
+function modifier_item_revenants_brooch_passive_effect:GetModifierTotalDamageOutgoing_Percentage( params )
 	if self.crits[params.record] then
 		self.crits[params.record] = nil
-		self:GetAbility():DealDamage( params.attacker, params.target, params.damage * self.crit_multiplier / 100, {damage_type = DAMAGE_TYPE_MAGICAL, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_MAGIC_AUTO_ATTACK}, OVERHEAD_ALERT_BONUS_SPELL_DAMAGE )
+		self:GetAbility():DealDamage( params.attacker, params.target, params.original_damage * self.crit_multiplier / 100, {damage_type = DAMAGE_TYPE_MAGICAL, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_MAGIC_AUTO_ATTACK}, OVERHEAD_ALERT_BONUS_SPELL_DAMAGE )
+		return damage_reduction
 	end
 end
 

@@ -69,7 +69,7 @@ function modifier_item_serrated_shiv_passive:GetModifierPreAttack_CriticalStrike
 		self:GetAbility():SetCooldown()
 		self:GetAbility():SetFrozenCooldown( true )
 		self._criticalHits[params.record] = true
-		return
+		return 100
 	end
 end
 

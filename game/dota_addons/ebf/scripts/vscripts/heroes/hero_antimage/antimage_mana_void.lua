@@ -1,71 +1,49 @@
-antimage_mana_break = class ({})
+antimage_mana_void = class ({})
 
-function antimage_mana_break:GetIntrinsicModifierName()
-	return "modifier_antimage_mana_break_passive"
+function antimage_mana_void:GetAOERadius()
+	return self:GetSpecialValueFor("mana_void_aoe_radius")
 end
 
-modifier_antimage_mana_break_passive = class({})
-LinkLuaModifier( "modifier_antimage_mana_break_passive", "heroes/hero_antimage/antimage_mana_break", LUA_MODIFIER_MOTION_NONE )
-
-function modifier_antimage_mana_break_passive:OnCreated()
-	self:OnRefresh()
-end
-
-function modifier_antimage_mana_break_passive:OnRefresh()
-	self.percent_damage_per_burn = self:GetSpecialValueFor("percent_damage_per_burn") / 100
-	self.mana_per_hit = self:GetSpecialValueFor("mana_per_hit")
-	self.illusion_percentage = self:GetSpecialValueFor("illusion_percentage") / 100
-	self.slow_duration = self:GetSpecialValueFor("slow_duration")
-end
-
-function modifier_antimage_mana_break_passive:DeclareFunctions()
-	return {MODIFIER_EVENT_ON_ATTACK_LANDED}
-end
-
-function modifier_antimage_mana_break_passive:OnAttackLanded(params)
-	local caster = self:GetCaster()
-	local ability = self:GetAbility()
-	if params.attacker ~= caster or caster:PassivesDisabled() then return end
-	
-	local mana_per_hit_pct = self:GetSpecialValueFor("mana_per_hit_pct") / 100
-	local damageType = DAMAGE_TYPE_PHYSICAL
-	
-	local manaBurn =  params.target:GetMaxMana() * mana_per_hit_pct + self.mana_per_hit
-	if params.attacker:IsIllusion() then
-		manaBurn = manaBurn * self.illusion_percentage
-	end
-	params.target:ReduceMana( manaBurn )
-	if params.target:GetMana() <= 0 then
-		damageType = DAMAGE_TYPE_PURE
-		params.target:AddNewModifier( caster, ability, "modifier_antimage_mana_break_full_drain", {duration = self.slow_duration} )
-		ParticleManager:FireParticle("particles/units/heroes/hero_antimage/antimage_manabreak_slow.vpcf", PATTACH_POINT_FOLLOW, params.target, {[1] = "attach_hitloc"} )
-	end
-	ability:DealDamage(caster, params.target, manaBurn * self.percent_damage_per_burn, {damage_type = damageType, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION})
-end
-
-function modifier_antimage_mana_break_passive:IsHidden()
+function antimage_mana_void:OnAbilityPhaseStart()
+	self:GetCaster():EmitSound("Hero_Antimage.ManaVoidCast")
 	return true
 end
 
-modifier_antimage_mana_break_full_drain = class({})
-LinkLuaModifier( "modifier_antimage_mana_break_full_drain", "heroes/hero_antimage/antimage_mana_break", LUA_MODIFIER_MOTION_NONE )
-
-function modifier_antimage_mana_break_full_drain:OnCreated()
-	self.slow = self:GetSpecialValueFor("move_slow")
+function antimage_mana_void:OnAbilityPhaseInterrupted()
+	self:GetCaster():StopSound("Hero_Antimage.ManaVoidCast")
 end
 
-function modifier_antimage_mana_break_full_drain:OnRefresh()
-	self.slow = self:GetSpecialValueFor("move_slow")
+function antimage_mana_void:GetCastAnimation()
+	return ACT_DOTA_CAST_ABILITY_4
 end
 
-function modifier_antimage_mana_break_full_drain:DeclareFunctions()
-	return {MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE, MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT }
-end
-
-function modifier_antimage_mana_break_full_drain:GetModifierMoveSpeedBonus_Percentage()
-	return -self.slow
-end
-
-function modifier_antimage_mana_break_full_drain:GetModifierAttackSpeedBonus_Constant()
-	return -self.slow
+function antimage_mana_void:OnSpellStart()
+	local caster = self:GetCaster()
+	local target = self:GetCursorTarget()
+	if target:TriggerSpellAbsorb(self) then return end
+	local damagePerMana = self:GetSpecialValueFor("mana_void_damage_per_mana")
+	local stunDur = self:GetSpecialValueFor("mana_void_ministun")
+	local radius = self:GetSpecialValueFor("mana_void_aoe_radius")
+	
+	local enemies = caster:FindEnemyUnitsInRadius( target:GetAbsOrigin(), radius )
+	local manaDrain = self:GetSpecialValueFor("mana_drain") / 100
+	if manaDrain >= 0 then
+		for _, enemy in ipairs( enemies ) do
+			enemy:SpendMana( target:GetMaxMana() * manaDrain, self )
+		end
+	end
+	local damage = damagePerMana * ( target:GetMaxMana() - target:GetMana() )
+	local casterDamage = self:GetSpecialValueFor("caster_curr_mana_for_calc") / 100
+	if casterDamage > 0 then
+		damage = damage + caster:GetMana() * casterDamage * damagePerMana
+	end
+	
+	self:Stun( target, stunDur )
+	
+	for _, enemy in ipairs( enemies ) do
+		self:DealDamage( caster, enemy, damage )
+	end
+	
+	ParticleManager:FireParticle("particles/units/heroes/hero_antimage/antimage_manavoid.vpcf", PATTACH_POINT_FOLLOW, target, {[1] = Vector(radius,1,1)})
+	target:EmitSound("Hero_Antimage.ManaVoid")
 end

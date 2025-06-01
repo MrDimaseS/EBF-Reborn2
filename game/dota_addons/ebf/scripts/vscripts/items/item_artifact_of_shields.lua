@@ -32,10 +32,13 @@ LinkLuaModifier( "modifier_item_artifact_of_shields_buff", "items/item_artifact_
 
 function modifier_item_artifact_of_shields_buff:OnCreated()
 	self:OnRefresh()
+	self:SetStackCount( self:GetSpecialValueFor("initial_value") )
 end
 
 function modifier_item_artifact_of_shields_buff:OnRefresh()
 	self.bonus = self:GetSpecialValueFor("bonus")
+	print( self.bonus, self:GetParent():GetHeroPowerAmplification(  ), IsClient() )
+	self.real_bonus = self.bonus * self:GetParent():GetHeroPowerAmplification(  )
 	if IsServer() then
 		self:IncrementStackCount()
 		self:GetParent():CalculateGenericBonuses( )
@@ -43,12 +46,16 @@ function modifier_item_artifact_of_shields_buff:OnRefresh()
 	end
 end
 
+function modifier_item_artifact_of_shields_buff:OnStackCountChanged()
+	self.real_bonus = self.bonus * self:GetParent():GetHeroPowerAmplification(  )
+end
+
 function modifier_item_artifact_of_shields_buff:DeclareFunctions()
 	return {MODIFIER_PROPERTY_HEALTH_BONUS}
 end
 
 function modifier_item_artifact_of_shields_buff:GetModifierHealthBonus()
-	return math.floor( self.bonus * self:GetStackCount() + 0.5 )
+	return math.floor( self.real_bonus * self:GetStackCount() + 0.5 )
 end
 
 function modifier_item_artifact_of_shields_buff:GetTexture()

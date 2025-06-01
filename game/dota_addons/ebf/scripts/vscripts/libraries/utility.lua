@@ -602,9 +602,7 @@ function CDOTA_BaseNPC:ConjureImage( illusionInfo, duration, caster, amount )
 	if self:IsHero() then
 		local params = {caster = caster, target = self, duration = duration, ability = illuInfo.ability, modifier_name = "modifier_illusion"}
 		local fDur = duration
-		if fDur ~= -1 then
-			fDur = duration * caster:GetStatusAmplification( params )
-		end
+		
 		local illusionTable = CreateIllusions( caster or self , self, {outgoing_damage = illuInfo.outgoing_damage, incoming_damage = illuInfo.incoming_damage, duration = fDur}, amount or 1, self:GetHullRadius() + self:GetCollisionPadding(), illuInfo.scramble or false, true )
 		if not illusionTable then return end
 		for _, illusion in ipairs( illusionTable ) do
@@ -1693,6 +1691,18 @@ function CDOTA_BaseNPC:AddNewModifierStacking( caster, ability, modifierName, mo
 	else
 		return self:AddNewModifier( caster, ability, modifierName, modifierData )
 	end
+end
+
+ABILITY_POWER_SCALING = 0.2
+function CDOTA_BaseNPC_Hero:GetAttributeAbility()
+	if not self._specialAttributes then
+		self._specialAttributes = self:FindAbilityByName("special_bonus_attributes")
+	end
+	return self._specialAttributes
+end
+function CDOTA_BaseNPC_Hero:GetHeroPowerAmplification(  )
+	local heroPower = ABILITY_POWER_SCALING+self:GetAttributeAbility():GetSpecialValueFor("value") / 100
+	return 1 + heroPower * self:GetLevel()
 end
 
 function CDOTABaseAbility:GetAltCastState()

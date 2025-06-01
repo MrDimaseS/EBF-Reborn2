@@ -28,6 +28,7 @@ function special_bonus_attributes:OnHeroLevelUp()
 	hero._internalIntGain = self.originalBaseInt * heroPowerBonus + 2 * hero:GetIntellectGain() * heroPowerBonus * heroLvl + hero:GetIntellectGain()
 	
 	self:SendUpdatedInventoryContents( info )
+	self:UpdatePersistentModifiers( )
 	CustomGameEventManager:Send_ServerToAllClients( "hero_leveled_up", {unit = self:GetCaster():entindex()} )
 end
 
@@ -57,7 +58,29 @@ function special_bonus_attributes:OnUpgrade()
 	hero:ModifyAgility( nextIntendedAgi - currentIntendedAgi ) 
 	hero:ModifyIntellect( nextIntendedInt - currentIntendedInt )
 	
+	self:SendUpdatedInventoryContents( info )
+	self:UpdatePersistentModifiers( )
 	CustomGameEventManager:Send_ServerToAllClients( "update_talent_pips", {unit = self:GetCaster():entindex()} )
+end
+
+function special_bonus_attributes:UpdatePersistentModifiers()
+	local hero = self:GetCaster()
+	local shields = hero:FindModifierByName("modifier_item_artifact_of_shields_buff")
+	if shields then
+		shields:OnStackCountChanged()
+	end
+	local blades = hero:FindModifierByName("modifier_item_artifact_of_blades_buff")
+	if blades then
+		blades:OnStackCountChanged()
+	end
+	local wands = hero:FindModifierByName("modifier_item_artifact_of_wands_buff")
+	if wands then
+		wands:OnStackCountChanged()
+	end
+	local balance = hero:FindModifierByName("modifier_item_artifact_of_balance_buff")
+	if balance then
+		balance:OnStackCountChanged()
+	end
 end
 
 function special_bonus_attributes:Spawn()

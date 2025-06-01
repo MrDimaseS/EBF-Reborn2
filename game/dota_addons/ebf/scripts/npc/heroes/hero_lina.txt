@@ -21,17 +21,19 @@
 		{
 			"damage_threshold"
 			{
-				"value"							"1750"
+				"value"							"2250"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"damage"
 			{
-				"value"							"100 300 500 700"
+				"value"							"150 350 550 750"
+				"special_bonus_unique_lina_7"	"+60%"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"damage_illusions"
 			{
 				"value"							"100 150 200 250"
+				"special_bonus_unique_lina_7"	"+60%"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"damage_aoe"
@@ -54,24 +56,13 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"impact_damage_pct"						
-			{
-				"special_bonus_facet_lina_dot"		"125"
-			}
-			"damage_penalty_tooltip"				"60"		// show as int on tooltip
-
-			"burn_percent"							"36"
-			"burn_percent_tooltip"								// used for other skills' tooltips in LinkedSpecialBonus			= impact_damage_pct * burn_percent / 100
-			{
-				"special_bonus_facet_lina_dot" "0.22"	
-			}
-
-			"burn_percent_tooltip_damage"			"65"		// burn_percent_tooltip * duration
-			"total_damage_tooltip"					"125"		// damage_penalty_tooltip + impact_damage_pct * burn_percent * duration
+			"impact_damage_pct"						"60"		// show as int on tooltip
+			"burn_damage_pct"						"65"
+			"total_damage_tooltip"					"125"		// impact_damage_pct + impact_damage_pct * burn_percent * duration
 
 			"burn_duration"							
 			{
-				"special_bonus_facet_lina_dot"		"0"
+				"special_bonus_facet_lina_dot"		"3"
 			}
 
 		}
@@ -108,45 +99,26 @@
 		{
 			"dragon_slave_damage"
 			{
-				"value"								"850 1650 2450 3250"
-				"LinkedSpecialBonus"				"lina_slow_burn"
-				"LinkedSpecialBonusField"			"impact_damage_pct"
-				//"LinkedSpecialBonusOperation"		"SPECIAL_BONUS_MULTIPLY"
-				"CalculateSpellDamageTooltip" 		"1"
+				"value"							"850 1650 2450 3250"
+				"CalculateSpellDamageTooltip"	"1"
 			}
-			"dragon_slave_burn_damage_tooltip"
-			{
-				"value"								"0"
-				"special_bonus_facet_lina_dot"		"=850 =1650 =2450 =3250"
-				"LinkedSpecialBonus"				"lina_slow_burn"
-				"LinkedSpecialBonusField"			"burn_percent_tooltip"
-				"LinkedSpecialBonusOperation"		"SPECIAL_BONUS_MULTIPLY"
-				"CalculateSpellDamageTooltip" 		"1"
-			}
-			"dragon_slave_burn_duration_tooltip"
-			{
-				"value"								"0"
-				"LinkedSpecialBonus"				"lina_slow_burn"
-				"LinkedSpecialBonusField"			"burn_duration"
-				"LinkedSpecialBonusOperation"		"SPECIAL_BONUS_ADD"
-			}
-			"dragon_slave_speed"					"1200"
+			"dragon_slave_speed"		"1200"
 			"dragon_slave_width_initial"	
 			{
-				"value"								"275"
-				"affected_by_aoe_increase"			"1"
+				"value"		"275"
+				"affected_by_aoe_increase"	"1"
 			}
 			"dragon_slave_width_end"		
 			{
-				"value"								"200"
-				"affected_by_aoe_increase"			"1"
+				"value"			"200"
+				"affected_by_aoe_increase"	"1"
 			}
-			"dragon_slave_distance"									"1075"
+			"dragon_slave_distance"			"1075"
 
 			"AbilityCooldown"				
 			{ 
-				"value"												"11 10 9 8"
-				"special_bonus_unique_lina_1"						"-3.5"
+				"value"						"11 10 9 8"
+				"special_bonus_unique_lina_1"		"-3"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -192,28 +164,7 @@
 			"light_strike_array_damage"	
 			{
 				"value"							"1100 1600 2100 2600"
-				"special_bonus_unique_lina_3"	"+75%"
-				"LinkedSpecialBonus"			"lina_slow_burn"
-				"LinkedSpecialBonusField"		"impact_damage_pct"
-				//"LinkedSpecialBonusOperation"	"SPECIAL_BONUS_MULTIPLY"
-				"CalculateSpellDamageTooltip" 		"1"
-			}
-			"light_strike_array_burn_damage_tooltip"
-			{
-				"value"							"0"
-				"special_bonus_unique_lina_3"	"+75%"
-				"special_bonus_facet_lina_dot"	"=1100 =1600 =2100 =2600"
-				"LinkedSpecialBonus"			"lina_slow_burn"
-				"LinkedSpecialBonusField"		"burn_percent_tooltip"
-				"LinkedSpecialBonusOperation"	"SPECIAL_BONUS_MULTIPLY"
-				"CalculateSpellDamageTooltip" 		"1"
-			}
-			"light_strike_array_burn_duration_tooltip"
-			{
-				"value"							"0"
-				"LinkedSpecialBonus"			"lina_slow_burn"
-				"LinkedSpecialBonusField"		"burn_duration"
-				"LinkedSpecialBonusOperation"	"SPECIAL_BONUS_ADD"
+				"special_bonus_unique_lina_3"	"+50%"					
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -337,27 +288,8 @@
 		{
 			"damage"
 			{
-				"value"								"5000 7000 9000"
-				"LinkedSpecialBonus"				"lina_slow_burn"
-				"LinkedSpecialBonusField"			"impact_damage_pct"
-				//"LinkedSpecialBonusOperation"		"SPECIAL_BONUS_MULTIPLY"
+				"value"								"5000 7500 10000"
 				"CalculateSpellDamageTooltip" 		"1"
-			}
-			"burn_damage_tooltip"
-			{
-				"value"							"0"
-				"special_bonus_facet_lina_dot"	"=5000 =7000 =9000"
-				"LinkedSpecialBonus"			"lina_slow_burn"
-				"LinkedSpecialBonusField"		"burn_percent_tooltip"
-				"LinkedSpecialBonusOperation"	"SPECIAL_BONUS_MULTIPLY"
-				"CalculateSpellDamageTooltip" 		"1"
-			}
-			"burn_duration_tooltip"
-			{
-				"value"							"0"
-				"LinkedSpecialBonus"			"lina_slow_burn"
-				"LinkedSpecialBonusField"		"burn_duration"
-				"LinkedSpecialBonusOperation"	"SPECIAL_BONUS_ADD"
 			}
 			"damage_delay"							"0.25"
 			"AbilityCooldown"

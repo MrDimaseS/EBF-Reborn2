@@ -40,8 +40,8 @@ end
 function modifier_item_gunpowder_gauntlets_passive:OnAttackLanded( params )
 	local parent = self:GetParent()
 	if not (params.attacker == parent or params.target == parent) then return end
+	local ability = self:GetAbility()
 	if params.attacker == parent then
-		local ability = self:GetAbility()
 		if not ability:IsCooldownReady() then return end
 		ability:SetCooldown()
 		EmitSoundOn( "Item.BlackPowder", params.target )

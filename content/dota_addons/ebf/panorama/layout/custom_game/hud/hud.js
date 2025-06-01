@@ -293,7 +293,8 @@ function FixFacetTooltips( ){
 	const facetHolder = contentsContainer.FindChildrenWithClassTraverse("FacetHolder")[0];
 	const heroID = Players.GetSelectedHeroID( Entities.GetPlayerOwnerID( Players.GetLocalPlayerPortraitUnit() ) )
 	const heroTable = CustomNetTables.GetTableValue( "hero_attributes", Players.GetLocalPlayerPortraitUnit() )
-	facetHolder.SetPanelEvent("onmouseover", () => {$.DispatchEvent('DOTAShowFacetTooltip', facetHolder, heroID, heroTable.facetID )});
+	
+	facetHolder.SetPanelEvent("onmouseover", () => {$.DispatchEvent('DOTAShowFacetTooltip', facetHolder, heroID | heroTable.facetID )});
 	facetHolder.SetPanelEvent("onmouseout", () => {$.DispatchEvent('DOTAHideFacetTooltip',facetHolder)});
 	
 	const innateHolder = contentsContainer.FindChildTraverse("InnateIcon");
@@ -360,7 +361,7 @@ function UpdateManaBar() {
 	}
 	UpdateTalentPips()
 	CheckTalentUpdates();
-	FixFacetTooltips()
+	// FixFacetTooltips()
 	GameEvents.SendCustomGameEventToServer( "request_hero_inventory", {unit: currentTarget} )
 }
 (function () {

@@ -33,10 +33,12 @@ LinkLuaModifier( "modifier_item_artifact_of_blades_buff", "items/item_artifact_o
 
 function modifier_item_artifact_of_blades_buff:OnCreated()
 	self:OnRefresh()
+	self:SetStackCount( self:GetSpecialValueFor("initial_value") )
 end
 
 function modifier_item_artifact_of_blades_buff:OnRefresh()
 	self.bonus = self:GetSpecialValueFor("bonus")
+	self.real_bonus = self.bonus * self:GetParent():GetHeroPowerAmplification(  )
 	if IsServer() then
 		self:IncrementStackCount()
 		self:GetParent():CalculateGenericBonuses( )
@@ -44,12 +46,16 @@ function modifier_item_artifact_of_blades_buff:OnRefresh()
 	end
 end
 
+function modifier_item_artifact_of_blades_buff:OnStackCountChanged()
+	self.real_bonus = self.bonus * self:GetParent():GetHeroPowerAmplification(  )
+end
+
 function modifier_item_artifact_of_blades_buff:DeclareFunctions()
 	return {MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE}
 end
 
 function modifier_item_artifact_of_blades_buff:GetModifierPreAttack_BonusDamage()
-	return math.floor( self.bonus * self:GetStackCount() + 0.5 )
+	return math.floor( self.real_bonus * self:GetStackCount() + 0.5 )
 end
 
 function modifier_item_artifact_of_blades_buff:GetTexture()

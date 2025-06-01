@@ -27,15 +27,21 @@ LinkLuaModifier( "modifier_item_artifact_of_balance_buff", "items/item_artifact_
 
 function modifier_item_artifact_of_balance_buff:OnCreated()
 	self:OnRefresh()
+	self:SetStackCount( self:GetSpecialValueFor("initial_value") )
 end
 
 function modifier_item_artifact_of_balance_buff:OnRefresh()
 	self.bonus = self:GetSpecialValueFor("bonus")
+	self.real_bonus = self.bonus * self:GetParent():GetHeroPowerAmplification(  )
 	if IsServer() then
 		self:IncrementStackCount()
 		self:GetParent():CalculateGenericBonuses( )
 		self:GetParent():CalculateStatBonus( false )
 	end
+end
+
+function modifier_item_artifact_of_balance_buff:OnStackCountChanged()
+	self.real_bonus = self.bonus * self:GetParent():GetHeroPowerAmplification(  )
 end
 
 function modifier_item_artifact_of_balance_buff:DeclareFunctions()
@@ -45,15 +51,15 @@ function modifier_item_artifact_of_balance_buff:DeclareFunctions()
 end
 
 function modifier_item_artifact_of_balance_buff:GetModifierBonusStats_Strength()
-	return self.bonus * self:GetStackCount()
+	return self.real_bonus * self:GetStackCount()
 end
 
 function modifier_item_artifact_of_balance_buff:GetModifierBonusStats_Agility()
-	return self.bonus * self:GetStackCount()
+	return self.real_bonus * self:GetStackCount()
 end
 
 function modifier_item_artifact_of_balance_buff:GetModifierBonusStats_Intellect()
-	return self.bonus * self:GetStackCount()
+	return self.real_bonus * self:GetStackCount()
 end
 
 function modifier_item_artifact_of_balance_buff:GetTexture()

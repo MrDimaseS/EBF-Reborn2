@@ -1,71 +1,33 @@
-antimage_mana_break = class ({})
+antimage_blink = class ({})
 
-function antimage_mana_break:GetIntrinsicModifierName()
-	return "modifier_antimage_mana_break_passive"
+function antimage_blink:GetBehavior()
+	local behavior = bit.bor(DOTA_ABILITY_BEHAVIOR_POINT, DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES)
+	if self:GetSpecialValueFor("illusion_duration") > 0 then
+		behavior = bit.bor(behavior, DOTA_ABILITY_BEHAVIOR_AUTOCAST)
+	end
+	return behavior
 end
 
-modifier_antimage_mana_break_passive = class({})
-LinkLuaModifier( "modifier_antimage_mana_break_passive", "heroes/hero_antimage/antimage_mana_break", LUA_MODIFIER_MOTION_NONE )
-
-function modifier_antimage_mana_break_passive:OnCreated()
-	self:OnRefresh()
-end
-
-function modifier_antimage_mana_break_passive:OnRefresh()
-	self.percent_damage_per_burn = self:GetSpecialValueFor("percent_damage_per_burn") / 100
-	self.mana_per_hit = self:GetSpecialValueFor("mana_per_hit")
-	self.illusion_percentage = self:GetSpecialValueFor("illusion_percentage") / 100
-	self.slow_duration = self:GetSpecialValueFor("slow_duration")
-end
-
-function modifier_antimage_mana_break_passive:DeclareFunctions()
-	return {MODIFIER_EVENT_ON_ATTACK_LANDED}
-end
-
-function modifier_antimage_mana_break_passive:OnAttackLanded(params)
+function antimage_blink:OnSpellStart()
 	local caster = self:GetCaster()
-	local ability = self:GetAbility()
-	if params.attacker ~= caster or caster:PassivesDisabled() then return end
+	local target = self:GetCursorPosition()
+	local position = caster:GetAbsOrigin() + math.min( self:GetSpecialValueFor("blink_distance"), CalculateDistance( target, caster ) ) * CalculateDirection( target, caster )
 	
-	local mana_per_hit_pct = self:GetSpecialValueFor("mana_per_hit_pct") / 100
-	local damageType = DAMAGE_TYPE_PHYSICAL
+	local illusionDuration = self:GetSpecialValueFor("illusion_duration")
+	if illusionDuration > 0 then
+		local illusionDmgOut = self:GetSpecialValueFor("illusion_damage_dealt")
+		local illusionDmgIn = self:GetSpecialValueFor("illusion_damage_taken")
+		caster:ConjureImage( {outgoing_damage = illusionDmgOut, incoming_damage = illusionDmgIn, position = TernaryOperator( position, self:GetAutoCastState(), caster:GetAbsOrigin() )}, illusionDuration, caster, 1 )
+	end
 	
-	local manaBurn =  params.target:GetMaxMana() * mana_per_hit_pct + self.mana_per_hit
-	if params.attacker:IsIllusion() then
-		manaBurn = manaBurn * self.illusion_percentage
+	if self:GetAutoCastState() then
+		EmitSoundOn("DOTA_Item.BlinkDagger.Activate", self)
+	else
+		caster:Blink(position, {distance = self:GetSpecialValueFor("blink_distance")})
+		local maxHPHeal = self:GetSpecialValueFor("max_hp_heal") / 100
+		if maxHPHeal > 0 then
+			caster:HealEvent( caster:GetMaxHealth() * maxHPHeal, self, caster )
+		end
 	end
-	params.target:ReduceMana( manaBurn )
-	if params.target:GetMana() <= 0 then
-		damageType = DAMAGE_TYPE_PURE
-		params.target:AddNewModifier( caster, ability, "modifier_antimage_mana_break_full_drain", {duration = self.slow_duration} )
-		ParticleManager:FireParticle("particles/units/heroes/hero_antimage/antimage_manabreak_slow.vpcf", PATTACH_POINT_FOLLOW, params.target, {[1] = "attach_hitloc"} )
-	end
-	ability:DealDamage(caster, params.target, manaBurn * self.percent_damage_per_burn, {damage_type = damageType, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION})
-end
-
-function modifier_antimage_mana_break_passive:IsHidden()
-	return true
-end
-
-modifier_antimage_mana_break_full_drain = class({})
-LinkLuaModifier( "modifier_antimage_mana_break_full_drain", "heroes/hero_antimage/antimage_mana_break", LUA_MODIFIER_MOTION_NONE )
-
-function modifier_antimage_mana_break_full_drain:OnCreated()
-	self.slow = self:GetSpecialValueFor("move_slow")
-end
-
-function modifier_antimage_mana_break_full_drain:OnRefresh()
-	self.slow = self:GetSpecialValueFor("move_slow")
-end
-
-function modifier_antimage_mana_break_full_drain:DeclareFunctions()
-	return {MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE, MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT }
-end
-
-function modifier_antimage_mana_break_full_drain:GetModifierMoveSpeedBonus_Percentage()
-	return -self.slow
-end
-
-function modifier_antimage_mana_break_full_drain:GetModifierAttackSpeedBonus_Constant()
-	return -self.slow
+	
 end

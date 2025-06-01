@@ -33,10 +33,12 @@ LinkLuaModifier( "modifier_item_artifact_of_wands_buff", "items/item_artifact_of
 
 function modifier_item_artifact_of_wands_buff:OnCreated()
 	self:OnRefresh()
+	self:SetStackCount( self:GetSpecialValueFor("initial_value") )
 end
 
 function modifier_item_artifact_of_wands_buff:OnRefresh()
 	self.bonus = self:GetSpecialValueFor("bonus")
+	self.real_bonus = self.bonus * self:GetParent():GetHeroPowerAmplification(  )
 	if IsServer() then
 		self:IncrementStackCount()
 		self:GetParent():CalculateGenericBonuses( )
@@ -44,12 +46,16 @@ function modifier_item_artifact_of_wands_buff:OnRefresh()
 	end
 end
 
+function modifier_item_artifact_of_wands_buff:OnStackCountChanged()
+	self.real_bonus = self.bonus * self:GetParent():GetHeroPowerAmplification(  )
+end
+
 function modifier_item_artifact_of_wands_buff:DeclareFunctions()
 	return {MODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE}
 end
 
 function modifier_item_artifact_of_wands_buff:GetModifierSpellAmplify_Percentage()
-	return self.bonus * self:GetStackCount()
+	return self.real_bonus * self:GetStackCount()
 end
 
 function modifier_item_artifact_of_wands_buff:GetTexture()

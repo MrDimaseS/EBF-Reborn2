@@ -22,11 +22,13 @@ function batrider_sticky_napalm:OnSpellStart()
 
 	local radius = self:GetSpecialValueFor("radius")
 	local duration = self:GetSpecialValueFor("duration")
+	local application_damage = self:GetSpecialValueFor("application_damage")
+	local stacks_per_cast = self:GetSpecialValueFor("stacks_per_cast") - 1
 	
 	EmitSoundOn("Hero_Batrider.StickyNapalm.Cast", caster)
 	EmitSoundOnLocationWithCaster(point, "Hero_Batrider.StickyNapalm.Impact", caster)
 	
-	local casts = TernaryOperator( self:GetSpecialValueFor("shard_extra_napalm"), caster:HasShard(), 1 )
+	local casts = 1 + self:GetSpecialValueFor("shard_extra_napalm")
 	Timers:CreateTimer(function()
 		local nfx = ParticleManager:CreateParticle("particles/units/heroes/hero_batrider/batrider_stickynapalm_impact.vpcf", PATTACH_POINT, caster)
 				ParticleManager:SetParticleControl(nfx, 0, point)
@@ -37,7 +39,9 @@ function batrider_sticky_napalm:OnSpellStart()
 		local enemies = caster:FindEnemyUnitsInRadius(point, radius)
 		for _,enemy in pairs(enemies) do
 			if not enemy:TriggerSpellAbsorb(self) then
-				enemy:AddNewModifier(caster, self, "modifier_batrider_sticky_napalm_debuff", {Duration = duration})
+				self:DealDamage( caster, enemy, application_damage )
+				local buff = enemy:AddNewModifier(caster, self, "modifier_batrider_sticky_napalm_debuff", {Duration = duration})
+				buff:SetStackCount( buff:GetStackCount() + stacks_per_cast )
 			end
 		end
 		casts = casts - 1
@@ -65,13 +69,11 @@ end
 function modifier_batrider_sticky_napalm_debuff:OnRefresh(table)
 	self.max_stacks = self:GetSpecialValueFor("max_stacks")
 	self.turnRate = self:GetSpecialValueFor("turn_rate_pct")
-	self.application_damage = self:GetSpecialValueFor("application_damage")
 	self.hero_damage_pct = 1-self:GetSpecialValueFor("hero_damage_pct") / 100
 	if IsServer() then
 		self:SetStackCount( math.min(self:GetStackCount() + 1, self.max_stacks) )
 		ParticleManager:SetParticleControl(self.nfx, 1, Vector(math.floor(self:GetStackCount() / 10), self:GetStackCount() % 10, 0))
 		self.damage = self:GetSpecialValueFor("damage") * self:GetStackCount()
-		self:GetAbility():DealDamage( self:GetCaster(), self:GetParent(), self.application_damage )
 	end
 	self.slow = self:GetSpecialValueFor("movement_speed_pct") * self:GetStackCount()
 end
@@ -133,9 +135,15 @@ modifier_batrider_sticky_napalm_autocast = class({})
 LinkLuaModifier("modifier_batrider_sticky_napalm_autocast", "heroes/hero_batrider/batrider_sticky_napalm", LUA_MODIFIER_MOTION_NONE)
 
 function modifier_batrider_sticky_napalm_autocast:OnCreated(table)
+	self:OnRefresh()
 	if IsServer() then
 		self:StartIntervalThink(0)
 	end
+end
+
+function modifier_batrider_sticky_napalm_autocast:OnRefresh()
+	self.napalm_stacks_on_attack = self:GetSpecialValueFor("napalm_stacks_on_attack")
+	self.duration = self:GetSpecialValueFor("duration")
 end
 
 function modifier_batrider_sticky_napalm_autocast:OnIntervalThink()
@@ -147,6 +155,18 @@ function modifier_batrider_sticky_napalm_autocast:OnIntervalThink()
 			caster:CastAbilityOnPosition( target:GetAbsOrigin(), ability, caster:GetPlayerOwnerID() )
 		end
 	end
+end
+
+
+function modifier_batrider_sticky_napalm_debuff:DeclareFunctions()
+	return {MODIFIER_EVENT_ON_ATTACK_LANDED }
+end
+
+function modifier_batrider_sticky_napalm_debuff:OnAttackLanded(params)
+    if self.napalm_stacks_on_attack <= 0 then return end
+	local parent = self:GetParent()
+	if params.attacker ~= parent then return end
+	params.target:AddNewModifier( parent, self:GetAbility(), "modifier_batrider_sticky_napalm_debuff", {duration = self.duration} )
 end
 
 function modifier_batrider_sticky_napalm_autocast:IsHidden()

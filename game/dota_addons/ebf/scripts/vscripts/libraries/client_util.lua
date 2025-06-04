@@ -385,8 +385,9 @@ ABILITY_POWER_SCALING = 0.2
 function C_DOTA_BaseNPC:GetHeroPowerAmplification(  )
 	if not self._specialAttributes then
 		self._specialAttributes = self:FindAbilityByName("special_bonus_attributes")
-	else
+	end
+	if self._specialAttributes then
 		local heroPower = ABILITY_POWER_SCALING+self._specialAttributes:GetSpecialValueFor("value") / 100
-		return 1 + heroPower * self:GetLevel()
+		return 1 + heroPower * (self:GetLevel() - 1)
 	end
 end

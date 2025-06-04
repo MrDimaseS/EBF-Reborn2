@@ -9,6 +9,9 @@ LinkLuaModifier( "modifier_item_artifact_of_blades_passive", "items/item_artifac
 
 function modifier_item_artifact_of_blades_passive:OnCreated()
 	self:OnRefresh()
+	if IsServer() then
+		self:GetCaster():AddNewModifier( self:GetCaster(), self:GetAbility(), "modifier_item_artifact_of_blades_buff", {} )
+	end
 end
 
 function modifier_item_artifact_of_blades_passive:OnRefresh()
@@ -32,15 +35,22 @@ modifier_item_artifact_of_blades_buff = class({})
 LinkLuaModifier( "modifier_item_artifact_of_blades_buff", "items/item_artifact_of_blades.lua" ,LUA_MODIFIER_MOTION_NONE )
 
 function modifier_item_artifact_of_blades_buff:OnCreated()
-	self:OnRefresh()
-	self:SetStackCount( self:GetSpecialValueFor("initial_value") )
+	self:OnRefresh(nil, bFirst)
+	if IsServer() then
+		self:SetStackCount( self:GetSpecialValueFor("initial_value") )
+	end
+	print("huh", self.bonus )
 end
 
-function modifier_item_artifact_of_blades_buff:OnRefresh()
+function modifier_item_artifact_of_blades_buff:OnRefresh(kv, first)
 	self.bonus = self:GetSpecialValueFor("bonus")
+	print( self.bonus, "??")
+	print( self:GetParent():GetHeroPowerAmplification(  ), "!!")
 	self.real_bonus = self.bonus * self:GetParent():GetHeroPowerAmplification(  )
 	if IsServer() then
-		self:IncrementStackCount()
+		if not first then
+			self:IncrementStackCount()
+		end
 		self:GetParent():CalculateGenericBonuses( )
 		self:GetParent():CalculateStatBonus( false )
 	end
@@ -55,7 +65,7 @@ function modifier_item_artifact_of_blades_buff:DeclareFunctions()
 end
 
 function modifier_item_artifact_of_blades_buff:GetModifierPreAttack_BonusDamage()
-	return math.floor( self.real_bonus * self:GetStackCount() + 0.5 )
+	return math.floor( ( self.real_bonus or self.bonus ) * self:GetStackCount() + 0.5 )
 end
 
 function modifier_item_artifact_of_blades_buff:GetTexture()

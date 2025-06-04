@@ -1702,7 +1702,7 @@ function CDOTA_BaseNPC_Hero:GetAttributeAbility()
 end
 function CDOTA_BaseNPC_Hero:GetHeroPowerAmplification(  )
 	local heroPower = ABILITY_POWER_SCALING+self:GetAttributeAbility():GetSpecialValueFor("value") / 100
-	return 1 + heroPower * self:GetLevel()
+	return 1 + heroPower * (self:GetLevel()-1)
 end
 
 function CDOTABaseAbility:GetAltCastState()

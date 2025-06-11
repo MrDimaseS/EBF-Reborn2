@@ -251,7 +251,7 @@ function CHoldoutGameMode:InitGameMode()
 
 	GameRules:GetGameModeEntity():SetDamageFilter( Dynamic_Wrap( CHoldoutGameMode, "FilterDamage" ), self )
 	GameRules:GetGameModeEntity():SetAbilityTuningValueFilter( Dynamic_Wrap( CHoldoutGameMode, "FilterAbilityValues" ), self )
-	GameRules:GetGameModeEntity():SetHealingFilter( Dynamic_Wrap( CHoldoutGameMode, "FilterHealing" ), self )
+	GameRules:GetGameModeEntity():SetHealingFilter( Dynamic_Wrap( CHoldoutGameMode, "FilterHealFilterHealing" ), self )
 	GameRules:GetGameModeEntity():SetExecuteOrderFilter( Dynamic_Wrap( CHoldoutGameMode, "FilterOrders" ), self )
 	GameRules:GetGameModeEntity():SetModifyGoldFilter( Dynamic_Wrap( CHoldoutGameMode, "FilterGold" ), self )
 	GameRules:SetFilterMoreGold( true )
@@ -576,6 +576,21 @@ function CHoldoutGameMode:FilterHealing( filterTable )
 	if not target_index then return true end
 	local target = EntIndexToHScript( target_index )
 	filterTable["heal"] = math.min( filterTable["heal"], target:GetMaxHealth() )
+	local posAmp = 1
+	local negAmp = 1
+	for _, modifier in ipairs( modifierCaster:target() ) do
+		if modifier.GetModifierPropertyRestorationAmplification then
+			local amp = modifier:GetModifierPropertyRestorationAmplification() / 100
+			if amp then
+				if amp > 0 then
+					posAmp = posAmp + amp
+				elseif amp < 0 then
+					negAmp = negAmp + amp
+				end
+			end
+		end
+	end
+	filterTable["heal"] = filterTable["heal"] * posAmp * negAmp
     if not healer_index then return true end
 	
 	local healer = EntIndexToHScript( healer_index )
@@ -592,7 +607,6 @@ IGNORE_SPELL_AMP_KV = {
 	["phoenix_sun_ray"] = {["hp_perc_damage"] = true},
 	["venomancer_noxious_plague"] = {["health_damage"] = true},
 	["venomancer_poison_nova"] = {["damage"] = true},
-	["warlock_fatal_bonds"] = {["damage_share_percentage"] = true},
 	["enigma_midnight_pulse"] = {["damage_percent"] = true},
 	["enigma_black_hole"] = {["scepter_pct_damage"] = true},
 	["obsidian_destroyer_arcane_orb"] = {["mana_pool_damage_pct"] = true},
@@ -625,10 +639,6 @@ MAX_HP_DAMAGE = {
 	["elder_titan_earth_splitter"] = {["damage_pct"] = 100},
 	["ringmaster_impalement"] = {["bleed_health_pct"] = 100},
 	["kez_raptor_dance"] = {["max_health_damage_pct"] = 100},
-	["necrolyte_heartstopper_aura"] = {["aura_damage"] = 100},
-	["doom_bringer_infernal_blade"] = {["burn_damage_pct"] = 100},
-	["item_iron_talon"] = {["creep_damage_pct"] = 100},
-	["item_serrated_shiv"] = {["hp_dmg"] = 100},
 }
 
 -- spell_name = spell_amp_reduction (100 for no spell amp)

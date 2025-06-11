@@ -27,6 +27,10 @@ function modifier_item_artifact_of_shields_passive:GetModifierIncomingDamage_Per
 	end
 end
 
+function modifier_item_artifact_of_shields_passive:RemoveOnDeath()
+	return false
+end
+
 modifier_item_artifact_of_shields_buff = class({})
 LinkLuaModifier( "modifier_item_artifact_of_shields_buff", "items/item_artifact_of_shields.lua" ,LUA_MODIFIER_MOTION_NONE )
 

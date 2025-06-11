@@ -38,7 +38,7 @@
 		
 		"dota_ability_variable_cast"                                                                        "Cast Speed"
 		"dota_ability_variable_heal_amp"                                                                    "Healing Provided"
-		"dota_ability_variable_heal_amp_in"                                                                 "Healing Received"
+		"dota_ability_variable_heal_amp_in"                                                                 "Restoration Amplification"
 		"dota_ability_variable_hp_per_str"																	"Health per Strength"
 		"dota_ability_variable_hp_regen_per_str"															"HP Regen per Strength"
 		"dota_ability_variable_magic_damage"																"Magic Attack Damage"
@@ -2296,9 +2296,12 @@
 
 		"DOTA_Tooltip_ability_bristleback_viscous_nasal_goo_max_stacks"										"MAX STACKS:"
 		"DOTA_Tooltip_ability_bristleback_viscous_nasal_goo_Facet_bristleback_boogerman"					"Affects all units within the cast range, and max stacks are increased. Can now be autocast."
-		"DOTA_Tooltip_ability_bristleback_viscous_nasal_goo_Facet_bristleback_prick"						"After enough incoming attacks, automatically cast Viscous Nasal Goo on the attacker."
+		"DOTA_Tooltip_ability_bristleback_viscous_nasal_goo_Facet_bristleback_prick"						"After enough incoming attacks, automatically cast Viscous Nasal Goo on the attacker. Additionally, units hit by Viscous Nasal Goo have a chance to slip, disarming them with increasing duration with each stack."
 		"DOTA_Tooltip_ability_bristleback_viscous_nasal_goo_incoming_attacks_required"						"ATTACKS REQUIRED:"
-		"DOTA_Tooltip_ability_bristleback_viscous_nasal_goo_Facet_bristleback_mettlehead"					"After enough outgoing attacks, automatically cast Viscous Nasal Goo on the target."
+		"DOTA_Tooltip_ability_bristleback_viscous_nasal_goo_slip_chance"									"%SLIP CHANCE:"
+		"DOTA_Tooltip_ability_bristleback_viscous_nasal_goo_slip_base_duration"								"BASE DISARM DURATION:"
+		"DOTA_Tooltip_ability_bristleback_viscous_nasal_goo_slip_stack_duration"							"BONUS DURATION/STACK:"
+		"DOTA_Tooltip_ability_bristleback_viscous_nasal_goo_Facet_bristleback_mettlehead"					"After enough outgoing attacks, automatically cast Viscous Nasal Goo on the target. Additionally, Viscous Nasal Goo increasingly reduces enemy attakc damage."
 		"DOTA_Tooltip_ability_bristleback_viscous_nasal_goo_outgoing_attacks_required"						"ATTACKS REQUIRED:"
 		"DOTA_Tooltip_modifier_bristleback_viscous_nasal_goo_debuff"										"Viscous Nasal Goo"
 		"DOTA_Tooltip_modifier_bristleback_viscous_nasal_goo_debuff_Description"							"Losing armor and movespeed per stack."
@@ -2340,13 +2343,13 @@
 
 		"DOTA_Tooltip_ability_bristleback_warpath_Description"												"Bristleback works himself up into a fury every time he casts a spell, increasing his movement speed and damage. Can be activated to momentarily increase all benefits."
 		"DOTA_Tooltip_ability_bristleback_warpath_duration"													"DURATION:"
-		"DOTA_Tooltip_ability_bristleback_warpath_Facet_bristleback_boogerman"								"Every stack causes Viscous Nasal Goo to deal additional physical damage. While active, also provides cast speed."
+		"DOTA_Tooltip_ability_bristleback_warpath_Facet_bristleback_boogerman"								"Every stack causes Viscous Nasal Goo to deal additional physical damage. While active, also provides increased outgoing debuff durations."
 		"DOTA_Tooltip_ability_bristleback_warpath_goo_damage_per_stack"										"GOO DAMAGE PER STACK:"
-		"DOTA_Tooltip_ability_bristleback_warpath_active_cast_speed"										"ACTIVE CAST SPEED:"
+		"DOTA_Tooltip_ability_bristleback_warpath_debuff_amp"												"%ACTIVE DEBUFF DURATION BONUS:"
 		"DOTA_Tooltip_ability_bristleback_warpath_Facet_bristleback_prick"									"Every stack grants spell amplification. While active, also provides spell lifesteal."
 		"DOTA_Tooltip_ability_bristleback_warpath_spell_amp_per_stack"										"%SPELL AMP PER STACK:"
 		"DOTA_Tooltip_ability_bristleback_warpath_active_spell_lifesteal"									"%ACTIVE SPELL LIFESTEAL:"
-		"DOTA_Tooltip_ability_bristleback_warpath_Facet_bristleback_mettlehead"								"Every stack grants attack speed. While active, provides lifesteal."
+		"DOTA_Tooltip_ability_bristleback_warpath_Facet_bristleback_mettlehead"								"Increased maximum War Path and every stack grants attack speed. While active, provides lifesteal."
 		"DOTA_Tooltip_ability_bristleback_warpath_attack_speed_per_stack"									"ATTACK SPEED PER STACK:"
 		"DOTA_Tooltip_ability_bristleback_warpath_active_lifesteal"											"%ACTIVE LIFESTEAL:"
 		"DOTA_Tooltip_modifier_bristleback_warpath_passive"													"Warpath"
@@ -4845,7 +4848,7 @@
 		"DOTA_Tooltip_Ability_item_fallen_sky_bonus_strength"												"+$all"
 		
 		"DOTA_Tooltip_ability_item_nexus_of_vigor"															"Nexus of Vigor"
-		"DOTA_Tooltip_ability_item_nexus_of_vigor_Description"												"<h1>Passive: Vital Surge</h1>When you are Overhealed, you deal %overheal_damage%%% of the excess healing as damage to all enemies within %damage_radius% radius."
+		"DOTA_Tooltip_ability_item_nexus_of_vigor_Description"												"<h1>Passive: Vital Surge</h1>When you are Healed, you deal %heal_damage%%% of the healing as damage to all enemies within %damage_radius% radius. Overhealing increases the damage dealt by %overheal_damage%%%"
 		"DOTA_Tooltip_ability_item_nexus_of_vigor_bonus_strength"											"+$str"
 		"DOTA_Tooltip_ability_item_nexus_of_vigor_incoming_heal_amp"										"%+$heal_amp_in"
 		
@@ -4901,11 +4904,11 @@
 		"DOTA_Tooltip_ability_item_watchers_gaze_bonus_all"													"+$all"
 		
 		"DOTA_Tooltip_ability_item_lucky_femur"																"Lucky Femur"
-		"DOTA_Tooltip_ability_item_lucky_femur_Description"													"<h1>Passive: Skill Issue</h1>When you cast an ability, it has a %instant_refresh_chance%%% to be immediately refreshed, but you receive a debuff that increases its mana cost by %mana_cost_penalty%%% for each second refreshed. Mana penalty reduces linearly every second and stacks with independent duration."
-		"DOTA_Tooltip_ability_item_lucky_femur_bonus_int"													"+$int"
+		"DOTA_Tooltip_ability_item_lucky_femur_Description"													"<h1>Passive: Skill Issue</h1>When you cast an ability, it has a %instant_refresh_chance%%% to be immediately refreshed, but its mana cost is increased by %mana_cost_penalty_base%%% + %mana_cost_penalty_cdr%%% per second refreshed. Mana penalty reduces linearly every second and stacks with independent duration."
+		"DOTA_Tooltip_ability_item_lucky_femur_bonus_str"													"+$str"
 		"DOTA_Tooltip_ability_item_lucky_femur_bonus_mana"													"+$mana"
 		"DOTA_Tooltip_modifier_item_lucky_femur_debuff"														"Lucky Femur - Skill Issue"
-		"DOTA_Tooltip_modifier_item_lucky_femur_debuff_Description"											"The refreshed spell costs %dMODIFIER_PROPERTY_MANACOST_PERCENTAGE_STACKING%%% additional mana."
+		"DOTA_Tooltip_modifier_item_lucky_femur_debuff_Description"											"The refreshed spell costs %fMODIFIER_PROPERTY_MANACOST_PERCENTAGE_STACKING%%% additional mana."
 		
 		"DOTA_Tooltip_ability_item_seacursed_trident"														"Sea-Cursed Trident"
 		"DOTA_Tooltip_ability_item_seacursed_trident_Description"											"<h1>Passive: Wrath of the Sea</h1>You deal %debuff_damage_amp%%% additional damage from all sources against units for each Debuff applied to them by you."
@@ -4966,7 +4969,7 @@
 		
 		"DOTA_Tooltip_ability_item_avianas_feather_Description"												"<h1>Passive: Free Bird</h1> When equipped hero is below %flight_threshold%%% HP, they gain flying movement and up to %flight_evasion%%% evasion. Lingers for %linger_duration% seconds."
 		"DOTA_Tooltip_ability_item_avianas_feather_move_speed"												"+$move_speed"
-		"DOTA_Tooltip_ability_item_avianas_feather_bonus_spell_amp"											"%+$evasion"
+		"DOTA_Tooltip_ability_item_avianas_feather_bonus_spell_amp"											"%+$spell_amp"
 		"DOTA_Tooltip_ability_item_avianas_feather_bonus_heal_amp"											"%+$heal_amp_in"
 		"DOTA_Tooltip_modifier_item_avianas_feather_free_bird"												"Aviana's Feather - Free Bird"
 		"DOTA_Tooltip_modifier_item_avianas_feather_free_bird_Description"									"Gaining flying movement and %fMODIFIER_PROPERTY_EVASION_CONSTANT%%% evasion."

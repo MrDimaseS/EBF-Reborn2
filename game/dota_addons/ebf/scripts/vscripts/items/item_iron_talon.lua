@@ -15,7 +15,7 @@ function item_iron_talon:OnSpellStart()
 		self:SetCooldown( cd )
 	else
 		local damage = target:GetMaxHealth() * self:GetSpecialValueFor("creep_damage_pct") / 100
-		self:DealDamage( caster, target, damage, {damage_type = DAMAGE_TYPE_PURE, damage_flags = DOTA_DAMAGE_FLAG_HPLOSS} )
+		self:DealDamage( caster, target, damage * target:GetMaxHealthDamageResistance(), {damage_type = DAMAGE_TYPE_PURE, damage_flags = DOTA_DAMAGE_FLAG_HPLOSS} )
 	end
 end
 

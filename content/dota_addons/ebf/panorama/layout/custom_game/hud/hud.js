@@ -810,7 +810,7 @@ function UpdateStatsTooltip() {
 	const strValues = strContainer.FindChildTraverse('StrengthDetails');
 	const strDamage = strContainer.FindChildTraverse('StrengthDamageLabel');
 	strGain.text = '(+' + Math.floor(stats.str_gain * 10 + 0.5) / 10 + ' next lvl)'
-	strValues.text = (Math.floor((stats.strength * 22) * 10 + 0.5) / 10) + ' HP and ' + Math.floor((stats.strength * 0.008) * 10 + 0.5) / 10 + '% Incoming Healing Amp'
+	strValues.text = (Math.floor((stats.strength * 22) * 10 + 0.5) / 10) + ' HP and ' + Math.floor((stats.strength * 0.008) * 10 + 0.5) / 10 + '% Restoration Amp'
 	if (primaryStat == Attributes.DOTA_ATTRIBUTE_STRENGTH) {
 		strDamage.text = (Math.floor((stats.strength * 1.5)*10 + 0.5)/10) + ' Damage, ' + (Math.floor((stats.strength * 0.025)*10 + 0.5)/10) + '% Base Spell Damage and ' + (Math.floor((stats.strength * 11)*10 + 0.5)/10) + ' HP';
 		strContainer.SetHasClass("PrimaryAttribute", true)

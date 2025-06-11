@@ -77,7 +77,6 @@ function modifier_bristleback_prickly_passive:OnTakeDamage(params)
                 self.ability:DoQuill({
                     position = params.unit:GetAbsOrigin(),
                     is_proc = true,
-                    add_warpath_stack = true
                 })
             elseif self.does_warpath then
                 self.ability:AddStack()

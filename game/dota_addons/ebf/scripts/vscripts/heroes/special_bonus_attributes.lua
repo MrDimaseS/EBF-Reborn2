@@ -332,10 +332,6 @@ function modifier_special_bonus_attributes_stat_rescaling:DeclareFunctions()
 		MODIFIER_PROPERTY_EXTRA_HEALTH_PERCENTAGE,
 		MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL,
 		MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL_VALUE,
-		MODIFIER_PROPERTY_HEAL_AMPLIFY_PERCENTAGE_SOURCE,
-		MODIFIER_PROPERTY_LIFESTEAL_AMPLIFY_PERCENTAGE,
-		MODIFIER_PROPERTY_SPELL_LIFESTEAL_AMPLIFY_PERCENTAGE,
-		MODIFIER_PROPERTY_HP_REGEN_AMPLIFY_PERCENTAGE,
 		MODIFIER_PROPERTY_EVASION_CONSTANT,
 		MODIFIER_PROPERTY_MP_REGEN_AMPLIFY_PERCENTAGE,
 		MODIFIER_EVENT_ON_TAKEDAMAGE,
@@ -430,23 +426,7 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierEvasion_Con
 	end
 end
 
-function modifier_special_bonus_attributes_stat_rescaling:GetModifierAttackSpeedBonus_Constant()
-  -- return self.attackspeed
-end
-
-function modifier_special_bonus_attributes_stat_rescaling:GetModifierHealAmplify_PercentageSource()
-	return HP_AMP_PER_STR * (self:GetParent():GetStrength() / 100)
-end
-
-function modifier_special_bonus_attributes_stat_rescaling:GetModifierHPRegenAmplify_Percentage()
-	return HP_AMP_PER_STR * (self:GetParent():GetStrength() / 100)
-end
-
-function modifier_special_bonus_attributes_stat_rescaling:GetModifierLifestealRegenAmplify_Percentage()
-	return HP_AMP_PER_STR * (self:GetParent():GetStrength() / 100)
-end
-
-function modifier_special_bonus_attributes_stat_rescaling:GetModifierSpellLifestealRegenAmplify_Percentage()
+function modifier_special_bonus_attributes_stat_rescaling:GetModifierPropertyRestorationAmplification()
 	return HP_AMP_PER_STR * (self:GetParent():GetStrength() / 100)
 end
 

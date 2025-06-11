@@ -89,14 +89,13 @@
 				"special_bonus_unique_bristleback_3"			"+150"
 				"affected_by_aoe_increase"						"1"
 			}
-			"incoming_attacks_required"
-			{
-				"special_bonus_facet_bristleback_prick"			"5"
-			}
-			"outgoing_attacks_required"
-			{
-				"special_bonus_facet_bristleback_mettlehead"	"5"
-			}
+			"incoming_attacks_required"							{"special_bonus_facet_bristleback_prick"		"5"}
+			"slip_chance"										{"special_bonus_facet_bristleback_prick"		"4 8 12 16"}
+			"slip_base_duration"								{"special_bonus_facet_bristleback_prick"		"0.4"}
+			"slip_stack_duration"								{"special_bonus_facet_bristleback_prick"		"0.1 0.2 0.3 0.4"}
+			"outgoing_attacks_required"							{"special_bonus_facet_bristleback_mettlehead"	"5"}
+			"base_attack_damage_reduction"						{"special_bonus_facet_bristleback_mettlehead"	"2 4 6 8"}
+			"stack_attack_damage_reduction"						{"special_bonus_facet_bristleback_mettlehead"	"1 2 3 4"}
 
 			"stack_limit"										""
 		}
@@ -297,7 +296,7 @@
 		{
 			"damage_per_stack"
 			{
-				"value"											"150"
+				"value"											"150 200 250"
 				"special_bonus_unique_bristleback_8"			"+150"
 				"CalculateAttackDamageTooltip"					"1"
 			}
@@ -316,6 +315,7 @@
 			"max_stacks"
 			{
 				"value"											"8 10 12"
+				"special_bonus_facet_bristleback_mettlehead"	"=10 =14 =18"
 			}
 			"duration"
 			{
@@ -324,12 +324,12 @@
 
 			"goo_damage_per_stack"
 			{
-				"special_bonus_facet_bristleback_boogerman"		"40 80 120"
+				"special_bonus_facet_bristleback_boogerman"		"40 60 80"
 				"CalculateSpellDamageTooltip"					"1"
 			}
-			"active_cast_speed"
+			"debuff_amp" // needs to be named this for timeless_relic modifier
 			{
-				"special_bonus_facet_bristleback_boogerman"		"25 50 75"
+				"special_bonus_facet_bristleback_boogerman"		"15 30 45"
 			}
 
 			"spell_amp_per_stack"

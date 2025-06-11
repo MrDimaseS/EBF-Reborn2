@@ -210,13 +210,18 @@
 		{
 			"double_shot_chance"
 			{
-				"value"					"18 27 36 45"
+				"value"														"18 27 36 45"
 				"special_bonus_unique_muerta_gunslinger_double_shot_chance"	"+20"
+				"affected_by_chance_increase"								"1"
 			}
-			"target_search_bonus_range"	"175"
+			"target_search_bonus_range"
+			{
+				"value"														"175"
+				"affected_by_aoe_increase"									"1"
+			}
 			"bonus_damage"
 			{
-				"special_bonus_unique_muerta_gunslinger_bonus_damage"	"=55"
+				"special_bonus_unique_muerta_gunslinger_bonus_damage"		"=550"
 			}
 		}
 	}
@@ -252,7 +257,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"					"8"
+			"duration"
+			{
+				"value"													"8"
+				"special_bonus_unique_muerta_pierce_the_veil_duration"	"+2"
+			}
 			"transform_duration"		"0.35"
 			"base_damage_pct"			"100"
 			"modelscale"				"30"
@@ -263,8 +272,7 @@
 			}
 			"spell_lifesteal"
 			{
-				"value"				"30"
-				"RequiresShard"		"1"
+				"special_bonus_shard"	"30"
 			}
 			"spell_amp_steal"
 			{

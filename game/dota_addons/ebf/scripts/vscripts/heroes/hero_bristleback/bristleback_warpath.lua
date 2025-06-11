@@ -96,9 +96,6 @@ end
 function modifier_bristleback_warpath_active_ebf:OnCreated()
     self:OnRefresh()
 
-	self:GetParent().cooldownModifiers = self:GetParent().cooldownModifiers or {}
-	self:GetParent().cooldownModifiers[self] = true
-    
     self:GetParent()._spellLifestealModifiersList = self:GetParent()._spellLifestealModifiersList or {}
     self:GetParent()._spellLifestealModifiersList[self] = true
 
@@ -111,12 +108,12 @@ function modifier_bristleback_warpath_active_ebf:OnDestroy()
     self:GetParent()._attackLifestealModifiersList[self] = nil
 end
 function modifier_bristleback_warpath_active_ebf:OnRefresh()
-    self.active_cast_speed = self:GetSpecialValueFor("active_cast_speed")
+    self.debuff_amp = self:GetSpecialValueFor("debuff_amp")
     self.active_spell_lifesteal = self:GetSpecialValueFor("active_spell_lifesteal")
     self.active_lifesteal = self:GetSpecialValueFor("active_lifesteal")
 end
-function modifier_bristleback_warpath_active_ebf:GetModifierCastSpeed(params)
-	return self.active_cast_speed
+function modifier_bristleback_warpath_active_ebf:GetModifierMaxDebuffDuration(params)
+	return self.debuff_amp
 end
 function modifier_bristleback_warpath_active_ebf:GetModifierProperty_MagicalLifesteal(params)
 	return self.active_spell_lifesteal

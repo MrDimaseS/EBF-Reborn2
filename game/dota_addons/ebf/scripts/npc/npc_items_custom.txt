@@ -345,7 +345,7 @@
 			
 			"barrier_block"
 			{
-				"value"							"1500 3000 4500 6000 75000"
+				"value"							"1500 3000 4500 6000 7500"
 				"CalculateSpellHealTooltip"		"1"
 			}
 			"barrier_radius"					"900"
@@ -929,6 +929,7 @@
 		"precache"
 		{
 			"particle"						"particles/items/nexus_of_vigor_overheal.vpcf"
+			"particle"						"particles/items/nexus_of_vigor_heal.vpcf"
 		}
 		
 		// Special	
@@ -941,7 +942,8 @@
 				"CalculateAttributeTooltip"		"1"
 			}
 			"incoming_heal_amp"					"5 8.75 15.25 26.5 47"	
-			"overheal_damage"					"25 40 65 80 95"	
+			"heal_damage"						"60 70 80 90 100"	
+			"overheal_damage"					"30 35 40 45 50"	
 			"damage_radius"						"325"	
 		}
 	}
@@ -1305,19 +1307,20 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"bonus_int"
+			"bonus_str"
 			{
 				"value"							"35 61 107 188 328"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"bonus_mana"						"450 785 1375 2405 4210"
+			"bonus_mana"						"250 440 765 1340 2345"
 			
 			"instant_refresh_chance"
 			{
-				"value"							"20 25 30 35 40"
+				"value"							"15 24.5 38.5 56 74.5"
 				"affected_by_chance_increase"	"1"
 			}
-			"mana_cost_penalty"					"10"
+			"mana_cost_penalty_base"			"100"
+			"mana_cost_penalty_cdr"				"5"
 		}
 	}
 	"item_seacursed_trident"

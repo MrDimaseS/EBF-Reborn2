@@ -13,20 +13,21 @@ end
 
 function modifier_item_lucky_femur_passive:OnRefresh()
 	self.bonus_mana = self:GetSpecialValueFor("bonus_mana")
-	self.bonus_int = self:GetSpecialValueFor("bonus_int")
+	self.bonus_str = self:GetSpecialValueFor("bonus_str")
 	
 	self.instant_refresh_chance = self:GetSpecialValueFor("instant_refresh_chance")
-	self.mana_cost_penalty = self:GetSpecialValueFor("mana_cost_penalty")
+	self.mana_cost_penalty_base = self:GetSpecialValueFor("mana_cost_penalty_base")
+	self.mana_cost_penalty_cdr = self:GetSpecialValueFor("mana_cost_penalty_cdr")
 end
 
 function modifier_item_lucky_femur_passive:DeclareFunctions()
-	return {MODIFIER_PROPERTY_STATS_INTELLECT_BONUS,				
+	return {MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,				
 			MODIFIER_PROPERTY_MANA_BONUS,
 			MODIFIER_EVENT_ON_ABILITY_FULLY_CAST }
 end
 
-function modifier_item_lucky_femur_passive:GetModifierBonusStats_Intellect()
-	return self.bonus_int
+function modifier_item_lucky_femur_passive:GetModifierBonusStats_Strength()
+	return self.bonus_str
 end
 
 function modifier_item_lucky_femur_passive:GetModifierManaBonus()
@@ -36,9 +37,18 @@ end
 function modifier_item_lucky_femur_passive:OnAbilityFullyCast( params )
 	local parent = self:GetParent()
 	if params.unit ~= parent then return end
-	if self:RollPRNG( self.instant_refresh_chance ) then
-		parent:AddNewModifier( parent, params.ability, "modifier_item_lucky_femur_debuff", {duration = params.ability:GetCooldownTimeRemaining()} ):SetStackCount(self.mana_cost_penalty * params.ability:GetCooldownTimeRemaining())
-		params.ability:EndCooldown()
+	if params.ability:GetCooldown( -1 ) == 0 then return end
+	if params.ability:GetCooldownTimeRemaining() <= 0 then return end
+	if self:RollPRNG( self.instant_refresh_chance ) and not params.ability._rolledForRefresh then
+		params.ability._rolledForRefresh = true
+		params.ability:SetFrozenCooldown( true )
+		Timers:CreateTimer( 0.25,
+		function()
+			params.ability._rolledForRefresh = false
+			params.ability:SetFrozenCooldown( false )
+			parent:AddNewModifier( parent, params.ability, "modifier_item_lucky_femur_debuff", {duration = params.ability:GetCooldownTimeRemaining()} ):SetStackCount(self.mana_cost_penalty_base + self.mana_cost_penalty_cdr * params.ability:GetCooldownTimeRemaining())
+			params.ability:EndCooldown() 
+		end )
 	end
 end
 
@@ -62,7 +72,7 @@ function modifier_item_lucky_femur_debuff:DeclareFunctions()
 end
 
 function modifier_item_lucky_femur_debuff:GetModifierPercentageManacostStacking( params )
-	if params.ability == self:GetAbility() then
+	if params.ability == self:GetAbility() or IsClient() then
 		return -self:GetStackCount()
 	end
 end
@@ -72,7 +82,7 @@ function modifier_item_lucky_femur_debuff:GetAttributes()
 end
 
 function modifier_item_lucky_femur_debuff:IsDebuff()
-	return true
+	return false
 end
 
 function modifier_item_lucky_femur_debuff:IsPurgable()

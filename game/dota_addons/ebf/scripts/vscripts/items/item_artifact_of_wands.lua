@@ -19,17 +19,22 @@ function modifier_item_artifact_of_wands_passive:OnRefresh()
 end
 
 function modifier_item_artifact_of_wands_passive:DeclareFunctions()
-	return {MODIFIER_EVENT_ON_ABILITY_EXECUTED}
+	return {MODIFIER_EVENT_ON_ABILITY_FULLY_CAST}
 end
 
-function modifier_item_artifact_of_wands_passive:OnAbilityExecuted( params )
+function modifier_item_artifact_of_wands_passive:OnAbilityFullyCast( params )
 	if params.unit ~= self:GetParent() then return end
 	if params.ability:GetCooldown( -1 ) == 0 then return end
+	if params.ability:GetCooldownTimeRemaining() == 0 then return end
 	self._internalDamageCounter = (self._internalDamageCounter or 0) + 1
 	while self._internalDamageCounter >= self.threshold do
 		self._internalDamageCounter = self._internalDamageCounter - self.threshold
 		self:GetCaster():AddNewModifier( self:GetCaster(), self:GetAbility(), "modifier_item_artifact_of_wands_buff", {} )
 	end
+end
+
+function modifier_item_artifact_of_wands_buff:RemoveOnDeath()
+	return false
 end
 
 modifier_item_artifact_of_wands_buff = class({})

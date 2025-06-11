@@ -24,11 +24,16 @@ end
 
 function modifier_item_artifact_of_blades_passive:OnAttack( params )
 	if params.attacker ~= self:GetParent() then return end
+	if params.no_attack_cooldown then return end
 	self._internalDamageCounter = (self._internalDamageCounter or 0) + 1
 	while self._internalDamageCounter >= self.threshold do
 		self._internalDamageCounter = self._internalDamageCounter - self.threshold
 		self:GetCaster():AddNewModifier( self:GetCaster(), self:GetAbility(), "modifier_item_artifact_of_blades_buff", {} )
 	end
+end
+
+function modifier_item_artifact_of_blades_passive:RemoveOnDeath()
+	return false
 end
 
 modifier_item_artifact_of_blades_buff = class({})
@@ -39,13 +44,10 @@ function modifier_item_artifact_of_blades_buff:OnCreated()
 	if IsServer() then
 		self:SetStackCount( self:GetSpecialValueFor("initial_value") )
 	end
-	print("huh", self.bonus )
 end
 
 function modifier_item_artifact_of_blades_buff:OnRefresh(kv, first)
 	self.bonus = self:GetSpecialValueFor("bonus")
-	print( self.bonus, "??")
-	print( self:GetParent():GetHeroPowerAmplification(  ), "!!")
 	self.real_bonus = self.bonus * self:GetParent():GetHeroPowerAmplification(  )
 	if IsServer() then
 		if not first then

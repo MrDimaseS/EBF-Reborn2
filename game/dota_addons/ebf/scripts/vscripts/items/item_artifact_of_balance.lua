@@ -22,6 +22,10 @@ function modifier_item_artifact_of_balance_passive:OnIntervalThink()
 	self:GetParent():AddNewModifier( self:GetCaster(), self:GetAbility(), "modifier_item_artifact_of_balance_buff", {} )
 end
 
+function modifier_item_artifact_of_balance_passive:RemoveOnDeath()
+	return false
+end
+
 modifier_item_artifact_of_balance_buff = class({})
 LinkLuaModifier( "modifier_item_artifact_of_balance_buff", "items/item_artifact_of_balance.lua" ,LUA_MODIFIER_MOTION_NONE )
 

@@ -20,7 +20,7 @@ function item_orb_of_shadows:OnSpellStart()
 	end	
 	
 	if itemToUpgrade then
-		local reimbursement = itemToUpgrade:GetCost() * 2 ^ (itemToUpgrade:GetLevel() - 1)
+		local reimbursement = itemToUpgrade:GetCost() * 2 ^ (itemToUpgrade:GetLevel() - 1) - 1000
 		local GPM = caster:GetGold() + math.floor(reimbursement)
 		caster:SetGold( 0, false )
 		caster:SetGold( GPM, true )

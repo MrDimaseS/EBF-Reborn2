@@ -81,7 +81,7 @@ function modifier_warlock_fatal_bonds_handler:OnTakeDamage( params )
 	EmitSoundOn( "Hero_Warlock.FatalBondsDamage", parent )
 	for target, _ in pairs( self._unitsToRedirect ) do
 		if target ~= parent and not target:IsSameTeam( caster ) then
-			ability:DealDamage( caster, target, params.original_damage * self.damage_share_percentage, {damage_type = params.damage_type, damage_flags = params.damage_flags + DOTA_DAMAGE_FLAG_REFLECTION} )
+			ability:DealDamage( caster, target, params.original_damage * self.damage_share_percentage, {damage_type = params.damage_type, damage_flags = params.damage_flags + DOTA_DAMAGE_FLAG_REFLECTION + DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION } )
 			ParticleManager:FireRopeParticle("particles/units/heroes/hero_warlock/warlock_fatal_bonds_hit.vpcf", PATTACH_POINT_FOLLOW, parent, target )
 		end
 	end

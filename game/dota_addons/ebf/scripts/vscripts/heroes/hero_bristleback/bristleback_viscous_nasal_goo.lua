@@ -61,7 +61,16 @@ function bristleback_viscous_nasal_goo:OnProjectileHit(target, position)
     if modifier:GetStackCount() < stack_limit then
         modifier:IncrementStackCount()
     end
-
+	
+	local slip_chance = self:GetSpecialValueFor("slip_chance")
+	if slip_chance > 0 and self:RollPRNG( slip_chance ) then
+		local slip_base_duration = self:GetSpecialValueFor("slip_base_duration")
+		local slip_stack_duration = self:GetSpecialValueFor("slip_stack_duration")
+		local slip_duration = slip_base_duration + slip_stack_duration * modifier:GetStackCount()
+		
+		self:Disarm(target, slip_duration)
+	end
+	
     local warpath = caster:FindAbilityByName("bristleback_warpath")
     if IsEntitySafe(warpath) and warpath:IsTrained() then
         local damage_per_stack = warpath:GetSpecialValueFor("goo_damage_per_stack")
@@ -149,16 +158,15 @@ function modifier_bristleback_viscous_nasal_goo_debuff:GetStatusEffectName()
     return "particles/status_fx/status_effect_goo.vpcf"
 end
 function modifier_bristleback_viscous_nasal_goo_debuff:OnCreated()
-    self.base_armor = self:GetSpecialValueFor("base_armor")
-    self.armor_per_stack = self:GetSpecialValueFor("armor_per_stack")
-    self.base_move_slow = self:GetSpecialValueFor("base_move_slow")
-    self.move_slow_per_stack = self:GetSpecialValueFor("move_slow_per_stack")
+	self:OnRefresh()
 end
 function modifier_bristleback_viscous_nasal_goo_debuff:OnRefresh()
     self.base_armor = self:GetSpecialValueFor("base_armor")
     self.armor_per_stack = self:GetSpecialValueFor("armor_per_stack")
     self.base_move_slow = self:GetSpecialValueFor("base_move_slow")
     self.move_slow_per_stack = self:GetSpecialValueFor("move_slow_per_stack")
+    self.base_attack_damage_reduction = self:GetSpecialValueFor("base_attack_damage_reduction")
+    self.stack_attack_damage_reduction = self:GetSpecialValueFor("stack_attack_damage_reduction")
 end
 function modifier_bristleback_viscous_nasal_goo_debuff:OnDestroy()
     if self.effect then
@@ -174,7 +182,8 @@ end
 function modifier_bristleback_viscous_nasal_goo_debuff:DeclareFunctions()
     return {
         MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
-        MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE
+        MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE,
+		MODIFIER_PROPERTY_BASEDAMAGEOUTGOING_PERCENTAGE
     }
 end
 function modifier_bristleback_viscous_nasal_goo_debuff:GetModifierPhysicalArmorBonus()
@@ -182,4 +191,7 @@ function modifier_bristleback_viscous_nasal_goo_debuff:GetModifierPhysicalArmorB
 end
 function modifier_bristleback_viscous_nasal_goo_debuff:GetModifierMoveSpeedBonus_Percentage()
     return -(self.base_move_slow + self.move_slow_per_stack * (self:GetStackCount() - 1))
+end
+function modifier_bristleback_viscous_nasal_goo_debuff:GetModifierBaseDamageOutgoing_Percentage()
+    return -(self.base_attack_damage_reduction + self.stack_attack_damage_reduction * (self:GetStackCount() - 1))
 end

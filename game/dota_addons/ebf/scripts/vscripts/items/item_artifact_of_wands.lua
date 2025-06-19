@@ -33,7 +33,7 @@ function modifier_item_artifact_of_wands_passive:OnAbilityFullyCast( params )
 	end
 end
 
-function modifier_item_artifact_of_wands_buff:RemoveOnDeath()
+function modifier_item_artifact_of_wands_passive:RemoveOnDeath()
 	return false
 end
 

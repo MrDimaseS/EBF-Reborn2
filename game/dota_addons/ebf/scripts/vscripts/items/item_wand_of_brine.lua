@@ -8,6 +8,7 @@ function item_wand_of_brine:OnSpellStart()
 	local caster = self:GetCaster()
 	local target = self:GetCursorTarget()
 
+	caster:Dispel( caster, true )
 	target:RemoveModifierByName("modifier_item_wand_of_brine_active")
 	local buffDuration	 = self:GetSpecialValueFor("buff_duration")
 	target:AddNewModifier( caster, self, "modifier_item_wand_of_brine_active", {duration = buffDuration} )
@@ -24,7 +25,7 @@ function modifier_item_wand_of_brine_passive:OnCreated()
 end
 
 function modifier_item_wand_of_brine_passive:OnRefresh()
-	self.bonus_primary = self:GetSpecialValueFor("bonus_primary")
+	self.bonus_all = self:GetSpecialValueFor("bonus_all")
 end
 
 function modifier_item_wand_of_brine_passive:DeclareFunctions()
@@ -34,27 +35,15 @@ function modifier_item_wand_of_brine_passive:DeclareFunctions()
 end
 
 function modifier_item_wand_of_brine_passive:GetModifierBonusStats_Strength()
-	if self:GetParent():GetPrimaryAttribute() == DOTA_ATTRIBUTE_ALL then
-		return self.bonus_primary / 3
-	elseif self:GetParent():GetPrimaryAttribute() == DOTA_ATTRIBUTE_STRENGTH then
-		return self.bonus_primary
-	end
+	return self.bonus_all
 end
 
 function modifier_item_wand_of_brine_passive:GetModifierBonusStats_Agility()
-	if self:GetParent():GetPrimaryAttribute() == DOTA_ATTRIBUTE_ALL then
-		return self.bonus_primary / 3
-	elseif self:GetParent():GetPrimaryAttribute() == DOTA_ATTRIBUTE_AGILITY then
-		return self.bonus_primary
-	end
+	return self.bonus_all
 end
 
 function modifier_item_wand_of_brine_passive:GetModifierBonusStats_Intellect()
-	if self:GetParent():GetPrimaryAttribute() == DOTA_ATTRIBUTE_ALL then
-		return self.bonus_primary / 3
-	elseif self:GetParent():GetPrimaryAttribute() == DOTA_ATTRIBUTE_INTELLECT then
-		return self.bonus_primary
-	end
+	return self.bonus_all
 end
 
 modifier_item_wand_of_brine_active = class({})

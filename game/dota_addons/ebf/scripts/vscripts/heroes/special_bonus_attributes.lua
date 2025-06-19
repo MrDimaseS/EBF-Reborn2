@@ -171,6 +171,12 @@ function special_bonus_attributes:OnInventoryContentsChanged()
 							passive:Destroy()
 						end
 						item:UpgradeAbility( false )
+						if i > DOTA_ITEM_SLOT_6 then
+							local intrinsic = parent:FindModifierByNameAndAbility( item:GetIntrinsicModifierName(), item )
+							if intrinsic then
+								intrinsic:Destroy()
+							end
+						end
 						itemsMerged = true
 						EmitSoundOnClient("General.Combine", parent:GetPlayerOwner() )
 						-- item:RefreshIntrinsicModifier()

@@ -36,10 +36,9 @@ function _ScoreboardUpdater_UpdatePlayerPanel(scoreboardConfig, playersContainer
 		const netTable = CustomNetTables.GetTableValue("mmr", playerId.toString());
 		const playsTable = CustomNetTables.GetTableValue("plays", playerId.toString());
 		var rankMedal = playerPanel.FindChildInLayoutFile("RankMedal");
-		let rankMedalClass = "";
-		
 		$.Msg( netTable )
-		if (netTable != undefined && netTable.mmr != undefined && netTable?.mmr !== null && playsTable?.plays !== undefined && playsTable.plays > 10) {
+		let rankMedalClass = "";
+		if (netTable != undefined && netTable.mmr != undefined && netTable?.mmr !== null) {
 			rankMedalClass = "RankMedal" + MMRToRankMedal(netTable.mmr);
 		
 			rankMedal.SetPanelEvent("onmouseover", function() {
@@ -546,22 +545,11 @@ function MMRToRankMedal( mmr )
 	if ( mmr == undefined ){
 		return "0"
 	} else {
-		if( mmr < 650 ){
-			return "1"
-		} else if ( mmr < 1400 ){
-			return "2"
-		} else if ( mmr < 2150 ){
-			return "3"
-		} else if ( mmr < 2950 ){
-			return "4"
-		} else if ( mmr < 3700 ){
-			return "5"
-		} else if ( mmr < 4450 ){
-			return "6"
-		} else if ( mmr < 5450 ){
-			return "7"
+		let medal = Math.min( 9, 1 + Math.floor(mmr / 1000) )
+		if (medal == 9 ) {
+			return "8c_psd"
 		} else {
-			return "8"
+			return medal.toString()
 		}
 	}
 }

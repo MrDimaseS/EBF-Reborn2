@@ -183,7 +183,7 @@ function UpdatePlayer(teamPanel, playerId) {
 	var rankPosLabel = playerPanel.FindChildInLayoutFile("RankPos");
 
 	const heroTable = CustomNetTables.GetTableValue("mmr", playerId.toString());
-	const playsTable = CustomNetTables.GetTableValue("plays", playerId.toString());
+	// const playsTable = CustomNetTables.GetTableValue("plays", playerId.toString());
 	const steamIDData = CustomNetTables.GetTableValue("steamID", playerId.toString());
 	const steamID = steamIDData ? steamIDData.steamid : "";
 	const leaderboardTable = CustomNetTables.GetTableValue("game_state", "leaderboard_mmr");
@@ -192,11 +192,11 @@ function UpdatePlayer(teamPanel, playerId) {
 
 	if (heroMedal) {
 		$.Schedule(0.1, function() {
-		  if (heroTable && playsTable && playsTable.plays !== undefined && playsTable.plays > 10) {
+		  if (heroTable) {
 			const mmr = heroTable.mmr;
 			const playerInLeaderboard = leaderboardArray.some(item => item.steamID === steamID);
 
-			if (playerInLeaderboard && heroTable.mmr > 5420) {
+			if (playerInLeaderboard && heroTable.mmr > 9000) {
 			  const lb_playerRank = leaderboardArray.findIndex(item => item.steamID === steamID);
 			  if (lb_playerRank !== -1) {
 				const playerPosition = lb_playerRank + 1;
@@ -233,17 +233,6 @@ function UpdatePlayer(teamPanel, playerId) {
 			  heroMedalStars.SetImage(`file://{images}/hero_selection/star_${GetStarCount(mmr)}.png`);
 			  heroMedalStars.imageHasBeenSet = true;
 			}
-		  } else {
-			heroMedal.SetImage(`file://{images}/hero_selection/rank0.png`);
-			var calibrationGamesLeft = playsTable ? Math.max(0, 10 - playsTable.plays) : 10;
-			const calibrationTooltipText = calibrationGamesLeft === 0 ? "Calibration completed" : `Calibration games left: ${calibrationGamesLeft}`;
-			
-			heroMedal.SetPanelEvent("onmouseover", () => {
-			  $.DispatchEvent("DOTAShowTextTooltip", heroMedal, calibrationTooltipText);
-			});
-			heroMedal.SetPanelEvent("onmouseout", () => {
-			  $.DispatchEvent("DOTAHideTextTooltip");
-			});
 		  }
 		});
 	  }
@@ -291,59 +280,27 @@ function GetCurrentMMRForPlayer(playerId) {
 	}
 }
 
-function MMRToRankMedal(mmr) {
-	if (mmr == undefined) {
-		return "0";
+function MMRToRankMedal( mmr )
+{
+	if ( mmr == undefined ){
+		return "0"
 	} else {
-		if (mmr < 650) {
-			return "1";
-		} else if (mmr < 1400) {
-			return "2";
-		} else if (mmr < 2150) {
-			return "3";
-		} else if (mmr < 2950) {
-			return "4";
-		} else if (mmr < 3700) {
-			return "5";
-		} else if (mmr < 4450) {
-			return "6";
-		} else if (mmr < 5450) {
-			return "7";
+		let medal = Math.min( 9, 1 + Math.floor(mmr / 1000) )
+		if (medal == 9 ) {
+			return "8c_psd"
 		} else {
-			return "8";
+			return medal.toString()
 		}
 	}
 }
-
-
-
 
 function GetStarCount(mmr) {
 	if (mmr === undefined) {
 		return "0";
 	} else {
-		const thresholds = [
-			81.25, 162.5, 243.75, 325, 406.25, 487.5, 568.75, 650,
-			743.75, 837.5, 931.25, 1025, 1118.75, 1212.5, 1306.25, 1400,
-			1493.75, 1587.5, 1681.25, 1775, 1868.75, 1962.5, 2056.25, 2150,
-			2250, 2350, 2450, 2550, 2650, 2750, 2850, 2950,
-			3043.75, 3137.5, 3231.25, 3325, 3418.75, 3512.5, 3606.25, 3700,
-			3793.75, 3887.5, 3981.25, 4075, 4168.75, 4262.5, 4356.25, 4450,
-			4575, 4700, 4825, 4950, 5075, 5200, 5325, 5450,
-			5543.75, 5637.5, 5731.25, 5825, 5918.75, 6012.5, 6106.25, 9999
-		];
-
-		for (let i = 0; i < thresholds.length; i++) {
-			if (mmr < thresholds[i]) {
-				return (i % 8).toString();
-			}
-		}
-
-		return "0";
+		return Math.floor( 1 + (mmr % 1000) / 200 ).toString();
 	}
 }
-
-
 
 function UpdateTimer() {
 	var gameTime = Game.GetGameTime();

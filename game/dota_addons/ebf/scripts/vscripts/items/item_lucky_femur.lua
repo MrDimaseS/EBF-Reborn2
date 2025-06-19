@@ -72,7 +72,8 @@ function modifier_item_lucky_femur_debuff:DeclareFunctions()
 end
 
 function modifier_item_lucky_femur_debuff:GetModifierPercentageManacostStacking( params )
-	if params.ability == self:GetAbility() or IsClient() then
+	if params.ability == self:GetAbility() 
+	or (params.ability == nil and IsClient()) then
 		return -self:GetStackCount()
 	end
 end

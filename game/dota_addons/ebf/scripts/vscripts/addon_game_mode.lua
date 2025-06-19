@@ -251,7 +251,7 @@ function CHoldoutGameMode:InitGameMode()
 
 	GameRules:GetGameModeEntity():SetDamageFilter( Dynamic_Wrap( CHoldoutGameMode, "FilterDamage" ), self )
 	GameRules:GetGameModeEntity():SetAbilityTuningValueFilter( Dynamic_Wrap( CHoldoutGameMode, "FilterAbilityValues" ), self )
-	GameRules:GetGameModeEntity():SetHealingFilter( Dynamic_Wrap( CHoldoutGameMode, "FilterHealFilterHealing" ), self )
+	GameRules:GetGameModeEntity():SetHealingFilter( Dynamic_Wrap( CHoldoutGameMode, "FilterHealing" ), self )
 	GameRules:GetGameModeEntity():SetExecuteOrderFilter( Dynamic_Wrap( CHoldoutGameMode, "FilterOrders" ), self )
 	GameRules:GetGameModeEntity():SetModifyGoldFilter( Dynamic_Wrap( CHoldoutGameMode, "FilterGold" ), self )
 	GameRules:SetFilterMoreGold( true )
@@ -575,10 +575,14 @@ function CHoldoutGameMode:FilterHealing( filterTable )
 	
 	if not target_index then return true end
 	local target = EntIndexToHScript( target_index )
+	local healer = target 
+	if healer_index then
+		healer = EntIndexToHScript( healer_index )
+	end
 	filterTable["heal"] = math.min( filterTable["heal"], target:GetMaxHealth() )
 	local posAmp = 1
 	local negAmp = 1
-	for _, modifier in ipairs( modifierCaster:target() ) do
+	for _, modifier in ipairs( target:FindAllModifiers() ) do
 		if modifier.GetModifierPropertyRestorationAmplification then
 			local amp = modifier:GetModifierPropertyRestorationAmplification() / 100
 			if amp then
@@ -591,9 +595,8 @@ function CHoldoutGameMode:FilterHealing( filterTable )
 		end
 	end
 	filterTable["heal"] = filterTable["heal"] * posAmp * negAmp
-    if not healer_index then return true end
 	
-	local healer = EntIndexToHScript( healer_index )
+    if not healer_index then return true end
 	healer.damage_healed_ingame = (healer.damage_healed_ingame or 0) + filterTable["heal"]
 	
 	return true
@@ -1110,8 +1113,8 @@ function CHoldoutGameMode:OnConnectFull()
 					decoded = json.decode(result.Body)
 				end
 				
-				mmrTable[nPlayerID] = decoded.mmr or 3000
-				averageMMR = averageMMR + mmrTable[nPlayerID]
+				mmrTable[nPlayerID] = {mmr = decoded.mmr or 500, win = 0, loss = 0}
+				averageMMR = averageMMR + mmrTable[nPlayerID].mmr
 				
 				if decoded.plays then
 					CustomNetTables:SetTableValue("plays", tostring( nPlayerID ), {plays = decoded.plays})
@@ -1119,7 +1122,7 @@ function CHoldoutGameMode:OnConnectFull()
 				if decoded.wins then
 					CustomNetTables:SetTableValue("wins", tostring( nPlayerID ), {wins = decoded.wins})
 				end
-				CustomNetTables:SetTableValue("mmr", tostring( nPlayerID ), {mmr = mmrTable[nPlayerID]})
+				CustomNetTables:SetTableValue("mmr", tostring( nPlayerID ), mmrTable[nPlayerID])
 			end )
 			CustomNetTables:SetTableValue("steamid", tostring(nPlayerID), {steamid = PlayerResource:GetSteamID(nPlayerID)})
 		end
@@ -1458,19 +1461,15 @@ function CHoldoutGameMode:OnGameRulesStateChange()
 			-- all mmrs gotten
 			for nPlayerID = 0, DOTA_MAX_TEAM_PLAYERS-1 do
 				if PlayerResource:IsValidPlayerID( nPlayerID ) then
-					local playerMultiplier = 1 + ( self._MaxPlayers - HeroList:GetActiveHeroCount() ) * ( 50 / (self._MaxPlayers-1) ) / 100
 					local mmrPlayer = CustomNetTables:GetTableValue("mmr", tostring( nPlayerID ) ) or {}
-					local winMMR = math.floor( (15 + GameRules.gameDifficulty * 5) + 0.5 )
-					local lossMMR = (-2*winMMR) * ((#self._vRounds - self._nRoundNumber) / #self._vRounds)
+					local difficultyMultiplier = 1+(1 / 3)*(GameRules.gameDifficulty-1)
+					local winMMR = 0
 					
-					if not IsDedicatedServer() or GameRules:IsCheatMode() or IsInToolsMode() then
-						winMMR = 0
-						lossMMR = 0
-					end
-					
-					mmrPlayer.win = math.floor(winMMR*playerMultiplier + 0.5 )
-					mmrPlayer.loss = math.floor(lossMMR/playerMultiplier + 0.5 )
-					
+					-- if not IsDedicatedServer() or GameRules:IsCheatMode() or IsInToolsMode() then
+						-- winMMR = 0
+						-- lossMMR = 0
+					-- end
+					mmrPlayer.win = math.floor( winMMR + 0.5 ) * difficultyMultiplier
 					CustomNetTables:SetTableValue("mmr", tostring( nPlayerID ), mmrPlayer)
 			   end
 			end
@@ -1587,22 +1586,18 @@ function CHoldoutGameMode:OnThink()
 					
 					self._nRoundNumber = self._nRoundNumber + 1
 					GameRules._roundnumber = self._nRoundNumber
+					
 					for nPlayerID = 0, DOTA_MAX_TEAM_PLAYERS-1 do
 						if PlayerResource:GetTeam( nPlayerID ) == DOTA_TEAM_GOODGUYS then
 							if PlayerResource:HasSelectedHero( nPlayerID ) then
 								PlayerResource:SetCustomBuybackCost(nPlayerID, GameRules._roundnumber * 100)
-								local playerMultiplier = 1 + ( self._MaxPlayers - HeroList:GetActiveHeroCount() ) * ( 50 / (self._MaxPlayers-1) ) / 100
-								local winMMR = 15+GameRules.gameDifficulty*5
-								local lossMMR = winMMR * (-2) * ((#self._vRounds - self._nRoundNumber) / #self._vRounds)
-								local mmrTable = CustomNetTables:GetTableValue("mmr", tostring( nPlayerID ) ) or {}
-								if not IsDedicatedServer() or IsInToolsMode() or GameRules:IsCheatMode() then
-									mmrTable.win = 0
-									mmrTable.loss = 0
-								else
-									mmrTable.win = math.floor( winMMR * playerMultiplier + 0.5 )
-									mmrTable.loss = math.floor( lossMMR / playerMultiplier + 0.5 )
+								if (GameRules._roundnumber-1) % 5 == 0 then
+									local difficultyMultiplier = 1+(1 / 3)*(GameRules.gameDifficulty-1)
+									local winMMR = GameRules._roundnumber * difficultyMultiplier
+									local mmrTable = CustomNetTables:GetTableValue("mmr", tostring( nPlayerID ) ) or {}
+									mmrTable.win = winMMR
+									CustomNetTables:SetTableValue("mmr", tostring( nPlayerID ), mmrTable)
 								end
-								CustomNetTables:SetTableValue("mmr", tostring( nPlayerID ), mmrTable)
 							end
 						end
 					end
@@ -1789,12 +1784,10 @@ function CHoldoutGameMode:RegisterStatsForPlayer( playerID, bWon, bAbandon )
 	local AUTH_KEY = GetDedicatedServerKeyV3(statSettings.modID)
 	local SERVER_LOCATION = statSettings.serverLocation
 	
-	local playerMultiplier = 1 + ( self._MaxPlayers - HeroList:GetActiveHeroCount() ) * ( 50 / (self._MaxPlayers-1) ) / 100
-	local winMMR = 10+GameRules.gameDifficulty*5
-	local lossMMR = (-2*winMMR) * ((#self._vRounds - self._nRoundNumber) / #self._vRounds)
-	local winMMR = math.floor( winMMR*playerMultiplier + 0.5 )
-	local lossMMR = math.floor( lossMMR/playerMultiplier + 0.5 )
-	
+	local winMMR = math.floor(GameRules._roundnumber / 5) + TernaryOperator( 20, bWon, 0 )
+	local lossMMR = 30
+	local difficultyMultiplier = 1+(1 / 3)*(GameRules.gameDifficulty-1)
+	winMMR = winMMR * difficultyMultiplier
 	
 	local packageLocation = SERVER_LOCATION..AUTH_KEY.."/players/"..tostring(PlayerResource:GetSteamID(playerID))..'.json'
 	local getRequestPlayer = CreateHTTPRequestScriptVM( "GET", packageLocation)
@@ -1806,9 +1799,9 @@ function CHoldoutGameMode:RegisterStatsForPlayer( playerID, bWon, bAbandon )
 					if PlayerResource:GetConnectionState( nPlayerID ) == DOTA_CONNECTION_STATE_ABANDONED
 					or ( PlayerResource:GetConnectionState( nPlayerID ) == DOTA_CONNECTION_STATE_DISCONNECTED 
 					and PlayerResource.disconnect[nPlayerID] and PlayerResource.disconnect[nPlayerID] + 5*60 <= GameRules:GetGameTime() ) then
-						CustomNetTables:SetTableValue("mmr", tostring( nPlayerID ), {mmr = decoded.mmr, win = 0, loss = lossMMR*3 })
+						CustomNetTables:SetTableValue("mmr", tostring( nPlayerID ), {mmr = decoded.mmr, win = 0, loss = lossMMR })
 					else
-						CustomNetTables:SetTableValue("mmr", tostring( nPlayerID ), {mmr = decoded.mmr, win = winMMR, loss = lossMMR})
+						CustomNetTables:SetTableValue("mmr", tostring( nPlayerID ), {mmr = decoded.mmr, win = winMMR, loss = 0})
 					end
 				end
 			end
@@ -1839,20 +1832,14 @@ function CHoldoutGameMode:RegisterStatsForPlayer( playerID, bWon, bAbandon )
 		-- MMR
 		putData.mmr = decoded.mmr or 3000
 		if bAbandon then
-			putData.mmr = math.max( putData.mmr - 120, -1)
+			putData.mmr = math.max( putData.mmr - lossMMR, 0)
 			mmrTable.mmr = putData.mmr 
 			mmrTable.win = 0
-			mmrTable.loss = lossMMR * 3
+			mmrTable.loss = lossMMR
 		else
-			if bWon then
-				putData.mmr = putData.mmr + winMMR
-				mmrTable.mmr = putData.mmr 
-				mmrTable.loss = 0
-			else
-				putData.mmr = math.max( putData.mmr + lossMMR, 0 )
-				mmrTable.mmr = putData.mmr 
-				mmrTable.win = 0
-			end
+			putData.mmr = putData.mmr + winMMR
+			mmrTable.mmr = putData.mmr 
+			mmrTable.loss = 0
 		end
 		
 		local encoded = json.encode(putData)

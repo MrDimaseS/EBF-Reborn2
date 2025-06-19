@@ -28,6 +28,13 @@ function item_orb_of_shadows:OnSpellStart()
 		local newLevel = level + (itemToUpgrade:GetMaxLevel() - 5)
 		itemToUpgrade:SetLevel( newLevel )
 		
+		if itemToUpgrade:GetItemSlot() > DOTA_ITEM_SLOT_6 then
+			local intrinsic = parent:FindModifierByNameAndAbility( item:GetIntrinsicModifierName(), item )
+			if intrinsic then
+				intrinsic:Destroy()
+			end
+		end
+		
 		UTIL_Remove( self )
 		Timers:CreateTimer( function() caster:FindAbilityByName("special_bonus_attributes"):SendUpdatedInventoryContents({unit = caster:entindex()}) end )
 	end

@@ -44,7 +44,8 @@ function earth_spirit_boulder_smash:OnSpellStart()
     local caster = self:GetCaster()
 	local target = self.target
 	
-	if target:TriggerSpellAbsorb( caster ) then return end
+	caster:SetCursorCastTarget( target )
+	if not target:IsSameTeam( caster ) and target:TriggerSpellAbsorb( self ) then return end
 	
 	local remnantTarget = (target:GetName() == "npc_dota_earth_spirit_stone")
 	local remnantDistance = self:GetSpecialValueFor("rock_distance") 

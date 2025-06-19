@@ -1,16 +1,12 @@
-item_phylactery_2 = class({})
+item_phylactery = class({})
 
-function item_phylactery_2:ShouldUseResources()
+function item_phylactery:ShouldUseResources()
 	return true
 end
 
-function item_phylactery_2:GetIntrinsicModifierName()
+function item_phylactery:GetIntrinsicModifierName()
 	return "modifier_item_phylactery_passive"
 end
-
-item_phylactery_3 = class(item_phylactery_2)
-item_phylactery_4 = class(item_phylactery_2)
-item_phylactery_5 = class(item_phylactery_2)
 
 modifier_item_phylactery_passive = class({})
 LinkLuaModifier( "modifier_item_phylactery_passive", "items/item_phylactery.lua" ,LUA_MODIFIER_MOTION_NONE )
@@ -44,6 +40,7 @@ end
 
 function modifier_item_phylactery_passive:OnSpellAppliedSuccessfully( params )
 	local caster = self:GetCaster()
+	
 	if params.ability:GetCaster() ~= caster then return end
 	if not self:GetAbility():IsCooldownReady() then return end
 	if not params.target then return end

@@ -1,5 +1,9 @@
 void_spirit_resonant_pulse = class({})
 
+function void_spirit_resonant_pulse:GetIntrinsicModifierName()
+	return "modifier_void_spirit_resonant_pulse_handler"
+end
+
 function void_spirit_resonant_pulse:GetCastRange( target, position )
 	return self:GetSpecialValueFor("radius")
 end
@@ -24,10 +28,8 @@ function void_spirit_resonant_pulse:OnSpellStart()
 	local speed = self:GetSpecialValueFor("speed")
 	local returnSpeed = self:GetSpecialValueFor("return_projectile_speed")
 	
-	local scepter = caster:HasScepter()
-	local scepterDuration = self:GetSpecialValueFor("silence_duration_scepter")
-	
-	local talent = caster:HasTalent("special_bonus_unique_void_spirit_3")
+	local silenceDuration = self:GetSpecialValueFor("silence_duration")
+	local resonantPulseAttacks = self:GetSpecialValueFor("resonant_pulse_attacks") == 1
 	
 	local unitsHit = {}
 	local radiusGrowth = speed * 0.1
@@ -41,10 +43,10 @@ function void_spirit_resonant_pulse:OnSpellStart()
 				if enemy:IsConsideredHero() then
 					self:FireTrackingProjectile("", caster, returnSpeed)
 				end
-				if scepter then
-					self:Silence(enemy, scepterDuration)
+				if silenceDuration > 0 then
+					self:Silence(enemy, silenceDuration)
 				end
-				if talent then
+				if resonantPulseAttacks then
 					caster:PerformGenericAttack(enemy, true)
 				end
 			end
@@ -68,11 +70,34 @@ function void_spirit_resonant_pulse:OnProjectileHit()
 	buff:ForceRefresh()
 end
 
+modifier_void_spirit_resonant_pulse_handler = class(persistentModifier)
+LinkLuaModifier( "modifier_void_spirit_resonant_pulse_handler", "heroes/hero_void_spirit/void_spirit_resonant_pulse", LUA_MODIFIER_MOTION_NONE )
+
+function modifier_void_spirit_resonant_pulse_handler:OnCreated()
+	self.cast_cdr = self:GetSpecialValueFor("cast_cdr")
+end
+
+function modifier_void_spirit_resonant_pulse_handler:DeclareFunctions()
+	return {MODIFIER_EVENT_ON_ABILITY_FULLY_CAST}
+end
+
+function modifier_void_spirit_resonant_pulse_handler:OnAbilityFullyCast( params )
+	PrintAll( params )
+	if params.unit ~= self:GetParent() then return end
+	if params.ability:IsItem() then return end
+	local ability = self:GetAbility()
+	if params.ability == ability then return end
+	if ability:IsCooldownReady() then return end
+	ability:ModifyCooldown( -self.cast_cdr )
+end
+
 modifier_void_spirit_resonant_pulse_shield = class({})
 LinkLuaModifier( "modifier_void_spirit_resonant_pulse_shield", "heroes/hero_void_spirit/void_spirit_resonant_pulse", LUA_MODIFIER_MOTION_NONE )
 
 function modifier_void_spirit_resonant_pulse_shield:OnCreated()
 	self.damageBlock = self:GetSpecialValueFor("base_absorb_amount")
+	self.is_all_barrier = self:GetSpecialValueFor("is_all_barrier") == 1
+	self.bonus_attackspeed = self:GetSpecialValueFor("bonus_attackspeed")
 	if IsServer() then
 		local FX = ParticleManager:CreateParticle( "particles/units/heroes/hero_void_spirit/pulse/void_spirit_pulse_shield.vpcf", PATTACH_POINT_FOLLOW, self:GetCaster() )
 		ParticleManager:SetParticleControlEnt( FX, 0, self:GetCaster(), PATTACH_POINT_FOLLOW, "attach_hitloc", self:GetCaster():GetAbsOrigin(), true)
@@ -81,6 +106,14 @@ function modifier_void_spirit_resonant_pulse_shield:OnCreated()
 		self:AddEffect( FX )
 		
 		self:SetHasCustomTransmitterData(true)
+		self:StartIntervalThink( 0 )
+	end
+end
+
+function modifier_void_spirit_resonant_pulse_shield:OnIntervalThink()
+	local parent = self:GetParent()
+	if parent:IsInvulnerable() or parent:IsOutOfGame() then
+		self:SetDuration( self:GetRemainingTime() + FrameTime(), true )
 	end
 end
 
@@ -98,11 +131,31 @@ function modifier_void_spirit_resonant_pulse_shield:OnDestroy()
 end
 
 function modifier_void_spirit_resonant_pulse_shield:DeclareFunctions()
-	return {MODIFIER_PROPERTY_INCOMING_DAMAGE_CONSTANT}
+	return {MODIFIER_PROPERTY_INCOMING_DAMAGE_CONSTANT,
+			MODIFIER_PROPERTY_INCOMING_PHYSICAL_DAMAGE_CONSTANT,
+			MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT}
 end
 
+function modifier_void_spirit_resonant_pulse_shield:GetModifierAttackSpeedBonus_Constant()
+	return self.bonus_attackspeed
+end
+
+function modifier_void_spirit_resonant_pulse_shield:GetModifierIncomingPhysicalDamageConstant( params )
+	if self.is_all_barrier then return end
+	if IsServer() then
+		local barrier = math.min( self.damageBlock, math.max( self.damageBlock, params.damage ) )
+		self.damageBlock = self.damageBlock - params.damage
+		self:SendBuffRefreshToClients()
+		EmitSoundOn( "Hero_Antimage.Counterspell.Absorb", self:GetParent() )
+		if self.damageBlock <= 0 then self:Destroy() end
+		return -barrier
+	else
+		return self.damageBlock
+	end
+end
 
 function modifier_void_spirit_resonant_pulse_shield:GetModifierIncomingDamageConstant( params )
+	if not self.is_all_barrier then return end
 	if IsServer() then
 		local barrier = math.min( self.damageBlock, math.max( self.damageBlock, params.damage ) )
 		self.damageBlock = self.damageBlock - params.damage

@@ -878,6 +878,11 @@ function CDOTABaseAbility:ModifyCooldown(amt)
 	local currCD = self:GetCooldownTimeRemaining()
 	if amt < 0 and currCD == 0 then return end
 	self:EndCooldown()
+	if currCD + amt <= 0 then return end
+	
+	if self:GetMaxAbilityCharges( -1 ) > 0 and self:GetCurrentAbilityCharges() == 0 then
+		self:SetCurrentAbilityCharges( self:GetCurrentAbilityCharges() + 1 )
+	end
 	self:StartCooldown(currCD + amt)
 end
 
@@ -1372,7 +1377,10 @@ end
 
 function CDOTABaseAbility:Disarm(target, duration)
 	if not IsEntitySafe( target ) then return end
-	target:AddNewModifier(self:GetCaster(), self, "modifier_disarmed", {duration = duration})
+	local disarm = target:AddNewModifier(self:GetCaster(), self, "modifier_disarmed", {duration = duration})
+	local FX = ParticleManager:CreateParticle("particles/generic_gameplay/generic_disarm.vpcf", PATTACH_OVERHEAD_FOLLOW, target )
+	disarm:AddOverHeadEffect( FX )
+	return disarm
 end
 
 function CDOTABaseAbility:Stun(target, duration, effectName, effectData)
@@ -1397,7 +1405,10 @@ function CDOTABaseAbility:Stun(target, duration, effectName, effectData)
 end
 
 function CDOTABaseAbility:Silence(target, duration)
-	return target:AddNewModifier(self:GetCaster(), self, "modifier_silence", {duration = duration})
+	local silence = target:AddNewModifier(self:GetCaster(), self, "modifier_silence", {duration = duration})
+	local FX = ParticleManager:CreateParticle("particles/generic_gameplay/generic_silence.vpcf", PATTACH_OVERHEAD_FOLLOW, target )
+	silence:AddOverHeadEffect( FX )
+	return silence
 end
 
 function CDOTABaseAbility:FireLinearProjectile(FX, velocity, distance, width, data)

@@ -101,13 +101,24 @@ function modifier_phantom_assassin_immaterial_handler:OnAttack(params)
 end
 
 function modifier_phantom_assassin_immaterial_handler:OnAbilityFullyCast(params)
-	if self.no_casting_loss then return end
-	if params.unit ~= self:GetParent() then return end
-	if self._currentMode ~= IMMATERIAL_STATE_REDUCE then
-		self:StartIntervalThink( self.loss_delay )
-		self._currentMode = IMMATERIAL_STATE_REDUCE
-	end
-	self._lastTimePenalized = GameRules:GetGameTime()
+    if params.unit ~= self:GetParent() then return end
+    if params.ability:GetAbilityName() == "phantom_assassin_stifling_dagger" then
+        -- Reduce stacks by %
+        local new_stacks = math.floor(self:GetStackCount() * 0.6)
+        self:SetStackCount(new_stacks)
+        if self._currentMode ~= IMMATERIAL_STATE_REDUCE then
+            self:StartIntervalThink(self.loss_delay)
+            self._currentMode = IMMATERIAL_STATE_REDUCE
+        end
+        self._lastTimePenalized = GameRules:GetGameTime()
+        return
+    end
+    if self.no_casting_loss then return end
+    if self._currentMode ~= IMMATERIAL_STATE_REDUCE then
+        self:StartIntervalThink(self.loss_delay)
+        self._currentMode = IMMATERIAL_STATE_REDUCE
+    end
+    self._lastTimePenalized = GameRules:GetGameTime()
 end
 
 function modifier_phantom_assassin_immaterial_handler:GetModifierEvasion_Constant(params)

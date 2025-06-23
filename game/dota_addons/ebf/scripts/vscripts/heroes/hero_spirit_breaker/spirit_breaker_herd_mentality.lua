@@ -84,3 +84,23 @@ end
 function modifier_spirit_breaker_herd_mentality_ms:GetModifierMoveSpeedBonus_Percentage()
 	return self.bonus_ms_per_unit * self:GetStackCount()
 end
+
+function modifier_spirit_breaker_herd_mentality_ms:DeclareFunctions()
+	return {
+		MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE,
+		MODIFIER_PROPERTY_IGNORE_MOVESPEED_LIMIT,
+		MODIFIER_PROPERTY_MOVESPEED_LIMIT
+	}
+end
+
+function modifier_spirit_breaker_herd_mentality_ms:GetModifierMoveSpeedBonus_Percentage()
+	return self.bonus_ms_per_unit * self:GetStackCount()
+end
+
+function modifier_spirit_breaker_herd_mentality_ms:GetModifierIgnoreMovespeedLimit()
+	return 1
+end
+
+function modifier_spirit_breaker_herd_mentality_ms:GetModifierMoveSpeed_Limit()
+	return 3500
+end

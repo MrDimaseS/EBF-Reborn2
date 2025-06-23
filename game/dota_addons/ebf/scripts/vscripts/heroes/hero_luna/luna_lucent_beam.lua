@@ -62,17 +62,13 @@ function luna_lucent_beam:CastOn(target, duration_multiplier)
 
 		-- spiteshield
 		if heal ~= 0 then
-			if caster:GetHealthPercent() ~= 100 then
-				caster:HealEvent(heal, self, caster)
-			else
-				for _, ally in ipairs( caster:FindFriendlyUnitsInRadius( caster:GetAbsOrigin(), self:GetTrueCastRange(), {order = FIND_CLOSEST} ) ) do
-					if ally:GetHealthPercent() ~= 100 then
-						ally:HealEvent(heal, self, caster)
-						break
-					end
-				end
-			end
-		end
+    		caster:HealEvent(heal, self, caster)  
+    		for _, ally in ipairs( caster:FindFriendlyUnitsInRadius( caster:GetAbsOrigin(), self:GetTrueCastRange() ) ) do
+        	if ally ~= caster then
+            ally:HealEvent(heal, self, caster)
+        end
+    end
+end
 	end
 
 	-- particles

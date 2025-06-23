@@ -40,6 +40,13 @@ function void_spirit_dissimilate:OnSpellStart()
 	caster:Interrupt()
 	caster:Hold()
 	self:SetFrozenCooldown( true )
+	Timers:CreateTimer( function()
+		if caster:HasModifier("modifier_void_spirit_dissimilate_oow") then
+			return 0.01
+		else
+			self:SetFrozenCooldown( false )
+		end
+	end)
 	caster:AddNewModifier( caster, self, "modifier_void_spirit_dissimilate_oow", {duration = phaseDuration})
 	EmitSoundOn( "Hero_VoidSpirit.Dissimilate.Cast", caster )
 	
@@ -109,7 +116,7 @@ function modifier_void_spirit_dissimilate_oow:OnDestroy()
 		if portalData.active then
 			ability:PhaseIn( portalData.position )
 		end
-		ParticleManager:ClearParticle( portalFx )
+		ParticleManager:ClearParticle( portalFx, true )
 	end
 	ability:SetFrozenCooldown( false )
 end

@@ -1784,9 +1784,9 @@ function CHoldoutGameMode:RegisterStatsForPlayer( playerID, bWon, bAbandon )
 	local AUTH_KEY = GetDedicatedServerKeyV3(statSettings.modID)
 	local SERVER_LOCATION = statSettings.serverLocation
 	
-	local winMMR = math.floor(GameRules._roundnumber / 5) + TernaryOperator( 20, bWon, 0 )
+	local winMMR = math.floor(GameRules._roundnumber / 5) * 5 + TernaryOperator( 20, bWon, 0 )
 	local lossMMR = 30
-	local difficultyMultiplier = 1+(1 / 3)*(GameRules.gameDifficulty-1)
+	local difficultyMultiplier = math.ceil(1+(1 / 3)*(GameRules.gameDifficulty-1))
 	winMMR = winMMR * difficultyMultiplier
 	
 	local packageLocation = SERVER_LOCATION..AUTH_KEY.."/players/"..tostring(PlayerResource:GetSteamID(playerID))..'.json'
@@ -1830,7 +1830,7 @@ function CHoldoutGameMode:RegisterStatsForPlayer( playerID, bWon, bAbandon )
 		putData.wins = wins
 		
 		-- MMR
-		putData.mmr = decoded.mmr or 3000
+		putData.mmr = decoded.mmr or 500
 		if bAbandon then
 			putData.mmr = math.max( putData.mmr - lossMMR, 0)
 			mmrTable.mmr = putData.mmr 

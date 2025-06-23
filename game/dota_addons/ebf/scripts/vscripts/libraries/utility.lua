@@ -1378,9 +1378,11 @@ end
 function CDOTABaseAbility:Disarm(target, duration)
 	if not IsEntitySafe( target ) then return end
 	local disarm = target:AddNewModifier(self:GetCaster(), self, "modifier_disarmed", {duration = duration})
-	local FX = ParticleManager:CreateParticle("particles/generic_gameplay/generic_disarm.vpcf", PATTACH_OVERHEAD_FOLLOW, target )
-	disarm:AddOverHeadEffect( FX )
-	return disarm
+	if disarm then
+		local FX = ParticleManager:CreateParticle("particles/generic_gameplay/generic_disarm.vpcf", PATTACH_OVERHEAD_FOLLOW, target )
+		disarm:AddOverHeadEffect( FX )
+		return disarm
+	end
 end
 
 function CDOTABaseAbility:Stun(target, duration, effectName, effectData)

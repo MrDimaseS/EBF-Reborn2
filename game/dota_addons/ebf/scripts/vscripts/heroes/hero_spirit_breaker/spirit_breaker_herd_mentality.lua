@@ -79,13 +79,6 @@ function modifier_spirit_breaker_herd_mentality_ms:OnIntervalThink()
 end
 
 function modifier_spirit_breaker_herd_mentality_ms:DeclareFunctions()
-	return {MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE}
-end
-function modifier_spirit_breaker_herd_mentality_ms:GetModifierMoveSpeedBonus_Percentage()
-	return self.bonus_ms_per_unit * self:GetStackCount()
-end
-
-function modifier_spirit_breaker_herd_mentality_ms:DeclareFunctions()
 	return {
 		MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE,
 		MODIFIER_PROPERTY_IGNORE_MOVESPEED_LIMIT,

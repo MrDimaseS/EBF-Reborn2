@@ -43,7 +43,7 @@
 			}
 			"creep_death_cooldown_reduction"
 			{
-				"special_bonus_facet_doom_bringer_gluttony_and_sloth"	"25"
+				"special_bonus_facet_doom_bringer_gluttony_and_sloth"	"15"
 			}
 		}
 	}
@@ -90,20 +90,20 @@
 
 			"armor"
 			{
-				"special_bonus_facet_doom_bringer_pride_and_envy"		"3 4 5 6"
+				"special_bonus_facet_doom_bringer_pride_and_envy"		"6 9 12 15"
 			}
 			"magic_resist"
 			{
-				"special_bonus_facet_doom_bringer_pride_and_envy"		"8 10 12 14"
+				"special_bonus_facet_doom_bringer_pride_and_envy"		"12 15 18 21"
 			}
 			"attack_damage"
 			{
-				"special_bonus_facet_doom_bringer_wrath_and_greed"		"100 200 300 400"
+				"special_bonus_facet_doom_bringer_wrath_and_greed"		"200 400 600 800"
 				"CalculateSpellDamageTooltip"							"1"
 			}
 			"cleave"
 			{
-				"special_bonus_facet_doom_bringer_wrath_and_greed"		"50"
+				"special_bonus_facet_doom_bringer_wrath_and_greed"		"20 30 40 50"
 			}
 			"cleave_ending_width"
 			{
@@ -115,7 +115,7 @@
 			}
 			"mana_regen"
 			{
-				"special_bonus_facet_doom_bringer_gluttony_and_sloth"	"3 6 9 12"
+				"special_bonus_facet_doom_bringer_gluttony_and_sloth"	"6 10 14 18"
 			}
 			"cast_speed"
 			{
@@ -155,37 +155,37 @@
 		{
 			"damage_per_second"
 			{
-				"value"													"200 350 500 650"
+				"value"													"400 700 1000 1300"
 				"special_bonus_facet_doom_bringer_pride_and_envy"		"+50%"
 				"CalculateSpellDamageTooltip"							"1"
 			}
 			"radius"													"600"
 			"bonus_movement_speed_pct"
 			{
-				"value"													"7 8 9 10"
+				"value"													"7 10 13 16"
 				"special_bonus_unique_doom_bringer_3"					"+50%"
 				"special_bonus_unique_doom_6"							""	
 			}
-			"duration"													"10 12 14 16"
+			"duration"													"16"
 			"AbilityCooldown"
 			{
-				"value"													"41 39 37 35"
+				"value"													"35"
 				"special_bonus_unique_doom_bringer_5"					"-10"
 				"special_bonus_unique_doom_9"	""
 			}
 
 			"incoming_healing"
 			{
-				"special_bonus_facet_doom_bringer_pride_and_envy"		"7 8 9 10"
+				"special_bonus_facet_doom_bringer_pride_and_envy"		"7 9 11 13"
 				"special_bonus_unique_doom_bringer_3"					"+50%"
 			}
 			"attack_speed"
 			{
-				"special_bonus_facet_doom_bringer_wrath_and_greed"		"35 65 95 125"
+				"special_bonus_facet_doom_bringer_wrath_and_greed"		"35 70 105 140"
 			}
 			"attack_speed_slow"
 			{
-				"special_bonus_facet_doom_bringer_gluttony_and_sloth"	"40 50 60 70"
+				"special_bonus_facet_doom_bringer_gluttony_and_sloth"	"40 60 80 100"
 			}
 			"movement_slow"
 			{
@@ -218,28 +218,35 @@
 		"AbilityCastPoint"				"0"
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_3"
 
-		"AbilityCooldown"				"13 10 7 4"
+		
 		"AbilityManaCost"				"40"
 
 		"AbilityValues"
 		{
+			"AbilityCooldown"
+			{
+				"value"													"7 6 5 4"
+				"special_bonus_facet_doom_bringer_gluttony_and_sloth"	"=4.5 =3 =1.5 =0"
+			}
 			"burn_damage"
 			{
-				"value"													"200 300 400 500"
+				"value"													"400 600 800 1000"
 				"CalculateSpellDamageTooltip"							"1"
+				"special_bonus_facet_doom_bringer_pride_and_envy"		"+50%"
 			}
 			"burn_damage_pct"
 			{
-				"value"													"1 2 3 4"
-				"special_bonus_facet_doom_bringer_pride_and_envy"		"+1"
+				"value"													"4"
+				"special_bonus_facet_doom_bringer_pride_and_envy"		"+4"
 				"special_bonus_unique_doom_bringer_6"					"+35%"
 				"special_bonus_unique_doom_1" ""
 			}
 			"burn_duration"												"4.0"
 			"ministun_duration"
 			{
-				"value"													"0.6"
-				"special_bonus_unique_doom_bringer_2"					"+0.2"
+				"value"													"0.2"
+				"special_bonus_unique_doom_bringer_2"					"+100%"
+				"special_bonus_facet_doom_bringer_pride_and_envy"		"+0.8"
 				"special_bonus_unique_doom_4"							""	
 			}
 			"shard_radius"
@@ -280,10 +287,15 @@
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_6"
 
 		"AbilityManaCost"				"150 225 300"
-		"AbilityCooldown"				"140 130 120"
+		
 
 		"AbilityValues"
 		{
+			"AbilityCooldown"
+			{
+				"value"													"80 70 60"
+				"special_bonus_facet_doom_bringer_gluttony_and_sloth"	"-15"
+			}
 			"duration"				
 			{
 				"value"													"12 14 16"
@@ -291,7 +303,7 @@
 			}
 			"damage"
 			{
-				"value"													"300 500 700"
+				"value"													"1200 1800 2400"
 				"CalculateSpellDamageTooltip"							"1"
 			}
 			"does_mute"

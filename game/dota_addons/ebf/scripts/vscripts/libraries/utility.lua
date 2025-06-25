@@ -949,6 +949,10 @@ function CDOTA_BaseNPC:HealEvent(amount, sourceAb, healer, tParams)
 	healParams.heal_category = healParams.heal_category or TernaryOperator( DOTA_LIFESTEAL_SOURCE_ATTACK, healParams.heal_type == DOTA_HEAL_TYPE_LIFESTEAL, DOTA_LIFESTEAL_SOURCE_NONE )
 	
 	flAmount = flAmount * healBonus
+	if healParams.heal_type == DOTA_HEAL_TYPE_LIFESTEAL and healParams.target then
+		flAmount = flAmount * TernaryOperator( 1, healParams.target:IsConsideredHero(), TernaryOperator( 0.2, healParams.heal_category == DOTA_LIFESTEAL_SOURCE_ABILITY, 0.6 ) )
+	end
+	
 	local params = {amount = flAmount, source = sourceAb, unit = healer, target = self}
 	-- local units = self:FindAllUnitsInRadius(self:GetAbsOrigin(), -1)
 	

@@ -44,6 +44,12 @@ function modifier_pudge_rot_debuff:OnCreated( kv )
 	self.self_damage = self:GetSpecialValueFor( "self_damage" ) / 100
 	self.max_rot_power = self:GetSpecialValueFor( "max_rot_power" ) / 100
 	
+	self.linger_duration = self:GetSpecialValueFor( "linger_duration" )
+	self.base_fear = self:GetSpecialValueFor( "fear" )
+	self.fear = self.base_fear
+	self.rot_attack_damage = self:GetSpecialValueFor( "rot_attack_damage" )
+	self.meat_shield_rot_damage = self:GetSpecialValueFor( "meat_shield_rot_damage" )
+	
 	if IsServer() then
 		if self:GetParent() == self:GetCaster() then
 			self.damage_flags = DOTA_DAMAGE_FLAG_HPLOSS + DOTA_DAMAGE_FLAG_NON_LETHAL
@@ -71,14 +77,16 @@ end
 
 function modifier_pudge_rot_debuff:OnIntervalThink()
 	if IsServer() then
-		if not self:GetAbility():GetToggleState() then
+		local ability = self:GetAbility()
+		if notability :GetToggleState() then
 			self:Destroy()
 			return
 		end
 		local flDamagePerTick = self.rot_tick * self.rot_damage
 		
-		if self.max_rot_power > 0 and IsModifierSafe( self:GetCaster()._rotPowerModifier ) then
-			local rotPower = 1 + self.max_rot_power * self:GetCaster()._rotPowerModifier:GetStackCount() / 100
+		local caster = self:GetCaster()
+		if self.max_rot_power > 0 and IsModifierSafe( caster._rotPowerModifier ) then
+			local rotPower = 1 + self.max_rot_power * caster._rotPowerModifier:GetStackCount() / 100
 			flDamagePerTick = flDamagePerTick * rotPower
 			if self.self_rot and self.rot_radius ~= self.base_rot_radius * rotPower then
 				self.rot_radius = self.base_rot_radius * rotPower
@@ -88,10 +96,13 @@ function modifier_pudge_rot_debuff:OnIntervalThink()
 		if self.self_rot then
 			flDamagePerTick = flDamagePerTick * self.self_damage
 		end
-		if self:GetCaster():IsAlive() then
-			self:GetAbility():DealDamage( self:GetCaster(), self:GetParent(), flDamagePerTick, {damage_flags = self.damage_flags } )
+		local parent = self:GetParent()
+		if caster:IsAlive() then
+			ability:DealDamage( caster, parent, flDamagePerTick, {damage_flags = self.damage_flags } )
 		else
 			self:Destroy()
+		end
+		if self. parent == caster then
 		end
 	end
 end

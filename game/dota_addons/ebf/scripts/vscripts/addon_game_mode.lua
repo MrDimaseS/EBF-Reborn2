@@ -2295,9 +2295,24 @@ function CHoldoutGameMode:OnEntityKilled( event )
 	end
 	if killedUnit:IsNeutralUnitType() and attacker.GetPlayerID then
 		local killingPlayer = attacker:GetPlayerID()
+		local bounty = killedUnit:GetGoldBounty()
 		for _, hero in ipairs( HeroList:GetActiveHeroes() ) do
 			if hero:GetPlayerID() ~= killingPlayer then
-				hero:AddGold( killedUnit:GetGoldBounty() )
+				hero:AddGold( bounty )
+			end
+		end
+		if attacker:HasAbility( "bounty_hunter_big_game_hunter" ) then
+			
+			local hunter = attacker:FindAbilityByName("bounty_hunter_big_game_hunter")
+			local bountyBonus = hunter:GetSpecialValueFor("bonus_neutral_bounty") / 100
+			
+			local bonusBounty = bounty * bountyBonus
+			if bonusBounty > 0 then
+				Timers:CreateTimer( 0.25, function()
+					for _, hero in ipairs( HeroList:GetActiveHeroes() ) do
+						hero:AddGold( bonusBounty )
+					end
+				end)
 			end
 		end
 	end

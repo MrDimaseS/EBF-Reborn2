@@ -18,7 +18,11 @@ end
 
 function pudge_dismember:GetBehavior()
 	if self:GetSpecialValueFor("aoe_radius") > 0  then
-		return DOTA_ABILITY_BEHAVIOR_POINT + DOTA_ABILITY_BEHAVIOR_CHANNELLED + DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING + DOTA_ABILITY_BEHAVIOR_AOE
+		if self:GetSpecialValueFor("no_target") > 0 then
+			return DOTA_ABILITY_BEHAVIOR_NO_TARGET + DOTA_ABILITY_BEHAVIOR_CHANNELLED + DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING + DOTA_ABILITY_BEHAVIOR_AOE
+		else
+			return DOTA_ABILITY_BEHAVIOR_POINT + DOTA_ABILITY_BEHAVIOR_CHANNELLED + DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING + DOTA_ABILITY_BEHAVIOR_AOE
+		end
 	else
 		return DOTA_ABILITY_BEHAVIOR_UNIT_TARGET + DOTA_ABILITY_BEHAVIOR_CHANNELLED + DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING
 	end
@@ -28,19 +32,25 @@ function pudge_dismember:OnSpellStart()
 	local caster = self:GetCaster()
 	
 	local aoe_radius = self:GetSpecialValueFor("aoe_radius")
+	local no_target = self:GetSpecialValueFor("no_target") > 0 
 	local duration = self:GetSpecialValueFor("AbilityChannelTime")
 	self.targets = {}
 	if aoe_radius > 0 then
 		local position = self:GetCursorPosition()
+		if no_target then
+			position = caster:GetAbsOrigin()
+			aoe_radius = aoe_radius + self:GetTrueCastRange()
+		end
 		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( position, aoe_radius ) ) do
-			enemy:AddNewModifier( caster, self, "modifier_pudge_dismember_channeled", {duration = duration })
+			enemy:AddNewModifier( caster, self, "modifier_pudge_dismember_channeled", {duration = duration, ignoreStatusResist = true})
 			table.insert( self.targets, enemy )
 		end
 	else
 		local target = self:GetCursorTarget()
-		target:AddNewModifier( caster, self, "modifier_pudge_dismember_channeled", {duration = duration })
+		target:AddNewModifier( caster, self, "modifier_pudge_dismember_channeled", {duration = duration, ignoreStatusResist = true })
 		table.insert( self.targets, target )
 	end
+	caster:AddNewModifier( caster, self, "modifier_pudge_dismember_channeling", {duration = duration })
 end
 
 function pudge_dismember:OnChannelThink( dt )
@@ -51,10 +61,15 @@ function pudge_dismember:OnChannelThink( dt )
 	
 	local pullToPoint = caster:GetAbsOrigin() + caster:GetForwardVector() * pull_distance_limit
 	for _, enemy in ipairs( self.targets ) do
-		if enemy:HasModifier( "modifier_pudge_dismember_channeled" ) and CalculateDistance( enemy, caster ) > pull_distance_limit then
-			local direction = CalculateDirection( pullToPoint, enemy )
-			local newPosition = enemy:GetAbsOrigin() + direction * pull_units_per_second * dt
-			enemy:SetAbsOrigin( newPosition )
+		if enemy:HasModifier( "modifier_pudge_dismember_channeled" ) then
+			if CalculateDistance( enemy, caster ) > pull_distance_limit then
+				local direction = CalculateDirection( pullToPoint, enemy )
+				local newPosition = enemy:GetAbsOrigin() + direction * pull_units_per_second * dt
+				enemy:SetAbsOrigin( newPosition )
+			end
+		else
+			local elapsedTime = GameRules:GetGameTime() - self:GetChannelStartTime()
+			enemy:AddNewModifier( caster, self, "modifier_pudge_dismember_channeled", {duration = self:GetChannelTime() - elapsedTime } )
 		end
 	end
 end
@@ -181,16 +196,32 @@ LinkLuaModifier( "modifier_pudge_dismember_flesh_carver", "heroes/hero_pudge/pud
 
 function modifier_pudge_dismember_flesh_carver:OnCreated()
 	self:OnRefresh()
+	if IsServer() and self:GetParent() ~= self:GetCaster() then
+		self:OnIntervalThink(  )
+		self:StartIntervalThink( 0.2 )
+	end
 end
 
 function modifier_pudge_dismember_flesh_carver:OnRefresh(table)
 	self.gluttony_damage_bonus = self:GetSpecialValueFor("gluttony_damage_bonus")
+	self.is_aura = self:GetSpecialValueFor("buff_aura") > 0
 	if IsServer() then
 		self:AddIndependentStack()
-		self:GetParent():CalculateStatBonus( true )
 	end
 end
 
+function modifier_pudge_dismember_flesh_carver:OnIntervalThink()
+	local stackCount = 0
+	local auraOrigin = self:GetCaster():FindModifierByName("modifier_pudge_dismember_flesh_carver")
+	if auraOrigin then
+		stackCount = auraOrigin:GetStackCount()
+	end
+	if stackCount > 0 then
+		self:SetStackCount( stackCount )
+	else
+		self:Destroy()
+	end
+end
 
 function modifier_pudge_dismember_flesh_carver:DeclareFunctions()
 	local funcs = {
@@ -202,4 +233,75 @@ end
 
 function modifier_pudge_dismember_flesh_carver:GetModifierTotalDamageOutgoing_Percentage()
 	return self.gluttony_damage_bonus * self:GetStackCount()
+end
+
+function modifier_pudge_dismember_flesh_carver:IsAura()
+	return self.is_aura and self:GetCaster() == self:GetParent()
+end
+
+function modifier_pudge_dismember_flesh_carver:GetAuraEntityReject( entity )
+	return entity == self:GetCaster()
+end
+
+function modifier_pudge_dismember_flesh_carver:GetModifierAura()
+	return "modifier_pudge_dismember_flesh_carver"
+end
+
+function modifier_pudge_dismember_flesh_carver:GetAuraSearchTeam()
+	return DOTA_UNIT_TARGET_TEAM_FRIENDLY
+end
+
+function modifier_pudge_dismember_flesh_carver:GetAuraSearchType()
+	return DOTA_UNIT_TARGET_HERO
+end
+
+function modifier_pudge_dismember_flesh_carver:GetAuraRadius()
+	return 1200
+end
+
+function modifier_pudge_dismember_flesh_carver:GetAuraDuration()
+	return 0.5
+end
+
+modifier_pudge_dismember_channeling = class({})
+LinkLuaModifier( "modifier_pudge_dismember_channeling", "heroes/hero_pudge/pudge_dismember.lua" ,LUA_MODIFIER_MOTION_NONE )
+
+function modifier_pudge_dismember_channeling:OnCreated(table)
+	self.tick_interval = self:GetRemainingTime() / self:GetSpecialValueFor("ticks")
+	
+	self.debuff_immunity = self:GetSpecialValueFor("debuff_immunity") > 0
+	self.launch_hooks = self:GetSpecialValueFor("launch_hooks") > 0
+	if IsServer() then
+		if self.launch_hooks then
+			self._meatHook = self:GetCaster():FindAbilityByName( "pudge_meat_hook" )
+		end
+		self:StartIntervalThink( self.tick_interval )
+	end
+end
+
+function modifier_pudge_dismember_channeling:OnIntervalThink()
+	local caster = self:GetCaster()
+	if not self:GetCaster():IsChanneling() then
+		self:Destroy()
+		return
+	end
+	if self.launch_hooks and self._meatHook and self._meatHook:IsTrained() then
+		self._meatHook:LaunchHook( RandomVector(1):Normalized(), false )
+	end
+end
+
+function modifier_pudge_dismember_channeling:CheckState()
+	if self.debuff_immunity then
+		return {[MODIFIER_STATE_DEBUFF_IMMUNE] = true}
+	end
+end
+
+function modifier_pudge_dismember_channeling:GetEffectName()
+	if self.debuff_immunity then
+		return "particles/items5_fx/minotaur_horn.vpcf"
+	end
+end
+
+function modifier_pudge_dismember_channeling:IsHidden()
+	return true
 end

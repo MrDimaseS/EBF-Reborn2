@@ -580,3 +580,7 @@ function modifier_pudge_meat_hook_autocast:OnAttackFinished( params )
 	if not self:GetAbility():IsFullyCastable() then return end
 	params.attacker:CastAbilityOnPosition( params.target:GetAbsOrigin(), self:GetAbility(), params.attacker:GetPlayerOwnerID() )
 end
+
+function modifier_pudge_meat_hook_autocast:IsHidden()
+	return true
+end

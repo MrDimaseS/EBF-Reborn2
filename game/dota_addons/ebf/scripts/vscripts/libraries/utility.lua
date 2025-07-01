@@ -949,6 +949,10 @@ function CDOTA_BaseNPC:HealEvent(amount, sourceAb, healer, tParams)
 	healParams.heal_category = healParams.heal_category or TernaryOperator( DOTA_LIFESTEAL_SOURCE_ATTACK, healParams.heal_type == DOTA_HEAL_TYPE_LIFESTEAL, DOTA_LIFESTEAL_SOURCE_NONE )
 	
 	flAmount = flAmount * healBonus
+	if healParams.heal_type == DOTA_HEAL_TYPE_LIFESTEAL and healParams.target then
+		flAmount = flAmount * TernaryOperator( 1, healParams.target:IsConsideredHero(), TernaryOperator( 0.2, healParams.heal_category == DOTA_LIFESTEAL_SOURCE_ABILITY, 0.6 ) )
+	end
+	
 	local params = {amount = flAmount, source = sourceAb, unit = healer, target = self}
 	-- local units = self:FindAllUnitsInRadius(self:GetAbsOrigin(), -1)
 	
@@ -1378,9 +1382,11 @@ end
 function CDOTABaseAbility:Disarm(target, duration)
 	if not IsEntitySafe( target ) then return end
 	local disarm = target:AddNewModifier(self:GetCaster(), self, "modifier_disarmed", {duration = duration})
-	local FX = ParticleManager:CreateParticle("particles/generic_gameplay/generic_disarm.vpcf", PATTACH_OVERHEAD_FOLLOW, target )
-	disarm:AddOverHeadEffect( FX )
-	return disarm
+	if disarm then
+		local FX = ParticleManager:CreateParticle("particles/generic_gameplay/generic_disarm.vpcf", PATTACH_OVERHEAD_FOLLOW, target )
+		disarm:AddOverHeadEffect( FX )
+		return disarm
+	end
 end
 
 function CDOTABaseAbility:Stun(target, duration, effectName, effectData)

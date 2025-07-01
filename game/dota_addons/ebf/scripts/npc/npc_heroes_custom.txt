@@ -496,6 +496,16 @@
 	{
 		"override_hero"					"npc_dota_hero_pudge"
 		
+		
+		"Ability10"						"special_bonus_unique_pudge_minor_r"
+		"Ability11"						"special_bonus_unique_pudge_minor_l"
+		"Ability12"						"special_bonus_unique_pudge_major_r"
+		"Ability13"						"special_bonus_unique_pudge_major_l"
+		"Ability14"						"special_bonus_unique_pudge_greater_r"
+		"Ability15"						"special_bonus_unique_pudge_greater_l"
+		"Ability16"						"special_bonus_unique_pudge_synergy_r"
+		"Ability17"						"special_bonus_unique_pudge_synergy_l"
+		
 		"BaseTraits"					"brawler,vanguard,enforcer,arcane"
 		
 		"AttributeBaseStrength"			"120"
@@ -1648,14 +1658,21 @@
 	{
 		"override_hero"					"npc_dota_hero_bounty_hunter"
 		
-		"Ability10"						"special_bonus_unique_bounty_hunter_5"
-		"Ability11"						"special_bonus_unique_bounty_hunter_4"
-		"Ability12"						"special_bonus_unique_bounty_hunter_9"
-		"Ability13"						"special_bonus_unique_bounty_hunter_3"
-		"Ability14"						"special_bonus_unique_bounty_hunter_8"
-		"Ability15"						"special_bonus_unique_bounty_hunter"
-		"Ability16"						"special_bonus_unique_bounty_hunter_2"
-		"Ability17"						"special_bonus_unique_bounty_hunter_jinada_no_cooldown"
+		"Ability1"						"bounty_hunter_shuriken_toss"
+		"Ability2"						"bounty_hunter_jinada"
+		"Ability3"						"bounty_hunter_wind_walk"
+		"Ability4"						"generic_hidden"
+		"Ability5"						"bounty_hunter_big_game_hunter"
+		"Ability6"						"bounty_hunter_track"
+		
+		"Ability10"						"special_bonus_unique_bounty_hunter_minor_r"
+		"Ability11"						"special_bonus_unique_bounty_hunter_minor_l"
+		"Ability12"						"special_bonus_unique_bounty_hunter_major_r"
+		"Ability13"						"special_bonus_unique_bounty_hunter_major_l"
+		"Ability14"						"special_bonus_unique_bounty_hunter_greater_r"
+		"Ability15"						"special_bonus_unique_bounty_hunter_greater_l"
+		"Ability16"						"special_bonus_unique_bounty_hunter_synergy_r"
+		"Ability17"						"special_bonus_unique_bounty_hunter_synergy_l"
 		
 		"BaseTraits"					"commander,brawler,enforcer,martial,arcane"
 		
@@ -1665,6 +1682,34 @@
 		"AttributeAgilityGain"			"7.2"
 		"AttributeBaseIntelligence"		"90"
 		"AttributeIntelligenceGain"		"4.8"
+		
+		"Facets"
+		{
+			"bounty_hunter_shuriken" 	{"Deprecated"		"true"}
+			"bounty_hunter_mugging"		{"Deprecated"		"true"}
+			"bounty_hunter_tracker" 
+			{
+				"Icon"					"debuff"
+				"Color"					"Yellow"
+				"GradientID"			"1"
+				
+				"Abilities"
+				{
+					"Ability1"
+					{
+						"AbilityName"		"bounty_hunter_wind_walk_ally"
+						"AbilityIndex"		"3"
+						"AutoLevelAbility"	"false"
+					}
+				}
+			}
+			"bounty_hunter_specialist"
+			{
+				"Icon"					"armor_broken"
+				"Color"					"Red"
+				"GradientID"			"2"
+			}
+		}
 	}
 	"npc_dota_hero_weaver"
 	{

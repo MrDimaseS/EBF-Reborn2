@@ -82,7 +82,7 @@ function modifier_void_spirit_resonant_pulse_handler:DeclareFunctions()
 end
 
 function modifier_void_spirit_resonant_pulse_handler:OnAbilityFullyCast( params )
-	PrintAll( params )
+	if self.cast_cdr <= 0 then return end
 	if params.unit ~= self:GetParent() then return end
 	if params.ability:IsItem() then return end
 	local ability = self:GetAbility()

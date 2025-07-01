@@ -99,7 +99,7 @@
 				"special_bonus_unique_pudge_5"				"-4"
 			}
 			"cooldown_reduction_pct_allied_hook"			"50"
-			"self_stun_duration_percent"					"0"
+			"self_stun_duration_percent"					"0.5"
 			// facets
 			"bonus_armor"									{"special_bonus_facet_pudge_rotten_giant"	"3 5 7 9"}
 			"bonus_mr"										{"special_bonus_facet_pudge_rotten_giant"	"5 10 15 20"}
@@ -122,6 +122,40 @@
 				"special_bonus_facet_pudge_flesh_carver"	"10"
 				"CalculateSpellDamageTooltip"				"1"
 			}
+			
+			
+			"bonus_hooks"
+			{
+				"special_bonus_facet_pudge_rotten_giant"
+				{
+					"value"											"0"
+					"special_bonus_unique_pudge_minor_l"		"+7"
+				}
+			}
+			"bleed_max_hp"
+			{
+				"special_bonus_facet_pudge_flesh_carver"
+				{
+					"value"											"0"
+					"special_bonus_unique_pudge_minor_l"		"+0.5"
+				}
+			}
+			"lifesteal"
+			{
+				"special_bonus_facet_pudge_rotten_giant"
+				{
+					"value"											"0"
+					"special_bonus_unique_pudge_major_r"			"+100"
+				}
+			}
+			"mobility_bonus"
+			{
+				"special_bonus_facet_pudge_flesh_carver"
+				{
+					"value"											"0"
+					"special_bonus_unique_pudge_major_r"			"+50"
+				}
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -140,6 +174,13 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"FightRecapLevel"				"1"
 		"HasScepterUpgrade"				"0"
+		
+		
+		"precache"
+		{
+			"particle"					"particles/status_fx/status_effect_lone_druid_savage_roar.vpcf"
+			"particle"					"particles/units/heroes/hero_skeletonking/wraith_king_curse_overhead_skull.vpcf"
+		}
 		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -179,8 +220,19 @@
 				"CalculateSpellDamageTooltip"				"0"
 				"DamageTypeTooltip"							"DAMAGE_TYPE_PHYSICAL"
 			}
-			"time_for_max_stacks"							{"special_bonus_facet_pudge_flesh_carver"	"5.0"}
-			"time_for_decay"								{"special_bonus_facet_pudge_flesh_carver"	"1.0"}
+			"time_for_max_stacks"
+			{
+				"special_bonus_facet_pudge_flesh_carver"	
+				{
+					"value"											"5.0"
+					"special_bonus_unique_pudge_minor_r"			"x0.5"
+				}
+			}
+			"time_for_decay"
+			{
+				"special_bonus_facet_pudge_flesh_carver"			"1.0"
+					"special_bonus_unique_pudge_minor_r"			"+100%"
+			}
 			"max_rot_power"
 			{
 				"special_bonus_facet_pudge_rotten_giant"	"20 40 60 80"
@@ -188,6 +240,39 @@
 				"DamageTypeTooltip"							"DAMAGE_TYPE_MAGICAL"
 			}
 			"time_for_max_rot_stacks"						{"special_bonus_facet_pudge_rotten_giant"	"5.0"}
+			
+			"linger_duration"
+			{
+				"special_bonus_facet_pudge_rotten_giant"
+				{
+					"value"											"0"
+					"special_bonus_unique_pudge_minor_r"			"+2"
+				}
+			}
+			"fear"
+			{
+				"special_bonus_facet_pudge_rotten_giant"
+				{
+					"value"											"0"
+					"special_bonus_unique_pudge_greater_l"			"+2"
+				}
+			}
+			"rot_attack_damage"
+			{
+				"special_bonus_facet_pudge_flesh_carver"
+				{
+					"value"											"0"
+					"special_bonus_unique_pudge_greater_l"			"+100"
+				}
+			}
+			"meat_shield_rot_damage"
+			{
+				"special_bonus_facet_pudge_rotten_giant"
+				{
+					"value"											"0"
+					"special_bonus_unique_pudge_synergy_r"			"+100"
+				}
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -233,6 +318,31 @@
 			}
 			"bonus_ms"							{"special_bonus_facet_pudge_flesh_carver"	"10 15 20 25"}
 			"phased_movement"					{"special_bonus_facet_pudge_flesh_carver"	"1"}
+			
+			"status_resistance"
+			{
+				"special_bonus_facet_pudge_rotten_giant"
+				{
+					"value"											"0"
+					"special_bonus_unique_pudge_major_l"			"+50"
+				}
+			}
+			"invulnerability"
+			{
+				"special_bonus_facet_pudge_flesh_carver"
+				{
+					"value"											"0"
+					"special_bonus_unique_pudge_major_l"			"+1.5"
+				}
+			}
+			"strength_pct"
+			{
+				"special_bonus_facet_pudge_flesh_carver"
+				{
+					"value"											"0"
+					"special_bonus_unique_pudge_synergy_r"			"+50"
+				}
+			}
 		}
 		
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -320,118 +430,104 @@
 			}
 			"gluttony_damage_bonus"							{"special_bonus_facet_pudge_flesh_carver"	"2.5 5 7.5"}
 			"gluttony_damage_bonus_duration"				{"special_bonus_facet_pudge_flesh_carver"	"8"}
+			
+			"no_target"
+			{
+				"special_bonus_facet_pudge_rotten_giant"
+				{
+					"value"											"0"
+					"special_bonus_unique_pudge_greater_r"			"+1"
+				}
+			}
+			"debuff_immunity"
+			{
+				"special_bonus_facet_pudge_flesh_carver"
+				{
+					"value"											"0"
+					"special_bonus_unique_pudge_greater_r"			"+1"
+				}
+			}
+			"launch_hooks"
+			{
+				"special_bonus_facet_pudge_rotten_giant"
+				{
+					"value"											"0"
+					"special_bonus_unique_pudge_synergy_l"			"+1"
+				}
+			}
+			"buff_aura"
+			{
+				"special_bonus_facet_pudge_flesh_carver"
+				{
+					"value"											"0"
+					"special_bonus_unique_pudge_synergy_l"			"+1"
+				}
+			}
 		}
 	}
 	
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_pudge_1"
+	"special_bonus_unique_pudge_minor_l"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"ad_linked_abilities"			"pudge_flesh_heap"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-		
-		
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_pudge_2"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"						"FIELD_INTEGER"
-				"value"							"5000"
-				"ad_linked_abilities"			"pudge_rot"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_pudge_3"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"ad_linked_abilities"			"pudge_dismember"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-		
-		
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_pudge_4"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"value"				"-16"
-				"ad_linked_abilities"			"pudge_rot"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_pudge_5"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"	
 		"BaseClass"						"special_bonus_base"
 	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_pudge_6"
+	"special_bonus_unique_pudge_major_r"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"ad_linked_abilities"			"pudge_dismember"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-		
-		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"	
+		"BaseClass"						"special_bonus_base"
 	}
-
-	//=================================================================================================================
-	// Ability: Special Bonus
-	//=================================================================================================================
-	"special_bonus_unique_pudge_7"
+	"special_bonus_unique_pudge_major_l"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"	
+		"BaseClass"						"special_bonus_base"
+	}
+	"special_bonus_unique_pudge_major_r"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"	
+		"BaseClass"						"special_bonus_base"
+	}
+	"special_bonus_unique_pudge_greater_l"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"	
+		"BaseClass"						"special_bonus_base"
+	}
+	"special_bonus_unique_pudge_greater_r"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"	
+		"BaseClass"						"special_bonus_base"
+	}
+	"special_bonus_unique_pudge_synergy_l"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"	
+		"BaseClass"						"special_bonus_base"
+	}
+	"special_bonus_unique_pudge_synergy_r"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityType"					"ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"	
 		"BaseClass"						"special_bonus_base"
 	}
 }

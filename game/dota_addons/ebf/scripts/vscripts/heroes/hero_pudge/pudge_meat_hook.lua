@@ -40,30 +40,60 @@ function pudge_meat_hook:OnSpellStart()
 	-- unit identifier
 	local caster = self:GetCaster()
 	local point = self:GetCursorPosition()
+	-- calculate direction
+	local dir = CalculateDirection( point, caster )
+	dir.z = 0
+	local projectile_direction = dir:Normalized()
+	
+	self:LaunchHook( projectile_direction )
+	
+	local bonusHooks = self:GetSpecialValueFor( "bonus_hooks" )
+	if bonusHooks > 0 then
+		local angle = 360 / (bonusHooks+1)
+		for i = 1, bonusHooks do
+			local newDir = RotateVector2D( projectile_direction, ToRadians( angle * i ) )
+			self:LaunchHook( newDir, false )
+		end
+	end
+	
+	-- add self stun modifier
+	local projectile_distance = self:GetSpecialValueFor( "hook_distance" ) + caster:GetCastRangeBonus()
+	local projectile_speed = self:GetSpecialValueFor( "hook_speed" )
+	local self_stun_duration_percent = self:GetSpecialValueFor( "self_stun_duration_percent" ) / 100
 
+	local duration = (projectile_distance/projectile_speed) * self_stun_duration_percent
+	caster:AddNewModifier(
+		caster, -- player source
+		self, -- ability source
+		"modifier_pudge_meat_hook_self", -- modifier name
+		{ duration = duration } -- kv
+	)
+	
+	local buffDuration = self:GetSpecialValueFor("buff_linger_duration")
+	if buffDuration > 0 then
+		caster:AddNewModifier( caster, self, "modifier_pudge_meat_hook_rotten_giant", {duration = buffDuration} )
+	end
+end
+
+function pudge_meat_hook:LaunchHook( direction, bHitAllies )
+	local caster = self:GetCaster()
+	local origin = caster:GetAbsOrigin()
 	-- load data
 	local projectile_name = ""
 	local projectile_distance = self:GetSpecialValueFor( "hook_distance" ) + caster:GetCastRangeBonus()
 	local projectile_speed = self:GetSpecialValueFor( "hook_speed" )
 	local projectile_radius = self:GetSpecialValueFor( "hook_width" )
-	local self_stun_duration_percent = self:GetSpecialValueFor( "self_stun_duration_percent" ) / 100
 	local pierces_enemies = self:GetSpecialValueFor("pierces_enemies") == 1
-
-	-- calculate direction
-	local origin = caster:GetOrigin()
-	local dir = point - origin
-	dir.z = 0
-	local projectile_direction = dir:Normalized()
-
+	local hitAllies = not (bHitAllies == false)
 	-- calculate target
-	local target = origin + projectile_direction * projectile_distance
-
-	local hookDummy = caster:CreateDummy( caster:GetAbsOrigin() )
+	local target = origin + direction * projectile_distance
+	
+	local hookDummy = caster:CreateDummy( origin )
 	-- create projectiles
 	local info = {
 		Source = caster,
 		Ability = self,
-		vSpawnOrigin = caster:GetAbsOrigin(),
+		vSpawnOrigin = origin,
 	
 		bDeleteOnHit = not pierces_enemies,
 	
@@ -75,7 +105,7 @@ function pudge_meat_hook:OnSpellStart()
 		fDistance = projectile_distance,
 		fStartRadius = projectile_radius,
 		fEndRadius = projectile_radius,
-		vVelocity = projectile_direction * projectile_speed,
+		vVelocity = direction * projectile_speed,
 	}
 	local id = ProjectileManager:CreateLinearProjectile(info)
 
@@ -84,26 +114,13 @@ function pudge_meat_hook:OnSpellStart()
 	local data = {}
 	data.cast_location = origin
 	data.hook_dummy = hookDummy
+	data.hitAllies = hitAllies
 	self.projectiles[id] = data
-
-	-- add self stun modifier
-	local duration = (projectile_distance/projectile_speed) * self_stun_duration_percent
-	caster:AddNewModifier(
-		caster, -- player source
-		self, -- ability source
-		"modifier_pudge_meat_hook_self", -- modifier name
-		{ duration = duration } -- kv
-	)
 
 	-- play effects
 	self:PlayEffects( target, data )
 	
 	self:SetEffects2( data, hookDummy )
-	
-	local buffDuration = self:GetSpecialValueFor("buff_linger_duration")
-	if buffDuration > 0 then
-		caster:AddNewModifier( caster, self, "modifier_pudge_meat_hook_rotten_giant", {duration = buffDuration} )
-	end
 end
 
 --------------------------------------------------------------------------------
@@ -119,8 +136,8 @@ function pudge_meat_hook:OnProjectileThinkHandle( handle )
 	else
 		data.hook_dummy:SetAbsOrigin( ProjectileManager:GetLinearProjectileLocation( handle ) )
 	end
-	DebugDrawCircle(data.hook_dummy:GetAbsOrigin(), Vector(255,0,0), 1, 80, true, 0.5)
 end
+
 function pudge_meat_hook:OnProjectileHitHandle( target, location, handle )
 	local data = self.projectiles[handle]
 	local caster = self:GetCaster()
@@ -138,6 +155,8 @@ function pudge_meat_hook:OnProjectileHitHandle( target, location, handle )
 		self:SetEffects1( data )
 		self:SetCooldown( self:GetCooldownTimeRemaining() * self:GetSpecialValueFor("cooldown_reduction_pct_allied_hook") / 100 )
 		return true
+	elseif target:HasModifier("modifier_pudge_meat_hook_movement") then 
+		return -- units can only be hit by a single hook simultaneously
 	end
 
 	if target==caster then
@@ -149,6 +168,9 @@ function pudge_meat_hook:OnProjectileHitHandle( target, location, handle )
 			return false
 		end
 	end
+	if target:IsSameTeam( caster ) and not data.hitAllies then return end
+	
+	if target:HasModifier("modifier_pudge_meat_hook_movement") then return end -- units can only be hit by a single hook simultaneously
 	-- add drag modifier
 	target:RemoveModifierByName("modifier_pudge_meat_hook_movement")
 	local movement = target:AddNewModifier(
@@ -361,9 +383,10 @@ function modifier_pudge_meat_hook_movement:OnCreated( kv )
 	-- references
 	self.offset = 80
 	self.threshold = 200
-	self.speed = self:GetSpecialValueFor( "hook_speed" )
+	self.speed = self:GetSpecialValueFor( "hook_speed" ) * (1 + self:GetSpecialValueFor("mobility_bonus") / 100)
 	self.distance_to_travel = math.min( self:GetSpecialValueFor("hook_distance"), CalculateDistance( self.caster, self.parent ) + 64 )
 	self.distance_to_damage = self:GetSpecialValueFor( "distance_to_damage" ) / 100
+	self.lifesteal = self:GetSpecialValueFor( "lifesteal" ) / 100
 
 	if not IsServer() then return end
 	
@@ -409,6 +432,7 @@ end
 function modifier_pudge_meat_hook_movement:DeclareFunctions()
 	local funcs = {
 		MODIFIER_PROPERTY_OVERRIDE_ANIMATION,
+		MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE 
 	}
 
 	return funcs
@@ -418,6 +442,11 @@ function modifier_pudge_meat_hook_movement:GetOverrideAnimation()
 	return ACT_DOTA_FLAIL
 end
 
+function modifier_pudge_meat_hook_movement:GetModifierIncomingDamage_Percentage(params)
+	local caster = self:GetCaster()
+	if params.attacker ~= self:GetCaster() then return end
+	caster:HealEvent( params.damage * self.lifesteal, self:GetAbility(), caster, {heal_type = DOTA_HEAL_TYPE_LIFESTEAL, target = params.unit} )
+end
 --------------------------------------------------------------------------------
 -- Status Effects
 function modifier_pudge_meat_hook_movement:CheckState()
@@ -505,6 +534,20 @@ end
 function modifier_pudge_meat_hook_flesh_carver:OnRefresh()
 	self.armor_loss = -self:GetSpecialValueFor("armor_loss")
 	self.mr_loss = -self:GetSpecialValueFor("mr_loss")
+	self.bleed_max_hp = -self:GetSpecialValueFor("bleed_max_hp") / 100
+	self.tick = 0.5
+	if IsServer() and self.bleed_max_hp > 0 then
+		self:StartIntervalThink( self.tick )
+	end
+end
+
+function modifier_pudge_meat_hook_flesh_carver:OnIntervalThink()
+	local ability = self:GetAbility()
+	local caster = self:GetCaster()
+	local parent = self:GetParent()
+	
+	local damage = parent:GetMaxHealth() * self.bleed_max_hp * parent:GetMaxHealthDamageResistance()
+	ability:DealDamage( caster, parent, damage * self.tick, {damage_type = DAMAGE_TYPE_PURE, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION} )
 end
 
 function modifier_pudge_meat_hook_flesh_carver:DeclareFunctions()
@@ -536,4 +579,8 @@ function modifier_pudge_meat_hook_autocast:OnAttackFinished( params )
 	if not self:GetAbility():GetAutoCastState() then return end
 	if not self:GetAbility():IsFullyCastable() then return end
 	params.attacker:CastAbilityOnPosition( params.target:GetAbsOrigin(), self:GetAbility(), params.attacker:GetPlayerOwnerID() )
+end
+
+function modifier_pudge_meat_hook_autocast:IsHidden()
+	return true
 end

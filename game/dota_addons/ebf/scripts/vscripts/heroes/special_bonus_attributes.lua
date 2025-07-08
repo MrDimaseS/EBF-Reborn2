@@ -370,7 +370,7 @@ function modifier_special_bonus_attributes_stat_rescaling:OnTakeDamage(params)
 	
 	if params.damage_type == DAMAGE_TYPE_PURE then
 		local pureLifestealPct = 0
-		for modifier, active in pairs( params.target._pureLifestealTargetModifiersList ) do
+		for modifier, active in pairs( params.unit._pureLifestealTargetModifiersList or {} ) do
 			if IsModifierSafe( modifier ) then
 				if modifier.GetModifierProperty_PureLifestealTarget and (modifier:GetModifierProperty_PureLifestealTarget( params ) or 0) > 0 then
 					attackLifestealPct = attackLifestealPct + modifier:GetModifierProperty_PureLifestealTarget( params )
@@ -379,7 +379,7 @@ function modifier_special_bonus_attributes_stat_rescaling:OnTakeDamage(params)
 				self:GetCaster()._pureLifestealTargetModifiersList[modifier] = nil
 			end
 		end
-		for modifier, active in pairs( params.attacker._pureLifestealModifiersList ) do
+		for modifier, active in pairs( params.attacker._pureLifestealModifiersList or {} ) do
 			if IsModifierSafe( modifier ) then
 				if modifier.GetModifierProperty_PureLifesteal and (modifier:GetModifierProperty_PureLifesteal( params ) or 0) > 0 then
 					attackLifestealPct = attackLifestealPct + modifier:GetModifierProperty_PureLifesteal( params )
@@ -396,7 +396,7 @@ function modifier_special_bonus_attributes_stat_rescaling:OnTakeDamage(params)
 	elseif params.damage_category == DOTA_DAMAGE_CATEGORY_SPELL then
 		if HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL ) or HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_HPLOSS ) or HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_REFLECTION ) then return end
 		local spellLifestealPct = 0
-		for modifier, active in pairs( params.target._spellLifestealTargetModifiersList ) do
+		for modifier, active in pairs( params.unit._spellLifestealTargetModifiersList or {} ) do
 			if IsModifierSafe( modifier ) then
 				if modifier.GetModifierProperty_MagicalLifestealTarget and (modifier:GetModifierProperty_MagicalLifestealTarget( params ) or 0) > 0 then
 					spellLifestealPct = spellLifestealPct + modifier:GetModifierProperty_MagicalLifestealTarget( params )
@@ -406,7 +406,7 @@ function modifier_special_bonus_attributes_stat_rescaling:OnTakeDamage(params)
 			end
 		end
 		
-		for modifier, active in pairs( params.attacker._spellLifestealModifiersList ) do
+		for modifier, active in pairs( params.attacker._spellLifestealModifiersList or {} ) do
 			if IsModifierSafe( modifier ) then
 				if modifier.GetModifierProperty_MagicalLifesteal and (modifier:GetModifierProperty_MagicalLifesteal( params ) or 0) > 0 then
 					spellLifestealPct = spellLifestealPct + modifier:GetModifierProperty_MagicalLifesteal( params )
@@ -423,7 +423,7 @@ function modifier_special_bonus_attributes_stat_rescaling:OnTakeDamage(params)
 		self.lifeToGive = (self.lifeToGive or 0) + heal
 	elseif params.damage_category == DOTA_DAMAGE_CATEGORY_ATTACK then
 		local attackLifestealPct = 0
-		for modifier, active in pairs( params.target._attackLifestealTargetModifiersList ) do
+		for modifier, active in pairs( params.unit._attackLifestealTargetModifiersList or {} ) do
 			if IsModifierSafe( modifier ) then
 				if modifier.GetModifierProperty_PhysicalLifestealTarget and (modifier:GetModifierProperty_PhysicalLifestealTarget( params ) or 0) > 0 then
 					attackLifestealPct = attackLifestealPct + modifier:GetModifierProperty_PhysicalLifestealTarget( params )
@@ -432,7 +432,7 @@ function modifier_special_bonus_attributes_stat_rescaling:OnTakeDamage(params)
 				self:GetCaster()._attackLifestealTargetModifiersList[modifier] = nil
 			end
 		end
-		for modifier, active in pairs( params.attacker._attackLifestealModifiersList ) do
+		for modifier, active in pairs( params.attacker._attackLifestealModifiersList or {} ) do
 			if IsModifierSafe( modifier ) then
 				if modifier.GetModifierProperty_PhysicalLifesteal and (modifier:GetModifierProperty_PhysicalLifesteal( params ) or 0) > 0 then
 					attackLifestealPct = attackLifestealPct + modifier:GetModifierProperty_PhysicalLifesteal( params )
@@ -463,7 +463,7 @@ function modifier_special_bonus_attributes_stat_rescaling:OnTakeDamage(params)
 			ParticleManager:FireParticle( "particles/items3_fx/octarine_core_lifesteal.vpcf", PATTACH_POINT_FOLLOW, params.attacker )
 		end
 		SendOverheadEventMessage( params.attacker:GetPlayerOwner(), OVERHEAD_ALERT_HEAL, params.attacker, lifestealParams.heal, params.attacker:GetPlayerOwner() )
-		for modifier, active in pairs( self:GetCaster()._onLifestealModifiersList ) do
+		for modifier, active in pairs( self:GetCaster()._onLifestealModifiersList or {} ) do
 			if IsModifierSafe( modifier ) and modifier.OnLifesteal then
 				modifier:OnLifesteal( lifestealParams )
 			else

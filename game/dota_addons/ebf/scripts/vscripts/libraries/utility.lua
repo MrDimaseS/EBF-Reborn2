@@ -568,8 +568,11 @@ function CDOTA_BaseNPC:IsAtAngleWithEntity(attacker, flDesiredAngle)
 	return angleDiff <= flDesiredAngle / 2
 end
 	
-function CDOTA_BaseNPC:RefreshAllCooldowns(bItems)
-    local no_refresh_skill = {["arc_warden_tempest_double"] = true, ["dazzle_good_juju"] = true, ["item_refresher"] = true, ["item_ex_machina"] = true, }
+function CDOTA_BaseNPC:RefreshAllCooldowns(bItems, flExceptionList)
+    local no_refresh_skill = {["arc_warden_tempest_double"] = true, ["dazzle_good_juju"] = true, ["item_refresher"] = true, ["item_ex_machina"] = true }
+	for _, abilityName in ipairs( flExceptionList or {} ) do
+		no_refresh_skill[abilityName] = true
+	end
     for i = 0, self:GetAbilityCount() - 1 do
         local ability = self:GetAbilityByIndex( i )
         if ability and not no_refresh_skill[ability:GetAbilityName()] and ( ability.IsRefreshable == nil or ability:IsRefreshable() ) then
@@ -1415,6 +1418,13 @@ function CDOTABaseAbility:Silence(target, duration)
 	local FX = ParticleManager:CreateParticle("particles/generic_gameplay/generic_silence.vpcf", PATTACH_OVERHEAD_FOLLOW, target )
 	silence:AddOverHeadEffect( FX )
 	return silence
+end
+
+function CDOTABaseAbility:Break(target, duration)
+	local hBreak = target:AddNewModifier(self:GetCaster(), self, "modifier_break", {duration = duration})
+	local FX = ParticleManager:CreateParticle("particles/generic_gameplay/generic_break.vpcf", PATTACH_OVERHEAD_FOLLOW, target )
+	hBreak:AddOverHeadEffect( FX )
+	return hBreak
 end
 
 function CDOTABaseAbility:FireLinearProjectile(FX, velocity, distance, width, data)

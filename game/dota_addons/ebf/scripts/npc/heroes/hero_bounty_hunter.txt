@@ -66,7 +66,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityModifierSupportValue"	"0.1"	// just a mini stun
 
-		"HasScepterUpgrade"				"1"
+		"HasScepterUpgrade"				"0"
 			
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -91,11 +91,7 @@
 				"special_bonus_unique_bounty_hunter_5"				"+0.65"
 			}
 			"slow"													"100"		
-			"attack_slow"
-			{
-				"value"												"100"
-				"special_bonus_facet_bounty_hunter_tracker"			"+100"
-			}
+			"attack_slow"											{"special_bonus_facet_bounty_hunter_tracker"			"+200"}
 			"AbilityCastRange"
 			{
 				"value"												"375 425 475 525"
@@ -192,8 +188,9 @@
 					"special_bonus_unique_bounty_hunter_major_l"	"+1"
 				}
 			}
-			"bleed_max_hp_loss"							{"special_bonus_facet_bounty_hunter_specialist"	"0.5 0.75 1.0 1.25"}
-			"bleed_duration"							{"special_bonus_facet_bounty_hunter_specialist"	"3"}
+			"cc_duration"											{"special_bonus_facet_bounty_hunter_tracker"	"3"}
+			"bleed_max_hp_loss"										{"special_bonus_facet_bounty_hunter_specialist"	"0.5 0.75 1.0 1.25"}
+			"bleed_duration"										{"special_bonus_facet_bounty_hunter_specialist"	"3"}
 			"track_jinada_no_cd"
 			{
 				"special_bonus_facet_bounty_hunter_specialist"
@@ -269,8 +266,8 @@
 			{
 				"special_bonus_facet_bounty_hunter_tracker"
 				{
-					"value"											"0"
-					"special_bonus_unique_bounty_hunter_major_r"	"=2"
+					"value"											"1"
+					"special_bonus_unique_bounty_hunter_major_r"	"+1"
 				}
 			}
 			"guaranteed_headhunter"
@@ -343,7 +340,7 @@
 			}
 			"AbilityCooldown"										"18 17 16 15"
 			"AbilityChargeRestoreTime"								"18 17 16 15"
-			"armor_loss"											{"special_bonus_facet_bounty_hunter_tracker"	"6"}
+			"armor_loss"											{"special_bonus_facet_bounty_hunter_specialist"	"6"}
 			"damage_reduction_pct"
 			{
 				"special_bonus_facet_bounty_hunter_tracker"
@@ -365,8 +362,8 @@
 			{
 				"special_bonus_facet_bounty_hunter_tracker"
 				{
-					"value"											"0"
-					"special_bonus_unique_bounty_hunter_major_r"	"=2"
+					"value"											"1"
+					"special_bonus_unique_bounty_hunter_major_r"	"+1"
 				}
 			}
 			"guaranteed_headhunter"
@@ -453,13 +450,18 @@
 				"affected_by_aoe_increase"	"1"
 			}
 			"duration"									"25"
+			"invis_bonus_duration"
+			{
+				"value"									"0.2 0.4 0.6"
+				"special_bonus_facet_bounty_hunter_specialist"		"=0.4 =0.6 =1.2"
+			}
 			"bonus_move_speed_pct"						"16 20 24"
 			
 			
 			"ally_lifesteal"							{"special_bonus_facet_bounty_hunter_tracker"	"10 20 30"}
 			"self_damage_amp"
 			{
-				"special_bonus_facet_bounty_hunter_tracker"
+				"special_bonus_facet_bounty_hunter_specialist"
 				{
 					"value"											"16 24 32"
 					"special_bonus_unique_bounty_hunter_greater_l"	"+8"

@@ -12,6 +12,13 @@ function bounty_hunter_big_game_hunter:GetIntrinsicModifierName()
 	return "modifier_bounty_hunter_big_game_hunter_handler"
 end
 
+function bounty_hunter_big_game_hunter:IncrementStackCount()
+	local passive = self:GetCaster():FindModifierByName( self:GetIntrinsicModifierName() )
+	if passive then
+		passive:IncrementStackCount()
+	end
+end
+
 modifier_bounty_hunter_big_game_hunter_handler = class({})
 LinkLuaModifier( "modifier_bounty_hunter_big_game_hunter_handler", "heroes/hero_bounty_hunter/bounty_hunter_big_game_hunter.lua",LUA_MODIFIER_MOTION_NONE )
 
@@ -30,7 +37,8 @@ end
 function modifier_bounty_hunter_big_game_hunter_handler:DeclareFunctions()
     local funcs = {
 		MODIFIER_PROPERTY_TOTALDAMAGEOUTGOING_PERCENTAGE,
-		MODIFIER_PROPERTY_PREATTACK_CRITICALSTRIKE
+		MODIFIER_PROPERTY_PREATTACK_CRITICALSTRIKE,
+		MODIFIER_PROPERTY_TOOLTIP
     }
     return funcs
 end
@@ -41,12 +49,24 @@ function modifier_bounty_hunter_big_game_hunter_handler:GetModifierTotalDamageOu
 	end
 end
 
-function modifier_item_crit_passive:GetModifierPreAttack_CriticalStrike()
-	if self:RollPRNG( self.headhunter_crit_chance ) then
+function modifier_bounty_hunter_big_game_hunter_handler:GetModifierPreAttack_CriticalStrike()
+	local headhunterGuaranteed = self:GetParent():HasModifier("modifier_bounty_hunter_wind_walk_headhunter")
+	if self:RollPRNG( self.headhunter_crit_chance ) or headhunterGuaranteed then
+		if headhunterGuaranteed then
+			self:IncrementStackCount()
+		end
 		return self.headhunter_base_crit_damage + self.headhunter_stack_crit_damage * self:GetStackCount()
 	end
 end
 
-function modifier_item_crit_passive:GetCritDamage()
+function modifier_bounty_hunter_big_game_hunter_handler:GetCritDamage()
 	return (self.headhunter_base_crit_damage + self.headhunter_stack_crit_damage * self:GetStackCount()) / 100
+end
+
+function modifier_bounty_hunter_big_game_hunter_handler:OnTooltip()
+	return self:GetCritDamage() * 100
+end
+
+function modifier_bounty_hunter_big_game_hunter_handler:IsHidden()
+	return self.headhunter_crit_chance <= 0
 end

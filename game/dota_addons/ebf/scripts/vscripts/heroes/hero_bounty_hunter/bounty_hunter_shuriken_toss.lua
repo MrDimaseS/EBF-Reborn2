@@ -18,11 +18,12 @@ function bounty_hunter_shuriken_toss:OnSpellStart()
 	local projectile = self:TossShuriken(target, caster)
 end
 
-function bounty_hunter_shuriken_toss:TossShuriken(target, source)
+function bounty_hunter_shuriken_toss:TossShuriken(target, source, lesser)
 	local caster = self:GetCaster()
 	local hSource = source or caster
-	local projectile = self:FireTrackingProjectile( "particles/units/heroes/hero_bounty_hunter/bounty_hunter_suriken_toss.vpcf", target, self:GetSpecialValueFor("speed"), {source = hSource, origin = hSource:GetAbsOrigin()}, TernaryOperator( DOTA_PROJECTILE_ATTACHMENT_ATTACK_1, caster == source, DOTA_PROJECTILE_ATTACHMENT_HITLOCATION) )
+	local projectile = self:FireTrackingProjectile( TernaryOperator("particles/units/heroes/hero_bounty_hunter/bounty_hunter_lesser_suriken_toss.vpcf", lesser, "particles/units/heroes/hero_bounty_hunter/bounty_hunter_suriken_toss.vpcf"), target, self:GetSpecialValueFor("speed"), {source = hSource, origin = hSource:GetAbsOrigin()}, TernaryOperator( DOTA_PROJECTILE_ATTACHMENT_ATTACK_1, caster == source, DOTA_PROJECTILE_ATTACHMENT_HITLOCATION) )
 	self.projectiles[projectile] = {targets = {}}
+	self.projectiles[projectile].lesser = lesser or false
 	return projectile
 end
 
@@ -62,17 +63,20 @@ function bounty_hunter_shuriken_toss:OnProjectileHitHandle( target, position, pr
 		local radius = self:GetSpecialValueFor("bounce_aoe")
 		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( target:GetAbsOrigin(), radius ) ) do
 			if not self.projectiles[projectile].targets[enemy:entindex()] and enemy:HasModifier("modifier_bounty_hunter_track") then
-				local newProj = self:TossShuriken(enemy, damage)
+				local newProj = self:TossShuriken(enemy, target)
 				self.projectiles[newProj] = table.copy( self.projectiles[projectile] )
 				break
 			end
 		end
 		
-		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( target:GetAbsOrigin(), self:GetTrueCastRange() ) ) do
-			if enemy ~= target then
-				local newProj = self:TossShuriken(enemy, damage)
-				self.projectiles[newProj].lesser = true
-				break
+		local splits = self:GetSpecialValueFor("shurikens_splits")
+		if splits > 0 then
+			for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( target:GetAbsOrigin(), self:GetTrueCastRange() ) ) do
+				if splits <= 0 then break end
+				if enemy ~= target then
+					local newProj = self:TossShuriken(enemy, target, true)
+					splits = splits - 1
+				end
 			end
 		end
 		self.projectiles[projectile] = nil
@@ -81,15 +85,15 @@ end
 
 
 modifier_bounty_hunter_shuriken_toss_maim = class({})
-LinkLuaModifier("modifier_bounty_hunter_shuriken_toss_maim", "heroes/hero_bounty_hunter/bounty_hunter_jinada", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_bounty_hunter_shuriken_toss_maim", "heroes/hero_bounty_hunter/bounty_hunter_shuriken_toss", LUA_MODIFIER_MOTION_NONE)
 
 function modifier_bounty_hunter_shuriken_toss_maim:OnCreated()
 	self.slow = self:GetSpecialValueFor("slow")
 	self.attack_slow = self:GetSpecialValueFor("attack_slow")
-	self.improved_shuriken_debuff = self:GetSpecialValueFor("improved_shuriken_debuff")
+	self.improved_shuriken_debuff = self:GetSpecialValueFor("improved_shuriken_debuff") == 1
 end
 
-function modifier_bounty_hunter_shuriken_toss_maim:DeclareFunctions()	
+function modifier_bounty_hunter_shuriken_toss_maim:CheckState()
 	if self.improved_shuriken_debuff then
 		return {[MODIFIER_STATE_ROOTED] = true,
 				[MODIFIER_STATE_DISARMED] = true}

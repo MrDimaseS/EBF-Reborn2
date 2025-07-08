@@ -490,7 +490,11 @@ function CHoldoutGameMode:FilterOrders( filterTable )
 		end
 	end
 	if orderType == DOTA_UNIT_ORDER_SELL_ITEM and ability then
-		unit._soldItemData = {name=ability:GetAbilityName(), level=ability:GetLevel()}
+		if ability:GetAbilityName() ~= "item_tome_of_knowledge" then -- ts works with levels
+			unit._soldItemData = {name=ability:GetAbilityName(), level=ability:GetLevel()}
+		else
+			unit._soldItemData = nil
+		end
 	end
 	if orderType == DOTA_UNIT_ORDER_PURCHASE_ITEM then
 		-- i guess we remake shopping
@@ -541,6 +545,7 @@ function CHoldoutGameMode:FilterGold( filterTable )
 	if hero then
 		if filterTable.reason_const == DOTA_ModifyGold_SellItem then
 			if hero._soldItemData then
+				print( hero._soldItemData.name, hero._soldItemData.level )
 				filterTable.gold = startGold * 2 ^ (hero._soldItemData.level-1)
 			end
 			return true
@@ -1593,7 +1598,7 @@ function CHoldoutGameMode:OnThink()
 								PlayerResource:SetCustomBuybackCost(nPlayerID, GameRules._roundnumber * 100)
 								if (GameRules._roundnumber-1) % 5 == 0 then
 									local difficultyMultiplier = 1+(1 / 3)*(GameRules.gameDifficulty-1)
-									local winMMR = GameRules._roundnumber * difficultyMultiplier
+									local winMMR = (math.floor( GameRules._roundnumber/5 ) * 5) * difficultyMultiplier
 									local mmrTable = CustomNetTables:GetTableValue("mmr", tostring( nPlayerID ) ) or {}
 									mmrTable.win = winMMR
 									CustomNetTables:SetTableValue("mmr", tostring( nPlayerID ), mmrTable)
@@ -1846,8 +1851,9 @@ function CHoldoutGameMode:RegisterStatsForPlayer( playerID, bWon, bAbandon )
 		local putRequest = CreateHTTPRequestScriptVM( "PUT", packageLocation)
 		putRequest:SetHTTPRequestRawPostBody("application/json", encoded)
 		putRequest:Send( function( result )
-			CustomNetTables:SetTableValue("mmr", tostring( playerID ), mmrTable)
+			print( "send confirmed" )
 		end )
+		CustomNetTables:SetTableValue("mmr", tostring( playerID ), mmrTable)
 	end )
 end
 

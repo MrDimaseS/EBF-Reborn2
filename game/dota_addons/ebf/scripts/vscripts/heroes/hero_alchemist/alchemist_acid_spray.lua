@@ -91,6 +91,10 @@ end
 modifier_alchemist_acid_spray_aura = class({})
 LinkLuaModifier( "modifier_alchemist_acid_spray_aura", "heroes/hero_alchemist/alchemist_acid_spray", LUA_MODIFIER_MOTION_NONE )
 
+function modifier_alchemist_acid_spray_aura:GetAttributes()
+    return MODIFIER_ATTRIBUTE_MULTIPLE  -- This allows stacking of multiple instances
+end
+
 function modifier_alchemist_acid_spray_aura:IsHidden()
     return false
 end
@@ -192,6 +196,10 @@ end
 
 modifier_alchemist_acid_spray_panacea_aura = class({})
 LinkLuaModifier( "modifier_alchemist_acid_spray_panacea_aura", "heroes/hero_alchemist/alchemist_acid_spray", LUA_MODIFIER_MOTION_NONE )
+
+function modifier_alchemist_acid_spray_panacea_aura:GetAttributes()
+    return MODIFIER_ATTRIBUTE_MULTIPLE
+end
 
 function modifier_alchemist_acid_spray_panacea_aura:IsHidden()
     return false

@@ -40,7 +40,6 @@ function _ScoreboardUpdater_UpdatePlayerPanel(scoreboardConfig, playersContainer
 		let rankMedalClass = "";
 		if (netTable != undefined && netTable.mmr != undefined && netTable?.mmr !== null) {
 			rankMedalClass = "RankMedal" + MMRToRankMedal(netTable.mmr);
-		
 			rankMedal.SetPanelEvent("onmouseover", function() {
 				$.DispatchEvent("DOTAShowTextTooltip", rankMedal, ("MMR: ") + GetCurrentMMRForPlayer(playerId));
 			});
@@ -545,11 +544,7 @@ function MMRToRankMedal( mmr )
 	if ( mmr == undefined ){
 		return "0"
 	} else {
-		let medal = Math.min( 9, 1 + Math.floor(mmr / 1000) )
-		if (medal == 9 ) {
-			return "8c_psd"
-		} else {
-			return medal.toString()
-		}
+		let medal = Math.min( 8, 1 + Math.floor(mmr / 1000) )
+		return medal.toString()
 	}
 }

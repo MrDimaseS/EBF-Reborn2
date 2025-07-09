@@ -9,6 +9,13 @@ function item_blood_gem:OnSpellStart()
 	caster:AddNewModifier( caster, self, "modifier_item_blood_gem_active", {duration = self:GetSpecialValueFor("duration")} )
 end
 
+function item_blood_gem:AddFalseBarrier( amount )
+	local caster = self:GetCaster()
+	local barrier = math.max( 0, math.min( caster:GetMaxHealth() * self:GetSpecialValueFor("overheal_maximum") / 100, self._internalAbilityModifier.barrier_block + amount ) )
+	self._internalAbilityModifier.barrier_block = barrier
+	self._internalAbilityModifier:SendBuffRefreshToClients()
+end
+
 item_blood_gem_2 = class(item_blood_gem)
 item_blood_gem_3 = class(item_blood_gem)
 item_blood_gem_4 = class(item_blood_gem)
@@ -19,16 +26,46 @@ LinkLuaModifier( "modifier_item_blood_gem_active", "items/item_blood_gem.lua" ,L
 
 function modifier_item_blood_gem_active:OnCreated()
 	if IsClient() then return end
+	self:OnRefresh()
+	
 	local nFX = ParticleManager:CreateParticle("particles/econ/items/wisp/wisp_overcharge_ti7.vpcf", PATTACH_POINT_FOLLOW, self:GetParent() )
 	ParticleManager:SetParticleControlEnt(nFX, 0, self:GetParent(), PATTACH_POINT_FOLLOW, "attach_hitloc", self:GetParent():GetAbsOrigin(), true)
 	self:AddEffect( nFX )
+	
+	self._passiveModifier = self:GetParent():FindModifierByNameAndAbility( self:GetAbility():GetIntrinsicModifierName(), self:GetAbility() )
 end
 
-modifier_item_blood_gem_passive = class({})
+function modifier_item_blood_gem_active:OnRefresh()
+	self.spell_lifesteal = self:GetSpecialValueFor("spell_lifesteal") / 100
+	self.lifesteal_percent = self:GetSpecialValueFor("lifesteal_percent") / 100
+	self.link_radius = self:GetSpecialValueFor("link_radius")
+end
+
+function modifier_item_blood_gem_active:DeclareFunctions(params)
+	local funcs = {
+		MODIFIER_EVENT_ON_TAKEDAMAGE,
+    }
+    return funcs
+end
+
+function modifier_item_blood_gem_active:OnTakeDamage( params )
+	if HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_HPLOSS ) then return end
+	if HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_REFLECTION ) then return end
+	if HasBit( params.damage_category, DOTA_DAMAGE_CATEGORY_BARRIER ) then return end
+	if CalculateDistance( params.unit, self:GetCaster() ) > self.link_radius then return end
+	if params.damage <= 0 then return end
+	
+	local barrier = params.damage * TernaryOperator( self.spell_lifesteal, HasBit( params.damage_category, DOTA_DAMAGE_CATEGORY_SPELL ), self.lifesteal_percent )
+	print( params.damage, barrier )
+	self:GetAbility():AddFalseBarrier( barrier )
+end
+
+modifier_item_blood_gem_passive = class(persistentModifier)
 LinkLuaModifier( "modifier_item_blood_gem_passive", "items/item_blood_gem.lua" ,LUA_MODIFIER_MOTION_NONE )
 
 function modifier_item_blood_gem_passive:OnCreated()
 	self.barrier_block = 0
+	self:GetAbility()._internalAbilityModifier = self
 	if IsServer() then self:SetHasCustomTransmitterData(true) end
 	self:OnRefresh()
 end
@@ -54,7 +91,6 @@ end
 
 function modifier_item_blood_gem_passive:DeclareFunctions(params)
 	local funcs = {
-		MODIFIER_EVENT_ON_TAKEDAMAGE,
 		MODIFIER_PROPERTY_INCOMING_DAMAGE_CONSTANT,
 		MODIFIER_PROPERTY_HEALTH_BONUS,
 		MODIFIER_PROPERTY_MANA_BONUS,
@@ -74,8 +110,7 @@ function modifier_item_blood_gem_passive:GetModifierIncomingDamageConstant( para
 	if (self.barrier_block or 0) <= 0 then return end
 	if IsServer() then
 		local barrier_block = math.min( self.barrier_block, params.damage )
-		self.barrier_block = math.max( 0, self.barrier_block - barrier_block )
-		self:SendBuffRefreshToClients()
+		self:GetAbility():AddFalseBarrier( -barrier_block )
 		return -barrier_block
 	else
 		return self.barrier_block

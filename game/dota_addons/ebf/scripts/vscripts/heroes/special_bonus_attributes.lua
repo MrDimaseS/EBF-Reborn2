@@ -456,13 +456,15 @@ function modifier_special_bonus_attributes_stat_rescaling:OnTakeDamage(params)
 		lifestealParams.excess = lifestealParams.excess + math.max( 0, self.lifeToGive - realHeal )
 		self.lifeToGive = self.lifeToGive - math.floor(self.lifeToGive)
 	end
-	if lifestealParams.heal > 0 then
-		if lifestealParams.damage_category == DOTA_DAMAGE_CATEGORY_ATTACK then
-			ParticleManager:FireParticle( "particles/generic_gameplay/generic_lifesteal.vpcf", PATTACH_POINT_FOLLOW, params.attacker )
-		elseif lifestealParams.damage_category == DOTA_DAMAGE_CATEGORY_SPELL then
-			ParticleManager:FireParticle( "particles/items3_fx/octarine_core_lifesteal.vpcf", PATTACH_POINT_FOLLOW, params.attacker )
+	if lifestealParams.heal + lifestealParams.excess > 0 then
+		if lifestealParams.heal > 0 then
+			if lifestealParams.damage_category == DOTA_DAMAGE_CATEGORY_ATTACK then
+				ParticleManager:FireParticle( "particles/generic_gameplay/generic_lifesteal.vpcf", PATTACH_POINT_FOLLOW, params.attacker )
+			elseif lifestealParams.damage_category == DOTA_DAMAGE_CATEGORY_SPELL then
+				ParticleManager:FireParticle( "particles/items3_fx/octarine_core_lifesteal.vpcf", PATTACH_POINT_FOLLOW, params.attacker )
+			end
+			SendOverheadEventMessage( params.attacker:GetPlayerOwner(), OVERHEAD_ALERT_HEAL, params.attacker, lifestealParams.heal, params.attacker:GetPlayerOwner() )
 		end
-		SendOverheadEventMessage( params.attacker:GetPlayerOwner(), OVERHEAD_ALERT_HEAL, params.attacker, lifestealParams.heal, params.attacker:GetPlayerOwner() )
 		for modifier, active in pairs( self:GetCaster()._onLifestealModifiersList or {} ) do
 			if IsModifierSafe( modifier ) and modifier.OnLifesteal then
 				modifier:OnLifesteal( lifestealParams )

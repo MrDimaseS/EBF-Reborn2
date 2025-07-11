@@ -16,9 +16,6 @@ function bounty_hunter_wind_walk:OnSpellStart()
 	if refreshCDs then
 		caster:RefreshAllCooldowns( true, {"bounty_hunter_wind_walk", "bounty_hunter_wind_walk_ally"} )
 	end
-	if guaranteedHeadhunter then
-		caster:AddNewModifier(caster, self, "modifier_bounty_hunter_wind_walk_headhunter", {Duration = duration})
-	end
 	if shurikenTossAOE > 0 then
 		local shurikenToss = caster:FindAbilityByName("bounty_hunter_shuriken_toss")
 		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( target:GetAbsOrigin(), shurikenTossAOE ) ) do
@@ -27,6 +24,9 @@ function bounty_hunter_wind_walk:OnSpellStart()
 	end
 	
 	Timers:CreateTimer(fadeTime, function()
+		if guaranteedHeadhunter then
+			caster:AddNewModifier(caster, self, "modifier_bounty_hunter_wind_walk_headhunter", {Duration = duration})
+		end
 		target:AddNewModifier(caster, self, "modifier_bounty_hunter_wind_walk_effect", {Duration = duration})
 	end)
 	
@@ -36,6 +36,22 @@ bounty_hunter_wind_walk_ally = class(bounty_hunter_wind_walk)
 
 modifier_bounty_hunter_wind_walk_headhunter = class({})
 LinkLuaModifier( "modifier_bounty_hunter_wind_walk_headhunter", "heroes/hero_bounty_hunter/bounty_hunter_wind_walk.lua" ,LUA_MODIFIER_MOTION_NONE )
+
+function modifier_bounty_hunter_wind_walk_headhunter:DeclareFunctions()
+    return {MODIFIER_EVENT_ON_ATTACK}
+end
+
+function modifier_bounty_hunter_wind_walk_headhunter:OnAttack(params)
+	if IsServer() then
+		if params.attacker == self:GetParent() then
+			local gameHunter = params.attacker:FindAbilityByName("bounty_hunter_big_game_hunter")
+			if gameHunter and gameHunter:IsTrained() then
+				gameHunter:IncrementStackCount()
+				self:Destroy()
+			end
+		end
+	end
+end
 
 modifier_bounty_hunter_wind_walk_specialist = class({})
 LinkLuaModifier( "modifier_bounty_hunter_wind_walk_specialist", "heroes/hero_bounty_hunter/bounty_hunter_wind_walk.lua" ,LUA_MODIFIER_MOTION_NONE )
@@ -47,7 +63,6 @@ end
 function modifier_bounty_hunter_wind_walk_specialist:OnRefresh(table)
     self.armor_loss = -self:GetSpecialValueFor("armor_loss")
 end
-
 
 function modifier_bounty_hunter_wind_walk_specialist:DeclareFunctions()
     return {MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS}

@@ -38,6 +38,7 @@ function modifier_bounty_hunter_big_game_hunter_handler:DeclareFunctions()
     local funcs = {
 		MODIFIER_PROPERTY_TOTALDAMAGEOUTGOING_PERCENTAGE,
 		MODIFIER_PROPERTY_PREATTACK_CRITICALSTRIKE,
+		MODIFIER_EVENT_ON_DEATH,
 		MODIFIER_PROPERTY_TOOLTIP
     }
     return funcs
@@ -49,12 +50,14 @@ function modifier_bounty_hunter_big_game_hunter_handler:GetModifierTotalDamageOu
 	end
 end
 
+function modifier_bounty_hunter_big_game_hunter_handler:OnDeath(params)
+	if not ( params.attacker == self:GetParent() or params.unit:HasModifier("modifier_bounty_hunter_track_debuff_mark") ) then return end
+    self:IncrementStackCount()
+end
+
 function modifier_bounty_hunter_big_game_hunter_handler:GetModifierPreAttack_CriticalStrike()
 	local headhunterGuaranteed = self:GetParent():HasModifier("modifier_bounty_hunter_wind_walk_headhunter")
 	if self:RollPRNG( self.headhunter_crit_chance ) or headhunterGuaranteed then
-		if headhunterGuaranteed then
-			self:IncrementStackCount()
-		end
 		return self.headhunter_base_crit_damage + self.headhunter_stack_crit_damage * self:GetStackCount()
 	end
 end

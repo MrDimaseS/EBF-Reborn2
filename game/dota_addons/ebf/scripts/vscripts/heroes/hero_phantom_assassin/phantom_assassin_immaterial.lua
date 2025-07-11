@@ -75,7 +75,8 @@ function modifier_phantom_assassin_immaterial_handler:OnDestroy()
 end
 
 function modifier_phantom_assassin_immaterial_handler:CheckState()
-	if self.invisibility_threshold and self.invisibility_threshold > 0 and (self:GetParent():GetEvasion()*100 >= self.invisibility_threshold) then
+	if self.invisibility_threshold and self.invisibility_threshold > 0 and (self:GetParent():GetEvasion()*100 >= self.invisibility_threshold) and
+	not self:GetParent():IsAttacking() then
 		return {[MODIFIER_STATE_INVISIBLE] = true}
 	end
 end

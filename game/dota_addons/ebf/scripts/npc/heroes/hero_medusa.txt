@@ -11,6 +11,8 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"		
 		"AbilitySound"					"Hero_Medusa.ManaShield.On"
 
+		"DependentOnAbility"			"medusa_stone_gaze"
+
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastPoint"							"0.4 0.4 0.4 0.4"
@@ -19,11 +21,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"damage_per_mana"						"12"
+			"damage_per_mana"						"5 15 25 35"
 			"damage_per_mana_per_level"				"2.0"
 			"illusion_percentage"					"60"
 
-			"absorption_pct"						"98"
+			"absorption_pct"						"85"
 			"damage_per_mana_total"
 			{
 				"dynamic_value"			"true"
@@ -126,17 +128,17 @@
 		{
 			"damage_modifier"		
 			{
-				"value"		"-50 -40 -30 -20"
+				"value"		"-30"
 				"special_bonus_unique_medusa_2"	"+8"
 			}
 			"damage_modifier_tooltip"		
 			{	
-				"value"			"50 60 70 80"
+				"value"			"70"
 				"special_bonus_unique_medusa_2"	"+8"
 			}		
 			"arrow_count"
 			{
-				"value"						"4"
+				"value"						"1 2 3 4"
 				"special_bonus_scepter"		"+1"
 			}	
 			"process_procs"
@@ -179,7 +181,7 @@
 				"value"									"15 14 13 12"
 				"special_bonus_unique_medusa_5"			"-3"
 			}
-			"AbilityManaCost"							"80 100 120 140"
+			"AbilityManaCost"							"80 60 40 20"
 			"radius"							
 			{
 				"value"									"450"
@@ -197,7 +199,7 @@
 				"special_bonus_unique_medusa_snake_damage"	"+15%"
 				"CalculateSpellDamageTooltip"				"1"
 			}
-			"snake_mana_steal"							"14 15 16 17"
+			"snake_mana_steal"							"14 18 22 26"
 			"snake_scale"								"35"
 			"initial_speed"								"800"
 			"return_speed"								"800"
@@ -207,17 +209,18 @@
 			"max_attacks"					
 			{
 				"value"									"0"
-				"special_bonus_facet_medusa_engorged"	"+3"
+				"special_bonus_facet_medusa_engorged"	"+10"
+				"CalculateAttackDamageTooltip"			"1"
 			}
 			"mana_per_damage"					
 			{
 				"value"									"0"
-				"special_bonus_facet_medusa_engorged"	"+6"
+				"special_bonus_facet_medusa_engorged"	"+1"
 			}
 			"attack_buff_duration"	
 			{
 				"value"									"0"
-				"special_bonus_facet_medusa_engorged"	"+5"
+				"special_bonus_facet_medusa_engorged"	"+20"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -244,7 +247,7 @@
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"40 60 80 100"
-		"AbilityCooldown"				"30 27 24 21"
+		"AbilityCooldown"				"18 17 16 15"
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
@@ -276,7 +279,7 @@
 				"special_bonus_special_bonus_unique_medusa_gorgons_grasp_volleys"			"1"
 			}
 
-			"duration"							"0.8 1.2 1.6 2.0"
+			"duration"							"1.6 2.0 2.4 2.8"
 			"damage"
 			{
 				"value"							"300 700 1100 1500"
@@ -319,7 +322,7 @@
 			"AbilityCastRange"					"1200"
 			"AbilityCooldown"					
 			{
-				"value"							"90"
+				"value"							"60"
 				"special_bonus_unique_medusa_stone_gaze_cooldown"							"-50%"
 			}
 			"AbilityManaCost"				

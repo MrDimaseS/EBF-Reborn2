@@ -51,6 +51,7 @@ function modifier_bounty_hunter_big_game_hunter_handler:GetModifierTotalDamageOu
 end
 
 function modifier_bounty_hunter_big_game_hunter_handler:OnDeath(params)
+	if not params.unit:IsConsideredHero() then return end
 	if not ( params.attacker == self:GetParent() or params.unit:HasModifier("modifier_bounty_hunter_track_debuff_mark") ) then return end
     self:IncrementStackCount()
 end

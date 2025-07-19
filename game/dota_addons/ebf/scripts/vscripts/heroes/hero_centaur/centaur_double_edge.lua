@@ -59,8 +59,7 @@ function centaur_double_edge:OnSpellStart()
 			if ally == caster then
 				caster:HealEvent(final_enemy_damage * enemies_hit * self_lifesteal, self, caster, false)
 			else
-				ally:HealEvent(final_enemy_damage * enemies_hit * allied_lifesteal_enemy_damage, self, caster, false)
-				ally:HealEvent(final_self_damage * allied_lifesteal_self_damage, self, caster, false)
+				ally:HealEvent(final_enemy_damage * enemies_hit * allied_lifesteal_enemy_damage + final_self_damage * allied_lifesteal_self_damage, self, caster, false)
 			end
 		end
 	end

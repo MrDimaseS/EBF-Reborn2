@@ -255,16 +255,18 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Ability.XMarksTheSpot.Target"
-		"MaxLevel"						"1"
+		"MaxLevel"						"3"
 		"LevelsBetweenUpgrades"			"1"
 		"InnateAbility"					"1"
+
+		"DependentOnAbility"			"kunkka_ghostship"
 		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -273,7 +275,7 @@
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"30 24 18 12"
+		"AbilityCooldown"				"12"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -283,8 +285,8 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"					"4.0"
-			"allied_duration"			"8.0"
+			"duration"					"4.0 6.0 8.0"
+			"allied_duration"			"8.0 12.0 16.0"
 			"fow_range"					"400"
 			"fow_duration"				"5.94"
 			"ally_ms"	
@@ -342,14 +344,21 @@
 			}		
 			"stun_duration"				"1.2"
 			"ghostship_speed"			"650"
-			"ghostship_absorb"			"60"
+			"ghostship_absorb"
+			{
+				"value"					"25"
+				"special_bonus_unique_kunkka_ghostship_absorb"		"+15"
+			}
 			"AbilityCooldown"				
 			{
 				"value"					"90 80 70"
 				"special_bonus_unique_kunkka_ghostship_cooldown"	"-15"
 			}
-			"AbilityDamage"					"3500 4750 6000"
-			
+			"AbilityDamage"
+			{
+				"value"							"3500 4750 6000"
+				"CalculateSpellDamageTooltip"	"1"
+			}
 			"fleet_interval"
 			{
 				"special_bonus_scepter"		"2.5"

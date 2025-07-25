@@ -13,7 +13,7 @@ function item_paintball:OnSpellStart()
 	local target = self:GetCursorPosition()
 	
 	local dummy = caster:CreateDummy(target)
-	self:FireTrackingProjectile("particles/items2_fx/paintball.vpcf", dummy, 900)
+	self:FireTrackingProjectile("particles/items2_fx/paintball.vpcf", dummy, 2700)
 	EmitSoundOn( "Item.Paintball.Cast", caster )
 end
 

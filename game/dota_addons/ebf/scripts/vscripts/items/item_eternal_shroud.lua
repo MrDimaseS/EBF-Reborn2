@@ -51,6 +51,7 @@ LinkLuaModifier( "modifier_item_eternal_shroud_passive", "items/item_eternal_shr
 
 function modifier_item_eternal_shroud_passive:OnCreated()
 	self:OnRefresh()
+	self.last_mana_restore_time = 0
 end
 
 function modifier_item_eternal_shroud_passive:OnRefresh()
@@ -65,7 +66,7 @@ function modifier_item_eternal_shroud_passive:OnRefresh()
 	self.bonus_damage = self:GetSpecialValueFor("bonus_damage")
 	self.bonus_mana = self:GetSpecialValueFor("bonus_mana")
 	
-	self.mana_restore_pct = self:GetSpecialValueFor("mana_restore_pct") / 100
+	self.mana_restore_pct = self:GetSpecialValueFor("mana_restore_pct")
 	
 	self.aura_radius = self:GetSpecialValueFor("aura_radius")
 	self.aura_damage = self:GetSpecialValueFor("aura_damage")
@@ -117,9 +118,11 @@ end
 function modifier_item_eternal_shroud_passive:OnTakeDamage(params)
 	if params.unit == self:GetParent() and not params.unit:IsIllusion() then
 		if params.inflictor then 
-			if self.mana_restore_pct > 0 then
-				params.unit:GiveMana( params.original_damage * self.mana_restore_pct )
-			end
+            local current_time = GameRules:GetGameTime()
+            if self.mana_restore_pct > 0 and (current_time - self.last_mana_restore_time) >= 0.3 then
+                params.unit:GiveMana(self.mana_restore_pct)
+                self.last_mana_restore_time = current_time
+            end
 			self.damage_taken = self.damage_taken + params.damage
 			
 		elseif self.stack_armor > 0 then

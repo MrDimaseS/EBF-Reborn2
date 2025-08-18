@@ -47,11 +47,38 @@ function modifier_spectre_haunt_active:OnDestroy()
 end
 
 function modifier_spectre_haunt_active:OnIntervalThink()
-	local caster = self:GetCaster()
-	local parent = self:GetParent()
-	for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( parent:GetAbsOrigin(), -1, {type = DOTA_UNIT_TARGET_HERO} ) ) do
-		caster:PerformGenericAttack( enemy, true, true )
-	end
+	if not IsServer() then return end
+    
+    local caster = self:GetCaster()
+    local enemies = FindUnitsInRadius(
+        caster:GetTeamNumber(),
+        caster:GetAbsOrigin(),
+        nil,
+        -1,
+        DOTA_UNIT_TARGET_TEAM_ENEMY,
+        DOTA_UNIT_TARGET_HERO,
+        DOTA_UNIT_TARGET_FLAG_NONE,
+        FIND_ANY_ORDER,
+        false
+    )
+    
+    -- Attack each enemy with a small delay between attacks
+    for i, enemy in ipairs(enemies) do
+        Timers:CreateTimer(i * 0.03, function()  -- 0.03s delay between attacks
+            if enemy and IsValidEntity(enemy) and enemy:IsAlive() then
+                caster:PerformAttack(
+                    enemy,
+                    true,  -- Process attack modifiers
+                    true,  -- Process procs
+                    true,  -- Skip cooldown
+                    true,  -- Attack invisible
+                    false, -- No projectile
+                    false, -- Not fake
+                    true  -- Can't miss
+                )
+            end
+        end)
+    end
 end
 
 function modifier_spectre_haunt_active:DeclareFunctions()

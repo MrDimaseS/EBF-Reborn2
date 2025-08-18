@@ -19,16 +19,16 @@ function morphling_adaptive_strike_agi:OnSpellStart()
 	if not target:TriggerSpellAbsorb( self ) then
 		self:FireTrackingProjectile("particles/units/heroes/hero_morphling/morphling_adaptive_strike_agi_proj.vpcf", target, speed )
 	end
-	-- local bonusTargets = self:GetSpecialValueFor("bonus_targets")
-	-- for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), self:GetTrueCastRange() ) ) do
-		-- if enemy ~= target then
-			-- if bonusTargets <= 0 then
-				-- break
-			-- end
-			-- bonusTargets = bonusTargets - 1
-			-- self:FireTrackingProjectile("particles/units/heroes/hero_morphling/morphling_adaptive_strike_agi_proj.vpcf", enemy, speed )
-		-- end
-	-- end
+	local bonusTargets = self:GetSpecialValueFor("bonus_targets")
+	for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), self:GetTrueCastRange() ) ) do
+		if enemy ~= target then
+			if bonusTargets <= 0 then
+				break
+			end
+			bonusTargets = bonusTargets - 1
+			self:FireTrackingProjectile("particles/units/heroes/hero_morphling/morphling_adaptive_strike_agi_proj.vpcf", enemy, speed )
+		end
+	end
 end
 
 function morphling_adaptive_strike_agi:OnProjectileHit( target, position )

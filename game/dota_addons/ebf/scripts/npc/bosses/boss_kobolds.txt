@@ -16,7 +16,7 @@
 			"radius"							"600"
 			"damage_bonus"
 			{
-				"value"							"5 7 9 11"
+				"value"							"20 40 60 80"
 				"CalculateAttributeTooltip"		"1"
 			}
 		}
@@ -137,5 +137,87 @@
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 		"AbilityCastGestureSlot"	"DEFAULT"
+	}
+	
+	"boss_kobold_rally_troops"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"bosses/boss_kobolds/boss_kobold_rally_troops"
+		"AbilityTextureName"			"chen_holy_persuasion"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+
+        "HasShardUpgrade"               "1"
+
+		"AbilityCastRange"				"600 625 650 675"
+		"AbilityCastPoint"				"0.5"
+		"FightRecapLevel"				"1"
+		
+		"precache"
+		{
+			"soundfile"					"soundevents/game_sounds_heroes/game_sounds_abussal_underlord.vsndevts"
+			"particle"					"particles/units/heroes/heroes_underlord/abyssal_underlord_firestorm_wave.vpcf"
+			"particle"					"particles/units/heroes/heroes_underlord/underlord_firestorm_pre.vpcf"
+		}
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0"
+		"AbilityChannelTime"			"3 2 1 0.5"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"AbilityCooldown"					"15"
+			"radius"							"800"
+			"sefs_per_player"					"2"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+	"boss_kobold_heralds_banner"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"								"ability_lua"
+		"ScriptFile"							"bosses/boss_kobolds/boss_kobold_heralds_banner"
+		"AbilityTextureName"					"item_roshans_banner"
+		"AbilityBehavior"						"DOTA_ABILITY_BEHAVIOR_POINT"
+		"SpellImmunityType"						"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"					"SPELL_DISPELLABLE_YES"
+
+        "HasShardUpgrade"             			"1"
+
+		"AbilityCastRange"						"600 625 650 675"
+		"AbilityCastPoint"						"0.5"
+		"FightRecapLevel"						"1"
+		
+		"precache"
+		{
+			"soundfile"							"soundevents/game_sounds_heroes/game_sounds_abussal_underlord.vsndevts"
+			"particle"							"particles/units/heroes/heroes_underlord/abyssal_underlord_firestorm_wave.vpcf"
+			"particle"							"particles/units/heroes/heroes_underlord/underlord_firestorm_pre.vpcf"
+		}
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"						"0"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"AbilityCooldown"					"40"
+			"health_per_hero"					"1 1 2 2"
+			"bonus_damage"						"20 30 40 50"
+			"bonus_armor"						"10 15 20 25"
+			"bonus_magic_resist"				"10 15 20 25"
+			"duration"							"20 30 30 40"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
 }

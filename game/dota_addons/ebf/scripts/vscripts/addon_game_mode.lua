@@ -1020,7 +1020,7 @@ function CHoldoutGameMode:_SetupGameConfiguration()
 	GameRules:GetGameModeEntity():SetInnateMeleeDamageBlockPerLevelAmount( 0 )
 	GameRules:GetGameModeEntity():SetInnateMeleeDamageBlockPercent( 0 )
 	
-	GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_STRENGTH_HP, 22) 
+	GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_STRENGTH_HP, 100) 
 	GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_STRENGTH_HP_REGEN, 0)
 	GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ARMOR, 0.015) 
 	GameRules:GetGameModeEntity():SetCustomAttributeDerivedStatValue(DOTA_ATTRIBUTE_AGILITY_ATTACK_SPEED, 0.1)
@@ -1051,17 +1051,11 @@ function CHoldoutGameMode:_SetupGameConfiguration()
 		end
 	end
 
-	self._bAlwaysShowPlayerGold = endKV.AlwaysShowPlayerGold or false
-	self._bRestoreHPAfterRound = endKV.RestoreHPAfterRound or false
-	self._bRestoreMPAfterRound = endKV.RestoreMPAfterRound or false
-	self._bRewardForTowersStanding = endKV.RewardForTowersStanding or false
-	self._bUseReactiveDifficulty = endKV.UseReactiveDifficulty or false
-
 	self._flPrepTimeBetweenRounds = tonumber( endKV.PrepTimeBetweenRounds or 0 )
 	GameRules._flPrepTimeBetweenRounds = self._flPrepTimeBetweenRounds
 	self._flItemExpireTime = tonumber( endKV.ItemExpireTime or 10.0 )
+	self._MaxPlayers = tonumber( endKV.MaxPlayers or 10.0 )
 
-	self:_ReadRandomSpawnsConfiguration( endKV["RandomSpawns"] )
 	self:_ReadLootItemDropsConfiguration( endKV["ItemDrops"] )
 	self:_ReadRoundConfigurations( endKV )
 	GameRules:SetStartingGold ( tonumber(endKV.StartingGold or 1500) )
@@ -1219,21 +1213,6 @@ function CHoldoutGameMode:ChooseRandomSpawnInfo()
 	return self._vRandomSpawnsList[ RandomInt( 1, #self._vRandomSpawnsList ) ]
 end
 
--- Verify valid spawns are defined and build a table with them from the keyvalues file
-function CHoldoutGameMode:_ReadRandomSpawnsConfiguration( kvSpawns )
-	self._vRandomSpawnsList = {}
-	if type( kvSpawns ) ~= "table" then
-		return
-	end
-	for _,sp in pairs( kvSpawns ) do			-- Note "_" used as a shortcut to create a temporary throwaway variable
-		table.insert( self._vRandomSpawnsList, {
-			szSpawnerName = sp.SpawnerName or "",
-			szFirstWaypoint = sp.Waypoint or ""
-		} )
-	end
-end
-
-
 -- If random drops are defined read in that data
 function CHoldoutGameMode:_ReadLootItemDropsConfiguration( kvLootDrops )
 	self._vLootItemDropsTable = table.copy( kvLootDrops )
@@ -1268,6 +1247,35 @@ function CHoldoutGameMode:_ReadLootItemDropsConfiguration( kvLootDrops )
 	end
 end
 
+ROUND_ORDER_CONFIGURATION = {
+	"Kobolds",
+	"TrollWarlord",
+	"Gnolls",
+	"Zombies",
+	"Slarks", 
+	"Lifestealers",
+	"Robots",
+	"Slithereen",
+	"Roshans",
+	"Leshracs",
+	"Golems",
+	"Ogres",
+	"WinterWyvern",
+	"Treants",
+	"Axes",
+	"Dragons",
+	"Skeletons",
+	"Tricksters",
+	"Bears",
+	"Scarabs",
+	"Rikis",
+	"Butchers",
+	"Warlocks",
+	"LegionCommander",
+	"Necrophos",
+	"Doom",
+	"Asura",
+}
 
 -- Set number of rounds without requiring index in text file
 function CHoldoutGameMode:_ReadRoundConfigurations( kv )
@@ -1317,15 +1325,18 @@ function CHoldoutGameMode:_ReadRoundConfigurations( kv )
 		table.insert( self._vRounds, roundObj )
 		table.remove( spawnPools[4], roundToAdd )
 	else
-		while true do
-			local szRoundName = string.format("Round%d", #self._vRounds + 1 )
-			local kvRoundData = kv[ szRoundName ]
-			if kvRoundData == nil then
-				goto final
+		for roundNumber, roundId in ipairs( ROUND_ORDER_CONFIGURATION ) do
+			local roundName = string.format("Round%d", roundNumber ) .. "_" .. roundId
+			local roundData = kv[roundId]
+			if roundData then
+				local modifiedRoundData = {}
+				modifiedRoundData.Stages = roundData
+				modifiedRoundData.RoundName = roundName
+				
+				local roundObj = CHoldoutGameRound()
+				roundObj:ReadConfiguration( modifiedRoundData, self, roundNumber )
+				table.insert( self._vRounds, roundObj )
 			end
-			local roundObj = CHoldoutGameRound()
-			roundObj:ReadConfiguration( kvRoundData, self, #self._vRounds + 1 )
-			table.insert( self._vRounds, roundObj )
 		end
 	end
 	::final::
@@ -1885,12 +1896,16 @@ function CHoldoutGameMode:RegisterStatsForHero( hero, bWon )
 			decoded = json.decode(result.Body)
 		end
 		wins = (decoded.wins or 0)
+		
 		if bWon then
 			wins = wins + 1
 		end
 		
 		putData.plays = (decoded.plays or 0) + 1
 		putData.wins = wins
+		local winMMR = math.floor(GameRules._roundnumber / 5) * 5 + TernaryOperator( 20, bWon, 0 )
+		local difficultyMultiplier = math.ceil(1+(1 / 3)*(GameRules.gameDifficulty-1))
+		putData.mmr = (decoded.mmr or 0) + winMMR * difficultyMultiplier
 		
 		local encoded = json.encode(putData)
 		local putRequest = CreateHTTPRequestScriptVM( "PUT", packageLocation)
@@ -1898,34 +1913,6 @@ function CHoldoutGameMode:RegisterStatsForHero( hero, bWon )
 		putRequest:Send( function( result ) end )
 	end )
 end
-
-function CHoldoutGameMode:_Connection_states()
-	for nPlayerID = 0, DOTA_MAX_TEAM_PLAYERS-1 do
-		local player_connection_state = PlayerResource:GetConnectionState(nPlayerID)
-		local hero = GetAssignedHero(nPlayerID)
-		if hero~=nil and player_connection_state == 4 and hero.Abandonned ~= true then
-			hero.Abandonned = true
-			for _,unit in pairs ( Entities:FindAllByName( "npc_dota_hero*")) do
-				if self._NewGamePlus == false then
-					local totalgold = unit:GetGold() + (self._nRoundNumber^1.3)*100
-				else
-					local totalgold = unit:GetGold() + ((36+self._nRoundNumber)^1.3)*100
-				end
-				unit:SetGold(0 , false)
-				unit:SetGold(totalgold, true)
-			end
-			for itemSlot = 0, 5, 1 do
-	          	local Item = hero:GetItemInSlot( itemSlot )
-	           	hero:RemoveItem(Item)
-	        end
-	        Timers:CreateTimer(0.1,function()
-	        	hero:SetGold(0, true)
-	        	return 0.5
-	        end)
-		end
-	end
-end
-
 
 function CHoldoutGameMode:_RefreshPlayers( bWon, bRefreshCooldowns )
 	for nPlayerID = 0, DOTA_MAX_TEAM_PLAYERS-1 do
@@ -2042,39 +2029,7 @@ function CHoldoutGameMode:_CheckForDefeat()
 	end
 end
 
-function CHoldoutGameMode:RemovePassiveGPM()
-	-- if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
-		for _,unit in pairs ( Entities:FindAllByName( "npc_dota_hero*")) do
-			if unit:GetTeamNumber() == DOTA_TEAM_GOODGUYS then
-		        unit:SetGold(0 , true)
-			end
-		end
-
-	-- elseif GameRules:State_Get() >= DOTA_GAMERULES_STATE_POST_GAME then		-- Safe guard catching any state that may exist beyond DOTA_GAMERULES_STATE_POST_GAME
-	-- 	return nil
-	-- end
-	return SEVER_TICK_RATE
-end
-
 function CHoldoutGameMode:_OnLose()
-	--[[Say(nil,"You just lose all your life , a vote start to chose if you want to continue or not", false)
-	if self._checkpoint == 14 then
-		Say(nil,"if you continue you will come back to round 13 , you keep all the current item and gold gained", false)
-	elif self._checkpoint == 26 then
-		Say(nil,"if you continue you will come back to round 25 , you keep all the current item and gold gained", false)
-	elseif self._checkpoint == 46 then
-		Say(nil,"if you continue you will come back to round 45 , you keep with all the current item and gold gained", false)
-	elseif self._checkpoint == 61 then
-		Say(nil,"if you continue you will come back to round 60 , you keep with all the current item and gold gained", false)
-	elseif self._checkpoint == 76 then
-		Say(nil,"if you continue you will come back to round 75 , you keep with all the current item and gold gained", false)
-	elseif self._checkpoint == 91 then
-		Say(nil,"if you continue you will come back to round 90 , you keep with all the current item and gold gained", false)
-	else
-		Say(nil,"if you continue you will come back to round begin and have all your money and item erased", false)
-	end
-	Say(nil,"If you want to retry , type YES in thes chat if you don't want type no , no vote will be taken as a yes", false)
-	Say(nil,"At least Half of the player have to vote yes for game to restart on last check points", false)]]
 	if not self._GameHasFinished then
 		if not self._NewGamePlus then
 			for _, hero in ipairs( HeroList:GetRealHeroes() ) do
@@ -2089,7 +2044,6 @@ function CHoldoutGameMode:_OnLose()
 		self._GameHasFinished = true
 	end
 end
-
 
 function CHoldoutGameMode:_ThinkPrepTime()
 	if GetMapName() == "mayhem_gamemode" then
@@ -2109,9 +2063,9 @@ function CHoldoutGameMode:_ThinkPrepTime()
 	    CustomGameEventManager:Send_ServerToAllClients("Close_RoundVote", {})
 		GameRules._flPrepTimeEnd = nil
 
+		print( self._nRoundNumber, #self._vRounds, "check end" )
 		if self._nRoundNumber > #self._vRounds then
 			GameRules:SetGameWinner( DOTA_TEAM_GOODGUYS )
-			Say(nil,"If you wish you can support me on patreon (link in description of the gamemode), anyways, thank for playing <3", false)
 			return false
 		end
 		self._currentRound = self._vRounds[ self._nRoundNumber ]
@@ -2128,17 +2082,9 @@ function CHoldoutGameMode:_ThinkPrepTime()
 		end
 		return
 	end
-
-	if not self._entPrepTimeQuest then
-		self._entPrepTimeQuest = SpawnEntityFromTableSynchronous( "quest", { name = "PrepTime", title = "#DOTA_Quest_Holdout_PrepTime" } )
-		self._entPrepTimeQuest:SetTextReplaceValue( QUEST_TEXT_REPLACE_VALUE_ROUND, self._nRoundNumber )
-		self._entPrepTimeQuest:SetTextReplaceString( self:GetDifficultyString() )
-		self:_RefreshPlayers()
-		self._vRounds[ self._nRoundNumber ]:Precache()
-	end
+	
 	CustomGameEventManager:Send_ServerToAllClients("UpdateTimeLeft", {nextRound = self._nRoundNumber,Time = GameRules._flPrepTimeEnd - GameRules:GetGameTime()})
 	CustomGameEventManager:Send_ServerToAllClients("CurrentRound", {roundCurrent = self._nRoundNumber})
-	self._entPrepTimeQuest:SetTextReplaceValue( QUEST_TEXT_REPLACE_VALUE_CURRENT_VALUE, GameRules._flPrepTimeEnd - GameRules:GetGameTime() )
 end
 
 function CHoldoutGameMode:GetDifficultyString()
@@ -2242,41 +2188,7 @@ function CHoldoutGameMode:OnPlayerReconnected( event )
 	if not PlayerResource:HasSelectedHero(nReconnectedPlayerID) then
 		player:MakeRandomHeroSelection()
 	end
-	
-	--[[if self._NewGamePlus then
-		local player = PlayerResource:GetPlayer(nReconnectedPlayerID)
-		CustomGameEventManager:Send_ServerToPlayer(player,"Display_Asura_Core", {core = player.Asura_Core})
-		CustomGameEventManager:Send_ServerToPlayer(player,"Display_Shop", {core = player.Asura_Core})
-	end]]--
 end
-
---[[function get_octarine_multiplier(caster)
-    local octarine_multiplier = 1
-    for itemSlot = 0, 5, 1 do
-        local Item = caster:GetItemInSlot( itemSlot )
-        if Item ~= nil and Item:GetName() == "item_octarine_core" then
-            if octarine_multiplier > 0.75 then
-                octarine_multiplier = 0.75
-            end
-        end
-        if Item ~= nil and Item:GetName() == "item_octarine_core2" then
-            if octarine_multiplier > 0.67 then
-                octarine_multiplier = 0.67
-            end
-        end
-        if Item ~= nil and Item:GetName() == "item_octarine_core3" then
-            if octarine_multiplier > 0.5 then
-                octarine_multiplier = 0.5
-            end
-        end
-        if Item ~= nil and Item:GetName() == "item_octarine_core4" then
-            if octarine_multiplier > 0.33 then
-                octarine_multiplier =0.33
-            end
-        end
-    end
-    return octarine_multiplier
-end]]--
 
 function CHoldoutGameMode:OnEntityKilled( event )
 	local killedUnit = EntIndexToHScript( event.entindex_killed )
@@ -2349,17 +2261,6 @@ function CHoldoutGameMode:OnEntityKilled( event )
 	end
 end
 
-function CHoldoutGameMode:CheckForLootItemDrop( killedUnit )
-	for _,itemDropInfo in pairs( self._vLootItemDropsList ) do
-		if RollPercentage( itemDropInfo.nChance ) then
-			local newItem = CreateItem( itemDropInfo.szItemName, nil, nil )
-			newItem:SetPurchaseTime( 0 )
-			local drop = CreateItemOnPositionSync( killedUnit:GetAbsOrigin(), newItem )
-			drop.Holdout_IsLootDrop = true
-		end
-	end
-end
-
 function CHoldoutGameMode:_TestAbandons( cmdName, victory, abandon )
 	local won = victory == "1"
 	local abandoned = abandon == "1"
@@ -2421,29 +2322,4 @@ function CHoldoutGameMode:TeamCount()
 		end
 	end
 	return counter
-end
-
-function CDOTA_PlayerResource:SortThreat()
-	local currThreat = 0
-	local secondThreat = 0
-	local aggrounit 
-	local aggrosecond
-	local heroes = HeroList:GetActiveHeroes()
-	for _,unit in ipairs ( heroes ) do
-		if not unit.threat then unit.threat = 0 end
-		if not unit:IsFakeHero() then
-			if unit.threat > currThreat then
-				currThreat = unit.threat
-				aggrounit = unit
-			elseif unit.threat > secondThreat and unit.threat < currThreat then
-				secondThreat = unit.threat
-				aggrosecond = unit
-			end
-		end
-	end
-	for _,unit in pairs ( heroes ) do
-		if unit == aggrosecond then unit.aggro = 2
-		elseif unit == aggrounit then unit.aggro = 1
-		else unit.aggro = 0 end
-	end
 end

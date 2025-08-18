@@ -55,6 +55,9 @@ function boss_golem_split:CreateGolem( position )
 	end
 	
 	golem.hasBeenProcessed = true
+	golem.Holdout_IsCore = caster.Holdout_IsCore
+	golem._stageID = caster._stageID
+	table.insert( GameRules._currentRound._spawnedLivingUnits[golem._stageID], golem )
 	golem:CalculateGenericBonuses()
 	ParticleManager:FireParticle( "particles/units/heroes/hero_tiny/tiny_transform.vpcf", PATTACH_POINT_FOLLOW, golem )
 	EmitSoundOn( "Tiny.Grow", golem )

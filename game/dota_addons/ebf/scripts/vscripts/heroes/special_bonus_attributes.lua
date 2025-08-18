@@ -679,19 +679,19 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierExtraHealth
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierHealthBonus()
-	local BASE_HP_PRIMARY = 11
-	local BASE_HP_UNIVERSAL = 4
-	local bonusBaseHP = 0
-	if self:GetStackCount() == DOTA_ATTRIBUTE_STRENGTH then
-		bonusBaseHP = self:GetParent():GetStrength() * BASE_HP_PRIMARY
-	elseif self:GetStackCount() == DOTA_ATTRIBUTE_AGILITY then
-		bonusBaseHP = self:GetParent():GetAgility() * BASE_HP_PRIMARY
-	elseif self:GetStackCount() == DOTA_ATTRIBUTE_INTELLECT then
-		bonusBaseHP = self:GetParent():GetIntellect(false) * BASE_HP_PRIMARY
-	else -- universal hero
-		bonusBaseHP = ( self:GetParent():GetStrength() + self:GetParent():GetAgility() + self:GetParent():GetIntellect(false) ) * BASE_HP_UNIVERSAL
-	end
-	return 600*(self.total_ability_scaling-1) + bonusBaseHP
+	-- local BASE_HP_PRIMARY = 11
+	-- local BASE_HP_UNIVERSAL = 4
+	-- local bonusBaseHP = 0
+	-- if self:GetStackCount() == DOTA_ATTRIBUTE_STRENGTH then
+		-- bonusBaseHP = self:GetParent():GetStrength() * BASE_HP_PRIMARY
+	-- elseif self:GetStackCount() == DOTA_ATTRIBUTE_AGILITY then
+		-- bonusBaseHP = self:GetParent():GetAgility() * BASE_HP_PRIMARY
+	-- elseif self:GetStackCount() == DOTA_ATTRIBUTE_INTELLECT then
+		-- bonusBaseHP = self:GetParent():GetIntellect(false) * BASE_HP_PRIMARY
+	-- else -- universal hero
+		-- bonusBaseHP = ( self:GetParent():GetStrength() + self:GetParent():GetAgility() + self:GetParent():GetIntellect(false) ) * BASE_HP_UNIVERSAL
+	-- end
+	return 6000*(self.total_ability_scaling-1)
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierManaBonus()

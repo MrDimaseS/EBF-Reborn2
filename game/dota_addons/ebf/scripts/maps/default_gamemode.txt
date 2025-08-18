@@ -5,6 +5,7 @@
 	"ItemExpireTime"				"45"
 	"RestoreHPAfterRound"			"0"
 	"RestoreMPAfterRound"			"0"
+	"MaxPlayers"					"5"
 	
 	"Rewards"
 	{
@@ -18,22 +19,25 @@
 	
 	"Kobolds"
 	{
+		"Stage0"
+		{
+			"npc_dota_boss_kobold_serf" 
+			{
+				"UnitsPerSpawn"			"2"
+				"InitialUnitsSpawned"	"3"
+				"SpawnInterval"			"15"
+			}
+		}
 		"Stage1"
 		{
 			"Units"
 			{
-				"npc_dota_boss_kobold_serf" 
-				{
-					"TotalUnitsToSpawn"		"X"
-					"UnitsPerSpawn"			"2"
-					"InitialUnitsSpawned"	"3"
-					"SpawnInterval"			"30"
-				}
 				"npc_dota_boss_kobold_warrior" 
 				{
 					"TotalUnitsToSpawn"		"2"
 					"UnitsPerSpawn"			"1"
-					"SpawnInterval"			"30"
+					"BonusUnitsPerPlayer"	"0.5"
+					"SpawnInterval"			"15"
 				}
 			}
 		}
@@ -42,19 +46,12 @@
 			"StageWaitTime"					"30"
 			"Units"
 			{
-				"npc_dota_boss_kobold_serf" 
-				{
-					"TotalUnitsToSpawn"		"X"
-					"UnitsPerSpawn"			"2"
-					"InitialUnitsSpawned"	"3"
-					"SpawnInterval"			"30"
-				}
 				"npc_dota_boss_kobold_warrior" 
 				{
 					"TotalUnitsToSpawn"		"2"
-					"UnitsPerSpawn"			"2"
+					"UnitsPerSpawn"			"1"
 					"BonusUnitsPerPlayer"	"0.5"
-					"SpawnInterval"			"30"
+					"SpawnInterval"			"15"
 				}
 				"npc_dota_boss_kobold_overseer" 
 				{
@@ -87,24 +84,29 @@
 			{
 				"npc_dota_boss_gnoll_berserker" 
 				{
-					"TotalUnitsToSpawn"		"2"
+					"TotalUnitsToSpawn"		"3"
+					"BonusUnitsPerPlayer"	"0.5"
+				}
+				"npc_dota_boss_gnoll_assassin" 
+				{
+					"TotalUnitsToSpawn"		"1"
 					"BonusUnitsPerPlayer"	"0.5"
 				}
 			}
 		}
 		"Stage2"
 		{
-			"StageWaitTime"					"30"
+			"StageWaitTime"					"15"
 			"Units"
 			{
 				"npc_dota_boss_gnoll_berserker" 
 				{
-					"TotalUnitsToSpawn"		"2"
+					"TotalUnitsToSpawn"		"1"
 					"BonusUnitsPerPlayer"	"0.5"
 				}
 				"npc_dota_boss_gnoll_assassin" 
 				{
-					"TotalUnitsToSpawn"		"2"
+					"TotalUnitsToSpawn"		"3"
 					"BonusUnitsPerPlayer"	"0.5"
 				}
 			}
@@ -210,16 +212,19 @@
 	}
 	"Slithereen" // Boss 9
 	{
+		"Stage0"
+		{
+			"npc_dota_boss_slardar_minion" 
+			{
+				"UnitsPerSpawn"			"2"
+				"InitialUnitsSpawned"	"3"
+				"SpawnInterval"			"15"
+			}
+		}
 		"Stage1"
 		{
 			"Units"
 			{
-				"npc_dota_boss_slardar_minion" 
-				{
-					"TotalUnitsToSpawn"		"X"
-					"UnitsPerSpawn"			"3"
-					"SpawnInterval"			"30"
-				}
 				"npc_dota_boss_slardar_queen" 
 				{
 					"TotalUnitsToSpawn"		"1"
@@ -233,12 +238,6 @@
 			"StageWaitTime"					"30"
 			"Units"
 			{
-				"npc_dota_boss_slardar_minion" 
-				{
-					"TotalUnitsToSpawn"		"X"
-					"UnitsPerSpawn"			"2"
-					"SpawnInterval"			"30"
-				}
 				"npc_dota_boss_slardar_queen" 
 				{
 					"TotalUnitsToSpawn"		"1"
@@ -258,12 +257,6 @@
 			"StageWaitTime"					"60"
 			"Units"
 			{
-				"npc_dota_boss_slardar_minion" 
-				{
-					"TotalUnitsToSpawn"		"X"
-					"UnitsPerSpawn"			"1"
-					"SpawnInterval"			"30"
-				}
 				"npc_dota_boss_slardar_queen" 
 				{
 					"TotalUnitsToSpawn"		"1"
@@ -358,16 +351,18 @@
 	}
 	"Ogres" // Boss 13
 	{
+		"Stage0"
+		{
+			"npc_dota_boss_ogre_minion" 
+			{
+				"UnitsPerSpawn"			"3"
+				"SpawnInterval"			"30"
+			}
+		}
 		"Stage1"
 		{
 			"Units"
 			{
-				"npc_dota_boss_ogre_minion" 
-				{
-					"TotalUnitsToSpawn"		"X"
-					"UnitsPerSpawn"			"3"
-					"SpawnInterval"			"30"
-				}
 				"npc_dota_boss_ogre_defender" 
 				{
 					"TotalUnitsToSpawn"		"1"
@@ -381,12 +376,6 @@
 			"StageWaitTime"					"30"
 			"Units"
 			{
-				"npc_dota_boss_ogre_minion" 
-				{
-					"TotalUnitsToSpawn"		"X"
-					"UnitsPerSpawn"			"2"
-					"SpawnInterval"			"30"
-				}
 				"npc_dota_boss_ogre_defender" 
 				{
 					"TotalUnitsToSpawn"		"1"
@@ -406,12 +395,6 @@
 			"StageWaitTime"					"60"
 			"Units"
 			{
-				"npc_dota_boss_ogre_minion" 
-				{
-					"TotalUnitsToSpawn"		"X"
-					"UnitsPerSpawn"			"1"
-					"SpawnInterval"			"30"
-				}
 				"npc_dota_boss_ogre_defender" 
 				{
 					"TotalUnitsToSpawn"		"1"
@@ -497,17 +480,19 @@
 	}
 	"Dragons" // Boss 23
 	{
+		"Stage0"
+		{
+			"npc_dota_boss_ancient_drake" 
+			{
+				"UnitsPerSpawn"			"2"
+				"BonusUnitsPerPlayer"	"1"
+				"SpawnInterval"			"15"
+			}
+		}
 		"Stage1"
 		{
 			"Units"
 			{
-				"npc_dota_boss_ancient_drake"
-				{
-					"TotalUnitsToSpawn"		"X"
-					"UnitsPerSpawn"			"2"
-					"BonusUnitsPerPlayer"	"1"
-					"SpawnInterval"			"15"
-				}
 				"npc_dota_boss_ancient_dragon"
 				{
 					"TotalUnitsToSpawn"		"1"
@@ -521,13 +506,6 @@
 			"StageWaitTime"					"30"
 			"Units"
 			{
-				"npc_dota_boss_ancient_drake"
-				{
-					"TotalUnitsToSpawn"		"X"
-					"UnitsPerSpawn"			"1"
-					"BonusUnitsPerPlayer"	"1"
-					"SpawnInterval"			"15"
-				}
 				"npc_dota_boss_ancient_dragon"
 				{
 					"TotalUnitsToSpawn"		"2"
@@ -556,16 +534,19 @@
 	}
 	"Skeletons" // Boss 24
 	{
+		"Stage0"
+		{
+			"npc_dota_boss_skeleton_minion" 
+			{
+				"UnitsPerSpawn"			"4"
+				"BonusUnitsPerPlayer"	"2"
+				"SpawnInterval"			"15"
+			}
+		}
 		"Stage1"
 		{
 			"Units"
 			{
-				"npc_dota_boss_skeleton_minion"
-				{
-					"TotalUnitsToSpawn"			"X"
-					"UnitsPerSpawn"				"4"
-					"SpawnInterval"				"15"
-				}
 				"npc_dota_boss_skeleton_vanguard"
 				{
 					"TotalUnitsToSpawn"			"1"
@@ -579,12 +560,6 @@
 			"StageWaitTime"						"30"
 			"Units"
 			{
-				"npc_dota_boss_skeleton_minion"
-				{
-					"TotalUnitsToSpawn"			"X"
-					"UnitsPerSpawn"				"3"
-					"SpawnInterval"				"15"
-				}
 				"npc_dota_boss_skeleton_vanguard"
 				{
 					"TotalUnitsToSpawn"			"1"
@@ -604,12 +579,6 @@
 			"StageWaitTime"						"60"
 			"Units"
 			{
-				"npc_dota_boss_skeleton_minion"
-				{
-					"TotalUnitsToSpawn"			"X"
-					"UnitsPerSpawn"				"2"
-					"SpawnInterval"				"15"
-				}
 				"npc_dota_boss_skeleton_vanguard"
 				{
 					"TotalUnitsToSpawn"			"1"
@@ -643,16 +612,19 @@
 	}
 	"Bears" // Boss 26
 	{
+		"Stage0"
+		{
+			"npc_dota_minion_ursine_scout" 
+			{
+				"UnitsPerSpawn"			"4"
+				"BonusUnitsPerPlayer"	"2"
+				"SpawnInterval"			"15"
+			}
+		}
 		"Stage1"
 		{
 			"Units"
 			{
-				"npc_dota_minion_ursine_scout"
-				{
-					"TotalUnitsToSpawn"			"X"
-					"UnitsPerSpawn"				"4"
-					"SpawnInterval"				"15"
-				}
 				"npc_dota_boss_ursine_guardian"
 				{
 					"TotalUnitsToSpawn"			"1"
@@ -666,12 +638,6 @@
 			"StageWaitTime"						"30"
 			"Units"
 			{
-				"npc_dota_minion_ursine_scout"
-				{
-					"TotalUnitsToSpawn"			"X"
-					"UnitsPerSpawn"				"3"
-					"SpawnInterval"				"15"
-				}
 				"npc_dota_boss_ursine_guardian"
 				{
 					"TotalUnitsToSpawn"			"1"

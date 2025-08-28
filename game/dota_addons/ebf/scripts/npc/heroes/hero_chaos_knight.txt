@@ -1,12 +1,77 @@
 "DOTAAbilities"
 {	
 	//=================================================================================================================
+	// Chaos Knight: Reins of Chaos
+	//=================================================================================================================
+	"chaos_knight_reins_of_chaos"
+	{
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_chaos_knight/chaos_knight_reins_of_chaos"
+		"AbilityTextureName"			"chaos_knight_reins_of_chaos"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"MaxLevel"						"1"
+		"Innate"						"1"
+		"IsBreakable"					"1"
+
+		"AbilityValues"
+		{
+			"does_entropal"
+			{
+				"special_bonus_facet_chaos_knight_entropal"			"1"		
+			}
+			"illusion_chance"			
+			{
+				"special_bonus_facet_chaos_knight_entropal" 		"50"
+			}
+			"illusion_count"			
+			{
+				"special_bonus_facet_chaos_knight_entropal" 		"1"
+			}
+			"illusion_bonus_damage"
+			{
+				"special_bonus_facet_chaos_knight_entropal"
+				{
+					"value"											"150"
+					"special_bonus_unique_chaos_knight_greater_l"	"+60%"
+				}
+				"CalculateAttackDamageTooltip"						"1"
+			}
+			"illusion_bonus_aspd"
+			{
+				"special_bonus_facet_chaos_knight_entropal"
+				{
+					"value"											"0"
+					"special_bonus_unique_chaos_knight_minor_r"	"+15"
+				}
+			}
+			"illusion_buff_range"									"400"
+
+			"does_uncertainoi"
+			{
+				"special_bonus_facet_chaos_knight_uncertainoi"		"1"
+			}
+			"debuff_bonus_damage"									
+			{
+				"special_bonus_facet_chaos_knight_uncertainoi"
+				{
+					"value"											"17"
+					"special_bonus_unique_chaos_knight_minor_r"		"+17"	
+				}
+			}
+		}
+	}
+
+
+	//=================================================================================================================
 	// Chaos Knight: Chaos Bolt
 	//=================================================================================================================
 	"chaos_knight_chaos_bolt"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_chaos_knight/chaos_knight_chaos_bolt"
+		"AbilityTextureName"			"chaos_knight_chaos_bolt"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
@@ -15,14 +80,13 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_ChaosKnight.ChaosBolt.Cast"
-
-		
-        "HasShardUpgrade"               "1"
+        "HasShardUpgrade"               "0"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"600"
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 		"AbilityCastPoint"				"0.4 0.4 0.4 0.4"
+		"AbilityCooldown"				"13 12 11 10"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -32,52 +96,55 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"AbilityCooldown"				
+			"AbilityCastRange"				
 			{
-				"value"									"13 12 11 10"
-				"special_bonus_unique_chaos_knight_8"	"-3"
+				"value"												"600"
+				"special_bonus_facet_chaos_knight_uncertainoi"		"+100"
 			}
-			
-			"chaos_bolt_speed"							"700"
-			"stun_min"
-			{
-				"value"									"1.25 1.5 1.75 2"
-				"special_bonus_unique_chaos_knight_3"	"+0.6"
-			}
-			"stun_max"	
-			{
-				"value"					"1.75 2.25 2.75 3.25"
-				"special_bonus_unique_chaos_knight_3"	"+0.6"
-			}
+
+			"stun_min"												"1.25 1.5 1.75 2"
+			"stun_max"												"1.75 2.25 2.75 3.25"
 			"damage_min"
 			{
-				"value"							"900 1200 1500 1800"
-				"CalculateSpellDamageTooltip"	"1"
+				"value"												"900 1200 1500 1800"
+				"CalculateSpellDamageTooltip"						"1"
 			}
 			"damage_max"
 			{
-				"value"							"1500 2300 3100 3900"
-				"CalculateSpellDamageTooltip"	"1"
+				"value"												"1500 2300 3100 3900"
+				"CalculateSpellDamageTooltip"						"1"
 			}
-			"fake_bolt_distance"		"675"
-			
-			"illusion_duration"
+
+			"illusion_create"
 			{
-				"value"					"0"
-				"special_bonus_shard"			"=6.0"
+				"special_bonus_facet_chaos_knight_entropal"			"1"
 			}
-			"illusion_damage_reduction_pct"
+			"illu_dur"
 			{
-				"value"							"0"
-				"special_bonus_shard"			"=30"
+				"special_bonus_facet_chaos_knight_entropal"			"1.8"
 			}
-			"bounce_range_pct"	
+
+			"bounce_count"
 			{
-		
-				"special_bonus_facet_chaos_knight_cloven_chaos"		"=60"
+				"special_bonus_facet_chaos_knight_uncertainoi"				
+				{
+					"value"											"1"
+					"special_bonus_unique_chaos_knight_major_r"		"+1"
+				}
 			}
+			"bounce_chance_pct"										"50"
+			"chaos_bolt_speed"										"700"
+			"fake_bolt_radius"										"675"
+			"illusion_throw_bolt"
+			{
+				"special_bonus_facet_chaos_knight_entropal"
+				{
+					"value"											"0"
+					"special_bonus_unique_chaos_knight_major_r"		"+1"
+				}
+			}
+			"is_debuff_duration"									"1"
 		}
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
 
 	//=================================================================================================================
@@ -87,26 +154,27 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_chaos_knight/chaos_knight_reality_rift"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_ChaosKnight.RealityRift"
-		
-		
+		"AbilityTextureName"			"chaos_knight_reality_rift"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastAnimation"			"ACT_DOTA_OVERRIDE_ABILITY_2"
 		"AbilityCastGestureSlot"		"DEFAULT"
-		"AbilityCastRange"				"550 575 600 625 650 675 700"
+		"AbilityCastRange"				"600 650 700 750"
 		"AbilityCastPoint"				"0.3"
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"18 14 10 6"
+		"AbilityCooldown"				"10"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -116,28 +184,44 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"AbilityCastRange"
+			"pull_distance"											""
+			"armor_reduction"										""
+			"duration"												""
+	
+			"debuff_dur"											"6"
+			"armor_red"												"4 5 6 7"
+			"creates_illusion"
 			{
-				"value"												"600 650 700 750"
-				"special_bonus_unique_chaos_knight_2"				"+225"
+				"special_bonus_facet_chaos_knight_entropal"			"1"
 			}
-			"pull_distance"
+			"illusion_extension"
 			{
-				"value"												"300 350 400 450"
-				"special_bonus_unique_chaos_knight_2"				"+225"
+				"special_bonus_facet_chaos_knight_entropal"			
+				{
+					"value"											"6"
+					"special_bonus_unique_chaos_knight_minor_l"		"+4"
+				}
 			}
-			"armor_reduction"										"4 5 6 7"
-			"duration"												"6"
-			"pierces_immunity"
+
+			"extra_debuff_chance"
 			{
-				"value"												"0"
-				"special_bonus_unique_chaos_knight"					"=1"
+				"special_bonus_facet_chaos_knight_uncertainoi"		
+				{
+					"value"											"50"
+					"special_bonus_unique_chaos_knight_major_l"		"+50"
+				}
+				"affected_by_chance_increase"						"1"
 			}
-			"additional_debuff_duration_percent"
+			"extra_debuff_duration"
 			{
-				"value"												"0"
-				"special_bonus_facet_chaos_knight_irrationality"	"=100"
+				"special_bonus_facet_chaos_knight_uncertainoi"		
+				{
+					"value"											"3"
+					"special_bonus_unique_chaos_knight_minor_l"		"+3"
+				}
 			}
+			"illusion_search_radius"								"1375"
+			"is_debuff_duration"									"1"
 		}
 	}
 	//=================================================================================================================
@@ -147,37 +231,78 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_chaos_knight/chaos_knight_chaos_strike"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilitySound"					"Hero_ChaosKnight.ChaosStrike"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"AbilityTextureName"			"chaos_knight_chaos_strike"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_3"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"chance"
+			"crit_chance"
 			{
-				"value"								"33.33"
-				"LinkedSpecialBonus"				"special_bonus_unique_chaos_knight_5"
-				"affected_by_chance_increase"			"1"
+				"value"												"33.33"
+				"affected_by_chance_increase"						"1"
 			}
-			"crit_min"
+			"crit_chance_increment"
 			{
-				"value"								"120"
-				"affected_by_crit_increase"			"1"
+				"special_bonus_facet_chaos_knight_entropal"			"5"
 			}
-			"crit_max"
+			"accumulated_crit_chance"								"0"
+
+			"critical_min"
 			{
-				"value"								"140 180 220 260"
-				"affected_by_crit_increase"			"1"
+				"value"												"120"
+				"affected_by_crit_increase"							"1"
 			}
-			"lifesteal"					
+			"critical_max"
+			{	
+				"value"												"140 180 220 260"
+				"special_bonus_facet_chaos_knight_entropal"
+				{
+					"value"											"0"
+					"special_bonus_unique_chaos_knight_major_l"		"+30"
+				}
+				"affected_by_crit_increase"							"1"
+			}
+			"true_crit_damage"
 			{
-				"value"								"24 36 48 60"
-				"special_bonus_unique_chaos_knight_6"		"+30"
+				"value"												"0"
+				"special_bonus_unique_chaos_knight_synergy_r"		"+1"
 			}
+
+			"break_chance"
+			{
+				"special_bonus_facet_chaos_knight_uncertainoi" 		"50"
+				"affected_by_chance_increase"						"1"
+			}
+			"break_duration"
+			{
+				"special_bonus_facet_chaos_knight_uncertainoi"		"1.25"
+			}
+			"bolt_on_attack"
+			{
+				"special_bonus_facet_chaos_knight_uncertainoi"
+				{
+					"value"											"0"
+					"special_bonus_unique_chaos_knight_greater_r"	"+1"
+				}
+			}
+			"illu_bolt_chance"
+			{
+				"special_bonus_facet_chaos_knight_uncertainoi"
+				{
+					"value"											"0"
+					"special_bonus_unique_chaos_knight_greater_r"	"+25"
+					"affected_by_chance_increase"					"1"
+				}
+			}
+			"lifesteal"								"24 36 48 60"
 		}
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
 
 
@@ -188,18 +313,18 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_chaos_knight/chaos_knight_phantasm"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityType"					"ABILITY_TYPE_ULTIMATE"
 		"FightRecapLevel"				"2"
-
-        "HasScepterUpgrade"			"1"
+        "HasScepterUpgrade"				"0"
 
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
 		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_NOT_CREEP_HERO"
-		"AbilityCastRange"				"1200"
 		"AbilitySound"					"Hero_ChaosKnight.Phantasm"
-		
+		"AbilityTextureName"			"chaos_knight_phantasm"
 		
 		"LevelsBetweenUpgrades"			"6"
 		
@@ -220,34 +345,77 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"images_count"					"1 2 3"
-			"illusion_duration"
+			"illusion_count"										"1 2 3"				
+			"illu_dur"												"30.0"
+			"outgoing_dmg"										
 			{
-				"value"						"30.0"
-				"special_bonus_unique_chaos_knight_4"		"+10"
-			}	
-			"outgoing_damage"				"0"
-			"outgoing_damage_tooltip"		"100"
-			"incoming_damage"
+				"value"											"50 65 80"
+				"special_bonus_unique_chaos_knight_greater_r"		"+20"
+			}
+			"incoming_dmg"											
 			{
-				"value"						"-60"
+				"value"											"150"
+				"special_bonus_unique_chaos_knight_synergy_l"	"-150"
+			}
+			"invuln_duration"										"0.5"
+		}
+	}
 
-			}
-			"incoming_damage_tooltip"
+	//=================================================================================================================
+	// Chaos Knight: Armageddon
+	//=================================================================================================================
+	"chaos_knight_armageddon"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_chaos_knight/chaos_knight_armageddon"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityType"					"ABILITY_TYPE_ULTIMATE"
+		"FightRecapLevel"				"2"
+        "HasScepterUpgrade"				"0"
+
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_NOT_CREEP_HERO"
+		"AbilitySound"					"Hero_ChaosKnight.Phantasm"
+		"AbilityTextureName"			"chaos_knight_phantasm"
+		
+		"LevelsBetweenUpgrades"			"6"
+		
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.4 0.4 0.4"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"					"75"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"					"100 200 300"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"duration"												
 			{
-				"value"						"40"
-			}		
-			"invuln_duration"				"0.5"
-			"vision_radius"					
-			{
-				"value"			"400"	
-				"affected_by_aoe_increase"	"1"
+				"value"											"30"
+				"special_bonus_unique_chaos_knight_minor_r"		"+6"
 			}
-			"magic_resistance"				"0"
-			"chance_for_extra_illusion"
+			"chance_increase"										
 			{
-				"value"						"0"
+				"value"											"75 125 175"
+				"special_bonus_unique_chaos_knight_synergy_l"	"+100"
 			}
+			"affects_allies"
+			{
+				"value"											"0"
+				"special_bonus_unique_chaos_knight_greater_l"	"+1"
+			}
+			"is_buff_duration"									"1"
 		}
 	}
 }

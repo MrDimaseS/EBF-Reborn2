@@ -88,6 +88,7 @@
 				"value"												"0.35"
 				"special_bonus_facet_bounty_hunter_tracker"			"=1 =2 =3 =4"
 				"special_bonus_unique_bounty_hunter_5"				"+0.65"
+				"is_debuff_duration"								"1"
 			}
 			"slow"													"100"		
 			"attack_slow"											{"special_bonus_facet_bounty_hunter_tracker"			"+200"}
@@ -187,9 +188,17 @@
 					"special_bonus_unique_bounty_hunter_major_l"	"+1"
 				}
 			}
-			"cc_duration"											{"special_bonus_facet_bounty_hunter_tracker"	"3"}
+			"cc_duration"
+			{
+				"special_bonus_facet_bounty_hunter_tracker"			"3"
+				"is_debuff_duration"								"1"
+			}
 			"bleed_max_hp_loss"										{"special_bonus_facet_bounty_hunter_specialist"	"0.5 0.75 1.0 1.25"}
-			"bleed_duration"										{"special_bonus_facet_bounty_hunter_specialist"	"3"}
+			"bleed_duration"
+			{
+				"special_bonus_facet_bounty_hunter_specialist"		"3"
+				"is_debuff_duration"								"1"
+			}
 			"track_jinada_no_cd"
 			{
 				"special_bonus_facet_bounty_hunter_specialist"
@@ -234,12 +243,17 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"												"20.0 25.0 30.0 35.0"
+			"duration"
+			{
+				"value"												"20.0 25.0 30.0 35.0"
+				"is_buff_duration"									"1"
+			}
 			"fade_time"												"1.0 0.75 0.5 0.25"
 			"stun_duration"				
 			{
 				"value"												"0.8 1.0 1.2 1.4"
 				"special_bonus_facet_bounty_hunter_specialist"		"=1.6 =2.0 =2.4 =2.8"
+				"is_debuff_duration"								"1"
 			}
 			"AbilityCooldown"										"18 17 16 15"
 			"AbilityChargeRestoreTime"								"18 17 16 15"
@@ -260,6 +274,7 @@
 					"value"											"0"
 					"special_bonus_unique_bounty_hunter_minor_l"	"+3"
 				}
+				"is_debuff_duration"							"1"
 			}
 			"AbilityCharges"
 			{
@@ -330,16 +345,21 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"												"20.0 25.0 30.0 35.0"
+			"duration"
+			{
+				"value"												"20.0 25.0 30.0 35.0"
+				"is_buff_duration"									"1"
+			}
 			"fade_time"												"1.0 0.75 0.5 0.25"
 			"stun_duration"				
 			{
 				"value"												"0.8 1.0 1.2 1.4"
 				"special_bonus_facet_bounty_hunter_specialist"		"=1.6 =2.0 =2.4 =2.8"
+				"is_debuff_duration"								"1"
 			}
 			"AbilityCooldown"										"18 17 16 15"
 			"AbilityChargeRestoreTime"								"18 17 16 15"
-			"armor_loss"											{"special_bonus_facet_bounty_hunter_specialist"	"6"}
+			"armor_loss"											{"special_bonus_facet_bounty_hunter_tracker"	"6"}
 			"damage_reduction_pct"
 			{
 				"special_bonus_facet_bounty_hunter_tracker"
@@ -356,6 +376,7 @@
 					"value"											"0"
 					"special_bonus_unique_bounty_hunter_minor_l"	"+3"
 				}
+				"is_debuff_duration"							"1"
 			}
 			"AbilityCharges"
 			{
@@ -448,11 +469,16 @@
 				"value"		"1200"
 				"affected_by_aoe_increase"	"1"
 			}
-			"duration"									"25"
+			"duration"
+			{
+				"value"									"25"
+				"is_debuff_duration"					"1"
+			}
 			"invis_bonus_duration"
 			{
 				"value"									"0.2 0.4 0.6"
 				"special_bonus_facet_bounty_hunter_specialist"		"=0.4 =0.6 =1.2"
+				"is_debuff_duration"						"1"
 			}
 			"bonus_move_speed_pct"						"16 20 24"
 			

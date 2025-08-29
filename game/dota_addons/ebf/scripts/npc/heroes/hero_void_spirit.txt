@@ -100,7 +100,11 @@
 				"special_bonus_unique_void_spirit_2"						""
 				"CalculateSpellDamageTooltip"								"1"
 			}
-			"pull_duration"			"1.0 1.2 1.4 1.6"
+			"pull_duration"
+			{
+				"value"														"1.0 1.2 1.4 1.6"
+				"is_debuff_duration"										"1"
+			}
 			"pull_destination"		"44 50 56 62"
 			"duration"				"20.0"
 			"think_interval"		"0.2"
@@ -196,6 +200,7 @@
 			{
 				"value"												"1.1"
 				"special_bonus_facet_void_spirit_incomprehensible"	"=2 =3 =4 =5"
+				"is_buff_duration"									"1"
 			}
 			"destination_fx_radius" // proportional to distance_offset
 			{
@@ -224,7 +229,11 @@
 					"special_bonus_unique_void_spirit_greater_r"			"+1"
 				}
 			}
-			"disarm_duration"												{"special_bonus_facet_void_spirit_immortal"			"1.5 2 2.5 3"}
+			"disarm_duration"
+			{
+				"special_bonus_facet_void_spirit_immortal"					"1.5 2 2.5 3"
+				"is_debuff_duration"										"1"
+			}
 			"creates_aether_remnant"										{"special_bonus_facet_void_spirit_incomprehensible"	"1"}
 			
 			"phased_hp_regen"
@@ -308,6 +317,7 @@
 			{
 				"value"												"10.0"
 				"special_bonus_facet_void_spirit_immortal"			"+8.0"
+				"is_buff_duration"									"1"
 			}
 			"base_absorb_amount"
 			{
@@ -362,6 +372,7 @@
 					"value"											"0"
 					"special_bonus_unique_void_spirit_minor_l"		"+3"
 				}
+				"is_debuff_duration"								"1"
 			}
 			"cast_cdr"												{"special_bonus_facet_void_spirit_incomprehensible"	"6"}
 			"resonant_pulse_attacks"
@@ -440,6 +451,7 @@
 			{
 				"value"									"1.25"
 				"DamageTypeTooltip"						"DAMAGE_TYPE_NONE"
+				"is_debuff_duration"					"1"
 			}
 			"pop_damage"
 			{
@@ -448,7 +460,11 @@
 			}
 			"movement_slow_pct"							"40 60 80"
 			"early_bonus_duration"						"60 100 140"
-			"ministun"									{"special_bonus_facet_void_spirit_immortal"			"0.2"}
+			"ministun"
+			{
+				"special_bonus_facet_void_spirit_immortal"		"0.2"
+				"is_debuff_duration"							"1"
+			}
 			"attack_speed_slow"							{"special_bonus_facet_void_spirit_immortal"			"80 120 160"}
 			"armor_loss"								{"special_bonus_facet_void_spirit_incomprehensible"	"-2 -4 -6"}
 			

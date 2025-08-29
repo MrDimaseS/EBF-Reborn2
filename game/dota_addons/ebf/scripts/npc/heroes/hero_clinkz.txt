@@ -82,12 +82,16 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"attack_speed_bonus"			
+			"attack_speed_bonus"
 			{
 				"value"												"100 140 180 220"
 				"special_bonus_unique_clinkz_7"						"+80"
 			}
-			"duration"												"3.5"
+			"duration"
+			{
+				"value"												"3.5"
+				"is_buff_duration"									"1"
+			}
 			"attack_range_bonus"			
 			{
 				"value"												"200"
@@ -109,6 +113,7 @@
 			{
 				"value"							"0"
 				"special_bonus_facet_clinkz_suppressive_fire"			"=2.0"
+				"is_debuff_duration"								"1"
 			}
 			"blind_pct"
 			{
@@ -260,7 +265,11 @@
 			}
 			"ground_duration"						"5"				
 			"slow_movement_speed"					"-16 -19 -22 -25"
-			"slow_duration"							"2.5"
+			"slow_duration"
+			{
+				"value"												"2.5"
+				"is_debuff_duration"								"1"
+			}
 			"has_multishot"	
 			{
 				"value"								"0"
@@ -302,21 +311,25 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"					"35 40 45"
-			"fade_time"					"0.6"
-			"move_speed_bonus_pct"		"25 35 45"
+			"duration"
+			{
+				"value"								"35 40 45"
+				"is_buff_duration"					"1"
+			}
+			"fade_time"								"0.6"
+			"move_speed_bonus_pct"					"25 35 45"
 			"skeleton_count"
 			{
-				"value"					"2 3 4"
-				"special_bonus_shard"	"+1"
+				"value"								"2 3 4"
+				"special_bonus_shard"				"+1"
 			}
 			"AbilityCooldown"
 			{
-				"value"									"24 21 18"
-				"special_bonus_unique_clinkz_10"		"-3"
+				"value"								"24 21 18"
+				"special_bonus_unique_clinkz_10"	"-3"
 			}
-			"skeleton_offset"				"250"
-			"skeleton_offset_min"				"150"
+			"skeleton_offset"						"250"
+			"skeleton_offset_min"					"150"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -412,7 +425,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"								"45"
+			"duration"
+			{
+				"value"								"45"
+				"is_buff_duration"					"1"
+			}
 			"damage"
 			{
 				"value"								"1750 2500 3250 4000 4750 5250 6000"

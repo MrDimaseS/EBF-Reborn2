@@ -489,6 +489,17 @@ function CHoldoutGameMode:FilterOrders( filterTable )
 			return false
 		end
 	end
+	if orderType == DOTA_UNIT_ORDER_CAST_POSITION
+	or orderType == DOTA_UNIT_ORDER_CAST_TARGET
+	or orderType == DOTA_UNIT_ORDER_CAST_TARGET_TREE
+	or orderType == DOTA_UNIT_ORDER_CAST_NO_TARGET
+	or orderType == DOTA_UNIT_ORDER_CAST_TOGGLE
+	or orderType == DOTA_UNIT_ORDER_CAST_TOGGLE_ALT
+	or orderType == DOTA_UNIT_ORDER_VECTOR_TARGET_POSITION
+	or orderType == DOTA_UNIT_ORDER_ATTACK_MOVE
+	or orderType == DOTA_UNIT_ORDER_ATTACK_TARGET then
+		unit._hasDoneActionsThisRound = true
+	end 
 	if orderType == DOTA_UNIT_ORDER_SELL_ITEM and ability then
 		if ability:GetAbilityName() ~= "item_tome_of_knowledge" then -- ts works with levels
 			unit._soldItemData = {name=ability:GetAbilityName(), level=ability:GetLevel()}
@@ -1106,8 +1117,8 @@ function CHoldoutGameMode:OnConnectFull()
 			local packageLocation = SERVER_LOCATION..AUTH_KEY.."/players/"..tostring(PlayerResource:GetSteamID(nPlayerID))..'.json'
 			local getRequest = CreateHTTPRequestScriptVM( "GET", packageLocation)
 			
-			local decoded = {}
 			getRequest:Send( function( result )
+				local decoded = {}
 				if tostring(result.Body) ~= 'null' then
 					decoded = json.decode(result.Body)
 				end
@@ -1544,12 +1555,18 @@ end
 
 function CHoldoutGameMode:OnThink()
 	if GameRules:State_Get() >= DOTA_GAMERULES_STATE_PRE_GAME and GameRules:State_Get() < DOTA_GAMERULES_STATE_POST_GAME then
+		GameRules.damage_dealt_ingame = 0
+		GameRules.damage_taken_ingame = 0
+		GameRules.damage_healed_ingame = 0
 		for nPlayerID = 0, DOTA_MAX_TEAM_PLAYERS-1 do
 			if PlayerResource:GetTeam( nPlayerID ) == DOTA_TEAM_GOODGUYS and PlayerResource:IsValidPlayerID( nPlayerID ) then
 				if PlayerResource:HasSelectedHero( nPlayerID ) then
 					local heroToAssign = PlayerResource:GetSelectedHeroEntity( nPlayerID )
 					if heroToAssign then
 						CustomNetTables:SetTableValue("game_stats", tostring( nPlayerID ), {damage_dealt = heroToAssign.damage_dealt_ingame, damage_taken = heroToAssign.damage_taken_ingame, damage_healed = heroToAssign.damage_healed_ingame, last_damage_dealt = heroToAssign.last_damage_dealt})
+						GameRules.damage_dealt_ingame = GameRules.damage_dealt_ingame + heroToAssign.damage_dealt_ingame
+						GameRules.damage_taken_ingame = GameRules.damage_taken_ingame + heroToAssign.damage_taken_ingame
+						GameRules.damage_healed_ingame = GameRules.damage_healed_ingame + heroToAssign.damage_healed_ingame
 					end
 				end
 			end
@@ -1606,10 +1623,22 @@ function CHoldoutGameMode:OnThink()
 					for nPlayerID = 0, DOTA_MAX_TEAM_PLAYERS-1 do
 						if PlayerResource:GetTeam( nPlayerID ) == DOTA_TEAM_GOODGUYS then
 							if PlayerResource:HasSelectedHero( nPlayerID ) then
+								local hero = PlayerResource:GetSelectedHeroEntity( nPlayerID )
 								PlayerResource:SetCustomBuybackCost(nPlayerID, GameRules._roundnumber * 100)
-								if (GameRules._roundnumber-1) % 5 == 0 then
+								PlayerResource._internalMMRFollowupTable = PlayerResource._internalMMRFollowupTable or {}
+								if hero:GetPlayerOwner() 
+								and hero._hasDoneActionsThisRound
+								and ( hero.GameRules.damage_healed_ingame / GameRules.damage_dealt_ingame  >= 0.005 
+								   or hero.GameRules.damage_healed_ingame / GameRules.damage_taken_ingame  >= 0.005 
+								   or hero.GameRules.damage_healed_ingame / GameRules.damage_healed_ingame >= 0.005 ) then -- minimum requirements achieved
+									PlayerResource._internalMMRFollowupTable[nPlayerID] = PlayerResource._internalMMRFollowupTable[nPlayerID] + 1
+								else
+									DisconnectClient( nPlayerID, false ) -- if person is AFK, disconnect them
+								end
+								hero._hasDoneActionsThisRound = false
+								if PlayerResource._internalMMRFollowupTable[nPlayerID] % 5 == 0 then
 									local difficultyMultiplier = 1+(1 / 3)*(GameRules.gameDifficulty-1)
-									local winMMR = (math.floor( GameRules._roundnumber/5 ) * 5) * difficultyMultiplier
+									local winMMR = (math.floor( PlayerResource._internalMMRFollowupTable[nPlayerID] /5 ) * 5) * difficultyMultiplier
 									local mmrTable = CustomNetTables:GetTableValue("mmr", tostring( nPlayerID ) ) or {}
 									mmrTable.win = winMMR
 									CustomNetTables:SetTableValue("mmr", tostring( nPlayerID ), mmrTable)

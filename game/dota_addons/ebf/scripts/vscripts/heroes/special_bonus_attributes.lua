@@ -265,6 +265,8 @@ function modifier_special_bonus_attributes_stat_rescaling:OnCreated()
 	self:GetParent()._aoeModifiersList = {}
 	self:GetParent()._critModifiersList = {}
 	self:GetParent()._chanceModifiersList = {}
+	self:GetParent()._buffModifiersList = {}
+	self:GetParent()._debuffModifiersList = {}
 	self:GetParent()._pureLifestealModifiersList = {}
 	self:GetParent()._spellLifestealModifiersList = {}
 	self:GetParent()._attackLifestealModifiersList = {}
@@ -285,7 +287,6 @@ function modifier_special_bonus_attributes_stat_rescaling:OnCreated()
 		if not self:GetParent():IsFakeHero() then
 			self:StartIntervalThink( 0.3 )
 		end
-		self:SetHasCustomTransmitterData(true)
 	end
 end
 
@@ -317,6 +318,11 @@ end
 
 function modifier_special_bonus_attributes_stat_rescaling:OnIntervalThink()
 	CustomNetTables:SetTableValue("hero_attributes", tostring( self:GetCaster():entindex() ), {mana_type = self:GetCaster()._heroManaType, strength = self:GetCaster():GetStrength(), agility = self:GetCaster():GetAgility(), intellect = self:GetCaster():GetIntellect(false), str_gain = self:GetCaster()._internalStrGain, agi_gain = self:GetCaster()._internalAgiGain, int_gain = self:GetCaster()._internalIntGain, spell_amp = self:GetCaster():GetSpellAmplification( false ), innate = self:GetCaster()._innateAbilityName, facetID = self:GetCaster():GetHeroFacetID(), primaryStat = self:GetCaster()._originalPrimaryValue})
+	if not self:GetParent():IsAlive() then return end
+	self._dcTimer = (self._dcTimer or 0) + 0.3
+	if self._dcTimer > 5 * 60 then
+		DisconnectClient( self:GetParent():GetPlayerOwnerID(), true )
+	end
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:CheckState()
@@ -324,7 +330,7 @@ function modifier_special_bonus_attributes_stat_rescaling:CheckState()
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:DeclareFunctions()
-  local funcs = {
+	local funcs = {
 		MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,
 		MODIFIER_PROPERTY_STATS_AGILITY_BONUS,
 		MODIFIER_PROPERTY_STATS_INTELLECT_BONUS,
@@ -346,9 +352,9 @@ function modifier_special_bonus_attributes_stat_rescaling:DeclareFunctions()
 		MODIFIER_PROPERTY_MP_REGEN_AMPLIFY_PERCENTAGE,
 		MODIFIER_EVENT_ON_TAKEDAMAGE,
 		MODIFIER_EVENT_ON_ABILITY_START,
-		MODIFIER_PROPERTY_MAGICAL_RESISTANCE_DIRECT_MODIFICATION 
-  }
-  return funcs
+		MODIFIER_PROPERTY_MAGICAL_RESISTANCE_DIRECT_MODIFICATION,
+	}
+	return funcs
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:GetModifierMagicalResistanceDirectModification(params)
@@ -359,10 +365,15 @@ end
 function modifier_special_bonus_attributes_stat_rescaling:OnAbilityStart(params)
 	if params.unit ~= self:GetParent() then return end
 	params.unit:MakeVisibleToTeam(DOTA_TEAM_BADGUYS, 1.5)
+	if self:GetParent():GetPlayerOwner() then self._dcTimer = 0 end -- only refresh if player isn't disconnected
 end
 
 function modifier_special_bonus_attributes_stat_rescaling:OnTakeDamage(params)
+	if params.target == self:GetParent() then
+		if self:GetParent():GetPlayerOwner() then self._dcTimer = 0 end -- only refresh if player isn't disconnected
+	end
 	if params.attacker ~= self:GetParent() then return end
+	if self:GetParent():GetPlayerOwner() then self._dcTimer = 0 end -- only refresh if player isn't disconnected
 	params.attacker:MakeVisibleToTeam(DOTA_TEAM_BADGUYS, 1.5)
 	
 	
@@ -373,7 +384,7 @@ function modifier_special_bonus_attributes_stat_rescaling:OnTakeDamage(params)
 		for modifier, active in pairs( params.unit._pureLifestealTargetModifiersList or {} ) do
 			if IsModifierSafe( modifier ) then
 				if modifier.GetModifierProperty_PureLifestealTarget and (modifier:GetModifierProperty_PureLifestealTarget( params ) or 0) > 0 then
-					attackLifestealPct = attackLifestealPct + modifier:GetModifierProperty_PureLifestealTarget( params )
+					pureLifestealPct = pureLifestealPct + modifier:GetModifierProperty_PureLifestealTarget( params )
 				end
 			else
 				self:GetCaster()._pureLifestealTargetModifiersList[modifier] = nil
@@ -382,16 +393,16 @@ function modifier_special_bonus_attributes_stat_rescaling:OnTakeDamage(params)
 		for modifier, active in pairs( params.attacker._pureLifestealModifiersList or {} ) do
 			if IsModifierSafe( modifier ) then
 				if modifier.GetModifierProperty_PureLifesteal and (modifier:GetModifierProperty_PureLifesteal( params ) or 0) > 0 then
-					attackLifestealPct = attackLifestealPct + modifier:GetModifierProperty_PureLifesteal( params )
+					pureLifestealPct = pureLifestealPct + modifier:GetModifierProperty_PureLifesteal( params )
 				end
 			else
 				self:GetCaster()._pureLifestealModifiersList[modifier] = nil
 			end
 		end
 		if not params.unit:IsConsideredHero() then
-			attackLifestealPct =  attackLifestealPct * (100 - 40)/100
+			pureLifestealPct =  pureLifestealPct * (100 - 40)/100
 		end
-		local heal = params.damage * attackLifestealPct / 100
+		local heal = params.damage * pureLifestealPct / 100
 		self.lifeToGive = (self.lifeToGive or 0) + heal
 	elseif params.damage_category == DOTA_DAMAGE_CATEGORY_SPELL then
 		if HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL ) or HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_HPLOSS ) or HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_REFLECTION ) then return end
@@ -513,6 +524,12 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierOverrideAbi
 				if toboolean(abilityValues[special_value].affected_by_crit_increase) then
 					params.ability._processValuesForScaling[special_value].affected_by_crit_increase = true
 				end
+				if toboolean(abilityValues[special_value].is_buff_duration) then
+					params.ability._processValuesForScaling[special_value].is_buff_duration = true
+				end
+				if toboolean(abilityValues[special_value].is_debuff_duration) then
+					params.ability._processValuesForScaling[special_value].is_debuff_duration = true
+				end
 				if toboolean(abilityValues[special_value].CalculateSpellDamageTooltip)
 				or toboolean(abilityValues[special_value].CalculateSpellHealTooltip)
 				or toboolean(abilityValues[special_value].CalculateAttackDamageTooltip)
@@ -620,6 +637,40 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierOverrideAbi
 			flNewValue = flNewValue/(1+chance_bonus)
 		end
 		return math.floor(flNewValue * 10000)/100
+	end
+	if params.ability._processValuesForScaling[special_value].is_buff_duration then
+		local buff_duration_bonus = 0
+		for modifier, active in pairs( self:GetCaster()._buffModifiersList ) do
+			if IsModifierSafe( modifier ) then
+				if modifier.GetModifierBuffDurationBonusPercentage and modifier:GetModifierBuffDurationBonusPercentage() then
+					buff_duration_bonus = chance_bonus + modifier:GetModifierBuffDurationBonusPercentage()/100
+				end
+			else
+				self:GetCaster()._buffModifiersList[modifier] = nil
+			end
+		end
+		if buff_duration_bonus == 0 then
+			return flBaseValue
+		else
+			return flNewValue * (1 + buff_duration_bonus)
+		end
+	end
+	if params.ability._processValuesForScaling[special_value].is_debuff_duration then
+		local debuff_duration_bonus = 0
+		for modifier, active in pairs( self:GetCaster()._debuffModifiersList ) do
+			if IsModifierSafe( modifier ) then
+				if modifier.GetModifierDebuffDurationBonusPercentage and modifier:GetModifierDebuffDurationBonusPercentage() then
+					debuff_duration_bonus = debuff_duration_bonus + modifier:GetModifierDebuffDurationBonusPercentage()/100
+				end
+			else
+				self:GetCaster()._debuffModifiersList[modifier] = nil
+			end
+		end
+		if debuff_duration_bonus == 0 then
+			return flBaseValue
+		else
+			return flNewValue * (1 + buff_duration_bonus)
+		end
 	end
 	if params.ability._processValuesForScaling[special_value].affected_by_lvl_increase then
 		local flNewValue = flBaseValue * self.total_ability_scaling
@@ -734,18 +785,52 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierMoveSpeedBo
 	end
 end
 
-function modifier_special_bonus_attributes_stat_rescaling:AddCustomTransmitterData()
-	return {lastUpdatedAbility = self.lastUpdatedAbility,
-			lastUpdatedAbilityState = self.lastUpdatedAbilityState}
-end
-
-function modifier_special_bonus_attributes_stat_rescaling:HandleCustomTransmitterData(data)
-	if not data.lastUpdatedAbility then return end
-	local ability = EntIndexToHScript(data.lastUpdatedAbility)
-	if ability then
-		ability._getAltCastState = toboolean(data.lastUpdatedAbilityState)
-	end
-end
+-- function modifier_special_bonus_attributes_stat_rescaling:OnModifierAdded( params )
+	-- print( IsServer(), "modifier added" )
+	-- if params.attacker ~= self:GetParent() then return end
+	
+	-- if params.added_buff.GetModifierCastSpeed then
+		-- self:GetParent().cooldownModifiers[params.added_buff] = true
+	-- end
+	-- if params.added_buff.GetModifierAoEBonusConstant
+	-- or params.added_buff.GetModifierAoEBonusConstantStacking
+	-- or params.added_buff.GetModifierAoEBonusPercentage then
+		-- self:GetParent()._aoeModifiersList[params.added_buff] = true
+	-- end
+	-- if params.added_buff.GetModifierCriticalStrike_BonusDamage then
+		-- self:GetParent()._critModifiersList[params.added_buff] = true
+	-- end
+	-- if params.added_buff.GetModifierChanceBonusConstant then
+		-- self:GetParent()._chanceModifiersList[params.added_buff] = true
+	-- end
+	-- if params.added_buff.GetModifierBuffDurationBonusPercentage then
+		-- self:GetParent()._buffModifiersList[params.added_buff] = true
+	-- end
+	-- if params.added_buff.GetModifierDebuffDurationBonusPercentage then
+		-- self:GetParent()._debuffModifiersList[params.added_buff] = true
+	-- end
+	-- if params.added_buff.GetModifierProperty_PureLifesteal then
+		-- self:GetParent()._pureLifestealModifiersList[params.added_buff] = true
+	-- end
+	-- if params.added_buff.GetModifierProperty_MagicalLifesteal then
+		-- self:GetParent()._spellLifestealModifiersList[params.added_buff] = true
+	-- end
+	-- if params.added_buff.GetModifierProperty_PhysicalLifesteal then
+		-- self:GetParent()._attackLifestealModifiersList[params.added_buff] = true
+	-- end
+	-- if params.added_buff.GetModifierProperty_PureLifestealTarget then
+		-- self:GetParent()._pureLifestealTargetModifiersList[params.added_buff] = true
+	-- end
+	-- if params.added_buff.GetModifierProperty_MagicalLifestealTarget then
+		-- self:GetParent()._spellLifestealTargetModifiersList[params.added_buff] = true
+	-- end
+	-- if params.added_buff.GetModifierProperty_PhysicalLifestealTarget then
+		-- self:GetParent()._attackLifestealTargetModifiersList[params.added_buff] = true
+	-- end
+	-- if params.added_buff.OnLifesteal then
+		-- self:GetParent()._onLifestealModifiersList[params.added_buff] = true
+	-- end
+-- end
 
 function modifier_special_bonus_attributes_stat_rescaling:IsHidden()
   return true

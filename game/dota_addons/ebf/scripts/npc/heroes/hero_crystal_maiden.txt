@@ -98,7 +98,11 @@
 			}
 			"movespeed_slow"				"-20 -30 -40 -50"
 			"attackspeed_slow"				"-30 -45 -60 -75"
-			"duration"						"5"
+			"duration"
+			{
+				"value"									"5"
+				"is_debuff_duration"					"1"
+			}
 			"vision_duration"				"6.0"
 			"nova_damage"
 			{
@@ -116,7 +120,11 @@
 				"special_bonus_facet_crystal_maiden_glacial_guard"	"3600 5400 7200 9000"
 				"CalculateSpellHealTooltip"							"1"
 			}
-			"physical_barrier_duration"						{"special_bonus_facet_crystal_maiden_glacial_guard"	"+4.0"}
+			"physical_barrier_duration"
+			{
+				"special_bonus_facet_crystal_maiden_glacial_guard"	"+4.0"
+				"is_buff_duration"									"1"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}	
@@ -168,6 +176,7 @@
 			{
 				"value"										"1.5 2.5 3.5 4.5"
 				"special_bonus_unique_crystal_maiden_1"		"+2.25"
+				"is_debuff_duration"						"1"
 			}
 			"creep_multiplier"								"4"
 			"tick_interval"									"0.25"
@@ -215,7 +224,11 @@
 				"affected_by_aoe_increase"								"1"
 			}
 			"mana_battery_mana_pct"										{"special_bonus_facet_crystal_maiden_arcane_overflow"	"100"}
-			"activation_duration"										{"special_bonus_facet_crystal_maiden_arcane_overflow"	"+10.0"}
+			"activation_duration"
+			{
+				"special_bonus_facet_crystal_maiden_arcane_overflow"	"+10.0"
+				"is_buff_duration"										"1"
+			}
 			"activation_cooldown"										{"special_bonus_facet_crystal_maiden_arcane_overflow"	"+30.0"}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
@@ -271,7 +284,11 @@
 			"explosion_interval"				"0.1"
 			"movespeed_slow"					"-40"
 			"attack_slow"						"-60"
-			"slow_duration"						"1.0"
+			"slow_duration"
+			{
+				"value"									"1.0"
+				"is_debuff_duration"					"1"
+			}
 			"explosion_min_dist"				"195"
 			"explosion_max_dist"			
 			{

@@ -71,11 +71,16 @@
 				"value"									"0.75 1.0 1.25 1.5"
 				"special_bonus_unique_axe_synergy_l"	"+0.25"
 			}
+			"stacks_reduce_damage_taken"				{"special_bonus_facet_axe_jofurr"		"1"}
 			"attack_speed_stack"						{"special_bonus_facet_axe_berserker"	"8 10 12 14"}
-			"duration_bonus_stack"						{"special_bonus_facet_axe_skald"	"0.75 1.0 1.25 1.5"}
-			"heal_increase_stack"						{"special_bonus_facet_axe_skald"	"0.75 1.0 1.25 1.5"}
+			"duration_bonus_stack"						{"special_bonus_facet_axe_skald"		"0.75 1.0 1.25 1.5"}
+			"heal_increase_stack"						{"special_bonus_facet_axe_skald"		"0.75 1.0 1.25 1.5"}
 			
-			"stack_duration"							"8"
+			"stack_duration"
+			{
+				"value"									"8"
+				"is_buff_duration"						"1"
+			}
 			"internal_cooldown"							"0.25"
 			"no_cd_berserkers_call"
 			{
@@ -135,7 +140,11 @@
 				"value"								"25 50 75 100"
 				"special_bonus_unique_axe_minor_r"	"+50"
 			}
-			"duration"								"6.0"
+			"duration"
+			{
+				"value"									"6.0"
+				"is_buff_duration"						"1"
+			}
 			"AbilityCooldown"						"17 15 13 11"
 			
 			"AbilityManaCost"	
@@ -203,7 +212,11 @@
 				"value"								"20"
 				"special_bonus_unique_axe_major_l"	"-20%"
 			}
-			"duration"								"10.0 15.0 20.0 25.0"
+			"duration"
+			{
+				"value"									"10.0 15.0 20.0 25.0"
+				"is_debuff_duration"					"1"
+			}
 			"slow"
 			{
 				"value"								"-11 -19 -27 -35"
@@ -269,7 +282,11 @@
 				"value"								"0.3"
 				"special_bonus_facet_axe_jofurr"	"=0"
 			}
-			"reduction_duration"					{"special_bonus_facet_axe_jofurr"		"+6.0"}
+			"reduction_duration"
+			{
+				"special_bonus_facet_axe_jofurr"	"+6.0"
+				"is_debuff_duration"				"1"
+			}
 			"atk_dmg_reduction"						{"special_bonus_facet_axe_jofurr"		"+2.25"}	
 			"max_red_stacks"						{"special_bonus_facet_axe_jofurr"		"+20"}
 			"attacks_increase_counter"				{"special_bonus_facet_axe_berserker"	"1"}
@@ -345,12 +362,14 @@
 			{
 				"value"								"3"
 				"special_bonus_unique_axe_culling_blade_speed_duration"		"+4"
+				"is_buff_duration"					"1"
 			}
 			"speed_duration"			
 			{
 				"value"								"3"
 				"special_bonus_unique_axe_culling_blade_speed_duration"		"+4"
 				"special_bonus_facet_axe_skald"		"+3"
+				"is_buff_duration"					"1"
 			}
 			"speed_aoe"						
 			{

@@ -46,7 +46,7 @@ function modifier_item_artifact_of_wands_buff:OnCreated()
 end
 
 function modifier_item_artifact_of_wands_buff:OnRefresh()
-	self.bonus = self:GetSpecialValueFor("bonus")
+	self.bonus = self.bonus or self:GetSpecialValueFor("bonus")
 	self.real_bonus = self.bonus
 	if IsServer() then
 		self:IncrementStackCount()

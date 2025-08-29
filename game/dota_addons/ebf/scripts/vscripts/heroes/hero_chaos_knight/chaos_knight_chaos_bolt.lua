@@ -5,6 +5,14 @@ function chaos_knight_chaos_bolt:Preacache(context)
     PrecacheResource("particle", "particles/units/heroes/hero_chaos_knight/chaos_knight_bolt_msg.vpcf", context)
 end
 
+function chaos_knight_chaos_bolt:GetBehavior()
+    if self:GetSpecialValueFor("aoe_bolt") ~= 0 then
+        return DOTA_ABILITY_BEHAVIOR_NO_TARGET + DOTA_ABILITY_BEHAVIOR_AOE
+    else
+        return DOTA_ABILITY_BEHAVIOR_UNIT_TARGET
+    end
+end
+
 function chaos_knight_chaos_bolt:OnAbilityPhaseStart()
     self.caster = self:GetCaster()
     self.illusion_throw_bolt = self:GetSpecialValueFor("illusion_throw_bolt") 
@@ -34,7 +42,16 @@ function chaos_knight_chaos_bolt:OnSpellStart()
 	local target = self:GetCursorTarget()
 
     EmitSoundOn("Hero_ChaosKnight.ChaosBolt.Cast", caster)
-    self:ThrowBolt(target, caster)
+    local radius = self:GetSpecialValueFor("aoe_bolt")
+
+    if radius ~= 0 then
+        local enemies = self.caster:FindEnemyUnitsInRadius(self.caster:GetAbsOrigin(), radius)
+        for _, unit in ipairs (enemies) do
+            self:ThrowBolt(unit, caster)
+        end
+    else
+        self:ThrowBolt(target, caster)
+    end
 
     if self.illusion_throw_bolt > 0 then
         local illusions = self.caster:FindFriendlyUnitsInRadius(self.caster:GetAbsOrigin(), self:GetSpecialValueFor("fake_bolt_radius"))

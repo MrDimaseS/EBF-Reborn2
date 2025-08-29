@@ -7,6 +7,15 @@ end
 function phantom_assassin_stifling_dagger:OnSpellStart( bActivated )
 	local caster = self:GetCaster()
 	local target = self:GetCursorTarget()
+
+	local grants_coup = self:GetSpecialValueFor("guarantee_coup_de_grace")
+	if grants_coup == 1 then
+		local coup_ability = caster:FindAbilityByName("phantom_assassin_coup_de_grace")
+		if coup_ability then
+			local coup_duration = coup_ability:GetSpecialValueFor("duration")
+			caster:AddNewModifier( caster, coup_ability, "modifier_phantom_assassin_coup_de_grace_deadly_mark", {duration = coup_duration} )
+		end
+	end
 	
 	self.projectiles = self.projectiles or {}
 	

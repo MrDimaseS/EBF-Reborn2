@@ -61,6 +61,7 @@ function bossManager:ProcessBossScaling(spawnedUnit)
 	spawnedUnit:SetBaseAttackTime( spawnedUnit:GetBaseAttackTime() * 1/((1 + (GameRules.gameDifficulty-1)*0.3) ) )
 	spawnedUnit.MaxEHP = HP_difficulty_multiplier*spawnedUnit:GetMaxHealth()
 	spawnedUnit.AttackDamageValue = baseDamage * DMG_MULTIPLIER
+	
 	local HEALTH_REGEN = math.max( 1, (spawnedUnit.MaxEHP/currentRound._HP_difficulty_multiplier) * 0.005 )
 	if not spawnedUnit.Holdout_IsCore then
 		HEALTH_REGEN = 0

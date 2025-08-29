@@ -40,8 +40,7 @@ function modifier_item_artifact_of_shields_buff:OnCreated()
 end
 
 function modifier_item_artifact_of_shields_buff:OnRefresh()
-	self.bonus = self:GetSpecialValueFor("bonus")
-	print( self.bonus, self:GetParent():GetHeroPowerAmplification(  ), IsClient() )
+	self.bonus = self.bonus or self:GetSpecialValueFor("bonus")
 	self.real_bonus = self.bonus * self:GetParent():GetHeroPowerAmplification(  )
 	if IsServer() then
 		self:IncrementStackCount()

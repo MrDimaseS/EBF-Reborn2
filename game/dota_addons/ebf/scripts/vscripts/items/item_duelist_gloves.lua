@@ -31,7 +31,8 @@ end
 function modifier_item_duelist_gloves_passive:DeclareFunctions()
 	return {MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
 			MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
-			MODIFIER_PROPERTY_HEALTH_BONUS 
+			MODIFIER_PROPERTY_HEALTH_BONUS,
+			MODIFIER_PROPERTY_TOOLTIP
 			}
 end
 
@@ -45,6 +46,10 @@ end
 
 function modifier_item_duelist_gloves_passive:GetModifierHealthBonus()
 	return self.bonus_health * (1 + (self:GetStackCount()) * self.proximity_bonus )
+end
+
+function modifier_item_duelist_gloves_passive:OnTooltip()
+	return self:GetStackCount() * self.proximity_bonus * 100
 end
 
 function modifier_item_duelist_gloves_passive:IsHidden()

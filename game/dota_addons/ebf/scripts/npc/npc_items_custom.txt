@@ -57,6 +57,7 @@
 #base "items/boss_items/item_warlocks.txt"
 #base "items/boss_items/item_doom.txt"
 #base "items/boss_items/item_butcher.txt"
+#base "items/boss_items/item_misc.txt"
 
 "DOTAAbilities"
 {
@@ -322,12 +323,12 @@
 			}
 			"bonus_health"
 			{
-				"value"							"325 570 1000 1750 3060"
+				"value"							"1500 2625 4595 8040 14065"
 				"CalculateAttributeTooltip"		"1"
 			}
 			"bonus_health_regen"
 			{
-				"value"							"25 45 78 135 235"
+				"value"							"140 245 430 750 1315"
 				"CalculateAttributeTooltip"		"1"
 			}
 			"bonus_mana"						"250 435 760 1330 2325"
@@ -337,7 +338,7 @@
 
 			"aura_health_regen"
 			{
-				"value"							"15 26 45 78 136" 
+				"value"							"25 44 77 134 235" 
 				"CalculateAttributeTooltip"		"1"
 			}
 			"magic_resistance_aura"				"10 12 14 16 18"
@@ -402,7 +403,7 @@
 			"bonus_armor"						"5 9 15 26 45"
 			"bonus_hp_regen"
 			{
-				"value"							"25 45 80 140 245"
+				"value"							"40 70 123 215 375"
 				"CalculateAttributeTooltip"		"1"
 			}
 			
@@ -474,8 +475,8 @@
 			"blink_range"						"1200"
 			"blink_range_clamp"					"960"
 			
-			"bonus_movement_speed_ranged"		"45"
-			"bonus_movement_speed_melee"		"55"
+			"bonus_movement_speed_ranged"		"45 50 55 60 65"
+			"bonus_movement_speed_melee"		"55 60 65 70 75"
 			"bonus_stat"
 			{
 				"value"							"25 45 75 130 225"
@@ -489,19 +490,19 @@
 			"bonus_attack_speed"				"25 40 70 120 210"
 			
 			"radius"							"800"
-			"movement_slow"						"50"
-			"attack_slow"						"50"
-			"damage_pct"						"150"
+			"movement_slow"						"50 55 60 65 70"
+			"attack_slow"						"50 60 70 80 90"
+			"damage_pct"						"150 200 250 300 350"
 			"base_damage"
 			{
 				"value"							"1000 2000 3000 4000 5000"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			
-			"bonus_movement"					"40"
+			"bonus_movement"					"30 35 40 45 50"
 			"bonus_agi_active"
 			{
-				"value"							"50 85"
+				"value"							"50 85 150 260 470"
 				"CalculateAttributeTooltip"		"1"
 			}
 			
@@ -510,7 +511,7 @@
 			"arcane_blink_range"				"1400"
 			"heal_amount"
 			{
-				"value"							"1000 2000 3000 400 5000"
+				"value"							"2500 5000 7500 10000 12500"
 				"CalculateSpellHealTooltip"		"1"
 			}
 			"mana_amount"						"100 200 300 400 500"
@@ -580,12 +581,12 @@
 		{
 			"bonus_health"
 			{
-				"value"							"500 875 1530 2675 4680"
+				"value"							"5000 8750 15315 26795 46895"
 				"CalculateAttributeTooltip"		"1"
 			}
 			"bonus_health_regen"
 			{
-				"value"							"20.5 35.5 62.0 108.5 190"
+				"value"							"120 210 365 645 1125"
 				"CalculateAttributeTooltip"		"1"
 			}
 			"bonus_mana_regen"					"2.25 4.0 7.0 12.25 21.5"
@@ -636,7 +637,7 @@
 			}
 			"bonus_health"
 			{
-				"value"							"325 570 1000 1750 3065"
+				"value"							"4250 7435 13015 22775 39860"
 				"CalculateAttributeTooltip"		"1"
 			}
 			"bonus_armor"						"2 3 5 9 16"
@@ -650,7 +651,7 @@
 			
 			"soul_heal_amount"
 			{
-				"value"							"100 200 300 400 500"
+				"value"							"400 800 1200 1600 1800"
 				"CalculateSpellHealTooltip"		"1"
 			}
 			"soul_damage_amount"
@@ -683,21 +684,19 @@
 		"BaseClass"						"item_lua"
 		"ScriptFile"					"items/item_spear_of_justice"
 		"AbilityTextureName"			"spear_of_justice/spear_of_justice"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH | DOTA_UNIT_TARGET_TEAM_CUSTOM"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_CUSTOM"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"FightRecapLevel"				"1"
 
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"650"
-		"AbilityCastPoint"				"0.0"
-		"AbilityCooldown"				"20.0"
-		"AbilitySharedCooldown"			"force"
+		// "AbilityCastRange"				"650"
+		// "AbilityCastPoint"				"0.0"
+		// "AbilityCooldown"				"20.0"
+		// "AbilitySharedCooldown"			"force"
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"100"
+		// "AbilityManaCost"				"100"
 		"ItemCost"						"1000"
 		"ItemShopTags"					"int;damage;attack_speed;hard_to_tag"
 		"ItemQuality"					"epic"
@@ -800,7 +799,7 @@
 			"duration"							"4.5"
 			"passive_reflection_constant"
 			{
-				"value"							"60 120 180 240 300"
+				"value"							"240 480 720 960 1200"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"reflection_radius"					"600"
@@ -811,12 +810,12 @@
 				"value"							"30"
 				"affected_by_chance_increase"	"1"
 			}
-			"chain_strikes"						"4"
+			"chain_strikes"						"3 4 5 6 7"
 			"chain_radius"						"650"
 			"chain_delay"						"0.25"
 			"chain_damage"
 			{
-				"value"							"120 240 360 480 600"
+				"value"							"180 360 540 720 900"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 		}
@@ -1228,12 +1227,12 @@
 		{
 			"bonus_health"
 			{
-				"value"							"450 785 1375 2405 4210"
+				"value"							"2500 4375 7655 13400 23450"
 				"CalculateAttributeTooltip"		"1"
 			}
 			"bonus_health_regen"
 			{
-				"value"							"40 70 125 220 385"
+				"value"							"60 105 185 320 565"
 				"CalculateAttributeTooltip"		"1"
 			}
 			"bloodbound_lifesteal"				"2 4 6 8 10"
@@ -1282,9 +1281,9 @@
 			
 			"AbilityCooldown"					"25"
 			"AbilityManaCost"					"75 100 125 150 175"
-			"petrify_duration"					"4"
+			"petrify_duration"					"2 2.5 3 3.5 4"
 			"petrify_amp"						"12 18 24 30 36"
-			"petrify_distance"					"800"
+			"petrify_distance"					"600 650 700 750 800"
 		}
 	}
 	"item_lucky_femur"
@@ -1321,7 +1320,7 @@
 			
 			"instant_refresh_chance"
 			{
-				"value"							"15 24.5 38.5 56 74.5"
+				"value"							"8.5 15 24.5 38.5 56"
 				"affected_by_chance_increase"	"1"
 			}
 			"mana_cost_penalty_base"			"100"

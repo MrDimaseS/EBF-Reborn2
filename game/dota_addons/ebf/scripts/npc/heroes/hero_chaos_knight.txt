@@ -86,7 +86,6 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 		"AbilityCastPoint"				"0.4 0.4 0.4 0.4"
-		"AbilityCooldown"				"13 12 11 10"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -96,14 +95,27 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"AbilityCooldown"				
+			{
+				"value"												"13 12 11 10"
+				"special_bonus_unique_chaos_knight_8"				"-3"
+			}
 			"AbilityCastRange"				
 			{
 				"value"												"600"
 				"special_bonus_facet_chaos_knight_uncertainoi"		"+100"
 			}
-
-			"stun_min"												"1.25 1.5 1.75 2"
-			"stun_max"												"1.75 2.25 2.75 3.25"
+			"chaos_bolt_speed"										"700"
+			"stun_min"
+			{
+				"value"												"1.25 1.5 1.75 2"
+				"is_debuff_duration"								"1"
+			}
+			"stun_max"	
+			{
+				"value"												"1.75 2.25 2.75 3.25"
+				"is_debuff_duration"								"1"
+			}
 			"damage_min"
 			{
 				"value"												"900 1200 1500 1800"
@@ -133,7 +145,6 @@
 					"special_bonus_unique_chaos_knight_major_r"		"+1"
 				}
 			}
-
 			"bounce_count"
 			{
 				"special_bonus_facet_chaos_knight_uncertainoi"				
@@ -151,10 +162,7 @@
 					"special_bonus_unique_chaos_knight_major_r"	"+700"
 				}
 			}
-			
-			"chaos_bolt_speed"										"700"
 			"fake_bolt_radius"										"675"
-			"is_debuff_duration"									"1"
 		}
 	}
 
@@ -213,7 +221,6 @@
 					"special_bonus_unique_chaos_knight_minor_l"		"+4"
 				}
 			}
-
 			"extra_debuff_chance"
 			{
 				"special_bonus_facet_chaos_knight_uncertainoi"		
@@ -230,9 +237,9 @@
 					"value"											"3"
 					"special_bonus_unique_chaos_knight_minor_l"		"+3"
 				}
+				"is_debuff_duration"									"1"
 			}
 			"illusion_search_radius"								"1375"
-			"is_debuff_duration"									"1"
 		}
 	}
 	//=================================================================================================================

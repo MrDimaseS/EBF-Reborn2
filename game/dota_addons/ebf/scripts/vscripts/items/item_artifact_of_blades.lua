@@ -47,7 +47,7 @@ function modifier_item_artifact_of_blades_buff:OnCreated()
 end
 
 function modifier_item_artifact_of_blades_buff:OnRefresh(kv, first)
-	self.bonus = self:GetSpecialValueFor("bonus")
+	self.bonus = self.bonus or self:GetSpecialValueFor("bonus")
 	self.real_bonus = self.bonus * self:GetParent():GetHeroPowerAmplification(  )
 	if IsServer() then
 		if not first then

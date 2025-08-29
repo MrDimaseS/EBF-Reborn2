@@ -51,7 +51,7 @@
 			}
 			"hp_regen_per_instance"
 			{
-				"value"	"5 10 15 20 25 30 35 40 45 50"
+				"value"	"10 20 30 40 50 60 70 80 90 100"
 				"special_bonus_unique_invoker_13"	"x2"	
 				"CalculateAttributeTooltip"					"1"
 			}
@@ -317,8 +317,13 @@
 			{
 				"value"					"3.0 3.4 3.8 4.2 4.6 5.0 5.4 5.8 7.0 8.2"
 				"levelkey"				"quaslevel"	
+				"is_debuff_duration"				"1"
 			}
-			"freeze_duration"			"0.4"
+			"freeze_duration"
+			{
+				"value"					"0.4"
+				"is_debuff_duration"	"1"
+			}
 			"freeze_cooldown"
 			{
 				"value"					"0.80 0.77 0.74 0.71 0.68 0.65 0.62 0.59 0.50 0.41"
@@ -369,7 +374,11 @@
 			{
 				"value"					"25"
 			}
-			"duration"				"60"
+			"duration"
+			{
+				"value"					"60"
+				"is_buff_duration"		"1"
+			}
 			"area_of_effect"		
 			{
 				"value"		"450"
@@ -388,7 +397,7 @@
 			"aura_fade_time"			"2.0"
 			"health_regen"				
 			{
-				"value"					"20 40 60 80 100 120 140 160 220 280"
+				"value"					"40 80 120 160 200 240 280 320 360 400"
 				"CalculateSpellHealTooltip"	"1"
 				"levelkey"				"quaslevel"
 			}
@@ -466,7 +475,7 @@
 			"end_vision_duration"	"1.75"
 			"lift_duration"
 			{
-				"value"				"0.6 0.8 1.0 1.2 1.4 1.6 1.8 2.0 2.6 3.2"
+				"value"				"1.2"
 				"levelkey"			"quaslevel"
 			}
 			"base_damage"			
@@ -476,7 +485,7 @@
 			}
 			"quas_damage"
 			{
-				"value"				"0 0 0 0 0 0 0 0 0"
+				"value"				"450 900 1350 1800 2250 2700 3150 3600 4950 6300"
 				"levelkey"			"quaslevel"
 			}
 			"wex_damage"
@@ -640,7 +649,11 @@
 				"levelkey"									"wexlevel"	
 				"special_bonus_facet_invoker_wex_focus"		"+50 60 70 80 90 100 110 120 130 140"
 			}
-			"duration"					"9"
+			"duration"
+			{
+				"value"					"9"
+				"is_buff_duration"		"1"
+			}
 		}
 	}
 
@@ -725,7 +738,11 @@
 				//	"special_bonus_shard"		"+75"
 				//}
 			}
-			"burn_duration"				"9.0"
+			"burn_duration"
+			{
+				"value"						"9.0"
+				"is_debuff_duration"		"1"
+			}
 			"burn_dps"
 			{
 				"value"					"300 450 600 750 900 1050 1200 1350 1800 2250"
@@ -978,7 +995,11 @@
 				"value"				"-20 -40 -60 -80 -100 -120 -140 -160 -220 -280"
 				"levelkey"			"quaslevel"
 			}
-			"slow_duration"			"2.0"
+			"slow_duration"
+			{
+				"value"						"2.0"
+				"is_debuff_duration"		"1"
+			}
 			"damage_per_second"
 			{
 				"value"				"80 160 240 320 400 480 560 640 880 1120"
@@ -1060,6 +1081,7 @@
 					"value"						"0"
 					"special_bonus_shard"		"+1.5"
 				}
+				"is_debuff_duration"		"1"
 			}
 			"root_damage"
 			{
@@ -1131,6 +1153,7 @@
 			{
 				"value"					"1.5 2.0 2.5 3.0 3.5 4.0 4.5 5.0 6.5 8.0"
 				"levelkey"				"wexlevel"
+				"is_debuff_duration"	"1"
 			}
 			"radial_count"
 			{

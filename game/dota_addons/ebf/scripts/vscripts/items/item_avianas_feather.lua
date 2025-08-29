@@ -23,6 +23,11 @@ function modifier_item_avianas_feather_passive:OnRefresh()
 	end
 end
 
+function modifier_item_avianas_feather_passive:OnDestroy()
+	if IsClient() then return end
+	if self._selfFlightBuff then self._selfFlightBuff:Destroy() end
+end
+
 function modifier_item_avianas_feather_passive:OnIntervalThink()
 	local parent = self:GetParent()
 	if self:GetParent():GetHealthPercent() <= self.flight_threshold then

@@ -61,7 +61,11 @@
 		"AbilityValues"
 		{
 			"goo_speed"											"1000"
-			"goo_duration"										"6.0"
+			"goo_duration"
+			{
+				"value"											"6.0"
+				"is_debuff_duration"							"1"
+			}
 			"base_armor"
 			{
 				"value"											"2 3 4 5"
@@ -99,8 +103,16 @@
 			}
 			"incoming_attacks_required"							{"special_bonus_facet_bristleback_prick"		"5"}
 			"slip_chance"										{"special_bonus_facet_bristleback_prick"		"4 8 12 16"}
-			"slip_base_duration"								{"special_bonus_facet_bristleback_prick"		"0.4"}
-			"slip_stack_duration"								{"special_bonus_facet_bristleback_prick"		"0.1 0.2 0.3 0.4"}
+			"slip_base_duration"
+			{
+				"special_bonus_facet_bristleback_prick"			"0.4"
+				"is_debuff_duration"							"1"
+			}
+			"slip_stack_duration"
+			{
+				"special_bonus_facet_bristleback_prick"			"0.1 0.2 0.3 0.4"
+				"is_debuff_duration"							"1"
+			}
 			"outgoing_attacks_required"							{"special_bonus_facet_bristleback_mettlehead"	"5"}
 			"base_attack_damage_reduction"						{"special_bonus_facet_bristleback_mettlehead"	"2 4 6 8"}
 			"stack_attack_damage_reduction"						{"special_bonus_facet_bristleback_mettlehead"	"1 2 3 4"}
@@ -155,6 +167,7 @@
 			"bonus_physical_damage_duration"
 			{
 				"special_bonus_facet_bristleback_boogerman"		"14"
+				"is_debuff_duration"							"1"
 			}
 			"bonus_physical_damage_self_multiplier"
 			{
@@ -169,6 +182,7 @@
 			"bonus_attack_damage_duration"
 			{
 				"special_bonus_facet_bristleback_mettlehead"	"14"
+				"is_debuff_duration"							"1"
 			}
 
 			"quill_stack_damage"								""
@@ -275,6 +289,7 @@
 			"mettlehead_increase_duration"
 			{
 				"special_bonus_facet_bristleback_mettlehead"	"5 6 7 8"
+				"is_buff_duration"								"1"
 			}
 
 			"side_damage_reduction"								""
@@ -319,6 +334,7 @@
 			"stack_duration"
 			{
 				"value"											"16.0 18.0 20.0"
+				"is_buff_duration"								"1"
 			}
 			"max_stacks"
 			{
@@ -328,6 +344,7 @@
 			"duration"
 			{
 				"value"											"10"
+				"is_buff_duration"								"1"
 			}
 
 			"goo_damage_per_stack"

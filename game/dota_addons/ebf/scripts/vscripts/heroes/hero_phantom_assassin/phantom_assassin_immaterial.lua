@@ -26,6 +26,7 @@ function modifier_phantom_assassin_immaterial_handler:OnRefresh()
     self.kills_refresh = self:GetSpecialValueFor("kills_refresh") == 1
     self.invisibility_threshold = self:GetSpecialValueFor("invisibility_threshold")
     self.evasion_to_lifesteal = self:GetSpecialValueFor("evasion_to_lifesteal") / 100
+	self.dagger_immaterial_consumed = (self:GetSpecialValueFor("dagger_immaterial_consumed") or 0) / 100
 	
 	if IsServer() then
 		self._currentMode = IMMATERIAL_STATE_INCREASE
@@ -104,8 +105,7 @@ end
 function modifier_phantom_assassin_immaterial_handler:OnAbilityFullyCast(params)
     if params.unit ~= self:GetParent() then return end
     if params.ability:GetAbilityName() == "phantom_assassin_stifling_dagger" then
-        -- Reduce stacks by %
-        local new_stacks = math.floor(self:GetStackCount() * 0.6)
+        local new_stacks = math.floor(self:GetStackCount() * (1 - self.dagger_immaterial_consumed))
         self:SetStackCount(new_stacks)
         if self._currentMode ~= IMMATERIAL_STATE_REDUCE then
             self:StartIntervalThink(self.loss_delay)

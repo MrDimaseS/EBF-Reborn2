@@ -350,7 +350,11 @@
 				"CalculateSpellHealTooltip"		"1"
 			}
 			"barrier_radius"					"900"
-			"duration"							"12"
+			"duration"
+			{
+				"value"							"12"
+				"is_buff_duration"				"1"
+			}
 			"trigger_cd_reduction"				"2 4 6 8 10"
 			"trigger_hp_threshold"				"10"
 		}
@@ -407,7 +411,11 @@
 				"CalculateAttributeTooltip"		"1"
 			}
 			
-			"duration"							"4.5"
+			"duration"
+			{
+				"value"							"4.5"
+				"is_buff_duration"				"1"
+			}
 			"taunts_enemies"					"1"
 			"passive_reflection_constant"
 			{
@@ -516,7 +524,11 @@
 			}
 			"mana_amount"						"100 200 300 400 500"
 			
-			"duration"							"6"
+			"duration"
+			{
+				"value"							"6"
+				"is_buff_duration"				"1"
+			}
 		}
 	}
 	"item_void_reach"
@@ -661,7 +673,12 @@
 			}
 			"hp_regen_reduction_enemy"			"45"
 			"enemy_hp_drain"					"0.75 1.0 1.25 1.5 1.75"
-			"duration"							"8.0"
+			"duration"
+			{
+				"value"							"8.0"
+				"is_buff_duration"				"1"
+				"is_debuff_duration"			"1"
+			}
 			
 			"max_charges"						"20"
 			"charge_radius"						"1200"
@@ -730,8 +747,12 @@
 			"bonus_attack_speed"				"20 35 61 105 185"
 			
 			"movement_slow"						"100"
-			"attack_speed_slow"					"0"
-			"slow_duration"						"0.8"
+			"attack_speed_slow"					"200"
+			"slow_duration"
+			{
+				"value"							"0.8 1.0 1.2 1.4 1.6"
+				"is_debuff_duration"			"1"
+			}
 			"passive_cooldown"					"6 5 4 3 2"
 			"ranged_cooldown"					"9 8 7 6 5"
 			
@@ -796,7 +817,11 @@
 			"bonus_attack_speed"				"25 40 70 122 212"
 			"bonus_armor"						"5 8 14 24 42"
 			
-			"duration"							"4.5"
+			"duration"
+			{
+				"value"							"4.5"
+				"is_buff_duration"				"1"
+			}
 			"passive_reflection_constant"
 			{
 				"value"							"240 480 720 960 1200"
@@ -857,7 +882,11 @@
 			
 			"overheal_maximum"					"10 20 30 40 50"
 			
-			"duration"							"8"
+			"duration"
+			{
+				"value"							"8"
+				"is_buff_duration"				"1"
+			}
 			"link_radius"
 			{
 				"value"							"900"
@@ -990,7 +1019,11 @@
 			"trigger_radius"					"900"	
 			"bonus_movespeed"					"10 15 20 25 30"
 			"bonus_cdr"							"10 15 20 25 30"
-			"buff_duration"						"5"
+			"buff_duration"
+			{
+				"value"							"5"
+				"is_buff_duration"				"1"
+			}
 		}
 	}
 	"item_assassins_dagger"
@@ -1032,7 +1065,11 @@
 			"blink_distance"					"1200"	
 			"blink_disable"						"3"	
 			
-			"buff_duration"						"3"
+			"buff_duration"
+			{
+				"value"							"3"
+				"is_buff_duration"				"1"
+			}
 			"critical_damage"					"200 250 300 350 400"
 			
 			"crit_attackspeed"					"20 50 75 100 125"
@@ -1125,7 +1162,11 @@
 				"value"							"1500 3000 4500 6000 7500"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"debuff_duration"					"6"
+			"debuff_duration"
+			{
+				"value"							"6"
+				"is_debuff_duration"			"1"
+			}
 		}
 	}
 	"item_angelic_crown"
@@ -1281,7 +1322,11 @@
 			
 			"AbilityCooldown"					"25"
 			"AbilityManaCost"					"75 100 125 150 175"
-			"petrify_duration"					"2 2.5 3 3.5 4"
+			"petrify_duration"
+			{
+				"value"							"2 2.5 3 3.5 4"
+				"is_debuff_duration"			"1"
+			}
 			"petrify_amp"						"12 18 24 30 36"
 			"petrify_distance"					"600 650 700 750 800"
 		}
@@ -1408,7 +1453,11 @@
 			}
 			
 			"AbilityCooldown"					"20 18 16 14 12"
-			"buff_duration"						"3"
+			"buff_duration"
+			{
+				"value"							"3"
+				"is_buff_duration"				"1"
+			}
 			"heal_per_second"
 			{
 				"value"							"500 1000 1500 2000 2500"
@@ -1543,9 +1592,9 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"threshold"					"500"
-			"bonus"						"1"
-			"initial_value"				"2000"
+			"threshold"					"1000"
+			"bonus"						"10"
+			"initial_value"				"6000"
 		}
 	}
 	"item_artifact_of_blades"
@@ -1636,7 +1685,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"threshold"					"5"
+			"threshold"					"10"
 			"bonus"						"1"
 			"initial_value"				"10"
 		}

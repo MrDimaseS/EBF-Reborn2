@@ -34,7 +34,11 @@
 		{
 			"attack_speed"				"70"
 			"status_resistance"			"25"
-			"duration"					"5"
+			"duration"					
+			{
+				"value"					"5"
+				"is_buff_duration"		"1"
+			}
 		}
 	}
 
@@ -74,9 +78,17 @@
 			"bonus_range"								"350"
 			"base_attack_time"							"1.4"
 			"ensnare_chance"							"20"
-			"ensnare_duration"							"0.8 1.2 1.6 2.0"
+			"ensnare_duration"							
+			{
+				"value"									"0.8 1.2 1.6 2.0"
+				"is_debuff_duration"					"1"
+			}
 			"maim_chance"								"20"
-			"maim_duration"								"0.8 1.2 1.6 2.0"
+			"maim_duration"								
+			{
+				"value"									"0.8 1.2 1.6 2.0"
+				"is_debuff_duration"					"1"
+			}
 			"maim_slow"									"8 16 24 32"	
 			"maim_attack_slow"							"8 16 24 32"	//note:currently unused in code, just tooltips.
 			"maim_damage"		
@@ -134,6 +146,7 @@
 			{
 				"value"																"2.5 3 3.5 4"
 				"special_bonus_unique_troll_warlord_whirling_axes_debuff_duration"	"+2.5"
+				"is_debuff_duration"												"1"
 			}
 			"movement_speed"			"40"
 			"axe_spread"				"25"
@@ -198,6 +211,7 @@
 			{
 				"value"						"5"
 				"special_bonus_unique_troll_warlord_whirling_axes_debuff_duration"				"+2"
+				"is_debuff_duration"															"1"
 			}
 			"blind_pct"
 			{
@@ -354,6 +368,7 @@
 			{
 				"value"																"6.5"
 				"special_bonus_unique_troll_warlord_battle_trance_movespeed"		"+1.5"
+				"is_buff_duration"													"1"
 			}
 			"AbilityCooldown"
 			{

@@ -62,7 +62,11 @@
 			"min_distance"							"150"
 			"placement_radius"						"0"
 			"mres_reduction"						"5 10 15"
-			"burn_duration"							"5"
+			"burn_duration"							
+			{
+				"value"								"5"
+				"is_debuff_duration"				"1"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -108,7 +112,11 @@
 				"special_bonus_unique_techies" 						"+75%"
 				"CalculateSpellDamageTooltip"						"1"
 			}
-			"stun_duration"											"1.4"
+			"stun_duration"											
+			{
+				"value"												"1.4"
+				"is_debuff_duration"								"1"
+			}
 			"AbilityCastPoint"										"1.0"
 			"hp_cost"												"20"
 			"hp_dmg"
@@ -173,7 +181,11 @@
 			}
 			"slow"								"25 35 45 55"
 			"secondary_slow"					"15 25 35 45"
-			"secondary_slow_duration"			"3"
+			"secondary_slow_duration"			
+			{
+				"value"								"3"
+				"is_debuff_duration"				"1"
+			}
 			"explosion_radius"		
 			{
 				"value"								"300"
@@ -224,8 +236,16 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"duration"				"6"
-			"disarm_duration"		"2.4 2.7 3 3.3"
+			"duration"				
+			{
+				"value"				"6"
+				"is_buff_duration"	"1"
+			}
+			"disarm_duration"		
+			{
+				"value"					"2.4 2.7 3 3.3"
+				"is_debuff_duration"	"1"
+			}
 			"bonus_ms"				"18 22 26 30"
 			"stun_radius"			
 			{

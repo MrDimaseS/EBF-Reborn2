@@ -33,7 +33,7 @@ function modifier_chaos_knight_chaos_strike_passive:OnRefresh()
     self.crit_max = self:GetSpecialValueFor("critical_max")
     self.lifesteal = self:GetSpecialValueFor("lifesteal")
 
-    self.accumulated_crit_chance = self:GetSpecialValueFor("accumulated_crit_chance")
+    self.accumulated_crit_chance = self:GetSpecialValueFor("accumulated_crit_chance") or 0
     self.crit_chance_increment = self:GetSpecialValueFor("crit_chance_increment")
 
     self.break_chance = self:GetSpecialValueFor("break_chance")
@@ -61,8 +61,9 @@ function modifier_chaos_knight_chaos_strike_passive:GetModifierPreAttack_Critica
         self.record = params.record
         self.accumulated_crit_chance = 0
         return self.crit_damage
+    else
+        self.acumulated_crit_chance = self.accumulated_crit_chance + self.crit_chance_increment
     end
-    self.acumulated_crit_chance = self.accumulated_crit_chance + self.crit_chance_increment
 end
 
 function modifier_chaos_knight_chaos_strike_passive:GetModifierAccumulatedCritChance_Percentage(params)

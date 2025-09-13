@@ -176,6 +176,7 @@ function modifier_void_spirit_aether_remnant_watched:OnCreated()
 	self.attack_speed_factor = self:GetSpecialValueFor("think_interval")
 	if IsServer() then
 		self:GetParent():MoveToPosition( self:GetParent()._aetherRemnantPosition )
+		self:OnIntervalThink( )
 		self:StartIntervalThink(self.think_interval)
 		
 		

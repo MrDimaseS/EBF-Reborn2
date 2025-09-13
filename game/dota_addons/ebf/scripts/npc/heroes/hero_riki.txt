@@ -19,16 +19,20 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"fade_delay"						"4"
+			"fade_delay"									"4"
 			"bonus_movespeed"				
 			{
-				"value"							"0"
-				"special_bonus_unique_riki_8"	"+25"
+				"value"										"0"
+				"special_bonus_unique_riki_8"				"+25"
 			}
-			"bonus_damage"						"100"
+			"bonus_damage"									"100"
 			
-			"kill_creeps"						{"special_bonus_facet_riki_infiltrator" "1"}
-			"disarm_duration"					{"special_bonus_facet_riki_revolutionary" "3"}
+			"kill_creeps"									{"special_bonus_facet_riki_infiltrator" "1"}
+			"disarm_duration"
+			{
+				"special_bonus_facet_riki_revolutionary" 	"3"
+				"is_debuff_duration"						"1"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -149,7 +153,8 @@
 			"slow"
 			{
 				"value"										"0.4"
-				"special_bonus_facet_riki_revolutionary"	"=1.2 =1.8 =2.4 =3.0"				
+				"special_bonus_facet_riki_revolutionary"	"=1.2 =1.8 =2.4 =3.0"
+				"is_debuff_duration"						"1"
 			}
 			"activate_invis"								{"special_bonus_facet_riki_infiltrator"	"1"}
 		}

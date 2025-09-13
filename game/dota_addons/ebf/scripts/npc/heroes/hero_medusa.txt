@@ -43,12 +43,12 @@
 				"value"										"0"
 				"special_bonus_facet_medusa_mana_pact"		"=35"
 			}
-			"aspd_increase_buff_duration"			
+			"aspd_increase_buff_duration"
 			{
 				"value"										"0"
 				"special_bonus_facet_medusa_mana_pact"		"=15"
-
-			}			
+				"is_buff_duration"							"1"
+			}
 			"aspd_increase_mana_cost_pct"							
 			{
 				"value"										"0"
@@ -71,7 +71,7 @@
 			{
 				"value"										"0"
 				"special_bonus_facet_medusa_mana_pact"		"=3"
-
+				"is_buff_duration"							"1"
 			}			
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
@@ -205,7 +205,11 @@
 			"return_speed"								"800"
 			
 			"movement_slow"								"30"
-			"slow_duration"								"3"
+			"slow_duration"
+			{
+				"value"										"3"
+				"is_debuff_duration"						"1"
+			}
 			"max_attacks"					
 			{
 				"value"									"0"
@@ -221,6 +225,7 @@
 			{
 				"value"									"0"
 				"special_bonus_facet_medusa_engorged"	"+20"
+				"is_buff_duration"						"1"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -279,7 +284,11 @@
 				"special_bonus_special_bonus_unique_medusa_gorgons_grasp_volleys"			"1"
 			}
 
-			"duration"							"1.6 2.0 2.4 2.8"
+			"duration"
+			{
+				"value"										"1.6 2.0 2.4 2.8"
+				"is_debuff_duration"						"1"
+			}
 			"damage"
 			{
 				"value"							"300 700 1100 1500"
@@ -335,9 +344,14 @@
 			{
 				"value"							"5 5.5 6"
 				"special_bonus_unique_medusa"	"+2"
+				"is_buff_duration"				"1"
 			}
 			"slow"								"35"
-			"stone_duration"					"2 2.2 2.4"
+			"stone_duration"
+			{
+				"value"							"2 2.2 2.4"
+				"is_debuff_duration"			"1"
+			}
 			"face_duration"						"2.0"
 			"vision_cone"						"0.08715"		// 85 degree cone
 			"bonus_physical_damage"

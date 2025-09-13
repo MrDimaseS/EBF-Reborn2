@@ -36,6 +36,7 @@
 			{
 				"value"										"0.7 0.9 1.1 1.3"
 				"special_bonus_unique_monkey_king_9"		"+0.3"
+				"is_debuff_duration"						"1"
 			}
 			"strike_crit_mult"
 			{
@@ -104,6 +105,7 @@
 			{
 				"value"										"0.2"
 				"special_bonus_unique_monkey_king_12"		"+0.2"
+				"is_buff_duration"							"1"
 			}
 		}
 	}
@@ -250,7 +252,11 @@
 				"CalculateSpellDamageTooltip"			"1"
 			}
 			"impact_movement_slow"						"80"
-			"impact_slow_duration"						"4.0"
+			"impact_slow_duration"
+			{
+				"value"										"4.0"
+				"is_debuff_duration"						"1"
+			}
 			"impact_radius"			
 			{
 				"value"									"375"
@@ -275,7 +281,67 @@
 		"AbilityCastPoint"				"0.0 0.0 0.0 0.0"
 		"AbilityCastAnimation"			"ACT_INVALID"
 	}
+	//=================================================================================================================
+	// Monkey King: Jingu Mastery
+	//=================================================================================================================
+	"monkey_king_jingu_mastery"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_monkey_king/monkey_king_jingu_mastery"
+		"AbilityTextureName"			"monkey_king_jingu_mastery"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_MonkeyKing.IronCudgel"
+		"AbilityCastAnimation"			"ACT_INVALID"
+		
 
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"0"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"required_hits"				
+			{
+				"value"									"4"
+				"special_bonus_unique_monkey_king_11"	"-1"
+			}
+			"counter_duration"
+			{
+				"value"										"7 8 9 10"
+				"is_debuff_duration"						"1"
+			}
+			"charges"
+			{
+				"value"									"4"
+			}
+			"bonus_damage"	
+			{
+				"value"									"300 750 1200 1650"
+				"special_bonus_unique_monkey_king_2"	"+75%"
+				"CalculateSpellDamageTooltip"			"0"
+				"CalculateAttackDamageTooltip"			"1"
+			}
+			"lifesteal"									"20 40 60 80"
+			"max_duration"
+			{
+				"value"									"35"
+				"is_buff_duration"						"1"
+			}
+			"works_on_creeps"	
+			{
+				"value"									"0"
+				"special_bonus_unique_monkey_king_12"	"+1"
+			}
+		}
+	}
 	//=================================================================================================================
 	// Monkey King: Wukong's Command
 	//=================================================================================================================
@@ -336,6 +402,7 @@
 			{
 				"value"								"13"
 				"special_bonus_facet_monkey_king_wukongs_faithful"	"+3.0"
+				"is_buff_duration"							"1"
 			}
 			"leadership_time_buffer"
 			{
@@ -368,60 +435,6 @@
 			{
 				"value"		"12"
 				"RequiresScepter"	"1"
-			}
-		}
-	}
-	
-	//=================================================================================================================
-	// Monkey King: Jingu Mastery
-	//=================================================================================================================
-	"monkey_king_jingu_mastery"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"ability_lua"
-		"ScriptFile"					"heroes/hero_monkey_king/monkey_king_jingu_mastery"
-		"AbilityTextureName"			"monkey_king_jingu_mastery"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
-		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
-		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
-		"FightRecapLevel"				"1"
-		"AbilitySound"					"Hero_MonkeyKing.IronCudgel"
-		"AbilityCastAnimation"			"ACT_INVALID"
-		
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"0"
-
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			"required_hits"				
-			{
-				"value"									"4"
-				"special_bonus_unique_monkey_king_11"	"-1"
-			}
-			"counter_duration"							"7 8 9 10"
-			"charges"
-			{
-				"value"									"4"
-			}
-			"bonus_damage"	
-			{
-				"value"									"300 750 1200 1650"
-				"special_bonus_unique_monkey_king_2"	"+75%"
-				"CalculateSpellDamageTooltip"			"0"
-				"CalculateAttackDamageTooltip"			"1"
-			}
-			"lifesteal"									"20 40 60 80"
-			"max_duration"								"35"
-			"works_on_creeps"	
-			{
-				"value"									"0"
-				"special_bonus_unique_monkey_king_12"	"+1"
 			}
 		}
 	}

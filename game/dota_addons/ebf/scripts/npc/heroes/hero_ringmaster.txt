@@ -39,7 +39,11 @@
 			}
 			"illusion_percent_damage"		"50"
 			"pulse_interval"				"0.1"
-			"duration"						"8"
+			"duration"
+			{
+				"value"					 	"8"
+				"is_debuff_duration"		"1"
+			}
 			"miss_chance"					"30"
 			"initial_speed"					"3000"
 			"sweep_speed"					"0.785"
@@ -127,8 +131,16 @@
 				"value"		"0"
 				"special_bonus_unique_ringmaster_whip_debuff_immunity"	"+1"
 			}
-			"fear_duration_min"								"0.1 0.2 0.3 0.4"
-			"fear_duration_max"								"0.6 0.8 1.0 1.2"
+			"fear_duration_min"
+			{
+				"value"										"0.1 0.2 0.3 0.4"
+				"is_debuff_duration"						"1"
+			}
+			"fear_duration_max"
+			{
+				"value"					 					"0.6 0.8 1.0 1.2"
+				"is_debuff_duration"						"1"
+			}
 		}
 	}
 
@@ -197,7 +209,11 @@
 				"value"			"600"
 				"special_bonus_unique_ringmaster_box_cast_range"		"+200"
 			}
-			"invis_duration"			"2.0 2.4 2.8 3.2"
+			"invis_duration"
+			{
+				"value"									"2.0 2.4 2.8 3.2"
+				"is_buff_duration"						"1"
+			}
 			"move_speed"				"5 10 15 20"
 			"magic_resist"				"50 60 70 80"
 			"slow_resist"				"100"
@@ -276,7 +292,11 @@
 				"special_bonus_unique_ringmaster_wheel_radius" "+100"
 			}
 			"trap_duration"				"4"
-			"wheel_stun"				"2.5 2.75 3.0"
+			"wheel_stun"
+			{
+				"value"					"2.5 2.75 3.0"
+				"is_debuff_duration"	"1"
+			}
 			"face_duration"				"0.5"
 			"aura_tick_interval"		"0.5"
 			"aura_damage"
@@ -351,12 +371,14 @@
 			{
 				"value"							"4"
 				"special_bonus_unique_ringmaster_dagger_bleed_and_slow_duration"	"+1"
+				"is_debuff_duration"			"1"
 			}
 			"slow_percent"						"100"
 			"slow_duration"
 			{
 				"value"							"0.8"
 				"special_bonus_unique_ringmaster_dagger_bleed_and_slow_duration"	"+1"
+				"is_debuff_duration"			"1"
 			}
 			"dagger_speed"						"1350"
 			"dagger_width"						"130"
@@ -469,7 +491,11 @@
 			"leap_acceleration"		"10000.0"
 			"fart_cloud_duration"					"3.0"
 			"fart_cloud_slow"						"-30.0"
-			"fart_cloud_aura_linger_duration"		"1.0"
+			"fart_cloud_aura_linger_duration"
+			{
+				"value"								"1.0"
+				"is_debuff_duration"				"1"
+			}
 			"fart_cloud_radius"						"200"
 		}
 	}
@@ -517,7 +543,11 @@
 			}
 			"model_scale"						"30"
 			"model_scale_animate_time"			"0.1"
-			"duration"							"8.0"
+			"duration"
+			{
+				"value"							"8.0"
+				"is_buff_duration"				"1"
+			}
 			"effect_strength_max_duration"		"4.0"
 		}
 	}

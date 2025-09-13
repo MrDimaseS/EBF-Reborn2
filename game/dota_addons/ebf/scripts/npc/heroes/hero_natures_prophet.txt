@@ -157,9 +157,16 @@
 				"special_bonus_unique_furion_teleportation_barrier"		"+50%"
 				"CalculateSpellHealTooltip"								"1"
 			}
-			"buff_duration"												"15"
-			
-			"damage_duration"											{"special_bonus_facet_furion_naturopath"		"=5"}
+			"buff_duration"
+			{
+				"value"													"15"
+				"is_buff_duration"										"1"
+			}
+			"damage_duration"
+			{
+				"special_bonus_facet_furion_naturopath"					"=5"
+				"is_debuff_duration"									"1"
+			}
 			"damage_per_sec"
 			{
 				"special_bonus_facet_furion_naturopath"					"100 200 300 400"
@@ -301,9 +308,17 @@
 				"value"											"85"
 				"special_bonus_facet_furion_phytomercenary"		"-25"
 			}
-			"entangle_duration"									{"special_bonus_facet_furion_naturopath"				"2"}
+			"entangle_duration"
+			{
+				"special_bonus_facet_furion_naturopath"				"2"
+				"is_debuff_duration"								"1"
+			}
 			"base_damage_bonus"									{"special_bonus_facet_furion_arboriculturist"			"5"}
-			"damage_bonus_duration"								{"special_bonus_facet_furion_arboriculturist"			"20"}
+			"damage_bonus_duration"
+			{
+				"special_bonus_facet_furion_arboriculturist"			"20"
+				"is_buff_duration"										"1"
+			}
 			"tree_destroy_radius"								{"special_bonus_facet_furion_phytomercenary"			"450"}
 		}
 	}

@@ -59,16 +59,25 @@ function modifier_juggernaut_blade_fury_ebf_caster:OnCreated()
     end
 end
 function modifier_juggernaut_blade_fury_ebf_caster:OnDestroy()
-    local parent = self:GetParent()
+    local caster = self:GetCaster()
     if IsServer() then
-        if parent:HasAbility("juggernaut_swift_slash") then
+        if caster:HasAbility("juggernaut_swift_slash") then
             self.omni_slash:SetActivated(true)
             self.swift_slash:SetActivated(true)
         else
             self.omni_slash:SetActivated(true)
         end
+        caster:Dispel(caster, true)
     end
     StopSoundOn("Hero_Juggernaut.BladeFuryStart", self:GetParent())
+end
+
+function modifier_juggernaut_blade_fury_ebf_caster:DeclareFunctions()
+    return {MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS}
+end
+
+function modifier_juggernaut_blade_fury_ebf_caster:GetModifierMagicalResistanceBonus()
+    return 80
 end
 
 modifier_juggernaut_blade_fury_ebf_handler = class({})

@@ -159,11 +159,6 @@ function CHoldoutGameRound:End(bWon)
 			spawner:End()
 		end
 	end
-	for _,illusion in pairs (self:FindAllUnits()) do
-		if illusion:HasModifier("modifier_illusion") or illusion:IsIllusion() == true then
-			illusion:ForceKill(false)
-		end
-	end
 	GameRules._processValuesForScaling = nil
 end
 

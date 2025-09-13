@@ -81,10 +81,6 @@ function special_bonus_attributes:UpdatePersistentModifiers()
 	if balance then
 		balance:OnStackCountChanged()
 	end
-	local warden = hero:FindModifierByName("modifier_arc_warden_balance_of_power_buff")
-	if warden then
-		warden:OnStackCountChanged()
-	end
 end
 
 function special_bonus_attributes:Spawn()

@@ -74,7 +74,11 @@
 			}
 			"move_slow"												"-50"
 			"dagger_speed"											"1200"
-			"duration"												"2.1 2.4 2.7 3"
+			"duration"												
+			{
+				"value"												"2.1 2.4 2.7 3"
+				"is_debuff_duration"								"1"
+			}
 			"base_damage"
 			{
 				"value"												"650 900 1150 1400"
@@ -101,8 +105,16 @@
 			"double_strike_damage"									{"special_bonus_facet_phantom_assassin_lanceuse"		"150"}
 			"bonus_attack_factor"									{"special_bonus_facet_phantom_assassin_dame_noire"		"20"}
 			"guarantee_coup_de_grace"								{"special_bonus_facet_phantom_assassin_dame_noire"		"1"}
-			"stun_duration"											{"special_bonus_facet_phantom_assassin_femme_fatale"	"1.5 2.0 2.5 3.0"}
-			"root_duration"											{"special_bonus_facet_phantom_assassin_femme_fatale"	"3.0 4.0 5.0 6.0"}
+			"stun_duration"											
+			{
+				"special_bonus_facet_phantom_assassin_femme_fatale"	"1.5 2.0 2.5 3.0"
+				"is_debuff_duration"								"1"
+			}
+			"root_duration"											
+			{
+				"special_bonus_facet_phantom_assassin_femme_fatale"	"3.0 4.0 5.0 6.0"
+				"is_debuff_duration"								"1"
+			}
 			"triple_strike"											{"special_bonus_unique_phantom_assassin"				"1"}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
@@ -152,6 +164,7 @@
 			{
 				"value"													"2.5"
 				"special_bonus_unique_phantom_assassin_4"				"+0.5"
+				"is_buff_duration"										"1"
 			}
 			"AbilityCastRange"
 			{
@@ -213,7 +226,11 @@
 				"value"												"625 550 475 400"
 				"special_bonus_facet_phantom_assassin_dame_noire"	"=0 =0 =0 =0"
 			}
-			"duration"												"30"
+			"duration"												
+			{
+				"value"												"30"
+				"is_buff_duration"									"1"
+			}
 			"fade_duration"
 			{
 				"value"												""
@@ -296,8 +313,16 @@
 				"special_bonus_facet_phantom_assassin_methodical"		""
 				"affected_by_crit_increase"								"1"
 			}
-			"duration"													"6 8 10"
-			"break_duration"											{"special_bonus_facet_phantom_assassin_lanceuse"		"1 2 3"}
+			"duration"													
+			{
+				"value"													"6 8 10"
+				"is_buff_duration"										"1"
+			}
+			"break_duration"											
+			{
+				"special_bonus_facet_phantom_assassin_lanceuse"		"1 2 3"
+				"is_debuff_duration"								"1"
+			}
 			"bonus_crit_chance"											{"special_bonus_facet_phantom_assassin_dame_noire"		"0.1"}
 			"invis_crit_chance_bonus"									{"special_bonus_facet_phantom_assassin_dame_noire"		"2"}
 			"current_health_damage"										{"special_bonus_facet_phantom_assassin_femme_fatale"	"0.8 1.2 1.6"}

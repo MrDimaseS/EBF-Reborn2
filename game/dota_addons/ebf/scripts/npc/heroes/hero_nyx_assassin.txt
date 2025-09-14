@@ -75,6 +75,7 @@
 			{
 				"value"							"1.1 1.4 1.7 2.0"
 				"special_bonus_unique_nyx_4" 	"+0.20"
+				"is_debuff_duration"			"1"
 			}
 			"length"							"750"
 			"speed"								"1600"
@@ -84,15 +85,27 @@
 				"special_bonus_unique_nyx_2"	"+50%"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"reduction_duration"				{"special_bonus_facet_nyx_assassin_myrmeleomorph"	"=6"}
+			"reduction_duration"				
+			{
+				"special_bonus_facet_nyx_assassin_myrmeleomorph"	"=6"
+				"is_debuff_duration"								"1"
+			}
 			"damage_reduction"					{"special_bonus_facet_nyx_assassin_myrmeleomorph"	"-25"}
-			"damage_duration"					{"special_bonus_facet_nyx_assassin_libellumorph"	"6"}
+			"damage_duration"					
+			{
+				"special_bonus_facet_nyx_assassin_libellumorph"	"6"}
+				"is_debuff_duration"							"1"
+			
 			"damage_bonus"
 			{
 				"special_bonus_facet_nyx_assassin_libellumorph"		"600 900 1200 1500"
 				"CalculateSpellDamageTooltip"						"1"
 			}
-			"infest_duration"					{"special_bonus_facet_nyx_assassin_aulacimorph"		"30"}
+			"infest_duration"					
+			{
+				"special_bonus_facet_nyx_assassin_aulacimorph"		"30"
+				"is_debuff_duration"								"1"
+			}
 			"infest_search_radius"				{"special_bonus_facet_nyx_assassin_aulacimorph"		"900"}
 			"infest_dps"
 			{
@@ -194,11 +207,13 @@
 				"value"													"2.0"
 				"special_bonus_unique_nyx_carapace_reflect_duration"	"+0.5"
 				"special_bonus_facet_nyx_assassin_libellumorph"			"+0.5"
+				"is_buff_duration"										"1"
 			}
 			"stun_duration"
 			{
 				"value"													"0.4 0.8 1.2 1.6"
 				"special_bonus_unique_nyx_6"							"+0.5"
+				"is_debuff_duration"									"1"
 			}
 			"damage_reflect_pct"
 			{			
@@ -206,7 +221,11 @@
 				"special_bonus_unique_nyx_4" 		"+25"
 			}
 			"linger_percentage"											{"special_bonus_facet_nyx_assassin_myrmeleomorph"	"20"}
-			"linger_duration"											{"special_bonus_facet_nyx_assassin_myrmeleomorph"	"0.5"}
+			"linger_duration"											
+			{
+				"special_bonus_facet_nyx_assassin_myrmeleomorph"	"0.5"
+				"is_buff_duration"									"1"
+			}
 			"linger_radius"
 			{
 				"special_bonus_facet_nyx_assassin_myrmeleomorph"		"250"
@@ -250,7 +269,11 @@
 			"AbilityCooldown"									"25 20 15"
 			"AbilityManaCost"									"180 240 300"
 			
-			"duration"											"15"
+			"duration"											
+			{
+				"value"											"15"
+				"is_buff_duration"								"1"
+			}
 			"fade_time"											"0.0"
 			"movement_speed"									"16 18 20"
 			"bonus_damage"					
@@ -259,7 +282,11 @@
 				"special_bonus_unique_nyx_vendetta_damage"		"+50%"
 				"CalculateSpellDamageTooltip"					"1"
 			}
-			"break_duration"									{"special_bonus_unique_nyx_ultimate_boon"	"3"}
+			"break_duration"									
+			{
+				"special_bonus_unique_nyx_ultimate_boon"		"3"
+				"is_debuff_duration"							"1"
+			}
 			"attack_animation_bonus"							"70"
 			"attack_range_bonus"								"75"
 		}
@@ -354,6 +381,7 @@
 			{
 				"value"										"8 10 12"
 				"special_bonus_unique_nyx_vendetta_damage"	"+2"
+				"is_debuff_duration"						"1"
 			}
 			"AbilityCooldown"								"80 70 60"
 			"dmg_reduction"									"25"

@@ -74,7 +74,11 @@
 			{
 				"special_bonus_facet_templar_assassin_refractor"				"+1"
 			}
-			"duration"															"17.0"
+			"duration"															
+			{
+				"value"															"17.0"
+				"is_buff_duration"												"1"
+			}
 			"cast_while_disabled"
 			{
 				"special_bonus_unique_templar_assassin_refraction_disable_cast"	"+1"
@@ -108,7 +112,6 @@
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"6 5 4 3"
-		"AbilityDuration"				"6"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -118,6 +121,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"AbilityDuration"				
+			{
+				"value"										"6"
+				"is_debuff_duration"						"1"
+			}
 			"bonus_damage"
 			{
 				"value"										"700 1250 1800 2350"
@@ -132,6 +140,7 @@
 			{
 				"value"				"0"
 				"special_bonus_unique_templar_assassin_7"			"=1.0"
+				"is_debuff_duration"	"1"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -173,6 +182,7 @@
 			{
 				"value"												"0.0"
 				"special_bonus_facet_templar_assassin_voidblades"	"+3.0"
+				"is_debuff_duration"								"1"
 			}
 			"spill_movement_slow_pct"
 			{
@@ -225,7 +235,11 @@
 				"value"						"400"
 				"affected_by_aoe_increase"	"1"
 			}
-			"trap_duration"					"5.0"			
+			"trap_duration"					
+			{
+				"value"						"5.0"
+				"is_debuff_duration"		"1"
+			}			
 			"max_traps"					
 			{
 				"value"						"5 8 11"
@@ -245,15 +259,17 @@
 			"trap_max_charge_duration"			"3.5"
 			"min_silence_duration"		
 			{
-				"value"										"0"
-				"special_bonus_shard"		"+1.5"
+				"value"								"0"
+				"special_bonus_shard"				"+1.5"
 				"RequiresShard"						"1"
+				"is_debuff_duration"				"1"
 			}
 			"max_silence_duration"		
 			{
-				"value"										"0"
-				"special_bonus_shard"		"+3.5"
+				"value"								"0"
+				"special_bonus_shard"				"+3.5"
 				"RequiresShard"						"1"
+				"is_debuff_duration"				"1"
 			}
 			"bonus_vision"			
 			{

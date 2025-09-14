@@ -138,7 +138,11 @@
 				"value"							"400 650 900 1150"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"stun_duration"						"1.6 1.8 2.0 2.2"
+			"stun_duration"						
+			{
+				"value"							"1.6 1.8 2.0 2.2"
+				"is_debuff_duration"			"1"
+			}
 			"stun_duration_bonus"				"0.4"
 			"snowball_windup_radius"	
 			{
@@ -146,7 +150,11 @@
 				"affected_by_aoe_increase"	"1"
 
 			}
-			"snowball_duration"			"3.0"
+			"snowball_duration"			
+			{
+				"value"						"3.0"
+				"is_buff_duration"			"1"
+			}
 			"snowball_radius"			
 			{
 				"value"		"200"
@@ -246,8 +254,16 @@
 				"CalculateAttackDamageTooltip"	"1"
 			}
 			"movement_slow"						"75"
-			"slow_duration"						"0.5"
-			"debuff_duration"					"5"
+			"slow_duration"						
+			{
+				"value"							"0.5"
+				"is_debuff_duration"			"1"
+			}
+			"debuff_duration"					
+			{
+				"value"							"5"
+				"is_debuff_duration"			"1"
+			}
 			"radius"
 			{
 				"value"							"350"
@@ -289,7 +305,11 @@
 		"AbilityValues"
 		{
 			"AbilityCastRange"					"900"
-			"buff_duration"						"5.0"
+			"buff_duration"						
+			{
+				"value"							"5.0"
+				"is_buff_duration"				"1"
+			}
 			"pull_duration"						"0.2"
 			
 			"min_distance"						"250"
@@ -381,6 +401,7 @@
 			{
 				"value"							"0.5"
 				"LinkedSpecialBonus"			"special_bonus_unique_tusk_7"
+				"is_debuff_duration"			"1"
 			}
 			"push_length"						"1000"
 		}
@@ -426,10 +447,18 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"air_time"					"1.0"
+			"air_time"					
+			{
+				"value"					"1.0"
+				"is_debuff_duration"	"1"
+			}
 			"push_length"				"400"
 			"move_slow"					"40"
-			"slow_duration"				"4"
+			"slow_duration"				
+			{
+				"value"					"4"
+				"is_debuff_duration"	"1"
+			}
 			"damage"					
 			{
 				"value"							"3500"

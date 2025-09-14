@@ -61,6 +61,7 @@
 			{
 				"value"										"1.0"
 				"special_bonus_unique_snapfire_7"			"+100%"
+				"is_debuff_duration"						"1"
 			}
 			"movement_slow_pct"								"100"
 			"attack_slow_pct"								"100"
@@ -94,6 +95,7 @@
 			{
 				"value"										"1.4"
 				"RequiresShard"								"1"
+				"is_debuff_duration"						"1"
 			}
 			"shard_bonus_point_blank_dmg_pct"			
 			{
@@ -139,7 +141,6 @@
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"60 50 40"
-		"AbilityDuration"				"3"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -149,6 +150,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"AbilityDuration"				
+			{
+				"value"															"3"
+				"is_buff_duration"												"1"
+			}
 			"projectile_count"
 			{
 				"value"															"8"
@@ -196,7 +202,11 @@
 			"min_lob_travel_time"												"0.8"
 			"max_lob_travel_time"												"2.0"
 			"delay_after_last_projectile"										"0.5"
-			"burn_linger_duration"												"3.0"
+			"burn_linger_duration"												
+			{
+				"value"															"3.0"
+				"is_debuff_duration"											"1"
+			}
 		}
 	}
 
@@ -308,8 +318,16 @@
 			"burn_ground_duration"	"3.0"
 			"min_lob_travel_time"	"0.1"
 			"max_lob_travel_time"	"2.0"
-			"burn_linger_duration"	"1.0"
-			"stun_duration"			"1.5"
+			"burn_linger_duration"	
+			{
+				"value"					"1.0"
+				"is_debuff_duration"	"1"
+			}
+			"stun_duration"			
+			{
+				"value"					"1.5"
+				"is_debuff_duration"	"1"
+			}
 			"min_height_above_lowest"	"150.0"
 			"min_height_above_highest"	"100.0"
 			"min_acceleration"		"1000.0"
@@ -386,6 +404,7 @@
 			{
 				"value"								"1.7"
 				"special_bonus_unique_snapfire_3"	"+0.3"
+				"is_debuff_duration"				"1"
 			}
 			"self_cast_delay"		"0.3"
 			"target_heal"			
@@ -449,7 +468,6 @@
 		// Time
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"18 16 14 12"
-		"AbilityDuration"				"20"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -459,6 +477,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"AbilityDuration"				
+			{
+				"value"												"20"
+				"is_buff_duration"									"1"
+			}
 			"damage"			
 			{
 				"value"												"200 350 500 650"
@@ -480,7 +503,11 @@
 			"buff_duration_tooltip"									"20"
 			"base_attack_time"										"1.0"
 			"armor_reduction_per_attack"							"0.5"
-			"armor_duration"										"5.0"
+			"armor_duration"										
+			{
+				"value"												"5.0"
+				"is_debuff_duration"								"1"
+			}
 			"extra_targets"
 			{
 				"special_bonus_unique_snapfire_8"	"=2"

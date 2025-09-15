@@ -16,13 +16,29 @@ function modifier_antimage_persectur_passive:OnRefresh()
 	self.mana_to_damage = self:GetSpecialValueFor("mana_to_damage") / 100
 	self.mana_threshold = self:GetSpecialValueFor("mana_threshold") / 100
 	self.search_radius = self:GetSpecialValueFor("search_radius")
+	self.loss_delay = self:GetSpecialValueFor("loss_delay")
+	self.loss_amount = self:GetSpecialValueFor("loss_amount") / 100
+	self.tick = 0.25
 	
 	self.mana_to_barrier = self:GetSpecialValueFor("mana_to_barrier") / 100
 	self.barrier_max = self:GetSpecialValueFor("barrier_max") / 100
 	
 	self.base_damage = self:GetSpecialValueFor("base_damage")
 	if IsServer() then
+		self._safeAmount = 0
 		self.barrier = 0
+		self:SendBuffRefreshToClients()
+		
+		self:StartIntervalThink( self.tick )
+	end
+end
+
+function modifier_antimage_persectur_passive:OnIntervalThink()
+	local stacksToAdjust = self:GetStackCount() - self._safeAmount
+	self:SetStackCount( stacksToAdjust * (1 - self.loss_amount * self.tick ) + self._safeAmount )
+	
+	if self.mana_to_barrier > 0 then
+		self.barrier = math.min( self:GetParent():GetMaxHealth() * self.barrier_max, (self.barrier or 0) + params.cost * self.mana_to_barrier )
 		self:SendBuffRefreshToClients()
 	end
 end
@@ -41,18 +57,15 @@ function modifier_antimage_persectur_passive:OnTakeDamage(params)
 	if params.inflictor and params.inflictor:IsItem() then return end
 	if self:GetStackCount() == 0 and self.base_damage == 0 then return end
 	ability:DealDamage( params.attacker, params.unit, self.base_damage + self:GetStackCount() * self.mana_to_damage, {damage_type = TernaryOperator( DAMAGE_TYPE_PURE, params.unit:GetManaPercent() <= self.mana_threshold, DAMAGE_TYPE_MAGICAL) }, OVERHEAD_ALERT_BONUS_SPELL_DAMAGE  )
-	if params.inflictor and params.inflictor:GetAbilityName() == "antimage_mana_void" then return end
-	self:SetStackCount( 0 )
 end
 
 function modifier_antimage_persectur_passive:OnSpentMana(params)
 	if CalculateDistance( params.unit, self:GetParent() ) > self.search_radius then return end
 	self:SetStackCount( self:GetStackCount() + params.cost )
-	if self.mana_to_barrier > 0 then
-		self.barrier = math.min( self:GetParent():GetMaxHealth() * self.barrier_max, (self.barrier or 0) + params.cost * self.mana_to_barrier )
-		self:SendBuffRefreshToClients()
-		print( self.barrier )
-	end
+	self._safeAmount = self._safeAmount + params.cost
+	Timers:CreateTimer( self.loss_delay, function()
+		self._safeAmount = math.max( 0, self._safeAmount - params.cost )
+	end )
 end
 
 function modifier_antimage_persectur_passive:GetModifierIncomingDamageConstant( params )

@@ -14,18 +14,28 @@ function Spawn( entityKeyValues )
 		end
 	end)
 	
-	thisEntity.speed = thisEntity:FindAbilityByName("boss_kobold_speed_aura")
-	thisEntity.swiftness = thisEntity:FindAbilityByName("boss_kobold_swiftness_aura")
+	thisEntity.banner = thisEntity:FindAbilityByName("boss_kobold_heralds_banner")
 	
 	Timers:CreateTimer(0.1, function()
-		thisEntity.speed:SetLevel(GameRules.gameDifficulty)
-		thisEntity.swiftness:SetLevel(GameRules.gameDifficulty)
+		thisEntity.banner:SetLevel(GameRules.gameDifficulty)
 	end)
 end
 
 
 function AIThink(thisEntity)
-	if thisEntity:GetTeamNumber() == DOTA_TEAM_NEUTRALS and not thisEntity:IsChanneling() then-- no spells left to be cast and not currently attacking
+	if not thisEntity:IsAlive() then
+		return
+	end
+	if thisEntity:GetTeamNumber() == DOTA_TEAM_NEUTRALS and not thisEntity:IsChanneling() then
+		if thisEntity.banner:IsFullyCastable() and ( AICore:TotalEnemyHeroesInRange( thisEntity, 900 ) >= math.ceil(HeroList:GetActiveHeroCount() / 2) or thisEntity:IsAttacking() ) then
+			ExecuteOrderFromTable({
+				UnitIndex = thisEntity:entindex(),
+                OrderType = DOTA_UNIT_ORDER_CAST_POSITION,
+                Position = thisEntity:GetAbsOrigin() + thisEntity:GetForwardVector() * 150,
+				AbilityIndex = thisEntity.banner:entindex()
+			})
+			return AI_THINK_RATE
+		end
 		return AICore:HandleBasicAI( thisEntity )
 	else 
 		return AI_THINK_RATE 

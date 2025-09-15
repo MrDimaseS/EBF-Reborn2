@@ -50,7 +50,7 @@ function modifier_gungnir_passive:OnCreated()
 end
 
 function modifier_gungnir_passive:CheckState()
-	if self.attacksOnRecord[1] and self.attacksOnRecord[1].proc then
+	if self.attacksOnRecord[1] then
 		return {[MODIFIER_STATE_CANNOT_MISS] = true}
 	end
 end
@@ -62,8 +62,9 @@ function modifier_gungnir_passive:DeclareFunctions()
 			MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,
 			MODIFIER_PROPERTY_STATS_AGILITY_BONUS,
 			MODIFIER_PROPERTY_PROCATTACK_BONUS_DAMAGE_PURE,
-			MODIFIER_EVENT_ON_ATTACK_RECORD, 
-			MODIFIER_EVENT_ON_ATTACK_RECORD_DESTROY, 
+			MODIFIER_EVENT_ON_ATTACK_FINISHED,
+			MODIFIER_EVENT_ON_ATTACK_START, 
+			MODIFIER_EVENT_ON_ATTACK_CANCELLED, 
 			}
 end
 
@@ -89,8 +90,8 @@ end
 
 function modifier_gungnir_passive:GetModifierProcAttack_BonusDamage_Pure( params )
 	if params.attacker == self:GetParent() then
-		local attackData = self.attacksOnRecord[self.keyToAttack[params.record]]
-		if attackData and attackData.proc then
+		local attackProc = self.attacksOnRecord[1]
+		if attackProc then
 			local damage = self.proc_damage + params.original_damage * self.proc_pct
 			SendOverheadEventMessage(params.target, OVERHEAD_ALERT_BONUS_SPELL_DAMAGE, params.target, damage, params.attacker)
 			return damage
@@ -98,25 +99,22 @@ function modifier_gungnir_passive:GetModifierProcAttack_BonusDamage_Pure( params
 	end
 end
 
-function modifier_gungnir_passive:OnAttackRecord( params )
+function modifier_gungnir_passive:OnAttackStart( params )
 	if params.attacker == self:GetParent() then
 		local prng = RollPseudoRandomPercentage( self.proc_chance, self.prngID, self:GetCaster() )
-		table.insert( self.attacksOnRecord, {record = params.record, proc = prng} )
-		self.keyToAttack[params.record] = #self.attacksOnRecord
+		table.insert( self.attacksOnRecord, prng )
 	end
 end
 
-function modifier_gungnir_passive:OnAttackRecordDestroy( params )
+function modifier_gungnir_passive:OnAttackFinished( params )
 	if params.attacker == self:GetParent() then
-		if not self.keyToAttack[params.record] then return end
-		table.remove( self.attacksOnRecord, self.keyToAttack[params.record] )
-		local relativeID = self.keyToAttack[params.record]
-		self.keyToAttack[params.record] = nil
-		for record, arrayID in pairs( self.keyToAttack ) do
-			if arrayID > relativeID then
-				self.keyToAttack[record] = arrayID - 1
-			end
-		end
+		Timers:CreateTimer( function() table.remove( self.attacksOnRecord, 1 ) end )
+	end
+end
+
+function modifier_gungnir_passive:OnAttackCancelled( params )
+	if params.attacker == self:GetParent() then
+		table.remove( self.attacksOnRecord, #self.attacksOnRecord )
 	end
 end
 

@@ -32,7 +32,7 @@ function antimage_mana_void:OnSpellStart()
 			enemy:SpendMana( target:GetMaxMana() * manaDrain, self )
 		end
 	end
-	local damage = damagePerMana * ( target:GetMaxMana() - target:GetMana() )
+	local damage = self:GetSpecialValueFor("mana_void_damage") + damagePerMana * ( target:GetMaxMana() - target:GetMana() )
 	local casterDamage = self:GetSpecialValueFor("caster_curr_mana_for_calc") / 100
 	if casterDamage > 0 then
 		damage = damage + caster:GetMana() * casterDamage * damagePerMana

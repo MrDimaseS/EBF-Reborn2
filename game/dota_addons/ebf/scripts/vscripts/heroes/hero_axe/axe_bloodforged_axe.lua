@@ -100,7 +100,7 @@ end
 
 
 function modifier_axe_bloodforged_axe_handler:IsHidden()
-	return self:GetStackCount() > 0
+	return self:GetStackCount() == 0
 end
 
 function modifier_axe_bloodforged_axe_handler:IsPurgable()

@@ -1628,10 +1628,10 @@ function CHoldoutGameMode:OnThink()
 								PlayerResource._internalMMRFollowupTable = PlayerResource._internalMMRFollowupTable or {}
 								if hero:GetPlayerOwner() 
 								and hero._hasDoneActionsThisRound
-								and ( hero.GameRules.damage_healed_ingame / GameRules.damage_dealt_ingame  >= 0.005 
-								   or hero.GameRules.damage_healed_ingame / GameRules.damage_taken_ingame  >= 0.005 
-								   or hero.GameRules.damage_healed_ingame / GameRules.damage_healed_ingame >= 0.005 ) then -- minimum requirements achieved
-									PlayerResource._internalMMRFollowupTable[nPlayerID] = PlayerResource._internalMMRFollowupTable[nPlayerID] + 1
+								and ( hero.damage_dealt_ingame / ((GameRules.damage_dealt_ingame or 1)+1)  >= 0.005 
+								   or hero.damage_taken_ingame / ((GameRules.damage_taken_ingame or 1)+1)  >= 0.005 
+								   or hero.damage_healed_ingame / ((GameRules.damage_healed_ingame or 1)+1) >= 0.005 ) then -- minimum requirements achieved
+									PlayerResource._internalMMRFollowupTable[nPlayerID] = (PlayerResource._internalMMRFollowupTable[nPlayerID] or 0) + 1
 								else
 									DisconnectClient( nPlayerID, false ) -- if person is AFK, disconnect them
 								end

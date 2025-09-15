@@ -14,9 +14,9 @@ function Spawn( entityKeyValues )
 		end
 	end)
 	
-	thisEntity.howl = thisEntity:FindAbilityByName("boss_kobold_howl")
+	thisEntity.rally = thisEntity:FindAbilityByName("boss_kobold_rally_troops")
 	Timers:CreateTimer(0.1, function()
-		thisEntity.howl:SetLevel(GameRules.gameDifficulty)
+		thisEntity.rally:SetLevel(GameRules.gameDifficulty)
 	end)
 end
 
@@ -26,11 +26,11 @@ function AIThink(thisEntity)
 		return
 	end
 	if thisEntity:GetTeamNumber() == DOTA_TEAM_NEUTRALS and not thisEntity:IsChanneling() then
-		if thisEntity.howl:IsFullyCastable() and ( AICore:TotalEnemyHeroesInRange( thisEntity, thisEntity.howl:GetSpecialValueFor("radius")) >= math.ceil(HeroList:GetActiveHeroCount() / 2) or thisEntity:IsAttacking() ) then
+		if thisEntity.rally:IsFullyCastable() and ( AICore:TotalEnemyHeroesInRange( thisEntity, thisEntity.rally:GetSpecialValueFor("radius") ) >= math.ceil(HeroList:GetActiveHeroCount() / 2) or thisEntity:IsAttacking() ) then
 			ExecuteOrderFromTable({
 				UnitIndex = thisEntity:entindex(),
 				OrderType = DOTA_UNIT_ORDER_CAST_NO_TARGET,
-				AbilityIndex = thisEntity.howl:entindex()
+				AbilityIndex = thisEntity.rally:entindex()
 			})
 			return AI_THINK_RATE
 		end

@@ -49,8 +49,20 @@ function modifier_antimage_counterspell_barrier:CheckState()
 end
 
 function modifier_antimage_counterspell_barrier:DeclareFunctions()
-	return { MODIFIER_PROPERTY_INCOMING_SPELL_DAMAGE_CONSTANT}
+	return { MODIFIER_PROPERTY_INCOMING_SPELL_DAMAGE_CONSTANT, MODIFIER_EVENT_ON_TAKEDAMAGE }
 end
+
+function modifier_antimage_counterspell_barrier:OnTakeDamage( params )
+	if self.damage_radius > 0 then
+		local caster = self:GetCaster()
+		if params.unit ~= caster then return end
+		local ability = self:GetAbility()
+		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( self:GetParent(), self.damage_radius ) ) do
+			ability:DealDamage( caster, enemy, barrier, {damage_type = params.damage_type, damage_flags = DOTA_DAMAGE_FLAG_REFLECTION + DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION} )
+		end
+	end
+end
+
 function modifier_antimage_counterspell_barrier:GetModifierIncomingSpellDamageConstant( params )
 	if IsServer() then
 		local barrier = math.min( self.barrier, math.max( self.barrier, params.damage ) )

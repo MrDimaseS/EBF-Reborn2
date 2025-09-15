@@ -119,7 +119,7 @@ function modifier_juggernaut_blade_dance_bladeform_ebf:DeclareFunctions()
 end
 
 function modifier_juggernaut_blade_dance_bladeform_ebf:OnTooltip()
-    return self.agi
+    return self:GetSpecialValueFor("bladeform_agi_bonus")
 end
 
 function modifier_juggernaut_blade_dance_bladeform_ebf:GetModifierBonusStats_Agility()

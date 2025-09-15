@@ -2,11 +2,13 @@ axe_berserkers_call = class({})
 
 function axe_berserkers_call:OnSpellStart()
 	local caster = self:GetCaster()
+	caster._callHungerApplicationTable = {}
 	
 	EmitSoundOn("Hero_Axe.Berserkers_Call", caster)
 
 	local nfx = ParticleManager:FireParticle("particles/units/heroes/hero_axe/axe_beserkers_call_owner.vpcf", PATTACH_POINT_FOLLOW, caster, {[0] = caster:GetAbsOrigin(), [1] = "attach_mouth", [2] = Vector(self:GetSpecialValueFor("radius"),0,0)})
 	caster:AddNewModifier( caster, self, "modifier_axe_berserkers_call_aura", {duration = self:GetSpecialValueFor("duration")} )
+	
 end
 
 modifier_axe_berserkers_call_aura = class({})
@@ -18,22 +20,45 @@ end
 
 function modifier_axe_berserkers_call_aura:OnRefresh()
 	self.bonus_armor = self:GetSpecialValueFor("bonus_armor")
-	self.bonus_attack_speed = self:GetSpecialValueFor("bonus_attack_speed")
+	self.bonus_axe_bonus = self:GetSpecialValueFor("bonus_axe_bonus")
 	self.radius = self:GetSpecialValueFor("radius")
+	
+	self.bonus_movement_speed = self:GetSpecialValueFor("bonus_movement_speed")
+	self.bonus_evasion = self:GetSpecialValueFor("bonus_evasion")
 	self.allies_benefit = self:GetSpecialValueFor("allies_benefit") == 1
 	self.taunts = self:GetSpecialValueFor("taunts") == 1
+	self.feel_no_pain = self:GetSpecialValueFor("feel_no_pain") == 1
+	
+	if self.feel_no_pain then
+		self._damage_resistance = 100
+		self:StartIntervalThink(0.5)
+	end
+	
+	self:GetCaster()._berserkersCall = self
+end
+
+function modifier_axe_berserkers_call_aura:OnIntervalThink()
+	self._damage_resistance = self._damage_resistance * 0.75
 end
 
 function modifier_axe_berserkers_call_aura:DeclareFunctions()
-	return {MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS, MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT }
+	return {MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS, MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE, MODIFIER_PROPERTY_EVASION_CONSTANT, MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE }
 end
 
 function modifier_axe_berserkers_call_aura:GetModifierPhysicalArmorBonus()
 	return self.bonus_armor
 end
 
-function modifier_axe_berserkers_call_aura:GetModifierAttackSpeedBonus_Constant()
-	return self.bonus_attack_speed
+function modifier_axe_berserkers_call_aura:GetModifierMoveSpeedBonus_Percentage()
+	return self.bonus_movement_speed
+end
+
+function modifier_axe_berserkers_call_aura:GetModifierEvasion_Constant()
+	return self.bonus_evasion
+end
+
+function modifier_axe_berserkers_call_aura:GetModifierIncomingDamage_Percentage()
+	return self._damage_resistance
 end
 
 function modifier_axe_berserkers_call_aura:IsAura()
@@ -86,23 +111,35 @@ end
 function modifier_axe_berserkers_call_taunt:OnRefresh()
 	self.taunts = self:GetSpecialValueFor("taunts") == 1
 	self.battle_hunger_freeze_duration = self:GetSpecialValueFor("battle_hunger_freeze_duration") == 1
+	self.applies_bettlehunger = self:GetSpecialValueFor("applies_bettlehunger") == 1
 	if not IsServer() then return end
-	if self:GetParent():IsSameTeam( self:GetCaster() ) then
-		self:GetParent():AddNewModifier( self:GetCaster(), self:GetAbility(), "modifier_axe_berserkers_call_aura", {duration = self:GetRemainingTime()} )
+	local parent = self:GetParent()
+	local caster = self:GetCaster()
+	if self.applies_bettlehunger and caster._callHungerApplicationTable then
+		if not caster._callHungerApplicationTable[parent:entindex()] then
+			local battleHunger = caster:FindAbilityByName("axe_battle_hunger")
+			if battleHunger and battleHunger:IsTrained() then
+				parent:AddNewModifier(caster, battleHunger, "modifier_axe_battle_hunger_debuff", {Duration = battleHunger:GetSpecialValueFor("duration")})
+			end
+			caster._callHungerApplicationTable[parent:entindex()] = true
+		end
+	end
+	if parent:IsSameTeam( caster ) then
+		parent:AddNewModifier(caster, self:GetAbility(), "modifier_axe_berserkers_call_aura", {duration = self:GetRemainingTime()} )
 		self:Destroy()
 		return
 	end
 	if self.taunts then
-		if self:GetParent():IsNeutralUnitType() then
-			self:GetParent():SetForceAttackTarget( self:GetCaster() )
+		if parent:IsNeutralUnitType() then
+			parent:SetForceAttackTarget( caster )
 		else
-			self:GetParent():MoveToTargetToAttack( self:GetCaster() )
-			self:GetParent():SetAttacking( self:GetCaster() )
+			parent:MoveToTargetToAttack( caster )
+			parent:SetAttacking( caster )
 			
 			ExecuteOrderFromTable({
-				UnitIndex = self:GetCaster():entindex(),
+				UnitIndex = caster:entindex(),
 				OrderType = DOTA_UNIT_ORDER_ATTACK_TARGET,
-				TargetIndex = self:GetParent():entindex()
+				TargetIndex = parent:entindex()
 			})
 		end
 	end

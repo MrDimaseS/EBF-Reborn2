@@ -1265,10 +1265,35 @@ function CDOTA_Modifier_Lua:AddIndependentStack(tStackData)
 	self:SetStackCount( stacks )
 end
 
+function CDOTA_Modifier_Lua:GetIndependentStackCount()
+	local stacks = 0
+	if self._stackFollowList then
+		stacks = #self._stackFollowList
+	end
+	return stacks
+end
+
+function CDOTA_Buff:SetIndependentStackDuration( stackID, duration, noUpdate )
+	if not self._stackFollowList then return end
+	if not self._stackFollowList[stackID] then return end
+	self._stackFollowList[stackID].duration = duration or 0
+	if not noUpdate then
+		self:AddIndependentStack({stacks = 0, duration = 0})
+	end
+end
+
 function CDOTA_Buff:RefreshIndependentStack( stackID )
 	if not self._stackFollowList then return end
 	if not self._stackFollowList[stackID] then return end
 	self._stackFollowList[stackID].expireTime = GameRules:GetGameTime() + self._stackFollowList[stackID].duration
+end
+
+function CDOTA_Buff:SetIndependentStackAllDurations( duration )
+	if not self._stackFollowList then return end
+	for stackID,_ in ipairs( self._stackFollowList ) do
+		self:SetIndependentStackDuration( stackID, duration, true )
+	end
+	self:AddIndependentStack({stacks = 0, duration = 0})
 end
 
 function CDOTA_Buff:RefreshAllIndependentStacks( )
@@ -1277,6 +1302,24 @@ function CDOTA_Buff:RefreshAllIndependentStacks( )
 		self:RefreshIndependentStack( stackID )
 	end
 	self:AddIndependentStack({stacks = 0, duration = 0})
+end
+
+function CDOTA_Modifier_Lua:CopyModifierToUnit( unit, modifierData )
+	local hModifierData = modifierData or {}
+	if hModifierData.refresh then
+		hModifierData.duration = self:GetDuration()
+	elseif not hModifierData.duration then
+		hModifierData.duration = self:GetRemainingTime()
+	end
+	local copiedModifier = unit:AddNewModifier( self:GetCaster(), self:GetAbility(), self:GetName(), hModifierData )
+	if self:GetIndependentStackCount() > 0 then
+		copiedModifier._stackFollowList = {}
+		for stackID,stackData in ipairs( self._stackFollowList ) do
+			copiedModifier._stackFollowList[stackID] = table.copy( stackData )
+		end
+		cop:SetStackCount( self:GetStackCount() )
+		self:AddIndependentStack({stacks = 0, duration = 0})
+	end
 end
 
 function CDOTA_Modifier_Lua:StopMotionController(bForceDestroy)

@@ -47,6 +47,9 @@ function modifier_gungnir_passive:OnCreated()
 	self.prngID = self:GetAbility():entindex()
 	self.attacksOnRecord = {}
 	self.keyToAttack = {}
+	
+	local prng = RollPseudoRandomPercentage( self.proc_chance, self.prngID, self:GetCaster() )
+	table.insert( self.attacksOnRecord, prng )
 end
 
 function modifier_gungnir_passive:CheckState()
@@ -63,8 +66,8 @@ function modifier_gungnir_passive:DeclareFunctions()
 			MODIFIER_PROPERTY_STATS_AGILITY_BONUS,
 			MODIFIER_PROPERTY_PROCATTACK_BONUS_DAMAGE_PURE,
 			MODIFIER_EVENT_ON_ATTACK_FINISHED,
-			MODIFIER_EVENT_ON_ATTACK_START, 
-			MODIFIER_EVENT_ON_ATTACK_CANCELLED, 
+			MODIFIER_EVENT_ON_ATTACK_RECORD, 
+			MODIFIER_EVENT_ON_ATTACK_RECORD_DESTROY, 
 			}
 end
 
@@ -99,22 +102,16 @@ function modifier_gungnir_passive:GetModifierProcAttack_BonusDamage_Pure( params
 	end
 end
 
-function modifier_gungnir_passive:OnAttackStart( params )
+function modifier_gungnir_passive:OnAttackRecord( params )
 	if params.attacker == self:GetParent() then
 		local prng = RollPseudoRandomPercentage( self.proc_chance, self.prngID, self:GetCaster() )
 		table.insert( self.attacksOnRecord, prng )
 	end
 end
 
-function modifier_gungnir_passive:OnAttackFinished( params )
+function modifier_gungnir_passive:OnAttackRecordDestroy( params )
 	if params.attacker == self:GetParent() then
 		Timers:CreateTimer( function() table.remove( self.attacksOnRecord, 1 ) end )
-	end
-end
-
-function modifier_gungnir_passive:OnAttackCancelled( params )
-	if params.attacker == self:GetParent() then
-		table.remove( self.attacksOnRecord, #self.attacksOnRecord )
 	end
 end
 

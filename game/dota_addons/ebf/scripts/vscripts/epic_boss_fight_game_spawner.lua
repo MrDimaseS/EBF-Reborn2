@@ -23,7 +23,6 @@ function CHoldoutGameSpawner:ReadConfiguration( stageData, stageNumber, gameRoun
 		queueData.unitName = unitName
 		if type( unitData ) == "table" then
 			queueData._bIsCoreSpawnQueue = stageNumber > 1
-			print( queueData._bIsCoreSpawnQueue, stageNumber, unitName )
 			queueData._nTotalUnitsToSpawn = TernaryOperator( -1, not queueData._bIsCoreSpawnQueue, tonumber( unitData.TotalUnitsToSpawn or 0 ) )
 			queueData._nUnitsPerSpawn = tonumber( unitData.UnitsPerSpawn ) or 1
 			queueData._nInitialUnitsSpawned = tonumber( unitData.InitialUnitsSpawned or queueData._nUnitsPerSpawn )
@@ -31,7 +30,7 @@ function CHoldoutGameSpawner:ReadConfiguration( stageData, stageNumber, gameRoun
 			queueData._flBonusUnitsPerPlayer = tonumber( unitData.BonusUnitsPerPlayer ) or TernaryOperator( 1, not  queueData._bIsCoreSpawnQueue, 0 )
 		else
 			queueData._bIsCoreSpawnQueue = stageNumber > 1
-			queueData._nTotalUnitsToSpawn = unitData
+			queueData._nTotalUnitsToSpawn = tonumber(unitData) or 1
 			queueData._nUnitsPerSpawn = 1
 			queueData._nInitialUnitsSpawned = 1
 			queueData._flSpawnInterval = 30
@@ -91,8 +90,9 @@ function CHoldoutGameSpawner:Initialize()
 	-- initialize unit queue
 	self._loadedSpawnQueue = {}
 	self._gameRound._spawnedLivingUnits[self._stageID] = {}
-	
+
 	for unitID, unitData in ipairs( self._stageSpawnQueues ) do
+		print( unitID, unitData.unitName )
 		self._loadedSpawnQueue[unitData.unitName] = {}
 		unitData.activeSpawnQueue = self._loadedSpawnQueue[unitData.unitName]
 		local spawnTable = {}

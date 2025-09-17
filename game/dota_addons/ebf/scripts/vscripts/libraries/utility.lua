@@ -198,6 +198,8 @@ function CDOTA_BaseNPC:GetMaxHealthDamageResistance()
 end
 
 function CDOTA_BaseNPC:PerformGenericAttack(target, immediate, tAttackData )
+	if not IsEntitySafe( self ) then return end
+	if not IsEntitySafe( target ) then return end
 	local neverMiss = false
 	
 	local attackData = tAttackData or {}
@@ -230,8 +232,8 @@ function CDOTA_BaseNPC:PerformGenericAttack(target, immediate, tAttackData )
 	end
 	if bonusDamage and bonusDamage ~= 0 then
 		self:AddNewModifier(caster, nil, "modifier_generic_attack_bonus", {damage = bonusDamage})
-	end
-	local preHP = target:GetHealth()
+	end 
+	
 	self:PerformAttack(target, procAttackEffects, procAttackEffects, true, false, not immediate, false, neverMiss)
 	self:RemoveModifierByName("modifier_generic_attack_bonus")
 	self:RemoveModifierByName("modifier_generic_attack_bonus_pct")

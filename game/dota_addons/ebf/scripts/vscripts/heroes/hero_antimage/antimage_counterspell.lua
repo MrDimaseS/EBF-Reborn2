@@ -57,7 +57,7 @@ function modifier_antimage_counterspell_barrier:OnTakeDamage( params )
 		local caster = self:GetCaster()
 		if params.unit ~= caster then return end
 		local ability = self:GetAbility()
-		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( self:GetParent(), self.damage_radius ) ) do
+		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( self:GetParent():GetAbsOrigin(), self.damage_radius ) ) do
 			ability:DealDamage( caster, enemy, barrier, {damage_type = params.damage_type, damage_flags = DOTA_DAMAGE_FLAG_REFLECTION + DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION} )
 		end
 	end
@@ -71,7 +71,7 @@ function modifier_antimage_counterspell_barrier:GetModifierIncomingSpellDamageCo
 		if self.damage_radius > 0 then
 			local caster = self:GetCaster()
 			local ability = self:GetAbility()
-			for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( self:GetParent(), self.damage_radius ) ) do
+			for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( self:GetParent():GetAbsOrigin(), self.damage_radius ) ) do
 				ability:DealDamage( caster, enemy, barrier, {damage_type = params.damage_type, damage_flags = DOTA_DAMAGE_FLAG_REFLECTION + DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION} )
 			end
 		end

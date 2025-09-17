@@ -13,15 +13,16 @@ function modifier_antimage_persectur_passive:OnCreated()
 end
 
 function modifier_antimage_persectur_passive:OnRefresh()
-	self.mana_to_damage = self:GetSpecialValueFor("mana_to_damage") / 100
+	self.mana_to_damage = self:GetSpecialValueFor("mana_to_damage")
 	self.mana_threshold = self:GetSpecialValueFor("mana_threshold") / 100
 	self.search_radius = self:GetSpecialValueFor("search_radius")
 	self.loss_delay = self:GetSpecialValueFor("loss_delay")
 	self.loss_amount = self:GetSpecialValueFor("loss_amount") / 100
 	self.tick = 0.25
 	
-	self.mana_to_barrier = self:GetSpecialValueFor("mana_to_barrier") / 100
+	self.mana_to_barrier = self:GetSpecialValueFor("mana_to_barrier")
 	self.barrier_max = self:GetSpecialValueFor("barrier_max") / 100
+	self.barrier_max_rate = 1/(self:GetSpecialValueFor("barrier_max_time") / self.tick)
 	
 	self.base_damage = self:GetSpecialValueFor("base_damage")
 	if IsServer() then
@@ -37,8 +38,8 @@ function modifier_antimage_persectur_passive:OnIntervalThink()
 	local stacksToAdjust = self:GetStackCount() - self._safeAmount
 	self:SetStackCount( stacksToAdjust * (1 - self.loss_amount * self.tick ) + self._safeAmount )
 	
-	if self.mana_to_barrier > 0 then
-		self.barrier = math.min( self:GetParent():GetMaxHealth() * self.barrier_max, (self.barrier or 0) + params.cost * self.mana_to_barrier )
+	if self.mana_to_barrier > 0 and self.barrier < math.min( self:GetParent():GetMaxHealth() * self.barrier_max, stacksToAdjust * self.mana_to_barrier ) then
+		self.barrier = math.min( self:GetParent():GetMaxHealth() * self.barrier_max, (self.barrier or 0) + ( stacksToAdjust * self.mana_to_barrier * self.barrier_max_rate ) )
 		self:SendBuffRefreshToClients()
 	end
 end

@@ -69,6 +69,7 @@ function Precache( context )
 	PrecacheResource( "particle", "particles/units/heroes/hero_treant/treant_foot_step.vpcf", context )
 	PrecacheResource( "particle", "particles/units/heroes/hero_skeletonking/skeleton_king_weapon_blur.vpcf", context )
 	PrecacheResource( "particle", "particles/units/heroes/hero_skeletonking/skeleton_king_weapon_blur_reverse.vpcf", context )
+	PrecacheResource( "particle", "particles/units/heroes/hero_tiny/tiny_tree_proj.vpcf", context )
 
 
 	PrecacheResource( "particle_folder", "particles/frostivus_gameplay", context )
@@ -88,6 +89,7 @@ function Precache( context )
 	PrecacheResource( "model", "models/heroes/tiny/tiny_02/tiny_02.vmdl", context )
 	PrecacheResource( "model", "models/heroes/tiny/tiny_03/tiny_03.vmdl", context )
 	PrecacheResource( "model", "models/heroes/tiny/tiny_04/tiny_04.vmdl", context )
+	PrecacheResource( "model", "models/heroes/tiny_01/tiny_01_tree.vmdl", context )
 
 	--Precache bosses
 	PrecacheUnitByNameSync("npc_dota_boss_naga_illusionist", context)

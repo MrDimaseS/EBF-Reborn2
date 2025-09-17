@@ -64,15 +64,20 @@ function modifier_item_specialists_array_passive:GetModifierPreAttack_BonusDamag
 end
 
 function modifier_item_specialists_array_passive:OnAttack( params )
+	if self._loopBlocker then return end
 	local parent = self:GetParent()
 	if params.attacker ~= parent then return end
 	local ability = self:GetAbility()
 	if not ability:IsCooldownReady() then return end
 	ability:SetCooldown()
 	local targets = self.count
+	if not self.enemies then
+		self.enemies = ( parent:FindEnemyUnitsInRadius( parent:GetAbsOrigin(), parent:GetAttackRange() + TernaryOperator( self.secondary_target_range_bonus, parent:IsRangedAttacker(), self.melee_range_bonus ) ) )
+	end
 	EmitSoundOn( TernaryOperator("DOTA_Item.MKB.ranged", parent:IsRangedAttacker(), "DOTA_Item.MKB.melee"), parent )
+	self._loopBlocker = true
 	for _, enemy in ipairs( self.enemies ) do
-		if enemy ~= params.target then
+		if IsEntitySafe( enemy ) and enemy ~= params.target then
 			parent:PerformGenericAttack(enemy, false, {bonusDamage = self.proc_bonus_damage + (self._bonusTargetDamage or 0), procAttackEffects = false, ability = ability} )
 			targets = targets - 1
 			if targets <= 0 then
@@ -80,4 +85,5 @@ function modifier_item_specialists_array_passive:OnAttack( params )
 			end
 		end
 	end
+	self._loopBlocker = false
 end

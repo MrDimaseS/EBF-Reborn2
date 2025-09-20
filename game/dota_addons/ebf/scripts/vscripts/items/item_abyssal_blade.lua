@@ -70,9 +70,6 @@ function modifier_item_abyssal_blade_passive:OnRefresh()
 	self.bash_chance_melee = self:GetSpecialValueFor("bash_chance_melee")
 	self.bash_chance_ranged = self:GetSpecialValueFor("bash_chance_ranged")
 	
-	self.slow_resistance = self:GetSpecialValueFor("slow_resistance")
-	self.hp_regen_amp = self:GetSpecialValueFor("hp_regen_amp")
-	
 	if IsServer() then
 		self:GetAbility().primedForBash = {}
 	end
@@ -82,9 +79,6 @@ function modifier_item_abyssal_blade_passive:DeclareFunctions()
 	return {MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
 			MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,
 			MODIFIER_EVENT_ON_ATTACK_LANDED,
-			MODIFIER_PROPERTY_LIFESTEAL_AMPLIFY_PERCENTAGE,
-			MODIFIER_PROPERTY_HP_REGEN_AMPLIFY_PERCENTAGE,
-			MODIFIER_PROPERTY_SLOW_RESISTANCE_STACKING 
 			}
 end
 
@@ -94,29 +88,6 @@ end
 
 function modifier_item_abyssal_blade_passive:GetModifierPreAttack_BonusDamage()
 	return self.bonus_damage
-end
-
-function modifier_item_abyssal_blade_passive:GetModifierLifestealRegenAmplify_Percentage()
-	return self.hp_regen_amp
-end
-
-function modifier_item_abyssal_blade_passive:GetModifierHPRegenAmplify_Percentage()
-	return self.hp_regen_amp
-end
-
-function modifier_item_abyssal_blade_passive:GetModifierSlowResistance_Stacking()
-	return self.slow_resistance
-end
-
-function modifier_item_abyssal_blade_passive:GetModifierPhysical_ConstantBlockUnavoidablePreArmor( params )
-	if self.block_chance == 0 then return end
-	if params.damage_category ~= DOTA_DAMAGE_CATEGORY_ATTACK or params.damage <= 0 then return end
-	local roll = RollPseudoRandomPercentage( self.block_chance, self:GetAbility():entindex()+1, params.attacker )
-	if roll then
-		local block = self:GetParent():GetStrength() * self.block_damage_pct
-		SendOverheadEventMessage( nil, OVERHEAD_ALERT_BLOCK, self:GetParent(), block, nil)
-		return block
-	end
 end
 
 function modifier_item_abyssal_blade_passive:OnAttackLanded( params )

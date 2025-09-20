@@ -40,23 +40,23 @@ end
 modifier_item_artifact_of_wands_buff = class({})
 LinkLuaModifier( "modifier_item_artifact_of_wands_buff", "items/item_artifact_of_wands.lua" ,LUA_MODIFIER_MOTION_NONE )
 
-function modifier_item_artifact_of_wands_buff:OnCreated()
-	self:OnRefresh()
-	self:SetStackCount( self:GetSpecialValueFor("initial_value") / self.bonus )
+function modifier_item_artifact_of_wands_buff:OnCreated(kv)
+	self:OnRefresh(kv, first)
+	self:SetStackCount( 0 )
 end
 
-function modifier_item_artifact_of_wands_buff:OnRefresh()
-	self.bonus = self.bonus or self:GetSpecialValueFor("bonus")
-	self.real_bonus = self.bonus
+function modifier_item_artifact_of_wands_buff:OnRefresh(kv, first)
+	local bonus = self.bonus
+	self.bonus = self:GetSpecialValueFor("bonus") or bonus
+	local initial_value = self.initial_value
+	self.initial_value = self:GetSpecialValueFor("initial_value") or initial_value
 	if IsServer() then
-		self:IncrementStackCount()
+		if not first then
+			self:IncrementStackCount()
+		end
 		self:GetParent():CalculateGenericBonuses( )
 		self:GetParent():CalculateStatBonus( false )
 	end
-end
-
-function modifier_item_artifact_of_wands_buff:OnStackCountChanged()
-	self.real_bonus = self.bonus
 end
 
 function modifier_item_artifact_of_wands_buff:DeclareFunctions()
@@ -64,7 +64,7 @@ function modifier_item_artifact_of_wands_buff:DeclareFunctions()
 end
 
 function modifier_item_artifact_of_wands_buff:GetModifierSpellAmplify_Percentage()
-	return self.real_bonus * self:GetStackCount()
+	return self.initial_value + self.bonus * self:GetStackCount()
 end
 
 function modifier_item_artifact_of_wands_buff:GetTexture()

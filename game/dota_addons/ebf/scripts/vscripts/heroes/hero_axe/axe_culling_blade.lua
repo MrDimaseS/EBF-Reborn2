@@ -13,11 +13,10 @@ function axe_culling_blade:OnSpellStart()
 	local damage = self:GetSpecialValueFor("damage")
 	local debuff_immune = self:GetSpecialValueFor("debuff_immune") == 1
 	local critical_damage = self:GetSpecialValueFor("critical_damage")
-	local grace_period = self:GetSpecialValueFor("grace_period")
 
 	if target:TriggerSpellAbsorb( self ) then return end
 	if debuff_immune then
-		caster:AddNewModifier( caster, self, "modifier_black_king_bar_immune", {duration = grace_period} )
+		caster:AddNewModifier( caster, self, "modifier_black_king_bar_immune", {duration = self:GetSpecialValueFor("immunity_duration")} )
 	end
 	if critical_damage > 0 then
 		local trueCrit = critical_damage
@@ -139,14 +138,11 @@ function modifier_axe_culling_blade_handler:DeclareFunctions()
 end
 
 function modifier_axe_culling_blade_handler:OnDeath( params )
-	print( params.unit, self:GetCaster() )
 	if params.unit == self:GetCaster() then return end
-	print( CalculateDistance( params.unit, self:GetCaster() ) > self.speed_aoe )
 	if CalculateDistance( params.unit, self:GetCaster() ) > self.speed_aoe then return end
-	print( params.unit:IsConsideredHero() and not params.unit:IsIllusion() )
-	if params.unit:IsConsideredHero() and not params.unit:IsIllusion() then
-		Timers:CreateTimer( 0.1, function() self:GetAbility():OnMorbid() end )
-	end
+	if params.unit:IsHero() and params.unit:IsIllusion() then return end
+	if params.unit:IsConsideredHero() and not params.unit:IsChampion() then return end
+	Timers:CreateTimer( 0.1, function() self:GetAbility():OnMorbid() end )
 end
 
 function modifier_axe_culling_blade_handler:IsHidden()

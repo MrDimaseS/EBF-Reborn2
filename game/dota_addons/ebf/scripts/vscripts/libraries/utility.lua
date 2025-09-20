@@ -197,6 +197,10 @@ function CDOTA_BaseNPC:GetMaxHealthDamageResistance()
 	return 1 / TernaryOperator( HeroList:GetActiveHeroCount(), self:HasAbility("enemy_champion"), 1 )
 end
 
+function CDOTA_BaseNPC:IsChampion()
+	return self:HasAbility("enemy_champion")
+end
+
 function CDOTA_BaseNPC:PerformGenericAttack(target, immediate, tAttackData )
 	if not IsEntitySafe( self ) then return end
 	if not IsEntitySafe( target ) then return end

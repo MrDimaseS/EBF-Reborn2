@@ -34,31 +34,31 @@ end
 modifier_item_artifact_of_shields_buff = class({})
 LinkLuaModifier( "modifier_item_artifact_of_shields_buff", "items/item_artifact_of_shields.lua" ,LUA_MODIFIER_MOTION_NONE )
 
-function modifier_item_artifact_of_shields_buff:OnCreated()
-	self:OnRefresh()
-	self:SetStackCount( self:GetSpecialValueFor("initial_value") )
+function modifier_item_artifact_of_shields_buff:OnCreated(kv)
+	self:OnRefresh(kv, true)
+	self:SetStackCount( 0 )
 end
 
-function modifier_item_artifact_of_shields_buff:OnRefresh()
-	self.bonus = self.bonus or self:GetSpecialValueFor("bonus")
-	self.real_bonus = self.bonus * self:GetParent():GetHeroPowerAmplification(  )
+function modifier_item_artifact_of_shields_buff:OnRefresh(kv, first)
+	local bonus = self.bonus
+	self.bonus = self:GetSpecialValueFor("bonus") or bonus
+	local initial_value = self.initial_value
+	self.initial_value = self:GetSpecialValueFor("initial_value") or initial_value
 	if IsServer() then
-		self:IncrementStackCount()
+		if not first then
+			self:IncrementStackCount()
+		end
 		self:GetParent():CalculateGenericBonuses( )
 		self:GetParent():CalculateStatBonus( false )
 	end
 end
 
-function modifier_item_artifact_of_shields_buff:OnStackCountChanged()
-	self.real_bonus = self.bonus * self:GetParent():GetHeroPowerAmplification(  )
-end
-
 function modifier_item_artifact_of_shields_buff:DeclareFunctions()
-	return {MODIFIER_PROPERTY_HEALTH_BONUS}
+	return {MODIFIER_PROPERTY_EXTRA_HEALTH_BONUS}
 end
 
-function modifier_item_artifact_of_shields_buff:GetModifierHealthBonus()
-	return math.floor( self.real_bonus * self:GetStackCount() + 0.5 )
+function modifier_item_artifact_of_shields_buff:GetModifierExtraHealthBonus()
+	return self.initial_value + math.floor( self.real_bonus * self:GetStackCount() + 0.5 )
 end
 
 function modifier_item_artifact_of_shields_buff:GetTexture()

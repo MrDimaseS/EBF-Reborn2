@@ -29,23 +29,23 @@ end
 modifier_item_artifact_of_balance_buff = class({})
 LinkLuaModifier( "modifier_item_artifact_of_balance_buff", "items/item_artifact_of_balance.lua" ,LUA_MODIFIER_MOTION_NONE )
 
-function modifier_item_artifact_of_balance_buff:OnCreated()
-	self:OnRefresh()
-	self:SetStackCount( self:GetSpecialValueFor("initial_value") )
+function modifier_item_artifact_of_balance_buff:OnCreated(kv)
+	self:OnRefresh(kv, true)
+	self:SetStackCount( 0 )
 end
 
-function modifier_item_artifact_of_balance_buff:OnRefresh()
-	self.bonus = self.bonus or self:GetSpecialValueFor("bonus")
-	self.real_bonus = self.bonus * self:GetParent():GetHeroPowerAmplification(  )
+function modifier_item_artifact_of_balance_buff:OnRefresh(kv, bFirst)
+	local bonus = self.bonus
+	self.bonus = self:GetSpecialValueFor("bonus") or bonus
+	local initial_value = self.initial_value
+	self.initial_value = self:GetSpecialValueFor("initial_value") or initial_value
 	if IsServer() then
-		self:IncrementStackCount()
+		if not bFirst then
+			self:IncrementStackCount()
+		end
 		self:GetParent():CalculateGenericBonuses( )
 		self:GetParent():CalculateStatBonus( false )
 	end
-end
-
-function modifier_item_artifact_of_balance_buff:OnStackCountChanged()
-	self.real_bonus = self.bonus * self:GetParent():GetHeroPowerAmplification(  )
 end
 
 function modifier_item_artifact_of_balance_buff:DeclareFunctions()
@@ -55,15 +55,15 @@ function modifier_item_artifact_of_balance_buff:DeclareFunctions()
 end
 
 function modifier_item_artifact_of_balance_buff:GetModifierBonusStats_Strength()
-	return self.real_bonus * self:GetStackCount()
+	return self.initial_value + self.bonus * self:GetStackCount()
 end
 
 function modifier_item_artifact_of_balance_buff:GetModifierBonusStats_Agility()
-	return self.real_bonus * self:GetStackCount()
+	return self.initial_value + self.bonus * self:GetStackCount()
 end
 
 function modifier_item_artifact_of_balance_buff:GetModifierBonusStats_Intellect()
-	return self.real_bonus * self:GetStackCount()
+	return self.initial_value + self.bonus * self:GetStackCount()
 end
 
 function modifier_item_artifact_of_balance_buff:GetTexture()

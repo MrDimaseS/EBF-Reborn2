@@ -1,1 +1,0 @@
-kunkka_tidal_wave = class({})

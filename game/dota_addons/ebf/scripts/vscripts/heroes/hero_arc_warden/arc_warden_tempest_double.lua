@@ -6,7 +6,9 @@ end --NO STEALING
 
 function arc_warden_tempest_double:OnHeroLevelUp()
     if IsEntitySafe(self.double) then
-	    self.double:HeroLevelUp( false )
+        self.double:HeroLevelUp( false )
+        self.double:SetAbilityPoints(0)
+    else
         self.double:SetAbilityPoints(0)
     end
 end
@@ -58,6 +60,7 @@ function arc_warden_tempest_double:DoubleStats(unit)
 	unit:SetBaseIntellect( caster:GetBaseIntellect() )
 
     unit:AddNewModifier(caster, self, "modifier_arc_warden_tempest_double_handler")
+    --unit:AddNewModifier(caster,self,"modifier_arc_warden_tempest_double")
     unit:AddNewModifier(caster, self, "modifier_special_bonus_attributes_stat_rescaling")
     unit:AddNewModifier(caster, self, "modifier_kill", {duration = self.duration})
 
@@ -90,7 +93,7 @@ function arc_warden_tempest_double:DoubleStats(unit)
     end
     if unit:HasAbility("arc_warden_tempest_double") then
         local ult = unit:FindAbilityByName("arc_warden_tempest_double")
-        ult:SetLevel(0)
+        ult:SetActivated(false)
     end
 
     for itemSlot=0,5 do
@@ -148,6 +151,10 @@ function modifier_arc_warden_tempest_double_handler:DeclareFunctions()
     {
         MODIFIER_PROPERTY_TEMPEST_DOUBLE
     }
+end
+
+function modifier_arc_warden_tempest_double_handler:IsClone()
+    return true
 end
 
 function modifier_arc_warden_tempest_double_handler:IsRealHero()

@@ -61,13 +61,15 @@ end
 
 function modifier_chaos_knight_phantasm_immune:OnRemoved()
     local caster = self:GetCaster()
-    local illusions = caster:FindFriendlyUnitsInRadius(caster:GetAbsOrigin(), FIND_UNITS_EVERYWHERE)
-    for _, illusion in pairs(illusions) do
-        if illusion:HasModifier("modifier_chaos_knight_phantasm_handler") then
-            illusion:ForceKill(false)
+    if IsServer() then
+        local illusions = caster:FindFriendlyUnitsInRadius(caster:GetAbsOrigin(), FIND_UNITS_EVERYWHERE)
+        for _, illusion in pairs(illusions) do
+            if illusion:HasModifier("modifier_chaos_knight_phantasm_handler") then
+                illusion:ForceKill(false)
+            end
         end
+        self:GetAbility():CreateAbilityIllusion()
     end
-    self:GetAbility():CreateAbilityIllusion()
 end
 
 modifier_chaos_knight_phantasm_handler = class({})

@@ -33,15 +33,14 @@ function modifier_chaos_knight_chaos_strike_passive:OnRefresh()
     self.crit_max = self:GetSpecialValueFor("critical_max")
     self.lifesteal = self:GetSpecialValueFor("lifesteal")
 
-    self.accumulated_crit_chance = self:GetSpecialValueFor("accumulated_crit_chance") or 0
-    self.crit_chance_increment = self:GetSpecialValueFor("crit_chance_increment")
+    self.aoe_heal = self:GetSpecialValueFor("aoe_heal")
 
     self.break_chance = self:GetSpecialValueFor("break_chance")
     self.break_duration = self:GetSpecialValueFor("break_duration")
 
     self.bolt_on_attack = self:GetSpecialValueFor("bolt_on_attack")
     self.bolt = self:GetCaster():FindAbilityByName("chaos_knight_chaos_bolt")
-    self.bolt_chance = self:GetSpecialValueFor("illu_bolt_chance")
+    self.bolt_chance = self:GetSpecialValueFor("bolt_chance")
 end
 
 function modifier_chaos_knight_chaos_strike_passive:GetModifierPreAttack_CriticalStrike(params)
@@ -52,22 +51,11 @@ function modifier_chaos_knight_chaos_strike_passive:GetModifierPreAttack_Critica
         self.crit_damage = math.random(self.crit_min, self.crit_max)
     end
 
-    if self.crit_chance_increment >= 0 then
-        self.crit_chance = self.crit_chance + self.accumulated_crit_chance
-    end
-
     local roll = RollPseudoRandomPercentage(self.crit_chance, DOTA_PSEUDO_RANDOM_CUSTOM_GAME_1, params.attacker)
     if roll then
         self.record = params.record
-        self.accumulated_crit_chance = 0
         return self.crit_damage
-    else
-        self.acumulated_crit_chance = self.accumulated_crit_chance + self.crit_chance_increment
     end
-end
-
-function modifier_chaos_knight_chaos_strike_passive:GetModifierAccumulatedCritChance_Percentage(params)
-    return self.accumulated_crit_chance
 end
 
 function modifier_chaos_knight_chaos_strike_passive:OnTakeDamage( params )
@@ -82,15 +70,24 @@ function modifier_chaos_knight_chaos_strike_passive:OnTakeDamage( params )
         if pass then
             local ehp_mult = self:GetParent().EHP_MULT or 1
 	        local lifesteal = params.damage * self.lifesteal / 100 * math.max(1, ehp_mult)
+            local heal_radius = self:GetSpecialValueFor("heal_radius")
             if lifesteal > 0 then
                 local hpGain = math.floor(lifesteal)
                 local preHp = params.attacker:GetHealth()
 
+                --heals illu TEST idk why illus arent healing themselves
+                if self.aoe_heal ~= 0 then
+                    for _, unit in pairs(params.attacker:FindFriendlyUnitsInRadius(params.attacker:GetAbsOrigin(), heal_radius)) do
+                        if unit:GetMainControllingPlayer() == params.attacker:GetMainControllingPlayer() then
+                            unit:HealWithParams(hpGain * 0.75, self:GetAbility(), false, true, self, true)
+                        end
+                    end
+                end
                 params.attacker:HealWithParams(hpGain, self:GetAbility(), false, true, self, true)
                 local postHp = params.attacker:GetHealth()
-
                 local actualHpGain = postHp - preHp
                 if actualHpGain > 0 then
+                    
                     ParticleManager:FireParticle( "particles/generic_gameplay/generic_lifesteal.vpcf", PATTACH_POINT_FOLLOW, params.attacker )
                     ParticleManager:CreateParticle("particles/units/heroes/hero_chaos_knight/chaos_knight_crit.vpcf", PATTACH_CUSTOMORIGIN, self:GetParent())
                 end

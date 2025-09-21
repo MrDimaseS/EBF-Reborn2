@@ -49,7 +49,7 @@ function chaos_knight_reality_rift:OnSpellStart()
 	self.target:FaceTowards(self.caster:GetAbsOrigin())
 
 	self.caster:MoveToTargetToAttack(self.target)
-	self.target:AddNewModifier(self.caster, self, "modifier_chaos_knight_reality_rift_debuff", {duration = duration})
+	self.target:AddNewModifier(self.caster, self, "modifier_chaos_knight_reality_rift_ebf_debuff", {duration = duration})
 
 	------------------------------------------------------------------------------------------------------------------
     local illusion_extension = self:GetSpecialValueFor("illusion_extension")
@@ -88,29 +88,29 @@ function chaos_knight_reality_rift:OnSpellStart()
     end
 end
 
-modifier_chaos_knight_reality_rift_debuff = class({})
-LinkLuaModifier("modifier_chaos_knight_reality_rift_debuff", "heroes/hero_chaos_knight/chaos_knight_reality_rift", LUA_MODIFIER_MOTION_NONE)
+modifier_chaos_knight_reality_rift_ebf_debuff = class({})
+LinkLuaModifier("modifier_chaos_knight_reality_rift_ebf_debuff", "heroes/hero_chaos_knight/chaos_knight_reality_rift", LUA_MODIFIER_MOTION_NONE)
 
-function modifier_chaos_knight_reality_rift_debuff:OnCreated()
+function modifier_chaos_knight_reality_rift_ebf_debuff:OnCreated()
     return self:OnRefresh()
 end
 
-function modifier_chaos_knight_reality_rift_debuff:OnRefresh()
+function modifier_chaos_knight_reality_rift_ebf_debuff:OnRefresh()
    self.armor_reduction = self:GetSpecialValueFor("armor_red")
 end
 
-function modifier_chaos_knight_reality_rift_debuff:DeclareFunctions()
+function modifier_chaos_knight_reality_rift_ebf_debuff:DeclareFunctions()
     return {
         MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
     }
 end
 
-function modifier_chaos_knight_reality_rift_debuff:GetModifierPhysicalArmorBonus()
+function modifier_chaos_knight_reality_rift_ebf_debuff:GetModifierPhysicalArmorBonus()
     return -self.armor_reduction
 end
-function modifier_chaos_knight_reality_rift_debuff:IsDebuff()
+function modifier_chaos_knight_reality_rift_ebf_debuff:IsDebuff()
     return true
 end
-function modifier_chaos_knight_reality_rift_debuff:IsPurgable()
+function modifier_chaos_knight_reality_rift_ebf_debuff:IsPurgable()
     return true
 end

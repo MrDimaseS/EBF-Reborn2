@@ -2,7 +2,9 @@ chaos_knight_armageddon = class({})
 
 function chaos_knight_armageddon:Precache(context)
 	PrecacheResource("particle", "particles/units/heroes/hero_chaos_knight/chaos_knight_calamity_overhead.vpcf", context)
-	PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_chaos_knight.vsndevts", context)
+	PrecacheResource("particle", "particles/econ/items/effigies/status_fx_effigies/se_ambient_ti6_lvl3_ribbon.vpcf", context)
+	PrecacheResource("particle", "particles/econ/items/effigies/status_fx_effigies/aghs_statue_standard_elite_ambient_i.vpcf", context)
+	PrecacheResource("particle", "particles/items5_fx/wraith_pact_pulses.vpcf", context)
 end
 
 function chaos_knight_armageddon:OnSpellStart()

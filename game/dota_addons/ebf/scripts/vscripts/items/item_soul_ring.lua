@@ -74,7 +74,7 @@ function modifier_item_soul_ring_toggle:OnIntervalThink()
 	ParticleManager:FireParticle("particles/items2_fx/soul_ring.vpcf", PATTACH_POINT_FOLLOW, parent )
 	EmitSoundOn( "LotusPool.Target", parent )
 	
-	--old mana gain based on hp loss
+	old mana gain based on hp loss
 	local manaGain = (self._manaGainLeftOver or 0) + (damageTaken / self.loss_to_gain) * self.mana_gain
 	self._manaGainLeftOver = manaGain % 1
 

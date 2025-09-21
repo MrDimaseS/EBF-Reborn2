@@ -9,13 +9,13 @@ LinkLuaModifier( "modifier_item_artifact_of_blades_passive", "items/item_artifac
 
 function modifier_item_artifact_of_blades_passive:OnCreated()
 	self:OnRefresh()
-	if IsServer() then
-		self:GetCaster():AddNewModifier( self:GetCaster(), self:GetAbility(), "modifier_item_artifact_of_blades_buff", {} )
-	end
 end
 
 function modifier_item_artifact_of_blades_passive:OnRefresh()
 	self.threshold = self:GetSpecialValueFor("threshold")
+	if not self:GetParent():HasModifier("modifier_item_artifact_of_blades_buff") then
+		self:GetParent():AddNewModifier( self:GetCaster(), self:GetAbility(), "modifier_item_artifact_of_blades_buff", {} )
+	end
 end
 
 function modifier_item_artifact_of_blades_passive:DeclareFunctions()

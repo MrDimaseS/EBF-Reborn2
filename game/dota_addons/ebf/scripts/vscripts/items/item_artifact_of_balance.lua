@@ -16,6 +16,9 @@ end
 
 function modifier_item_artifact_of_balance_passive:OnRefresh()
 	self.threshold = self:GetSpecialValueFor("threshold")
+	if not self:GetParent():HasModifier("modifier_item_artifact_of_balance_buff") then
+		self:GetParent():AddNewModifier( self:GetCaster(), self:GetAbility(), "modifier_item_artifact_of_balance_buff", {} )
+	end
 end
 
 function modifier_item_artifact_of_balance_passive:OnIntervalThink()

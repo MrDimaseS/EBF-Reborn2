@@ -264,7 +264,18 @@ function CDOTA_Modifier_Lua:AttachEffect(pID)
 end
 
 function CDOTA_Modifier_Lua:GetSpecialValueFor(specVal)
-	return self:GetAbility():GetSpecialValueFor(specVal)
+	self._internalBaseStoredValue = self._internalBaseStoredValue or {}
+	self._internalLastStoredValue = self._internalLastStoredValue or {}
+	if IsEntitySafe( self:GetAbility() ) then
+		if not self._internalBaseStoredValue[specVal] and self:GetAbility()._processValuesForScaling and self:GetAbility()._processValuesForScaling[specVal] then
+			self._internalBaseStoredValue[specVal] = self:GetAbility():GetLevelSpecialValueNoOverride(specVal, -1)
+			self._internalHeroPowerScaling = self._internalHeroPowerScaling or {}
+			self._internalHeroPowerScaling[specVal] = self:GetAbility()._processValuesForScaling[specVal].affected_by_lvl_increase
+		end
+		self._internalLastStoredValue[specVal] = self:GetAbility():GetSpecialValueFor(specVal)
+		return self._internalLastStoredValue[specVal]
+	end
+	return self._internalBaseStoredValue[specVal] * TernaryOperator( self:GetAbility():GetCaster():GetHeroPowerAmplification( ), self._internalHeroPowerScaling[specVal] and IsEntitySafe( self:GetAbility():GetCaster() ) and self:GetAbility():GetCaster():IsHero(), 1 )
 end
 
 function CDOTABaseAbility:DealDamage(attacker, victim, damage, data, spellText)

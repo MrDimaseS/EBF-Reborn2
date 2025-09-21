@@ -1852,7 +1852,7 @@
 		"DOTA_Tooltip_modifier_arc_warden_balance_of_power_buff_Description"								"Gaining %dMODIFIER_PROPERTY_STATS_STRENGTH_BONUS% bonus all stats."
 
 		"DOTA_Tooltip_ability_arc_warden_flux_Description"													"Infuses an enemy unit with swirling, volatile energy."
-		"DOTA_Tooltip_ability_arc_warden_flux_Facet_arc_warden_disunity"									"Silences by default. If the target is alone, Flux roots them for the entire duration of the ability. Rooted targets take 2x more damage."
+		"DOTA_Tooltip_ability_arc_warden_flux_Facet_arc_warden_disunity"									"Silences by default. Flux does 2x more damage and roots targets for the entire duration of the ability."
 		"DOTA_Tooltip_ability_arc_warden_flux_Facet_arc_warden_unity"										"Now an AoE spell. Damage is increased per unit nearby that is also affected by Flux."
 		"DOTA_Tooltip_ability_arc_warden_flux_aoe_radius"													"RADIUS:"
 		"DOTA_Tooltip_ability_arc_warden_flux_damage_per_unit"												"DAMAGE PER UNIT:"
@@ -2682,7 +2682,9 @@
 		"DOTA_Tooltip_ability_chaos_knight_chaos_bolt_Note1"												""
 		"DOTA_Tooltip_ability_chaos_knight_chaos_bolt_Facet_chaos_knight_entropal"							"On hit, creates a Phantasm illusion that attacks the target for 1.8 seconds"
 		"DOTA_Tooltip_ability_chaos_knight_chaos_bolt_illu_dur"												"ILLUSION DURATION:"
-		"DOTA_Tooltip_ability_chaos_knight_chaos_bolt_Facet_chaos_knight_uncertainoi"						"Has increased cast range and damage. On hit, has a 50% chance to bounce to another target within cast range distance."
+		"DOTA_Tooltip_ability_chaos_knight_chaos_bolt_Facet_chaos_knight_uncertainoi"						"Has decreased Cooldown and increased Cast Range, Stun Duration, and Damage. On hit, has a %bounce_chance_pct%%% chance to bounce %bounce_count% times to another target within cast range distance."
+		"DOTA_Tooltip_ability_chaos_knight_chaos_bolt_bounce_count"											"BOUNCE COUNT:"
+		"DOTA_Tooltip_ability_chaos_knight_chaos_bolt_bounce_chance_pct"									"%BOUNCE CHANCE:"
 
 		"DOTA_Tooltip_ability_chaos_knight_reality_rift"													"Reality Rift"
 		"DOTA_Tooltip_ability_chaos_knight_reality_rift_Description"										"Teleports Chaos Knight, any illusions he has, and the target unit to a point along the line between him and the target. Reduces armor of the enemy unit for %debuff_dur% seconds."
@@ -2693,22 +2695,22 @@
 		"DOTA_Tooltip_ability_chaos_knight_reality_rift_Note1"												""
 		"DOTA_Tooltip_ability_chaos_knight_reality_rift_armor_red"											"ARMOR REDUCTION:"
 		"DOTA_Tooltip_ability_chaos_knight_reality_rift_debuff_dur"											"DURATION:"
-		"DOTA_Tooltip_ability_chaos_knight_reality_rift_Facet_chaos_knight_entropal"						"Extends the liftime of existing illusions."
+		"DOTA_Tooltip_ability_chaos_knight_reality_rift_Facet_chaos_knight_entropal"						"Extends the liftime of existing illusions by %illusion_extension% seconds."
 		"DOTA_Tooltip_ability_chaos_knight_reality_rift_illusion_extension"									"ILLUSION LIFETIME EXTENSION:"
-		"DOTA_Tooltip_ability_chaos_knight_reality_rift_Facet_chaos_knight_uncertainoi"						"Has a chance to Disarm or Silence the target. Lasts 50% of the duration."
+		"DOTA_Tooltip_ability_chaos_knight_reality_rift_Facet_chaos_knight_uncertainoi"						"Has a %extra_debuff_chance%%% chance to Disarm or Silence the target. Lasts 50% of the duration."
 		"DOTA_Tooltip_ability_chaos_knight_reality_rift_extra_debuff_chance"								"%EXTRA DEBUFF CHANCE:"
+		"DOTA_Tooltip_modifier_chaos_knight_reality_rift_ebf_debuff"										"Reality Rift"
+		"DOTA_Tooltip_modifier_chaos_knight_reality_rift_ebf_debuff_Description"							"Losing %armor_red% armor."		
 
 		"DOTA_Tooltip_ability_chaos_knight_chaos_strike"													"Chaos Strike"
 		"DOTA_Tooltip_ability_chaos_knight_chaos_strike_Description"										"Every hit has a chance to deal an extra, varying amount of damage."
 		"DOTA_Tooltip_ability_chaos_knight_chaos_strike_chance"												""
 		"DOTA_Tooltip_ability_chaos_knight_chaos_strike_crit_min"											""
 		"DOTA_Tooltip_ability_chaos_knight_chaos_strike_crit_max"											""
-		"DOTA_Tooltip_ability_chaos_knight_chaos_strike_crit_chance"										"%CRIT CHANCE:"
 		"DOTA_Tooltip_ability_chaos_knight_chaos_strike_critical_min"										"%MINIMUM CRIT DAMAGE:"
 		"DOTA_Tooltip_ability_chaos_knight_chaos_strike_critical_max"										"%MAXIMUM CRIT DAMAGE:"
-		"DOTA_Tooltip_ability_chaos_knight_chaos_strike_Facet_chaos_knight_entropal"						"Every time Chaos Strike fails to trigger, its chance is increased. Bonus resets on crit. Affects Illusions."
-		"DOTA_Tooltip_ability_chaos_knight_chaos_strike_crit_chance_increment"								"%CRIT CHANCE INCREASE:"
-		"DOTA_Tooltip_ability_chaos_knight_chaos_strike_Facet_chaos_knight_uncertainoi"						"Has a chance to break the unit."
+		"DOTA_Tooltip_ability_chaos_knight_chaos_strike_Facet_chaos_knight_entropal"						"Chaos Strikes from illusions heals every unit in a %heal_radius% radius that Chaos Knight controls for 75% of the lifesteal value. Chaos Strikes from Chaos Knight remains the full value."
+		"DOTA_Tooltip_ability_chaos_knight_chaos_strike_Facet_chaos_knight_uncertainoi"						"Has a %break_chance%%% chance to break the unit for %break_duration% seconds."
 		"DOTA_Tooltip_ability_chaos_knight_chaos_strike_break_chance"										"%BREAK CHANCE:"
 		"DOTA_Tooltip_ability_chaos_knight_chaos_strike_break_duration"										"BREAK DURATION:"
 		
@@ -2726,12 +2728,17 @@
 		"DOTA_Tooltip_modifier_chaos_knight_phantasm_handler_Description"									"This unit is a Phantasm Illusion."
 		
 		"DOTA_Tooltip_ability_chaos_knight_armageddon"														"Armageddon"
-		"DOTA_Tooltip_ability_chaos_knight_armageddon_Description"											"Chaos Knight manipulates the numbers of reality, increasing all of his chances to cause disorder."
+		"DOTA_Tooltip_ability_chaos_knight_armageddon_Description"											"Chaos Knight manipulates the numbers of reality, increasing all of his chances to cause disorder by %chance_increase%%% while reducing Status Resistance by %stat_res_reduction%%% for enemies in %aura_radius% aura radius."
 		"DOTA_Tooltip_ability_chaos_knight_armageddon_chance_increase"										"%CHANCE INCREASE:"
+		"DOTA_Tooltip_ability_chaos_knight_armageddon_stat_res_reduction"									"%STATUS RESISTANCE REDUCTION:"
+		"DOTA_Tooltip_ability_chaos_knight_armageddon_aura_radius"											"AURA RADIUS:"		
 		"DOTA_Tooltip_ability_chaos_knight_armageddon_duration"												"DURATION:"
 		"DOTA_Tooltip_ability_chaos_knight_armageddon_lore"													"The die has been cast... and Chaos Knight has rolled a Nat 120."
+		"DOTA_Tooltip_ability_chaos_knight_armageddon_Note0"												"Stacks with Gefion's Lucky Dice."
 		"DOTA_Tooltip_modifier_chaos_knight_armageddon_buff"												"Armageddon"
 		"DOTA_Tooltip_modifier_chaos_knight_armageddon_buff_Description"									"Roll the dice."
+		"DOTA_Tooltip_modifier_chaos_knight_armageddon_debuff"												"Armageddon"
+		"DOTA_Tooltip_modifier_chaos_knight_armageddon_debuff_Description"									"Losing %dMODIFIER_PROPERTY_STATUS_RESISTANCE_STACKING%%% Status Resistance."
 		
 		"DOTA_Tooltip_ability_special_bonus_unique_chaos_knight_minor_l"									"Minor Ability Improvement 1"
 		"DOTA_Tooltip_ability_special_bonus_unique_chaos_knight_minor_l_Facet_chaos_knight_entropal"		"+{s:bonus_illusion_extension}s Reality Rift Illusion Extension"
@@ -3152,7 +3159,6 @@
 		"DOTA_Tooltip_ability_kunkka_tidebringer_shard_description"											"Tidebringer's cooldown is halved and its cleave distance, starting width and end width are doubled."
 		"DOTA_Tooltip_ability_kunkka_tidebringer_AbilityCooldown"											"COOLDOWN:"
 		
-
 		//Legion Commander
 		"DOTA_Tooltip_ability_legion_commander_outfight_them"												"Outfight Them!"
 		"DOTA_Tooltip_ability_legion_commander_outfight_them_Description"									"Attacking an enemy hero increases your HP regeneration, lifesteal, and incoming heals by %heal_bonus_pct%%% for %duration%s."
@@ -5590,7 +5596,7 @@
 		
 		"DOTA_Tooltip_ability_item_refresher_Description"													"<h1>Active: Reset Cooldowns</h1>Resets the cooldowns of all your items and spells. Shares a cooldown with Refresher Shard. This item's cooldown only progresses in your hero's main inventory.\n\n<h1>Passive: Refreshing</h1>You restore %health_restore% health and %mana_restore% mana whenever you Cast a Spell"
 		
-		"DOTA_Tooltip_ability_item_soul_ring_Description"													"<h1>Active: Consumption</h1>You lose %max_hp_loss%%% of your maximum health every second. you and all allies within %mana_gain_radius% units regain %mana_gain% mana."
+		"DOTA_Tooltip_ability_item_soul_ring_Description"													"<h1>Active: Consumption</h1>You lose %max_hp_loss%%% of your maximum health every second. For every %loss_to_gain% health lost this way, you and all allies within %mana_gain_radius% units regain %mana_gain% mana."
 		
 		"DOTA_Tooltip_ability_item_glimmer_cape_Description"												"<h1>Active: Glimmer</h1> After a %initial_fade_delay% second delay, grants invisibility, %active_movement_speed% movement speed and a magic damage barrier that absorbs up to %barrier_block% damage, lasting %duration% seconds. When the barrier is damaged, the target gains mana equal to %barrier_to_mana%%% of the barrier lost.<br><br>Can be cast while channeling."
 		

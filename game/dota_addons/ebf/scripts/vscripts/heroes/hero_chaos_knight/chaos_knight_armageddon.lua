@@ -9,18 +9,10 @@ end
 
 function chaos_knight_armageddon:OnSpellStart()
 	local caster = self:GetCaster()
-    local affects_allies = self:GetSpecialValueFor("affects_allies")
     local duration = self:GetSpecialValueFor("duration")
 
-	local allies = caster:FindFriendlyUnitsInRadius(caster:GetOrigin(), FIND_UNITS_EVERYWHERE)
-	for _, heroes in pairs(allies) do
-    	if affects_allies >= 1 and heroes:IsRealHero() then
-        	heroes:AddNewModifier(caster, self, "modifier_chaos_knight_armageddon_buff", {duration = duration})
-			heroes:AddNewModifier(caster, self, "modifier_chaos_knight_armageddon_aura", {duration = duration})
-    	end
-	end
     EmitSoundOn("Hero_ChaosKnight.Phantasm", caster)
-    caster:AddNewModifier(caster, self, "modifier_chaos_knight_armageddon_buff", {duration = duration})
+    caster:AddNewModifier(caster, self, "modifier_chaos_knight_armageddon_handler", {duration = duration})
 	caster:AddNewModifier(caster, self, "modifier_chaos_knight_armageddon_aura", {duration = duration})
 end
 
@@ -33,29 +25,14 @@ function chaos_knight_armageddon:RefreshChanceModifiers()
 	Timers:CreateTimer( function() self:GetCaster()._currentlyRefreshingAllModifiers = false end )
 end
 
-modifier_chaos_knight_armageddon_buff = class({})  
-LinkLuaModifier("modifier_chaos_knight_armageddon_buff", "heroes/hero_chaos_knight/chaos_knight_armageddon", LUA_MODIFIER_MOTION_NONE)
+modifier_chaos_knight_armageddon_handler = class({})  
+LinkLuaModifier("modifier_chaos_knight_armageddon_handler", "heroes/hero_chaos_knight/chaos_knight_armageddon", LUA_MODIFIER_MOTION_NONE)
 
-function modifier_chaos_knight_armageddon_buff:OnCreated()
-	self:OnRefresh()
-
-	self:GetParent()._chanceModifiersList = self:GetParent()._chanceModifiersList or {}
-	self:GetParent()._chanceModifiersList[self] = true
-
-	if IsServer() then
-		self.particle1 = ParticleManager:CreateParticle("particles/econ/items/effigies/status_fx_effigies/se_ambient_ti6_lvl3_ribbon.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
-		self.particle2 = ParticleManager:CreateParticle("particles/econ/items/effigies/status_fx_effigies/aghs_statue_standard_elite_ambient_i.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
-
-		self:AttachEffect(self.particle1)
-		self:AttachEffect(self.particle2)
-
-		Timers:CreateTimer( function()
-		self:GetAbility():RefreshChanceModifiers() end )
-	end
+function modifier_chaos_knight_armageddon_handler:OnCreated()
 	self:StartIntervalThink(2)
 end
 
-function modifier_chaos_knight_armageddon_buff:OnIntervalThink()
+function modifier_chaos_knight_armageddon_handler:OnIntervalThink()
 	local parent = self:GetParent()
 	local radius = self:GetSpecialValueFor("aura_radius")
 	local fx = ParticleManager:CreateParticle("particles/items5_fx/wraith_pact_pulses.vpcf", PATTACH_ABSORIGIN_FOLLOW, parent)
@@ -64,46 +41,23 @@ function modifier_chaos_knight_armageddon_buff:OnIntervalThink()
 	ParticleManager:ReleaseParticleIndex(fx)
 end
 
-function modifier_chaos_knight_armageddon_buff:OnRefresh()
-    self.chance_increase = self:GetSpecialValueFor("chance_increase")
-end
-
-function modifier_chaos_knight_armageddon_buff:OnRemoved()
-	self:GetParent()._chanceModifiersList[self] = nil
-
-	if IsServer() then
-		Timers:CreateTimer( function()
-			if IsModifierSafe( self ) and IsEntitySafe( self:GetAbility() ) then
-				self:GetAbility():RefreshChanceModifiers()
-			end
-		end )
-	end
-end
-function modifier_chaos_knight_armageddon_buff:GetEffectName()
+function modifier_chaos_knight_armageddon_handler:GetEffectName()
 	return "particles/units/heroes/hero_chaos_knight/chaos_knight_calamity_overhead.vpcf"
 end
 
-function modifier_chaos_knight_armageddon_buff:GetEffectAttachType()
+function modifier_chaos_knight_armageddon_handler:GetEffectAttachType()
 	return PATTACH_OVERHEAD_FOLLOW
 end
 
-function modifier_chaos_knight_armageddon_buff:DeclareFunctions()
-	return {MODIFIER_PROPERTY_PREATTACK_CRITICALSTRIKE}
-end
-
-function modifier_chaos_knight_armageddon_buff:GetModifierChanceBonusConstant()
-	return self.chance_increase
-end
-
-function modifier_chaos_knight_armageddon_buff:IsHidden()
+function modifier_chaos_knight_armageddon_handler:IsHidden()
     return false
 end
 
-function modifier_chaos_knight_armageddon_buff:IsPurgable()
-    return true
+function modifier_chaos_knight_armageddon_handler:IsPurgable()
+    return false
 end
 
-function modifier_chaos_knight_armageddon_buff:IsBuff()
+function modifier_chaos_knight_armageddon_handler:IsBuff()
 	return true
 end
 
@@ -131,7 +85,7 @@ function modifier_chaos_knight_armageddon_aura:GetAuraRadius()
 end
 
 function modifier_chaos_knight_armageddon_aura:GetAuraSearchTeam()
-	return DOTA_UNIT_TARGET_TEAM_ENEMY
+	return DOTA_UNIT_TARGET_TEAM_BOTH
 end
 
 function modifier_chaos_knight_armageddon_aura:GetAuraSearchType()
@@ -160,16 +114,74 @@ end
 
 function modifier_chaos_knight_armageddon_debuff:OnCreated()
 	self:OnRefresh()
+	self:GetParent()._chanceModifiersList = self:GetParent()._chanceModifiersList or {}
+	self:GetParent()._chanceModifiersList[self] = true
+
+	if IsServer() then
+		self.particle1 = ParticleManager:CreateParticle("particles/econ/items/effigies/status_fx_effigies/se_ambient_ti6_lvl3_ribbon.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
+		self.particle2 = ParticleManager:CreateParticle("particles/econ/items/effigies/status_fx_effigies/aghs_statue_standard_elite_ambient_i.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
+
+		self:AttachEffect(self.particle1)
+		self:AttachEffect(self.particle2)
+
+		Timers:CreateTimer( function()
+		self:GetAbility():RefreshChanceModifiers() end )
+	end
 end
 
 function modifier_chaos_knight_armageddon_debuff:OnRefresh()
 	self.stat_res_reduction = self:GetSpecialValueFor("stat_res_reduction")
+	self.mres_reduc = self:GetSpecialValueFor("mres_reduc")
+	self.chance_increase = self:GetSpecialValueFor("chance_increase")
+
+	self.no_penalty = self:GetSpecialValueFor("no_ally_penalty")
+end
+
+function modifier_chaos_knight_armageddon_debuff:OnRemoved()
+	self:GetParent()._chanceModifiersList[self] = nil
+
+	if IsServer() then
+		Timers:CreateTimer( function()
+			if IsModifierSafe( self ) and IsEntitySafe( self:GetAbility() ) then
+				self:GetAbility():RefreshChanceModifiers()
+			end
+		end )
+	end
 end
 
 function modifier_chaos_knight_armageddon_debuff:DeclareFunctions()
-	return {MODIFIER_PROPERTY_STATUS_RESISTANCE_STACKING}
+	return
+	{
+		MODIFIER_PROPERTY_STATUS_RESISTANCE_STACKING,
+		MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS,
+		MODIFIER_PROPERTY_PREATTACK_CRITICALSTRIKE
+	}
+end
+
+function modifier_chaos_knight_armageddon_debuff:GetModifierChanceBonusConstant()
+	return self.chance_increase
+end
+
+function modifier_chaos_knight_armageddon_debuff:GetModifierMagicalResistanceBonus()
+	if self.no_penalty ~= 0 then
+		if self:GetParent():GetTeamNumber() == 2 then
+			return self.mres_reduc
+		else
+			return -self.mres_reduc
+		end
+	else
+		return -self.mres_reduc
+	end
 end
 
 function modifier_chaos_knight_armageddon_debuff:GetModifierStatusResistanceStacking()
-	return -self.stat_res_reduction
+	if self.no_penalty ~= 0 then
+		if self:GetParent():GetTeamNumber() == 2 then
+			return self.stat_res_reduction
+		else
+			return -self.stat_res_reduction
+		end
+	else
+		return -self.stat_res_reduction
+	end
 end

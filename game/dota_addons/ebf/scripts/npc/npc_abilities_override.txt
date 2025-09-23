@@ -1757,6 +1757,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_sange_and_yasha"
+		"AbilityTextureName"			"item_sange_and_yasha"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 
 		// Item Info
@@ -1785,11 +1788,20 @@
 				"value"							"16 28 49 86 151"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"slow_resistance"					"15 24.5 38.3 56 74.5"
-			"status_resistance"					"10 16.75 27.2 42.0 60"
 			"bonus_attack_speed"				"20 35 61 107 187"
-			"movement_speed_percent_bonus"		"12 18 24 30 36"
-			"hp_regen_amp"						"15 30 45 60 75"
+			
+			"indomitable_status_resist"			"50"
+			"indomitable_restore_amp"			"50"
+			"indomitable_duration"
+			{
+				"value"							"0.5 1.0 1.5 2.0 2.5"
+				"is_buff_duration"				"1"
+			}
+			
+			"slow_resistance"					""
+			"status_resistance"					""
+			"movement_speed_percent_bonus"		""
+			"hp_regen_amp"						""
 		}
 	}
 	//=================================================================================================================
@@ -1832,11 +1844,17 @@
 				"CalculateAttributeTooltip"		"1"
 			}
 			"bonus_attack_speed"				"20 35 61 107 187"
-			"mana_regen_multiplier"				"12 21 37 65 114"
-			"movement_speed_percent_bonus"		"12 16 20 24 28"
 			"spell_amp"							"12 21 37 65 114"
-			"spell_lifesteal_amp"				"12 21 37 65 114"
-			"cast_speed"						"5 9 16 28 49"
+			
+			"spellblade_cast_speed"				"5"
+			"spellblade_max_cast_speed"			"20 40 60 80 100"
+			"spellblade_movespeed"				"10 20 30 40 50"
+			"spellblade_evasion"				"10 20 30 40 50"
+			"spellblade_duration"
+			{
+				"value"							"5"
+				"is_buff_duration"				"1"
+			}
 			
 			"cast_speed_pct"					""
 		}
@@ -2801,6 +2819,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_yasha_and_kaya"
+		"AbilityTextureName"			"item_sange_and_yasha"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 
 		// Item Info
@@ -2830,16 +2851,22 @@
 				"value"							"16 28 49 86 151"
 				"CalculateAttributeTooltip"		"1"
 			}
-			"spell_amp"
+			"spell_amp"							"12 21 37 65 114"
+			"hp_regen_amp"						"12 21 37 65 114"
+			
+			"catalyst_armor"					"2 4 6 8 10"
+			"catalyst_magic_resist"				"10 15 20 25 30"
+			"catalyst_duration"
 			{
-				"value"							"12 21 36.75 64.25 112.5"
-				"CalculateAttributeTooltip"		"0"
+				"value"							"5"
+				"is_buff_duration"				"1"
 			}
-			"mana_regen_multiplier"				"12 21 36.75 64.25 112.5"
-			"slow_resistance"					"15 24.5 38.25 56 74.5"
-			"hp_regen_amp"						"15 26 45.5 79.5 139"
-			"spell_lifesteal_amp"				"12 21 36.75 64.25 112.5"
-			"manacost_reduction"				"10 16.75 27 47.5 66"
+			"catalyst_heal"
+			{
+				"value"							"1000 2000 3000 4000 5000"
+				"CalculateSpellHealTooltip"		"1"
+			}
+			"catalyst_dispel"					"1"
 		}
 	}
 	//=================================================================================================================
@@ -5078,7 +5105,46 @@
 			"projectile_increase"				"40"
 		}
 	}
-	// enchtantments
+	"item_paladin_sword"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"								"item_lua"
+		"ScriptFile"							"items/item_paladin_sword.lua"
+		"AbilityTextureName"					"item_paladin_sword"
+		"AbilityBehavior"						"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"								"1000"
+		"ActiveDescriptionLine"					"0"
+		"ItemPurchasable"						"1"
+		"ShouldBeSuggested"						"0"
+		"ItemSellable"							"1"
+		"ItemIsNeutralActiveDrop"				"0"
+		"DisplayOverheadAlertOnReceived"		"0"
+		
+		"MaxUpgradeLevel"						"5"
+		"ItemBaseLevel"							"1"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_damage"						"2.0 3.5 6.2 10.7 18.7"
+			"bonus_amp"							"8 14 24.5 42.75 75"
+			"bonus_health_regen"
+			{
+				"value"							"60 105 184 322 563"
+				"CalculateAttributeTooltip"		"1"
+			}
+			
+			"bonus_lifesteal"					""
+			"bonus_spell_lifesteal"				""
+			"creep_lifesteal_reduction_pct"		""
+		}
+	}
+	// enchantments
 	"item_enhancement_mystical"
 	{
 		// General

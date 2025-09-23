@@ -66,24 +66,24 @@ end
 function special_bonus_attributes:UpdatePersistentModifiers()
 	local hero = self:GetCaster()
 	local shields = hero:FindModifierByName("modifier_item_artifact_of_shields_buff")
-	if shields then
+	if IsModifierSafe(shields) then
 		shields:OnRefresh(kv, true)
 	end
 	local blades = hero:FindModifierByName("modifier_item_artifact_of_blades_buff")
-	if blades then
-		shields:OnRefresh(kv, true)
+	if IsModifierSafe(blades) then
+		blades:OnRefresh(kv, true)
 	end
 	local wands = hero:FindModifierByName("modifier_item_artifact_of_wands_buff")
-	if wands then
-		shields:OnRefresh(kv, true)
+	if IsModifierSafe(wands) then
+		wands:OnRefresh(kv, true)
 	end
 	local balance = hero:FindModifierByName("modifier_item_artifact_of_balance_buff")
-	if balance then
-		shields:OnRefresh(kv, true)
+	if IsModifierSafe(balance) then
+		balance:OnRefresh(kv, true)
 	end
 	local warden = hero:FindModifierByName("modifier_arc_warden_balance_of_power_buff")
-	if warden then
-		shields:OnRefresh(kv, true)
+	if IsModifierSafe(warden) then
+		warden:OnRefresh(kv, true)
 	end
 end
 

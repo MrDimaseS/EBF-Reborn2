@@ -44,6 +44,7 @@
 		"dota_ability_variable_magic_damage"																"Magic Attack Damage"
 		"dota_ability_variable_pure_damage"																	"Pure Attack Damage"
 		"dota_ability_variable_other_attr"                                                                  "Other Attributes"
+		"dota_ability_variable_max_speed"																	"Movement Speed Max"
 		"DOTA_LevelUpAttributes"                                                                            "+25% to Base Attributes"
 
 		"DOTA_Chat_PlayerKilledGeneric"                                                                     "<font color='#386BE8'>%s1</font> was killed."
@@ -5681,11 +5682,44 @@
 		"DOTA_Tooltip_ability_item_orb_of_horrors"															"Orb of Horrors"
 		"DOTA_Tooltip_ability_item_orb_of_horrors_Description"												"<h1>Passive: Otherworldly Infusement</h1>Instantly upgrades the first non-Otherworldly item to Otherworldly quality.<br><br>Returns excess gold spent on item upgrades."
 		
-		"DOTA_Tooltip_ability_item_yasha_and_kaya_cast_speed"												"+$cast"
+		"DOTA_Tooltip_ability_item_kaya_and_sange_Description"												"<h1>Passive: Catalyst</h1>When you Cast, if the spell deals Physical Damage, you gain %catalyst_armor% bonus armor. If it deals Magical Damage, you gain %catalyst_magic_resist%%% Magic Resistance. These buffs last %catalyst_duration% seconds. If it deals Pure damage, you Heal %catalyst_heal%. If it deals No damage, Dispel yourself."
+		
+		"DOTA_Tooltip_ability_item_sange_and_yasha_Description"												"<h1>Passive: Indomitable</h1>When you are Healed, you gain %indomitable_status_resist%%% Status Resist. When you are Damaged, you gain %indomitable_restore_amp%%% Restore Amp. These effects each last %indomitable_duration% seconds."
+		
+		"DOTA_Tooltip_ability_item_yasha_and_kaya_Description"												"<h1>Passive: Spellblade</h1>When you Attack, you gain %spellblade_cast_speed% stacking Cast Speed, which lasts until your next Cast, up to a maximum of %spellblade_max_cast_speed%. When you Cast, you gain %spellblade_movespeed%%% Movement Speed and Evasion for %spellblade_duration% seconds."
 		"DOTA_Tooltip_ability_item_yasha_and_kaya_cast_speed_pct"											""
 		
-		// ARTIFACTS
+		"DOTA_Tooltip_ability_item_paladin_sword"															"Paladin's Sword"
+		"DOTA_Tooltip_ability_item_paladin_sword_Description"												"<h1>Passive: Blade of Valor</h1>You gain %bonus_damage% bonus damage for every point of health regeneration you have."
+		"DOTA_Tooltip_ability_item_paladin_sword_bonus_amp"													"%+$heal_amp_in"
+		"DOTA_Tooltip_ability_item_paladin_sword_bonus_health_regen"										"+$hp_regen"
 		
+		"DOTA_Tooltip_ability_item_spear_of_poseidon"														"Spear of Poseidon"
+		"DOTA_Tooltip_ability_item_spear_of_poseidon_Description"											"<h1>Passive: Oceanic Might</h1>Every %AbilityCooldown% seconds, the next attack you land unleashes a crashing wave that passes through all enemy units, rooting them for %root_duration% seconds and dealing %wave_damage%%% of your current health as damage."
+		"DOTA_Tooltip_ability_item_spear_of_poseidon_bonus_all"												"+$all"
+		"DOTA_Tooltip_ability_item_spear_of_poseidon_bonus_damage"											"+$damage"
+		
+		"DOTA_Tooltip_ability_item_breath_of_the_anemoi"													"Breath of the Anemoi"
+		"DOTA_Tooltip_ability_item_breath_of_the_anemoi_Description"										"<h1>Passive: Breezesoul</h1>You have %health_regen_per_ms% bonus health regeneration and %health_per_ms% bonus health for each point of movement speed. Improves with hero power."
+		"DOTA_Tooltip_ability_item_breath_of_the_anemoi_bonus_movespeed"									"+$move_speed"
+		"DOTA_Tooltip_ability_item_breath_of_the_anemoi_bonus_max_speed"									"+$max_speed"
+		"DOTA_Tooltip_ability_item_breath_of_the_anemoi_bonus_spell_amp"									"+$spell_amp"
+		
+		"DOTA_Tooltip_ability_item_mageweave_veil"															"Mageweave's Veil"
+		"DOTA_Tooltip_ability_item_mageweave_veil_Description"												"<h1>Passive: Arcane Surge</h1>YYour spells cost %health_cost%%% of your maximum health to cast, but you gain health regeneration equal to %mana_to_healthx your mana regeneration."
+		"DOTA_Tooltip_ability_item_mageweave_veil_bonus_health"												"+$health"
+		"DOTA_Tooltip_ability_item_mageweave_veil_bonus_spell_amp"											"+$spell_amp"
+		
+		"DOTA_Tooltip_ability_item_azureblood_bowl"															"Azureblood Bowl"
+		"DOTA_Tooltip_ability_item_azureblood_bowl_Description"												"<h1>Passive: Quintessence of Life</h1>Any time an allied Hero is Healed, this item gains a charge. When you cast this item, up to %max_charges_applied% charges are consumed for each allied Hero in range. For each consumed charge, a random Hero within %search_radius% units of you gains %invulnerability_duration% seconds of invulnerability, up to a maximum of %max_charges_applied% times. Refreshing increases its total duration."
+		"DOTA_Tooltip_ability_item_azureblood_bowl_bonus_all"												"%+$all"
+		
+		"DOTA_Tooltip_ability_item_bloodfloe_pendant"														"Bloodfloe Pendant"
+		"DOTA_Tooltip_ability_item_bloodfloe_pendant_Description"											"<h1>Passive: Bloodfloe</h1>When an allied Hero restores %heal_threshold%%% of their maximum health, they erupt in a %explosion_aoe% AoE glacial explosion. This Roots and Disarms all units in the AoE for %freeze_duration% seconds."
+		"DOTA_Tooltip_ability_item_bloodfloe_pendant_bonus_spell_amp"										"%+$spell_amp"
+		"DOTA_Tooltip_ability_item_bloodfloe_pendant_bonus_health_regen"									"+$hp_regen"
+		
+		// ARTIFACTS
 		"DOTA_Tooltip_Ability_item_artifact_of_shields"														"Artifact of Shields"
 		"DOTA_Tooltip_Ability_item_artifact_of_shields_Description"											"<h1>Passive: Enhance Health</h1>Upon gaining this item, immediately gain %initial_value% bonus health. Every %threshold% damage you take, permanently increase this bonus health by +%bonus%. Base value scales retroactively with hero power."
 		"DOTA_Tooltip_modifier_item_artifact_of_shields_buff"												"Enhanced Health"

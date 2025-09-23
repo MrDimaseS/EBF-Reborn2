@@ -34,14 +34,15 @@ LinkLuaModifier( "modifier_item_artifact_of_balance_buff", "items/item_artifact_
 
 function modifier_item_artifact_of_balance_buff:OnCreated(kv)
 	self:OnRefresh(kv, true)
-	self:SetStackCount( 0 )
 end
 
 function modifier_item_artifact_of_balance_buff:OnRefresh(kv, bFirst)
-	local bonus = self.bonus
-	self.bonus = self:GetSpecialValueFor("bonus") or bonus
-	local initial_value = self.initial_value
+	local bonus = self.bonus or 0
+	self.bonus = math.max( self:GetSpecialValueFor("bonus"), or bonus )
+	print( bonus, self:GetSpecialValueFor("bonus"), self.bonus, "bonus")
+	local initial_value = self.initial_value or 0
 	self.initial_value = self:GetSpecialValueFor("initial_value") or initial_value
+	print( initial_value, self:GetSpecialValueFor("initial_value"), self.initial_value, "initial_value")
 	if IsServer() then
 		if not bFirst then
 			self:IncrementStackCount()

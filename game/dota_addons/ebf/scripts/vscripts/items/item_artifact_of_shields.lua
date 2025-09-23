@@ -13,6 +13,9 @@ end
 
 function modifier_item_artifact_of_shields_passive:OnRefresh()
 	self.threshold = self:GetSpecialValueFor("threshold")
+	if not self:GetParent():HasModifier("modifier_item_artifact_of_shields_buff") then
+		self:GetParent():AddNewModifier( self:GetCaster(), self:GetAbility(), "modifier_item_artifact_of_shields_buff", {} )
+	end
 end
 
 function modifier_item_artifact_of_shields_passive:DeclareFunctions()
@@ -23,7 +26,7 @@ function modifier_item_artifact_of_shields_passive:GetModifierIncomingDamage_Per
 	self._internalDamageCounter = (self._internalDamageCounter or 0) + params.damage
 	while self._internalDamageCounter > self.threshold do
 		self._internalDamageCounter = self._internalDamageCounter - self.threshold
-		self:GetCaster():AddNewModifier( self:GetCaster(), self:GetAbility(), "modifier_item_artifact_of_shields_buff", {} )
+		self:GetParent():AddNewModifier( self:GetCaster(), self:GetAbility(), "modifier_item_artifact_of_shields_buff", {} )
 	end
 end
 
@@ -58,7 +61,7 @@ function modifier_item_artifact_of_shields_buff:DeclareFunctions()
 end
 
 function modifier_item_artifact_of_shields_buff:GetModifierExtraHealthBonus()
-	return self.initial_value + math.floor( self.real_bonus * self:GetStackCount() + 0.5 )
+	return self.initial_value + math.floor( self.bonus * self:GetStackCount() + 0.5 )
 end
 
 function modifier_item_artifact_of_shields_buff:GetTexture()

@@ -100,7 +100,7 @@ function modifier_pugna_life_drain_tether:OnIntervalThink()
 				if ally:GetHealth() < ally:GetMaxHealth() then
 					ally:HealEvent( damage * heal_pct, ability, caster )
 				else
-					ally:GiveMana( damage * heal_pct )
+					ally:GiveMana( 200 * heal_pct )
 				end
 			end
 		end

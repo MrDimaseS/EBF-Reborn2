@@ -21,6 +21,7 @@ function windrunner_windrun:OnSpellStart()
 	
 	if caster:HasModifier("modifier_windrunner_windrun_aura") then
 		caster:RemoveModifierByName("modifier_windrunner_windrun_aura")
+		caster:RemoveModifierByName("modifier_windrunner_windrun_invis")
 	else
 		EmitSoundOn("Ability.Windrun", caster)
 		

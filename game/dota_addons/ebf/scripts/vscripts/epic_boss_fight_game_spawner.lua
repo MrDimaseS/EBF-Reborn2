@@ -221,7 +221,7 @@ function CHoldoutGameSpawner:_DoSpawn( spawnData, unitName )
 			entUnit.Holdout_IsCore = not spawnData.doNotRemoveFromQueue
 			entUnit:SetDeathXP( 0 )
 			bossManager:ProcessBossScaling(entUnit)
-			entUnit:AddNewModifier( entUnit, nil, "modifier_rune_haste", {duration = 3} )
+			entUnit:AddNewModifier( entUnit, nil, "modifier_rune_haste", {duration = 5} )
 			entUnit:MakeVisibleToTeam(DOTA_TEAM_GOODGUYS, 2)
 			
 			self._currentlySpawningQueuedUnits[unitName] = false

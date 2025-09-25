@@ -34,6 +34,7 @@ function modifier_chaos_knight_chaos_strike_passive:OnRefresh()
     self.lifesteal = self:GetSpecialValueFor("lifesteal")
 
     self.aoe_heal = self:GetSpecialValueFor("aoe_heal")
+    self.illu_lifesteal = self:GetSpecialValueFor("illu_lifesteal_pct") / 100
 
     self.break_chance = self:GetSpecialValueFor("break_chance")
     self.break_duration = self:GetSpecialValueFor("break_duration")
@@ -77,10 +78,9 @@ function modifier_chaos_knight_chaos_strike_passive:OnTakeDamage( params )
 
                 --heals illu TEST idk why illus arent healing themselves
                 if self.aoe_heal ~= 0 then
-                    local illu_lifesteal = self:GetSpecialValueFor("illu_lifesteal_pct") / 100
                     for _, unit in pairs(params.attacker:FindFriendlyUnitsInRadius(params.attacker:GetAbsOrigin(), heal_radius)) do
                         if unit:GetMainControllingPlayer() == params.attacker:GetMainControllingPlayer() then
-                            unit:HealWithParams(hpGain * illu_lifesteal, self:GetAbility(), true, true, self, false)
+                            unit:HealWithParams(hpGain * self.illu_lifesteal, self:GetAbility(), true, true, self, false)
                         end
                     end
                 end

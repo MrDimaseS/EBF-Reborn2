@@ -38,11 +38,9 @@ end
 
 function modifier_item_artifact_of_balance_buff:OnRefresh(kv, bFirst)
 	local bonus = self.bonus or 0
-	self.bonus = math.max( self:GetSpecialValueFor("bonus"), or bonus )
-	print( bonus, self:GetSpecialValueFor("bonus"), self.bonus, "bonus")
+	self.bonus = math.max( self:GetSpecialValueFor("bonus"), bonus )
 	local initial_value = self.initial_value or 0
-	self.initial_value = self:GetSpecialValueFor("initial_value") or initial_value
-	print( initial_value, self:GetSpecialValueFor("initial_value"), self.initial_value, "initial_value")
+	self.initial_value = math.max( self:GetSpecialValueFor("initial_value"), initial_value )
 	if IsServer() then
 		if not bFirst then
 			self:IncrementStackCount()

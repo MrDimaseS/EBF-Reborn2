@@ -54,6 +54,7 @@ function modifier_hero_rage_system:GetModifierPercentageManacostStacking( params
 end
 
 function modifier_hero_rage_system:OnTakeDamage( params )
+	if params.original_damage < 0 then return end
 	if params.attacker == self:GetParent() or params.unit == self:GetParent() then
 		local amt = (( params.original_damage / params.unit:GetMaxHealth() ) * 100)
 		if params.attacker == self:GetParent() then

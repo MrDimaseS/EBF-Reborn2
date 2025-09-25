@@ -34,6 +34,7 @@ function modifier_chaos_knight_chaos_strike_passive:OnRefresh()
     self.lifesteal = self:GetSpecialValueFor("lifesteal")
 
     self.aoe_heal = self:GetSpecialValueFor("aoe_heal")
+    self.illu_lifesteal = self:GetSpecialValueFor("illu_lifesteal_pct") / 100
 
     self.break_chance = self:GetSpecialValueFor("break_chance")
     self.break_duration = self:GetSpecialValueFor("break_duration")
@@ -79,11 +80,11 @@ function modifier_chaos_knight_chaos_strike_passive:OnTakeDamage( params )
                 if self.aoe_heal ~= 0 then
                     for _, unit in pairs(params.attacker:FindFriendlyUnitsInRadius(params.attacker:GetAbsOrigin(), heal_radius)) do
                         if unit:GetMainControllingPlayer() == params.attacker:GetMainControllingPlayer() then
-                            unit:HealWithParams(hpGain * 0.75, self:GetAbility(), false, true, self, true)
+                            unit:HealWithParams(hpGain * self.illu_lifesteal, self:GetAbility(), true, true, self, false)
                         end
                     end
                 end
-                params.attacker:HealWithParams(hpGain, self:GetAbility(), false, true, self, true)
+                params.attacker:HealWithParams(hpGain, self:GetAbility(), true, true, self, false)
                 local postHp = params.attacker:GetHealth()
                 local actualHpGain = postHp - preHp
                 if actualHpGain > 0 then

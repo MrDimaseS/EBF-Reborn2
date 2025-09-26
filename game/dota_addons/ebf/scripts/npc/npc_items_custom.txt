@@ -1471,9 +1471,9 @@
 		"BaseClass"						"item_lua"
 		"ScriptFile"					"items/item_spear_of_poseidon.lua"
 		"AbilityTextureName"			"item_trident"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_BASIC | DOTA_UNIT_TARGET_BASIC"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"FightRecapLevel"				"1"
 
 		// Item Info
@@ -1489,10 +1489,7 @@
 		// Special	
 		"precache"
 		{
-			"particle"						"particles/items_fx/wand_of_the_brine_buff.vpcf"
-			"particle"						"particles/status_fx/status_effect_charge_of_darkness.vpcf"
-			"particle"						"particles/units/heroes/hero_morphling/morphling_adaptive_strike.vpcf"
-			"soundfile"						"soundevents/game_sounds_heroes/game_sounds_ancient_apparition.vsndevts"
+			"particle"						"particles/units/heroes/hero_tidehunter/tidehunter_gush_upgrade.vpcf"
 			"soundfile"						"soundevents/game_sounds_heroes/game_sounds_tidehunter.vsndevts"
 		}
 		//-------------------------------------------------------------------------------------------------------------
@@ -1511,6 +1508,9 @@
 			
 			
 			"AbilityCooldown"					"8 7 6 5"
+			"wave_distance"						"1200"
+			"wave_radius"						"300"
+			"wave_speed"						"900"
 			"root_duration"
 			{
 				"value"							"2"
@@ -1518,7 +1518,7 @@
 			}
 			"wave_damage"
 			{
-				"value"							"8"
+				"value"							"4"
 				"CalculateSpellDamageTooltip"	"0"
 			}
 		}
@@ -1530,9 +1530,7 @@
 		"BaseClass"						"item_lua"
 		"ScriptFile"					"items/item_breath_of_the_anemoi.lua"
 		"AbilityTextureName"			"item_whisper_of_the_dread"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_BASIC | DOTA_UNIT_TARGET_BASIC"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"FightRecapLevel"				"1"
 
 		// Item Info
@@ -1563,7 +1561,7 @@
 			
 			"health_regen_per_ms"
 			{
-				"value"							"0.25 0.44 0.77 1.34 2.35"
+				"value"							"0.2 0.35 0.61 1.07 1.88"
 				"CalculateAttributeTooltip"		"1"
 			}
 			"health_per_ms"
@@ -1580,9 +1578,7 @@
 		"BaseClass"						"item_lua"
 		"ScriptFile"					"items/item_mageweave_veil.lua"
 		"AbilityTextureName"			"item_sisters_shroud"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_BASIC | DOTA_UNIT_TARGET_BASIC"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"FightRecapLevel"				"1"
 
 		// Item Info
@@ -1623,7 +1619,7 @@
 			"mana_to_health"
 			{
 				"value"							"10 18 31 54 94"
-				"CalculateAttributeTooltip"		"1"
+				"CalculateSpellHealTooltip"		"1"
 			}
 		}
 	}
@@ -1634,9 +1630,9 @@
 		"BaseClass"						"item_lua"
 		"ScriptFile"					"items/item_azureblood_bowl.lua"
 		"AbilityTextureName"			"item_cornucopia"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_BASIC | DOTA_UNIT_TARGET_BASIC"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
 		"FightRecapLevel"				"1"
 
 		// Item Info
@@ -1644,7 +1640,6 @@
 		"ItemShopTags"					"uni;protection;heal"
 		"ItemQuality"					"rare"
 		"ItemCost"						"1000"
-		"ItemAliases"					"glimmer cape"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
 		
 		"MaxUpgradeLevel"					"5"
@@ -1689,9 +1684,9 @@
 		"BaseClass"						"item_lua"
 		"ScriptFile"					"items/item_bloodfloe_pendant.lua"
 		"AbilityTextureName"			"item_magnifying_monocle"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_BASIC | DOTA_UNIT_TARGET_BASIC"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"FightRecapLevel"				"1"
 
 		// Item Info
@@ -1708,11 +1703,8 @@
 		// Special	
 		"precache"
 		{
-			"particle"						"particles/items_fx/wand_of_the_brine_buff.vpcf"
-			"particle"						"particles/status_fx/status_effect_charge_of_darkness.vpcf"
-			"particle"						"particles/units/heroes/hero_morphling/morphling_adaptive_strike.vpcf"
-			"soundfile"						"soundevents/game_sounds_heroes/game_sounds_ancient_apparition.vsndevts"
-			"soundfile"						"soundevents/game_sounds_heroes/game_sounds_tidehunter.vsndevts"
+			"particle"						"particles/neutral_fx/icefire_bomb_debuff_explosion.vpcf"
+			"soundfile"						"soundevents/game_sounds_heroes/game_sounds_lich.vsndevts"
 		}
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
@@ -1726,6 +1718,7 @@
 			
 			
 			"heal_threshold"					"25"
+			"heal_radiu"						"1200"
 			"explosion_aoe"
 			{
 				"value"							"350"

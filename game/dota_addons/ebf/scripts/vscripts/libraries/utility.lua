@@ -993,9 +993,13 @@ function CDOTA_BaseNPC:HealEvent(amount, sourceAb, healer, tParams)
 		-- end
 	-- end
 	local preHP = self:GetHealth()
-	self:HealWithParams( flAmount, sourceAb, healParams.heal_type == DOTA_HEAL_TYPE_LIFESTEAL, true, healer, healParams.heal_category == DOTA_LIFESTEAL_SOURCE_ABILITY )
+	if healParams.heal_type == DOTA_HEAL_TYPE_REGENERATION then
+		self:ModifyHealth( preHP + flAmount, nil, false, 0 )
+	else
+		self:HealWithParams( flAmount, sourceAb, healParams.heal_type == DOTA_HEAL_TYPE_LIFESTEAL, true, healer, healParams.heal_category == DOTA_LIFESTEAL_SOURCE_ABILITY )
+	end
 	local postHP = self:GetHealth()
-	SendOverheadEventMessage(self, OVERHEAD_ALERT_HEAL, self, postHP - preHP, healer)
+	if healParams.heal_type ~= DOTA_HEAL_TYPE_REGENERATION then	SendOverheadEventMessage(self, OVERHEAD_ALERT_HEAL, self, postHP - preHP, healer) end
 	return postHP - preHP
 end
 
@@ -1450,6 +1454,16 @@ function CDOTABaseAbility:Disarm(target, duration)
 		disarm:AddOverHeadEffect( FX )
 		return disarm
 	end
+end
+
+function CDOTABaseAbility:Root(target, duration)
+	if not IsEntitySafe( target ) then return end
+	local disarm = target:AddNewModifier(self:GetCaster(), self, "modifier_rooted", {duration = duration})
+	-- if disarm then
+		-- local FX = ParticleManager:CreateParticle("particles/generic_gameplay/generic_disarm.vpcf", PATTACH_OVERHEAD_FOLLOW, target )
+		-- disarm:AddOverHeadEffect( FX )
+		-- return disarm
+	-- end
 end
 
 function CDOTABaseAbility:Stun(target, duration, effectName, effectData)

@@ -216,7 +216,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"troll_warlord_berserkers_rage"
 		"AbilityTextureName"			"troll_warlord_berserkers_rage"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_TOGGLE | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"AbilitySound"					"Hero_TrollWarlord.BerserkersRage.Toggle"
 		"MaxLevel"						"4"
@@ -235,6 +235,30 @@
 			"base_attack_time"			"1.4"
 			"ensnare_chance"			"20"
 			"ensnare_duration"			"0.4 0.8 1.2 1.6"
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+	}
+	"boss_troll_warlord_switch_stance"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"troll_warlord_switch_stance"
+		"AbilityTextureName"			"troll_warlord_switch_stance"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_TOGGLE | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"AbilitySound"					"Hero_TrollWarlord.BerserkersRage.Toggle"
+		"MaxLevel"						"1"
+		"Innate"						"1"
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.2"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityValues"
+		{
+			"bonus_range"			"560"
+			"base_attack_time"		"1.4"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -362,7 +386,7 @@
 			}
 			"base_chance"
 			{
-				"value"	"0"
+				"value"	"16"
 				"RequiresShard"	"1"
 			}
 			"range_buffer"	"175"
@@ -383,7 +407,7 @@
 		{
 			"maximum_attack_speed"			"210 260 310 360"
 			"maximum_magic_resist"			"15 25 35 45"
-			"hp_threshold_max"				"10"
+			"hp_threshold_max"				"10 15 20 25"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}

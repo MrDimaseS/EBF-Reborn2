@@ -89,6 +89,7 @@ function modifier_dark_seer_wall_of_replica_thinker:OnIntervalThink()
 				self.illusions[id] = illusions[1]
 				illusions[1]:SetUnitCanRespawn( true )
 				illusions[1].hasBeenProcessed = true
+				self.illusions[id]:SetHasInventory(false)
 				ability:DealDamage( caster, enemy, self.wall_damage )
 			elseif not self.illusions[id]:IsAlive() then -- respawn
 				self.illusions[id]:RespawnUnit()

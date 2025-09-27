@@ -62,12 +62,14 @@
 			"magic_missile_stun"
 			{
 				"value"										"1.1 1.3 1.5 1.7"
-				"special_bonus_unique_vengeful_spirit_1"	"+0.3"	
+				"special_bonus_unique_vengeful_spirit_1"	"+0.6"	
+				"special_bonus_facet_vengefulspirit_avenging_missile"	"+25%"
 				"is_debuff_duration"						"1"			
 			}
 			"magic_missile_damage"
 			{
 				"value"										"850 1700 2550 3400"
+				"special_bonus_facet_vengefulspirit_avenging_missile"	"+25%"
 				"CalculateSpellDamageTooltip"				"1"
 			}
 			"AbilityCastRange"
@@ -106,41 +108,39 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_AURA"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
-		
-		
+		"IsBreakable"					"1"
+
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"1200"
 		
 		"HasScepterUpgrade"			"1"
-
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 		"AbilityValues"
 		{
 			"bonus_base_damage"
 			{
-				"value"										"10 15 20 25"
-				"special_bonus_unique_vengeful_spirit_2" 	"+16"
+				"value" "10 15 20 25"
+				"special_bonus_unique_vengeful_spirit_2" "+16"
 			}
-			"aura_radius"					"1200"
+			"aura_radius"
+			{
+				"value" "1200"
+				"affected_by_aoe_increase"	"1"
+			}
 			"scepter_illusion_damage_out_pct"
 			{
-				"value"						"100"
-				"RequiresScepter"			"1"
+				"special_bonus_scepter" "300"
 			}
 			"scepter_illusion_damage_in_pct"
 			{
-				"value"						"40"
-				"RequiresScepter"			"1"
-			}	
+				"special_bonus_scepter" "20"
+			}
 			"scepter_illusion_ms_bonus_pct"
 			{
-				"value"						"12"
-				"RequiresScepter"			"1"
-			}	
+				"special_bonus_scepter" "12"
+			}
 		}
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
 	
 	//=================================================================================================================
@@ -249,7 +249,7 @@
 		{
 			"damage_reduction"
 			{
-				"value"												"50"
+				"value"												"15 30 45"
 				"CalculateSpellDamageTooltip" 						"0"
 				"DamageTypeTooltip"									"DAMAGE_TYPE_NONE"
 			}
@@ -268,8 +268,8 @@
 			}
 			"AbilityCooldown"
 			{	
-				"value"												"46 38 30"
-				"special_bonus_unique_vengeful_spirit_9"			"-15"
+				"value"												"30 25 20"
+				"special_bonus_unique_vengeful_spirit_9"			"-10"
 			}
 		}
 	}

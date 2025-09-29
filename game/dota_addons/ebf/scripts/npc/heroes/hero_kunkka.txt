@@ -9,15 +9,19 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_kunkka/kunkka_tidal_wave"
+		"AbilityType"					"ABILITY_TYPE_BASIC"
+		"AbilityTextureName"			"kunkka_tidal_wave"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
-		"MaxLevel"						"1"
+		"MaxLevel"						"4"
 		"FightRecapLevel"				"1"
-		"IsGrantedByShard"			"0"
+		"IsGrantedByShard"				"0"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -38,21 +42,74 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"speed"		"700"
+			// Default KV's
+			//---------------------------------------------------------------------------------------------------------
+			"speed"															"700"
+			"offset"														"750"
+			"wave_distance_tooltip"											"1800"
+			"knockback_distance"											"300"
 			"radius"		
 			{
-				"value"		"750"
-				"affected_by_aoe_increase"	"1"
+				"value"														"750"
+				"affected_by_aoe_increase"									"1"
+			}
+			"real_radius"
+			{
+				"value"														"300"
+				"affected_by_aoe_increase"									"1"
 			}
 			"damage"
 			{
-				"value"												"600 1200 1800 2400"
-				"special_bonus_unique_kunkka_tidal_wave_damage"		"+75%"
-				"CalculateSpellDamageTooltip"						"1"
+				"value"														"600 1200 1800 2400"
+				"special_bonus_unique_kunkka_tidal_wave_damage"				""
+				"CalculateSpellDamageTooltip"								"1"
 			}
-			"duration"		"1.75"
-			"wave_distance_tooltip"		"1800"
-			"knockback_distance"		"600"
+			"duration"		
+			{
+				"value"														"1.75"
+				"is_debuff_duration"										"1"
+			}
+			"debuff_duration"
+			{
+				"value"														"3 4 5 6"
+				"is_debuff_duration"										"1"
+			}
+
+			// Mariner KV's
+			//---------------------------------------------------------------------------------------------------------
+			"mariner"
+			{
+				"special_bonus_facet_kunkka_mariner"						"1"
+			}
+			"mres_reduc"
+			{
+				"special_bonus_facet_kunkka_mariner"						"5 10 15 20"
+				"special_bonus_unique_kunkka_major_l"						"+10"
+			}
+
+			// Admiral KV's
+			//---------------------------------------------------------------------------------------------------------
+			"admiral"
+			{
+				"special_bonus_facet_kunkka_admiral"						"1"
+			}
+			"total_dmg_reduc"
+			{
+				"special_bonus_facet_kunkka_admiral"						"10 15 20 25"
+				"special_bonus_unique_kunkka_major_l"						"+20"
+			}
+
+			// Privateer KV's
+			//---------------------------------------------------------------------------------------------------------
+			"privateer"
+			{
+				"special_bonus_facet_kunkka_privateer"						"1"
+			}
+			"armor_reduc"
+			{
+				"special_bonus_facet_kunkka_privateer"						"3 4 5 6"
+				"special_bonus_unique_kunkka_major_l"						"+4"
+			}
 		}
 	}
 
@@ -92,68 +149,86 @@
 		{
 			// Default KV's
 			//---------------------------------------------------------------------------------------------------------
+			"movespeed_bonus"												"40"
+			"delay"															"1.6 1.6 1.6 1.6"
+			"damage_tick_interval"											"0.2"
 			"radius"
 			{
-				"value"													"250"
-				"special_bonus_unique_kunkka_7"							"+30%"
-				"affected_by_aoe_increase"								"1"
+				"value"														"250"
+				"special_bonus_unique_kunkka_greater_l"						"+100%"
+				"special_bonus_unique_kunkka_7"								""
+				"affected_by_aoe_increase"									"1"
 			}
-			"movespeed_bonus"											"40"
 			"slow_duration"
 			{
-				"value"													"1 2 3 4"
-				"is_debuff_duration"									"1"
+				"value"														"1 2 3 4"
+				"special_bonus_unique_kunkka_greater_l"						"+100%"
+				"is_debuff_duration"										"1"
 			}
 			"stun_duration"
 			{
-				"value"													"1.4"
-				"special_bonus_unique_kunkka_7"							"+30%"
-				"is_debuff_duration"									"1"
+				"value"														"1.4"
+				"special_bonus_unique_kunkka_greater_l"						"+100%"
+				"special_bonus_unique_kunkka_7"								""
+				"is_debuff_duration"										"1"
 			}
-			"delay"														"1.6 1.6 1.6 1.6"
 			"damage"
 			{
-				"value"													"800 1600 2400 3200"
-				"special_bonus_unique_kunkka_7"							"+30%"
-				"CalculateSpellDamageTooltip"							"1"
+				"value"														"800 1600 2400 3200"
+				"special_bonus_unique_kunkka_greater_l"						"+100%"
+				"special_bonus_unique_kunkka_7"								""
+				"CalculateSpellDamageTooltip"								"1"
 			}
-			"damage_tick_interval"										"0.2"
 			"AbilityCooldown"			
 			{
-				"value"													"16 14 12 10"
-				"special_bonus_unique_kunkka_torrent_cooldown"			"-4"
+				"value"														"16 14 12 10"
+				"special_bonus_unique_kunkka_torrent_cooldown"				""
 			}	
+			"greater_torrents"
+			{
+				"special_bonus_unique_kunkka_greater_l"						"1"
+			}
+
 			// Mariner KV's
 			//---------------------------------------------------------------------------------------------------------
 			"extra_torrents"
 			{
-				"special_bonus_facet_kunkka_mariner"					"4"
+				"special_bonus_facet_kunkka_mariner"						"4"
+			}
+			"extra_torrent_delay"
+			{
+				"special_bonus_facet_kunkka_mariner"						"4"
+				"special_bonus_unique_kunkka_greater_l"						"-2"
 			}
 
 			// Admiral KV's
 			//---------------------------------------------------------------------------------------------------------
 			"bonus_armor"
 			{
-				"special_bonus_facet_kunkka_admiral"					"4 7 11 14"
+				"special_bonus_facet_kunkka_admiral"						"4 7 11 14"
 			}
 			"bonus_armor_duration"
 			{
-				"special_bonus_facet_kunkka_admiral"					"4"
-				"is_buff_duration"										"1"
+				"special_bonus_facet_kunkka_admiral"						"4"
+				"is_buff_duration"											"1"
+			}	
+			"admiral_mspd_bonus"
+			{
+				"special_bonus_facet_kunkka_admiral"						"40"
 			}
 
 			// Privateer KV's
 			//---------------------------------------------------------------------------------------------------------
 			"bonus_physical_damage"
 			{
-				"special_bonus_facet_kunkka_privateer"					"500 1000 1500 2000"
-				"CalculateSpellDamageTooltip"							"1"
+				"special_bonus_facet_kunkka_privateer"						"500 1000 1500 2000"
+				"CalculateSpellDamageTooltip"								"1"
 			}
 
 			// Unused KV's
 			//---------------------------------------------------------------------------------------------------------
-			"torrent_damage"											""
-			"percent_instant"											""
+			"torrent_damage"												""
+			"percent_instant"												""
 		}		
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -171,8 +246,8 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"MaxLevel"						"1"
 		"FightRecapLevel"				"1"
-		"IsGrantedByScepter"			"1"
-		"HasScepterUpgrade"				"1"
+		"IsGrantedByScepter"			"0"
+		"HasScepterUpgrade"				"0"
 		"AbilitySound"					"Ability.Torrent"
 
 		// Casting
@@ -224,69 +299,109 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_ATTACK"
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_kunkka/kunkka_tidebringer"
+		"AbilityTextureName"			"kunkka_tidebringer"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_ATTACK"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilitySound"					"Hero_Kunkka.Tidebringer.Attack"
+		"MaxLevel"						"4"
 		"Innate"						"1"
 		"IsBreakable"					"1"
+		"DependentOnAbility"			"kunkka_ghostship"
 
 		// Time
 		//-------------------------------------------------------------------------------------------------------------
-
 		"AbilityCastRange"				"150"
 		"AbilityCastPoint"				"0.0 0.0 0.0 0.0"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
-		{		
+		{	
+			// Default KV's
+			//---------------------------------------------------------------------------------------------------------	
 			"cleave_starting_width"				
 			{
-				"value"						"150"
-				"special_bonus_shard"		"x2"
-				"affected_by_aoe_increase"	"1"
+				"value"														"150"
+				"special_bonus_unique_kunkka_greater_r"						"+100%"
+				"special_bonus_shard"										""
+				"affected_by_aoe_increase"									"0"
 			}
 			"cleave_ending_width"				
 			{
-				"value"						"500 550 600 650"
-				"special_bonus_shard"		"x2"
+				"value"														"500 550 600 650"
+				"special_bonus_unique_kunkka_greater_r"						"+100%"
+				"special_bonus_shard"										""
+				"affected_by_aoe_increase"									"0"
 			}
 			"cleave_distance"				
 			{
-				"value"						"650 800 950 1100"
-				"special_bonus_shard"		"x2"
+				"value"														"650 800 950 1100"
+				"special_bonus_unique_kunkka_greater_r"						"+100%"
+				"special_bonus_shard"										""
 			}
 			"damage_bonus"			
 			{				
-				"value"												"300 600 900 1200"
-				"special_bonus_unique_kunkka_2"						"+50%"
-				"CalculateAttackDamageTooltip"						"1"
+				"value"														"300 600 900 1200"
+				"special_bonus_unique_kunkka_2"								""
+				"special_bonus_unique_kunkka_greater_r"						"+100%"
+				"CalculateAttackDamageTooltip"								"1"
 			}
 			"cleave_damage"				
 			{
-				"value"												"150"
-				"special_bonus_unique_kunkka_4"						"+70"
-				"CalculateSpellDamageTooltip"						"0"
-			}
-			"movespeed_slow"
-			{
-				"value"					"0"
-				"special_bonus_unique_kunkka_tidebringer_slow"		"-60"	
-			}
-			"movespeed_slow_duration"
-			{
-				"value"					"0"
-				"special_bonus_unique_kunkka_tidebringer_slow"		"+1"
-				"is_debuff_duration"								"1"
+				"value"														"150"
+				"special_bonus_unique_kunkka_4"								""
+				"special_bonus_unique_kunkka_greater_r"						"+100%"				
+				"CalculateSpellDamageTooltip"								"0"
 			}
 			"AbilityCooldown"				
 			{
-				"value"												"13.0 10.0 7.0 4.0"
-				"special_bonus_shard"								"-50%"
-				"RequiresShard"										"1"
+				"value"														"13.0 10.0 7.0 4.0"
+				"special_bonus_shard"										""
+				"RequiresShard"												""
 			}
+			"no_cooldown"
+			{
+				"special_bonus_unique_kunkka_synergy_r"						"1"
+			}
+
+			// Mariner KV's
+			//---------------------------------------------------------------------------------------------------------
+			"mini_stun_duration"
+			{
+				"special_bonus_facet_kunkka_mariner"						"0.4"
+				"special_bonus_unique_kunkka_greater_r"						"+100%"
+				"is_debuff_duration"										"1"
+			}
+
+			// Admiral KV's
+			//---------------------------------------------------------------------------------------------------------
+			"heal_pct"
+			{
+				"special_bonus_facet_kunkka_admiral"						"10"
+				"special_bonus_unique_kunkka_greater_r"						"+100%"
+			}
+
+			// Privateer KV's
+			//---------------------------------------------------------------------------------------------------------
+			"hit_cdr_hero"
+			{
+				"special_bonus_facet_kunkka_privateer"						"0.4"
+				"special_bonus_unique_kunkka_greater_r"						"+100%"
+			}
+			"hit_cdr_creep"
+			{
+				"special_bonus_facet_kunkka_privateer"						"0.1"
+				"special_bonus_unique_kunkka_greater_r"						"+100%"
+			}
+
+			// Unused KV's
+			//---------------------------------------------------------------------------------------------------------
+			"movespeed_slow"												""
+			"movespeed_slow_duration"										""
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -369,6 +484,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_kunkka/kunkka_ghostship"
+		"AbilityTextureName"			"kunkka_ghostship"
 		"AbilityType"					"ABILITY_TYPE_ULTIMATE"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_DIRECTIONAL | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
@@ -376,10 +494,6 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"FightRecapLevel"				"2"
 		"AbilitySound"					"Ability.Ghostship"
-		"AbilityDraftExtraAbilities"
-		{
-			"kunkka_tidal_wave" "shard"
-		}
 		"HasScepterUpgrade"				"0"
 		
 		// Casting
@@ -389,15 +503,10 @@
 		"AbilityCastRange"				"1000"
 		"AbilityCastPoint"				"0.3"
 		
-		// Time		
+		// Damage.		
 		//-------------------------------------------------------------------------------------------------------------
-		
+		"AbilityDamage"														"0" // I have no idea why this is here but don't remove it
 
-		// Damage.
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"3500 4750 6000"
-		"CalculateSpellDamageTooltip"	"1"
-	
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"125 175 225"
@@ -406,77 +515,96 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"tooltip_delay"				"3.1"
-			"ghostship_distance"		"2000"
+			// Default KV's
+			//---------------------------------------------------------------------------------------------------------
+			"tooltip_delay"													"3.1"
+			"ghostship_distance"											"2000"
+			"ghostship_speed"												"650"
+			"ship_radius"													"200"
+			"AbilityCooldown"												"60 45 30"
+			"AbilityDamage"
+			{
+				"value"														"3500 4750 6000" 
+				"special_bonus_unique_kunkka_minor_r"						"+120%"
+				"CalculateSpellDamageTooltip"								"1"
+			}
 			"ghostship_width"			
 			{
-				"value"				"450"
-				"affected_by_aoe_increase"	"1"
+				"value"														"450"
+				"affected_by_aoe_increase"									"1"
 			}
-			"movespeed_bonus"			"15"	// If changing this, update value in x marks for variant 1
-			"buff_duration"				"10"
-			"stun_duration"				"1.2"
-			"ghostship_speed"			"650"
-			"ghostship_absorb"
+			"stun_duration"				
 			{
-				"value"								"35"	// If changing this, update value in x marks for variant 1
-				"special_bonus_unique_kunkka_rum"	"+15"
+				"value"														"1.2"
+				"special_bonus_facet_kunkka_mariner"						"+2.4"
+				"is_debuff_duration"										"1"
 			}
-			"AbilityCooldown"				
-			{
-				"value"					"90 80 70"
-			}
-
 			"fleet_interval"
 			{
-				"special_bonus_scepter"		"2.5"
+				"special_bonus_scepter"										""
+				"special_bonus_unique_kunkka_synergy_l"						"2.5"
 			}
 
 			"fleet_count"
 			{
-				"special_bonus_scepter"		"2"
+				"special_bonus_scepter"										""
+				"special_bonus_unique_kunkka_synergy_l"						"4"
 			}
 
-			"fire_cannons"
+			// Admiral KV's
+			//---------------------------------------------------------------------------------------------------------
+			"buff_duration"				
 			{
-				"special_bonus_scepter"	"1"
+				"special_bonus_facet_kunkka_admiral"						"10"
+				"is_buff_duration"											"1"
 			}
 
-			"cannon_ball_damage_pct"		
+			// Privateer KV's
+			//---------------------------------------------------------------------------------------------------------
+			"tidebringer_cleave_radius"
 			{
-				"special_bonus_scepter"	"40"
+				"special_bonus_facet_kunkka_privateer"					
+				{
+					"value"													"700 1100 1600"
+					"special_bonus_unique_kunkka_greater_r"					"+100%"
+				}
 			}
-
-			"cannon_ball_distance"			
+			"tidebringer_bonus_damage"
 			{
-				"special_bonus_scepter"	"1200"
+				"special_bonus_facet_kunkka_privateer"					
+				{
+					"value"													"500 1000 1500"
+					"special_bonus_unique_kunkka_greater_r"					"+100%"
+				}
+				"CalculateSpellDamageTooltip"								"1"
 			}
-
-			"cannon_ball_speed"				
+			"base_damage_multiplier"
 			{
-				"special_bonus_scepter"	"1400"
+				"special_bonus_facet_kunkka_privateer"					
+				{
+					"value"													"125"
+					"special_bonus_unique_kunkka_greater_r"					"+100%"
+				}
 			}
 
-			"cannon_count"					
-			{
-				"special_bonus_scepter"	"4"
-			}
-
-			"cannon_ball_radius"			
-			{
-				"special_bonus_scepter"	"100"
-			}
-
-			"num_cannon_volleys"		"3"
-			"cannon_fire_interval"			
-			{
-				"special_bonus_scepter"	"0.78"
-			}
-
-			"base_cannon_rotation"		"20"
-			"rotation_per_cannon"		"12"
-			"initial_cannon_offset"		"-150"
-			"distance_between_cannons"	"75"
+			// Unused KV's
+			//---------------------------------------------------------------------------------------------------------
+			"movespeed_bonus"												""
+			"ghostship_absorb"												""
+			"fire_cannons"													""
+			"cannon_ball_damage_pct"										""
+			"cannon_ball_distance"											""
+			"cannon_ball_speed"												""
+			"cannon_count"													""
+			"cannon_ball_radius"											""	
+			"num_cannon_volleys"											""
+			"cannon_fire_interval"											""
+			"base_cannon_rotation"											""
+			"rotation_per_cannon"											""
+			"initial_cannon_offset"											""
+			"distance_between_cannons"										""
+			"damage"														""
+			"ghostship_damage"												""
 		}
 	}
 
@@ -489,15 +617,18 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_lua"
 		"ScriptFile"					"heroes/hero_kunkka/kunkka_admirals_rum"
+		"AbilityType"					"ABILITY_TYPE_BASIC"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityTextureName"			"kunkka_captains_rum"
 		"MaxLevel"						"4"
+		"LevelsBetweenUpgrades"			"2"
+		"Innate"						"0"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"200"
-		"AbilityCooldown"				"30"		
+		"AbilityCastRange"				"500"	
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -509,13 +640,22 @@
 		{
 			// Default KV's
 			//---------------------------------------------------------------------------------------------------------
+			"AbilityCooldown"												"30"	
 			"buff_duration"				
 			{
 				"value"														"10"
 				"is_buff_duration"											"1"
 				"is_debuff_duration"										"1"
 			}
-			"damage_reduction"												"20 30 40 50"
+			"damage_reduction"												
+			{
+				"value"														"20 30 40 50"
+				"special_bonus_facet_kunkka_admiral"
+				{
+					"value"													"0"
+					"special_bonus_unique_kunkka_major_r"					"+25"
+				}
+			}
 			"hangover_duration"
 			{
 				"value"														"10"
@@ -526,11 +666,31 @@
 			//---------------------------------------------------------------------------------------------------------
 			"damage_increase"
 			{
-				"special_bonus_facet_kunkka_mariner"						"20 30 40 50"
+				"special_bonus_facet_kunkka_mariner"						
+				{
+					"value"													"20 30 40 50"
+					"special_bonus_unique_kunkka_major_r"					"+15"
+				}
+			}
+			"stat_res_reduction"
+			{
+				"special_bonus_facet_kunkka_mariner"						
+				{
+					"value"													"20 30 40 50"
+					"special_bonus_unique_kunkka_major_r"					"+15"
+				}
 			}
 			"heal_percentage"
 			{
 				"special_bonus_facet_kunkka_mariner"						"50"
+			}
+			"aoe"
+			{
+				"special_bonus_facet_kunkka_mariner"
+				{
+					"value"													"0"
+					"special_bonus_unique_kunkka_minor_l"					"+500"
+				}
 			}
 
 			// Admiral KV's
@@ -539,19 +699,40 @@
 			{
 				"special_bonus_facet_kunkka_admiral"						"1"
 			}
+			"mspd_bonus"			
+			{
+				"special_bonus_facet_kunkka_admiral"						"15"
+			}
+			"armor_bonus"
+			{
+				"special_bonus_facet_kunkka_admiral"
+				{
+					"value"													"0"
+					"special_bonus_unique_kunkka_minor_l"					"10"
+				}
+			}
 
 			// Privateer KV's
 			//---------------------------------------------------------------------------------------------------------
 			"total_attack_bonus"
 			{
-				"special_bonus_facet_kunkka_privateer"						"20 30 40 50"
+				"special_bonus_facet_kunkka_privateer"						
+				{
+					"value"													"20 30 40 50"
+					"special_bonus_unique_kunkka_major_r"					"+25"
+				}
+			}
+			"base_damage_bonus"
+			{
+				"special_bonus_unique_kunkka_minor_l"						"2000"
+				"CalculateAttackDamageTooltip"								"1"
 			}
 
 			// Unused KV's
 			//---------------------------------------------------------------------------------------------------------			
-			"damage_threshold"			""
-			"ghostship_absorb"			""
-			"movespeed_bonus"			""
+			"damage_threshold"												""
+			"ghostship_absorb"												""
+			"movespeed_bonus"												""
 		}
 	}
 }

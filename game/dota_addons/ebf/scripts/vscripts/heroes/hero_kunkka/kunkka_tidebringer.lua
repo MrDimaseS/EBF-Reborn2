@@ -114,19 +114,15 @@ function modifier_kunkka_tidebringer_active:OnAttackLanded(params)
                         end
                     end
                 end
-                if no_cooldown == 0 then
-                    if self.heroes_hit or self.creeps_hit ~= 0 then
-                        local heroCdr = self.heroes_hit * cdr_hero
-                        local creepCdr = self.creeps_hit * cdr_creep
-                        local total = heroCdr + creepCdr
-                        ability:SetCooldown((ability:GetCooldown(ability:GetLevel()-1) - total ))
-                    else
-                        ability:SetCooldown()
-                    end
-                    self:Destroy()
+                if self.heroes_hit or self.creeps_hit ~= 0 then
+                    local heroCdr = self.heroes_hit * cdr_hero
+                    local creepCdr = self.creeps_hit * cdr_creep
+                    local total = heroCdr + creepCdr
+                    ability:SetCooldown((ability:GetCooldown(ability:GetLevel()-1) - total ))
                 else
-                    self:Destroy()
+                    ability:SetCooldown()
                 end
+                self:Destroy()
             end
         end
     end

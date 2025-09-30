@@ -166,7 +166,7 @@ function modifier_kunkka_torrent_privateer:OnAttackLanded(params)
     local caster = self:GetCaster()
     if IsServer() then
         if parent == params.target and caster == params.attacker then
-            self:GetAbility():DealDamage(caster, parent, self.bonus_dmg)
+            self:GetAbility():DealDamage(caster, parent, self.bonus_dmg {damage_type = DAMAGE_TYPE_PHYSICAL})
         end
     end
 end

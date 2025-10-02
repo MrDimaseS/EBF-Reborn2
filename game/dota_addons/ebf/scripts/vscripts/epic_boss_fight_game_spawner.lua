@@ -92,7 +92,6 @@ function CHoldoutGameSpawner:Initialize()
 	self._gameRound._spawnedLivingUnits[self._stageID] = {}
 
 	for unitID, unitData in ipairs( self._stageSpawnQueues ) do
-		print( unitID, unitData.unitName )
 		self._loadedSpawnQueue[unitData.unitName] = {}
 		unitData.activeSpawnQueue = self._loadedSpawnQueue[unitData.unitName]
 		local spawnTable = {}

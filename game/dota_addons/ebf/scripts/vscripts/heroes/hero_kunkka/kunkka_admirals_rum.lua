@@ -210,19 +210,11 @@ modifier_kunkka_admirals_rum_hangover = class({})
 LinkLuaModifier("modifier_kunkka_admirals_rum_hangover", "heroes/hero_kunkka/kunkka_admirals_rum", LUA_MODIFIER_MOTION_NONE)
 
 function modifier_kunkka_admirals_rum_hangover:IsHidden()
-    if self:GetParent():HasModifier("modifier_kunkka_admirals_rum_self") then
-        return true
-    else
-        return false
-    end
+    return self:GetParent():HasModifier("modifier_kunkka_admirals_rum_self")
 end
 
 function modifier_kunkka_admirals_rum_hangover:IsPurgable()
-    if self:GetParent():HasModifier("modifier_kunkka_admirals_rum_self") then
-        return false
-    else
-        return true
-    end
+    return not self:IsHidden()
 end
 
 function modifier_kunkka_admirals_rum_hangover:IsDebuff()
@@ -230,34 +222,31 @@ function modifier_kunkka_admirals_rum_hangover:IsDebuff()
 end
 
 function modifier_kunkka_admirals_rum_hangover:DeclareFunctions()
-    return
-    {
-        MODIFIER_EVENT_ON_TAKEDAMAGE
-    }
+    return {MODIFIER_EVENT_ON_TAKEDAMAGE}
 end
 
 function modifier_kunkka_admirals_rum_hangover:OnCreated()
+    self.hangover_duration = self:GetSpecialValueFor("hangover_duration")
+    self.damage_reduction = self:GetSpecialValueFor("damage_reduction") / 100
     self.damage_taken = 0
     self.absorbing = true
     if IsServer() then
-        Timers:CreateTimer(self:GetSpecialValueFor("hangover_duration"), function()
-            self:StartIntervalThink(1)
-            self.absorbing = false
-        end)
+       self:StartIntervalThink(1)
     end
 end
 
 function modifier_kunkka_admirals_rum_hangover:OnTakeDamage(params)
     if params.unit == self:GetParent() and self.absorbing == true then
-        self.damage_taken = self.damage_taken + params.damage
-        print(self.damage_taken)
+        self.damage_taken = self.damage_taken + (params.damage / (1-self.damage_reduction) - params.damage)
     end
 end
 
 function modifier_kunkka_admirals_rum_hangover:OnIntervalThink()
+	if self:IsHidden() then return end
+	self.absorbing = false
     local parent = self:GetParent()
     local currentHp = parent:GetHealth()
-    local postHp = currentHp - self.damage_taken
+    local postHp = currentHp - self.damage_taken / self.hangover_duration
     if postHp <= 0 then
         parent:SetHealth(1)
     else

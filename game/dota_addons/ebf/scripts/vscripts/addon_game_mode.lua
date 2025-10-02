@@ -92,25 +92,17 @@ function Precache( context )
 	PrecacheResource( "model", "models/heroes/tiny_01/tiny_01_tree.vmdl", context )
 
 	--Precache bosses
-	PrecacheUnitByNameSync("npc_dota_boss_naga_illusionist", context)
-	PrecacheUnitByNameSync("npc_dota_boss_troll_warlord", context)
-	PrecacheUnitByNameSync("npc_dota_boss_clockwerk_mecha", context)
+	for unitName, unitData in pairs( LoadKeyValues("scripts/npc/npc_units_custom.txt") ) do
+		PrecacheUnitByNameSync(unitName, context)
+	end
 	
-	PrecacheUnitByNameSync("npc_dota_boss_zombie_minion", context)
-	PrecacheUnitByNameSync("npc_dota_boss_treant", context)
-	PrecacheUnitByNameSync("npc_dota_boss_greater_treant", context)
-	PrecacheUnitByNameSync("npc_dota_troll_warlord_axe", context)
-	
-    PrecacheUnitByNameSync("npc_dota_minion_rift_cleric", context)
-    PrecacheUnitByNameSync("npc_dota_boss_rift_general", context)
-    PrecacheUnitByNameSync("npc_dota_unit_underlord_portal", context)
-	
-	PrecacheUnitByNameSync("npc_dota_boss_ogre_magi", context)
-	PrecacheUnitByNameSync("npc_dota_visage_familiar1", context)
-	PrecacheUnitByNameSync("npc_dota_lone_druid_bear1", context)
-	
-	PrecacheUnitByNameSync("npc_dota_unit_tombstone4", context)
-	PrecacheUnitByNameSync("npc_dota_rattletrap_cog", context)
+	for abilityName, abilityData in pairs( LoadKeyValues("scripts/npc/npc_abilities_custom.txt") ) do
+		if type(abilityData) == "table" and abilityData.precache then
+			for precacheType, precachePath in pairs( abilityData.precache ) do
+				PrecacheResource( precacheType, precachePath, context )
+			end
+		end
+	end
 end
 
 -- Actually make the game mode when we activate

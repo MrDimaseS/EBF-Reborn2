@@ -5,11 +5,13 @@ function arc_warden_tempest_double:IsStealable()
 end --NO STEALING
 
 function arc_warden_tempest_double:OnHeroLevelUp()
-    if IsEntitySafe(self.double) then
-        self.double:HeroLevelUp( false )
-        self.double:SetAbilityPoints(0)
-    else
-        self.double:SetAbilityPoints(0)
+    if IsServer() then
+        if IsEntitySafe(self.double) then
+            if self.double:GetLevel() ~= self:GetCaster():GetLevel() then
+                self.double:HeroLevelUp( false )
+                self.double:SetAbilityPoints(0)
+            end
+        end
     end
 end
 
@@ -154,10 +156,6 @@ function modifier_arc_warden_tempest_double_handler:DeclareFunctions()
 end
 
 function modifier_arc_warden_tempest_double_handler:IsClone()
-    return true
-end
-
-function modifier_arc_warden_tempest_double_handler:IsRealHero()
     return true
 end
 

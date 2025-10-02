@@ -243,6 +243,7 @@ function modifier_kunkka_admirals_rum_hangover:OnCreated()
         Timers:CreateTimer(self:GetSpecialValueFor("hangover_duration"), function()
             self:StartIntervalThink(1)
             self.absorbing = false
+            self.damage_taken = self.damage_taken / 10
         end)
     end
 end

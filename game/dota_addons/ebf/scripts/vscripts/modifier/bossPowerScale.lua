@@ -23,9 +23,9 @@ function bossPowerScale:OnRefresh(keys)
 	-- remove some base armor and add it to bonus armor
 	self.baseArmor = self.baseArmor or self:GetParent():GetPhysicalArmorBaseValue()
 	self.bonusArmor = ( ( (1 + difficulty * 0.03) - 1 ) * 100 ) * logisticFunction + (self.baseArmor * 0.6) 
-	self.bonusDamagePct = ( ( (1 + playerNumber * 4) - 1 ) * 100 ) * logisticFunction
+	self.bonusDamagePct = 50 + ( ( (1 + playerNumber * 4) - 1 ) * 100 ) * logisticFunction
 	
-	self.abilityValueIncrease = 1 + math.max(0, 0.15*roundNumber + (roundNumber*0.08) * (roundNumber-1) + (-2.85 -28.5*(1 - math.exp(0.04*roundNumber))) ) * 2
+	self.abilityValueIncrease = 4 + math.max(0, 0.15*roundNumber + (roundNumber*0.08) * (roundNumber-1) + (-2.85 -28.5*(1 - math.exp(0.04*roundNumber))) ) * 2
 	if GetMapName() == "strategy_gamemode" then
 		self.abilityValueIncrease = self.abilityValueIncrease * 1.25
 	end
@@ -38,12 +38,10 @@ function bossPowerScale:OnRefresh(keys)
 	self.treewalk = false
 	self.dmgTakenSinceCheck = 0
 	
-	self.crit_chance = 5
-	self.evasion = 5
 	self.crit_damage = 200
 	if self:GetParent():IsConsideredHero() then
 		self.crit_chance = 20
-		self.evasion = 20
+		self.evasion = TernaryOperator( 8, self:GetParent():IsRangedAttacker(), 14 ) + 0.5 * playerNumber                                                                                                
 		self.baseStatusResistance = 10 + 5 * difficulty
 		self.statusResistIncreasePerTick = ( (MAX_STATUS_RESIST - self.baseStatusResistance) / SECONDS_TO_COMBO_BREAK ) * 0.25
 		self.actualStatusResistance = self.baseStatusResistance

@@ -125,8 +125,7 @@ function modifier_ebfr_fallen_sky_passive:OnCreated()
 	self.bonus_strength = self:GetAbility():GetSpecialValueFor("bonus_strength")
 	self.bonus_agility = self:GetAbility():GetSpecialValueFor("bonus_agility")
 	self.bonus_intellect = self:GetAbility():GetSpecialValueFor("bonus_intellect")
-	self.bonus_health_regen = self:GetAbility():GetSpecialValueFor("bonus_health_regen")
-	self.bonus_mana_regen = self:GetAbility():GetSpecialValueFor("bonus_mana_regen")
+	self.bonus_spell_amp = self:GetAbility():GetSpecialValueFor("bonus_spell_amp")
 	
 	self.damage_cd = self:GetSpecialValueFor("blink_damage_cooldown")
 end
@@ -136,8 +135,7 @@ local funcs = {
 		MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,
 		MODIFIER_PROPERTY_STATS_INTELLECT_BONUS,
 		MODIFIER_PROPERTY_STATS_AGILITY_BONUS,
-		MODIFIER_PROPERTY_MANA_REGEN_CONSTANT,
-		MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT,
+		MODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE,
 		MODIFIER_EVENT_ON_TAKEDAMAGE,
     }
     return funcs
@@ -149,12 +147,8 @@ function modifier_ebfr_fallen_sky_passive:OnTakeDamage(params)
 	end
 end
 
-function modifier_ebfr_fallen_sky_passive:GetModifierConstantHealthRegen()
-	return self.bonus_health_regen
-end
-
-function modifier_ebfr_fallen_sky_passive:GetModifierConstantManaRegen()
-	return self.bonus_mana_regen
+function modifier_ebfr_fallen_sky_passive:GetModifierSpellAmplify_Percentage()
+	return self.bonus_spell_amp
 end
 
 function modifier_ebfr_fallen_sky_passive:GetModifierBonusStats_Strength()

@@ -1004,21 +1004,25 @@ function CDOTA_BaseNPC:HealEvent(amount, sourceAb, healer, tParams)
 end
 
 function CBaseEntity:RollPRNG( percentage )
+	if not percentage then return false end
 	local trigger = RollPseudoRandomPercentage( percentage, self:entindex(), self )
 	return trigger
 end
 
 function CDOTA_Ability_Lua:RollPRNG( percentage )
+	if not percentage then return false end
 	local trigger = RollPseudoRandomPercentage( percentage, self:entindex(), self:GetCaster() )
 	return trigger
 end
 
 function CDOTA_Item_Lua:RollPRNG( percentage )
+	if not percentage then return false end
 	local trigger = RollPseudoRandomPercentage( percentage, self:entindex(), self:GetCaster() )
 	return trigger
 end
 
 function CDOTA_Modifier_Lua:RollPRNG( percentage )
+	if not percentage then return false end
 	local ability = self:GetAbility()
 	local index = self:GetSerialNumber()
 	if ability then

@@ -49,8 +49,8 @@ function bossManager:ProcessBossScaling(spawnedUnit)
 	end
 	
 	local baseDamage = spawnedUnit:GetAverageBaseDamage()
-	local DMG_MULTIPLIER = 1 + 0.1 * (GameRules._roundnumber-1) + math.max(0, 0.97*((GameRules._roundnumber-1)^2)-3.2*(GameRules._roundnumber-1) )
-	
+	local DMG_MULTIPLIER = 1 + 0.1 * (GameRules._roundnumber-1) + (0.30*(GameRules._roundnumber-1))^2
+	local HEALTH_REGEN_CONSTANT = 80 * DMG_MULTIPLIER * (GameRules._roundnumber/4)
 	if not spawnedUnit.Holdout_IsCore then
 		HP_difficulty_multiplier = HP_difficulty_multiplier * RandomFloat(0.8, 1.2)
 	elseif GetMapName() == "strategy_gamemode" then
@@ -60,7 +60,7 @@ function bossManager:ProcessBossScaling(spawnedUnit)
 	HP_difficulty_multiplier = HP_difficulty_multiplier * (1 + (GameRules.gameDifficulty-1)*0.2)
 	spawnedUnit:SetBaseAttackTime( spawnedUnit:GetBaseAttackTime() * 1/((1 + (GameRules.gameDifficulty-1)*0.3) ) )
 	spawnedUnit.MaxEHP = HP_difficulty_multiplier*spawnedUnit:GetMaxHealth()
-	spawnedUnit.AttackDamageValue = baseDamage * DMG_MULTIPLIER
+	spawnedUnit.AttackDamageValue = baseDamage * DMG_MULTIPLIER + HEALTH_REGEN_CONSTANT
 	
 	local HEALTH_REGEN = math.max( 1, (spawnedUnit.MaxEHP/currentRound._HP_difficulty_multiplier) * 0.005 )
 	if not spawnedUnit.Holdout_IsCore then

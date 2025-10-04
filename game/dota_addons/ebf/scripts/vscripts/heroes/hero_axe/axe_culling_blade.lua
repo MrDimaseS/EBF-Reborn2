@@ -50,6 +50,7 @@ function axe_culling_blade:OnCast( target )
 		if self._morbidTriggered then
 			self:GetCaster()._permanentBloodForgedAxeStacks = ( self:GetCaster()._permanentBloodForgedAxeStacks or 0 ) + 1
 			bloodForged:IncrementStackCount()
+			self._morbidTriggered = false
 		end
 	end
 	if self:GetSpecialValueFor("always_grant_allies") == 1 then
@@ -59,9 +60,7 @@ end
 
 function axe_culling_blade:OnMorbid()
 	self._morbidTriggered = true
-	if not self:IsCooldownReady() then
-		self:EndCooldown()
-	end
+	self:EndCooldown()
 end
 
 function axe_culling_blade:OnRefresh()
@@ -140,8 +139,9 @@ end
 function modifier_axe_culling_blade_handler:OnDeath( params )
 	if params.unit == self:GetCaster() then return end
 	if CalculateDistance( params.unit, self:GetCaster() ) > self.speed_aoe then return end
-	if params.unit:IsHero() and params.unit:IsIllusion() then return end
-	if params.unit:IsConsideredHero() and not params.unit:IsChampion() then return end
+	if not params.unit:IsConsideredHero() then return end
+	if params.unit:IsIllusion() then return end
+	if not params.unit:HasAbility("enemy_champion") then return end
 	Timers:CreateTimer( 0.1, function() self:GetAbility():OnMorbid() end )
 end
 

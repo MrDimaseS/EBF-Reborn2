@@ -7,7 +7,6 @@ function kunkka_ghostship:OnSpellStart()
     local fleet_count = self:GetSpecialValueFor("fleet_count")
 
     self:SummonShip(caster, point)
-    print(fleet_interval)
     
     if fleet_interval ~= 0 then
         Timers:CreateTimer(fleet_interval, function()

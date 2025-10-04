@@ -149,11 +149,11 @@ function modifier_kunkka_admirals_rum_mariner:DeclareFunctions()
 end
 
 function modifier_kunkka_admirals_rum_mariner:OnTakeDamage(params)
-    if IsServer() then
-        local extra_dmg = params.damage * self.dmg_increase
-        self:GetAbility():DealDamage(params.attacker, params.target, extra_dmg)
-        params.attacker:HealEvent(extra_dmg * self.heal_percentage, self, self:GetCaster())
-    end
+	if params.unit ~= self:GetParent() then return end
+	local caster = self:GetCaster()
+	local extra_dmg = params.damage * self.dmg_increase
+	local damageDealt = self:GetAbility():DealDamage(params.attacker, params.target, extra_dmg)
+	caster:HealEvent(damageDealt, self, caster, {heal_type = DOTA_HEAL_TYPE_LIFESTEAL, heal_category = DOTA_LIFESTEAL_SOURCE_ABILITY})
 end
 
 function modifier_kunkka_admirals_rum_mariner:GetModifierStatusResistanceStacking()

@@ -66,60 +66,6 @@
 		{
 			"soundfile"					"soundevents/game_sounds/ability_acid_spray.vsndevts"
 		}
-		
-		"OnOwnerDied"
-		{
-			"CreateThinker"
-			{
-				"ModifierName"			"creature_acid_spray_thinker"
-				"Target"				"CASTER"
-			}
-			
-			"FireEffect"
-			{
-				"Target"				"CASTER"
-				"EffectName"			"particles/econ/generic/generic_aoe_explosion_sphere_1/generic_aoe_explosion_sphere_1.vpcf"
-				"EffectAttachType"		"follow_origin"
-				"EffectRadius"			"%radius"
-				"EffectDurationScale"	"1"
-				"EffectLifeDurationScale" "1"
-				"EffectColorA"			"25 150 25"
-				"EffectColorB"			"25 150 25"
-			}
-		
-			"Damage"
-			{
-				"Type"					"DAMAGE_TYPE_MAGICAL"
-				"Damage"				"%damage_explode"
-				"Target"
-				{
-					"Center"			"CASTER"
-					"Radius"			"%radius"
-					"Teams"				"DOTA_UNIT_TARGET_TEAM_ENEMY"
-					"Types"				"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-				}
-			}
-			
-			"Knockback"
-			{
-				"Target"
-				{
-					"Center"	"CASTER"
-					"Teams"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
-					"Radius"	"%radius"
-				}
-				"Center"	"CASTER"
-				"Duration"	"0.75"
-				"Distance"	"275"
-				"Height"	"175"
-			}
-			
-			"FireSound"
-			{
-				"EffectName"		"Ability.AcidSpray"
-				"Target"			"CASTER"
-			}
-		}
 
 		"Modifiers"
 		{
@@ -172,33 +118,6 @@
 					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS" "%armor_reduction"
 				}
 			}
-			
-			"acid_spray_fx"
-			{
-				"Passive"			"1"
-				"IsHidden"			"1"
-				"OnCreated"
-				{
-					"AttachEffect"
-					{
-						"Target"					"CASTER"
-						"EffectName"				"particles/econ/generic/generic_buff_1/generic_buff_1.vpcf"
-						"EffectAttachType"			"follow_overhead"
-						"EffectLifeDurationScale"	"1"
-						"EffectColorA"				"28 255 28"
-						"EffectAlphaScale"			"1"
-					}
-				}
-				"OnAttackLanded"
-				{
-					"ApplyModifier"
-					{
-						"Target" "TARGET"
-						"ModifierName" "create_acid_spray_armor_reduction_aura"
-						"Duration"		"%duration_attack"
-					}		
-				}
-			}
 		}
 
 		// Special	
@@ -209,7 +128,7 @@
 			"duration"				"16.0"
 			"damage"
 			{
-				"value"							"30 50 70 90"
+				"value"							"300 400 500 600"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"armor_reduction"		"-3 -5 -6 -7"
@@ -257,12 +176,12 @@
 		{
 			"min_damage"
 			{
-				"value"							"20 40 60 80"
+				"value"							"300 400 500 600"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"max_damage"
 			{
-				"value"							"500 750 1000 1250"
+				"value"							"1500 2000 2500 3000"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"max_duration"			"8"
@@ -315,7 +234,7 @@
 		{
 			"decay_damage"
 			{
-				"value"							"80 120 160 200"
+				"value"							"1690 1890 2090 2290"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"str_steal"
@@ -371,7 +290,7 @@
 		{
 			"damage_per_unit"
 			{
-				"value"							"14 18 22 26"
+				"value"							"140 180 220 260"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"max_units"							"30"

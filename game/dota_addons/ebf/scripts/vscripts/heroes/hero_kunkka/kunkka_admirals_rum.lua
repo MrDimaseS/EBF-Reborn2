@@ -150,9 +150,10 @@ end
 
 function modifier_kunkka_admirals_rum_mariner:OnTakeDamage(params)
     if IsServer() then
-        local extra_dmg = params.damage * self.dmg_increase
-        self:GetAbility():DealDamage(params.attacker, params.target, extra_dmg)
-        params.attacker:HealEvent(extra_dmg * self.heal_percentage, self, self:GetCaster())
+        if self:GetParent() == params.unit then
+            local extra_dmg = params.damage * self.dmg_increase / 100
+            params.attacker:HealEvent(extra_dmg * self.heal_percentage, self, self:GetCaster())
+        end
     end
 end
 

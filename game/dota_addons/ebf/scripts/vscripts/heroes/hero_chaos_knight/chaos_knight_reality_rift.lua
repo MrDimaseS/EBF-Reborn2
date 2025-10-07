@@ -91,6 +91,12 @@ end
 modifier_chaos_knight_reality_rift_ebf_debuff = class({})
 LinkLuaModifier("modifier_chaos_knight_reality_rift_ebf_debuff", "heroes/hero_chaos_knight/chaos_knight_reality_rift", LUA_MODIFIER_MOTION_NONE)
 
+function modifier_chaos_knight_reality_rift_ebf_debuff:GetAttributes()
+	if self:GetSpecialValueFor("extra_debuff_chance") ~= 0 then
+		return MODIFIER_ATTRIBUTE_MULTIPLE
+	end
+end
+
 function modifier_chaos_knight_reality_rift_ebf_debuff:OnCreated()
     return self:OnRefresh()
 end

@@ -32,7 +32,7 @@
 				"special_bonus_facet_chaos_knight_entropal"
 				{
 					"value"											"350"
-					"special_bonus_unique_chaos_knight_greater_l"	"+60%"
+					"special_bonus_unique_chaos_knight_greater_l"	"+66%"
 				}
 				"CalculateAttackDamageTooltip"						"1"
 			}
@@ -76,7 +76,7 @@
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
-		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_ChaosKnight.ChaosBolt.Cast"
@@ -89,12 +89,17 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"110"
+		
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"AbilityManaCost"				
+			{
+				"value"												"110 110 110 110"
+				"special_bonus_facet_chaos_knight_uncertainoi"		"=180 200 220 240"
+			}
 			"AbilityCooldown"				
 			{
 				"value"												"13 12 11 10"
@@ -166,6 +171,7 @@
 				{
 					"value"											"0"
 					"special_bonus_unique_chaos_knight_major_r"		"+700"
+					"affected_by_aoe_increase"						"1"
 				}
 			}
 			"fake_bolt_radius"										"675"
@@ -310,28 +316,18 @@
 			"break_chance"
 			{
 				"special_bonus_facet_chaos_knight_uncertainoi" 		"50"
-				"affected_by_chance_increase"						"1"
 			}
 			"break_duration"
 			{
-				"special_bonus_facet_chaos_knight_uncertainoi"		"1.25"
+				"special_bonus_facet_chaos_knight_uncertainoi"		"3"
 				"is_debuff_duration"								"1"
 			}
-			"bolt_on_attack"
+			"double_hit"
 			{
 				"special_bonus_facet_chaos_knight_uncertainoi"
 				{
 					"value"											"0"
 					"special_bonus_unique_chaos_knight_greater_r"	"+1"
-				}
-			}
-			"bolt_chance"
-			{
-				"special_bonus_facet_chaos_knight_uncertainoi"
-				{
-					"value"											"0"
-					"special_bonus_unique_chaos_knight_greater_r"	"+25"
-					"affected_by_chance_increase"					"1"
 				}
 			}
 			"lifesteal"												"24 36 48 60"
@@ -382,12 +378,15 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"illusion_count"										"2 3 4"				
+			"illusion_count"										
+			{
+				"value"												"2 3 4"
+				"special_bonus_unique_chaos_knight_greater_r"		"+1"
+			}				
 			"illu_dur"												"30.0"
 			"outgoing_dmg"										
 			{
 				"value"												"70 85 90"
-				"special_bonus_unique_chaos_knight_greater_r"		"+30"
 			}
 			"incoming_dmg"											
 			{
@@ -457,6 +456,7 @@
 			"aura_radius"
 			{
 				"value"												"800"
+				"affected_by_aoe_increase"							"1"
 			}
 			"no_ally_penalty"
 			{

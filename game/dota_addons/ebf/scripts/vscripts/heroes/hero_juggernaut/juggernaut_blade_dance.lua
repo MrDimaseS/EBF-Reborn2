@@ -20,14 +20,13 @@ function modifier_juggernaut_blade_dance_passive:OnCreated()
 end
 
 function modifier_juggernaut_blade_dance_passive:OnRefresh()
-    self.crit_chance = self:GetSpecialValueFor("blade_dance_crit_chance")
-    self.crit_mult = self:GetSpecialValueFor("blade_dance_crit_mult")
+    if IsServer() then
+        self.crit_chance = self:GetSpecialValueFor("blade_dance_crit_chance")
+        self.crit_mult = self:GetSpecialValueFor("blade_dance_crit_mult")
 
-    self.bladeform_duration = self:GetSpecialValueFor("bladeform_duration")
-    self.bladeform_stack_max = self:GetSpecialValueFor("bladeform_stack_max")
-
-    self.endurance_duration = self:GetSpecialValueFor("endurance_duration")
-    self.endurance_stack_max = self:GetSpecialValueFor("endurance_stack_max")
+        self.bladeform_duration = self:GetSpecialValueFor("bladeform_duration")
+        self.endurance_duration = self:GetSpecialValueFor("endurance_duration")
+    end
 end
 
 function modifier_juggernaut_blade_dance_passive:IsHidden()
@@ -65,16 +64,19 @@ function modifier_juggernaut_blade_dance_passive:OnAttackLanded(params)
             local bladeform_buff = parent:FindModifierByName("modifier_juggernaut_blade_dance_bladeform_ebf")
             local endurance_buff = parent:FindModifierByName("modifier_juggernaut_blade_dance_endurance_ebf")
 
+            local bladeform_stack_max = self:GetSpecialValueFor("bladeform_stack_max")
+            local endurance_stack_max = self:GetSpecialValueFor("endurance_stack_max")
+
             if bladeform ~= 0 then
                 if not bladeform_buff then
                     parent:AddNewModifier(parent, self:GetAbility(), "modifier_juggernaut_blade_dance_bladeform_ebf", {duration = self.bladeform_duration})
                     parent:FindModifierByName("modifier_juggernaut_blade_dance_bladeform_ebf"):SetStackCount(1)
                 else
-                    if bladeform_buff:GetStackCount() < self.bladeform_stack_max then
+                    if bladeform_buff:GetStackCount() < bladeform_stack_max then
                         bladeform_buff:IncrementStackCount()
                         bladeform_buff:SetDuration(self.bladeform_duration, true)
                     end
-                    if bladeform_buff:GetStackCount() == self.bladeform_stack_max then
+                    if bladeform_buff:GetStackCount() == bladeform_stack_max then
                         bladeform_buff:SetDuration(self.bladeform_duration, true)
                     end
                 end
@@ -83,11 +85,11 @@ function modifier_juggernaut_blade_dance_passive:OnAttackLanded(params)
                     parent:AddNewModifier(parent, self:GetAbility(), "modifier_juggernaut_blade_dance_endurance_ebf", {duration = self.endurance_duration})
                     parent:FindModifierByName("modifier_juggernaut_blade_dance_endurance_ebf"):SetStackCount(1)
                 else
-                    if endurance_buff:GetStackCount() < self.endurance_stack_max then
+                    if endurance_buff:GetStackCount() < endurance_stack_max then
                         endurance_buff:IncrementStackCount()
                         endurance_buff:SetDuration(self.endurance_duration, true)
                     end
-                    if endurance_buff:GetStackCount() == self.endurance_stack_max then
+                    if endurance_buff:GetStackCount() == endurance_stack_max then
                         endurance_buff:SetDuration(self.endurance_duration, true)
                     end
                 end
@@ -107,10 +109,13 @@ end
 
 function modifier_juggernaut_blade_dance_bladeform_ebf:OnRefresh()
     self.bladeform_agi = self:GetSpecialValueFor("bladeform_agi_bonus") / 100
+    if IsServer() then
+		self:IncrementStackCount()
+		self:StartIntervalThink( 0.1 )
+	end
 end
 
 function modifier_juggernaut_blade_dance_bladeform_ebf:OnIntervalThink()
-    self.agi = (self:GetParent():GetAgility() * self.bladeform_agi) * self:GetStackCount()
     self:GetParent():CalculateStatBonus(true)
 end
 
@@ -122,12 +127,20 @@ function modifier_juggernaut_blade_dance_bladeform_ebf:OnTooltip()
     return self:GetSpecialValueFor("bladeform_agi_bonus")
 end
 
-function modifier_juggernaut_blade_dance_bladeform_ebf:GetModifierBonusStats_Agility()
-    return self.agi
+function modifier_juggernaut_blade_dance_bladeform_ebf:GetModifierBonusStats_Agility(params)
+    if self._lockedAgi then return end
+	self._lockedAgi = true
+	local agi = self:GetCaster():GetBaseAgility()
+	self._lockedAgi = false
+    return math.ceil(self.bladeform_agi * agi * self:GetStackCount())
 end
 
 function modifier_juggernaut_blade_dance_bladeform_ebf:GetEffectName()
     return "particles/units/heroes/hero_juggernaut/jugg_agility_boost.vpcf"
+end
+
+function modifier_juggernaut_blade_dance_bladeform_ebf:GetTexture()
+    return "juggernaut_bladeform"
 end
 
 modifier_juggernaut_blade_dance_endurance_ebf = class({})
@@ -156,4 +169,8 @@ end
 
 function modifier_juggernaut_blade_dance_endurance_ebf:GetEffectName()
     return "particles/units/heroes/hero_juggernaut/jugg_agility_boost.vpcf"
+end
+
+function modifier_juggernaut_blade_dance_endurance_ebf:GetTexture()
+    return "juggernaut_bladeform"
 end

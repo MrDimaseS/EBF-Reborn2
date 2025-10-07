@@ -23,9 +23,9 @@ function bossPowerScale:OnRefresh(keys)
 	-- remove some base armor and add it to bonus armor
 	self.baseArmor = self.baseArmor or self:GetParent():GetPhysicalArmorBaseValue()
 	self.bonusArmor = ( ( (1 + difficulty * 0.03) - 1 ) * 100 ) * logisticFunction + (self.baseArmor * 0.6) 
-	self.bonusDamagePct = 50 + ( ( (1 + playerNumber * 4) - 1 ) * 100 ) * logisticFunction
+	self.bonusDamagePct = ( ( (1 + playerNumber * 4) - 1 ) * 100 ) * logisticFunction
 	
-	self.abilityValueIncrease = 4 + math.max(0, 0.15*roundNumber + (roundNumber*0.08) * (roundNumber-1) + (-2.85 -28.5*(1 - math.exp(0.04*roundNumber))) ) * 2
+	self.abilityValueIncrease = math.max(0, (-0.65 -19.5*(1 - math.exp(0.03*roundNumber))) )
 	if GetMapName() == "strategy_gamemode" then
 		self.abilityValueIncrease = self.abilityValueIncrease * 1.25
 	end

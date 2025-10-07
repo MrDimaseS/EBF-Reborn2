@@ -15,9 +15,11 @@ function Spawn( entityKeyValues )
 	end)
 	
 	thisEntity.banner = thisEntity:FindAbilityByName("boss_kobold_heralds_banner")
+	thisEntity.lash = thisEntity:FindItemInInventory("item_kobold_overseers_rippers_lash")
 	
 	Timers:CreateTimer(0.1, function()
 		thisEntity.banner:SetLevel(GameRules.gameDifficulty)
+		thisEntity.lash:SetLevel(GameRules.gameDifficulty)
 	end)
 end
 
@@ -35,6 +37,18 @@ function AIThink(thisEntity)
 				AbilityIndex = thisEntity.banner:entindex()
 			})
 			return AI_THINK_RATE
+		end
+		if thisEntity.lash:IsFullyCastable() then
+			local position = AICore:FindOptimalRadiusInRangeForEntity(thisEntity, thisEntity.lash:GetTrueCastRange(), thisEntity.lash:GetSpecialValueFor("thorn_area"))
+			if position then
+				ExecuteOrderFromTable({
+					UnitIndex = thisEntity:entindex(),
+					OrderType = DOTA_UNIT_ORDER_CAST_POSITION,
+					Position = position,
+					AbilityIndex = thisEntity.lash:entindex()
+				})
+				return AI_THINK_RATE
+			end
 		end
 		return AICore:HandleBasicAI( thisEntity )
 	else 

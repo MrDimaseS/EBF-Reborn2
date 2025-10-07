@@ -956,7 +956,8 @@ end
 
 function CDOTA_BaseNPC:HealEvent(amount, sourceAb, healer, tParams)
 	local healBonus = 1
-	local flAmount = amount
+	local flAmount = amount or 0
+	if flAmount <= 0 then return 0 end
 	if healer then
 		for _,modifier in ipairs( healer:FindAllModifiers() ) do
 			if modifier.GetOnHealBonus then

@@ -72,6 +72,7 @@
 				{
 					"TotalUnitsToSpawn"		"1"
 					"BonusUnitsPerPlayer"	"0.5"
+					"SpawnInterval"			"30"
 				}
 			}
 		}
@@ -84,7 +85,7 @@
 			{
 				"npc_dota_boss_gnoll_berserker" 
 				{
-					"TotalUnitsToSpawn"		"3"
+					"TotalUnitsToSpawn"		"1"
 					"BonusUnitsPerPlayer"	"0.5"
 				}
 				"npc_dota_boss_gnoll_assassin" 
@@ -96,7 +97,7 @@
 		}
 		"Stage2"
 		{
-			"StageWaitTime"					"15"
+			"StageWaitTime"					"30"
 			"Units"
 			{
 				"npc_dota_boss_gnoll_berserker" 
@@ -106,7 +107,7 @@
 				}
 				"npc_dota_boss_gnoll_assassin" 
 				{
-					"TotalUnitsToSpawn"		"3"
+					"TotalUnitsToSpawn"		"1"
 					"BonusUnitsPerPlayer"	"0.5"
 				}
 			}
@@ -287,7 +288,7 @@
 				"npc_dota_boss_roshan_beast" 
 				{
 					"TotalUnitsToSpawn"		"2"
-					"BonusUnitsPerPlayer"	"1"
+					"BonusUnitsPerPlayer"	"0.8"
 					"SpawnInterval"			"6"
 				}
 			}
@@ -302,7 +303,7 @@
 				"npc_dota_boss_leshrac_destroyer" 
 				{
 					"TotalUnitsToSpawn"		"1"
-					"BonusUnitsPerPlayer"	"0.2"
+					"BonusUnitsPerPlayer"	"0.3"
 					"SpawnInterval"			"15"
 				}
 			}
@@ -315,7 +316,7 @@
 				"npc_dota_boss_leshrac_destroyer" 
 				{
 					"TotalUnitsToSpawn"		"1"
-					"BonusUnitsPerPlayer"	"0.2"
+					"BonusUnitsPerPlayer"	"0.3"
 					"SpawnInterval"			"15"
 				}
 			}
@@ -330,7 +331,7 @@
 				"npc_dota_boss_granite_golem" 
 				{
 					"TotalUnitsToSpawn"		"1"
-					"BonusUnitsPerPlayer"	"0.2"
+					"BonusUnitsPerPlayer"	"0.3"
 					"SpawnInterval"			"15"
 				}
 			}
@@ -385,7 +386,7 @@
 				"npc_dota_boss_ogre_magi" 
 				{
 					"TotalUnitsToSpawn"		"1"
-					"BonusUnitsPerPlayer"	"0.5"
+					"BonusUnitsPerPlayer"	"0.3"
 					"SpawnInterval"			"6"
 				}
 			}
@@ -523,17 +524,19 @@
 	}
 	"Ghosts" // Boss 22
 	{
+		"Stage0"
+		{
+			"npc_dota_minion_divine_gunslinger"
+			{
+				"UnitsPerSpawn"			"1"
+				"BonusUnitsPerPlayer"	"1"
+				"SpawnInterval"			"15"
+			}
+		}
 		"Stage1"
 		{
 			"Units"
 			{
-				"npc_dota_minion_divine_gunslinger"
-				{
-					"TotalUnitsToSpawn"		"X"
-					"UnitsPerSpawn"			"1"
-					"BonusUnitsPerPlayer"	"0.5"
-					"SpawnInterval"			"15"
-				}
 				"npc_dota_boss_divine_prophet"	"1"
 			}
 		}
@@ -544,8 +547,8 @@
 		{
 			"npc_dota_boss_skeleton_minion" 
 			{
-				"UnitsPerSpawn"			"4"
-				"BonusUnitsPerPlayer"	"2"
+				"UnitsPerSpawn"			"2"
+				"BonusUnitsPerPlayer"	"1.5"
 				"SpawnInterval"			"15"
 			}
 		}
@@ -609,7 +612,7 @@
 			{
 				"npc_dota_boss_trickster_dragon"
 				{
-					"TotalUnitsToSpawn"		"4"
+					"TotalUnitsToSpawn"		"3"
 					"UnitsPerSpawn"			"2"
 					"BonusUnitsPerPlayer"	"1"
 					"SpawnInterval"			"6"
@@ -623,9 +626,10 @@
 		{
 			"npc_dota_minion_ursine_scout" 
 			{
-				"UnitsPerSpawn"			"4"
-				"BonusUnitsPerPlayer"	"2"
-				"SpawnInterval"			"15"
+				"TotalUnitsToSpawn"			"X"
+				"UnitsPerSpawn"				"2"
+				"BonusUnitsPerPlayer"		"1.5"
+				"SpawnInterval"				"15"
 			}
 		}
 		"Stage1"

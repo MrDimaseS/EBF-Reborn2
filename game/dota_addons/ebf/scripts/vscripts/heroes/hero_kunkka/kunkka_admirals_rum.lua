@@ -31,7 +31,7 @@ function kunkka_admirals_rum:OnSpellStart()
     local target = self:GetCursorTarget()
 
     local aoe = self:GetSpecialValueFor("aoe")
-    if  aoe ~= 0 then
+    if  aoe > 0 then
         if target ~= caster then
             local enemies = caster:FindEnemyUnitsInRadius(target:GetAbsOrigin(), aoe )
             for _, unit in ipairs(enemies) do
@@ -43,6 +43,13 @@ function kunkka_admirals_rum:OnSpellStart()
     else
         self:Drink(target, caster)
     end
+	local enemyCooldown = self:GetSpecialValueFor("enemy_cooldown") / 100
+	if enemyCooldown > 0 and not target:IsSameTeam( caster ) then
+		local cd = self:GetCooldownTimeRemaining()
+		if cd > 0 then
+			self:ModifyCooldown( -cd * enemyCooldown )
+		end
+	end
 end
 
 function kunkka_admirals_rum:Drink(target, caster, bDur)
@@ -134,7 +141,7 @@ function modifier_kunkka_admirals_rum_mariner:OnCreated()
 end
 
 function modifier_kunkka_admirals_rum_mariner:OnRefresh()
-    self.dmg_increase = self:GetSpecialValueFor("damage_increase")
+    self.dmg_increase = self:GetSpecialValueFor("damage_increase") / 100
     self.heal_percentage = self:GetSpecialValueFor("heal_percentage") / 100
     self.stat_res_reduction = self:GetSpecialValueFor("stat_res_reduction")
 end
@@ -149,12 +156,13 @@ function modifier_kunkka_admirals_rum_mariner:DeclareFunctions()
 end
 
 function modifier_kunkka_admirals_rum_mariner:OnTakeDamage(params)
-    if IsServer() then
-        if self:GetParent() == params.unit then
-            local extra_dmg = params.damage * self.dmg_increase / 100
-            params.attacker:HealEvent(extra_dmg * self.heal_percentage, self, self:GetCaster())
-        end
-    end
+	if params.unit ~= self:GetParent() then return end
+	local ability = self:GetAbility()
+	if params.inflictor == ability then return end
+	local caster = self:GetCaster()
+	local extra_dmg = params.damage * self.dmg_increase
+	local damageDealt = ability:DealDamage(params.attacker, params.unit, extra_dmg, {damage_type = params.damage_type, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_REFLECTION })
+	local heal = caster:HealEvent( damageDealt * self.heal_percentage, ability, caster, {heal_type = DOTA_HEAL_TYPE_LIFESTEAL, heal_category = DOTA_LIFESTEAL_SOURCE_ABILITY})
 end
 
 function modifier_kunkka_admirals_rum_mariner:GetModifierStatusResistanceStacking()

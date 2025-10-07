@@ -7,7 +7,6 @@ function kunkka_ghostship:OnSpellStart()
     local fleet_count = self:GetSpecialValueFor("fleet_count")
 
     self:SummonShip(caster, point)
-    print(fleet_interval)
     
     if fleet_interval ~= 0 then
         Timers:CreateTimer(fleet_interval, function()
@@ -29,7 +28,7 @@ function kunkka_ghostship:SummonShip(caster, location)
     local ship_radius = self:GetSpecialValueFor("ship_radius")
     local cleave_radius = self:GetSpecialValueFor("tidebringer_cleave_radius")
 
-    local damage = self:GetSpecialValueFor("AbilityDamage")
+    local damage = self:GetSpecialValueFor("damage")
     local stun_dur = self:GetSpecialValueFor("stun_duration")
 
     local dir = CalculateDirection(point, caster)

@@ -4,17 +4,7 @@ chaos_knight_phantasm = class({})
 function chaos_knight_phantasm:OnSpellStart()
     local caster = self:GetCaster()
     local invul_duration = self:GetSpecialValueFor("invuln_duration")
-    local affects_allies = self:GetSpecialValueFor("affects_allies")
-
     ProjectileManager:ProjectileDodge(caster)
-
-    local allies = caster:FindFriendlyUnitsInRadius(caster:GetOrigin(), FIND_UNITS_EVERYWHERE)
-	for _, heroes in pairs(allies) do
-    	if affects_allies >= 1 and heroes:IsRealHero() then
-        	heroes:AddNewModifier(caster, self, "modifier_chaos_knight_phantasm_plus", {duration = invul_duration})
-            EmitSoundOn("Hero_ChaosKnight.Phantasm.Plus", heroes)
-    	end
-	end
     EmitSoundOn("Hero_ChaosKnight.Phantasm", caster)
 
     caster:AddNewModifier(caster, self, "modifier_chaos_knight_phantasm_immune", {duration = invul_duration})
@@ -36,7 +26,6 @@ function chaos_knight_phantasm:CreateAbilityIllusion(illusion_Duration, illusion
         position = position or caster:GetAbsOrigin(),
         illusion_modifier = "modifier_chaos_knight_phantasm_handler",
     }, illu_duration, caster, illu_count)
-
     return illusion
 end
 
@@ -74,10 +63,19 @@ end
 
 modifier_chaos_knight_phantasm_handler = class({})
 LinkLuaModifier("modifier_chaos_knight_phantasm_handler", "heroes/hero_chaos_knight/chaos_knight_phantasm", LUA_MODIFIER_MOTION_NONE)
-
 function modifier_chaos_knight_phantasm_handler:IsStrongIllusion()
     return true
 end
 function modifier_chaos_knight_phantasm_handler:AllowIllusionDuplicate()
-    return false
+    return true
+end
+function modifier_chaos_knight_phantasm_handler:GetTexture()
+    return "chaos_knight_phantasm"
+end
+
+function modifier_chaos_knight_phantasm_handler:CheckState()
+        return
+        {
+            [MODIFIER_STATE_NO_UNIT_COLLISION] = true,
+        }
 end

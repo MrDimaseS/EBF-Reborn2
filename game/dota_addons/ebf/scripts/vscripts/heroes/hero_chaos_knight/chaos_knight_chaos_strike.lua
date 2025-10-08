@@ -39,9 +39,7 @@ function modifier_chaos_knight_chaos_strike_passive:OnRefresh()
     self.break_chance = self:GetSpecialValueFor("break_chance")
     self.break_duration = self:GetSpecialValueFor("break_duration")
 
-    self.bolt_on_attack = self:GetSpecialValueFor("bolt_on_attack")
     self.bolt = self:GetCaster():FindAbilityByName("chaos_knight_chaos_bolt")
-    self.bolt_chance = self:GetSpecialValueFor("bolt_chance")
 end
 
 function modifier_chaos_knight_chaos_strike_passive:GetModifierPreAttack_CriticalStrike(params)
@@ -101,14 +99,17 @@ end
 function modifier_chaos_knight_chaos_strike_passive:OnAttackLanded( params )
     if IsServer() then
         if params.attacker == self:GetParent() and params.record == self.record and not params.attacker:IsIllusion() then
-            local roll1 = RollPseudoRandomPercentage(self.break_chance, DOTA_PSEUDO_RANDOM_CUSTOM_GAME_1, params.attacker)
-            if roll1 then
-                params.target:AddNewModifier(params.attacker, self:GetAbility(), "modifier_break", {duration = self.break_duration})
-            end
-            if self.bolt_on_attack > 0 then
-                local roll2 = RollPercentage(self.bolt_chance)
-                if roll2 and self.bolt:IsTrained() then
+            if self:GetSpecialValueFor("break_duration") ~= 0 then
+                if self:GetSpecialValueFor("double_hit") ~= 0 then
+                    params.target:AddNewModifier(params.attacker, self:GetAbility(), "modifier_break", {duration = self.break_duration})
                     self.bolt:ThrowBolt(params.target, params.attacker)
+                else
+                    local roll = RollPseudoRandomPercentage(self.break_chance, DOTA_PSEUDO_RANDOM_CUSTOM_GAME_1, params.attacker)
+                    if roll then
+                        params.target:AddNewModifier(params.attacker, self:GetAbility(), "modifier_break", {duration = self.break_duration})
+                    else
+                        self.bolt:ThrowBolt(params.target, params.attacker)
+                    end
                 end
             end
         end

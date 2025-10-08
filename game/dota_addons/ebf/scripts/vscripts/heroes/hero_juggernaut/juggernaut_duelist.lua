@@ -22,6 +22,10 @@ function modifier_juggernaut_duelist_ebf:DeclareFunctions()
         MODIFIER_EVENT_ON_ATTACKED
     }
 end
+function modifier_juggernaut_duelist_ebf:OnCreated()
+    self.sohei_duration = self:GetSpecialValueFor("sohei_duration")
+    self.ronin_duration = self:GetSpecialValueFor("ronin_duration")
+end
 
 function modifier_juggernaut_duelist_ebf:OnAttack(params)
     if IsServer() then
@@ -30,11 +34,11 @@ function modifier_juggernaut_duelist_ebf:OnAttack(params)
         local cdr = self:GetSpecialValueFor("cooldown_reduction")
 
         if parent:HasModifier("modifier_juggernaut_omni_slash_ebf") then return end
-        if parent ~= params.target then
+        if parent == params.attacker then
             if cdr ~= 0 then
-                parent:AddNewModifier(parent, self:GetAbility(), "modifier_juggernaut_duelist_sohei", {duration = 1})
+                parent:AddNewModifier(parent, self:GetAbility(), "modifier_juggernaut_duelist_sohei", {duration = self.sohei_duration})
             else
-                enemy:AddNewModifier(parent, self:GetAbility(), "modifier_juggernaut_duelist_ronin_tag", {duration = 5} )
+                enemy:AddNewModifier(parent, self:GetAbility(), "modifier_juggernaut_duelist_ronin_tag", {duration = self.ronin_duration} )
             end
         end
     end
@@ -46,9 +50,9 @@ function modifier_juggernaut_duelist_ebf:OnAttacked(params)
         local enemy = params.attacker
         local miss_chance = self:GetSpecialValueFor("miss_chance")
 
-        if parent ~= params.attacker then
+        if parent == params.target then
             if miss_chance ~= 0 then
-                enemy:AddNewModifier(parent, self:GetAbility(), "modifier_juggernaut_duelist_ronin", {duration = 5} )
+                enemy:AddNewModifier(parent, self:GetAbility(), "modifier_juggernaut_duelist_ronin", {duration = self.ronin_duration} )
             end
         end
     end
@@ -90,10 +94,6 @@ function modifier_juggernaut_duelist_sohei:OnIntervalThink()
             end
         end
     end
-end
-
-function modifier_juggernaut_duelist_sohei:GetTexture()
-    return "juggernaut_duelist"
 end
 
 --Ronin: Units that attack you have a 12% chance to miss, which is increased to 24% if Juggernaut damaged the unit within the last 5 seconds.
@@ -165,4 +165,8 @@ end
 
 function modifier_juggernaut_duelist_ronin_tag:GetModifierMiss_Percentage()
     return self.miss_chance
+end
+
+function modifier_juggernaut_duelist_ronin_tag:GetTexture()
+    return "juggernaut_duelist"
 end

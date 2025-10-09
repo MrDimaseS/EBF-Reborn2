@@ -22,7 +22,7 @@ function modifier_bloodseeker_sanguivore_buff:OnRefresh()
 	self.blood_mist_missing_hp_dmg = self:GetSpecialValueFor("blood_mist_missing_hp_dmg") / 100
 	
 	if IsServer() and self.blood_mist_aoe > 0 then 
-		self:StartIntervalThink(0.5)
+		self:StartIntervalThink(1.5)
 	end
 end
 

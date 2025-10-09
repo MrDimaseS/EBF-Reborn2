@@ -29,3 +29,7 @@ end
 function modifier_item_enhancement_mystical_passive:GetModifierSpellAmplify_Percentage()
 	return self.magic_res
 end
+
+function modifier_item_enhancement_mystical_passive:GetAttributes()
+	return MODIFIER_ATTRIBUTE_PERMANENT + MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE + MODIFIER_ATTRIBUTE_MULTIPLE
+end

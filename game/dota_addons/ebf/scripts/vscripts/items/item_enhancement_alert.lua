@@ -29,3 +29,7 @@ end
 function modifier_item_enhancement_alert_passive:GetModifierBaseDamageOutgoing_Percentage()
 	return self.bonus_night_vision
 end
+
+function modifier_item_enhancement_alert_passive:GetAttributes()
+	return MODIFIER_ATTRIBUTE_PERMANENT + MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE + MODIFIER_ATTRIBUTE_MULTIPLE
+end

@@ -25,7 +25,7 @@
 			"damage_amp"					{"special_bonus_facet_nyx_assassin_myrmeleomorph"	"=10"}
 			"bonus_evasion"					{"special_bonus_facet_nyx_assassin_libellumorph"	"=25"}
 			"bonus_magic_resist"			{"special_bonus_facet_nyx_assassin_libellumorph"	"=25"}
-			"current_mana_drain"			{"special_bonus_facet_nyx_assassin_aulacimorph"		"=3"}
+			"current_mana_drain"			{"special_bonus_facet_nyx_assassin_aulacimorph"		"=0.5"}
 		}
 	}
 	//=================================================================================================================
@@ -99,6 +99,7 @@
 			"damage_bonus"
 			{
 				"special_bonus_facet_nyx_assassin_libellumorph"		"600 900 1200 1500"
+				"special_bonus_unique_nyx_2"						"+50%"
 				"CalculateSpellDamageTooltip"						"1"
 			}
 			"infest_duration"					
@@ -106,10 +107,15 @@
 				"special_bonus_facet_nyx_assassin_aulacimorph"		"30"
 				"is_debuff_duration"								"1"
 			}
-			"infest_search_radius"				{"special_bonus_facet_nyx_assassin_aulacimorph"		"900"}
+			"infest_search_radius"				
+			{
+				"special_bonus_facet_nyx_assassin_aulacimorph"		"900"
+				"affected_by_aoe_increase"							"1"
+			}
 			"infest_dps"
 			{
 				"special_bonus_facet_nyx_assassin_aulacimorph"		"120 240 360 480"
+				"special_bonus_unique_nyx_2"						"+50%"
 				"CalculateSpellDamageTooltip"						"1"
 			}
 		}
@@ -200,7 +206,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"AbilityCooldown"											"23 18 13 8"
+			"AbilityCooldown"											"14 12 10 8"
 			"AbilityManaCost"											"40 40 40 40"
 			"reflect_duration"			
 			{
@@ -218,7 +224,7 @@
 			"damage_reflect_pct"
 			{			
 				"value"								"125"
-				"special_bonus_unique_nyx_4" 		"+25"
+				"special_bonus_unique_nyx_4" 		"+75"
 			}
 			"linger_percentage"											{"special_bonus_facet_nyx_assassin_myrmeleomorph"	"20"}
 			"linger_duration"											
@@ -235,7 +241,7 @@
 			"can_hit_multiple"											{"special_bonus_facet_nyx_assassin_libellumorph"	"1"}
 			"mana_to_barrier"
 			{
-				"special_bonus_facet_nyx_assassin_aulacimorph"			"4"
+				"special_bonus_facet_nyx_assassin_aulacimorph"			"2"
 				"CalculateSpellHealTooltip"								"1"
 				"CalculateSpellDamageTooltip"							"1"
 			}
@@ -267,7 +273,7 @@
 		"AbilityValues"
 		{
 			"AbilityCooldown"									"25 20 15"
-			"AbilityManaCost"									"180 240 300"
+			"AbilityManaCost"									"75 100 125"
 			
 			"duration"											
 			{
@@ -278,13 +284,13 @@
 			"movement_speed"									"16 18 20"
 			"bonus_damage"					
 			{
-				"value"											"1000 1350 1750" 
+				"value"											"1500 2250 3000" 
 				"special_bonus_unique_nyx_vendetta_damage"		"+50%"
 				"CalculateSpellDamageTooltip"					"1"
 			}
 			"break_duration"									
 			{
-				"special_bonus_unique_nyx_ultimate_boon"		"3"
+				"special_bonus_unique_nyx_ultimate_boon"		"5"
 				"is_debuff_duration"							"1"
 			}
 			"attack_animation_bonus"							"70"
@@ -321,13 +327,21 @@
 		{
 			"AbilityCastPoint"
 			{
-				"value"										"1.5"
-				"special_bonus_unique_nyx_vendetta_damage"	"-0.75"
+				"value"										"1"
+				"special_bonus_unique_nyx_vendetta_damage"	""
 			}
 			"health_regen_rate"								"1 1.5 2"
 			"mana_regen_rate"								"1 1.5 2"
-			"magic_resist"									"30 40 50"
-			"bonus_armor"									"7 11 15"
+			"magic_resist"
+			{
+				"value"										"15 20 25"
+				"special_bonus_unique_nyx_vendetta_damage"	"+5"
+			}
+			"bonus_armor"
+			{
+				"value"										"7 11 15"
+				"special_bonus_unique_nyx_vendetta_damage"	"+5"
+			}
 			"bonus_attack_range"							"200 250 300"
 			"cast_range"									"300 400 500"
 			"impale_cooldown_reduction"						"20 35 50"
@@ -336,10 +350,15 @@
 				"value"										"400 500 600"
 				"affected_by_aoe_increase"					"1"
 			}
+			"rooted"
+			{
+				"value"										"1"
+				"special_bonus_unique_nyx_ultimate_boon"	"=0"
+			}
 			"invis_delay"			
 			{
 				"value"										"0"
-				"special_bonus_unique_nyx_ultimate_boon"	"+2"
+				"special_bonus_unique_nyx_ultimate_boon"	""
 			}
 			
 			"damage_reduction"								""
@@ -370,13 +389,14 @@
 		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastPoint"									"1.5"
+		"AbilityCastPoint"									"1"
 		"AbilityCastRange"									"350"
 		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"AbilityManaCost"								"200 350 500"
 			"duration"
 			{
 				"value"										"8 10 12"

@@ -72,7 +72,7 @@ function modifier_item_assault_cuirass_passive:OnRefresh()
 	self.health_regen = self:GetSpecialValueFor("health_regen")
 	self.bonus_all = self:GetSpecialValueFor("bonus_all")
 	self.bonus_armor = self:GetSpecialValueFor("bonus_armor")
-	self.bonus_attackspeed = self:GetSpecialValueFor("bonus_attackspeed")
+	self.bonus_attack_speed = self:GetSpecialValueFor("bonus_attack_speed")
 	
 	self.aura_radius = self:GetSpecialValueFor("aura_radius")
 	
@@ -118,7 +118,7 @@ function modifier_item_assault_cuirass_passive:GetModifierPhysicalArmorBonus()
 end
 
 function modifier_item_assault_cuirass_passive:GetModifierAttackSpeedBonus_Constant()
-	return self.bonus_attackspeed
+	return self.bonus_attack_speed
 end
 
 function modifier_item_assault_cuirass_passive:GetModifierConstantHealthRegen()

@@ -35,8 +35,10 @@ function modifier_bloodseeker_bloodrage_buff:OnRefresh()
 	self.bonus_pure_dmg = self:GetSpecialValueFor("bonus_pure_dmg")
 	self.solo_bonus = 1 + self:GetSpecialValueFor("solo_bonus") / 100
 	self.solo_range = self:GetSpecialValueFor("solo_range")
-	self.max_missing_hp_barrier = self:GetSpecialValueFor("max_missing_hp_barrier") / 100
-	self.hp_barrier_decay = ( self:GetSpecialValueFor("hp_barrier_decay") / 100 ) / self.ticks_per_second
+	self.aoe_bonus = self:GetSpecialValueFor("aoe_bonus")
+	self:GetParent()._aoeModifiersList = self:GetParent()._aoeModifiersList or {}
+	self:GetParent()._aoeModifiersList[self] = true
+	
 	if IsServer() then
 		self:StartIntervalThink( 0.33 )
 		self:SendBuffRefreshToClients()
@@ -50,10 +52,6 @@ function modifier_bloodseeker_bloodrage_buff:OnIntervalThink()
 	if parent:GetHealth() > 1 then
 		parent:ModifyHealth( parent:GetHealth() - (0.33 * parent:GetMaxHealth() * self.damage_pct), self:GetAbility(), false, DOTA_DAMAGE_FLAG_HPLOSS + DOTA_DAMAGE_FLAG_BYPASSES_INVULNERABILITY + DOTA_DAMAGE_FLAG_BYPASSES_ALL_BLOCK + DOTA_DAMAGE_FLAG_NON_LETHAL + DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_NO_DAMAGE_MULTIPLIERS + DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL )
 	end
-	if self.barrier_block > 0 then
-		self.barrier_block = self.barrier_block - self.barrier_block * self.hp_barrier_decay
-		self:SendBuffRefreshToClients()
-	end
 	if self.solo_bonus > 1 and parent == caster then
 		self.enemies = #parent:FindEnemyUnitsInRadius( parent:GetAbsOrigin(), self.solo_range )
 		self:SetStackCount( self.enemies )
@@ -63,9 +61,7 @@ end
 function modifier_bloodseeker_bloodrage_buff:DeclareFunctions()
 	return {MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
 			MODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE,
-			MODIFIER_PROPERTY_INCOMING_DAMAGE_CONSTANT,
-			MODIFIER_EVENT_ON_HEAL_RECEIVED,
-			MODIFIER_PROPERTY_DISABLE_HEALING,
+			MODIFIER_PROPERTY_AOE_BONUS_CONSTANT_STACKING,
 			MODIFIER_EVENT_ON_ATTACK_LANDED }
 end
 
@@ -95,36 +91,8 @@ function modifier_bloodseeker_bloodrage_buff:GetModifierSpellAmplify_Percentage(
 	return self.spell_amp * TernaryOperator( self.solo_bonus, self:GetStackCount() < 2, 1 )
 end
 
-function modifier_bloodseeker_bloodrage_buff:GetDisableHealing( params )
-	return TernaryOperator( 1, (self.max_missing_hp_barrier > 0) and self:GetParent() == self:GetCaster(), 0 )
-end
-
-function modifier_bloodseeker_bloodrage_buff:OnHealReceived( params )
-	if self.max_missing_hp_barrier <= 0 then return end
-	if self:GetParent() ~= self:GetCaster() then return end
-	if params.unit ~= self:GetParent() then return end
-	self.barrier_block = math.min( params.unit:GetHealthDeficit() * self.max_missing_hp_barrier, self.barrier_block + params.gain )
-	self:SendBuffRefreshToClients()
-end
-
-function modifier_bloodseeker_bloodrage_buff:OnHealReceived( params )
-	if self.max_missing_hp_barrier <= 0 then return end
-	if self:GetParent() ~= self:GetCaster() then return end
-	if params.unit ~= self:GetParent() then return end
-	self.barrier_block = math.min( params.unit:GetHealthDeficit() * self.max_missing_hp_barrier, self.barrier_block + params.gain )
-	self:SendBuffRefreshToClients()
-end
-
-function modifier_bloodseeker_bloodrage_buff:GetModifierIncomingDamageConstant( params )
-	if (self.barrier_block or 0) <= 0 then return end
-	if IsServer() then
-		local barrier_block = math.min( self.barrier_block, params.damage )
-		self.barrier_block = math.max( 0, self.barrier_block - barrier_block )
-		self:SendBuffRefreshToClients()
-		return -barrier_block
-	else
-		return self.barrier_block
-	end
+function modifier_bloodseeker_bloodrage_buff:GetModifierAoEBonusConstantStacking( params )
+	return self.aoe_bonus
 end
 
 function modifier_bloodseeker_bloodrage_buff:AddCustomTransmitterData()

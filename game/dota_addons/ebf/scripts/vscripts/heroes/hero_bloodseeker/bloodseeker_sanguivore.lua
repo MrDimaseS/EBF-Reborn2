@@ -18,6 +18,9 @@ function modifier_bloodseeker_sanguivore_buff:OnRefresh()
 	self.heal_duration = self:GetSpecialValueFor("heal_duration")
 	self.pure_damage_lifesteal_pct = self:GetSpecialValueFor("pure_damage_lifesteal_pct")
 	
+	self:GetParent()._pureLifestealModifiersList = self:GetParent()._pureLifestealModifiersList or {}
+	self:GetParent()._pureLifestealModifiersList[self] = true
+	
 	self.blood_mist_aoe = self:GetSpecialValueFor("blood_mist_aoe")
 	self.blood_mist_missing_hp_dmg = self:GetSpecialValueFor("blood_mist_missing_hp_dmg") / 100
 	
@@ -57,23 +60,15 @@ function modifier_bloodseeker_sanguivore_buff:DeclareFunctions()
 	return {MODIFIER_EVENT_ON_TAKEDAMAGE }
 end
 
+function modifier_bloodseeker_sanguivore_buff:GetModifierProperty_PureLifesteal(data)
+	return self.pure_damage_lifesteal_pct
+end
+
 function modifier_bloodseeker_sanguivore_buff:OnTakeDamage( params )
 	local caster = self:GetCaster()
+	if caster._bloodseekerSanguivoreProcessingEventTick then return end
 	if params.attacker ~= caster or params.attacker == params.unit then return end
 	local ability = self:GetAbility()
-	if params.damage_type == DAMAGE_TYPE_PURE and not HasBit(params.damage_flags, DOTA_DAMAGE_FLAG_REFLECTION ) and not HasBit(params.damage_flags, DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL )  then
-		local lifesteal = params.damage * self.pure_damage_lifesteal_pct / 100
-		if params.damage_category == DOTA_DAMAGE_CATEGORY_SPELL then
-			if not params.unit:IsConsideredHero() then
-				lifesteal = lifesteal * 0.2
-			end
-		elseif params.damage_category == DOTA_DAMAGE_CATEGORY_ATTACK then
-			if not params.unit:IsConsideredHero() then
-				lifesteal = lifesteal * 0.6
-			end
-		end
-		caster:HealEvent( lifesteal, ability, caster )
-	end
 	if ( params.inflictor and caster:HasAbility( params.inflictor:GetAbilityName() ) ) or not params.unit:IsAlive() then
 		local stacks = 1
 		if params.unit:IsConsideredHero() then
@@ -85,17 +80,10 @@ function modifier_bloodseeker_sanguivore_buff:OnTakeDamage( params )
 		
 		local regeneration = caster:AddNewModifier( caster, ability, "modifier_bloodseeker_sanguivore_regeneration", {duration = self.heal_duration} )
 		regeneration:AddIndependentStack( { duration = self.heal_duration, stacks = math.floor( stacks ) } )
+		caster._bloodseekerSanguivoreProcessingEventTick = true
+		Timers:CreateTimer( function() caster._bloodseekerSanguivoreProcessingEventTick = nil end )
 	end
 end
-
-function modifier_bloodseeker_sanguivore_buff:AddCustomTransmitterData()
-	return {barrier_block = self.barrier_block}
-end
-
-function modifier_bloodseeker_sanguivore_buff:HandleCustomTransmitterData(data)
-	self.barrier_block = data.barrier_block
-end
-
 
 function modifier_bloodseeker_sanguivore_buff:IsHidden()
 	return true

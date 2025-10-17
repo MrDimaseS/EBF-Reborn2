@@ -24,8 +24,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"525"
 		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
-		"AbilityCooldown"				"11 10 9 8"
-		"AbilityManaCost"				"90 95 100 105"
+		"AbilityManaCost"				"90 95 100 105 110"
 			
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
@@ -35,6 +34,10 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"AbilityCooldown"
+			{
+				"value"			"11 10 9 8 7"
+			}
 			"damage"
 			{
 				"value"									"800 1600 2400 3200 5600"
@@ -149,13 +152,13 @@
 			"mana_pers_day"
 			{
 				"value"									"0"
-				"special_bonus_scepter" 				"+50"
+				"special_bonus_scepter" 				"+30"
 			}
 
 			"mana_pers_night"
 			{
 				"value"									"0"
-				"special_bonus_scepter"					"+25"
+				"special_bonus_scepter"					"+15"
 			}
 
 			"miss_chance"								"40"
@@ -273,7 +276,6 @@
 		"AbilityCastPoint"				"0.3 0.3 0.3"
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
 
-		"AbilityCooldown"				"90 75 60"
 		"AbilityManaCost"				"125 175 225"
 			
 		// Special
@@ -282,16 +284,21 @@
 		{
 			"duration"				
 			{
-				"value"			"60.0"
-				"special_bonus_unique_night_stalker_7"	"+15"
+				"value"			"30.0"
+				"special_bonus_unique_night_stalker_7"	"+8"
 				"is_buff_duration"	"1"
 			}
 			"bonus_damage"			
 			{
 				"value"									"1000 2000 3000"
-				"special_bonus_unique_night_stalker_3"	"+25%"
+				"special_bonus_unique_night_stalker_3"	"+50%"
 				"CalculateSpellDamageTooltip"			"0"
 				"CalculateAttackDamageTooltip"			"1"
+			}
+			"AbilityCooldown"
+			{
+				"value"									"75 65 55"
+				"special_bonus_unique_night_stalker"	""
 			}
 		}
 	}

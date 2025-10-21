@@ -49,7 +49,7 @@ function modifier_morphling_morph_agi_shift:OnCreated(table)
 	if IsServer() then
 		local caster = self:GetCaster()
 
-		local nfx = ParticleManager:CreateParticle("particles/units/heroes/hero_morphling/morphling_morph_str.vpcf", PATTACH_POINT_FOLLOW, caster)
+		local nfx = ParticleManager:CreateParticle("particles/units/heroes/hero_morphling/morphling_morph_agi.vpcf", PATTACH_POINT_FOLLOW, caster)
 					ParticleManager:SetParticleControlEnt(nfx, 0, caster, PATTACH_ABSORIGIN_FOLLOW, "attach_hitloc", caster:GetAbsOrigin(), true)
 
 		self:AttachEffect(nfx)

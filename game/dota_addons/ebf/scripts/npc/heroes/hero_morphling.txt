@@ -15,40 +15,88 @@
 
 		"AbilityValues"
 		{
-			"percent_to_increment"			""
-			"bonus_all_stats_per_level_of_attributes"	""
-			"bonus_all_stats_pct_tooltip"	""
+			"percent_to_increment"											""
+			"bonus_all_stats_per_level_of_attributes"						""
+			"bonus_all_stats_pct_tooltip"									""
 			
 			
 			"bonus_str"
 			{
-				"value"									"2"
-				"special_bonus_facet_morphling_str"		"+2"
+				"value"														"2"
+				"special_bonus_facet_morphling_str"							"+2"
 			}
 			"bonus_str_lvl"
 			{
-				"value"									"2"
-				"special_bonus_facet_morphling_str"		"+2"
+				"value"														"2"
+				"special_bonus_facet_morphling_str"		
+				{
+					"value"													"+2"
+					"special_bonus_unique_morphling_major_r"				"+1"
+				}
+				"special_bonus_facet_morphling_uni"		
+				{
+					"value"													"0"
+					"special_bonus_unique_morphling_major_r"				"+0.5"
+				}
 			}
 			"bonus_agi"
 			{
-				"value"									"2"
-				"special_bonus_facet_morphling_agi"		"+2"
+				"value"														"2"
+				"special_bonus_facet_morphling_agi"							"+2"
 			}
 			"bonus_agi_lvl"
 			{
-				"value"									"2"
-				"special_bonus_facet_morphling_agi"		"+2"
+				"value"														"2"
+				"special_bonus_facet_morphling_agi"		
+				{
+					"value"													"+2"
+					"special_bonus_unique_morphling_major_r"				"+1"
+				}
+				"special_bonus_facet_morphling_uni"		
+				{
+					"value"													"0"
+					"special_bonus_unique_morphling_major_r"				"+0.5"
+				}
 			}
 			"bonus_int"
 			{
-				"value"									"0"
-				"special_bonus_facet_morphling_uni"		"+2"
+				"value"														"0"
+				"special_bonus_facet_morphling_uni"							"+2"
 			}
 			"bonus_int_lvl"
 			{
-				"value"									"0"
-				"special_bonus_facet_morphling_uni"		"+2"
+				"value"														"0"
+				"special_bonus_facet_morphling_uni"		
+				{
+					"value"													"+2"
+					"special_bonus_unique_morphling_major_r"				"+0.5"
+				}
+			}
+
+			// This is just the 25 Morph talent
+			"morph_agi_bat"
+			{
+				"special_bonus_facet_morphling_agi"
+				{
+					"value"													"0"
+					"special_bonus_unique_morphling_synergy_l"				"+1"
+				}
+			}
+			"morph_str_debuff_immune"
+			{
+				"special_bonus_facet_morphling_str"
+				{
+					"value"													"0"
+					"special_bonus_unique_morphling_synergy_l"				"+1"
+				}
+			}
+			"morph_uni_total_dmg_bonus"
+			{
+				"special_bonus_facet_morphling_uni"
+				{
+					"value"													"0"
+					"special_bonus_unique_morphling_synergy_l"				"30"
+				}
 			}
 		}
 	}
@@ -92,22 +140,22 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"speed"					"1250"
+			"speed"															"1250"
 			"width"					
 			{
-				"value"				"200"
-				"affected_by_aoe_increase"	"1"
+				"value"														"200"
+				"affected_by_aoe_increase"									"1"
 			}
 			"AbilityCharges"		
 			{
-				"value"	"0"
-				"special_bonus_unique_morphling_6"	"+2"
+				"value"														"0"
+				"special_bonus_unique_morphling_6"							"+2"
 			}
 			"AbilityCastRange"
 			{
 				"value"														"700 800 900 1000"
-				"special_bonus_unique_morphling_1"							"+250"
-				"special_bonus_facet_morphling_uni"							"+150"
+				"special_bonus_unique_morphling_1"							"+150"
+				"special_bonus_facet_morphling_uni"							"+250"
 			}		
 			"AbilityCooldown"
 			{
@@ -119,6 +167,7 @@
 			"damage"
 			{
 				"value"														"750 1500 2250 3000"
+				"special_bonus_facet_morphling_uni"							"+200%"
 				"special_bonus_unique_morphling_waveform_damage"			"+50%"
 				"CalculateSpellDamageTooltip"								"1"
 			}
@@ -135,8 +184,12 @@
 			}
 			"debuff_duration"												
 			{
-				"special_bonus_facet_morphling_str"		"6"
-				"is_debuff_duration"					"1"
+				"special_bonus_facet_morphling_str"							"6"
+				"is_debuff_duration"										"1"
+			}
+			"shoots_adaptive"
+			{
+				"special_bonus_unique_morphling_greater_l"					"1"
 			}
 		}
 	}
@@ -168,7 +221,7 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		
+		"AbilityCooldown"				"12 10 8 6"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -182,62 +235,98 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"AbilityCooldown"							"12 10 8 6"
 			"AbilityCastRange"
 			{
-				"value"									"600 700 800 900"
-				"special_bonus_facet_morphling_uni"		"+150"
+				"value"														"600 700 800 900"
+				"special_bonus_facet_morphling_uni"							"+150"
 			}
 			"damage_base"
 			{
-				"value"									"400 800 1200 1600"
-				"CalculateSpellDamageTooltip"			"1"
-				"special_bonus_facet_morphling_agi"		"+50%"
+				"value"														"400 800 1200 1600"
+				"CalculateSpellDamageTooltip"								"1"
+				"special_bonus_facet_morphling_uni"							"+200%"
 			}
-			"damage_min"								""
-			"damage_max"								""
+			"damage_min"													""
+			"damage_max"													""
 			"damage_min_mult"
 			{
-				"value" 								"100"
-				"special_bonus_facet_morphling_uni"		"=500"
+				"value" 													"100"
+				"special_bonus_facet_morphling_uni"							"=500"
 			}
 			"damage_max_mult"
 			{
-				"value" 								"500"
+				"value" 													"500"
+				"special_bonus_unique_morphling_greater_r"					"+250"
 			}
-			
+			"critical_damage"
+			{
+				"special_bonus_facet_morphling_agi"							
+				{
+					"value"													"120 150 180 210"
+					"special_bonus_unique_morphling_synergy_r"				"+50"
+				}
+				"DamageTypeTooltip"											"DAMAGE_TYPE_PHYSICAL"
+			}
+
 			"knockback_min"					
 			{
-				"value"									"50"
-				"special_bonus_facet_morphling_uni"		"=150"
+				"value"														"50"
+				"special_bonus_facet_morphling_uni"							"=150"
 			}
 			"knockback_max"					
 			{
-				"value"									"150"
+				"value"														"150"
 			}
 			"knockback_duration"
 			{
-				"value"									"0.5"
+				"value"														"0.5"
 			}
 			"stun_min"
 			{
-				"special_bonus_facet_morphling_str" 	"0.5"
-				"is_debuff_duration"					"1"
+				"special_bonus_facet_morphling_str" 						
+				{
+					"value"													"1"
+					"special_bonus_unique_morphling_synergy_r"				"=6.0"
+				}
+				"is_debuff_duration"										"1"
 			}
 			"stun_max"						
 			{
-				"special_bonus_facet_morphling_str"		"1.2 1.6 2.0 2.4"
-				"is_debuff_duration"					"1"
+				"special_bonus_facet_morphling_str"							
+				{
+					"value"													"1.8 2.2 2.6 3.0"
+					"special_bonus_unique_morphling_synergy_r"				"=6.0"
+				}
+				"is_debuff_duration"										"1"
 			}
-			
-			"bonus_targets"								{"special_bonus_facet_morphling_str"	"+2 +3 +4 +5"}
-			"max_threshold"								"90"
-			"projectile_speed"							"1150"
+			"bonus_targets"								
+			{
+				"special_bonus_facet_morphling_str"							"+2 +3 +4 +5"
+			}
+
+			"universal_average"
+			{
+				"special_bonus_facet_morphling_uni"							
+				{
+					"value"													"50"
+					"special_bonus_unique_morphling_synergy_r"				"-20"
+				}
+			}
+			"universal_average_tooltip"
+			{
+				"special_bonus_facet_morphling_uni"							
+				{
+					"value"													"50"
+					"special_bonus_unique_morphling_synergy_r"				"+20"
+				}
+			}
+			"max_threshold"													"90"
+			"projectile_speed"												"1150"
 			"shared_cooldown"
 			{
-				"value"									"3"
-				"special_bonus_facet_morphling_uni"		"=0"
-			}
+				"value"														"3"
+				"special_bonus_facet_morphling_uni"							"=0"
+			}	
 		}
 	}
 	
@@ -269,7 +358,7 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		
+		"AbilityCooldown"				"16 14 12 10"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -283,35 +372,37 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"AbilityCooldown"						"12 10 8 6"
 			"AbilityCastRange"
 			{
-				"value"								"600 700 800 900"
-				"special_bonus_facet_morphling_uni"	"+150"
+				"value"														"600 700 800 900"
+				"special_bonus_facet_morphling_uni"							"+150"
 			}
 			"stun_min"
 			{
-				"value" 							"0.5"
-				"special_bonus_unique_morphling_10" "+1"
-				"special_bonus_facet_morphling_uni"	"=1.2 =1.6 =2.0 =2.4"
-				"is_debuff_duration"				"1"
+				"value" 													"0.5"
+				"special_bonus_unique_morphling_10" 						"+1"
+				"special_bonus_facet_morphling_uni"							"=1.2 =1.6 =2.0 =2.4"
+				"is_debuff_duration"										"1"
 			}
 			"stun_max"						
 			{
-				"value"								"1.2 1.6 2.0 2.4"
-				"special_bonus_unique_morphling_10"	"+1"
-				"special_bonus_facet_morphling_str"	"+0.4"
-				"is_debuff_duration"				"1"
+				"value"														"1.2 1.6 2.0 2.4"
+				"special_bonus_unique_morphling_10"							"+1"
+				"special_bonus_facet_morphling_str"							"+0.4"
+				"is_debuff_duration"										"1"
 			}
-			"knockback_min"							""
-			"knockback_max"							""
-			"max_threshold"							"90"
-			"projectile_speed"						"1150"
-			"bonus_targets"							{"special_bonus_facet_morphling_str"	"+2 +3 +4 +5"}
+			"knockback_min"													""
+			"knockback_max"													""
+			"max_threshold"													"90"
+			"projectile_speed"												"1150"
+			"bonus_targets"							
+			{
+				"special_bonus_facet_morphling_str"							"+2 +3 +4 +5"
+			}
 			"shared_cooldown"
 			{
-				"value"								"3"
-				"special_bonus_facet_morphling_uni"	"=0"
+				"value"														"3"
+				"special_bonus_facet_morphling_uni"							"=0"
 			}
 		}
 	}
@@ -342,27 +433,34 @@
 		{
 			"points_per_tick"
 			{
-				"value"													"10"
-				"special_bonus_facet_morphling_uni"						"x2"
-				"CalculateAttributeTooltip"								"1"
+				"value"														"10"
+				"special_bonus_facet_morphling_uni"							"x2"
+				"CalculateAttributeTooltip"									"1"
 			}
-			"morph_cooldown"											"0.2 0.1 0.06 0.05"
+			"morph_cooldown"												"0.2 0.1 0.06 0.05"
 			"morph_rate_tooltip"
 			{
-				"value"													"50 100 150 200"
-				"special_bonus_facet_morphling_uni"						"x2"
-				"CalculateAttributeTooltip"								"1"
+				"value"														"50 100 150 200"
+				"special_bonus_facet_morphling_uni"							"x2"
+				"CalculateAttributeTooltip"									"1"
 			}
-			"morph_heal_rate"											{"special_bonus_facet_morphling_str"	"+100"}
-			"cooldown_rate"												{"special_bonus_facet_morphling_agi"	"=0.5 =1.5 =2.5 =3.5"}
-			"mana_cost"				
+			"morph_heal_rate"												
 			{
-				"value"													"10"
+				"special_bonus_facet_morphling_str"							"+100"
+			}
+			"cooldown_rate"													
+			{
+				"special_bonus_facet_morphling_agi"							"=0.5 =1.5 =2.5 =3.5"
+			}
+			"mana_cost"					
+			{
+				"value"														"10"
+				"special_bonus_unique_morphling_minor_r"					"=0"
 			}
 			"castable_while_stunned"
 			{
-				"value"													"0"
-				"special_bonus_facet_morphling_str"						"+1"
+				"value"														"0"
+				"special_bonus_facet_morphling_str"							"+1"
 			}
 		}
 	}
@@ -393,27 +491,59 @@
 		{
 			"points_per_tick"
 			{
-				"value"													"10"
-				"special_bonus_facet_morphling_uni"						"x2"
-				"CalculateAttributeTooltip"								"1"
+				"value"														"10"
+				"special_bonus_facet_morphling_uni"							"x2"
+				"CalculateAttributeTooltip"									"1"
 			}
-			"morph_cooldown"											"0.2 0.1 0.06 0.05"
+			"morph_cooldown"												"0.2 0.1 0.06 0.05"
 			"morph_rate_tooltip"
 			{
-				"value"													"50 100 150 200"
-				"special_bonus_facet_morphling_uni"						"x2"
-				"CalculateAttributeTooltip"								"1"
+				"value"														"50 100 150 200"
+				"special_bonus_facet_morphling_uni"							"x2"
+				"CalculateAttributeTooltip"									"1"
 			}
-			"morph_heal_rate"											{"special_bonus_facet_morphling_str"	"+100"}
-			"cooldown_rate"												{"special_bonus_facet_morphling_agi"	"=0.5 =1.5 =2.5 =3.5"}
+			"morph_heal_rate"												
+			{
+				"special_bonus_facet_morphling_str"							"+100"
+			}
+			"cooldown_rate"													
+			{
+				"special_bonus_facet_morphling_agi"							"=0.5 =1.5 =2.5 =3.5"
+			}
 			"mana_cost"				
 			{
-				"value"													"10"
+				"value"														"10"
+				"special_bonus_unique_morphling_minor_r"					"=0"
 			}
 			"castable_while_stunned"
 			{
-				"value"													"0"
-				"special_bonus_facet_morphling_str"						"+1"
+				"value"														"0"
+				"special_bonus_facet_morphling_str"							"+1"
+			}
+
+			"morph_agi_bat"
+			{
+				"special_bonus_facet_morphling_agi"
+				{
+					"value"													"0"
+					"special_bonus_unique_morphling_synergy_l"				"1"
+				}
+			}
+			"morph_str_debuff_immune"
+			{
+				"special_bonus_facet_morphling_str"
+				{
+					"value"													"0"
+					"special_bonus_unique_morphling_synergy_l"				"1"
+				}
+			}
+			"morph_uni_total_dmg_bonus"
+			{
+				"special_bonus_facet_morphling_uni"
+				{
+					"value"													"0"
+					"special_bonus_unique_morphling_synergy_l"				"30"
+				}
 			}
 		}
 	}
@@ -440,23 +570,61 @@
 		{
 			"bonus_strength"
 			{
-				"value"								"30 60 90"
-				"special_bonus_facet_morphling_str"	"=60 =120 =180"
-				"special_bonus_unique_morphling_8"	"+25%"
-				"CalculateAttributeTooltip"			"1"
+				"value"														"30 60 90"
+				"special_bonus_facet_morphling_str"							"=60 =120 =180"
+				"special_bonus_unique_morphling_minor_l"					"+25%"
+				"CalculateAttributeTooltip"									"1"
 			}
 			"bonus_agility"
 			{
-				"value"								"30 60 90"
-				"special_bonus_facet_morphling_agi"	"=60 =120 =180"
-				"special_bonus_unique_morphling_8"	"+25%"
-				"CalculateAttributeTooltip"			"1"
-			}
+				"value"														"30 60 90"
+				"special_bonus_facet_morphling_agi"							"=60 =120 =180"
+				"special_bonus_unique_morphling_minor_l"					"+25%"
+				"CalculateAttributeTooltip"									"1"
+			}	
 			"bonus_intellect"
 			{
-				"special_bonus_facet_morphling_uni"	"=40 =80 =120"
-				"special_bonus_unique_morphling_8"	"+25%"
-				"CalculateAttributeTooltip"			"1"
+				"special_bonus_facet_morphling_uni"							"=40 =80 =120"
+				"special_bonus_unique_morphling_minor_l"					"+25%"
+				"CalculateAttributeTooltip"									"1"
+			}
+			"bonus_mspd"
+			{
+				"special_bonus_facet_morphling_agi"							"5 10 15"
+			}	
+			"bonus_attack_range"
+			{
+				"special_bonus_facet_morphling_agi"			
+				{
+					"value"													"0"
+					"special_bonus_unique_morphling_major_l"				"150"
+				}
+			}
+
+			"bonus_armor"
+			{
+				"special_bonus_facet_morphling_str"							"5 10 15"
+			}
+			"bonus_mres"
+			{
+				"special_bonus_facet_morphling_str"			
+				{
+					"value"													"0"
+					"special_bonus_unique_morphling_major_l"				"25"
+				}
+			}
+
+			"bonus_spell_amp"
+			{
+				"special_bonus_facet_morphling_uni"							"15 20 25"
+			}
+			"bonus_cast_range"
+			{
+				"special_bonus_facet_morphling_uni"			
+				{
+					"value"													"0"
+					"special_bonus_unique_morphling_major_l"				"350"
+				}
 			}
 		}
 	}

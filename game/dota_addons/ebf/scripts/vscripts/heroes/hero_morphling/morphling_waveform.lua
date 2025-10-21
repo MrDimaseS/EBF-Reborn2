@@ -32,7 +32,7 @@ end
 
 function morphling_waveform:OnProjectileThinkHandle( iProjectile )
 	local caster = self:GetCaster()
-	local position = ProjectileManager:GetTrackingProjectileLocation( iProjectile )
+	local position = ProjectileManager:GetLinearProjectileLocation( iProjectile )
 	
 	caster:SetAbsOrigin( position )
 end
@@ -44,6 +44,8 @@ function morphling_waveform:OnProjectileHitHandle(hTarget, vLocation, iProjectil
 		local damage = self:GetSpecialValueFor("damage")
 		local pct_damage = self:GetSpecialValueFor("pct_damage")
 		local debuff_duration = self:GetSpecialValueFor("debuff_duration")
+		local adaptive_strike = caster:FindAbilityByName("morphling_adaptive_strike_agi")
+		local shoots = self:GetSpecialValueFor("shoots_adaptive")
 		
 		self:DealDamage(caster, hTarget, damage)
 		if IsEntitySafe( hTarget ) and hTarget:IsAlive() then
@@ -52,6 +54,9 @@ function morphling_waveform:OnProjectileHitHandle(hTarget, vLocation, iProjectil
 			end
 			if debuff_duration > 0 then
 				hTarget:AddNewModifier( caster, self, "modifier_morphling_waveform_attack_slow", {duration = debuff_duration} )
+			end
+			if adaptive_strike:IsTrained() and shoots ~= 0 then
+				adaptive_strike:ShootWater(caster, hTarget)
 			end
 		end
 	else -- no more projectile

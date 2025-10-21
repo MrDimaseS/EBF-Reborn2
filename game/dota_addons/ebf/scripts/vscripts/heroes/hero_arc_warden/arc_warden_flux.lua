@@ -116,7 +116,7 @@ function modifier_arc_warden_flux_debuff:OnIntervalThink()
         end
         self:GetAbility():DealDamage(caster, parent, dps, {damage_type = self.damage_type})
         if hp_pure_dmg ~= 0 then
-            local currentHPdmg = currentHP * hp_pure_dmg
+            local currentHPdmg = (currentHP * hp_pure_dmg) * parent:GetMaxHealthDamageResistance()
             self:GetAbility():DealDamage(caster, parent, currentHPdmg, {damage_type = DAMAGE_TYPE_PURE})
         end
     end

@@ -45,3 +45,6 @@ function modifier_item_enhancement_brawny_passive:GetModifierHealAmplify_Percent
 	return self.health_regen
 end
 
+function modifier_item_enhancement_brawny_passive:GetAttributes()
+	return MODIFIER_ATTRIBUTE_PERMANENT + MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE + MODIFIER_ATTRIBUTE_MULTIPLE
+end

@@ -22,7 +22,7 @@
 		"AbilityValues"
 		{
 			"damage_per_mana"						"10 25 40 55"
-			"damage_per_mana_per_level"				"2.5"
+			"damage_per_mana_per_level"				"4"
 			"illusion_percentage"					"60"
 
 			"absorption_pct"						"90"
@@ -140,6 +140,7 @@
 			{
 				"value"						"1 2 3 4"
 				"special_bonus_scepter"		"+1"
+				"special_bonus_unique_medusa_splitshot_count"	"+2"
 			}	
 			"process_procs"
 			{
@@ -181,7 +182,11 @@
 				"value"									"15 14 13 12"
 				"special_bonus_unique_medusa_5"			"-3"
 			}
-			"AbilityManaCost"							"70 50 30 10"
+			"AbilityManaCost"
+			{
+				"value"									"70 50 30 10"
+				"special_bonus_unique_medusa_snake_manacost"	"-100%"
+			}
 			"radius"							
 			{
 				"value"									"450"
@@ -246,7 +251,7 @@
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"625"
+		"AbilityCastRange"				"750"
 		"AbilityCastPoint"				"0.4"
 		
 		// Cost
@@ -275,7 +280,7 @@
 				"special_bonus_unique_medusa_gorgons_grasp_radius"		"+20%"
 			}
 
-			"delay"						"1"
+			"delay"						"0.5"
 			"volley_interval"			".25"
 			"volley_spread_pct"			"170"
 			"volley_count"				
@@ -294,7 +299,11 @@
 				"value"							"300 700 1100 1500"
 				"CalculateSpellDamageTooltip"	"1"
 			}
-			"damage_pers"				"100"
+			"damage_pers"
+			{
+				"value"							"100 250 400 550"
+				"CalculateSpellDamageTooltip"	"1"
+			}
 			"damage_interval"			".2"
 		}		
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"

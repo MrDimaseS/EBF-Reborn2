@@ -33,6 +33,7 @@ function modifier_mars_bulwark_toggle:OnCreated()
 	self.soldier_offset = self:GetSpecialValueFor("soldier_offset")
 	self.soldier_count = self:GetSpecialValueFor("soldier_count")
 	self.scepter_bonus_damage = self:GetSpecialValueFor("scepter_bonus_damage")
+	self.damage_penalty = self:GetSpecialValueFor("damage_penalty")
 	if IsServer() then
 		self:StartIntervalThink( math.max( 0, self:GetCaster():GetSecondsPerAttack(false) - ( GameRules:GetGameTime() - ( self:GetAbility().lastTimeScepterAttacked or 0 ) ) ) )
 	end
@@ -87,8 +88,15 @@ function modifier_mars_bulwark_toggle:DeclareFunctions()
 			MODIFIER_PROPERTY_TRANSLATE_ACTIVITY_MODIFIERS,
 			MODIFIER_PROPERTY_IGNORE_CAST_ANGLE,
 			MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE,
-			MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE 
+			MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
+			MODIFIER_PROPERTY_TOTALDAMAGEOUTGOING_PERCENTAGE 
 			}
+end
+
+function modifier_mars_bulwark_toggle:GetModifierTotalDamageOutgoing_Percentage(params)
+	if self:GetCaster():HasScepter() and params.damage_category == DOTA_DAMAGE_CATEGORY_ATTACK then
+		return -self.damage_penalty
+	end
 end
 
 function modifier_mars_bulwark_toggle:GetModifierDisableTurning()

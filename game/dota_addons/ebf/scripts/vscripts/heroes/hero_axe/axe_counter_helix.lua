@@ -63,6 +63,8 @@ function modifier_axe_counter_helix_passive:OnRefresh()
 	
 	self.seconds_per_stack = self:GetSpecialValueFor("seconds_per_stack")
 	
+	self.slow_duration = self:GetSpecialValueFor("slow_duration")
+	
 	self.reduction_duration = self:GetSpecialValueFor("reduction_duration")
 	self.atk_dmg_reduction = self:GetSpecialValueFor("atk_dmg_reduction")
 	self.max_red_stacks = self:GetSpecialValueFor("max_red_stacks")
@@ -85,34 +87,27 @@ function modifier_axe_counter_helix_passive:DeclareFunctions()
 	local funcs = {
 		MODIFIER_EVENT_ON_ATTACK_LANDED,
 		MODIFIER_EVENT_ON_TAKEDAMAGE,
-		MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE 
 	}
 
 	return funcs
 end
 
-function modifier_axe_counter_helix_passive:GetModifierIncomingDamage_Percentage( params )
-	if not IsEntitySafe(params.attacker) then return end
-	if params.damage_category ~= DOTA_DAMAGE_CATEGORY_ATTACK then return end
-	local buff = params.attacker:FindModifierByNameAndCaster( "modifier_axe_counter_helix_jofurr_damage_reduction", self:GetCaster() )
-	if IsModifierSafe( buff ) then
-		return -self.atk_dmg_reduction * buff:GetStackCount()
-	end
-end
-
 function modifier_axe_counter_helix_passive:OnTakeDamage( params )
 	if params.inflictor == self:GetAbility() and params.unit:IsAlive() then
+		local caster = self:GetCaster()
+		local ability = self:GetAbility()
+		if self.slow_duration > 0 then
+			params.unit:AddNewModifier( caster, ability, "modifier_axe_counter_helix_jofurr", {duration = self.slow_duration} )
+		end
 		if self.reduction_duration > 0 then
-			local caster = self:GetCaster()
-			local ability = self:GetAbility()
-			local buff = params.unit:FindModifierByName( "modifier_axe_counter_helix_jofurr_damage_reduction")
+			local buff = params.unit:FindModifierByName( "modifier_axe_counter_helix_skald")
 			if buff then
-				buff = params.unit:AddNewModifier( caster, ability, "modifier_axe_counter_helix_jofurr_damage_reduction", {duration = self.reduction_duration} )
+				buff = params.unit:AddNewModifier( caster, ability, "modifier_axe_counter_helix_skald", {duration = self.reduction_duration} )
 				if buff:GetStackCount() < self.max_red_stacks then
 					buff:IncrementStackCount()
 				end
 			elseif IsEntitySafe( params.unit ) and params.unit:IsAlive() then
-				buff = params.unit:AddNewModifier( caster, ability, "modifier_axe_counter_helix_jofurr_damage_reduction", {duration = self.reduction_duration} )
+				buff = params.unit:AddNewModifier( caster, ability, "modifier_axe_counter_helix_skald", {duration = self.reduction_duration} )
 				buff:SetStackCount(1)
 			end
 		end
@@ -142,19 +137,38 @@ function modifier_axe_counter_helix_passive:OnAttackLanded( params )
 end
 
 function modifier_axe_counter_helix_passive:IsHidden()
-	return self:GetStackCount() <= 0
+	return true
 end
 
 function modifier_axe_counter_helix_passive:IsPurgable()
 	return false
 end
 
-modifier_axe_counter_helix_jofurr_damage_reduction = class({})
-LinkLuaModifier( "modifier_axe_counter_helix_jofurr_damage_reduction", "heroes/hero_axe/axe_counter_helix", LUA_MODIFIER_MOTION_NONE )
+modifier_axe_counter_helix_skald = class({})
+LinkLuaModifier( "modifier_axe_counter_helix_skald", "heroes/hero_axe/axe_counter_helix", LUA_MODIFIER_MOTION_NONE )
 
-function modifier_axe_counter_helix_jofurr_damage_reduction:DeclareFunctions()
-	return {MODIFIER_PROPERTY_TOOLTIP}
+function modifier_axe_counter_helix_skald:OnCreated()
+	self.atk_dmg_reduction = -self:GetSpecialValueFor("atk_dmg_reduction")
 end
-function modifier_axe_counter_helix_jofurr_damage_reduction:OnTooltip()
-	return self:GetSpecialValueFor("atk_dmg_reduction") * self:GetStackCount()
+
+function modifier_axe_counter_helix_skald:DeclareFunctions()
+	return {MODIFIER_PROPERTY_DAMAGEOUTGOING_PERCENTAGE }
+end
+
+function modifier_axe_counter_helix_skald:GetModifierDamageOutgoing_Percentage()
+	return self.atk_dmg_reduction * self:GetStackCount()
+end
+
+modifier_axe_counter_helix_jofurr = class({})
+LinkLuaModifier( "modifier_axe_counter_helix_jofurr", "heroes/hero_axe/axe_counter_helix", LUA_MODIFIER_MOTION_NONE )
+
+function modifier_axe_counter_helix_skald:OnCreated()
+	self.slow = -self:GetSpecialValueFor("slow")
+end
+
+function modifier_axe_counter_helix_jofurr:DeclareFunctions()
+	return {MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE}
+end
+function modifier_axe_counter_helix_jofurr:GetModifierMoveSpeedBonus_Percentage()
+	return self.slow
 end

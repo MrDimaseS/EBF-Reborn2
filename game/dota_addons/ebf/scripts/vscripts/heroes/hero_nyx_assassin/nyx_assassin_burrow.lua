@@ -69,6 +69,7 @@ function modifier_nyx_assassin_burrowed:OnCreated()
 	
 	self.impale_cooldown_reduction = self:GetSpecialValueFor("impale_cooldown_reduction")
 	self.cast_range = self:GetSpecialValueFor("cast_range")
+	self.rooted = self:GetSpecialValueFor("rooted") == 1
 	self.invis_delay = self:GetSpecialValueFor("invis_delay")
 	if self.invis_delay > 0 and IsServer() then
 		self:StartIntervalThink( 0 )
@@ -90,7 +91,7 @@ function modifier_nyx_assassin_burrowed:OnIntervalThink()
 end
 
 function modifier_nyx_assassin_burrowed:CheckState()
-	return {[MODIFIER_STATE_ROOTED] = true}
+	return {[MODIFIER_STATE_ROOTED] = self.rooted}
 end
 
 function modifier_nyx_assassin_burrowed:DeclareFunctions()

@@ -8,10 +8,10 @@ function nevermore_necromastery:OnOwnerDied()
 	if modifier then
 		modifier:SetStackCount( math.max( 0, modifier:GetStackCount() * (1 - self:GetSpecialValueFor("percent_souls_lost_on_death") / 100) ) )
 	end
-	local stacks = self:GetCaster():FindModifierByName( "modifier_nevermore_necromastery_bonus_max_stacks" )
-	if stacks then
-		stacks:SetStackCount( math.max( 0, stacks:GetStackCount() * (1 - self:GetSpecialValueFor("percent_souls_lost_on_death") / 100) ) )
-	end
+	-- local stacks = self:GetCaster():FindModifierByName( "modifier_nevermore_necromastery_bonus_max_stacks" )
+	-- if stacks then
+		-- stacks:SetStackCount( math.max( 0, stacks:GetStackCount() * (1 - self:GetSpecialValueFor("percent_souls_lost_on_death") / 100) ) )
+	-- end
 end
 function nevermore_necromastery:GetIntrinsicModifierName()
 	return "modifier_nevermore_necromastery_passive"

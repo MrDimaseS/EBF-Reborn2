@@ -115,7 +115,12 @@ function modifier_axe_berserkers_call_taunt:OnRefresh()
 	if not IsServer() then return end
 	local parent = self:GetParent()
 	local caster = self:GetCaster()
-	if self.applies_bettlehunger and caster._callHungerApplicationTable then
+	
+	if parent:IsSameTeam( caster ) then
+		parent:AddNewModifier(caster, self:GetAbility(), "modifier_axe_berserkers_call_aura", {duration = self:GetRemainingTime()} )
+		self:Destroy()
+		return
+	elseif self.applies_bettlehunger and caster._callHungerApplicationTable then
 		if not caster._callHungerApplicationTable[parent:entindex()] then
 			local battleHunger = caster:FindAbilityByName("axe_battle_hunger")
 			if battleHunger and battleHunger:IsTrained() then
@@ -124,11 +129,7 @@ function modifier_axe_berserkers_call_taunt:OnRefresh()
 			caster._callHungerApplicationTable[parent:entindex()] = true
 		end
 	end
-	if parent:IsSameTeam( caster ) then
-		parent:AddNewModifier(caster, self:GetAbility(), "modifier_axe_berserkers_call_aura", {duration = self:GetRemainingTime()} )
-		self:Destroy()
-		return
-	end
+	
 	if self.taunts then
 		if parent:IsNeutralUnitType() then
 			parent:SetForceAttackTarget( caster )

@@ -1269,6 +1269,7 @@ ROUND_ORDER_CONFIGURATION = {
 	"Treants",
 	"Axes",
 	"Dragons",
+	"Ghosts",
 	"Skeletons",
 	"Tricksters",
 	"Bears",
@@ -1620,12 +1621,13 @@ function CHoldoutGameMode:OnThink()
 								local hero = PlayerResource:GetSelectedHeroEntity( nPlayerID )
 								PlayerResource:SetCustomBuybackCost(nPlayerID, GameRules._roundnumber * 100)
 								PlayerResource._internalMMRFollowupTable = PlayerResource._internalMMRFollowupTable or {}
+								PlayerResource._internalMMRFollowupTable[nPlayerID] = PlayerResource._internalMMRFollowupTable[nPlayerID] or 0
 								if hero:GetPlayerOwner() 
 								and hero._hasDoneActionsThisRound
 								and ( hero.damage_dealt_ingame / ((GameRules.damage_dealt_ingame or 1)+1)  >= 0.005 
 								   or hero.damage_taken_ingame / ((GameRules.damage_taken_ingame or 1)+1)  >= 0.005 
 								   or hero.damage_healed_ingame / ((GameRules.damage_healed_ingame or 1)+1) >= 0.005 ) then -- minimum requirements achieved
-									PlayerResource._internalMMRFollowupTable[nPlayerID] = (PlayerResource._internalMMRFollowupTable[nPlayerID] or 0) + 1
+									PlayerResource._internalMMRFollowupTable[nPlayerID] = PlayerResource._internalMMRFollowupTable[nPlayerID] + 1
 								else
 									DisconnectClient( nPlayerID, false ) -- if person is AFK, disconnect them
 								end

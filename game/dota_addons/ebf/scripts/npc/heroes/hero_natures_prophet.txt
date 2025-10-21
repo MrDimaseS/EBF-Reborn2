@@ -96,8 +96,8 @@
 
 			"sprout_treants"
 			{
-				"special_bonus_facet_furion_arboriculturist"			"=1"
-				"special_bonus_unique_furion_facet_improvement"			"+1"
+				"special_bonus_facet_furion_arboriculturist"			"=2"
+				"special_bonus_unique_furion_facet_improvement"			"+2"
 			}
 			"sprout_miss_chance"
 			{
@@ -139,7 +139,7 @@
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"0"
-		"AbilityCastPoint"				"3"
+		"AbilityCastPoint"				"2 1.6 1.2 0.8"
 		"AbilityManaCost"				"50 60 70 80"
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_2"
 
@@ -147,7 +147,7 @@
 		{
 			"AbilityCooldown"
 			{
-				"value"													"65 50 35 20"
+				"value"													"35 30 25 20"
 				"special_bonus_unique_furion_3"							"-20"
 			}
 			"barrier"									
@@ -166,10 +166,14 @@
 			"damage_duration"											{"special_bonus_facet_furion_naturopath"		"=5"}
 			"damage_per_sec"
 			{
-				"special_bonus_facet_furion_naturopath"					"100 200 300 400"
+				"special_bonus_facet_furion_naturopath"					"600 800 1000 1200"
 				"CalculateSpellDamageTooltip"							"1"
 			}
-			"damage_radius"												{"special_bonus_facet_furion_naturopath"		"450"}
+			"damage_radius"												
+			{
+				"special_bonus_facet_furion_naturopath"		"450"
+				"affected_by_aoe_increase"					"1"
+			}
 			"treants_gain_barrier"										{"special_bonus_facet_furion_arboriculturist"	"1"}
 		}
 	}
@@ -191,7 +195,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"750"
 		"AbilityCastPoint"				"0.5 0.5 0.5 0.5"
-		"AbilityManaCost"				"120"
+		"AbilityManaCost"				"120 160 200 240"
 		
 		"precache"
 		{
@@ -212,22 +216,22 @@
 				"value"											"150 225 300 375"
 				"affected_by_aoe_increase"						"1"
 			}
-			"max_treants"										"2"
+			"max_treants"										"4"
 			"treant_duration"									"50"
 			"treant_health"
 			{
-				"value"											"2750"
-				"special_bonus_facet_furion_arboriculturist"	"=3200 =4200 =5200 =6200"
+				"value"											"10000 13000 16000 19000"
+				"special_bonus_facet_furion_phytomercenary"		"-70%"
 				"special_bonus_facet_furion_ironwood_treant"	""
-				"special_bonus_unique_furion"					"x3"
+				"special_bonus_unique_furion"					"x2"
 				"CalculateSpellDamageTooltip"					"1"
 			}
 			"treant_damage_max"
 			{
-				"value"											"162 262 362 462"
+				"value"											"100 150 200 250"
 				"special_bonus_facet_furion_ironwood_treant"	""
-				"special_bonus_facet_furion_arboriculturist"	"=250 =400 =550 =700"
-				"special_bonus_unique_furion"					"x3"
+				"special_bonus_facet_furion_arboriculturist"	"+200%"
+				"special_bonus_unique_furion"					"x2"
 				"CalculateSpellDamageTooltip"					"1"
 			}
 			"treant_movespeed"
@@ -238,12 +242,12 @@
 			"heal_per_pulse"
 			{
 				"special_bonus_facet_furion_naturopath"			"300 600 900 1200"
-				"special_bonus_unique_furion"					"x3"
+				"special_bonus_unique_furion"					"x2"
 				"CalculateSpellHealTooltip"						"1"
 			}
 			"sec_per_pulse"										{"special_bonus_facet_furion_naturopath"		"0.5"}
 			"uncontrollable"									{"special_bonus_facet_furion_naturopath"		"1"}
-			"max_hp_per_treants"								{"special_bonus_facet_furion_phytomercenary"	"60"}
+			"max_hp_per_treants"								{"special_bonus_facet_furion_phytomercenary"	"30"}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -279,7 +283,7 @@
 		"AbilityCastRange"				"0"
 		"AbilityCastPoint"				"0.5 0.5 0.5"
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
-		"AbilityManaCost"				"130 160 190"
+		"AbilityManaCost"				"200 300 400"
 			
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -302,8 +306,8 @@
 			
 			"AbilityCooldown"
 			{
-				"value"											"85"
-				"special_bonus_facet_furion_phytomercenary"		"-25"
+				"value"											"60"
+				"special_bonus_facet_furion_phytomercenary"		"-15"
 			}
 			"entangle_duration"									
 			{

@@ -85,6 +85,10 @@ function modifier_sniper_shrapnel_handler:GetAuraDuration()
 	return self.slow_duration
 end
 
+function modifier_sniper_shrapnel_handler:IsAura()
+    return true
+end
+
 modifier_sniper_shrapnel_handler_slow = class({})
 LinkLuaModifier( "modifier_sniper_shrapnel_handler_slow","heroes/hero_sniper/sniper_shrapnel.lua",LUA_MODIFIER_MOTION_NONE )
 

@@ -14,12 +14,12 @@
 			"spell_amplification"
 			{
 				"value"						"20"
-				"CalculateAttributeTooltip"	"1"
+				"CalculateAttributeTooltip"	"0"
 			}
 			"spell_amplification_per_level"
 			{
-				"value"						"0"
-				"CalculateAttributeTooltip"	"1"
+				"value"						"2"
+				"CalculateAttributeTooltip"	"0"
 			}
 			"damage_reflected_to_self"		"2.0"
 		}
@@ -35,7 +35,11 @@
 		"MaxLevel"						"1"
 		"AbilityValues"
 		{
-			"spell_lifesteal"			"2.0"
+			"spell_lifesteal"
+			{
+				"value"						"2.0"
+				"special_bonus_facet_queenofpain_facet_bondage"	"x2"
+			}
 			"close_radius"				
 			{
 				"value"		"300"
@@ -46,7 +50,11 @@
 				"value"	"800"
 				"affected_by_aoe_increase"	"1"
 			}
-			"spell_lifesteal_close"		"14.0"
+			"spell_lifesteal_close"
+			{
+				"value"						"14.0"
+				"special_bonus_facet_queenofpain_facet_bondage"	"x2"
+			}
 
 			"lifesteal_reflected"
 			{
@@ -78,7 +86,7 @@
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"13 10 7 4"
+		"AbilityCooldown"				"11 9 7 5"
 	
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -104,7 +112,7 @@
 			"damage_interval"		
 			{
 				"value"									"3.0"
-				"special_bonus_unique_queen_of_pain_4"	"-0.7"
+				"special_bonus_unique_queen_of_pain_4"	"-1"
 			}
 			"generate_scream"
 			{
@@ -161,7 +169,7 @@
 			"shard_damage"			
 			{
 				"RequiresShard"					"1"
-				"value"							"1250"
+				"value"							"600 800 1000 1200"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"shard_duration"
@@ -174,6 +182,7 @@
 			{
 				"RequiresShard"					"1"
 				"value"							"300"
+				"affected_by_aoe_increase"		"1"
 			}									
 		}
 	}
@@ -209,7 +218,12 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"area_of_effect"									"600"
+			"area_of_effect"
+			{
+				"value"											"600"
+				"special_bonus_unique_queen_of_pain_scream_radius"	"+150"
+				"affected_by_aoe_increase"						"1"
+			}
 			"projectile_speed"									"900"
 			"damage"										
 			{
@@ -260,15 +274,15 @@
 			"damage"			
 			{
 				"value"										"3500 5000 6500"
-				"special_bonus_unique_queen_of_pain_7"		"+50%"
+				"special_bonus_unique_queen_of_pain_7"		"+75%"
 				"CalculateSpellDamageTooltip"				"1"
 			}
 			"knockback_distance"							"350"
 			"knockback_duration" 							"1.4"
 			"AbilityCooldown"
 			{	
-				"value"										"110 95 80"
-				"special_bonus_unique_queen_of_pain_3"		"-45"
+				"value"										"30 25 20"
+				"special_bonus_unique_queen_of_pain_3"		"-8"
 			}
 		}
 	}

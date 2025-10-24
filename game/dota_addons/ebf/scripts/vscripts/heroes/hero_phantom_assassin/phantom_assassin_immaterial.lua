@@ -76,10 +76,19 @@ function modifier_phantom_assassin_immaterial_handler:OnDestroy()
 end
 
 function modifier_phantom_assassin_immaterial_handler:CheckState()
-	if self.invisibility_threshold and self.invisibility_threshold > 0 and (self:GetParent():GetEvasion()*100 >= self.invisibility_threshold) and
-	not self:GetParent():IsAttacking() then
-		return {[MODIFIER_STATE_INVISIBLE] = true}
+	if self.invisibility_threshold and self.invisibility_threshold > 0 and (self:GetParent():GetEvasion()*100 >= self.invisibility_threshold) then
+		local parent = self:GetParent()
+		local hasPhantomStrike = parent:HasModifier("modifier_phantom_assassin_phantom_strike_buff")
+		
+		if hasPhantomStrike then
+			return {[MODIFIER_STATE_INVISIBLE] = true}
+		else
+			if not parent:IsAttacking() then
+				return {[MODIFIER_STATE_INVISIBLE] = true}
+			end
+		end
 	end
+	return {}
 end
 
 function modifier_phantom_assassin_immaterial_handler:DeclareFunctions()

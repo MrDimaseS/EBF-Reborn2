@@ -36,6 +36,7 @@ function modifier_juggernaut_blade_fury_ebf_caster:OnCreated()
     EmitSoundOn("Hero_Juggernaut.BladeFuryStart", self:GetParent())
 
     if IsServer() then
+        caster:StartGesture(ACT_DOTA_OVERRIDE_ABILITY_1)
         if caster:HasAbility("juggernaut_swift_slash") then
             self.omni_slash:SetActivated(false)
             self.swift_slash:SetActivated(false)
@@ -68,6 +69,7 @@ function modifier_juggernaut_blade_fury_ebf_caster:OnDestroy()
             self.omni_slash:SetActivated(true)
         end
         caster:Dispel(caster, true)
+        caster:RemoveGesture(ACT_DOTA_OVERRIDE_ABILITY_1)
     end
     StopSoundOn("Hero_Juggernaut.BladeFuryStart", self:GetParent())
 end

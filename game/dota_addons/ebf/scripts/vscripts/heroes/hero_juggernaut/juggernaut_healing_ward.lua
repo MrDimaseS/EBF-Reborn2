@@ -149,7 +149,7 @@ function modifier_juggernaut_healing_ward_ebf_heal:OnIntervalThink()
     local preHP = parent:GetHealth()
     if preHP < maxHP and IsServer() then
         local heal_amt = (maxHP * heal_pct) / 30
-        parent:Heal(heal_amt, ability)
+        parent:HealEvent(heal_amt, ability, self:GetCaster())
     end
 end
 

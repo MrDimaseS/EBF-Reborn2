@@ -57,6 +57,10 @@ function modifier_chaos_knight_chaos_strike_passive:GetModifierPreAttack_Critica
     end
 end
 
+function modifier_chaos_knight_chaos_strike_passive:GetCritDamage()
+    return self.crit_damage
+end
+
 function modifier_chaos_knight_chaos_strike_passive:OnTakeDamage( params )
     if IsServer() then
 		-- filter to see if it crits or not
@@ -74,7 +78,6 @@ function modifier_chaos_knight_chaos_strike_passive:OnTakeDamage( params )
                 local hpGain = math.floor(lifesteal)
                 local preHp = params.attacker:GetHealth()
 
-                --heals illu TEST idk why illus arent healing themselves
                 if self.aoe_heal ~= 0 then
                     for _, unit in pairs(params.attacker:FindFriendlyUnitsInRadius(params.attacker:GetAbsOrigin(), heal_radius)) do
                         if unit:GetMainControllingPlayer() == params.attacker:GetMainControllingPlayer() then

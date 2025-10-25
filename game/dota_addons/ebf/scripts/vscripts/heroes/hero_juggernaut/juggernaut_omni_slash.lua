@@ -1,5 +1,11 @@
 juggernaut_omni_slash = class({})
 
+function juggernaut_omni_slash:GetIntrinsicModifierName()
+    if IsServer() then
+        
+    end
+end
+
 function juggernaut_omni_slash:Precache(context)
     PrecacheResource("particle", "particles/items5_fx/wraith_pact_pulses.vpcf", context)
 end
@@ -12,6 +18,13 @@ function juggernaut_omni_slash:OnSpellStart()
     caster:AddNewModifier(caster, self, "modifier_juggernaut_omni_slash_ebf", {duration = duration + 0.1})
     caster:Purge(false,true,false,false,false)
     self:Slash(target)
+
+    local last_gasp = caster:FindModifierByName("modifier_juggernaut_omni_slash_ebf_last_gasp")
+    if not last_gasp and self:GetSpecialValueFor("last_gasp") ~= 0 then
+        caster:AddNewModifier(caster, self, "modifier_juggernaut_omni_slash_ebf_last_gasp", {duration = -1})
+    else
+        return
+    end
 end
 
 function juggernaut_omni_slash:Slash(target)
@@ -91,7 +104,7 @@ function modifier_juggernaut_omni_slash_ebf:OnIntervalThink(ignoreTarget)
 	end
 	if target then
 		caster:RemoveGesture(ACT_DOTA_OVERRIDE_ABILITY_1)
-        local refreshes = self:GetSpecialValueFor("refreshes")
+        local refreshes = self:GetSpecialValueFor("second_wind")
         local modifier = caster:FindModifierByName("modifier_juggernaut_omni_slash_ebf")
         caster:StartGestureWithPlaybackRate(ACT_DOTA_OVERRIDE_ABILITY_4, 0.5/self.tick)
         self:GetAbility():Slash(target)
@@ -200,12 +213,76 @@ function modifier_juggernaut_omni_slash_ebf_ronin:OnRefresh()
 end
 
 function modifier_juggernaut_omni_slash_ebf_ronin:DeclareFunctions()
-    return
-    {
-        MODIFIER_PROPERTY_TOTALDAMAGEOUTGOING_PERCENTAGE
-    }
+    return {MODIFIER_PROPERTY_TOTALDAMAGEOUTGOING_PERCENTAGE}
 end
 
 function modifier_juggernaut_omni_slash_ebf_ronin:GetModifierTotalDamageOutgoing_Percentage()
     return -self.outgoing_reduction
+end
+
+modifier_juggernaut_omni_slash_ebf_last_gasp = class({})
+LinkLuaModifier("modifier_juggernaut_omni_slash_ebf_last_gasp", "heroes/hero_juggernaut/juggernaut_omni_slash", LUA_MODIFIER_MOTION_NONE)
+
+function modifier_juggernaut_omni_slash_ebf_last_gasp:IsHidden()
+    return self:GetParent():HasModifier("modifier_juggernaut_omni_slash_ebf_last_gasp_cd")
+end
+
+function modifier_juggernaut_omni_slash_ebf_last_gasp:IsBuff()
+    return true
+end
+
+function modifier_juggernaut_omni_slash_ebf_last_gasp:DeclareFunctions()
+    return {MODIFIER_PROPERTY_TOOLTIP}
+end
+
+function modifier_juggernaut_omni_slash_ebf_last_gasp:OnCreated()
+    self.duration = self:GetSpecialValueFor("duration")
+    self.threshold = self:GetSpecialValueFor("last_gasp_threshold") / 100
+    self.cooldown = self:GetSpecialValueFor("last_gasp_cooldown")
+
+    self.nearestEnemy = {}
+    self:StartIntervalThink(0.1)
+end
+
+function modifier_juggernaut_omni_slash_ebf_last_gasp:OnIntervalThink()
+    local caster = self:GetCaster()
+    local maxHP = caster:GetMaxHealth()
+    local currentHP = caster:GetHealth()
+
+
+    if IsServer() then
+        if currentHP < (maxHP * self.threshold) and not caster:HasModifier("modifier_juggernaut_omni_slash_ebf_last_gasp_cd") and not caster:HasModifier("modifier_juggernaut_omni_slash_ebf") then
+            self:StartIntervalThink(-1)
+            caster:AddNewModifier(caster, self:GetAbility(), "modifier_juggernaut_omni_slash_ebf_last_gasp_cd", {duration = self.cooldown})
+            for _, enemy in ipairs(caster:FindEnemyUnitsInRadius(caster:GetAbsOrigin(), self:GetSpecialValueFor("AbilityCastRange"), {order=FIND_CLOSEST})) do
+                if not self.nearestEnemy[enemy:entindex()] then
+                    caster:AddNewModifier(caster, self:GetAbility(), "modifier_juggernaut_omni_slash_ebf", {duration = self.duration + 0.1})
+                    caster:Purge(false,true,false,true,true)
+                    self:GetAbility():Slash(enemy)
+                    self.nearestEnemy[enemy:entindex()] = true
+                    Timers:CreateTimer(self.cooldown, function()
+                        self:OnCreated()
+                    end)
+                end
+            end
+        end
+    end
+end
+
+function modifier_juggernaut_omni_slash_ebf_last_gasp:OnTooltip()
+    return self.threshold * 100
+end
+
+modifier_juggernaut_omni_slash_ebf_last_gasp_cd = class({})
+LinkLuaModifier("modifier_juggernaut_omni_slash_ebf_last_gasp_cd", "heroes/hero_juggernaut/juggernaut_omni_slash", LUA_MODIFIER_MOTION_NONE)
+function modifier_juggernaut_omni_slash_ebf_last_gasp_cd:IsHidden()
+    return false
+end
+
+function modifier_juggernaut_omni_slash_ebf_last_gasp_cd:IsDebuff()
+    return true
+end
+
+function modifier_juggernaut_omni_slash_ebf_last_gasp_cd:IsPurgable()
+    return false
 end

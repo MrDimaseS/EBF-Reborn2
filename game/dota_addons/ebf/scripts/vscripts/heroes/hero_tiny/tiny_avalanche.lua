@@ -11,8 +11,17 @@ end
 
 function tiny_avalanche_bh:GetBehavior()
 	if self:GetSpecialValueFor("no_target") == 1 then
+		return DOTA_ABILITY_BEHAVIOR_NO_TARGET
 	else
 		return DOTA_ABILITY_BEHAVIOR_AOE + DOTA_ABILITY_BEHAVIOR_POINT
+	end
+end
+
+function tiny_avalanche_bh:GetCastRange( position, target )
+	if self:GetSpecialValueFor("no_target") == 1 then
+		return self:GetSpecialValueFor("radius")
+	else
+		return self.BaseClass.GetCastRange( self, position, target )
 	end
 end
 
@@ -21,87 +30,66 @@ function tiny_avalanche_bh:GetAOERadius()
 end
 
 function tiny_avalanche_bh:OnSpellStart()
-    local vPos = self:GetCursorPosition()
     local caster = self:GetCaster()
 
-    local delay = self:GetSpecialValueFor("projectile_duration")
-    self.casterPos = caster:GetAbsOrigin()
-    local distance = CalculateDistance(vPos, self.casterPos)
-    self.direction = CalculateDirection(vPos, self.casterPos)
-    local velocity = distance/delay * self.direction
-    local ticks = 1 / self:GetSpecialValueFor("tick_interval")
-    velocity.z = 0
-
-    local info = 
-    {
-        Ability = self,
-        EffectName = "particles/units/heroes/hero_tiny/tiny_avalanche_projectile.vpcf",
-        vSpawnOrigin = caster:GetAbsOrigin(),
-        fDistance = distance,
-        fStartRadius = 0,
-        fEndRadius = 0,
-        Source = caster,
-        bHasFrontalCone = false,
-        bReplaceExisting = false,
-        iUnitTargetTeam = DOTA_UNIT_TARGET_TEAM_ENEMY,
-        iUnitTargetFlags = DOTA_UNIT_TARGET_FLAG_NONE,
-        iUnitTargetType = DOTA_UNIT_TARGET_ALL,
-        fExpireTime = GameRules:GetGameTime() + 10.0,
-        bDeleteOnHit = false,
-        vVelocity = velocity,
-        bProvidesVision = true,
-        iVisionRadius = 200,
-        iVisionTeamNumber = caster:GetTeamNumber(),
-        ExtraData = {ticks = ticks}
-    }
-    ProjectileManager:CreateLinearProjectile(info)
-    EmitSoundOnLocationWithCaster(vPos, "Ability.Avalanche", caster)
+	if self:GetSpecialValueFor("no_target") == 1 then
+		self:CreateAvalanche( caster:GetAbsOrigin(), caster:GetForwardVector(), self:GetSpecialValueFor("radius") )
+	else
+		local position = self:GetCursorPosition()
+		local distance = CalculateDistance( position, caster )
+		local direction = CalculateDirection( position, caster )
+		local velocity = direction * self:GetSpecialValueFor("projectile_speed")
+		
+		self._projectiles = self._projectiles or {}
+		local projectile = self:FireLinearProjectile("particles/units/heroes/hero_tiny/tiny_avalanche_projectile.vpcf", velocity, distance, width, data)
+		self._projectiles[projectile] = {lastPosition = caster:GetAbsOrigin() - direction * self:GetSpecialValueFor("radius"), 
+										 radius = self:GetSpecialValueFor("radius"),
+										 direction = direction } -- offset by a radius for the calculation
+	end
+    
 end
 
-function tiny_avalanche_bh:OnProjectileHit_ExtraData(hTarget, vLocation, extradata)
+function tiny_avalanche:CreateAvalanche( position, direction, radius )
     local caster = self:GetCaster()
 	
-    local duration = self:GetSpecialValueFor("stun_duration")
-    local radius = self:GetSpecialValueFor("radius")
-
-    local interval = self:GetSpecialValueFor("tick_interval")
-    local damage = self:GetTalentSpecialValueFor("damage") * self:GetSpecialValueFor("tick_interval")
-    self.repeat_increase = false
-    local avalanche = ParticleManager:CreateParticle("particles/units/heroes/hero_tiny/tiny_avalanche.vpcf", PATTACH_CUSTOMORIGIN, nil)
-    ParticleManager:SetParticleControl(avalanche, 0, vLocation + self.direction)
-    ParticleManager:SetParticleControlOrientation(avalanche, 0, self.direction, self.direction, caster:GetUpVector())
+	local avalanche = ParticleManager:CreateParticle("particles/units/heroes/hero_tiny/tiny_avalanche.vpcf", PATTACH_CUSTOMORIGIN, nil)
+    ParticleManager:SetParticleControl(avalanche, 0, position + direction)
+    ParticleManager:SetParticleControlOrientation(avalanche, 0, direction, direction, caster:GetUpVector())
     ParticleManager:SetParticleControl(avalanche, 1, Vector(radius, 1, radius/2))
-    local offset = 0
-    local ticks = extradata.ticks
-    local hitLoc = vLocation
-	local spellBlocked = {}
-    Timers:CreateTimer(function()
-        GridNav:DestroyTreesAroundPoint(hitLoc, radius, false)
-        local enemies_tick = caster:FindEnemyUnitsInRadius(hitLoc, radius)
+	ParticleManager:ReleaseParticleIndex(avalanche)
+	
+	local duration = self:GetSpecialValueFor("stun_duration")
+    local interval = self:GetSpecialValueFor("tick_interval")
+    local tick_count = self:GetSpecialValueFor("tick_count")
+    local toss_multiplier = self:GetSpecialValueFor("toss_multiplier")
+    local damage = self:GetSpecialValueFor("avalanche_damage") / tick_count
+	
+	Timers:CreateTimer(function()
+        GridNav:DestroyTreesAroundPoint(position, radius, false)
+        local enemies_tick = caster:FindEnemyUnitsInRadius(position, radius)
         for _,enemy in pairs(enemies_tick) do
-			if not spellBlocked[enemy] and not enemy:TriggerSpellAbsorb( self ) then
-				if enemy:HasModifier("modifier_tiny_toss_bh") and not self.repeat_increase then
-					damage = damage * 2
-					self.repeat_increase = true
-				end
-				self:DealDamage(caster, enemy, damage, {}, 0)
-
-				if caster:HasScepter() then
-					enemy:ApplyKnockBack(self.casterPos, duration, duration, radius, 0, caster, self)
-				else
-					self:Stun(enemy, duration, false)
-				end
-			else
-				spellBlocked[enemy] = true
+			local unitDamage = damage
+			if enemy:HasModifier("modifier_tiny_toss_bh") and not self.repeat_increase then
+				unitDamage = unitDamage * toss_multiplier
 			end
+			self:DealDamage(caster, enemy, unitDamage)
+			self:Stun(enemy, duration, false)
         end
-        hitLoc = hitLoc + offset / ticks
-        extradata.ticks = extradata.ticks - 1
-        if extradata.ticks > 0 then
+        if tick_count > 0 then
+			tick_count = tick_count - 1
             return interval
-        else
-            ParticleManager:DestroyParticle(avalanche, false)
-            ParticleManager:ReleaseParticleIndex(avalanche)
         end
     end)
+	
+	EmitSoundOnLocationWithCaster(position, "Ability.Avalanche", caster)
+end
+
+function tiny_avalanche_bh:OnProjectileThinkHandle(target, position, projectile)
+    local caster = self:GetCaster()
+	local projectileData = self._projectiles[projectile]
+	if not projectileData then return end
+	if CalculateDistance( position, projectileData.lastPosition ) > projectileData.radius then
+		self:CreateAvalanche( position, projectileData.direction, projectileData.radius )
+		projectileData.lastPosition = position
+	end
 end

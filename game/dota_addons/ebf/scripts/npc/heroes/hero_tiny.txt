@@ -22,6 +22,11 @@
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityModifierSupportBonus"		"35"
+		
+		"precache"
+		{
+			"particle"					"particles/units/heroes/hero_tiny/tiny_craggy_hit.vpcf"
+		}
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -34,7 +39,7 @@
 			}
 			"damage"								"0"
 			"max_stacks"							"10"
-			"damage_reduction_per_stack"			"1 2 3 4"
+			"damage_reduction_per_stack"			"2.75 3.0 3.25 3.5"
 			
 			"slow_resistance"						{"special_bonus_facet_tiny_rockslide"	"30 40 50 60"}
 			"status_resistance"						{"special_bonus_facet_tiny_rockslide"	"15 20 25 30"}
@@ -66,8 +71,8 @@
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"600"
 		"AbilityCastPoint"				"0.0 0.0 0.0 0.0"
+		"AbilityCastRange"				""
 		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -88,6 +93,11 @@
 			{
 				"value"								"14 13 12 11"
 				"special_bonus_unique_tiny_3"		"-6"
+			}
+			"AbilityCastRange"
+			{
+				"value"								"600"
+				"special_bonus_facet_tiny_mountain"	"=0"
 			}
 			"radius"
 			{
@@ -119,6 +129,7 @@
 			"path_speed"							{"special_bonus_facet_tiny_rockslide"	"450"}
 			"path_distance"							{"special_bonus_facet_tiny_rockslide"	"900"}
 			"no_target"								{"special_bonus_facet_tiny_mountain"	"1"}
+			
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -323,7 +334,7 @@
 		"BaseClass"						"ability_lua"
 		"ScriptFile"					"heroes/hero_tiny/tiny_toss_tree"
 		"AbilityTextureName"			"tiny_toss_tree"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_SHOW_IN_GUIDES"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"	
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
@@ -407,7 +418,7 @@
 			"attack_speed_reduction"	
 			{
 				"value"									"35"
-				"special_bonus_facet_tiny_rockslide"	"=35 =30 =25"
+				"special_bonus_facet_tiny_rockslide"	"=30 =25 =20"
 				"special_bonus_unique_tiny_6" 			"+10"
 			}
 			"spell_bonus_damage"

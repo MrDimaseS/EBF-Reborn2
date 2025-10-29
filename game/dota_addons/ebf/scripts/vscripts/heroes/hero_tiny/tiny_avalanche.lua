@@ -9,10 +9,11 @@ function tiny_avalanche_bh:IsHiddenWhenStolen()
     return false
 end
 
-function tiny_avalanche_bh:GetCooldown(iLvl)
-    local cooldown = self.BaseClass.GetCooldown(self, iLvl)
-    if self:GetCaster():HasTalent("special_bonus_unique_tiny_avalanche_bh_1") then cooldown = cooldown + self:GetCaster():FindTalentValue("special_bonus_unique_tiny_avalanche_bh_1") end
-    return cooldown
+function tiny_avalanche_bh:GetBehavior()
+	if self:GetSpecialValueFor("no_target") == 1 then
+	else
+		return DOTA_ABILITY_BEHAVIOR_AOE + DOTA_ABILITY_BEHAVIOR_POINT
+	end
 end
 
 function tiny_avalanche_bh:GetAOERadius()

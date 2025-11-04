@@ -9,7 +9,7 @@ function tidehunter_anchor_smash:IsHiddenWhenStolen()
 end
 
 function tidehunter_anchor_smash:GetCastRange(target, position)
-	return self:GetSpecialValueFor("radius")
+	return self:GetCaster():GetAttackRange() + self:GetSpecialValueFor("bonus_radius")
 end
 
 function tidehunter_anchor_smash:GetIntrinsicModifierName()
@@ -27,7 +27,7 @@ function tidehunter_anchor_smash:OnSpellStart()
     ParticleManager:ReleaseParticleIndex(nfx)
 	
 	local damage = self:GetSpecialValueFor("attack_damage")
-	local radius = self:GetSpecialValueFor("radius")
+	local radius = caster:GetAttackRange() + self:GetSpecialValueFor("bonus_radius")
 	local duration = self:GetSpecialValueFor("reduction_duration")
     
 	caster:AddNewModifier( caster, self, "modifier_tidehunter_anchor_smash_caster", {})

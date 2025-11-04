@@ -19,11 +19,48 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			// Default KV's
+			//---------------------------------------------------------------------------------------------------------
 			"damage_cleanse"
 			{
-				"value"					"15"
+				"value"														"15"
+				"special_bonus_facet_tidehunter_leviathan"					"-5"
 			}
-			"damage_reset_interval"		"7.0"
+			"damage_reset_interval"											
+			{
+				"value"														"7.0"
+				"special_bonus_unique_tidehunter_greater_r"					"-2"
+			}
+
+			// Leviathan KV's
+			//---------------------------------------------------------------------------------------------------------
+			"base_model_size"
+			{
+				"special_bonus_facet_tidehunter_leviathan"					"0.64"
+			}
+			"base_attack_range"
+			{
+				"special_bonus_facet_tidehunter_leviathan"					"90"
+			}
+			"attack_range_bonus"
+			{
+				"special_bonus_facet_tidehunter_leviathan"					"5"
+			}
+			"model_size"
+			{
+				"special_bonus_facet_tidehunter_leviathan"					"0.03"
+			}
+
+			// Mawcaller KV's
+			//---------------------------------------------------------------------------------------------------------
+			"spell_amp_bonus"
+			{
+				"special_bonus_facet_tidehunter_mawcaller"					"3"
+			}
+			"cooldown_reduction"
+			{
+				"special_bonus_facet_tidehunter_mawcaller"					"12"
+			}
 		
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -35,6 +72,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_tidehunter/tidehunter_gush"
+		"AbilityTextureName"			"tidehunter_gush"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
@@ -42,7 +82,7 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
-		"HasScepterUpgrade"			"1"
+		"HasScepterUpgrade"				"0"
 		
 		"AbilitySound"					"Ability.GushCast"
 
@@ -50,10 +90,6 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"700"
 		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
-		
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"12"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -63,50 +99,83 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			//	Default KV's 
+			//-------------------------------------------------------------------------------------------------------------
+			"AbilityCooldown"												
+			{
+				"value"														"12"
+				"special_bonus_facet_tidehunter_mawcaller"					"-3"
+			}
 			"AbilityDuration"				
 			{
-				"value"								"4.5"
-				"is_debuff_duration"				"1"
+				"value"														"4.5"
+				"is_debuff_duration"										"1"
 			}
 			"gush_damage"
 			{
-				"value"								"1100 1600 2100 2600"
-				"special_bonus_unique_tidehunter_2"	"+40%"
-				"CalculateSpellDamageTooltip"		"1"
+				"value"														"1100 1600 2100 2600"
+				"special_bonus_facet_tidehunter_mawcaller"					"+200%"
+				"special_bonus_unique_tidehunter_2" 						""
+				"special_bonus_unique_tidehunter_major_r"					"+40%"
+				"CalculateSpellDamageTooltip"								"1"
 			}
-			"projectile_speed"						"2500"
+			"projectile_speed"												"2500"
 			"movement_speed"
 			{
-				"value"								"-40"
-				"LinkedSpecialBonus"				"special_bonus_unique_tidehunter_5"
-				"LinkedSpecialBonusOperation"		"SPECIAL_BONUS_SUBTRACT"
-
+				"value"														"-20"
+				"special_bonus_facet_tidehunter_mawcaller"					
+				{
+					"value"													"-20"
+					"special_bonus_unique_tidehunter_minor_l"				"-20"
+				}
 			}
 			"negative_armor"
 			{
-				"value"								"3 4 5 6"
-				"LinkedSpecialBonus"				"special_bonus_unique_tidehunter"
+				"value"														"3 4 5 6"
+				"special_bonus_facet_tidehunter_leviathan"
+				{
+					"value"													"+2"
+					"special_bonus_unique_tidehunter_minor_l"				"+2"
+				}
 			}
-			"speed_scepter"
+
+			// Leviathan KV's
+			//-------------------------------------------------------------------------------------------------------------
+			"pull_radius"
 			{
-				"value"								"0"
-				"RequiresScepter"					"1"
+				"special_bonus_facet_tidehunter_leviathan"					"250"
+				"affected_by_aoe_increase"									"1"
 			}
-			"aoe_scepter"
+			"pull_range"
 			{
-				"value"								"0"
-				"RequiresScepter"					"1"
+				"special_bonus_facet_tidehunter_leviathan"					"250 350 450 550"
 			}
-			"cooldown_scepter"
+			"pull_duration"
 			{
-				"value"								""
-				"RequiresScepter"					"1"
+				"special_bonus_facet_tidehunter_leviathan"					"1"
 			}
-			"cast_range_scepter"
+
+			// Mawcaller KV's
+			//-------------------------------------------------------------------------------------------------------------
+			"aoe"
 			{
-				"value"								"0"
-				"RequiresScepter"					"1"
-			}	
+				"special_bonus_facet_tidehunter_mawcaller"					"260"
+			}
+			"scepter_max_distance"
+			{
+				"special_bonus_facet_tidehunter_mawcaller"					"2200"
+			}
+			"scepter_speed"
+			{
+				"special_bonus_facet_tidehunter_mawcaller"					"1500"
+			}
+
+			// Unused KV's
+			//-------------------------------------------------------------------------------------------------------------
+			"aoe_scepter"													""
+			"cooldown_scepter"												""
+			"cast_range_scepter"											""
+			"speed_scepter"													""
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -134,25 +203,53 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			// Default KV's
+			//-------------------------------------------------------------------------------------------------------------
+			"AbilityCooldown"												"3.75 3.0 2.25 1.5"
 			"linger_duration"
 			{
-				"value"											"0.5"
-				"is_buff_duration"								"1"
+				"value"														"0.5"
+				"is_buff_duration"											"1"
 			}
-			"bonus_duration_per_kill"
-			{
-				"special_bonus_facet_tidehunter_kraken_swell"	"0.01"
-			}
-			"AbilityCooldown"									"3.75 3.0 2.25 1.5"
+			"damage_reduction" 												"80"
+			"bonus_duration_per_kill"										"0.01"
 			"should_ravage"
 			{
-				"value"											"0"
-				"special_bonus_unique_tidehunter_4"				"+1"
+				"value"														"0"
+				"special_bonus_unique_tidehunter_greater_l"					"+1"
 			}
 			
-			
-			"damage_reduction" 									"80"
-			"bonus_reduction_per_kill"							""
+			// Leviathan KV's
+			//-------------------------------------------------------------------------------------------------------------
+			"health_restore"
+			{
+				"special_bonus_facet_tidehunter_leviathan"					"1000 3000 5000 7000"
+				"CalculateSpellHealTooltip"									"1"
+			}
+			"autoattack"
+			{
+				"special_bonus_facet_tidehunter_leviathan"
+				{
+					"value"													"0"
+					"special_bonus_unique_tidehunter_greater_l"				"1"
+				}
+			}
+
+			// Mawcaller KV's
+			//-------------------------------------------------------------------------------------------------------------
+			"spell_amp_bonus"
+			{
+				"special_bonus_facet_tidehunter_mawcaller"					"15 35 55 75"
+			}
+			"spell_amp_bonus_duration"
+			{
+				"special_bonus_facet_tidehunter_mawcaller"					"3"
+				"is_buff_duration"											"1"
+			}
+
+			// Unused KV's
+			//-------------------------------------------------------------------------------------------------------------
+			"bonus_reduction_per_kill"										""
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -173,8 +270,6 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Tidehunter.AnchorSmash"
-		
-		"LinkedAbility"					"tidehunter_dead_in_the_water"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -188,33 +283,39 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"AbilityCooldown"								"7.0 6.0 5.0 4.0"
+			// Unused KV's
+			//-------------------------------------------------------------------------------------------------------------
+			"AbilityCooldown"												"4"
 			"attack_damage"			
 			{
-				"value"										"450 900 1350 1800"
-				"special_bonus_unique_tidehunter_9"			"+30%"
-				"CalculateSpellDamageTooltip"				"0"
-				"CalculateAttackDamageTooltip"				"1"
+				"value"														"450 900 1350 1800"
+				"special_bonus_unique_tidehunter_minor_r"					"+50%"
+				"special_bonus_unique_tidehunter_9"							""
+				"CalculateAttackDamageTooltip"								"1"
 			}
 			"damage_reduction"		
 			{
-				"value"										"-35"
-				"special_bonus_unique_tidehunter_3"			"-10"
-				"CalculateSpellDamageTooltip"				"0"
-				"DamageTypeTooltip"							"DAMAGE_TYPE_NONE"
+				"value"														"-35"
+				"special_bonus_unique_tidehunter_major_l"					"-10"
+				"special_bonus_unique_tidehunter_3"							""
+				"CalculateSpellDamageTooltip"								"0"
+				"DamageTypeTooltip"											"DAMAGE_TYPE_NONE"
 			}
 			"reduction_duration"						
 			{
-				"value" 									"6.0"
-				"special_bonus_unique_tidehunter_anchor_smash_radius"	"+100%"
-				"is_debuff_duration"						"1"
-			}			
-			"radius"										
+				"value" 													"6.0"
+				"special_bonus_unique_tidehunter_synergy_l"					"+100%"
+				"is_debuff_duration"										"1"
+			}		
+			"bonus_radius"													
 			{
-				"value" 									"375"
-				"special_bonus_unique_tidehunter_anchor_smash_radius"	"+100%"
-				"affected_by_aoe_increase"					"1"
-			}
+				"value"														"100"
+				"special_bonus_unique_tidehunter_synergy_l"					"+100%"
+			}	
+
+			// Unused KV's
+			//-------------------------------------------------------------------------------------------------------------
+			"radius"														""
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -226,10 +327,13 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_tidehunter/tidehunter_ravage"
+		"AbilityTextureName"			"tidehunter_ravage"
 		"AbilityType"					"ABILITY_TYPE_ULTIMATE"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
-		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
 		"FightRecapLevel"				"2"
 		"AbilitySound"					"Ability.Ravage"
@@ -241,14 +345,10 @@
 		"AbilityCastRange"				"0"
 		"AbilityCastPoint"				"0.3 0.3 0.3"
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_4"
-		
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"70.0 60.0 50.0"
 
 		// Damage.
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"2750 3750 4750"
+		"AbilityDamage"					""	//do not touch
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -258,49 +358,96 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"radius"								"1250"
-			"speed"									"725"
+			// Unused KV's
+			//-------------------------------------------------------------------------------------------------------------
+			"AbilityCooldown"											
+			{
+				"value"														"70.0 60.0 50.0"
+				"special_bonus_facet_tidehunter_mawcaller"					"-10"
+			}
+			"radius"														"1250"
+			"speed"															"725"
 			"duration"			
 			{
-				"value"								"2.0 2.2 2.4"
-				"special_bonus_unique_tidehunter_7"	"+0.8"
-				"is_debuff_duration"				"1"
+				"value"														"2.0 2.2 2.4"
+				"special_bonus_facet_tidehunter_mawcaller"					"+50%"
+				"is_debuff_duration"										"1"
 			}
-			"AbilityDamage"
+			"launch_duration"												"0.5"
+			"damage"
 			{
-				"value"								"2750 3750 4750"
-				"CalculateSpellDamageTooltip"		"1"
+				"value"														"2750 3750 4750"
+				"special_bonus_facet_tidehunter_mawcaller"					"+100%"
+				"CalculateSpellDamageTooltip"								"1"
 			}
+			// Leviathan KV's
+			//-------------------------------------------------------------------------------------------------------------
+			"bonus_dmg"
+			{
+				"special_bonus_facet_tidehunter_leviathan"					
+				{
+					"value"													"250 500 750"
+					"special_bonus_unique_tidehunter_synergy_r"				"+100%"
+				}
+				"CalculateAttackDamageTooltip"								"1"
+			}
+			"buff_dur"
+			{
+				"special_bonus_facet_tidehunter_leviathan"					"20"
+				"is_buff_duration"											"1"
+			}
+
+			// Mawcaller KV's
+			//-------------------------------------------------------------------------------------------------------------
+			"mres_reduc"
+			{
+				"special_bonus_facet_tidehunter_mawcaller"					
+				{
+					"value"													"15 20 25"
+					"special_bonus_unique_tidehunter_synergy_r"				"+100%"
+				}
+			}
+			"debuff_dur"
+			{
+				"special_bonus_facet_tidehunter_mawcaller"					"10"
+				"is_debuff_duration"										"1"
+			}
+
+			// Unused KV's
+			//-------------------------------------------------------------------------------------------------------------
+			"AbilityDamage"													""
 		}
 	}
+
+	//=================================================================================================================
+	// Tidehunter: Dead in the Water
+	//=================================================================================================================
 	"tidehunter_dead_in_the_water"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 			// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"AbilityTextureName"			"tidehunter_dead_in_the_water"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"MaxLevel"						"4"
 		"FightRecapLevel"				"2"
-		"IsGrantedByShard"				"1"
+		"IsGrantedByShard"				"0"
 		
-
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"350"
+		"AbilityCastRange"				"700"
 		"AbilityCastPoint"				"0.3"
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_5"
 		"AbilityCastGestureSlot"		"DEFAULT"
-		
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"25"
 
 		// Damage.
-		"AbilityDamage"					"2000"
+		"AbilityDamage"					"1600 2400 3200 4000"
+
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"80"
@@ -309,19 +456,30 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"attacks_to_destroy"			"5"
-			"max_movement_speed"			"100"
-			"chain_length"					"350"
-			"duration"						
+			// Unused KV's
+			//-------------------------------------------------------------------------------------------------------------
+			"attacks_to_destroy"											"5"
+			"chain_length"													"350"
+			"projectile_speed"												"1000"
+			"AbilityCooldown"												
 			{
-				"value"						"10"
-				"is_debuff_duration"		"1"
+				"value"														"9"
+				"special_bonus_unique_tidehunter_minor_r"					"-3"
 			}
-			"projectile_speed"				"1000"
-			"AbilityDamage"
+			"max_movement_speed"											
 			{
-				"value"								"2000"
-				"CalculateSpellDamageTooltip"		"1"
+				"value"														"100"
+				"special_bonus_unique_tidehunter_major_l"					"-100"
+			}
+			"duration"														
+			{
+				"value"														"10"
+				"special_bonus_unique_tidehunter_synergy_l"					"+100%"
+			}
+			"AbilityDamage"													
+			{
+				"value"														"1600 2400 3200 4000"
+				"special_bonus_unique_tidehunter_synergy_l"					"+100%"
 			}
 		}
 	}	

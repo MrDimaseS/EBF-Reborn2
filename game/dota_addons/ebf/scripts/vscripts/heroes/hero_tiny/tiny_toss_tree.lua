@@ -1,165 +1,111 @@
-tiny_tree_bh = class({})
-LinkLuaModifier("modifier_tiny_tree_bh", "heroes/hero_tiny/tiny_tree_bh", LUA_MODIFIER_MOTION_NONE)
+tiny_toss_tree = class({})
+LinkLuaModifier("modifier_tiny_toss_tree", "heroes/hero_tiny/tiny_toss_tree", LUA_MODIFIER_MOTION_NONE)
 
-function tiny_tree_bh:IsStealable()
+function tiny_toss_tree:IsStealable()
     return false
 end
 
-function tiny_tree_bh:IsHiddenWhenStolen()
+function tiny_toss_tree:IsHiddenWhenStolen()
     return false
 end
 
-function tiny_tree_bh:GetCooldown(iLvl)
-    local cooldown = self.BaseClass.GetCooldown(self, iLvl)
-    if self:GetCaster():HasTalent("special_bonus_unique_tiny_tree_bh_1") then cooldown = cooldown + self:GetCaster():FindTalentValue("special_bonus_unique_tiny_tree_bh_1") end
-    return cooldown
+function tiny_toss_tree:Spawn()
+	if IsServer() then self:SetActivated( false ) end
 end
 
-function tiny_tree_bh:GetAbilityTextureName()
-	if self:GetCaster():HasModifier("modifier_tiny_tree_bh") then
-		return "tiny_toss_tree"
-	end
-	return "tiny_tree_grab"
-end
-
-function tiny_tree_bh:GetBehavior()
-	if self:GetCaster():HasModifier("modifier_tiny_tree_bh") then
-		return DOTA_ABILITY_BEHAVIOR_POINT
-	end
-	return DOTA_ABILITY_BEHAVIOR_UNIT_TARGET
-end
-
-function tiny_tree_bh:GetAbilityTargetTeam()
-	if self:GetCaster():HasModifier("modifier_tiny_tree_bh") then
-		return DOTA_UNIT_TARGET_TEAM_ENEMY
-	end
-	return DOTA_UNIT_TARGET_TEAM_NONE
-end
-
-function tiny_tree_bh:GetAbilityTargetType()
-	if self:GetCaster():HasModifier("modifier_tiny_tree_bh") then
-		return DOTA_UNIT_TARGET_ALL
-	end
-	return DOTA_UNIT_TARGET_TREE
-end
-
-function tiny_tree_bh:GetCastRange(vLocation, hTarget)
-	if self:GetCaster():HasModifier("modifier_tiny_tree_bh") then
-		return self:GetTalentSpecialValueFor("range")
-	end
-	return self:GetCaster():GetAttackRange()
-end
-
-function tiny_tree_bh:OnAbilityPhaseStart()
-	if self:GetCaster():HasModifier("modifier_tiny_tree_bh") then
-		--StartAnimation(self:GetCaster(), {duration=self:GetCastPoint(), activity=ACT_DOTA_CAST_ABILITY_4, rate=1, translate="tree"})
-	end
-	return true
-end
-
-function tiny_tree_bh:OnSpellStart()
-    local caster = self:GetCaster()
-
-    if caster:HasModifier("modifier_tiny_tree_bh") then
-    	EmitSoundOn("Hero_Tiny.Tree.Throw", caster)
-    	local point = self:GetCursorPosition()
-
-    	local direction = CalculateDirection(point, caster:GetAbsOrigin())
-    	local distance = self:GetTalentSpecialValueFor("range")
-    	local speed = self:GetTalentSpecialValueFor("speed")
-    	local velocity = direction * speed
-    	local width = self:GetTalentSpecialValueFor("width")
-
-    	self:FireLinearProjectile("particles/units/heroes/hero_tiny/tiny_tree_linear_proj.vpcf", velocity, distance, width, {}, true, true, 300)
-    	caster:RemoveModifierByName("modifier_tiny_tree_bh")
-    	self:RefundManaCost()
-		self:EndCooldown()
-		self:StartCooldown( self.cdRemaining - (GameRules:GetGameTime() - self.useTime) )
-    else
-	    local target = self:GetCursorTarget()
-	    EmitSoundOn("Hero_Tiny.Tree.Grab", caster)
-
-	    caster:AddNewModifier(caster, self, "modifier_tiny_tree_bh", {})
-	    target:CutDown(caster:GetTeam())
-		self.cdRemaining = self:GetCooldownTimeRemaining()
-		self.useTime = GameRules:GetGameTime()
-	    self:EndCooldown()
-	end
-end
-
-function tiny_tree_bh:OnProjectileHitHandle(hTarget, vLocation, iProjectileHandle)
-	local caster = self:GetCaster()
-
-	if hTarget then
-		if not hTarget:TriggerSpellAbsorb( self ) then
-			EmitSoundOn("Hero_Tiny.Tree.Target", hTarget)
-			local bonusDamagePct = self:GetTalentSpecialValueFor("toss_splash_damage")
-			local bonus_damage = 0
-			if caster:HasTalent("special_bonus_unique_tiny_tree_bh_2") then
-				bonus_damage = bonus_damage + caster:GetPhysicalArmorValue(false) * caster:FindTalentValue("special_bonus_unique_tiny_tree_bh_2")/100
-			end
-			local enemies = caster:FindEnemyUnitsInRadius(hTarget:GetAbsOrigin(), self:GetTalentSpecialValueFor("splash_radius"))
-			for _,enemy in pairs(enemies) do
-				caster:PerformAbilityAttack(enemy, true, self, bonus_damage, bonusDamagePct, false)
-			end
-		end
-		ProjectileManager:DestroyLinearProjectile(iProjectileHandle)
+function tiny_toss_tree:GetBehavior()
+	if self:GetSpecialValueFor("channel_think") > 0 then
+		return DOTA_ABILITY_BEHAVIOR_CHANNELLED + DOTA_ABILITY_BEHAVIOR_POINT + DOTA_ABILITY_BEHAVIOR_AOE
 	else
-		if caster:HasScepter() then
-			CreateTempTree(vLocation, 10)
-		end
-		EmitSoundOnLocationWithCaster(vLocation, "Hero_Tiny.Tree.Target", caster)
+		return DOTA_ABILITY_BEHAVIOR_POINT + DOTA_ABILITY_BEHAVIOR_AOE
 	end
 end
 
-modifier_tiny_tree_bh = class({})
-function modifier_tiny_tree_bh:OnCreated()
-	if IsServer() then
-		self.tree = SpawnEntityFromTableSynchronous("prop_dynamic", {model = "models/heroes/tiny_01/tiny_01_tree.vmdl"})
-		self.tree:FollowEntity(self:GetParent(), true)
-		AddAnimationTranslate(self:GetParent(), "tree")
+function tiny_toss_tree:OnSpellStart()
+    local caster = self:GetCaster()
+	local target = self:GetCursorTarget()
+	local position = self:GetCursorPosition()
+	
+	local speed = self:GetSpecialValueFor("speed")
+	local radius = self:GetSpecialValueFor("splash_radius")
+	local distance = CalculateDistance( caster, position )
+	local direction = CalculateDirection( position, caster )
+	self._projectiles = {}
+	if caster:HasModifier("modifier_tiny_tree_grab") then
+		local projectile = self:FireLinearProjectile("particles/units/heroes/hero_tiny/tiny_tree_linear_proj.vpcf", speed * direction, distance, radius )
+		self._projectiles[projectile] = {tree = true}
+	elseif caster:HasModifier("modifier_tiny_tree_grab_creep") then
+		local projectile = self:FireLinearProjectile("", speed * direction, distance, caster._treeGrabUnit:GetPaddedCollisionRadius() * 2 )
+		self._projectiles[projectile] = {tree = false, target = caster._treeGrabUnit}
 	end
-end
-
-function modifier_tiny_tree_bh:GetTexture()
-	return "tiny_craggy_exterior"
-end
-
-function modifier_tiny_tree_bh:OnDestroy()
-	if IsServer() then
-		RemoveAnimationTranslate(self:GetParent())
-		UTIL_Remove(self.tree)
+	
+	caster:RemoveModifierByName("modifier_tiny_tree_grab")
+	caster:RemoveModifierByName("modifier_tiny_tree_grab_creep")
+	if IsEntitySafe( caster._treeGrabUnit ) then caster._treeGrabUnit:RemoveModifierByName("modifier_tiny_tree_grab_creep_stun") end
+	self:SetActivated( false )
+	
+	caster:RemoveGesture( ACT_DOTA_CAST_ABILITY_4 )
+	caster:StartGesture( ACT_DOTA_CAST_ABILITY_4 )
+	if self:GetSpecialValueFor("channel_think") == 0 then
+		Timers:CreateTimer( 0.66, function() caster:RemoveGesture( ACT_DOTA_CAST_ABILITY_4 ) end )
+	else
+		self._channelLastThink = 0
+		self._channelFirePosition = position
 	end
+	caster:StartGesture( ACT_DOTA_CAST_ABILITY_4_END )
 end
 
-function modifier_tiny_tree_bh:DeclareFunctions()
-	return {MODIFIER_EVENT_ON_ATTACK_LANDED,
-			MODIFIER_PROPERTY_TRANSLATE_ACTIVITY_MODIFIERS}
-end
-
-function modifier_tiny_tree_bh:OnAttackLanded(params)
-	if IsServer() then
-		local caster = params.attacker
-		if caster == self:GetCaster() then
-			EmitSoundOn("Hero_Tiny.Tree.Target", caster)
-			local hitTargets = {}
-			local endPos = caster:GetAbsOrigin() + caster:GetForwardVector() * self:GetTalentSpecialValueFor("splash_range")
-			local damage = params.original_damage * self:GetTalentSpecialValueFor("splash_pct")/100
-			local i = 0
-			local enemies = caster:FindEnemyUnitsInLine(caster:GetAbsOrigin(), endPos, self:GetTalentSpecialValueFor("splash_width"), {})
-			for _,enemy in pairs(enemies) do
-				local nfx = ParticleManager:CreateParticle("particles/units/heroes/hero_tiny/tiny_craggy_cleave.vpcf", PATTACH_POINT, caster)
-							ParticleManager:SetParticleControl(nfx, 0, enemy:GetAbsOrigin())
-							ParticleManager:SetParticleControl(nfx, 1, enemy:GetAbsOrigin())
-							ParticleManager:SetParticleControlForward(nfx, 2, caster:GetForwardVector())
-							ParticleManager:ReleaseParticleIndex(nfx)
-				hitTargets[i] = enemy
-				self:GetAbility():DealDamage(caster, enemy, damage, {}, 0)
+function tiny_toss_tree:OnChannelThink( dt )
+	if self._channelLastThink > self:GetSpecialValueFor("channel_think") then
+		self._channelLastThink = 0
+		
+		local caster = self:GetCaster()
+	
+		local speed = self:GetSpecialValueFor("speed")
+		local radius = self:GetSpecialValueFor("splash_radius")
+		
+		local trees = GridNav:GetAllTreesAroundPoint(caster:GetAbsOrigin(), self:GetSpecialValueFor("grab_radius"), true)
+		for _, tree in ipairs( trees ) do
+			if tree:IsStanding() then
+				tree:CutDown( caster:GetTeamNumber() )
+				local distance = CalculateDistance( tree, self._channelFirePosition )
+				local direction = CalculateDirection( self._channelFirePosition, tree )
+				
+				local projectile = self:FireLinearProjectile("particles/units/heroes/hero_tiny/tiny_tree_linear_proj.vpcf", speed * direction, distance, radius, {source = tree} )
+				self._projectiles[projectile] = {tree = true}
+				
+				break
 			end
+			self:EndChannel( true )
 		end
+		
+	end
+	self._channelLastThink = self._channelLastThink + dt
+end
+
+function tiny_toss_tree:OnChannelFinish( interrupted )
+	self:GetCaster():RemoveGesture( ACT_DOTA_CAST_ABILITY_4 ) 
+end
+
+function tiny_toss_tree:OnProjectileThinkHandle( projectileID )
+	local projectile = self._projectiles[projectileID]
+	if not projectile then return end
+	if IsEntitySafe( projectile.target ) then
+		projectile.target:SetAbsOrigin( GetGroundPosition(ProjectileManager:GetLinearProjectileLocation( projectileID ), projectile.target ) )
 	end
 end
 
-function modifier_tiny_tree_bh:GetActivityTranslationModifiers()
-	return "tree"
+function tiny_toss_tree:OnProjectileHitHandle( target, position, projectileID )
+	local caster = self:GetCaster()
+	local projectile = self._projectiles[projectileID]
+	if not projectile then return end
+	if IsEntitySafe( projectile.target ) and target == projectile.target then return end
+	if target then
+		caster:PerformGenericAttack(target, true, {neverMiss = true, bonusDamage = self:GetSpecialValueFor("bonus_damage"), suppressCleave = true} )
+		if IsEntitySafe( projectile.target ) then
+			self:DealDamage( caster, target, projectile.target:GetHealth(), {damage_type = DAMAGE_TYPE_PHYSICAL, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL + DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION} )
+		end
+	elseif IsEntitySafe( projectile.target ) then
+		projectile.target:AttemptKill( self, caster )
+	end
 end

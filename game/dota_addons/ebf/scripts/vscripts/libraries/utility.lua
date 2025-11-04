@@ -1508,6 +1508,7 @@ end
 
 function CDOTABaseAbility:FireLinearProjectile(FX, velocity, distance, width, data)
 	local internalData = data or {}
+	if internalData.source and not internalData.origin then internalData.origin = internalData.source:GetAbsOrigin() end
 	local info = {
 		EffectName = FX,
 		Ability = self,

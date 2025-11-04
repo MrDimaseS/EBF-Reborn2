@@ -1,5 +1,4 @@
 tiny_grow = class({})
-LinkLuaModifier("modifier_tiny_grow_passive", "heroes/hero_tiny/tiny_grow", LUA_MODIFIER_MOTION_NONE)
 
 function tiny_grow:IsStealable()
     return false
@@ -32,18 +31,19 @@ function tiny_grow:OnUpgrade()
 end
 
 function tiny_grow:Grow(level)
-	self:GetCaster():SetOriginalModel("models/heroes/tiny_0"..level.."/tiny_0"..level..".vmdl")
-	self:GetCaster():SetModel("models/heroes/tiny_0"..level.."/tiny_0"..level..".vmdl")
+	local model_path = "models/heroes/tiny_0"..level.."/tiny_0"..level
+	self:GetCaster():SetOriginalModel(model_path..".vmdl")
+	self:GetCaster():SetModel(model_path..".vmdl")
 	-- Remove old wearables
 	UTIL_Remove(self.head)
 	UTIL_Remove(self.rarm)
 	UTIL_Remove(self.larm)
 	UTIL_Remove(self.body)
 	-- Set new wearables
-	self.head = SpawnEntityFromTableSynchronous("prop_dynamic", {model = "models/heroes/tiny_0"..level.."/tiny_0"..level.."_head.vmdl"})
-	self.rarm = SpawnEntityFromTableSynchronous("prop_dynamic", {model = "models/heroes/tiny_0"..level.."/tiny_0"..level.."_right_arm.vmdl"})
-	self.larm = SpawnEntityFromTableSynchronous("prop_dynamic", {model = "models/heroes/tiny_0"..level.."/tiny_0"..level.."_left_arm.vmdl"})
-	self.body = SpawnEntityFromTableSynchronous("prop_dynamic", {model = "models/heroes/tiny_0"..level.."/tiny_0"..level.."_body.vmdl"})
+	self.head = SpawnEntityFromTableSynchronous("prop_dynamic", {model = model_path.."_head.vmdl"})
+	self.rarm = SpawnEntityFromTableSynchronous("prop_dynamic", {model = model_path.."_right_arm.vmdl"})
+	self.larm = SpawnEntityFromTableSynchronous("prop_dynamic", {model = model_path.."_left_arm.vmdl"})
+	self.body = SpawnEntityFromTableSynchronous("prop_dynamic", {model = model_path.."_body.vmdl"})
 	-- lock to bone
 	self.head:FollowEntity(self:GetCaster(), true)
 	self.rarm:FollowEntity(self:GetCaster(), true)
@@ -52,6 +52,7 @@ function tiny_grow:Grow(level)
 end
 
 modifier_tiny_grow_passive = class({})
+LinkLuaModifier("modifier_tiny_grow_passive", "heroes/hero_tiny/tiny_grow", LUA_MODIFIER_MOTION_NONE)
 function modifier_tiny_grow_passive:OnCreated(table)
 	self.bonus_damage = self:GetSpecialValueFor("bonus_damage")
 	self.bonus_armor = self:GetSpecialValueFor("bonus_armor")
@@ -60,17 +61,18 @@ function modifier_tiny_grow_passive:OnCreated(table)
 	self.spell_bonus_damage = 1 + self:GetSpecialValueFor("spell_bonus_damage") / 100
 	self.spell_bonus_range = 1 + self:GetSpecialValueFor("spell_bonus_range") / 100
 	self.attack_speed_reduction = self:GetSpecialValueFor("attack_speed_reduction") / 100
-	self.bonus_strength = self:GetParent():GetBaseStrength( ) * self:GetSpecialValueFor("strength_pct") / 100
 	
-	if IsServer() then self:SetHasCustomTransmitterData(true) end
+	if IsServer() then
+		self.bonus_strength = self:GetParent():GetBaseStrength( ) * self:GetSpecialValueFor("strength_pct") / 100
+		self:SetHasCustomTransmitterData(true) 
+	end
 	self:StartIntervalThink(0.5)
 end
 
 function modifier_tiny_grow_passive:OnIntervalThink()
 	self.bonus_damage_tree = self:GetSpecialValueFor("tree_bonus_damage_pct") / 100
-	self.bonus_strength = self:GetParent():GetBaseStrength( ) * self:GetSpecialValueFor("strength_pct") / 100
-
 	if IsServer() then 
+		self.bonus_strength = self:GetParent():GetBaseStrength( ) * self:GetSpecialValueFor("strength_pct") / 100
 		self:GetParent():CalculateStatBonus( true )
 		self:SendBuffRefreshToClients()
 	end

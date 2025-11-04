@@ -58,17 +58,18 @@ function tiny_toss:OnSpellStart()
 	
 	if #targets > 0 then
 		caster:StartGesture( ACT_TINY_TOSS )
-		for _, target in ipairs( targets ) do
+		for i, target in ipairs( targets ) do
 			EmitSoundOn("Hero_Tiny.Toss.Target", target)
+			local localPos =  position + ActualRandomVector( 128 * math.ceil((i-1)/4) )
 			local modifierKnockback = {
-				x = position.x,
-				y = position.y,
-				z = position.z,
+				x = localPos.x,
+				y = localPos.y,
+				z = localPos.z,
 				should_stun = true,
 				duration = duration,
 				ignoreStatusResist = true,
 				knockback_duration = duration,
-				knockback_distance = CalculateDistance( target, position ),
+				knockback_distance = CalculateDistance( target, localPos ),
 				knockback_height = 160,
 			}
 			target:AddNewModifier( caster, self, "modifier_tiny_toss", modifierKnockback )

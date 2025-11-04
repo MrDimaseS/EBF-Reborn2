@@ -1,15 +1,14 @@
---Thanks Dota Imba
-tiny_avalanche_bh = class({})
+tiny_avalanche = class({})
 
-function tiny_avalanche_bh:IsStealable()
+function tiny_avalanche:IsStealable()
     return true
 end
 
-function tiny_avalanche_bh:IsHiddenWhenStolen()
+function tiny_avalanche:IsHiddenWhenStolen()
     return false
 end
 
-function tiny_avalanche_bh:GetBehavior()
+function tiny_avalanche:GetBehavior()
 	if self:GetSpecialValueFor("no_target") == 1 then
 		return DOTA_ABILITY_BEHAVIOR_NO_TARGET
 	else
@@ -17,7 +16,7 @@ function tiny_avalanche_bh:GetBehavior()
 	end
 end
 
-function tiny_avalanche_bh:GetCastRange( position, target )
+function tiny_avalanche:GetCastRange( position, target )
 	if self:GetSpecialValueFor("no_target") == 1 then
 		return self:GetSpecialValueFor("radius")
 	else
@@ -25,11 +24,11 @@ function tiny_avalanche_bh:GetCastRange( position, target )
 	end
 end
 
-function tiny_avalanche_bh:GetAOERadius()
+function tiny_avalanche:GetAOERadius()
     return self:GetSpecialValueFor("radius")
 end
 
-function tiny_avalanche_bh:OnSpellStart()
+function tiny_avalanche:OnSpellStart()
     local caster = self:GetCaster()
 
 	if self:GetSpecialValueFor("no_target") == 1 then
@@ -56,7 +55,6 @@ function tiny_avalanche:CreateAvalanche( position, direction, radius )
     ParticleManager:SetParticleControl(avalanche, 0, position + direction)
     ParticleManager:SetParticleControlOrientation(avalanche, 0, direction, direction, caster:GetUpVector())
     ParticleManager:SetParticleControl(avalanche, 1, Vector(radius, 1, radius/2))
-	ParticleManager:ReleaseParticleIndex(avalanche)
 	
 	local duration = self:GetSpecialValueFor("stun_duration")
     local interval = self:GetSpecialValueFor("tick_interval")
@@ -78,16 +76,19 @@ function tiny_avalanche:CreateAvalanche( position, direction, radius )
         if tick_count > 0 then
 			tick_count = tick_count - 1
             return interval
+		else
+			ParticleManager:ClearParticle( avalanche, false )
         end
     end)
 	
 	EmitSoundOnLocationWithCaster(position, "Ability.Avalanche", caster)
 end
 
-function tiny_avalanche_bh:OnProjectileThinkHandle(target, position, projectile)
+function tiny_avalanche:OnProjectileThinkHandle(projectile)
     local caster = self:GetCaster()
 	local projectileData = self._projectiles[projectile]
 	if not projectileData then return end
+	local position = ProjectileManager:GetLinearProjectileLocation( projectile )
 	if CalculateDistance( position, projectileData.lastPosition ) > projectileData.radius then
 		self:CreateAvalanche( position, projectileData.direction, projectileData.radius )
 		projectileData.lastPosition = position

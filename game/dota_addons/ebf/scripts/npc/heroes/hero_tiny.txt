@@ -96,7 +96,7 @@
 			}
 			"AbilityCastRange"
 			{
-				"value"								"600"
+				"value"								"900"
 				"special_bonus_facet_tiny_mountain"	"=0"
 			}
 			"radius"
@@ -181,7 +181,7 @@
 			"grab_radius"			
 			{
 				"value"									"300"
-				"special_bonus_facet_tiny_mountain"		"450"
+				"special_bonus_facet_tiny_mountain"		"=450"
 			}
 			"radius"				
 			{
@@ -334,12 +334,13 @@
 		"BaseClass"						"ability_lua"
 		"ScriptFile"					"heroes/hero_tiny/tiny_toss_tree"
 		"AbilityTextureName"			"tiny_toss_tree"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_NOT_LEARNABLE"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_NOT_LEARNABLE"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"	
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"FightRecapLevel"				"1"
+        "HasShardUpgrade"               "0"
 		
 		"LinkedAbility"					"tiny_tree_grab"
 
@@ -395,6 +396,14 @@
 		"AbilityCastAnimation"			"ACT_INVALID"
 		
 		"LevelsBetweenUpgrades"			"6"
+		
+		"precache"
+		{
+			"model"						"models/heroes/tiny_01/tiny_01.vmdl"
+			"model"						"models/heroes/tiny_02/tiny_02.vmdl"
+			"model"						"models/heroes/tiny_03/tiny_03.vmdl"
+			"model"						"models/heroes/tiny_04/tiny_04.vmdl"
+		}
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------

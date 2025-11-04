@@ -125,7 +125,7 @@ function modifier_tidehunter_kraken_shell_effect:GetModifierIncomingDamage_Perce
 			
 			local position = target:GetAbsOrigin()
 			target:ApplyKnockBack(position, 0.5, 0.5, 0, 350, caster, ability)
-			ability:Stun(target, self.ravage:GetSpecialValueFor("duration"))
+			ability:Stun(target, self.ravage:GetSpecialValueFor("kraken_shell_duration"))
 			if self:GetSpecialValueFor("autoattack") ~= 0 then
 				caster:PerformGenericAttack(target, true, {neverMiss = true, procAttackEffects = true})
 			end

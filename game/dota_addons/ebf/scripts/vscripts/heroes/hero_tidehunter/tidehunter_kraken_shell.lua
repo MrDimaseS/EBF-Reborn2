@@ -77,6 +77,8 @@ modifier_tidehunter_kraken_shell_effect = class({})
 
 function modifier_tidehunter_kraken_shell_effect:OnCreated()
 	self.linger_duration = self:GetSpecialValueFor("linger_duration")
+	self.health_restore = self:GetSpecialValueFor("health_restore")
+	self.spell_amp_bonus_duration = self:GetSpecialValueFor("spell_amp_bonus_duration")
 end
 
 function modifier_tidehunter_kraken_shell_effect:OnIntervalThink()
@@ -102,6 +104,12 @@ function modifier_tidehunter_kraken_shell_effect:GetModifierIncomingDamage_Perce
 		ParticleManager:SetParticleControlEnt(NFX, 1, caster, PATTACH_ABSORIGIN_FOLLOW, "attach_hitloc", caster:GetAbsOrigin(), true)
 		self:AddEffect( NFX )
 		
+		if self.health_restore > 0 then
+			caster:HealEvent(self.health_restore, self, caster)
+		else
+			caster:AddNewModifier(caster, self:GetAbility(), "modifier_tidehunter_kraken_shell_mawcaller", {duration = self.spell_amp_bonus_duration})
+		end
+
 		self.triggered = true
 		self:SetDuration( self.linger_duration, true )
 		ability:SetCooldown()
@@ -109,7 +117,7 @@ function modifier_tidehunter_kraken_shell_effect:GetModifierIncomingDamage_Perce
 	end
 	if self:GetSpecialValueFor("should_ravage") > 0 then
         local target = params.attacker
-		self.ravage = self:GetCaster():FindAbilityByName("tidehunter_ravage")
+		self.ravage = caster:FindAbilityByName("tidehunter_ravage")
 		if self.ravage:GetLevel() > 0 then
 			local nfx = ParticleManager:CreateParticle("particles/units/heroes/hero_tidehunter/tidehunter_ravage_tentacle_model.vpcf", PATTACH_POINT, caster)
 			ParticleManager:SetParticleControl(nfx, 0, target:GetAbsOrigin())
@@ -117,11 +125,13 @@ function modifier_tidehunter_kraken_shell_effect:GetModifierIncomingDamage_Perce
 			
 			local position = target:GetAbsOrigin()
 			target:ApplyKnockBack(position, 0.5, 0.5, 0, 350, caster, ability)
-			ability:Stun(target, self.ravage:GetSpecialValueFor("duration"))
+			ability:Stun(target, self.ravage:GetSpecialValueFor("kraken_shell_duration"))
+			if self:GetSpecialValueFor("autoattack") ~= 0 then
+				caster:PerformGenericAttack(target, true, {neverMiss = true, procAttackEffects = true})
+			end
 			EmitSoundOn( "Hero_Tidehunter.RavageDamage", target )
 			Timers:CreateTimer( 0.5, function()
-				self.ravage:DealDamage(caster, target)
-				
+				self.ravage:DealDamage(caster, target, self.ravage:GetSpecialValueFor("damage"))
 			end)
 		end
 	end
@@ -130,4 +140,25 @@ end
 
 function modifier_tidehunter_kraken_shell_effect:IsHidden()
 	return self:GetRemainingTime() < 0
+end
+
+modifier_tidehunter_kraken_shell_mawcaller = class({})
+LinkLuaModifier("modifier_tidehunter_kraken_shell_mawcaller", "heroes/hero_tidehunter/tidehunter_kraken_shell", LUA_MODIFIER_MOTION_NONE)
+function modifier_tidehunter_kraken_shell_mawcaller:OnCreated()
+	self:OnRefresh()
+end
+function modifier_tidehunter_kraken_shell_mawcaller:IsBuff()
+	return true
+end
+function modifier_tidehunter_kraken_shell_mawcaller:IsPurgable()
+	return true
+end
+function modifier_tidehunter_kraken_shell_mawcaller:OnRefresh()
+	self.spell_amp_bonus = self:GetSpecialValueFor("spell_amp_bonus")
+end
+function modifier_tidehunter_kraken_shell_mawcaller:DeclareFunctions()
+	return {MODIFIER_PROPERTY_SPELL_AMPLIFY_PERCENTAGE}
+end
+function modifier_tidehunter_kraken_shell_mawcaller:GetModifierSpellAmplify_Percentage()
+	return self.spell_amp_bonus
 end

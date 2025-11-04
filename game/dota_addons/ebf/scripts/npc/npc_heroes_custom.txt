@@ -956,10 +956,22 @@
 	{
 		"override_hero"					"npc_dota_hero_tidehunter"
 		
-		"Ability14"						"special_bonus_strength_150"
-		"Ability15"						"special_bonus_unique_tidehunter_4"
-		"Ability16"						"special_bonus_unique_tidehunter_7"
-		"Ability17"						"special_bonus_unique_tidehunter_anchor_smash_radius"
+		"Ability1"						"tidehunter_gush"
+		"Ability2"						"tidehunter_kraken_shell"
+		"Ability3"						"generic_hidden"
+		"Ability4"						"generic_hidden"
+		"Ability5"						"generic_hidden"
+		"Ability6"						"tidehunter_ravage"
+		"Ability7"						"tidehunter_blubber"
+		
+		"Ability10"						"special_bonus_unique_tidehunter_minor_r"
+		"Ability11"						"special_bonus_unique_tidehunter_minor_l"
+		"Ability12"						"special_bonus_unique_tidehunter_major_r"
+		"Ability13"						"special_bonus_unique_tidehunter_major_l"
+		"Ability14"						"special_bonus_unique_tidehunter_greater_r"
+		"Ability15"						"special_bonus_unique_tidehunter_greater_l"
+		"Ability16"						"special_bonus_unique_tidehunter_synergy_r"
+		"Ability17"						"special_bonus_unique_tidehunter_synergy_l"
 		
 		"BaseTraits"					"vanguard,brawler,tactician,evoker,martial"
 		
@@ -969,6 +981,50 @@
 		"AttributeAgilityGain"			"4.0"
 		"AttributeBaseIntelligence"		"90"
 		"AttributeIntelligenceGain"		"4.4"
+
+		"Facets"
+		{
+			"tidehunter_kraken_swell"	{"Deprecated"		"1"}
+			"tidehunter_sizescale"		{"Deprecated"		"1"}
+
+			"tidehunter_leviathan"
+			{
+				"Icon"						"overshadow"
+				"Color"						"green"
+				"GradientID"				"3"
+				"Abilities"
+				{
+					"Ability1"
+					{
+						"AbilityName"		"tidehunter_anchor_smash"
+						"AbilityIndex"		"2"
+						"AutoLevelAbility"	"false"
+					}
+				}
+				"KeyValueOverrides"
+				{
+					"AttributeStrengthGain"			"9.6"
+					"AttributeIntelligenceGain"		"3.0"
+					"AttackRange"					"90"
+				}
+			}
+
+			"tidehunter_mawcaller"
+			{
+				"Icon"						"nuke"
+				"Color"						"blue"
+				"GradientID"				"2"
+				"Abilities"
+				{
+					"Ability1"
+					{
+						"AbilityName"		"tidehunter_dead_in_the_water"
+						"AbilityIndex"		"2"
+						"AutoLevelAbility"	"false"
+					}
+				}
+			}
+		}
 	}
 	"npc_dota_hero_witch_doctor"
 	{

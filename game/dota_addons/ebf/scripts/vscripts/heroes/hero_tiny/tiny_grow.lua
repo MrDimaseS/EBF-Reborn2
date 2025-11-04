@@ -15,17 +15,11 @@ function tiny_grow:OnUpgrade()
 		if level == 1 then -- model bullshit
 			self:Grow(2)
 		elseif level == 2 then
-			self:GetCaster():SetModelScale(1.1)
-		elseif level == 3 then
 			self:GetCaster():SetModelScale(1.0)
 			self:Grow(3)
-		elseif level == 4 then
-			self:GetCaster():SetModelScale(1.2)
-		elseif level == 5 then
+		elseif level == 3 then
 			self:GetCaster():SetModelScale(1.1)
 			self:Grow(4)
-		elseif level == 6 then
-			self:GetCaster():SetModelScale(1.3)
 		end
 		-- Effects
 		self:GetCaster():StartGesture(ACT_TINY_GROWL)
@@ -60,28 +54,26 @@ end
 modifier_tiny_grow_passive = class({})
 function modifier_tiny_grow_passive:OnCreated(table)
 	self.bonus_damage = self:GetSpecialValueFor("bonus_damage")
-	self.bonus_damage_tree = self:GetSpecialValueFor("tree_bonus_damage_pct") / 100
+	self.bonus_armor = self:GetSpecialValueFor("bonus_armor")
+	self.move_speed = self:GetSpecialValueFor("move_speed")
+	self.bonus_damage_tree = 1 + self:GetSpecialValueFor("tree_bonus_damage_pct") / 100
 	self.spell_bonus_damage = 1 + self:GetSpecialValueFor("spell_bonus_damage") / 100
 	self.spell_bonus_range = 1 + self:GetSpecialValueFor("spell_bonus_range") / 100
-	self.slow_resist_pct = self:GetSpecialValueFor("slow_resist_pct")
-	self.status_resist_pct = self:GetSpecialValueFor("status_resist_pct")
 	self.attack_speed_reduction = self:GetSpecialValueFor("attack_speed_reduction") / 100
-
+	self.bonus_strength = self:GetParent():GetBaseStrength( ) * self:GetSpecialValueFor("strength_pct") / 100
+	
+	if IsServer() then self:SetHasCustomTransmitterData(true) end
 	self:StartIntervalThink(0.5)
 end
 
 function modifier_tiny_grow_passive:OnIntervalThink()
-	self.bonus_damage = self:GetSpecialValueFor("bonus_damage")
 	self.bonus_damage_tree = self:GetSpecialValueFor("tree_bonus_damage_pct") / 100
-	self.spell_bonus_damage = 1 + self:GetSpecialValueFor("spell_bonus_damage") / 100
-	self.spell_bonus_range = 1 + self:GetSpecialValueFor("spell_bonus_range") / 100
-	self.bonus_armor = self:GetSpecialValueFor("bonus_armor")
-	self.move_speed = self:GetSpecialValueFor("move_speed")
-	self.slow_resist_pct = self:GetSpecialValueFor("slow_resist_pct")
-	self.status_resist_pct = self:GetSpecialValueFor("status_resist_pct")
-	self.attack_speed_reduction = self:GetSpecialValueFor("attack_speed_reduction") / 100
+	self.bonus_strength = self:GetParent():GetBaseStrength( ) * self:GetSpecialValueFor("strength_pct") / 100
 
-	if IsServer() then self:GetParent():CalculateStatBonus( true ) end
+	if IsServer() then 
+		self:GetParent():CalculateStatBonus( true )
+		self:SendBuffRefreshToClients()
+	end
 end
 
 function modifier_tiny_grow_passive:DeclareFunctions()
@@ -89,34 +81,25 @@ function modifier_tiny_grow_passive:DeclareFunctions()
 			MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
 			MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
 			MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT,
+			MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,
 			MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL,
-			MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL_VALUE,
-			MODIFIER_PROPERTY_SLOW_RESISTANCE_STACKING,
-			MODIFIER_PROPERTY_STATUS_RESISTANCE_STACKING}
+			MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL_VALUE}
 end
 
 function modifier_tiny_grow_passive:GetModifierBaseAttack_BonusDamage()
-	if self:GetParent():HasModifier("modifier_tiny_tree_grab") then
-		return self.bonus_damage * (1+self.bonus_damage_tree)
-	else
-		return self.bonus_damage
-	end
+	return self.bonus_damage
 end
 
 function modifier_tiny_grow_passive:GetModifierPhysicalArmorBonus()
 	return self.bonus_armor
 end
 
+function modifier_tiny_grow_passive:GetModifierBonusStats_Strength()
+	return self.bonus_strength
+end
+
 function modifier_tiny_grow_passive:GetModifierMoveSpeedBonus_Constant()
 	return self.move_speed
-end
-
-function modifier_tiny_grow_passive:GetModifierSlowResistance_Stacking()
-	return self.slow_resist_pct
-end
-
-function modifier_tiny_grow_passive:GetModifierStatusResistanceStacking()
-	return self.status_resist_pct
 end
 
 function modifier_tiny_grow_passive:GetModifierAttackSpeedBonus_Constant()
@@ -129,7 +112,8 @@ end
 
 function modifier_tiny_grow_passive:GetModifierOverrideAbilitySpecial(params)
 	if params.ability:GetName() == "tiny_toss"
-	or params.ability:GetName() == "tiny_avalanche" then
+	or params.ability:GetName() == "tiny_avalanche"
+	or params.ability:GetName() == "tiny_tree_grab" then
 		local caster = params.ability:GetCaster()
 		local specialValue = params.ability_special_value
 		if specialValue == "avalanche_damage"
@@ -137,6 +121,7 @@ function modifier_tiny_grow_passive:GetModifierOverrideAbilitySpecial(params)
 		or specialValue == "radius"
 		or specialValue == "grab_radius"
 		or specialValue == "AbilityCastRange"
+		or specialValue == "bonus_damage"
 		then
 			return 1
 		end
@@ -154,8 +139,19 @@ function modifier_tiny_grow_passive:GetModifierOverrideAbilitySpecialValue(param
 		elseif ( specialValue == "radius" or specialValue == "grab_radius" or specialValue == "AbilityCastRange" ) then
 			local flBaseValue = params.ability:GetLevelSpecialValueNoOverride( specialValue, params.ability_special_level )
 			return flBaseValue * self.spell_bonus_range
+		elseif specialValue == "bonus_damage" then
+			local flBaseValue = params.ability:GetLevelSpecialValueNoOverride( specialValue, params.ability_special_level )
+			return flBaseValue * self.bonus_damage_tree
 		end
 	end
+end
+
+function modifier_tiny_grow_passive:AddCustomTransmitterData()
+	return {bonus_strength = self.bonus_strength}
+end
+
+function modifier_tiny_grow_passive:HandleCustomTransmitterData(data)
+	self.bonus_strength = data.bonus_strength
 end
 
 function modifier_tiny_grow_passive:IsHidden()

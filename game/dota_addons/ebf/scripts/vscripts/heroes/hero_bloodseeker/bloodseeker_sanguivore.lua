@@ -13,9 +13,10 @@ function modifier_bloodseeker_sanguivore_buff:OnCreated()
 end
 
 function modifier_bloodseeker_sanguivore_buff:OnRefresh()
-	self.hero_stacks = 100 / self:GetSpecialValueFor("creep_pct")
 	self.kill_stacks = self:GetSpecialValueFor("kill_pct") / 100
 	self.heal_duration = self:GetSpecialValueFor("heal_duration")
+	self.internal_cooldown = self:GetSpecialValueFor("internal_cooldown")
+	self.internal_cd_refresh = self:GetSpecialValueFor("internal_cd_refresh")
 	self.pure_damage_lifesteal_pct = self:GetSpecialValueFor("pure_damage_lifesteal_pct")
 	
 	self:GetParent()._pureLifestealModifiersList = self:GetParent()._pureLifestealModifiersList or {}
@@ -25,7 +26,7 @@ function modifier_bloodseeker_sanguivore_buff:OnRefresh()
 	self.blood_mist_missing_hp_dmg = self:GetSpecialValueFor("blood_mist_missing_hp_dmg") / 100
 	
 	if IsServer() and self.blood_mist_aoe > 0 then 
-		self:StartIntervalThink(1.5)
+		self:StartIntervalThink(1.0)
 	end
 end
 
@@ -66,27 +67,41 @@ end
 
 function modifier_bloodseeker_sanguivore_buff:OnTakeDamage( params )
 	local caster = self:GetCaster()
-	if caster._bloodseekerSanguivoreProcessingEventTick then return end
 	if params.attacker ~= caster or params.attacker == params.unit then return end
 	local ability = self:GetAbility()
-	if ( params.inflictor and caster:HasAbility( params.inflictor:GetAbilityName() ) ) or not params.unit:IsAlive() then
-		local stacks = 1
-		if params.unit:IsConsideredHero() then
-			stacks = stacks * self.hero_stacks
+	if IsModifierSafe( self._internalCD ) then
+		local newDuration = self._internalCD:GetRemainingTime() - self.internal_cd_refresh
+		if newDuration > 0 then
+			self._internalCD:SetDuration( newDuration, true )
+		else
+			self._internalCD:Destroy()
 		end
+	else
+		local stacks = 1
 		if not params.unit:IsAlive() then
 			stacks = stacks * self.kill_stacks
 		end
 		
 		local regeneration = caster:AddNewModifier( caster, ability, "modifier_bloodseeker_sanguivore_regeneration", {duration = self.heal_duration} )
 		regeneration:AddIndependentStack( { duration = self.heal_duration, stacks = math.floor( stacks ) } )
-		caster._bloodseekerSanguivoreProcessingEventTick = true
-		Timers:CreateTimer( function() caster._bloodseekerSanguivoreProcessingEventTick = nil end )
+		
+		self._internalCD = caster:AddNewModifier( caster, ability, "modifier_bloodseeker_sanguivore_cd", {duration = self.internal_cooldown, ignoreStatusResist = true} )
 	end
 end
 
 function modifier_bloodseeker_sanguivore_buff:IsHidden()
 	return true
+end
+
+modifier_bloodseeker_sanguivore_cd = class({})
+LinkLuaModifier( "modifier_bloodseeker_sanguivore_cd", "heroes/hero_bloodseeker/bloodseeker_sanguivore", LUA_MODIFIER_MOTION_NONE )
+
+function modifier_bloodseeker_sanguivore_cd:IsDebuff()
+	return true
+end
+
+function modifier_bloodseeker_sanguivore_cd:IsPurgable()
+	return false
 end
 
 modifier_bloodseeker_sanguivore_regeneration = class({})
@@ -101,29 +116,15 @@ end
 
 function modifier_bloodseeker_sanguivore_regeneration:OnRefresh()
 	self.max_hp_percent_heal_tooltip = self:GetSpecialValueFor("max_hp_percent_heal_tooltip") / 100
-	self.creep_pct = self:GetSpecialValueFor("creep_pct") / 100
 	
 	self.heal_factor = 1
 	self.heal_duration = self:GetSpecialValueFor("heal_duration")
 end
 
-function modifier_bloodseeker_sanguivore_regeneration:OnIntervalThink()
-	local ability = self:GetAbility()
-	local caster = self:GetCaster()
-	local parent = self:GetParent()
-	
-	local healPerSec = (self.max_hp_percent_heal_tooltip * self.creep_pct) * self:GetStackCount() / self.heal_duration
-	
-	local realHPS = parent:GetMaxHealth() * healPerSec * 0.33 + (self.healOverFlow or 0)
-	self.healOverFlow = realHPS % 1
-	
-	parent:HealEvent( math.floor( realHPS ), ability, caster )
-end
-
 function modifier_bloodseeker_sanguivore_regeneration:DeclareFunctions()
-	return { MODIFIER_PROPERTY_TOOLTIP }
+	return { MODIFIER_PROPERTY_HEALTH_REGEN_PERCENTAGE }
 end
 
-function modifier_bloodseeker_sanguivore_regeneration:OnTooltip()
-	return 100 * (self.max_hp_percent_heal_tooltip * self.creep_pct) * self:GetStackCount() / self.heal_duration
+function modifier_bloodseeker_sanguivore_regeneration:GetModifierHealthRegenPercentage()
+	return 100 * self.max_hp_percent_heal_tooltip * self:GetStackCount() / self.heal_duration
 end

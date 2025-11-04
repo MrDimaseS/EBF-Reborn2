@@ -1619,25 +1619,28 @@ function CHoldoutGameMode:OnThink()
 						if PlayerResource:GetTeam( nPlayerID ) == DOTA_TEAM_GOODGUYS then
 							if PlayerResource:HasSelectedHero( nPlayerID ) then
 								local hero = PlayerResource:GetSelectedHeroEntity( nPlayerID )
-								PlayerResource:SetCustomBuybackCost(nPlayerID, GameRules._roundnumber * 100)
-								PlayerResource._internalMMRFollowupTable = PlayerResource._internalMMRFollowupTable or {}
-								PlayerResource._internalMMRFollowupTable[nPlayerID] = PlayerResource._internalMMRFollowupTable[nPlayerID] or 0
-								if hero:GetPlayerOwner() 
-								and hero._hasDoneActionsThisRound
-								and ( hero.damage_dealt_ingame / ((GameRules.damage_dealt_ingame or 1)+1)  >= 0.005 
-								   or hero.damage_taken_ingame / ((GameRules.damage_taken_ingame or 1)+1)  >= 0.005 
-								   or hero.damage_healed_ingame / ((GameRules.damage_healed_ingame or 1)+1) >= 0.005 ) then -- minimum requirements achieved
-									PlayerResource._internalMMRFollowupTable[nPlayerID] = PlayerResource._internalMMRFollowupTable[nPlayerID] + 1
-								else
-									DisconnectClient( nPlayerID, false ) -- if person is AFK, disconnect them
-								end
-								hero._hasDoneActionsThisRound = false
-								if PlayerResource._internalMMRFollowupTable[nPlayerID] % 5 == 0 then
-									local difficultyMultiplier = 1+(1 / 3)*(GameRules.gameDifficulty-1)
-									local winMMR = (math.floor( PlayerResource._internalMMRFollowupTable[nPlayerID] /5 ) * 5) * difficultyMultiplier
-									local mmrTable = CustomNetTables:GetTableValue("mmr", tostring( nPlayerID ) ) or {}
-									mmrTable.win = winMMR
-									CustomNetTables:SetTableValue("mmr", tostring( nPlayerID ), mmrTable)
+								local player = hero:GetPlayerOwner()
+								if player and player.IsNull and not player:IsNull() then
+									PlayerResource:SetCustomBuybackCost(nPlayerID, GameRules._roundnumber * 100)
+									PlayerResource._internalMMRFollowupTable = PlayerResource._internalMMRFollowupTable or {}
+									PlayerResource._internalMMRFollowupTable[nPlayerID] = PlayerResource._internalMMRFollowupTable[nPlayerID] or 0
+									if hero:GetPlayerOwner() 
+									and hero._hasDoneActionsThisRound
+									and ( (hero.damage_dealt_ingame+1) / ((GameRules.damage_dealt_ingame or 1)+1)  >= 0.005 
+									   or (hero.damage_taken_ingame+1) / ((GameRules.damage_taken_ingame or 1)+1)  >= 0.005 
+									   or (hero.damage_healed_ingame+1) / ((GameRules.damage_healed_ingame or 1)+1) >= 0.005 ) then -- minimum requirements achieved
+										PlayerResource._internalMMRFollowupTable[nPlayerID] = PlayerResource._internalMMRFollowupTable[nPlayerID] + 1
+									else
+										DisconnectClient( nPlayerID, false ) -- if person is AFK, disconnect them
+									end
+									hero._hasDoneActionsThisRound = false
+									if PlayerResource._internalMMRFollowupTable[nPlayerID] % 5 == 0 then
+										local difficultyMultiplier = 1+(1 / 3)*(GameRules.gameDifficulty-1)
+										local winMMR = (math.floor( PlayerResource._internalMMRFollowupTable[nPlayerID] /5 ) * 5) * difficultyMultiplier
+										local mmrTable = CustomNetTables:GetTableValue("mmr", tostring( nPlayerID ) ) or {}
+										mmrTable.win = winMMR
+										CustomNetTables:SetTableValue("mmr", tostring( nPlayerID ), mmrTable)
+									end
 								end
 							end
 						end

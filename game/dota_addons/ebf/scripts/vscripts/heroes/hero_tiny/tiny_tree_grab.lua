@@ -11,8 +11,10 @@ end
 function tiny_tree_grab:CastFilterResultTarget( target )
 	if target.CutDown then
 		return UF_SUCCESS
-	else
+	elseif self:GetSpecialValueFor("grab_creeps") == 1 then
 		return UnitFilter( target, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_CREEP, DOTA_UNIT_TARGET_FLAG_NOT_CREEP_HERO, self:GetCaster():GetTeamNumber() )
+	else
+		return UF_FAIL_ENEMY
 	end
 end
 
@@ -123,7 +125,7 @@ function modifier_tiny_tree_grab_creep:OnAttackLanded(params)
 				local splashFX = ParticleManager:CreateParticle( "particles/units/heroes/hero_tiny/tiny_craggy_cleave.vpcf", PATTACH_POINT, params.attacker )
 				ParticleManager:SetParticleControlTransformForward( splashFX, units, params.attacker:GetAbsOrigin(), direction ) 
 				
-				local splashDamage = params.original_damage * self.splash_pct
+				local splashDamage = params.original_damage * self.splash_pct / 100
 				for _, unit in ipairs( splash ) do
 					if unit ~= params.target and not unit:HasModifier("modifier_tiny_tree_grab_creep_stun") then
 						units = units + 1

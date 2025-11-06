@@ -59,8 +59,6 @@ function modifier_lycan_feral_impulse_ebf:GetModifierDamageOutgoing_Percentage()
     else
         if self:GetParent():IsConsideredHero() then
             return self.bonus_damage * ((1+self.bonus_per_missing_health * self:GetStackCount()/100) or 1) * self.hero_bonus
-        else
-            return self.bonus_damage * ((1+self.bonus_per_missing_health * self:GetStackCount()/100) or 1) * self.ally_creep_bonus
         end
     end
 end
@@ -75,8 +73,6 @@ function modifier_lycan_feral_impulse_ebf:GetModifierConstantHealthRegen()
     else
         if self:GetParent():IsConsideredHero() then
             return self.bonus_hp_regen  * ((1+self.bonus_per_missing_health * self:GetStackCount()/100) or 1) * self.hero_bonus
-        else
-            return self.bonus_hp_regen  * ((1+self.bonus_per_missing_health * self:GetStackCount()/100) or 1) * self.ally_creep_bonus
         end
     end
 end

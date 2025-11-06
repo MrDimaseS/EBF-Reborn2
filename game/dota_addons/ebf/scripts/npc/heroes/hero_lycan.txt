@@ -7,15 +7,77 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_SKIP_FOR_KEYBINDS"
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_lycan/lycan_apex_predator"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI"
 		"MaxLevel"						"1"
 		"Innate"						"1"
 		"AbilityValues"
 		{
-			"damage_amp_per_level"			"2"
+			// Default KV's
+			//---------------------------------------------------------------------------------------------------------
+			"creep_dmg_bonus"													
+			{
+				"value"															"30"
+				"special_bonus_unique_lycan_major_l"							"+20"
+			}
+			"shapeshift_multiplier"												"150"
+
+			// Lone Wolf KV's
+			//---------------------------------------------------------------------------------------------------------
+			"isolation_radius"
+			{
+				"special_bonus_facet_lycan_lone_wolf"							"400"
+			}
+			
+			// Wolf Pack KV's
+			//---------------------------------------------------------------------------------------------------------
+			"aura_radius"
+			{
+				"special_bonus_facet_lycan_wolf_pack"							"900"
+			}
+
+			// Unused KV's
+			//---------------------------------------------------------------------------------------------------------
+			"damage_amp_per_level"												""
+			"extra_damage_tooltip"												""
 		}
 	}
+	//=================================================================================================================
+	// Lycan: Thrill of the Hunt
+	//=================================================================================================================
+	"lycan_thrill_of_the_hunt"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_lycan/lycan_thrill_of_the_hunt"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityTextureName"			"lycan_thrill_of_the_hunt"
+		"IsBreakable"					"1"
+		"AbilityValues"
+		{
+			"bonus_health"				
+			{
+				"value"															"1000 3000 5000 7000"
+				"special_bonus_unique_lycan_synergy_r"							"+200%"
+				"CalculateAttributeTooltip"										"1"
+			}
+			"bonus_base_dmg"			
+			{
+				"value"															"80 200 320 440"
+				"special_bonus_unique_lycan_synergy_r"							"+200%"
+				"CalculateAttributeTooltip"										"1"
+			}
+			"aspd"
+			{
+				"value"															"0"
+				"special_bonus_unique_lycan_minor_l"							"75"
+			}
+			"shapeshift_multiplier"												"2"
+		}
+	}
+
 	//=================================================================================================================
 	// Lycan: Summon Wolves
 	//=================================================================================================================
@@ -25,8 +87,8 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilitySound"					"Hero_Lycan.SummonWolves"
-
-        "HasShardUpgrade"               "1"
+		"AbilityTextureName"			"lycan_summon_wolves"
+        "HasShardUpgrade"               "0"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -40,111 +102,60 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"AbilityManaCost"				
-			{
-				"value"										"115 120 125 130 130 130"
-				"special_bonus_facet_lycan_spirit_wolves"	"-50"
-			}
-			"wolf_index"									"1 2 3 4 5 6"
-			"wolf_duration"				
-			{
-				"value"										"50"
-				"special_bonus_facet_lycan_spirit_wolves"	"=25"
-			}
-			"wolf_bat"										"1.2 1.1 1.0 0.9 0.9 0.9"
+			"max_level"															"4"
+			"AbilityManaCost"													"130"
+			"wolf_index"														"1 3 5 7"
+			"wolf_duration"														"50"
+			"wolf_bat"															"1.2 1.0 0.9 0.8"
 			"wolf_damage"
 			{
-				"value"										"600 1200 1800 2400 3600 4800"
-				"special_bonus_unique_lycan_3"				"+35%"
-				"CalculateAttributeTooltip"					"1"
-				"RequiresFacet"								"lycan_pack_leader"
+				"value"															"200 800 1400 2000"
+				"special_bonus_unique_lycan_3"									""
+				"CalculateAttributeTooltip"										"1"
 			}
 			"wolf_hp"
 			{
-				"value"										"10000 15000 20000 25000 35000 45000"
-				"special_bonus_unique_lycan_7"				"+50%"
-				"CalculateAttributeTooltip"					"1"
-				"RequiresFacet"								"lycan_pack_leader"
+				"value"															"7000 14000 21000 28000"
+				"special_bonus_unique_lycan_7"									""
+				"CalculateAttributeTooltip"										"1"
 			}
 			"bonus_health"
 			{
-				"value"										"10000 15000 20000 25000 35000 45000"
-				"special_bonus_unique_lycan_7"				"+50%"
-				"CalculateAttributeTooltip"					"1"
+				"value"															"7000 14000 21000 28000"
+				"special_bonus_unique_lycan_7"									""
+				"special_bonus_unique_lycan_synergy_r"							"+100%"
+				"CalculateAttributeTooltip"										"1"
 			}
 			"bonus_damage"
 			{
-				"value"										"600 1200 1800 2400 3600 4800"
-				"special_bonus_unique_lycan_3"				"+35%"
-				"CalculateAttributeTooltip"					"1"
+				"value"															"200 800 1400 2000"
+				"special_bonus_unique_lycan_3"									""
+				"special_bonus_unique_lycan_synergy_r"							"+100%"
+				"CalculateAttributeTooltip"										"1"
 			}
 			"bonus_armor"
 			{
-				"value"			"0 0 0 0 5 10"				
+				"value"															"0 5 10 15"				
 			}
-			"bash_chance"									"15"
-			"bash_duration"									"1.0"
+			"bash_chance"														"15"
+			"bash_duration"														"1.0"
 			"wolf_count"			
 			{
-				"value"										"2"
-				"special_bonus_facet_lycan_pack_leader"		"+0 +1 +2 +3"
-				"special_bonus_unique_lycan_2"				"+2"
+				"value"															"2 2 4 4"
+				"special_bonus_unique_lycan_2"									""
+				"special_bonus_unique_lycan_minor_l"							"+2"
 			}
 
-			"is_lone_wolf"	
-			{
-				"value"					"0"
-				"special_bonus_facet_lycan_spirit_wolves"					"+1"
-			}
-			"back_distance"
-			{
-				"value"						"0"
-				"special_bonus_facet_lycan_spirit_wolves"					"+150"
-			}
-			"side_distance"
-			{
-				"value"						"0"
-				"special_bonus_facet_lycan_spirit_wolves"					"+75"
-			}
-			"model_scale"
-			{
-				"value"						"0"
-				"special_bonus_facet_lycan_spirit_wolves"					"-15"
-			}
-			"invis_level"				
-			{
-				"value"						"0"
-				"special_bonus_facet_lycan_spirit_wolves"					"0.05"
-			}
-			"health_per_wolf"				
-			{
-				"special_bonus_facet_lycan_spirit_wolves"
-				{
-					"value"							"1000 2000 3000 4000"	
-					"special_bonus_unique_lycan_7"	"+50%"
-				}
-				"CalculateAttributeTooltip"			"1"
-			}
-			"damage_per_wolf"				
-			{
-				"special_bonus_facet_lycan_spirit_wolves"
-				{
-					"value"							"150 250 350 450"
-					"special_bonus_unique_lycan_3"	"+35%"
-				}
-
-				"CalculateAttackDamageTooltip"		"1"
-				"DamageTypeTooltip"	"DAMAGE_TYPE_PHYSICAL"
-			}
-			"death_fx_time"
-			{
-				"special_bonus_facet_lycan_spirit_wolves"					"1.0"
-			}
-			"max_level"
-			{
-				"value"					"4"
-				"special_bonus_facet_lycan_alpha_wolves" "+2"
-			}
+			// Unused KV's
+			//---------------------------------------------------------------------------------------------------------
+			"is_lone_wolf"														""
+			"back_distance"														""
+			"side_distance"														""
+			"model_scale"														""
+			"invis_level"														""
+			"health_per_wolf"													""
+			"damage_per_wolf"													""
+			"death_fx_time"														""
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -160,14 +171,12 @@
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ALLIES_YES"
-		
-		
-		"LevelsBetweenUpgrades"			"6"
+		"AbilityTextureName"			"lycan_wolf_bite"
 		
 		"FightRecapLevel"				"1"
-		"IsGrantedByScepter"			"1"
-		"HasScepterUpgrade"				"1"
-		"MaxLevel"						"3"
+		"IsGrantedByScepter"			"0"
+		"HasScepterUpgrade"				"0"
+		"MaxLevel"						"1"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -188,18 +197,19 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"lifesteal_percent"		"40"
-			"creep_penalty"			"0.4"
+			"lifesteal_percent"													"15"
+			"creep_penalty"														"0.4"
 			"lifesteal_range"		
 			{
-				"value"		"1200"		
-				"affected_by_aoe_increase"	"1"
+				"value"															"1200"		
+				"affected_by_aoe_increase"										"1"
 			}
-			"attack_range"		"150"
+			"attack_range"														"150"
 			"AbilityCooldown"
 			{
-				"value"							"110 100 90"
-				"special_bonus_unique_lycan_8"	"-15"
+				"value"															"90"
+				"special_bonus_unique_lycan_8"									""
+				"special_bonus_unique_lycan_greater_r"							"-15"
 			}
 		}
 	}
@@ -210,12 +220,13 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_lycan/lycan_howl"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
 		"AbilitySound"					"Hero_Lycan.Howl"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
-		"RestrictValuesToMaxLevel"		"1"
-		
+		"AbilityTextureName"			"lycan_howl"
 		
 
 		// Casting
@@ -238,39 +249,89 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			// Default KV's
+			//---------------------------------------------------------------------------------------------------------
+			"radius"															"2000"
 			"howl_duration"
 			{
-				"value"							"8"
-				"is_debuff_duration"			"1"
+				"value"															"8"
+				"special_bonus_facet_lycan_lone_wolf"
+				{
+					"value"														"0"
+					"special_bonus_unique_lycan_minor_r"						"+2"
+				}
+				"is_debuff_duration"											"1"
 			}
 			"attack_damage_reduction"		
 			{
-				"value"							"25 30 35 40"
-				"special_bonus_unique_lycan_6"	"+4"
+				"value"															"25 30 35 40"
+				"special_bonus_unique_lycan_6"									"+4"
 			}
-			
 			"total_attack_damage_reduction"		
 			{
-				"value"		"0"
-				"special_bonus_unique_lycan_5"	"+1"
+				"value"															"0"
+				"special_bonus_unique_lycan_5"									"+1"
 			}
 			"armor"			
 			{
-				"value"				"6 7 9 11"
-				"special_bonus_unique_lycan_howl_armor"			"+3"
-			}
-			"radius"			"2000"
-			"fear_duration"
-			{
-				"value"							"2.5"
-				"is_debuff_duration"			"1"
+				"value"															"6 7 9 11"
+				"special_bonus_unique_lycan_howl_armor"							""
+				"special_bonus_facet_lycan_lone_wolf"
+				{
+					"value"														"0"
+					"special_bonus_unique_lycan_greater_l"						"+4"
+
+				}
 			}
 			
-			"max_level"
+			// Lone Wolf KV's
+			//---------------------------------------------------------------------------------------------------------
+			"fear_duration"
 			{
-				"value"					"4"
-				"special_bonus_facet_lycan_alpha_wolves" "-1"
+				"special_bonus_facet_lycan_lone_wolf"							
+				{
+					"value"														"1.5"
+					"special_bonus_unique_lycan_minor_r"						"+0.5"
+				}
+				"is_debuff_duration"											"1"
 			}
+			"nighttime_fear_duration"
+			{
+				"special_bonus_facet_lycan_lone_wolf"							
+				{
+					"value"														"2.5"
+					"special_bonus_unique_lycan_minor_r"						"+0.5"
+				}
+				"is_debuff_duration"											"1"
+			}
+			"shapeshift_multiplier"
+			{
+				"special_bonus_facet_lycan_lone_wolf"							"2"
+			}
+
+			// Wolf Pack KV's
+			//---------------------------------------------------------------------------------------------------------
+			"barrier"
+			{
+				"special_bonus_facet_lycan_wolf_pack"							
+				{
+					"value"														"1000 2000 3000 4000"
+					"special_bonus_unique_lycan_greater_l"						"+200%"
+				}
+				"CalculateSpellHealTooltip"										"1"
+			}
+			"aspd"
+			{
+				"special_bonus_facet_lycan_wolf_pack"							
+				{
+					"value"														"0"
+					"special_bonus_unique_lycan_minor_r"						"50"
+				}
+			}
+
+			// Unused KV's
+			//---------------------------------------------------------------------------------------------------------
+			"max_level"															""
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 		"AbilityCastGestureSlot"	"DEFAULT" 
@@ -283,13 +344,16 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_lycan/lycan_feral_impulse"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"RestrictValuesToMaxLevel"		"1"
+		"AbilityTextureName"			"lycan_feral_impulse"
 		"IsBreakable"					"1"
-		
-		// Casting
+		"MaxLevel"						"4"
 		"AbilityValues"
 		{
+			// Default KV's
+			//---------------------------------------------------------------------------------------------------------
 			"bonus_damage"			
 			{
 				"value"							"10 20 30 40"
@@ -297,14 +361,51 @@
 			}
 			"bonus_hp_regen"
 			{
-				"value"							"100 200 300 400"
+				"value"							"50 100 150 200"
 				"CalculateSpellHealTooltip"		"1"
 			}
-			"max_level"
+
+			// Lone Wolf KV's
+			//---------------------------------------------------------------------------------------------------------
+			"bonus_per_missing_health"
 			{
-				"value"										"4"
-				"special_bonus_facet_lycan_alpha_wolves"	"-1"
+				"special_bonus_facet_lycan_lone_wolf"							
+				{
+					"value"														"2"
+					"special_bonus_unique_lycan_synergy_l"						"+1.5"
+				}
 			}
+			"missing_health_pct"
+			{
+				"special_bonus_facet_lycan_lone_wolf"							
+				{
+					"value"														"1"
+					"special_bonus_unique_lycan_synergy_l"						"-0.4"
+				}
+			}
+			"shapeshift_multiplier"
+			{
+				"special_bonus_facet_lycan_lone_wolf"							"2"
+			}
+
+			// Wolf Pack KV's
+			//---------------------------------------------------------------------------------------------------------
+			"aura_radius"
+			{
+				"special_bonus_facet_lycan_wolf_pack"							"900"
+			}
+			"hero_bonus"
+			{
+				"special_bonus_facet_lycan_wolf_pack"							
+				{
+					"value"														"50"
+					"special_bonus_unique_lycan_synergy_l"						"+50"
+				}
+			}
+
+			// Unused KV's
+			//---------------------------------------------------------------------------------------------------------
+			"max_level"															""
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -317,17 +418,19 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 									// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_lycan/lycan_shapeshift"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityType"					"ABILITY_TYPE_ULTIMATE"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		"FightRecapLevel"				"2"
 		"AbilitySound"					"Hero_Lycan.Shapeshift.Cast"
 		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
-		
+		"AbilityTextureName"			"lycan_shapeshift"
 		"MaxLevel"							"3"
 		"LevelsBetweenUpgrades"				"6"
 
-		"HasScepterUpgrade"					"1"
+		"HasScepterUpgrade"					"0"
 		"AbilityDraftUltScepterAbility"		"lycan_wolf_bite"
 		"LinkedAbility"						"lycan_wolf_bite"
 
@@ -342,47 +445,63 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			// Default KV's
+			//---------------------------------------------------------------------------------------------------------
 			"AbilityCooldown"
 			{
-				"value"							"110 100 90"
-				"special_bonus_unique_lycan_8"	"-15"
+				"value"															"90 80 70"
+				"special_bonus_unique_lycan_8"									""
+				"special_bonus_unique_lycan_greater_r"							"-15"
 			}
 			"duration"
 			{
-				"value"				"45"
-				"special_bonus_unique_lycan_1"	"+10"
-				"is_buff_duration"				"1"
+				"value"															"45"
+				"special_bonus_unique_lycan_1"									""
+				"special_bonus_unique_lycan_major_r"							"+8"
+				"is_buff_duration"												"1"
 			}
-			"speed"				"550"
-			"bonus_night_vision"		"1000"
-			"transformation_time"		"1.1"
+			"speed"				
+			{
+				"value"															"550"
+				"special_bonus_facet_lycan_lone_wolf"							"=750"
+			}
+			"bonus_night_vision"												"1000"
+			"transformation_time"												"1.1"
 			"crit_chance"
 			{
-				"value"							"40"
-				"special_bonus_unique_lycan_5"	"+15"
-				"affected_by_chance_increase"	"1"
+				"value"															"40"
+				"special_bonus_unique_lycan_5"									"+15"
+				"affected_by_chance_increase"									"1"
 			}
 			"crit_multiplier"
 			{
-				"value"							"200 240 280"
-				"affected_by_crit_increase"		"1"
+				"value"															"200 240 280"
+				"special_bonus_facet_lycan_lone_wolf"							"+40"
+				"affected_by_crit_increase"										"1"
 			}
 			"health_bonus"
 			{
-				"value"							"5000 7000 9000"
-				"CalculateSpellHealTooltip"		"1"
+				"value"															"5000 7000 9000"
+				"special_bonus_facet_lycan_lone_wolf"							"x2"
+				"CalculateSpellHealTooltip"										"1"
 			}
-			"is_wolfpack"
+			"lifesteal"							
 			{
-				"value"				"0"
-				"special_bonus_facet_lycan_pack_leader"			"+1"
+				"value"															"15"
+				"special_bonus_facet_lycan_lone_wolf"							"=30"
 			}
-			"kill_duration_extension"
+
+			// Wolf Pack KV's
+			//---------------------------------------------------------------------------------------------------------
+			"has_wolfbite"
 			{
-				"value"				"0"
-				"special_bonus_facet_lycan_pack_leader"		"+5"
-				"is_buff_duration"							"1"
+				"special_bonus_facet_lycan_wolf_pack"							"1"
 			}
+
+			// Unused KV's
+			//---------------------------------------------------------------------------------------------------------
+			"is_wolfpack"														""
+			"kill_duration_extension"											""
 		}
 	}
 
@@ -403,15 +522,15 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"maim_chance"				"20"
-			"maim_duration"				"4.0"
+			"maim_chance"														"40"
+			"maim_duration"														"4.0"
 			"maim_movement_speed"				
 			{
-				"value"			"15"
-				"special_bonus_unique_lycan_3"	"+10"
+				"value"															"15"
+				"special_bonus_unique_lycan_3"									"+10"
 			}
-			"maim_attack_speed"			"60"
-			"maim_damage"				"2600 5150"
+			"maim_attack_speed"													"60"
+			"maim_damage"														"7000"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
@@ -432,13 +551,13 @@
 		{
 			"01"
 			{
-				"var_type"					"FIELD_FLOAT"
-				"fade_time"					"0.0 0.0 0.0"
+				"var_type"														"FIELD_FLOAT"
+				"fade_time"														"0.0 0.0 0.0"
 			}
 			"02"
 			{
-				"var_type"					"FIELD_FLOAT"
-				"fade_delay"				"1.7"
+				"var_type"														"FIELD_FLOAT"
+				"fade_delay"													"1.7"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
@@ -459,10 +578,10 @@
 
 		"AbilityValues"
 		{
-			"duration"				"6"
-			"evasion"				"100"
-			"min_movespeed"			"700"
-			"bonus_attack_speed"	"100"
+			"duration"															"6"
+			"evasion"															"100"
+			"min_movespeed"														"700"
+			"bonus_attack_speed"												"100"
 		}		
 	}
 }

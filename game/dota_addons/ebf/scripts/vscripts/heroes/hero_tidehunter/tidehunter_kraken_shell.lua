@@ -32,9 +32,9 @@ function modifier_tidehunter_kraken_shell_passive:OnIntervalThink()
 end
 
 function modifier_tidehunter_kraken_shell_passive:DeclareFunctions()
-	return {MODIFIER_EVENT_ON_DEATH,
-			MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL,
-			MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL_VALUE}
+	-- return {MODIFIER_EVENT_ON_DEATH,
+			-- MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL,
+			-- MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL_VALUE}
 end
 
 function modifier_tidehunter_kraken_shell_passive:GetModifierOverrideAbilitySpecial(params)
@@ -59,9 +59,9 @@ function modifier_tidehunter_kraken_shell_passive:GetModifierOverrideAbilitySpec
 end
 
 function modifier_tidehunter_kraken_shell_passive:OnDeath( params )
-	if params.unit:IsConsideredHero() and params.unit:HasModifier("modifier_tidehunter_anchor_smash") and self.bonus_duration_per_kill > 0 then
-		self:IncrementStackCount()
-	end
+	-- if params.unit:IsConsideredHero() and params.unit:HasModifier("modifier_tidehunter_anchor_smash") and self.bonus_duration_per_kill > 0 then
+		-- self:IncrementStackCount()
+	-- end
 end
 
 function modifier_tidehunter_kraken_shell_passive:IsHidden()
@@ -77,6 +77,7 @@ modifier_tidehunter_kraken_shell_effect = class({})
 
 function modifier_tidehunter_kraken_shell_effect:OnCreated()
 	self.linger_duration = self:GetSpecialValueFor("linger_duration")
+	self.damage_reduction = -self:GetSpecialValueFor("damage_reduction")
 	self.health_restore = self:GetSpecialValueFor("health_restore")
 	self.spell_amp_bonus_duration = self:GetSpecialValueFor("spell_amp_bonus_duration")
 end
@@ -106,7 +107,8 @@ function modifier_tidehunter_kraken_shell_effect:GetModifierIncomingDamage_Perce
 		
 		if self.health_restore > 0 then
 			caster:HealEvent(self.health_restore, self, caster)
-		else
+		end
+		if self.spell_amp_bonus_duration > 0 then
 			caster:AddNewModifier(caster, self:GetAbility(), "modifier_tidehunter_kraken_shell_mawcaller", {duration = self.spell_amp_bonus_duration})
 		end
 
@@ -135,7 +137,7 @@ function modifier_tidehunter_kraken_shell_effect:GetModifierIncomingDamage_Perce
 			end)
 		end
 	end
-	return -80
+	return self.damage_reduction
 end
 
 function modifier_tidehunter_kraken_shell_effect:IsHidden()

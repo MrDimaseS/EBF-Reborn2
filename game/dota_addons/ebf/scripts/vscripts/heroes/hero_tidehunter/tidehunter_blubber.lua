@@ -31,7 +31,7 @@ function modifier_tidehunter_blubber_passive:OnCreated()
 	self:OnRefresh()
 	self.attack_range_bonus = self:GetSpecialValueFor("attack_range_bonus")
 	self.spell_amp_bonus = self:GetSpecialValueFor("spell_amp_bonus")
-	self.cooldown_reduction = self:GetSpecialValueFor("cooldown_reduction") / 100
+	self.cooldown_reduction = self:GetSpecialValueFor("cooldown_reduction")
 	if IsServer() then
 		self:StartIntervalThink( 0.1 )
 	end
@@ -62,22 +62,17 @@ function modifier_tidehunter_blubber_passive:OnTakeDamage(params)
 	local caster = self:GetCaster()
 	if params.unit == parent then
 		if self._damageTaken > self.damage_cleanse * params.unit:GetMaxHealth() then
-			if self.cooldown_reduction == 0 then
-				EmitSoundOn( "Hero_Tidehunter.KrakenShell", parent)
-				caster:Dispel( caster, true )
-				ParticleManager:FireParticle("particles/units/heroes/hero_tidehunter/tidehunter_krakenshell_purge.vpcf", PATTACH_POINT_FOLLOW, params.unit)
-				self:OnIntervalThink()
-			else
-				EmitSoundOn( "Hero_Tidehunter.KrakenShell", parent)
-				caster:Dispel( caster, true )
+			EmitSoundOn( "Hero_Tidehunter.KrakenShell", parent)
+			caster:Dispel( caster, true )
+			ParticleManager:FireParticle("particles/units/heroes/hero_tidehunter/tidehunter_krakenshell_purge.vpcf", PATTACH_POINT_FOLLOW, params.unit)
+			self:OnIntervalThink()
+			if self.cooldown_reduction > 0 then
 				for i = 0, self:GetParent():GetAbilityCount() - 1 do
 					local ability = parent:GetAbilityByIndex(i)
 					if ability and ability:GetCooldownTimeRemaining() > 0 and ability ~= nil and not ability:IsInnateAbility() then
-						ability:ModifyCooldown(-ability:GetCooldownTimeRemaining() * self.cooldown_reduction)
+						ability:ModifyCooldown(-self.cooldown_reduction)
 					end
 				end
-				ParticleManager:FireParticle("particles/units/heroes/hero_tidehunter/tidehunter_krakenshell_purge.vpcf", PATTACH_POINT_FOLLOW, params.unit)
-				self:OnIntervalThink()
 			end
 		else
 			self._damageTaken = self._damageTaken + params.damage

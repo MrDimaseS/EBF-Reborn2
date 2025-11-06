@@ -85,10 +85,10 @@ function Precache( context )
 	--Precache models
 	PrecacheResource( "model", "models/heroes/nerubian_assassin/nerubian_assassin.vmdl", context )
 	PrecacheResource( "model", "models/heroes/drow/drow_base.vmdl", context )
-	PrecacheResource( "model", "models/heroes/tiny/tiny_01/tiny_01.vmdl", context )
-	PrecacheResource( "model", "models/heroes/tiny/tiny_02/tiny_02.vmdl", context )
-	PrecacheResource( "model", "models/heroes/tiny/tiny_03/tiny_03.vmdl", context )
-	PrecacheResource( "model", "models/heroes/tiny/tiny_04/tiny_04.vmdl", context )
+	PrecacheResource( "model", "models/heroes/tiny_01/tiny_01.vmdl", context )
+	PrecacheResource( "model", "models/heroes/tiny_02/tiny_02.vmdl", context )
+	PrecacheResource( "model", "models/heroes/tiny_03/tiny_03.vmdl", context )
+	PrecacheResource( "model", "models/heroes/tiny_04/tiny_04.vmdl", context )
 	PrecacheResource( "model", "models/heroes/tiny_01/tiny_01_tree.vmdl", context )
 
 	--Precache bosses

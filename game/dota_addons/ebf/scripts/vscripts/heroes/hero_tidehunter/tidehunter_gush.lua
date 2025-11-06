@@ -69,7 +69,7 @@ function tidehunter_gush:OnProjectileHit(hTarget)
         local pull_range = self:GetSpecialValueFor("pull_range")
         local pull_direction = CalculateDirection(caster, hTarget)
         local pull_duration = self:GetSpecialValueFor("pull_duration")
-        if self:GetAutoCastState() then
+        if not self:GetAutoCastState() then
             hTarget:ApplyKnockBack(hTarget:GetAbsOrigin() + -pull_direction, 0, pull_duration, pull_range, 0, caster, self)
             for _, unit in ipairs (caster:FindEnemyUnitsInRadius(hTarget:GetAbsOrigin(), pull_radius)) do
                 unit:ApplyKnockBack(unit:GetAbsOrigin() + -pull_direction, 0, pull_duration, pull_range, 0, caster, self)

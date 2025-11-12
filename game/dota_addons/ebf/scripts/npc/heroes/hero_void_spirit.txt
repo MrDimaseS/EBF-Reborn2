@@ -114,7 +114,7 @@
 			}
 			"expire_damage"
 			{
-				"special_bonus_facet_void_spirit_immortal"	"500 1000 1500 2000"
+				"special_bonus_facet_void_spirit_immortal"	"1000 1800 2600 3400"
 				"CalculateSpellDamageTooltip"				"1"
 			}
 			"expire_stun_duration"				{"special_bonus_facet_void_spirit_immortal"	"100"}
@@ -193,7 +193,8 @@
 			"AbilityCooldown"				"11 10 9 8"
 			"damage"
 			{
-				"value"									"1200 2000 2800 3600"
+				"value"												"1200 2000 2800 3600"
+				"special_bonus_facet_void_spirit_immortal"			"=1500 =2500 =3500 =4500"
 				"CalculateSpellDamageTooltip"			"1"
 			}
 			"phase_duration"
@@ -216,8 +217,9 @@
 			}
 			"damage_radius"	// proportional to distance_offset
 			{
-				"value"						"275"
-				"affected_by_aoe_increase"	"1"		
+				"value"											"275"
+				"special_bonus_facet_void_spirit_immortal"		"=425"
+				"affected_by_aoe_increase"						"1"	
 			}
 			"outer_rings"
 			{
@@ -304,12 +306,18 @@
 			"radius"
 			{
 				"value"	"500"
+				"special_bonus_facet_void_spirit_immortal"			"x2"
 				"affected_by_aoe_increase"	"1"		
 			}
-			"speed"													"1200"
+			"speed"
+			{
+				"value"												"1200"
+				"special_bonus_facet_void_spirit_immortal"			"x2"
+				"affected_by_aoe_increase"	"1"		
+			}
 			"damage"
 			{
-				"value"												"600 1050 1500 1950"
+				"value"												"1000 1500 2000 2500"
 				"special_bonus_unique_void_spirit_4"				""
 				"CalculateSpellDamageTooltip"						"1"
 			}			
@@ -321,22 +329,20 @@
 			}
 			"base_absorb_amount"
 			{
-				"value"												"500 1000 1500 2000"
-				"special_bonus_facet_void_spirit_immortal"			"x2"
+				"value"												"1500 3000 4500 6000"
+				"special_bonus_facet_void_spirit_immortal"			"x3"
 				"CalculateSpellHealTooltip"							"1"
 			}
 			"absorb_per_hero_hit"
 			{
-				"value"												"700 1000 1300 1600"
-				"special_bonus_facet_void_spirit_immortal"			"x2"
+				"value"												"1400 2000 2600 3200"
 				"special_bonus_facet_void_spirit_sanctuary"			""
 				"CalculateSpellHealTooltip"							"1"
 			}
 			"is_all_barrier"
 			{
-				"value"												"0"
+				"value"												"1"
 				"special_bonus_facet_void_spirit_sanctuary"			""
-				"special_bonus_facet_void_spirit_immortal"			"=1"
 			}
 			"return_projectile_speed"	"900"
 			"AbilityCharges"		

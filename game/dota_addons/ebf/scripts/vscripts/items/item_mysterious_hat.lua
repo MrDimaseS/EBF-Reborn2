@@ -17,6 +17,7 @@ function modifier_item_mysterious_hat_passive:OnRefresh()
 	self.manacost_reduction = self:GetAbility():GetSpecialValueFor("manacost_reduction")
 	
 	self.escalating_duration = self:GetAbility():GetSpecialValueFor("escalating_duration")
+	self.min_cd = self:GetAbility():GetSpecialValueFor("min_cd")
 end
 
 function modifier_item_mysterious_hat_passive:DeclareFunctions()
@@ -41,7 +42,7 @@ end
 
 function modifier_item_mysterious_hat_passive:OnAbilityExecuted(params)
 	if params.unit ~= self:GetParent() then return end
-	if params.ability:GetCooldown(-1) == 0 then return end
+	if params.ability:GetCooldown(-1) < self.min_cd then return end
 	params.unit:AddNewModifier( params.unit, self:GetAbility(), "modifier_item_mysterious_hat_fae_escalation", {duration = self.escalating_duration} )
 end
 

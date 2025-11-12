@@ -55,7 +55,7 @@ function modifier_item_samaritans_cloak_passive:OnModifierAdded( params )
 	if params.added_buff.IsHidden and params.added_buff:IsHidden() then return end
 	if params.added_buff:GetDuration() <= 0 and not DO_COPY_THESE_MODIFIERS[params.added_buff:GetName()] then return end
 	if DONT_COPY_THESE_MODIFIERS[params.added_buff:GetName()] then return end
-	for _, ally in ipairs( params.attacker:FindFriendlyUnitsInRadius( params.unit:GetAbsOrigin(), self.share_radius ) ) do
+	for _, ally in ipairs( params.attacker:FindFriendlyUnitsInRadius( params.unit:GetAbsOrigin(), self.share_radius, {type = DOTA_UNIT_TARGET_HERO} ) ) do
 		if ally ~= params.unit and not ally:IsFakeHero() then
 			if not DO_COPY_THESE_MODIFIERS[params.added_buff:GetName()] or ally:HasModifier( DO_COPY_THESE_MODIFIERS[params.added_buff:GetName()] ) then
 				ally._cannotReceiveSamaritanBuffs = true

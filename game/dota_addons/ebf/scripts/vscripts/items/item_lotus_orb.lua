@@ -41,34 +41,37 @@ function modifier_ebfr_lotus_orb_active:OnAbilityExecuted( params )
 	if params.unit == self:GetCaster() and params.target == self:GetParent() then
 		if params.ability:GetName() == "item_ultimate_scepter" then return end
 		
-		local newTarget
-		local targetSelection = params.target:FindFriendlyUnitsInRadius( params.target:GetAbsOrigin(), self.active_radius, {flag = params.ability:GetAbilityTargetFlags(), type = params.ability:GetAbilityTargetType() } )
-		for _, unit in ipairs( targetSelection ) do	
-			if unit:IsConsideredHero() and unit ~= params.target then
-				newTarget = unit
-				break
-			end
-		end
-		if not newTarget then
-			for _, unit in ipairs( targetSelection ) do
-				if unit ~= params.target then
+		local recast = self:GetSpecialValueFor("recast") or 1
+		
+		for i = 1, recast do
+			local newTarget
+			local targetSelection = params.target:FindFriendlyUnitsInRadius( params.target:GetAbsOrigin(), self.active_radius, {flag = params.ability:GetAbilityTargetFlags(), type = params.ability:GetAbilityTargetType() } )
+			for _, unit in ipairs( targetSelection ) do	
+				if unit:IsConsideredHero() and unit ~= params.target then
 					newTarget = unit
 					break
 				end
 			end
+			if not newTarget then
+				for _, unit in ipairs( targetSelection ) do
+					if unit ~= params.target then
+						newTarget = unit
+						break
+					end
+				end
+			end
+			if not newTarget then newTarget = params.target end
+			if newTarget then
+				params.unit:SetCursorCastTarget( newTarget )
+				params.ability:OnSpellStart()
+				
+				ParticleManager:FireParticle("particles/items3_fx/lotus_orb_reflect.vpcf", PATTACH_POINT_FOLLOW, self:GetParent() )
+				EmitSoundOn( "Item.LotusOrb.Activate", newTarget )
+			end
 		end
-		if not newTarget then newTarget = params.target end
-		if newTarget then
-			params.unit:SetCursorCastTarget( newTarget )
-			params.ability:OnSpellStart()
-			
-			
-			params.unit:SetCursorCastTarget( params.target )
-			
-			ParticleManager:FireParticle("particles/items3_fx/lotus_orb_reflect.vpcf", PATTACH_POINT_FOLLOW, self:GetParent() )
-			EmitSoundOn( "Item.LotusOrb.Activate", newTarget )
-			self:Destroy()
-		end
+		
+		params.unit:SetCursorCastTarget( params.target )
+		self:Destroy()
 	end
 end
 

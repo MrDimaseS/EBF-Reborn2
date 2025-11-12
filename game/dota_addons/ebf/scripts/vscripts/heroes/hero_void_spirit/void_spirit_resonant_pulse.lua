@@ -20,8 +20,6 @@ end
 function void_spirit_resonant_pulse:OnSpellStart()
 	local caster = self:GetCaster()
 	
-	caster:RemoveModifierByName("modifier_void_spirit_resonant_pulse_shield")
-	
 	local radius = self:GetSpecialValueFor("radius")
 	local duration = self:GetSpecialValueFor("buff_duration")
 	local damage = self:GetSpecialValueFor("damage")
@@ -34,14 +32,18 @@ function void_spirit_resonant_pulse:OnSpellStart()
 	local unitsHit = {}
 	local radiusGrowth = speed * 0.1
 	local currentRadius = radiusGrowth
+	
+	local buff = caster:AddNewModifier( caster, self, "modifier_void_spirit_resonant_pulse_shield", {duration = duration} )
+	self._buffProjectiles = self._buffProjectiles or {}
 	Timers:CreateTimer( 0.1, function()
-		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), radius ) ) do
+		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), currentRadius ) ) do
 			if not unitsHit[enemy:entindex()] then
 				unitsHit[enemy:entindex()] = true
 				self:DealDamage( caster, enemy, damage )
 				EmitSoundOn( "Hero_VoidSpirit.Pulse.Target", caster )
 				if enemy:IsConsideredHero() then
-					self:FireTrackingProjectile("", caster, returnSpeed)
+					local projectile = self:FireTrackingProjectile("", caster, returnSpeed)
+					self._buffProjectiles[projectile] = buff
 				end
 				if silenceDuration > 0 then
 					self:Silence(enemy, silenceDuration)
@@ -61,13 +63,15 @@ function void_spirit_resonant_pulse:OnSpellStart()
 	ParticleManager:FireParticle( "particles/units/heroes/hero_void_spirit/pulse/void_spirit_pulse.vpcf", PATTACH_POINT_FOLLOW, caster, {[1] = Vector( radius * 2, speed, speed )} )
 	EmitSoundOn( "Hero_VoidSpirit.Pulse", caster )
 	
-	local buff = caster:AddNewModifier( caster, self, "modifier_void_spirit_resonant_pulse_shield", {duration = duration} )
 end
 
-function void_spirit_resonant_pulse:OnProjectileHit()
+function void_spirit_resonant_pulse:OnProjectileHitHandle( target, position, projectileID )
 	local caster = self:GetCaster()
-	local buff = caster:FindModifierByName("modifier_void_spirit_resonant_pulse_shield")
-	buff:ForceRefresh()
+	local buff = self._buffProjectiles[projectileID]
+	if IsModifierSafe( buff ) then
+		buff:ForceRefresh()
+		self._buffProjectiles[projectileID] = nil
+	end
 end
 
 modifier_void_spirit_resonant_pulse_handler = class(persistentModifier)
@@ -174,4 +178,8 @@ end
 
 function modifier_void_spirit_resonant_pulse_shield:HandleCustomTransmitterData(data)
 	self.damageBlock = data.damageBlock
+end
+
+function modifier_void_spirit_resonant_pulse_shield:GetAttributes()
+	return MODIFIER_ATTRIBUTE_MULTIPLE 
 end

@@ -759,18 +759,25 @@ end
 EBF_AI_ROAMING = 0
 EBF_AI_ATTACKING = 1
 
+function AICore:MoveToPositionAggressive( thisEntity, position )
+	ExecuteOrderFromTable({
+		UnitIndex = thisEntity:entindex(),
+		OrderType = DOTA_UNIT_ORDER_ATTACK_MOVE,
+		Position = position})
+end
+
 function AICore:HandleBasicAI( entity )
 	if not entity._currentBasicBehaviorState then
 		entity._currentBasicBehaviorState = EBF_AI_ROAMING
 	end
-	entity._moveToLastPosition = entity._moveToLastPosition or entity:GetAbsOrigin()
+	entity._moveToLastPosition = entity._moveToLastPosition or entity:GetOrigin()
 	if entity._currentAttackTarget then
 		if not entity._currentAttackTarget:IsAlive() then
 			entity._currentAttackTarget = nil
 			entity:Stop()
 			return 0.01
 		elseif not entity._currentAttackTarget:IsInvisible( ) then
-			entity._currentAttackTargetLastPosition = entity._currentAttackTarget:GetAbsOrigin()
+			entity._currentAttackTargetLastPosition = entity._currentAttackTarget:GetOrigin()
 			if entity._currentAttackTarget:IsMoving() then -- factor in movement to prevent cliff traps
 				entity._currentAttackTargetLastPosition = entity._currentAttackTargetLastPosition + entity._currentAttackTarget:GetForwardVector() * entity:GetIdealSpeed() * 1.5
 			end
@@ -782,15 +789,15 @@ function AICore:HandleBasicAI( entity )
 	end
 	if not entity:IsAttacking() then -- not processing attack order, look for mfer to hit with hammers
 		if entity._currentAttackTarget and CalculateDistance( entity._currentAttackTarget, entity ) <= entity:GetIdealSpeed() then
-			entity:MoveToPositionAggressive( entity._currentAttackTarget:GetAbsOrigin() )
+			AICore:MoveToPositionAggressive( entity, entity._currentAttackTarget:GetOrigin() )
 			return AI_THINK_RATE
 		else
 			local target = AICore:NearestEnemyHeroInRange( entity, -1, true)
 			if target then
 				entity._currentAttackTarget = target
-				entity._currentAttackTargetLastPosition = target:GetAbsOrigin()
+				entity._currentAttackTargetLastPosition = target:GetOrigin()
 				entity._moveToLastPosition = entity._currentAttackTargetLastPosition
-				entity:MoveToPositionAggressive( entity._currentAttackTargetLastPosition )
+				AICore:MoveToPositionAggressive( entity, entity._currentAttackTargetLastPosition )
 				return AI_THINK_RATE
 			elseif entity:GetAttackTarget() then
 				entity:Stop()
@@ -803,13 +810,13 @@ function AICore:HandleBasicAI( entity )
 			else
 				entity._moveToLastPosition = Vector(0,0,0) + ActualRandomVector( CalculateDistance( entity, Vector(0,0,0) ) + entity:GetIdealSpeed() * 3 )
 			end
-			entity:MoveToPositionAggressive( entity._moveToLastPosition )
+			AICore:MoveToPositionAggressive( entity, entity._moveToLastPosition )
 			return AI_THINK_RATE
 		end
 	elseif RollPercentage( 12 ) then
-		local newPos = ( entity._currentAttackTarget or entity ):GetAbsOrigin() + RandomVector( math.min( entity:GetAttackRange() * RandomFloat( 0.75, 1.0 ), entity:GetIdealSpeed() * 0.5 )  )
+		local newPos = ( entity._currentAttackTarget or entity ):GetOrigin() + RandomVector( math.min( entity:GetAttackRange() * RandomFloat( 0.75, 1.0 ), entity:GetIdealSpeed() * 0.5 )  )
 		entity:MoveToPosition( newPos )
-		return CalculateDistance(newPos, entity:GetAbsOrigin()) / entity:GetIdealSpeed()
+		return CalculateDistance(newPos, entity:GetOrigin()) / entity:GetIdealSpeed()
 	end
 	return AI_THINK_RATE
 end

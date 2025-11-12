@@ -56,3 +56,7 @@ function modifier_generic_level_scaling_for_summons:GetModifierOverrideAbilitySp
 		return flNewValue
 	end
 end
+
+function modifier_generic_level_scaling_for_summons:IsHidden()
+	return true
+end

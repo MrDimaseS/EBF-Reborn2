@@ -19,8 +19,9 @@ function enigma_demonic_conversion:OnSpellStart()
 	
 	local eidolons = self:GetSpecialValueFor("spawn_count")
 	local eidolon_hp = self:GetSpecialValueFor("eidelon_max_health")
+	local eidolon_dmg_pct = self:GetSpecialValueFor("eidolon_dmg_pct")
 	if target:IsConsideredHero() then
-		self:DealDamage( caster, target, eidolon_hp * eidolons, { damage_type = DAMAGE_TYPE_PURE } )
+		self:DealDamage( caster, target, eidolon_hp * eidolons * eidolon_dmg_pct / 100, { damage_type = DAMAGE_TYPE_PURE } )
 	else
 		self:DealDamage( caster, target, target:GetMaxHealth() + eidolon_hp * eidolons, { damage_type = DAMAGE_TYPE_PURE, damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_NO_DAMAGE_MULTIPLIERS + DOTA_DAMAGE_FLAG_HPLOSS + DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL } )
 	end

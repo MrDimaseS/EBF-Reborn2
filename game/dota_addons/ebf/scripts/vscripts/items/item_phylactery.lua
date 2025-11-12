@@ -50,13 +50,12 @@ function modifier_item_phylactery_passive:OnSpellAppliedSuccessfully( params )
 	
 	for _, unit in ipairs( caster:FindEnemyUnitsInRadius( target:GetAbsOrigin(), self.bonus_damage_radius ) ) do
 		ability:DealDamage( caster, unit, self.bonus_spell_damage, {damage_type = DAMAGE_TYPE_MAGICAL}, OVERHEAD_ALERT_BONUS_SPELL_DAMAGE )
+		unit:AddNewModifier( caster, ability, "modifier_item_phylactery_debuff", {duration = self.slow_duration})
+		ParticleManager:FireRopeParticle( "particles/items_fx/phylactery.vpcf", PATTACH_POINT_FOLLOW, caster, unit )
+		EmitSoundOn("Item.Phylactery.Target", unit )
 	end
 	
-	params.target:AddNewModifier( caster, ability, "modifier_item_phylactery_debuff", {duration = self.slow_duration})
-	
 	ParticleManager:FireParticle( "particles/items3_fx/phylactery_burst.vpcf", PATTACH_POINT_FOLLOW, target, {[1] = Vector(self.bonus_damage_radius,self.bonus_damage_radius,self.bonus_damage_radius)} )
-	ParticleManager:FireRopeParticle( "particles/items_fx/phylactery.vpcf", PATTACH_POINT_FOLLOW, caster, target )
-	EmitSoundOn("Item.Phylactery.Target", target )
 	ability:SetCooldown()
 end
 
@@ -145,6 +144,7 @@ function modifier_item_phylactery_debuff:OnRefresh()
 		self.stuns = true
 	end
 end
+
 function modifier_item_phylactery_debuff:CheckState(params)
 	local state = {}
 	if self.breaks then

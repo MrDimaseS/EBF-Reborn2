@@ -115,6 +115,8 @@ function Activate()
 	DOTA_SpawnMapAtPosition(GameRules._activeMap, Vector(0,0,0), false, nil, nil, nil)
 	
 	GameRules.holdOut:InitGameMode()
+	-- reqs that need gamemode to exist
+	require("libraries/projectilemanager")
 end
 
 function CHoldoutGameMode:InitGameMode()

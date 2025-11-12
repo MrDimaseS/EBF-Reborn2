@@ -36,15 +36,15 @@ end
 function AIThink(thisEntity)
 	if thisEntity:GetTeamNumber() ~= DOTA_TEAM_GOODGUYS and not thisEntity:IsChanneling() and not thisEntity:GetCurrentActiveAbility() then
 		local attackTarget = thisEntity:GetAggroTarget()
-		if thisEntity.hurl:IsFullyCastable() and RollPercentage( 35 ) then
+		if thisEntity.hurl:IsFullyCastable() and CalculateDistance( attackTarget, thisEntity ) < self:GetSpecialValueFor("axe_range") and RollPercentage( 35 ) then
 			ExecuteOrderFromTable({
 						UnitIndex = thisEntity:entindex(),
 						OrderType = DOTA_UNIT_ORDER_CAST_NO_TARGET,
-						AbilityIndex = thisEntity.dance:entindex()
+						AbilityIndex = thisEntity.hurl:entindex()
 					})
 			return 0.1
 		end
-		if thisEntity.dance:IsFullyCastable() and RollPercentage( 35 ) then
+		if thisEntity.dance:IsFullyCastable() and thisEntity:IsAttacking() and RollPercentage( 35 ) then
 			ExecuteOrderFromTable({
 						UnitIndex = thisEntity:entindex(),
 						OrderType = DOTA_UNIT_ORDER_CAST_NO_TARGET,

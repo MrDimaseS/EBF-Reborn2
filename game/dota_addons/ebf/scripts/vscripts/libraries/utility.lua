@@ -9,6 +9,13 @@ DOTA_HEAL_TYPE_REGENERATION = 2
 
 DOTA_RUNES = {DOTA_RUNE_DOUBLEDAMAGE,DOTA_RUNE_HASTE,DOTA_RUNE_ILLUSION,DOTA_RUNE_INVISIBILITY,DOTA_RUNE_REGENERATION,DOTA_RUNE_BOUNTY,DOTA_RUNE_ARCANE}
 
+function CDOTA_BaseNPC:MoveToPositionAggressive( position )
+	ExecuteOrderFromTable({
+		UnitIndex = self:entindex(),
+		OrderType = DOTA_UNIT_ORDER_ATTACK_MOVE,
+		Position = position})
+end
+
 function Context_Wrap(o, funcname)
 	return function(...) o[funcname](o, ...) end
 end

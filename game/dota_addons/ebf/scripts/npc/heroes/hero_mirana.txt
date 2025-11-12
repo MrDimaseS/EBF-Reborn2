@@ -16,8 +16,8 @@
 		"AbilityValues"
 		{
 			"bonus_lotus"				""
-			"bonus_stats"				"5"
-			"bonus_attackspeed"			{ "special_bonus_facet_mirana_full_moon"	"10"}
+			"bonus_stats"				"4"
+			"bonus_attackspeed"			{ "special_bonus_facet_mirana_full_moon"	"12"}
 			"bonus_aoe"					{ "special_bonus_facet_mirana_new_moon"		"900"}
 			"bonus_duration"			
 			{
@@ -51,7 +51,6 @@
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"12"
 		"AbilityDuration"				"10.0"
 
 
@@ -63,7 +62,12 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"starfall_radius"	
+			"AbilityCooldown"
+			{
+				"value"									"12"	
+				"special_bonus_facet_mirana_full_moon"	"=8"
+			}
+			"starfall_radius"
 			{
 				"value"								"150"		
 				"affected_by_aoe_increase"			"1"
@@ -158,7 +162,8 @@
 			"arrow_angle"								"20"
 			"AbilityCooldown"
 			{	
-				"value"									"19 18 17 16"		
+				"value"									"19 18 17 16"	
+				"special_bonus_facet_mirana_full_moon"	"=18 =16 =14 =12"	
 				"special_bonus_unique_mirana_3"			"-2"
 			}
 			
@@ -196,11 +201,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"AbilityCooldown"							"0"
+			"AbilityCooldown"							"1"
 			"AbilityCharges"		
 			{
 				"value"									"2"
-				"special_bonus_facet_mirana_full_moon"	"+1"
+				"special_bonus_facet_mirana_full_moon"	"=3"
 			}
 			"AbilityChargeRestoreTime"					"18 16 14 12"
 			
@@ -222,7 +227,7 @@
 			"leap_bonus_duration"
 			{
 				"value"									"5"
-				"special_bonus_facet_mirana_full_moon"	"+3"
+				"special_bonus_facet_mirana_full_moon"	"=10"
 				"is_buff_duration"						"1"
 			}
 			"blast_radius"					
@@ -305,12 +310,12 @@
 			}
 			"attack_speed_sec"
 			{
-				"special_bonus_facet_mirana_full_moon"	"10 15 20"
+				"special_bonus_facet_mirana_full_moon"	"15 25 35"
 				"special_bonus_unique_mirana_5" 		"+10"
 			}
 			"attack_dmg_sec"
 			{
-				"special_bonus_facet_mirana_full_moon"	"10 15 20"
+				"special_bonus_facet_mirana_full_moon"	"15 25 35"
 				"special_bonus_unique_mirana_5" 		"+10"
 			}
 			"ally_pct"									{"special_bonus_facet_mirana_full_moon"	"50"}

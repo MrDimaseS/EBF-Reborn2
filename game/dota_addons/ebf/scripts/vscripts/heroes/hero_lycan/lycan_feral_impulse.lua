@@ -44,12 +44,12 @@ end
 function modifier_lycan_feral_impulse_ebf:DeclareFunctions()
     return
     {
-        MODIFIER_PROPERTY_DAMAGEOUTGOING_PERCENTAGE,
+        MODIFIER_PROPERTY_BASEDAMAGEOUTGOING_PERCENTAGE,
         MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT,
     }
 end
 
-function modifier_lycan_feral_impulse_ebf:GetModifierDamageOutgoing_Percentage()
+function modifier_lycan_feral_impulse_ebf:GetModifierBaseDamageOutgoing_Percentage()
     if self:GetParent():GetPlayerOwnerID() == self:GetCaster():GetPlayerOwnerID() then
         if self:GetParent():HasModifier("modifier_lycan_shapeshift") and self.shapeshift_multiplier ~= 0 then
             return self.bonus_damage * ((1+self.bonus_per_missing_health * self:GetStackCount()/100) or 1) * self.shapeshift_multiplier

@@ -1104,6 +1104,8 @@
 		"DOTA_Tooltip_ability_boss_troll_warlord_hurl_axe_movement_speed"									"%MOVEMENT SLOW:"
 		"DOTA_Tooltip_ability_boss_troll_warlord_hurl_axe_axe_damage"										"AXE DAMAGE:"
 		"DOTA_Tooltip_ability_boss_troll_warlord_hurl_axe_axe_slow_duration"								"SLOW DURATION:"
+		"DOTA_Tooltip_modifier_boss_troll_warlord_hurl_axe_debuff"											"Hurl Axe - Slow"
+		"DOTA_Tooltip_modifier_boss_troll_warlord_hurl_axe_debuff_Description"								"Slowed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%"
 		
 		"DOTA_Tooltip_ability_boss_troll_warlord_meteor_strike"												"Meteor Strike"
 		"DOTA_Tooltip_ability_boss_troll_warlord_meteor_strike_Description"									"Troll Warlord leaps to targeted point, on impact he critically hits all units within %radius% units."
@@ -3342,8 +3344,9 @@
 		"DOTA_Tooltip_ability_lycan_thrill_of_the_hunt_bonus_base_dmg"										"BONUS BASE DAMAGE:"
 		"DOTA_Tooltip_ability_lycan_thrill_of_the_hunt_Lore"												"Lycan never forgets to sharpen his fangs in anticipation of a hunt."
 
-		"DOTA_Tooltip_ability_lycan_summon_wolves_wolf_damage"												""
-		"DOTA_Tooltip_ability_lycan_summon_wolves_wolf_hp"													""
+		"DOTA_Tooltip_ability_lycan_summon_wolves_Description"												"Summons %wolf_count% wolves to aid Lycan in battle, that gain additional abilities each level.\n<b>Level 1.</b>Wolves gain Persistent Invisibility.\n<b>Level 2.</b>Wolves gain Maim, a damage over time debuff that slows movement and attack speed.\n<b>Level 3.</b>Wolves gain Hamstring, a rooting attack modifier with extra damage.\n<b>Level 4.</b>Wolves gain Hightail, a buff that grants evasion and movement speed."
+		"DOTA_Tooltip_ability_lycan_summon_wolves_wolf_damage"												"BONUS DAMAGE:"
+		"DOTA_Tooltip_ability_lycan_summon_wolves_wolf_hp"													"BONUS HEALTH:"
 		"DOTA_Tooltip_ability_lycan_summon_wolves_bonus_damage"												"BONUS DAMAGE:"
 		"DOTA_Tooltip_ability_lycan_summon_wolves_bonus_health"												"BONUS HEALTH:"
 		
@@ -3366,7 +3369,7 @@
 		"DOTA_Tooltip_modifier_lycan_feral_impulse_ebf"														"Feral Impulse"
 		"DOTA_Tooltip_modifier_lycan_feral_impulse_ebf_Description"											"Gaining %dMODIFIER_PROPERTY_DAMAGEOUTGOING_PERCENTAGE%%% Bonus Damage and %dMODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT% Health Regen."
 
-		"DOTA_Tooltip_ability_lycan_shapeshift_Facet_lycan_lone_wolf"										"Lifesteal, Critical Damage, and Movement Speed provided are doubled. During Shapeshift the benefits of Thrill of the Hunt and Feral Impulse are doubled for Lycan."
+		"DOTA_Tooltip_ability_lycan_shapeshift_Facet_lycan_lone_wolf"										"Lifesteal, Critical Damage, and Movement Speed provided are increased by %shapeshift_bonus%%%. During Shapeshift the benefits of Thrill of the Hunt and Feral Impulse are increaased by %shapeshift_bonus%%% for Lycan."
 		"DOTA_Tooltip_ability_lycan_shapeshift_Facet_lycan_wolf_pack"										"While Shapeshifted, Lycan gains a new ability called Wolf Bite. The target of Wolf Bite gains all the benefits of Shapeshift for its remaining duration. Shapeshift's lifesteal heals the other unit. All of Lycan's summoned units gain the benefits of the Lifesteal, Hasted Movement, and Critical Strike."
 		"DOTA_Tooltip_modifier_lycan_shapeshift_ebf_summon"													"Shapeshift - Summon"
 		"DOTA_Tooltip_modifier_lycan_shapeshift_ebf_summon_Description"										"The Wolf Runs."
@@ -3384,7 +3387,7 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_lycan_greater_l_Facet_lycan_wolf_pack"					"+{s:bonus_barrier}% Howl Barrier"
 		"DOTA_Tooltip_ability_special_bonus_unique_lycan_greater_r"											"-{s:bonus_AbilityCooldown}s Shapeshift Cooldown"
 		"DOTA_Tooltip_ability_special_bonus_unique_lycan_synergy_l"											"Synergy Feral Impulse Improvement"
-		"DOTA_Tooltip_ability_special_bonus_unique_lycan_synergy_l_Facet_lycan_lone_wolf"					"+{s:bonus_bonus_per_missing_health}% / -{s:bonus_missing_health_pct}% Feral Impulse Missing HP Bonus/Missing HP Threshold"
+		"DOTA_Tooltip_ability_special_bonus_unique_lycan_synergy_l_Facet_lycan_lone_wolf"					"+{s:bonus_bonus_damage}% Feral Impulse Damage Bonus"
 		"DOTA_Tooltip_ability_special_bonus_unique_lycan_synergy_l_Facet_lycan_wolf_pack"					"+{s:bonus_hero_bonus}% Feral Impulse Allied Hero/Creep Bonus"
 		"DOTA_Tooltip_ability_special_bonus_unique_lycan_synergy_r"											"Synergy Ability Improvement"
 		"DOTA_Tooltip_ability_special_bonus_unique_lycan_synergy_r_Facet_lycan_lone_wolf"					"+{s:bonus_bonus_health}% Thrill of the Hunt Bonuses"
@@ -3435,7 +3438,7 @@
 		
 		"DOTA_Tooltip_ability_mirana_starfall_Description"													"Calls down a wave of meteors to damage nearby enemy units. Enemies hit by the Starstorm are debuffed for %debuff_duration% seconds, or until they are attacked or hit by one of Mirana's abilities. When the debuff is removed, the target will be hit with a Lesser Starstorm which deals only %secondary_starfall_damage_percent%%% of the damage and does not apply the debuff.\nIf the Starstorm was removed by one of Mirana's abilities, they are hit by a regular Starstorm instead.\nThe radius is equal to Mirana's attack range + %starfall_radius%"
 		"DOTA_Tooltip_ability_mirana_starfall_Facet_mirana_new_moon"										"Units affected by Starstorm take %starfall_bonus_dmg%%% increased damage from all sources for %bonus_duration% seconds, stacks independently."
-		"DOTA_Tooltip_ability_mirana_starfall_Facet_mirana_full_moon"										"Mirana lifesteals %starfall_lifesteal%%% from all sources against units affected by Starstorm for %bonus_duration% seconds, stacks independently."
+		"DOTA_Tooltip_ability_mirana_starfall_Facet_mirana_full_moon"										"Cooldown reduced and Mirana lifesteals %starfall_lifesteal%%% from all sources against units affected by Starstorm for %bonus_duration% seconds, stacks independently."
 		"DOTA_Tooltip_ability_mirana_starfall_starfall_radius"												""
 		"DOTA_Tooltip_ability_mirana_starfall_ebf_changes"													"Secondary Starstorm is triggered by attacking or dealing damage with an ability and can affect all units hit."
 		"DOTA_Tooltip_modifier_mirana_starfall_debuff"														"Starfall - Debuff"
@@ -3447,7 +3450,7 @@
 		
 		"DOTA_Tooltip_ability_mirana_arrow_Description"														"Fires a long-range arrow with deadly precision, which stuns and damages the first enemy unit it strikes. The damage and stun duration increase by %arrow_bonus_damage%%% for every %bonus_damage_range% the arrow travels. Instantly kills the first non-ancient creep it hits."
 		"DOTA_Tooltip_ability_mirana_arrow_Facet_mirana_new_moon"											"Multishot Sacred Arrow releases a Starstorm on units within a %starstorm_aoe% radius of the arrow."
-		"DOTA_Tooltip_ability_mirana_arrow_Facet_mirana_full_moon"											"Sacred Arrow base damage and stun duration increased, no longer increases with distance travelled. After casting Sacred Arrow, Mirana's next attack deals critical damage."
+		"DOTA_Tooltip_ability_mirana_arrow_Facet_mirana_full_moon"											"Cooldown reduced, Sacred Arrow base damage and stun duration increased, no longer increases with distance travelled. After casting Sacred Arrow, Mirana's next attack deals critical damage."
 		"DOTA_Tooltip_ability_mirana_arrow_arrow_min_stun"													""
 		"DOTA_Tooltip_ability_mirana_arrow_arrow_max_stun"													"BASE STUN DURATION:"
 		"DOTA_Tooltip_ability_mirana_arrow_arrow_bonus_damage"												""
@@ -4548,17 +4551,18 @@
 		
 		"DOTA_Tooltip_ability_void_spirit_dissimilate"														"Dissimilate"
 		"DOTA_Tooltip_ability_void_spirit_dissimilate_Description"											"Void Spirit temporarily fades into the aether, creating a number of portals through which he can reassemble himself. Upon exiting a portal, he damages all enemies in the area.\nCan be ended early by issuing a Stop or Hold order."
-		"DOTA_Tooltip_ability_void_spirit_dissimilate_Facet_void_spirit_immortal"							"Exiting Dissimilate Disarm all damaged units."
+		"DOTA_Tooltip_ability_void_spirit_dissimilate_Facet_void_spirit_immortal"							"Dissimilate damage and radius increased, Dissimilate Disarms all damaged units."
 		"DOTA_Tooltip_ability_void_spirit_dissimilate_Facet_void_spirit_incomprehensible"					"Phase duration increased and while Phased Out, you are replaced by an Aether Remnant." 
 		"DOTA_Tooltip_ability_void_spirit_dissimilate_disarm_duration"										"DISARM DURATION:" 
 		"DOTA_Tooltip_ability_void_spirit_dissimilate_damage"												"DAMAGE:" 
+		"DOTA_Tooltip_ability_void_spirit_dissimilate_damage_radius"										"PORTAL RADIUS:"
 		
-		"DOTA_Tooltip_ability_void_spirit_resonant_pulse_Description"										"Void Spirit wraps himself in a protective shield that absorbs physical damage and emits a single damaging pulse around him. The shield gains increased damage absorption for each enemy hero the pulse hits.\nWhile Void Spirit is Banished or Invulnerable, the duration is frozen."
-		"DOTA_Tooltip_ability_void_spirit_resonant_pulse_Facet_void_spirit_immortal"						"Resonant Pulse grants increased Universal Barrier instead of Physical Barrier" 
+		"DOTA_Tooltip_ability_void_spirit_resonant_pulse_Description"										"Void Spirit wraps himself in a protective shield that absorbs all damage and emits a single damaging pulse around him. The shield gains increased damage absorption for each enemy hero the pulse hits.\nWhile Void Spirit is Banished or Invulnerable, the duration is frozen."
+		"DOTA_Tooltip_ability_void_spirit_resonant_pulse_Facet_void_spirit_immortal"						"Resonant Pulse base barrier and radius increased." 
 		"DOTA_Tooltip_ability_void_spirit_resonant_pulse_Facet_void_spirit_incomprehensible"				"Resonant Pulse's cooldown is reduced by %cast_cdr% seconds each time you cast another spell." 
 		"DOTA_Tooltip_ability_void_spirit_resonant_pulse_silence_duration_scepter"							""
 		"DOTA_Tooltip_modifier_void_spirit_resonant_pulse_shield"                                           "Resonant Pulse"
-		"DOTA_Tooltip_modifier_void_spirit_resonant_pulse_shield_Description"                               "Blocking %dMODIFIER_PROPERTY_TOOLTIP% physical damage."
+		"DOTA_Tooltip_modifier_void_spirit_resonant_pulse_shield_Description"                               "Blocking %dMODIFIER_PROPERTY_TOOLTIP% damage."
 		"DOTA_Tooltip_modifier_void_spirit_resonant_pulse_shield_immortal"									"Resonant Pulse - Immortal"
 		"DOTA_Tooltip_modifier_void_spirit_resonant_pulse_shield_immortal_Description"						"Blocking %dMODIFIER_PROPERTY_TOOLTIP% damage."
 		

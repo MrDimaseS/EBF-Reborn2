@@ -205,7 +205,7 @@ function CDOTA_BaseNPC:GetMaxHealthDamageResistance()
 end
 
 function CDOTA_BaseNPC:IsChampion()
-	return self:HasAbility("enemy_champion")
+	return self:HasModifier("modifier_enemy_champion_passive")
 end
 
 function CDOTA_BaseNPC:PerformGenericAttack(target, immediate, tAttackData )

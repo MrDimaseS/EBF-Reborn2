@@ -1,34 +1,37 @@
+boss_troll_warlord_dance_of_axes = class({})
+
 function boss_troll_warlord_dance_of_axes:OnSpellStart()
 	local caster = self:GetCaster()
 	
-	local duration = self:GetTalentSpecialValueFor("whirl_duration")
-	self:SummonWhirlingAxe( duration, caster:GetForwardVector() )
-	self:SummonWhirlingAxe( duration, -caster:GetForwardVector() )
+	local axes = self:GetSpecialValueFor("base_axes") + (HeroList:GetActiveHeroCount() - 1) * self:GetSpecialValueFor("bonus_axe_per_player")
+	
+	local radius = self:GetSpecialValueFor("hit_radius")
+	for i = 1, axes do
+		self:SummonWhirlingAxe( 3, TernaryOperator( caster:GetForwardVector() * (-1)^(i), math.ceil(i/2)%2 == 0, caster:GetRightVector() * (-1)^(i)), ( radius + caster:GetPaddedCollisionRadius() ) * math.ceil(i/2) )
+	end
 	caster:EmitSound("Hero_TrollWarlord.WhirlingAxes.Melee")
 	caster:StartGesture(ACT_DOTA_CAST_ABILITY_3)
-	
-	if caster:HasScepter() then caster:Dispel() end
 end
 
-function boss_troll_warlord_dance_of_axes:SummonWhirlingAxe( duration, direction )
+function boss_troll_warlord_dance_of_axes:SummonWhirlingAxe( duration, direction, distance )
 	local caster = self:GetCaster()
 	local vDir = direction or caster:GetForwardVector()
 	
-	local radius = self:GetTalentSpecialValueFor("hit_radius")
-	local speed = self:GetTalentSpecialValueFor("axe_movement_speed") 
-	local maxRange = self:GetTalentSpecialValueFor("max_range")
-	local damage = self:GetTalentSpecialValueFor("damage")
-	local blind = self:GetTalentSpecialValueFor("blind_duration")
+	local radius = self:GetSpecialValueFor("hit_radius")
+	local speed = self:GetSpecialValueFor("axe_movement_speed") 
+	local maxRange = distance + self:GetSpecialValueFor("max_range")
+	local damage = self:GetSpecialValueFor("damage")
+	
+	local blind = self:GetSpecialValueFor("blind_duration")
 	
 	local ProjectileHit = 	function(self, target, position)
 								if not target then return end
 								if target ~= nil and ( not target:IsMagicImmune() ) and ( not target:IsInvulnerable() ) and target:GetTeam() ~= self:GetCaster():GetTeam() then
 									if not self.hitUnits[target:entindex()] then
-										if not target:TriggerSpellAbsorb( self:GetAbility() ) then
-											self:GetAbility():DealDamage( self:GetCaster(), target, self.damage )
-											target:AddNewModifier(self:GetCaster(), self:GetAbility(), "modifier_boss_troll_warlord_dance_of_axes", {duration = self.blind})
-											EmitSoundOn("Hero_TrollWarlord.WhirlingAxes.Target", target)
-										end
+										self:GetAbility():DealDamage( self:GetCaster(), target, self.damage )
+										target:AddNewModifier(self:GetCaster(), self:GetAbility(), "modifier_boss_troll_warlord_dance_of_axes", {duration = self.blind})
+										EmitSoundOn("Hero_TrollWarlord.WhirlingAxes.Target", target)
+										
 										self.hitUnits[target:entindex()] = true
 									end
 								end
@@ -41,27 +44,25 @@ function boss_troll_warlord_dance_of_axes:SummonWhirlingAxe( duration, direction
 								if velocity.z > 0 then velocity.z = 0 end
 								local angularVel = ( self.speed / self.range )
 								direction = CalculateDirection( position, self:GetCaster() )
-								if self.aliveTime >= self.duration / 2 then
-									self.range = self.range - self.radialSpeed * FrameTime()
-									direction = -direction
-								else
-									self.range = self.range + self.radialSpeed * FrameTime()
-								end
+								
+								self.range = self.range + self.radialSpeed * FrameTime()
+								
 								self.angle = self.angle + angularVel
+								
 								local newPosition = caster:GetAbsOrigin() + RotateVector2D(self:GetVelocity(), ToRadians( self.angle ) ) * self.range
 								self:SetPosition( newPosition + Vector(0,0,128) )
 							end
 	ProjectileHandler:CreateProjectile(ProjectileThink, ProjectileHit, { FX = "particles/units/heroes/hero_troll_warlord/troll_warlord_whirling_axe_melee.vpcf",
-																	  position = caster:GetAbsOrigin() - vDir * radius + Vector(0,0,256),
+																	  position = caster:GetAbsOrigin() - vDir * distance,
 																	  caster = self:GetCaster(),
 																	  ability = self,
 																	  speed = speed,
 																	  radius = radius,
-																	  velocity = -vDir * speed,
+																	  velocity = -vDir,
 																	  duration = duration,
 																	  hitUnits = {},
-																	  range = radius,
-																	  radialSpeed = ((maxRange - radius)/2) / duration,
+																	  range = distance,
+																	  radialSpeed = maxRange / duration,
 																	  angle = 0,
 																	  damage = damage,
 																	  blind = blind})
@@ -71,11 +72,11 @@ modifier_boss_troll_warlord_dance_of_axes = class({})
 LinkLuaModifier("modifier_boss_troll_warlord_dance_of_axes", "bosses/boss_troll_warlord/boss_troll_warlord_dance_of_axes", LUA_MODIFIER_MOTION_NONE )
 
 function modifier_boss_troll_warlord_dance_of_axes:OnCreated()
-	self.blind = self:GetTalentSpecialValueFor("blind_pct")
+	self.blind = self:GetSpecialValueFor("blind_pct")
 end
 
 function modifier_boss_troll_warlord_dance_of_axes:OnRefresh()
-	self.blind = self:GetTalentSpecialValueFor("blind_pct")
+	self.blind = self:GetSpecialValueFor("blind_pct")
 end
 
 function modifier_boss_troll_warlord_dance_of_axes:DeclareFunctions()

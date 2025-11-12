@@ -1,44 +1,6 @@
 "DOTAAbilities"
 {	
 	//=================================================================================================================
-	// Faceless Void: Innate Distortion Field
-	//=================================================================================================================
-	"faceless_void_distortion_field"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
-		
-		"Innate"						"1"
-		"DependentOnAbility"			"faceless_void_chronosphere"
-
-		"AbilityValues"
-		{
-			"attack_projectile_slow"		"35 40 45 50"
-			"slow_distance_max"				
-			{
-				"value"			"500"
-				"affected_by_aoe_increase"	"1"
-			}
-		}
-	}
-	//=================================================================================================================
-	// Faceless Void: Innate Time Walk - Range
-	//=================================================================================================================
-	"faceless_void_backtrack"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI"
-		"MaxLevel"						"1"
-		"AbilityValues"
-		{
-			"dodge_chance_pct"		"20"
-		}
-	}
-	//=================================================================================================================
 	// Faceless Void: Time Walk
 	//=================================================================================================================
 	"faceless_void_time_walk"
@@ -78,12 +40,14 @@
 			}
 			"AbilityCooldown"
 			{
-				"value"										"12 10 8 6"
+				"value"											"12 10 8 6"
+				"special_bonus_facet_faceless_void_time_keeper"	"=9.6 =8 =6.4 =4.8"
 				"special_bonus_unique_faceless_void_5"		"-1"
 			}
 			"backtrack_duration"
 			{
 				"value"										"2.0"
+				"special_bonus_facet_faceless_void_time_lord"	"=3"
 				"special_bonus_unique_faceless_void_7"		"+0.5"
 			}
 			"backtrack_time_walk_duration"
@@ -143,28 +107,6 @@
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
 	}
 	//=================================================================================================================
-	// Faceless Void: Backtrack
-	//=================================================================================================================
-	"faceless_void_backtrack"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityValues"
-		{
-			"dodge_chance_pct"
-			{
-				"value"							"20"
-				"affected_by_chance_increase"	"1"
-			}
-		}
-	}
-
-	//=================================================================================================================
 	// Faceless Void: Time Lock
 	//=================================================================================================================
 	"faceless_void_time_lock"
@@ -176,8 +118,9 @@
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES_STRONG"
 		"AbilitySound"					"Hero_FacelessVoid.TimeLockImpact"
+		"Innate"						"1"
+		"MaxLevel"						"1"
 		
-
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityModifierSupportBonus"		"25"
@@ -188,26 +131,28 @@
 		{
 			"duration"
 			{
-				"value"									"0.15"
-				"is_debuff_duration"					"1"
+				"value"													"0.2"
+				"special_bonus_facet_faceless_void_time_lord"			"=0.3"	
+				"is_debuff_duration"									"1"
 			}
 			"duration_creep"
 			{
-				"value"									"0.15"
-				"is_debuff_duration"					"1"
+				"value"													"0.3"
+				"special_bonus_facet_faceless_void_time_lord"			"=0.45"	
+				"is_debuff_duration"									"1"
 			}
 			"chance_pct"
 			{
-				"value"									"12 16 20 24"
-				"affected_by_chance_increase"			"1"
+				"value"													"24"
+				"affected_by_chance_increase"							"1"
 			}
 			"bonus_damage"			
 			{
-				"value"									"200 250 300 350"
-				"special_bonus_unique_faceless_void_3"	"+75%"
-				"CalculateSpellDamageTooltip" 			"1"
+				"value"													"200"
+				"special_bonus_facet_faceless_void_time_lord"			"=800"
+				"CalculateSpellDamageTooltip" 							"1"
 			}
-			"delay"										"0.4"
+			"delay"														"0.4"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -226,7 +171,6 @@
 		
 		
 		"AbilityCastPoint"				"0.1"
-		"AbilityCooldown"				"28 24 20 16"
 		"AbilityManaCost"				"90 120 150 180"
 				
 		
@@ -234,14 +178,20 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"AbilityCooldown"
+			{
+				"value"											"16"
+				"special_bonus_facet_faceless_void_time_keeper"	"=12.5"
+			}
 			"radius"				
 			{
-				"value"		"775"
-				"affected_by_aoe_increase"	"1"
+				"value"											"775"
+				"affected_by_aoe_increase"						"1"
 			}
 			"duration"
 			{
-				"value"									"8 9 10 11"
+				"value"											"8 9 10 11"
+				"special_bonus_facet_faceless_void_time_lord"	"=10 =12 =14 =16"	
 				"is_debuff_duration"					"1"
 			}
 			"slow"						
@@ -274,11 +224,12 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT"
-		"AbilityType"					"ABILITY_TYPE_ULTIMATE"
+		"AbilityType"					"ABILITY_TYPE_BASIC"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
 		
-		"LevelsBetweenUpgrades"			"6"
+		"MaxLevel"						"3"
+		
 		"FightRecapLevel"				"2"
 		"AbilitySound"					"Hero_FacelessVoid.Chronosphere"
 		
@@ -286,12 +237,8 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"500"
 		"AbilityCastPoint"				"0.35 0.35 0.35"
-		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_4"
-
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"35 30 25"
-
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
+		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"150 225 300"
@@ -300,15 +247,21 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"AbilityCooldown"
+			{
+				"value"											"30 26 22 18"
+				"special_bonus_facet_faceless_void_time_keeper" "=24 =20.8 =17.6 =14.4"
+			}
 			"radius"
 			{
-				"value"		"300"
+				"value"		"200"
 				"affected_by_aoe_increase"	"0"
-				"special_bonus_unique_faceless_void_2" "+140"
+				"special_bonus_unique_faceless_void_2" "+100"
 			}
 			"duration"
 			{
-				"value"									"3.75 4.25 4.75"
+				"value"												"2.0"
+				"special_bonus_facet_faceless_void_time_lord"		"=3.0"
 				"is_debuff_duration"					"1"
 				"special_bonus_unique_faceless_void_ult_duration"	"+1.75"
 			}
@@ -362,6 +315,11 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"AbilityCooldown"
+			{
+				"value"											"90 80 70"
+				"special_bonus_facet_faceless_void_time_keeper" "=72 =65 =56"
+			}
 			"radius"				
 			{
 				"value"		"700"
@@ -370,8 +328,9 @@
 			}
 			"duration"
 			{
-				"value"			"5.5 6.25 7.0"
-				"is_debuff_duration"					"1"
+				"value"												"5.5 6.25 7.0"
+				"special_bonus_facet_faceless_void_time_lord"		"=8 =9 =10"
+				"is_debuff_duration"								"1"
 				"special_bonus_unique_faceless_void_ult_duration"	"+1.75"
 			}
 			"vision_radius"			

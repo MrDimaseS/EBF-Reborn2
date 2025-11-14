@@ -18,9 +18,22 @@
 
 		"AbilityValues"
 		{
-			"amp_pct"					"10"
-			"angle"						"110"
-			"release_threshold"			"35"
+			"damage_amp_pct"
+			{
+				"value"											"10"
+				"special_bonus_facet_bristleback_prick"			"+5"
+			}
+			"debuff_amp_pct"
+			{
+				"value"											"10"
+				"special_bonus_facet_bristleback_boogerman"		"+5"
+			}
+			"angle"
+			{
+				"value"											"110"
+				"special_bonus_facet_bristleback_mettlehead"	"=0"
+			}
+			"release_threshold"									"12"
 
 			"does_goo"
 			{
@@ -45,6 +58,7 @@
 		"BaseClass"						"ability_lua"
 		"ScriptFile"					"heroes/hero_bristleback/bristleback_viscous_nasal_goo"
 		"AbilityTextureName"			"bristleback_viscous_nasal_goo"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
@@ -65,6 +79,16 @@
 			{
 				"value"											"6.0"
 				"is_debuff_duration"							"1"
+			}
+			"base_damage"
+			{
+				"value"											"250"
+				"CalculateSpellDamageTooltip"					"1"
+			}
+			"damage_per_stack"
+			{
+				"value"											"50"
+				"CalculateSpellDamageTooltip"					"1"
 			}
 			"base_armor"
 			{
@@ -96,13 +120,10 @@
 			}
 			"radius"
 			{
-				"special_bonus_facet_bristleback_boogerman"		"650"
-				"RequiresFacet"									"bristleback_boogerman"
-				"special_bonus_unique_bristleback_5"			"+150"
+				"special_bonus_facet_bristleback_boogerman"		"700"
 				"affected_by_aoe_increase"						"1"
 			}
-			"incoming_attacks_required"							{"special_bonus_facet_bristleback_prick"		"5"}
-			"slip_chance"										{"special_bonus_facet_bristleback_prick"		"4 8 12 16"}
+			"slip_chance"										{"special_bonus_facet_bristleback_prick"		"16"}
 			"slip_base_duration"
 			{
 				"special_bonus_facet_bristleback_prick"			"0.4"
@@ -113,9 +134,8 @@
 				"special_bonus_facet_bristleback_prick"			"0.1 0.2 0.3 0.4"
 				"is_debuff_duration"							"1"
 			}
-			"outgoing_attacks_required"							{"special_bonus_facet_bristleback_mettlehead"	"5"}
-			"base_attack_damage_reduction"						{"special_bonus_facet_bristleback_mettlehead"	"2 4 6 8"}
-			"stack_attack_damage_reduction"						{"special_bonus_facet_bristleback_mettlehead"	"1 2 3 4"}
+			"base_attack_damage_reduction"						{"special_bonus_facet_bristleback_mettlehead"	"8"}
+			"stack_attack_damage_reduction"						{"special_bonus_facet_bristleback_mettlehead"	"3 4 5 6"}
 
 			"stack_limit"										""
 		}
@@ -153,37 +173,19 @@
 			"quill_base_damage"
 			{
 				"value"											"250 500 750 1000"
-				"special_bonus_facet_bristleback_prick"			"+200%"
+				"special_bonus_facet_bristleback_prick"			"=750 =1500 =2250 =3000"
 				"special_bonus_unique_bristleback_2"			"+50%"
 				"CalculateSpellDamageTooltip" 					"1"
 			}
 			"projectile_speed"									"2400"
 
-			"bonus_physical_damage_per_stack"
+			"bonus_goo_power"									{"special_bonus_facet_bristleback_boogerman"	"20 30 40 50"}
+			"bonus_goo_power_duration"
 			{
-				"special_bonus_facet_bristleback_boogerman"		"20 40 60 80"
-				"CalculateSpellDamageTooltip"					"1"
-			}
-			"bonus_physical_damage_duration"
-			{
-				"special_bonus_facet_bristleback_boogerman"		"14"
+				"special_bonus_facet_bristleback_boogerman"		"3"
 				"is_debuff_duration"							"1"
 			}
-			"bonus_physical_damage_self_multiplier"
-			{
-				"special_bonus_facet_bristleback_boogerman"		"2"
-			}
-
-			"bonus_attack_damage_per_stack"
-			{
-				"special_bonus_facet_bristleback_mettlehead"	"100 200 300 400"
-				"CalculateAttackDamageTooltip"					"1"
-			}
-			"bonus_attack_damage_duration"
-			{
-				"special_bonus_facet_bristleback_mettlehead"	"14"
-				"is_debuff_duration"							"1"
-			}
+			"strike_cooldown_reduction"							{"special_bonus_facet_bristleback_mettlehead"	"0.1"}
 
 			"quill_stack_damage"								""
 			"quill_stack_duration"								""
@@ -225,15 +227,9 @@
 			{
 				"special_bonus_facet_bristleback_boogerman"		"1200"
 			}
-			"hairball_radius"
-			{
-				"special_bonus_facet_bristleback_boogerman"		"700"
-				"RequiresFacet"									"bristleback_boogerman"
-				"affected_by_aoe_increase"						"1"
-			}
 			"hairball_quills"
 			{
-				"special_bonus_facet_bristleback_boogerman"		"0 1 2 3"
+				"special_bonus_facet_bristleback_boogerman"		"1 1 2 2"
 			}
 			"hairball_goos"
 			{
@@ -347,14 +343,14 @@
 				"is_buff_duration"								"1"
 			}
 
-			"goo_damage_per_stack"
+			"debuff_amp_per_stack"
 			{
-				"special_bonus_facet_bristleback_boogerman"		"40 60 80"
+				"special_bonus_facet_bristleback_boogerman"		"2 3 4"
 				"CalculateSpellDamageTooltip"					"1"
 			}
-			"debuff_amp" // needs to be named this for timeless_relic modifier
+			"cast_speed" // needs to be named this for timeless_relic modifier
 			{
-				"special_bonus_facet_bristleback_boogerman"		"15 30 45"
+				"special_bonus_facet_bristleback_boogerman"		"20 30 40"
 			}
 
 			"spell_amp_per_stack"
@@ -363,7 +359,7 @@
 			}
 			"active_spell_lifesteal"
 			{
-				"special_bonus_facet_bristleback_prick"			"8 16 24"
+				"special_bonus_facet_bristleback_prick"			"12 16 20"
 			}
 
 			"attack_speed_per_stack"

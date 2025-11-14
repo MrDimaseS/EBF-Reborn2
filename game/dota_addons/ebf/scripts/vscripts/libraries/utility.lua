@@ -208,6 +208,10 @@ function CDOTA_BaseNPC:IsChampion()
 	return self:HasModifier("modifier_enemy_champion_passive")
 end
 
+function CDOTA_BaseNPC:GetLastMovePosition()
+	return self._lastMoveOrderPosition or self:GetAbsOrigin()
+end
+
 function CDOTA_BaseNPC:PerformGenericAttack(target, immediate, tAttackData )
 	if not IsEntitySafe( self ) then return end
 	if not IsEntitySafe( target ) then return end
@@ -1768,6 +1772,8 @@ function CDOTA_BaseNPC:AddNewModifier(modifierCaster, modifierAbility, modifierN
 	kv.original_duration = duration
 	kv.duration = duration
 	
+	local params = {caster = modifierCaster, target = self, ability = modifierAbility}
+	
 	if not IsEntitySafe(modifierCaster) then goto final end
 	if duration == -1 or kv.ignoreStatusResist then goto final end
 	if self:IsSameTeam( modifierCaster ) then goto final end
@@ -1776,15 +1782,15 @@ function CDOTA_BaseNPC:AddNewModifier(modifierCaster, modifierAbility, modifierN
 	else
 		local statusResistance = 1
 		for _, modifier in ipairs( self:FindAllModifiers() ) do
-			if modifier.GetModifierStatusResistanceStacking and modifier:GetModifierStatusResistanceStacking() then
-				statusResistance = statusResistance * (1-modifier:GetModifierStatusResistanceStacking() / 100)
+			if modifier.GetModifierStatusResistanceStacking and modifier:GetModifierStatusResistanceStacking( params ) then
+				statusResistance = statusResistance * (1-modifier:GetModifierStatusResistanceStacking( params ) / 100)
 			end
 		end
 		kv.duration = duration * statusResistance
 	end
 	for _, modifier in ipairs( modifierCaster:FindAllModifiers() ) do
 		if modifier.GetModifierMaxDebuffDuration then
-			statusAmp = statusAmp + (modifier:GetModifierMaxDebuffDuration() or 0) / 100
+			statusAmp = statusAmp + (modifier:GetModifierMaxDebuffDuration( params ) or 0) / 100
 		end
 	end
 	kv.duration = kv.duration * (1+statusAmp)

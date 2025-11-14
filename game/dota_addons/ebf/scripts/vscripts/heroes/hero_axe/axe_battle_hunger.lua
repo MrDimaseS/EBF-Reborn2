@@ -82,6 +82,7 @@ function modifier_axe_battle_hunger_debuff:DeclareFunctions()
 end
 
 function modifier_axe_battle_hunger_debuff:OnTakeDamage(params)
+	if self.lifesteal_base <= 0 then return end
 	if params.attacker == self:GetCaster() then
 		local lifesteal = params.damage * ( self.lifesteal_base + self.lifesteal_stack * self:GetStackCount() ) / 100
 		
@@ -100,6 +101,7 @@ function modifier_axe_battle_hunger_debuff:OnTakeDamage(params)
 end
 
 function modifier_axe_battle_hunger_debuff:GetModifierPreAttack_Target_CriticalStrike( params )
+	if self.crit_base <= 0 then return end
 	if params.attacker == self:GetCaster() and self:RollPRNG( self.crit_chance ) then
 		return self.crit_base + self.crit_chance * self:GetStackCount()
 	end

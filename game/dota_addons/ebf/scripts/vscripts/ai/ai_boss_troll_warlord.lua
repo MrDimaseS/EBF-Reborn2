@@ -34,9 +34,6 @@ function Spawn( entityKeyValues )
 end
 
 function AIThink(thisEntity)
-	if true then
-		return
-	end
 	if thisEntity:GetTeamNumber() ~= DOTA_TEAM_GOODGUYS and not thisEntity:IsChanneling() and not thisEntity:GetCurrentActiveAbility() then
 		local attackTarget = thisEntity:GetAggroTarget()
 		if attackTarget and thisEntity.hurl:IsFullyCastable() and CalculateDistance( attackTarget, thisEntity ) < thisEntity.hurl:GetSpecialValueFor("axe_range") and RollPercentage( 35 ) then

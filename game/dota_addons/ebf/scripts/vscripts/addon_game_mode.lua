@@ -485,6 +485,9 @@ function CHoldoutGameMode:FilterOrders( filterTable )
 			return false
 		end
 	end
+	if orderType == DOTA_UNIT_ORDER_MOVE_TO_POSITION then
+		unit._lastMoveOrderPosition = Vector( filterTable.position_x, filterTable.position_y, filterTable.position_z )
+	end
 	if orderType == DOTA_UNIT_ORDER_CAST_POSITION
 	or orderType == DOTA_UNIT_ORDER_CAST_TARGET
 	or orderType == DOTA_UNIT_ORDER_CAST_TARGET_TREE

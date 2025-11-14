@@ -17,10 +17,12 @@ function modifier_bristleback_prickly_passive:OnCreated()
     self:OnRefresh()
 end
 function modifier_bristleback_prickly_passive:OnRefresh()
-    self.amp_pct = self:GetSpecialValueFor("amp_pct")
+    self.damage_amp_pct = self:GetSpecialValueFor("damage_amp_pct")
+    self.debuff_amp_pct = self:GetSpecialValueFor("debuff_amp_pct")
     self.rear_angle = self:GetSpecialValueFor("angle")
 
     self.release_threshold = self:GetSpecialValueFor("release_threshold") / 100
+	
     self.does_quills = self:GetSpecialValueFor("does_quills") ~= 0
     self.does_goo = self:GetSpecialValueFor("does_goo") ~= 0
     self.does_warpath = self:GetSpecialValueFor("does_warpath") ~= 0
@@ -42,17 +44,27 @@ function modifier_bristleback_prickly_passive:DeclareFunctions()
     }
 end
 function modifier_bristleback_prickly_passive:GetModifierTotalDamageOutgoing_Percentage(params)
-    if self:GetParent() ~= params.attacker
-    or params.attacker:PassivesDisabled()
-    then return end
+    if self:GetParent() ~= params.attacker or params.attacker:PassivesDisabled() then return end
 
     local angle = params.attacker:GetAngleDifference(params.target)
-    if 180 - angle > self.rear_angle then
+    if self.rear_angle == 0 or 180 - angle > self.damage_amp_pct then
         return self.amp_pct
     else
         return 0
     end
 end
+function modifier_bristleback_prickly_passive:GetModifierMaxDebuffDuration(params)
+    if self:GetParent() ~= params.caster or params.caster:PassivesDisabled() then return end
+
+    local angle = params.caster:GetAngleDifference(params.target)
+    if self.rear_angle == 0 or 180 - angle > self.rear_angle then
+        return self.debuff_amp_pct
+    else
+        return 0
+    end
+end
+
+
 function modifier_bristleback_prickly_passive:OnTakeDamage(params)
     if self:GetParent() ~= params.unit
     or params.unit:PassivesDisabled()
@@ -64,25 +76,21 @@ function modifier_bristleback_prickly_passive:OnTakeDamage(params)
     self.damage_taken = (self.damage_taken or 0) + params.damage
     local damage_required = params.unit:GetHealth() * self.release_threshold
 
-    if damage_required == 0
-    or params.unit:GetHealth() == 0
-    or params.unit:GetHealth() < params.damage
-    then return end
+    if self.damage_taken < damage_required or params.unit:GetHealth() < params.damage then return end
+	
+	if self.ability:IsTrained() then
+		if self.does_goo then
+			params.unit:StartGesture(ACT_DOTA_CAST_ABILITY_1)
+			self.ability:DoGoo( params.attacker )
+		elseif self.does_quills then
+			self.ability:DoQuill({
+				position = params.unit:GetAbsOrigin(),
+				is_proc = true,
+			})
+		elseif self.does_warpath then
+			self.ability:AddStack()
+		end
+	end
 
-    while damage_required < self.damage_taken do
-        if self.ability:IsTrained() then
-            if self.does_goo then
-                self.ability:DoGoo(params.unit:GetOrigin())
-            elseif self.does_quills then
-                self.ability:DoQuill({
-                    position = params.unit:GetAbsOrigin(),
-                    is_proc = true,
-                })
-            elseif self.does_warpath then
-                self.ability:AddStack()
-            end
-        end
-
-        self.damage_taken = self.damage_taken - damage_required
-    end
+	self.damage_taken = self.damage_taken - damage_required
 end

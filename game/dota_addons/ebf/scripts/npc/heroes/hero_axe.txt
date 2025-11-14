@@ -10,7 +10,7 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI"
 		
 		"Innate"						"1"
-		"DependentOnAbility"			"axe_culling_blade"
+		"MaxLevel"						"1"
 
 		"AbilityValues"
 		{
@@ -62,23 +62,23 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI"
 		
 		"Innate"						"1"
-		"DependentOnAbility"			"axe_culling_blade"
+		"MaxLevel"						"1"
 
 		"AbilityValues"
 		{
 			"damage_increase_stack"
 			{
-				"value"									"1.0"
+				"value"									"1.5"
 				"special_bonus_unique_axe_greater_r"	"+0.5"
 			}
 			"stacks_reduce_damage_taken"				{"special_bonus_facet_axe_jofurr"		"1"}
-			"attack_speed_stack"						{"special_bonus_facet_axe_berserker"	"8 10 12 14"}
-			"duration_bonus_stack"						{"special_bonus_facet_axe_skald"		"0.75 1.0 1.25 1.5"}
-			"heal_increase_stack"						{"special_bonus_facet_axe_skald"		"0.75 1.0 1.25 1.5"}
+			"attack_speed_stack"						{"special_bonus_facet_axe_berserker"	"2"}
+			"duration_bonus_stack"						{"special_bonus_facet_axe_skald"		"1.5"}
+			"heal_increase_stack"						{"special_bonus_facet_axe_skald"		"1.5"}
 			
 			"stack_duration"
 			{
-				"value"									"3.5 5 6.5 8"
+				"value"									"8"
 				"is_buff_duration"						"1"
 			}
 			"internal_cooldown"							"0.25"
@@ -235,8 +235,8 @@
 			}
 			"crit_base"								{"special_bonus_facet_axe_berserker"	"140"}
 			"crit_stack"							{"special_bonus_facet_axe_berserker"	"5"}
-			"armor_base"							{"special_bonus_facet_axe_skald"		"-2"}
-			"armor_stack"							{"special_bonus_facet_axe_skald"		"-0.5"}
+			"armor_base"							{"special_bonus_facet_axe_skald"		"-4"}
+			"armor_stack"							{"special_bonus_facet_axe_skald"		"-1"}
 		}
 	}
 	
@@ -270,7 +270,8 @@
 			}
 			"radius"					
 			{
-				"value"								"400"
+				"value"								"275"
+				"special_bonus_facet_axe_jofurr"	"=400"
 				"affected_by_aoe_increase"			"1"
 			}
 			"trigger_attacks"						"21 18 15 12"
@@ -373,10 +374,10 @@
 			}
 			"immunity_duration"						{"special_bonus_facet_axe_jofurr"		"5"}
 			"debuff_immune"							{"special_bonus_facet_axe_jofurr"		"1"}
+			"refresh_rage"							{"special_bonus_facet_axe_jofurr"		"40"}
 			"magic_resistance"						{"special_bonus_facet_axe_jofurr"		"50"}
 			"always_grant_allies"					{"special_bonus_facet_axe_skald"		"1"}
 			"charge_speed"							"1200"
-			"refresh_rage"							"40"
 		}
 	}
 }

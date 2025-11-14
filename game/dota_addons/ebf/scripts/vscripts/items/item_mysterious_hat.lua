@@ -43,7 +43,10 @@ end
 function modifier_item_mysterious_hat_passive:OnAbilityExecuted(params)
 	if params.unit ~= self:GetParent() then return end
 	if params.ability:GetCooldown(-1) < self.min_cd then return end
+	if params.ability._processingFairyTrinket then return end
+	params.ability._processingFairyTrinket = true
 	params.unit:AddNewModifier( params.unit, self:GetAbility(), "modifier_item_mysterious_hat_fae_escalation", {duration = self.escalating_duration} )
+	Timers:CreateTimer( function() params.ability._processingFairyTrinket = false end )
 end
 
 function modifier_item_mysterious_hat_passive:GetModifierAttackRangeBonus(params)

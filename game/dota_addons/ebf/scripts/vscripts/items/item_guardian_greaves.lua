@@ -14,6 +14,13 @@ function item_guardian_greaves:OnSpellStart()
 	for _, unit in ipairs( caster:FindFriendlyUnitsInRadius( caster:GetAbsOrigin(), radius ) ) do
 		unit:HealEvent( heal, self, caster )
 		unit:GiveMana( mana )
+
+		if self:GetSpecialValueFor("aoe_dispel") == 1 then
+			unit:Dispel( unit, false )
+		end
+		if self:GetSpecialValueFor("aoe_magic_immunity") == 1 then
+			unit:AddNewModifier( caster, self, "modifier_black_king_bar_immune", {duration = self:GetSpecialValueFor("duration") / 2} )
+		end
 		
 		ParticleManager:FireParticle( "particles/items2_fx/mekanism_recipient.vpcf", PATTACH_ABSORIGIN_FOLLOW, caster )
 		ParticleManager:FireParticle( "particles/items_fx/arcane_boots_recipient.vpcf", PATTACH_POINT_FOLLOW, caster )

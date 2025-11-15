@@ -873,7 +873,7 @@
 		
 		"AbilitySharedCooldown"			"lotus_orb"
 		"AbilityCastRange"				"900"
-		"AbilityManaCost"				"175"
+
 
 
 		// Item Info
@@ -888,7 +888,7 @@
 		
 		"MaxUpgradeLevel"					"5"
 		"ItemBaseLevel"						"1"
-		"AbilityManaCost"				"100"
+		"AbilityManaCost"				"100 100 200 200 300"
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -1607,11 +1607,19 @@
 			"bonus_movement_speed"					"10 15 20 25 30"
 			"images_count"							"2"
 			"illusion_duration"						"20"
-			"images_do_damage_percent_melee"		"20"
+			"images_do_damage_percent_melee"
+			{
+				"value"								"24"
+				"CalculateAttackDamageTooltip"		"1"
+			}
 			"tooltip_damage_outgoing_melee"			"40"
 			"images_take_damage_percent"			"-40"
 			"tooltip_damage_incoming_total_pct"		"60"
-			"images_do_damage_percent_ranged"		"-25"
+			"images_do_damage_percent_ranged"
+			{
+				"value"								"15"
+				"CalculateAttackDamageTooltip"		"1"
+			}
 			"tooltip_damage_outgoing_ranged"		"25"
 			"invuln_duration"						"0.1"
 			"vision_radius"							"1000"
@@ -2523,8 +2531,9 @@
 				"value"							"120 210 368 643 1125"
 				"CalculateAttributeTooltip"		"1"
 			}
+			"aura_mana_regen_bonus"				"4 12 18 24 30"
 			"aura_armor_bonus"					"8 13 18 23 28"
-			"aura_bonus_threshold"				"25"
+			"aura_bonus_threshold"				"50"
 			"replenish_health"
 			{
 				"value"							"7000 14000 21000 28000 35000"
@@ -2540,6 +2549,8 @@
 			
 			"magic_immunity"					"0 0 0 1 1"
 			"magic_resist"						"0 0 0 50 80"
+			"aoe_magic_immunity"				"0 0 0 0 1"
+			"aoe_dispel"						"0 0 0 1 1"
 			"duration"							"6"
 		}
 	}
@@ -3868,7 +3879,11 @@
 		{
 			"attack_damage_aura"					"12 18 24 30"
 			"illusion_duration"						"30"
-			"outgoing_damage"						"50"
+			"outgoing_damage"
+			{
+				"value"								"30"
+				"CalculateAttackDamageTooltip"		"1"
+			}
 			"outgoing_damage_tooltip"				"50"
 			"incoming_damage"						"-60"
 			"tooltip_incoming_damage_total_pct"		"40"

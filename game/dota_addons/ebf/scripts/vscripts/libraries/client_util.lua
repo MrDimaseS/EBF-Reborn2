@@ -399,3 +399,7 @@ function C_DOTA_BaseNPC:GetHeroPowerAmplification(  )
 		return 1 + heroPower * (self:GetLevel() - 1)
 	end
 end
+
+function C_DOTA_BaseNPC:IsChampion()
+	return self:HasModifier("modifier_enemy_champion_passive")
+end

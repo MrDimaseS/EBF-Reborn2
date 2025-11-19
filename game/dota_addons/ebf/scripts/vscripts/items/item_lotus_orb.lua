@@ -40,6 +40,7 @@ end
 function modifier_ebfr_lotus_orb_active:OnAbilityExecuted( params )
 	if params.unit == self:GetCaster() and params.target == self:GetParent() then
 		if params.ability:GetName() == "item_ultimate_scepter" then return end
+		if params.ability == self:GetAbility() then return end
 		
 		local recast = self:GetSpecialValueFor("recast") or 1
 		

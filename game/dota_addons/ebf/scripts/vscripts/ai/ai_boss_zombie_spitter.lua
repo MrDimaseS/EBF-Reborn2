@@ -14,7 +14,7 @@ function Spawn( entityKeyValues )
 		end
 	end)
 	
-	thisEntity.passive = thisEntity:FindAbilityByName("boss_zombie_acid_interior")
+	thisEntity.passive = thisEntity:FindAbilityByName("boss_zombie_acid_attack")
 	thisEntity.spit = thisEntity:FindAbilityByName("boss_zombie_acid_spit")
 	Timers:CreateTimer(0.1, function()
 		thisEntity.passive:SetLevel(GameRules.gameDifficulty)

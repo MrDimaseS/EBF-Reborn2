@@ -131,18 +131,17 @@ end
 
 function modifier_void_spirit_dissimilate_oow:OnOrder( params )
 	if params.unit == self:GetParent() then
-		if params.new_pos ~= Vector(0, 0, 0) or params.target then
+		if params.order_type == DOTA_UNIT_ORDER_STOP or params.order_type == DOTA_UNIT_ORDER_HOLD_POSITION then
+			self:Destroy()
+		elseif params.new_pos ~= Vector(0, 0, 0) or params.target then
 			local ability = self:GetAbility()
 			local portals = ability.portals
-			local position = params.new_pos
-			if position == Vector(0, 0, 0) then
-				position = params.target:GetAbsOrigin()
-			end
+			local position = params.unit:GetLastMovePosition()
 			local nearestPortal
 			local nearestDistance = 99999
 			for fx, portalData in pairs( portals ) do
-				ParticleManager:SetParticleControl( fx, 2, Vector( (portalData.active and 1) or 0, 0, 0 ) )
 				portalData.active = false
+				ParticleManager:SetParticleControl( fx, 2, Vector( 0, 0, 0 ) )
 				if CalculateDistance( portalData.position, position ) < nearestDistance then
 					nearestPortal = fx
 					nearestDistance = CalculateDistance( portalData.position, position )
@@ -150,8 +149,6 @@ function modifier_void_spirit_dissimilate_oow:OnOrder( params )
 			end
 			portals[nearestPortal].active = true
 			ParticleManager:SetParticleControl( nearestPortal, 2, Vector( 1, 0, 0 ) )
-		elseif params.order_type == DOTA_UNIT_ORDER_STOP or params.order_type == DOTA_UNIT_ORDER_HOLD_POSITION then
-			self:Destroy()
 		end
 	end
 end

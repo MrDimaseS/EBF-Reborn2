@@ -36,7 +36,7 @@ end
 function AIThink(thisEntity)
 	if thisEntity:GetTeamNumber() ~= DOTA_TEAM_GOODGUYS and not thisEntity:IsChanneling() and not thisEntity:GetCurrentActiveAbility() then
 		local attackTarget = thisEntity:GetAggroTarget()
-		if thisEntity.hurl:IsFullyCastable() and CalculateDistance( attackTarget, thisEntity ) < self:GetSpecialValueFor("axe_range") and RollPercentage( 35 ) then
+		if attackTarget and thisEntity.hurl:IsFullyCastable() and CalculateDistance( attackTarget, thisEntity ) < thisEntity.hurl:GetSpecialValueFor("axe_range") and RollPercentage( 35 ) then
 			ExecuteOrderFromTable({
 						UnitIndex = thisEntity:entindex(),
 						OrderType = DOTA_UNIT_ORDER_CAST_NO_TARGET,

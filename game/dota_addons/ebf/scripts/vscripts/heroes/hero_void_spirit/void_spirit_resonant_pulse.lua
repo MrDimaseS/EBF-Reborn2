@@ -34,7 +34,7 @@ function void_spirit_resonant_pulse:OnSpellStart()
 	local currentRadius = radiusGrowth
 	
 	local buff = caster:AddNewModifier( caster, self, "modifier_void_spirit_resonant_pulse_shield", {duration = duration} )
-	self._buffProjectiles = self._buffProjectiles or {}
+	self._buffProjectiles = self._buffProjectiles or {}
 	Timers:CreateTimer( 0.1, function()
 		for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( caster:GetAbsOrigin(), currentRadius ) ) do
 			if not unitsHit[enemy:entindex()] then

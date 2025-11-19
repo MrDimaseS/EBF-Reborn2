@@ -479,7 +479,7 @@
 
 		// Status
 		//----------------------------------------------------------------
-		"StatusHealth"				"800"		// Base health.
+		"StatusHealth"				"600"		// Base health.
 		"StatusHealthRegen"			"4"		// Health regeneration rate.
 		"StatusMana"				"250"		// Base mana.
 		"StatusManaRegen"			"5"			// Mana regeneration rate. 
@@ -928,10 +928,10 @@
 		// General
 		//
 		"BaseClass"					"npc_dota_creature"	// Class of entity of link to.
-		"Model"						"models/heroes/undying/undying_minion.vmdl"	// Model.
+		"Model"						"models/heroes/viper/viper.vmdl"	// Model.
 		"SoundSet"					"Undying_Zombie"					// Name of sound set.
-		"GameSoundsFile"			"soundevents/game_sounds_heroes/game_sounds_undying.vsndevts"
-		"ModelScale"				"1.15"
+		"GameSoundsFile"			"soundevents/game_sounds_heroes/game_sounds_viper.vsndevts"
+		"ModelScale"				"0.85"
 		"Level"						"10"
 		"ConsideredHero"			"1"
 		"IsHero"					"1"
@@ -941,7 +941,7 @@
 		// Abilities
 		//----------------------------------------------------------------
 		
-		"Ability1"					"boss_zombie_acid_interior"			// Ability 1.
+		"Ability1"					"boss_zombie_acid_attack"			// Ability 1.
 		"Ability2"					"boss_zombie_acid_spit"			// Ability 2.
 		"Ability3"					""			// Ability 3.
 		"Ability4"					""			// Ability 4.
@@ -1008,10 +1008,15 @@
 		// Creature Data
 		//----------------------------------------------------------------------------------------------------------------------
 		"Creature"
-		{	
-			//Basic AI State
-			//-----------------------------------------------------------------
-			
+		{
+			"CanRespawn"				"0"
+
+			"AttachWearables"
+			{
+				"Wearable1"				{"ItemDef"			"19451"}
+				"Wearable2"				{"ItemDef"			"19452"}
+				"Wearable2"				{"ItemDef"			"19453"}
+			}
 		}
 	}
 

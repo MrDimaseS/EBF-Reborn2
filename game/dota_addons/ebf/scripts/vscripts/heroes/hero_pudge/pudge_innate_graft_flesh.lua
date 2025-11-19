@@ -32,7 +32,7 @@ function modifier_pudge_innate_graft_flesh_kills:OnDeath(params)
 	local caster = self:GetCaster()
 	if not caster:IsSameTeam( params.unit ) and ( params.attacker == caster or CalculateDistance( caster, params.unit ) <= self.flesh_heap_range ) then
 		local stacks = TernaryOperator( self.hero_stacks, params.unit:IsConsideredHero(), self.creep_stacks )
-		if params.unit:IsNeutralUnitType() or params.unit.Holdout_IsCore then
+		if params.unit:IsNeutralUnitType() or params.unit:IsChampion() then
 			self:SetStackCount( self:GetStackCount() + stacks )
 		else
 			caster:AddNewModifier( caster, self:GetAbility(), "modifier_pudge_innate_graft_flesh_temporary", {duration = self.temporary_duration})

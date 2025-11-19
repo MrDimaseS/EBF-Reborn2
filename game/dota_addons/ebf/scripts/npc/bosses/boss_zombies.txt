@@ -44,98 +44,37 @@
 			"bonus_movespeed"			"200 200 200 200 400 400 400"
 		}
 	}
-	//=================================================================================================================
-	// Creature: Acid Spray
-	//=================================================================================================================
-	"boss_zombie_acid_interior"
+	"boss_zombie_acid_attack"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass" 					"ability_datadriven"
-		"MaxLevel"						"4"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_AOE"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
-		"AbilityTextureName"			"alchemist_acid_spray"
-
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastPoint"				"0.2"
-		"AbilityCastRange"				"900"
-	
-		"precache"
-		{
-			"soundfile"					"soundevents/game_sounds/ability_acid_spray.vsndevts"
-		}
-
-		"Modifiers"
-		{
-			"creature_acid_spray_thinker"
-			{
-				"Aura"					"create_acid_spray_armor_reduction_aura"
-				"Aura_Radius"			"%radius"
-				"Aura_Teams"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
-				"Aura_Types"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
-				"Aura_Flags"			"DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
-				"Duration"				"%duration"
-
-				"OnCreated"
-				{
-					"AttachEffect"
-					{
-						"EffectName"		"particles/units/heroes/hero_alchemist/alchemist_acid_spray.vpcf"
-						"EffectAttachType"	"follow_origin"
-						"Target"			"TARGET"
-						"ControlPoints"
-						{
-							"00" "0 0 0"
-							"01" "%radius 1 1"
-							"15" "28 225 28"
-							"16" "1 0 0"
-						}
-					}
-				}
-			}
-
-			"create_acid_spray_armor_reduction_aura"
-			{
-				"IsDebuff"		"1"
-				"IsPurgable"	"0"
-				"EffectName"	"particles/units/heroes/hero_alchemist/alchemist_acid_spray_debuff.vpcf"
-				
-				"ThinkInterval"	"%tick_rate"
-				"OnIntervalThink"
-				{
-					"Damage"
-					{
-						"Type"		"DAMAGE_TYPE_MAGICAL"
-						"Damage"	"%damage"
-						"Target"	"TARGET"
-					}
-				}
-
-				"Properties"
-				{
-					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS" "%armor_reduction"
-				}
-			}
-		}
-
-		// Special	
+		"BaseClass"						"venomancer_poison_sting"
+		"AbilityTextureName"			"venomancer_poison_sting"
+		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
+		
+		
+		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"radius"				"250"
-			"duration"				"16.0"
+			"duration"															
+			{
+				"value"															"6 9 12 15"
+				"is_debuff_duration"											"1"
+			}
 			"damage"
 			{
-				"value"							"300 400 500 600"
-				"CalculateSpellDamageTooltip"	"1"
+				"value"															"120 240 360 480"
+				"CalculateSpellDamageTooltip"									"1"
 			}
-			"armor_reduction"		"-3 -5 -6 -7"
-			"tick_rate"				"1.0"
-			"damage_explode"		"750 1250 1750 2250"
-			"duration_attack"		"2.0"
+			"movement_speed"													"-8 -10 -12 -14"
+			"hp_regen_reduction"												"-15 -20 -25 -30"
 		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
 	"boss_zombie_acid_spit"
 	{
@@ -176,12 +115,12 @@
 		{
 			"min_damage"
 			{
-				"value"							"300 400 500 600"
+				"value"							"1000 1500 2000 2500"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"max_damage"
 			{
-				"value"							"1500 2000 2500 3000"
+				"value"							"15000 20000 25000 30000"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"max_duration"			"8"

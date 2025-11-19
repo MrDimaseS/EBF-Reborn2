@@ -25,7 +25,7 @@ function bossPowerScale:OnRefresh(keys)
 	self.bonusArmor = ( ( (1 + difficulty * 0.03) - 1 ) * 100 ) * logisticFunction + (self.baseArmor * 0.6) 
 	self.bonusDamagePct = ( ( (1 + playerNumber * 4) - 1 ) * 100 ) * logisticFunction
 	
-	self.abilityValueIncrease = math.max(0, (-0.65 -19.5*(1 - math.exp(0.03*roundNumber))) )
+	self.abilityValueIncrease = math.max( 1, (-0.65 - 19.5*(1 - math.exp(0.03*roundNumber))) )
 	if GetMapName() == "strategy_gamemode" then
 		self.abilityValueIncrease = self.abilityValueIncrease * 1.25
 	end

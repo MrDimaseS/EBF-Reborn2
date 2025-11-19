@@ -137,7 +137,7 @@ function modifier_axe_counter_helix_passive:OnAttackLanded( params )
 end
 
 function modifier_axe_counter_helix_passive:IsHidden()
-	return true
+	return false
 end
 
 function modifier_axe_counter_helix_passive:IsPurgable()
@@ -162,7 +162,7 @@ end
 modifier_axe_counter_helix_jofurr = class({})
 LinkLuaModifier( "modifier_axe_counter_helix_jofurr", "heroes/hero_axe/axe_counter_helix", LUA_MODIFIER_MOTION_NONE )
 
-function modifier_axe_counter_helix_skald:OnCreated()
+function modifier_axe_counter_helix_jofurr:OnCreated()
 	self.slow = -self:GetSpecialValueFor("slow")
 end
 

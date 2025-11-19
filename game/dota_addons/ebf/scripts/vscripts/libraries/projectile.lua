@@ -34,7 +34,6 @@ function Projectile:constructor(thinkBehavior, hitBehavior, data)
 end
 
 function Projectile:ProjectileThink()
-	self:thinkBehavior()
 	local position = self:GetPosition()
 	local radius = self:GetRadius()
 	local caster = self:GetCaster()
@@ -45,12 +44,14 @@ function Projectile:ProjectileThink()
 			if not status then
 				print(err)
 				self:Remove()
+				return nil
 			elseif not err then -- if no errors then xpcall doesn't return to err; so ret gets shoved back
 				self:Remove()
 				return nil
 			end
 		end
 	end
+	self:thinkBehavior()
 end
 
 function Projectile:GetOriginalCaster()

@@ -30,7 +30,7 @@ function morphling_morph_agi:OnToggle()
 	local caster = self:GetCaster()
 	
 	if self:GetToggleState() then
-		StopSoundOn("Hero_Morphling.MorphAgility", caster)
+		EmitSoundOn("Hero_Morphling.MorphAgility", caster)
 		caster:AddNewModifier(caster, self, "modifier_morphling_morph_agi_shift", {})
 		
 		if not self.linked_ability then self.linked_ability = self:GetCaster():FindAbilityByName("morphling_morph_str") end
@@ -38,7 +38,7 @@ function morphling_morph_agi:OnToggle()
 			self.linked_ability:ToggleAbility()
 		end
 	else
-		EmitSoundOn("Hero_Morphling.MorphAgility", caster)
+		StopSoundOn("Hero_Morphling.MorphAgility", caster)
 		caster:RemoveModifierByName("modifier_morphling_morph_agi_shift")
 	end
 end
@@ -107,7 +107,7 @@ function morphling_morph_str:OnToggle()
 	local caster = self:GetCaster()
 	
 	if self:GetToggleState() then
-		StopSoundOn("Hero_Morphling.MorphStrengh", caster)
+		EmitSoundOn("Hero_Morphling.MorphStrengh", caster)
 		caster:AddNewModifier(caster, self, "modifier_morphling_morph_str_shift", {})
 		
 		if self.linked_ability then self.linked_ability = self:GetCaster():FindAbilityByName("morphling_morph_agi") end
@@ -115,7 +115,7 @@ function morphling_morph_str:OnToggle()
 			self.linked_ability:ToggleAbility()
 		end
 	else
-		EmitSoundOn("Hero_Morphling.MorphStrengh", caster)
+		StopSoundOn("Hero_Morphling.MorphStrengh", caster)
 		caster:RemoveModifierByName("modifier_morphling_morph_str_shift")
 	end
 end

@@ -17,6 +17,8 @@ function arc_warden_flux:OnSpellStart()
     local target = self:GetCursorTarget()
     local position = self:GetCursorPosition()
 
+    if target:TriggerSpellAbsorb(self) then return end
+
     local duration =  self:GetSpecialValueFor("duration")
     local is_infinite = self:GetSpecialValueFor("is_infinite")
 

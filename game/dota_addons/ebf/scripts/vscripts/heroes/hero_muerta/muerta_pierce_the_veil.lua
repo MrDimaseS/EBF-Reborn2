@@ -43,7 +43,7 @@ end
 function modifier_muerta_shard_ebf:OnDeath(params)
     local caster = self:GetCaster()
     if not caster:IsSameTeam( params.unit ) and ( params.attacker == caster or CalculateDistance( caster, params.unit ) <= self.spell_amp_steal_range ) and caster:HasModifier("modifier_muerta_pierce_the_veil") then
-        if params.unit:IsConsideredHero() then
+        if params.unit:IsChampion() then
             self:IncrementStackCount()
         end
     end

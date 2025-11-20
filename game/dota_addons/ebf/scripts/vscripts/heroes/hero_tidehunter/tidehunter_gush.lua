@@ -14,6 +14,8 @@ function tidehunter_gush:OnSpellStart()
     local target = self:GetCursorTarget()
     local point = self:GetCursorPosition()
 
+    if target:TriggerSpellAbsorb(self) then return end
+
     if self:GetSpecialValueFor("aoe") == 0 then
         self:Spit(caster, target)
     else

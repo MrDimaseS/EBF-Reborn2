@@ -7,6 +7,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_mars/mars_dauntless"
+		"AbilityTextureName"			"mars_dauntless"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
 		"MaxLevel"						"1"
 		"Innate"						"1"
@@ -15,15 +18,26 @@
 		{
 			"health_regen_per_enemy"
 			{
-				"value"												"50"
-				"special_bonus_unique_mars_dauntless_hpregen"		"+10"
+				"value"																"40"
+				"special_bonus_unique_mars_dauntless_hpregen"						"+10"
 			}
-
+			"health_regen_per_creep"
+			{
+				"value"																"5"
+				"special_bonus_unique_mars_dauntless_hpregen"						"+10"
+			}
 			"radius"					
 			{
-				"value"		"900"
-				"affected_by_aoe_increase"	"1"
+				"value"																"700"
+				"affected_by_aoe_increase"											"1"
 			}
+			"lifesteal"					{"special_bonus_facet_mars_adamastos"		"10"}
+			"ally_benefit"				{"special_bonus_facet_mars_hoplochares"		"50"}
+			"armor_per_enemy"			{"special_bonus_facet_mars_hoplochares"		"4"}
+			"armor_per_creep"			{"special_bonus_facet_mars_hoplochares"		"0.5"}
+			"magic_resist_per_enemy"	{"special_bonus_facet_mars_hoplochares"		"8"}
+			"magic_resist_per_creep"	{"special_bonus_facet_mars_hoplochares"		"1"}
+			"amp_to_damage"				{"special_bonus_facet_mars_vrotochtonos"	"100"}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
@@ -47,7 +61,7 @@
 		"AbilitySound"					"Hero_Mars.Spear.Cast"
 		
 
-        "HasShardUpgrade"               "1"
+        "HasShardUpgrade"               "0"
 		
 		"precache"
 		{
@@ -73,6 +87,7 @@
 			"damage"
 			{
 				"value"						"1000 1750 2500 3250"
+				"special_bonus_facet_mars_vrotochtonos"	"=1500 =2625 =3750 =4875"
 				"special_bonus_unique_mars_spear_bonus_damage"	"+50%"
 				"CalculateSpellDamageTooltip"		"1"
 			}
@@ -99,42 +114,51 @@
 			"knockback_distance"			"75"
 			"units_hit"
 			{
-				"value"						"1"
-				"special_bonus_shard"		"+1"
+				"value"									"1"
+				"special_bonus_facet_mars_adamastos"	"=0"
+				"special_bonus_shard"					""
 			}
+			"pin_to_ground"										{"special_bonus_facet_mars_adamastos"	"1"}
+			
 			"shard_trail_duration"
 			{
-				"value"						"10.0"
-				"RequiresShard"				"1"
+				"special_bonus_facet_mars_hoplochares"			"10.0"
+				"special_bonus_shard"							""
+				"RequiresShard"									"0"
 			}
 			"shard_trail_radius"
 			{
-				"value"						"200"
-				"affected_by_aoe_increase"	"1"
-				"RequiresShard"				"1"
+				"special_bonus_facet_mars_hoplochares"			"200"
+				"affected_by_aoe_increase"						"1"
+				"special_bonus_shard"							""
+				"RequiresShard"									"0"
 			}
 			"shard_dps"
 			{
-				"value"								"400"
-				"RequiresShard"						"1"
-				"CalculateSpellDamageTooltip"		"1"
-			}
+				"special_bonus_facet_mars_hoplochares"			"400 600 800 1000"
+				"CalculateSpellDamageTooltip"					"1"
+				"special_bonus_shard"							""
+				"RequiresShard"									"0"
+			} 
 			"shard_move_slow_pct"
 			{
-				"value"							"20"
-				"RequiresShard"						"1"
+				"special_bonus_facet_mars_hoplochares"			"20 30 40 50"
+				"special_bonus_shard"							""
+				"RequiresShard"									"0"
 			}
 			"shard_debuff_linger_duration"
 			{
-				"value"							"2.0"
-				"RequiresShard"						"1"
-				"is_debuff_duration"			"1"
+				"special_bonus_facet_mars_hoplochares"			"2.0"
+				"special_bonus_shard"							""
+				"RequiresShard"									"0"
 			}
 			"shard_interval"
 			{
-				"value"							"0.5"
-				"RequiresShard"						"1"
+				"special_bonus_facet_mars_hoplochares"			"0.5"
+				"special_bonus_shard"							""
+				"RequiresShard"									"0"
 			}
+			
 			"spear_chance"
 			{
 				"value"											"0"
@@ -183,32 +207,40 @@
 				"affected_by_crit_increase"								"1"
 				"DamageTypeTooltip"										"DAMAGE_TYPE_PHYSICAL"
 			}
-			"angle"						"140"
+			"angle"														"140"
 			"radius"					
 			{
-				"value"					"250"
-				"special_bonus_unique_mars_rebuke_radius"		"+100"
+				"value"													"250"
+				"special_bonus_unique_mars_rebuke_radius"				"+100"
 			}
-			"knockback_duration"		"0.3"
-			"knockback_distance"		"150"
-			"knockback_slow"			"40"
+			"knockback_duration"										"0.3"
+			"knockback_distance"										"150"
+			"knockback_slow"
+			{
+				"value"													"40"
+				"special_bonus_facet_mars_hoplochares"					"=40 =60 =80 =100"
+			}
+			"knockback_attack_slow"										{"special_bonus_facet_mars_hoplochares"	"=80 =120 =160 =200"}
 			"knockback_slow_duration"
 			{
-				"value"	"2.5"
-				"special_bonus_unique_mars_rebuke_slow"		"+0"
-				"is_debuff_duration"						"1"
+				"value"													"2.5"
+				"special_bonus_facet_mars_hoplochares"					"=6"
+				"is_debuff_duration"									"1"
 			}
-			"activity_duration"			"2"
+			"activity_duration"											"2"
 			"bonus_damage_vs_heroes"
 			{
-				"value"								"200 350 600 750"
-				"CalculateAttackDamageTooltip"		"1"
+				"value"													"200 350 600 750"
+				"CalculateAttackDamageTooltip"							"1"
 			}
 			"AbilityCooldown"
 			{
-				"value"											"16 14 12 10"
-				"special_bonus_unique_mars_rebuke_cooldown"		"-2"
+				"value"													"16 14 12 10"
+				"special_bonus_unique_mars_rebuke_cooldown"				"-2"
 			}
+			"lifesteal"													{"special_bonus_facet_mars_adamastos"		"50"}
+			"bonus_crit_per_hero"										{"special_bonus_facet_mars_vrotochtonos"	"5"}
+			"bonus_crit_per_creep"										{"special_bonus_facet_mars_vrotochtonos"	"1"}
 		}
 	}
 
@@ -223,12 +255,14 @@
 		"ScriptFile"					"heroes/hero_mars/mars_bulwark"
 		"AbilityTextureName"			"mars_bulwark"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_TOGGLE"
-        "HasScepterUpgrade"				"1"
+        "HasScepterUpgrade"				"0"
 		
 		"precache"
 		{
 			"model"						"models/heroes/mars/mars_soldier.vmdl"
 			"precache"					"particles/units/heroes/hero_mars/mars_aghanim_shield_of_mars.vpcf"
+			"precache"					"particles/units/heroes/hero_mars/mars_shield_of_mars.vpcf"
+			"precache"					"particles/units/heroes/hero_mars/mars_shield_of_mars_small.vpcf"
 		}
 
 		// Special
@@ -238,13 +272,14 @@
 			"physical_damage_reduction"
 			{
 				"value"													"20 30 40 50"
-				"special_bonus_facet_mars_victory_feast"				"-60%"
+				"special_bonus_facet_mars_adamastos"					"=30 =40 =50 =60"
 				"special_bonus_unique_mars_bulwark_damage_reduction"	"+10"
 			}
 			"forward_angle"												"140"
 			"physical_damage_reduction_side"
 			{
 				"value"													"10 15 20 25"
+				"special_bonus_facet_mars_adamastos"					"=15 =20 =25 =30"
 				"special_bonus_facet_mars_victory_feast"				"-60%"
 				"special_bonus_unique_mars_bulwark_damage_reduction"	"+5"
 			}
@@ -261,36 +296,28 @@
 				"special_bonus_unique_mars_bulwark_speed"				"-30"
 			}
 			"redirect_close_range"										"350"
-
-			// Scepter here
-            "soldier_count"												{"special_bonus_scepter"	"4"}
-            "soldier_offset"											{"special_bonus_scepter"	"150"}
-            "scepter_movement_slow_pct"									{"special_bonus_scepter"	"30"}
-            "scepter_movement_slow_duration"							
-			{
-				"special_bonus_scepter"	"1.0"
-				"is_debuff_duration"	"1"
-			}
-            "scepter_bonus_damage"
-			{
-				"special_bonus_facet_mars_victory_feast"				"150 250 350 450"
-                "special_bonus_scepter"									"0"
-				"CalculateAttackDamageTooltip"							"1"
-            }
-			"damage_penalty"
-			{
-				"value"													"0"
-				"special_bonus_facet_mars_arena"						"+20"
-			}
-			"stationary_attack_delay"									{"special_bonus_scepter"	"0.0"}
-			"knockback_distance"										{"special_bonus_scepter"	"225"}
-			"soldier_attack_range"										{"special_bonus_scepter"	"275"}
 			"rebuke_chance"
 			{
-				"value"											"0"
-				"special_bonus_unique_mars_rebuke_on_bulwark"	"+4"
-				"affected_by_chance_increase"					"1"
+				"value"													"0"
+				"special_bonus_unique_mars_rebuke_on_bulwark"			"+4"
+				"affected_by_chance_increase"							"1"
 			}
+			"redirect_taunts"											{"special_bonus_facet_mars_adamastos"		"1"}
+			"ally_radius"												{"special_bonus_facet_mars_hoplochares"		"600"}
+			"damage_duration"											{"special_bonus_facet_mars_vrotochtonos"	"3"}
+			"front_damage_boost"										{"special_bonus_facet_mars_vrotochtonos"	"40"}
+			"side_damage_boost"											{"special_bonus_facet_mars_vrotochtonos"	"60"}
+			"back_damage_boost"											{"special_bonus_facet_mars_vrotochtonos"	"100"}
+			
+			
+			"soldier_count"												""
+            "soldier_offset"											""
+            "scepter_movement_slow_pct"									""
+            "scepter_movement_slow_duration"							""
+            "scepter_bonus_damage"										""
+			"stationary_attack_delay"									""
+			"knockback_distance"										""
+			"soldier_attack_range"										""
 		}
 	}
 	//=================================================================================================================
@@ -335,8 +362,8 @@
 		{
 			"AbilityCooldown"				
 			{
-				"value"										"60 55 50"
-				"special_bonus_unique_mars_arena_cooldown"	"-15"
+				"value"										"90"
+				"special_bonus_unique_mars_arena_cooldown"	"-20"
 			}
 			"duration"
 			{
@@ -345,62 +372,42 @@
 			}
 			"radius"			
 			{
-				"value"		"550"
-				"affected_by_aoe_increase"	"1"		
+				"value"										"550"
+				"affected_by_aoe_increase"					"1"		
 			}
-			"width"							"130"
+			"width"											"130"
 			"damage_amplification"
 			{
-				"value"						"15"
-				"special_bonus_facet_mars_victory_feast"	"+10"
+				"value"										"15"
+				"special_bonus_facet_mars_hoplochares"		"=16 =20 =24"
+				"CalculateSpellDamageTooltip"				"0"
 			}
 			"damage_reduction"
 			{
-				"value"						"-15"
-				"special_bonus_facet_mars_arena"	"-10"
+				"value"										"15"
+				"special_bonus_facet_mars_hoplochares"		"=16 =20 =24"
+				"CalculateSpellDamageTooltip"				"0"
 			}
 			"spear_damage"
 			{
-				"value"							"800 1600 2400"
-				"CalculateSpellDamageTooltip"	"1"
+				"value"										"800 1600 2400"
+				"CalculateSpellDamageTooltip"				"1"
 			}
-			"formation_time"	"0.5"
-			"spear_distance_from_wall"	"160"
-			"spear_attack_interval"	"1"
-			"warrior_count"		"18"
-			"first_warrior_angle"	"0.0"
-			"warrior_fade_min_dist"	"350.0"
-			"warrior_fade_max_dist"	"450.0"
-
-			"cast_around_self_and_leash"	"0"
-
-			"obscure_vision"
-			{
-				"value"		"0"
-				"special_bonus_facet_mars_arena"	"1"
-			}
-			"arena_kill_buff_duration"				
-			{
-				"value"				"0"
-				"special_bonus_facet_mars_victory_feast"			"+15"	
-				"is_buff_duration"	"1"			
-			}
-			"arena_kill_buff_damage_pct"
-			{
-				"value"				"0"
-				"special_bonus_facet_mars_victory_feast"			"+20"				
-			}
+			"formation_time"								"0.5"
+			"spear_distance_from_wall"						"160"
+			"spear_attack_interval"							"1"
+			"warrior_count"									"18"
+			"first_warrior_angle"							"0.0"
+			"warrior_fade_min_dist"							"350.0"
+			"warrior_fade_max_dist"							"450.0"
 			
-			"arena_kill_buff_heal_pct"
-			{
-				"value"				"0"
-				"special_bonus_facet_mars_victory_feast"			"+20"				
-			}
-			"allied_reduction_pct"
-			{
-				"value"				"0"
-				"special_bonus_facet_mars_victory_feast"			"+50"				
-			}	
+			"spear_replicate"								"1 2 3"
+			"rebuke_replicate"								"1"
+            "bulwark_soldier_count"							"4"
+            "bulwark_soldier_offset"						"150"
+			
+			"max_health_regen"								{"special_bonus_facet_mars_adamastos" "4"}
+			"attack_speed_increase"							{"special_bonus_facet_mars_vrotochtonos" "10 20 30"}
 		}
 	}
 	//=================================================================================================================

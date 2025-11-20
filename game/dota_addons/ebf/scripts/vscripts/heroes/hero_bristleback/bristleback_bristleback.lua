@@ -52,10 +52,10 @@ function bristleback_bristleback:OnProjectileHit(target, position)
 	
 	local dummy = self:CreateDummy( position, 1 )
 	for i = 1, hairball_quills do
-		quill:DoQuill( position )
+		Timers:CreateTimer( 0.1*(i-1), function() quill:DoQuill( position ) end )
 	end
 	for i = 1, hairball_goos do
-		goo:DoGoo( nil, dummy )
+		Timers:CreateTimer( 0.1*(i-1), function() goo:DoGoo( nil, dummy ) end )
 	end
 end
 

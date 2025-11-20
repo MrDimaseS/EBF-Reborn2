@@ -32,7 +32,7 @@ function bristleback_viscous_nasal_goo:DoGoo( target, source )
 	else
 		local enemies = caster:FindEnemyUnitsInRadius( origin:GetAbsOrigin(), radius)
         for _, enemy in ipairs(enemies) do
-            self:FireTrackingProjectile("particles/units/heroes/hero_bristleback/bristleback_viscous_nasal_goo.vpcf", enemy, goo_speed )
+            self:FireTrackingProjectile("particles/units/heroes/hero_bristleback/bristleback_viscous_nasal_goo.vpcf", enemy, goo_speed, {source = origin} )
         end
 	end
 	

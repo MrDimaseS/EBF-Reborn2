@@ -19,7 +19,12 @@ end
 function mars_spear:OnSpellStart()
 	local caster = self:GetCaster()
 	local direction = CalculateDirection( self:GetCursorPosition(), caster )
-	self:LaunchSpear( )
+	
+	local distance = self:GetTrueCastRange()
+	if self:GetSpecialValueFor("pin_to_ground") == 1 then
+		distance = CalculateDistance( self:GetCursorPosition(), caster )
+	end
+	self:LaunchSpear( caster, direction, false, distance )
 end
 
 function mars_spear:OnProjectileHitHandle( hTarget, vLocation, iProjectile )
@@ -28,9 +33,10 @@ function mars_spear:OnProjectileHitHandle( hTarget, vLocation, iProjectile )
 	if not hTarget then 
 		-- handle spear ending
 		local pinned = #projectileData.impaledUnits
+		local pinToGround = self:GetSpecialValueFor("pin_to_ground") == 1
 		for _, target in ipairs( projectileData.impaledUnits ) do
 			target:RemoveModifierByName("modifier_mars_spear_spear")
-			if pinned > 1 then
+			if pinned > 1 or pinToGround then
 				EmitSoundOn("Hero_Mars.Spear.Root", target)
 				target:RemoveModifierByName("modifier_mars_spear_spear")
 				target:AddNewModifier(caster, self, "modifier_mars_spear_stun", {Duration = self:GetSpecialValueFor("stun_duration")})
@@ -43,7 +49,8 @@ function mars_spear:OnProjectileHitHandle( hTarget, vLocation, iProjectile )
 		EmitSoundOn("Hero_Mars.Spear.Target", hTarget)
 
 		self:DealDamage(caster, hTarget, projectileData.damage)
-		if hTarget:IsConsideredHero() and projectileData.impale and #projectileData.impaledUnits < self:GetSpecialValueFor("units_hit") then
+		local unitsToHit = self:GetSpecialValueFor("units_hit")
+		if hTarget:IsConsideredHero() and projectileData.impale and (#projectileData.impaledUnits < unitsToHit or unitsToHit == 0) then
 			table.insert( projectileData.impaledUnits, hTarget )
 			hTarget:AddNewModifier(caster, self, "modifier_mars_spear_spear", {})
 		else
@@ -118,7 +125,7 @@ function mars_spear:LaunchSpear( origin, direction, secondary, maxDistance )
 	local knockback_distance = self:GetSpecialValueFor("knockback_distance")
 	local shard_trail_duration = self:GetSpecialValueFor("shard_trail_duration")
 	local shard_trail_radius = self:GetSpecialValueFor("shard_trail_radius")
-	local shard_trail_interval = (shard_trail_radius / speed) * 0.75
+	local shard_trail_interval = (shard_trail_radius / speed) * 0.5
 
 	local impale = self:GetAutoCastState()
 
@@ -136,7 +143,7 @@ function mars_spear:LaunchSpear( origin, direction, secondary, maxDistance )
 											   damage = damage,
 											   impale = impale,
 											   impaledUnits = {},
-											   shard = caster:HasShard(),
+											   shard = self:GetSpecialValueFor("shard_trail_duration") > 0,
 											   lastShardThinkTime = 0,
 											   lastShardThinkInterval = shard_trail_interval,
 											   trail_duration = shard_trail_duration}

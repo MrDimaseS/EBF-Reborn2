@@ -34,25 +34,7 @@ function modifier_legion_commander_outfight_them_innate:OnAttack( params )
 	self:SetDuration( self.duration, true )
 end
 
-function modifier_legion_commander_outfight_them_innate:GetModifierHPRegenAmplify_Percentage()
-	if self:GetStackCount() == 0 then
-		return self.heal_bonus_pct
-	end
-end
-
-function modifier_legion_commander_outfight_them_innate:GetModifierHealAmplify_PercentageTarget()
-	if self:GetStackCount() == 0 then
-		return self.heal_bonus_pct
-	end
-end
-
-function modifier_legion_commander_outfight_them_innate:GetModifierLifestealRegenAmplify_Percentage()
-	if self:GetStackCount() == 0 then
-		return self.heal_bonus_pct
-	end
-end
-
-function modifier_legion_commander_outfight_them_innate:GetModifierSpellLifestealRegenAmplify_Percentage()
+function modifier_legion_commander_outfight_them_innate:GetModifierPropertyRestorationAmplification()
 	if self:GetStackCount() == 0 then
 		return self.heal_bonus_pct
 	end

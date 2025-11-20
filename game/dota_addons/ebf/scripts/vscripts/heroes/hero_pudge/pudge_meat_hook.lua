@@ -45,6 +45,10 @@ function pudge_meat_hook:OnSpellStart()
 	dir.z = 0
 	local projectile_direction = dir:Normalized()
 	
+	
+	self.castIDs = self.castIDs or {}
+	self._latestCastID = DoUniqueString("pudge_hook")
+	self.castIDs[self._latestCastID ] = {cooldown_reset = false, projectiles = {}}
 	self:LaunchHook( projectile_direction )
 	
 	local bonusHooks = self:GetSpecialValueFor( "bonus_hooks" )
@@ -115,6 +119,8 @@ function pudge_meat_hook:LaunchHook( direction, bHitAllies )
 	data.cast_location = origin
 	data.hook_dummy = hookDummy
 	data.hitAllies = hitAllies
+	data.castID = self._latestCastID
+	table.insert( self.castIDs[data.castID].projectiles, id )
 	self.projectiles[id] = data
 
 	-- play effects
@@ -150,10 +156,17 @@ function pudge_meat_hook:OnProjectileHitHandle( target, location, handle )
 		data.is_tracking = true
 		self.projectiles[self:FireTrackingProjectile("", caster, self:GetSpecialValueFor( "hook_speed" ), {source = data.hook_dummy})] = data
 		data.hook_dummy.retracting = true
-		self.projectiles[handle] = nil	
+		self.projectiles[handle] = nil
 		-- set effects
 		self:SetEffects1( data )
-		self:SetCooldown( self:GetCooldownTimeRemaining() * self:GetSpecialValueFor("cooldown_reduction_pct_allied_hook") / 100 )
+		if self.castIDs and self.castIDs[data.castID] and not self.castIDs[data.castID].cooldown_reset then
+			self:SetCooldown( self:GetCooldownTimeRemaining() * self:GetSpecialValueFor("cooldown_reduction_pct_allied_hook") / 100 )
+			self.castIDs[data.castID].cooldown_reset = true
+			table.removeval( self.castIDs[data.castID].projectiles, handle )
+			if #self.castIDs[data.castID].projectiles == 0 then
+				self.castIDs[data.castID] = nil
+			end
+		end
 		return true
 	elseif target:HasModifier("modifier_pudge_meat_hook_movement") then 
 		return -- units can only be hit by a single hook simultaneously
@@ -199,8 +212,18 @@ function pudge_meat_hook:OnProjectileHitHandle( target, location, handle )
 				end
 			end
 		end
+		if self.castIDs and self.castIDs[data.castID] and not self.castIDs[data.castID].cooldown_reset then
+			self.castIDs[data.castID].cooldown_reset = true
+		end
 	else
-		self:SetCooldown( self:GetCooldownTimeRemaining() * self:GetSpecialValueFor("cooldown_reduction_pct_allied_hook") / 100 )
+		if self.castIDs and self.castIDs[data.castID] and not self.castIDs[data.castID].cooldown_reset then
+			self:SetCooldown( self:GetCooldownTimeRemaining() * self:GetSpecialValueFor("cooldown_reduction_pct_allied_hook") / 100 )
+			self.castIDs[data.castID].cooldown_reset = true
+			table.removeval( self.castIDs[data.castID].projectiles, handle )
+			if #self.castIDs[data.castID].projectiles == 0 then
+				self.castIDs[data.castID] = nil
+			end
+		end
 	end
 
 	-- add FOW
@@ -222,7 +245,14 @@ function pudge_meat_hook:OnProjectileHitHandle( target, location, handle )
 		self.projectiles[handle] = nil	
 		-- set effects
 		self:SetEffects1( data )
-		self:SetCooldown( self:GetCooldownTimeRemaining() * self:GetSpecialValueFor("cooldown_reduction_pct_allied_hook") / 100 )
+		if self.castIDs and self.castIDs[data.castID] and not self.castIDs[data.castID].cooldown_reset then
+			self:SetCooldown( self:GetCooldownTimeRemaining() * self:GetSpecialValueFor("cooldown_reduction_pct_allied_hook") / 100 )
+			self.castIDs[data.castID].cooldown_reset = true
+			table.removeval( self.castIDs[data.castID].projectiles, handle )
+			if #self.castIDs[data.castID].projectiles == 0 then
+				self.castIDs[data.castID] = nil
+			end
+		end
 		return true
 	end
 	return false

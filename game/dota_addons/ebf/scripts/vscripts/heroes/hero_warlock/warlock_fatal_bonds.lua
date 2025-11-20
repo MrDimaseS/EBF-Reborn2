@@ -58,7 +58,23 @@ function modifier_warlock_fatal_bonds_handler:OnRefresh()
 	self.attack_speed_bonus = self:GetSpecialValueFor("attack_speed_bonus")
 	if IsServer() then
 		self._unitsToRedirect = table.copy( self:GetAbility()._currentRedirectTableForCopy )
+		self._damageToShare = 0
+		self:StartIntervalThink( 1 )
 	end
+end
+
+function modifier_warlock_fatal_bonds_handler:OnIntervalThink()
+	local caster = self:GetCaster()
+	local ability = self:GetAbility()
+	local parent = self:GetParent()
+	for target, _ in pairs( self._unitsToRedirect ) do
+		if target ~= parent and not target:IsSameTeam( caster ) then
+			ability:DealDamage( caster, target, self._damageToShare, {damage_type = DAMAGE_TYPE_PURE, damage_flags = DOTA_DAMAGE_FLAG_REFLECTION + DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL} )
+			ParticleManager:FireRopeParticle("particles/units/heroes/hero_warlock/warlock_fatal_bonds_hit.vpcf", PATTACH_POINT_FOLLOW, parent, target )
+		end
+	end
+	EmitSoundOn( "Hero_Warlock.FatalBondsDamage", parent )
+	self._damageToShare = 0
 end
 
 function modifier_warlock_fatal_bonds_handler:OnDestroy()
@@ -78,13 +94,7 @@ function modifier_warlock_fatal_bonds_handler:OnTakeDamage( params )
 	local ability = self:GetAbility()
 	if params.inflictor == ability then return end
 	local caster = self:GetCaster()
-	EmitSoundOn( "Hero_Warlock.FatalBondsDamage", parent )
-	for target, _ in pairs( self._unitsToRedirect ) do
-		if target ~= parent and not target:IsSameTeam( caster ) then
-			ability:DealDamage( caster, target, params.original_damage * self.damage_share_percentage, {damage_type = params.damage_type, damage_flags = params.damage_flags + DOTA_DAMAGE_FLAG_REFLECTION + DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION } )
-			ParticleManager:FireRopeParticle("particles/units/heroes/hero_warlock/warlock_fatal_bonds_hit.vpcf", PATTACH_POINT_FOLLOW, parent, target )
-		end
-	end
+	self._damageToShare = self._damageToShare + params.damage * self.damage_share_percentage
 end
 
 function modifier_warlock_fatal_bonds_handler:OnAttackRecord(params)

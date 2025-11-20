@@ -56,7 +56,6 @@ function modifier_item_blood_gem_active:OnTakeDamage( params )
 	if params.damage <= 0 then return end
 	
 	local barrier = params.damage * TernaryOperator( self.spell_lifesteal, HasBit( params.damage_category, DOTA_DAMAGE_CATEGORY_SPELL ), self.lifesteal_percent )
-	print( params.damage, barrier )
 	self:GetAbility():AddFalseBarrier( barrier )
 end
 

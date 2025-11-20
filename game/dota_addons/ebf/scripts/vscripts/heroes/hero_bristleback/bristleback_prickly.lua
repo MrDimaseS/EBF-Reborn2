@@ -83,10 +83,7 @@ function modifier_bristleback_prickly_passive:OnTakeDamage(params)
 			params.unit:StartGesture(ACT_DOTA_CAST_ABILITY_1)
 			self.ability:DoGoo( params.attacker )
 		elseif self.does_quills then
-			self.ability:DoQuill({
-				position = params.unit:GetAbsOrigin(),
-				is_proc = true,
-			})
+			self.ability:DoQuill( params.attacker )
 		elseif self.does_warpath then
 			self.ability:AddStack()
 		end

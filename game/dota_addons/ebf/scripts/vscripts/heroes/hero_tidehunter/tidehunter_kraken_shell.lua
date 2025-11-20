@@ -80,6 +80,11 @@ function modifier_tidehunter_kraken_shell_effect:OnCreated()
 	self.damage_reduction = -self:GetSpecialValueFor("damage_reduction")
 	self.health_restore = self:GetSpecialValueFor("health_restore")
 	self.spell_amp_bonus_duration = self:GetSpecialValueFor("spell_amp_bonus_duration")
+	
+	self.should_ravage = self:GetSpecialValueFor("should_ravage") == 1
+	if self.should_ravage then
+		self._ravagedUnits = {} 
+	end
 end
 
 function modifier_tidehunter_kraken_shell_effect:OnIntervalThink()
@@ -97,6 +102,7 @@ end
 
 function modifier_tidehunter_kraken_shell_effect:GetModifierIncomingDamage_Percentage( params )
 	if self:GetParent():PassivesDisabled() and self:GetDuration() <= 0 then return end
+	if HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_REFLECTION ) then return end
 	if params.damage < 0 then return end
 	local ability = self:GetAbility()
 	local caster = self:GetCaster()
@@ -117,15 +123,14 @@ function modifier_tidehunter_kraken_shell_effect:GetModifierIncomingDamage_Perce
 		ability:SetCooldown()
 		ability:SetFrozenCooldown( true )
 	end
-	if self:GetSpecialValueFor("should_ravage") > 0 then
+	if self.should_ravage and not self._ravagedUnits[params.attacker] then
         local target = params.attacker
+		self._ravagedUnits[target] = true
 		self.ravage = caster:FindAbilityByName("tidehunter_ravage")
 		if self.ravage:GetLevel() > 0 then
-			local nfx = ParticleManager:CreateParticle("particles/units/heroes/hero_tidehunter/tidehunter_ravage_tentacle_model.vpcf", PATTACH_POINT, caster)
-			ParticleManager:SetParticleControl(nfx, 0, target:GetAbsOrigin())
-			ParticleManager:ReleaseParticleIndex(nfx)
-			
 			local position = target:GetAbsOrigin()
+			local nfx = ParticleManager:FireParticle("particles/units/heroes/hero_tidehunter/tidehunter_ravage_tentacle_model.vpcf", PATTACH_POINT, caster, {[0] = position})
+			
 			target:ApplyKnockBack(position, 0.5, 0.5, 0, 350, caster, ability)
 			ability:Stun(target, self.ravage:GetSpecialValueFor("kraken_shell_duration"))
 			if self:GetSpecialValueFor("autoattack") ~= 0 then

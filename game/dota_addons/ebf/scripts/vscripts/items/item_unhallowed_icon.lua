@@ -92,15 +92,7 @@ end
 
 function modifier_item_unhallowed_icon_aura:OnRefresh()
 	self.bloodbound_lifesteal = self:GetSpecialValueFor("bloodbound_lifesteal")
-	
-	self:GetParent()._attackLifestealModifiersList = self:GetParent()._attackLifestealModifiersList or {}
-	self:GetParent()._attackLifestealModifiersList[self] = true
-	
-	self:GetParent()._spellLifestealModifiersList = self:GetParent()._spellLifestealModifiersList or {}
-	self:GetParent()._spellLifestealModifiersList[self] = true
-	
-	self:GetParent()._onLifestealModifiersList = self:GetParent()._onLifestealModifiersList or {}
-	self:GetParent()._onLifestealModifiersList[self] = true
+	self.share_pct = self:GetSpecialValueFor("share_pct")
 	
 	if IsServer() then
 		self:OnIntervalThink()
@@ -115,30 +107,37 @@ end
 function modifier_item_unhallowed_icon_aura:DeclareFunctions(params)
 	local funcs = {
 		MODIFIER_EVENT_ON_HEAL_RECEIVED,
+		MODIFIER_EVENT_ON_TAKEDAMAGE
     }
     return funcs
 end
 
-function modifier_item_unhallowed_icon_aura:OnLifesteal( params )
+function modifier_item_unhallowed_icon_aura:OnTakeDamage( params )
 	local caster = self:GetCaster()
 	local parent = self:GetParent()
 	if self:GetStackCount() == 0 then return end
-	local lifestealFromBlood = params.excess + params.damage * (self.bloodbound_lifesteal / self:GetStackCount()) / 100
+	local lifestealFromBlood = params.damage * (self.bloodbound_lifesteal / self:GetStackCount()) / 100
+	
+	if params.damage_type == DAMAGE_TYPE_PURE then
+		if not params.unit:IsConsideredHero() then
+			lifestealFromBlood =  lifestealFromBlood * (100 - 40)/100
+		end
+	elseif params.damage_category == DOTA_DAMAGE_CATEGORY_SPELL then
+		if HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_NO_SPELL_LIFESTEAL ) or HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_HPLOSS ) or HasBit( params.damage_flags, DOTA_DAMAGE_FLAG_REFLECTION ) then return end
+		if not params.unit:IsConsideredHero() then
+			lifestealFromBlood =  lifestealFromBlood * (100 - 80)/100
+		end
+	elseif params.damage_category == DOTA_DAMAGE_CATEGORY_ATTACK then
+		if not params.unit:IsConsideredHero() then
+			lifestealFromBlood =  lifestealFromBlood * (100 - 40)/100
+		end
+	end
+	
 	for _, ally in ipairs( self:GetAbility()._bloodBoundAllies ) do
 		if ally ~= parent then
 			ally:HealEvent( lifestealFromBlood, ability, caster, {heal_type = DOTA_HEAL_TYPE_LIFESTEAL, heal_category = params.damage_category + 1} )
 		end
 	end
-end
-
-function modifier_item_unhallowed_icon_aura:GetModifierProperty_PhysicalLifesteal( params )
-	if self:GetStackCount() == 0 then return end
-	return self.bloodbound_lifesteal / self:GetStackCount()
-end
-
-function modifier_item_unhallowed_icon_aura:GetModifierProperty_MagicalLifesteal( params )
-	if self:GetStackCount() == 0 then return end
-	return self.bloodbound_lifesteal / self:GetStackCount()
 end
 
 function modifier_item_unhallowed_icon_aura:OnHealReceived( params )
@@ -147,7 +146,7 @@ function modifier_item_unhallowed_icon_aura:OnHealReceived( params )
 	if params.fail_type == 0 then return end -- no lifesteal
 	local parent = self:GetParent()
 	if params.unit ~= parent then return end
-	local overheal = (params.gain - parent:GetHealthDeficit())
+	local overheal = (params.gain - parent:GetHealthDeficit()) * self.share_pct
 	if overheal > 0 then
 		local ability = self:GetAbility()
 		local allies = 0
@@ -163,6 +162,7 @@ function modifier_item_unhallowed_icon_aura:OnHealReceived( params )
 							table.insert( orderedByHP, i, ally )
 						elseif i == #orderedByHP then
 							table.insert( orderedByHP, ally )
+							break
 						end
 					end
 				end

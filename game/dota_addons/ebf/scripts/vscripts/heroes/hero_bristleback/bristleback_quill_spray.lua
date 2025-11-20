@@ -9,29 +9,22 @@ end
 
 function bristleback_quill_spray:DoQuill( target )
 	local caster = self:GetCaster()
-	local radius = params.override_radius or self:GetSpecialValueFor("radius")
-	local damage = self:GetSpecialValueFor("quill_base_damage")
-	local bonus_goo_power_duration = self:GetSpecialValueFor("bonus_goo_power_duration")
+	local radius = self:GetSpecialValueFor("radius")
 
 	local position = caster:GetAbsOrigin()
 	
-	if target and target.GetAbsOrigin() then
+	if target and target.GetAbsOrigin then
 		local direction = CalculateDirection( caster, target )
 		local effect = ParticleManager:CreateParticle("particles/units/heroes/hero_bristleback/bristleback_quill_spray_conical.vpcf", PATTACH_ABSORIGIN, caster)
 		ParticleManager:SetParticleControl(effect, 0, caster:GetAbsOrigin() )
 		ParticleManager:SetParticleControlForward(effect, 0, direction)
 		ParticleManager:ReleaseParticleIndex(effect)
+		self:QuillEffect( target )
 	else
 		position = target or caster:GetAbsOrigin()
 		local enemies = caster:FindEnemyUnitsInRadius(position, radius)
 		for _, enemy in ipairs(enemies) do
-			self:DealDamage(caster, enemy, damage, { damage_type = DAMAGE_TYPE_PHYSICAL, damage_flags = TernaryOperator(DOTA_DAMAGE_FLAG_REFLECTION, params.is_proc, DOTA_DAMAGE_FLAG_NONE) })
-
-			if bonus_goo_power_duration ~= 0 then
-				local modifier = enemy:AddNewModifier(caster, self, "modifier_bristleback_quill_spray_boogerman", { duration = bonus_goo_power_duration })
-				modifier:AddIndependentStack()
-			end
-			EmitSoundOn("Hero_Bristleback.QuillSpray.Target", enemy)
+			self:QuillEffect( enemy )
 		end
 		
 		local effect = ParticleManager:CreateParticle("particles/units/heroes/hero_bristleback/bristleback_quill_spray.vpcf", PATTACH_WORLDORIGIN, nil)
@@ -39,6 +32,21 @@ function bristleback_quill_spray:DoQuill( target )
 		ParticleManager:ReleaseParticleIndex(effect)
 	end
 	EmitSoundOnLocationWithCaster(position, "Hero_Bristleback.QuillSpray.Cast", caster)
+end
+
+function bristleback_quill_spray:QuillEffect( target )
+	local caster = self:GetCaster()
+	
+	local damage = self:GetSpecialValueFor("quill_base_damage")
+	local bonus_goo_power_duration = self:GetSpecialValueFor("bonus_goo_power_duration")
+	self:DealDamage(caster, target, damage )
+
+	if bonus_goo_power_duration ~= 0 then
+		local modifier = target:AddNewModifier(caster, self, "modifier_bristleback_quill_spray_boogerman", { duration = bonus_goo_power_duration })
+		modifier:AddIndependentStack()
+	end
+	
+	EmitSoundOn("Hero_Bristleback.QuillSpray.Target", target)
 end
 
 modifier_bristleback_quill_spray_boogerman = class({})
@@ -83,7 +91,7 @@ function modifier_bristleback_quill_spray_autocast:OnCreated()
 end
 
 function modifier_bristleback_quill_spray_autocast:OnRefresh()
-	self.strike_cooldown_reduction = self:GetSpecialValueFor("strike_cooldown_reduction")
+	self.strike_cooldown_reduction = self:GetSpecialValueFor("strike_cooldown_reduction")/100
 end
 
 function modifier_bristleback_quill_spray_autocast:OnIntervalThink()
@@ -108,7 +116,7 @@ function modifier_bristleback_quill_spray_autocast:OnAttackLanded(params)
 	local ability = self:GetAbility()
 	if ability:IsFullyCastable() then return end
 
-	ability:ModifyCooldown( -self.strike_cooldown_reduction )
+	ability:ModifyCooldown( -ability:GetCooldownTimeRemaining() * self.strike_cooldown_reduction )
 end
 
 function modifier_bristleback_quill_spray_autocast:IsHidden()

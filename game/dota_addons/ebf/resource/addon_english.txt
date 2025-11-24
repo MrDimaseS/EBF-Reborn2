@@ -1707,6 +1707,12 @@
 		// Generic
 		"DOTA_Tooltip_modifier_neutrals_ancestors_rage"                                                     "Ancestor's Vengeance"
 		"DOTA_Tooltip_modifier_neutrals_ancestors_rage_Description"                                         "This neutral is imbued with ancestral vigor, taking %dMODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE%%% less damage and dealing %dMODIFIER_PROPERTY_TOTALDAMAGEOUTGOING_PERCENTAGE%%% more damage from all sources. Start a new round to remove this buff."
+		
+		"DOTA_TOOLTIP_modifier_keyword_debuff_burn"															"Burn"
+		"DOTA_TOOLTIP_modifier_keyword_debuff_burn_Description"												"Taking %dMODIFIER_PROPERTY_TOOLTIP% Magical base damage every 0.5 seconds (calculated before Hero Power and Spell Amplification."
+		
+		"DOTA_TOOLTIP_modifier_keyword_debuff_poison"														"Poison"
+		"DOTA_TOOLTIP_modifier_keyword_debuff_poison_Description"											"Taking %dMODIFIER_PROPERTY_TOOLTIP% Physical base damage every 3 seconds (calculated before Hero Power and Spell Amplification."
 
 		// HERO ABILITIES ======================================================================================================
 		// Abaddon
@@ -3055,7 +3061,47 @@
 		"DOTA_Tooltip_modifier_hoodwink_sharpshooter_ebf"                                                   "Sharpshooter - Windup"
 		"DOTA_Tooltip_modifier_hoodwink_sharpshooter_ebf_debuff"                                            "Sharpshooter - Debuff"
 		"DOTA_Tooltip_modifier_hoodwink_sharpshooter_ebf_debuff_Description"                                "Passives disabled, movement slowed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%."
+		
+		// Huskar
+		"DOTA_Tooltip_Facet_Facet_huskar_cauterizer"														"Cauterizer"
+		"DOTA_Tooltip_Facet_Facet_huskar_cauterizer_Description"											"Huskar embraces the fire within, eager to share it with his foes as a powerful damage dealer" 
+		"DOTA_Tooltip_Facet_Facet_huskar_fire_hardened"														"Fire-Hardened"
+		"DOTA_Tooltip_Facet_Facet_huskar_fire_hardened_Description"											"Huskar focuses the flames inward, using them to survive what would kill others."
+		
+		"DOTA_Tooltip_ability_huskar_blood_magic"															"Blood Magic"
+		"DOTA_Tooltip_ability_huskar_blood_magic_Description"												"Huskar can cast his abilities even without sufficient Rage, Burning himself for 50% of the Rage cost after Casting."		
+		"DOTA_Tooltip_ability_huskar_blood_magic_Facet_huskar_cauterizer"									"Huskar gains spell amplification for each Burn applied to him."		
+		"DOTA_Tooltip_ability_huskar_blood_magic_Facet_huskar_fire_hardened"								"Huskar gains restoration amplification for each Burn applied to him."		
+		"DOTA_Tooltip_ability_huskar_blood_magic_Note0"														"Huskar's Health Costs are Magical Damage and can be reduced by Magic Resist."	
+		
+		"DOTA_Tooltip_ability_huskar_inner_fire_Description"												"In a fiery rage, consumes all of Huskar's Burn, Knocking Back, Slowing and Silencing all enemy units in the radius and dealing damage to them."
+		"DOTA_Tooltip_ability_huskar_inner_fire_Facet_huskar_cauterizer"									"Damage is increased for each Burn removed from Huskar."
+		"DOTA_Tooltip_ability_huskar_inner_fire_Facet_huskar_fire_hardened"									"Heals Huskar for the damage values, healing is increased for each Burn removed."
+		"DOTA_Tooltip_ability_huskar_inner_fire_health_cost"												""
+		
+		"DOTA_Tooltip_ability_huskar_burning_spear_Description"												"Huskar sets his spears aflame, Burning himself and his attack target."
+		"DOTA_Tooltip_ability_huskar_burning_spear_Facet_Facet_huskar_cauterizer"							"Burn applied to Huskar and his target increased."
+		"DOTA_Tooltip_ability_huskar_burning_spear_Facet_Facet_huskar_fire_hardened"						"Adds the following trigger to Burning Spear:<br><i>Retribution —</i>Huskar deals damage for each Burn applied to him to all units with 325 radius each time he is hit. Has a 1 second internal cooldown."
+		"DOTA_Tooltip_ability_huskar_burning_spear_Note0"													"Burn stacks additively and deals 100 Magical damage every 0.5 seconds, each time it deals damage, one stack is lost. Damage dealt is increased by Hero Power and Spell Amplification."
+		"DOTA_Tooltip_ability_huskar_burning_spear_Note1"													""
+		"DOTA_Tooltip_ability_huskar_burning_spear_Note2"													""
+		"DOTA_Tooltip_ability_huskar_burning_spear_burn_damage"												"BURN APPLIED:"
+		
+		"DOTA_Tooltip_ability_huskar_berserkers_blood_Description"											"Huskar cannot die to Burn and his injuries feed his power, giving increased attack speed, magic resistance and health regen based on missing health. Health regen is a percentage of your strength."
+		"DOTA_Tooltip_ability_huskar_berserkers_blood_Facet_huskar_cauterizer"								"Max magic resistance increased and Burn cannot reduce Huskar to less than his maximum health threshold."
+		"DOTA_Tooltip_ability_huskar_berserkers_blood_Facet_huskar_fire_hardened"							"Berserker's Blood can be activated. Dispels Huskar, and gives him health regeneration for each Burn on him.\n\nDISPEL TYPE: Basic Dispel"
+		"DOTA_Tooltip_ability_huskar_berserkers_blood_Note0"												"Bonuses are provided linearly, no bonus at Full HP and full bonus at strictly less than %hp_threshold_max%%% HP."
+		"DOTA_Tooltip_ability_huskar_berserkers_blood_maximum_attack_speed"     							"MAX ATTACK SPEED:"
+		"DOTA_Tooltip_ability_huskar_berserkers_blood_maximum_health_regen"									"%MAX STR REGEN:"
+		"DOTA_Tooltip_ability_huskar_berserkers_blood_maximum_magic_resist"									"%MAX MAGIC RESIST:"
+		"DOTA_Tooltip_ability_huskar_berserkers_blood_hp_threshold_max" 									"%HP FOR MAX BONUS:"
+		"DOTA_Tooltip_ability_huskar_berserkers_blood_activation_heal_pct_per_debuff"						"REGEN PER BURN:"
 
+		"DOTA_Tooltip_ability_huskar_life_break"															"Life Break"
+		"DOTA_Tooltip_ability_huskar_life_break_Description"												"Huskar draws upon his health to break an enemy's life, leaping at a target to shatter a percentage of that hero's current health and slow both their movement and attack speed. Huskar then shares his Burn with the target. While leaping, Huskar is Debuff Immune and has 60%% increased magic resistance.\n\nDISPEL TYPE: Basic Dispel"
+		"DOTA_Tooltip_ability_huskar_life_break_Facet_huskar_cauterizer"									"Units affected by Life Break's slow explode on death, spreading their remaining burn to all units within 600 units."
+		"DOTA_Tooltip_ability_huskar_life_break_Facet_huskar_fire_hardened"									"Huskar becomes immune to Burn damage and Burn does not tick down for the Debuff Immunity duration. The target is taunted to Huskar for the slow duration."
+		
 		// Juggernaut
 		"DOTA_Tooltip_Facet_juggernaut_sohei"																"Sōhei"
 		"DOTA_Tooltip_Facet_juggernaut_sohei_Description"													"The Juggernaut walks the path of the Sōhei, becoming a disciplined damage dealer." 
@@ -3063,7 +3109,7 @@
 		"DOTA_Tooltip_Facet_juggernaut_ronin_Description"													"The Juggernaut walks the path of the Rōnin, becoming an agile tank."
 
 		"DOTA_Tooltip_ability_juggernaut_duelist"															"Duelist"
-		"DOTA_Tooltip_ability_juggernaut_duelist_Description"												"The Juggernaut's chosen path empowers himself or weakens those around him."
+		"DOTA_Tooltip_ability_juggernaut_duelist_Description"												"Outgoing damage instances sourced to Juggernaut are amplified on enemy units facing the Juggernaut."
 		"DOTA_Tooltip_ability_juggernaut_duelist_Facet_juggernaut_sohei"									"The Juggernaut attacks like the wind, quickening his cooldowns by %cooldown_reduction%%% while attacking. This does not apply during Omnislash."
 		"DOTA_Tooltip_ability_juggernaut_duelist_cooldown_reduction"										"%COOLDOWN REDUCTION:"
 		"DOTA_Tooltip_ability_juggernaut_duelist_Facet_juggernaut_ronin"									"The Juggernaut floats like a butterfly, making attackers miss %miss_chance%%% of their attacks against him. Miss chance is doubled for units attacked by the Juggernaut in the last 5 seconds." 

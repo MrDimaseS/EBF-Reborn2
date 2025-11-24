@@ -56,6 +56,8 @@ function Precache( context )
 	PrecacheResource( "particle", "particles/units/heroes/hero_ursa/ursa_claw_right.vpcf", context )
 	PrecacheResource( "particle", "particles/econ/events/spring_2021/hero_levelup_spring_2021.vpcf", context )
 	PrecacheResource( "particle", "particles/boss/minion_powerup_overhead.vpcf", context )
+	PrecacheResource( "particle", "particles/units/heroes/hero_huskar/huskar_burning_spear_debuff.vpcf", context )
+	PrecacheResource( "particle", "particles/units/heroes/hero_venomancer/venomancer_poison_debuff.vpcf", context )
 	
 	PrecacheResource( "particle", "particles/ui_mouseactions/range_finder_cone.vpcf", context )
 	PrecacheResource( "particle", "particles/boss/ancestral_rage_overhead_overhead.vpcf", context )

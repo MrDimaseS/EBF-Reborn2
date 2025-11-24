@@ -1820,9 +1820,25 @@ function CDOTA_BaseNPC_Hero:GetAttributeAbility()
 	end
 	return self._specialAttributes
 end
+
+function CDOTA_BaseNPC:GetHeroPowerAmplification(  )
+	local powerHandler = self:FindModifierByName("modifier_generic_level_scaling_for_summons")
+	if powerHandler then
+		return powerHandler:GetStackCount() / 100
+	end
+	powerHandler = self:FindAbilityByName("bossPowerScale")
+	if powerHandler then
+		return powerHandler.abilityValueIncrease
+	end
+end
+
+ABILITY_POWER_SCALING = 0.2
 function CDOTA_BaseNPC_Hero:GetHeroPowerAmplification(  )
-	local heroPower = ABILITY_POWER_SCALING+self:GetAttributeAbility():GetSpecialValueFor("value") / 100
-	return 1 + heroPower * (self:GetLevel()-1)
+	local attributes = self:GetAttributeAbility()
+	if attributes then
+		local heroPower = ABILITY_POWER_SCALING+attributes:GetSpecialValueFor("value") / 100
+		return 1 + heroPower * (self:GetLevel() - 1)
+	end
 end
 
 function CDOTABaseAbility:GetAltCastState()

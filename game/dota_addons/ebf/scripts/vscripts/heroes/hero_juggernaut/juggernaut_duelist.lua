@@ -16,11 +16,7 @@ function modifier_juggernaut_duelist_ebf:IsHidden()
 end
 
 function modifier_juggernaut_duelist_ebf:DeclareFunctions()
-    return
-    {
-        MODIFIER_EVENT_ON_ATTACK,
-        MODIFIER_EVENT_ON_ATTACKED
-    }
+    return {MODIFIER_EVENT_ON_ATTACK}
 end
 function modifier_juggernaut_duelist_ebf:OnCreated()
     self.sohei_duration = self:GetSpecialValueFor("sohei_duration")
@@ -30,16 +26,19 @@ end
 function modifier_juggernaut_duelist_ebf:OnAttack(params)
     if IsServer() then
         local parent = self:GetParent()
+        local ability = self:GetAbility()
         local enemy = params.target
-        local cdr = self:GetSpecialValueFor("cooldown_reduction")
 
-        if parent:HasModifier("modifier_juggernaut_omni_slash_ebf") then return end
         if parent == params.attacker then
-            if cdr ~= 0 then
-                parent:AddNewModifier(parent, self:GetAbility(), "modifier_juggernaut_duelist_sohei", {duration = self.sohei_duration})
-            else
-                enemy:AddNewModifier(parent, self:GetAbility(), "modifier_juggernaut_duelist_ronin_tag", {duration = self.ronin_duration} )
+            if self.sohei_duration > 0 then
+                parent:AddNewModifier(parent, ability, "modifier_juggernaut_duelist_sohei", {duration = self.sohei_duration})
             end
+			if self.ronin_duration > 0 then
+				enemy:AddNewModifier(parent, ability, "modifier_juggernaut_duelist_ronin", {duration = self.ronin_duration} )
+                enemy:AddNewModifier(parent, ability, "modifier_juggernaut_duelist_ronin_tag", {duration = self.ronin_duration} )
+            end
+		elseif parent == params.target and self.ronin_duration > 0 then
+			enemy:AddNewModifier(parent, ability, "modifier_juggernaut_duelist_ronin", {duration = self.ronin_duration} )
         end
     end
 end
@@ -77,23 +76,22 @@ end
 
 function modifier_juggernaut_duelist_sohei:OnCreated()
     self:OnRefresh()
-    self:StartIntervalThink(0)
+	self.tick = 0.33
+	if IsServer() then self:StartIntervalThink(self.tick) end
 end
 
 function modifier_juggernaut_duelist_sohei:OnRefresh()
-    self.cdr = self:GetSpecialValueFor("cooldown_reduction") / 10000 --idk if i did this right
+    self.cdr = self:GetSpecialValueFor("cooldown_reduction") / 100 --idk if i did this right
 end
 
 function modifier_juggernaut_duelist_sohei:OnIntervalThink()
-    if IsServer() then
-        local parent = self:GetParent()
-        for i = 0, parent:GetAbilityCount() - 1 do
-            local ability = parent:GetAbilityByIndex(i)
-            if ability and ability:GetCooldownTimeRemaining() > 0 and ability ~= nil and not ability:IsInnateAbility() then
-                ability:ModifyCooldown(-ability:GetCooldownTimeRemaining() * self.cdr)
-            end
-        end
-    end
+	local parent = self:GetParent()
+	for i = 0, parent:GetAbilityCount() - 1 do
+		local ability = parent:GetAbilityByIndex(i)
+		if ability and ability:GetCooldownTimeRemaining() > 0 and ability ~= nil and not ability:IsInnateAbility() then
+			ability:ModifyCooldown( -self.cdr * self.tick )
+		end
+	end
 end
 
 --Ronin: Units that attack you have a 12% chance to miss, which is increased to 24% if Juggernaut damaged the unit within the last 5 seconds.

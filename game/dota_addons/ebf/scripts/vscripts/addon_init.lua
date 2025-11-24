@@ -1,6 +1,7 @@
 
 require("templates/persistent_modifier")
 require("templates/toggle_modifier_base_class")
+require("libraries/keywords")
 
 LinkLuaModifier( "status_immune", "modifier/status_immune.lua", LUA_MODIFIER_MOTION_NONE )
 LinkLuaModifier( "modifier_generic_level_scaling_for_summons", "modifier/modifier_generic_level_scaling_for_summons.lua", LUA_MODIFIER_MOTION_NONE )

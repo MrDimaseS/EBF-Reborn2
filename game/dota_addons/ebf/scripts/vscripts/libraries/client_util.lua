@@ -389,8 +389,19 @@ function C_DOTABaseAbility:GetAltCastState()
 	return self._getAltCastState or false
 end
 
-ABILITY_POWER_SCALING = 0.2
 function C_DOTA_BaseNPC:GetHeroPowerAmplification(  )
+	local powerHandler = self:FindModifierByName("modifier_generic_level_scaling_for_summons")
+	if powerHandler then
+		return powerHandler:GetStackCount() / 100
+	end
+	powerHandler = self:FindAbilityByName("bossPowerScale")
+	if powerHandler then
+		return powerHandler.abilityValueIncrease
+	end
+end
+
+ABILITY_POWER_SCALING = 0.2
+function C_DOTA_BaseNPC_Hero:GetHeroPowerAmplification(  )
 	if not self._specialAttributes then
 		self._specialAttributes = self:FindAbilityByName("special_bonus_attributes")
 	end

@@ -1,5 +1,15 @@
 modifier_generic_level_scaling_for_summons = class({})
 
+function modifier_generic_level_scaling_for_summons:OnCreated()
+	if IsServer() then
+		self:StartIntervalThink(1)
+	end
+end
+
+function modifier_generic_level_scaling_for_summons:OnIntervalThink()
+	self:SetStackCount( self:GetCaster():GetHeroPowerAmplification() * 100 )
+end
+
 function modifier_generic_level_scaling_for_summons:DeclareFunctions()
   local funcs = {
 		MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL,
@@ -52,7 +62,7 @@ function modifier_generic_level_scaling_for_summons:GetModifierOverrideAbilitySp
 		return
 	end
 	if params.ability._processValuesForScaling[special_value].affected_by_lvl_increase then
-		local flNewValue = flBaseValue * ( 1 + (self:GetCaster():GetLevel() - 1) * 0.3 )
+		local flNewValue = flBaseValue * self:GetStackCount( ) / 100
 		return flNewValue
 	end
 end

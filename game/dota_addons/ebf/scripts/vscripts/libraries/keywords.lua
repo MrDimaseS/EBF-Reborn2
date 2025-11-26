@@ -5,7 +5,7 @@ function modifier_keyword_debuff_burn:OnCreated( kv )
 	if IsServer() then
 		self._burnEntities = {}
 		self._burnQueue = {}
-		self._minimumBurn = {}
+		self:GetParent()._minimumBurn = self:GetParent()._minimumBurn or {}
 		self:OnRefresh( kv )
 		
 		self:StartIntervalThink( 0.5 )
@@ -24,16 +24,35 @@ function modifier_keyword_debuff_burn:OnRefresh( kv )
 		end
 	end
 	local minimumBurn = 0
-	for entity, burn in ipairs( self._minimumBurn ) do
-		minimumBurn = minimumBurn + burn
+	for modifier, active in pairs( self:GetParent()._minimumBurn ) do
+		if IsModifierSafe( modifier ) and modifier.GetModifierPropertyMinimumBurn then
+			minimumBurn = minimumBurn + (modifier:GetModifierPropertyMinimumBurn() or 0)
+		else
+			self:GetParent()._minimumBurn[modifier] = nil
+		end
 	end
 	self:SetStackCount( minimumBurn + #self._burnQueue )
 end
 
 function modifier_keyword_debuff_burn:OnIntervalThink()
 	local parent = self:GetParent()
+	local damageTable = {}
+	local BASE_BURN_DAMAGE = 100
 	for unitIndex, stacks in pairs( self._burnEntities ) do
 		local unit = EntIndexToHScript( unitIndex )
+		damageTable[unit] = stacks * BASE_BURN_DAMAGE
+	end
+	local minimumBurn = 0
+	for modifier, active in pairs( self:GetParent()._minimumBurn ) do
+		if IsModifierSafe( modifier ) and modifier.GetModifierPropertyMinimumBurn then
+			local modifierBurn = modifier:GetModifierPropertyMinimumBurn() or 0
+			minimumBurn = minimumBurn + 
+			damageTable[modifier:GetCaster()] = modifierBurn * BASE_BURN_DAMAGE
+		else
+			self:GetParent()._minimumBurn[modifier] = nil
+		end
+	end
+	for unit, damage in pairs( damageTable ) do
 		local dummyAbility = unit:GetAbilityByIndex(0)
 		dummyAbility._isBurnDamage = true
 		local damage = stacks * 100
@@ -42,11 +61,6 @@ function modifier_keyword_debuff_burn:OnIntervalThink()
 	end
 	self._burnEntities[self._burnQueue[1]] = self._burnEntities[self._burnQueue[1]] - 1
 	table.remove( self._burnQueue, 1 )
-	
-	local minimumBurn = 0
-	for entity, burn in ipairs( self._minimumBurn ) do
-		minimumBurn = minimumBurn + burn
-	end
 	
 	self:SetStackCount( minimumBurn + #self._burnQueue )
 	if self:GetStackCount() <= 0 then
@@ -60,14 +74,12 @@ function modifier_keyword_debuff_burn:OnDestroy()
 		if parent._forceClearBurn then return end
 		local burnTableCopy = table.copy( self._burnEntities )
 		local burnQueCopy = table.copy( self._burnQueue )
-		local minimumBurnTableCopy = table.copy( self._minimumBurn )
 		local currentBurn = self:GetStackCount()
 		Timers:CreateTimer( function()
 			local burn = parent:AddNewModifier( parent, nil, "modifier_keyword_debuff_burn", {} )
 			-- assign copies to new burn modifier
 			self._burnEntities = table.copy( burnTableCopy )
 			self._burnQueue = table.copy( burnQueCopy )
-			self._minimumBurn = table.copy( minimumBurnTableCopy )
 			-- remove half
 			parent:RemoveBurn( math.ceil( currentBurn * 0.5 ) )
 		end)
@@ -181,7 +193,7 @@ end
 function modifier_keyword_debuff_poison:OnDestroy()
 	if IsServer() then
 		local parent = self:GetParent()
-		if parent._forceClearpoison then return end
+		if parent._forceClearPoison then return end
 		local poisonTableCopy = table.copy( self._poisonEntities )
 		local poisonQueCopy = table.copy( self._poisonQueue )
 		local minimumPoisonTableCopy = table.copy( self._minimumPoison )

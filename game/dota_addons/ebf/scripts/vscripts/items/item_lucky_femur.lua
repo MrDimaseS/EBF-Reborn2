@@ -38,6 +38,7 @@ function modifier_item_lucky_femur_passive:OnAbilityFullyCast( params )
 	local parent = self:GetParent()
 	if params.unit ~= parent then return end
 	if params.ability:GetCooldown( -1 ) == 0 then return end
+	if not params.ability:IsRefreshable() then return end
 	if params.ability:GetCooldownTimeRemaining() <= 0 then return end
 	if self:RollPRNG( self.instant_refresh_chance ) and not params.ability._rolledForRefresh then
 		params.ability._rolledForRefresh = true

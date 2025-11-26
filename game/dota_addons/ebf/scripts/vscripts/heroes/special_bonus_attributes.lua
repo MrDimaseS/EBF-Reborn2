@@ -539,7 +539,8 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierOverrideAbi
 				or toboolean(abilityValues[special_value].CalculateAttackDamageTooltip)
 				or toboolean(abilityValues[special_value].CalculateAttributeTooltip) then
 					params.ability._processValuesForScaling[special_value].affected_by_lvl_increase = true
-					params.ability._processValuesForScaling[special_value].lvl_increase_spell_damage_type = toboolean(abilityValues[special_value].CalculateSpellDamageTooltip)
+					params.ability._processValuesForScaling[special_value].lvl_increase_spell_damage_type = toboolean(abilityValues[special_value].CalculateSpellDamageTooltip) or toboolean(abilityValues[special_value].CalculateSpellHealTooltip)
+					params.ability._processValuesForScaling[special_value].increase_by_spell_amp = toboolean(abilityValues[special_value].CalculateSpellHealTooltip)
 				end
 				if abilityValues[special_value].ForceCalculateLevelBonus then
 					params.ability._processValuesForScaling[special_value].affected_by_lvl_increase = toboolean(abilityValues.ForceCalculateLevelBonus)
@@ -693,6 +694,9 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierOverrideAbi
 				bonusBaseSpellDamagePct =  ( self:GetParent():GetStrength() + self:GetParent():GetAgility() + self:GetParent():GetIntellect(false) ) * SPELL_AMP_UNIVERSAL
 			end
 			flNewValue = math.floor( flNewValue * ( 1 + bonusBaseSpellDamagePct/100 + SPELL_AMP_INT * self:GetParent():GetIntellect(false) / 100 ) ) 
+		end
+		if params.ability._processValuesForScaling[special_value].increase_by_spell_amp then
+			flNewValue = math.floor( flNewValue * ( 1+caster:GetSpellAmplification( false ) ) ) 
 		end
 		return flNewValue
 	end

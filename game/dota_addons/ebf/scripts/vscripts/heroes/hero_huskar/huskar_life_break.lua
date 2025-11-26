@@ -1,0 +1,135 @@
+huskar_life_break = class({})
+
+function huskar_life_break:IsStealable()
+	return true
+end
+
+function huskar_life_break:IsHiddenWhenStolen()
+	return false
+end
+
+function huskar_life_break:GetCooldown(iLvl)
+	return self.BaseClass.GetCooldown(self, iLvl) + self:GetCaster():FindTalentValue("special_bonus_unique_huskar_life_break_2")
+end
+
+function huskar_life_break:OnSpellStart()
+	local caster = self:GetCaster()
+	local targetPos = self:GetCursorPosition()
+	
+	local distance = CalculateDistance(targetPos, caster)
+	local duration = distance / self:GetSpecialValueFor("charge_speed")
+	caster:AddNewModifier(caster, self, "modifier_huskar_life_break_movement", {duration = duration})
+	EmitSoundOn("Hero_Huskar.Life_Break", caster)
+end
+
+function huskar_life_break:SunderLife(position)
+	local caster = self:GetCaster()
+	local lossPct = TernaryOperator(self:GetSpecialValueFor("health_cost_pct_scepter"), caster:HasScepter(), self:GetSpecialValueFor("health_cost_pct")) / 100
+	local damagePct = TernaryOperator(self:GetSpecialValueFor("missing_health_dmg_scepter"), caster:HasScepter(), self:GetSpecialValueFor("missing_health_dmg")) / 100
+	local damage = caster:GetHealth() * lossPct
+	self:DealDamage( caster, caster, damage, {damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION + DOTA_DAMAGE_FLAG_NON_LETHAL})
+	if caster:HasTalent("special_bonus_unique_huskar_life_break_1") then
+		caster:AddNewModifier( caster, self, "modifier_huskar_life_break_talent", {duration = caster:FindTalentValue("special_bonus_unique_huskar_life_break_1", "duration")} )
+	end
+	local eDamage = caster:GetHealthDeficit() * damagePct + damage
+	local enemies = caster:FindEnemyUnitsInRadius(position, self:GetSpecialValueFor("damage_radius"))
+	for _, enemy in ipairs( enemies ) do
+		if not enemy:TriggerSpellAbsorb(self) then
+			self:DealDamage( caster, enemy, eDamage, {damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION})
+			enemy:AddNewModifier(caster, self, "modifier_huskar_life_break_debuff", {duration = self:GetSpecialValueFor("slow_duration")})
+		end
+	end
+end
+
+modifier_huskar_life_break_talent = class({})
+LinkLuaModifier("modifier_huskar_life_break_talent", "heroes/hero_huskar/huskar_life_break", LUA_MODIFIER_MOTION_NONE)
+
+function modifier_huskar_life_break_talent:IsHidden()
+	return true
+end
+
+modifier_huskar_life_break_movement = class({})
+LinkLuaModifier("modifier_huskar_life_break_movement", "heroes/hero_huskar/huskar_life_break", LUA_MODIFIER_MOTION_NONE)
+
+if IsServer() then
+	function modifier_huskar_life_break_movement:OnCreated()
+		local parent = self:GetParent()
+		self.endPos = self:GetAbility():GetCursorPosition()
+		self.distance = CalculateDistance( self.endPos, parent )
+		self.direction = CalculateDirection( self.endPos, parent )
+		self.speed = self:GetSpecialValueFor("charge_speed") * FrameTime()
+		self:StartMotionController()
+	end
+	
+	
+	function modifier_huskar_life_break_movement:OnDestroy()
+		local parent = self:GetParent()
+		local parentPos = parent:GetAbsOrigin()
+		local radius = self:GetSpecialValueFor("radius")
+		FindClearSpaceForUnit(parent, parentPos, true)
+		local ability = self:GetAbility()
+		ability:SunderLife(parentPos)
+		self:StopMotionController()
+	end
+	
+	function modifier_huskar_life_break_movement:DoControlledMotion()
+		if self:GetParent():IsNull() then return end
+		local parent = self:GetParent()
+		self.distanceTraveled =  self.distanceTraveled or 0
+		if parent:IsAlive() then
+			local newPos = GetGroundPosition(parent:GetAbsOrigin() + self.direction * self.speed, parent) 
+			parent:SetAbsOrigin( newPos )
+			if self.distanceTraveled < self.distance then
+				self.distanceTraveled = self.distanceTraveled + self.speed
+			else
+				self:Destroy()
+				return nil
+			end       
+		end
+	end
+end
+
+function modifier_huskar_life_break_movement:GetEffectName()
+	return "particles/units/heroes/hero_huskar/huskar_life_break.vpcf"
+end
+
+function modifier_huskar_life_break_movement:CheckState()
+	return {[MODIFIER_STATE_STUNNED] = true,
+			[MODIFIER_STATE_NO_UNIT_COLLISION] = true,
+			[MODIFIER_STATE_MAGIC_IMMUNE] = true}
+end
+
+function modifier_huskar_life_break_movement:DeclareFunctions()
+	return {MODIFIER_PROPERTY_OVERRIDE_ANIMATION}
+end
+
+function modifier_huskar_life_break_movement:GetOverrideAnimation()
+	return ACT_DOTA_CAST_LIFE_BREAK_START
+end
+
+modifier_huskar_life_break_debuff = class({})
+LinkLuaModifier("modifier_huskar_life_break_debuff", "heroes/hero_huskar/huskar_life_break", LUA_MODIFIER_MOTION_NONE)
+
+function modifier_huskar_life_break_debuff:OnCreated()
+	self.slow = self:GetSpecialValueFor("movespeed")
+end
+
+function modifier_huskar_life_break_debuff:OnRefresh()
+	self.slow = self:GetSpecialValueFor("movespeed")
+end
+
+function modifier_huskar_life_break_debuff:DeclareFunctions()
+	return {MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE}
+end
+
+function modifier_huskar_life_break_debuff:GetModifierMoveSpeedBonus_Percentage()
+	return self.slow
+end
+
+function modifier_huskar_life_break_debuff:GetStatusEffectName()
+	return "particles/status_fx/status_effect_huskar_lifebreak.vpcf"
+end
+
+function modifier_huskar_life_break_debuff:StatusEffectPriority()
+	return 3
+end

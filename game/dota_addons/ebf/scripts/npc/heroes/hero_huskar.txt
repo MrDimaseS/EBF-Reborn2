@@ -12,9 +12,10 @@
 		
 		"AbilityValues"
 		{
-			"rage_to_burn"				"50"
-			"burn_spell_amp"			{"special_bonus_facet_huskar_cauterizer" "5"}
-			"burn_restore_amp"			{"special_bonus_facet_huskar_fire_hardened" "5"}
+			"rage_to_burn"				"100"
+			"burn_resist"				"50"
+			"burn_spell_amp"			{"special_bonus_facet_huskar_cauterizer" "0.5"}
+			"burn_restore_amp"			{"special_bonus_facet_huskar_fire_hardened" "1.0"}
 		}
 	}
 	//=================================================================================================================
@@ -24,19 +25,22 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_huskar/huskar_inner_fire"
+		"AbilityTextureName"			"huskar_inner_fire"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"					
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"   
 		"AbilitySound"					"Hero_Huskar.Inner_Vitality"
 		
-		"HasShardUpgrade"			"1"
+		"HasShardUpgrade"				"0"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"800"
 		"AbilityCastPoint"				"0.2"
-		"AbilityManaCost"				"10 15 20 25"
+		"AbilityManaCost"				"25"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -53,6 +57,7 @@
 			"damage"				
 			{
 				"value"							"1200 1800 2400 3000"
+				"special_bonus_unique_huskar_inner_fire_damage"	"+100%"
 				"CalculateSpellDamageTooltip"	"1"
 			}
 			"radius"				
@@ -70,11 +75,10 @@
 			"knockback_duration"				"1"
 			"AbilityCooldown"					"14 12 10 8"
 			"movement_slow_pct"					"30 40 50 60"
-			}
 			
-			"bonus_burn_damage"					{special_bonus_facet_huskar_cauterizer"	"100 200 300 400"}
+			"bonus_burn_damage"					{"special_bonus_facet_huskar_cauterizer"	"100 150 200 250"}
 			"damage_to_heal"					{"special_bonus_facet_huskar_fire_hardened"	"100"}
-			"bonus_burn_heal"					{special_bonus_facet_huskar_fire_hardened"	"100 200 300 400"}
+			"bonus_burn_heal"					{"special_bonus_facet_huskar_fire_hardened"	"100 150 200 250"}
 			
 			"health_cost"						""
 			"hero_damage_heal_pct"				""
@@ -90,6 +94,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_huskar/huskar_burning_spear"
+		"AbilityTextureName"			"huskar_burning_spear"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AUTOCAST | DOTA_ABILITY_BEHAVIOR_ATTACK"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
@@ -111,24 +118,35 @@
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"0 0 0 0"
-
+		
+		"precache"
+		{
+			"particle"					"particles/fire_ball_explosion.vpcf"
+			"particle"					"particles/units/heroes/hero_huskar/huskar_burning_spear.vpcf"
+			
+		}
+		
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
 			"burn_damage"
 			{
-				"value"												"1 2 3 4"
-				"special_bonus_facet_huskar_cauterizer"				"=2 =4 =6 =8"
+				"value"												"4 6 8 10"
+				"special_bonus_facet_huskar_cauterizer"				"=5 =8 =11 =14"
 				"special_bonus_unique_huskar_2" 					"+2"
 				"CalculateSpellDamageTooltip"						"0"
 			}
 			"retribution_damage"
 			{
-				"special_bonus_facet_huskar_fire_hardened"			"100"
+				"special_bonus_facet_huskar_fire_hardened"			"50"
 				"CalculateSpellDamageTooltip"						"1"
 			}
-			"retribution_radius"									{"special_bonus_facet_huskar_fire_hardened" "325"}
+			"retribution_radius"
+			{
+				"special_bonus_facet_huskar_fire_hardened" 			"325"
+				"affected_by_aoe_increase"							"1"
+			}
 			"retribution_cd"										{"special_bonus_facet_huskar_fire_hardened" "1.0"}
 			
 			"health_cost"											""
@@ -146,12 +164,17 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"											"ability_lua"
+		"ScriptFile"										"heroes/hero_huskar/huskar_berserkers_blood"
+		"AbilityTextureName"								"huskar_berserkers_blood"
 		"AbilityBehavior"									"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"MaxLevel"											"4"
 
 		"AbilityUnitTargetTeam"								"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitTargetType"								"DOTA_UNIT_TARGET_HERO"
 		"AbilityCastPoint"									"0.0"
+		"AbilityCooldown"									""
+		"AbilityManaCost"									""
 		"IsBreakable"										"1"
 		
 		// Special
@@ -173,12 +196,12 @@
 			
 			"burn_immunity_threshold"						{"special_bonus_facet_huskar_cauterizer" "1"}
 			
-			"active"										{"special_bonus_facet_huskar_fire_hardened" "1"}
+			"active_duration"								{"special_bonus_facet_huskar_fire_hardened" "3"}
 			"AbilityCooldown"								{"special_bonus_facet_huskar_fire_hardened" "25 20 15 10"}
 			"AbilityManaCost"								{"special_bonus_facet_huskar_fire_hardened" "40"}
 			"burn_health_regen"
 			{
-				"special_bonus_facet_huskar_fire_hardened"	"1"
+				"special_bonus_facet_huskar_fire_hardened"	"100"
 				"CalculateSpellHealTooltip"					"1"
 			}
 		}
@@ -192,6 +215,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_huskar/huskar_life_break"
+		"AbilityTextureName"			"huskar_life_break"
 		"AbilityType"					"ABILITY_TYPE_ULTIMATE"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"		
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
@@ -203,10 +229,9 @@
 		"FightRecapLevel"				"2"
 		"AbilitySound"					"Hero_Huskar.Life_Break"
 		
-		
 		"LevelsBetweenUpgrades"			"6"
 
-		"HasScepterUpgrade"			"1"
+		"HasScepterUpgrade"				"0"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -219,7 +244,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"0 0 0"		
+		"AbilityManaCost"				"50"		
 		
 		// Cast Range
 		//-------------------------------------------------------------------------------------------------------------
@@ -233,16 +258,12 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
-			"health_cost_percent"					"0.32 0.38 0.44"
+			"AbilityManaCost"						"50"	
+			"AbilityCooldown"						"16 14 12"			
+			
 			"tooltip_health_cost_percent"
 			{
 				"value"								"32 38 44"
-				"CalculateSpellDamageTooltip"		"0"
-			}
-			"health_damage"
-			{
-				"value"								"0.32 0.38 0.44"
-				"special_bonus_unique_huskar"		"+0.03"
 				"CalculateSpellDamageTooltip"		"0"
 			}
 			"tooltip_health_damage"
@@ -252,7 +273,7 @@
 				"CalculateSpellDamageTooltip"		"0"
 			}
 			"charge_speed"							"1200"
-			"movespeed"								"-60 -60 -60"
+			"movespeed"								"60"
 			"attack_speed"							"60 100 140"
 			"slow_durtion_tooltip"
 			{

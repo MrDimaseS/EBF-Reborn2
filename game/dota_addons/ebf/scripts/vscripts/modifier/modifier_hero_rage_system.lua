@@ -9,8 +9,14 @@ function modifier_hero_rage_system:OnCreated()
 		
 		self:GetParent().GetRage = function( self ) return self._currentRage end
 		self:GetParent().GetMaxRage = function( self ) return self._baseMaxRage end
-		self:GetParent().ModifyRage = function( self, val) self._currentRage = math.max(0,math.min( self:GetMaxRage(), self._currentRage + val )) end
+		self:GetParent().ModifyRage = function( self, val) 
+			self._currentRage = math.max(0,math.min( self:GetMaxRage(), self._currentRage + val )) 
+			self:SetMana( self._currentRage )
+		end
 		self:GetParent().SetRage = function( self, val) self._currentRage = val end
+	else
+		self:GetParent().GetRage = function( self ) return self:GetMana() end
+		self:GetParent().GetMaxRage = function( self ) return self._baseMaxRage end
 	end
 end
 
@@ -58,7 +64,7 @@ function modifier_hero_rage_system:OnTakeDamage( params )
 	if params.attacker == self:GetParent() or params.unit == self:GetParent() then
 		local amt = (( params.original_damage / params.unit:GetMaxHealth() ) * 100)
 		if params.attacker == self:GetParent() then
-			amt = amt * TernaryOperator( 1, params.unit:IsConsideredHero(), 0.15 )
+			amt = amt * TernaryOperator( 0.8, params.unit:IsConsideredHero(), 0.1 )
 			amt = amt * TernaryOperator( 0.2, params.inflictor, 1 )
 		else
 			amt = amt * 1
@@ -85,7 +91,7 @@ function modifier_hero_rage_system:IsPermanent()
 end
 
 function modifier_hero_rage_system:GetPriority()
-	return MODIFIER_PRIORITY_HIGH
+	return MODIFIER_PRIORITY_LOW
 end
 
 function modifier_hero_rage_system:IsHidden()

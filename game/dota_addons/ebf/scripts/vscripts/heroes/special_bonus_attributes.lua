@@ -696,7 +696,7 @@ function modifier_special_bonus_attributes_stat_rescaling:GetModifierOverrideAbi
 			flNewValue = math.floor( flNewValue * ( 1 + bonusBaseSpellDamagePct/100 + SPELL_AMP_INT * self:GetParent():GetIntellect(false) / 100 ) ) 
 		end
 		if params.ability._processValuesForScaling[special_value].increase_by_spell_amp then
-			flNewValue = math.floor( flNewValue * ( 1+caster:GetSpellAmplification( false ) ) ) 
+			flNewValue = math.floor( flNewValue * ( 1 + self:GetParent():GetSpellAmplification( false ) ) ) 
 		end
 		return flNewValue
 	end

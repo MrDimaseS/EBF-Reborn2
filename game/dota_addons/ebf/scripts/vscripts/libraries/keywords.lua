@@ -1,3 +1,6 @@
+BASE_BURN_DAMAGE = 50
+BASE_POISON_DAMAGE = 300
+
 modifier_keyword_debuff_burn = class({})
 LinkLuaModifier( "modifier_keyword_debuff_burn", "libraries/keywords.lua", LUA_MODIFIER_MOTION_NONE )
 
@@ -8,11 +11,13 @@ function modifier_keyword_debuff_burn:OnCreated( kv )
 		self:GetParent()._minimumBurn = self:GetParent()._minimumBurn or {}
 		self:OnRefresh( kv )
 		
-		self:StartIntervalThink( 0.5 )
+		self:StartIntervalThink( 0.25 )
 	end
+	self:GetParent()._internalBurnModifier = self
 end
 
 function modifier_keyword_debuff_burn:OnRefresh( kv )
+	if IsClient() then return end
 	local stacks = tonumber( kv.stacks or 1 )
 	if kv.unit then
 		local burner = EntIndexToHScript( tonumber(kv.unit) )
@@ -24,7 +29,7 @@ function modifier_keyword_debuff_burn:OnRefresh( kv )
 		end
 	end
 	local minimumBurn = 0
-	for modifier, active in pairs( self:GetParent()._minimumBurn ) do
+	for modifier, active in pairs( self:GetParent()._minimumBurn or {} ) do
 		if IsModifierSafe( modifier ) and modifier.GetModifierPropertyMinimumBurn then
 			minimumBurn = minimumBurn + (modifier:GetModifierPropertyMinimumBurn() or 0)
 		else
@@ -37,30 +42,30 @@ end
 function modifier_keyword_debuff_burn:OnIntervalThink()
 	local parent = self:GetParent()
 	local damageTable = {}
-	local BASE_BURN_DAMAGE = 100
 	for unitIndex, stacks in pairs( self._burnEntities ) do
 		local unit = EntIndexToHScript( unitIndex )
 		damageTable[unit] = stacks * BASE_BURN_DAMAGE
 	end
 	local minimumBurn = 0
-	for modifier, active in pairs( self:GetParent()._minimumBurn ) do
+	for modifier, active in pairs( self:GetParent()._minimumBurn or {} ) do
 		if IsModifierSafe( modifier ) and modifier.GetModifierPropertyMinimumBurn then
 			local modifierBurn = modifier:GetModifierPropertyMinimumBurn() or 0
-			minimumBurn = minimumBurn + 
+			minimumBurn = minimumBurn + modifierBurn
 			damageTable[modifier:GetCaster()] = modifierBurn * BASE_BURN_DAMAGE
 		else
 			self:GetParent()._minimumBurn[modifier] = nil
 		end
 	end
 	for unit, damage in pairs( damageTable ) do
-		local dummyAbility = unit:GetAbilityByIndex(0)
-		dummyAbility._isBurnDamage = true
-		local damage = stacks * 100
-		dummyAbility:DealDamage( unit, parent, damage * unit:GetHeroPowerAmplification( ), {damage_type = DAMAGE_TYPE_MAGICAL}, OVERHEAD_ALERT_BONUS_SPELL_DAMAGE )
-		dummyAbility._isBurnDamage = false
+		unit._dummyBurnAbility = unit._dummyBurnAbility or unit:FindAbilityByName("ability_capture") or unit:AddAbility("ability_capture")
+		unit._dummyBurnAbility._isBurnDamage = true
+		unit._dummyBurnAbility:DealDamage( unit, parent, damage * unit:GetHeroPowerAmplification( ), {damage_type = DAMAGE_TYPE_MAGICAL}, OVERHEAD_ALERT_BONUS_SPELL_DAMAGE )
+		unit._dummyBurnAbility._isBurnDamage = false
 	end
-	self._burnEntities[self._burnQueue[1]] = self._burnEntities[self._burnQueue[1]] - 1
-	table.remove( self._burnQueue, 1 )
+	for i = 1, math.ceil(#self._burnQueue * 0.20) do
+		self._burnEntities[self._burnQueue[1]] = self._burnEntities[self._burnQueue[1]] - 1
+		table.remove( self._burnQueue, 1 )
+	end
 	
 	self:SetStackCount( minimumBurn + #self._burnQueue )
 	if self:GetStackCount() <= 0 then
@@ -91,17 +96,28 @@ function modifier_keyword_debuff_burn:DeclareFunctions()
 end
 
 function modifier_keyword_debuff_burn:OnTooltip()
-	return self:GetStackCount() * 100
+	return self:GetStackCount() * BASE_BURN_DAMAGE
 end
 
 function modifier_keyword_debuff_burn:GetEffectName()
 	return "particles/units/heroes/hero_huskar/huskar_burning_spear_debuff.vpcf"
 end
 
+function modifier_keyword_debuff_burn:GetTexture()
+	return "monkey_king_strike_anniversary"
+end
+
 if IsClient() then
+	function C_DOTA_BaseNPC:GetBurn( )
+		if IsModifierSafe( self._internalBurnModifier ) then
+			return self._internalBurnModifier:GetStackCount()
+		else
+			return 0
+		end
+	end
 else
 	function CDOTA_BaseNPC:AddBurn( caster, burn )
-		self._internalBurnModifier = self:AddNewModifier( self, nil, "modifier_keyword_debuff_burn", {unit = caster:entindex(), stacks = burn} )
+		self:AddNewModifier( self, nil, "modifier_keyword_debuff_burn", {unit = caster:entindex(), stacks = burn} )
 	end
 	
 	function CDOTA_BaseNPC:GetBurn( )

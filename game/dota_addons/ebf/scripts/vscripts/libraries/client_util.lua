@@ -223,6 +223,15 @@ function C_DOTA_BaseNPC:GetIntellect()
 	end
 end
 
+function C_DOTA_BaseNPC:GetSpellAmplification( )
+	if not self._lastSpellAmpClient or self._lastSpellAmpClientUpdate + 0.33 < GameRules:GetGameTime() then
+		local dataTable = CustomNetTables:GetTableValue("hero_attributes", tostring( self:entindex() ) ) or {}
+		self._lastSpellAmpClient = dataTable.spell_amp or 0
+		self._lastSpellAmpClientUpdate = GameRules:GetGameTime()
+	end
+	return self._lastSpellAmpClient
+end
+
 function C_DOTA_BaseNPC:GetPrimaryAttribute()
 	local unit = self
 	if self:GetParentUnit() then

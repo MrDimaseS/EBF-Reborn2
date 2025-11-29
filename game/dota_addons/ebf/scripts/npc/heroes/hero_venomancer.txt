@@ -7,6 +7,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_venomancer/venomancer_sepsis"
+		"AbilityTextureName"			"venomancer_sepsis"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
@@ -18,17 +21,16 @@
 
 		"AbilityValues"
 		{
-			"bonus_dmg_per_debuff_pct"
+			"bonus_dmg_per_debuff_pct"			""
+			"apply_from_ward_attacks"			""
+			
+			"bonus_poison_damage"
 			{
-				"value"						"10"
-				"special_bonus_scepter"		"+10"
-				"DamageTypeTooltip"			"DAMAGE_TYPE_MAGICAL"
+				"value"							"10"
+				"CalculateAttackDamageTooltip"	"1"
 			}
-			"apply_from_ward_attacks"
-			{
-				"value"						"0"
-				"special_bonus_scepter"		"=1"
-			}
+			"hits_to_proc_bonus"				"4"
+			"proc_lifesteal"					{"special_bonus_facet_venomancer_toxicologist"	"50"}
 		}
 	}
 	//=================================================================================================================
@@ -48,7 +50,7 @@
 		"FightRecapLevel"				"1"
 		"AbilitySound"					"Hero_Venomancer.VenomousGale"
 		
-		"HasShardUpgrade"				"1"
+		"HasShardUpgrade"				"0"
 
 
 		// Casting
@@ -67,51 +69,45 @@
 		{
 			"duration"								
 			{
-				"value"								"15.0"
-				"is_debuff_duration"				"1"
+				"value"											"15.0"
+				"is_debuff_duration"							"1"
 			}
 			"strike_damage"			
 			{
-				"value"								"250 500 750 1000"
-				"CalculateSpellDamageTooltip"		"1"
+				"value"											"250 500 750 1000"
+				"CalculateSpellDamageTooltip"					"1"
 			}
-			"tick_damage"			
+			"bonus_poison_strike_damage"
 			{
-				"value"								"250 500 750 1000"
-				"CalculateSpellDamageTooltip"		"1"
+				"special_bonus_unique_venomancer_poison_impact"	"100"
+				"CalculateSpellDamageTooltip"					"1"
 			}
-			"tick_interval"							"3.0"
-			"movement_slow"							"-50"
+			"tick_damage"										"5 10 15 20"
+			"movement_slow"										"-40 -50 -60 -70"
 			"radius"				
 			{
-				"value"		"125"
-				"affected_by_aoe_increase"	"1"
+				"value"											"125"
+				"affected_by_aoe_increase"						"1"
 			}
-			"speed"									"1200"
-			"create_wards"
-			{
-				"value"								"0"
-				"special_bonus_unique_venomancer_gale_plagueward"		"+2"
-			}
+			"speed"												"1200"
+			"create_wards"										{"special_bonus_facet_venomancer_plague_bringer"	"=1"}
 			"AbilityCooldown"
 			{
-				"value"								"21 20 19 18"
-				"special_bonus_unique_venomancer_3"	"-5"
+				"value"											"21 20 19 18"
+				"special_bonus_unique_venomancer_3"				"-5"
 			}
-			"AbilityCastRange"
-			{
-				"value"								"800"
-				"special_bonus_shard"				"+400"
-			}
+			"AbilityCastRange"									"800"
 			"explosion_damage"		
 			{
-				"special_bonus_shard"				"3000"
-				"CalculateSpellDamageTooltip"		"1"
+				"special_bonus_shard"							""
+				"special_bonus_facet_venomancer_toxicologist"	"100"
+				"CalculateSpellDamageTooltip"					"0"
 			}
 			"explosion_stun_duration"	
 			{
-				"special_bonus_shard"				"1.6"
-				"is_debuff_duration"				"1"
+				"special_bonus_shard"							""
+				"special_bonus_facet_venomancer_toxicologist"	"1.5 2.0 2.5 3.0"
+				"is_debuff_duration"							"1"
 			}
 		}
 	}
@@ -123,6 +119,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_venomancer/venomancer_poison_sting"
+		"AbilityTextureName"			"venomancer_poison_sting"
 		"AbilityType"					"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
@@ -136,24 +135,24 @@
 		{
 			"duration"															
 			{
-				"value"															"6 9 12 15"
-				"is_debuff_duration"											"1"
+				"value"											"6 9 12 15"
+				"is_debuff_duration"							"1"
 			}
-			"damage"
-			{
-				"value"															"120 240 360 480"
-				"CalculateSpellDamageTooltip"									"1"
-			}
+			"damage"											"1 2 3 4"
 			"movement_speed"
 			{
-				"value"															"-8 -10 -12 -14"
-				"special_bonus_unique_venomancer_2"								"-8"
-			}	
-			"hp_regen_reduction"
-			{
-				"value"															"0"
-				"special_bonus_unique_venomancer_poisonsting_regen_reduction"	"+20"
+				"value"											"-8 -10 -12 -14"
+				"special_bonus_unique_venomancer_2"				"-8"
 			}
+			"attack_speed"
+			{
+				"special_bonus_facet_venomancer_toxicologist"	"-8 -10 -12 -14"
+				"special_bonus_unique_venomancer_2"				"-8"
+			}
+			"bonus_poison_slow"									{"special_bonus_facet_venomancer_toxicologist"	"1"}
+			"kills_refresh_cds"									{"special_bonus_facet_venomancer_plague_bringer"	"1"}
+			"hp_regen_reduction"								{"special_bonus_unique_venomancer_poisonsting_regen_reduction"	"+20"}
+			"summon_power"										"50"
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -164,6 +163,9 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_venomancer/venomancer_plague_ward"
+		"AbilityTextureName"			"venomancer_plague_ward"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
@@ -245,6 +247,9 @@
 	//=================================================================================================================
 	"venomancer_noxious_plague"
 	{
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/hero_venomancer/venomancer_noxious_plague"
+		"AbilityTextureName"			"venomancer_noxious_plague"
 		"AbilityType"					"ABILITY_TYPE_ULTIMATE"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"

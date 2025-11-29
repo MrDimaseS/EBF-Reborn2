@@ -191,7 +191,7 @@ function modifier_keyword_debuff_poison:OnIntervalThink()
 		local dummyAbility = unit:GetAbilityByIndex(0)
 		dummyAbility._isPoisonDamage = true
 		local damage = stacks * 50
-		dummyAbility:DealDamage( unit, parent, damage * unit:GetHeroPowerAmplification( ), {damage_type = DAMAGE_TYPE_PHYSICAL}, OVERHEAD_ALERT_BONUS_POISON_DAMAGE )
+		dummyAbility:DealDamage( unit, parent, damage * unit:GetHeroPowerAmplification( ), {damage_type = DAMAGE_TYPE_PHYSICAL, damage_flags = DOTA_DAMAGE_FLAG_HPLOSS}, OVERHEAD_ALERT_BONUS_POISON_DAMAGE )
 		dummyAbility._isPoisonDamage = false
 	end
 	

@@ -1,5 +1,5 @@
 BASE_BURN_DAMAGE = 50
-BASE_POISON_DAMAGE = 300
+BASE_POISON_DAMAGE = 50
 
 modifier_keyword_debuff_burn = class({})
 LinkLuaModifier( "modifier_keyword_debuff_burn", "libraries/keywords.lua", LUA_MODIFIER_MOTION_NONE )
@@ -128,6 +128,14 @@ else
 		end
 	end
 	
+	function CDOTA_BaseNPC:GetBurnDamage( )
+		if IsModifierSafe( self._internalBurnModifier ) then
+			return self._internalBurnModifier:OnTooltip()
+		else
+			return 0
+		end
+	end
+	
 	function CDOTA_BaseNPC:GetBurnFromSource( source )
 		if IsModifierSafe( self._internalBurnModifier ) then
 			return self._internalBurnModifier._burnEntities[source:entindex()]
@@ -231,7 +239,7 @@ function modifier_keyword_debuff_poison:DeclareFunctions()
 end
 
 function modifier_keyword_debuff_poison:OnTooltip()
-	return self:GetStackCount() * 50
+	return self:GetStackCount() * BASE_POISON_DAMAGE
 end
 
 function modifier_keyword_debuff_poison:GetEffectName()
@@ -247,6 +255,14 @@ else
 	function CDOTA_BaseNPC:GetPoison( )
 		if IsModifierSafe( self._internalPoisonModifier ) then
 			return self._internalPoisonModifier:GetStackCount()
+		else
+			return 0
+		end
+	end
+	
+	function CDOTA_BaseNPC:GetPoisonDamage( )
+		if IsModifierSafe( self._internalPoisonModifier ) then
+			return self._internalPoisonModifier:OnTooltip()
 		else
 			return 0
 		end

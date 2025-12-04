@@ -31,6 +31,8 @@
 			}
 			"hits_to_proc_bonus"				"4"
 			"proc_lifesteal"					{"special_bonus_facet_venomancer_toxicologist"	"50"}
+			"proc_lifesteal_radius"				{"special_bonus_facet_venomancer_toxicologist"	"900"}
+			"proc_bonus_damage"					{"special_bonus_facet_venomancer_toxicologist"	"40"}
 		}
 	}
 	//=================================================================================================================
@@ -138,7 +140,7 @@
 				"value"											"6 9 12 15"
 				"is_debuff_duration"							"1"
 			}
-			"damage"											"1 2 3 4"
+			"damage"											"1"
 			"movement_speed"
 			{
 				"value"											"-8 -10 -12 -14"
@@ -179,39 +181,18 @@
 		
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"24 26 28 30"
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityValues"
 		{
+			"AbilityManaCost"				"24 26 28 30"
 			"AbilityCooldown"
 			{
 				"value"											"5.0"
 				"special_bonus_unique_venomancer_8"				"-1"
 			}
-			"can_target"
-			{
-				"value"											"0"
-				"special_bonus_facet_venomancer_plague_carrier"	"=1"
-			}
 			"duration"											"40.0"
-			"ward_multiplier"
-			{
-				"value"											"1.0"
-				"special_bonus_unique_venomancer"				"x2.5"
-				"CalculateAttributeTooltip"						"1"
-			}
-			"max_charges"
-			{
-				"value"			"0"
-				"special_bonus_facet_venomancer_plague_carrier"	"=3"
-			}
-			"ward_model_scale"
-			{
-				"value"											"1.0"
-				"special_bonus_unique_venomancer"				"x1.5"
-			}
 			"ward_hp_tooltip"
 			{
 				"value"											"500 1000 1500 2000"
@@ -224,19 +205,14 @@
 				"special_bonus_unique_venomancer"				"x2.5"
 				"CalculateAttributeTooltip"						"1"
 			}
-			"threshold"							
+			
+			"cast_on_allies"									{"special_bonus_facet_venomancer_toxicologist" "1"}
+			"provides_barrier"									{"special_bonus_facet_venomancer_toxicologist" "1"}
+			"explodes_on_death"									{"special_bonus_facet_venomancer_plague_bringer" "1"}
+			"explosion_radius"
 			{
-				"value"											"500 1000 1500 2000"
-				"CalculateAttributeTooltip"						"1"
-				"special_bonus_unique_venomancer"				"x2.5"
-				"RequiresFacet"									"venomancer_plague_carrier"
-
-			}
-			"threshold_max_hp_pct"							
-			{
-				"value"											"2 3 4 5"
-				"special_bonus_unique_venomancer" 				"x2.5"
-				"RequiresFacet"									"venomancer_plague_carrier"				
+				"special_bonus_facet_venomancer_plague_bringer" "450"
+				"affected_by_aoe_increase"						"1"
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
@@ -279,44 +255,36 @@
 
 		"AbilityValues"
 		{
-			"AbilityCooldown"
-			{
-				"value"								"80 70 60"
-				"special_bonus_facet_venomancer_patient_zero"	"-15"
-			}
+			"AbilityCooldown"									"80 70 60"
 			"debuff_duration"			
 			{
-				"value"								"5"
-				"is_debuff_duration"				"1"
+				"value"											"5"
+				"is_debuff_duration"							"1"
 			}
 			"impact_damage"
 			{
-				"value"								"2000 3000 4000"
-				"CalculateSpellDamageTooltip"		"1"
+				"value"											"2000 3000 4000"
+				"CalculateSpellDamageTooltip"					"1"
 			}
-			"health_damage"
-			{
-				"value"								"3 4 5"
-				"special_bonus_unique_venomancer_4" "+3"
-				"CalculateSpellDamageTooltip"		"0"
-			}
-			"debuff_radius"				"800"
-			"movement_slow_max"			"50"
+			"poison_per_sec"									"5 7 9"
+			"debuff_radius"										"800"
+			"movement_slow_max"									"50"
 			"attack_slow"
 			{
-				"value"					"0"
-				"special_bonus_unique_venomancer_5"	"+200"
+				"value"											"0"
+				"special_bonus_unique_venomancer_5"				"+200"
 			}
 			"spread_count"
 			{
-				"value"					"1"
-				"special_bonus_facet_venomancer_patient_zero"	"+1 2 3"
+				"value"											"1"
+				"special_bonus_facet_venomancer_plague_bringer"	"=2"
 			}
-			"impact_damage_reduce"
-			{
-				"special_bonus_facet_venomancer_patient_zero" "50"
-			}
-			"projectile_speed"			"1200"		
+			"projectile_speed"									"1200"
+			
+			"poison_damage_on_expire"							"100"
+			"healing_on_expire"									{"special_bonus_facet_venomancer_toxicologist"	"100"}
+			
+			"health_damage"							""
 		}
 	}
 }

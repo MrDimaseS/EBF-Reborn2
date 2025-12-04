@@ -1,128 +1,136 @@
-venomancer_venomous_gale = class({})
+venomancer_noxious_plague = class({})
 
-function venomancer_venomous_gale:OnSpellStart()
-	self.speed = self:GetSpecialValueFor( "speed" )
-	self.width = self:GetSpecialValueFor( "radius" )
-	self.distance = self:GetTrueCastRange()
-
-	EmitSoundOn( "Hero_Venomancer.VenomousGale", self:GetCaster() )
-
-	local vPos = nil
-	if self:GetCursorTarget() then
-		vPos = self:GetCursorTarget():GetOrigin()
-	else
-		vPos = self:GetCursorPosition()
-	end
-
-	local vDirection = vPos - self:GetCaster():GetOrigin()
-	vDirection.z = 0.0
-	vDirection = vDirection:Normalized()
+function venomancer_noxious_plague:OnSpellStart()
+	local caster = self:GetCaster()
+	local target = self:GetCursorTarget()
 	
-	local info = {
-		EffectName = "particles/units/heroes/hero_venomancer/venomancer_venomous_gale.vpcf",
-		Ability = self,
-		vSpawnOrigin = self:GetCaster():GetOrigin(), 
-		fStartRadius = self.width,
-		fEndRadius = self.width,
-		vVelocity = vDirection * self.speed,
-		fDistance = self.distance,
-		Source = self:GetCaster(),
-		iUnitTargetTeam = DOTA_UNIT_TARGET_TEAM_ENEMY,
-		iUnitTargetType = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC,
-	}
-
-	ProjectileManager:CreateLinearProjectile( info )
+	self:FireTrackingProjectile("particles/units/heroes/hero_venomancer/venomancer_noxious_plague_projectile.vpcf", target, self:GetSpecialValueFor("projectile_speed"))
 end
 
 --------------------------------------------------------------------------------
 
-function venomancer_venomous_gale:OnProjectileHit( hTarget, vLocation )
-	if hTarget ~= nil and ( not hTarget:IsMagicImmune() ) and ( not hTarget:IsInvulnerable() ) and not hTarget:TriggerSpellAbsorb( self ) then
+function venomancer_noxious_plague:OnProjectileHit( target, position )
+	if target then
 		local caster = self:GetCaster()
-		hTarget:AddNewModifier(self:GetCaster(), self, "modifier_venomancer_venomous_gale_cancer", {duration = self:GetSpecialValueFor("duration")})
-		EmitSoundOn( "Hero_Venomancer.VenomousGaleImpact", hTarget )
 		
-		local vDirection = vLocation - self:GetCaster():GetOrigin()
-		vDirection.z = 0.0
-		vDirection = vDirection:Normalized()
+		local duration = self:GetSpecialValueFor("debuff_duration")
+		local damage = self:GetSpecialValueFor("impact_damage")
+		local poison = self:GetSpecialValueFor("poison_per_sec")
+		local spread = self:GetSpecialValueFor("spread_count")
 		
-		local damage = self:GetSpecialValueFor("strike_damage")
-		if caster:IsRealHero( ) and self:GetSpecialValueFor("create_wards") > 0 and hTarget:IsConsideredHero() then
-			local ward = caster:FindAbilityByName("venomancer_plague_ward")
-			if ward and ward:IsTrained() then
-				for i = 1, self:GetSpecialValueFor("create_wards") do
-					local position  = hTarget:GetAbsOrigin() + RandomVector(250)
-					caster:SetCursorPosition( position )
-					ward:OnSpellStart( )
-				end
-			end
-		end
-		
-		local nFXIndex = ParticleManager:CreateParticle( "particles/units/heroes/hero_venomancer/venomancer_venomous_gale_impact.vpcf", PATTACH_ABSORIGIN_FOLLOW, hTarget )
-		ParticleManager:SetParticleControlForward( nFXIndex, 1, vDirection )
-		ParticleManager:ReleaseParticleIndex( nFXIndex )
-		
-		self:DealDamage( caster, hTarget, damage )
+		target:AddNewModifier( caster, self, "modifier_venomancer_noxious_plague_cancer", {duration = duration} ):SetStackCount( spread )
+		self:DealDamage( caster, target, damage )
 	end
-	return false
 end
 
-LinkLuaModifier( "modifier_venomancer_venomous_gale_cancer", "heroes/hero_venomancer/venomancer_venomous_gale", LUA_MODIFIER_MOTION_NONE )
-modifier_venomancer_venomous_gale_cancer = class({})
+LinkLuaModifier( "modifier_venomancer_noxious_plague_cancer", "heroes/hero_venomancer/venomancer_noxious_plague", LUA_MODIFIER_MOTION_NONE )
+modifier_venomancer_noxious_plague_cancer = class({})
 
-function modifier_venomancer_venomous_gale_cancer:OnCreated()
+function modifier_venomancer_noxious_plague_cancer:OnCreated()
 	self:OnRefresh()
-	self:StartIntervalThink( self.tick )
+	
+	self:OnIntervalThink( )
+	self:StartIntervalThink( 1 )
 end
 
-function modifier_venomancer_venomous_gale_cancer:OnRefresh()
-	self.tick = self:GetSpecialValueFor("tick_interval")
-	self.movespeed = self:GetSpecialValueFor("movement_slow")
-	self.msReduction = self.tick * self.movespeed / self:GetRemainingTime()
-	self.tick_damage = self:GetSpecialValueFor("tick_damage")
+function modifier_venomancer_noxious_plague_cancer:OnRefresh()
+	self.poison_per_sec = self:GetSpecialValueFor("poison_per_sec")
+	self.debuff_radius = self:GetSpecialValueFor("debuff_radius")
+	self.debuff_duration = self:GetSpecialValueFor("debuff_duration")
+	self.poison_damage_on_expire = self:GetSpecialValueFor("poison_damage_on_expire") / 100
+	self.healing_on_expire = self:GetSpecialValueFor("healing_on_expire") / 100
 end
 
-function modifier_venomancer_venomous_gale_cancer:OnDestroy()
-	if IsServer() then
-		local caster = self:GetCaster()
-		local parent = self:GetParent()
-		if caster:IsRealHero( ) and caster:HasScepter( ) and parent:IsConsideredHero() then
-			self.nova = self:GetCaster():FindAbilityByName("venomancer_poison_nova")
-			if self.nova then
-				self.nova:PoisonNova( parent )
-			end
-		end
-		if caster:HasShard() then
-			self:GetAbility():DealDamage( caster, parent, self:GetSpecialValueFor("explosion_damage") )
-			self:GetAbility():Stun( parent, self:GetSpecialValueFor("explosion_stun_duration") )
+function modifier_venomancer_noxious_plague_cancer:OnDestroy()
+	if IsClient() then return end
+	if self:GetStackCount() <= 0 then return end
+	local parent = self:GetParent()
+	local caster = self:GetCaster()
+	local ability = self:GetAbility()
+	local damageToDeal = parent:GetPoisonDamage() * self.poison_damage_on_expire
+	local healToApply = parent:GetPoisonDamage() * self.healing_on_expire
+	
+	ability:DealDamage( caster, parent, damageToDeal )
+	for _, enemy in ipairs( caster:FindEnemyUnitsInRadius( parent:GetAbsOrigin(), self.debuff_radius ) ) do
+		enemy:AddNewModifier( caster, ability, "modifier_venomancer_noxious_plague_cancer", {duration = self.debuff_duration} ):SetStackCount( self:GetStackCount() - 1 )
+	end
+	if healToApply > 0 then
+		for _, ally in ipairs( caster:FindFriendlyUnitsInRadius( parent:GetAbsOrigin(), self.debuff_radius ) ) do
+			ally:HealEvent( healToApply, ability, caster )
 		end
 	end
+	ParticleManager:FireParticle("particles/units/heroes/hero_venomancer/venomancer_noxious_plague_spread.vpcf", PATTACH_POINT_FOLLOW, parent, {[1] = Vector(self.debuff_radius, 1, self.debuff_radius)})
 end
 
-function modifier_venomancer_venomous_gale_cancer:OnIntervalThink()
-	self.movespeed = math.min( self.movespeed - self.msReduction, 0 )
+function modifier_venomancer_noxious_plague_cancer:OnIntervalThink()
 	if IsServer() then 
+		local parent = self:GetParent()
 		local caster = self:GetCaster()
-		local damage = self.tick_damage
-		self:GetAbility():DealDamage( caster, self:GetParent(), damage )
+		parent:AddPoison( caster, self.poison_per_sec )
 	end
 end
 
-function modifier_venomancer_venomous_gale_cancer:DeclareFunctions()
-	funcs = {
-				MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE
-			}
-	return funcs
-end
-
-function modifier_venomancer_venomous_gale_cancer:GetModifierMoveSpeedBonus_Percentage()
-	return self.movespeed
-end
-
-function modifier_venomancer_venomous_gale_cancer:GetAttributes()
+function modifier_venomancer_noxious_plague_cancer:GetAttributes()
 	return MODIFIER_ATTRIBUTE_MULTIPLE
 end
 
-function modifier_venomancer_venomous_gale_cancer:GetEffectName()
-	return "particles/units/heroes/hero_venomancer/venomancer_gale_poison_debuff.vpcf"
+function modifier_venomancer_noxious_plague_cancer:GetEffectName()
+	return "particles/units/heroes/hero_venomancer/venomancer_poison_debuff_nova.vpcf"
+end
+
+function modifier_venomancer_noxious_plague_cancer:IsAura()
+    return true
+end
+
+function modifier_venomancer_noxious_plague_cancer:GetAuraDuration()
+    return 0.5
+end
+
+function modifier_venomancer_noxious_plague_cancer:GetAuraRadius()
+    return self.debuff_radius
+end
+
+function modifier_venomancer_noxious_plague_cancer:GetAuraSearchTeam()
+    return DOTA_UNIT_TARGET_TEAM_ENEMY
+end
+
+function modifier_venomancer_noxious_plague_cancer:GetAuraSearchType()
+    return DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC
+end
+
+function modifier_venomancer_noxious_plague_cancer:GetModifierAura()
+    return "modifier_venomancer_noxious_plague_aura_slow"
+end
+
+LinkLuaModifier( "modifier_venomancer_noxious_plague_aura_slow", "heroes/hero_venomancer/venomancer_noxious_plague", LUA_MODIFIER_MOTION_NONE )
+modifier_venomancer_noxious_plague_aura_slow = class({})
+
+function modifier_venomancer_noxious_plague_aura_slow:OnCreated()
+	self:OnRefresh()
+end
+
+function modifier_venomancer_noxious_plague_aura_slow:OnRefresh()
+	self.movement_slow_max = -self:GetSpecialValueFor("movement_slow_max")
+	self.attack_slow = -self:GetSpecialValueFor("attack_slow")
+end
+
+function modifier_venomancer_noxious_plague_aura_slow:DeclareFunctions()
+	return {MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE,
+			MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT }
+end
+
+function modifier_venomancer_noxious_plague_aura_slow:GetModifierMoveSpeedBonus_Percentage()
+	return self.movement_slow_max
+end
+
+function modifier_venomancer_noxious_plague_aura_slow:GetModifierAttackSpeedBonus_Constant()
+	return self.attack_slow
+end
+
+function modifier_venomancer_noxious_plague_aura_slow:IsHidden()
+	return self:GetParent():HasModifier("modifier_venomancer_noxious_plague_cancer")
+end
+
+function modifier_venomancer_noxious_plague_cancer:GetEffectName()
+	return "particles/units/heroes/hero_venomancer/venomancer_noxious_plague_slow.vpcf"
 end

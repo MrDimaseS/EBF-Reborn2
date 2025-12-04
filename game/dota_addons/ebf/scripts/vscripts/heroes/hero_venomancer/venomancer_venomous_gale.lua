@@ -23,7 +23,7 @@ function venomancer_venomous_gale:OnProjectileHit( target, position )
 		local caster = self:GetCaster()
 		target:RemoveModifierByName("modifier_venomancer_venomous_gale_cancer")
 		target:AddNewModifier(self:GetCaster(), self, "modifier_venomancer_venomous_gale_cancer", {duration = self:GetSpecialValueFor("duration")})
-		target:AddPoison( self:GetSpecialValueFor("tick_damage") )
+		target:AddPoison(caster, self:GetSpecialValueFor("tick_damage") )
 		EmitSoundOn( "Hero_Venomancer.VenomousGaleImpact", target )
 		
 		local damage = self:GetSpecialValueFor("strike_damage")

@@ -1,141 +1,52 @@
-venomancer_poison_sting_ebf = class({})
+venomancer_sepsis = class({})
 
-function venomancer_poison_sting_ebf:GetIntrinsicModifierName()
-	return "modifier_venomancer_poison_sting_handler"
+function venomancer_sepsis:GetIntrinsicModifierName()
+	return "modifier_venomancer_sepsis_handler"
 end
 
-LinkLuaModifier( "modifier_venomancer_poison_sting_handler", "heroes/hero_venomancer/venomancer_poison_sting_ebf", LUA_MODIFIER_MOTION_NONE )
-modifier_venomancer_poison_sting_handler = class({})
+LinkLuaModifier( "modifier_venomancer_sepsis_handler", "heroes/hero_venomancer/venomancer_sepsis", LUA_MODIFIER_MOTION_NONE )
+modifier_venomancer_sepsis_handler = class({})
 
-function modifier_venomancer_poison_sting_handler:OnCreated()
+function modifier_venomancer_sepsis_handler:OnCreated()
 	self:OnRefresh()
 end
 
-function modifier_venomancer_poison_sting_handler:OnRefresh()
-	self.duration = self:GetAbility():GetSpecialValueFor("duration")
-	self.initial = self:GetAbility():GetSpecialValueFor("initial_stacks")
-	self.ward = self:GetAbility():GetSpecialValueFor("ward_power")
+function modifier_venomancer_sepsis_handler:OnRefresh()
+	self.bonus_poison_damage = self:GetSpecialValueFor("bonus_poison_damage")
+	self.hits_to_proc_bonus = self:GetSpecialValueFor("hits_to_proc_bonus")
 	
-	self.talent1 = self:GetParent():HasTalent("special_bonus_unique_venomancer_poison_sting_1")
-	self.talent1Val = self:GetParent():FindTalentValue("special_bonus_unique_venomancer_poison_sting_1")
+	self.proc_lifesteal = self:GetSpecialValueFor("proc_lifesteal") / 100
+	self.proc_lifesteal_radius = self:GetSpecialValueFor("proc_lifesteal_radius")
+	self.proc_bonus_damage = self:GetSpecialValueFor("proc_bonus_damage")
 end
 
-function modifier_venomancer_poison_sting_handler:IsHidden()
+function modifier_venomancer_sepsis_handler:DeclareFunctions()
+	return {MODIFIER_EVENT_ON_ATTACK_LANDED}
+end
+
+function modifier_venomancer_sepsis_handler:OnAttackLanded(params)
+	local caster = self:GetCaster()
+	if caster ~= params.attacker then return end
+	local ability = self:GetAbility()
+	local bonusPoisonDamage = params.target:GetPoison() * self.bonus_poison_damage
+	if bonusPoisonDamage <= 0 then return end
+	if self.proc_bonus_damage > 0 and self:GetStackCount() >= self.hits_to_proc_bonus then
+		 bonusPoisonDamage = params.target:GetPoison() * self.proc_bonus_damage
+	end
+	local damage = ability:DealDamage( caster, params.target, bonusPoisonDamage, {damage_type = DAMAGE_TYPE_MAGICAL}
+	if self.proc_lifesteal > 0 and self:GetStackCount() >= self.hits_to_proc_bonus then
+		local heal = damage * self.proc_lifesteal
+		for _, ally in ipairs( caster:FindFriendlyUnitsInRadius( params.target:GetAbsOrigin(), self.proc_lifesteal_radius ) ) do
+			ally:HealEvent( heal, ability, caster, {heal_type = DOTA_HEAL_TYPE_LIFESTEAL})
+		end
+	end
+	if self:GetStackCount() >= self.hits_to_proc_bonus then
+		self:SetStackCount( 0 )
+	else
+		self:IncrementStackCount()
+	end
+end
+
+function modifier_venomancer_sepsis_handler:IsHidden()
 	return true
-end
-
-function modifier_venomancer_poison_sting_handler:DeclareFunctions()
-	funcs = {
-				MODIFIER_EVENT_ON_ATTACK_LANDED
-			}
-	return funcs
-end
-
-function modifier_venomancer_poison_sting_handler:OnAttackLanded(params)
-	if IsServer() then
-		if params.attacker == self:GetParent() then
-			if params.target:HasModifier("modifier_venomancer_poison_sting_cancer") then
-				local modifier = params.target:FindModifierByName("modifier_venomancer_poison_sting_cancer")
-				if params.attacker:IsHero() then
-					if modifier:GetStackCount() < self.initial then
-						modifier:SetStackCount( self.initial + 1 )
-					else
-						modifier:IncrementStackCount()
-					end
-				elseif self:RollPRNG( self.ward ) then
-					modifier:IncrementStackCount()
-				end
-				modifier:SetDuration(self.duration, true)
-			elseif params.target:IsAlive() then
-				local caster = self:GetParent()
-				local stacks = self.initial
-				if not caster:IsHero() then 
-					caster = caster:GetOwnerEntity()
-					stacks = math.floor(stacks * self.ward / 100)
-				end
-				local modifier = params.target:AddNewModifier(caster, caster:FindAbilityByName("venomancer_poison_sting_ebf"), "modifier_venomancer_poison_sting_cancer", {duration = self.duration})
-				modifier:SetStackCount(stacks)
-			end
-		end
-		if params.target == self:GetParent() and self.talent1 then
-			local stacks = math.floor( self.initial * self.talent1Val / 100 )
-			if not self:GetParent():IsHero() then 
-				stacks = math.floor(stacks * self.ward / 100)
-			end
-			if params.attacker:HasModifier("modifier_venomancer_poison_sting_cancer") then
-				local modifier = params.attacker:FindModifierByName("modifier_venomancer_poison_sting_cancer")
-				modifier:SetStackCount(modifier:GetStackCount() + stacks)
-				modifier:SetDuration(self.duration, true)
-			elseif params.attacker:IsAlive() then
-				local caster = self:GetParent()
-				if not caster:IsHero() then caster = caster:GetOwnerEntity() end
-				local modifier = params.attacker:AddNewModifier(caster, self:GetAbility(), "modifier_venomancer_poison_sting_cancer", {duration = self.duration})
-				modifier:SetStackCount(stacks)
-			end
-		end
-	end
-end
-
-LinkLuaModifier( "modifier_venomancer_poison_sting_cancer", "heroes/hero_venomancer/venomancer_poison_sting_ebf", LUA_MODIFIER_MOTION_NONE)
-modifier_venomancer_poison_sting_cancer = class({})
-
-function modifier_venomancer_poison_sting_cancer:OnCreated()
-	self:OnRefresh()
-	if IsServer() then
-		self:StartIntervalThink(1)
-	end
-end
-
-function modifier_venomancer_poison_sting_cancer:OnRefresh()
-	self.damage = self:GetAbility():GetSpecialValueFor("damage_stack")
-	self.slow = self:GetAbility():GetSpecialValueFor("ms_stack")
-	
-	self.talent2 = self:GetCaster():HasTalent("special_bonus_unique_venomancer_poison_sting_2")
-	self.talent2Val = self:GetCaster():FindTalentValue("special_bonus_unique_venomancer_poison_sting_2")
-end
-
-function modifier_venomancer_poison_sting_cancer:OnIntervalThink()
-	if IsServer() then
-		local caster = self:GetCaster()
-		local parent = self:GetParent()
-		local ability = self:GetAbility()
-		ability:DealDamage(caster, parent, self.damage * self:GetStackCount() )
-		if self.talent2 then
-			for _, enemy in ipairs( caster:FindEnemyUnitsInRadius(parent:GetAbsOrigin(), self.talent2Val) ) do
-				if enemy:HasModifier("modifier_venomancer_poison_sting_cancer") then
-					local modifier = enemy:FindModifierByName("modifier_venomancer_poison_sting_cancer")
-					if modifier:GetStackCount() < self:GetStackCount() then
-						modifier:IncrementStackCount()
-					end
-					if modifier:GetRemainingTime() < self:GetRemainingTime() and self:GetRemainingTime() > 0 then
-						modifier:SetDuration( self:GetRemainingTime(), true )
-					end
-				elseif enemy:IsAlive() then
-					if not caster:IsHero() then caster = caster:GetOwnerEntity() end
-					local modifier = enemy:AddNewModifier(caster, caster:FindAbilityByName("venomancer_poison_sting_ebf"), "modifier_venomancer_poison_sting_cancer", {duration = self.duration})
-					modifier:SetStackCount(1)
-				end
-			end
-		end
-	end
-end
-
-function modifier_venomancer_poison_sting_cancer:DeclareFunctions()
-	funcs = {
-				MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE,
-				MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS
-			}
-	return funcs
-end
-
-function modifier_venomancer_poison_sting_cancer:GetModifierMoveSpeedBonus_Percentage()
-	return self.slow * self:GetStackCount()
-end
-
-function modifier_venomancer_poison_sting_cancer:GetStatusEffectName()
-	return "particles/status_fx/status_effect_poison_venomancer.vpcf"
-end
-
-function modifier_venomancer_poison_sting_cancer:StatusEffectPriority()
-	return 2
 end

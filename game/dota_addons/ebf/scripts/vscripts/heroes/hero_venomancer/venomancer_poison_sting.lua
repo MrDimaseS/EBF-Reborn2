@@ -13,9 +13,7 @@ end
 
 function modifier_venomancer_poison_sting_handler:OnRefresh()
 	self.duration = self:GetAbility():GetSpecialValueFor("duration")
-	
-	self.talent1 = self:GetParent():HasTalent("special_bonus_unique_venomancer_poison_sting_1")
-	self.talent1Val = self:GetParent():FindTalentValue("special_bonus_unique_venomancer_poison_sting_1")
+	self.summon_power = self:GetAbility():GetSpecialValueFor("summon_power") / 100
 end
 
 function modifier_venomancer_poison_sting_handler:IsHidden()
@@ -23,52 +21,18 @@ function modifier_venomancer_poison_sting_handler:IsHidden()
 end
 
 function modifier_venomancer_poison_sting_handler:DeclareFunctions()
-	funcs = {
-				MODIFIER_EVENT_ON_ATTACK_LANDED
-			}
-	return funcs
+	return {MODIFIER_EVENT_ON_ATTACK_LANDED}
 end
 
 function modifier_venomancer_poison_sting_handler:OnAttackLanded(params)
 	if IsServer() then
-		if params.attacker == self:GetParent() then
-			if params.target:HasModifier("modifier_venomancer_poison_sting_cancer") then
-				local modifier = params.target:FindModifierByName("modifier_venomancer_poison_sting_cancer")
-				if params.attacker:IsHero() then
-					if modifier:GetStackCount() < self.initial then
-						modifier:SetStackCount( self.initial + 1 )
-					else
-						modifier:IncrementStackCount()
-					end
-				elseif self:RollPRNG( self.ward ) then
-					modifier:IncrementStackCount()
-				end
-				modifier:SetDuration(self.duration, true)
-			elseif params.target:IsAlive() then
-				local caster = self:GetParent()
-				local stacks = self.initial
-				if not caster:IsHero() then 
-					caster = caster:GetOwnerEntity()
-					stacks = math.floor(stacks * self.ward / 100)
-				end
-				local modifier = params.target:AddNewModifier(caster, caster:FindAbilityByName("venomancer_poison_sting"), "modifier_venomancer_poison_sting_cancer", {duration = self.duration})
-				modifier:SetStackCount(stacks)
-			end
-		end
-		if params.target == self:GetParent() and self.talent1 then
-			local stacks = math.floor( self.initial * self.talent1Val / 100 )
-			if not self:GetParent():IsHero() then 
-				stacks = math.floor(stacks * self.ward / 100)
-			end
-			if params.attacker:HasModifier("modifier_venomancer_poison_sting_cancer") then
-				local modifier = params.attacker:FindModifierByName("modifier_venomancer_poison_sting_cancer")
-				modifier:SetStackCount(modifier:GetStackCount() + stacks)
-				modifier:SetDuration(self.duration, true)
-			elseif params.attacker:IsAlive() then
-				local caster = self:GetParent()
-				if not caster:IsHero() then caster = caster:GetOwnerEntity() end
-				local modifier = params.attacker:AddNewModifier(caster, self:GetAbility(), "modifier_venomancer_poison_sting_cancer", {duration = self.duration})
-				modifier:SetStackCount(stacks)
+		local caster = self:GetCaster()
+		if params.attacker:GetPlayerOwnerID() == caster:GetPlayerOwnerID() then
+			local duration = self.duration * TernaryOperator( 1, params.attacker == caster, self.summon_power )
+			local modifier = params.target:FindModifierByName("modifier_venomancer_poison_sting_cancer")
+			local ability = self:GetAbility()
+			if not modifier or modifier:GetRemainingTime() < duration then
+				params.target:AddNewModifier(caster, ability, "modifier_venomancer_poison_sting_cancer", {duration = duration})
 			end
 		end
 	end
@@ -85,17 +49,47 @@ function modifier_venomancer_poison_sting_cancer:OnCreated()
 end
 
 function modifier_venomancer_poison_sting_cancer:OnRefresh()
-	self.slow = self:GetAbility():GetSpecialValueFor("ms_stack")
+	self.movement_speed = self:GetSpecialValueFor("movement_speed")
+	self.attack_speed = self:GetSpecialValueFor("attack_speed")
+	self.damage = self:GetSpecialValueFor("damage")
+	self.bonus_poison_slow = -self:GetSpecialValueFor("bonus_poison_slow")
+	self.kills_refresh_cds = -self:GetSpecialValueFor("kills_refresh_cds") == 1
+	self.hp_regen_reduction = self:GetSpecialValueFor("hp_regen_reduction")
+end
+
+function modifier_venomancer_poison_sting_cancer:OnIntervalThink()
+	local parent = self:GetParent()
+	parent:AddPoison( self:GetCaster(), self.damage )
+	
+	if self.bonus_poison_slow > 0 then
+		self:SetStackCount( parent:GetPoison() )
+	end
+end
+
+function modifier_venomancer_poison_sting_cancer:OnDestroy()
+	if IsClient() then return end
+	if not self.kills_refresh_cds then return end
+	local parent = self:GetParent()
+	if parent:IsAlive() then return end
+	parent:RefreshAllCooldowns( )
 end
 
 function modifier_venomancer_poison_sting_cancer:DeclareFunctions()
 	funcs = {MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE,
-			}
+			 MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT }
 	return funcs
 end
 
 function modifier_venomancer_poison_sting_cancer:GetModifierMoveSpeedBonus_Percentage()
-	return self.slow
+	return self.movement_speed + self.bonus_poison_slow * self:GetStackCount()
+end
+
+function modifier_venomancer_poison_sting_cancer:GetModifierAttackSpeedBonus_Constant()
+	return self.attack_speed + self.bonus_poison_slow * self:GetStackCount()
+end
+
+function modifier_venomancer_poison_sting_cancer:GetModifierPropertyRestorationAmplification()
+	return self.hp_regen_reduction
 end
 
 function modifier_venomancer_poison_sting_cancer:GetStatusEffectName()

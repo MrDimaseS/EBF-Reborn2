@@ -117,6 +117,7 @@ if IsClient() then
 	end
 else
 	function CDOTA_BaseNPC:AddBurn( caster, burn )
+		if not self:IsAlive() then return end
 		self:AddNewModifier( self, nil, "modifier_keyword_debuff_burn", {unit = caster:entindex(), stacks = burn} )
 	end
 	
@@ -170,11 +171,12 @@ function modifier_keyword_debuff_poison:OnCreated( kv )
 		self._minimumPoison = {}
 		self:OnRefresh( kv )
 		
-		self:StartIntervalThink( 0.5 )
+		self:StartIntervalThink( 3 )
 	end
 end
 
 function modifier_keyword_debuff_poison:OnRefresh( kv )
+	if IsClient() then return end
 	local stacks = tonumber( kv.stacks or 1 )
 	if kv.unit then
 		local poisoner = EntIndexToHScript( tonumber(kv.unit) )
@@ -199,7 +201,7 @@ function modifier_keyword_debuff_poison:OnIntervalThink()
 		local dummyAbility = unit:GetAbilityByIndex(0)
 		dummyAbility._isPoisonDamage = true
 		local damage = stacks * 50
-		dummyAbility:DealDamage( unit, parent, damage * unit:GetHeroPowerAmplification( ), {damage_type = DAMAGE_TYPE_PHYSICAL, damage_flags = DOTA_DAMAGE_FLAG_HPLOSS}, OVERHEAD_ALERT_BONUS_POISON_DAMAGE )
+		dummyAbility:DealDamage( unit, parent, damage * unit:GetHeroPowerAmplification( ), {damage_type = DAMAGE_TYPE_PURE, damage_flags = DOTA_DAMAGE_FLAG_HPLOSS}, OVERHEAD_ALERT_BONUS_POISON_DAMAGE )
 		dummyAbility._isPoisonDamage = false
 	end
 	
@@ -229,7 +231,7 @@ function modifier_keyword_debuff_poison:OnDestroy()
 			self._poisonQueue = table.copy( poisonQueCopy )
 			self._minimumPoison = table.copy( minimumPoisonTableCopy )
 			-- remove half
-			parent:Removepoison( math.ceil( currentPoison * 0.5 ) )
+			parent:RemovePoison( math.ceil( currentPoison * 0.5 ) )
 		end)
 	end
 end
@@ -249,6 +251,7 @@ end
 if IsClient() then
 else
 	function CDOTA_BaseNPC:AddPoison( caster, poison )
+		if not self:IsAlive() then return end
 		self._internalPoisonModifier = self:AddNewModifier( self, nil, "modifier_keyword_debuff_poison", {unit = caster:entindex(), stacks = poison} )
 	end
 	

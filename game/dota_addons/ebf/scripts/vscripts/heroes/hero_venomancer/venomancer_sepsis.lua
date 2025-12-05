@@ -4,8 +4,8 @@ function venomancer_sepsis:GetIntrinsicModifierName()
 	return "modifier_venomancer_sepsis_handler"
 end
 
-LinkLuaModifier( "modifier_venomancer_sepsis_handler", "heroes/hero_venomancer/venomancer_sepsis", LUA_MODIFIER_MOTION_NONE )
 modifier_venomancer_sepsis_handler = class({})
+LinkLuaModifier( "modifier_venomancer_sepsis_handler", "heroes/hero_venomancer/venomancer_sepsis", LUA_MODIFIER_MOTION_NONE )
 
 function modifier_venomancer_sepsis_handler:OnCreated()
 	self:OnRefresh()
@@ -33,7 +33,7 @@ function modifier_venomancer_sepsis_handler:OnAttackLanded(params)
 	if self.proc_bonus_damage > 0 and self:GetStackCount() >= self.hits_to_proc_bonus then
 		 bonusPoisonDamage = params.target:GetPoison() * self.proc_bonus_damage
 	end
-	local damage = ability:DealDamage( caster, params.target, bonusPoisonDamage, {damage_type = DAMAGE_TYPE_MAGICAL}
+	local damage = ability:DealDamage( caster, params.target, bonusPoisonDamage, {damage_type = DAMAGE_TYPE_MAGICAL}, OVERHEAD_ALERT_BONUS_SPELL_DAMAGE )
 	if self.proc_lifesteal > 0 and self:GetStackCount() >= self.hits_to_proc_bonus then
 		local heal = damage * self.proc_lifesteal
 		for _, ally in ipairs( caster:FindFriendlyUnitsInRadius( params.target:GetAbsOrigin(), self.proc_lifesteal_radius ) ) do

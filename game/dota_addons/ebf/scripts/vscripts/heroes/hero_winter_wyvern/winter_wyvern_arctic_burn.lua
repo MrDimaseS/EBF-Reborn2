@@ -74,7 +74,6 @@ end
 
 function modifier_winter_wyvern_arctic_burn_ebf_attack:OnRefresh()
     self.damage_duration = self:GetSpecialValueFor("damage_duration")
-    self.mana_per_second = self:GetSpecialValueFor("mana_per_second")
     self.no_limit = self:GetSpecialValueFor("no_limit")
 end
 
@@ -153,8 +152,7 @@ function modifier_winter_wyvern_arctic_burn_ebf_debuff:OnIntervalThink()
     local damage = currentHP * self.percent_damage
 
     if IsServer() then
-        self:GetAbility():DealDamage(caster, parent, self.base_damage)
-        self:GetAbility():DealDamage(caster, parent, damage * parent:GetMaxHealthDamageResistance())
+        self:GetAbility():DealDamage( caster, parent, self.base_damage * (1+caster:GetSpellAmplification( false )) + damage * parent:GetMaxHealthDamageResistance(), {damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION } )
     end
 end
 

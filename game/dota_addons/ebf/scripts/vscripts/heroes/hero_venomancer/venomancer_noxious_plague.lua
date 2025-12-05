@@ -16,7 +16,7 @@ function venomancer_noxious_plague:OnProjectileHit( target, position )
 		local duration = self:GetSpecialValueFor("debuff_duration")
 		local damage = self:GetSpecialValueFor("impact_damage")
 		local poison = self:GetSpecialValueFor("poison_per_sec")
-		local spread = self:GetSpecialValueFor("spread_count")
+		local spread = self:GetSpecialValueFor("total_spreads")
 		
 		target:AddNewModifier( caster, self, "modifier_venomancer_noxious_plague_cancer", {duration = duration} ):SetStackCount( spread )
 		self:DealDamage( caster, target, damage )
@@ -91,7 +91,7 @@ function modifier_venomancer_noxious_plague_cancer:GetAuraRadius()
 end
 
 function modifier_venomancer_noxious_plague_cancer:GetAuraSearchTeam()
-    return DOTA_UNIT_TARGET_TEAM_ENEMY
+    return DOTA_UNIT_TARGET_TEAM_FRIENDLY
 end
 
 function modifier_venomancer_noxious_plague_cancer:GetAuraSearchType()

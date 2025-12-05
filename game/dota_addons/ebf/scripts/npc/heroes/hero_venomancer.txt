@@ -16,7 +16,7 @@
 		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"MaxLevel"						"1"
 		"Innate"						"1"
-		"HasScepterUpgrade"				"1"
+		"HasScepterUpgrade"				"0"
 		"IsBreakable"					"1"
 
 		"AbilityValues"
@@ -30,9 +30,9 @@
 				"CalculateAttackDamageTooltip"	"1"
 			}
 			"hits_to_proc_bonus"				"4"
-			"proc_lifesteal"					{"special_bonus_facet_venomancer_toxicologist"	"50"}
-			"proc_lifesteal_radius"				{"special_bonus_facet_venomancer_toxicologist"	"900"}
-			"proc_bonus_damage"					{"special_bonus_facet_venomancer_toxicologist"	"40"}
+			"proc_lifesteal"					{"special_bonus_facet_venomancer_toxicologist"		"50"}
+			"proc_lifesteal_radius"				{"special_bonus_facet_venomancer_toxicologist"		"900"}
+			"proc_bonus_damage"					{"special_bonus_facet_venomancer_plague_bringer"	"40"}
 		}
 	}
 	//=================================================================================================================
@@ -58,6 +58,7 @@
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
  		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_1"
+		"AbilityCastRange"				"800"
 		"AbilityCastGestureSlot"		"DEFAULT"
 		"AbilityCastPoint"				"0.0 0.0 0.0 0.0"
 		
@@ -85,14 +86,14 @@
 				"CalculateSpellDamageTooltip"					"1"
 			}
 			"tick_damage"										"5 10 15 20"
-			"movement_slow"										"-40 -50 -60 -70"
+			"movement_slow"										"40 50 60 70"
 			"radius"				
 			{
 				"value"											"125"
 				"affected_by_aoe_increase"						"1"
 			}
 			"speed"												"1200"
-			"create_wards"										{"special_bonus_facet_venomancer_plague_bringer"	"=1"}
+			"wards_to_create"									{"special_bonus_facet_venomancer_plague_bringer"	"=1 =2 =3 =4"}
 			"AbilityCooldown"
 			{
 				"value"											"21 20 19 18"
@@ -143,18 +144,22 @@
 			"damage"											"1"
 			"movement_speed"
 			{
-				"value"											"-8 -10 -12 -14"
-				"special_bonus_unique_venomancer_2"				"-8"
+				"value"											"8 10 12 14"
+				"special_bonus_unique_venomancer_2"				"+8"
 			}
 			"attack_speed"
 			{
-				"special_bonus_facet_venomancer_toxicologist"	"-8 -10 -12 -14"
-				"special_bonus_unique_venomancer_2"				"-8"
+				"special_bonus_facet_venomancer_toxicologist"	"=8 =10 =12 =14"
+				"special_bonus_unique_venomancer_2"				"+8"
 			}
 			"bonus_poison_slow"									{"special_bonus_facet_venomancer_toxicologist"	"1"}
 			"kills_refresh_cds"									{"special_bonus_facet_venomancer_plague_bringer"	"1"}
 			"hp_regen_reduction"								{"special_bonus_unique_venomancer_poisonsting_regen_reduction"	"+20"}
-			"summon_power"										"50"
+			"summon_power"
+			{
+				"value"											"50"
+				"special_bonus_facet_venomancer_plague_bringer"	"=100"
+			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -169,6 +174,7 @@
 		"ScriptFile"					"heroes/hero_venomancer/venomancer_plague_ward"
 		"AbilityTextureName"			"venomancer_plague_ward"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
 		"AbilitySound"					"Hero_Venomancer.Plague_Ward"
@@ -179,8 +185,11 @@
 		"AbilityCastRange"				"850"
 		"AbilityCastPoint"				"0.0 0.0 0.0 0.0"
 		
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
+		"precache"
+		{
+			"particle"					"particles/units/heroes/hero_venomancer/venomancer_plague_ward_projectile.vpcf"
+			"particle"					"particles/units/heroes/hero_venomancer/venomancer_poison_nova.vpcf"
+		}
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -195,7 +204,7 @@
 			"duration"											"40.0"
 			"ward_hp_tooltip"
 			{
-				"value"											"500 1000 1500 2000"
+				"value"											"1500 3000 4500 6000"
 				"special_bonus_unique_venomancer"				"x2.5"
 				"CalculateAttributeTooltip"						"1"
 			}
@@ -207,8 +216,8 @@
 			}
 			
 			"cast_on_allies"									{"special_bonus_facet_venomancer_toxicologist" "1"}
-			"provides_barrier"									{"special_bonus_facet_venomancer_toxicologist" "1"}
-			"explodes_on_death"									{"special_bonus_facet_venomancer_plague_bringer" "1"}
+			"provides_barrier"									{"special_bonus_facet_venomancer_toxicologist" "100"}
+			"explodes_on_death"									{"special_bonus_facet_venomancer_plague_bringer" "50"}
 			"explosion_radius"
 			{
 				"special_bonus_facet_venomancer_plague_bringer" "450"
@@ -237,11 +246,13 @@
 		"FightRecapLevel"				"1"
 		
 		"LevelsBetweenUpgrades"			"6"
-
-		"LinkedAbility"					"venomancer_latent_poison"
-		// Time
-		//-------------------------------------------------------------------------------------------------------------
 		
+		"precache"
+		{
+			"particle"					"particles/units/heroes/hero_venomancer/venomancer_noxious_plague_spread.vpcf"
+			"particle"					"particles/units/heroes/hero_venomancer/venomancer_noxious_plague_slow.vpcf"
+			"particle"					"particles/units/heroes/hero_venomancer/venomancer_poison_debuff_nova.vpcf"
+		}
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -274,7 +285,7 @@
 				"value"											"0"
 				"special_bonus_unique_venomancer_5"				"+200"
 			}
-			"spread_count"
+			"total_spreads"
 			{
 				"value"											"1"
 				"special_bonus_facet_venomancer_plague_bringer"	"=2"

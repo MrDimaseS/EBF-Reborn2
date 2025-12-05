@@ -4623,16 +4623,17 @@
 		
 		"DOTA_Tooltip_ability_venomancer_venomous_gale_Description"											"Launches a ball of venom in a line, Damaging and Poisoning enemy units hit, as well as Slowing them for the duration. The slow decrements over time."
 		"DOTA_Tooltip_ability_venomancer_venomous_gale_Facet_venomancer_toxicologist"						"When Venomous Gale ends for any reason, the affected unit takes %explosion_damage%%% of their Poison damage immediately and are stunned."
-		"DOTA_Tooltip_ability_venomancer_venomous_gale_Facet_venomancer_plague_bringer"						"Creates %wards_created% Plague Ward for each enemy Champions hit by Venomous Gale."
+		"DOTA_Tooltip_ability_venomancer_venomous_gale_Facet_venomancer_plague_bringer"						"The first time an enemy Hero is hit by Venomous Gale, create Plague Wards."
 		"DOTA_Tooltip_ability_venomancer_venomous_gale_Note0"												"Poison stacks additively and deals 50 Physical damage every 3 seconds and has no duration. Stacks are lost on Dispel or when the unit is Healed. Damage dealt is increased by Hero Power and Spell Amplification."
 		"DOTA_Tooltip_ability_venomancer_venomous_gale_Note1"												""
+		"DOTA_Tooltip_ability_venomancer_venomous_gale_wards_to_create"										"WARDS CREATED:"
 		"DOTA_Tooltip_modifier_venomancer_venomous_gale_cancer"												"Venomous Gale - Debuff"
 		"DOTA_Tooltip_modifier_venomancer_venomous_gale_cancer_Description"									"Slowed by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%."
 		
 		"DOTA_Tooltip_ability_venomancer_poison_sting"														"Poison Sting"
 		"DOTA_Tooltip_ability_venomancer_poison_sting_Description"											"Venomancer and his summoned units' attacks debuff the enemy, Slowing them and progressively Poisoning them every second. Applied duration is reduced by %summon_power%%% for summoned units."
 		"DOTA_Tooltip_ability_venomancer_poison_sting_Facet_venomancer_toxicologist"						"Poison Sting now also slows attack speed by an amount equal to the movement speed slow, both of which are increased by an amount equal to their Poison."
-		"DOTA_Tooltip_ability_venomancer_poison_sting_Facet_venomancer_plague_bringer"						"If an enemy Champion dies while affected by Poison Sting, all of Venomancer's abilities are Refreshed."
+		"DOTA_Tooltip_ability_venomancer_poison_sting_Facet_venomancer_plague_bringer"						"Summoned units apply full duration and if an enemy Champion dies while affected by Poison Sting, all of Venomancer's abilities are Refreshed."
 		"DOTA_Tooltip_ability_venomancer_poison_sting_Note0"												"Poison stacks additively and deals 50 Physical damage every 3 seconds and has no duration. Stacks are lost on Dispel or when the unit is Healed. Damage dealt is increased by Hero Power and Spell Amplification."
 		"DOTA_Tooltip_ability_venomancer_poison_sting_duration"												"DURATION:"
 		"DOTA_Tooltip_ability_venomancer_poison_sting_movement_speed"										"%SLOW:"
@@ -4641,15 +4642,15 @@
 		
 		"DOTA_Tooltip_ability_venomancer_plague_ward_Description"											"Summons a plague ward to attack enemy units and structures. The ward is immune to magic."
 		"DOTA_Tooltip_ability_venomancer_plague_ward_Facet_venomancer_toxicologist"							"Plague Ward can be cast on allies, granting barrier equal to Plague Ward's health. Plague Ward is Invulnerable while attached to an allied unit, only dying when the barrier gained from Plague Ward is lost."
-		"DOTA_Tooltip_ability_venomancer_plague_ward_Facet_venomancer_plague_bringer"						"Plague Wards explode on death, dealing their maximum health as physical damage."
+		"DOTA_Tooltip_ability_venomancer_plague_ward_Facet_venomancer_plague_bringer"						"Plague Wards explode on death, dealing %explodes_on_death%%% of their maximum health as physical damage."
 		"DOTA_Tooltip_ability_venomancer_plague_ward_duration"												"DURATION:"
 		"DOTA_Tooltip_ability_venomancer_plague_ward_ward_hp_tooltip"										"WARD HP:"
 		"DOTA_Tooltip_ability_venomancer_plague_ward_ward_damage_tooltip"									"WARD DAMAGE:"
 		"DOTA_Tooltip_ability_venomancer_plague_ward_explosion_radius"										"DEATH EXPLOSION RADIUS:"
 		
-		"DOTA_Tooltip_ability_venomancer_noxious_plague_Description"										"Infects an enemy with a deadly plague that does an initial burst of damage and Poison. The plague Slows and Poisons the target increasingly, while Slowing nearby enemies. When the target dies or the debuff expires the target takes %poison_damage_on_expire%%% of its Poison damage immediately and all nearby enemies are infected with the plague, up to a maximum of %spread_count% times."
+		"DOTA_Tooltip_ability_venomancer_noxious_plague_Description"										"Infects an enemy with a deadly plague that does an initial burst of damage and Poison. The plague Slows and Poisons the target increasingly, while Slowing nearby enemies. When the target dies or the debuff expires the target takes %poison_damage_on_expire%%% of its Poison damage immediately and all nearby enemies are infected with the plague, up to a maximum of %total_spreads% times."
 		"DOTA_Tooltip_ability_venomancer_noxious_plague_Facet_venomancer_toxicologist"						"When Noxious Plague ends, all allies in the radius are healed for %healing_on_expire%%% of the damage dealt to the target."
-		"DOTA_Tooltip_ability_venomancer_noxious_plague_Facet_venomancer_plague_bringer"					"Noxious Plague can spread %spread_count% times."
+		"DOTA_Tooltip_ability_venomancer_noxious_plague_Facet_venomancer_plague_bringer"					"Noxious Plague can spread %total_spreads% times."
 		"DOTA_Tooltip_ability_venomancer_noxious_plague_debuff_duration"									"DURATION:"
 		"DOTA_Tooltip_ability_venomancer_noxious_plague_impact_damage"										"INITIAL DAMAGE:"
 		"DOTA_Tooltip_ability_venomancer_noxious_plague_poison_per_sec"										"POISON APPLIED/SEC:"
@@ -4812,6 +4813,27 @@
 		"DOTA_Tooltip_ability_winter_wyvern_eldwurm_scholar_Facet_winter_wyvern_blizzardborne"				"Additionally grants %debuff_duration%%% Debuff Duration Amplification per %per_int% Intelligence."
 		"DOTA_Tooltip_ability_winter_wyvern_eldwurm_scholar_Facet_winter_wyvern_avalanchian"				"Grants %spell_amp%%% Spell Amplification per %per_int% Intelligence instead."
 		
+		"DOTA_Tooltip_ability_winter_wyvern_arctic_burn_Description"										"Winter Wyvern soars upon an arctic wind, granting her unobstructed movement and allowing her to exhale a blistering chill into each attack. While soaring, her attacks travel further and faster, and slow enemies with a magical freeze that deals damage every second, reducing with their current health."
+		"DOTA_Tooltip_ability_winter_wyvern_arctic_burn_Facet_winter_wyvern_glacierheart"					"Winter Wyvern releases a healing aura during the duration that heals allies based on their missing hp every second."
+		"DOTA_Tooltip_ability_winter_wyvern_arctic_burn_Facet_winter_wyvern_blizzardborne"					"Movement slow drastically increased and also slows attack speed."
+		"DOTA_Tooltip_ability_winter_wyvern_arctic_burn_Facet_winter_wyvern_avalanchian"					"Becomes a toggleable ability, consuming 13/17/21/25 mana per second. Debuff can now be refreshed."
+		"DOTA_Tooltip_ability_winter_wyvern_arctic_burn_movement_scepter"									"%MOVEMENT SPEED:"
+
+		"DOTA_Tooltip_ability_winter_wyvern_splinter_blast_Facet_winter_wyvern_glacierheart"				"When an ally is targeted by Splinter Blast's primary projectile, they benefit from 1.5 second Cold Embrace."
+		"DOTA_Tooltip_ability_winter_wyvern_splinter_blast_Facet_winter_wyvern_blizzardborne"				"Radius increased. Units hit by Splinter Blast's secondary projectile also take additional damage when damaged while debuffed once every second."
+		"DOTA_Tooltip_ability_winter_wyvern_splinter_blast_Facet_winter_wyvern_avalanchian"					"Splinter Blast's primary target takes 150% of the secondary projectile's damage. If a unit dies while under Splinter Blast's debuff, they release secondary projectiles."
+		"DOTA_Tooltip_ability_winter_wyvern_splinter_blast_slow_duration"									"SLOW DURATION:"	
+		
+		"DOTA_Tooltip_ability_winter_wyvern_cold_embrace_Facet_winter_wyvern_glacierheart"					"Allies affected by Cold Embrace are not stunned. Refreshing the modifier increases the duration."
+		"DOTA_Tooltip_ability_winter_wyvern_cold_embrace_Facet_winter_wyvern_blizzardborne"					"Can target enemy units, lasting 50% of the duration, does not heal them, instead deals damage equal to the base healing per second. Does not turn the enemy immune to physical damage."
+		"DOTA_Tooltip_ability_winter_wyvern_cold_embrace_Facet_winter_wyvern_avalanchian"					"Releases a Splinter Blast when the buff ends."
+		"DOTA_Tooltip_ability_winter_wyvern_cold_embrace_duration"											"DURATION:"
+		
+		"DOTA_Tooltip_ability_winter_wyvern_winters_curse_Description"										"Winter Wyvern dispells then freezes an enemy in place while striking those nearby with a maddening curse which causes them to attack their frozen ally with increased attack speed. The frozen ally and those cursed to attack their ally take reduced damage from their enemies with the exception of damage from Winter Wyvern or her controlled units, who gain the attack speed bonus and deal additional spell damage."
+		"DOTA_Tooltip_ability_winter_wyvern_winters_curse_Facet_winter_wyvern_glacierheart"					"All allied units benefit from the spell damage amplification and gain the bonus attack speed when attacking."
+		"DOTA_Tooltip_ability_winter_wyvern_winters_curse_Facet_winter_wyvern_blizzardborne"				"Winter's Curse duration is increased for each affected unit and does not end if there are no attacking units."
+		"DOTA_Tooltip_ability_winter_wyvern_winters_curse_Facet_winter_wyvern_avalanchian"					"Winter Wyvern gains double the bonus attack speed when attacking the Cursed unit and spell damage amplification increased to 30%."
+		"DOTA_Tooltip_ability_winter_wyvern_winters_curse_bonus_duration_per_creep"							"CURSE BONUS DURATION PER CREEP:"
 		
 		//Witch Doctor
 		"DOTA_Tooltip_ability_witch_doctor_maledict_Description"											"Curses all enemy Heroes in a small area, causing them to take a set amount of damage each second, as well as bursts of damage every 4 seconds based on how much health they have lost since the last burst of damage or since the curse began."

@@ -61,7 +61,7 @@ function modifier_venomancer_poison_sting_cancer:OnIntervalThink()
 	local parent = self:GetParent()
 	parent:AddPoison( self:GetCaster(), self.damage )
 	
-	if self.bonus_poison_slow > 0 then
+	if self.bonus_poison_slow ~= 0 then
 		self:SetStackCount( parent:GetPoison() )
 	end
 end

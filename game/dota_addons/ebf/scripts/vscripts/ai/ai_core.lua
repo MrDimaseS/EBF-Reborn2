@@ -767,6 +767,9 @@ function AICore:MoveToPositionAggressive( thisEntity, position )
 end
 
 function AICore:HandleBasicAI( entity )
+	if entity:IsCommandRestricted() then
+		return AI_THINK_RATE
+	end
 	if not entity._currentBasicBehaviorState then
 		entity._currentBasicBehaviorState = EBF_AI_ROAMING
 	end

@@ -324,6 +324,32 @@ function UpdateTimer() {
 	$.Schedule(0.1, UpdateTimer);
 }
 
+function UpdateHeroCards(){
+	const heroFacetData = CustomNetTables.GetTableValue("game_state", "reworked_heroes");
+	let heroGrid = mainHud.FindChildTraverse("HeroGrid").FindChildTraverse("GridCategories")
+	if (heroGrid.Children().length <= 0){
+		$.Schedule( 0.03, UpdateHeroCards )
+		return;
+	}
+	for (let gridCategory of heroGrid.Children() ) {
+		let heroList = gridCategory.FindChildTraverse("HeroList")
+		for (let heroCard of heroList.Children() ) {
+			let heroImage = heroCard.FindChildTraverse("HeroImage")
+			let heroFacetRank = heroFacetData["npc_dota_hero_" + heroImage.heroname]
+			if ( heroFacetRank != undefined ){
+				heroImage.style.border = "2px";
+				heroImage.style.borderStyle = "solid";
+					heroImage.style.borderRadius = "5px";
+				if (heroFacetRank == 1){
+					heroImage.style.borderColor = "#e6e6e6";
+				} else if (heroFacetRank == 2){
+					heroImage.style.borderColor = "#d3af37";
+				}
+			}
+		}
+	}
+}
+
 (function() {
 	var bLargeGame = Game.GetAllPlayerIDs().length >= 12;
 
@@ -395,4 +421,7 @@ function UpdateTimer() {
 	GameEvents.Subscribe("dota_player_update_hero_selection", OnUpdateHeroSelection);
 
 	UpdateTimer();
+	
+	// facet reworks
+	UpdateHeroCards()
 })();

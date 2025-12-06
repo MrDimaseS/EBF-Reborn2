@@ -1043,6 +1043,14 @@ function CHoldoutGameMode:_SetupGameConfiguration()
 	
 	GameRules.BossKV = LoadKeyValues( "scripts/npc/units/npc_boss_units.txt" )
 	
+	local reworkedHeroList = {}
+	for heroName, heroData in pairs( LoadKeyValues( "scripts/npc/npc_heroes_custom.txt" ) ) do
+		if heroData.FacetsReworked then
+			reworkedHeroList[heroName] = heroData.FacetsReworked
+		end
+	end
+	CustomNetTables:SetTableValue("game_state", "reworked_heroes", reworkedHeroList)
+	
 	local availableItems = LoadKeyValues( "scripts/shops.txt" )
 	GameRules.ShopKV = {}
 	for itemName, available in pairs( availableItems ) do
@@ -1639,7 +1647,7 @@ function CHoldoutGameMode:OnThink()
 									hero._hasDoneActionsThisRound = false
 									if PlayerResource._internalMMRFollowupTable[nPlayerID] % 5 == 0 then
 										local difficultyMultiplier = 1+(1 / 3)*(GameRules.gameDifficulty-1)
-										local winMMR = (math.floor( PlayerResource._internalMMRFollowupTable[nPlayerID] /5 ) * 5) * difficultyMultiplier
+										local winMMR = math.floor( (math.floor( PlayerResource._internalMMRFollowupTable[nPlayerID] /5 ) * 5) * difficultyMultiplier )
 										local mmrTable = CustomNetTables:GetTableValue("mmr", tostring( nPlayerID ) ) or {}
 										mmrTable.win = winMMR
 										CustomNetTables:SetTableValue("mmr", tostring( nPlayerID ), mmrTable)

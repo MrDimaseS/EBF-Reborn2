@@ -193,10 +193,10 @@
 		
 		//BOSS ABILITIES ======================================================================================================
 		"DOTA_Tooltip_ability_enemy_champion"																"Champion" 		
-		"DOTA_Tooltip_ability_enemy_champion_Description"													"Champion Units take less maximum health damage. Each active player in the game reduces the damage taken."
+		"DOTA_Tooltip_ability_enemy_champion_Description"													"Whenever an effect would deal damage based of a Champion Unit's current or maximum health, the damage is reduced. Each active player in the game reduces the damage taken."
 		
 		"DOTA_Tooltip_ability_enemy_minion"																	"Minion" 		
-		"DOTA_Tooltip_ability_enemy_minion_Description"														"Whenever a spell deals damage to another unit, a Minion gains %dmg_taken_from_aoe%%% damage reduction against that spell for %reduction_duration% seconds."
+		"DOTA_Tooltip_ability_enemy_minion_Description"														"Whenever an effect deals damage to another unit, a Minion gains %dmg_taken_from_aoe%%% damage reduction against that spell for %reduction_duration% seconds."
 
 		
 		"DOTA_Tooltip_ability_minion_frost_lich_chain_frost"												"Chain Frost"
@@ -4816,24 +4816,40 @@
 		"DOTA_Tooltip_ability_winter_wyvern_arctic_burn_Description"										"Winter Wyvern soars upon an arctic wind, granting her unobstructed movement and allowing her to exhale a blistering chill into each attack. While soaring, her attacks travel further and faster, and slow enemies with a magical freeze that deals damage every second, reducing with their current health."
 		"DOTA_Tooltip_ability_winter_wyvern_arctic_burn_Facet_winter_wyvern_glacierheart"					"Winter Wyvern releases a healing aura during the duration that heals allies based on their missing hp every second."
 		"DOTA_Tooltip_ability_winter_wyvern_arctic_burn_Facet_winter_wyvern_blizzardborne"					"Movement slow drastically increased and also slows attack speed."
-		"DOTA_Tooltip_ability_winter_wyvern_arctic_burn_Facet_winter_wyvern_avalanchian"					"Becomes a toggleable ability, consuming 13/17/21/25 mana per second. Debuff can now be refreshed."
-		"DOTA_Tooltip_ability_winter_wyvern_arctic_burn_movement_scepter"									"%MOVEMENT SPEED:"
-
-		"DOTA_Tooltip_ability_winter_wyvern_splinter_blast_Facet_winter_wyvern_glacierheart"				"When an ally is targeted by Splinter Blast's primary projectile, they benefit from 1.5 second Cold Embrace."
-		"DOTA_Tooltip_ability_winter_wyvern_splinter_blast_Facet_winter_wyvern_blizzardborne"				"Radius increased. Units hit by Splinter Blast's secondary projectile also take additional damage when damaged while debuffed once every second."
-		"DOTA_Tooltip_ability_winter_wyvern_splinter_blast_Facet_winter_wyvern_avalanchian"					"Splinter Blast's primary target takes 150% of the secondary projectile's damage. If a unit dies while under Splinter Blast's debuff, they release secondary projectiles."
-		"DOTA_Tooltip_ability_winter_wyvern_splinter_blast_slow_duration"									"SLOW DURATION:"	
+		"DOTA_Tooltip_ability_winter_wyvern_arctic_burn_Facet_winter_wyvern_avalanchian"					"Becomes a toggleable ability, consuming mana every second. Debuff can now be refreshed."
+		"DOTA_Tooltip_ability_winter_wyvern_arctic_burn_heal_radius"										"HEALING AURA RADIUS:"
+		"DOTA_Tooltip_ability_winter_wyvern_arctic_burn_heal_pct"											"%MISSING HEALTH RESTORATION:"
+		"DOTA_Tooltip_ability_winter_wyvern_arctic_burn_attack_slow"										"ATTACK SLOW:"
+		"DOTA_Tooltip_ability_winter_wyvern_arctic_base_damage"												"DAMAGE PER SECOND:"
+		"DOTA_Tooltip_ability_winter_wyvern_arctic_burn_mana_per_second"									"TOGGLED MANA COST/SEC:"
+		
+		"DOTA_Tooltip_ability_winter_wyvern_splinter_blast_Description"										"Launches a ball of brittle ice toward a unit. The ice shatters on impact, leaving the primary target completely unaffected, while hurling damaging splinters into nearby enemies in a %split_radius% base radius. Enemies struck by these splinters are Slowed."
+		"DOTA_Tooltip_ability_winter_wyvern_splinter_blast_Facet_winter_wyvern_glacierheart"				"When an ally is targeted by Splinter Blast's primary projectile, you Replicate a %cold_embrace_duration% second duration Cold Embrace targeting them."
+		"DOTA_Tooltip_ability_winter_wyvern_splinter_blast_Facet_winter_wyvern_blizzardborne"				"Radius increased. Units hit by Splinter Blast's secondary projectile also take additional damage when damaged while debuffed, %bonus_damage_proc_cd% second(s) internal cooldown."
+		"DOTA_Tooltip_ability_winter_wyvern_splinter_blast_Facet_winter_wyvern_avalanchian"					"Splinter Blast's primary target takes %primary_target_dmg%%% of the secondary projectile's damage. If a unit dies while under Splinter Blast's debuff, they release secondary projectiles."
+		"DOTA_Tooltip_ability_winter_wyvern_splinter_blast_bonus_damage_proc"								"FROST BONUS DAMAGE:"
 		
 		"DOTA_Tooltip_ability_winter_wyvern_cold_embrace_Facet_winter_wyvern_glacierheart"					"Allies affected by Cold Embrace are not stunned. Refreshing the modifier increases the duration."
-		"DOTA_Tooltip_ability_winter_wyvern_cold_embrace_Facet_winter_wyvern_blizzardborne"					"Can target enemy units, lasting 50% of the duration, does not heal them, instead deals damage equal to the base healing per second. Does not turn the enemy immune to physical damage."
+		"DOTA_Tooltip_ability_winter_wyvern_cold_embrace_Facet_winter_wyvern_blizzardborne"					"Can target enemy units, lasting %enemy_duration% seconds, does not heal them, instead deals Pure damage equal to %damage%%% the healing values. Enemies do not become immune to physical damage."
 		"DOTA_Tooltip_ability_winter_wyvern_cold_embrace_Facet_winter_wyvern_avalanchian"					"Releases a Splinter Blast when the buff ends."
 		"DOTA_Tooltip_ability_winter_wyvern_cold_embrace_duration"											"DURATION:"
 		
-		"DOTA_Tooltip_ability_winter_wyvern_winters_curse_Description"										"Winter Wyvern dispells then freezes an enemy in place while striking those nearby with a maddening curse which causes them to attack their frozen ally with increased attack speed. The frozen ally and those cursed to attack their ally take reduced damage from their enemies with the exception of damage from Winter Wyvern or her controlled units, who gain the attack speed bonus and deal additional spell damage."
-		"DOTA_Tooltip_ability_winter_wyvern_winters_curse_Facet_winter_wyvern_glacierheart"					"All allied units benefit from the spell damage amplification and gain the bonus attack speed when attacking."
-		"DOTA_Tooltip_ability_winter_wyvern_winters_curse_Facet_winter_wyvern_blizzardborne"				"Winter's Curse duration is increased for each affected unit and does not end if there are no attacking units."
-		"DOTA_Tooltip_ability_winter_wyvern_winters_curse_Facet_winter_wyvern_avalanchian"					"Winter Wyvern gains double the bonus attack speed when attacking the Cursed unit and spell damage amplification increased to 30%."
-		"DOTA_Tooltip_ability_winter_wyvern_winters_curse_bonus_duration_per_creep"							"CURSE BONUS DURATION PER CREEP:"
+		"DOTA_Tooltip_ability_winter_wyvern_winters_curse_Description"										"Winter Wyvern dispels then freezes an enemy in place while striking those nearby with a maddening curse which causes them to attack their frozen ally with increased attack speed. The frozen ally and those cursed to attack their ally take %damage_reduction%%% less damage from their enemies with the exception of damage from Winter Wyvern or her controlled units, who gain part of the attack speed and deal additional spell damage."
+		"DOTA_Tooltip_ability_winter_wyvern_winters_curse_Facet_winter_wyvern_glacierheart"					"Wyvern shares her spell damage and attack speed bonuses with all allied units."
+		"DOTA_Tooltip_ability_winter_wyvern_winters_curse_ebf_changes"										"Does not end early."
+		"DOTA_Tooltip_ability_winter_wyvern_winters_curse_Facet_winter_wyvern_blizzardborne"				"Winter's Curse base duration is increased and increases even further for each Taunted unit. Minions increase the duration less."
+		"DOTA_Tooltip_ability_winter_wyvern_winters_curse_Facet_winter_wyvern_avalanchian"					"Winter Wyvern's attack speed spell damage bonuses increased."
+		"DOTA_Tooltip_ability_winter_wyvern_winters_curse_damage_amplification"								"%WYVERN SPELL DAMAGE:"
+		"DOTA_Tooltip_ability_winter_wyvern_winters_curse_attack_speed_wyvern"								"WYVERN ATTACK SPEED:"
+		"DOTA_Tooltip_modifier_winter_wyvern_winters_curse_freeze"											"Winter's Curse - Cursed"
+		"DOTA_Tooltip_modifier_winter_wyvern_winters_curse_freeze_Description"								"Frozen and being attacked by allies."
+		"DOTA_Tooltip_modifier_winter_wyvern_winters_curse_taunt"											"Winter's Curse - Maddened"
+		"DOTA_Tooltip_modifier_winter_wyvern_winters_curse_taunt_Description"								"Attacking your cursed ally."
+		"DOTA_Tooltip_modifier_winter_wyvern_winters_curse_attack_speed"									"Winter's Curse - Quickening"
+		"DOTA_Tooltip_modifier_winter_wyvern_winters_curse_attack_speed_Description"						"Attacking with %dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT% increased speed."
+		
+		"DOTA_Tooltip_ability_special_bonus_unique_winter_wyvern_arctic_burn_base_damage"					"+{s:bonus_base_damage}% Arctic Burn Base Damage"
+		"DOTA_Tooltip_ability_special_bonus_unique_winter_wyvern_3"											"+{s:bonus_bonus_attack_speed}/{s:bonus_attack_speed_wyvern} Winter's Curse Attack Speed "
 		
 		//Witch Doctor
 		"DOTA_Tooltip_ability_witch_doctor_maledict_Description"											"Curses all enemy Heroes in a small area, causing them to take a set amount of damage each second, as well as bursts of damage every 4 seconds based on how much health they have lost since the last burst of damage or since the curse began."

@@ -18,8 +18,8 @@
 			//---------------------------------------------------------------------------------------------------------
 			"spell_amp"																	
 			{
-				"value"																	"1"
-				"special_bonus_facet_winter_wyvern_avalanchian"							"=2"
+				"value"																	"0.3"
+				"special_bonus_facet_winter_wyvern_avalanchian"							"=0.5"
 			}
 			"per_int"																	"100"
 
@@ -27,14 +27,14 @@
 			//---------------------------------------------------------------------------------------------------------
 			"heal_amp"
 			{
-				"special_bonus_facet_winter_wyvern_glacierheart"						"0.75"
+				"special_bonus_facet_winter_wyvern_glacierheart"						"0.4"
 			}
 
 			// Blizzardborne KV's
 			//---------------------------------------------------------------------------------------------------------
 			"debuff_duration"
 			{
-				"special_bonus_facet_winter_wyvern_blizzardborne"						"0.5"
+				"special_bonus_facet_winter_wyvern_blizzardborne"						"0.2"
 			}
 
 			// Unused KV's
@@ -95,6 +95,7 @@
 			{
 				"value"																	"200 400 600 800"
 				"CalculateSpellDamageTooltip"											"1"
+				"special_bonus_unique_winter_wyvern_arctic_burn_base_damage"			"+100%"
 			}
 			"tick_rate"																	"1.0"
 			"damage_duration"
@@ -135,7 +136,7 @@
 			}
 			"heal_interval"
 			{
-				"special_bonus_facet_winter_wyvern_glacierheart"						"0.5"
+				"special_bonus_facet_winter_wyvern_glacierheart"						"1.0"
 			}
 
 			// Blizzardborne KV's
@@ -170,6 +171,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_lua"
 		"ScriptFile"					"heroes/hero_winter_wyvern/winter_wyvern_splinter_blast"
+		"AbilityTextureName"			"winter_wyvern_splinter_blast"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
@@ -204,8 +206,8 @@
 				"affected_by_aoe_increase"				"1"	
 				"special_bonus_unique_winter_wyvern_2"	"+400"
 			}
-			"bonus_movespeed"							"-28 -32 -36 -40"
-			"movespeed_slow_tooltip"					"28 32 36 40"
+			"bonus_movespeed"									"-28 -32 -36 -40"
+			"movespeed_slow_tooltip"							"28 32 36 40"
 			"duration"
 			{
 				"value"											"4.0"
@@ -233,6 +235,7 @@
 			}
 			"bonus_damage_proc_cd"									{"special_bonus_facet_winter_wyvern_blizzardborne" "1"}
 			"primary_target_dmg"									{"special_bonus_facet_winter_wyvern_avalanchian" "150"}
+			"proc_splinter_on_death"								{"special_bonus_facet_winter_wyvern_avalanchian" "1"}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
@@ -246,6 +249,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_lua"
 		"ScriptFile"					"heroes/hero_winter_wyvern/winter_wyvern_cold_embrace"
+		"AbilityTextureName"			"winter_wyvern_cold_embrace"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
@@ -279,11 +283,10 @@
 			{
 				"value"																"4"
 				"is_buff_duration"													"1"
-				"is_debuff_duration"												"1"
 			}
 			"heal_additive"		
 			{
-				"value"																"1000 3000 5000 7000"
+				"value"																"800 900 1000 1100"
 				"special_bonus_unique_winter_wyvern_5" 								"+50%"
 				"CalculateSpellHealTooltip"											"1"
 			}
@@ -295,15 +298,21 @@
 			//---------------------------------------------------------------------------------------------------------
 			"stuns"
 			{
-				"special_bonus_facet_winter_wyvern_glacierheart"					"1"
+				"value"																"1"
+				"special_bonus_facet_winter_wyvern_glacierheart"					"=0"
 			}
 			
 			// Blizzardborne KV's
 			//---------------------------------------------------------------------------------------------------------
+			"enemy_duration"									
+			{
+				"value"																"2"
+				"is_debuff_duration"												"1"
+			}
 			"damage"
 			{
-				"special_bonus_facet_winter_wyvern_blizzardborne"					"1000 3000 5000 7000"
-				"CalculateSpellDamageTooltip"										"1"
+				"special_bonus_facet_winter_wyvern_blizzardborne"					"50"
+				"CalculateSpellDamageTooltip"										"0"
 			}
 			
 			// Avalanchian KV's
@@ -330,6 +339,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_lua"
 		"ScriptFile"					"heroes/hero_winter_wyvern/winter_wyvern_winters_curse"
+		"AbilityTextureName"			"winter_wyvern_winters_curse"
 		"AbilityType"					"ABILITY_TYPE_ULTIMATE"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_DONT_PROC_OTHER_ABILITIES"		
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
@@ -362,47 +372,50 @@
 			//---------------------------------------------------------------------------------------------------------
 			"radius"			
 			{
-				"value"																"525"
-				"affected_by_aoe_increase"											"1"	
+				"value"													"525"
+				"affected_by_aoe_increase"								"1"	
 			}
-			"damage_reduction"														"0"
+			"damage_reduction"											"-50"
 			"damage_amplification"		
 			{
-				"value"																"15"
-				"special_bonus_facet_winter_wyvern_glacierheart"					"=30"
+				"value"													"15"
+				"special_bonus_facet_winter_wyvern_avalanchian"			"=30"
 			}
 			"bonus_attack_speed"	
 			{
-				"value"																"100"
-				"special_bonus_unique_winter_wyvern_3"								"+155"
+				"value"													"195"
+				"special_bonus_unique_winter_wyvern_3"					"+165"
 			}
 			"duration"
 			{
-				"value"																"3 4 5"
-				"is_debuff_duration"												"1"
-			}
-			"max_duration"
-			{
-				"value"					"6 8 10"
-				"is_debuff_duration"	"1"
+				"value"													"4 5.5 7"
+				"is_debuff_duration"									"1"
 			}
 			"bonus_duration_per_hero"
 			{
-				"value"					"1"
-				"is_debuff_duration"	"1"
+				"special_bonus_facet_winter_wyvern_blizzardborne"		"1"
+				"is_debuff_duration"									"1"
 			}
 			"bonus_duration_per_creep"
 			{
-				"value"					"0.25"
-				"is_debuff_duration"	"1"
+				"special_bonus_facet_winter_wyvern_blizzardborne"		"0.25"
+				"is_debuff_duration"									"1"
 			}
-
-			// Glacierheart KV's
-			//---------------------------------------------------------------------------------------------------------
-			"affects_allies"
+			
+			"attack_speed_wyvern"
 			{
-				"special_bonus_facet_winter_wyvern_glacierheart"						"1"
+				"value"													"65"
+				"special_bonus_facet_winter_wyvern_avalanchian"			"=130"
+				"special_bonus_unique_winter_wyvern_3"
+				{
+					"value"												"+55"
+					"special_bonus_facet_winter_wyvern_avalanchian"		"+110"
+				}
 			}
+			"affects_allies"											{"special_bonus_facet_winter_wyvern_glacierheart"	"1"}
+			
+			
+			"max_duration"												""
 		}
 	}
 }

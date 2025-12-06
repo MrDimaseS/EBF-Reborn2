@@ -7,22 +7,24 @@ function boss_troll_warlord_dance_of_axes:OnSpellStart()
 	
 	local radius = self:GetSpecialValueFor("hit_radius")
 	for i = 1, axes do
-		self:SummonWhirlingAxe( 3, TernaryOperator( caster:GetForwardVector() * (-1)^(i), math.ceil(i/2)%2 == 0, caster:GetRightVector() * (-1)^(i)), ( radius + caster:GetPaddedCollisionRadius() ) * math.ceil(i/2) )
+		self:SummonWhirlingAxe( TernaryOperator( caster:GetForwardVector() * (-1)^(i), math.ceil(i/2)%2 == 0, caster:GetRightVector() * (-1)^(i)), ( radius + caster:GetPaddedCollisionRadius() ) * math.ceil(i/2) )
 	end
 	caster:EmitSound("Hero_TrollWarlord.WhirlingAxes.Melee")
 	caster:StartGesture(ACT_DOTA_CAST_ABILITY_3)
 end
 
-function boss_troll_warlord_dance_of_axes:SummonWhirlingAxe( duration, direction, distance )
+function boss_troll_warlord_dance_of_axes:SummonWhirlingAxe( direction, fDistance )
 	local caster = self:GetCaster()
-	local vDir = direction or caster:GetForwardVector()
 	
 	local radius = self:GetSpecialValueFor("hit_radius")
 	local speed = self:GetSpecialValueFor("axe_movement_speed") 
+	local distance = fDistance or ( radius + caster:GetPaddedCollisionRadius() )
 	local maxRange = distance + self:GetSpecialValueFor("max_range")
 	local damage = self:GetSpecialValueFor("damage")
-	
 	local blind = self:GetSpecialValueFor("blind_duration")
+	
+	local vDir = direction or RandomVector( 1 ):Normalized()
+	local duration = 3
 	
 	local ProjectileHit = 	function(self, target, position)
 								if not target then return end
@@ -53,7 +55,7 @@ function boss_troll_warlord_dance_of_axes:SummonWhirlingAxe( duration, direction
 								self:SetPosition( newPosition + Vector(0,0,128) )
 							end
 	ProjectileHandler:CreateProjectile(ProjectileThink, ProjectileHit, { FX = "particles/units/heroes/hero_troll_warlord/troll_warlord_whirling_axe_melee.vpcf",
-																	  position = caster:GetAbsOrigin() - vDir * distance,
+																	  position = caster:GetAbsOrigin() + vDir * distance,
 																	  caster = self:GetCaster(),
 																	  ability = self,
 																	  speed = speed,
